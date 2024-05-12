@@ -41,9 +41,9 @@ the standard.;
 #X text 245 427 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...10\.;
 #X msg 110 469 @fromB;
-#X text 245 469 alias to @num fromFurseMalham and @norm fromMaxN.;
+#X text 245 469 Alias to @num fromFurseMalham and @norm fromMaxN.;
 #X msg 110 499 @fromDaniel;
-#X text 245 499 alias to @num fromSID and @norm fromN3D.;
+#X text 245 499 Alias to @num fromSID and @norm fromN3D.;
 #X msg 110 529 @norm;
 #X text 245 529 Get/Set normalization. Type: symbol. Default value:
 SN3D. Allowed values: SN3D \, fromMaxN \, fromN3D \, toMaxN \, toN3D.;
@@ -52,9 +52,9 @@ SN3D. Allowed values: SN3D \, fromMaxN \, fromN3D \, toMaxN \, toN3D.;
 ACN. Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 \, toSID.;
 #X msg 110 628 @toB;
-#X text 245 628 alias to @num toFurseMalham and @norm toMaxN.;
+#X text 245 628 Alias to @num toFurseMalham and @norm toMaxN.;
 #X msg 110 658 @toDaniel;
-#X text 245 658 alias to @num toSID and @norm toN3D.;
+#X text 245 658 Alias to @num toSID and @norm toN3D.;
 #X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 703 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

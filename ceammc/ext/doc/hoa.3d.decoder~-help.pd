@@ -53,7 +53,7 @@ int. Default value: 1\. Range: 1\...10\.;
 #X text 245 625 Get/Set angles of loudspeakers. Type: list. Units:
 'deg'. Default value: 0 90 0 340.5288 120 340.5288 240 340.5288\.;
 #X msg 110 667 @binaural;
-#X text 245 667 alias for @mode binaural.;
+#X text 245 667 Alias for @mode binaural.;
 #X msg 110 697 @mode;
 #X text 245 697 Get/Set decoding mode. Type: symbol. Default value:
 regular. Allowed values: regular \, binaural.;
@@ -62,7 +62,7 @@ regular. Allowed values: regular \, binaural.;
 @regular and @irregular mode. Type: list. Units: 'deg'. Default value:
 0 0 0\.;
 #X msg 110 796 @regular;
-#X text 245 796 alias for @mode regular.;
+#X text 245 796 Alias for @mode regular.;
 #X msg 110 826 @nharm?;
 #X text 245 826 (readonly) Get number of circular harmonics. Type:
 int. Default value: 4\. Min value: 1\.;

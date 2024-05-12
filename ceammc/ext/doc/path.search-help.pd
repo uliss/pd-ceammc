@@ -51,16 +51,16 @@ int. Default value: 0\. Min value: -1\.;
 #X text 245 760 Get/Set search in home directory. Type: bool. Default
 value: 1\.;
 #X msg 110 802 @nohome;
-#X text 245 802 alias to @home 0 \, do not search in home directory.;
+#X text 245 802 Alias to @home 0 \, do not search in home directory.;
 #X msg 110 832 @nostd;
-#X text 245 832 alias to @std 0 \, do not search in standard dirs.;
+#X text 245 832 Alias to @std 0 \, do not search in standard dirs.;
 #X msg 110 862 @paths;
 #X text 245 862 Get/Set user defined search paths. Type: list.;
 #X msg 110 892 @std;
 #X text 245 892 Get/Set search in PureData standard directory. Type:
 bool. Default value: 1\.;
 #X msg 110 934 @sync;
-#X text 245 934 alias to @async 0\.;
+#X text 245 934 Alias to @async 0\.;
 #X obj 20 974 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 979 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

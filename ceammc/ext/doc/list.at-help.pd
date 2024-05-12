@@ -50,13 +50,13 @@ list.;
 #X obj 735 666 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 698 @clip;
-#X text 245 698 alias to @method clip. If index < 0 - return first
+#X text 245 698 Alias to @method clip. If index < 0 - return first
 element. If index greater or equal list size - return last element.;
 #X msg 110 740 @default;
 #X text 245 740 Get/Set default output value if not found. If not set
 \, outputs error message to console. Type: atom. Default value: null.;
 #X msg 110 797 @fold;
-#X text 245 797 alias to @method fold. In range [0 \, LIST_SIZE) ordinal
+#X text 245 797 Alias to @method fold. In range [0 \, LIST_SIZE) ordinal
 elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative
 order etc.;
 #X msg 110 854 @index;
@@ -66,10 +66,10 @@ order etc.;
 Type: symbol. Default value: rel. Allowed values: rel \, clip \, fold
 \, wrap.;
 #X msg 110 941 @rel;
-#X text 245 941 alias to @method rel. Negative index means position
+#X text 245 941 Alias to @method rel. Negative index means position
 from the end of the list.;
 #X msg 110 983 @wrap;
-#X text 245 983 alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
+#X text 245 983 Alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
 elements are returned. Other indexes are wrapped by modulo division.;
 #X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1055 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144

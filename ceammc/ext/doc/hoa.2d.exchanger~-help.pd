@@ -42,7 +42,7 @@ the standard.;
 #X text 245 427 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 469 @fromB;
-#X text 245 469 alias to @num fromFurseMalham and @norm fromMaxN.;
+#X text 245 469 Alias to @num fromFurseMalham and @norm fromMaxN.;
 #X msg 110 499 @norm;
 #X text 245 499 Get/Set normalization. Type: symbol. Default value:
 SN2D. Allowed values: SN2D \, fromMaxN \, toMaxN.;
@@ -51,7 +51,7 @@ SN2D. Allowed values: SN2D \, fromMaxN \, toMaxN.;
 ACN. Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 \, toSID.;
 #X msg 110 598 @toB;
-#X text 245 598 alias to @num toFurseMalham and @norm toMaxN.;
+#X text 245 598 Alias to @num toFurseMalham and @norm toMaxN.;
 #X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 643 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

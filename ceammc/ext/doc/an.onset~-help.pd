@@ -57,7 +57,7 @@ value: 1\.;
 #X text 245 666 Get/Set adaptive whitening. Type: bool. Default value:
 0\.;
 #X msg 110 696 @complex;
-#X text 245 696 alias to @method complex. Complex Domain Method onset
+#X text 245 696 Alias to @method complex. Complex Domain Method onset
 detection function.;
 #X msg 110 738 @compression;
 #X text 245 738 Get/Set lambda logarithmic compression factor \, 0
@@ -67,16 +67,16 @@ to disable. Type: float. Default value: 1\. Min value: 0\.;
 time. Type: float. Units: 'ms'. Default value: 49.9093\. Min value:
 0\.;
 #X msg 110 837 @energy;
-#X text 245 837 alias to @method energy. Energy based onset detection
+#X text 245 837 Alias to @method energy. Energy based onset detection
 function.;
 #X msg 110 879 @hfc;
-#X text 245 879 alias to @method hfc. High Frequency Content onset
+#X text 245 879 Alias to @method hfc. High Frequency Content onset
 detection.;
 #X msg 110 909 @hs;
 #X text 245 909 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
 'samp'. Default value: 0\. Min value: 0\.;
 #X msg 110 951 @kl;
-#X text 245 951 alias to @method kl. Kullback-Liebler onset detection
+#X text 245 951 Alias to @method kl. Kullback-Liebler onset detection
 function.;
 #X msg 110 993 @method;
 #X text 245 993 Get/Set onset method. Default is hfc. Type: symbol.
@@ -85,19 +85,19 @@ Default value: default. Allowed values: specflux \, phase \, energy
 \, spread \, kurtosis \, skewness \, complexdomain \, decrease \, slope
 \, centroid.;
 #X msg 110 1065 @mkl;
-#X text 245 1065 alias to @method mkl. Modified Kullback-Liebler onset
+#X text 245 1065 Alias to @method mkl. Modified Kullback-Liebler onset
 detection function.;
 #X msg 110 1107 @phase;
-#X text 245 1107 alias to @method phase. Phase Based Method onset detection
+#X text 245 1107 Alias to @method phase. Phase Based Method onset detection
 function.;
 #X msg 110 1149 @silence;
 #X text 245 1149 Get/Set onset detection silence threshold. Type: float.
 Units: 'db'. Default value: -70\. Range: -80\...0\.;
 #X msg 110 1191 @specdiff;
-#X text 245 1191 alias to @method specdiff. Spectral difference method
+#X text 245 1191 Alias to @method specdiff. Spectral difference method
 onset detection function.;
 #X msg 110 1233 @specflux;
-#X text 245 1233 alias to @method specflux. Spectral Flux.;
+#X text 245 1233 Alias to @method specflux. Spectral Flux.;
 #X msg 110 1263 @speedlim;
 #X text 245 1263 Get/Set minimum interval between two consecutive onsets.
 Type: float. Units: 'ms'. Default value: 50\. Min value: 1\.;
@@ -105,7 +105,7 @@ Type: float. Units: 'ms'. Default value: 50\. Min value: 1\.;
 #X text 245 1305 Get/Set peak picking threshold. Type: float. Default
 value: 0.058\.;
 #X msg 110 1347 @wphase;
-#X text 245 1347 alias to @method phase. Weighted Phase Deviation onset
+#X text 245 1347 Alias to @method phase. Weighted Phase Deviation onset
 detection function.;
 #X obj 20 1399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1404 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144

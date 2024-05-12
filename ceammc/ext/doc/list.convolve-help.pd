@@ -32,7 +32,7 @@ not use the FFT to compute the convolution;
 #X msg 110 435 @b;
 #X text 245 435 Get/Set second argument. Type: list.;
 #X msg 110 465 @full;
-#X text 245 465 alias to @mode full.;
+#X text 245 465 Alias to @mode full.;
 #X msg 110 495 @mode;
 #X text 245 495 Get/Set output mode. 'full' - output the convolution
 at each point of overlap \, with an output length of (M+N-1). At the
@@ -44,9 +44,9 @@ have no effect. 'same' - output of length max(M \, N). Boundary effects
 are still visible. Type: symbol. Default value: full. Allowed values:
 valid \, same \, full.;
 #X msg 110 658 @same;
-#X text 245 658 alias to @mode same.;
+#X text 245 658 Alias to @mode same.;
 #X msg 110 688 @valid;
-#X text 245 688 alias to @mode valid.;
+#X text 245 688 Alias to @mode valid.;
 #X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 733 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

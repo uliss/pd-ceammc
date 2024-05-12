@@ -22,20 +22,20 @@
 #X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 365 @d;
-#X text 245 365 alias for @mode data. Output value Color datatype.;
+#X text 245 365 Alias for @mode data. Output value Color datatype.;
 #X msg 110 395 @f;
-#X text 245 395 alias for @mode float. Output values as RGB list in
+#X text 245 395 Alias for @mode float. Output values as RGB list in
 0-1 range.;
 #X msg 110 437 @float;
 #X text 245 437 Get/Set RGB color value in float range (0-1). Type:
 list. Default value: 1 1 1\.;
 #X msg 110 479 @h;
-#X text 245 479 alias for @mode hex. Output value as #RRGGBB symbol.;
+#X text 245 479 Alias for @mode hex. Output value as #RRGGBB symbol.;
 #X msg 110 509 @hex;
 #X text 245 509 Get/Set color value as #RRGGBB symbol. Type: symbol.
 Default value: #FFFFFF.;
 #X msg 110 551 @i;
-#X text 245 551 alias for @mode int. Output values as RGB list in 0-255
+#X text 245 551 Alias for @mode int. Output values as RGB list in 0-255
 range.;
 #X msg 110 593 @int;
 #X text 245 593 Get/Set RGB color value in int range (0-255). Type:

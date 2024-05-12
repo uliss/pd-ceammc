@@ -28,10 +28,10 @@
 #X msg 110 425 @sync;
 #X text 245 425 output at any inlet change.;
 #X msg 110 455 @float;
-#X text 245 455 alias to @mode float. Output float values in [0-1]
+#X text 245 455 Alias to @mode float. Output float values in [0-1]
 range.;
 #X msg 110 485 @int;
-#X text 245 485 alias to @mode int. Output integer values in [0-255]
+#X text 245 485 Alias to @mode int. Output integer values in [0-255]
 range.;
 #X msg 110 515 @mode;
 #X text 245 515 Get/Set output mode. Type: symbol. Default value: int.

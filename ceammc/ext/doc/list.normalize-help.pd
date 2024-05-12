@@ -28,9 +28,9 @@ lineary;
 #X text 245 467 Get/Set normalization mode. Type: symbol. Default value:
 sum. Allowed values: sum \, range.;
 #X msg 110 509 @range;
-#X text 245 509 alias to @by range.;
+#X text 245 509 Alias to @by range.;
 #X msg 110 539 @sum;
-#X text 245 539 alias to @by sum.;
+#X text 245 539 Alias to @by sum.;
 #X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 584 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

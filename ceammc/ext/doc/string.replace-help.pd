@@ -30,15 +30,15 @@
 #X obj 735 353 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 385 @all;
-#X text 245 385 alias to @mode all - replace all occurences in input
+#X text 245 385 Alias to @mode all - replace all occurences in input
 string.;
 #X msg 110 415 @first;
-#X text 245 415 alias to @mode first - replace first occurence in input
+#X text 245 415 Alias to @mode first - replace first occurence in input
 string.;
 #X msg 110 457 @from;
 #X text 245 457 Get/Set replace from. Type: symbol.;
 #X msg 110 487 @last;
-#X text 245 487 alias to @mode last - replace last occurence in input
+#X text 245 487 Alias to @mode last - replace last occurence in input
 string.;
 #X msg 110 517 @mode;
 #X text 245 517 Get/Set replace mode. Type: symbol. Default value:

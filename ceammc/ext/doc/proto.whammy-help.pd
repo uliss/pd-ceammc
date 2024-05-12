@@ -37,9 +37,9 @@ on pedal). Allowed values: chords \, classic. Type: symbol.;
 #X text 245 430 Get/Set output Midi channel. Type: int. Default value:
 0\. Range: 0\...15\.;
 #X msg 110 472 @chords;
-#X text 245 472 alias for @mode chords.;
+#X text 245 472 Alias for @mode chords.;
 #X msg 110 502 @classic;
-#X text 245 502 alias for @mode classic.;
+#X text 245 502 Alias for @mode classic.;
 #X msg 110 532 @mode;
 #X text 245 532 Get/Set pedal mode (should correspond to hardware switch
 on pedal). Type: symbol. Default value: classic. Allowed values: chords

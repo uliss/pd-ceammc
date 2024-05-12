@@ -31,9 +31,9 @@ is thrown depends on the state of the FPU.;
 #X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 552 @quiet;
-#X text 245 552 alias to @type quiet.;
+#X text 245 552 Alias to @type quiet.;
 #X msg 110 582 @signal;
-#X text 245 582 alias to @type signal.;
+#X text 245 582 Alias to @type signal.;
 #X msg 110 612 @type;
 #X text 245 612 Get/Set type of outputed NaN: quiet or signal. Type:
 symbol. Default value: quiet. Allowed values: quiet \, signal.;

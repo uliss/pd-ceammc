@@ -51,7 +51,7 @@ outlet. Type: bool. Default value: 0\.;
 #X text 245 722 Get/Set output this message on match \, instead of
 bang. Type: list.;
 #X msg 110 764 @v;
-#X text 245 764 alias to @keep_value 1\.;
+#X text 245 764 Alias to @keep_value 1\.;
 #X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 809 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

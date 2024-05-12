@@ -37,9 +37,9 @@ navy olive orange pink purple red white yellow;
 #X msg 110 392 @pack;
 #X text 245 392 output as list to first outlet.;
 #X msg 110 422 @float;
-#X text 245 422 alias to @mode float. Output values in [0-1] range.;
+#X text 245 422 Alias to @mode float. Output values in [0-1] range.;
 #X msg 110 452 @int;
-#X text 245 452 alias to @mode int. Output values in [0-255] range.;
+#X text 245 452 Alias to @mode int. Output values in [0-255] range.;
 #X msg 110 482 @mode;
 #X text 245 482 Get/Set output mode. Type: symbol. Default value: int.
 Allowed values: int \, float.;

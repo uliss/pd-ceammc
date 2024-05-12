@@ -36,9 +36,9 @@
 #X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 500 @add;
-#X text 245 500 alias to @mode add.;
+#X text 245 500 Alias to @mode add.;
 #X msg 110 530 @assign;
-#X text 245 530 alias to @mode assign.;
+#X text 245 530 Alias to @mode assign.;
 #X msg 110 560 @dist;
 #X text 245 560 Get/Set random distribution. *uniform* - generate uniformly
 distributed value \, *gauss* - mean=(@max+@min)/2 \, sigma=(@max-@max)/3
@@ -64,7 +64,7 @@ Type: symbol. Default value: assign. Allowed values: assign \, add
 #X text 245 855 Get/Set random seed. Type: int. Default value: 0\.
 Min value: 0\.;
 #X msg 110 897 @sub;
-#X text 245 897 alias to @mode sub.;
+#X text 245 897 Alias to @mode sub.;
 #X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 942 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

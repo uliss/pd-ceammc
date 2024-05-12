@@ -45,19 +45,19 @@
 #X msg 110 576 @array;
 #X text 245 576 Get/Set target array name. Type: symbol.;
 #X msg 110 606 @fit;
-#X text 245 606 alias to @mode fit property.;
+#X text 245 606 Alias to @mode fit property.;
 #X msg 110 636 @mode;
 #X text 245 636 Get/Set rendering mode: *fit* to array size \, *resize*
 array to envelope length or *raw* render while enough space in array.
 Type: symbol. Default value: fit. Allowed values: fit \, resize \,
 raw.;
 #X msg 110 708 @raw;
-#X text 245 708 alias to @mode raw property.;
+#X text 245 708 Alias to @mode raw property.;
 #X msg 110 738 @redraw;
 #X text 245 738 Get/Set redraw after array change. Type: bool. Default
 value: 1\.;
 #X msg 110 780 @resize;
-#X text 245 780 alias to @mode resize property.;
+#X text 245 780 Alias to @mode resize property.;
 #X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 825 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

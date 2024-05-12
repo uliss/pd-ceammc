@@ -19,13 +19,13 @@
 #X obj 735 241 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 273 @down;
-#X text 245 273 alias to @mouse_down 1 property. Default value: 0\.;
+#X text 245 273 Alias to @mouse_down 1 property. Default value: 0\.;
 #X msg 110 303 @drag;
-#X text 245 303 alias to @mouse_drag 1 property. Default value: 0\.;
+#X text 245 303 Alias to @mouse_drag 1 property. Default value: 0\.;
 #X msg 110 333 @enter;
-#X text 245 333 alias to @mouse_enter 1 property. Default value: 0\.;
+#X text 245 333 Alias to @mouse_enter 1 property. Default value: 0\.;
 #X msg 110 363 @leave;
-#X text 245 363 alias to @mouse_leave 1 property. Default value: 0\.;
+#X text 245 363 Alias to @mouse_leave 1 property. Default value: 0\.;
 #X msg 110 393 @mouse_down;
 #X text 245 393 Get/Set passing a @mouse_down events. Type: bool. Default
 value: 0\.;
@@ -45,9 +45,9 @@ value: 0\.;
 #X text 245 603 Get/Set passing a @mouse_up events. Type: bool. Default
 value: 0\.;
 #X msg 110 645 @move;
-#X text 245 645 alias to @mouse_move 1 property. Default value: 0\.;
+#X text 245 645 Alias to @mouse_move 1 property. Default value: 0\.;
 #X msg 110 675 @up;
-#X text 245 675 alias to @mouse_up 1 property. Default value: 0\.;
+#X text 245 675 Alias to @mouse_up 1 property. Default value: 0\.;
 #X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 720 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

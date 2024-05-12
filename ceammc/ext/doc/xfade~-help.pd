@@ -49,9 +49,9 @@ See @x property. Type: float.;
 #X text 245 526 (initonly) Get/Set number of xfade inputs. Type: int.
 Default value: 2\. Range: 2\...16\.;
 #X msg 110 568 @lin;
-#X text 245 568 alias to @type lin.;
+#X text 245 568 Alias to @type lin.;
 #X msg 110 598 @pow;
-#X text 245 598 alias to @type pow.;
+#X text 245 598 Alias to @type pow.;
 #X msg 110 628 @smooth;
 #X text 245 628 Get/Set signal change smooth time. Type: float. Units:
 'ms'. Default value: 20\. Min value: 1\.;

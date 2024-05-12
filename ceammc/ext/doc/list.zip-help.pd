@@ -35,10 +35,10 @@ etc.).;
 #X text 245 379 (initonly) Get/Set number of inputs. Type: int. Default
 value: 2\. Range: 2\...20\.;
 #X msg 110 421 @clip;
-#X text 245 421 alias for "@oversize clip" property. Pad shortest list
+#X text 245 421 Alias for "@oversize clip" property. Pad shortest list
 with last element to conform longest list.;
 #X msg 110 463 @fold;
-#X text 245 463 alias for "@oversize fold" property. Pad shortest list
+#X text 245 463 Alias for "@oversize fold" property. Pad shortest list
 with repeated values from the end to the beginning \, then back and
 so on.;
 #X msg 110 520 @method;
@@ -46,13 +46,13 @@ so on.;
 symbol. Default value: min. Allowed values: min \, pad \, clip \, wrap
 \, fold.;
 #X msg 110 577 @min;
-#X text 245 577 alias for "@oversize min" property. Truncates lists
+#X text 245 577 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
 #X msg 110 619 @pad;
 #X text 245 619 Get/Set pad value for pad method of resizing. Type:
 atom. Default value: 0\.;
 #X msg 110 661 @wrap;
-#X text 245 661 alias for "@oversize wrap" property. Pad shortest list
+#X text 245 661 Alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
 #X msg 110 703 @lists?;
 #X text 245 703 (readonly) Get input data list: list of data:mlist.

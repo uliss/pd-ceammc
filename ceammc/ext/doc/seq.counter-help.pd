@@ -42,7 +42,7 @@
 #X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 462 @fold;
-#X text 245 462 alias to @mode fold.;
+#X text 245 462 Alias to @mode fold.;
 #X msg 110 492 @from;
 #X text 245 492 Get/Set start value. Setting this property resets @i
 to 0\. Type: int. Default value: 0\.;
@@ -50,12 +50,12 @@ to 0\. Type: int. Default value: 0\.;
 #X text 245 534 Get/Set current iteration. Type: int. Default value:
 0\.;
 #X msg 110 564 @inf;
-#X text 245 564 alias to @r -1 \, repeats infinitely.;
+#X text 245 564 Alias to @r -1 \, repeats infinitely.;
 #X msg 110 594 @mode;
 #X text 245 594 Get/Set repeat counter mode. Type: symbol. Default
 value: wrap. Allowed values: wrap \, fold.;
 #X msg 110 636 @once;
-#X text 245 636 alias to @r 1 \, play once.;
+#X text 245 636 Alias to @r 1 \, play once.;
 #X msg 110 666 @r;
 #X text 245 666 Get/Set number of repeats. If -1: repeat infinitely.
 Type: int. Default value: -1\. Min value: -1\.;
@@ -63,7 +63,7 @@ Type: int. Default value: -1\. Min value: -1\.;
 #X text 245 708 Get/Set end value (inclusive). Type: int. Default value:
 0\.;
 #X msg 110 738 @wrap;
-#X text 245 738 alias to @mode wrap.;
+#X text 245 738 Alias to @mode wrap.;
 #X msg 110 768 @ri?;
 #X text 245 768 (readonly) Get current repeat iteration. Type: int.
 Default value: 0\.;

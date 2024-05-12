@@ -51,7 +51,7 @@ Range: 1\...20000;
 accordingly). Type: float. Units: 'ms'. Default value: 4000\. Min value:
 0\.;
 #X msg 110 758 @inf;
-#X text 245 758 alias to @r -1 \, repeats infinitely.;
+#X text 245 758 Alias to @r -1 \, repeats infinitely.;
 #X msg 110 788 @mode;
 #X text 245 788 Get/Set sequencer mode. 'inc': from first to last \,
 'dec': from last to first \, 'tri': from first to last \, then back.
@@ -60,7 +60,7 @@ Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
 #X text 245 860 Get/Set number of cols in matrix. Type: int. Default
 value: 16\. Min value: 0\.;
 #X msg 110 902 @once;
-#X text 245 902 alias to @r 1 \, play once.;
+#X text 245 902 Alias to @r 1 \, play once.;
 #X msg 110 932 @r;
 #X text 245 932 Get/Set number of whole sequence repeats. If -1: repeat
 infinitely. Type: int. Default value: -1\. Min value: -1\.;

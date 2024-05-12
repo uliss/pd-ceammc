@@ -34,13 +34,13 @@
 #X obj 735 362 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 394 @all;
-#X text 245 394 alias to @mode all - remove all occurences in input
+#X text 245 394 Alias to @mode all - remove all occurences in input
 string.;
 #X msg 110 424 @first;
-#X text 245 424 alias to @mode first - remove first occurence in input
+#X text 245 424 Alias to @mode first - remove first occurence in input
 string.;
 #X msg 110 466 @last;
-#X text 245 466 alias to @mode last - remove last occurence in input
+#X text 245 466 Alias to @mode last - remove last occurence in input
 string.;
 #X msg 110 496 @mode;
 #X text 245 496 Get/Set remove mode. Type: symbol. Default value: all.

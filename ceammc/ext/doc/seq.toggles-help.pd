@@ -66,7 +66,7 @@ list.;
 accordingly). Type: float. Units: 'ms'. Default value: 0\. Min value:
 0\.;
 #X msg 110 824 @inf;
-#X text 245 824 alias to @r -1 \, repeats infinitely.;
+#X text 245 824 Alias to @r -1 \, repeats infinitely.;
 #X msg 110 854 @length;
 #X text 245 854 Get/Set event length. In case of float or float wuth
 'ms' suffix - event length is fixed for any event duration. In case
@@ -79,7 +79,7 @@ Default value: 75\.;
 'dec': from last to first \, 'tri': from first to last \, then back.
 Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
 #X msg 110 1029 @once;
-#X text 245 1029 alias to @r 1 \, play once.;
+#X text 245 1029 Alias to @r 1 \, play once.;
 #X msg 110 1059 @p;
 #X text 245 1059 Get/Set sequencer pattern in beat duration units.
 Type: list.;

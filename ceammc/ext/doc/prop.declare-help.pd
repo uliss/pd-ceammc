@@ -38,15 +38,15 @@ properties only). Type: float. Default value: +inf.;
 #X text 245 476 (initonly) Get/Set minimal value (for float and int
 properties only). Type: float. Default value: -inf.;
 #X msg 110 518 @b;
-#X text 245 518 alias to @type bool.;
+#X text 245 518 Alias to @type bool.;
 #X msg 110 548 @f;
-#X text 245 548 alias to @type float.;
+#X text 245 548 Alias to @type float.;
 #X msg 110 578 @i;
-#X text 245 578 alias to @type int.;
+#X text 245 578 Alias to @type int.;
 #X msg 110 608 @l;
-#X text 245 608 alias to @type list.;
+#X text 245 608 Alias to @type list.;
 #X msg 110 638 @s;
-#X text 245 638 alias to @type symbol.;
+#X text 245 638 Alias to @type symbol.;
 #X msg 110 668 @type;
 #X text 245 668 Get/Set property type. Type: symbol. Default value:
 float. Allowed values: float \, int \, bool \, enum \, symbol \, list.;

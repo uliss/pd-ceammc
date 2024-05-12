@@ -22,10 +22,10 @@
 #X msg 110 334 @sync;
 #X text 245 334 output value on any inlet change.;
 #X msg 110 364 @float;
-#X text 245 364 alias to @mode float. Expected input values are in
+#X text 245 364 Alias to @mode float. Expected input values are in
 [0-1] range.;
 #X msg 110 406 @int;
-#X text 245 406 alias to @mode int. Expected input values are in [0-255]
+#X text 245 406 Alias to @mode int. Expected input values are in [0-255]
 range.;
 #X msg 110 448 @mode;
 #X text 245 448 Get/Set input mode. Type: symbol. Default value: int.

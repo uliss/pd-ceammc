@@ -49,13 +49,13 @@
 also changes @t interval between bangs. Type: float. Default value:
 0\. Min value: 0\.;
 #X msg 110 608 @inf;
-#X text 245 608 alias to @r -1\.;
+#X text 245 608 Alias to @r -1\.;
 #X msg 110 638 @mode;
 #X text 245 638 Get/Set sequencer mode. 'inc': from first to last \,
 'dec': from last to first \, 'tri': from first to last \, then back.
 Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
 #X msg 110 710 @once;
-#X text 245 710 alias to @r 1\.;
+#X text 245 710 Alias to @r 1\.;
 #X msg 110 740 @r;
 #X text 245 740 Get/Set number of whole sequence repeats. If -1: output
 infinitly. Type: int. Default value: 1\. Min value: -1\.;

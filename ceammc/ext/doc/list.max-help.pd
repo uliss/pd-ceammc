@@ -29,12 +29,12 @@ to using @float property.;
 #X obj 735 429 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 461 @any;
-#X text 245 461 alias for @type any. Find greatest atom of any type.
+#X text 245 461 Alias for @type any. Find greatest atom of any type.
 Note: symbols are greater then numbers.;
 #X msg 110 503 @float;
-#X text 245 503 alias for @type float. Find max float element in list.;
+#X text 245 503 Alias for @type float. Find max float element in list.;
 #X msg 110 533 @symbol;
-#X text 245 533 alias for @type symbol. Find greatest symbol element.;
+#X text 245 533 Alias for @type symbol. Find greatest symbol element.;
 #X msg 110 563 @type;
 #X text 245 563 Get/Set type of largest element. Type: symbol. Default
 value: float. Allowed values: float \, symbol \, any.;

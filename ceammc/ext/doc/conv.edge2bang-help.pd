@@ -33,14 +33,14 @@
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @both;
-#X text 245 352 alias to @mode both.;
+#X text 245 352 Alias to @mode both.;
 #X msg 110 382 @down;
-#X text 245 382 alias to @mode down.;
+#X text 245 382 Alias to @mode down.;
 #X msg 110 412 @mode;
 #X text 245 412 Get/Set edge detection mode. Type: symbol. Default
 value: up. Allowed values: up \, down \, both.;
 #X msg 110 454 @up;
-#X text 245 454 alias to @mode up.;
+#X text 245 454 Alias to @mode up.;
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 499 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

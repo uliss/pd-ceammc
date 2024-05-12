@@ -31,9 +31,9 @@ Type: symbol.;
 #X obj 735 463 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 495 @ipv4;
-#X text 245 495 shortcut for @type ipv4\.;
+#X text 245 495 Shortcut for @type ipv4\.;
 #X msg 110 525 @ipv6;
-#X text 245 525 shortcut for @type ipv6\.;
+#X text 245 525 Shortcut for @type ipv6\.;
 #X msg 110 555 @type;
 #X text 245 555 Get/Set result IP type. Type: symbol. Default value:
 ipv4\. Allowed values: ipv4 \, ipv6\.;

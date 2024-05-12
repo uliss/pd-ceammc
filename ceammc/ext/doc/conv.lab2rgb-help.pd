@@ -33,10 +33,10 @@ https://en.wikipedia.org/wiki/CIELAB_color_space;
 #X msg 110 449 @sync;
 #X text 245 449 output at any inlet change.;
 #X msg 110 479 @float;
-#X text 245 479 alias to @mode float. Output float values in [0-1]
+#X text 245 479 Alias to @mode float. Output float values in [0-1]
 range.;
 #X msg 110 509 @int;
-#X text 245 509 alias to @mode int. Output integer values in [0-255]
+#X text 245 509 Alias to @mode int. Output integer values in [0-255]
 range.;
 #X msg 110 539 @mode;
 #X text 245 539 Get/Set output mode. Type: symbol. Default value: int.

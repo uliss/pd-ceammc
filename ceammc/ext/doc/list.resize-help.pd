@@ -29,9 +29,9 @@
 #X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @clip;
-#X text 245 422 alias for @method clip.;
+#X text 245 422 Alias for @method clip.;
 #X msg 110 452 @fold;
-#X text 245 452 alias for @method fold.;
+#X text 245 452 Alias for @method fold.;
 #X msg 110 482 @method;
 #X text 245 482 Get/Set method of resizing \, if new size is longer
 then current. Type: symbol. Default value: pad. Allowed values: pad
@@ -40,7 +40,7 @@ then current. Type: symbol. Default value: pad. Allowed values: pad
 #X text 245 539 Get/Set pad value for pad method of resizing. Type:
 atom. Default value: 0\.;
 #X msg 110 581 @wrap;
-#X text 245 581 alias for @method wrap.;
+#X text 245 581 Alias for @method wrap.;
 #X msg 110 611 @size;
 #X text 245 611 Get/Set output list size. Type: int. Default value:
 0\. Min value: 0\.;

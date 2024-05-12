@@ -65,12 +65,12 @@ int. Default value: 1\. Range: 1\...63\.;
 @irregular mode. Type: list. Units: 'deg'. Default value: 0 90 180
 270\.;
 #X msg 110 867 @binaural;
-#X text 245 867 alias for @mode binaural.;
+#X text 245 867 Alias for @mode binaural.;
 #X msg 110 897 @crop;
 #X text 245 897 Get/Set crop HRIR response. Only for @binaural mode.
 Type: int. Units: 'samp'. Default value: 16\. Range: 0\...512\.;
 #X msg 110 939 @irregular;
-#X text 245 939 alias for @mode irregular.;
+#X text 245 939 Alias for @mode irregular.;
 #X msg 110 969 @mode;
 #X text 245 969 Get/Set decoding mode. Type: symbol. Default value:
 regular. Allowed values: regular \, irregular \, binaural.;
@@ -79,7 +79,7 @@ regular. Allowed values: regular \, irregular \, binaural.;
 @regular and @irregular mode. Type: float. Units: 'deg'. Default value:
 0\.;
 #X msg 110 1068 @regular;
-#X text 245 1068 alias for @mode regular.;
+#X text 245 1068 Alias for @mode regular.;
 #X msg 110 1098 @nharm?;
 #X text 245 1098 (readonly) Get number of circular harmonics. Type:
 int. Default value: 3\. Min value: 1\.;

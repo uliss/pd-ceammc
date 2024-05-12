@@ -41,9 +41,9 @@
 #X text 245 535 Get/Set center frequency. Type: float. Units: 'Hz'.
 Default value: 1000\. Range: 0\...22050\.;
 #X msg 110 577 @hpf;
-#X text 245 577 ti @mode hpf.;
+#X text 245 577 Ti @mode hpf.;
 #X msg 110 607 @lpf;
-#X text 245 607 to @mode lpf.;
+#X text 245 607 To @mode lpf.;
 #X msg 110 637 @mode;
 #X text 245 637 Get/Set filter modey. Type: symbol. Default value:
 lpf. Allowed values: hpf \, lpf.;

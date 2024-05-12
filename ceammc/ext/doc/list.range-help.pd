@@ -23,11 +23,11 @@
 #X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 464 @a;
-#X text 245 464 alias to @type any \, accept all.;
+#X text 245 464 Alias to @type any \, accept all.;
 #X msg 110 494 @f;
-#X text 245 494 alias to @type float \, accept only floats.;
+#X text 245 494 Alias to @type float \, accept only floats.;
 #X msg 110 524 @s;
-#X text 245 524 alias to @type symbol \, accept only symbols.;
+#X text 245 524 Alias to @type symbol \, accept only symbols.;
 #X msg 110 554 @type;
 #X text 245 554 Get/Set type of accepted atoms. Type: symbol. Default
 value: float. Allowed values: float \, symbol \, any.;

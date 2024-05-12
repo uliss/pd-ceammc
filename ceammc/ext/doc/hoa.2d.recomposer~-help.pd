@@ -54,11 +54,11 @@ free. Type: symbol.;
 #X obj 735 904 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 936 @fisheye;
-#X text 245 936 alias for @mode fisheye.;
+#X text 245 936 Alias for @mode fisheye.;
 #X msg 110 966 @fixe;
-#X text 245 966 alias for @mode fixe.;
+#X text 245 966 Alias for @mode fixe.;
 #X msg 110 996 @free;
-#X text 245 996 alias for @mode free.;
+#X text 245 996 Alias for @mode free.;
 #X msg 110 1026 @mode;
 #X text 245 1026 (initonly) Get/Set recomposition mode. There is three
 modes: *fixe* - simply recomposes a plane wave decomposition into circular

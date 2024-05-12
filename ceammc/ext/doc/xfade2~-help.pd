@@ -43,9 +43,9 @@ See @x property. Type: float.;
 #X text 245 541 (initonly) Get/Set number of xfade inputs stereo pairs.
 Type: int. Default value: 2\. Range: 2\...16\.;
 #X msg 110 583 @lin;
-#X text 245 583 alias to @type lin.;
+#X text 245 583 Alias to @type lin.;
 #X msg 110 613 @pow;
-#X text 245 613 alias to @type pow.;
+#X text 245 613 Alias to @type pow.;
 #X msg 110 643 @smooth;
 #X text 245 643 Get/Set signal change smooth time. Type: float. Units:
 'ms'. Default value: 20\. Min value: 1\.;

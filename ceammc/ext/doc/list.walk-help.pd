@@ -44,13 +44,13 @@ element and when move to next - use [1( message \, Otherwise - use
 #X obj 735 576 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 608 @clip;
-#X text 245 608 clipped pass mode. When the list bounds are reached
+#X text 245 608 Clipped pass mode. When the list bounds are reached
 - min/max value repeats perpetually.;
 #X msg 110 650 @direction;
 #X text 245 650 Get/Set walking direction. "1" - forwards \, "0" -
 backwards. Type: bool. Default value: 1\.;
 #X msg 110 692 @fold;
-#X text 245 692 fold pass mode. List values are repeated in a loop
+#X text 245 692 Fold pass mode. List values are repeated in a loop
 with folding.;
 #X msg 110 734 @index;
 #X text 245 734 Get/Set current position. Type: list. Default value:
@@ -65,12 +65,12 @@ with folding.;
 information. Type: symbol. Default value: single. Allowed values: single
 \, clip \, wrap \, fold.;
 #X msg 110 905 @single;
-#X text 245 905 single pass mode. When the list bounds are reached
+#X text 245 905 Single pass mode. When the list bounds are reached
 - no output any more until reset.;
 #X msg 110 947 @value;
 #X text 245 947 Get/Set current list. Type: list.;
 #X msg 110 977 @wrap;
-#X text 245 977 wrap pass mode. List values are repeated in a loop.;
+#X text 245 977 Wrap pass mode. List values are repeated in a loop.;
 #X msg 110 1007 @size?;
 #X text 245 1007 (readonly) Get current list size. Type: int. Default
 value: 0\. Min value: 0\.;

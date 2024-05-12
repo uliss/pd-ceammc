@@ -27,7 +27,7 @@
 #X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @hex;
-#X text 245 422 alias to @mode hex.;
+#X text 245 422 Alias to @mode hex.;
 #X msg 110 452 @interp;
 #X text 245 452 Get/Set hue interpolation strategy. Type: symbol. Default
 value: none. Allowed values: none \, short \, long \, inc \, dec.;
@@ -36,11 +36,11 @@ value: none. Allowed values: none \, short \, long \, inc \, dec.;
 type \, if 'hex' - output as hex value \, if 'rgb' - RGB list. Type:
 symbol. Default value: color. Allowed values: color \, hex \, rgb.;
 #X msg 110 566 @rgb;
-#X text 245 566 alias to @mode rgb.;
+#X text 245 566 Alias to @mode rgb.;
 #X msg 110 596 @scale;
 #X text 245 596 Get/Set color list. Type: list.;
 #X msg 110 626 @color;
-#X text 245 626 alias to @mode color.;
+#X text 245 626 Alias to @mode color.;
 #X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 671 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

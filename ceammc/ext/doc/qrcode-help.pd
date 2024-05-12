@@ -27,16 +27,16 @@
 #X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @high;
-#X text 245 422 alias to @quality high.;
+#X text 245 422 Alias to @quality high.;
 #X msg 110 452 @low;
-#X text 245 452 alias to @quality low.;
+#X text 245 452 Alias to @quality low.;
 #X msg 110 482 @medium;
-#X text 245 482 alias to @quality medium.;
+#X text 245 482 Alias to @quality medium.;
 #X msg 110 512 @quality;
 #X text 245 512 Get/Set encoding quality. Type: symbol. Default value:
 low. Allowed values: low \, medium \, quartile \, high.;
 #X msg 110 554 @quartile;
-#X text 245 554 alias to @quality quartile.;
+#X text 245 554 Alias to @quality quartile.;
 #X msg 110 584 @value;
 #X text 245 584 Get/Set string value. Type: symbol.;
 #X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

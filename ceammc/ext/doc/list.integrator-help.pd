@@ -18,27 +18,27 @@ current one then stores this sum;
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 324 @clip;
-#X text 245 324 alias for "@oversize min" property. Truncates lists
+#X text 245 324 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
 #X msg 110 366 @clip;
-#X text 245 366 alias for "@oversize clip" property. Pad shortest list
+#X text 245 366 Alias for "@oversize clip" property. Pad shortest list
 with last element to conform longest list.;
 #X msg 110 408 @fold;
-#X text 245 408 alias for "@oversize fold" property. Pad shortest list
+#X text 245 408 Alias for "@oversize fold" property. Pad shortest list
 with repeated values from the end to the beginning \, then back and
 so on.;
 #X msg 110 465 @min;
-#X text 245 465 alias for "@oversize min" property. Truncates lists
+#X text 245 465 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
 #X msg 110 507 @oversize;
 #X text 245 507 Get/Set behavior \, if list have different sizes. Type:
 symbol. Default value: padz. Allowed values: min \, padz \, clip \,
 wrap \, fold.;
 #X msg 110 564 @padz;
-#X text 245 564 alias for "@oversize padz" property. Pad shortest list
+#X text 245 564 Alias for "@oversize padz" property. Pad shortest list
 with zeroes.;
 #X msg 110 606 @wrap;
-#X text 245 606 alias for "@oversize wrap" property. Pad shortest list
+#X text 245 606 Alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
 #X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 663 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144

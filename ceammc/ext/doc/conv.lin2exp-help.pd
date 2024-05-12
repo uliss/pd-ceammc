@@ -57,13 +57,13 @@ value: 0\.;
 #X text 245 609 Get/Set end of input range. Type: float. Default value:
 127\.;
 #X msg 110 639 @max;
-#X text 245 639 Get/Set alias to @clip max. Type: symbol.;
+#X text 245 639 Alias to @clip max.;
 #X msg 110 669 @min;
-#X text 245 669 Get/Set alias to @clip min. Type: symbol.;
+#X text 245 669 Alias to @clip min.;
 #X msg 110 699 @minmax;
-#X text 245 699 Get/Set alias to @clip minmax. Type: symbol.;
+#X text 245 699 Alias to @clip minmax.;
 #X msg 110 729 @noclip;
-#X text 245 729 Get/Set alias to @clip noclip. Type: symbol.;
+#X text 245 729 Alias to @clip noclip.;
 #X msg 110 759 @out_from;
 #X text 245 759 Get/Set begin of output range. Type: float. Default
 value: 0.01\.;

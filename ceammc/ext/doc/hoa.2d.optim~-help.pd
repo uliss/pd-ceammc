@@ -56,11 +56,11 @@ your ears.;
 #X text 245 898 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 940 @basic;
-#X text 245 940 alias for @mode basic (no optimization).;
+#X text 245 940 Alias for @mode basic (no optimization).;
 #X msg 110 970 @inphase;
-#X text 245 970 alias for @mode inphase.;
+#X text 245 970 Alias for @mode inphase.;
 #X msg 110 1000 @maxre;
-#X text 245 1000 alias for @mode maxre.;
+#X text 245 1000 Alias for @mode maxre.;
 #X msg 110 1030 @mode;
 #X text 245 1030 Get/Set optimization mode. Type: symbol. Default value:
 basic. Allowed values: basic \, maxre \, inphase.;
