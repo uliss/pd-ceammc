@@ -99,6 +99,8 @@ class FxLooper : public SoundExternal {
 public:
     FxLooper(const PdArgs& args);
 
+    void initDone() final;
+
     void onBang() override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
