@@ -28,6 +28,28 @@ EXT_PROPS_SET = set()
 EXT_PROPS_DICT = dict()
 EXT_ARGS_DICT = dict()
 
+MOUSE_METHODS = [
+    "click",
+    "mousedown",
+#    "mouseup",
+#    "mousemove",
+#    "mouseenter",
+    "rightclick",
+    "dropfiles",
+    "droptext"]
+
+def mouse_method2event(event: str) -> str:
+    if event == "mousedown" or event == "click":
+        return "left-click"
+    elif event == "rightclick":
+        return "right-click"
+    elif event == "dropfiles":
+        return "drop-file"
+    elif event == "droptext":
+        return "drop-text"
+    else:
+        return event
+
 
 def signal_handler(sig, frame):
     sys.exit(0)
@@ -181,13 +203,11 @@ def read_doc_outlets(node):
     return res
 
 def has_mouse_methods():
-    return ("click" in EXT_METHODS or
-        "mousedown" in EXT_METHODS or
-        "mouseup" in EXT_METHODS or
-        "mousemove" in EXT_METHODS or
-        "mouseenter" in EXT_METHODS or
-        "rightclick" in EXT_METHODS)
+    for m in MOUSE_METHODS:
+        if m in EXT_METHODS:
+            return True
 
+    return False
 
 def check_units(name, tag, doc, ext):
     if tag[0] == '@':
@@ -247,7 +267,7 @@ def check_aliases(name, doc, ext):
 def check_methods(name, doc, ext):
     ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
                        'onzoom', 'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-                       'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
+                       'symbol', 'float', 'bang', 'dblclick', 'dropfiles', 'droptext', 'list', 'dsp_add', 'loadbang',
                        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
                        'rightclick', 'key' }
 
@@ -661,8 +681,22 @@ if __name__ == '__main__':
     if args.props:
         check_props(ext_name, doc_props_dict, EXT_PROPS_DICT)
 
-    if "click" in EXT_METHODS and len(doc_mouse) == 0:
-        cprint(f"[{ext_name}] no mouse event documentation", 'magenta')
+    ext_mouse = set()
+
+    for m in MOUSE_METHODS:
+        if m in EXT_METHODS:
+            ext_mouse.add(mouse_method2event(m))
+
+    mouse_no_doc = ext_mouse - doc_mouse
+    mouse_invalid = doc_mouse - ext_mouse
+
+    if len(mouse_no_doc):
+        x = ", ".join(mouse_no_doc)
+        cprint(f"DOC [{ext_name}] no mouse events: {x}", 'magenta')
+
+    if len(mouse_invalid):
+        x = ", ".join(mouse_invalid)
+        cprint(f"EXT [{ext_name}] unknown mouse event: {x}", 'red')
 
     if False:
         HAVE_PDDOC = -1

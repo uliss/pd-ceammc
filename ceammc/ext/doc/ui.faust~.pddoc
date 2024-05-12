@@ -17,8 +17,10 @@
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
         </info>
         <mouse>
-            <event type="left-click" editmode="false" keys="Alt">open Faust source code
+            <event type="left-click" editmode="false" keys="Alt">open the Faust source code
             editor</event>
+            <event type="drop-file" editmode="false">read Faust code from the dropped file</event>
+            <event type="drop-text" editmode="false">no action</event>
             <event type="right-click" editmode="false">open popup menu</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>
             <event type="right-click" editmode="true" keys="Shift">open object help</event>

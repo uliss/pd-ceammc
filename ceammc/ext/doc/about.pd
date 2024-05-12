@@ -18,8 +18,8 @@
 #X text 150 164 Distribution version:;
 #X text 150 179 ceammc version:;
 #X text 150 149 Git commit:;
-#X text 315 104 12 05 2024 UTC 22:26:27 ;
-#X text 315 149 v2023.10-473-g0291c45e0;
+#X text 315 104 12 05 2024 UTC 23:32:53 ;
+#X text 315 149 v2023.10-477-g057351040;
 #X text 315 134 devel;
 #X text 150 134 Git branch:;
 #X text 315 164 v2023.10;

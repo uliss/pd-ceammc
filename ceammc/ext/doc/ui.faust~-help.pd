@@ -21,96 +21,100 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X obj 20 413 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 448 Left-click + ⌥;
-#X text 285 448 open Faust source code editor.;
-#X text 110 468 Right-click;
-#X text 285 468 open popup menu.;
-#X text 110 488 Right-click + ⇧;
-#X text 285 488 open object help.;
-#X text 110 508 Right-click + ⇧;
-#X text 285 508 open object help.;
-#X text 61 508 [Edit];
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 285 448 open the Faust source code editor.;
+#X text 110 468 Drop-file;
+#X text 285 468 read Faust code from the dropped file.;
+#X text 110 488 Drop-text;
+#X text 285 488 no action.;
+#X text 110 508 Right-click;
+#X text 285 508 open popup menu.;
+#X text 110 528 Right-click + ⇧;
+#X text 285 528 open object help.;
+#X text 110 548 Right-click + ⇧;
+#X text 285 548 open object help.;
+#X text 61 548 [Edit];
+#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 583 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 546 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 586 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 578 1\.;
-#X text 150 578 symbol;
-#X obj 246 579 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 578 LOAD: initial file to load after object creation. Type:
+#X text 110 618 1\.;
+#X text 150 618 symbol;
+#X obj 246 619 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 618 LOAD: initial file to load after object creation. Type:
 symbol.;
-#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 628 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 668 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 631 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 671 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 663 @load;
-#X text 245 663 (initonly) Get/Set initial file to load after object
+#X msg 110 703 @load;
+#X text 245 703 (initonly) Get/Set initial file to load after object
 creation. Type: symbol.;
-#X msg 110 705 @active;
-#X text 245 705 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 745 @active;
+#X text 245 745 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 735 @include;
-#X text 245 735 Get/Set list of faust include directories. Type: list.;
-#X msg 110 765 @style;
-#X text 245 765 Get/Set view style. Type: int. Default value: 0\.;
-#X msg 110 795 @size;
-#X text 245 795 Get/Set object size. Type: list. Default value: 10
+#X msg 110 775 @include;
+#X text 245 775 Get/Set list of faust include directories. Type: list.;
+#X msg 110 805 @style;
+#X text 245 805 Get/Set view style. Type: int. Default value: 0\.;
+#X msg 110 835 @size;
+#X text 245 835 Get/Set object size. Type: list. Default value: 10
 10\.;
-#X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 840 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 880 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 875 open;
-#X text 245 875 open faust dsp file in external editor.;
-#X msg 110 903 read;
-#X text 245 903 read Faust code from file and compile it. Arguments
+#X msg 110 915 open;
+#X text 245 915 open faust dsp file in external editor.;
+#X msg 110 943 read;
+#X text 245 943 read Faust code from file and compile it. Arguments
 are:;
-#X obj 255 926 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 926 FILE: file path \, absolute or relative to patch \,
+#X obj 255 966 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 966 FILE: file path \, absolute or relative to patch \,
 include directories. Type: symbol.;
-#X msg 110 966 reset;
-#X text 245 966 reset object state.;
-#X msg 110 994 size;
-#X text 245 994 resize object. Arguments are:;
-#X obj 255 1017 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1017 W: new width. Type: int.;
-#X obj 255 1040 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1040 H: new height. Type: int.;
-#X msg 110 1065 write;
-#X text 245 1065 write Faust code to file. Arguments are:;
-#X obj 255 1088 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1088 FILE: file path \, absolute or relative to patch.
+#X msg 110 1006 reset;
+#X text 245 1006 reset object state.;
+#X msg 110 1034 size;
+#X text 245 1034 resize object. Arguments are:;
+#X obj 255 1057 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1057 W: new width. Type: int.;
+#X obj 255 1080 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1080 H: new height. Type: int.;
+#X msg 110 1105 write;
+#X text 245 1105 write Faust code to file. Arguments are:;
+#X obj 255 1128 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1128 FILE: file path \, absolute or relative to patch.
 Type: symbol.;
-#X obj 255 1111 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1111 [@force]: overwrite existing files. Type: property.;
-#X obj 20 1146 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1151 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 255 1151 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1151 [@force]: overwrite existing files. Type: property.;
+#X obj 20 1186 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1191 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1152 1\.;
-#X text 245 1152 control input.;
-#X text 110 1172 2\.;
-#X text 245 1172 first faust input.;
-#X text 110 1192 ....;
-#X text 245 1192 ... faust input.;
-#X text 110 1212 n+1\.;
-#X text 245 1212 n-th faust input.;
-#X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1247 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1192 1\.;
+#X text 245 1192 control input.;
+#X text 110 1212 2\.;
+#X text 245 1212 first faust input.;
+#X text 110 1232 ....;
+#X text 245 1232 ... faust input.;
+#X text 110 1252 n+1\.;
+#X text 245 1252 n-th faust input.;
+#X obj 20 1282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1287 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1248 1\.;
-#X text 245 1248 first faust output.;
-#X text 110 1268 ....;
-#X text 245 1268 ... faust output.;
-#X text 110 1288 n.;
-#X text 245 1288 n-th faust output.;
+#X text 110 1288 1\.;
+#X text 245 1288 first faust output.;
+#X text 110 1308 ....;
+#X text 245 1308 ... faust output.;
+#X text 110 1328 n.;
+#X text 245 1328 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1338 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1341 library: ceammc v0.9.7;
-#N canvas 10 1360 400 290 info 0;
+#X obj 1 1378 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1381 library: ceammc v0.9.7;
+#N canvas 10 1400 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -134,7 +138,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1360 pd info;
+#X restore 10 1400 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 1;
