@@ -16,6 +16,7 @@
         <methods>
             <method name="temp">request system temperature information. Output in format: temp
             SENSOR_NAME VALUE</method>
+            <method name="cpu">request information about system cpus</method>
         </methods>
         <inlets>
             <inlet>
