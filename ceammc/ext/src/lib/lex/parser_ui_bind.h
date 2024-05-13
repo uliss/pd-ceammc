@@ -110,7 +110,7 @@ struct UIBindOptions {
         if (type != UI_BIND_KEY_CODE)
             return false;
 
-        if (key_mode != UI_BIND_MODE_NONE && key_mode & mode)
+        if (key_mode != UI_BIND_MODE_NONE && !(key_mode & mode))
             return false;
 
         return key_code == key;
