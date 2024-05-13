@@ -41,9 +41,9 @@ public:
     bool notify(int code) final;
 
     void editorClear() final;
-    void editorAddLine(t_symbol* sel, const AtomListView& lv);
+    void editorAddLine(t_symbol* sel, const AtomListView& lv) final;
     EditorLineList getContentForEditor() const final;
-    EditorTitleString editorTitle() const { return "Freesound ID/SECRET"; }
+    EditorTitleString editorTitle() const final { return "Freesound ID/SECRET"; }
     void editorSync() final;
 
     void m_access(t_symbol* s, const AtomListView& lv);
