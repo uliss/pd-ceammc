@@ -31,11 +31,11 @@
 #X text 110 539 1\.;
 #X text 150 539 int;
 #X obj 246 540 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 539 ROWS: number of rows. Type: int. Range: 1\...32;
+#X text 245 539 ROWS: number of rows. Type: int. Range: 1\...64;
 #X text 110 559 2\.;
 #X text 150 559 int;
 #X obj 246 560 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 559 COLS: number of columns. Type: int. Range: 1\...32;
+#X text 245 559 COLS: number of columns. Type: int. Range: 1\...64;
 #X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 594 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -43,10 +43,10 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 629 @cols;
 #X text 245 629 Get/Set number of columns. Type: int. Default value:
-16\. Range: 1\...32\.;
+16\. Range: 1\...64\.;
 #X msg 110 671 @rows;
 #X text 245 671 Get/Set number of rows. Type: int. Default value: 16\.
-Range: 1\...32\.;
+Range: 1\...64\.;
 #X msg 110 713 @size?;
 #X text 245 713 (readonly) Get total cell count. Type: int. Default
 value: 256\.;
