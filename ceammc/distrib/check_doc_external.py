@@ -32,7 +32,7 @@ MOUSE_METHODS = [
     "click",
     "mousedown",
 #    "mouseup",
-#    "mousemove",
+    "mousemove",
 #    "mouseenter",
     "rightclick",
     "dropfiles",
@@ -43,6 +43,8 @@ def mouse_method2event(event: str) -> str:
         return "left-click"
     elif event == "rightclick":
         return "right-click"
+    elif event == "mousemove":
+        return "drag"
     elif event == "dropfiles":
         return "drop-file"
     elif event == "droptext":
