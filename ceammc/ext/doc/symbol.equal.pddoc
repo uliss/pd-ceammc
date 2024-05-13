@@ -14,6 +14,12 @@
             <keywords>symbol compare</keywords>
             <since>0.1</since>
         </meta>
+        <arguments>
+            <argument name="CMP" type="symbol">compare symbol</argument>
+        </arguments>
+        <properties>
+            <property name="@cmp" type="symbol" default="">symbol to compare with</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">first symbol</xinfo>
