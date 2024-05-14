@@ -113,7 +113,12 @@ struct UIBindOptions {
         if (key_mode != UI_BIND_MODE_NONE && !(key_mode & mode))
             return false;
 
-        return key_code == key;
+        if (key_mode | UI_BIND_MODE_SHIFT) {
+            auto key_low = std::tolower(key);
+            return key_code == key || key_code == key_low;
+        } else {
+            return key_code == key;
+        }
     }
 
     bool checkKeyName(const Atom& name, int mode) const
