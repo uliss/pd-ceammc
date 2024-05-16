@@ -88,7 +88,7 @@ value on click. Type: bool. Default value: 1\.;
 value: 1\.;
 #X msg 110 1088 @midi_channel;
 #X text 245 1088 Get/Set binded MIDI channel. 0 means listen to all
-channels. Type: int. Default value: 0\. Range: 0\...16\.;
+channels. Type: int. Default value: 0\. Range: 0\...255\.;
 #X msg 110 1130 @midi_control;
 #X text 245 1130 Get/Set binded MIDI controller number. -1 means not
 binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
