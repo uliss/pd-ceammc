@@ -718,7 +718,8 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
 
     if (a->itemssize > 0) {
         info.setView(PropValueView::MENU);
-        info.setConstraints(PropValueConstraints::ENUM);
+        if (!info.setConstraints(PropValueConstraints::ENUM))
+            LIB_ERR << "can't set enum constraints";
 
         if (info.type() == PropValueType::SYMBOL) {
             for (size_t i = 0; i < a->itemssize; i++) {
