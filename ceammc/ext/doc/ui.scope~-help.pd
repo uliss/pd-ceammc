@@ -6,7 +6,7 @@
 0;
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.scope~] @url ui.scope~-help.pd;
-#X obj 50 118 ui.dsp~ @size 40 40;
+#X obj 50 118 ui.dsp~ @size 40 40 @nosave 1;
 #X msg 50 162 300;
 #X msg 107 162 660;
 #X floatatom 165 162 5 0 0 0 - - -;

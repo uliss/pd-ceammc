@@ -80,7 +80,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.dsp~ @size 40 40]
+[ui.dsp~ @size 40 40 @nosave 1]
 
 
 [300( [660( [F]
