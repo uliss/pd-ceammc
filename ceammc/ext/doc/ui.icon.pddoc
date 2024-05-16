@@ -17,17 +17,26 @@
             </also>
         </meta>
         <info>
-            <par>Alt+Click outputs all possible icon names to Pd window. Can be in bang, button and
-            toggle modes. Button mode is default: outputs 1 on mouse down, 0 on mouse up. See @mode
+            <par>The object can be in bang, button and toggle modes.
+            The button mode is default: outputs 1 on mouse down, 0 on mouse up. See @mode
             property for more information.</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">change the object state according to the @mode property</event>
+            <event type="left-click" editmode="false" keys="Alt">output all icons to the Pd window</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true">opens Pd popup menu</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+        </mouse>
         <arguments>
             <argument name="NAME" type="symbol">icon name from list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="toggle button bang" default="button">output
-            mode. In bang mode - outputs bang on mouse down. In button mode outputs 1 on mouse down
-            and 0 on mouse up. In toggle mode outputs 1/0 on mouse down, like vanilla toggle
+            <property name="@mode" type="symbol" enum="toggle button bang" default="button">the output
+            mode. In the bang mode - outputs the bang on mouse down. In the button mode outputs 1 on mouse down
+            and 0 on mouse up. In the toggle mode outputs 1/0 on mouse down, like vanilla toggle
             object.</property>
             <property name="@enabled" type="bool" default="1">enabled property</property>
             <property name="@icon_size" type="int" default="24" enum="18 24 36 48">icons

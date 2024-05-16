@@ -3,6 +3,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
+#include "ceammc_log.h"
 #include "ceammc_property_info.h"
 
 #include <initializer_list>
@@ -33,8 +34,15 @@ public:
     UIDebug& stream() { return *this; }
 };
 
-#define UI_ERR UIError(this).stream()
+
+class UIPost : public LogPdObject {
+public:
+    UIPost(const UIObjectImpl* obj = nullptr);
+};
+
 #define UI_DBG UIDebug(this).stream()
+#define UI_ERR UIError(this).stream()
+#define UI_POST UIPost(this).stream()
 
 class UIObjectImpl {
     t_ebox* const box_;

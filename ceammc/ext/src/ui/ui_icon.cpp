@@ -165,8 +165,9 @@ void UIIcon::onFloat(t_float f)
 void UIIcon::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers & EMOD_ALT) {
-        UI_DBG << "available icons: ";
-        UI_DBG << allIcons();
+        for (auto& a : allIcons())
+            UI_POST << a;
+
         return;
     }
 

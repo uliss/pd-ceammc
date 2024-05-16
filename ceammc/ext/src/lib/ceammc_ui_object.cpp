@@ -1127,4 +1127,10 @@ void UIDspObject::dspProcess(t_sample** ins, long n_ins,
     long sampleframes)
 {
 }
+
+UIPost::UIPost(const UIObjectImpl* obj)
+    : LogPdObject(obj ? obj->asPdObject() : nullptr, LOG_POST)
+{
+}
+
 }
