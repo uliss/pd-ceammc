@@ -26,91 +26,110 @@ are cold.;
 #X obj 194 295 ui.hm~;
 #X obj 50 424 ui.display;
 #X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 479 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 479 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 482 ui.link @background_color 0.98039 0.98039 0.98039
+#X text 110 514 Right-click + ⌥;
+#X text 285 514 open properties dialog.;
+#X text 110 534 Right-click + ⇧;
+#X text 285 534 open object help.;
+#X text 110 554 Double-click + ⌘;
+#X text 285 554 changes slider orientation.;
+#X text 61 554 [Edit];
+#X text 110 574 Right-click + ⌥;
+#X text 285 574 open properties dialog.;
+#X text 61 574 [Edit];
+#X text 110 594 Right-click + ⇧;
+#X text 285 594 open the object help.;
+#X text 61 594 [Edit];
+#X text 110 614 Right-click;
+#X text 285 614 open Pd popup menu.;
+#X text 61 614 [Edit];
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 649 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 652 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 514 @interval;
-#X text 245 514 Get/Set refresh interval. Type: int. Units: 'ms'. Default
+#X msg 110 684 @interval;
+#X text 245 684 Get/Set refresh interval. Type: int. Units: 'ms'. Default
 value: 50\. Min value: 20\.;
-#X msg 110 556 @receive;
-#X text 245 556 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 726 @receive;
+#X text 245 726 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 586 @send;
-#X text 245 586 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 756 @send;
+#X text 245 756 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 628 @background_color;
-#X text 245 628 Get/Set element background color (list of red \, green
+#X msg 110 798 @background_color;
+#X text 245 798 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 685 @border_color;
-#X text 245 685 Get/Set border color (list of red \, green \, blue
+#X msg 110 855 @border_color;
+#X text 245 855 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 727 @cold_color;
-#X text 245 727 Get/Set extra low-level signal color <-31db (list of
+#X msg 110 897 @cold_color;
+#X text 245 897 Get/Set extra low-level signal color <-31db (list of
 red \, green \, blue values in 0-1 range). Type: list. Default value:
 0 0.6 0 1\.;
-#X msg 110 784 @hot_color;
-#X text 245 784 Get/Set loud level signal color <-3db (list of red
+#X msg 110 954 @hot_color;
+#X text 245 954 Get/Set loud level signal color <-3db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 1
 0.6 0 1\.;
-#X msg 110 841 @over_color;
-#X text 245 841 Get/Set extra-loud level signal color >-3db (list of
-red \, green \, blue values in 0-1 range). Type: list. Default value:
+#X msg 110 1011 @over_color;
+#X text 245 1011 Get/Set extra-loud level signal color >-3db (list
+of red \, green \, blue values in 0-1 range). Type: list. Default value:
 1 0 0 1\.;
-#X msg 110 898 @tepid_color;
-#X text 245 898 Get/Set low-level signal color <-21db (list of red
+#X msg 110 1068 @tepid_color;
+#X text 245 1068 Get/Set low-level signal color <-21db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 0.6
 0.73 0 1\.;
-#X msg 110 955 @warm_color;
-#X text 245 955 Get/Set normal level signal color <-9db (list of red
+#X msg 110 1125 @warm_color;
+#X text 245 1125 Get/Set normal level signal color <-9db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 0.85
 0.85 0 1\.;
-#X msg 110 1012 @fontname;
-#X text 245 1012 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 1182 @fontname;
+#X text 245 1182 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1054 @fontsize;
-#X text 245 1054 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1224 @fontsize;
+#X text 245 1224 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1096 @fontslant;
-#X text 245 1096 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1266 @fontslant;
+#X text 245 1266 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1138 @fontweight;
-#X text 245 1138 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1308 @fontweight;
+#X text 245 1308 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1180 @pinned;
-#X text 245 1180 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1350 @pinned;
+#X text 245 1350 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1222 @size;
-#X text 245 1222 Get/Set element size (width \, height pair). Type:
+#X msg 110 1392 @size;
+#X text 245 1392 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 120\.;
-#X obj 20 1274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1279 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1449 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1314 pos;
-#X text 245 1314 set UI element position. Arguments are:;
-#X obj 255 1337 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1337 X: top left x-coord. Type: float.;
-#X obj 255 1360 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1360 Y: top right y-coord. Type: float.;
-#X obj 20 1395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1400 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1484 pos;
+#X text 245 1484 set UI element position. Arguments are:;
+#X obj 255 1507 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1507 X: top left x-coord. Type: float.;
+#X obj 255 1530 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1530 Y: top right y-coord. Type: float.;
+#X obj 20 1565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1570 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1401 1\.;
-#X text 245 1401 input signal.;
-#X obj 20 1431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1436 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1571 1\.;
+#X text 245 1571 input signal.;
+#X obj 20 1601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1606 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1437 1\.;
-#X text 245 1437 output pair of values: rms and peak in decibels (dbfs).;
+#X text 110 1607 1\.;
+#X text 245 1607 output pair of values: rms and peak in decibels (dbfs).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1487 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1490 library: ceammc v0.9.7;
-#N canvas 10 1509 400 290 info 0;
+#X obj 1 1657 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1660 library: ceammc v0.9.7;
+#N canvas 10 1679 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -134,7 +153,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1509 pd info;
+#X restore 10 1679 pd info;
 #X connect 12 0 13 0;
 #X connect 13 0 14 0;
 #X connect 11 0 15 0;

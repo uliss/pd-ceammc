@@ -25,6 +25,15 @@
             -21) is tepid, values &lt; 30 are cold.</par>
             <par>[ui.hm~] - alias for horizontal meter</par>
         </info>
+        <mouse>
+            <event type="double-click" editmode="true" keys="Cmd">changes slider
+            orientation</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true">open Pd popup menu</event>
+        </mouse>
         <properties>
             <property name="@interval" type="int" units="millisecond" minvalue="20" default="50">
             refresh interval</property>
