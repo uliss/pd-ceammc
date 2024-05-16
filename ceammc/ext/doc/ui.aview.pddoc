@@ -22,11 +22,11 @@
             <event type="drag" editmode="false">move view cursor</event>
             <event type="drag" editmode="false" keys="Alt">change nearest selection border</event>
             <event type="drag" editmode="false" keys="Shift">move selection</event>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
             <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true">opens Pd popup menu</event>
-            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true">opens Pd popup menu</event>
         </mouse>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>

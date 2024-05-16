@@ -47,18 +47,18 @@
 #X text 285 827 change nearest selection border.;
 #X text 110 847 Mouse-drag + ⇧;
 #X text 285 847 move selection.;
-#X text 110 867 Right-click + ⇧;
-#X text 285 867 open object help.;
-#X text 110 887 Right-click + ⌥;
-#X text 285 887 open properties dialog.;
-#X text 110 907 Right-click;
-#X text 285 907 opens Pd popup menu.;
+#X text 110 867 Right-click + ⌥;
+#X text 285 867 open properties dialog.;
+#X text 110 887 Right-click + ⇧;
+#X text 285 887 open object help.;
+#X text 110 907 Right-click + ⌥;
+#X text 285 907 open properties dialog.;
 #X text 61 907 [Edit];
 #X text 110 927 Right-click + ⇧;
 #X text 285 927 open the object help.;
 #X text 61 927 [Edit];
-#X text 110 947 Right-click + ⌥;
-#X text 285 947 open properties dialog.;
+#X text 110 947 Right-click;
+#X text 285 947 opens Pd popup menu.;
 #X text 61 947 [Edit];
 #X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 982 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
