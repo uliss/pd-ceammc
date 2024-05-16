@@ -17,6 +17,15 @@
                 <see view="link">ui.number</see>
             </also>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false">choose and output selected color</event>
+            <event type="move" editmode="false">hover color</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true">opens Pd popup menu</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+        </mouse>
         <properties>
             <property name="@matrix" type="list" default="24 13">matrix size</property>
             <property name="@index" type="list" default="">color position in panel</property>
@@ -91,7 +100,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.colorpanel]          [ui.colorpanel @size 193 14]
+[ui.colorpanel #a]       [ui.colorpanel @size 193 14]
 |                        |
 |                        |
 |                        [route @rgb]
@@ -100,11 +109,13 @@
 |                        |
 |                        [ui.radio]
 |
-[route @pd]
+[route @pd] [print COLOR #x]
 |
 [color $1(
 |
 [tgl]
+
+[X a->x]
 ]]>
             </pdascii>
         </example>
