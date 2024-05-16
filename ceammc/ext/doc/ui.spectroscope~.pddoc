@@ -21,10 +21,10 @@
             </also>
         </meta>
         <mouse>
-            <event type="right-click" editmode="false">opens popup menu with items: Audio
-            Settings</event>
+            <event type="right-click" editmode="false">opens popup menu to change scale type</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>
             <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true">opens Pd popup menu</event>
             <event type="right-click" editmode="true" keys="Shift">open object help</event>
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
@@ -72,7 +72,6 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.dsp~]
          [F]             [F]
          |               |
 [noise~] [osc.saw~ 1000] [osc~ 5000]
@@ -82,7 +81,18 @@
 [*~]     [*~]            [*~]   [@log_scale $1(
 |        |               |      |
 |        |               |      |
-[ui.spectroscope~   @size=500x150]
+[ui.spectroscope~   @size 500 150 @nosave 1]
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>
