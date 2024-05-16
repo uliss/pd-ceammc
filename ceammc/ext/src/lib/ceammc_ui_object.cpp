@@ -975,11 +975,6 @@ std::vector<t_symbol*> UIObjectImpl::methodsInfo() const
                 res.push_back(mname);
 
             break;
-        case sym::methods::hash_rightclick:
-            if (cls->c_widget.w_rightclick)
-                res.push_back(mname);
-
-            break;
         case sym::methods::hash_dblclick:
             if (cls->c_widget.w_dblclick)
                 res.push_back(mname);

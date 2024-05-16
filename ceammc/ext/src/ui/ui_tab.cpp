@@ -200,10 +200,6 @@ void UITab::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long
     output();
 }
 
-void UITab::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
-{
-}
-
 void UITab::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
     const size_t N = items_.size();
@@ -613,7 +609,7 @@ void UITab::setup()
     obj.useSymbol();
     obj.usePresets();
     obj.hideLabelInner();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
 
     obj.showProperty("fontname");
     obj.showProperty("fontsize");

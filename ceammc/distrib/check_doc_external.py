@@ -47,6 +47,8 @@ def mouse_method2event(event: str) -> str:
     elif event == "rightclick":
         return "right-click"
     elif event == "mousemove":
+        return "move"
+    elif event == "mousedrag":
         return "drag"
     elif event == "dropfiles":
         return "drop-file"
