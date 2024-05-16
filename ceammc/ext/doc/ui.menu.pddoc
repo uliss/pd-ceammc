@@ -123,6 +123,8 @@
         <example>
             <pdascii>
 <![CDATA[
+[loadbang]
+|
 [erase, file_glob * %DOC%/sound, 0(
 |
 [expand_env]
@@ -133,16 +135,12 @@
 |
 [S digits=60]
 |
-[t       b s]
-|         ^|
-[del 100] [open $1(
-|         |
-[1( [0(   |
-|   |     |
-[readsf~  ]
+[open $1, 1(
 |
-[ui.gain~ @size 120 16]   [ui.dsp~]
-| \
+[snd.play~]
+| ^|.
+[ui.gain2~ @size 120 16]   [ui.dsp~]
+*|*
 [dac~]
 ]]>
             </pdascii>
