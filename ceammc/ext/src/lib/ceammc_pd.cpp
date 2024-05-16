@@ -510,10 +510,14 @@ std::vector<t_symbol*> pd::External::methods() const
     if (!obj_)
         return res;
 
-    t_class* c = obj_->te_g.g_pd;
-    for (int i = 0; i < c->c_nmethod; i++) {
-        auto mname = class_method_name(c, i);
-        res.push_back(mname);
+    if (isCeammcUI()) {
+        return ceammc_ui_methods(obj_);
+    } else {
+        t_class* c = obj_->te_g.g_pd;
+        for (int i = 0; i < c->c_nmethod; i++) {
+            auto mname = class_method_name(c, i);
+            res.push_back(mname);
+        }
     }
 
     return res;

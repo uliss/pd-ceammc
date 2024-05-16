@@ -1,5 +1,6 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_crc32.h"
+#include "ceammc_impl.h"
 #include "ceammc_log.h"
 #include "ceammc_pd.h"
 #include "ceammc_preset.h"
@@ -927,6 +928,70 @@ boost::optional<PropertyInfo> UIObjectImpl::propertyInfo(t_symbol* name) const
     }
 
     return {};
+}
+
+std::vector<t_symbol*> UIObjectImpl::methodsInfo() const
+{
+    std::vector<t_symbol*> res;
+    auto* cls = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
+
+    auto c = box_->b_obj.o_obj.te_g.g_pd;
+    for (int i = 0; i < c->c_nmethod; i++) {
+        auto mname = class_method_name(c, i);
+
+        switch (crc32_hash(mname)) {
+        case sym::methods::hash_mousedown:
+            if (cls->c_widget.w_mousedown)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mouseup:
+            if (cls->c_widget.w_mouseup)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mousewheel:
+            if (cls->c_widget.w_mousewheel)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mousedrag:
+            if (cls->c_widget.w_mousedrag)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mousemove:
+            if (cls->c_widget.w_mousemove)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mouseenter:
+            if (cls->c_widget.w_mouseenter)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mouseleave:
+            if (cls->c_widget.w_mouseleave)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_rightclick:
+            if (cls->c_widget.w_rightclick)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_dblclick:
+            if (cls->c_widget.w_dblclick)
+                res.push_back(mname);
+
+            break;
+        default:
+            res.push_back(mname);
+            break;
+        }
+    }
+
+    return res;
 }
 
 void UIObjectImpl::bindTo(t_symbol* s)

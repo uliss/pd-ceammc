@@ -39,6 +39,8 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x);
 std::vector<PropertyInfo> ceammc_ui_properties(t_object* x);
 std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x);
 
+std::vector<t_symbol*> ceammc_ui_methods(t_object* x);
+
 enum class PropertySetState {
     OK,
     OTHER_TYPE,

@@ -331,4 +331,17 @@ const char* ceammc_property_set_cc_str_state(PropertySetState st)
     }
 }
 
+std::vector<t_symbol *> ceammc_ui_methods(t_object *x)
+{
+    if (!is_ceammc_ui(x))
+        return {};
+
+    auto* c = reinterpret_cast<t_eclass*>(x->te_g.g_pd);
+
+    if (c->c_dsp)
+        return static_cast<UIDspObject*>(reinterpret_cast<t_edspbox*>(x))->methodsInfo();
+    else
+        return static_cast<UIObject*>(reinterpret_cast<t_ebox*>(x))->methodsInfo();
+}
+
 }
