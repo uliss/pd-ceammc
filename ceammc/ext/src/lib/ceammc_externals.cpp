@@ -14,7 +14,6 @@
 #include "ceammc_externals.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_faust.h"
 #include "ceammc_object.h"
 #include "ceammc_object_info.h"
 #include "ceammc_ui_object.h"
