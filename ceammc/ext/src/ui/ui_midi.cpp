@@ -260,6 +260,11 @@ void UIMidi::onPolyTouch(const AtomListView& lv)
     anyTo(0, sym_polytouchin(), lv);
 }
 
+void UIMidi::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+{
+    openMidiSettingsDialog();
+}
+
 void UIMidi::openMidiSettingsDialog()
 {
     sys_gui("pdsend \"pd midi-properties\"\n");
@@ -273,6 +278,7 @@ void UIMidi::setup()
     obj.hideLabel();
     obj.usePopup();
     obj.hideFontProps();
+    obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
 
     obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);
     obj.addProperty(sym::props::name_active_color, _("Active Color"), "0.63 0.88 0 1", &UIMidi::prop_active_color);

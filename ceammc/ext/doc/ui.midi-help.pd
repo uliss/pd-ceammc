@@ -11,17 +11,17 @@
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 237 Right-click;
-#X text 285 237 open popup menu with MIDI settings item.;
+#X text 110 237 Double-click + ⌥;
+#X text 285 237 open properties dialog.;
 #X text 110 257 Right-click + ⇧;
 #X text 285 257 open object help.;
-#X text 110 277 Left-click + ⌥;
-#X text 285 277 open properties dialog.;
-#X text 110 297 Right-click + ⇧;
-#X text 285 297 open object help.;
+#X text 110 277 Right-click;
+#X text 285 277 open popup menu with MIDI settings item.;
+#X text 110 297 Right-click + ⌥;
+#X text 285 297 open properties dialog.;
 #X text 61 297 [Edit];
-#X text 110 317 Right-click + ⌥;
-#X text 285 317 open properties dialog.;
+#X text 110 317 Right-click + ⇧;
+#X text 285 317 open object help.;
 #X text 61 317 [Edit];
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 352 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144

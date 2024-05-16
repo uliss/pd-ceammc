@@ -31,6 +31,7 @@
   - documentation added about ceammc functions
   - seq.life max matrix size increased up to 64x64
   - hidden inlet added to ui.label
+  - MIDI Settings dialog show on double click event at ui.midi object
 ### Changed:
 - renaming:
   - prop.get~ renamed to prop.route~ (the old alias exists for the compatibility, but it prints a warning message)

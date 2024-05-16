@@ -54,6 +54,8 @@ public:
     void onTouch(const AtomListView& lv);
     void onPolyTouch(const AtomListView& lv);
 
+    void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+
 public:
     static void setup();
 
