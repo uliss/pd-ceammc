@@ -7,7 +7,6 @@
 #include "ceammc_property_info.h"
 
 #include <initializer_list>
-#include <sstream>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -16,24 +15,15 @@ namespace ceammc {
 
 class UIObjectImpl;
 
-class UIError : public std::ostringstream {
-    const UIObjectImpl* obj_;
-
-public:
-    UIError(const UIObjectImpl* obj = nullptr);
-    ~UIError();
-    UIError& stream() { return *this; }
-};
-
-class UIDebug : public std::ostringstream {
-    const UIObjectImpl* obj_;
-
+class UIDebug : public LogPdObject {
 public:
     UIDebug(const UIObjectImpl* obj = nullptr);
-    ~UIDebug();
-    UIDebug& stream() { return *this; }
 };
 
+class UIError : public LogPdObject {
+public:
+    UIError(const UIObjectImpl* obj = nullptr);
+};
 
 class UIPost : public LogPdObject {
 public:

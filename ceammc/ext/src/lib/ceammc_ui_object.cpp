@@ -1072,26 +1072,6 @@ void UIObjectImpl::acquirePresetName(t_symbol* s)
 #endif
 }
 
-UIError::UIError(const UIObjectImpl* obj)
-    : obj_(obj)
-{
-}
-
-UIError::~UIError()
-{
-    pdError(obj_->asPd(), str());
-}
-
-UIDebug::UIDebug(const UIObjectImpl* obj)
-    : obj_(obj)
-{
-}
-
-UIDebug::~UIDebug()
-{
-    pdDebug(obj_->asPd(), str());
-}
-
 UIObject::UIObject()
     : UIObjectImpl(this)
 {
@@ -1128,8 +1108,18 @@ void UIDspObject::dspProcess(t_sample** ins, long n_ins,
 {
 }
 
+UIDebug::UIDebug(const UIObjectImpl* obj)
+    : LogPdObject(obj ? obj->asPd() : nullptr, LOG_DEBUG)
+{
+}
+
+UIError::UIError(const UIObjectImpl* obj)
+    : LogPdObject(obj ? obj->asPd() : nullptr, LOG_ERROR)
+{
+}
+
 UIPost::UIPost(const UIObjectImpl* obj)
-    : LogPdObject(obj ? obj->asPdObject() : nullptr, LOG_POST)
+    : LogPdObject(obj ? obj->asPd() : nullptr, LOG_POST)
 {
 }
 
