@@ -30,13 +30,16 @@ EXT_ARGS_DICT = dict()
 
 MOUSE_METHODS = [
     "click",
-    "mousedown",
-#    "mouseup",
-    "mousemove",
-#    "mouseenter",
-    "rightclick",
+    "dblclick",
     "dropfiles",
-    "droptext"]
+    "droptext",
+    "mousedown",
+    "mousemove",
+    "mousewheel",
+    "rightclick",
+#    "mouseenter",
+#    "mouseup",
+    ]
 
 def mouse_method2event(event: str) -> str:
     if event == "mousedown" or event == "click":
@@ -49,6 +52,10 @@ def mouse_method2event(event: str) -> str:
         return "drop-file"
     elif event == "droptext":
         return "drop-text"
+    elif event == "dblclick":
+        return "double-click"
+    elif event == "mousewheel":
+        return "wheel"
     else:
         return event
 
