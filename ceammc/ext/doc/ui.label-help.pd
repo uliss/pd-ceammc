@@ -6,115 +6,127 @@
 0;
 #X obj 679 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.label] @url ui.label-help.pd;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 With spaces \, text-align \, font customization and
-word wrap;
-#X text 50 143 [ui.label test label];
-#X obj 50 172 ui.label test label @receive lbl1;
-#X obj 50 230 ui.label test label @align center @background_color 0.8
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Label object with spaces \, text-align \, font customization
+and word-wrap;
+#X text 50 158 [ui.label test label];
+#X msg 50 187 hidden inlet;
+#X obj 50 216 ui.label test label @receive lbl1;
+#X obj 50 274 ui.label test label @align center @background_color 0.8
 0.9 0.4 1 @receive lbl1;
-#X obj 50 287 ui.label test label @align right @receive lbl1
+#X obj 50 331 ui.label test label @align right @receive lbl1
 @background_color 0.4 0.9 0.8 1;
-#X msg 50 359 1;
-#X floatatom 88 359 5 0 0 0 - - -;
-#X msg 146 359 a b c;
-#X symbolatom 222 359 5 0 0 0 - - -;
-#X msg 299 359 append A;
-#X msg 414 359 prepend C;
-#X obj 50 403 s lbl1;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 458 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X msg 50 403 1;
+#X floatatom 88 403 5 0 0 0 - - -;
+#X msg 146 403 a b c;
+#X symbolatom 222 403 5 0 0 0 - - -;
+#X msg 299 403 append A;
+#X msg 414 403 prepend C;
+#X obj 50 446 s lbl1;
+#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 501 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
+#X text 110 536 Right-click + ⇧;
+#X text 285 536 open object help.;
+#X text 110 556 Right-click + ⌥;
+#X text 285 556 open properties dialog.;
+#X text 110 576 Right-click;
+#X text 285 576 opens Pd popup menu.;
+#X text 61 576 [Edit];
+#X text 110 596 Right-click + ⇧;
+#X text 285 596 open the object help.;
+#X text 61 596 [Edit];
+#X text 110 616 Right-click + ⌥;
+#X text 285 616 open properties dialog.;
+#X text 61 616 [Edit];
+#X obj 20 646 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 651 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 654 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 493 @align;
-#X text 245 493 Get/Set text align. Type: symbol. Default value: left.
+#X msg 110 686 @align;
+#X text 245 686 Get/Set text align. Type: symbol. Default value: left.
 Allowed values: left \, center \, right.;
-#X msg 110 535 @margin_bottom;
-#X text 245 535 Get/Set text bottom margin. Type: int. Default value:
+#X msg 110 728 @margin_bottom;
+#X text 245 728 Get/Set text bottom margin. Type: int. Default value:
 5\.;
-#X msg 110 565 @margin_left;
-#X text 245 565 Get/Set text left margin. Type: int. Default value:
+#X msg 110 758 @margin_left;
+#X text 245 758 Get/Set text left margin. Type: int. Default value:
 5\.;
-#X msg 110 595 @margin_right;
-#X text 245 595 Get/Set text right margin. Type: int. Default value:
+#X msg 110 788 @margin_right;
+#X text 245 788 Get/Set text right margin. Type: int. Default value:
 5\.;
-#X msg 110 625 @margin_top;
-#X text 245 625 Get/Set text top margin. Type: int. Default value:
+#X msg 110 818 @margin_top;
+#X text 245 818 Get/Set text top margin. Type: int. Default value:
 5\.;
-#X msg 110 655 @receive;
-#X text 245 655 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 848 @receive;
+#X text 245 848 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 685 @text;
-#X text 245 685 Get/Set label text. Type: symbol. Default value: Label.;
-#X msg 110 715 @background_color;
-#X text 245 715 Get/Set element background color (list of red \, green
+#X msg 110 878 @text;
+#X text 245 878 Get/Set label text. Type: list. Default value: Label.;
+#X msg 110 908 @background_color;
+#X text 245 908 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
-#X msg 110 757 @text_color;
-#X text 245 757 Get/Set text color (list of red \, green \, blue values
+#X msg 110 950 @text_color;
+#X text 245 950 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 799 @fontname;
-#X text 245 799 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 992 @fontname;
+#X text 245 992 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 841 @fontsize;
-#X text 245 841 Get/Set fontsize. Type: int. Default value: 32\. Range:
+#X msg 110 1034 @fontsize;
+#X text 245 1034 Get/Set fontsize. Type: int. Default value: 32\. Range:
 4\...100\.;
-#X msg 110 883 @fontslant;
-#X text 245 883 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1076 @fontslant;
+#X text 245 1076 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 925 @fontweight;
-#X text 245 925 Get/Set font weight. Type: symbol. Default value: normal.
-Allowed values: normal \, bold.;
-#X msg 110 967 @pinned;
-#X text 245 967 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1118 @fontweight;
+#X text 245 1118 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1160 @pinned;
+#X text 245 1160 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 1\.;
-#X msg 110 1009 @size;
-#X text 245 1009 Get/Set element size (width \, height pair). Type:
+#X msg 110 1202 @size;
+#X text 245 1202 Get/Set element size (width \, height pair). Type:
 list. Default value: 300 47\.;
-#X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1066 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1259 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1101 any;
-#X text 245 1101 set label text to given message separated by spaces
-\, but do not change @text property.;
-#X msg 110 1141 append;
-#X text 245 1141 appends to @text end.;
-#X msg 110 1169 clear;
-#X text 245 1169 clear label text and clear @text property.;
-#X msg 110 1197 float;
-#X text 245 1197 set label text to given float \, but do not change
+#X msg 110 1294 append;
+#X text 245 1294 appends to @text end.;
+#X msg 110 1322 clear;
+#X text 245 1322 clear label text and clear @text property.;
+#X msg 110 1350 pos;
+#X text 245 1350 set UI element position. Arguments are:;
+#X obj 255 1373 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1373 X: top left x-coord. Type: float.;
+#X obj 255 1396 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1396 Y: top right y-coord. Type: float.;
+#X msg 110 1421 prepend;
+#X text 245 1421 insert into beginning of @text.;
+#X obj 20 1459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1464 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1465 1\.;
+#X text 150 1465 *float*;
+#X text 245 1465 [hidden inlet] set the label text to the given float
+without changing @text property.;
+#X text 150 1500 *symbol*;
+#X text 245 1500 [hidden inlet] set the label text without changing
 @text property.;
-#X msg 110 1237 list;
-#X text 245 1237 set label text to given list separated by spaces \,
-but do not change @text property.;
-#X msg 110 1277 pos;
-#X text 245 1277 set UI element position. Arguments are:;
-#X obj 255 1300 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1300 X: top left x-coord. Type: float.;
-#X obj 255 1323 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1323 Y: top right y-coord. Type: float.;
-#X msg 110 1348 prepend;
-#X text 245 1348 insert into beginning of @text.;
-#X msg 110 1376 set;
-#X text 245 1376 set label text and update @text property \, so it
-would be saved in patch.;
-#X msg 110 1416 symbol;
-#X text 245 1416 set label text to given symbol \, but do not change
-@text property.;
-#X obj 20 1466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1471 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
-#X obj 20 1492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1497 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
+#X text 150 1535 *list*;
+#X text 245 1535 [hidden inlet] set the label text to the given list
+separated by spaces without changing @text property.;
+#X text 150 1570 *any*;
+#X text 245 1570 [hidden inlet] set the label text to the given message
+separated by spaces without changing @text property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1538 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1541 library: ceammc v0.9.7;
-#N canvas 10 1560 400 290 info 0;
+#X obj 1 1635 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1638 library: ceammc v0.9.7;
+#N canvas 10 1657 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -138,10 +150,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1560 pd info;
-#X connect 10 0 16 0;
-#X connect 11 0 16 0;
-#X connect 12 0 16 0;
-#X connect 13 0 16 0;
-#X connect 14 0 16 0;
-#X connect 15 0 16 0;
+#X restore 10 1657 pd info;
+#X connect 7 0 8 0;
+#X connect 11 0 17 0;
+#X connect 12 0 17 0;
+#X connect 13 0 17 0;
+#X connect 14 0 17 0;
+#X connect 15 0 17 0;
+#X connect 16 0 17 0;

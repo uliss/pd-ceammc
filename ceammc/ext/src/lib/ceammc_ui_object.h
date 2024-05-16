@@ -187,6 +187,11 @@ public:
     float fontSize() const;
     float fontSizeZoomed() const;
 
+    /**
+     * Hide/show object inlets/outlets
+     */
+    void hideXlets(bool value);
+
 public:
     static const char* BG_LAYER;
     static const char* FONT_FAMILY;

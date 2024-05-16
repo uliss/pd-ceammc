@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "ui_label.h"
 #include "ceammc_abstractdata.h"
-#include "ceammc_canvas.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
@@ -95,6 +94,7 @@ void UILabel::setDrawParams(t_edrawparams* params)
 void UILabel::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
+    hideXlets(true);
 
     auto it = std::find_if(args.begin(), args.end(), isProperty);
     auto pos = std::distance(args.begin(), it);
@@ -169,7 +169,7 @@ void UILabel::m_prepend(const AtomListView& lv)
 
 void UILabel::setup()
 {
-    UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
+    UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.setDefaultSize(300, 47);
     obj.hideLabel();
 

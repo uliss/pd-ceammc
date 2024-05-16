@@ -1026,6 +1026,11 @@ float UIObjectImpl::fontSizeZoomed() const
     return ebox_getzoomfontsize(box_);
 }
 
+void UIObjectImpl::hideXlets(bool value)
+{
+    asEBox()->b_boxparameters.d_hideiolets = value;
+}
+
 t_symbol* UIObjectImpl::genPresetName(t_symbol* prefix)
 {
     char buf[64];

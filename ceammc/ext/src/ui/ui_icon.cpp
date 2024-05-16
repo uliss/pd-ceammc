@@ -76,7 +76,7 @@ UIIcon::UIIcon()
 void UIIcon::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    asEBox()->b_boxparameters.d_hideiolets = true;
+    hideXlets(true);
 
     if (args.size() > 0 && args[0].isSymbol() && !args[0].isProperty())
         m_set(args[0]);
