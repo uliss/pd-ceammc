@@ -3,6 +3,7 @@
 #include "ceammc_fn_list.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "fmt/core.h"
 #include "ui_radio.tcl.h"
 

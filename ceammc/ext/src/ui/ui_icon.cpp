@@ -15,6 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "icons/generated_icons.h"
 #include "ui_icon.tcl.h"
 

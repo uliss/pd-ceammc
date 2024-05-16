@@ -178,6 +178,8 @@ public:
     std::vector<PropertyInfo> propsInfo() const;
     boost::optional<PropertyInfo> propertyInfo(t_symbol* name) const;
 
+    std::vector<t_symbol*> methodsInfo() const;
+
     // bind to global dispatcher
     void bindTo(t_symbol* s);
     void unbindFrom(t_symbol* s);

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_button.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_button.tcl.h"
 
 constexpr int MIN_SIZE = 8;

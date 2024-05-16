@@ -1,6 +1,9 @@
 #include "ceammc_cicm.h"
 #include "ceammc_fonts.h"
 #include "ceammc_ui_object.h"
+#include "ebox.h"
+#include "egraphics.h"
+#include "epopup.h"
 
 #include <algorithm>
 

@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_dsp.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 #include <cmath>
 #include <cstdio>

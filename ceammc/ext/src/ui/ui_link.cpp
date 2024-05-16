@@ -9,6 +9,7 @@
 #include "ui_link.h"
 #include "ceammc_format.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_link.tcl.h"
 
 UILink::UILink()

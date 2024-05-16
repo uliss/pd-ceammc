@@ -20,6 +20,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "ceammc_ui_object.h"
+#include "cicm/Sources/egraphics.h"
 
 #include <array>
 

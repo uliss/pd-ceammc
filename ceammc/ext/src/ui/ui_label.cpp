@@ -19,6 +19,7 @@
 #include "ceammc_format.h"
 #include "ceammc_string.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 CEAMMC_DEFINE_SYM_HASH(left)
 CEAMMC_DEFINE_HASH(right)

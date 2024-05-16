@@ -20,11 +20,11 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_format.h"
 
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_polar.h"
 
 static const float KNOB_MIN_SIZE = 5;

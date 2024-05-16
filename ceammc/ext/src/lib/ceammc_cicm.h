@@ -1,7 +1,7 @@
 #ifndef CEAMMC_CICM_H
 #define CEAMMC_CICM_H
 
-#include "cicm/Sources/cicm_wrapper.h"
+#include "cicm/Sources/edefine.h"
 
 #include <functional>
 #include <initializer_list>

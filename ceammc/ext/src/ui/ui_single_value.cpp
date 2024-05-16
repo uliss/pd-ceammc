@@ -6,6 +6,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_proxy.h"
 #include "ceammc_ui_object.h"
+#include "cicm/Sources/egraphics.h"
 #include "fmt/core.h"
 
 #include <numeric>

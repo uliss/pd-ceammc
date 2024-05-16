@@ -15,6 +15,7 @@
 #include "ui_scope.h"
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 constexpr size_t N_SAMPLES = 150;
 

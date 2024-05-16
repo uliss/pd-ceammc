@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 constexpr int MAX_VALUE_DEFAULT = 8192;
 constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;

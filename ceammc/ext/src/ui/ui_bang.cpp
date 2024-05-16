@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_bang.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_bang.tcl.h"
 
 constexpr int FLASH_TIMEOUT = 100;

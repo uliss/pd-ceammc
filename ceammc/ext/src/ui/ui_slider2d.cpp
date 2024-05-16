@@ -20,6 +20,7 @@
 
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_slider2d.h"
 #include "ui_slider2d.tcl.h"
 

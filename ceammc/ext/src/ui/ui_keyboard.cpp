@@ -10,6 +10,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_music_theory_keyboard.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_keyboard.tcl.h"
 
 #include <cinttypes>

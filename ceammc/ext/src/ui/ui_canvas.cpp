@@ -19,6 +19,7 @@
 #include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "datatype_color.h"
 #include "fmt/core.h"
 #include "gperf_material_font.h"

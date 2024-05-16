@@ -1,6 +1,7 @@
 #include "ui_toggle.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_toggle.tcl.h"
 
 constexpr const char* SYM_CTLIN = "#ctlin";

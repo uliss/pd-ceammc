@@ -18,6 +18,7 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_format.h"
 #include "ceammc_string_types.h"
+#include "cicm/Sources/egraphics.h"
 #include "datatype_string.h"
 
 #include "ceammc_ui.h"

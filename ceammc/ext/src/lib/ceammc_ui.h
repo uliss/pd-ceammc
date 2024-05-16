@@ -9,6 +9,11 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_ui_symbols.h"
 
+#include "cicm/Sources/ebox.h"
+#include "cicm/Sources/eclass.h"
+#include "cicm/Sources/ecommon.h"
+#include "cicm/Sources/eobj.h"
+
 #include <stdexcept>
 #include <string>
 #include <type_traits>

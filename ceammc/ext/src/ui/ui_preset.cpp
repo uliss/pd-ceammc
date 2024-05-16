@@ -15,6 +15,7 @@
 #include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 UIPreset::UIPreset()
     : prop_color_text(rgba_black)

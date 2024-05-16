@@ -6,6 +6,11 @@
 #include "ceammc_ui_symbols.h"
 #include "fmt/core.h"
 
+#include "ebox.h"
+#include "eclass.h"
+#include "edefine.h"
+#include "eobj.h"
+
 #include <algorithm>
 
 extern t_symbol* ceammc_realizeraute(t_canvas* cnv, t_symbol* s);

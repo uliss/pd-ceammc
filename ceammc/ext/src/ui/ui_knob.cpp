@@ -4,6 +4,7 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_convert.h"
 
+#include "cicm/Sources/egraphics.h"
 #include "ui_knob.tcl.h"
 
 constexpr int KNOB_MIN_SIZE = 20;

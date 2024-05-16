@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_midi.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "fmt/core.h"
 
 #define DECLARE_SYM_MIDI(name) \
