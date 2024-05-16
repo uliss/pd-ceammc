@@ -34,11 +34,10 @@ MOUSE_METHODS = [
     "dropfiles",
     "droptext",
     "mousedown",
+    "mousedrag",
     "mousemove",
     "mousewheel",
     "rightclick",
-#    "mouseenter",
-#    "mouseup",
     ]
 
 def mouse_method2event(event: str) -> str:
@@ -276,11 +275,29 @@ def check_aliases(name, doc, ext):
 
 
 def check_methods(name, doc, ext):
-    ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
-                       'onzoom', 'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-                       'symbol', 'float', 'bang', 'dblclick', 'dropfiles', 'droptext', 'list', 'dsp_add', 'loadbang',
-                       'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
-                       'rightclick', 'key' }
+    ignored_methods = {
+        'bang',
+        'click',
+        'dialog',
+        'dsp',
+        'dsp_add',
+        'dsp_add_aliased',
+        'dump',
+        'eobjreadfrom',
+        'eobjwriteto',
+        'float',
+        'key'
+        'list',
+        'loadbang',
+        'onzoom',
+        'popup',
+        'signal',
+        'symbol',
+        'vis',
+        'zoom',
+    }
+
+    ignored_methods |= set(EXT_METHODS)
 
     undoc_methods_set = ext - doc - ignored_methods
     unknown_methods = doc - ext

@@ -955,14 +955,12 @@ std::vector<t_symbol*> UIObjectImpl::methodsInfo() const
                 res.push_back(mname);
 
             break;
-        case sym::methods::hash_mousedrag:
-            if (cls->c_widget.w_mousedrag)
-                res.push_back(mname);
-
-            break;
         case sym::methods::hash_mousemove:
             if (cls->c_widget.w_mousemove)
                 res.push_back(mname);
+
+            if (cls->c_widget.w_mousedrag)
+                res.push_back(sym::methods::sym_mousedrag());
 
             break;
         case sym::methods::hash_mouseenter:
