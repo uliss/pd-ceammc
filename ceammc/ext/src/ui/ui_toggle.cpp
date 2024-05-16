@@ -43,12 +43,12 @@ void UIToggle::stopListenMidi()
     redraw();
 }
 
-t_float UIToggle::value() const
+t_int UIToggle::value() const
 {
     return value_ ? 1 : 0;
 }
 
-void UIToggle::setValue(t_float v)
+void UIToggle::setValue(t_int v)
 {
     value_ = (v != 0);
 }
@@ -130,7 +130,7 @@ void UIToggle::onBang()
 
 void UIToggle::onFloat(t_float f)
 {
-    setValue(f);
+    setValue(f != 0);
     redrawAll();
     output();
 }
@@ -209,6 +209,8 @@ void UIToggle::setup()
     obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIToggle::prop_color_active);
     obj.addProperty("value", &UIToggle::value, &UIToggle::setValue);
     obj.setPropertyDefaultValue("value", "0");
+    eclass_attr_itemlist(obj.pd_ui_class, "value", "0 1");
+    eclass_attr_style(obj.pd_ui_class, "value", sym::str_menu);
 
     obj.addFloatProperty("on_value", _("On value"), 1, &UIToggle::prop_value_on_, _("Main"));
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIToggle::prop_value_off_, _("Main"));

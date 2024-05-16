@@ -778,11 +778,9 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
         const size_t len = list ? strlen(list) : 0;
         size_t new_size = item_count(list, len);
 
-        const size_t max_items = (attr->sizemax > 0) ? attr->sizemax : MAX_ITEMS;
-
-        if (new_size > max_items) {
-            pd_error(nullptr, "[%s] to many property items: %d, clipping to %d", c->c_class.c_name->s_name, (int)new_size, (int)max_items);
-            new_size = max_items;
+        if (new_size > MAX_ITEMS) {
+            pd_error(nullptr, "[%s] to many property items: %d, clipping to %d", c->c_class.c_name->s_name, (int)new_size, (int)MAX_ITEMS);
+            new_size = MAX_ITEMS;
         }
 
         // non-empty list

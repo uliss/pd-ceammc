@@ -21,8 +21,8 @@ class UIToggle : public UIObject {
 public:
     UIToggle();
 
-    t_float value() const;
-    void setValue(t_float v);
+    t_int value() const;
+    void setValue(t_int v);
     void flip();
     void output();
 
