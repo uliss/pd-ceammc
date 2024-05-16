@@ -510,7 +510,7 @@ void UIKeyboard::setup()
     obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE
-        | UI_MOUSE_WHEEL | UI_MOUSE_UP);
+        | UI_MOUSE_UP);
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIKeyboard::prop_color_active_);
     obj.internalProperty(sym::props::name_background_color);
