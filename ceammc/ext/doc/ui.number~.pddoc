@@ -23,6 +23,13 @@
         <info>
             <par>Shows one sample from input block via specified interval</par>
         </info>
+        <mouse>
+            <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true">open the Pd popup menu</event>
+        </mouse>
         <properties>
             <property name="@interval" type="int" default="50" minvalue="20" maxvalue="1000"
             units="millisecond">refresh interval</property>
