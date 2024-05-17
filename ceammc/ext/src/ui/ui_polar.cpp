@@ -37,8 +37,6 @@ static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
 static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
 static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
 
-static t_symbol* SYM_POPUP_MAIN;
-
 enum Sides {
     S_NORTH = 1,
     S_EAST = 0,
@@ -539,8 +537,6 @@ void setup_ui_polar()
 
 void UIPolar::setup()
 {
-    SYM_POPUP_MAIN = gensym("main");
-
     UIObjectFactory<UIPolar> obj("ui.polar", EBOX_GROWLINK);
 
     obj.setDefaultSize(100, 100);
