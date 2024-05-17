@@ -1,13 +1,18 @@
 {
     "cSpell.words": [
         "ceammc",
+        "exitcode",
         "initonly",
         "maxvalue",
         "minvalue",
+        "octocrab",
         "pdascii",
         "pddoc",
         "Poltavsky",
+        "reqwest",
+        "rhvoice",
         "subpatch",
+        "tempfile",
         "xinfo"
     ]
 }
