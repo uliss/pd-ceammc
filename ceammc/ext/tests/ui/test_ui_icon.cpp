@@ -32,6 +32,12 @@ TEST_CASE("ui.icon", "[ui.icon]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "enabled", 1);
     }
 
+    SECTION("construct args")
+    {
+        TestIcon t("ui.icon", LA("clock"));
+        REQUIRE_UI_LIST_PROPERTY(t, "icon", LA("clock"));
+    }
+
     SECTION("external")
     {
         TestExtIcon t("ui.icon");

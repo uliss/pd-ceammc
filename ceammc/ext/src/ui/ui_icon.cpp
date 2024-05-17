@@ -77,9 +77,6 @@ void UIIcon::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     hideXlets(true);
-
-    if (args.size() > 0 && args[0].isSymbol() && !args[0].isProperty())
-        m_set(args[0]);
 }
 
 void UIIcon::onPropChange(t_symbol* prop_name)
@@ -336,6 +333,7 @@ void UIIcon::setup()
     obj.addProperty("icon", _("Icon"), "help", &UIIcon::prop_icon, icons_string, _("Main"));
     obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "18 24 36 48", _("Basic"));
     obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
+    obj.setPropertyArgIndex("icon", 0);
 
     obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang", _("Main"));
     obj.addProperty("enabled", &UIIcon::propEnabled, &UIIcon::propSetEnabled);
