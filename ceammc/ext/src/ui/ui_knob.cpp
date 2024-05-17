@@ -1,8 +1,8 @@
 #include "ui_knob.h"
 #include "ceammc_cicm.h"
+#include "ceammc_convert.h"
 #include "ceammc_ui.h"
 #include "ceammc_ui_object.h"
-#include "ceammc_convert.h"
 
 #include "cicm/Sources/egraphics.h"
 #include "ui_knob.tcl.h"
@@ -123,7 +123,9 @@ void UIKnob::setup()
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIKnob::prop_knob_color);
 
     obj.addFloatProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
+    obj.setPropertyArgIndex("min", 0);
     obj.addFloatProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
+    obj.setPropertyArgIndex("max", 1);
     obj.addBoolProperty("show_range", _("Show range"), false, &UIKnob::show_range_);
     obj.addBoolProperty("show_value", _("Show value"), false, &UIKnob::show_value_);
     obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
