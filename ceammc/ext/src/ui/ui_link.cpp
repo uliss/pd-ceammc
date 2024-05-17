@@ -12,6 +12,9 @@
 #include "cicm/Sources/egraphics.h"
 #include "ui_link.tcl.h"
 
+constexpr const char* URL_DEFAULT = "<no url>";
+constexpr const char* TITLE_DEFAULT = "<no title>";
+
 UILink::UILink()
     : prop_color_link(rgba_blue)
     , prop_color_hover(rgba_red)
@@ -38,13 +41,8 @@ void UILink::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    if (args.size() >= 2 && args[0].isSymbol() && !args[0].isProperty()) {
-        prop_url = args[0].asT<t_symbol*>();
-        p_setTitle(args.subView(1));
-    } else if (args.size() == 1 && args[0].isSymbol() && !args[0].isProperty()) {
-        prop_url = args[0].asT<t_symbol*>();
+    if (prop_title == gensym("<no title>"))
         prop_title = prop_url;
-    }
 }
 
 void UILink::paint()
@@ -101,9 +99,13 @@ void UILink::setup()
     obj.setDefaultSize(120, 15);
     obj.setPropertyDefaultValue(sym::props::name_background_color, "1.0 1.0 1.0 1.0");
 
-    obj.addSymbolProperty("url", _("URL"), "<no url>", &UILink::prop_url, _("Main"));
-    obj.addSymbolProperty("title", _("Title"), "<no title>", &UILink::prop_title, _("Main"));
+    obj.addSymbolProperty("url", _("URL"), URL_DEFAULT, &UILink::prop_url, _("Main"));
+    obj.setPropertyArgIndex("url", 0);
+
+    obj.addSymbolProperty("title", _("Title"), TITLE_DEFAULT, &UILink::prop_title, _("Main"));
     obj.setPropertyAccessor("title", &UILink::p_title, &UILink::p_setTitle);
+    obj.setPropertyArgIndex("title", 1);
+
     obj.addProperty("link_color", _("Link Color"), "0 0.625 0.75 1", &UILink::prop_color_link);
     obj.addProperty("hover_color", _("Hover Color"), "1 0 0.5 1", &UILink::prop_color_hover);
 

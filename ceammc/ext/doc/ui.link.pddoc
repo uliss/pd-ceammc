@@ -20,7 +20,7 @@
         </info>
         <arguments>
             <argument name="URL" type="symbol">@url property value</argument>
-            <argument name="TITLE" type="list">@title property value</argument>
+            <argument name="TITLE" type="symbol">@title property value</argument>
         </arguments>
         <mouse>
             <event type="left-click" editmode="false">open link target</event>
