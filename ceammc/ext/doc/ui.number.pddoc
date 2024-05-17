@@ -27,6 +27,17 @@
             <par>Input mode: Double click to enter new value. Accepted keys: -.0123456789. Press
             ENTER or TAB key to finish. ESCAPE undo input, BACKSPACE removes last character.</par>
         </info>
+        <mouse>
+            <event type="drag" editmode="0">change the number</event>
+            <event type="drag" editmode="0" keys="Cmd">change the number value fast</event>
+            <event type="drag" editmode="0" keys="Shift">change the number value slowly</event>
+            <event type="double-click" editmode="false">edit the current value</event>
+            <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true">open the Pd popup menu</event>
+        </mouse>
         <properties>
             <property name="@min" type="float" default="-inf">minimum value</property>
             <property name="@max" type="float" default="+inf">maximum value</property>
