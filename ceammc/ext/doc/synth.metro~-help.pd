@@ -27,9 +27,9 @@
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
-#X text 150 352 symbol;
+#X text 150 352 atom;
 #X obj 246 353 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 TEMPO(bpm): tempo in beats per minute. Type: symbol.;
+#X text 245 352 TEMPO(bpm): tempo in beats per minute. Type: atom.;
 #X text 110 372 2\.;
 #X text 150 372 symbol;
 #X obj 246 373 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -90,7 +90,7 @@ value: 6\. Range: -12\...12\.;
 Default value: 30\. Range: 5\...100\.;
 #X msg 110 1105 @tempo;
 #X text 245 1105 Get/Set tempo. If beat division is ommitted \, using
-1/4\. Type: symbol. Units: 'bpm'. Default value: 60|4bpm.;
+1/4\. Type: atom. Units: 'bpm'. Default value: 60|4bpm.;
 #X msg 110 1147 @tsig;
 #X text 245 1147 Get/Set metronome time signature \, can be complex
 like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
@@ -162,7 +162,7 @@ https://github.com/uliss/pd-ceammc;
 #X connect 9 0 10 0;
 #X connect 4 0 16 0;
 #X connect 10 0 16 0;
-#X connect 11 0 16 0;
+#X connect 11 0 16 1;
 #X connect 12 0 16 1;
 #X connect 13 0 16 1;
 #X connect 14 0 16 1;
