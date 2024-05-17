@@ -23,6 +23,13 @@
             <par>displays the circular harmonics of an ambisonic sound field</par>
             <a href="hoa/hoa.2d.scope~-help.pd">CICM documentation</a>
         </info>
+        <mouse>
+            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="true">opens the Pd popup menu</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+        </mouse>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
         </arguments>
