@@ -12,7 +12,7 @@
 #X msg 50 147 set 0 0;
 #X msg 155 147 move 0.1 -0.1;
 #X msg 309 147 @show_grid \$1;
-#X obj 50 176 ui.slider2d @size 100 100;
+#X obj 50 176 ui.slider2d @nosave 1;
 #X obj 50 291 ui.dt;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
