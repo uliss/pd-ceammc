@@ -754,6 +754,11 @@ public:
         setPropertyMax(name, max);
     }
 
+    void setPropertyArgIndex(const char* name, int index)
+    {
+        eclass_attr_set_arg_index(pd_ui_class, name, index);
+    }
+
     void setPropertySave(const char* name, bool value = true)
     {
         eclass_attr_save(pd_ui_class, name, value);

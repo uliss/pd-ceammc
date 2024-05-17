@@ -59,6 +59,12 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
             REQUIRE_UI_FLOAT_PROPERTY(t, "min", -10);
             REQUIRE_UI_FLOAT_PROPERTY(t, "max", 84);
         }
+
+        SECTION("with args")
+        {
+            TestSliders t("ui.sliders", LF(11));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "count", 11);
+        }
     }
 
     SECTION("@count")

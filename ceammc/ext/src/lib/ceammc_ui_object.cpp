@@ -192,6 +192,16 @@ void UIObjectImpl::init(t_symbol* name, const AtomListView& args, bool usePreset
 
     if (use_presets_)
         presetInit();
+
+    auto cls = reinterpret_cast<t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
+    auto pos_args = args.arguments();
+
+    for (int i = 0; i < cls->c_nattr; i++) {
+        auto attr = cls->c_attr[i];
+        auto idx = attr->arg_index;
+        if (attr->arg_index >= 0 && idx < pos_args.size())
+            eobj_attr_setvalueof(&box_->b_obj, attr->name, 1, pos_args.subView(idx).toPdData());
+    }
 }
 
 t_symbol* UIObjectImpl::name() const
@@ -757,6 +767,9 @@ static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
     PropertyInfo res(std::string("@") + a->name->s_name, PropValueType::ATOM);
 
     const auto attr_style = crc32_hash(a->style);
+
+    if (a->arg_index >= 0)
+        res.setArgIndex(a->arg_index);
 
     switch (crc32_hash(a->type)) {
     case hash_float:

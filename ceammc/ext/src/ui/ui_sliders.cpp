@@ -83,13 +83,6 @@ void UISliders::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    int n = args.intAt(0, -1);
-
-    if (n > 0) {
-        prop_count = clip<int>(n, 1, MAX_SLIDERS_NUM);
-        pos_values_.resize(prop_count, 0);
-    }
-
     if (name == gensym(SYM_VSLIDERS))
         std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
 }
@@ -418,14 +411,14 @@ bool UISliders::setRealValues(const AtomListView& l)
     return true;
 }
 
-t_float UISliders::propCount() const
+t_int UISliders::propCount() const
 {
     return pos_values_.size();
 }
 
-void UISliders::setPropCount(t_float f)
+void UISliders::setPropCount(t_int x)
 {
-    prop_count = clip<int>(f, 1, MAX_SLIDERS_NUM);
+    prop_count = clip<int>(x, 1, MAX_SLIDERS_NUM);
     pos_values_.resize(prop_count, prop_min);
     redrawAll();
 }
@@ -698,6 +691,7 @@ void UISliders::setup()
     obj.addProperty("count", _("Sliders count"), 8, &UISliders::prop_count, "Main");
     obj.setPropertyRange("count", 1, MAX_SLIDERS_NUM);
     obj.setPropertyAccessor("count", &UISliders::propCount, &UISliders::setPropCount);
+    obj.setPropertyArgIndex("count", 0);
 
     obj.addFloatProperty("min", _("Minimum Value"), 0., &UISliders::prop_min, "Bounds");
     obj.addFloatProperty("max", _("Maximum Value"), 1., &UISliders::prop_max, "Bounds");

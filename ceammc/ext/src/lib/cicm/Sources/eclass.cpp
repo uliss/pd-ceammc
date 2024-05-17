@@ -523,6 +523,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
             attr->itemslist = nullptr;
             attr->itemssize = 0;
             attr->bind_opts = nullptr;
+            attr->arg_index = -1;
 
             size_t new_sz = (c->c_nattr + 1) * sizeof(t_eattr*);
             t_eattr** attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
@@ -1945,6 +1946,18 @@ void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units)
     for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == attrname) {
             c->c_attr[i]->units = units;
+            return;
+        }
+    }
+}
+
+void eclass_attr_set_arg_index(t_eclass* c, const char* attrname, int index)
+{
+    auto sel = gensym(attrname);
+
+    for (size_t i = 0; i < c->c_nattr; i++) {
+        if (c->c_attr[i]->name == sel) {
+            c->c_attr[i]->arg_index = index;
             return;
         }
     }
