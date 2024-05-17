@@ -403,17 +403,14 @@ void Atom::setNull()
 
 bool Atom::isBool() const noexcept
 {
-    static t_symbol* SYM_TRUE = gensym("true");
-    static t_symbol* SYM_FALSE = gensym("false");
-
     switch (a_type) {
     case A_FLOAT: {
         return std::equal_to<t_float>()(a_w.w_float, 1)
             || std::equal_to<t_float>()(a_w.w_float, 0);
     }
     case A_SYMBOL: {
-        t_symbol* s = a_w.w_symbol;
-        return (s == SYM_TRUE) || (s == SYM_FALSE);
+        auto str = a_w.w_symbol->s_name;
+        return (strcmp(str, "true") == 0) || (strcmp(str, "false") == 0);
     };
     default:
         return false;
