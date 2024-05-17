@@ -89,21 +89,13 @@ void UILabel::setDrawParams(t_edrawparams* params)
     // set border and background to the same color
     params->d_bordercolor = prop_color_background;
     params->d_boxfillcolor = prop_color_background;
+    params->d_hideiolets = true;
 }
 
 void UILabel::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    hideXlets(true);
-
-    auto it = std::find_if(args.begin(), args.end(), isProperty);
-    auto pos = std::distance(args.begin(), it);
-
-    if (pos > 0) {
-        setProperty(sym_text(), args.subView(0, pos));
-    } else if (it == args.end() && args.size() > 0) {
-        setProperty(sym_text(), args);
-    }
+    setProperty(sym_text(), args.arguments());
 }
 
 void UILabel::onBang()
