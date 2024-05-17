@@ -2,6 +2,7 @@
 
 # include <cstring>
 # include <cstdio>
+# include "ceammc_crc32.h"
 
 namespace ceammc {
 namespace parser {
@@ -15,10 +16,13 @@ static inline void add_digit(std::uint8_t& v, char ch) { (v *= 10) += (ch - '0')
     action on_midi_param { add_digit(opts.midi_param, *fpc); }
     action on_midi_value { add_digit(opts.midi_value, *fpc); }
     action on_key_code   { add_digit(opts.key_code, *fpc); }
-    action init_name     { opts.key_name[0] = 0; opts.name_len = 0; }
-    action on_name_char  { opts.key_name[opts.name_len++] = *fpc; opts.key_name[opts.name_len] = 0; }
+    action on_key_name   {
+        opts.type = UI_BIND_KEY_NAME;
+        opts.cmp = UI_BIND_CMP_EQ;
+    }
 
-    name = ([a-zA-Z0-9_]{1,8}) >init_name $on_name_char;
+    name = ([a-zA-Z0-9_]+) >{ opts.key_name_hash = crc32_hash_seed(); }
+                           ${ opts.key_name_hash = crc32_append_char(opts.key_name_hash, std::tolower(*fpc)); };
     cmp = '=='          %{ opts.cmp = UI_BIND_CMP_EQ; }
         | '>'           %{ opts.cmp = UI_BIND_CMP_GT; }
         | '>='          %{ opts.cmp = UI_BIND_CMP_GE; }
@@ -45,9 +49,9 @@ static inline void add_digit(std::uint8_t& v, char ch) { (v *= 10) += (ch - '0')
     mod_list    = mod ('+' mod)*;
     key_mod     = '[' mod_list ']';
     keycode_val = uint >{ opts.key_code = 0; } $on_key_code;
-    keycode = ('key' key_mod? '=' keycode_val)
+    keycode = ('keycode' key_mod? '=' keycode_val)
                                             %{ opts.type = UI_BIND_KEY_CODE; opts.cmp = UI_BIND_CMP_EQ; };
-    keyname = 'keyname' key_mod? '=' name   %{ opts.type = UI_BIND_KEY_NAME; opts.cmp = UI_BIND_CMP_EQ; };
+    keyname = 'key' key_mod? '=' name   %on_key_name;
     key = keycode | keyname;
 
     main := (midi | key);
@@ -66,10 +70,6 @@ bool parse_ui_bind(const char* str, UIBindOptions& opts)
     %% write exec;
 
     const auto ok = cs >= %%{ write first_final; }%%;
-    if (ok) {
-
-    }
-
     return ok;
 }
 

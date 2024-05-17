@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
+#include "ceammc_crc32.h"
 #include "lex/parser_ui_bind.h"
 #include "test_common.h"
 
@@ -92,7 +93,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 
     SECTION("keys")
     {
-        REQUIRE(parse_ui_bind("key=32", opts));
+        REQUIRE(parse_ui_bind("keycode=32", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
@@ -101,7 +102,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_KEY_CODE);
 
-        REQUIRE(parse_ui_bind("key[ctl]=32", opts));
+        REQUIRE(parse_ui_bind("keycode[ctl]=32", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
@@ -109,7 +110,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_KEY_CODE);
 
-        REQUIRE(parse_ui_bind("key[ctl+alt]=32", opts));
+        REQUIRE(parse_ui_bind("keycode[ctl+alt]=32", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
@@ -121,24 +122,27 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 
     SECTION("keyname")
     {
-        REQUIRE(parse_ui_bind("keyname=Space", opts));
+        REQUIRE(parse_ui_bind("key=Space", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
         REQUIRE(opts.key_mode == 0);
         REQUIRE(opts.key_code == 0);
-        REQUIRE(opts.key_name == std::string("Space"));
+        REQUIRE(opts.key_name_hash == "space"_hash);
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_KEY_NAME);
+        REQUIRE(opts.checkKeyName(A("space"), 0));
 
-        REQUIRE(parse_ui_bind("keyname[alt]=Space", opts));
+        REQUIRE(parse_ui_bind("key[alt]=Space", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
         REQUIRE(opts.key_mode == UI_BIND_MODE_ALT);
         REQUIRE(opts.key_code == 0);
-        REQUIRE(opts.key_name == std::string("Space"));
+        REQUIRE(opts.key_name_hash == "space"_hash);
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_KEY_NAME);
+        REQUIRE(opts.checkKeyName(A("space"), UI_BIND_MODE_ALT));
+        REQUIRE(opts.checkKeyName(A("Space"), UI_BIND_MODE_ALT));
     }
 }
