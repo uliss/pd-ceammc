@@ -65,9 +65,9 @@ fill \, linup \, lindown and random.;
 #X obj 735 770 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
 #X text 110 802 1\.;
-#X text 150 802 float;
-#X obj 246 803 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 802 N: number of sliders. Type: float. Range: 1\...1024;
+#X text 150 802 int;
+#X obj 246 803 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 802 COUNT: number of sliders. Type: int. Range: 1\...1024;
 #X obj 20 832 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 837 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

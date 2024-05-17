@@ -40,7 +40,7 @@
             <event type="drag" editmode="false" keys="Shift">snap value to the center</event>
         </mouse>
         <arguments>
-            <argument name="N" type="float" minvalue="1" maxvalue="1024">number of
+            <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">number of
             sliders</argument>
         </arguments>
         <properties>
