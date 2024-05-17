@@ -95,7 +95,9 @@ void UILabel::setDrawParams(t_edrawparams* params)
 void UILabel::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    setProperty(sym_text(), args.arguments());
+
+    if (args.arguments().size() > 0)
+        setProperty(sym_text(), args.arguments());
 }
 
 void UILabel::onBang()

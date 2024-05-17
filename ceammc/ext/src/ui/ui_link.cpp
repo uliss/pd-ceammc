@@ -41,7 +41,7 @@ void UILink::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    if (prop_title == gensym("<no title>"))
+    if (prop_url != gensym(URL_DEFAULT) && prop_title == gensym(TITLE_DEFAULT))
         prop_title = prop_url;
 }
 
