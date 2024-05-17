@@ -17,10 +17,12 @@
             <since>0.9</since>
         </meta>
         <mouse>
-            <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
-            <event type="right-click" editmode="true" keys="Shift">open object help</event>
-            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+            <event type="left-click" editmode="false">a click on buttons changes display modes</event>
+            <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true">open the Pd popup menu</event>
         </mouse>
         <properties>
             <property name="@n" type="int" minvalue="1" maxvalue="4" default="1">number of
