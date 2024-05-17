@@ -18,7 +18,8 @@
             </also>
         </meta>
         <mouse>
-            <event type="left-click" editmode="false">toggle the menu and choose the menu item</event>
+            <event type="left-click" editmode="false">toggle the menu and choose the menu
+            item</event>
             <event type="move" editmode="false">highlight hover menu item</event>
             <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>

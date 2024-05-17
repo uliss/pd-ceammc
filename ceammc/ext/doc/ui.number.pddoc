@@ -32,7 +32,8 @@
             <event type="drag" editmode="0" keys="Cmd">change the number value fast</event>
             <event type="drag" editmode="0" keys="Shift">change the number value slowly</event>
             <event type="double-click" editmode="false">edit the current value</event>
-            <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
+            <event type="right-click" editmode="false" keys="Alt">open the properties
+            dialog</event>
             <event type="right-click" editmode="false" keys="Shift">open the object help</event>
             <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
             <event type="right-click" editmode="true" keys="Shift">open the object help</event>

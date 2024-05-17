@@ -36,8 +36,10 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@bind_x" type="list" default="">MIDI/keyboard bind expression for x-axis movement</property>
-            <property name="@bind_y" type="list" default="">MIDI/keyboard bind expression for y-axis movement</property>
+            <property name="@bind_x" type="list" default="">MIDI/keyboard bind expression for
+            x-axis movement</property>
+            <property name="@bind_y" type="list" default="">MIDI/keyboard bind expression for
+            y-axis movement</property>
             <property name="@x_left" type="float" default="-1">leftmost x-value</property>
             <property name="@x_right" type="float" default="1">rightmost x-value</property>
             <property name="@y_top" type="float" default="1">top y-value</property>

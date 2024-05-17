@@ -22,7 +22,7 @@
             <argument name="URL" type="symbol">@url property value</argument>
             <argument name="TITLE" type="list">@title property value</argument>
         </arguments>
-            <mouse>
+        <mouse>
             <event type="left-click" editmode="false">open link target</event>
             <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>

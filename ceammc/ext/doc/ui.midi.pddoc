@@ -17,7 +17,8 @@
         <mouse>
             <event type="double-click" editmode="false" keys="Alt">open properties dialog</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>
-            <event type="right-click" editmode="false">open popup menu with MIDI settings item</event>
+            <event type="right-click" editmode="false">open popup menu with MIDI settings
+            item</event>
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
             <event type="right-click" editmode="true" keys="Shift">open object help</event>
         </mouse>

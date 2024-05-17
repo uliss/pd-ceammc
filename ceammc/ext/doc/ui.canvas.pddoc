@@ -24,9 +24,12 @@
             <par>- update image</par>
         </info>
         <mouse>
-            <event type="double-click" editmode="false">outputs message [mouse double X Y MOD_CTL MOD_ALT MOD_SHIFT MOD_CMD(</event>
-            <event type="left-click" editmode="false">outputs message [mouse down X Y MOD_CTL MOD_ALT MOD_SHIFT MOD_CMD(</event>
-            <event type="drag" editmode="false">outputs message [mouse drag X Y MOD_CTL MOD_ALT MOD_SHIFT MOD_CMD(</event>
+            <event type="double-click" editmode="false">outputs message [mouse double X Y MOD_CTL
+            MOD_ALT MOD_SHIFT MOD_CMD(</event>
+            <event type="left-click" editmode="false">outputs message [mouse down X Y MOD_CTL
+            MOD_ALT MOD_SHIFT MOD_CMD(</event>
+            <event type="drag" editmode="false">outputs message [mouse drag X Y MOD_CTL MOD_ALT
+            MOD_SHIFT MOD_CMD(</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>
             <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
             <event type="right-click" editmode="true">opens Pd popup menu</event>

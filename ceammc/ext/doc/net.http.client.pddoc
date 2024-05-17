@@ -37,21 +37,23 @@
             <param name="@json" type="symbol" required="false">parse result as Json and output it
             as data:Dict()</param></method>
             <!-- upload -->
-            <method name="upload">updload file for the form
+            <method name="upload">updload file for the form 
             <param name="URL" type="symbol" required="true">upload URL</param>
-            <param name="FILE" type="symbol" required="true">upload file path in the filesystem</param>
+            <param name="FILE" type="symbol" required="true">upload file path in the
+            filesystem</param>
             <param name="FORM_KEY" type="symbol" required="true">form entry key</param>
-            <param name="@PARAMS" type="list" required="false">see get method parameters</param>
-            </method>
-            <method name="download">download file
+            <param name="@PARAMS" type="list" required="false">see get method
+            parameters</param></method>
+            <method name="download">download file 
             <param name="URL" type="symbol" required="true">download URL</param>
-            <param name="FILE" type="symbol" required="false">save filename. If not specified, use HTTP document filename</param>
-            <param name="@PARAMS" type="list" required="false">see get method parameters</param>
-            </method>
-            <method name="post">send POST request
+            <param name="FILE" type="symbol" required="false">save filename. If not specified, use
+            HTTP document filename</param>
+            <param name="@PARAMS" type="list" required="false">see get method
+            parameters</param></method>
+            <method name="post">send POST request 
             <param name="URL" type="symbol" required="true">request URL</param>
-            <param name="@PARAMS" type="list" required="false">see get method parameters</param>
-            </method>
+            <param name="@PARAMS" type="list" required="false">see get method
+            parameters</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -35,7 +35,8 @@
             <event type="right-click" editmode="true" keys="Shift">open the object help</event>
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
             <event type="drag" editmode="false">change sliders values</event>
-            <event type="drag" editmode="false" keys="Alt">locked movement: move all sliders at once</event>
+            <event type="drag" editmode="false" keys="Alt">locked movement: move all sliders at
+            once</event>
             <event type="drag" editmode="false" keys="Shift">snap value to the center</event>
         </mouse>
         <arguments>
