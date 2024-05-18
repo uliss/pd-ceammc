@@ -46,6 +46,8 @@ soxr_datatype_t sampleFormat(SoxrResamplerFormat fmt)
         return SOXR_FLOAT32_S;
     case SoxrResamplerFormat::DOUBLE_S:
         return SOXR_FLOAT64_S;
+    default:
+        return SOXR_FLOAT32_S;
     }
 }
 
