@@ -279,7 +279,7 @@ pub extern "C" fn ceammc_system_process_new(
 ) -> *mut system_process {
     if cmd.is_null() {
         on_err.map(|f| {
-            f(user, b"NULL program pointer\0".as_ptr() as *const i8);
+            f(user, b"NULL program pointer\0".as_ptr() as *const c_char);
         });
         return null_mut();
     }
@@ -287,7 +287,7 @@ pub extern "C" fn ceammc_system_process_new(
     let cmd = unsafe { &*slice_from_raw_parts(cmd, cmd_len) };
     if cmd.is_empty() {
         on_err.map(|f| {
-            f(user, b"empty command\0".as_ptr() as *const i8);
+            f(user, b"empty command\0".as_ptr() as *const c_char);
         });
         return null_mut();
     }
