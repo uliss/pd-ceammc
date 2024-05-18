@@ -527,6 +527,8 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         REQUIRE_ANGLE(A("-0.125"), TYPE_RADIAN, -0.125);
         REQUIRE_ANGLE(A("+0.125deg"), TYPE_DEGREE, 0.125);
         REQUIRE_ANGLE(A("-0.125rad"), TYPE_RADIAN, -0.125);
+        REQUIRE_ANGLE(A("0°"), TYPE_RADIAN, 0.);
+        REQUIRE_ANGLE(A("0°"), TYPE_DEGREE, 0.);
         REQUIRE_ANGLE(A("0deg"), TYPE_RADIAN, 0.);
         REQUIRE_ANGLE(A("0rad"), TYPE_DEGREE, 0.);
         REQUIRE_ANGLE(A("180deg"), TYPE_RADIAN, std::acos(-1));
@@ -534,7 +536,7 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         REQUIRE_ANGLE(A("90deg"), TYPE_RADIAN, std::acos(-1) / 2);
         REQUIRE_ANGLE(A("1.5707963267948966rad"), TYPE_DEGREE, 90);
         REQUIRE_ANGLE(A("3.141592653589793rad"), TYPE_DEGREE, 180);
-        REQUIRE_ANGLE(A("90°"), TYPE_RADIAN, std::acos(-1) / 2);
+        REQUIRE_ANGLE(A("90°"), TYPE_DEGREE, 90);
         REQUIRE_ANGLE(A("1pi"), TYPE_DEGREE, 180);
         REQUIRE_ANGLE(A("1pi"), TYPE_RADIAN, std::acos(-1));
         REQUIRE_ANGLE(A("2pi"), TYPE_DEGREE, 0.);
