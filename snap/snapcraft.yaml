@@ -97,6 +97,8 @@ parts:
             - -DCMAKE_BUILD_TYPE=Release
             - -DCMAKE_INSTALL_PREFIX=/usr
             - -DWITH_PORTAUDIO=OFF
+            - -DWITH_PORTMIDI=OFF
+            - -DWITH_JACK=OFF
             - -DWITH_BENCHMARK=OFF
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
@@ -122,7 +124,6 @@ parts:
             - libfftw3-dev
             - libfreetype-dev
             - libglib2.0-dev
-            - libjack-jackd2-dev
             - liblo-dev
             - libltc-dev
             - libluajit-5.1-dev
@@ -141,7 +142,6 @@ parts:
             - make
             - patchelf
             - pkg-config
-            - portaudio19-dev
             - rustc
             - tcl-dev
             - tcllib
@@ -155,15 +155,20 @@ parts:
             - libcups2
             - libfftw3-single3
             - libfreetype6
+            - libglib2.0-0
             - libice6
             - libjack-jackd2-0
             - liblo7
             - libltc11
+            - libluajit-5.1-2
+            - libmagic1
             - libmodplug1
             - librubberband2
             - libsamplerate0
             - libsndfile1
+            - libssl1.1
             - libtcl8.6
+            - libudev1
             - libxcb-randr0
             - libxtables12
             - llvm
