@@ -10,7 +10,7 @@
 #X msg 50 143 fill 0.5 \, bang;
 #X obj 280 143 r~ ssc;
 #X obj 50 172 ui.sliders @count 10;
-#X obj 280 172 ui.spectroscope~ @log_scale 1 @size 300 100;
+#X obj 280 172 ui.spectroscope~ @size 300 100 @log_scale 1;
 #X obj 50 287 lin->lin 0 1 -10 10;
 #X floatatom 222 330 5 0 0 0 - - -;
 #X obj 78 359 noise.white~;

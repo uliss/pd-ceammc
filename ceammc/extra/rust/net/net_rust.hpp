@@ -58,24 +58,6 @@ enum class ceammc_ws_client_selector {
     EXCEPT,
 };
 
-enum class ceammc_ws_rc {
-    Ok = 0,
-    InvalidClient,
-    InvalidServer,
-    InvalidMessage,
-    InvalidData,
-    InvalidClientId,
-    SendError,
-    NoData,
-    CloseError,
-    ConnectionClosed,
-    NonBlockingError,
-    SocketAcceptError,
-    SocketReadError,
-    SocketDeferClose,
-    RunloopExit,
-};
-
 struct ceammc_freesound_array_data;
 
 struct ceammc_freesound_client;
@@ -283,24 +265,29 @@ struct ceammc_ws_client_target {
     size_t id;
 };
 
-struct ceammc_ws_conn_info {
+struct ceammc_ws_peer_info {
     const char *addr;
     size_t id;
 };
 
-struct ceammc_ws_srv_on_text {
-    void *user;
-    void (*cb)(void *user, const char *msg, const ceammc_ws_conn_info *info);
+struct ceammc_ws_server_init {
+    /// interface address: 0.0.0.0
+    const char *addr;
+    /// listen port
+    uint16_t port;
 };
 
-struct ceammc_ws_srv_on_data {
+struct ceammc_ws_server_result_cb {
+    /// user data pointer (can be NULL)
     void *user;
-    void (*cb)(void *user, const uint8_t *msg, size_t len, const ceammc_ws_conn_info *info);
-};
-
-struct ceammc_ws_srv_on_cli {
-    void *user;
-    void (*cb)(void *user, const ceammc_ws_conn_info *info);
+    /// text data callback function (can be NULL)
+    void (*cb_text)(void *user, const char *txt, const ceammc_ws_peer_info *peer);
+    /// binary data callback function (can be NULL)
+    void (*cb_binary)(void *user, const uint8_t *data, size_t data_len, const ceammc_ws_peer_info *peer);
+    /// ping callback function (can be NULL)
+    void (*cb_ping)(void *user, const uint8_t *data, size_t data_len, const ceammc_ws_peer_info *peer);
+    /// connected/disconnected callback function (can be NULL)
+    void (*cb_connected)(void *user, bool state, const ceammc_ws_peer_info *peer);
 };
 
 
@@ -588,6 +575,8 @@ bool ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic, ce
 /// @return true on success
 bool ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
 
+void ceammc_net_logger_init();
+
 /// free telegram bot
 /// @param cli - pointer to telegram bot
 void ceammc_telegram_bot_free(ceammc_telegram_bot_client *cli);
@@ -726,24 +715,24 @@ bool ceammc_ws_client_send_text(ceammc_ws_client *cli,
 /// close websocket server client connections by sending them close handshake
 /// @param srv - pointer to websocket server
 /// @param target - specify target clients
-/// @return ceammc_ws_rc
-ceammc_ws_rc ceammc_ws_server_close_clients(ceammc_ws_server *srv, ceammc_ws_client_target target);
+bool ceammc_ws_server_close_clients(ceammc_ws_server *srv, ceammc_ws_client_target target);
 
 /// request connected client id
 /// @param srv - pointer to server
+/// @param user - user data pointer to callback
 /// @param cb - request callback
-/// @return ceammc_ws_rc
-ceammc_ws_rc ceammc_ws_server_connected_clients(ceammc_ws_server *srv,
-                                                void *user,
-                                                void (*cb)(void *user, const ceammc_ws_conn_info *msg, size_t len));
+bool ceammc_ws_server_connected_clients(ceammc_ws_server *srv,
+                                        void *user,
+                                        void (*cb)(void *user, const ceammc_ws_peer_info *msg, size_t len));
 
-ceammc_ws_server *ceammc_ws_server_create(const char *addr,
-                                          ceammc_ws_srv_on_text on_err,
-                                          ceammc_ws_srv_on_text on_txt,
-                                          ceammc_ws_srv_on_data on_bin,
-                                          ceammc_ws_srv_on_data on_ping,
-                                          ceammc_ws_srv_on_cli on_conn,
-                                          ceammc_ws_srv_on_cli on_disc);
+ceammc_ws_server *ceammc_ws_server_create(ceammc_ws_server_init params,
+                                          ceammc_callback_msg cb_err,
+                                          ceammc_callback_msg cb_post,
+                                          ceammc_callback_msg cb_debug,
+                                          ceammc_callback_msg cb_log,
+                                          ceammc_callback_progress _cb_progress,
+                                          ceammc_ws_server_result_cb cb_reply,
+                                          ceammc_callback_notify cb_notify);
 
 /// free websocket server
 /// @param src - pointer to server
@@ -751,45 +740,40 @@ void ceammc_ws_server_free(ceammc_ws_server *srv);
 
 /// process server events (non-blocking) and execute callbacks
 /// @param srv - pointer to websocket server
-ceammc_ws_rc ceammc_ws_server_process_events(ceammc_ws_server *srv);
+bool ceammc_ws_server_process_events(ceammc_ws_server *srv);
 
 /// send binary message to connected clients
 /// @param srv - pointer to websocket server
 /// @param data - pointer to data
 /// @param len - data length
 /// @param target - specify target clients
-/// @return ceammc_ws_rc
-ceammc_ws_rc ceammc_ws_server_send_binary(ceammc_ws_server *srv,
-                                          const uint8_t *data,
-                                          size_t len,
-                                          ceammc_ws_client_target target);
+bool ceammc_ws_server_send_binary(ceammc_ws_server *srv,
+                                  const uint8_t *data,
+                                  size_t len,
+                                  ceammc_ws_client_target target);
 
 /// send ping message to connected clients
 /// @param srv - pointer to websocket server
 /// @param data - pointer to data
 /// @param len - data length
 /// @param target - specify target clients
-/// @return ceammc_ws_rc
-ceammc_ws_rc ceammc_ws_server_send_ping(ceammc_ws_server *srv,
-                                        const uint8_t *data,
-                                        size_t len,
-                                        ceammc_ws_client_target target);
+bool ceammc_ws_server_send_ping(ceammc_ws_server *srv,
+                                const uint8_t *data,
+                                size_t len,
+                                ceammc_ws_client_target target);
 
 /// send text message to connected clients
 /// @param srv - pointer to websocket server
 /// @param msg - text message
 /// @param target - specify target clients
-/// @return ceammc_ws_rc
-ceammc_ws_rc ceammc_ws_server_send_text(ceammc_ws_server *srv,
-                                        const char *msg,
-                                        ceammc_ws_client_target target);
+bool ceammc_ws_server_send_text(ceammc_ws_server *srv,
+                                const char *msg,
+                                ceammc_ws_client_target target);
 
 /// abort all client connections without handshake
 /// @param srv - pointer to websocket server
 /// @param target - specify target clients
-/// @return ceammc_ws_rc
-ceammc_ws_rc ceammc_ws_server_shutdown_clients(ceammc_ws_server *srv,
-                                               ceammc_ws_client_target target);
+bool ceammc_ws_server_shutdown_clients(ceammc_ws_server *srv, ceammc_ws_client_target target);
 
 } // extern "C"
 

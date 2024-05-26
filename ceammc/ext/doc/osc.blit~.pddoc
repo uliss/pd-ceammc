@@ -50,7 +50,14 @@
 |
 |
 |
-[ui.spectroscope~]  [ui.dsp~]
+[ui.spectroscope~ @size 150 100]
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

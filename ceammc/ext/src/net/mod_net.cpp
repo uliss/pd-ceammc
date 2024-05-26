@@ -1,5 +1,6 @@
 #include "mod_net.h"
 #include "net_host.h"
+#include "net_rust.hpp"
 
 extern void setup_net_artnet_send();
 extern void setup_net_freesound();
@@ -16,6 +17,8 @@ extern void setup_net_ws_server();
 
 void ceammc_net_setup()
 {
+    ceammc_net_logger_init();
+
     setup_net_artnet_send();
     setup_net_freesound();
     setup_net_host();
