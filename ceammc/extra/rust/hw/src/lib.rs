@@ -19,7 +19,6 @@ impl hw_notify_cb {
 }
 
 pub mod gamepad;
-pub mod printers;
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -48,7 +47,9 @@ impl hw_error_cb {
     }
 }
 
-#[cfg(target_family = "unix")]
+pub mod printers;
+
+#[cfg(feature = "cups")]
 pub mod printers_cups;
 
 #[cfg(target_os = "windows")]

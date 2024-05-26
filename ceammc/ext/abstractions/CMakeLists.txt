@@ -8,7 +8,7 @@ file(GLOB ABSTRACTION_FILES "*.pd")
 foreach(_abs_file ${ABSTRACTION_FILES})
     install(FILES "${_abs_file}"
         DESTINATION "${PD_DOC_INSTALL_PATH}/extra/ceammc"
-        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 endforeach()
 
 add_custom_target("faust_ui"
