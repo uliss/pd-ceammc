@@ -76,6 +76,8 @@ impl hw_printer_info_cb {
 /// @return number of printers found
 #[no_mangle]
 pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
+    #[allow(unused_mut)]
+    #[allow(unused_assignments)]
     let mut printers: Vec<PrinterInfo> = vec![];
 
     #[cfg(feature = "cups")]
@@ -145,11 +147,16 @@ pub extern "C" fn ceammc_hw_print_file(
 
     #[cfg(feature = "cups")]
     {
-        crate::printers_cups::print_file(printer, path, &opts, on_err, on_debug)
+        return crate::printers_cups::print_file(printer, path, &opts, on_err, on_debug);
     }
 
     #[cfg(target_os = "windows")]
     {
-        crate::printers_win::print_file(printer, path, &opts, on_err, on_debug)
+        return crate::printers_win::print_file(printer, path, &opts, on_err, on_debug);
+    }
+
+    #[allow(unreachable_code)]
+    {
+        return -1;
     }
 }
