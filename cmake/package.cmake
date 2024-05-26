@@ -62,13 +62,13 @@ if(DPKG_FOUND AND NOT WIN32)
   
     set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${POSTINST_FILE};${POSTRM_FILE}")
 
-#    install(FILES "${CMAKE_SOURCE_DIR}/debian/copyright"
-#        DESTINATION share/doc/${CPACK_DEBIAN_PACKAGE_NAME}/copyright
-#        PERMISSIONS
-#        OWNER_WRITE OWNER_READ
-#        GROUP_READ
-#        WORLD_READ
-#    )
+    install(FILES "${PROJECT_SOURCE_DIR}/ceammc/distrib/gpl-3.0.txt"
+        DESTINATION "share/doc/${CPACK_DEBIAN_PACKAGE_NAME}/copyright"
+        PERMISSIONS
+        OWNER_WRITE OWNER_READ
+        GROUP_READ
+        WORLD_READ
+    )
 
     # debian changelog
     include(GNUInstallDirs)
@@ -84,7 +84,7 @@ if(DPKG_FOUND AND NOT WIN32)
     add_custom_target(changelog ALL DEPENDS "${PROJECT_BINARY_DIR}/changelog.gz")
 
     install(FILES "${PROJECT_BINARY_DIR}/changelog.gz"
-        DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/pd-ceammc"
+        DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/${CPACK_DEBIAN_PACKAGE_NAME}"
     )
 endif()
 
