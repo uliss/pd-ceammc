@@ -26,13 +26,16 @@ if(UNIX AND NOT APPLE)
                 --exclude ${PROJECT_SOURCE_DIR}/ceammc/scripts
                 --exclude ${PROJECT_SOURCE_DIR}/ceammc/ext/tests
                 --exclude ${PROJECT_SOURCE_DIR}/ceammc/ext/benchmarks
+                --exclude '.*\.am'
+                --exclude '.*\.db'
+                --exclude '.*\.html?'
+                --exclude '.*\.java'
                 --exclude '.*\.json'
+                --exclude '.*\.md'
                 --exclude '.*\.pd'
                 --exclude '.*\.pddoc'
-                --exclude '.*\.html?'
+                --exclude '.*\.sln'
                 --exclude '.*\.txt'
-                --exclude '.*\.md'
-                --exclude '.*\.java'
                 --exclude ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture/
             USES_TERMINAL)
     endif()
