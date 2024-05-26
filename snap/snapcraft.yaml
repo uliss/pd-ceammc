@@ -130,6 +130,7 @@ parts:
             - libmagic-dev
             - libmodplug-dev
             - librubberband-dev
+            - libsamplerate0-dev
             - libsndfile1-dev
             - libssl-dev
             - libudev-dev
@@ -163,6 +164,7 @@ parts:
             - libmagic1
             - libmodplug1
             - librubberband2
+            - libsamplerate0
             - libsndfile1
             - libssl1.1
             - libtcl8.6

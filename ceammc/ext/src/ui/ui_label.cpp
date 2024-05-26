@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "ui_label.h"
 #include "ceammc_abstractdata.h"
-#include "ceammc_canvas.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
