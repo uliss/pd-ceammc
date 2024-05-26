@@ -131,6 +131,7 @@ pub struct hw_print_options {
 }
 
 #[no_mangle]
+#[allow(unused_variables)]
 pub extern "C" fn ceammc_hw_print_file(
     printer: *const c_char,
     path: *const c_char,
