@@ -24,11 +24,16 @@ if(UNIX AND NOT APPLE)
                 --exclude ${PROJECT_SOURCE_DIR}/ceammc/doxygen
                 --exclude ${PROJECT_SOURCE_DIR}/ceammc/distrib
                 --exclude ${PROJECT_SOURCE_DIR}/ceammc/scripts
+                --exclude ${PROJECT_SOURCE_DIR}/ceammc/ext/tests
+                --exclude ${PROJECT_SOURCE_DIR}/ceammc/ext/benchmarks
                 --exclude '.*\.json'
                 --exclude '.*\.pd'
                 --exclude '.*\.pddoc'
                 --exclude '.*\.html?'
                 --exclude '.*\.txt'
+                --exclude '.*\.md'
+                --exclude '.*\.java'
+                --exclude ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture/
             USES_TERMINAL)
     endif()
 endif()
