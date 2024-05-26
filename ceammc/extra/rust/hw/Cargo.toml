@@ -15,12 +15,11 @@ env_logger = "0.11.3"
 gilrs = "0.10.5"
 log = "0.4.21"
 tokio = { version = "1.36", features = ["rt", "rt-multi-thread", "signal", "sync", "macros", "time"] }
+cups-sys = {version = "0.1.4", optional = true}
 
 [target.'cfg(windows)'.dependencies]
 winprint = {version = "0.1.0"}
 printers = {version = "2.0.0", default-features = false, features=[]}
-
-cups-sys = {version = "0.1.4", optional = true}
 
 [build-dependencies]
 cbindgen = "0.22.0"

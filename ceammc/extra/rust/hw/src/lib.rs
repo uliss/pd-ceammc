@@ -47,12 +47,10 @@ impl hw_error_cb {
     }
 }
 
+pub mod printers;
+
 #[cfg(feature = "cups")]
 pub mod printers_cups;
-#[cfg(feature = "cups")]
-pub mod printers;
 
 #[cfg(target_os = "windows")]
 pub mod printers_win;
-#[cfg(target_os = "windows")]
-pub mod printers;
