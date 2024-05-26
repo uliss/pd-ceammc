@@ -84,7 +84,7 @@ if(DPKG_FOUND AND NOT WIN32)
     add_custom_target(changelog ALL DEPENDS "${PROJECT_BINARY_DIR}/changelog.gz")
 
     install(FILES "${PROJECT_BINARY_DIR}/changelog.gz"
-        DESTINATION "${CMAKE_INSTALL_DOCDIR}"
+        DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/pd-ceammc"
     )
 endif()
 
