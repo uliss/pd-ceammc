@@ -4,7 +4,7 @@ if(APPLE)
 endif()
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "realtime graphical computer music system")
-set(CPACK_PACKAGE_DESCRIPTION "PureData distribution used in CEAMMC (Center electracoustic music Moscow Conservatory")
+set(CPACK_PACKAGE_DESCRIPTION "PureData distribution used in CEAM (Center of Electroacoustic Music, Moscow Conservatory, Russia")
 set(CPACK_PACKAGE_VENDOR "http://ceammc.com")
 set(CPACK_PACKAGE_CONTACT "http://ceammc.com")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.txt")
@@ -52,7 +52,7 @@ if(DPKG_FOUND AND NOT WIN32)
     set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/uliss/pure-data")
     set(CPACK_DEBIAN_PACKAGE_PROVIDES "pd")
     # note: linebreak and single space indent!
-    set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "${CPACK_PACKAGE_DESCRIPTION_SUMMARY}
+    set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Visual audio programming language
   ${CPACK_PACKAGE_DESCRIPTION}")
     set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
     set(CPACK_SET_DESTDIR TRUE)
@@ -69,6 +69,23 @@ if(DPKG_FOUND AND NOT WIN32)
 #        GROUP_READ
 #        WORLD_READ
 #    )
+
+    # debian changelog
+    include(GNUInstallDirs)
+
+    set(CHANGELOG "${PROJECT_SOURCE_DIR}/ceammc/CHANGELOG.md")
+    add_custom_command(
+        OUTPUT "${PROJECT_BINARY_DIR}/changelog.gz"
+        COMMAND gzip -cn9 "${CHANGELOG}" > "${PROJECT_BINARY_DIR}/changelog.gz"
+        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+        DEPENDS "${CHANGELOG}"
+        COMMENT "Compressing changelog"
+    )
+    add_custom_target(changelog ALL DEPENDS "${PROJECT_BINARY_DIR}/changelog.gz")
+
+    install(FILES "${PROJECT_BINARY_DIR}/changelog.gz"
+        DESTINATION "${CMAKE_INSTALL_DOCDIR}"
+    )
 endif()
 
 include(CPack)
