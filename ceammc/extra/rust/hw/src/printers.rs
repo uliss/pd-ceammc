@@ -76,7 +76,7 @@ impl hw_printer_info_cb {
 /// @return number of printers found
 #[no_mangle]
 pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
-    let printers: Vec<PrinterInfo>;
+    let mut printers: Vec<PrinterInfo> = vec![];
 
     #[cfg(feature = "cups")]
     {
