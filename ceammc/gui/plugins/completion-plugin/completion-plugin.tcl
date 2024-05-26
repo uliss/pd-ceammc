@@ -62,7 +62,12 @@ if {$::windowingsystem eq "aqua"} {
 } else {
     set ::completion::config(font) "DejaVu Sans Mono"
 }
-set ::completion::config(font_size) 12 ;# actually load patche's font size now
+if {$::windowingsystem eq "x11"} {
+    set ::completion::config(font_size) 8 
+} else {
+    set ::completion::config(font_size) 12 ;# actually load patche's font size now
+}
+set ::completion::config(font_size) 6 ;# actually load patche's font size now
 set ::completion::config(font_weight) "normal"
 set ::completion::config(bg) blue
 set ::completion::config(auto_complete_libs) 0
@@ -792,7 +797,11 @@ proc ::completion::trigger {} {
     if { $size ne "" } {
         set fontsize [expr {$size * -1}]
     }
-#    set fontsize [expr {[lindex $font_info 1] * -1}]
+    if {$::windowingsystem eq "x11"} {
+        set fontsize [expr $fontsize-3]
+    }
+    #puts "font size: $fontsize\n"
+    # set fontsize [expr {[lindex $font_info 1] * -1}]
     set fontweight [lindex $font_info 2]
 
     set ::completion::config(font) $fontface 
