@@ -16,8 +16,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
-#include "ceammc_poll_dispatcher.h"
-#include "ceammc_thread.h"
 
 //#include "ceammc_thread.h"
 #include "fmt/core.h"

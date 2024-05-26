@@ -259,15 +259,6 @@ if(LIBLO_FOUND)
 endif()
 target_sources(ceammc_core PRIVATE ceammc_osc.cpp)
 
-# liblo
-find_package(liblo)
-if(LIBLO_FOUND)
-    target_compile_definitions(ceammc_core PRIVATE WITH_LIBLO)
-    target_include_directories(ceammc_core PRIVATE ${LIBLO_INCLUDE_DIRS})
-    target_link_libraries(ceammc_core PUBLIC ${LIBLO_LIBRARIES})
-endif()
-target_sources(ceammc_core PRIVATE ceammc_osc.cpp)
-
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_arrayloader_gen
         COMMAND $<TARGET_FILE:reflex-bin> array_loader.l

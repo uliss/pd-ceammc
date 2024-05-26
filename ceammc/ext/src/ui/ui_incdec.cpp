@@ -27,16 +27,6 @@ enum {
     MODE_DEC = -1
 };
 
-constexpr int MAX_VALUE_DEFAULT = 8192;
-constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;
-constexpr int FLASH_MS = 100;
-
-enum {
-    MODE_NONE = 0,
-    MODE_INC = 1,
-    MODE_DEC = -1
-};
-
 UIIncDec::UIIncDec()
     : UIBindObject<2> { { [this](int v) { m_inc(); }, [this](int v) { m_dec(); } } }
     , prop_color_arrow(rgba_greydark)
