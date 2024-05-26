@@ -76,9 +76,11 @@ impl hw_printer_info_cb {
 /// @return number of printers found
 #[no_mangle]
 pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
-    let printers: Vec<PrinterInfo>;
+    #[allow(unused_mut)]
+    #[allow(unused_assignments)]
+    let mut printers: Vec<PrinterInfo> = vec![];
 
-    #[cfg(target_family = "unix")]
+    #[cfg(feature = "cups")]
     {
         printers = crate::printers_cups::get_printers();
     }
@@ -99,7 +101,7 @@ pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
 pub extern "C" fn ceammc_hw_printer_default(info_cb: hw_printer_info_cb) -> bool {
     let mut _def_print: Option<PrinterInfo> = None;
 
-    #[cfg(target_family = "unix")]
+    #[cfg(feature = "cups")]
     {
         _def_print = crate::printers_cups::get_default_printer();
     }
@@ -129,6 +131,7 @@ pub struct hw_print_options {
 }
 
 #[no_mangle]
+#[allow(unused_variables)]
 pub extern "C" fn ceammc_hw_print_file(
     printer: *const c_char,
     path: *const c_char,
@@ -143,13 +146,18 @@ pub extern "C" fn ceammc_hw_print_file(
         unsafe { &*opts }.clone()
     };
 
-    #[cfg(target_family = "unix")]
+    #[cfg(feature = "cups")]
     {
-        crate::printers_cups::print_file(printer, path, &opts, on_err, on_debug)
+        return crate::printers_cups::print_file(printer, path, &opts, on_err, on_debug);
     }
 
     #[cfg(target_os = "windows")]
     {
-        crate::printers_win::print_file(printer, path, &opts, on_err, on_debug)
+        return crate::printers_win::print_file(printer, path, &opts, on_err, on_debug);
+    }
+
+    #[allow(unreachable_code)]
+    {
+        return -1;
     }
 }

@@ -40,9 +40,10 @@
 #define fexp exp
 #define fsqrt sqrt
 #else
+#include <math.h> // ceammc
+#define fsqrt sqrt // ceammc
 #define flog log
 #define fexp exp
-//#define fsqrt sqrt // ceammc
 #endif
 
 char fiddle_version[] = "fiddle version 1.1 TEST4";

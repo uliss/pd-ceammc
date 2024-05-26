@@ -34,7 +34,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.slider2d @show_grid=1]
+[ui.slider2d @show_grid 1 @size 100 100]
 |
 |
 |

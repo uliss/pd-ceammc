@@ -576,7 +576,6 @@ net.osc.send,net.osc.s		.		.
 net.osc.server,net.osc		.		.
 net.ws.client		.		.
 net.ws.server		.		..
-net.zeroconf		.		.
 noise.baker		.		.
 noise.chua~		.		~~
 noise.clifford		.		..

@@ -122,38 +122,40 @@ endif()
 
 install(FILES "about.pd"
     DESTINATION ${DOC_INSTALL_PATH}
-    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+    PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 # install all help files
 foreach(_doc_file ${DOC_FILES})
     install(FILES "${_doc_file}-help.pd"
         DESTINATION ${DOC_INSTALL_PATH}
-        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
     file(GLOB _xfiles "${_doc_file}-*.pd")
     # find extra files, for example: module.name.test1.pd
     foreach(_xfile ${_xfiles})
         if(NOT ${_xfile} MATCHES "-help\.pd$")
             install(FILES ${_xfile}
                 DESTINATION ${DOC_INSTALL_PATH}
-                PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+                PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
         endif()
     endforeach()
 endforeach()
 
 # Documentation index install
 install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
-    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+    PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 # extra doc file: presets, sound examples etc.
 set(EXTRA_DOC_FILES prs.txt stargazing.mod)
 file(GLOB _PDDOC_WAV "*.wav")
 file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
+file(GLOB _PDDOC_INFOS "*-info.pd")
 file(GLOB _PDDOC_GLITCH "*.glitch")
 
 # install extra files
 install(FILES ${EXTRA_DOC_FILES}
         ${_PDDOC_WAV}
         ${_PDDOC_EXAMPLES}
+        ${_PDDOC_INFOS}
         ${_PDDOC_GLITCH}
         ui.plot~.lin1-help.pd
         ui.plot~.lin2-help.pd
@@ -164,7 +166,7 @@ install(FILES ${EXTRA_DOC_FILES}
         poly.obj.pd
         poly.osc~.pd
     DESTINATION ${DOC_INSTALL_PATH}
-    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+    PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 install(
     CODE "file( GLOB _PD_CATEGORY_HELP_FILES \"${CMAKE_CURRENT_SOURCE_DIR}/ceammc*-help.pd\" )"
