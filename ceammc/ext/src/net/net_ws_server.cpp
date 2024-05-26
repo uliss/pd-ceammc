@@ -13,7 +13,7 @@
  *****************************************************************************/
 #ifndef WITH_WEBSOCKET
 #include "ceammc_stub.h"
-CONTROL_OBJECT_STUB(NetWsServer, 1, 1, "compiled without WebSocket support");
+CONTROL_OBJECT_STUB(NetWsServer, 1, 2, "compiled without WebSocket support");
 OBJECT_STUB_SETUP(NetWsServer, net_ws_server, "net.ws.server");
 #else
 
@@ -27,13 +27,6 @@ OBJECT_STUB_SETUP(NetWsServer, net_ws_server, "net.ws.server");
 #include "net_ws_server.h"
 
 #include "fmt/core.h"
-
-#include <thread>
-
-using MutexLock = std::lock_guard<std::mutex>;
-using namespace ceammc::ws;
-using namespace ceammc::ws::srv_req;
-using namespace ceammc::ws::srv_reply;
 
 CEAMMC_DEFINE_HASH(fudi)
 CEAMMC_DEFINE_HASH(data)
@@ -77,271 +70,16 @@ static inline ceammc_ws_client_target make_target(const AtomListView& lv, AtomLi
     }
 }
 
-ServerImpl::~ServerImpl()
-{
-    MutexLock lock(mtx_);
-    if (srv_)
-        ceammc_ws_server_free(srv_);
-}
-
-bool ServerImpl::listen(const Listen& msg)
-{
-    MutexLock lock(mtx_);
-    if (srv_) {
-        ceammc_ws_server_free(srv_);
-        srv_ = nullptr;
-    }
-
-    auto addr = fmt::format("{}:{}", msg.addr, msg.port);
-    srv_ = ceammc_ws_server_create(addr.c_str(),
-        { this, on_error },
-        { this, on_text },
-        { this, on_bin },
-        { this, on_ping },
-        { this, on_conn },
-        { this, on_disc });
-
-    return srv_;
-}
-
-bool ServerImpl::stop()
-{
-    MutexLock lock(mtx_);
-    if (check_running()) {
-        ceammc_ws_server_free(srv_);
-        srv_ = nullptr;
-        return true;
-    } else
-        return false;
-}
-
-void ServerImpl::process(const CloseClients& msg)
-{
-    MutexLock lock(mtx_);
-
-    if (check_running())
-        ceammc_ws_server_close_clients(srv_, msg.to);
-}
-
-void ServerImpl::process(const SendText& txt)
-{
-    MutexLock lock(mtx_);
-
-    if (check_running())
-        ceammc_ws_server_send_text(srv_, txt.msg.c_str(), txt.to);
-}
-
-void ServerImpl::process(const SendBinary& bin)
-{
-    MutexLock lock(mtx_);
-
-    if (check_running())
-        ceammc_ws_server_send_binary(srv_, bin.data.data(), bin.data.size(), bin.to);
-}
-
-void ServerImpl::process(const SendPing& ping)
-{
-    MutexLock lock(mtx_);
-
-    if (check_running())
-        ceammc_ws_server_send_ping(srv_, ping.data.data(), ping.data.size(), ping.to);
-}
-
-void ServerImpl::process(const DumpClients&)
-{
-    MutexLock lock(mtx_);
-
-    if (check_running())
-        ceammc_ws_server_connected_clients(srv_, this, on_client_dump);
-}
-
-void ServerImpl::process(const AbortClients& cli)
-{
-    MutexLock lock(mtx_);
-
-    if (check_running())
-        ceammc_ws_server_shutdown_clients(srv_, cli.to);
-}
-
-void ServerImpl::process_events()
-{
-    MutexLock lock(mtx_);
-    if (!srv_)
-        return;
-
-    ceammc_ws_server_process_events(srv_);
-}
-
-void ServerImpl::on_error(void* user, const char* msg, const ceammc_ws_conn_info* info)
-{
-    if (!user)
-        return;
-
-    auto this_ = static_cast<ServerImpl*>(user);
-    if (this_ && this_->cb_err)
-        this_->cb_err(msg, *info);
-}
-
-void ServerImpl::on_text(void* user, const char* msg, const ceammc_ws_conn_info* info)
-{
-    if (!user)
-        return;
-
-    auto this_ = static_cast<ServerImpl*>(user);
-    if (this_ && this_->cb_text)
-        this_->cb_text(msg, *info);
-}
-
-void ServerImpl::on_bin(void* user, const std::uint8_t* data, size_t len, const ceammc_ws_conn_info* info)
-{
-    if (!user)
-        return;
-
-    auto this_ = static_cast<ServerImpl*>(user);
-    if (this_ && this_->cb_bin)
-        this_->cb_bin(Bytes(data, data + len), *info);
-}
-
-void ServerImpl::on_ping(void* user, const std::uint8_t* data, size_t len, const ceammc_ws_conn_info* info)
-{
-    if (!user)
-        return;
-
-    auto this_ = static_cast<ServerImpl*>(user);
-    if (this_ && this_->cb_ping)
-        this_->cb_ping(Bytes(data, data + len), *info);
-}
-
-void ServerImpl::on_conn(void* user, const ceammc_ws_conn_info* info)
-{
-    if (!user)
-        return;
-
-    auto this_ = static_cast<ServerImpl*>(user);
-    if (this_ && this_->cb_conn)
-        this_->cb_conn(*info);
-}
-
-void ServerImpl::on_disc(void* user, const ceammc_ws_conn_info* info)
-{
-    if (!user)
-        return;
-
-    auto this_ = static_cast<ServerImpl*>(user);
-    if (this_ && this_->cb_close)
-        this_->cb_close(*info);
-}
-
-void ServerImpl::on_client_dump(void* user, const ceammc_ws_conn_info* info, size_t len)
-{
-    if (!user)
-        return;
-
-    auto this_ = static_cast<ServerImpl*>(user);
-    if (this_ && this_->cb_dump_clients) {
-        IdList ids;
-        ids.reserve(len);
-        for (size_t i = 0; i < len; i++)
-            ids.push_back({ info[i].id, info[i].addr });
-
-        this_->cb_dump_clients(ids);
-    }
-}
-
-bool ws::ServerImpl::check_running()
-{
-    if (!srv_) {
-        if (cb_err)
-            cb_err("server is not running", { "", 0 });
-
-        return false;
-    } else
-        return true;
-}
-
-NetWsServer::NetWsServer(const PdArgs& args)
-    : BaseWsServer(args)
-{
-    createOutlet();
-    createOutlet();
-
-    srv_.reset(new ServerImpl);
-    // called from worker thread
-    srv_->cb_err = [this](const char* msg, const ceammc_ws_conn_info& info) { workerThreadError(msg); };
-    srv_->cb_text = [this](const char* msg, const ceammc_ws_conn_info& info) {
-        addReply(MessageText { msg, info.addr, info.id });
-    };
-    srv_->cb_bin = [this](const Bytes& data, const ceammc_ws_conn_info& info) {
-        addReply(MessageBinary { data, info.addr, info.id });
-    };
-    srv_->cb_ping = [this](const Bytes& data, const ceammc_ws_conn_info& info) {
-        addReply(MessagePing { data, info.addr, info.id });
-    };
-    srv_->cb_conn = [this](const ceammc_ws_conn_info& info) {
-        addReply(ClientConnected { info.addr, info.id });
-    };
-    srv_->cb_close = [this](const ceammc_ws_conn_info& info) {
-        addReply(ClientClosed { info.addr, info.id });
-    };
-    srv_->cb_dump_clients = [this](const IdList& ids) {
-        addReply(ConnectedClients { ids });
-    };
-
-    mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json });
-    addProperty(mode_);
-}
-
-void NetWsServer::processRequest(const Request& req, ResultCallback cb)
-{
-    if (!srv_)
-        return;
-
-    if (req.type() == typeid(Listen)) {
-        auto& x = boost::get<Listen>(req);
-        if (srv_->listen(x))
-            workerThreadDebug(fmt::format("websocket server started: {}:{}", x.addr, x.port));
-
-    } else if (req.type() == typeid(Stop)) {
-        if (srv_->stop())
-            workerThreadDebug("websocket server stopped");
-    } else if (process_request<SendText>(req)) {
-    } else if (process_request<SendBinary>(req)) {
-    } else if (process_request<SendPing>(req)) {
-    } else if (process_request<DumpClients>(req)) {
-    } else if (process_request<AbortClients>(req)) {
-    } else if (process_request<CloseClients>(req)) {
-    } else {
-        workerThreadError(fmt::format("unknown request: {}", req.type().name()));
-    }
-}
-
-void NetWsServer::processResult(const Reply& res)
-{
-    if (process_reply<MessageText>(res)) {
-    } else if (process_reply<MessageBinary>(res)) {
-    } else if (process_reply<MessagePing>(res)) {
-    } else if (process_reply<ClientConnected>(res)) {
-    } else if (process_reply<ClientClosed>(res)) {
-    } else if (process_reply<ConnectedClients>(res)) {
-    } else {
-        OBJ_ERR << "unknown result type: " << res.type().name();
-    }
-}
-
-void NetWsServer::processEvents()
-{
-    if (srv_)
-        srv_->process_events();
-}
-
 void NetWsServer::m_close(t_symbol* s, const AtomListView& lv)
 {
     if (!checkClientSelector(s, lv, REQ_ARGS_EQ_0))
         return;
 
     AtomListView args;
-    auto t = make_target(lv, args);
-    addRequest(CloseClients { t });
+    auto target = make_target(lv, args);
+
+    if (srv_)
+        ceammc_ws_server_close_clients(srv_->handle(), target);
 }
 
 void NetWsServer::m_ping(t_symbol* s, const AtomListView& lv)
@@ -351,7 +89,11 @@ void NetWsServer::m_ping(t_symbol* s, const AtomListView& lv)
 
     AtomListView args;
     auto target = make_target(lv, args);
-    addRequest(SendPing { toBinary(args), target });
+
+    if (srv_) {
+        auto data = toBinary(args);
+        ceammc_ws_server_send_ping(srv_->handle(), data.data(), data.size(), target);
+    }
 }
 
 void NetWsServer::m_send(t_symbol* s, const AtomListView& lv)
@@ -361,7 +103,11 @@ void NetWsServer::m_send(t_symbol* s, const AtomListView& lv)
 
     AtomListView args;
     auto target = make_target(lv, args);
-    addRequest(SendText { to_string(args), target });
+
+    if (srv_) {
+        auto txt = to_string(args);
+        ceammc_ws_server_send_text(srv_->handle(), txt.c_str(), target);
+    }
 }
 
 void NetWsServer::m_send_binary(t_symbol* s, const AtomListView& lv)
@@ -371,7 +117,11 @@ void NetWsServer::m_send_binary(t_symbol* s, const AtomListView& lv)
 
     AtomListView args;
     auto target = make_target(lv, args);
-    addRequest(SendBinary { toBinary(args), target });
+
+    if (srv_) {
+        auto data = toBinary(args);
+        ceammc_ws_server_send_binary(srv_->handle(), data.data(), data.size(), target);
+    }
 }
 
 void NetWsServer::m_send_json(t_symbol* s, const AtomListView& lv)
@@ -381,7 +131,11 @@ void NetWsServer::m_send_json(t_symbol* s, const AtomListView& lv)
 
     AtomListView args;
     auto target = make_target(lv, args);
-    addRequest(SendText { toJson(args), target });
+
+    if (srv_) {
+        auto txt = toJson(args);
+        ceammc_ws_server_send_text(srv_->handle(), txt.c_str(), target);
+    }
 }
 
 void NetWsServer::m_shutdown(t_symbol* s, const AtomListView& lv)
@@ -391,7 +145,27 @@ void NetWsServer::m_shutdown(t_symbol* s, const AtomListView& lv)
 
     AtomListView args;
     auto target = make_target(lv, args);
-    addRequest(AbortClients { target });
+
+    if (srv_)
+        ceammc_ws_server_shutdown_clients(srv_->handle(), target);
+}
+
+bool NetWsServer::notify(int code)
+{
+    if (srv_)
+        srv_->processResults();
+
+    return true;
+}
+
+NetWsServer::NetWsServer(const PdArgs& args)
+    : BaseWsServer(args)
+{
+    createOutlet();
+    createOutlet();
+
+    mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json });
+    addProperty(mode_);
 }
 
 void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
@@ -401,50 +175,74 @@ void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return;
 
-    auto port = lv.intAt(0, 0);
+    std::uint16_t port = lv.intInClosedIntervalAt(0, 0, 32000, 8000);
     auto addr = lv.symbolAt(1, gensym("0.0.0.0"))->s_name;
 
     if (port <= 0)
-        addRequest(Stop {});
+        srv_.release();
     else
-        addRequest(Listen { addr, static_cast<std::uint16_t>(port) });
+        srv_.reset(new WsServerImpl(
+            { addr, port },
+            ceammc_ws_server_create,
+            ceammc_ws_server_free,
+            ceammc_ws_server_process_events,
+            ceammc_ws_server_result_cb {
+                this,
+                // text
+                [](void* user, const char* txt, const ceammc_ws_peer_info* peer) {
+                    auto this_ = static_cast<NetWsServer*>(user);
+                    if (this_)
+                        this_->processText(txt, peer);
+                },
+                // binary
+                [](void* user, const std::uint8_t* data, size_t len, const ceammc_ws_peer_info* peer) {
+                    auto this_ = static_cast<NetWsServer*>(user);
+                    if (this_)
+                        this_->processBinary(data, len, peer);
+                },
+                // ping
+                [](void* user, const std::uint8_t* data, size_t len, const ceammc_ws_peer_info* peer) {
+                    auto this_ = static_cast<NetWsServer*>(user);
+                    if (this_)
+                        this_->processPing(data, len, peer);
+                },
+                // close?
+                {},
+                // connected
+                [](void* user, bool connected, const ceammc_ws_peer_info* peer) {
+                    auto this_ = static_cast<NetWsServer*>(user);
+                    if (this_)
+                        this_->processConnected(connected, peer);
+                } //
+            },
+            { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
 }
 
 void NetWsServer::m_stop(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(Stop {});
+    srv_.release();
 }
 
 void NetWsServer::m_clients(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(DumpClients {});
-}
-
-AtomList NetWsServer::fromBinary(const ws::Bytes& data)
-{
-    AtomList bytes;
-    bytes.reserve(data.size());
-    for (auto x : data)
-        bytes.append(x);
-
-    return bytes;
-}
-
-AtomList NetWsServer::fromBinary(const ws::IdList& data)
-{
-    AtomList bytes;
-    bytes.reserve(data.size() * 2);
-    for (auto& x : data) {
-        bytes.append(x.first);
-        bytes.append(gensym(x.second.c_str()));
+    if (srv_) {
+        //                ceammc_ws_server_connected_clients(srv_->handle(), data.data(), data.size(), target);
     }
+}
+
+AtomList NetWsServer::fromBinary(const std::uint8_t* data, size_t len)
+{
+    AtomList bytes;
+    bytes.reserve(len);
+    for (size_t i = 0; i < len; i++)
+        bytes.append(data[i]);
 
     return bytes;
 }
 
-ws::Bytes NetWsServer::toBinary(const AtomListView& lv)
+Bytes NetWsServer::toBinary(const AtomListView& lv)
 {
-    ws::Bytes data;
+    Bytes data;
     data.reserve(lv.size());
     for (auto& a : lv)
         data.push_back(a.asInt());
@@ -462,26 +260,25 @@ std::string NetWsServer::toJson(const AtomListView& lv)
     }
 }
 
-void NetWsServer::outputInfo(const std::string& from, size_t id)
+void NetWsServer::outputInfo(const ceammc_ws_peer_info* peer)
 {
-    AtomArray<2> lst { id, gensym(from.c_str()) };
+    AtomArray<2> lst { peer->id, gensym(peer->addr) };
     listTo(1, lst.view());
 }
 
-void NetWsServer::processReply(const ws::srv_reply::MessageText& m)
+void NetWsServer::processText(const char* msg, const ceammc_ws_peer_info* peer)
 {
-    outputInfo(m.from, m.id);
-
+    outputInfo(peer);
     try {
         switch (crc32_hash(mode_->value())) {
         case hash_fudi: {
-            anyTo(0, sym_text(), AtomList::parseString(m.msg.c_str()));
+            anyTo(0, sym_text(), AtomList::parseString(msg));
         } break;
         case hash_sym: {
-            anyTo(0, sym_text(), gensym(m.msg.c_str()));
+            anyTo(0, sym_text(), gensym(msg));
         } break;
         case hash_json: {
-            auto j = nlohmann::json::parse(m.msg);
+            auto j = nlohmann::json::parse(msg);
             if (j.is_array()) {
                 AtomList lst;
                 from_json(j, lst);
@@ -494,11 +291,11 @@ void NetWsServer::processReply(const ws::srv_reply::MessageText& m)
 
         } break;
         case hash_data: {
-            auto res = parseDataString(m.msg.c_str());
+            auto res = parseDataString(msg);
             if (res) {
                 anyTo(0, sym_text(), res.result());
             } else {
-                OBJ_ERR << "can't parse data: " << m.msg;
+                OBJ_ERR << "can't parse data: " << msg;
             }
         } break;
         default:
@@ -509,33 +306,25 @@ void NetWsServer::processReply(const ws::srv_reply::MessageText& m)
     }
 }
 
-void NetWsServer::processReply(const ws::srv_reply::MessageBinary& bin)
+void NetWsServer::processBinary(const std::uint8_t* data, size_t len, const ceammc_ws_peer_info* peer)
 {
-    outputInfo(bin.from, bin.id);
-    anyTo(0, sym_binary(), fromBinary(bin.data));
+    outputInfo(peer);
+    anyTo(0, sym_binary(), fromBinary(data, len));
 }
 
-void NetWsServer::processReply(const ws::srv_reply::MessagePing& m)
+void NetWsServer::processPing(const std::uint8_t* data, size_t len, const ceammc_ws_peer_info* peer)
 {
-    outputInfo(m.from, m.id);
-    anyTo(0, sym_ping(), fromBinary(m.data));
+    outputInfo(peer);
+    anyTo(0, sym_ping(), fromBinary(data, len));
 }
 
-void NetWsServer::processReply(const ws::srv_reply::ClientConnected& conn)
+void NetWsServer::processConnected(bool connected, const ceammc_ws_peer_info* peer)
 {
-    outputInfo(conn.from, conn.id);
-    anyTo(0, sym_connected(), AtomListView {});
-}
-
-void NetWsServer::processReply(const ws::srv_reply::ClientClosed& closed)
-{
-    outputInfo(closed.from, closed.id);
-    anyTo(0, sym_closed(), AtomListView {});
-}
-
-void NetWsServer::processReply(const ws::srv_reply::ConnectedClients& cli)
-{
-    anyTo(0, sym_id(), fromBinary(cli.ids));
+    outputInfo(peer);
+    if (connected)
+        anyTo(0, sym_connected(), AtomListView {});
+    else
+        anyTo(0, sym_closed(), AtomListView {});
 }
 
 static inline bool streq(const char* s1, const char* s2)
