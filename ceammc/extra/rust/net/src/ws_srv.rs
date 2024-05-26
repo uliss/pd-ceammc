@@ -339,6 +339,7 @@ pub extern "C" fn ceammc_ws_server_create(
             let rt = tokio::runtime::Builder::new_multi_thread()
                 .thread_keep_alive(Duration::from_millis(1000))
                 .worker_threads(2)
+                .enable_all()
                 .build();
 
             match rt {
