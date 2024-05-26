@@ -55,6 +55,8 @@ namespace net {
 
         ~NetService()
         {
+            std::cerr << __FUNCTION__ << "\n\n";
+
             if (handle_ && this->cb_free_)
                 this->cb_free_(handle_);
         }

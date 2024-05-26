@@ -1,5 +1,5 @@
 use futures_util::{SinkExt, StreamExt};
-use log::{debug, error, warn};
+use log::{debug, error, info, warn};
 use tokio::{net::TcpListener, sync::mpsc::UnboundedSender};
 use tungstenite::Message;
 
@@ -42,8 +42,6 @@ pub struct ws_server_result_cb {
     cb_ping: Option<
         extern "C" fn(user: *mut c_void, data: *const u8, data_len: usize, peer: &ws_peer_info),
     >,
-    /// close callback function (can be NULL)
-    cb_close: Option<extern "C" fn(user: *mut c_void)>,
     /// connected/disconnected callback function (can be NULL)
     cb_connected: Option<extern "C" fn(user: *mut c_void, state: bool, peer: &ws_peer_info)>,
 }
@@ -178,7 +176,6 @@ impl ws_server {
 
 impl Drop for ws_server {
     fn drop(&mut self) {
-        error!("drop");
         self.srv.blocking_send(WsServerRequest::Quit);
     }
 }
@@ -260,7 +257,7 @@ async fn accept_connection(
                 }
             };
 
-            debug!("New WebSocket connection: {}", addr);
+            info!("new connection: {}", addr);
             // Insert the write part of this peer to the peer map.
             let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
             let cli_id = Token::new().0;
@@ -311,12 +308,8 @@ async fn accept_connection(
             }
 
             peer_map.lock().unwrap().remove(&addr);
-            // reply_message(
-            //     WsServerReply::Disconnected(peer.clone()),
-            //     &cb_notify,
-            //     &rep_tx,
-            // )
-            // .await;
+
+            info!("disconnected: {addr}");
         }
         Err(err) => reply_error(&cb_notify, &rep_tx, err.to_string()).await,
     }
@@ -365,7 +358,7 @@ pub extern "C" fn ceammc_ws_server_create(
                         rt.block_on(async move {
                             match TcpListener::bind(&addr).await {
                                 Ok(sock) => {
-                                    debug!("Listening on: {}", addr);
+                                    info!("listening on: {}", addr);
 
                                     loop {
                                         tokio::select! {
@@ -388,6 +381,8 @@ pub extern "C" fn ceammc_ws_server_create(
                                             }
                                         }
                                     }
+                                    
+                                    info!("stop listening: {}", addr);
                                 }
                                 Err(err) => reply_error(&cb_notify, &rep_tx, err.to_string()).await,
                             }
@@ -425,7 +420,7 @@ pub extern "C" fn ceammc_ws_server_create(
 /// @param src - pointer to server
 #[no_mangle]
 pub extern "C" fn ceammc_ws_server_free(srv: *mut ws_server) {
-    if !srv.is_null() {
+    if !srv.is_null() { 
         let _ = unsafe { Box::from_raw(srv) };
     }
 }

@@ -286,8 +286,6 @@ struct ceammc_ws_server_result_cb {
     void (*cb_binary)(void *user, const uint8_t *data, size_t data_len, const ceammc_ws_peer_info *peer);
     /// ping callback function (can be NULL)
     void (*cb_ping)(void *user, const uint8_t *data, size_t data_len, const ceammc_ws_peer_info *peer);
-    /// close callback function (can be NULL)
-    void (*cb_close)(void *user);
     /// connected/disconnected callback function (can be NULL)
     void (*cb_connected)(void *user, bool state, const ceammc_ws_peer_info *peer);
 };

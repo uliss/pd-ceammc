@@ -35,9 +35,8 @@ CEAMMC_DEFINE_HASH(json)
 
 CEAMMC_DEFINE_SYM(binary)
 CEAMMC_DEFINE_SYM(closed)
+CEAMMC_DEFINE_SYM(clients)
 CEAMMC_DEFINE_SYM(connected)
-CEAMMC_DEFINE_SYM(id)
-CEAMMC_DEFINE_SYM(latency)
 CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
 CEAMMC_DEFINE_SYM(text)
@@ -206,8 +205,6 @@ void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
                     if (this_)
                         this_->processPing(data, len, peer);
                 },
-                // close?
-                {},
                 // connected
                 [](void* user, bool connected, const ceammc_ws_peer_info* peer) {
                     auto this_ = static_cast<NetWsServer*>(user);
@@ -220,14 +217,30 @@ void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
 
 void NetWsServer::m_stop(t_symbol* s, const AtomListView& lv)
 {
-    srv_.release();
+    srv_.reset(nullptr);
 }
 
 void NetWsServer::m_clients(t_symbol* s, const AtomListView& lv)
 {
-    if (srv_) {
-        //                ceammc_ws_server_connected_clients(srv_->handle(), data.data(), data.size(), target);
-    }
+    if (srv_)
+        ceammc_ws_server_connected_clients(srv_->handle(),
+            this,
+            [](void* user, const ceammc_ws_peer_info* msg, size_t len) {
+                auto this_ = static_cast<NetWsServer*>(user);
+                if (this_) {
+                    AtomList lst;
+                    lst.reserve(len);
+
+                    for (size_t i = 0; i < len; i++) {
+                        DictAtom a;
+                        a->insert("id", msg[i].id);
+                        a->insert("addr", gensym(msg[i].addr));
+                        lst.append(a);
+                    }
+
+                    this_->anyTo(0, sym_clients(), lst);
+                }
+            });
 }
 
 AtomList NetWsServer::fromBinary(const std::uint8_t* data, size_t len)
