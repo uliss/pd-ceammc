@@ -47,8 +47,8 @@ void MidiClock::onClock(const AtomListView& lv)
     if (lv.size() != 2)
         return;
 
-    const auto portno = lv[0].asT<int>();
-    const auto byte = lv[1].asT<int>();
+    const auto portno = lv[0].asT<t_int>();
+    const auto byte = lv[1].asT<t_int>();
 
     if (byte != 0xF8)
         return;

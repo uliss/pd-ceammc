@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 507 50 cnv 1 258 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 507 50 multiplication of complex signals;
+#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 506 50 multiplication of complex signals;
 #X obj 1 1 cnv 5 765 40 empty empty math.cmul~ 20 20 0 20 -104026
 -4096 0;
-#X obj 492 11 ceammc/cmul~;
+#X obj 491 11 ceammc/cmul~;
 #X obj 604 11 cmul~;
 #X obj 666 11 math.cmul~;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
@@ -22,32 +22,32 @@
 #X obj 309 245 ui.dsp~;
 #X obj 50 274 ui.n~;
 #X obj 165 274 ui.n~;
-#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 328 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 329 1\.;
-#X text 245 329 real part of input signal1\.;
-#X text 110 349 2\.;
-#X text 245 349 imag part of input signal1\.;
-#X text 110 369 3\.;
-#X text 245 369 real part of input signal2\.;
-#X text 110 389 4\.;
-#X text 245 389 imag part of input signal2\.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 330 1\.;
+#X text 245 330 real part of input signal1\.;
+#X text 110 350 2\.;
+#X text 245 350 imag part of input signal1\.;
+#X text 110 370 3\.;
+#X text 245 370 real part of input signal2\.;
+#X text 110 390 4\.;
+#X text 245 390 imag part of input signal2\.;
+#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 425 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 425 1\.;
-#X text 245 425 real part of result.;
-#X text 110 445 2\.;
-#X text 245 445 imag part of result.;
+#X text 110 426 1\.;
+#X text 245 426 real part of result.;
+#X text 110 446 2\.;
+#X text 245 446 imag part of result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 592 520 see also:;
+#X text 591 520 see also:;
 #X obj 666 520 math.cdiv~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

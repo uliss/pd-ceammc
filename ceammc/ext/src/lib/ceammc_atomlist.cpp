@@ -190,7 +190,7 @@ bool AtomList::boolAt(size_t pos, bool def) const noexcept
     return atoms_[pos].asBool(def);
 }
 
-int AtomList::intAt(size_t pos, int def) const noexcept
+t_int AtomList::intAt(size_t pos, t_int def) const noexcept
 {
     if (pos >= atoms_.size())
         return def;
@@ -272,90 +272,6 @@ AtomList& AtomList::resizeFold(size_t n)
     }
 
     return *this;
-}
-
-bool AtomList::property(t_symbol* name, Atom* dest) const noexcept
-{
-    if (!dest)
-        return false;
-
-    for (size_t i = 0; i < atoms_.size(); i++) {
-        if (!atoms_[i].isProperty())
-            continue;
-
-        // found
-        if (name == atoms_[i].asSymbol()) {
-            if (i < (atoms_.size() - 1)) {
-                // if next property
-                if (atoms_[i + 1].isProperty())
-                    return false;
-
-                *dest = atoms_[i + 1];
-                return true;
-            } else { // last element is list
-                return false;
-            }
-        }
-    }
-
-    return false;
-}
-
-bool AtomList::property(t_symbol* name, AtomList* dest) const
-{
-    if (!dest)
-        return false;
-
-    bool found = false;
-    AtomList res;
-
-    for (size_t i = 0; i < atoms_.size(); i++) {
-        if (atoms_[i].isProperty()) {
-            // if next property found
-            if (found)
-                break;
-
-            // prop found
-            if (name == atoms_[i].asSymbol())
-                found = true;
-        } else {
-            // value
-            if (found)
-                res.append(atoms_[i]);
-        }
-    }
-
-    if (found)
-        *dest = res;
-
-    return found;
-}
-
-std::deque<AtomList> AtomList::properties() const
-{
-    std::deque<AtomList> res;
-    for (size_t i = 0; i < atoms_.size(); i++) {
-        if (atoms_[i].isProperty()) {
-            res.push_back(AtomList());
-        }
-
-        if (res.empty())
-            continue;
-
-        res.back().append(atoms_[i]);
-    }
-
-    return res;
-}
-
-bool AtomList::hasProperty(t_symbol* name) const noexcept
-{
-    for (auto& a : atoms_) {
-        if (name == a.asSymbol())
-            return true;
-    }
-
-    return false;
 }
 
 static size_t normalizeIdx(int idx, size_t N, bool clip)
@@ -469,30 +385,39 @@ void AtomList::replaceAll(AtomPredicate pred, const Atom& new_value)
     std::replace_if(atoms_.begin(), atoms_.end(), pred, new_value);
 }
 
-Atom* AtomList::first()
+bool AtomList::isMsgAny() const noexcept
 {
-    if (empty())
-        return nullptr;
-
-    return &atoms_.front();
+    if (atoms_.size() > 0 && atoms_[0].isSymbol()) {
+        auto& f = atoms_[0];
+        return f != &s_bang && f != &s_float && f != &s_symbol && f != &s_pointer && f != &s_list;
+    } else
+        return false;
 }
 
-Atom* AtomList::last()
+t_float AtomList::asMsgFloat(t_float def) const noexcept
 {
-    if (empty())
-        return nullptr;
-
-    return &atoms_.back();
+    if (isMsgFloat())
+        return atoms_[1].asT<t_float>();
+    else
+        return def;
 }
 
-const Atom* AtomList::first() const
+t_symbol* AtomList::asMsgSymbol(t_symbol* def) const noexcept
 {
-    return const_cast<AtomList*>(this)->first();
+    if (isMsgSymbol())
+        return atoms_[1].asT<t_symbol*>();
+    else
+        return def;
 }
 
-const Atom* AtomList::last() const
+AtomListView AtomList::asLogicList() const noexcept
 {
-    return const_cast<AtomList*>(this)->last();
+    if (isMsgList())
+        return view(1);
+    else if (atoms_.size() > 1 && atoms_[0].isFloat())
+        return view();
+    else
+        return {};
 }
 
 bool AtomList::isMsgAny() const noexcept
@@ -540,41 +465,22 @@ void AtomList::fill(const Atom& a, size_t sz)
     atoms_ = Container(sz, a);
 }
 
-void AtomList::sort()
+AtomList& AtomList::sort()
 {
     std::sort(atoms_.begin(), atoms_.end());
+    return *this;
 }
 
-void AtomList::shuffle()
+AtomList& AtomList::shuffle()
 {
     std::random_shuffle(atoms_.begin(), atoms_.end());
+    return *this;
 }
 
-void AtomList::reverse()
+AtomList& AtomList::reverse()
 {
     std::reverse(atoms_.begin(), atoms_.end());
-}
-
-Atom* AtomList::min()
-{
-    auto it = std::min_element(atoms_.begin(), atoms_.end());
-    if (it == atoms_.end())
-        return nullptr;
-
-    return &(*it);
-}
-
-const Atom* AtomList::min() const
-{
-    return const_cast<AtomList*>(this)->min();
-}
-
-Atom* AtomList::max()
-{
-    if (empty())
-        return nullptr;
-
-    return &(*std::max_element(atoms_.begin(), atoms_.end()));
+    return *this;
 }
 
 bool AtomList::contains(const Atom& a) const noexcept
@@ -604,39 +510,6 @@ long AtomList::findPos(AtomPredicate pred) const noexcept
         return -1;
 
     return std::distance(atoms_.begin(), it);
-}
-
-size_t AtomList::count(const Atom& a) const noexcept
-{
-    return static_cast<size_t>(std::count(atoms_.begin(), atoms_.end(), a));
-}
-
-size_t AtomList::count(AtomPredicate pred) const noexcept
-{
-    return static_cast<size_t>(std::count_if(atoms_.begin(), atoms_.end(), pred));
-}
-
-bool AtomList::allOf(AtomPredicate pred) const noexcept
-{
-    if (empty())
-        return false;
-
-    return std::all_of(atoms_.begin(), atoms_.end(), pred);
-}
-
-bool AtomList::anyOf(AtomPredicate pred) const noexcept
-{
-    return std::any_of(atoms_.begin(), atoms_.end(), pred);
-}
-
-bool AtomList::noneOf(AtomPredicate pred) const noexcept
-{
-    return std::none_of(atoms_.begin(), atoms_.end(), pred);
-}
-
-const Atom* AtomList::max() const
-{
-    return const_cast<AtomList*>(this)->max();
 }
 
 bool AtomList::range(Atom& min, Atom& max) const noexcept

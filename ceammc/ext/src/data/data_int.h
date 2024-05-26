@@ -19,7 +19,7 @@
 
 using namespace ceammc;
 
-typedef int DataIntType;
+typedef t_int DataIntType;
 using DataIntBase = NumericIFace<BaseObject, DataIntType>;
 
 class DataInt : public DataIntBase {

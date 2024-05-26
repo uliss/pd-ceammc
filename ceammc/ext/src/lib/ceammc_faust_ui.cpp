@@ -215,7 +215,7 @@ void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, F
         if (pinfo_.type() == PropValueType::FLOAT)
             pinfo_.setDefault(init_);
         else if (pinfo_.type() == PropValueType::INTEGER)
-            pinfo_.setDefault(static_cast<int>(init_));
+            pinfo_.setDefault(static_cast<t_int>(init_));
         else if (pinfo_.type() == PropValueType::BOOLEAN)
             pinfo_.setDefault(static_cast<bool>(init_));
 

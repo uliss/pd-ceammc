@@ -17,7 +17,7 @@
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <cstdio>

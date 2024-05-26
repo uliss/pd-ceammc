@@ -9,6 +9,11 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_ui_symbols.h"
 
+#include "cicm/Sources/ebox.h"
+#include "cicm/Sources/eclass.h"
+#include "cicm/Sources/ecommon.h"
+#include "cicm/Sources/eobj.h"
+
 #include <stdexcept>
 #include <string>
 #include <type_traits>
@@ -747,6 +752,11 @@ public:
     {
         setPropertyMin(name, min);
         setPropertyMax(name, max);
+    }
+
+    void setPropertyArgIndex(const char* name, int index)
+    {
+        eclass_attr_set_arg_index(pd_ui_class, name, index);
     }
 
     void setPropertySave(const char* name, bool value = true)

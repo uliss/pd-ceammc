@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 500 50 cnv 1 265 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 500 50 hi-hat synth from faust librariest;
+#X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 499 50 hi-hat synth from faust librariest;
 #X obj 1 1 cnv 5 765 40 empty empty synth.hat~ 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 synth.hat~;
@@ -24,70 +24,72 @@
 #X obj 50 291 ui.hgain~;
 #X obj 203 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 409 @id;
-#X text 245 409 (initonly) Get/Set OSC address id. If specified \,
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 410 @id;
+#X text 245 410 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_hat/PROP_NAME osc address \, if empty
 bind to /synth_hat/PROP_NAME. Type: symbol.;
-#X msg 110 466 @osc;
-#X text 245 466 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 467 @osc;
+#X text 245 467 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 495 @active;
-#X text 245 495 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 497 @active;
+#X text 245 497 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 524 @attack;
-#X text 245 524 Get/Set attack time. Type: float. Units: 'ms'. Default
+#X msg 110 527 @attack;
+#X text 245 527 Get/Set attack time. Type: float. Units: 'ms'. Default
 value: 20\. Range: 5\...400\.;
-#X msg 110 566 @envwait;
-#X text 245 566 Get/Set ignore new notes until previous note is not
+#X msg 110 569 @envwait;
+#X text 245 569 Get/Set ignore new notes until previous note is not
 finished release time. Type: bool. Default value: 0\.;
-#X msg 110 608 @freq;
-#X text 245 608 Get/Set base frequency. Type: float. Units: 'Hz'. Default
+#X msg 110 611 @freq;
+#X text 245 611 Get/Set base frequency. Type: float. Units: 'Hz'. Default
 value: 317\. Range: 300\...4000\.;
-#X msg 110 650 @gate;
-#X text 245 650 Get/Set play trigger >0: on \, 0: off. To set output
+#X msg 110 653 @gate;
+#X text 245 653 Get/Set play trigger >0: on \, 0: off. To set output
 gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
 0\. Range: 0\...1\.;
-#X msg 110 707 @release;
-#X text 245 707 Get/Set release time. Type: float. Units: 'ms'. Default
+#X msg 110 710 @release;
+#X text 245 710 Get/Set release time. Type: float. Units: 'ms'. Default
 value: 100\. Range: 5\...4000\.;
-#X msg 110 749 @tone;
-#X text 245 749 Get/Set bandpass filter cutoff frequency. Type: float.
+#X msg 110 752 @tone;
+#X text 245 752 Get/Set bandpass filter cutoff frequency. Type: float.
 Units: 'Hz'. Default value: 6400\. Range: 800\...18000\.;
-#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 806 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 809 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 841 reset;
-#X text 245 841 reset synth.;
-#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 883 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 844 reset;
+#X text 245 844 reset synth.;
+#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 887 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 884 1\.;
-#X text 150 884 *bang*;
-#X text 245 884 play with default duration and full gain.;
-#X text 150 904 *float*;
-#X text 245 904 play with default duration and specified gain.;
-#X text 150 924 *list*;
-#X text 245 924 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 959 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 888 1\.;
+#X text 150 888 *bang*;
+#X text 245 888 play with default duration and full gain.;
+#X text 150 908 *float*;
+#X text 245 908 play with default duration and specified gain.;
+#X text 150 928 *list*;
+#X text 245 928 GAIN(0\..1) DUR(ms) pair expected.;
+#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 963 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 960 1\.;
-#X text 245 960 synth output.;
-#X text 110 980 2\.;
-#X text 245 980 bang after release finished.;
+#X text 110 964 1\.;
+#X text 245 964 synth output.;
+#X text 110 984 2\.;
+#X text 245 984 bang after release finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1030 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1033 library: ceammc v0.9.7;
-#X text 579 1045 see also:;
-#X obj 653 1045 synth.kick2~;
-#N canvas 10 1052 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1034 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1037 library: ceammc v0.9.7;
+#X text 577 1049 see also:;
+#X obj 652 1049 synth.kick2~;
+#N canvas 10 1056 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -111,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1052 pd info;
+#X restore 10 1056 pd info;
 #X connect 4 0 10 0;
 #X connect 5 0 10 1;
 #X connect 10 0 11 0;

@@ -81,7 +81,7 @@ void ListMap::onList(const AtomListView& lv)
         if (a.isSymbol())
             key = a.asT<t_symbol*>();
         else if (a.isInteger())
-            key = gensym(fmt::format("{}", a.asT<int>()).c_str());
+            key = gensym(fmt::format("{}", a.asT<t_int>()).c_str());
         else {
             OBJ_ERR << fmt::format("skipping key '{}', only symbol or integer keys are allowed", to_string(a));
             continue;
@@ -120,7 +120,7 @@ void ListMap::onDataT(const MListAtom& ma)
         if (a.isSymbol())
             key = a.asT<t_symbol*>();
         else if (a.isInteger())
-            key = gensym(fmt::format("{}", a.asT<int>()).c_str());
+            key = gensym(fmt::format("{}", a.asT<t_int>()).c_str());
         else {
             OBJ_ERR << fmt::format("skipping key '{}', only symbol or integer keys are allowed", to_string(a));
             continue;

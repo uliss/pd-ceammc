@@ -4,7 +4,7 @@
 #X text 560 50 inifinity signal generator;
 #X obj 1 1 cnv 5 765 40 empty empty math.inf~ 20 20 0 20 -104026 -4096
 0;
-#X obj 674 11 math.inf~;
+#X obj 673 11 math.inf~;
 #X obj 210 80 cnv 1 555 80 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 IEEE 754 floating point numbers can represent positive
 or negative infinity \, and NaN (not a number). These three values
@@ -15,26 +15,26 @@ accurately.;
 #X obj 136 217 *~ -1;
 #X obj 50 246 ui.n~;
 #X obj 136 246 ui.n~;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 301 1\.;
-#X text 245 301 control input.;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 336 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 302 1\.;
+#X text 245 302 control input.;
+#X obj 20 332 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 337 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 337 1\.;
-#X text 245 337 output value.;
+#X text 110 338 1\.;
+#X text 245 338 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 527 520 see also:;
-#X obj 601 520 math.inf;
-#X obj 674 520 math.nan~;
+#X text 524 520 see also:;
+#X obj 599 520 math.inf;
+#X obj 673 520 math.nan~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

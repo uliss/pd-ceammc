@@ -13,9 +13,7 @@
  *****************************************************************************/
 #include "string_str.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
-
-#include <cstdio>
+#include "fmt/core.h"
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
@@ -88,5 +86,5 @@ void setup_string_str()
 
     obj.setDescription("string constructor");
     obj.setCategory("string");
-    obj.setKeywords({"string", "data"});
+    obj.setKeywords({ "string", "data" });
 }

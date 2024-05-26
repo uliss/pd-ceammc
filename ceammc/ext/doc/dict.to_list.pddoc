@@ -20,6 +20,10 @@
                 <alias>dict-&gt;list</alias>
             </aliases>
         </meta>
+        <properties>
+            <property name="@props" type="flag" access="initonly">output as list of properties:
+            @key1 vals.. @key2 vals2...</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="data:dict">input</xinfo>
@@ -33,11 +37,17 @@
 <![CDATA[
 [\[a: b c: d e f\], bang(
 |
-[data.dict]
+[data.dict #a]
 |
-[dict->list]
-|
-[ui.d]
+[dict->list]       [dict->list @props #x]
+|                  |           |
+|                  [list trim] [ui.dt]
+|                  |
+|                  [@->        @a @c]
+|                    ^|       ^^|
+[ui.d]               [ui.dt]  [ui.dt]
+
+[X a->x]
 ]]>
             </pdascii>
         </example>

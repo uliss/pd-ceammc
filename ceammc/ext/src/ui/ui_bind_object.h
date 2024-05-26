@@ -14,6 +14,7 @@
 #ifndef UI_BIND_OBJECT_H
 #define UI_BIND_OBJECT_H
 
+#include "ceammc_log.h"
 #include "ceammc_proxy.h"
 #include "ceammc_ui_object.h"
 #include "lex/parser_ui_bind.h"
@@ -173,6 +174,8 @@ public:
     {
         if (isPatchEdited())
             return;
+
+        LIB_DBG << "bind" <<  lv;
 
         switch (opts_[IDX].type) {
         case UI_BIND_KEY_CODE: {

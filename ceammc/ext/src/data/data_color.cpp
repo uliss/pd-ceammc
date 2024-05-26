@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_color.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
@@ -286,7 +286,7 @@ void setup_data_color()
     obj.addMethod("mix", &DataColor::m_mix);
 
     obj.useClick();
-    DataColor::initMethods(obj);
+    DataColor::initTclMethods(obj);
 
     LIB_LOG << fmt::format("Color datatype id: {:d}", DataTypeColor::staticType());
 }

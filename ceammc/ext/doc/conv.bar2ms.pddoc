@@ -25,11 +25,11 @@
             <par>Example time signature values: |3/8|, |1/4+3/16|</par>
         </info>
         <arguments>
-            <argument name="BPM" type="symbol" units="bpm">init tempo BPM value</argument>
+            <argument name="BPM" type="atom" units="bpm">init tempo BPM value</argument>
             <argument name="TSIG" type="symbol">init time signature value</argument>
         </arguments>
         <properties>
-            <property name="@bpm" type="symbol" default="60|4bpm" units="bpm">tempo bpm
+            <property name="@bpm" type="atom" default="60|4bpm" units="bpm">tempo bpm
             value</property>
             <property name="@tsig" type="symbol" default="|4/4|">time signature value</property>
         </properties>

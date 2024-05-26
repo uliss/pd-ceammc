@@ -14,6 +14,7 @@
 #include "ui_meter.h"
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_meter.tcl.h"
 
 constexpr t_float MIN_DB_VALUE = -90;

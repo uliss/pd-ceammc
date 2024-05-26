@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 561 50 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 561 50 hyperbolic cosine function;
+#X obj 560 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 560 50 hyperbolic cosine function;
 #X obj 1 1 cnv 5 765 40 empty empty math.cosh 20 20 0 20 -104026 -4096
 0;
-#X obj 675 11 math.cosh;
+#X obj 674 11 math.cosh;
 #X obj 210 80 cnv 1 555 125 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 The coshf() function computes the hyperbolic cosine
 of input value.;
@@ -14,30 +14,30 @@ of input value.;
 #X floatatom 50 233 5 0 0 0 - - -;
 #X obj 50 262 math.cosh;
 #X floatatom 50 291 5 0 0 0 - - -;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 346 1\.;
-#X text 150 346 *float*;
-#X text 245 346 input value.;
-#X text 150 366 *list*;
-#X text 245 366 apply to all numeric values.;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 401 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 329 1\.;
+#X text 150 329 *float*;
+#X text 245 329 input value.;
+#X text 150 349 *list*;
+#X text 245 349 apply to all numeric values.;
+#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 402 1\.;
-#X text 245 402 result value.;
+#X text 110 385 1\.;
+#X text 245 385 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 441 520 see also:;
-#X obj 515 520 math.acos;
-#X obj 595 520 math.asin;
-#X obj 675 520 math.atan;
+#X text 437 520 see also:;
+#X obj 512 520 math.acos;
+#X obj 593 520 math.asin;
+#X obj 674 520 math.atan;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

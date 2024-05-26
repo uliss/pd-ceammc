@@ -4,7 +4,7 @@
 #X text 469 50 snap/skip midi pitches according modus;
 #X obj 1 1 cnv 5 765 40 empty empty midi.modus 20 20 0 20 -104026
 -4096 0;
-#X obj 668 11 midi.modus;
+#X obj 667 11 midi.modus;
 #X obj 50 118 ui.keyboard;
 #X obj 50 205 midi.modus @scale minor_pentatonic;
 #X obj 50 234 msg note 1;
@@ -12,34 +12,38 @@
 #X obj 50 291 ui.hgain2~;
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 409 1\.;
-#X text 150 409 atom;
-#X obj 246 410 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 ROOT: root key. Allowed values: A \, A# \, A## \, Ab
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 410 1\.;
+#X text 150 410 atom;
+#X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 ROOT: root key. Allowed values: A \, A# \, A## \, Ab
 \, Abb \, B \, B# \, B## \, Bb \, Bbb \, C \, C# \, C## \, Cb \, Cbb
 \, D \, D# \, D## \, Db \, Dbb \, E \, E# \, E## \, Eb \, Ebb \, F
-\, F# \, F## \, Fb \, Fbb \, G \, G# \, G## \, Gb \, Gbb. . Type: atom.;
-#X text 110 474 2\.;
-#X text 150 474 symbol;
-#X obj 246 475 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 474 SCALE: modus scale. Type: symbol.;
-#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 509 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+\, F# \, F## \, Fb \, Fbb \, G \, G# \, G## \, Gb \, Gbb. Type: atom.;
+#X text 110 475 2\.;
+#X text 150 475 symbol;
+#X obj 246 476 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 475 SCALE: modus scale. Type: symbol.;
+#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 510 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 544 @mode;
-#X text 245 544 Get/Set snap or skip incoming pitches. Type: symbol.
+#X obj 735 513 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 545 @mode;
+#X text 245 545 Get/Set snap or skip incoming pitches. Type: symbol.
 Default value: snap. Allowed values: snap \, skip.;
-#X msg 110 586 @root;
-#X text 245 586 Get/Set root key. Type: atom. Default value: C. Allowed
+#X msg 110 587 @root;
+#X text 245 587 Get/Set root key. Type: atom. Default value: C. Allowed
 values: Cbb \, Cb \, C \, C# \, C## \, Dbb \, Db \, D \, D# \, D##
 \, Ebb \, Eb \, E \, E# \, E## \, Fbb \, Fb \, F \, F# \, F## \, Gbb
 \, Gb \, G \, G# \, G## \, Abb \, Ab \, A \, A# \, A## \, Bbb \, Bb
 \, B \, B# \, B##.;
-#X msg 110 658 @scale;
-#X text 245 658 Get/Set modus scale. Type: symbol. Default value: chromatic.
+#X msg 110 659 @scale;
+#X text 245 659 Get/Set modus scale. Type: symbol. Default value: chromatic.
 Allowed values: ahirbhairav \, indian \, kurd \, diminished2 \, partch_u6
 \, gong \, partch_o4 \, rast_desc \, nairuz \, hirajoshi \, hex_major6
 \, farahfaza \, minor \, pelog \, partch_o3 \, partch_u1 \, partch_u3
@@ -60,29 +64,29 @@ suznak \, hijaz_kar \, saba \, kijaz_kar_kurd \, husseini \, huzam
 \, chromatic \, aeolian \, enigmatic \, hindu \, phrygian \, zanjaran
 \, karjighar \, spanish \, purvi \, minor_neapolitan \, bhairav \,
 hijaz_desc \, todi \, hex_major7\.;
-#X obj 20 1011 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1016 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1018 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1017 1\.;
-#X text 150 1017 *float*;
-#X text 245 1017 note value.;
-#X text 150 1037 *list*;
-#X text 245 1037 NOTE VELOCITY [DUR] list.;
-#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1072 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1019 1\.;
+#X text 150 1019 *float*;
+#X text 245 1019 note value.;
+#X text 150 1039 *list*;
+#X text 245 1039 NOTE VELOCITY [DUR] list.;
+#X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1074 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1073 1\.;
-#X text 245 1073 accepted note or NOTE VELOCITY [DUR] list.;
-#X text 110 1093 2\.;
-#X text 245 1093 discarded message.;
+#X text 110 1075 1\.;
+#X text 245 1075 accepted note or NOTE VELOCITY [DUR] list.;
+#X text 110 1095 2\.;
+#X text 245 1095 discarded message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1143 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1146 library: ceammc v0.9.7;
-#N canvas 10 1165 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 1 1145 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1148 library: ceammc v0.9.7;
+#N canvas 10 1167 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -106,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1165 pd info;
+#X restore 10 1167 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

@@ -42,6 +42,7 @@
 
 void setup_flow_append();
 void setup_flow_delay();
+void setup_flow_histogram();
 void setup_flow_match();
 void setup_flow_pipe();
 void setup_flow_prepend();
@@ -50,16 +51,17 @@ void setup_flow_space();
 void setup_seq_arp();
 void setup_seq_bangs();
 void setup_seq_counter();
+void setup_seq_life();
 void setup_seq_matrix();
 void setup_seq_nbangs();
 void setup_seq_phasor();
 void setup_seq_sequencer();
 void setup_seq_toggles();
-void setup_seq_life();
 
 void setup_route_any();
 void setup_route_bang();
 void setup_route_cycle();
+void setup_route_data();
 void setup_route_float();
 void setup_route_list();
 void setup_route_prop();
@@ -81,11 +83,11 @@ void ceammc_flow_setup()
     setup_flow_greater();
     setup_flow_greater_eq();
     setup_flow_group();
+    setup_flow_histogram();
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();
     setup_flow_list2many();
-    setup_flow_ring();
     setup_flow_loop();
     setup_flow_match();
     setup_flow_mem();
@@ -103,6 +105,7 @@ void ceammc_flow_setup()
     setup_flow_record();
     setup_flow_reject();
     setup_flow_reject_if();
+    setup_flow_ring();
     setup_flow_route();
     setup_flow_select();
     setup_flow_seqdelay();
@@ -117,16 +120,17 @@ void ceammc_flow_setup()
     setup_seq_arp();
     setup_seq_bangs();
     setup_seq_counter();
+    setup_seq_life();
     setup_seq_matrix();
     setup_seq_nbangs();
     setup_seq_phasor();
     setup_seq_sequencer();
     setup_seq_toggles();
-    setup_seq_life();
 
     setup_route_any();
     setup_route_bang();
     setup_route_cycle();
+    setup_route_data();
     setup_route_float();
     setup_route_list();
     setup_route_prop();

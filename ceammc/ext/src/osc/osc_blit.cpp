@@ -25,7 +25,8 @@ OscBlit::OscBlit(const PdArgs& args)
     , osc_(new stk::Blit(parsedPosArgs().floatAt(0, DEFAULT_FREQ)))
     , nharm_(nullptr)
 {
-    nharm_ = new SizeTProperty("@harmonics", DEFAULT_NHARM);
+    nharm_ = new IntProperty("@harmonics", DEFAULT_NHARM);
+    nharm_->checkMinEq(0);
     nharm_->setArgIndex(1);
     addProperty(nharm_);
 

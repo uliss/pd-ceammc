@@ -4,33 +4,46 @@
 #X text 507 50 converts dictionary to plain list;
 #X obj 1 1 cnv 5 765 40 empty empty dict.to_list 20 20 0 20 -104026
 -4096 0;
-#X obj 409 11 ceammc/dict->list;
-#X obj 556 11 dict->list;
+#X obj 407 11 ceammc/dict->list;
+#X obj 555 11 dict->list;
 #X obj 653 11 dict.to_list;
 #X msg 50 118 [a: b c: d e f] \, bang;
 #X obj 50 147 data.dict;
 #X obj 50 176 dict->list;
-#X obj 50 205 ui.d;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 260 1\.;
-#X text 150 260 *data:dict*;
-#X text 245 260 input.;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 232 176 dict->list @props;
+#X obj 232 205 list trim;
+#X obj 347 205 ui.dt;
+#X obj 232 234 @-> @a @c;
+#X obj 50 262 ui.d;
+#X obj 251 262 ui.dt;
+#X obj 338 262 ui.dt;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X text 110 296 1\.;
-#X text 245 296 list output.;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 352 @props;
+#X text 245 352 output as list of properties: @key1 vals.. @key2 vals2\...;
+#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+0;
+#X text 110 398 1\.;
+#X text 150 398 *data:dict*;
+#X text 245 398 input.;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 433 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 434 1\.;
+#X text 245 434 list output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 601 520 see also:;
-#X obj 675 520 data.dict;
+#X text 599 520 see also:;
+#X obj 674 520 data.dict;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -58,4 +71,10 @@ https://github.com/uliss/pd-ceammc;
 #X restore 10 527 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 8 0 13 0;
+#X connect 12 1 14 0;
+#X connect 12 2 15 0;
+#X connect 7 0 9 0;

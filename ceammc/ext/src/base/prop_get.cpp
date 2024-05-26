@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_output.h"
 #include "datatype_property.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -129,7 +129,7 @@ void PropGet::processAbstractionProps(t_glist* dest, const std::vector<t_symbol*
                 pp->getBool(b);
                 boolTo(IDX, b);
             } else if (pp->isInt()) {
-                int ii = 0;
+                t_int ii = 0;
                 pp->getInt(ii);
                 floatTo(IDX, ii);
             } else if (pp->isFloat()) {

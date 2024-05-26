@@ -36,7 +36,7 @@ public:
         addProperty(wave_);
 
         index_->setSuccessFn([this](Property*) {
-            int idx = 0;
+            t_int idx = 0;
             if (index_->getInt(idx)) {
                 auto& vals = wave_->infoT().enumValues();
                 if (idx >= 0 && idx < vals.size())

@@ -4,7 +4,7 @@
 #X text 621 50 property extractor;
 #X obj 1 1 cnv 5 765 40 empty empty obj.props 20 20 0 20 -104026 -4096
 0;
-#X obj 675 11 obj.props;
+#X obj 674 11 obj.props;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 extract properties from object \, connected to second
 outlet;
@@ -15,13 +15,13 @@ outlet;
 #X obj 338 201 flt.moog_vcf~;
 #X text 50 273 ...;
 #X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 325 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 325 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 326 1\.;
 #X text 150 326 *bang*;
 #X text 245 326 output extracted properties to first outlet.;
 #X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 361 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 361 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 362 1\.;
 #X text 245 362 property output (data:dict).;
@@ -29,9 +29,9 @@ outlet;
 #X text 245 382 connect to examined object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

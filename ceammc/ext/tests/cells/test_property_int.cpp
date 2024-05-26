@@ -48,7 +48,7 @@ TEST_CASE("IntProperty", "[core]")
         REQUIRE(p.set(LF(2)));
         REQUIRE(p.value() == 2);
 
-        p.setValue(3);
+        p.setValue(t_int(3));
         REQUIRE(p.value() == 3);
 
         REQUIRE(p.set(LF(20.1)));
@@ -62,7 +62,7 @@ TEST_CASE("IntProperty", "[core]")
 
         REQUIRE(p.setInt(100));
         REQUIRE(p.value() == 100);
-        REQUIRE(p.setT(50));
+        REQUIRE(p.setT(t_int(50)));
         REQUIRE(p.value() == 50);
     }
 
@@ -93,7 +93,7 @@ TEST_CASE("IntProperty", "[core]")
     {
         bool b;
         t_float f;
-        int i;
+        t_int i;
         t_symbol* s;
         Atom a;
         AtomList l;
@@ -126,7 +126,7 @@ TEST_CASE("IntProperty", "[core]")
         REQUIRE_FALSE(p.setT(A(123)));
 
         REQUIRE(p.value() == 120);
-        REQUIRE(p.setT(100));
+        REQUIRE(p.setT(t_int(100)));
         REQUIRE(p.value() == 100);
 
         REQUIRE_FALSE(p.setBool(true));
@@ -225,7 +225,7 @@ TEST_CASE("IntProperty", "[core]")
 
     SECTION("%")
     {
-        p.setValue(15);
+        p.setValue(t_int(15));
         REQUIRE(p.setList(AtomList::parseString("% 10")));
         REQUIRE(p.value() == 5);
 

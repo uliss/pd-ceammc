@@ -14,10 +14,20 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>With spaces, text-align, font customization and word wrap</par>
+            <par>Label object with spaces, text-align, font customization and word-wrap</par>
         </info>
+        <mouse>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true">opens Pd popup menu</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+        </mouse>
+        <arguments>
+            <argument name="TEXT" type="list">label text</argument>
+        </arguments>
         <properties>
-            <property name="@text" type="symbol" default="Label">label text</property>
+            <property name="@text" type="list" default="Label">label text</property>
             <property name="@align" type="symbol" default="left" enum="left center right">text
             align</property>
             <property name="@margin_top" type="int" default="5">text top margin</property>
@@ -44,39 +54,36 @@
             slant</property>
         </properties>
         <methods>
-            <!-- any -->
-            <method name="any">set label text to given message separated by spaces, but do not
-            change @text property</method>
             <!-- append -->
             <method name="append">appends to @text end</method>
             <!-- clear -->
             <method name="clear">clear label text and clear @text property</method>
-            <!-- float -->
-            <method name="float">set label text to given float, but do not change @text
-            property</method>
-            <!-- list -->
-            <method name="list">set label text to given list separated by spaces, but do not change
-            @text property</method>
             <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
             <!-- prepend -->
             <method name="prepend">insert into beginning of @text</method>
-            <!-- set -->
-            <method name="set">set label text and update @text property, so it would be saved in
-            patch</method>
-            <!-- symbol -->
-            <method name="symbol">set label text to given symbol, but do not change @text
-            property</method>
         </methods>
-        <inlets />
-        <outlets />
+        <inlets>
+            <inlet>
+                <xinfo on="float">[hidden inlet] set the label text to the given float without
+                changing @text property</xinfo>
+                <xinfo on="symbol">[hidden inlet] set the label text without changing @text
+                property</xinfo>
+                <xinfo on="list">[hidden inlet] set the label text to the given list separated by
+                spaces without changing @text property</xinfo>
+                <xinfo on="any">[hidden inlet] set the label text to the given message separated by
+                spaces without changing @text property</xinfo>
+            </inlet>
+        </inlets>
         <example>
             <pdascii>
 <![CDATA[
 /*[ui.label test label]*/
 
+[hidden inlet(
+|
 [ui.label test label @receive lbl1]
 
 

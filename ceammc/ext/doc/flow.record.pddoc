@@ -70,9 +70,9 @@
 *|*
 [dac~]
 
-[flow.record.speed]    [flow.record.qlist]
+[flow.record-speed]    [flow.record-qlist]
 
-[flow.record.sync]
+[flow.record-sync]
 ]]>
             </pdascii>
             <pdascii id="speed">

@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "function.h"
 #include "ceammc_factory.h"
-#include "ceammc_output.h"
+#include "fmt/core.h"
 
 #include <map>
 #include <stdexcept>
@@ -59,29 +59,45 @@ public:
 
 Function::Function(const PdArgs& a)
     : BaseObject(a)
-    , name_(parsedPosArgs().symbolAt(0, nullptr))
     , inlet_(this)
 {
-    if (!name_)
-        throw std::runtime_error("function name required!");
+    name_ = new SymbolProperty("@name", &s_);
+    name_->setArgIndex(0);
+    name_->setSymbolCheckFn([this](t_symbol* s) -> bool {
+        const bool not_ok = (s == &s_) || FunctionMap::instance().exists(s);
+        if (not_ok)
+            OBJ_ERR << fmt::format("function should be unique and non-empty: '{}'", s->s_name);
 
-    if (FunctionMap::instance().exists(name_))
-        throw std::runtime_error("function already exists");
-
-    FunctionMap::instance().add(name_, this);
+        return !not_ok;
+    });
+    name_->setSuccessFn([this](Property*) {
+        if (!empty()) {
+            FunctionMap::instance().add(name_->value(), this);
+            OBJ_DBG << "function '" << name_->value()->s_name << "' created";
+        }
+    });
+    name_->setInitOnly();
+    addProperty(name_);
 
     inlet_new(owner(), &inlet_.x_obj, nullptr, nullptr);
 
     createOutlet();
     createOutlet();
-
-    OBJ_DBG << "function '" << name_->s_name << "' created.";
 }
 
 Function::~Function()
 {
-    FunctionMap::instance().remove(name_);
-    OBJ_DBG << "function '" << name_->s_name << "' removed.";
+    if (!empty()) {
+        FunctionMap::instance().remove(name_->value());
+        OBJ_DBG << "function '" << name_->value()->s_name << "' removed";
+    }
+}
+
+void Function::initDone()
+{
+    BaseObject::initDone();
+    if (empty())
+        OBJ_DBG << "function name is empty";
 }
 
 void Function::onBang()

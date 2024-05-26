@@ -1,6 +1,8 @@
 #include "ui_env.h"
+#include "ceammc_crc32.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "lex/parser_units.h"
 
 #include <boost/range.hpp>
@@ -14,17 +16,17 @@ static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
 constexpr const char* PROP_NORM = "norm";
 
-static t_symbol* SYM_LENGTH;
-static t_symbol* SYM_MODE_ON_DRAG;
-static t_symbol* SYM_MODE_ON_MOUSE_UP;
-static t_symbol* SYM_NORM;
-
 using namespace ui;
 
 static float lin2lin(float v, float x0, float x1, float y0, float y1)
 {
     return convert::lin2lin(clip(v, x0, x1), x0, x1, y0, y1);
 }
+
+CEAMMC_DEFINE_SYM(length)
+// keep in sync with @output_mode property!
+CEAMMC_DEFINE_SYM(mouse_up)
+CEAMMC_DEFINE_SYM(drag)
 
 UIEnv::UIEnv()
     : draw_cursor_pos_(false)
@@ -40,7 +42,7 @@ UIEnv::UIEnv()
     , txt_value0(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_value1(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
     , txt_value2(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
-    , output_mode_(SYM_MODE_ON_MOUSE_UP)
+    , output_mode_(sym_mouse_up())
 {
     cursor_pos_.x = 0;
     cursor_pos_.y = 0;
@@ -478,7 +480,7 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
 
     redraw();
 
-    if (output_mode_ == SYM_MODE_ON_DRAG)
+    if (output_mode_ == sym_drag())
         outputEnvelope();
 }
 
@@ -593,7 +595,7 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
 
 void UIEnv::onMouseUp(t_object* view, const t_pt& pt, long mod)
 {
-    if (output_mode_ == SYM_MODE_ON_MOUSE_UP && !isCmdPressed(mod))
+    if (output_mode_ == sym_mouse_up() && !isCmdPressed(mod))
         outputEnvelope();
 
     const auto idx = findSelectedNodeIdx();
@@ -811,7 +813,7 @@ void UIEnv::storePreset(size_t idx)
 
 void UIEnv::onPropChange(t_symbol* prop_name)
 {
-    if (prop_name == SYM_LENGTH) {
+    if (prop_name == sym_length()) {
         if (env_.totalLength() != prop_length * 1000) {
             env_.resizeTime(prop_length * 1000);
             updateNodes();
@@ -872,11 +874,6 @@ void UIEnv::setup()
 
 void setup_ui_env()
 {
-    SYM_LENGTH = gensym("length");
-    // keep in sync with @output_mode property!
-    SYM_MODE_ON_MOUSE_UP = gensym("mouse_up");
-    SYM_MODE_ON_DRAG = gensym("drag");
-
     UIEnv::setup();
 }
 

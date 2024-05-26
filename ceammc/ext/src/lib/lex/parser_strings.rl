@@ -409,5 +409,38 @@ bool maybe_ceammc_quoted_string(const AtomListView& lv)
     return false;
 }
 
+%%{
+    machine mdns_hostname;
+
+    service = '_' [a-zA-Z0-9_\-]+;
+    service_list = service ('.' service)*;
+    host = ((any - '.')+) ${ host += fc; };
+    local = '.local' '.'?;
+
+    main := host '.' service_list* local?
+            0 @{ fbreak; };
+    write data;
+}%%
+
+std::string mdns_instance_name_from_service(const char* str) noexcept
+{
+    if (str == nullptr)
+        return {};
+    else if(str[0] == '\0')
+        return {};
+
+    int cs = 0;
+    const char* p = str;
+    std::string host;
+
+    %% write init;
+    %% write exec noend;
+
+    if (cs >= %%{ write first_final; }%%)
+        return host;
+    else
+        return {};
+}
+
 }
 }

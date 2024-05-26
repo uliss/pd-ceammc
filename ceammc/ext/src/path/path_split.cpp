@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "path_split.h"
 #include "ceammc_factory.h"
+#include "datatype_path.h"
 #include "datatype_string.h"
 
 #include "filesystem.hpp"
@@ -41,10 +42,16 @@ void PathSplit::onDataT(const StringAtom& s)
     atomTo(0, StringAtom(p.parent_path().generic_string()));
 }
 
+void PathSplit::onDataT(const PathAtom& p)
+{
+    atomTo(1, PathAtom(p->filename()));
+    atomTo(0, PathAtom(p->parent_path()));
+}
+
 void setup_path_split()
 {
     ObjectFactory<PathSplit> obj("path.split");
-    obj.processData<DataTypeString>();
+    obj.processData<DataTypeString, path::DataTypePath>();
 
     obj.setXletsInfo({ "symbol: path\n"
                        "data:string: path" },

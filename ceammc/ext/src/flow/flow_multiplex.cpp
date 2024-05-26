@@ -1,7 +1,5 @@
 #include "flow_multiplex.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_output.h"
 
 #include <array>
 
@@ -112,8 +110,6 @@ void FlowMultiplex::proxy_any(int idx, t_symbol* s, const AtomListView& lv)
         if (idx == index_->value())
             return anyTo(0, s, lv);
     }
-
-    OBJ_ERR << "invalid inlet";
 }
 
 void FlowMultiplex::proxy_float(t_float f)

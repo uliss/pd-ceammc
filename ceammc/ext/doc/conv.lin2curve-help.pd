@@ -4,9 +4,9 @@
 #X text 401 50 map linear to exponential range with 0 allowed.;
 #X obj 1 1 cnv 5 765 40 empty empty conv.lin2curve 20 20 0 20 -104026
 -4096 0;
-#X obj 394 11 ceammc/lin->curve;
-#X obj 542 11 lin->curve;
-#X obj 639 11 conv.lin2curve;
+#X obj 391 11 ceammc/lin->curve;
+#X obj 540 11 lin->curve;
+#X obj 638 11 conv.lin2curve;
 #X obj 210 80 cnv 1 555 95 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 map the receiver from an assumed linear input range
 to an exponential curve output range. Unlike with [conv.lin2exp] \,
@@ -15,15 +15,7 @@ the output range may include zero. If the input exceeds the input range
 #X obj 50 203 loadbang;
 #X floatatom 194 203 5 0 0 0 - - -;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array l2c 255 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0;
+#X array l2c 255 float 0;
 #X coords 0 1 255 0 250 180 1;
 #X restore 357 203 graph;
 #X msg 50 232 0 256;
@@ -34,82 +26,86 @@ the output range may include zero. If the input exceeds the input range
 #X obj 50 319 t f f, f 12;
 #X obj 50 347 lin->curve 0 256 0 1;
 #X obj 50 376 tabwrite l2c;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 465 1\.;
-#X text 150 465 float;
-#X obj 246 466 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 465 IN_FROM: begin of input range. Type: float.;
-#X text 110 485 2\.;
-#X text 150 485 float;
-#X obj 246 486 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 485 IN_TO: end of input range. Type: float.;
-#X text 110 505 3\.;
-#X text 150 505 float;
-#X obj 246 506 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 505 OUT_FROM: begin of output range. Type: float.;
-#X text 110 525 4\.;
-#X text 150 525 float;
-#X obj 246 526 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 525 OUT_TO: end of output range. Type: float.;
-#X text 110 545 5\.;
-#X text 150 545 float;
-#X obj 246 546 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 545 CURVE: curve shape. Type: float.;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 434 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 466 1\.;
+#X text 150 466 float;
+#X obj 246 467 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 466 IN_FROM: begin of input range. Type: float.;
+#X text 110 486 2\.;
+#X text 150 486 float;
+#X obj 246 487 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 486 IN_TO: end of input range. Type: float.;
+#X text 110 506 3\.;
+#X text 150 506 float;
+#X obj 246 507 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 506 OUT_FROM: begin of output range. Type: float.;
+#X text 110 526 4\.;
+#X text 150 526 float;
+#X obj 246 527 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 526 OUT_TO: end of output range. Type: float.;
+#X text 110 546 5\.;
+#X text 150 546 float;
+#X obj 246 547 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 546 CURVE: curve shape. Type: float.;
+#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 615 @clip;
-#X text 245 615 Get/Set noclip (don't clip) max (clip ceiling) min
+#X obj 735 584 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 616 @clip;
+#X text 245 616 Get/Set noclip (don't clip) max (clip ceiling) min
 (clip floor) minmax (clip both). Type: symbol. Default value: minmax.
 Allowed values: noclip \, min \, max \, minmax.;
-#X msg 110 672 @curve;
-#X text 245 672 Get/Set 0 (linear) <0 (concave \, negatively curved)
+#X msg 110 673 @curve;
+#X text 245 673 Get/Set 0 (linear) <0 (concave \, negatively curved)
 >0 (convex \, positively curved). Type: float. Default value: -4\.;
-#X msg 110 714 @in_from;
-#X text 245 714 Get/Set begin of input range. Type: float. Default
+#X msg 110 715 @in_from;
+#X text 245 715 Get/Set begin of input range. Type: float. Default
 value: 0\.;
-#X msg 110 743 @in_to;
-#X text 245 743 Get/Set end of input range. Type: float. Default value:
+#X msg 110 745 @in_to;
+#X text 245 745 Get/Set end of input range. Type: float. Default value:
 127\.;
-#X msg 110 772 @max;
-#X text 245 772 Get/Set alias to @clip max. Type: symbol.;
-#X msg 110 801 @min;
-#X text 245 801 Get/Set alias to @clip min. Type: symbol.;
-#X msg 110 830 @minmax;
-#X text 245 830 Get/Set alias to @clip minmax. Type: symbol.;
-#X msg 110 859 @noclip;
-#X text 245 859 Get/Set alias to @clip noclip. Type: symbol.;
-#X msg 110 888 @out_from;
-#X text 245 888 Get/Set begin of output range. Type: float. Default
+#X msg 110 775 @max;
+#X text 245 775 Alias to @clip max.;
+#X msg 110 805 @min;
+#X text 245 805 Alias to @clip min.;
+#X msg 110 835 @minmax;
+#X text 245 835 Alias to @clip minmax.;
+#X msg 110 865 @noclip;
+#X text 245 865 Alias to @clip noclip.;
+#X msg 110 895 @out_from;
+#X text 245 895 Get/Set begin of output range. Type: float. Default
 value: 0\.;
-#X msg 110 930 @out_to;
-#X text 245 930 Get/Set end of output range. Type: float. Default value:
+#X msg 110 937 @out_to;
+#X text 245 937 Get/Set end of output range. Type: float. Default value:
 1\.;
-#X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 974 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 982 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 975 1\.;
-#X text 150 975 *float*;
-#X text 245 975 input value.;
-#X text 150 995 *list*;
-#X text 245 995 input list.;
-#X obj 20 1025 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1030 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 983 1\.;
+#X text 150 983 *float*;
+#X text 245 983 input value.;
+#X text 150 1003 *list*;
+#X text 245 1003 input list.;
+#X obj 20 1033 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1038 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1031 1\.;
-#X text 245 1031 converted value.;
+#X text 110 1039 1\.;
+#X text 245 1039 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1081 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1084 library: ceammc v0.9.7;
-#X text 579 1096 see also:;
-#X obj 653 1096 conv.lin2exp;
-#N canvas 10 1103 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 1 1089 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1092 library: ceammc v0.9.7;
+#X text 578 1104 see also:;
+#X obj 653 1104 conv.lin2exp;
+#N canvas 10 1111 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -133,7 +129,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1103 pd info;
+#X restore 10 1111 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;

@@ -13,14 +13,19 @@
  *****************************************************************************/
 #include "ui_midi.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
+#include "fmt/core.h"
 
-static t_symbol* SYM_NOTEIN;
-static t_symbol* SYM_CTLIN;
-static t_symbol* SYM_PGMIN;
-static t_symbol* SYM_SYSEX;
-static t_symbol* SYM_BENDIN;
-static t_symbol* SYM_TOUCHIN;
-static t_symbol* SYM_POLYTOUCH;
+#define DECLARE_SYM_MIDI(name) \
+    inline t_symbol* sym_##name() { return gensym("#" #name); }
+
+DECLARE_SYM_MIDI(notein)
+DECLARE_SYM_MIDI(ctlin)
+DECLARE_SYM_MIDI(pgmin)
+DECLARE_SYM_MIDI(sysexin)
+DECLARE_SYM_MIDI(bendin)
+DECLARE_SYM_MIDI(touchin)
+DECLARE_SYM_MIDI(polytouchin)
 
 UIMidi::UIMidi()
     : note_(this, &UIMidi::onNote)
@@ -47,13 +52,13 @@ void UIMidi::init(t_symbol* name, const AtomListView& args, bool usePresets)
     sysex_buffer_.reserve(256);
 
     // note: here, not in constructor!
-    ctlin_.bind(SYM_CTLIN);
-    note_.bind(SYM_NOTEIN);
-    touch_.bind(SYM_TOUCHIN);
-    polyt_.bind(SYM_POLYTOUCH);
-    bend_.bind(SYM_BENDIN);
-    sysex_.bind(SYM_SYSEX);
-    pgm_.bind(SYM_PGMIN);
+    ctlin_.bind(sym_ctlin());
+    note_.bind(sym_notein());
+    touch_.bind(sym_touchin());
+    polyt_.bind(sym_polytouchin());
+    bend_.bind(sym_bendin());
+    sysex_.bind(sym_sysexin());
+    pgm_.bind(sym_pgmin());
 }
 
 void UIMidi::okSize(t_rect* newrect)
@@ -98,22 +103,27 @@ void UIMidi::paint()
     p.drawText(txt_body_);
 }
 
+void UIMidi::printType(int type)
+{
+    *fmt::format_to(msg_type_, "MIDI[{:02d}]", type) = '\0';
+}
+
 void UIMidi::onNote(const AtomListView& lv)
 {
     if (!prop_show_note || lv.size() != 3)
         return;
 
-    snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
+    printType(lv[2].asT<t_int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Note: %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
+        *fmt::format_to(msg_body_, "Note {:02X} {:02X}", lv[0].asT<t_int>(), lv[1].asT<t_int>()) = '\0';
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Note: %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
+        *fmt::format_to(msg_body_, "Note {:3d} {:3d}", lv[0].asT<t_int>(), lv[1].asT<t_int>()) = '\0';
 
     bg_layer_.invalidate();
     redraw();
 
-    anyTo(0, SYM_NOTEIN, lv);
+    anyTo(0, sym_notein(), lv);
 }
 
 void UIMidi::onCtlin(const AtomListView& lv)
@@ -121,17 +131,17 @@ void UIMidi::onCtlin(const AtomListView& lv)
     if (!prop_show_cc || lv.size() != 3)
         return;
 
-    snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
+    printType(lv[2].asT<t_int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Ctl: %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
+        *fmt::format_to(msg_body_, "Ctl {:02X} {:02X}", lv[0].asT<t_int>(), lv[1].asT<t_int>()) = '\0';
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Ctl: %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
+        *fmt::format_to(msg_body_, "Ctl {:3d} {:3d}", lv[0].asT<t_int>(), lv[1].asT<t_int>()) = '\0';
 
     bg_layer_.invalidate();
     redraw();
 
-    anyTo(0, SYM_CTLIN, lv);
+    anyTo(0, sym_ctlin(), lv);
 }
 
 void UIMidi::onPgmin(const AtomListView& lv)
@@ -139,17 +149,17 @@ void UIMidi::onPgmin(const AtomListView& lv)
     if (!prop_show_pgm || lv.size() != 2)
         return;
 
-    snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
+    printType(lv[1].asT<t_int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Program: %02X", lv[0].asT<int>());
+        *fmt::format_to(msg_body_, "Program: {:02X}", lv[0].asT<t_int>()) = '\0';
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Program: %3d", lv[0].asT<int>());
+        *fmt::format_to(msg_body_, "Program: {:3d}", lv[0].asT<t_int>()) = '\0';
 
     bg_layer_.invalidate();
     redraw();
 
-    anyTo(0, SYM_PGMIN, lv);
+    anyTo(0, sym_pgmin(), lv);
 }
 
 void UIMidi::onSysex(const AtomListView& lv)
@@ -160,8 +170,8 @@ void UIMidi::onSysex(const AtomListView& lv)
     constexpr int SYSEX_BEGIN = 0xF0;
     constexpr int SYSEX_END = 0xF7;
 
-    const auto byte = lv[0].asT<int>();
-    const auto ch = lv[1].asT<int>();
+    const auto byte = lv[0].asT<t_int>();
+    const auto ch = lv[1].asT<t_int>();
 
     if (byte == SYSEX_BEGIN)
         sysex_buffer_.clear();
@@ -171,7 +181,7 @@ void UIMidi::onSysex(const AtomListView& lv)
     if (byte == SYSEX_END) {
         Atom out_msg[sysex_buffer_.size()];
 
-        snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", ch);
+        printType(ch);
 
         const int LEN = sizeof(msg_body_) - 1;
         auto pos = snprintf(msg_body_, LEN, "SysEx:");
@@ -191,7 +201,7 @@ void UIMidi::onSysex(const AtomListView& lv)
         bg_layer_.invalidate();
         redraw();
 
-        anyTo(0, SYM_SYSEX, AtomListView(out_msg, sysex_buffer_.size()));
+        anyTo(0, sym_sysexin(), AtomListView(out_msg, sysex_buffer_.size()));
         sysex_buffer_.clear();
     }
 }
@@ -201,17 +211,17 @@ void UIMidi::onBendin(const AtomListView& lv)
     if (!prop_show_bend || lv.size() != 2)
         return;
 
-    snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
+    printType(lv[1].asT<t_int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Pitch Wheel: %04X", lv[0].asT<int>());
+        *fmt::format_to(msg_body_, "Pitch Wheel: {:04X}", lv[0].asT<t_int>()) = '\0';
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Pitch Wheel: %6d", lv[0].asT<int>() - 8192);
+        *fmt::format_to(msg_body_, "Pitch Wheel: {:6d}", lv[0].asT<t_int>() - 8192) = '\0';
 
     bg_layer_.invalidate();
     redraw();
 
-    anyTo(0, SYM_BENDIN, lv);
+    anyTo(0, sym_bendin(), lv);
 }
 
 void UIMidi::onTouch(const AtomListView& lv)
@@ -219,17 +229,17 @@ void UIMidi::onTouch(const AtomListView& lv)
     if (!prop_show_touch || lv.size() != 2)
         return;
 
-    snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
+    printType(lv[1].asT<t_int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch: %02X", lv[0].asT<int>());
+        *fmt::format_to(msg_body_, "Aftertouch: {:02X}", lv[0].asT<t_int>()) = '\0';
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch: %3d", lv[0].asT<int>());
+        *fmt::format_to(msg_body_, "Aftertouch: {:3d}", lv[0].asT<t_int>()) = '\0';
 
     bg_layer_.invalidate();
     redraw();
 
-    anyTo(0, SYM_TOUCHIN, lv);
+    anyTo(0, sym_touchin(), lv);
 }
 
 void UIMidi::onPolyTouch(const AtomListView& lv)
@@ -237,17 +247,22 @@ void UIMidi::onPolyTouch(const AtomListView& lv)
     if (!prop_show_touch || lv.size() != 3)
         return;
 
-    snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
+    printType(lv[2].asT<t_int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch(Poly): %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
+        *fmt::format_to(msg_body_, "Aftertouch(Poly): {:02X} {:02X}", lv[0].asT<t_int>(), lv[1].asT<t_int>()) = '\0';
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch(Poly): %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
+        *fmt::format_to(msg_body_, "Aftertouch(Poly): {:3d} {:3d}", lv[0].asT<t_int>(), lv[1].asT<t_int>()) = '\0';
 
     bg_layer_.invalidate();
     redraw();
 
-    anyTo(0, SYM_POLYTOUCH, lv);
+    anyTo(0, sym_polytouchin(), lv);
+}
+
+void UIMidi::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+{
+    openMidiSettingsDialog();
 }
 
 void UIMidi::openMidiSettingsDialog()
@@ -257,20 +272,13 @@ void UIMidi::openMidiSettingsDialog()
 
 void UIMidi::setup()
 {
-    SYM_NOTEIN = gensym("#notein");
-    SYM_CTLIN = gensym("#ctlin");
-    SYM_PGMIN = gensym("#pgmin");
-    SYM_SYSEX = gensym("#sysexin");
-    SYM_BENDIN = gensym("#bendin");
-    SYM_TOUCHIN = gensym("#touchin");
-    SYM_POLYTOUCH = gensym("#polytouchin");
-
     UIObjectFactory<UIMidi> obj("ui.midi", EBOX_GROWINDI);
     obj.useList();
     obj.setDefaultSize(180, 15);
     obj.hideLabel();
     obj.usePopup();
     obj.hideFontProps();
+    obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
 
     obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);
     obj.addProperty(sym::props::name_active_color, _("Active Color"), "0.63 0.88 0 1", &UIMidi::prop_active_color);

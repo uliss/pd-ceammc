@@ -1,7 +1,7 @@
 #ifndef NET_HTTP_SEND_H
 #define NET_HTTP_SEND_H
 
-#include "ceammc_pollthread_object.h"
+#include "ceammc_pollthread_spsc.h"
 using namespace ceammc;
 
 struct HttpRequest {
@@ -23,7 +23,7 @@ struct HttpResult {
     int code;
 };
 
-using NetHttpSendBase = PollThreadQueueObject<HttpRequest, HttpResult>;
+using NetHttpSendBase = FixedSPSCObject<HttpRequest, HttpResult>;
 
 class NetHttpSend : public NetHttpSendBase {
     SymbolProperty* host_;
@@ -37,8 +37,8 @@ public:
     NetHttpSend(const PdArgs& args);
     void m_get(t_symbol* s, const AtomListView& lv);
 
-    void processMessage(const HttpResult& msg) final;
-    Future createTask() final;
+    void processRequest(const HttpRequest& req, ResultCallback cb) final;
+    void processResult(const HttpResult& res) final;
 
 public:
     static std::string makePath(t_symbol* path, const AtomListView& lv);

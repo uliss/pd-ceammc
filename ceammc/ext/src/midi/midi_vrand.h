@@ -25,7 +25,7 @@ class MidiVRrand : public BaseObject {
     FloatProperty *min_, *max_;
     SymbolEnumProperty* dist_;
     SymbolEnumProperty* mode_;
-    SizeTProperty* seed_;
+    IntProperty* seed_;
     std::mt19937 gen_;
 
 public:

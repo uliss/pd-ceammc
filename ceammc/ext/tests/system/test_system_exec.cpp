@@ -136,8 +136,8 @@ TEST_CASE("system.exec", "[externals]")
         test::pdRunMainLoopMs(MS(50));
         REQUIRE_PROPERTY(t, @is_running, 1);
 
-        t <<= LA("terminate", "true");
-        test::pdRunMainLoopMs(MS(50));
+        t <<= LA("terminate", 1);
+        test::pdRunMainLoopMs(MS(150));
         REQUIRE_PROPERTY(t, @is_running, 0);
         REQUIRE(floatAt(t, 0_out) == -1);
 #endif

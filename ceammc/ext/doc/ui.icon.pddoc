@@ -17,18 +17,30 @@
             </also>
         </meta>
         <info>
-            <par>Alt+Click outputs all possible icon names to Pd window. Can be in bang, button and
-            toggle modes. Button mode is default: outputs 1 on mouse down, 0 on mouse up. See @mode
-            property for more information.</par>
+            <par>The object can be in bang, button and toggle modes. The button mode is default:
+            outputs 1 on mouse down, 0 on mouse up. See @mode property for more information.</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">change the object state according to the
+            @mode property</event>
+            <event type="left-click" editmode="false" keys="Alt">output all icons to the Pd
+            window</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true">opens Pd popup menu</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+        </mouse>
         <arguments>
-            <argument name="NAME" type="symbol">icon name from list</argument>
+            <argument name="ICON" type="symbol"
+            enum="add add_circle add_circle_outline add_to_queue alarm alarm_off alarm_on album arrow_down arrow_left arrow_right arrow_up audio backspace block bluetooth blur_on bookmark bookmark_border build cached capslock ceammc check_circle clear clock computer content_cut copy copyright delete delete_forever done eject equalizer exit fast_forward fast_rewind favorite favorite_border fingerprint flag folder folder_open functions gamepad get_app grade grain group hdmi headset headset_mic hearing help help_outline history home hourglass info info_outline input keyboard label label_outline levels lightbulb_outline linear_scale list lock lock_open loop mic mic_none mic_off midi mouse movie notifications open_with pause pause_circle_filled pause_circle_outline play play_circle_filled play_circle_filled_white play_circle_outline power radio record redo refresh remove remove_circle remove_circle_outline repeat repeat_one report_problem save search select_all settings settings2 settings_voice shuffle skip_next skip_previous speaker speaker_group stars stop tape timeline touch_app trending_flat undo videocam visibility visibility_off volume_down volume_mute volume_off volume_up zoom_in zoom_out">
+            icon name from the list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="toggle button bang" default="button">output
-            mode. In bang mode - outputs bang on mouse down. In button mode outputs 1 on mouse down
-            and 0 on mouse up. In toggle mode outputs 1/0 on mouse down, like vanilla toggle
-            object.</property>
+            <property name="@mode" type="symbol" enum="toggle button bang" default="button">the
+            output mode. In the bang mode - outputs the bang on mouse down. In the button mode
+            outputs 1 on mouse down and 0 on mouse up. In the toggle mode outputs 1/0 on mouse
+            down, like vanilla toggle object.</property>
             <property name="@enabled" type="bool" default="1">enabled property</property>
             <property name="@icon_size" type="int" default="24" enum="18 24 36 48">icons
             size</property>

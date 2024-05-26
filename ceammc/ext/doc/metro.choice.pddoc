@@ -33,8 +33,7 @@
                 <xinfo on="float">starts (on &gt;0) or stops (on &lt;=0) metro</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set @min property</xinfo>
-                <xinfo on="list">set time set.</xinfo>
+                <xinfo on="list">set timeset</xinfo>
             </inlet>
         </inlets>
         <outlets>

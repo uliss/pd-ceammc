@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 store data flow in memory;
+#X obj 567 50 cnv 1 198 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 567 50 store data flow in memory;
 #X obj 1 1 cnv 5 765 40 empty empty flow.mem 20 20 0 20 -104026 -4096
 0;
-#X obj 682 11 flow.mem;
+#X obj 681 11 flow.mem;
 #X obj 50 118 ui.keyboard;
 #X obj 174 190 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 280 190 5 0 0 0 - - -;
@@ -12,70 +12,74 @@
 #X obj 174 219 metro 65;
 #X obj 280 219 prop.set @ttl;
 #X obj 50 248 flow.mem @ttl 4;
-#X obj 50 277 flow.mem.osc~;
+#X obj 50 277 flow.mem-osc~;
 #X obj 50 305 pan~;
 #X obj 50 334 ui.hgain2~;
 #X obj 242 334 ui.dsp~;
 #X obj 50 363 dac~;
-#X obj 50 392 flow.mem.more;
-#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 446 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 392 flow.mem-more;
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 481 1\.;
-#X text 150 481 int;
-#X obj 246 482 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 481 N: number of memory cells. Type: int. Range: 1\...32;
-#X text 110 501 2\.;
-#X text 150 501 int;
-#X obj 246 502 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 501 TTL: see @ttl property. Type: int. Range: 0\...1024;
-#X obj 20 531 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 536 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 482 1\.;
+#X text 150 482 int;
+#X obj 246 483 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 482 N: number of memory cells. Type: int. Range: 1\...32;
+#X text 110 502 2\.;
+#X text 150 502 int;
+#X obj 246 503 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 502 TTL: see @ttl property. Type: int. Range: 0\...1024;
+#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 537 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 571 @free;
-#X text 245 571 Get/Set clear cell mode. If on - clear cell counter
+#X obj 735 540 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 572 @free;
+#X text 245 572 Get/Set clear cell mode. If on - clear cell counter
 after zero was reached. Type: bool. Default value: 1\.;
-#X msg 110 613 @n;
-#X text 245 613 Get/Set number of memory cells. Type: int. Default
+#X msg 110 614 @n;
+#X text 245 614 Get/Set number of memory cells. Type: int. Default
 value: 1\. Range: 1\...32\.;
-#X msg 110 655 @ttl;
-#X text 245 655 Get/Set time to live counter. Each time you set new
+#X msg 110 656 @ttl;
+#X text 245 656 Get/Set time to live counter. Each time you set new
 value its memory cell counter is set to this. Each time memory cell
 is outputted individual memory cell ttl counter (not this property!)
 is decremented until zero reached. After that if @free property is
 on memory cell is cleared. If this property equals zero memory cell
 never expires. Type: int. Default value: 0\. Range: 0\...1024\.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 787 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 789 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 788 1\.;
-#X text 245 788 input: store in 1st memory cell.;
-#X text 110 808 ....;
-#X text 245 808 input: store in ... memory cell.;
-#X text 110 828 n.;
-#X text 245 828 input: store in n-th memory cell.;
-#X text 110 848 n+1\.;
-#X text 150 848 *bang*;
-#X text 245 848 output all cells.;
-#X text 150 868 *int*;
-#X text 245 868 output specified cell.;
-#X obj 20 898 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 903 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 790 1\.;
+#X text 245 790 input: store in 1st memory cell.;
+#X text 110 810 ....;
+#X text 245 810 input: store in ... memory cell.;
+#X text 110 830 n.;
+#X text 245 830 input: store in n-th memory cell.;
+#X text 110 850 n+1\.;
+#X text 150 850 *bang*;
+#X text 245 850 output all cells.;
+#X text 150 870 *int*;
+#X text 245 870 output specified cell.;
+#X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 905 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 904 1\.;
-#X text 245 904 output 1st cell.;
-#X text 110 924 ....;
-#X text 245 924 output ... cell.;
-#X text 110 944 n.;
-#X text 245 944 output n-th cell.;
+#X text 110 906 1\.;
+#X text 245 906 output 1st cell.;
+#X text 110 926 ....;
+#X text 245 926 output ... cell.;
+#X text 110 946 n.;
+#X text 245 946 output n-th cell.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 994 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 997 library: ceammc v0.9.7;
-#N canvas 10 1016 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
+#X obj 1 996 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 999 library: ceammc v0.9.7;
+#N canvas 10 1018 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1016 pd info;
+#X restore 10 1018 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;

@@ -4,10 +4,10 @@
 #X text 522 50 sync less equal numbers compare;
 #X obj 1 1 cnv 5 765 40 empty empty math.sync_le 20 20 0 20 -104026
 -4096 0;
-#X obj 432 11 math.<=';
-#X obj 513 11 ceammc/<=';
-#X obj 608 11 <=';
-#X obj 653 11 math.sync_le;
+#X obj 428 11 math.<=';
+#X obj 510 11 ceammc/<=';
+#X obj 606 11 <=';
+#X obj 652 11 math.sync_le;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X floatatom 107 118 5 0 0 0 - - -;
 #X text 165 118 same as:;
@@ -18,40 +18,42 @@
 #X obj 290 176 <=;
 #X obj 50 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 290 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 252 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 257 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 292 1\.;
-#X text 150 292 float;
-#X obj 246 293 cnv 1 15 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 292 F: second number. Type: float.;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 327 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 277 1\.;
+#X text 150 277 float;
+#X obj 246 278 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 277 F: second number. Type: float.;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 328 1\.;
-#X text 150 328 *float*;
-#X text 245 328 set first number \, calculate and output result.;
-#X text 150 348 *list*;
-#X text 245 348 pair: set first and second numbers \, calculate and
+#X text 110 313 1\.;
+#X text 150 313 *float*;
+#X text 245 313 set first number \, calculate and output result.;
+#X text 150 333 *list*;
+#X text 245 333 pair: set first and second numbers \, calculate and
 output result.;
-#X text 110 383 2\.;
-#X text 150 383 *float*;
-#X text 245 383 change second number \, calculate and output result.;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 418 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 368 2\.;
+#X text 150 368 *float*;
+#X text 245 368 change second number \, calculate and output result.;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 419 1\.;
-#X text 245 419 result output: 1 if first number is less or equal second
+#X text 110 404 1\.;
+#X text 245 404 result output: 1 if first number is less or equal second
 \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 610 520 see also:;
-#X obj 684 520 math.>=';
+#X text 608 520 see also:;
+#X obj 683 520 math.>=';
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

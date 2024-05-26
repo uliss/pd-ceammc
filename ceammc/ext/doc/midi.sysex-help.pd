@@ -1,32 +1,32 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 546 50 cnv 1 219 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 546 50 sysex input messages as list;
+#X obj 545 50 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 545 50 sysex input messages as list;
 #X obj 1 1 cnv 5 765 40 empty empty midi.sysex 20 20 0 20 -104026
 -4096 0;
-#X obj 667 11 midi.sysex;
+#X obj 666 11 midi.sysex;
 #X obj 50 118 midi.sysex;
 #X obj 50 147 ui.dt;
-#X obj 20 196 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 201 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 202 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 236 reset;
-#X text 245 236 reset internal parser state.;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 237 reset;
+#X text 245 237 reset internal parser state.;
+#X obj 20 275 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 280 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 279 1\.;
-#X text 245 279 control input.;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 314 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 281 1\.;
+#X text 245 281 control input.;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 315 1\.;
-#X text 245 315 list of sysex bytes.;
+#X text 110 317 1\.;
+#X text 245 317 list of sysex bytes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

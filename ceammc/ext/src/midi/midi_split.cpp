@@ -12,19 +12,19 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_split.h"
-#include "ceammc_args.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "lex/parser_music.h"
 
 #include <memory>
 
-static std::unique_ptr<ArgChecker> onlist_chk;
+static std::unique_ptr<args::ArgChecker> onlist_chk;
 
 MidiSplit::MidiSplit(const PdArgs& args)
     : BaseObject(args)
 {
 
-//    ceammc::parser::SpnFullMatch spn_parser;
+    //    ceammc::parser::SpnFullMatch spn_parser;
 
     for (auto& a : parsedPosArgs()) {
         t_float pitch = 0;
@@ -74,10 +74,8 @@ const char* MidiSplit::annotateOutlet(size_t n) const
 
 void MidiSplit::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lv)) {
-        OBJ_ERR << "PITCH VEL [DUR] expected, got: " << lv;
-        return;
-    }
+    if (!onlist_chk->check(lv, this))
+        return onlist_chk->usage(this);
 
     const auto pitch = lv[0].asT<t_float>();
 
@@ -93,12 +91,12 @@ void MidiSplit::onList(const AtomListView& lv)
 
 void setup_midi_split()
 {
-    onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
+    onlist_chk.reset(new args::ArgChecker("NOTE:f[0,127] VEL:f[0,127] DUR:f?"));
 
     ObjectFactory<MidiSplit> obj("midi.split");
     obj.setInletsInfo({ "list: PITCH VEL DUR?" });
 
     obj.setDescription("midi note splitter");
     obj.setCategory("midi");
-    obj.setKeywords({"midi", "note", "splitter"});
+    obj.setKeywords({ "midi", "note", "splitter" });
 }

@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 537 50 multi stereo-signal crossfade;
+#X obj 536 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 536 50 multi stereo-signal crossfade;
 #X obj 1 1 cnv 5 765 40 empty empty xfade2~ 20 20 0 20 -104026 -4096
 0;
-#X obj 561 11 ceammc/xfade2~;
-#X obj 688 11 xfade2~;
+#X obj 560 11 ceammc/xfade2~;
+#X obj 687 11 xfade2~;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 control float value in range [0-1) controls xfade between
 first and second signals \, [1-2) between second and third etc.;
@@ -19,70 +19,77 @@ first and second signals \, [1-2) between second and third etc.;
 #X obj 126 274 ui.slider @size 120 16;
 #X obj 50 302 gain~ 2;
 #X obj 50 331 dac~;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 386 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 420 1\.;
-#X text 150 420 int;
-#X obj 246 421 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 420 N: number of signal inputs (multiplied 2). Type: int.
-Range: 1\...8;
-#X text 110 455 2\.;
-#X text 150 455 float;
-#X obj 246 456 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 455 X: crossfade init value. Valid value in [0\..N-1] range.
-See @x property. Type: float. Range: 0\...1;
-#X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 505 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 389 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 421 1\.;
+#X text 150 421 int;
+#X obj 246 422 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 421 N: number of signal inputs stereo pairs. Type: int.
+Range: 2\...16;
+#X text 110 456 2\.;
+#X text 150 456 float;
+#X obj 246 457 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 456 X: crossfade init value. Valid value in [0\..N-1] range.
+See @x property. Type: float.;
+#X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 506 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 540 @lin;
-#X text 245 540 alias to @type lin.;
-#X msg 110 569 @pow;
-#X text 245 569 alias to @type pow.;
-#X msg 110 598 @smooth;
-#X text 245 598 Get/Set signal change smooth time. Type: float. Units:
+#X obj 735 509 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 541 @n;
+#X text 245 541 (initonly) Get/Set number of xfade inputs stereo pairs.
+Type: int. Default value: 2\. Range: 2\...16\.;
+#X msg 110 583 @lin;
+#X text 245 583 Alias to @type lin.;
+#X msg 110 613 @pow;
+#X text 245 613 Alias to @type pow.;
+#X msg 110 643 @smooth;
+#X text 245 643 Get/Set signal change smooth time. Type: float. Units:
 'ms'. Default value: 20\. Min value: 1\.;
-#X msg 110 640 @type;
-#X text 245 640 Get/Set fade curve type: linear or power. Type: symbol.
+#X msg 110 685 @type;
+#X text 245 685 Get/Set fade curve type: linear or power. Type: symbol.
 Default value: pow. Allowed values: lin \, pow.;
-#X msg 110 682 @x;
-#X text 245 682 Get/Set crossfade property. Valid value in [0\..N-1]
-range. Type: float. Default value: 0\. Range: 0\...1\.;
-#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 739 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 727 @x;
+#X text 245 727 Get/Set crossfade property. Valid value in [0\..N-1]
+range. Type: float. Default value: 0\.;
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 740 1\.;
-#X text 245 740 left input signal.;
-#X text 110 760 2\.;
-#X text 245 760 right input signal.;
-#X text 110 780 ....;
-#X text 245 780 left input signal.;
-#X text 110 800 ....;
-#X text 245 800 right input signal.;
-#X text 110 820 n-1\.;
-#X text 245 820 left input signal.;
-#X text 110 840 n.;
-#X text 245 840 right input signal.;
-#X text 110 860 n+1\.;
-#X text 150 860 *float*;
-#X text 245 860 set crossfade value.;
-#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 895 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 785 1\.;
+#X text 245 785 left input signal.;
+#X text 110 805 2\.;
+#X text 245 805 right input signal.;
+#X text 110 825 ....;
+#X text 245 825 left input signal.;
+#X text 110 845 ....;
+#X text 245 845 right input signal.;
+#X text 110 865 n-1\.;
+#X text 245 865 left input signal.;
+#X text 110 885 n.;
+#X text 245 885 right input signal.;
+#X text 110 905 n+1\.;
+#X text 150 905 *float*;
+#X text 245 905 set crossfade value.;
+#X obj 20 935 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 940 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 896 1\.;
-#X text 245 896 left output signal.;
-#X text 110 916 2\.;
-#X text 245 916 right output signal.;
+#X text 110 941 1\.;
+#X text 245 941 left output signal.;
+#X text 110 961 2\.;
+#X text 245 961 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 966 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 969 library: ceammc v0.9.7;
-#X text 621 981 see also:;
-#X obj 695 981 xfade~;
-#N canvas 10 988 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 1 1011 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1014 library: ceammc v0.9.7;
+#X text 620 1026 see also:;
+#X obj 695 1026 xfade~;
+#N canvas 10 1033 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -106,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 988 pd info;
+#X restore 10 1033 pd info;
 #X connect 9 0 12 0;
 #X connect 7 0 13 0;
 #X connect 10 0 13 1;

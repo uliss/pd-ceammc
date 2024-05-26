@@ -84,6 +84,11 @@ namespace impl {
 
 } // end of 'impl'
 
+constexpr uint32_t crc32_append_char(const uint32_t crc, const char ch)
+{
+    return (crc >> 8) ^ impl::g_crctable[(crc ^ ch) & 0xFF];
+}
+
 /**
  * constexpr equivalent of <tt>crc32_reference()</tt> used by '_hash' user-defined string literal
  */
@@ -132,9 +137,22 @@ inline uint32_t crc32_hash(const char* str)
     uint32_t crc = crc32_hash_seed();
     char c = '\0';
 
-    while ((c = *str++)) {
-        crc = (crc >> 8) ^ impl::g_crctable[(crc ^ c) & 0xFF];
-    }
+    while ((c = *str++))
+        crc = crc32_append_char(crc, c);
+
+    return crc;
+}
+
+/**
+ * @param str [must be 0-terminated]
+ */
+inline uint32_t crc32_case_hash(const char* str)
+{
+    uint32_t crc = crc32_hash_seed();
+    char c = '\0';
+
+    while ((c = *str++))
+        crc = crc32_append_char(crc, std::tolower(c));
 
     return crc;
 }
@@ -190,7 +208,7 @@ constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d
     CEAMMC_DEFINE_PROP_SYM(name)
 
 #define CEAMMC_DEFINE_PROP_VAR(name) \
-    CEAMMC_DEFINE_PROP_STR(name) \
+    CEAMMC_DEFINE_PROP_STR(name)     \
     auto* sym_prop_##name = gensym("@" #name);
 }
 

@@ -13,31 +13,33 @@
 #X obj 280 176 midi.prg->str @symbol @family;
 #X obj 50 205 ui.dt;
 #X obj 280 205 ui.dt;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 294 @family;
-#X text 245 294 output family name instead of instrument name. Default
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 295 @family;
+#X text 245 295 output family name instead of instrument name. Default
 value: 0\.;
-#X msg 110 336 @symbol;
-#X text 245 336 output as symbol instead of string by default. Default
+#X msg 110 337 @symbol;
+#X text 245 337 output as symbol instead of string by default. Default
 value: 0\.;
-#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 393 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 394 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 394 1\.;
-#X text 150 394 *float*;
-#X text 245 394 General MIDI instrument number [1-128].;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 395 1\.;
+#X text 150 395 *float*;
+#X text 245 395 General MIDI instrument number [1-128].;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 430 1\.;
-#X text 245 430 output General MIDI instrument name (string or symbol).;
+#X text 110 431 1\.;
+#X text 245 431 output General MIDI instrument name (string or symbol).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

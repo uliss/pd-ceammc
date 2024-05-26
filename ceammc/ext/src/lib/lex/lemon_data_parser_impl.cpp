@@ -1697,10 +1697,10 @@ namespace {
     void dcolor(Parser* p, token& tok, const token& r, const token& g, const token& b, const token& a) {
         tok.list = p->makeList();
         DataTypeColor color;
-        color.setRed8(Atom(r.atom).asT<int>());
-        color.setGreen8(Atom(g.atom).asT<int>());
-        color.setBlue8(Atom(b.atom).asT<int>());
-        color.setAlpha8(Atom(a.atom).asT<int>());
+        color.setRed8(Atom(r.atom).asT<t_int>());
+        color.setGreen8(Atom(g.atom).asT<t_int>());
+        color.setBlue8(Atom(b.atom).asT<t_int>());
+        color.setAlpha8(Atom(a.atom).asT<t_int>());
         tok.list->push_back(DataAtom<DataTypeColor>(color));
 
         tok.atom = tok.list->front().atom();

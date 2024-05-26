@@ -20,8 +20,10 @@
 #define MSG_PREFIX "[dispatch] "
 
 #if 0
+constexpr bool NOTIFY_SUBSCRIBER_NOT_FOUND = true;
 #define DISPATCHER_DEBUG(msg) std::cerr << MSG_PREFIX << msg << std::endl;
 #else
+constexpr bool NOTIFY_SUBSCRIBER_NOT_FOUND = false;
 #define DISPATCHER_DEBUG(msg)
 #endif
 
@@ -52,7 +54,9 @@ bool Dispatcher::notify(SubscriberId id, int t)
 
     for (auto& x : subscribers_) {
         if (x.id == id) {
-            x.obj->notify(t);
+            if (x.type == NotifyType::ACTIVE)
+                x.obj->notify(t);
+
             return true;
         }
     }
@@ -68,7 +72,9 @@ void Dispatcher::pollFn(void* x, int fd)
     if (!dp->impl_->recv(msg, fd))
         return;
 
-    if (!dp->notify(msg.id, msg.event))
+    auto rc = dp->notify(msg.id, msg.event);
+
+    if (!rc && NOTIFY_SUBSCRIBER_NOT_FOUND)
         LIB_ERR << MSG_PREFIX "subscriber not found #" << msg.id;
 }
 
@@ -76,7 +82,7 @@ void Dispatcher::dump() const
 {
     std::cerr << "Dispatcher: \n";
     for (auto& x : subscribers_) {
-        std::cerr << fmt::format("\t{} #{}\n", (void*)x.obj, x.id);
+        std::cerr << fmt::format("\t{} #{} {}\n", (void*)x.obj, x.id, (int)x.type);
     }
 }
 
@@ -90,19 +96,37 @@ void Dispatcher::subscribe(NotifiedObject* x, SubscriberId id)
 {
     DISPATCHER_DEBUG(fmt::format("subscribe: {} #{}", (void*)x, id));
 
-    subscribers_.push_back({ id, x });
+    // check for duplicates
+    for (auto& si : subscribers_) {
+        if (si.id == id && si.obj == x) {
+            si.type = NotifyType::ACTIVE;
+            return;
+        }
+    }
+
+    SubscriberInfo si { id, x, NotifyType::ACTIVE };
+    subscribers_.push_back(si);
 }
 
 void Dispatcher::unsubscribe(NotifiedObject* x)
 {
     DISPATCHER_DEBUG(fmt::format("unsubscribe: {}", (void*)x));
 
+    // cleanup previously removed
     auto it = std::remove_if(
         subscribers_.begin(),
         subscribers_.end(),
-        [x](SubscriberInfo& info) { return info.obj == x; });
+        [](const SubscriberInfo& si) {
+            return si.type == NotifyType::REMOVED;
+        });
 
     subscribers_.erase(it, subscribers_.end());
+
+    // mark to remove in future
+    for (auto& si : subscribers_) {
+        if (si.obj == x)
+            si.type = NotifyType::REMOVED;
+    }
 }
 
 bool Dispatcher::send(const NotifyMessage& msg)

@@ -16,6 +16,7 @@
 #include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 #include <ctime>
 #include <random>
@@ -197,10 +198,6 @@ void UITab::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long
 
     redrawBGLayer();
     output();
-}
-
-void UITab::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
-{
 }
 
 void UITab::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
@@ -612,7 +609,7 @@ void UITab::setup()
     obj.useSymbol();
     obj.usePresets();
     obj.hideLabelInner();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
 
     obj.showProperty("fontname");
     obj.showProperty("fontsize");

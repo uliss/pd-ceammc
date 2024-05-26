@@ -66,10 +66,8 @@ public:
 
     bool proto_front(Atom& res) const override
     {
-        auto a = list().first();
-
-        if (a) {
-            res = *a;
+        if (list().size() > 0) {
+            res = list().atoms().front();
             return true;
         } else
             return false;
@@ -77,10 +75,8 @@ public:
 
     bool proto_back(Atom& res) const override
     {
-        auto a = list().last();
-
-        if (a) {
-            res = *a;
+        if (list().size() > 0) {
+            res = list().atoms().back();
             return true;
         } else
             return false;

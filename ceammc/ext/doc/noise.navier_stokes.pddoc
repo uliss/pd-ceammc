@@ -62,11 +62,6 @@
                 <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
-            <!-- om -->
-            <method name="om">
-                <param name="OM" type="int" required="true">enables output when cut or fold value
-                is changed</param>
-            </method>
             <!-- r -->
             <method name="r">
                 <param name="R" type="float" required="true">r value</param>

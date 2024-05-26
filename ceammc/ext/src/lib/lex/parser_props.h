@@ -48,11 +48,11 @@ namespace parser {
 
     PropParseRes bool_prop_calc(bool prev, bool def, const AtomListView& lv, bool& res);
 
-    bool numeric_prop_random_range(const PropertyInfo& info, int& new_min, int& new_max);
+    bool numeric_prop_random_range(const PropertyInfo& info, t_int& new_min, t_int& new_max);
     bool numeric_prop_random_range(const PropertyInfo& info, t_float& new_min, t_float& new_max);
 
     t_float numeric_prop_calc_random(t_float min, t_float max);
-    int numeric_prop_calc_random(int min, int max);
+    t_int numeric_prop_calc_random(t_int min, t_int max);
 
     template <typename T>
     static PropParseRes numeric_prop_calc_math(NumericPropOp op, T arg, T prev, T& res)

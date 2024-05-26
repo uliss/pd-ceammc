@@ -76,7 +76,7 @@ void FlowMem::onInlet(size_t, const AtomListView& v)
                 mem_[i - 1] = Message();
         }
     } else if (v.isFloat()) {
-        auto idx = v.asT<int>();
+        auto idx = v.asT<t_int>();
         if (idx >= 0 && idx < num_->value()) {
             if (ttl == 0)
                 messageTo(idx, mem_[idx]);

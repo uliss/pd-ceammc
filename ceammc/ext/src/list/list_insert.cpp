@@ -21,7 +21,8 @@ ListInsert::ListInsert(const PdArgs& args)
     , lst_(nullptr)
     , index_(nullptr)
 {
-    index_ = new SizeTProperty("@index", 0);
+    index_ = new IntProperty("@index", 0);
+    index_->checkMinEq(0);
     addProperty(index_);
 
     lst_ = new ListProperty("@value");

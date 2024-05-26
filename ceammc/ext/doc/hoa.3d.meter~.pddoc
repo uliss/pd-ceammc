@@ -12,7 +12,7 @@
             <description>multi spherical meter with sound field descriptor</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>spat</category>
+            <category view="link">spat</category>
             <keywords>hoa meter 3d</keywords>
             <since>0.9.7</since>
         </meta>
@@ -21,7 +21,13 @@
             displays the energy and velocity vectors.</par>
             <a href="hoa/hoa.3d.meter~-help.pd">CICM documentation</a>
         </info>
-        <arguments />
+        <mouse>
+            <event type="right-click" editmode="false">open popup menu</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+        </mouse>
         <properties>
             <property name="@channels" type="int" minvalue="1" maxvalue="64" default="4">number of
             input channels</property>

@@ -19,6 +19,7 @@
 #include "ceammc_format.h"
 #include "ceammc_string.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 CEAMMC_DEFINE_SYM_HASH(left)
 CEAMMC_DEFINE_HASH(right)
@@ -89,20 +90,15 @@ void UILabel::setDrawParams(t_edrawparams* params)
     // set border and background to the same color
     params->d_bordercolor = prop_color_background;
     params->d_boxfillcolor = prop_color_background;
+    params->d_hideiolets = true;
 }
 
 void UILabel::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    auto it = std::find_if(args.begin(), args.end(), isProperty);
-    auto pos = std::distance(args.begin(), it);
-
-    if (pos > 0) {
-        setProperty(sym_text(), args.subView(0, pos));
-    } else if (it == args.end() && args.size() > 0) {
-        setProperty(sym_text(), args);
-    }
+    if (args.arguments().size() > 0)
+        setProperty(sym_text(), args.arguments());
 }
 
 void UILabel::onBang()
@@ -168,7 +164,7 @@ void UILabel::m_prepend(const AtomListView& lv)
 
 void UILabel::setup()
 {
-    UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
+    UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.setDefaultSize(300, 47);
     obj.hideLabel();
 
@@ -196,8 +192,7 @@ void UILabel::setup()
     obj.addProperty("margin_right", _("Margin right"), 5, &UILabel::prop_margin_right, "Margins");
 
     obj.addProperty("align", _("Align"), str_left, &UILabel::prop_align, "left center right", "Main");
-    obj.addVirtualProperty("text", _("Text"), "Label", &UILabel::propGetText, &UILabel::propSetText);
-    obj.setPropertyCategory("text", "Main");
+    obj.addVirtualProperty("text", _("Text"), "Label", &UILabel::propGetText, &UILabel::propSetText, "Main");
 
     obj.useList();
     obj.useAny();

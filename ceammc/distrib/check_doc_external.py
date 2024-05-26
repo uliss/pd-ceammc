@@ -28,6 +28,38 @@ EXT_PROPS_SET = set()
 EXT_PROPS_DICT = dict()
 EXT_ARGS_DICT = dict()
 
+MOUSE_METHODS = [
+    "click",
+    "dblclick",
+    "dropfiles",
+    "droptext",
+    "mousedown",
+    "mousedrag",
+    "mousemove",
+    "mousewheel",
+    "rightclick",
+    ]
+
+def mouse_method2event(event: str) -> str:
+    if event == "mousedown" or event == "click":
+        return "left-click"
+    elif event == "rightclick":
+        return "right-click"
+    elif event == "mousemove":
+        return "move"
+    elif event == "mousedrag":
+        return "drag"
+    elif event == "dropfiles":
+        return "drop-file"
+    elif event == "droptext":
+        return "drop-text"
+    elif event == "dblclick":
+        return "double-click"
+    elif event == "mousewheel":
+        return "wheel"
+    else:
+        return event
+
 
 def signal_handler(sig, frame):
     sys.exit(0)
@@ -181,13 +213,11 @@ def read_doc_outlets(node):
     return res
 
 def has_mouse_methods():
-    return ("click" in EXT_METHODS or
-        "mousedown" in EXT_METHODS or
-        "mouseup" in EXT_METHODS or
-        "mousemove" in EXT_METHODS or
-        "mouseenter" in EXT_METHODS or
-        "rightclick" in EXT_METHODS)
+    for m in MOUSE_METHODS:
+        if m in EXT_METHODS:
+            return True
 
+    return False
 
 def check_units(name, tag, doc, ext):
     if tag[0] == '@':
@@ -232,23 +262,55 @@ def check_aliases(name, doc, ext):
         cprint(f"[{ext_name}] undocumented aliases: {undoc_aliases}",
             'magenta')
 
+        # helper text
+        cprint("<aliases>", 'white')
+        for a in undoc_aliases:
+            cprint(f"    <alias>{a}</alias>", 'white')
+
+        cprint("</aliases>", 'white')
+
     if len(unknown_aliases) > 0:
         cprint(f"[{ext_name}] unknown aliases: {unknown_aliases}",
             'yellow')
 
 
 def check_methods(name, doc, ext):
-    ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
-                       'onzoom', 'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-                       'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
-                       'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
-                       'rightclick', 'key' }
+    ignored_methods = {
+        'bang',
+        'click',
+        'dialog',
+        'dsp',
+        'dsp_add',
+        'dsp_add_aliased',
+        'dump',
+        'eobjreadfrom',
+        'eobjwriteto',
+        'float',
+        'key'
+        'list',
+        'loadbang',
+        'onzoom',
+        'popup',
+        'signal',
+        'symbol',
+        'vis',
+        'zoom',
+    }
+
+    ignored_methods |= set(EXT_METHODS)
 
     undoc_methods_set = ext - doc - ignored_methods
     unknown_methods = doc - ext
     if len(undoc_methods_set):
         cprint(f"[{ext_name}] undocumented methods: {undoc_methods_set}",
             'magenta')
+
+        # helper text
+        cprint("<methods>", 'white')
+        for m in undoc_methods_set:
+            cprint(f'    <method name="{m}">method</method>', 'white')
+
+        cprint("</methods>", 'white')
 
     if len(unknown_methods):
         cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}",
@@ -400,7 +462,12 @@ def check_single_prop(name, prop, doc, ext):
         doc_def = doc.get("default", None)
         # none
         if doc_def is None:
+            if type_doc == "list":
+                doc_def = ""
+
             pass
+        elif doc_def == "null":
+            doc_def = None
         elif type_doc == "float":
             doc_def = pddoc_float(doc_def)
         elif type_doc == "int":
@@ -470,11 +537,16 @@ def check_props(name, doc, ext):
     doc_props_set = set(doc.keys())
     ext_props_set = set(ext.keys())
 
-    undoc_props = { x for x in (ext_props_set - doc_props_set - ignored_props) if ext[x].get("visibility", "") != "internal" }
+    undoc_props = { x for x in (ext_props_set - doc_props_set - ignored_props) if ext[x].get("visibility", "") == "public" }
     unknown_props = doc_props_set - ext_props_set
 
-    if len(undoc_props):
+    if len(undoc_props) :
         cprint(f"[{ext_name}] undocumented properties: {undoc_props}", 'magenta')
+        cprint('<properties>', 'white')
+        for p in undoc_props:
+            cprint(f'<property name="{p}" type="" default=""></property>', 'white')
+
+        cprint('</properties>', 'white')
 
     if len(unknown_props):
         cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
@@ -592,7 +664,13 @@ if __name__ == '__main__':
                     for m in x:
                         if m.tag != "method" or m.get("example", False) or m.get("internal", False):
                             continue
-                        doc_methods_set.add(m.attrib["name"].split(' ')[0])
+                        # for method name with arguments, like: method PARAM1
+                        margs = m.attrib["name"].split(' ')
+                        mname = margs[0]
+                        if mname not in doc_methods_set:
+                            doc_methods_set.add(mname)
+                        elif len(margs) == 1:
+                            cprint(f"[{ext_name}] duplicated method entry: {mname}", 'red')
 
             if x.tag == "properties":
                 for p in x:
@@ -631,8 +709,22 @@ if __name__ == '__main__':
     if args.props:
         check_props(ext_name, doc_props_dict, EXT_PROPS_DICT)
 
-    if "click" in EXT_METHODS and len(doc_mouse) == 0:
-        cprint(f"[{ext_name}] no mouse event documentation", 'magenta')
+    ext_mouse = set()
+
+    for m in MOUSE_METHODS:
+        if m in EXT_METHODS:
+            ext_mouse.add(mouse_method2event(m))
+
+    mouse_no_doc = ext_mouse - doc_mouse
+    mouse_invalid = doc_mouse - ext_mouse
+
+    if len(mouse_no_doc):
+        x = ", ".join(mouse_no_doc)
+        cprint(f"DOC [{ext_name}] no mouse events: {x}", 'magenta')
+
+    if len(mouse_invalid):
+        x = ", ".join(mouse_invalid)
+        cprint(f"EXT [{ext_name}] unknown mouse event: {x}", 'red')
 
     if False:
         HAVE_PDDOC = -1

@@ -136,6 +136,31 @@ bool AtomListView::isInteger() const
     return isFloat() && math::is_integer(asFloat());
 }
 
+bool AtomListView::isIntLessThen(t_int x) const noexcept
+{
+    return data_ && n_ == 1 && data_[0].isIntLessThen(x);
+}
+
+bool AtomListView::isIntLessEqual(t_int x) const noexcept
+{
+    return data_ && n_ == 1 && data_[0].isIntLessEqual(x);
+}
+
+bool AtomListView::isIntGreaterThen(t_int x) const noexcept
+{
+    return data_ && n_ == 1 && data_[0].isIntGreaterThen(x);
+}
+
+bool AtomListView::isIntGreaterEqual(t_int x) const noexcept
+{
+    return data_ && n_ == 1 && data_[0].isIntGreaterEqual(x);
+}
+
+bool AtomListView::isIntInClosedInterval(t_int min, t_int max) const noexcept
+{
+    return data_ && n_ == 1 && data_[0].isIntInClosedInterval(min, max);
+}
+
 const Atom& AtomListView::relativeAt(long pos) const
 {
     return at(relativeIndex(pos, n_));
@@ -263,7 +288,7 @@ AtomListView AtomListView::subView(size_t from, size_t len) const
     return AtomListView(&data_[from].atom(), std::min(n_ - from, len));
 }
 
-AtomListView AtomListView::argSubView(size_t from) const
+AtomListView AtomListView::arguments(size_t from) const
 {
     if (!data_)
         return {};
@@ -280,25 +305,53 @@ AtomListView AtomListView::argSubView(size_t from) const
     return AtomListView(&data_[from].atom(), n_ - from);
 }
 
+AtomListView AtomListView::properties() const
+{
+    if(!data_)
+        return {};
+
+    for (size_t i = 0; i < n_; i++) {
+        auto& a = data_[i];
+        if (a.isProperty())
+            return AtomListView(&data_[i].atom(), n_ - i);
+    }
+
+    return {};
+}
+
 bool AtomListView::contains(const Atom& a) const
 {
     if (empty() || isNull())
         return false;
 
-    return std::find(data_, data_ + n_, a) != (data_ + n_);
+    return std::find(begin(), end(), a) != end();
 }
 
-bool AtomListView::allOf(std::function<bool(const Atom&)> pred) const
+bool AtomListView::allOf(const AtomPredicate& pred) const
 {
     return std::all_of(begin(), end(), pred);
 }
 
-bool AtomListView::anyOf(std::function<bool(const Atom&)> pred) const
+bool AtomListView::allFloatsOf(const FloatPredicate& pred) const
+{
+    return std::all_of(begin(), end(), [pred](const Atom& a) {
+        return a.checkFloat(pred);
+    });
+}
+
+bool AtomListView::allSymbolsOf(const SymbolPredicate& pred) const
+{
+    return std::all_of(begin(), end(), [pred](const Atom& a) {
+        return a.checkSymbol(pred);
+    });
+}
+
+bool AtomListView::anyOf(const AtomPredicate& pred) const
 {
     return std::any_of(begin(), end(), pred);
 }
 
-bool AtomListView::noneOf(std::function<bool(const Atom&)> pred) const
+bool AtomListView::noneOf(const AtomPredicate& pred) const
 {
     return std::none_of(begin(), end(), pred);
 }
@@ -372,6 +425,34 @@ bool AtomListView::range(Atom& min, Atom& max) const noexcept
     min = *res.first;
     max = *res.second;
     return true;
+}
+
+const Atom* AtomListView::min() const
+{
+    auto it = std::min_element(begin(), end());
+    if (it == end())
+        return nullptr;
+    else
+        return &(*it);
+}
+
+const Atom* AtomListView::max() const
+{
+    auto it = std::max_element(begin(), end());
+    if (it == end())
+        return nullptr;
+    else
+        return &(*it);
+}
+
+size_t AtomListView::count(const Atom& a) const noexcept
+{
+    return static_cast<size_t>(std::count(begin(), end(), a));
+}
+
+size_t AtomListView::count(AtomPredicate pred) const noexcept
+{
+    return static_cast<size_t>(std::count_if(begin(), end(), pred));
 }
 
 bool AtomListView::getProperty(t_symbol* name, AtomListView& res) const

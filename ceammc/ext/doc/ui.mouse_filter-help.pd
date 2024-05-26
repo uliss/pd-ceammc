@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 492 50 cnv 1 273 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 492 50 filter mouse events from ui objects;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 491 50 filter mouse events from ui objects;
 #X obj 1 1 cnv 5 765 40 empty empty ui.mouse_filter 20 20 0 20 -104026
 -4096 0;
 #X obj 570 11 ui.mf;
@@ -17,61 +17,63 @@
 #X obj 50 230 ui.rslider @mouse_events 1;
 #X obj 50 259 ui.mouse_filter @down;
 #X obj 50 287 ui.display @display_type 1;
-#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 341 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 376 @down;
-#X text 245 376 alias to @mouse_down 1 property. Default value: 0\.;
-#X msg 110 405 @drag;
-#X text 245 405 alias to @mouse_drag 1 property. Default value: 0\.;
-#X msg 110 434 @enter;
-#X text 245 434 alias to @mouse_enter 1 property. Default value: 0\.;
-#X msg 110 463 @leave;
-#X text 245 463 alias to @mouse_leave 1 property. Default value: 0\.;
-#X msg 110 492 @mouse_down;
-#X text 245 492 Get/Set passing a @mouse_down events. Type: bool. Default
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 377 @down;
+#X text 245 377 Alias to @mouse_down 1 property. Default value: 0\.;
+#X msg 110 407 @drag;
+#X text 245 407 Alias to @mouse_drag 1 property. Default value: 0\.;
+#X msg 110 437 @enter;
+#X text 245 437 Alias to @mouse_enter 1 property. Default value: 0\.;
+#X msg 110 467 @leave;
+#X text 245 467 Alias to @mouse_leave 1 property. Default value: 0\.;
+#X msg 110 497 @mouse_down;
+#X text 245 497 Get/Set passing a @mouse_down events. Type: bool. Default
 value: 0\.;
-#X msg 110 534 @mouse_drag;
-#X text 245 534 Get/Set passing a @mouse_drag events. Type: bool. Default
+#X msg 110 539 @mouse_drag;
+#X text 245 539 Get/Set passing a @mouse_drag events. Type: bool. Default
 value: 0\.;
-#X msg 110 576 @mouse_enter;
-#X text 245 576 Get/Set passing a @mouse_enter events. Type: bool.
+#X msg 110 581 @mouse_enter;
+#X text 245 581 Get/Set passing a @mouse_enter events. Type: bool.
 Default value: 0\.;
-#X msg 110 618 @mouse_leave;
-#X text 245 618 Get/Set passing a @mouse_leave events. Type: bool.
+#X msg 110 623 @mouse_leave;
+#X text 245 623 Get/Set passing a @mouse_leave events. Type: bool.
 Default value: 0\.;
-#X msg 110 660 @mouse_move;
-#X text 245 660 Get/Set passing a @mouse_move events. Type: bool. Default
+#X msg 110 665 @mouse_move;
+#X text 245 665 Get/Set passing a @mouse_move events. Type: bool. Default
 value: 0\.;
-#X msg 110 702 @mouse_up;
-#X text 245 702 Get/Set passing a @mouse_up events. Type: bool. Default
+#X msg 110 707 @mouse_up;
+#X text 245 707 Get/Set passing a @mouse_up events. Type: bool. Default
 value: 0\.;
-#X msg 110 744 @move;
-#X text 245 744 alias to @mouse_move 1 property. Default value: 0\.;
-#X msg 110 773 @up;
-#X text 245 773 alias to @mouse_up 1 property. Default value: 0\.;
-#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 817 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 749 @move;
+#X text 245 749 Alias to @mouse_move 1 property. Default value: 0\.;
+#X msg 110 779 @up;
+#X text 245 779 Alias to @mouse_up 1 property. Default value: 0\.;
+#X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 824 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 818 1\.;
-#X text 245 818 input messages from ui object.;
-#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 853 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 825 1\.;
+#X text 245 825 input messages from ui object.;
+#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 860 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 854 1\.;
-#X text 245 854 passed messages from ui object.;
+#X text 110 861 1\.;
+#X text 245 861 passed messages from ui object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 907 library: ceammc v0.9.7;
-#X text 475 919 see also:;
-#X obj 549 919 ui.mouse_route;
-#X obj 665 922 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 911 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 914 library: ceammc v0.9.7;
+#X text 473 926 see also:;
+#X obj 548 926 ui.mouse_route;
+#X obj 665 929 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.rslider] @url ui.rslider-help.pd;
-#N canvas 10 926 400 290 info 0;
+#N canvas 10 933 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 926 pd info;
+#X restore 10 933 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

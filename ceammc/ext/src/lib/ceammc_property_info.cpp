@@ -26,7 +26,7 @@
 
 namespace {
 using namespace ceammc;
-inline PropValueUnitsBase unit2int(PropValueUnits u)
+inline PropValueUnitsBase unit_base_cast(PropValueUnits u)
 {
     return static_cast<PropValueUnitsBase>(u);
 }
@@ -39,10 +39,10 @@ inline PropValueUnits int2unit(PropValueUnitsBase i)
 
 namespace ceammc {
 
-constexpr t_float FLOAT_INF_MIN = std::numeric_limits<t_float>::lowest();
-constexpr t_float FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
-constexpr int INT_INF_MIN = std::numeric_limits<int>::lowest();
-constexpr int INT_INF_MAX = std::numeric_limits<int>::max();
+constexpr auto FLOAT_INF_MIN = std::numeric_limits<t_float>::lowest();
+constexpr auto FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
+constexpr auto INT_INF_MIN = std::numeric_limits<t_int>::lowest();
+constexpr auto INT_INF_MAX = std::numeric_limits<t_int>::max();
 constexpr size_t UNITS_MAX = std::numeric_limits<PropValueUnitsBase>::digits;
 
 const char* to_str(PropValueType t)
@@ -223,7 +223,7 @@ PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess a
     , step_(0)
     , arg_index_(-1)
     , type_(type)
-    , units_(unit2int(PropValueUnits::NONE))
+    , units_(unit_base_cast(PropValueUnits::NONE))
     , view_(defaultView(type))
     , access_(access)
     , vis_(PropValueVis::PUBLIC)
@@ -307,7 +307,7 @@ PropertyInfo& PropertyInfo::operator=(PropertyInfo&& info)
     return *this;
 }
 
-bool PropertyInfo::enumContains(int v) const
+bool PropertyInfo::enumContains(t_int v) const
 {
     if (!enum_)
         return false;
@@ -337,17 +337,33 @@ void PropertyInfo::setDefault(bool v)
         default_ = v;
 }
 
+void PropertyInfo::setDefault(long long v)
+{
+    if (isInt())
+        default_ = static_cast<t_int>(v);
+    else if (isFloat())
+        setDefault(static_cast<t_float>(v));
+}
+
 void PropertyInfo::setDefault(int v)
 {
     if (isInt())
-        default_ = v;
+        default_ = static_cast<t_int>(v);
+    else if (isFloat())
+        setDefault(static_cast<t_float>(v));
+}
+
+void PropertyInfo::setDefault(long v)
+{
+    if (isInt())
+        default_ = static_cast<t_int>(v);
     else if (isFloat())
         setDefault(static_cast<t_float>(v));
 }
 
 void PropertyInfo::setDefault(size_t v)
 {
-    setDefault(int(v));
+    setDefault(t_int(v));
 }
 
 void PropertyInfo::setDefault(float v)
@@ -430,7 +446,7 @@ bool PropertyInfo::setMaxFloat(t_float v)
     return true;
 }
 
-bool PropertyInfo::setMinInt(int new_min)
+bool PropertyInfo::setMinInt(t_int new_min)
 {
     if (!isInt()) {
         PROP_LOG() << "not int property: setMinInt failed";
@@ -450,7 +466,7 @@ bool PropertyInfo::setMinInt(int new_min)
     return true;
 }
 
-bool PropertyInfo::setMaxInt(int new_max)
+bool PropertyInfo::setMaxInt(t_int new_max)
 {
     if (!isInt()) {
         PROP_LOG() << "not int property: setMaxInt failed";
@@ -470,7 +486,7 @@ bool PropertyInfo::setMaxInt(int new_max)
     return true;
 }
 
-bool PropertyInfo::setRangeInt(int min, int max)
+bool PropertyInfo::setRangeInt(t_int min, t_int max)
 {
     if (!isInt()) {
         PROP_LOG() << "not int property: setRangeInt failed";
@@ -708,7 +724,7 @@ bool PropertyInfo::setView(PropValueView v)
     }
 }
 
-bool PropertyInfo::addEnum(int v)
+bool PropertyInfo::addEnum(t_int v)
 {
     if (!hasEnumLimit()) {
         PROP_LOG() << "no enum constraints";
@@ -756,7 +772,7 @@ bool PropertyInfo::addEnum(const Atom& a)
     }
 }
 
-bool PropertyInfo::addEnums(std::initializer_list<int> i_list)
+bool PropertyInfo::addEnums(std::initializer_list<t_int> i_list)
 {
     if (!hasEnumLimit()) {
         PROP_LOG() << "no enum constraints";
@@ -903,7 +919,7 @@ void PropertyInfo::setType(PropValueType t)
 {
     type_ = t;
     constraints_ = PropValueConstraints::NONE;
-    units_ = unit2int(PropValueUnits::NONE);
+    units_ = unit_base_cast(PropValueUnits::NONE);
     view_ = defaultView(t);
 
     if (isInt())
@@ -915,10 +931,10 @@ void PropertyInfo::setType(PropValueType t)
 bool PropertyInfo::setUnits(PropValueUnits u)
 {
     if (isInt() || isFloat() || isList() || u == PropValueUnits::NONE) {
-        units_ = unit2int(u);
+        units_ = unit_base_cast(u);
         return true;
-    } else if (isSymbol() && u == PropValueUnits::BPM) {
-        units_ = unit2int(u);
+    } else if (isVariant() && u == PropValueUnits::BPM) {
+        units_ = unit_base_cast(u);
         return true;
     } else {
         PROP_LOG() << "invalid type " << to_string(type()) << " for setting units: " << to_string(u);
@@ -1000,12 +1016,12 @@ void PropertyInfo::unitsIterate(const std::function<void(PropValueUnits)>& fn) c
 
 bool PropertyInfo::hasUnit(PropValueUnits u) const
 {
-    return units_ & unit2int(u);
+    return units_ & unit_base_cast(u);
 }
 
 bool PropertyInfo::equalUnit(PropValueUnits u) const
 {
-    return units_ == unit2int(u);
+    return units_ == unit_base_cast(u);
 }
 
 bool PropertyInfo::defaultBool(bool def) const
@@ -1017,10 +1033,10 @@ bool PropertyInfo::defaultBool(bool def) const
         return def;
 }
 
-int PropertyInfo::defaultInt(int def) const
+t_int PropertyInfo::defaultInt(t_int def) const
 {
-    int res;
-    if (getT<int>(default_, res))
+    t_int res;
+    if (getT<t_int>(default_, res))
         return res;
     else
         return def;
@@ -1083,7 +1099,7 @@ bool PropertyInfo::validate() const
             PROP_LOG() << "should not have value constraints";
         }
 
-        if (units_ != unit2int(PropValueUnits::NONE)) {
+        if (units_ != unit_base_cast(PropValueUnits::NONE)) {
             ok = false;
             PROP_LOG() << "should not have units";
         }
@@ -1143,7 +1159,7 @@ bool PropertyInfo::getDict(DataTypeDict& res) const
     if (constraints() != PropValueConstraints::NONE)
         res.insert("constraints", to_symbol(constraints()));
 
-    if (units() != unit2int(PropValueUnits::NONE)) {
+    if (units() != unit_base_cast(PropValueUnits::NONE)) {
         AtomList en;
         unitsIterate([&en](const char* name) { en.push_back(gensym(name)); });
         res.insert("units", en);
@@ -1197,7 +1213,7 @@ bool PropertyInfo::getJSON(std::string& str) const
     if (constraints() != PropValueConstraints::NONE)
         obj["constraints"] = to_str(constraints());
 
-    if (units() != unit2int(PropValueUnits::NONE)) {
+    if (units() != unit_base_cast(PropValueUnits::NONE)) {
         auto u = nlohmann::json::array();
         unitsIterate([&u](const char* name) { u.push_back(name); });
 

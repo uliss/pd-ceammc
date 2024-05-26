@@ -19,7 +19,7 @@
 
 using namespace ceammc;
 
-typedef int LocalIntType;
+typedef t_int LocalIntType;
 using LocalIntBase = NumericIFace<LocalBase<LocalIntType>, LocalIntType>;
 
 class LocalInt : public LocalIntBase {

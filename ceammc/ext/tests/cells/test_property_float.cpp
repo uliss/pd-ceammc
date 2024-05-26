@@ -84,7 +84,7 @@ TEST_CASE("FloatProperty", "[core]")
         REQUIRE(p.setT(t_float(-1.5)));
         REQUIRE(p.getT(f));
         REQUIRE(f == -1.5);
-        REQUIRE(p.setT(int(-1)));
+        REQUIRE(p.setT(t_int(-1)));
         REQUIRE(p.value() == -1);
 
         REQUIRE(p.setInit(LF(1000)));
@@ -113,7 +113,7 @@ TEST_CASE("FloatProperty", "[core]")
     SECTION("invalid getT/*")
     {
         bool b;
-        int i;
+        t_int i;
         t_symbol* s;
         Atom a;
         AtomList l;

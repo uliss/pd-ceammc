@@ -16,6 +16,7 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "datatype_path.h"
 using namespace ceammc;
 
 class PathSplit : public BaseObject {
@@ -23,6 +24,7 @@ public:
     PathSplit(const PdArgs& arsgs);
     void onSymbol(t_symbol* s) override;
     void onDataT(const StringAtom& s);
+    void onDataT(const PathAtom& p);
 };
 
 void setup_path_split();

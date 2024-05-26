@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_vrand.h"
-#include "ceammc_args.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
@@ -35,7 +35,7 @@ CEAMMC_DEFINE_SYM_HASH(add);
 CEAMMC_DEFINE_SYM_HASH(sub);
 CEAMMC_DEFINE_SYM_HASH(assign);
 
-static std::unique_ptr<ArgChecker> onlist_chk;
+static std::unique_ptr<args::ArgChecker> onlist_chk;
 
 MidiVRrand::MidiVRrand(const PdArgs& args)
     : BaseObject(args)
@@ -70,7 +70,8 @@ MidiVRrand::MidiVRrand(const PdArgs& args)
     addProperty(new SymbolEnumAlias("@add", mode_, sym_add()));
     addProperty(new SymbolEnumAlias("@sub", mode_, sym_sub()));
 
-    seed_ = new SizeTProperty("@seed", 0);
+    seed_ = new IntProperty("@seed", 0);
+    seed_->checkMinEq(0);
     seed_->setSuccessFn([this](Property*) {
         const auto sd = seed_->value();
         gen_.seed(sd ? sd : time(nullptr));
@@ -93,10 +94,8 @@ void MidiVRrand::onFloat(t_float note)
 
 void MidiVRrand::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lv)) {
-        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lv;
-        return;
-    }
+    if (!onlist_chk->check(lv, this))
+        return onlist_chk->usage(this);
 
     const size_t N = lv.size();
     assert(N == 2 || N == 3);
@@ -168,11 +167,11 @@ t_float MidiVRrand::velocity(t_float orig)
 
 void setup_midi_vrand()
 {
-    onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
+    onlist_chk.reset(new args::ArgChecker("NOTE:f[0,127] VEL:f[0,127] DUR:f?"));
 
     ObjectFactory<MidiVRrand> obj("midi.vrand");
 
     obj.setDescription("midi velocity randomizer");
     obj.setCategory("midi");
-    obj.setKeywords({"midi", "velocity", "random"});
+    obj.setKeywords({ "midi", "velocity", "random" });
 }

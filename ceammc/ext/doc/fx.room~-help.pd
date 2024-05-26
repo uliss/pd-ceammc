@@ -20,77 +20,81 @@
 #X obj 50 320 ui.hgain~;
 #X obj 232 320 ui.dsp~;
 #X obj 50 349 dac~;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 438 1\.;
-#X text 150 438 float;
-#X obj 246 439 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 SIZE: echo time. Type: float. Range: 0\...3;
-#X text 110 458 2\.;
-#X text 150 458 float;
-#X obj 246 459 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 458 FB: feedback coefficient. Type: float. Range: 0\...1;
-#X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 493 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 439 1\.;
+#X text 150 439 float;
+#X obj 246 440 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 SIZE: echo time. Type: float. Range: 0\...3;
+#X text 110 459 2\.;
+#X text 150 459 float;
+#X obj 246 460 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 459 FB: feedback coefficient. Type: float. Range: 0\...1;
+#X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 494 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 528 @id;
-#X text 245 528 (initonly) Get/Set OSC address id. If specified \,
+#X obj 735 497 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 529 @id;
+#X text 245 529 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_room/PROP_NAME osc address \, if empty
 bind to /fx_room/PROP_NAME. Type: symbol.;
-#X msg 110 585 @osc;
-#X text 245 585 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 586 @osc;
+#X text 245 586 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 614 @active;
-#X text 245 614 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 616 @active;
+#X text 245 616 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 643 @bypass;
-#X text 245 643 Get/Set bypass flag. If true: bypass 'effected' signal.
+#X msg 110 646 @bypass;
+#X text 245 646 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
-#X msg 110 685 @drywet;
-#X text 245 685 Get/Set proportion of mix between the original (dry)
+#X msg 110 688 @drywet;
+#X text 245 688 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 742 @fb;
-#X text 245 742 Get/Set feedback coefficient. Type: float. Default
+#X msg 110 745 @fb;
+#X text 245 745 Get/Set feedback coefficient. Type: float. Default
 value: 0.3\. Range: 0\...1\.;
-#X msg 110 784 @hfdamp;
-#X text 245 784 Get/Set damping factor for high frequencies. Type:
+#X msg 110 787 @hfdamp;
+#X text 245 787 Get/Set damping factor for high frequencies. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 826 @predelay;
-#X text 245 826 Get/Set pre delay. Type: float. Units: 'ms'. Default
+#X msg 110 829 @predelay;
+#X text 245 829 Get/Set pre delay. Type: float. Units: 'ms'. Default
 value: 20\. Range: 1\...200\.;
-#X msg 110 868 @size;
-#X text 245 868 Get/Set room size (0: no room \, 1: small \, 2: medium
+#X msg 110 871 @size;
+#X text 245 871 Get/Set room size (0: no room \, 1: small \, 2: medium
 \, 3: large). Non-integer values are interpolated betweed neighbours
 \, for example 1.3 is interpoltation between first and second room
 size with 0.3 ratio. Type: float. Default value: 1\. Range: 0\...3\.;
-#X obj 20 965 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 970 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 973 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1005 reset;
-#X text 245 1005 reset to initial state.;
-#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1047 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1008 reset;
+#X text 245 1008 reset to initial state.;
+#X obj 20 1046 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1051 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1048 1\.;
-#X text 245 1048 input signal.;
-#X text 110 1068 2\.;
-#X text 150 1068 *float*;
-#X text 245 1068 set room size.;
-#X obj 20 1098 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1103 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1052 1\.;
+#X text 245 1052 input signal.;
+#X text 110 1072 2\.;
+#X text 150 1072 *float*;
+#X text 245 1072 set room size.;
+#X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1107 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1104 1\.;
-#X text 245 1104 output signal.;
+#X text 110 1108 1\.;
+#X text 245 1108 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1154 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1157 library: ceammc v0.9.7;
-#N canvas 10 1176 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1158 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1161 library: ceammc v0.9.7;
+#N canvas 10 1180 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -114,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1176 pd info;
+#X restore 10 1180 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

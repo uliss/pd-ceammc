@@ -57,7 +57,15 @@
 |
 [ui.gain~ @size 120 14]
 |\      |
-[dac~]  [ui.spectroscope~]
+[dac~]  [ui.spectroscope~ @size 150 100]
+
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

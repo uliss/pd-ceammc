@@ -14,6 +14,7 @@
 #include "datatype_path.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 #include "ceammc_string.h"
 #include "fmt/core.h"
 
@@ -26,21 +27,41 @@ namespace path {
 
     namespace fs = ghc::filesystem;
 
+    const char* to_string(FileType t)
+    {
+        switch (t) {
+        case FILE_TYPE_REGULAR:
+            return "regular";
+        case FILE_TYPE_DIRECTORY:
+            return "dir";
+        case FILE_TYPE_SYMLINK:
+            return "symlink";
+        case FILE_TYPE_BLOCK:
+            return "block";
+        case FILE_TYPE_CHARACTER:
+            return "char";
+        case FILE_TYPE_FIFO:
+            return "fifo";
+        case FILE_TYPE_SOCKET:
+            return "socket";
+        case FILE_TYPE_IS_UNKNOWN:
+            return "?";
+        default:
+            return "";
+        }
+    }
+
     DataTypeId DataTypePath::staticType()
     {
-        static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
-            [](const AtomListView& lv) { return Atom(new DataTypePath(ceammc::to_string(lv))); });
-        return id;
+        CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& args) -> Atom { return new path::DataTypePath(args); }, {});
     }
 
     DataTypePath::DataTypePath()
     {
     }
 
-    DataTypePath::~DataTypePath()
-    {
-        // for std::unique_ptr
-    }
+    // for std::unique_ptr
+    DataTypePath::~DataTypePath() = default;
 
     DataTypePath::DataTypePath(DataTypePath&& path)
         : path_(std::move(path.path_))
@@ -48,33 +69,44 @@ namespace path {
     }
 
     DataTypePath::DataTypePath(const DataTypePath& path)
-        : path_(path.path_)
     {
+        if (path.path_)
+            path_.reset(new Path(*path.path_));
     }
 
     DataTypePath::DataTypePath(const char* path)
-        : path_(path)
+        : path_(new Path(path))
     {
     }
 
     DataTypePath::DataTypePath(const std::string& path)
-        : path_(path)
+        : path_(new Path(path))
     {
     }
 
-    DataTypePath::DataTypePath(Path&& path)
+    DataTypePath::DataTypePath(PathPtr&& path)
         : path_(std::move(path))
     {
     }
 
     DataTypePath::DataTypePath(const Path& path)
-        : path_(path)
+        : path_(new Path(path))
+    {
+    }
+
+    DataTypePath::DataTypePath(const AtomListView& args)
+        : DataTypePath(to_string(args))
     {
     }
 
     DataTypePath& DataTypePath::operator=(const DataTypePath& path)
     {
-        path_ = path.path_;
+        if (this == &path)
+            return *this;
+
+        if (path.path_)
+            path_.reset(new Path(*path.path_));
+
         return *this;
     }
 
@@ -94,126 +126,199 @@ namespace path {
         return staticType();
     }
 
+    std::string DataTypePath::toListStringContent() const
+    {
+        return path_ ? path_->generic_string() : "";
+    }
+
+    std::string DataTypePath::toDictStringContent() const
+    {
+        return "";
+    }
+
+    bool DataTypePath::set(const AbstractData* d) noexcept
+    {
+        if (d->type() != DataTypePath::staticType())
+            return false;
+
+        *this = *d->as<DataTypePath>();
+        return true;
+    }
+
     std::string DataTypePath::toJsonString() const
     {
-        return fmt::format("\"{}\"", string::escape_for_json(path_.string()));
+        return fmt::format("\"{}\"", string::escape_for_json(path_->string()));
     }
 
     bool DataTypePath::isEqual(const AbstractData* d) const noexcept
     {
         auto path = d->as<DataTypePath>();
 
-        // not a dict
+        // not a path
         if (!path)
             return false;
 
-        // self check
-        if (path == this)
-            return true;
-
-        return path->path_ == path_;
+        return this->operator==(*path);
     }
 
     bool DataTypePath::operator==(const DataTypePath& path) const noexcept
     {
-        return path_ == path.path_;
+        // self check
+        if (this == &path || path_ == path.path_)
+            return true;
+        else if (path_ && path.path_)
+            return *path_ == *path.path_;
+        else
+            return false;
     }
 
     bool DataTypePath::is_absolute() const
     {
-        return path_.is_absolute();
+        return path_ && path_->is_absolute();
     }
 
     bool DataTypePath::is_relative() const
     {
-        return path_.is_relative();
+        return path_ && path_->is_relative();
     }
 
-    bool DataTypePath::is_directory() const
+    bool DataTypePath::is_directory() const noexcept
     {
-        return fs::is_directory(path_);
+        std::error_code ec;
+        return path_ && fs::is_directory(*path_, ec);
     }
 
-    bool DataTypePath::is_regular_file() const
+    bool DataTypePath::is_regular_file() const noexcept
     {
-        return fs::is_regular_file(path_);
+        std::error_code ec;
+        return path_ && fs::is_regular_file(*path_, ec);
     }
 
-    bool DataTypePath::exists() const
+    bool DataTypePath::exists() const noexcept
     {
-        return fs::exists(path_);
+        std::error_code ec;
+        return path_ && fs::exists(*path_, ec);
     }
 
     std::string DataTypePath::root_name() const
     {
-        return path_.root_name().string();
+        return path_ ? path_->root_name().string() : "";
     }
 
     std::string DataTypePath::root_directory() const
     {
-        return path_.root_directory().string();
+        return path_ ? path_->root_directory().string() : "";
     }
 
     std::string DataTypePath::root_path() const
     {
-        return path_.root_path().string();
+        return path_ ? path_->root_path().string() : "";
     }
 
     std::string DataTypePath::relative_path() const
     {
-        return path_.relative_path().string();
+        return path_ ? path_->relative_path().string() : "";
     }
 
     DataTypePath DataTypePath::parent_path() const
     {
-        return DataTypePath(path_.parent_path());
+        return path_ ? DataTypePath(path_->parent_path()) : DataTypePath();
     }
 
     std::string DataTypePath::filename() const
     {
-        return path_.filename().string();
+        return path_ ? path_->filename().string() : "";
     }
 
     std::string DataTypePath::extension() const
     {
-        return path_.extension().string();
+        return path_ ? path_->extension().string() : "";
     }
 
-    std::uintmax_t DataTypePath::file_size() const
+    std::uintmax_t DataTypePath::file_size() const noexcept
     {
-        return fs::file_size(path_);
+        std::error_code ec;
+        return path_ ? fs::file_size(*path_, ec) : 0;
+    }
+
+    FileType DataTypePath::file_type() const noexcept
+    {
+        if (!path_)
+            return FILE_TYPE_NONE;
+
+        std::error_code ec;
+        switch (fs::status(*path_, ec).type()) {
+        case fs::file_type::none:
+            return FILE_TYPE_NONE;
+        case fs::file_type::not_found:
+            return FILE_TYPE_NOT_FOUND;
+        case fs::file_type::regular:
+            return FILE_TYPE_REGULAR;
+        case fs::file_type::directory:
+            return FILE_TYPE_DIRECTORY;
+        case fs::file_type::symlink:
+            return FILE_TYPE_SYMLINK;
+        case fs::file_type::block:
+            return FILE_TYPE_BLOCK;
+        case fs::file_type::character:
+            return FILE_TYPE_CHARACTER;
+        case fs::file_type::fifo:
+            return FILE_TYPE_FIFO;
+        case fs::file_type::socket:
+            return FILE_TYPE_SOCKET;
+        default:
+            return FILE_TYPE_IS_UNKNOWN;
+        }
+    }
+
+    std::uint16_t DataTypePath::permissions() const noexcept
+    {
+        std::error_code ec;
+        return path_ ? static_cast<std::uint16_t>(fs::status(*path_, ec).permissions()) : 0;
     }
 
     DataTypePath DataTypePath::lexically_normal() const
     {
-        return DataTypePath(path_.lexically_normal());
+        return path_ ? DataTypePath(path_->lexically_normal()) : DataTypePath();
     }
 
     DataTypePath& DataTypePath::replace_extension(const std::string& ext)
     {
-        path_.replace_extension(ext);
+        if (path_)
+            path_->replace_extension(ext);
+
         return *this;
     }
 
-    DataTypePath& DataTypePath::clear()
+    DataTypePath& DataTypePath::clear() noexcept
     {
-        path_.clear();
+        if (path_)
+            path_->clear();
+
         return *this;
     }
 
-    bool DataTypePath::empty() const
+    DataTypePath& DataTypePath::normalize()
     {
-        return path_.empty();
+        if (path_)
+            path_.reset(new Path(path_->lexically_normal()));
+
+        return *this;
+    }
+
+    bool DataTypePath::empty() const noexcept
+    {
+        return path_ ? path_->empty() : true;
     }
 
     DataTypePath DataTypePath::find(const DataTypePath& dir, const std::string& filename, int max_iters)
     {
-        if (!dir.is_directory())
+        if (!dir.is_directory() || !dir.path_)
             return {};
 
         auto fname = fs::path(filename).filename();
 
-        for (auto it = fs::directory_iterator(dir.path_); it != fs::directory_iterator(); ++it) {
+        for (auto it = fs::directory_iterator(*dir.path_); it != fs::directory_iterator(); ++it) {
             if (max_iters-- == 0)
                 break;
 
@@ -226,6 +331,5 @@ namespace path {
 
         return {};
     }
-
 }
 }

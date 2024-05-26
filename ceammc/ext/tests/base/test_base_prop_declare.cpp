@@ -17,10 +17,10 @@
 
 PD_COMPLETE_TEST_SETUP(PropDeclare, prop, declare)
 
-static const t_float FMIN = std::numeric_limits<t_float>::lowest();
-static const t_float FMAX = std::numeric_limits<t_float>::max();
-static const int IMIN = std::numeric_limits<int>::lowest();
-static const int IMAX = std::numeric_limits<int>::max();
+static const auto FMIN = std::numeric_limits<t_float>::lowest();
+static const auto FMAX = std::numeric_limits<t_float>::max();
+static const auto IMIN = std::numeric_limits<t_int>::lowest();
+static const auto IMAX = std::numeric_limits<t_int>::max();
 
 class TestPdAbstraction : public pd::External {
     typedef std::map<t_symbol*, ListenerExternal*> ListenerMap;
@@ -265,6 +265,8 @@ TEST_CASE("prop.declare", "[externals]")
             // int default
             TestExtPropDeclare t("prop.declare", LA("i", "@i"));
             auto p = PropertyStorage::storage().acquire(t->fullName());
+            REQUIRE(p->intRange().first == IMIN);
+            REQUIRE(p->intRange().second == IMAX);
             REQUIRE(p->intRange() == std::make_pair(IMIN, IMAX));
             PropertyStorage::storage().release(t->fullName());
         }
@@ -273,7 +275,7 @@ TEST_CASE("prop.declare", "[externals]")
             // int min
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@min", 2));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(int(2), IMAX));
+            REQUIRE(p->intRange() == std::make_pair(t_int(2), IMAX));
             PropertyStorage::storage().release(t->fullName());
         }
 
@@ -281,7 +283,7 @@ TEST_CASE("prop.declare", "[externals]")
             // int max
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", 20));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(IMIN, int(20)));
+            REQUIRE(p->intRange() == std::make_pair(IMIN, t_int(20)));
             PropertyStorage::storage().release(t->fullName());
         }
 
@@ -289,7 +291,7 @@ TEST_CASE("prop.declare", "[externals]")
             // int both
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", 20, "@min", -2));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(int(-2), int(20)));
+            REQUIRE(p->intRange() == std::make_pair(t_int(-2), t_int(20)));
             PropertyStorage::storage().release(t->fullName());
         }
 
@@ -297,7 +299,7 @@ TEST_CASE("prop.declare", "[externals]")
             // int both invalid order
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", -2, "@min", 20));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(int(-2), int(20)));
+            REQUIRE(p->intRange() == std::make_pair(t_int(-2), t_int(20)));
             PropertyStorage::storage().release(t->fullName());
         }
     }

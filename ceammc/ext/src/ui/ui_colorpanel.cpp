@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 constexpr int DEFAULT_MATRIX_X = 24;
 constexpr int DEFAULT_MATRIX_Y = 13;

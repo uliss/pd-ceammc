@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.printer">
+        <title>hw.printer</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Basic printing support</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display brightness</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <info>
+            <par>MacOs: supports only text, PDF and images files.</par>
+            <par>Windows: supports only PDF files.</par>
+        </info>
+        <arguments>
+            <argument name="NAME" type="symbol">printer name, if empty - use default system
+            printer.</argument>
+        </arguments>
+        <properties>
+            <property name="@name" type="symbol" default="">printer name, if empty - use default
+            system printer</property>
+        </properties>
+        <methods>
+            <method name="devices">list printers</method>
+            <method name="print">print file 
+            <param name="FILE" type="symbol" required="true">file to print</param>
+            <param name="@landscape" type="bool" required="false">print in landscape
+            mode</param></method>
+            <method name="choose">choose printer by index 
+            <param name="IDX" type="int" minvalue="0">printer index in device list</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>dict: printer info output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[devices(  [B]
+|          |
+| [choose( [openpanel]
+| |        |
+| |        [print $1 @landscape 0(
+| |        |
+[hw.printer]/*using default printer*/
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

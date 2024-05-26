@@ -75,12 +75,12 @@ void ProtoMoppy::m_note_on(t_symbol* s, const AtomListView& lv)
     std::uint8_t vel = 0;
 
     if (checkArgBytesN(3, lv)) {
-        floppy_id = lv[0].asT<int>();
-        note = lv[1].asT<int>();
-        vel = lv[2].asT<int>();
+        floppy_id = lv[0].asT<t_int>();
+        note = lv[1].asT<t_int>();
+        vel = lv[2].asT<t_int>();
     } else if (checkArgBytesN(2, lv)) {
-        note = lv[0].asT<int>();
-        vel = lv[1].asT<int>();
+        note = lv[0].asT<t_int>();
+        vel = lv[1].asT<t_int>();
     } else {
         METHOD_ERR(s) << "usage: CHAN? NOTE VEL";
         return;
@@ -135,10 +135,10 @@ void ProtoMoppy::m_note_off(t_symbol* s, const AtomListView& lv)
     std::uint8_t note = 0;
 
     if (checkArgBytesN(2, lv)) {
-        floppy_id = lv[0].asT<int>();
-        note = lv[1].asT<int>();
+        floppy_id = lv[0].asT<t_int>();
+        note = lv[1].asT<t_int>();
     } else if (checkArgBytesN(1, lv)) {
-        note = lv[0].asT<int>();
+        note = lv[0].asT<t_int>();
     } else {
         METHOD_ERR(s) << "usage: CHAN? NOTE";
         return;
@@ -255,7 +255,7 @@ void ProtoMoppy::m_freq(t_symbol* s, const AtomListView& lv)
     float freq = 0;
 
     if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
-        floppy_id = lv[0].asT<int>();
+        floppy_id = lv[0].asT<t_int>();
         freq = lv[1].asT<t_float>();
     } else if (lv.size() == 1 && lv[0].isFloat()) {
         freq = lv[0].asT<t_float>();
@@ -283,10 +283,10 @@ void ProtoMoppy::m_period(t_symbol* s, const AtomListView& lv)
     int period = 0;
 
     if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
-        floppy_id = lv[0].asT<int>();
-        period = lv[1].asT<int>();
+        floppy_id = lv[0].asT<t_int>();
+        period = lv[1].asT<t_int>();
     } else if (lv.size() == 1 && lv[0].isFloat()) {
-        period = lv[0].asT<int>();
+        period = lv[0].asT<t_int>();
     } else {
         METHOD_ERR(s) << "usage: FLOPPY? PERIOD(μs:int)";
         return;
@@ -313,7 +313,7 @@ bool ProtoMoppy::checkArgBytesN(uint8_t n, const AtomListView& lv)
 
     for (uint8_t i = 0; i < n; i++) {
         auto& a = lv[i];
-        bool ok = a.isInteger() && 0 <= a.asT<int>() && a.asT<int>() <= 255;
+        bool ok = a.isInteger() && 0 <= a.asT<t_int>() && a.asT<t_int>() <= 255;
         if (!ok)
             return false;
     }

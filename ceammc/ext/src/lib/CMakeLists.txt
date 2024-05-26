@@ -29,26 +29,13 @@ add_custom_target(ceammc_lib_tcl SOURCES)
 tcl_autogen_header(tcl/ceammc_tooltips.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
 tcl_autogen_header(tcl/ceammc_texteditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
 tcl_autogen_header(tcl/ceammc_tableeditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
+tcl_autogen_header(tcl/ceammc_patheditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/tcl)
 
 set(CEAMMC_LIB_SOURCES
     ceammc.h
     ceammc_abstractdata.cpp
-    ceammc_args.cpp
-    args/argcheck.lexer.cpp
-    args/argcheck.parser.cpp
-    args/arg_checker_node.cpp
-    args/arg_checker_single.cpp
-    args/arg_group.cpp
-    args/arg_group_and.cpp
-    args/arg_group_or.cpp
-    args/arg_is_atom.cpp
-    args/arg_is_bool.cpp
-    args/arg_is_data.cpp
-    args/arg_is_float.cpp
-    args/arg_is_int.cpp
-    args/arg_is_symbol.cpp
-    args/argcheck2.cpp
+    args/argcheck.cpp
     tcl/ceammc_tcl.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
@@ -197,7 +184,7 @@ if(RAGEL_FOUND)
         lex/lemon_data_string_parser.rl lex/lemon_data_string_parser.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_argcheck
-        args/argcheck2.rl args/argcheck2.cpp
+        args/argcheck.rl args/argcheck.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_array_saver
         lex/parser_array_saver.rl lex/parser_array_saver.cpp
@@ -208,6 +195,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(ragel_music
         lex/ragel_music.rl lex/ragel_music.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_guido
+        lex/parser_guido.rl lex/parser_guido.cpp
+        COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_timeline
         lex/parser_timeline.rl lex/parser_timeline.cpp
         COMPILE_FLAGS "-G2 -s")
@@ -216,6 +206,9 @@ if(RAGEL_FOUND)
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(ceammc_editor_unescape
         ceammc_editor_unescape.rl ceammc_editor_unescape.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_dict_expr
+        lex/parser_dict_expr.rl lex/parser_dict_expr.cpp
         COMPILE_FLAGS "-G2 -s")
 endif()
 
@@ -237,7 +230,9 @@ target_sources(ceammc_core
         lex/parser_array_saver.cpp
         lex/parser_clone.cpp
         lex/parser_color.cpp
+        lex/parser_dict_expr.cpp
         lex/parser_faust.cpp
+        lex/parser_guido.cpp
         lex/parser_hexbeat.cpp
         lex/parser_midi.cpp
         lex/parser_music.cpp
@@ -253,7 +248,16 @@ target_sources(ceammc_core
 
 # ragel files
 file(GLOB RAGEL_SOURCES lex/*.rl)
-add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck2.rl)
+add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck.rl)
+
+# liblo
+find_package(liblo)
+if(LIBLO_FOUND)
+    target_compile_definitions(ceammc_core PRIVATE WITH_LIBLO)
+    target_include_directories(ceammc_core PRIVATE ${LIBLO_INCLUDE_DIRS})
+    target_link_libraries(ceammc_core PUBLIC ${LIBLO_LIBRARIES})
+endif()
+target_sources(ceammc_core PRIVATE ceammc_osc.cpp)
 
 # liblo
 find_package(liblo)
@@ -265,12 +269,6 @@ endif()
 target_sources(ceammc_core PRIVATE ceammc_osc.cpp)
 
 if(BISON_FOUND AND FLEX_FOUND)
-    add_custom_target(ceammc_argcheck_gen
-        COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
-        COMMAND ${BISON_EXECUTABLE} argcheck.yy
-        SOURCES args/argcheck.l args/argcheck.yy
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/args)
-
     add_custom_target(ceammc_arrayloader_gen
         COMMAND $<TARGET_FILE:reflex-bin> array_loader.l
         COMMAND ${BISON_EXECUTABLE} array_loader.y

@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 300 50 cnv 1 465 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 300 50 checks if at least one list element is accepted by predicate;
+#X obj 299 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 299 50 checks if at least one list element is accepted by predicate;
 #X obj 1 1 cnv 5 765 40 empty empty list.any_of 20 20 0 20 -104026
 -4096 0;
-#X obj 661 11 list.any_of;
+#X obj 660 11 list.any_of;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Note: also data.mlist;
 #X msg 50 143 1 2;
@@ -14,36 +14,36 @@
 #X obj 50 201 list.any_of;
 #X obj 242 201 > 3;
 #X floatatom 50 230 5 0 0 0 - - -;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 285 1\.;
-#X text 150 285 *list*;
-#X text 245 285 Input list.;
-#X text 150 305 *data*;
-#X text 245 305 Input mlist.;
-#X text 110 325 2\.;
-#X text 150 325 *float*;
-#X text 245 325 input value from predicate. "1" means accepted. "0"
+#X text 110 268 1\.;
+#X text 150 268 *list*;
+#X text 245 268 Input list.;
+#X text 150 288 *data*;
+#X text 245 288 Input mlist.;
+#X text 110 308 2\.;
+#X text 150 308 *float*;
+#X text 245 308 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1\.;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 376 1\.;
-#X text 245 376 1 - if predicate object returns true for all the elements
+#X text 110 359 1\.;
+#X text 245 359 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 411 2\.;
-#X text 245 411 atom to predicate.;
+#X text 110 394 2\.;
+#X text 245 394 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 486 520 see also:;
-#X obj 560 520 list.all_of;
-#X obj 654 520 list.none_of;
+#X text 483 520 see also:;
+#X obj 558 520 list.all_of;
+#X obj 653 520 list.none_of;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

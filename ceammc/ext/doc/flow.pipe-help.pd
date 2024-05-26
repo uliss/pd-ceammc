@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 461 50 enhanced version on vanilla pipe object;
+#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 460 50 enhanced version on vanilla pipe object;
 #X obj 1 1 cnv 5 765 40 empty empty flow.pipe 20 20 0 20 -104026 -4096
 0;
-#X obj 675 11 flow.pipe;
+#X obj 674 11 flow.pipe;
 #X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Acts like vanilla [pipe] but for any messages: bangs
 \, floats \, symbols etc.;
@@ -14,58 +14,62 @@ or [prop.set] object;
 #X obj 69 270 flow.pipe 1000;
 #X obj 50 299 poly 3;
 #X obj 50 328 pack f f f;
-#X obj 50 357 clone -s 1 flow.pipe.osc~ 3;
+#X obj 50 357 clone -s 1 flow.pipe-osc~ 3;
 #X obj 50 385 ui.hgain~;
 #X obj 194 385 ui.dsp~;
 #X obj 50 414 dac~;
-#X obj 50 443 flow.pipe.superdirt;
-#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 497 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 443 flow.pipe-superdirt;
+#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 498 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 532 1\.;
-#X text 150 532 float;
-#X obj 246 533 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 532 DELAY(ms): init @delay property. Type: float. Min value:
+#X obj 735 501 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 533 1\.;
+#X text 150 533 float;
+#X obj 246 534 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 533 DELAY(ms): init @delay property. Type: float. Min value:
 0;
-#X obj 20 562 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 567 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 568 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 602 @delay;
-#X text 245 602 Get/Set delay time. Type: float. Units: 'ms'. Default
+#X obj 735 571 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 603 @delay;
+#X text 245 603 Get/Set delay time. Type: float. Units: 'ms'. Default
 value: 0\. Min value: 0\.;
-#X msg 110 644 @empty?;
-#X text 245 644 (readonly) Get 1 if pipe is empty \, otherwise 0\.
+#X msg 110 645 @empty?;
+#X text 245 645 (readonly) Get 1 if pipe is empty \, otherwise 0\.
 Type: bool. Default value: 1\.;
-#X msg 110 686 @size?;
-#X text 245 686 (readonly) Get pipe size. Type: int. Default value:
+#X msg 110 687 @size?;
+#X text 245 687 (readonly) Get pipe size. Type: int. Default value:
 0\.;
-#X obj 20 725 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 730 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 732 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 731 1\.;
-#X text 245 731 incoming message.;
-#X text 110 751 2\.;
-#X text 150 751 *bang*;
-#X text 245 751 clear pipe.;
-#X text 245 771 reset: clear pipe.;
-#X text 245 791 flush: output and clear.;
-#X text 150 811 *float*;
-#X text 245 811 set delay time. Min value: 0\.;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 846 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 733 1\.;
+#X text 245 733 incoming message.;
+#X text 110 753 2\.;
+#X text 150 753 *bang*;
+#X text 245 753 clear pipe.;
+#X text 245 773 reset: clear pipe.;
+#X text 245 793 flush: output and clear.;
+#X text 150 813 *float*;
+#X text 245 813 set delay time. Min value: 0\.;
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 847 1\.;
-#X text 245 847 pipe output.;
+#X text 110 849 1\.;
+#X text 245 849 pipe output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 897 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 900 library: ceammc v0.9.7;
-#X text 593 912 see also:;
-#X obj 667 912 flow.delay;
-#N canvas 10 919 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
+#X obj 1 899 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 902 library: ceammc v0.9.7;
+#X text 592 914 see also:;
+#X obj 667 914 flow.delay;
+#N canvas 10 921 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -89,7 +93,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 919 pd info;
+#X restore 10 921 pd info;
 #X connect 7 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;

@@ -4,6 +4,7 @@ set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     route_bang.cpp
     route_cycle.cpp
     route_float.cpp
+    route_data.cpp
     route_list.cpp
     route_prop.cpp
     route_random.cpp
@@ -38,6 +39,7 @@ ceammc_flow_external(gate)
 ceammc_flow_external(greater)
 ceammc_flow_external(greater_eq)
 ceammc_flow_external(group)
+ceammc_flow_external(histogram)
 ceammc_flow_external(interval)
 ceammc_flow_external(less)
 ceammc_flow_external(less_eq)

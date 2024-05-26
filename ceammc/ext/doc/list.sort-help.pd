@@ -1,33 +1,33 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 484 50 sorts list values by ascending order;
+#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 483 50 sorts list values by ascending order;
 #X obj 1 1 cnv 5 765 40 empty empty list.sort 20 20 0 20 -104026 -4096
 0;
-#X obj 676 11 list.sort;
+#X obj 675 11 list.sort;
 #X msg 50 118 2 -2 4 1 2.0;
 #X msg 194 118 1 a -2 b 4 1 2.0;
 #X obj 50 147 list.sort;
 #X obj 50 176 ui.dt;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 231 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 231 1\.;
-#X text 150 231 *list*;
-#X text 245 231 input list.;
-#X obj 20 261 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 266 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 232 1\.;
+#X text 150 232 *list*;
+#X text 245 232 input list.;
+#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 267 1\.;
-#X text 245 267 new sorted list.;
+#X text 110 268 1\.;
+#X text 245 268 new sorted list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 361 520 see also:;
+#X text 360 520 see also:;
 #X obj 435 520 list.sort_with;
 #X obj 551 520 list.reverse;
 #X obj 653 520 list.shuffle;

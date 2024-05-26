@@ -10,4 +10,4 @@ crate-type = ["staticlib"]
 image = { version = "0.24.7", features = [ "ico", "gif", "jpeg", "pnm", "bmp", "webp" ], default-features = false }
 
 [build-dependencies]
-cbindgen = "0.24.5"
+cbindgen = "0.22.0"

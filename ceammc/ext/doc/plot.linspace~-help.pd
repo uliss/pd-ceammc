@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 354 50 cnv 1 411 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 354 50 outputs numbers spaced evenly spaced over a specified
+#X obj 353 50 cnv 1 412 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 353 50 outputs numbers spaced evenly spaced over a specified
 interval;
 #X obj 1 1 cnv 5 765 40 empty empty plot.linspace~ 20 20 0 20 -104026
 -4096 0;
@@ -12,70 +12,74 @@ interval;
 #X obj 50 190 ui.plot~ @size 400 150 @xlabels 1 @ylabels 1 @xmin_grid
 0 @ymin_ticks 0 @xmin_ticks 0 @yauto 1;
 #X obj 50 349 ui.dsp~;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 438 1\.;
-#X text 150 438 float;
-#X obj 246 439 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 START: @start property. Type: float.;
-#X text 110 458 2\.;
-#X text 150 458 float;
-#X obj 246 459 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 458 STOP: @stop property. Type: float.;
-#X text 110 478 3\.;
-#X text 150 478 int;
-#X obj 246 479 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 478 N: @n property. Type: int. Range: 4\...1024;
-#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 513 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 439 1\.;
+#X text 150 439 float;
+#X obj 246 440 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 START: @start property. Type: float.;
+#X text 110 459 2\.;
+#X text 150 459 float;
+#X obj 246 460 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 459 STOP: @stop property. Type: float.;
+#X text 110 479 3\.;
+#X text 150 479 int;
+#X obj 246 480 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 479 N: @n property. Type: int. Range: 4\...1024;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 548 @base;
-#X text 245 548 Get/Set x-axis scale base. Type: atom. Default value:
+#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 549 @base;
+#X text 245 549 Get/Set x-axis scale base. Type: atom. Default value:
 0\. Allowed values: 0 \, pi.;
-#X msg 110 590 @endpoint;
-#X text 245 590 Get/Set include @stop to interval. Type: bool. Default
+#X msg 110 591 @endpoint;
+#X text 245 591 Get/Set include @stop to interval. Type: bool. Default
 value: 1\.;
-#X msg 110 632 @n;
-#X text 245 632 Get/Set number of points. Type: int. Default value:
+#X msg 110 633 @n;
+#X text 245 633 Get/Set number of points. Type: int. Default value:
 256\. Range: 4\...1024\.;
-#X msg 110 674 @pi;
-#X text 245 674 Get/Set alias to @base pi. Type: atom.;
-#X msg 110 703 @start;
-#X text 245 703 Get/Set the starting value of the sequence. Type: float.
+#X msg 110 675 @pi;
+#X text 245 675 Get/Set alias to @base pi. Type: atom.;
+#X msg 110 705 @start;
+#X text 245 705 Get/Set the starting value of the sequence. Type: float.
 Default value: 0\.;
-#X msg 110 745 @stop;
-#X text 245 745 Get/Set the final value of the sequence \, unless @endpoint
+#X msg 110 747 @stop;
+#X text 245 747 Get/Set the final value of the sequence \, unless @endpoint
 is false. In that case \, @n + 1 values are spaced over the interval
 in lin-space \, of which all but the last (a sequence of length @n)
 are returned. Type: float. Default value: 255\.;
-#X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 832 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 834 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 833 1\.;
-#X text 150 833 *bang*;
-#X text 245 833 starts output.;
-#X text 150 853 *float*;
-#X text 245 853 output specified number of values \, change @n property
+#X text 110 835 1\.;
+#X text 150 835 *bang*;
+#X text 245 835 starts output.;
+#X text 150 855 *float*;
+#X text 245 855 output specified number of values \, change @n property
 valuue.;
-#X obj 20 883 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 888 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 885 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 890 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 889 1\.;
-#X text 245 889 signal output.;
-#X text 110 909 2\.;
-#X text 245 909 output to [array.plot~] or [ui.plot~].;
+#X text 110 891 1\.;
+#X text 245 891 signal output.;
+#X text 110 911 2\.;
+#X text 245 911 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 959 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 962 library: ceammc v0.9.7;
-#X text 440 974 see also:;
-#X obj 514 974 plot.geomspace~;
-#X obj 638 974 plot.logspace~;
-#N canvas 10 981 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 961 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 964 library: ceammc v0.9.7;
+#X text 438 976 see also:;
+#X obj 513 976 plot.geomspace~;
+#X obj 638 976 plot.logspace~;
+#N canvas 10 983 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 981 pd info;
+#X restore 10 983 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 5 1 6 1;

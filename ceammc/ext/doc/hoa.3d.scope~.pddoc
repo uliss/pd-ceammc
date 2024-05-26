@@ -19,6 +19,14 @@
         <info>
             <par>displays the circular harmonics of an ambisonic sound field</par>
         </info>
+        <mouse>
+            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open the properties
+            dialog</event>
+            <event type="right-click" editmode="true">opens the Pd popup menu</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
+        </mouse>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1">the order of
             decomposition</property>

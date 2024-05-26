@@ -11,13 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_args.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_atomlist_view.h"
 #include "ceammc_crc32.h"
 
 #include "re2/re2.h"
-#include "reflex/matcher.h"
 
 #include <cstdint>
 #include <functional>
@@ -53,8 +51,6 @@ static std::regex std_re_precompiled(re_pattern);
 extern "C" void pd_init();
 bool init() { return pd_init(), true; }
 static bool init_done = init();
-
-static ArgChecker arg_checker0("s=test f f");
 
 static bool is_odd0(int n) { return n % 2 == 1; }
 static auto is_odd1 = [](int n) { return n % 2 == 1; };
@@ -100,10 +96,6 @@ NONIUS_BENCHMARK("AtomList view", [] {
     auto len = from + list_int(engine);
     AtomListView v(LIST_TABLE[idx]);
     return v.subView(from, len);
-})
-
-NONIUS_BENCHMARK("ArgCheck ", [] {
-    return arg_checker0.check(AtomList({ 1, 2, 3 }));
 })
 
 NONIUS_BENCHMARK("is_odd0: function call", [] {

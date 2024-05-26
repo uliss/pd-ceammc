@@ -65,6 +65,7 @@ public:
     void onAny(t_symbol* s, const AtomListView& lv);
     void onProperty(t_symbol* s, const AtomListView& lv);
 
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
     const std::string& text() const;
@@ -82,6 +83,7 @@ public:
     void m_resize(const AtomListView& lv);
 
 private:
+    void copyToClipboard(bool whole);
     void redrawAll();
     void appendFloatToText(t_float f);
     void setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv);

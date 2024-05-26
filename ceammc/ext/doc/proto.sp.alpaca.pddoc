@@ -24,12 +24,6 @@
             9</param>
             <param name="XOFF" type="int" minvalue="0" maxvalue="7">horizontal character
             offset</param></method>
-            <!-- char -->
-            <method name="char">draw char at specified position 
-            <param name="CH" type="atom" required="true">char symbol or int value from 0 to
-            9</param>
-            <param name="XOFF" type="int" minvalue="0" maxvalue="7">horizontal character
-            offset</param></method>
             <!-- clear -->
             <method name="clear">clear LED display</method>
             <!-- col -->

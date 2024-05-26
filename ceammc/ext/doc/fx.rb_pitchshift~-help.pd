@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 593 50 cnv 1 172 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 593 50 rubber band pitchshift;
+#X obj 592 50 cnv 1 173 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 592 50 rubber band pitchshift;
 #X obj 1 1 cnv 5 765 40 empty empty fx.rb_pitchshift~ 20 20 0 20
 -104026 -4096 0;
 #X obj 616 11 fx.rb_pitchshift~;
@@ -17,35 +17,39 @@
 #X obj 50 291 ui.gain~ @size 120 14;
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 409 1\.;
-#X text 150 409 float;
-#X obj 246 410 cnv 1 154 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 TRANSPOSE(semitone): transposition in semitones. Type:
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 410 1\.;
+#X text 150 410 float;
+#X obj 246 411 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 TRANSPOSE(semitone): transposition in semitones. Type:
 float. Range: -24\...24;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 460 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 494 @detector;
-#X text 245 494 Get/Set control the type of transient detector used.
+#X obj 735 463 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 495 @detector;
+#X text 245 495 Get/Set control the type of transient detector used.
 'compound' a general-purpose transient detector which is likely to
 be good for most situations. 'precussive' detect percussive transients.
 'piano' use an onset detector with less of a bias toward percussive
 transients. This may give better results with certain material (e.g.
 relatively monophonic piano music). Type: symbol. Default value: compound.
 Allowed values: compound \, percussive \, soft.;
-#X msg 110 626 @formant;
-#X text 245 626 Get/Set control the handling of formant shape (spectral
+#X msg 110 628 @formant;
+#X text 245 628 Get/Set control the handling of formant shape (spectral
 envelope) when pitch-shifting. If 'true' preserve the spectral envelope
 of the unshifted signal. This permits shifting the note frequency without
 so substantially affecting the perceived pitch profile of the voice
 or instrument. 'False' apply no special formant processing. The spectral
 envelope will be pitch shifted as normal. Type: bool. Default value:
 0\.;
-#X msg 110 758 @phase;
-#X text 245 758 Get/Set control the adjustment of component frequency
+#X msg 110 761 @phase;
+#X text 245 761 Get/Set control the adjustment of component frequency
 phases from one analysis window to the next during non-transient segments.
 'False' adjust the phase in each frequency bin independently from its
 neighbours. This usually results in a slightly softer \, phasier sound.
@@ -53,8 +57,8 @@ neighbours. This usually results in a slightly softer \, phasier sound.
 the continuity of phase relationships between adjacent frequency bins
 whose phases are behaving in similar ways. Type: bool. Default value:
 1\.;
-#X msg 110 905 @quality;
-#X text 245 905 Get/Set method used for pitch shifting. 'speed' may
+#X msg 110 909 @quality;
+#X text 245 909 Get/Set method used for pitch shifting. 'speed' may
 sound less clear than 'quality' \, especially for large pitch shifts.
 'quality' method has a CPU cost approximately proportional to the required
 frequency shift. 'consistency' gives greatest consistency when used
@@ -64,17 +68,17 @@ across the 1.0 pitch scale in real-time. It also consumes more CPU
 than the others in the case where the pitch scale is exactly 1.0\.
 Type: symbol. Default value: speed. Allowed values: speed \, quality
 \, consistency.;
-#X msg 110 1082 @scale;
-#X text 245 1082 Get/Set transposition as ratio. Type: float. Default
+#X msg 110 1087 @scale;
+#X text 245 1087 Get/Set transposition as ratio. Type: float. Default
 value: 1\. Range: 0.25\...4\.;
-#X msg 110 1124 @smooth;
-#X text 245 1124 Get/Set control the use of window-presum FFT and time-domain
+#X msg 110 1129 @smooth;
+#X text 245 1129 Get/Set control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
 of some instruments and can mix well with @window short. Type: bool.
 Default value: 0\.;
-#X msg 110 1211 @trans;
-#X text 245 1211 Get/Set control the component frequency phase-reset
+#X msg 110 1216 @trans;
+#X text 245 1216 Get/Set control the component frequency phase-reset
 mechanism that may be used at transient points to provide clarity and
 realism to percussion and other significant transient sounds. 'crisp'
 reset component phases at the peak of each transient (the start of
@@ -91,39 +95,39 @@ component phases at any point. The results will be smoother and more
 regular but may be less clear than with either of the other @trans
 settings. Type: symbol. Default value: crisp. Allowed values: crisp
 \, mixed \, smooth.;
-#X msg 110 1509 @transpose;
-#X text 245 1509 Get/Set transposition in semitones. Type: float. Units:
+#X msg 110 1515 @transpose;
+#X text 245 1515 Get/Set transposition in semitones. Type: float. Units:
 'semitone'. Default value: 0\. Range: -24\...24\.;
-#X msg 110 1551 @window;
-#X text 245 1551 Get/Set the window size. 'standard' is expected to
+#X msg 110 1557 @window;
+#X text 245 1557 Get/Set the window size. 'standard' is expected to
 produce better results than the other window options in most situations.
 'short' may result in crisper sound for audio that depends strongly
 on its timing qualities. 'long' is likely to result in a smoother sound
 at the expense of clarity and timing. Type: symbol. Default value:
 standard. Allowed values: standard \, short \, long.;
-#X msg 110 1668 @latency?;
-#X text 245 1668 (readonly) Get object latency. Type: float. Units:
+#X msg 110 1675 @latency?;
+#X text 245 1675 (readonly) Get object latency. Type: float. Units:
 'samp'. Default value: 1024\.;
-#X obj 20 1720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1725 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1732 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1726 1\.;
-#X text 245 1726 input signal.;
-#X text 110 1746 2\.;
-#X text 245 1746 pitch shift in semitones.;
-#X obj 20 1776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1781 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1733 1\.;
+#X text 245 1733 input signal.;
+#X text 110 1753 2\.;
+#X text 245 1753 pitch shift in semitones.;
+#X obj 20 1783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1788 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1782 1\.;
-#X text 245 1782 output signal.;
+#X text 110 1789 1\.;
+#X text 245 1789 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1835 library: ceammc v0.9.7;
-#N canvas 10 1854 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1839 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1842 library: ceammc v0.9.7;
+#N canvas 10 1861 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -147,7 +151,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1854 pd info;
+#X restore 10 1861 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

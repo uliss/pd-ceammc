@@ -24,17 +24,21 @@
         <arguments>
             <argument name="NAME" type="symbol">function name, should be unique</argument>
         </arguments>
+        <properties>
+            <property name="@name" type="symbol" default="" access="initonly">function name, should
+            be unique and non-empty</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>input value</xinfo>
+                <xinfo>input values</xinfo>
             </inlet>
             <inlet>
-                <xinfo>value from side-chain</xinfo>
+                <xinfo>value from the side-chain</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>result value</outlet>
-            <outlet>value to side-chain</outlet>
+            <outlet>value to the side-chain</outlet>
         </outlets>
         <example>
             <pdascii>

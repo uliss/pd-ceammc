@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 453 50 Low-pass fourth order Butterworth filter;
+#X obj 452 50 cnv 1 313 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 452 50 Low-pass fourth order Butterworth filter;
 #X obj 1 1 cnv 5 765 40 empty empty flt.lpf24~ 20 20 0 20 -104026
 -4096 0;
-#X obj 667 11 flt.lpf24~;
-#X obj 210 80 cnv 1 555 158 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 666 11 flt.lpf24~;
+#X obj 210 80 cnv 1 555 159 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 A low-pass filter is a filter that passes signals with
 a frequency lower than a certain cutoff frequency and attenuates signals
 with frequencies higher than the cutoff frequency. A low-pass filter
@@ -15,69 +15,73 @@ have a frequency response as flat as possible in the passband.;
 #X obj 215 205 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Butterworth filter @url
 https://en.wikipedia.org/wiki/Butterworth_filter;
-#X obj 50 266 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 295 metro 10;
-#X obj 155 295 ui.hsl;
-#X obj 50 324 click~;
-#X obj 155 324 lin->lin 0 1 500 15000;
-#X obj 50 353 *~ 100;
-#X msg 155 353 @freq \$1;
-#X obj 50 382 flt.lpf24~ 5000;
-#X obj 50 410 ui.spectroscope~ @size 400 120;
-#X obj 50 554 ui.dsp~;
-#X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 608 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 267 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 296 metro 10;
+#X obj 155 296 ui.hsl;
+#X obj 50 325 click~;
+#X obj 155 325 lin->lin 0 1 500 15000;
+#X obj 50 354 *~ 100;
+#X msg 155 354 @freq \$1;
+#X obj 50 383 flt.lpf24~ 5000;
+#X obj 50 411 ui.spectroscope~ @size 400 120;
+#X obj 50 555 ui.dsp~;
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 610 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 643 1\.;
-#X text 150 643 float;
-#X obj 246 644 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 643 FREQ(Hz): cutoff frequency. Type: float. Range: 20\...20000;
-#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 613 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 645 1\.;
+#X text 150 645 float;
+#X obj 246 646 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 645 FREQ(Hz): cutoff frequency. Type: float. Range: 20\...20000;
+#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 680 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 713 @id;
-#X text 245 713 (initonly) Get/Set OSC address id. If specified \,
+#X obj 735 683 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 715 @id;
+#X text 245 715 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_lpf24/PROP_NAME osc address \, if empty
 bind to /flt_lpf24/PROP_NAME. Type: symbol.;
-#X msg 110 770 @osc;
-#X text 245 770 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 772 @osc;
+#X text 245 772 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 799 @active;
-#X text 245 799 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 802 @active;
+#X text 245 802 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 828 @freq;
-#X text 245 828 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
+#X msg 110 832 @freq;
+#X text 245 832 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
 Default value: 1000\. Range: 20\...20000\.;
-#X obj 20 880 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 885 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 889 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 920 reset;
-#X text 245 920 reset filter state.;
-#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 962 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 924 reset;
+#X text 245 924 reset filter state.;
+#X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 967 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 963 1\.;
-#X text 245 963 input signal.;
-#X text 110 983 2\.;
-#X text 150 983 *float*;
-#X text 245 983 set frequency.;
-#X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1018 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 968 1\.;
+#X text 245 968 input signal.;
+#X text 110 988 2\.;
+#X text 150 988 *float*;
+#X text 245 988 set frequency.;
+#X obj 20 1018 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1019 1\.;
-#X text 245 1019 filtered signal.;
+#X text 110 1024 1\.;
+#X text 245 1024 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1069 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1072 library: ceammc v0.9.7;
-#X text 417 1084 see also:;
-#X obj 491 1084 flt.lpf12~;
-#X obj 579 1084 flt.hpf12~;
-#X obj 667 1084 flt.c_lpf~;
-#N canvas 10 1091 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1074 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1077 library: ceammc v0.9.7;
+#X text 413 1089 see also:;
+#X obj 488 1089 flt.lpf12~;
+#X obj 577 1089 flt.hpf12~;
+#X obj 666 1089 flt.c_lpf~;
+#N canvas 10 1096 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1091 pd info;
+#X restore 10 1096 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

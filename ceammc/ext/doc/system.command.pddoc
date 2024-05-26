@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="system.command">
+        <title>system.command</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>run commands with pipes on Unix and Windows</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>system execute pipe command shell</keywords>
+            <since>0.9.8</since>
+            <aliases>
+                <alias>system.cmd</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Note: this is simplest unix shell simulation, do not expect too much from it, if
+            you need powerfull shell capabilities - write shell script and run it.</par>
+            <par>The pipe symbol should be separated by whitespaces.</par>
+        </info>
+        <arguments>
+            <argument name="ARGS" type="list">execution program chain</argument>
+        </arguments>
+        <properties>
+            <property name="@args" type="list" default="">execution program chain</property>
+            <property name="@mode" type="symbol" default="pd" enum="pd str lines bytes">output
+            processing mode. 'pd': output each output line as Pd atom list, 'str': output whole as
+            data:string, 'lines': output each output line as data:string, 'bytes': output as byte
+            stream</property>
+            <property name="@pwd" type="symbol" default="">process working directory</property>
+            <property name="@stderr" type="bool" default="1">capture stderr</property>
+            <property name="@stdout" type="bool" default="1">capture stdout</property>
+            <property name="@t" type="int" units="msec" minvalue="5" maxvalue="500" default="100">
+            period to check program output</property>
+        </properties>
+        <methods>
+            <!-- terminate -->
+            <method name="terminate">terminate the running process</method>
+            <method name="stdin">run the program with given input values 
+            <param name="ARGS" type="list" required="false">the input values</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">run the program</xinfo>
+                <xinfo on="any">change @args property and then run the program</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: output process exit code</outlet>
+            <outlet>stdout output, format depends from @mode</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open #a(
+
+[ls | sort -r | tail (
+|
+|  [du -h | cut -f1(   [winver.exe #c(
+|  |
+|  |  [bang( [@args cat, stdin 1 2 3 4 5(
+|  |  |      |
+[system.command pwd #b]
+|           ^|
+[F]         [print EXEC]
+[X a->b] [X c->b]
+#a /System/Applications/Utilities/Audio\ MIDI\ Setup.app
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

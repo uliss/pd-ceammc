@@ -236,17 +236,17 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE_FALSE(Atom(new IntData(100)).isA<t_float>());
 
         // int
-        REQUIRE_FALSE(Atom().isA<int>());
-        REQUIRE(Atom(1).isA<int>());
-        REQUIRE(Atom(0.f).isA<int>());
-        REQUIRE(Atom(-1).isA<int>());
-        REQUIRE_FALSE(Atom(0.0001).isA<int>());
-        REQUIRE_FALSE(Atom(0.999999).isA<int>());
-        REQUIRE_FALSE(Atom(-0.0001).isA<int>());
-        REQUIRE_FALSE(Atom(-0.999999).isA<int>());
-        REQUIRE_FALSE(S("A").isA<int>());
-        REQUIRE_FALSE(S("100").isA<int>());
-        REQUIRE_FALSE(Atom(new IntData(100)).isA<int>());
+        REQUIRE_FALSE(Atom().isA<t_int>());
+        REQUIRE(Atom(1).isA<t_int>());
+        REQUIRE(Atom(0.f).isA<t_int>());
+        REQUIRE(Atom(-1).isA<t_int>());
+        REQUIRE_FALSE(Atom(0.0001).isA<t_int>());
+        REQUIRE_FALSE(Atom(0.999999).isA<t_int>());
+        REQUIRE_FALSE(Atom(-0.0001).isA<t_int>());
+        REQUIRE_FALSE(Atom(-0.999999).isA<t_int>());
+        REQUIRE_FALSE(S("A").isA<t_int>());
+        REQUIRE_FALSE(S("100").isA<t_int>());
+        REQUIRE_FALSE(Atom(new IntData(100)).isA<t_int>());
 
         // symbol
         REQUIRE_FALSE(Atom().isA<t_symbol*>());
@@ -643,5 +643,95 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE_FALSE(Atom::semicolon() == SYM("test"));
         REQUIRE_FALSE(Atom::dollar(1) == SYM("test"));
         REQUIRE_FALSE(Atom::dollarSymbol(SYM("test-$0")) == SYM("test"));
+    }
+
+    SECTION("float compare")
+    {
+        REQUIRE_FALSE(A("A").isFloatGreaterEqual(0));
+        REQUIRE(A(0.5).isFloatGreaterEqual(0));
+        REQUIRE(A(0.).isFloatGreaterEqual(0));
+        REQUIRE_FALSE(A(-0.5).isFloatGreaterEqual(0));
+
+        REQUIRE_FALSE(A("A").isFloatGreaterThen(0));
+        REQUIRE(A(0.5).isFloatGreaterThen(0));
+        REQUIRE_FALSE(A(0.).isFloatGreaterThen(0));
+        REQUIRE_FALSE(A(-0.5).isFloatGreaterThen(0));
+
+        REQUIRE_FALSE(A("A").isFloatLessThen(0));
+        REQUIRE_FALSE(A(0.5).isFloatLessThen(0));
+        REQUIRE_FALSE(A(0.).isFloatLessThen(0));
+        REQUIRE(A(-0.5).isFloatLessThen(0));
+
+        REQUIRE_FALSE(A("A").isFloatLessEqual(0));
+        REQUIRE_FALSE(A(0.5).isFloatLessEqual(0));
+        REQUIRE(A(0.).isFloatLessEqual(0));
+        REQUIRE(A(-0.5).isFloatLessEqual(0));
+
+        REQUIRE_FALSE(A("A").isFloatInClosedInterval(0, 1));
+        REQUIRE_FALSE(A(1.5).isFloatInClosedInterval(0, 1));
+        REQUIRE(A(1.0).isFloatInClosedInterval(0, 1));
+        REQUIRE(A(0.).isFloatInClosedInterval(0, 1));
+        REQUIRE_FALSE(A(-0.5).isFloatInClosedInterval(0, 1));
+
+        REQUIRE_FALSE(A("A").isFloatInOpenInterval(0, 1));
+        REQUIRE_FALSE(A(1.5).isFloatInOpenInterval(0, 1));
+        REQUIRE_FALSE(A(1.0).isFloatInOpenInterval(0, 1));
+        REQUIRE(A(0.999).isFloatInOpenInterval(0, 1));
+        REQUIRE(A(0.001).isFloatInOpenInterval(0, 1));
+        REQUIRE_FALSE(A(0.).isFloatInOpenInterval(0, 1));
+        REQUIRE_FALSE(A(-0.5).isFloatInOpenInterval(0, 1));
+
+        REQUIRE_FALSE(A("A").isFloatInLeftOpenInterval(0, 1));
+        REQUIRE_FALSE(A(1.5).isFloatInLeftOpenInterval(0, 1));
+        REQUIRE(A(1.0).isFloatInLeftOpenInterval(0, 1));
+        REQUIRE(A(0.999).isFloatInLeftOpenInterval(0, 1));
+        REQUIRE(A(0.001).isFloatInLeftOpenInterval(0, 1));
+        REQUIRE_FALSE(A(0.).isFloatInLeftOpenInterval(0, 1));
+        REQUIRE_FALSE(A(-0.5).isFloatInLeftOpenInterval(0, 1));
+
+        REQUIRE_FALSE(A("A").isFloatInRightOpenInterval(0, 1));
+        REQUIRE_FALSE(A(1.5).isFloatInRightOpenInterval(0, 1));
+        REQUIRE_FALSE(A(1.0).isFloatInRightOpenInterval(0, 1));
+        REQUIRE(A(0.999).isFloatInRightOpenInterval(0, 1));
+        REQUIRE(A(0.001).isFloatInRightOpenInterval(0, 1));
+        REQUIRE(A(0.).isFloatInRightOpenInterval(0, 1));
+        REQUIRE_FALSE(A(-0.5).isFloatInRightOpenInterval(0, 1));
+
+        REQUIRE_FALSE(A("A").isIntGreaterEqual(0));
+        REQUIRE(A(1).isIntGreaterEqual(0));
+        REQUIRE_FALSE(A(0.5).isIntGreaterEqual(0));
+        REQUIRE(A(0.).isIntGreaterEqual(0));
+        REQUIRE_FALSE(A(-0.5).isIntGreaterEqual(0));
+        REQUIRE_FALSE(A(-1).isIntGreaterEqual(0));
+
+        REQUIRE_FALSE(A("A").isIntGreaterThen(0));
+        REQUIRE(A(1).isIntGreaterThen(0));
+        REQUIRE_FALSE(A(0.5).isIntGreaterThen(0));
+        REQUIRE_FALSE(A(0.).isIntGreaterThen(0));
+        REQUIRE_FALSE(A(-0.5).isIntGreaterThen(0));
+        REQUIRE_FALSE(A(-1).isIntGreaterThen(0));
+
+        REQUIRE_FALSE(A("A").isIntLessThen(0));
+        REQUIRE_FALSE(A(1).isIntLessThen(0));
+        REQUIRE_FALSE(A(0.5).isIntLessThen(0));
+        REQUIRE_FALSE(A(0.).isIntLessThen(0));
+        REQUIRE_FALSE(A(-0.5).isIntLessThen(0));
+        REQUIRE(A(-1).isIntLessThen(0));
+
+        REQUIRE_FALSE(A("A").isIntLessEqual(0));
+        REQUIRE_FALSE(A(1).isIntLessEqual(0));
+        REQUIRE_FALSE(A(0.5).isIntLessEqual(0));
+        REQUIRE(A(0.).isIntLessEqual(0));
+        REQUIRE_FALSE(A(-0.5).isIntLessEqual(0));
+        REQUIRE(A(-1).isIntLessEqual(0));
+
+        REQUIRE_FALSE(A("A").isIntInClosedInterval(1, 10));
+        REQUIRE_FALSE(A(11).isIntInClosedInterval(1, 10));
+        REQUIRE(A(10).isIntInClosedInterval(1, 10));
+        REQUIRE_FALSE(A(9.5).isIntInClosedInterval(1, 10));
+        REQUIRE(A(9).isIntInClosedInterval(1, 10));
+        REQUIRE(A(1).isIntInClosedInterval(1, 10));
+        REQUIRE_FALSE(A(1.5).isIntInClosedInterval(1, 10));
+        REQUIRE_FALSE(A(0.).isIntInClosedInterval(1, 10));
     }
 }

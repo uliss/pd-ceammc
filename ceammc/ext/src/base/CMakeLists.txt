@@ -26,6 +26,7 @@ set(BASE_SOURCES
     msg_onload.cpp
     msg_pack.cpp
     msg_sched.cpp
+    msg_unpack.cpp
     obj_props.cpp
     patch_args.cpp
     patch_deps.cpp
@@ -34,11 +35,11 @@ set(BASE_SOURCES
     prop.cpp
     prop_declare.cpp
     prop_get.cpp
-    prop_get_tilde.cpp
     prop_join.cpp
     prop_random.cpp
+    prop_route.cpp
+    prop_route_tilde.cpp
     prop_set.cpp
-    prop_split.cpp
     radio.cpp
     replace.cpp)
 

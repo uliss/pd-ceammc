@@ -26,7 +26,7 @@
             <par>convert signal to float via specified time intervals</par>
         </info>
         <mouse>
-            <event type="right-click" editmode="false">sample immediately</event>
+            <event type="left-click" editmode="false">sample immediately</event>
         </mouse>
         <arguments>
             <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">sampling

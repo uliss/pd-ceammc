@@ -26,7 +26,8 @@
             <par>Active slot is highlighted, available slots are dark gray</par>
         </info>
         <mouse>
-            <event type="left-click" editmode="false">select preset slot under cursor</event>
+            <event type="move" editmode="false">highlight the slot under the cursor</event>
+            <event type="left-click" editmode="false">select preset slot under the cursor</event>
             <event type="left-click" editmode="false" keys="Shift">saves current settings to
             specified preset slot</event>
             <event type="left-click" editmode="false" keys="Alt">clear all values from specified
@@ -111,7 +112,7 @@
 
 [F]
 |
-[load $1(                 [ui.hsl @min 0 @max 2]
+[load $1(                 [ui.hsl @min 0 @max 2 @show_value 1]
 |                         |
 | [clear 1(   [clearall(  [interp $1 #a(
 | |           |

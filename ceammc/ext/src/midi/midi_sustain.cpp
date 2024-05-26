@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_sustain.h"
-#include "ceammc_args.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
@@ -21,7 +21,7 @@
 constexpr int CC_SUSTAIN = 64;
 constexpr const char* STR_CTLIN = "#ctlin";
 
-static std::unique_ptr<ArgChecker> onlist_chk;
+static std::unique_ptr<args::ArgChecker> onlist_chk;
 
 MidiSustain::MidiSustain(const PdArgs& args)
     : BaseObject(args)
@@ -49,12 +49,10 @@ MidiSustain::MidiSustain(const PdArgs& args)
 
 void MidiSustain::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lv)) {
-        OBJ_ERR << "NOTE VEL expected, got: " << lv;
-        return;
-    }
+    if (!onlist_chk->check(lv, this))
+        return onlist_chk->usage(this);
 
-    const auto note = lv[0].asT<int>();
+    const auto note = lv[0].asT<t_int>();
     const auto vel = lv[1].asT<t_float>();
 
     if (on_->value()) {
@@ -100,12 +98,12 @@ void MidiSustain::notesOff()
 
 void setup_midi_sustain()
 {
-    onlist_chk.reset(new ArgChecker("f0..127 f0..127"));
+    onlist_chk.reset(new args::ArgChecker("NOTE:f[0,127] VEL:f[0,127]"));
 
     ObjectFactory<MidiSustain> obj("midi.sustain");
     obj.setXletsInfo({ "list: NOTE VEL", "int: 1 or 0 to turn sustain on/off" }, { "list: NOTE VEL" });
 
     obj.setDescription("sustain pedal emulation");
     obj.setCategory("midi");
-    obj.setKeywords({"midi", "sustain"});
+    obj.setKeywords({ "midi", "sustain" });
 }

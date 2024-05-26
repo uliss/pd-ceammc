@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 value increment/decrement;
+#X obj 567 50 cnv 1 198 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 567 50 value increment/decrement;
 #X obj 1 1 cnv 5 765 40 empty empty ui.incdec 20 20 0 20 -104026 -4096
 0;
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -19,114 +19,141 @@
 #X obj 50 234 prop-> @value;
 #X floatatom 50 262 5 0 0 0 - - -;
 #X floatatom 146 262 5 0 0 0 - - -;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 299 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 351 @max;
-#X text 245 351 Get/Set maximum inc value. Type: float. Default value:
+#X text 110 334 Left-click;
+#X text 285 334 click in the upper half increments object state \,
+in the lower half - decrements.;
+#X text 110 369 Right-click + ⇧;
+#X text 285 369 open object help.;
+#X text 110 389 Right-click + ⌥;
+#X text 285 389 open properties dialog.;
+#X text 110 409 Right-click;
+#X text 285 409 opens Pd popup menu.;
+#X text 61 409 [Edit];
+#X text 110 429 Right-click + ⇧;
+#X text 285 429 open the object help.;
+#X text 61 429 [Edit];
+#X text 110 449 Right-click + ⌥;
+#X text 285 449 open properties dialog.;
+#X text 61 449 [Edit];
+#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 484 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 487 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 519 @bind_down;
+#X text 245 519 Get/Set MIDI/keyboard bind expression for down action.
+Type: list.;
+#X msg 110 561 @bind_up;
+#X text 245 561 Get/Set MIDI/keyboard bind expression for up action.
+Type: list.;
+#X msg 110 603 @max;
+#X text 245 603 Get/Set maximum inc value. Type: float. Default value:
 8192\.;
-#X msg 110 380 @min;
-#X text 245 380 Get/Set minimum inc value. Type: float. Default value:
+#X msg 110 633 @min;
+#X text 245 633 Get/Set minimum inc value. Type: float. Default value:
 -8192\.;
-#X msg 110 422 @receive;
-#X text 245 422 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 675 @receive;
+#X text 245 675 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 451 @send;
-#X text 245 451 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 705 @send;
+#X text 245 705 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 493 @step;
-#X text 245 493 Get/Set increment step. Type: float. Default value:
+#X msg 110 747 @step;
+#X text 245 747 Get/Set increment step. Type: float. Default value:
 1\. Min value: 0\.;
-#X msg 110 535 @value;
-#X text 245 535 Get/Set current widget value. Type: float. Default
+#X msg 110 789 @value;
+#X text 245 789 Get/Set current widget value. Type: float. Default
 value: 0\.;
-#X msg 110 564 @arrow_color;
-#X text 245 564 Get/Set arrow color (list of red \, green \, blue values
+#X msg 110 819 @arrow_color;
+#X text 245 819 Get/Set arrow color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 606 @background_color;
-#X text 245 606 Get/Set element background color (list of red \, green
+#X msg 110 861 @background_color;
+#X text 245 861 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 663 @border_color;
-#X text 245 663 Get/Set border color (list of red \, green \, blue
+#X msg 110 918 @border_color;
+#X text 245 918 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 705 @fontname;
-#X text 245 705 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 960 @fontname;
+#X text 245 960 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 747 @fontsize;
-#X text 245 747 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1002 @fontsize;
+#X text 245 1002 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 789 @fontslant;
-#X text 245 789 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1044 @fontslant;
+#X text 245 1044 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 831 @fontweight;
-#X text 245 831 Get/Set font weight. Type: symbol. Default value: normal.
-Allowed values: normal \, bold.;
-#X msg 110 873 @pinned;
-#X text 245 873 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1086 @fontweight;
+#X text 245 1086 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1128 @pinned;
+#X text 245 1128 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 915 @presetname;
-#X text 245 915 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1170 @presetname;
+#X text 245 1170 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 957 @size;
-#X text 245 957 Get/Set element size (width \, height pair). Type:
+#X msg 110 1212 @size;
+#X text 245 1212 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 20\.;
-#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1014 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1269 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1049 clear;
-#X text 245 1049 clears specified preset. Arguments are:;
-#X obj 255 1072 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1072 IDX: preset index. Type: int.;
-#X msg 110 1097 dec;
-#X text 245 1097 decrements widget with output.;
-#X msg 110 1124 inc;
-#X text 245 1124 increments widget with output.;
-#X msg 110 1151 interp;
-#X text 245 1151 for this object acts as *load* \, no interpolation
+#X msg 110 1304 clear;
+#X text 245 1304 clears specified preset. Arguments are:;
+#X obj 255 1327 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1327 IDX: preset index. Type: int.;
+#X msg 110 1352 dec;
+#X text 245 1352 decrements widget with output.;
+#X msg 110 1380 inc;
+#X text 245 1380 increments widget with output.;
+#X msg 110 1408 interp;
+#X text 245 1408 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1178 load;
-#X text 245 1178 loads specified preset. Arguments are:;
-#X obj 255 1201 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1201 IDX: preset index. Type: int.;
-#X msg 110 1226 pos;
-#X text 245 1226 set UI element position. Arguments are:;
-#X obj 255 1249 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1249 X: top left x-coord. Type: float.;
-#X obj 255 1272 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1272 Y: top right y-coord. Type: float.;
-#X msg 110 1297 set;
-#X text 245 1297 set widget value with no output. Arguments are:;
-#X obj 255 1320 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1320 VAL: value. Type: float.;
-#X msg 110 1345 store;
-#X text 245 1345 stores specified preset. Arguments are:;
-#X obj 255 1368 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1368 IDX: preset index. Type: int.;
-#X obj 20 1403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1408 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1436 load;
+#X text 245 1436 loads specified preset. Arguments are:;
+#X obj 255 1459 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1459 IDX: preset index. Type: int.;
+#X msg 110 1484 pos;
+#X text 245 1484 set UI element position. Arguments are:;
+#X obj 255 1507 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1507 X: top left x-coord. Type: float.;
+#X obj 255 1530 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1530 Y: top right y-coord. Type: float.;
+#X msg 110 1555 set;
+#X text 245 1555 set widget value with no output. Arguments are:;
+#X obj 255 1578 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1578 VAL: value. Type: float.;
+#X msg 110 1603 store;
+#X text 245 1603 stores specified preset. Arguments are:;
+#X obj 255 1626 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1626 IDX: preset index. Type: int.;
+#X obj 20 1661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1666 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1409 1\.;
-#X text 150 1409 *bang*;
-#X text 245 1409 outputs current widget value.;
-#X text 150 1429 *float*;
-#X text 245 1429 change widget value and output it.;
-#X obj 20 1459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1464 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1667 1\.;
+#X text 150 1667 *bang*;
+#X text 245 1667 outputs current widget value.;
+#X text 150 1687 *float*;
+#X text 245 1687 change widget value and output it.;
+#X obj 20 1717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1722 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1465 1\.;
-#X text 245 1465 output value.;
+#X text 110 1723 1\.;
+#X text 245 1723 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1515 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1518 library: ceammc v0.9.7;
-#X text 598 1530 see also:;
-#X obj 672 1533 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1773 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1776 library: ceammc v0.9.7;
+#X text 597 1788 see also:;
+#X obj 672 1791 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 1537 400 290 info 0;
+#N canvas 10 1795 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -150,7 +177,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1537 pd info;
+#X restore 10 1795 pd info;
 #X connect 7 0 10 0;
 #X connect 4 0 12 0;
 #X connect 5 0 12 0;

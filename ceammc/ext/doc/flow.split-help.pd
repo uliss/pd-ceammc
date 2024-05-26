@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 392 50 cnv 1 373 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 392 50 split data flow by external side-chain predicate;
+#X obj 391 50 cnv 1 374 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 391 50 split data flow by external side-chain predicate;
 #X obj 1 1 cnv 5 765 40 empty empty flow.split 20 20 0 20 -104026
 -4096 0;
-#X obj 496 11 ceammc/split;
+#X obj 495 11 ceammc/split;
 #X obj 607 11 split;
 #X obj 668 11 flow.split;
 #X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
@@ -14,44 +14,44 @@ outlet. Otherwise to second outlet.;
 #X floatatom 50 173 5 0 0 0 - - -;
 #X msg 270 173 1 2;
 #X msg 328 173 2 1;
-#X obj 453 173 flow.split.more;
+#X obj 453 173 flow.split-more;
 #X obj 50 202 flow.split;
 #X obj 174 202 > 0;
 #X obj 270 202 flow.split;
 #X obj 395 202 <;
-#X obj 453 202 flow.split.sound;
+#X obj 453 202 flow.split-sound;
 #X floatatom 50 231 5 0 0 0 - - -;
 #X floatatom 98 231 5 0 0 0 - - -;
 #X obj 328 231 ui.dt;
 #X obj 270 260 ui.dt;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 314 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 315 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 315 1\.;
-#X text 245 315 input value.;
-#X text 110 335 2\.;
-#X text 150 335 *float*;
-#X text 245 335 input from predicate side chain. If 1 received - output
+#X text 110 316 1\.;
+#X text 245 316 input value.;
+#X text 110 336 2\.;
+#X text 150 336 *float*;
+#X text 245 336 input from predicate side chain. If 1 received - output
 for first outlet. If 0 - to second.;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 386 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 386 1\.;
-#X text 245 386 values for which predicate side-chain returned true.;
-#X text 110 406 2\.;
-#X text 245 406 values for which predicate side-chain returned false.;
-#X text 110 426 3\.;
-#X text 245 426 value to predicate side-chain.;
+#X text 110 387 1\.;
+#X text 245 387 values for which predicate side-chain returned true.;
+#X text 110 407 2\.;
+#X text 245 407 values for which predicate side-chain returned false.;
+#X text 110 427 3\.;
+#X text 245 427 value to predicate side-chain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 507 520 see also:;
-#X obj 581 520 flow.pass;
-#X obj 661 520 flow.reject;
+#X text 505 520 see also:;
+#X obj 580 520 flow.pass;
+#X obj 660 520 flow.reject;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

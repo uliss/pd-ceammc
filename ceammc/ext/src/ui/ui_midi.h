@@ -24,8 +24,8 @@ using namespace ceammc;
 class UIMidi : public UIObject {
     using Proxy = PdListProxy<UIMidi>;
     Proxy note_, ctlin_, sysex_, pgm_, bend_, touch_, polyt_;
-    char msg_type_[16];
-    char msg_body_[240];
+    char msg_type_[16] = {};
+    char msg_body_[240] = {};
     UITextLayout txt_type_, txt_body_;
     std::vector<uint8_t> sysex_buffer_;
     // props
@@ -54,8 +54,13 @@ public:
     void onTouch(const AtomListView& lv);
     void onPolyTouch(const AtomListView& lv);
 
+    void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+
 public:
     static void setup();
+
+private:
+    void printType(int type);
 
 private:
     static void openMidiSettingsDialog();

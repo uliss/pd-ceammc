@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include <cmath>
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "hoa_2d_map.h"
@@ -200,11 +200,11 @@ void Hoa2dMap::onList(const AtomListView& lv)
     static const args::ArgChecker is_mute("IDX:i>=1 s=mute VALUE:b");
 
     if (is_polar.checkSilent(lv))
-        return setPolar(lv[0].asT<int>(), lv[2].asT<t_float>(), lv[3].asT<t_float>());
+        return setPolar(lv[0].asT<t_int>(), lv[2].asT<t_float>(), lv[3].asT<t_float>());
     else if (is_cartes.checkSilent(lv)) {
-        return setCartesian(lv[0].asT<int>(), lv[2].asT<t_float>(), lv[3].asT<t_float>());
+        return setCartesian(lv[0].asT<t_int>(), lv[2].asT<t_float>(), lv[3].asT<t_float>());
     } else if (is_mute.checkSilent(lv)) {
-        return setMute(lv[0].asT<int>(), lv[2].asT<bool>());
+        return setMute(lv[0].asT<t_int>(), lv[2].asT<bool>());
     } else {
         OBJ_ERR << "invalid list: " << lv;
         is_polar.usage(this);
@@ -220,7 +220,7 @@ void Hoa2dMap::m_polar(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    setPolar(lv[0].asT<int>(), lv[1].asT<t_float>(), lv[2].asT<t_float>());
+    setPolar(lv[0].asT<t_int>(), lv[1].asT<t_float>(), lv[2].asT<t_float>());
 }
 
 void Hoa2dMap::m_cartesian(t_symbol* s, const AtomListView& lv)
@@ -230,7 +230,7 @@ void Hoa2dMap::m_cartesian(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    setCartesian(lv[0].asT<int>(), lv[1].asT<t_float>(), lv[2].asT<t_float>());
+    setCartesian(lv[0].asT<t_int>(), lv[1].asT<t_float>(), lv[2].asT<t_float>());
 }
 
 void Hoa2dMap::m_mute(t_symbol* s, const AtomListView& lv)

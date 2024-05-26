@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 constexpr float SCALE_ALPHA_BLEND = 0.7;
 

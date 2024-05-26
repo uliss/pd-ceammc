@@ -9,6 +9,8 @@ function(tcl_autogen_header)
     endif()
 
     set(TCL_HEADER ${CMAKE_CURRENT_BINARY_DIR}/${tcl_file}.h)
+    get_filename_component(TCL_HEADER_DIR ${TCL_HEADER} DIRECTORY)
+    file(MAKE_DIRECTORY ${TCL_HEADER_DIR})
     add_custom_command(
         OUTPUT ${TCL_HEADER}
         COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file} > ${TCL_HEADER}

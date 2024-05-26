@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="net.ws.client">
+        <title>net.ws.client</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Websocket client</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>websocket net client</keywords>
+            <since>0.9.8</since>
+            <also>
+                <see>net.ws.server</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">parsing
+            mode for incoming messages. If 'fudi' - interpret incoming websocket data as Pd
+            messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
+            convert json values to ceammc data.</property>
+        </properties>
+        <methods>
+            <!-- send -->
+            <method name="send">send as text message 
+            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <!-- send_binary -->
+            <method name="send_binary">send as binary bytes 
+            <param name="ARGS" type="list" required="false">list of integers in [0..255]
+            range</param></method>
+            <!-- send_json -->
+            <method name="send_json">send as encoded json 
+            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <!-- send_array -->
+            <method name="send_array">send as Pd array content as json array 
+            <param name="ARR" type="symbol" required="true">array name</param>
+            <param name="START" type="int" required="false" minvalue="0" units="sample"
+            default="0">array start index</param>
+            <param name="LENGTH" type="int" required="false" minvalue="0" units="sample">read
+            length. If not specified - read until array end.</param></method>
+            <!-- write -->
+            <method name="write">write as text message to output buffer. You have to call [flush(
+            method for sending. 
+            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <!-- write_binary -->
+            <method name="write_binary">write as binary bytes to output buffer. You have to call
+            [flush( method for sending. 
+            <param name="ARGS" type="list" required="false">list of integers in [0..255]
+            range</param></method>
+            <!-- write_json -->
+            <method name="write_json">write as encoded json to output buffer. You have to call
+            [flush( method for sending. 
+            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <!-- latency -->
+            <method name="latency">measure rountrip latency. Outputs: latency TIME_MSEC</method>
+            <!-- flush -->
+            <method name="flush">flush output stream: sends all buffered messages.</method>
+            <!-- close -->
+            <method name="close">gracefully close connection (with websocket handshake)</method>
+            <!-- ping -->
+            <method name="ping">send ping message to server (on server answer outputs: pong DATA) 
+            <param name="DATA" type="list" required="false">list of integers in [0..255]
+            range</param></method>
+            <!-- connect -->
+            <method name="connect">connect to websocket server 
+            <param name="URL" type="symbol" required="true">url - ws://HOST:PORT/, for ex.:
+            ws://127.0.0.1:9000/path</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>message input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output messages: latency, ping, text, binary, closed, connected,
+            disconnected</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*you can start testing websocket server with command: 'websocat -s 8000 -t -v'*/
+
+
+[connect ws://localhost:8000(         [array WS-CLI size=50 w=150 h=100 yr=0..100]
+|
+| [close #b(   [write MSG1 #e(
+|
+| [ping #c(    [write MSG2 #f(
+|
+| [latency #d( [flush #g(
+|
+| [send MESSAGE( [send_json 1 2 A #h(
+| |
+| | [send_array WS-CLI #i(
+| | |
+[net.ws.client #x]
+|
+[t a a #z]
+|
+[print]
+
+    [ui.dt #a]
+
+[X z:1->a] [X b->x] [X c->x] [X d->x]
+[X e->x] [X f->x] [X g->x] [X h->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

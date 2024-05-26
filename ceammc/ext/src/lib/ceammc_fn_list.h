@@ -187,6 +187,18 @@ namespace list {
     }
 
     template <>
+    bool canConvertToType<long>(const AtomListView& lv)
+    {
+        return lv.isFloat();
+    }
+
+    template <>
+    bool canConvertToType<long long>(const AtomListView& lv)
+    {
+        return lv.isFloat();
+    }
+
+    template <>
     bool canConvertToType<size_t>(const AtomListView& lv)
     {
         if (!lv.isFloat())
@@ -233,6 +245,14 @@ namespace list {
      * @note no dynamic memory allocation
      */
     int foreachProperty(const AtomListView& lv, std::function<void(const AtomListView&)> fn);
+
+    /**
+     * Iterate all properties in list
+     * @param lv - source list
+     * @param fn - function to apply to each found property
+     * @note no dynamic memory allocation
+     */
+    int foreachProperty(const AtomListView& lv, std::function<void(t_symbol* prop, const AtomListView&)> fn);
 
     /**
      * Linear list interpoltation

@@ -77,7 +77,7 @@ void FlowGroup::m_clear(t_symbol*, const AtomListView&)
 
 size_t FlowGroup::size() const
 {
-    return size_t(std::max(1, group_size_->value()));
+    return std::max<size_t>(1, group_size_->value());
 }
 
 void FlowGroup::flush()

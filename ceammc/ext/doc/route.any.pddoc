@@ -10,10 +10,11 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
-            <keywords>route list</keywords>
+            <keywords>route any</keywords>
             <since>0.9.6</since>
             <also>
                 <see>route.float</see>
+                <see>route.list</see>
                 <see>route.random</see>
                 <see>route.prop</see>
             </also>
@@ -42,7 +43,7 @@
 |    |   |  |
 |    |   |  | [@any( [other(
 |    |   |  | |      |
-[route.list        #z]
+[route.any         #z]
 |       ^|
 [ui.dt]  |
          |

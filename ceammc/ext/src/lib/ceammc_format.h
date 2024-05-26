@@ -28,9 +28,6 @@ std::string to_string(const AtomListView v, const std::string& separator = " ");
 std::string to_string(const AtomList& l, const std::string& separator = " ");
 std::string to_string(const Message& m, const std::string& separator = " ");
 
-std::string to_json_string(const Atom& a);
-std::string to_json_string(const AtomListView& lv);
-
 std::string parse_quoted(const Atom& str);
 std::string parse_quoted(const AtomListView& v);
 

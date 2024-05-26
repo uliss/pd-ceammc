@@ -27,12 +27,12 @@ TEST_CASE("function", "[externals]")
     SECTION("init")
     {
         pd::External f0("function");
-        REQUIRE(f0.isNull());
+        REQUIRE_FALSE(f0.isNull());
 
         TExt t("func", LA("sqrt"));
         // already exists
         pd::External t1("function", LA("sqrt"));
-        REQUIRE(t1.isNull());
+        REQUIRE_FALSE(t1.isNull());
         // new name is ok
         TExt t2("func", LA("sqrt2"));
 

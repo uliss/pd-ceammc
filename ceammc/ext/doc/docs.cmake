@@ -71,6 +71,7 @@ set(DOC_FILES
     conv.dbfs2amp~
     conv.degree2key
     conv.edge2bang
+    conv.guido2note
     conv.hex2int
     conv.hsl2rgb
     conv.int2bits
@@ -166,6 +167,7 @@ set(DOC_FILES
     flow.greater
     flow.greater_eq
     flow.group
+    flow.histogram
     flow.interval
     flow.less
     flow.less_eq
@@ -315,10 +317,11 @@ set(DOC_FILES
     hw.apple_smc
     hw.apple_sms
     hw.arduino
-    hw.cpu_temp
     hw.display
+    hw.gamepad
     hw.kbd_light
     hw.motu.avb
+    hw.printer
     hw.serial
     is_any
     is_bang
@@ -559,14 +562,21 @@ set(DOC_FILES
     msg.onload
     msg.pack
     msg.sched
+    msg.unpack
     music.dur2time
     music.voice2midi
     net.artnet.send
+    net.freesound
     net.host2ip
+    net.http.client
     net.http.send
+    net.mdns
+    net.mqtt.client
     net.osc.receive
     net.osc.send
     net.osc.server
+    net.ws.client
+    net.ws.server
     noise.baker
     noise.chua~
     noise.clifford
@@ -634,11 +644,11 @@ set(DOC_FILES
     prop
     prop.declare
     prop.get
-    prop.get~
     prop.join
     prop.random
+    prop.route
+    prop.route~
     prop.set
-    prop.split
     proto.arturia.minilab
     proto.feelworld
     proto.firmata
@@ -674,6 +684,7 @@ set(DOC_FILES
     route.any
     route.bang
     route.cycle
+    route.data
     route.float
     route.list
     route.prop
@@ -764,12 +775,14 @@ set(DOC_FILES
     synth.voice_fofs~
     synth.wurley~
     system.colorpanel
+    system.command
     system.cursor
     system.exec
     system.exit
     system.exit
     system.getenv
     system.hostname
+    system.info
     system.memsize
     system.memused
     system.screen_size

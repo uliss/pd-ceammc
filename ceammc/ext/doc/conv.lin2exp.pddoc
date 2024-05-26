@@ -38,10 +38,10 @@
             <property name="@out_to" type="float" default="1">end of output range</property>
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
             noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip both).</property>
-            <property name="@noclip" type="symbol">alias to @clip noclip</property>
-            <property name="@min" type="symbol">alias to @clip min</property>
-            <property name="@max" type="symbol">alias to @clip max</property>
-            <property name="@minmax" type="symbol">alias to @clip minmax</property>
+            <property name="@noclip" type="alias">alias to @clip noclip</property>
+            <property name="@min" type="alias">alias to @clip min</property>
+            <property name="@max" type="alias">alias to @clip max</property>
+            <property name="@minmax" type="alias">alias to @clip minmax</property>
         </properties>
         <inlets>
             <inlet>

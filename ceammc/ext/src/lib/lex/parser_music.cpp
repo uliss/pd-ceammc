@@ -1128,8 +1128,8 @@ bool parse_pitch_class(const Atom& a, music::PitchClass& res)
 {
     if (a.isSymbol())
         return parse_pitch_class(a.asT<t_symbol*>()->s_name, res);
-    else if(a.isInteger() && a.asT<int>() >= 0 && a.asT<int>() < 12) {
-        res = PitchClass(a.asT<int>());
+    else if(a.isInteger() && a.asT<t_int>() >= 0 && a.asT<t_int>() < 12) {
+        res = PitchClass(a.asT<t_int>());
         return true;
     } else
         return false;
@@ -2263,7 +2263,7 @@ bool parse_duration(const Atom& a, Duration& dur)
     if (a.isSymbol())
         return parse_duration(a.asT<t_symbol*>()->s_name, dur);
     else if(a.isFloat()) {
-        const auto i = a.asT<int>();
+        const auto i = a.asT<t_int>();
         if (i >= 0)
             dur = Duration(1, i);
 

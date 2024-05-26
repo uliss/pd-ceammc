@@ -14,7 +14,7 @@
 #ifndef CEAMMC_EDITOR_OBJECT_H
 #define CEAMMC_EDITOR_OBJECT_H
 
-#include "ceammc_datatypes.h"
+#include "ceammc_string_types.h"
 #include "ceammc_object.h"
 
 #include <list>

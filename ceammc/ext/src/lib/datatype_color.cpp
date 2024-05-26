@@ -267,18 +267,23 @@ float DataTypeColor::calculateLuminance() const
 
 t_symbol* DataTypeColor::hex() const
 {
-    char buf[24];
-    if (data_[3] == 1)
-        fmt::format_to(buf, "#{:02X}{:02X}{:02X}\0", (int)red8(), (int)green8(), (int)blue8());
+    char buf[24] = {};
+    if (data_[3] == 1) {
+        fmt::format_to(buf, "#{:02X}{:02X}{:02X}", (int)red8(), (int)green8(), (int)blue8());
+    }
     else
-        fmt::format_to(buf, "#{:02X}{:02X}{:02X}{:02X}\0", (int)red8(), (int)green8(), (int)blue8(), (int)alpha8());
+        fmt::format_to(buf, "#{:02X}{:02X}{:02X}{:02X}", (int)red8(), (int)green8(), (int)blue8(), (int)alpha8());
 
     return gensym(buf);
 }
 
 StaticAtomList<3> DataTypeColor::asRgb8List() const
 {
-    return { red8(), green8(), blue8() };
+    return {
+        static_cast<t_float>(red8()),
+        static_cast<t_float>(green8()),
+        static_cast<t_float>(blue8()),
+    };
 }
 
 StaticAtomList<3> DataTypeColor::asRgbFList() const
@@ -331,7 +336,7 @@ bool DataTypeColor::parseFromList(const AtomListView& lv, DataTypeColor& res)
     } else if (lv.isA<DataTypeColor>()) {
         std::memcpy(res.data_, lv.asD<DataTypeColor>()->data_, sizeof(data_));
         return true;
-    } else if (lv.allOf(isFloat)) {
+    } else if (lv.allOf(AtomPredicate(isFloat))) {
         res.data_[0] = clip01<float>(lv.floatAt(0, 0));
         res.data_[1] = clip01<float>(lv.floatAt(1, 0));
         res.data_[2] = clip01<float>(lv.floatAt(2, 0));

@@ -15,6 +15,17 @@
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
+
+constexpr int MAX_VALUE_DEFAULT = 8192;
+constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;
+constexpr int FLASH_MS = 100;
+
+enum {
+    MODE_NONE = 0,
+    MODE_INC = 1,
+    MODE_DEC = -1
+};
 
 constexpr int MAX_VALUE_DEFAULT = 8192;
 constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;

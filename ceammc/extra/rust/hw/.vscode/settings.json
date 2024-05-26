@@ -1,0 +1,23 @@
+{
+    "cSpell.words": [
+        "ceammc",
+        "cputemp",
+        "dests",
+        "devinfo",
+        "etype",
+        "gamepad",
+        "gamepads",
+        "gilrs",
+        "listdev",
+        "pdfium",
+        "powerinfo",
+        "powerstate",
+        "repr",
+        "sysinfo",
+        "winprint"
+    ],
+    "rust-analyzer.linkedProjects": [
+        "./Cargo.toml"
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
+}

@@ -1,50 +1,54 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 539 50 cnv 1 226 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 539 50 Run-length list decoder (RLE);
+#X obj 538 50 cnv 1 227 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 538 50 Run-length list decoder (RLE);
 #X obj 1 1 cnv 5 765 40 empty empty list.rldecode 20 20 0 20 -104026
 -4096 0;
-#X obj 542 11 list.unwrap;
+#X obj 541 11 list.unwrap;
 #X obj 646 11 list.rldecode;
 #X msg 50 118 1 2 1 3;
 #X msg 174 118 1 2 3 4;
 #X obj 50 147 list.rldecode 4 3 2 1;
 #X obj 50 176 ui.dt;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 231 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 265 1\.;
-#X text 150 265 list;
-#X obj 246 266 cnv 1 15 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 265 L: initial element repeat list. Type: list.;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 234 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 266 1\.;
+#X text 150 266 list;
+#X obj 246 267 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 266 L: initial element repeat list. Type: list.;
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 335 @l;
-#X text 245 335 Get/Set list of repeats. Type: list.;
-#X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 379 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 735 304 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 336 @l;
+#X text 245 336 Get/Set list of repeats. Type: list.;
+#X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 381 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 380 1\.;
-#X text 150 380 *list*;
-#X text 245 380 First list - single elements.;
-#X text 110 400 2\.;
-#X text 150 400 *list*;
-#X text 245 400 Second list - count of each element.;
-#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 435 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 382 1\.;
+#X text 150 382 *list*;
+#X text 245 382 First list - single elements.;
+#X text 110 402 2\.;
+#X text 150 402 *list*;
+#X text 245 402 Second list - count of each element.;
+#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 437 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 436 1\.;
-#X text 245 436 result - elements repeated n times specified by corresponding
+#X text 110 438 1\.;
+#X text 245 438 result - elements repeated n times specified by corresponding
 values in second list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 572 520 see also:;
+#X text 571 520 see also:;
 #X obj 646 520 list.rlencode;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

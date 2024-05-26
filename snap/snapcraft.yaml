@@ -1,5 +1,5 @@
 name: pd-ceammc
-version: "2023.09"
+version: "2023.10"
 license: "GPL-3.0"
 summary: "Pure Data CEAMMC distribution"
 description: |
@@ -35,7 +35,6 @@ apps:
         plugs:
             - alsa
             - pulseaudio # for audio output
-            - jack1
             - home
             - unity7
             - x11
@@ -98,17 +97,20 @@ parts:
             - -DCMAKE_BUILD_TYPE=Release
             - -DCMAKE_INSTALL_PREFIX=/usr
             - -DWITH_PORTAUDIO=OFF
+            - -DWITH_PORTMIDI=OFF
+            - -DWITH_JACK=OFF
             - -DWITH_BENCHMARK=OFF
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
-            - -DWITH_JACK=ON
             - -DWITH_EXT_FLEXT=OFF
+            - -DWITH_VEROVIO=OFF
+            - -DWITH_LIBSAMPLERATE=ON
             - -DENABLE_TESTS=OFF
-            - -DWITH_EXT_FLEXT=OFF
         source: .
         build-packages:
             - alsa-utils
             - build-essential
+            - cargo
             - cmake
             - g++
             - gettext
@@ -116,15 +118,21 @@ parts:
             - libasound2-dev
             - libavahi-compat-libdnssd-dev
             - libboost-dev
-            - libfftw3-dev
-            - libglib2.0-dev
-            - libjack-jackd2-dev
-            - libltc-dev
             - libcairo2-dev
+            - libclang1
+            - libcups2-dev
+            - libfftw3-dev
+            - libfreetype-dev
+            - libglib2.0-dev
+            - liblo-dev
+            - libltc-dev
+            - libluajit-5.1-dev
+            - libmagic-dev
             - libmodplug-dev
             - librubberband-dev
             - libsndfile1-dev
-            - libfreetype-dev
+            - libssl-dev
+            - libudev-dev
             - libxcb-randr0-dev
             - libxcb-util-dev
             - libxcb1-dev
@@ -142,16 +150,23 @@ parts:
         stage-packages:
             - libasound2
             - libatm1
+            - libcairo2
+            - libcups2
             - libfftw3-single3
+            - libfreetype6
+            - libglib2.0-0
             - libice6
             - libjack-jackd2-0
+            - liblo7
             - libltc11
+            - libluajit-5.1-2
+            - libmagic1
             - libmodplug1
             - librubberband2
             - libsndfile1
-            - libcairo2
-            - libfreetype6
+            - libssl1.1
             - libtcl8.6
+            - libudev1
             - libxcb-randr0
             - libxtables12
             - llvm

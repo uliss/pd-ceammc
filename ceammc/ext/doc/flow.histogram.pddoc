@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="flow.histogram">
+        <title>flow.histogram</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>control flow histogram</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>histogram</keywords>
+            <since>0.9.8</since>
+            <aliases>
+                <alias>flow.hist</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="RANGE" type="list">FROM TO NUM_BINS?</argument>
+        </arguments>
+        <properties>
+            <property name="@bins" type="list" default="0">bins border values</property>
+            <property name="@norm" type="bool" default="1">do the histogram
+            normalization</property>
+            <property name="@inner_bins" type="bool" default="1">output histogram inner bins
+            only</property>
+            <property name="@sync" type="bool" default="1">calculate and output histogram on every
+            input value</property>
+        </properties>
+        <methods>
+            <method name="clear">clear all histogram data</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates histogram and output current bin values</xinfo>
+                <xinfo on="float">add value to the histogram and output it's value if @sync
+                property is true</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: bin values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 25]
+|
+[random.gauss 0 1] [clear(
+|                  |
+[flow.hist -4 4 32 @norm 1 @sync 1]
+|
+[ui.sliders @auto_count 1]
+
+
+
+
+
+
+
+
+[flow.histogram-bins]
+]]>
+            </pdascii>
+            <pdascii id="bins">
+<![CDATA[
+/*manual bins*/
+
+[dump(
+|
+[flow.hist @bins -10 -5 -1 1 5 10]
+
+/*function bins*/
+
+[dump(
+|
+[flow.hist @bins seq(1 100 2)]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

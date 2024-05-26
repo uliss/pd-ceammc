@@ -184,8 +184,8 @@ AtomList fn_euclid(const AtomListView& args)
         return {};
     }
 
-    const auto onsets = args[0].asT<int>();
-    const auto pulses = clip_max<int>(args.intAt(1, 8), MAX_LIST_LEN);
+    const auto onsets = args[0].asT<t_int>();
+    const auto pulses = clip_max<t_int>(args.intAt(1, 8), MAX_LIST_LEN);
     const auto rotate = args.intAt(2, 0);
 
     if (onsets < 0) {
@@ -255,7 +255,7 @@ AtomList fn_zeros(const AtomListView& args)
         return {};
     }
 
-    return AtomList::zeroes(clip_max<int>(args[0].asInt(), MAX_LIST_LEN));
+    return AtomList::zeroes(clip_max<t_int>(args[0].asInt(), MAX_LIST_LEN));
 }
 
 }

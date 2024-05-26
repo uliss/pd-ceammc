@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ui_link.h"
 #include "test_ui.h"
+#include "ui_link.h"
 
 UI_COMPLETE_TEST_SETUP(Link)
 
@@ -22,11 +22,28 @@ TEST_CASE("ui.link", "[ui.link]")
 
     SECTION("construct")
     {
-        TestLink t("ui.link");
-        REQUIRE(t->numInlets() == 0);
-        REQUIRE(t->numOutlets() == 0);
-        REQUIRE_UI_LIST_PROPERTY(t, "url", LA("<no url>"));
-        REQUIRE_UI_LIST_PROPERTY(t, "title", LA("<no title>"));
+        SECTION("default")
+        {
+            TestLink t("ui.link");
+            REQUIRE(t->numInlets() == 0);
+            REQUIRE(t->numOutlets() == 0);
+            REQUIRE_UI_LIST_PROPERTY(t, "url", LA("<no url>"));
+            REQUIRE_UI_LIST_PROPERTY(t, "title", LA("<no title>"));
+        }
+
+        SECTION("args URL")
+        {
+            TestLink t("ui.link", LA("google.com"));
+            REQUIRE_UI_LIST_PROPERTY(t, "url", LA("google.com"));
+            REQUIRE_UI_LIST_PROPERTY(t, "title", LA("google.com"));
+        }
+
+        SECTION("args URL TITLE")
+        {
+            TestLink t("ui.link", LA("google.com", "TITLE"));
+            REQUIRE_UI_LIST_PROPERTY(t, "url", LA("google.com"));
+            REQUIRE_UI_LIST_PROPERTY(t, "title", LA("TITLE"));
+        }
     }
 
     SECTION("external")

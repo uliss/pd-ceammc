@@ -14,6 +14,7 @@
 #include "tl_cue_new.h"
 #include "ceammc_ui.h"
 
+#include "cicm/Sources/egraphics.h"
 #include "tl_cue_fn.tcl.h"
 
 #include <inttypes.h>

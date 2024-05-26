@@ -11,30 +11,30 @@
 #X obj 50 172 path.split;
 #X obj 136 201 ui.dt;
 #X obj 50 230 ui.dt;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 285 1\.;
-#X text 150 285 *symbol*;
-#X text 245 285 filename.;
-#X text 150 305 *data:string*;
-#X text 245 305 filename.;
-#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 340 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 286 1\.;
+#X text 150 286 *symbol*;
+#X text 245 286 filename.;
+#X text 150 306 *data:string*;
+#X text 245 306 filename.;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 341 1\.;
-#X text 245 341 symbol: dirname.;
-#X text 110 361 2\.;
-#X text 245 361 symbol: basename.;
+#X text 110 342 1\.;
+#X text 245 342 symbol: dirname.;
+#X text 110 362 2\.;
+#X text 245 362 symbol: basename.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title path @url ceammc.path-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 601 520 see also:;
-#X obj 675 520 file.size;
+#X text 599 520 see also:;
+#X obj 674 520 file.size;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

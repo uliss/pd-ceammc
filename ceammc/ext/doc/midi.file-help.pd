@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 453 50 standard midi file SMF reader and writer;
+#X obj 452 50 cnv 1 313 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 452 50 standard midi file SMF reader and writer;
 #X obj 1 1 cnv 5 765 40 empty empty midi.file 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 midi.file;
@@ -20,61 +20,65 @@
 #X obj 50 378 osc~;
 #X obj 50 406 *~;
 #X obj 50 435 dac~;
-#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 524 1\.;
-#X text 150 524 symbol;
-#X obj 246 525 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 524 FILENAME: initial MIDI filename. Type: symbol.;
-#X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 559 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 525 1\.;
+#X text 150 525 symbol;
+#X obj 246 526 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 525 FILENAME: initial MIDI filename. Type: symbol.;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 560 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 594 @filename;
-#X text 245 594 Get/Set current filename. Type: symbol.;
-#X msg 110 623 @length_beat?;
-#X text 245 623 (readonly) Get file length in quarters. Type: float.
+#X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 595 @filename;
+#X text 245 595 Get/Set current filename. Type: symbol.;
+#X msg 110 625 @length_beat?;
+#X text 245 625 (readonly) Get file length in quarters. Type: float.
 Default value: 0\.;
-#X msg 110 665 @length_sec?;
-#X text 245 665 (readonly) Get file length. Type: float. Units: 'sec'.
+#X msg 110 667 @length_sec?;
+#X text 245 667 (readonly) Get file length. Type: float. Units: 'sec'.
 Default value: 0\.;
-#X msg 110 707 @length_tick?;
-#X text 245 707 (readonly) Get file length in ticks. Type: int. Default
+#X msg 110 709 @length_tick?;
+#X text 245 709 (readonly) Get file length in ticks. Type: int. Default
 value: 0\.;
-#X msg 110 749 @tempo?;
-#X text 245 749 (readonly) Get midi tempo in ticks per quarter. Type:
+#X msg 110 751 @tempo?;
+#X text 245 751 (readonly) Get midi tempo in ticks per quarter. Type:
 int. Default value: 120\.;
-#X msg 110 791 @tracks?;
-#X text 245 791 (readonly) Get number of tracks. Type: int. Default
+#X msg 110 793 @tracks?;
+#X text 245 793 (readonly) Get number of tracks. Type: int. Default
 value: 1\.;
-#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 848 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 850 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 883 clear;
-#X text 245 883 removes all midi file content.;
-#X msg 110 910 read;
-#X text 245 910 read specified midi file. No output.;
-#X msg 110 937 write;
-#X text 245 937 write to specified midi file.;
-#X obj 20 974 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 979 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 885 clear;
+#X text 245 885 removes all midi file content.;
+#X msg 110 913 read;
+#X text 245 913 read specified midi file. No output.;
+#X msg 110 941 write;
+#X text 245 941 write to specified midi file.;
+#X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 984 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 980 1\.;
-#X text 150 980 *bang*;
-#X text 245 980 output MidiFile data type.;
-#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1015 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 985 1\.;
+#X text 150 985 *bang*;
+#X text 245 985 output MidiFile data type.;
+#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1020 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1016 1\.;
-#X text 245 1016 MidiStream data type.;
+#X text 110 1021 1\.;
+#X text 245 1021 MidiStream data type.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1066 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1069 library: ceammc v0.9.7;
-#N canvas 10 1088 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 1 1071 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1074 library: ceammc v0.9.7;
+#N canvas 10 1093 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1088 pd info;
+#X restore 10 1093 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

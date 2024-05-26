@@ -16,6 +16,7 @@ array.each	process each array elements via side-chain
 array.fill	fill array with single value, pattern or function
 array.grainer~	array granulator
 array.hist	calculates array histogram
+array.histogram	calculates array histogram
 array.ltcplay~	array player controlled by LTC
 array.mean	calculates array arithmetic mean value
 array.minmax	find array min and max element value
@@ -172,6 +173,9 @@ degree->key	convert scale degree to key
 conv.edge2bang	edge detector for numeric stream
 ceammc/edge->bang	edge detector for numeric stream
 edge->bang	edge detector for numeric stream
+conv.guido2note	convert Guido notation into MIDI and duration
+ceammc/guido->note	convert Guido notation into MIDI and duration
+guido->note	convert Guido notation into MIDI and duration
 conv.hex2int	hex symbol to int value
 ceammc/hex->int	hex symbol to int value
 hex->int	hex symbol to int value
@@ -411,6 +415,8 @@ flow.>=	numeric stream router
 flow.group	group input atoms in list of specified size
 ceammc/group	group input atoms in list of specified size
 group	group input atoms in list of specified size
+flow.histogram	control flow histogram
+flow.hist	control flow histogram
 flow.interval	measure time between flow events
 flow.less	numeric stream router, like many [moses]
 flow.<	numeric stream router, like many [moses]
@@ -483,6 +489,8 @@ route.any	separate any messages from bangs, floats, symbols and lists
 route.bang	separate bang messages from other types
 route.b	separate bang messages from other types
 route.cycle	cyclic message router
+route.data	separate any messages from bangs, floats, symbols and lists
+route.d	separate any messages from bangs, floats, symbols and lists
 route.float	separate float messages from other types
 route.f	separate float messages from other types
 route.list	separate list messages from other types
@@ -592,10 +600,11 @@ global.set	global named set object
 hw.apple_smc	query the system management control in Apples
 hw.apple_sms	query the sudden motion sensor in Apples
 hw.arduino	Arduino device
-hw.cpu_temp	get CPU temperature
 hw.display	get/set display properties
+hw.gamepad	gamepad controller
 hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
+hw.printer	Basic printing support
 hw.serial	serial port device
 lang.faust~	faust realtime compilation
 lang.lua	Lua JIT language bindings
@@ -634,6 +643,7 @@ list.equal	checks if given lists are equal
 list.first	returns first list element
 list.gen	generates list of specified length via external generator
 list.histogram	outputs distribution histogram
+list.hist	outputs distribution histogram
 list.insert	insert atom or list to the specified position of input list
 list.integrator	returns the sum of the previously stored list and the current one then stores this sum
 list.last	output last list element
@@ -946,21 +956,30 @@ ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
 msg.pack	message pack
 msg.sched	message scheduler
+msg.unpack	message unpack
 rhythm.euclid	euclid pattern generator
 rhythm.hexbeat	hexbeat pattern generator
 rhythm.lsystem	L-system pattern generator
 net.artnet.send	ArtNet DMX message sender
 artnet.send	ArtNet DMX message sender
+net.freesound	Freesound API v2 client
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+net.http.client	HTTP client
+http.client	HTTP client
 net.http.send	HTTP request sender
 http.send	HTTP request sender
+net.mdns	MDNS service discovery
+net.mqtt.client	MQTT client
+mqtt.client	MQTT client
 net.osc.receive	OSC message listener
 net.osc.r	OSC message listener
 net.osc.send	OSC message sender
 net.osc.s	OSC message sender
 net.osc.server	OSC server control
 net.osc	OSC server control
+net.ws.client	Websocket client
+net.ws.server	Websocket server
 noise.baker	Part of a-chaos library
 noise.clifford	clifford attractor
 noise.collatz	collatz conjecture output
@@ -994,6 +1013,7 @@ osc.sin~	Sine wave oscillator
 osc.square~	Bandlimited square wave oscillator
 osc.tri~	Bandlimited triangle wave oscillator
 canvas.active	checks if canvas window is on top and active
+ceammc/canvas.active	checks if canvas window is on top and active
 canvas.current	verbose information about current canvas
 canvas.dir	current canvas directory and nesting level
 canvas.name	current canvas name
@@ -1044,21 +1064,21 @@ ceammc/prop	get/set named property value for subpatch or abstraction
 prop.declare	declare named property for subpatch or abstraction
 prop.get	get property from connected object/subpatch/abstraction
 p.get	get property from connected object/subpatch/abstraction
-prop.get~	Property extractor from sound stream
-prop~>	Property extractor from sound stream
-@~>	Property extractor from sound stream
-ceammc/prop~>	Property extractor from sound stream
-ceammc/@~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
 prop.random	property randomizer
-prop.set	set property for connected object/subpatch/abstraction
-p.set	set property for connected object/subpatch/abstraction
-prop.split	separate properties from dataflow
+prop.route	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
 ceammc/prop->	separate properties from dataflow
 ceammc/@->	separate properties from dataflow
+prop.route~	Property extractor from audio streams
+prop~>	Property extractor from audio streams
+@~>	Property extractor from audio streams
+ceammc/prop~>	Property extractor from audio streams
+ceammc/@~>	Property extractor from audio streams
+prop.set	set property for connected object/subpatch/abstraction
+p.set	set property for connected object/subpatch/abstraction
 proto.arturia.minilab	simple SysEx control for Arturia MiniLab
 proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
@@ -1246,11 +1266,14 @@ synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
 synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
+system.command	run commands with pipes on Unix and Windows
+system.cmd	run commands with pipes on Unix and Windows
 system.cursor	Output cursor motion, mousewheel and button clicks
 system.exec	run external command in separate process
 system.exit	quit PureData
 system.getenv	Get system environment variables
 system.hostname	outputs system hostname
+system.info	retrieve system information
 system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
 system.memused	returns the process physical memory use - current and peak
 system.screen_size	returns current screen size in pixels

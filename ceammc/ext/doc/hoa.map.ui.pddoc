@@ -12,7 +12,7 @@
             <description>a GUI to spatialize sources on a map</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>spat</category>
+            <category view="link">spat</category>
             <keywords>hoa map</keywords>
             <since>0.9.7</since>
         </meta>
@@ -23,8 +23,16 @@
             <a href="hoa/hoa.map-help.pd">CICM documentation</a>
         </info>
         <mouse>
-            <event type="right-click" editmode="false">opens popup menu</event>
+            <event type="wheel" editmode="false" keys="Alt">zoom the view</event>
             <event type="drag" editmode="false">move selected source or group</event>
+            <event type="right-click" editmode="false">opens the popup menu for adding/remove
+            sources</event>
+            <event type="right-click" editmode="false" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open the properties
+            dialog</event>
+            <event type="right-click" editmode="true">opens the Pd popup menu</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
         </mouse>
         <properties>
             <!-- common-->

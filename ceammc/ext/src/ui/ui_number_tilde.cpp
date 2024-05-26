@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_number_tilde.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_number_tilde.tcl.h"
 
 constexpr int MIN_PRECISION = 0;

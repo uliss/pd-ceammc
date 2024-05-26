@@ -895,14 +895,11 @@ struct ArgumentMatchAndSet {
 
     bool setArgs(int idx, std::tuple<bool>& f)
     {
-        static t_symbol* SYM_TRUE = gensym("true");
-        static t_symbol* SYM_FALSE = gensym("false");
-
         // check for true and false symbols
         if (!l_.isFloat()) {
             if (l_.isSymbol()) {
-                t_symbol* s = l_[0].asSymbol();
-                return (s == SYM_TRUE || s == SYM_FALSE);
+                auto str = l_[0].asSymbol()->s_name;
+                return (strcmp(str, "true") == 0) || (strcmp(str, "false") == 0);
             }
             return false;
         }

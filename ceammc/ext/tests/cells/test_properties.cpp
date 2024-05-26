@@ -112,7 +112,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             bool b = false;
             t_float f;
-            int i;
+            t_int i;
             t_symbol* s;
             Atom a;
             AtomList l;
@@ -149,7 +149,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             REQUIRE(p.setT(t_float(10.5)));
             REQUIRE(p.value() == A(10.5));
-            REQUIRE(p.setT(1000));
+            REQUIRE(p.setT(t_int(1000)));
             REQUIRE(p.value() == A(1000));
             REQUIRE(p.setT(SYM("123")));
             REQUIRE(p.value() == S("123"));
@@ -168,87 +168,6 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.value() == S("ABC"));
             REQUIRE(p.setAtom(A(1000)));
             REQUIRE(p.value() == A(1000));
-        }
-    }
-
-    SECTION("SizeT property")
-    {
-        SizeTProperty p("size_t", 12);
-
-        SECTION("main")
-        {
-            REQUIRE(p.isReadWrite());
-            REQUIRE_FALSE(p.isInitOnly());
-            REQUIRE_FALSE(p.isReadOnly());
-            REQUIRE(p.isPublic());
-            REQUIRE_FALSE(p.isHidden());
-            REQUIRE_FALSE(p.isInternal());
-
-            REQUIRE(p.name() == SYM("size_t"));
-            REQUIRE(!p.isFloat());
-            REQUIRE(!p.isBool());
-            REQUIRE(!p.isAtom());
-            REQUIRE(p.isInt());
-            REQUIRE(!p.isSymbol());
-            REQUIRE(!p.isList());
-            REQUIRE(p.type() == PropValueType::INTEGER);
-            REQUIRE(p.equalUnit(PropValueUnits::NONE));
-            REQUIRE(p.access() == PropValueAccess::READWRITE);
-            REQUIRE(p.view() == PropValueView::NUMBOX);
-            REQUIRE(p.defaultValue() == 12);
-            REQUIRE(p.value() == 12);
-            REQUIRE(p.get() == LF(12));
-        }
-
-        SECTION("invalid set")
-        {
-            REQUIRE_FALSE(p.set(L()));
-            REQUIRE_FALSE(p.set(LF(-10)));
-            REQUIRE_FALSE(p.set(LF(-0.1)));
-            REQUIRE_FALSE(p.set(LF(1, 2)));
-            REQUIRE_FALSE(p.set(LA("A", "B")));
-            REQUIRE_FALSE(p.setBool(true));
-            REQUIRE_FALSE(p.setFloat(100));
-            REQUIRE_FALSE(p.setInt(-1));
-            REQUIRE_FALSE(p.setSymbol(SYM("asd")));
-            REQUIRE_FALSE(p.setAtom(Atom(100)));
-        }
-
-        SECTION("set")
-        {
-            REQUIRE(p.set(LF(0)));
-            REQUIRE(p.get() == LF(0));
-            REQUIRE(p.set(LF(0.1)));
-            REQUIRE(p.get() == LF(0));
-            REQUIRE(p.set(LF(0.51)));
-            REQUIRE(p.get() == LF(1));
-            REQUIRE(p.set(LF(0.9)));
-            REQUIRE(p.get() == LF(1));
-            REQUIRE(p.set(LF(2)));
-            REQUIRE(p.get() == LF(2));
-        }
-
-        SECTION("check fn")
-        {
-            REQUIRE_FALSE(p.setFloatCheckFn(nullptr));
-            REQUIRE_FALSE(p.setAtomCheckFn(nullptr));
-            REQUIRE_FALSE(p.setSymbolCheckFn(nullptr));
-            REQUIRE_FALSE(p.setListCheckFn(nullptr));
-
-            REQUIRE(p.setIntCheckFn([](int v) { return v > 200; }));
-            REQUIRE_FALSE(p.setValue((size_t)0));
-            REQUIRE_FALSE(p.setValue((size_t)199));
-            REQUIRE_FALSE(p.setValue((size_t)200));
-            REQUIRE(p.setValue((size_t)201));
-            REQUIRE(p.value() == 201);
-
-            CHECK_SUCCESS(p, LF(201), LF(200));
-        }
-
-        SECTION("non rw")
-        {
-            CHECK_READONLY(p, LA(100));
-            CHECK_INITONLY(p, LA(101));
         }
     }
 
@@ -296,7 +215,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         {
             bool b = false;
             t_float f;
-            int i;
+            t_int i;
             t_symbol* s;
             Atom a;
 
@@ -327,7 +246,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
     SECTION("check ok")
     {
-        int cnt = 0;
+        t_int cnt = 0;
         FloatProperty p("float", 100);
         p.setSuccessFn([&cnt](Property*) { cnt++; });
 
@@ -359,8 +278,8 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
     SECTION("pointer property")
     {
-        using IntPtrProperty = PointerProperty<int>;
-        int data = -100;
+        using IntPtrProperty = PointerProperty<t_int>;
+        t_int data = -100;
         IntPtrProperty p("&int", &data, PropValueAccess::READWRITE);
 
         SECTION("default ro")
@@ -409,7 +328,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.set(LF(10)));
             REQUIRE(p.value() == 10);
 
-            p.setIntCheckFn([](int v) { return v > 0; });
+            p.setIntCheckFn([](t_int v) { return v > 0; });
             REQUIRE(p.set(LF(1)));
             REQUIRE(p.value() == 1);
             REQUIRE_FALSE(p.set(LF(0)));
@@ -455,7 +374,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p0.set(L()));
         REQUIRE(pi.value() == 0);
 
-        int cnt = 0;
+        t_int cnt = 0;
         p0.setSuccessFn([&cnt](Property*) { cnt++; });
         REQUIRE(p0.set(L()));
         REQUIRE(cnt == 1);
@@ -485,7 +404,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.getT(b));
         REQUIRE(b == true);
 
-        int i = -1;
+        t_int i = -1;
         REQUIRE(p.getInt(i));
         REQUIRE(i == 1);
         i = -100;

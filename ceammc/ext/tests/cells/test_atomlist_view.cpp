@@ -69,7 +69,7 @@ TEST_CASE("AtomListView", "core")
             REQUIRE_FALSE(av.isSymbol());
             REQUIRE_FALSE(av.isData());
             REQUIRE_FALSE(av.isA<bool>());
-            REQUIRE_FALSE(av.isA<int>());
+            REQUIRE_FALSE(av.isA<t_int>());
             REQUIRE_FALSE(av.isA<t_float>());
             REQUIRE_FALSE(av.isA<t_symbol*>());
         }
@@ -239,11 +239,11 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_FALSE(l.view().allOf(p)); \
     }
 
-        REQUIRE_ALL_OF(L(), isFloat);
-        REQUIRE_ALL_OF(LF(1, 2, 3), isFloat);
-        REQUIRE_ALL_OF(LF(1), isFloat);
-        REQUIRE_NOT_ALL_OF(LA("a"), isFloat);
-        REQUIRE_NOT_ALL_OF(LA(1, 2, 3, "a"), isFloat);
+        REQUIRE_ALL_OF(L(), AtomPredicate(isFloat));
+        REQUIRE_ALL_OF(LF(1, 2, 3), AtomPredicate(isFloat));
+        REQUIRE_ALL_OF(LF(1), AtomPredicate(isFloat));
+        REQUIRE_NOT_ALL_OF(LA("a"), AtomPredicate(isFloat));
+        REQUIRE_NOT_ALL_OF(LA(1, 2, 3, "a"), AtomPredicate(isFloat));
     }
 
     SECTION("allOf")
@@ -465,20 +465,32 @@ TEST_CASE("AtomListView", "core")
 
     SECTION("argSubView")
     {
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(0) == LF(1, 2, 3, 4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(1) == LF(2, 3, 4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(2) == LF(3, 4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(3) == LF(4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(4) == L());
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(0) == LF(1, 2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(1) == LF(2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(2) == LF(3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(3) == LF(4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(4) == L());
 
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(0) == LF(1, 2));
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(1) == LF(2));
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(2) == L());
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(3) == L());
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(4) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(0) == LF(1, 2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(1) == LF(2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(2) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(3) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(4) == L());
 
-        REQUIRE(AtomListView(LA("@a", 4)).argSubView(0) == L());
-        REQUIRE(AtomListView(LA("@a", 4)).argSubView(1) == L());
+        REQUIRE(AtomListView(LA("@a", 4)).arguments(0) == L());
+        REQUIRE(AtomListView(LA("@a", 4)).arguments(1) == L());
+    }
+
+    SECTION("propSubView")
+    {
+        REQUIRE(AtomListView(L()).properties() == L());
+        REQUIRE(AtomListView(LF(1)).properties() == L());
+        REQUIRE(AtomListView(LA("a")).properties() == L());
+        REQUIRE(AtomListView(LA("@a")).properties() == LA("@a"));
+        REQUIRE(AtomListView(LA("@a", 1)).properties() == LA("@a", 1));
+        REQUIRE(AtomListView(LA("@a", 1, "@b")).properties() == LA("@a", 1, "@b"));
+        REQUIRE(AtomListView(LA(1, "@a", 1, "@b")).properties() == LA("@a", 1, "@b"));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4, 5, "@a", 1, "@b")).properties() == LA("@a", 1, "@b"));
     }
 
     SECTION("expandDollarArgs")
@@ -549,5 +561,66 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_SPLIT(LF(1, 2, 3), A(1), L(), LF(2, 3));
         REQUIRE_SPLIT(LF(1, 2, 3), A(3), LF(1, 2), L());
         REQUIRE_SPLIT(LA(1, Atom::comma(), 3), Atom::comma(), LF(1), LF(3));
+    }
+
+    SECTION("compare operators")
+    {
+        REQUIRE_FALSE(L().view() < 0);
+        REQUIRE_FALSE(L().view() <= 0);
+        REQUIRE_FALSE(L().view() > 0);
+        REQUIRE_FALSE(L().view() >= 0);
+
+        REQUIRE_FALSE(LF(0).view() < 0);
+        REQUIRE(LF(0).view() <= 0);
+        REQUIRE_FALSE(LF(0).view() > 0);
+        REQUIRE(LF(0).view() >= 0);
+
+        REQUIRE_FALSE(LF(0.5).view() < 0.5);
+        REQUIRE(LF(0.5).view() <= 0.5);
+        REQUIRE_FALSE(LF(0.5).view() > 0.5);
+        REQUIRE(LF(0.5).view() >= 0.5);
+
+        REQUIRE_FALSE(LA("A").view() < 0);
+        REQUIRE_FALSE(LA("B").view() <= 0);
+        REQUIRE_FALSE(LA("C").view() > 0);
+        REQUIRE_FALSE(LA("D").view() >= 0);
+
+        REQUIRE_FALSE(LA("A", "A").view() < 0);
+        REQUIRE_FALSE(LA("B", "B").view() <= 0);
+        REQUIRE_FALSE(LA("C", "C").view() > 0);
+        REQUIRE_FALSE(LA("D", "D").view() >= 0);
+
+        REQUIRE_FALSE(LF(1, 2).view() < 0);
+        REQUIRE_FALSE(LF(1, 2).view() <= 0);
+        REQUIRE_FALSE(LF(1, 2).view() > 0);
+        REQUIRE_FALSE(LF(1, 2).view() >= 0);
+
+        REQUIRE_FALSE(L().view().isIntInClosedInterval(1, 10));
+        REQUIRE_FALSE(L().view().isIntGreaterEqual(1));
+        REQUIRE_FALSE(L().view().isIntGreaterThen(1));
+        REQUIRE_FALSE(L().view().isIntLessEqual(1));
+        REQUIRE_FALSE(L().view().isIntLessThen(1));
+
+        REQUIRE_FALSE(LA("A").view().isIntInClosedInterval(1, 10));
+        REQUIRE_FALSE(LA("A").view().isIntGreaterEqual(1));
+        REQUIRE_FALSE(LA("A").view().isIntGreaterThen(1));
+        REQUIRE_FALSE(LA("A").view().isIntLessEqual(1));
+        REQUIRE_FALSE(LA("A").view().isIntLessThen(1));
+
+        REQUIRE_FALSE(LA(1, 2).view().isIntInClosedInterval(1, 10));
+        REQUIRE_FALSE(LA(1, 2).view().isIntGreaterEqual(1));
+        REQUIRE_FALSE(LA(1, 2).view().isIntGreaterThen(1));
+        REQUIRE_FALSE(LA(1, 2).view().isIntLessEqual(1));
+        REQUIRE_FALSE(LA(1, 2).view().isIntLessThen(1));
+    }
+
+    SECTION("allFloatsOf")
+    {
+        REQUIRE(L().view().allFloatsOf([](t_float x) { return x > 10; }));
+        REQUIRE(LF(11).view().allFloatsOf([](t_float x) { return x > 10; }));
+        REQUIRE_FALSE(LA("A").view().allFloatsOf([](t_float x) { return x > 10; }));
+        REQUIRE(LF(11, 12, 13).view().allFloatsOf([](t_float x) { return x > 10; }));
+        REQUIRE_FALSE(LA(11, "A", 13).view().allFloatsOf([](t_float x) { return x > 10; }));
+        REQUIRE_FALSE(LF(11, 12, 13, 9).view().allFloatsOf([](t_float x) { return x > 10; }));
     }
 }

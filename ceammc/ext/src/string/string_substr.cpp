@@ -24,7 +24,8 @@ StringSubstr::StringSubstr(const PdArgs& a)
 
     from_ = new IntProperty("@from", 0);
     from_->setArgIndex(0);
-    len_ = new SizeTProperty("@len", size_t(-1));
+    len_ = new IntProperty("@len", size_t(-1));
+    len_->checkMinEq(0);
     len_->setArgIndexNext(from_);
 
     addProperty(from_);

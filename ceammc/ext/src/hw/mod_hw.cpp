@@ -14,8 +14,9 @@
 #include "hw_usb.h"
 #endif
 
-void setup_hw_cpu_temp();
 void setup_hw_motu_avb();
+void setup_hw_gamepad();
+void setup_hw_printer();
 
 void ceammc_hw_setup()
 {
@@ -23,8 +24,9 @@ void ceammc_hw_setup()
     hw_setup_serial();
     setup_hw_apple_smc();
     setup_hw_apple_sms();
-    setup_hw_cpu_temp();
     setup_hw_display();
+    setup_hw_gamepad();
+    setup_hw_printer();
     setup_hw_keyboard_light();
     setup_hw_motu_avb();
 

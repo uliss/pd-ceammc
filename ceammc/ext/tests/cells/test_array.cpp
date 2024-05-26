@@ -385,4 +385,34 @@ TEST_CASE("Array", "[ceammc::Atom]")
         REQUIRE(a[1] == 0);
         REQUIRE(a[2] == 1);
     }
+
+    SECTION("setData")
+    {
+        Array a("array1", { 1, 2, 3 });
+        REQUIRE(a.isValid());
+
+        REQUIRE(a.size() == 3);
+        REQUIRE(a[0] == 1);
+        REQUIRE(a[1] == 2);
+        REQUIRE(a[2] == 3);
+
+        auto data = (t_word*)getbytes(sizeof(t_word) * 5);
+        data[0].w_float = 100;
+        data[1].w_float = 200;
+        data[2].w_float = 300;
+        data[3].w_float = 400;
+        data[4].w_float = 500;
+
+        REQUIRE(a.setData(data, 5));
+        REQUIRE(a.size() == 5);
+        REQUIRE(a[0] == 100);
+        REQUIRE(a[1] == 200);
+        REQUIRE(a[2] == 300);
+        REQUIRE(a[3] == 400);
+        REQUIRE(a[4] == 500);
+
+        REQUIRE_FALSE(a.setData(nullptr, 1000));
+        REQUIRE_FALSE(a.setData(data, 4));
+        REQUIRE_FALSE(a.setData(data, 0));
+    }
 }

@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class StringSubstr : public BaseObject {
     IntProperty* from_;
-    SizeTProperty* len_;
+    IntProperty* len_;
 
 public:
     StringSubstr(const PdArgs& a);

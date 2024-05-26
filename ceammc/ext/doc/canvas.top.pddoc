@@ -64,14 +64,14 @@
 |
 [ui.dt]
 
-[canvas.top.abs]
+[canvas.top-abs]
 ]]>
             </pdascii>
             <pdascii id="abs">
 <![CDATA[
 [bang(                       [bang(
 |                            |
-[canvas.top.abs0]            [canvas.top.abs1]
+[canvas.top-abs0]            [canvas.top-abs1]
 |                            |
 [ui.dt]                      [ui.dt]
 ]]>

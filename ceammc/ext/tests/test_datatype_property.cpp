@@ -47,7 +47,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         REQUIRE(f1.enumValues() == f2->enumValues());
 
         REQUIRE(f2->isInt());
-        int i;
+        t_int i;
         REQUIRE(f2->getInt(i));
         REQUIRE(i == 4);
         f2->setInt(6);
@@ -140,7 +140,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
 
         REQUIRE(i1.propertyType() == PropValueType::INTEGER);
         i1.setInt(2000);
-        int i1_;
+        t_int i1_;
         REQUIRE(i1.getInt(i1_));
         REQUIRE(i1_ == 2000);
         // default now is 1

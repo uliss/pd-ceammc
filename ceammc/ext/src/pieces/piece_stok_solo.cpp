@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "piece_stok_solo.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_clock.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -280,7 +280,7 @@ public:
 
         int cycle = -1;
         if (lv.isInteger()) {
-            cycle = lv.asT<int>();
+            cycle = lv.asT<t_int>();
             if (cycle < CYCLE_MIN || cycle > CYCLE_MAX) {
                 usage(s);
                 return;

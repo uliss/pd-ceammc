@@ -359,10 +359,10 @@ mkdir -p "${BUNDLE_MUSIC}/verovio"
 cp -R $SRC_CEAMMC/extra/verovio/verovio/data/ "${BUNDLE_MUSIC}/verovio"
 
 section "Copying Impulse Responses"
-mkdir -p "${BUNDLE_IMAGES}"
-for img in $SRC_CEAMMC/ext/doc/ir/*.@(md|wav|txt)
+mkdir -p "${BUNDLE_IR}"
+for ir in $SRC_CEAMMC/ext/doc/ir/*.@(md|wav|txt)
 do
-    copy ${img} "${BUNDLE_IR}"
+    copy ${ir} "${BUNDLE_IR}"
 done
 
 section "Copying CEAMMC cmake files"

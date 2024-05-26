@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include <cmath>
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "hoa_3d_map.h"
@@ -212,7 +212,7 @@ void Hoa3dMap::onList(const AtomListView& lv)
     else if (is_cartes.checkSilent(lv)) {
         return setCartesian(lv.intAt(0, 0), lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
     } else if (is_mute.checkSilent(lv)) {
-        return setMute(lv[0].asT<int>(), lv[2].asT<bool>());
+        return setMute(lv[0].asT<t_int>(), lv[2].asT<bool>());
     } else {
         OBJ_ERR << "invalid list: " << lv;
         is_polar.usage(this);

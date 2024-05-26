@@ -1,15 +1,15 @@
 #include "array_stretch.h"
-#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 #include "SoundTouch.h"
 
-static t_symbol* PROP_SEQUENCE;
-static t_symbol* PROP_SEEK_WINDOW;
-static t_symbol* PROP_OVERLAP;
-static t_symbol* PROP_ANTIALIAS;
-static t_symbol* PROP_ANTIALIAS_LENGTH;
-static t_symbol* PROP_SPEECH;
+CEAMMC_DEFINE_PROP(sequence)
+CEAMMC_DEFINE_PROP(seekwindow)
+CEAMMC_DEFINE_PROP(overlap)
+CEAMMC_DEFINE_PROP(antialias)
+CEAMMC_DEFINE_PROP(aalength)
+CEAMMC_DEFINE_PROP(speech)
 
 class PdSoundTouch : public soundtouch::SoundTouch {
 public:
@@ -91,7 +91,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     pitch_->setUnits(PropValueUnits::SEMITONE);
     tempo_ = new FloatProperty("@tempo", 0);
     tempo_->setUnits(PropValueUnits::PERCENT);
+    tempo_->checkClosedRange(-50, 100);
     rate_ = new FloatProperty("@rate", 1);
+    rate_->checkClosedRange(0.1, 2);
 
     addProperty(pitch_);
     addProperty(tempo_);
@@ -111,24 +113,24 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
 
     // time-stretch params
     // @sequence
-    Property* pseq = createCbIntProperty(
-        PROP_SEQUENCE->s_name,
+    auto* pseq = createCbIntProperty(
+        str_prop_sequence,
         [this]() -> int { return soundtouch_->getSetting(SETTING_SEQUENCE_MS); },
         [this](int v) -> bool { return soundtouch_->setSetting(SETTING_SEQUENCE_MS, v); });
     pseq->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 100);
     pseq->setUnitsMs();
 
     // @seekwindow
-    Property* seekwindow = createCbIntProperty(
-        PROP_SEEK_WINDOW->s_name,
+    auto* seekwindow = createCbIntProperty(
+        str_prop_seekwindow,
         [this]() -> int { return soundtouch_->getSetting(SETTING_SEEKWINDOW_MS); },
         [this](int v) -> bool { return soundtouch_->setSetting(SETTING_SEEKWINDOW_MS, v); });
     seekwindow->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 100);
     seekwindow->setUnitsMs();
 
     // @overlap
-    Property* overlap = createCbIntProperty(
-        PROP_OVERLAP->s_name,
+    auto* overlap = createCbIntProperty(
+        str_prop_overlap,
         [this]() -> int { return soundtouch_->getSetting(SETTING_OVERLAP_MS); },
         [this](int v) -> bool { return soundtouch_->setSetting(SETTING_OVERLAP_MS, v); });
     overlap->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 100);
@@ -137,20 +139,20 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     // pitch-shift params
     // antialias
     createCbBoolProperty(
-        PROP_ANTIALIAS->s_name,
+        str_prop_antialias,
         [this]() -> bool { return soundtouch_->getSetting(SETTING_USE_AA_FILTER); },
         [this](bool b) -> bool { return soundtouch_->setSetting(SETTING_USE_AA_FILTER, b); });
 
     // antialias length
     auto alen = createCbIntProperty(
-        PROP_ANTIALIAS_LENGTH->s_name,
+        str_prop_aalength,
         [this]() -> int { return soundtouch_->getSetting(SETTING_AA_FILTER_LENGTH); },
         [this](int v) -> bool { return soundtouch_->setSetting(SETTING_AA_FILTER_LENGTH, v); });
     alen->setIntCheck(PropValueConstraints::CLOSED_RANGE, 8, 128);
 
     // optimise for speech
     createCbBoolProperty(
-        PROP_SPEECH->s_name,
+        str_prop_speech,
         [this]() -> bool { return speech_; },
         [this](bool b) -> bool {
             speech_ = b;
@@ -236,15 +238,6 @@ bool ArrayStretch::setDestArray(t_symbol* s)
     return true;
 }
 
-void ArrayStretch::propSetOverlap(const AtomList& ms)
-{
-    if (!checkArgs(ms, ARG_FLOAT, PROP_OVERLAP))
-        return;
-
-    int overlap = clip<int>(ms[0].asInt(), 1, 100);
-    ;
-}
-
 void ArrayStretch::setupSoundTouch()
 {
     const uint SR = sys_getsr() ? sys_getsr() : 44100;
@@ -259,18 +252,12 @@ void ArrayStretch::setupSoundTouch()
 
 void setup_array_stretch()
 {
-    PROP_SEQUENCE = gensym("@sequence");
-    PROP_SEEK_WINDOW = gensym("@seekwindow");
-    PROP_OVERLAP = gensym("@overlap");
-    PROP_ANTIALIAS = gensym("@antialias");
-    PROP_ANTIALIAS_LENGTH = gensym("@aalength");
-    PROP_SPEECH = gensym("@speech");
-
-    ObjectFactory<ArrayStretch> obj("array.stretch");
     soundtouch::SoundTouch st;
     LIB_DBG << "SoundTouch " << st.getVersionString();
 
+    ObjectFactory<ArrayStretch> obj("array.stretch");
+
     obj.setDescription("array time-stretch, pitch-shift or rate-change");
     obj.setCategory("array");
-    obj.setKeywords({"array", "stretch"});
+    obj.setKeywords({ "array", "stretch" });
 }

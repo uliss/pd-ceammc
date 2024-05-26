@@ -1,0 +1,26 @@
+{
+    "cSpell.words": [
+        "bitdepth",
+        "cstring",
+        "ctags",
+        "defi",
+        "filesize",
+        "freesound",
+        "geotag",
+        "Itertools",
+        "mqttbytes",
+        "mqttoptions",
+        "nonblocking",
+        "oneshot",
+        "perc",
+        "reqwest",
+        "resampler",
+        "rumqttc",
+        "samplerate",
+        "Tele",
+        "tempfile",
+        "tungstenite",
+        "whitespaces"
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
+}

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_ltcout_tilde.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"

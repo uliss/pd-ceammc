@@ -18,65 +18,69 @@ for different values of alpha.;
 #X obj 280 332 ui.ssc~ @size 300 120 @log_scale 1;
 #X obj 50 419 dac~;
 #X obj 50 448 ui.dsp~;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 502 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 537 1\.;
-#X text 150 537 float;
-#X obj 246 538 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 537 ALPHA: slope of roll-off \, between -1 and 1\. -1 corresponds
+#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 538 1\.;
+#X text 150 538 float;
+#X obj 246 539 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 538 ALPHA: slope of roll-off \, between -1 and 1\. -1 corresponds
 to brown/red noise \, -1/2 pink noise \, 0 white noise \, 1/2 blue
-noise \, and 1 violet/azure noise.. Type: float. Range: -1\...1;
-#X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 602 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+noise \, and 1 violet/azure noise. Type: float. Range: -1\...1;
+#X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 603 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 637 @id;
-#X text 245 637 (initonly) Get/Set OSC address id. If specified \,
+#X obj 735 606 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 638 @id;
+#X text 245 638 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/noise_colored/PROP_NAME osc address \, if
 empty bind to /noise_colored/PROP_NAME. Type: symbol.;
-#X msg 110 694 @osc;
-#X text 245 694 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 695 @osc;
+#X text 245 695 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 723 @active;
-#X text 245 723 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 725 @active;
+#X text 245 725 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 752 @alpha;
-#X text 245 752 Get/Set slope of roll-off \, between -1 and 1\. -1
+#X msg 110 755 @alpha;
+#X text 245 755 Get/Set slope of roll-off \, between -1 and 1\. -1
 corresponds to brown/red noise \, -1/2 pink noise \, 0 white noise
 \, 1/2 blue noise \, and 1 violet/azure noise. Type: float. Default
 value: 0\. Range: -1\...1\.;
-#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 839 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 842 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 874 blue;
-#X text 245 874 set to blue noise (roll-off factor 0.5).;
-#X msg 110 901 brown;
-#X text 245 901 set to brown/red noise (roll-off factor -1).;
-#X msg 110 928 pink;
-#X text 245 928 set to pink noise (roll-off factor -0.5).;
-#X msg 110 955 velvet;
-#X text 245 955 set to velvet noise (roll-off factor 1).;
-#X msg 110 982 white;
-#X text 245 982 set to white noise (roll-off factor 0).;
-#X obj 20 1019 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1024 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 877 blue;
+#X text 245 877 set to blue noise (roll-off factor 0.5).;
+#X msg 110 905 brown;
+#X text 245 905 set to brown/red noise (roll-off factor -1).;
+#X msg 110 933 pink;
+#X text 245 933 set to pink noise (roll-off factor -0.5).;
+#X msg 110 961 velvet;
+#X text 245 961 set to velvet noise (roll-off factor 1).;
+#X msg 110 989 white;
+#X text 245 989 set to white noise (roll-off factor 0).;
+#X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1032 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1025 1\.;
-#X text 150 1025 *float*;
-#X text 245 1025 set roll-off frequency.;
-#X obj 20 1055 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1060 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1033 1\.;
+#X text 150 1033 *float*;
+#X text 245 1033 set roll-off frequency.;
+#X obj 20 1063 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1068 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1061 1\.;
-#X text 245 1061 output signal.;
+#X text 110 1069 1\.;
+#X text 245 1069 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1111 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1114 library: ceammc v0.9.7;
-#N canvas 10 1133 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
+#X obj 1 1119 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1122 library: ceammc v0.9.7;
+#N canvas 10 1141 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1133 pd info;
+#X restore 10 1141 pd info;
 #X connect 7 0 8 0;
 #X connect 6 0 9 0;
 #X connect 8 0 9 0;

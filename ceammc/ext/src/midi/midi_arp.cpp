@@ -82,8 +82,8 @@ void MidiArp::onList(const AtomListView& lv)
     if (!checkArgs(lv, ARG_BYTE, ARG_BYTE))
         return;
 
-    const int note = lv[0].asT<int>();
-    const int vel = lv[1].asT<int>();
+    const int note = lv[0].asT<t_int>();
+    const int vel = lv[1].asT<t_int>();
     if (note < 0 || note > 127) {
         OBJ_ERR << fmt::format("MIDI note in [0..127] range expected, got: {}", note);
         return;

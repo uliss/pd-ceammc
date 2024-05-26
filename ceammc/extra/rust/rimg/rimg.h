@@ -14,6 +14,7 @@ enum class RImgResultCode {
   InvalidFileName,
   InvalidString,
   InvalidArguments,
+  NullArgument,
 };
 
 /// A ffi compatible description of a sample buffer.
@@ -42,7 +43,7 @@ extern "C" {
 
 RImgResultCode rimg_decode_image(const char *fname, RImgSampleLayout *layout, RImgResult *result);
 
-void rimg_free_result(RImgResult *res);
+RImgResultCode rimg_free_result(RImgResult *res);
 
 } // extern "C"
 

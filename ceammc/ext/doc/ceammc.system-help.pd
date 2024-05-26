@@ -1,27 +1,31 @@
 #N canvas 0 0 760 555 12;
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
-#X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 system.colorpanel;
-#X text 200 116 System color panel dialog popup;
-#X obj 30 143 system.cursor;
-#X text 200 143 Output cursor motion \, mousewheel and button clicks;
-#X obj 30 170 system.exec;
-#X text 200 170 run external command in separate process;
-#X obj 30 197 system.exit;
-#X text 200 197 quit PureData;
-#X obj 30 224 system.getenv;
-#X text 200 224 Get system environment variables;
-#X obj 30 251 system.hostname;
-#X text 200 251 outputs system hostname;
-#X obj 30 278 system.memsize;
-#X text 200 278 returns the size of physical memory (RAM) in bytes
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 30 117 system.colorpanel;
+#X text 200 117 System color panel dialog popup;
+#X obj 30 145 system.command;
+#X text 200 145 run commands with pipes on Unix and Windows;
+#X obj 30 173 system.cursor;
+#X text 200 173 Output cursor motion \, mousewheel and button clicks;
+#X obj 30 201 system.exec;
+#X text 200 201 run external command in separate process;
+#X obj 30 229 system.exit;
+#X text 200 229 quit PureData;
+#X obj 30 257 system.getenv;
+#X text 200 257 Get system environment variables;
+#X obj 30 285 system.hostname;
+#X text 200 285 outputs system hostname;
+#X obj 30 313 system.info;
+#X text 200 313 retrieve system information;
+#X obj 30 341 system.memsize;
+#X text 200 341 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 318 system.memused;
-#X text 200 318 returns the process physical memory use - current and
+#X obj 30 381 system.memused;
+#X text 200 381 returns the process physical memory use - current and
 peak;
-#X obj 30 345 system.screen_size;
-#X text 200 345 returns current screen size in pixels;
+#X obj 30 409 system.screen_size;
+#X text 200 409 returns current screen size in pixels;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

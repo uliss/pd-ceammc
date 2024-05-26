@@ -1,12 +1,12 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 491 50 Renders envelope to specified array;
+#X obj 490 50 cnv 1 275 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 490 50 Renders envelope to specified array;
 #X obj 1 1 cnv 5 765 40 empty empty env2array 20 20 0 20 -104026 -4096
 0;
-#X obj 287 11 ceammc/env2array;
-#X obj 428 11 ceammc/env->array;
-#X obj 576 11 env->array;
+#X obj 285 11 ceammc/env2array;
+#X obj 426 11 ceammc/env->array;
+#X obj 575 11 env->array;
 #X obj 674 11 env2array;
 #X msg 50 118 ar 50 400 \, bang;
 #X msg 453 118 bang;
@@ -25,85 +25,60 @@
 #X obj 338 262 ui.dsp~;
 #X floatatom 50 291 5 0 0 0 - - -;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array env_arr 1000 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array env_arr 1000 float 0;
 #X coords 0 1 1000 0 400 100 1;
 #X restore 50 334 graph;
 #X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 471 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 471 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 506 1\.;
 #X text 150 506 symbol;
-#X obj 246 507 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 246 507 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 506 ARRAY: array name. Type: symbol.;
 #X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 541 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 541 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 544 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 576 @array;
 #X text 245 576 Get/Set target array name. Type: symbol.;
-#X msg 110 605 @fit;
-#X text 245 605 alias to @mode fit property.;
-#X msg 110 634 @mode;
-#X text 245 634 Get/Set rendering mode: *fit* to array size \, *resize*
+#X msg 110 606 @fit;
+#X text 245 606 Alias to @mode fit property.;
+#X msg 110 636 @mode;
+#X text 245 636 Get/Set rendering mode: *fit* to array size \, *resize*
 array to envelope length or *raw* render while enough space in array.
 Type: symbol. Default value: fit. Allowed values: fit \, resize \,
 raw.;
-#X msg 110 706 @raw;
-#X text 245 706 alias to @mode raw property.;
-#X msg 110 735 @redraw;
-#X text 245 735 Get/Set redraw after array change. Type: bool. Default
+#X msg 110 708 @raw;
+#X text 245 708 Alias to @mode raw property.;
+#X msg 110 738 @redraw;
+#X text 245 738 Get/Set redraw after array change. Type: bool. Default
 value: 1\.;
-#X msg 110 777 @resize;
-#X text 245 777 alias to @mode resize property.;
-#X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 821 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 780 @resize;
+#X text 245 780 Alias to @mode resize property.;
+#X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 825 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 822 1\.;
-#X text 245 822 *envelope* data.;
-#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 857 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 826 1\.;
+#X text 245 826 *envelope* data.;
+#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 861 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 858 1\.;
-#X text 245 858 output number of samples in destination array. If array
+#X text 110 862 1\.;
+#X text 245 862 output number of samples in destination array. If array
 was resized - output this new size.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 923 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 926 library: ceammc v0.9.7;
-#X text 593 938 see also:;
-#X obj 667 938 env->vline;
-#N canvas 10 945 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
+#X obj 1 927 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 930 library: ceammc v0.9.7;
+#X text 592 942 see also:;
+#X obj 667 942 env->vline;
+#N canvas 10 949 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -127,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 945 pd info;
+#X restore 10 949 pd info;
 #X connect 8 0 11 0;
 #X connect 10 0 13 0;
 #X connect 11 0 13 1;

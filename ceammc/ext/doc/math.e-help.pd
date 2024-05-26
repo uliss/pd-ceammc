@@ -1,9 +1,9 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 361 50 mathematical constant \, base of the natural logarithm;
+#X obj 360 50 cnv 1 405 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 360 50 mathematical constant \, base of the natural logarithm;
 #X obj 1 1 cnv 5 765 40 empty empty math.e 20 20 0 20 -104026 -4096 0;
-#X obj 696 11 math.e;
+#X obj 695 11 math.e;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 It is approximately equal to 2.71828 \, and is the limit
 of (1 + 1/n)^n as n approaches infinity.;
@@ -11,26 +11,26 @@ of (1 + 1/n)^n as n approaches infinity.;
 -1;
 #X obj 50 187 math.e;
 #X floatatom 50 216 10 0 0 0 - - -;
-#X obj 20 265 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 270 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 248 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 253 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 271 1\.;
-#X text 150 271 *bang*;
-#X text 245 271 outputs value.;
-#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 306 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 254 1\.;
+#X text 150 254 *bang*;
+#X text 245 254 outputs value.;
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 307 1\.;
-#X text 245 307 output value.;
+#X text 110 290 1\.;
+#X text 245 290 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 615 520 see also:;
-#X obj 689 520 math.pi;
+#X text 613 520 see also:;
+#X obj 688 520 math.pi;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

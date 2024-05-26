@@ -73,15 +73,18 @@ else()
             VERBATIM COMMAND find ${CMAKE_CURRENT_BINARY_DIR} -name "${f}.*.pd" -exec cp {} ${CMAKE_CURRENT_SOURCE_DIR} ";")
     endforeach()
 
+    file(GLOB _PDDOC_PAGES "ceammc_page_*.xml")
+
     add_custom_command(
         OUTPUT "ceammc_lib.xml"
-        DEPENDS ${DOC_PDDOC_FILES}
+        DEPENDS ${DOC_PDDOC_FILES} "ceammc_pages.xml" "ceammc_meta.xml" ${_PDDOC_PAGES}
         COMMAND ${PD_MAKELIB}
             --library ceammc
             --version "${CEAMMC_LIB_VERSION}"
-            --output ceammc_lib.xml ${DOC_PDDOC_FILES}
             --search-path ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc_lib.xml ${CMAKE_CURRENT_SOURCE_DIR})
+            --output ceammc_lib.xml
+            ${DOC_PDDOC_FILES}
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
     add_custom_command(
         OUTPUT "ceammc-help.pd"
@@ -126,7 +129,7 @@ foreach(_doc_file ${DOC_FILES})
     install(FILES "${_doc_file}-help.pd"
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
-    file(GLOB _xfiles "${_doc_file}.*.pd")
+    file(GLOB _xfiles "${_doc_file}-*.pd")
     # find extra files, for example: module.name.test1.pd
     foreach(_xfile ${_xfiles})
         if(NOT ${_xfile} MATCHES "-help\.pd$")
@@ -192,6 +195,15 @@ if(TIDY)
                 "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
             echo "Format pddoc file: $$f" \;
         done
+        COMMAND ls ceammc_page*.xml | while read f\;
+        do
+            ${TIDY} -quiet -xml --indent auto
+            --priority-attributes "name,type"
+            --indent-spaces 4 --indent-cdata no --wrap 100 --wrap-sections no $$f > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
+            ${CMAKE_COMMAND} -E copy_if_different
+                "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
+            echo "Format XML file: $$f" \;
+        done
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         USES_TERMINAL)
 endif()
@@ -220,12 +232,14 @@ add_subdirectory(sf2)
 add_subdirectory(sfz)
 add_subdirectory(sound)
 
-find_program(RSYNC_EXEC rsync)
-
 if(APPLE)
+    find_program(RSYNC_EXEC rsync)
     if(RSYNC_EXEC)
         # note: trailing slash after CMAKE_CURRENT_SOURCE_DIR is important!
         add_custom_target(dev_pddoc
+            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
+                ${CMAKE_CURRENT_BINARY_DIR}/
+                ${CMAKE_CURRENT_SOURCE_DIR}
             COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
                 ${CMAKE_CURRENT_SOURCE_DIR}/
                 ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc

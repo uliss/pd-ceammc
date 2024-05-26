@@ -20,11 +20,11 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_format.h"
 
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_polar.h"
 
 static const float KNOB_MIN_SIZE = 5;
@@ -36,8 +36,6 @@ static t_rgba KNOB_BORDER = hex_to_rgba("#707070");
 static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
 static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
 static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
-
-static t_symbol* SYM_POPUP_MAIN;
 
 enum Sides {
     S_NORTH = 1,
@@ -539,8 +537,6 @@ void setup_ui_polar()
 
 void UIPolar::setup()
 {
-    SYM_POPUP_MAIN = gensym("main");
-
     UIObjectFactory<UIPolar> obj("ui.polar", EBOX_GROWLINK);
 
     obj.setDefaultSize(100, 100);

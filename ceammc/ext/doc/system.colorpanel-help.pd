@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 522 50 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 522 50 System color panel dialog popup;
+#X obj 521 50 cnv 1 244 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 System color panel dialog popup;
 #X obj 1 1 cnv 5 765 40 empty empty system.colorpanel 20 20 0 20
 -104026 -4096 0;
 #X obj 617 11 system.colorpanel;
@@ -11,64 +11,66 @@
 #X msg 261 147 @mode \$2;
 #X obj 50 176 system.colorpanel @f;
 #X obj 50 205 ui.dt;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 294 Left-click + ⇧;
-#X text 285 294 open color chooser.;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 295 Left-click + ⇧;
+#X text 285 295 open color chooser.;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 364 @d;
-#X text 245 364 alias for @mode data. Output value Color datatype.;
-#X msg 110 393 @f;
-#X text 245 393 alias for @mode float. Output values as RGB list in
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 365 @d;
+#X text 245 365 Alias for @mode data. Output value Color datatype.;
+#X msg 110 395 @f;
+#X text 245 395 Alias for @mode float. Output values as RGB list in
 0-1 range.;
-#X msg 110 435 @float;
-#X text 245 435 Get/Set RGB color value in float range (0-1). Type:
+#X msg 110 437 @float;
+#X text 245 437 Get/Set RGB color value in float range (0-1). Type:
 list. Default value: 1 1 1\.;
-#X msg 110 477 @h;
-#X text 245 477 alias for @mode hex. Output value as #RRGGBB symbol.;
-#X msg 110 506 @hex;
-#X text 245 506 Get/Set color value as #RRGGBB symbol. Type: symbol.
+#X msg 110 479 @h;
+#X text 245 479 Alias for @mode hex. Output value as #RRGGBB symbol.;
+#X msg 110 509 @hex;
+#X text 245 509 Get/Set color value as #RRGGBB symbol. Type: symbol.
 Default value: #FFFFFF.;
-#X msg 110 548 @i;
-#X text 245 548 alias for @mode int. Output values as RGB list in 0-255
+#X msg 110 551 @i;
+#X text 245 551 Alias for @mode int. Output values as RGB list in 0-255
 range.;
-#X msg 110 590 @int;
-#X text 245 590 Get/Set RGB color value in int range (0-255). Type:
+#X msg 110 593 @int;
+#X text 245 593 Get/Set RGB color value in int range (0-255). Type:
 list. Default value: 255 255 255\.;
-#X msg 110 632 @mode;
-#X text 245 632 Get/Set output mode. Type: symbol. Default value: float.
+#X msg 110 635 @mode;
+#X text 245 635 Get/Set output mode. Type: symbol. Default value: float.
 Allowed values: float \, int \, hex \, data.;
-#X msg 110 674 @color;
-#X text 245 674 Get/Set current color. Type: atom.;
-#X obj 20 713 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 718 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 677 @color;
+#X text 245 677 Get/Set current color. Type: atom.;
+#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 722 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 719 1\.;
-#X text 150 719 *bang*;
-#X text 245 719 opens colorpanel.;
-#X text 150 739 *symbol*;
-#X text 245 739 opens colorpanel with selected color. The hex format
+#X text 110 723 1\.;
+#X text 150 723 *bang*;
+#X text 245 723 opens colorpanel.;
+#X text 150 743 *symbol*;
+#X text 245 743 opens colorpanel with selected color. The hex format
 #RRGGBB is expected.;
-#X text 150 774 *list*;
-#X text 245 774 opens colorpanel with selected color. RGB color triplet
+#X text 150 778 *list*;
+#X text 245 778 opens colorpanel with selected color. RGB color triplet
 expected in float (0-1) or int (0-255) range \, depending from @mode.;
-#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 839 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 843 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 840 1\.;
-#X text 245 840 messages: hex color symbol in format #RRGGBB or RGB
+#X text 110 844 1\.;
+#X text 245 844 messages: hex color symbol in format #RRGGBB or RGB
 color triplet in float (0-1) or int (0-255) range depending from @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 920 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 923 library: ceammc v0.9.7;
-#N canvas 10 942 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
+#X obj 1 924 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 927 library: ceammc v0.9.7;
+#N canvas 10 946 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -92,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 942 pd info;
+#X restore 10 946 pd info;
 #X connect 5 0 7 0;
 #X connect 4 0 8 0;
 #X connect 6 0 8 0;

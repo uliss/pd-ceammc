@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.gamepad">
+        <title>hw.gamepad</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>gamepad controller</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>gamepad</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <info>
+            <par>button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2, select,
+            start, mode, lthumb, rthumb, up, down, left, right, unknown.</par>
+            <par>button events: pressed, released, repeated, changed</par>
+            <par>axis names: lstickx, lsticky, rstickx, rsticky, leftz, rightz</par>
+        </info>
+        <methods>
+            <!-- devices -->
+            <method name="devices">output devices info as data:Dict into third outlet</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT VALUE</outlet>
+            <outlet>axis output: list GAMEPAD_ID AXIS_NAME VALUE</outlet>
+            <outlet>[device DICT( - connected device information, [connected ID( - when device
+            connected, [disconnected ID( - when device disconnected</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[devices(
+|
+[hw.gamepad #x {w=20}]
+
+     [print AXIS #f]  [ui.dt #b @pinned 1]
+
+[print BUTTON #c]
+
+[route 0 #n]
+|
+[route lsticky lstickx rsticky rstickx #m]
+|
+[flow.pack' 2 #k] [flow.pack' 2 #l]
+|                 |
+[cartesian $1 $2( [cartesian $1 $2(
+|                 |
+[ui.polar #y]     [ui.polar #z]
+
+
+
+
+/* ... */
+[X x:1->a] [X x:2->b] [X x:0->c] [X x:0->d] [X x:1->f]
+[X x:1->n] [X m:1->k:1] [X m:2->l:0] [X m:3->l:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

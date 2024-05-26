@@ -27,6 +27,8 @@
 #include "math_expr.lexer.h"
 #include "math_expr.parser.hpp"
 
+static double d_identity(double d) { return d; }
+
 static double d_sign(double d)
 {
     if (d > 0)
@@ -90,6 +92,8 @@ namespace math {
             return &floor;
         case UFN_ROUND:
             return &round;
+        default:
+            return &d_identity;
         }
     }
 
@@ -102,6 +106,8 @@ namespace math {
             return &d_max;
         case BFN_CMN:
             return &d_cmn;
+        default:
+            return nullptr;
         }
     }
 
@@ -298,7 +304,7 @@ namespace math {
 
     bool Ast::eval(math_float_t* res) const
     {
-        if(!ok)
+        if (!ok)
             return false;
 
         *res = root.evalute();

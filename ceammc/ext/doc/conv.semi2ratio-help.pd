@@ -5,33 +5,33 @@
 12-ET;
 #X obj 1 1 cnv 5 765 40 empty empty conv.semi2ratio 20 20 0 20 -104026
 -4096 0;
-#X obj 373 11 ceammc/semi->ratio;
-#X obj 528 11 semi->ratio;
-#X obj 632 11 conv.semi2ratio;
+#X obj 370 11 ceammc/semi->ratio;
+#X obj 526 11 semi->ratio;
+#X obj 631 11 conv.semi2ratio;
 #X msg 50 118 12;
 #X msg 98 118 0;
 #X msg 136 118 1;
 #X floatatom 174 118 5 0 0 0 - - -;
 #X obj 50 147 semi->ratio;
 #X obj 50 176 ui.dt;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 231 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 231 1\.;
-#X text 150 231 *float*;
-#X text 245 231 interval in semitones.;
-#X text 150 251 *list*;
-#X text 245 251 list of intervals in semitones.;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 232 1\.;
+#X text 150 232 *float*;
+#X text 245 232 interval in semitones.;
+#X text 150 252 *list*;
+#X text 245 252 list of intervals in semitones.;
+#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 287 1\.;
-#X text 245 287 float or list: frequency ratio(s).;
+#X text 110 288 1\.;
+#X text 245 288 float or list: frequency ratio(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

@@ -55,7 +55,7 @@ void RandomFloat::m_gen(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_NATURAL, s))
         return;
 
-    const auto n = lv[0].asT<int>();
+    const auto n = lv[0].asT<t_int>();
 
     AtomList res;
     res.reserve(n);

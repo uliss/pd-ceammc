@@ -1,5 +1,49 @@
 # CEAMMC external library changelog
 
+## [0.9.8]
+### Added:
+- new objects:
+  - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
+  - hw.gamepad - gamepad support
+  - hw.printer - simple printing support (only PDF files)
+  - msg.unpack - unpack message to selector and arguments
+  - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
+  - net.mqtt.client - MQTT client 
+  - net.ws.client - WebSocket client
+  - net.ws.server - WebSocket client 
+  - route.data (with route.d alias) - separate data from other types
+  - system.command (with system.cmd alias) - run several processes like in shell with pipes
+  - system.info - object to get num cpu/temperature and other system information
+- new properties:
+  - dict->list @props flag added to output as list of properties
+  - snd.play~ @on_err property added to specify sending errors address
+- new methods:
+  - open method added to snd.play~ for readsf~ compatibility
+- new aliases:
+  - list.hist alias added for list.histogram
+  - array.histogram alias added for array.hist
+- misc:
+  - dict.get - path-like expression to get dictionary keys: /*/USER/1:3/foo
+  - ui.display - copy message value to the clipboard by click or from popup menu
+  - ui.canvas - mouse coordinates output for mouse down, up, drag and double click events
+  - documentation added about ceammc argument expansion
+  - documentation added about ceammc properties
+  - documentation added about ceammc functions
+  - seq.life max matrix size increased up to 64x64
+  - hidden inlet added to ui.label
+  - MIDI Settings dialog show on double click event at ui.midi object
+### Changed:
+- renaming:
+  - prop.get~ renamed to prop.route~ (the old alias exists for the compatibility, but it prints a warning message)
+  - prop.split renamed to prop.route (the old alias exists for the compatibility, but it prints a warning message)
+- removed:
+  - hw.cpu_temp removed, because more complete object is added: system.info
+- misc:
+  - seq.life max size increased up to 64x64
+### Fixed:
+- seq.life - fix errors on non square sizes (issue #203)
+- conv.car2pol - @positive property fix
+
 ## [0.9.7]
 ### Added:
 - new objects:
@@ -52,9 +96,11 @@
   - rhythm.hexbeat - hexbeat pattern generator
   - rhythm.lsystem - L-system pattern generator
   - route.cycle - advanced cyclic message router
+  - snd.play~ - advanced sound file player with speed control, time stretch and resampling
   - split~ - multichannel signal splitter
   - synth.metro~ - metronome synth with complex pattern support
   - ui.cmeter~ - Multichannel circular peak and rms signal meter
+  - ui.lcd - bitmap display widget
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - flt.bpf12~: second and third inlet added for setting freq and q-factor

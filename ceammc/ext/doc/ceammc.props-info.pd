@@ -1,0 +1,140 @@
+#N canvas 0 0 700 500 12;
+#X obj 1 1 cnv 5 680 40 empty empty CEAMMC\ documentation 20 20 0 20
+-104026 -4096 0;
+#X obj 20 103 cnv 1 660 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 61 cnv 5 450 32 empty empty Object\ properties 4 16 0 17
+-262144 -104026 0;
+#X text 40 124 CEAMMC library has a conception of properties: the way
+to access to the inner state of the object., f 80;
+#X text 40 169 A property name starts with '@' symbol., f 80;
+#X obj 20 199 cnv 5 400 28 empty empty Basic\ usage 4 14 0 16 -70738
+-262144 0;
+#X text 40 247 There are two ways do deal with properties:, f 80;
+#X text 50 277 1\. Sending get/set request messages to the target object., f 79;
+#X msg 140 307 @freq?;
+#X text 272 307 <- get property message (ended with '?');
+#X msg 166 333 @freq 500;
+#X text 272 333 <- set property message;
+#X obj 140 359 flt.c_lpf 1000;
+#X obj 140 386 ui.dt;
+#X text 70 424 On receiving @prop? message the object outputs its value
+as the message to the first outlet: @prop VALUE, f 77;
+#X text 70 469 There are [prop.route] and [prop.route~] objects for
+splitting the main object audio/control stream from the requested properties:, f 77;
+#X msg 140 514 @freq?;
+#X msg 219 514 @q?;
+#X msg 316 514 @freq?;
+#X msg 395 514 @q?;
+#X obj 140 540 flt.c_lpf 1000;
+#X obj 316 540 flt.c_lpf~;
+#X obj 140 566 prop-> @freq @q;
+#X obj 316 566 prop~> @freq @q;
+#X floatatom 175 593 5 0 0 0 - - -;
+#X floatatom 236 593 5 0 0 0 - - -;
+#X floatatom 368 593 5 0 0 0 - - -;
+#X floatatom 439 593 5 0 0 0 - - -;
+#X text 50 613 2\. Using [prop.get] and [prop.set] objects, f 79;
+#X text 70 643 The [prop.get] object get properties from the connected
+object:, f 77;
+#X floatatom 140 673 5 0 0 0 - - -;
+#X obj 289 673 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 140 699 prop.set @freq;
+#X obj 289 699 prop.get @freq;
+#X obj 140 725 flt.c_lpf 1000;
+#X floatatom 395 725 5 0 0 0 - - -;
+#X text 70 763 NOTE: for some objects \, like in flow category \, this
+is the single way to get/set properties \, because by design flow objects
+should work with all dataflow values., f 77;
+#X text 40 823 Some frequently used properties can be set with positional
+init arguments. This is the same:, f 80;
+#X obj 140 868 data.list 1 2 3;
+#X obj 298 868 data.list @value 1 2 3;
+#X text 70 906 Properties can be one of the following types:, f 77;
+#X text 70 936 ◦ readwrite - you can set it with initial arguments
+\, with messages or [prop.get]/[prop.set] objects, f 67;
+#X text 70 971 ◦ initonly - you can set it with initial arguments and
+after that only get its value, f 67;
+#X text 70 1006 ◦ readonly - you can only get its value, f 67;
+#X msg 140 1026 @size?;
+#X text 219 1026 <- readonly property @size;
+#X obj 140 1052 data.list 1 2 3 4;
+#X obj 140 1078 ui.dt;
+#X obj 140 1118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 219 1118 <- initonly property @n;
+#X obj 140 1144 prop.get @n;
+#X obj 140 1171 route.cycle @n 5;
+#X floatatom 307 1171 5 0 0 0 - - -;
+#X obj 20 1209 cnv 5 400 28 empty empty Advanced\ usage 4 14 0 16
+-70738 -262144 0;
+#X text 40 1257 On ceammc object creation it parses initial arguments
+\, does unquotting and number substitution \, performs init function
+call and data parsing. After theese steps the property parsing stage
+is invoked. So quoting \, bin and hex numbers \, function calls can
+be used also in initial object properties arguments., f 80;
+#X obj 140 1332 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 140 1358 data.list @value reverse(pi() e() sr() 0xFF 0b1111 "A
+B C");
+#X obj 140 1384 ui.dt;
+#X obj 40 1425 ui.link @title More info about argument processing in
+ceammc @url ceammc.args-info.pd;
+#X obj 40 1460 ui.link @title More info about initial arg functions in
+ceammc @url ceammc.functions-info.pd;
+#X text 70 1492 You can request several properties at once in the single
+message:, f 77;
+#X msg 140 1522 @freq? @q?;
+#X obj 140 1548 flt.c_lpf 1000;
+#X obj 140 1574 ui.dt;
+#X text 70 1612 You can use simple math and random for float properties:, f 77;
+#X msg 140 1642 @freq + 10 \, @freq?;
+#X msg 342 1642 @freq * 1.1 \, @freq?;
+#X msg 157 1668 @freq - 20 \, @freq?;
+#X msg 342 1668 @freq / 1.1 \, @freq?;
+#X msg 342 1694 @freq default \, @freq?;
+#X msg 342 1721 @freq random \, @freq?;
+#X obj 140 1747 flt.c_lpf 1000;
+#X obj 140 1774 ui.dt;
+#X text 70 1812 You can get the list all of object properties with
+message, f 77;
+#X msg 140 1842 @*?;
+#X obj 140 1868 flt.c_lpf 1000;
+#X obj 140 1894 ui.dt;
+#X obj 1 1952 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X connect 8 0 12 0;
+#X connect 10 0 12 0;
+#X connect 12 0 13 0;
+#X connect 16 0 20 0;
+#X connect 17 0 20 0;
+#X connect 18 0 21 0;
+#X connect 19 0 21 0;
+#X connect 20 0 22 0;
+#X connect 21 0 23 0;
+#X connect 22 1 24 0;
+#X connect 22 2 25 0;
+#X connect 23 1 26 0;
+#X connect 23 2 27 0;
+#X connect 30 0 32 0;
+#X connect 31 0 33 0;
+#X connect 32 0 34 0;
+#X connect 33 0 34 0;
+#X connect 33 1 35 0;
+#X connect 44 0 46 0;
+#X connect 46 0 47 0;
+#X connect 48 0 50 0;
+#X connect 50 0 51 0;
+#X connect 50 1 52 0;
+#X connect 55 0 56 0;
+#X connect 56 0 57 0;
+#X connect 61 0 62 0;
+#X connect 62 0 63 0;
+#X connect 65 0 71 0;
+#X connect 67 0 71 0;
+#X connect 71 0 72 0;
+#X connect 66 0 71 0;
+#X connect 68 0 71 0;
+#X connect 69 0 71 0;
+#X connect 70 0 71 0;
+#X connect 74 0 75 0;
+#X connect 75 0 76 0;

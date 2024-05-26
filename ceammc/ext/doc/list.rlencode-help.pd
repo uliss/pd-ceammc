@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 492 50 cnv 1 273 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 492 50 RLE (run-length encoding) for lists;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 491 50 RLE (run-length encoding) for lists;
 #X obj 1 1 cnv 5 765 40 empty empty list.rlencode 20 20 0 20 -104026
 -4096 0;
 #X obj 556 11 list.wrap;
@@ -10,28 +10,28 @@
 #X obj 50 147 list.rlencode;
 #X obj 50 176 ui.dt;
 #X obj 155 205 ui.dt;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 260 1\.;
-#X text 150 260 *list*;
-#X text 245 260 input list.;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 261 1\.;
+#X text 150 261 *list*;
+#X text 245 261 input list.;
+#X obj 20 291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 296 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 296 1\.;
-#X text 245 296 First list: list entries without repetitions. For example
+#X text 110 297 1\.;
+#X text 245 297 First list: list entries without repetitions. For example
 1 1 2 2 2 1 1 becomes 1 2 1\.;
-#X text 110 331 2\.;
-#X text 245 331 Second list: count of entries.;
+#X text 110 332 2\.;
+#X text 245 332 Second list: count of entries.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 572 520 see also:;
+#X text 571 520 see also:;
 #X obj 646 520 list.rldecode;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -95,7 +95,7 @@ private:
 
     CallbackProperty(const std::string& name, PropertyBoolGetter getter, PropertyBoolSetter setter, tag<bool>);
     CallbackProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter, tag<t_float>);
-    CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<int>);
+    CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<t_int>);
     CallbackProperty(const std::string& name, PropertySymbolGetter getter, PropertySymbolSetter setter, tag<t_symbol*>);
     CallbackProperty(const std::string& name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>);
     CallbackProperty(const std::string& name, PropertyListGetter getter, PropertyListSetter setter, tag<AtomList>);
@@ -113,14 +113,14 @@ public:
 
     bool getBool(bool&) const final;
     bool getFloat(t_float& f) const final;
-    bool getInt(int& i) const final;
+    bool getInt(t_int& i) const final;
     bool getSymbol(t_symbol*& s) const final;
     bool getAtom(Atom& a) const final;
     bool getList(AtomList& l) const final;
 
     bool setBool(bool b) final;
     bool setFloat(t_float f) final;
-    bool setInt(int i) final;
+    bool setInt(t_int i) final;
     bool setSymbol(t_symbol* s) final;
     bool setAtom(const Atom& a) final;
     bool setList(const AtomListView& lv) final;

@@ -1,72 +1,67 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 430 50 cnv 1 335 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 430 50 calculates root mean square value for array;
+#X obj 429 50 cnv 1 336 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 429 50 calculates root mean square value for array;
 #X obj 1 1 cnv 5 765 40 empty empty array.rms 20 20 0 20 -104026 -4096
 0;
-#X obj 675 11 array.rms;
-#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 674 11 array.rms;
+#X obj 210 80 cnv 1 555 34 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Wiki:;
 #X obj 255 82 ui.link @background_color 0.98039 0.98039 0.98039 @title
 Root mean square @url https://en.wikipedia.org/wiki/Root_mean_square;
-#X obj 50 141 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 142 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array arms 300 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array arms 300 float 0;
 #X coords 0 1 300 -1 300 100 1;
-#X restore 299 141 graph;
-#X obj 50 170 array.rms arms;
-#X floatatom 50 199 16 0 0 0 - - -;
-#X msg 50 257 uniform;
-#X msg 146 257 sin 100;
-#X msg 242 257 gauss 0 0.3;
-#X msg 376 257 fill 0;
-#X msg 462 257 pulse 50;
-#X msg 568 257 tri 60;
-#X obj 50 314 array.fill arms;
-#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 368 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X restore 299 142 graph;
+#X obj 50 171 array.rms arms;
+#X floatatom 50 200 16 0 0 0 - - -;
+#X msg 50 258 uniform;
+#X msg 146 258 sin 100;
+#X msg 242 258 gauss 0 0.3;
+#X msg 376 258 fill 0;
+#X msg 462 258 pulse 50;
+#X msg 568 258 tri 60;
+#X obj 50 315 array.fill arms;
+#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 403 1\.;
-#X text 150 403 symbol;
-#X obj 246 404 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 403 ARRAY: array name. Type: symbol.;
-#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 438 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 373 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 405 1\.;
+#X text 150 405 symbol;
+#X obj 246 406 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 405 ARRAY: array name. Type: symbol.;
+#X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 440 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 473 @array;
-#X text 245 473 Get/Set array name. Type: symbol.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 517 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 735 443 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 475 @array;
+#X text 245 475 Get/Set array name. Type: symbol.;
+#X obj 20 515 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 520 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 518 1\.;
-#X text 150 518 *bang*;
-#X text 245 518 calculates and outputs RMS value.;
-#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 553 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 521 1\.;
+#X text 150 521 *bang*;
+#X text 245 521 calculates and outputs RMS value.;
+#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 556 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 554 1\.;
-#X text 245 554 RMS value.;
+#X text 110 557 1\.;
+#X text 245 557 RMS value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 604 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 607 library: ceammc v0.9.7;
-#X text 507 619 see also:;
-#X obj 581 619 array.mean;
-#X obj 668 619 array.sum2;
-#N canvas 10 626 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 607 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 610 library: ceammc v0.9.7;
+#X text 504 622 see also:;
+#X obj 579 622 array.mean;
+#X obj 667 622 array.sum2;
+#N canvas 10 629 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -90,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 626 pd info;
+#X restore 10 629 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 11 0 17 0;

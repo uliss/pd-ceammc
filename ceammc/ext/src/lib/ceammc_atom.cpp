@@ -263,7 +263,7 @@ bool Atom::isData() const noexcept
         && (REF_PTR != nullptr);
 }
 
-int Atom::refCount() const noexcept
+uint32_t Atom::refCount() const noexcept
 {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
@@ -403,17 +403,14 @@ void Atom::setNull()
 
 bool Atom::isBool() const noexcept
 {
-    static t_symbol* SYM_TRUE = gensym("true");
-    static t_symbol* SYM_FALSE = gensym("false");
-
     switch (a_type) {
     case A_FLOAT: {
         return std::equal_to<t_float>()(a_w.w_float, 1)
             || std::equal_to<t_float>()(a_w.w_float, 0);
     }
     case A_SYMBOL: {
-        t_symbol* s = a_w.w_symbol;
-        return (s == SYM_TRUE) || (s == SYM_FALSE);
+        auto str = a_w.w_symbol->s_name;
+        return (strcmp(str, "true") == 0) || (strcmp(str, "false") == 0);
     };
     default:
         return false;
@@ -693,6 +690,57 @@ bool Atom::operator<(const Atom& b) const noexcept
         }
     } else
         return t < b.type();
+}
+
+bool Atom::isFinite() const noexcept
+{
+    return isFloat() && std::isfinite(a_w.w_float);
+}
+
+bool Atom::isInf() const noexcept
+{
+    return isFloat() && std::isinf(a_w.w_float);
+}
+
+bool Atom::isNan() const noexcept
+{
+    return isFloat() && std::isnan(a_w.w_float);
+}
+
+bool Atom::isFloatInClosedInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // [min, max]
+    return a_w.w_float >= min && a_w.w_float <= max;
+}
+
+bool Atom::isFloatInOpenInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // (min, max)
+    return a_w.w_float > min && a_w.w_float < max;
+}
+
+bool Atom::isFloatInLeftOpenInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // (min, max]
+    return a_w.w_float > min && a_w.w_float <= max;
+}
+
+bool Atom::isFloatInRightOpenInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // [min, max)
+    return a_w.w_float >= min && a_w.w_float < max;
 }
 
 Atom& Atom::operator+=(t_float v) noexcept

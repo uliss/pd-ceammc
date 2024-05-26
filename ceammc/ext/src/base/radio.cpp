@@ -27,9 +27,10 @@ Radio::Radio(const PdArgs& args)
     n_->setInitOnly();
     n_->checkClosedRange(MIN_OUTLETS, MAX_OUTLETS);
     addProperty(n_);
+}
 
-    parseProperties();
-
+void Radio::initDone()
+{
     for (int i = 0; i < n_->value(); i++)
         createOutlet();
 }

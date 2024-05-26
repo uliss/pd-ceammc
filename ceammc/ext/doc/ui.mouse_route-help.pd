@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 493 50 cnv 1 272 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 493 50 routes mouse events from ui objects;
+#X obj 492 50 cnv 1 273 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 492 50 routes mouse events from ui objects;
 #X obj 1 1 cnv 5 765 40 empty empty ui.mouse_route 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 ui.mr;
-#X obj 639 11 ui.mouse_route;
+#X obj 576 11 ui.mr;
+#X obj 638 11 ui.mouse_route;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 routes only specified mouse events from ui.* objects;
 #X obj 50 143 ui.hsl @mouse_events 1;
@@ -13,65 +13,67 @@
 #X floatatom 50 201 5 0 0 0 - - -;
 #X floatatom 146 201 5 0 0 0 - - -;
 #X floatatom 251 201 5 0 0 0 - - -;
-#X obj 20 250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 255 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 233 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 238 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 290 @down;
-#X text 245 290 alias to @mouse_down 1 property. Default value: 0\.;
-#X msg 110 319 @drag;
-#X text 245 319 alias to @mouse_drag 1 property. Default value: 0\.;
-#X msg 110 348 @enter;
-#X text 245 348 alias to @mouse_enter 1 property. Default value: 0\.;
-#X msg 110 377 @leave;
-#X text 245 377 alias to @mouse_leave 1 property. Default value: 0\.;
-#X msg 110 406 @mouse_down;
-#X text 245 406 Get/Set passing a @mouse_down events. Type: bool. Default
+#X obj 735 241 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 273 @down;
+#X text 245 273 Alias to @mouse_down 1 property. Default value: 0\.;
+#X msg 110 303 @drag;
+#X text 245 303 Alias to @mouse_drag 1 property. Default value: 0\.;
+#X msg 110 333 @enter;
+#X text 245 333 Alias to @mouse_enter 1 property. Default value: 0\.;
+#X msg 110 363 @leave;
+#X text 245 363 Alias to @mouse_leave 1 property. Default value: 0\.;
+#X msg 110 393 @mouse_down;
+#X text 245 393 Get/Set passing a @mouse_down events. Type: bool. Default
 value: 0\.;
-#X msg 110 448 @mouse_drag;
-#X text 245 448 Get/Set passing a @mouse_drag events. Type: bool. Default
+#X msg 110 435 @mouse_drag;
+#X text 245 435 Get/Set passing a @mouse_drag events. Type: bool. Default
 value: 0\.;
-#X msg 110 490 @mouse_enter;
-#X text 245 490 Get/Set passing a @mouse_enter events. Type: bool.
+#X msg 110 477 @mouse_enter;
+#X text 245 477 Get/Set passing a @mouse_enter events. Type: bool.
 Default value: 0\.;
-#X msg 110 532 @mouse_leave;
-#X text 245 532 Get/Set passing a @mouse_leave events. Type: bool.
+#X msg 110 519 @mouse_leave;
+#X text 245 519 Get/Set passing a @mouse_leave events. Type: bool.
 Default value: 0\.;
-#X msg 110 574 @mouse_move;
-#X text 245 574 Get/Set passing a @mouse_move events. Type: bool. Default
+#X msg 110 561 @mouse_move;
+#X text 245 561 Get/Set passing a @mouse_move events. Type: bool. Default
 value: 0\.;
-#X msg 110 616 @mouse_up;
-#X text 245 616 Get/Set passing a @mouse_up events. Type: bool. Default
+#X msg 110 603 @mouse_up;
+#X text 245 603 Get/Set passing a @mouse_up events. Type: bool. Default
 value: 0\.;
-#X msg 110 658 @move;
-#X text 245 658 alias to @mouse_move 1 property. Default value: 0\.;
-#X msg 110 687 @up;
-#X text 245 687 alias to @mouse_up 1 property. Default value: 0\.;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 731 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 645 @move;
+#X text 245 645 Alias to @mouse_move 1 property. Default value: 0\.;
+#X msg 110 675 @up;
+#X text 245 675 Alias to @mouse_up 1 property. Default value: 0\.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 720 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 732 1\.;
-#X text 245 732 input messages from ui object.;
-#X obj 20 762 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 767 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 721 1\.;
+#X text 245 721 input messages from ui object.;
+#X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 756 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 768 1\.;
-#X text 245 768 first mouse event type match output.;
-#X text 110 788 ....;
-#X text 245 788 ... mouse event type match output.;
-#X text 110 808 n.;
-#X text 245 808 n-th mouse event type match output.;
+#X text 110 757 1\.;
+#X text 245 757 first mouse event type match output.;
+#X text 110 777 ....;
+#X text 245 777 ... mouse event type match output.;
+#X text 110 797 n.;
+#X text 245 797 n-th mouse event type match output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 858 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 861 library: ceammc v0.9.7;
-#X text 467 873 see also:;
-#X obj 541 873 ui.mouse_filter;
-#X obj 665 876 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 850 library: ceammc v0.9.7;
+#X text 466 862 see also:;
+#X obj 541 862 ui.mouse_filter;
+#X obj 665 865 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.rslider] @url ui.rslider-help.pd;
-#N canvas 10 880 400 290 info 0;
+#N canvas 10 869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 880 pd info;
+#X restore 10 869 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 8 1 10 0;

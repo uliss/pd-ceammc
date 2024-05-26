@@ -45,7 +45,7 @@ TEST_CASE("Properties2", "[ceammc::properties]")
             SECTION("invalid gets")
             {
                 bool b = true;
-                int i = 100;
+                t_int i = 100;
                 t_float f = 0.5;
                 Atom a;
                 AtomList l({ 1, 2, 3 });
@@ -348,11 +348,11 @@ TEST_CASE("Properties2", "[ceammc::properties]")
 
         SECTION("int")
         {
-            int value = -1;
+            t_int value = -1;
             CallbackProperty p(
                 "int",
-                [&]() -> int { return value; },
-                [&](int v) -> bool { value = v; return true; });
+                [&]() -> t_int { return value; },
+                [&](t_int v) -> bool { value = v; return true; });
 
             REQUIRE(!p.isFloat());
             REQUIRE(p.isInt());
@@ -360,7 +360,7 @@ TEST_CASE("Properties2", "[ceammc::properties]")
             REQUIRE(!p.isInitOnly());
             REQUIRE(!p.isReadOnly());
 
-            int def = 1000;
+            t_int def = 1000;
             REQUIRE_FALSE(p.getDefault(def));
             p.updateDefault();
             REQUIRE(p.getDefault(def));
@@ -391,12 +391,12 @@ TEST_CASE("Properties2", "[ceammc::properties]")
 
             REQUIRE(p.setInt(1000));
             REQUIRE(value == 1000);
-            REQUIRE(p.setT(int(2000)));
+            REQUIRE(p.setT(t_int(2000)));
             REQUIRE(value == 2000);
 
             // getInt/setInt
-            int i_;
-            REQUIRE(p.setT(1));
+            t_int i_;
+            REQUIRE(p.setT(t_int(1)));
             REQUIRE(p.getT(i_));
             REQUIRE(i_ == 1);
             REQUIRE(value == 1);
@@ -408,13 +408,13 @@ TEST_CASE("Properties2", "[ceammc::properties]")
             // zero check
             REQUIRE(p.setIntCheck(PropValueConstraints::NON_ZERO));
 
-            REQUIRE(p.setT(1));
+            REQUIRE(p.setT(t_int(1)));
             REQUIRE(p.getT(i_));
             REQUIRE(i_ == 1);
             REQUIRE(value == 1);
 
             REQUIRE_FALSE(p.setInt(0));
-            REQUIRE_FALSE(p.setT(0));
+            REQUIRE_FALSE(p.setT(t_int(0)));
             REQUIRE(p.getT(i_));
             REQUIRE(i_ == 1);
             REQUIRE(value == 1);
@@ -564,7 +564,7 @@ TEST_CASE("Properties2", "[ceammc::properties]")
 
             bool b;
             t_float f;
-            int i;
+            t_int i;
             t_symbol* s;
             Atom a;
             AtomList l;
@@ -633,7 +633,7 @@ TEST_CASE("Properties2", "[ceammc::properties]")
 
             REQUIRE_FALSE(p.setT(true));
             REQUIRE_FALSE(p.setT(10.f));
-            REQUIRE_FALSE(p.setT(-10));
+            REQUIRE_FALSE(p.setT(t_int(-10)));
             REQUIRE_FALSE(p.setT(SYM("ABC")));
             REQUIRE_FALSE(p.setT(A(123)));
 
@@ -647,7 +647,7 @@ TEST_CASE("Properties2", "[ceammc::properties]")
 
             bool b;
             t_float f;
-            int i;
+            t_int i;
             t_symbol* s;
             Atom a;
             AtomList l;
@@ -744,62 +744,62 @@ TEST_CASE("Properties2", "[ceammc::properties]")
             IntProperty p("@i", 100);
 
             p.setIntCheck(PropValueConstraints::NON_ZERO);
-            REQUIRE(p.setValue(1));
-            REQUIRE_FALSE(p.setValue(0));
-            REQUIRE(p.setValue(-1));
+            REQUIRE(p.setValue(t_int(1)));
+            REQUIRE_FALSE(p.setValue(t_int(0)));
+            REQUIRE(p.setValue(t_int(-1)));
 
             p.setIntCheck(PropValueConstraints::NONE);
-            REQUIRE(p.setValue(-1));
-            REQUIRE(p.setValue(0));
-            REQUIRE(p.setValue(1));
+            REQUIRE(p.setValue(t_int(-1)));
+            REQUIRE(p.setValue(t_int(0)));
+            REQUIRE(p.setValue(t_int(1)));
 
             p.setIntCheck(PropValueConstraints::GREATER_EQUAL, -3);
-            REQUIRE_FALSE(p.setValue(-4));
-            REQUIRE(p.setValue(-3));
-            REQUIRE(p.setValue(-2));
+            REQUIRE_FALSE(p.setValue(t_int(-4)));
+            REQUIRE(p.setValue(t_int(-3)));
+            REQUIRE(p.setValue(t_int(-2)));
 
             p.setIntCheck(PropValueConstraints::GREATER_THEN, 1);
-            REQUIRE_FALSE(p.setValue(0));
-            REQUIRE_FALSE(p.setValue(1));
-            REQUIRE(p.setValue(2));
+            REQUIRE_FALSE(p.setValue(t_int(0)));
+            REQUIRE_FALSE(p.setValue(t_int(1)));
+            REQUIRE(p.setValue(t_int(2)));
 
             p.setIntCheck(PropValueConstraints::LESS_THEN, 1);
-            REQUIRE(p.setValue(0));
-            REQUIRE_FALSE(p.setValue(1));
-            REQUIRE_FALSE(p.setValue(2));
+            REQUIRE(p.setValue(t_int(0)));
+            REQUIRE_FALSE(p.setValue(t_int(1)));
+            REQUIRE_FALSE(p.setValue(t_int(2)));
 
             p.setIntCheck(PropValueConstraints::LESS_EQUAL, 1);
-            REQUIRE(p.setValue(0));
-            REQUIRE(p.setValue(1));
-            REQUIRE_FALSE(p.setValue(2));
+            REQUIRE(p.setValue(t_int(0)));
+            REQUIRE(p.setValue(t_int(1)));
+            REQUIRE_FALSE(p.setValue(t_int(2)));
 
             p.setIntCheck(PropValueConstraints::CLOSED_RANGE, -1, 1);
-            REQUIRE_FALSE(p.setValue(-2));
-            REQUIRE(p.setValue(-1));
-            REQUIRE(p.setValue(0));
-            REQUIRE(p.setValue(1));
-            REQUIRE_FALSE(p.setValue(2));
+            REQUIRE_FALSE(p.setValue(t_int(-2)));
+            REQUIRE(p.setValue(t_int(-1)));
+            REQUIRE(p.setValue(t_int(0)));
+            REQUIRE(p.setValue(t_int(1)));
+            REQUIRE_FALSE(p.setValue(t_int(2)));
 
             p.setIntCheck(PropValueConstraints::CLOSED_OPEN_RANGE, -1, 1);
-            REQUIRE_FALSE(p.setValue(-2));
-            REQUIRE(p.setValue(-1));
-            REQUIRE(p.setValue(0));
-            REQUIRE_FALSE(p.setValue(1));
-            REQUIRE_FALSE(p.setValue(2));
+            REQUIRE_FALSE(p.setValue(t_int(-2)));
+            REQUIRE(p.setValue(t_int(-1)));
+            REQUIRE(p.setValue(t_int(0)));
+            REQUIRE_FALSE(p.setValue(t_int(1)));
+            REQUIRE_FALSE(p.setValue(t_int(2)));
 
             p.setIntCheck(PropValueConstraints::OPEN_RANGE, -2, 2);
-            REQUIRE_FALSE(p.setValue(-2));
-            REQUIRE(p.setValue(-1));
-            REQUIRE(p.setValue(0));
-            REQUIRE(p.setValue(1));
-            REQUIRE_FALSE(p.setValue(2));
+            REQUIRE_FALSE(p.setValue(t_int(-2)));
+            REQUIRE(p.setValue(t_int(-1)));
+            REQUIRE(p.setValue(t_int(0)));
+            REQUIRE(p.setValue(t_int(1)));
+            REQUIRE_FALSE(p.setValue(t_int(2)));
 
             p.setIntCheck(PropValueConstraints::OPEN_CLOSED_RANGE, -1, 1);
-            REQUIRE_FALSE(p.setValue(-2));
-            REQUIRE_FALSE(p.setValue(-1));
-            REQUIRE(p.setValue(0));
-            REQUIRE(p.setValue(1));
-            REQUIRE_FALSE(p.setValue(2));
+            REQUIRE_FALSE(p.setValue(t_int(-2)));
+            REQUIRE_FALSE(p.setValue(t_int(-1)));
+            REQUIRE(p.setValue(t_int(0)));
+            REQUIRE(p.setValue(t_int(1)));
+            REQUIRE_FALSE(p.setValue(t_int(2)));
         }
     }
 }

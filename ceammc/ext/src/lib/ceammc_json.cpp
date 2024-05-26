@@ -28,6 +28,9 @@ namespace json {
 
     static nlohmann::json to_json_struct(const AtomList& l, const JsonWriteOpts& opt)
     {
+        if (opt.compressSingleList && l.isData())
+            return to_json_struct(l[0], opt);
+
         nlohmann::json arr = nlohmann::json::array();
 
         for (const Atom& a : l)

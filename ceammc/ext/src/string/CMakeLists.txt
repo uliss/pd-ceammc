@@ -31,3 +31,5 @@ add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
 target_include_directories(ceammc_string
     PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
             "$<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>")
+
+target_link_libraries(ceammc_string PRIVATE re2)

@@ -12,10 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_lcd.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "fmt/core.h"
 #include "ui_lcd.tcl.h"
 

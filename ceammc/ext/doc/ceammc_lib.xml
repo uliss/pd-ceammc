@@ -285,6 +285,9 @@
     <entry name="conv.edge2bang" descr="edge detector for numeric stream" ref_view="object">
       <xi:include href="conv.edge2bang.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.guido2note" descr="convert Guido notation into MIDI and duration" ref_view="object">
+      <xi:include href="conv.guido2note.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.hex2int" descr="hex symbol to int value" ref_view="object">
       <xi:include href="conv.hex2int.pddoc" parse="xml"/>
     </entry>
@@ -623,6 +626,9 @@
     <entry name="flow.group" descr="group input atoms in list of specified size" ref_view="object">
       <xi:include href="flow.group.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.histogram" descr="control flow histogram" ref_view="object">
+      <xi:include href="flow.histogram.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.interval" descr="measure time between flow events" ref_view="object">
       <xi:include href="flow.interval.pddoc" parse="xml"/>
     </entry>
@@ -724,6 +730,9 @@
     </entry>
     <entry name="route.cycle" descr="cyclic message router" ref_view="object">
       <xi:include href="route.cycle.pddoc" parse="xml"/>
+    </entry>
+    <entry name="route.data" descr="separate any messages from bangs, floats, symbols and lists" ref_view="object">
+      <xi:include href="route.data.pddoc" parse="xml"/>
     </entry>
     <entry name="route.float" descr="separate float messages from other types" ref_view="object">
       <xi:include href="route.float.pddoc" parse="xml"/>
@@ -1009,17 +1018,20 @@
     <entry name="hw.arduino" descr="Arduino device" ref_view="object">
       <xi:include href="hw.arduino.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.cpu_temp" descr="get CPU temperature" ref_view="object">
-      <xi:include href="hw.cpu_temp.pddoc" parse="xml"/>
-    </entry>
     <entry name="hw.display" descr="get/set display properties" ref_view="object">
       <xi:include href="hw.display.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hw.gamepad" descr="gamepad controller" ref_view="object">
+      <xi:include href="hw.gamepad.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.kbd_light" descr="Get/set keyboard light on some devices" ref_view="object">
       <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.motu.avb" descr="controls Motu AVB devices over http requests" ref_view="object">
       <xi:include href="hw.motu.avb.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hw.printer" descr="Basic printing support" ref_view="object">
+      <xi:include href="hw.printer.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.serial" descr="serial port device" ref_view="object">
       <xi:include href="hw.serial.pddoc" parse="xml"/>
@@ -1719,6 +1731,20 @@
     <entry name="msg.sched" descr="message scheduler" ref_view="object">
       <xi:include href="msg.sched.pddoc" parse="xml"/>
     </entry>
+    <entry name="msg.unpack" descr="message unpack" ref_view="object">
+      <xi:include href="msg.unpack.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="music">
+    <entry name="rhythm.euclid" descr="euclid pattern generator" ref_view="object">
+      <xi:include href="rhythm.euclid.pddoc" parse="xml"/>
+    </entry>
+    <entry name="rhythm.hexbeat" descr="hexbeat pattern generator" ref_view="object">
+      <xi:include href="rhythm.hexbeat.pddoc" parse="xml"/>
+    </entry>
+    <entry name="rhythm.lsystem" descr="L-system pattern generator" ref_view="object">
+      <xi:include href="rhythm.lsystem.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="music">
     <entry name="rhythm.euclid" descr="euclid pattern generator" ref_view="object">
@@ -1735,11 +1761,23 @@
     <entry name="net.artnet.send" descr="ArtNet DMX message sender" ref_view="object">
       <xi:include href="net.artnet.send.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.freesound" descr="Freesound API v2 client" ref_view="object">
+      <xi:include href="net.freesound.pddoc" parse="xml"/>
+    </entry>
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.http.client" descr="HTTP client" ref_view="object">
+      <xi:include href="net.http.client.pddoc" parse="xml"/>
+    </entry>
     <entry name="net.http.send" descr="HTTP request sender" ref_view="object">
       <xi:include href="net.http.send.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.mdns" descr="MDNS service discovery" ref_view="object">
+      <xi:include href="net.mdns.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.mqtt.client" descr="MQTT client" ref_view="object">
+      <xi:include href="net.mqtt.client.pddoc" parse="xml"/>
     </entry>
     <entry name="net.osc.receive" descr="OSC message listener" ref_view="object">
       <xi:include href="net.osc.receive.pddoc" parse="xml"/>
@@ -1749,6 +1787,12 @@
     </entry>
     <entry name="net.osc.server" descr="OSC server control" ref_view="object">
       <xi:include href="net.osc.server.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.ws.client" descr="Websocket client" ref_view="object">
+      <xi:include href="net.ws.client.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.ws.server" descr="Websocket server" ref_view="object">
+      <xi:include href="net.ws.server.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="noise">
@@ -1983,20 +2027,20 @@
     <entry name="prop.get" descr="get property from connected object/subpatch/abstraction" ref_view="object">
       <xi:include href="prop.get.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.get~" descr="Property extractor from sound stream" ref_view="object">
-      <xi:include href="prop.get~.pddoc" parse="xml"/>
-    </entry>
     <entry name="prop.join" descr="join property to main data flow" ref_view="object">
       <xi:include href="prop.join.pddoc" parse="xml"/>
     </entry>
     <entry name="prop.random" descr="property randomizer" ref_view="object">
       <xi:include href="prop.random.pddoc" parse="xml"/>
     </entry>
+    <entry name="prop.route" descr="separate properties from dataflow" ref_view="object">
+      <xi:include href="prop.route.pddoc" parse="xml"/>
+    </entry>
+    <entry name="prop.route~" descr="Property extractor from audio streams" ref_view="object">
+      <xi:include href="prop.route~.pddoc" parse="xml"/>
+    </entry>
     <entry name="prop.set" descr="set property for connected object/subpatch/abstraction" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
-    </entry>
-    <entry name="prop.split" descr="separate properties from dataflow" ref_view="object">
-      <xi:include href="prop.split.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="proto">
@@ -2163,7 +2207,7 @@
     <entry name="hoa.3d.map~" descr="a 3d ambisonic multisource spatializer" ref_view="object">
       <xi:include href="hoa.3d.map~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.3d.meter~" descr="multi spherical meter with sound field descriptor" ref_view="object">
+    <entry name="hoa.3d.meter~" descr="multi spherical meter with sound field descriptor" ref_view="link">
       <xi:include href="hoa.3d.meter~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.3d.optim~" descr="a 3D ambisonic optimization tool" ref_view="object">
@@ -2184,7 +2228,7 @@
     <entry name="hoa.in~" descr="signal inlet for a patcher loaded by hoa.process~" ref_view="object">
       <xi:include href="hoa.in~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.map.ui" descr="a GUI to spatialize sources on a map" ref_view="object">
+    <entry name="hoa.map.ui" descr="a GUI to spatialize sources on a map" ref_view="link">
       <xi:include href="hoa.map.ui.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.out" descr="message outlet for a patcher loaded by hoa.process~" ref_view="object">
@@ -2399,6 +2443,9 @@
     <entry name="system.colorpanel" descr="System color panel dialog popup" ref_view="object">
       <xi:include href="system.colorpanel.pddoc" parse="xml"/>
     </entry>
+    <entry name="system.command" descr="run commands with pipes on Unix and Windows" ref_view="object">
+      <xi:include href="system.command.pddoc" parse="xml"/>
+    </entry>
     <entry name="system.cursor" descr="Output cursor motion, mousewheel and button clicks" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>
@@ -2413,6 +2460,9 @@
     </entry>
     <entry name="system.hostname" descr="outputs system hostname" ref_view="object">
       <xi:include href="system.hostname.pddoc" parse="xml"/>
+    </entry>
+    <entry name="system.info" descr="retrieve system information" ref_view="object">
+      <xi:include href="system.info.pddoc" parse="xml"/>
     </entry>
     <entry name="system.memsize" descr="returns the size of physical memory (RAM) in bytes round to float data type." ref_view="object">
       <xi:include href="system.memsize.pddoc" parse="xml"/>

@@ -31,14 +31,14 @@ public:
     std::string toString() const override;
 
     void setTypeFloat(t_float def = 0);
-    void setTypeInt(int def = 0);
+    void setTypeInt(t_int def = 0);
     void setTypeBool(bool def);
     void setTypeSymbol(t_symbol* def);
     void setTypeList(const AtomListView& def);
 
     bool setBool(bool v);
     bool setFloat(t_float f);
-    bool setInt(int v);
+    bool setInt(t_int v);
     bool setSymbol(t_symbol* s);
     bool setList(const AtomListView& lv);
     bool setFromPdArgs(const AtomListView& lv);
@@ -46,13 +46,13 @@ public:
     void restoreDefault();
 
     bool getFloat(t_float& out) const;
-    bool getInt(int& out) const;
+    bool getInt(t_int& out) const;
     bool getBool(bool& out) const;
     bool getSymbol(t_symbol** s) const;
     bool getList(AtomList& out) const;
 
     bool setFloatRange(t_float min, t_float max);
-    bool setIntRange(int min, int max);
+    bool setIntRange(t_int min, t_int max);
     bool setEnumValues(const AtomListView& lv);
 
     bool isFloat() const { return type_ == PropValueType::FLOAT; }
@@ -67,7 +67,7 @@ public:
     std::string propertyStrMinValue() const;
     std::string propertyStrMaxValue() const;
     std::pair<t_float, t_float> floatRange() const { return { fmin_, fmax_ }; }
-    std::pair<int, int> intRange() const { return { lmin_, lmax_ }; }
+    std::pair<t_int, t_int> intRange() const { return { lmin_, lmax_ }; }
     const AtomList& enumValues() const { return enum_; }
 
     bool hasMinValue() const;
@@ -92,7 +92,7 @@ private:
     PropertyValue value_;
     PropertyValue default_;
     t_float fmin_, fmax_;
-    int lmin_, lmax_;
+    t_int lmin_, lmax_;
     AtomList enum_;
 };
 

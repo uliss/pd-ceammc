@@ -14,10 +14,11 @@
 #include <cassert>
 #include <thread>
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_pd.h"
 #include "ceammc_sound.h"
 #include "ceammc_soxr_resampler.h"
 #include "ceammc_units.h"
@@ -87,6 +88,9 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
 
     stretch_ = new BoolProperty("@stretch", false);
     addProperty(stretch_);
+
+    on_err_ = new SymbolProperty("@on_err", &s_);
+    addProperty(on_err_);
 
     auto speed = createCbFloatProperty(
         "@speed",
@@ -232,6 +236,11 @@ void SndPlayTilde::m_ff(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void SndPlayTilde::m_open(t_symbol*, const AtomListView& lv)
+{
+    fname_->set(lv);
+}
+
 void SndPlayTilde::m_rewind(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("RELTIME:a?");
@@ -284,7 +293,12 @@ void SndPlayTilde::m_seek(t_symbol* s, const AtomListView& lv)
 
 SndPlayBase::Future SndPlayTilde::createTask()
 {
-    std::string fname = fname_->str();
+    std::string fname = findInStdPaths(fname_->value()->s_name);
+    if (fname.empty()) {
+        onError(fmt::format("can't find file: '{}'", fname_->value()->s_name), gensym("not_found"));
+        return {};
+    }
+
     const int out_ch = n_->value();
     const int sr = samplerate();
     const int bs = blockSize();
@@ -356,7 +370,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
 
         SoxrResamplerOptions sox_opts {
             !use_stretch, // variable rate used without stretching
-            SoxrResamplerFormat::T_SAMPLE_I,
+            SoxrResamplerFormat::FLOAT_I,
             SoxrResamplerFormat::FLOAT_S,
         };
         SoxrResampler resampler(f->sampleRate(), sr, FILE_NCH, SoxrResampler::QUICK, sox_opts);
@@ -383,7 +397,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
                                     while (!quit() && outPipe().write_available() == 0)
                                         SLEEP_SAMPLES(1);
 
-                                    auto x = (c < FILE_NCH) ? rbs_chan_buf[c][i] : 0;
+                                    float x = (c < FILE_NCH) ? rbs_chan_buf[c][i] : 0;
                                     outPipe().push(x);
                                 }
                             }
@@ -405,7 +419,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
                                 SLEEP_SAMPLES(out_ch);
 
                             for (auto c = 0; c < out_ch; c++) {
-                                auto x = (c < FILE_NCH) ? data[c][i] : 0;
+                                float x = (c < FILE_NCH) ? data[c][i] : 0;
                                 outPipe().push(x);
                             }
                         }
@@ -517,6 +531,15 @@ void SndPlayTilde::start(bool value)
         setQuit(true);
 }
 
+void SndPlayTilde::onError(const std::string& msg, t_symbol* s)
+{
+    auto fn = on_err_->value();
+    if (fn)
+        pd::send_message(fn, s, {});
+    else
+        OBJ_ERR << msg;
+}
+
 bool SndPlayTilde::calcBegin(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result)
 {
     auto t = tm;
@@ -544,10 +567,11 @@ bool SndPlayTilde::calcEnd(const units::TimeValue& tm, size_t sr, size_t sampleC
 void setup_snd_play_tilde()
 {
     SoundExternalFactory<SndPlayTilde> obj("snd.play~", OBJECT_FACTORY_DEFAULT);
-    obj.addMethod("start", &SndPlayTilde::m_start);
-    obj.addMethod("stop", &SndPlayTilde::m_stop);
-    obj.addMethod("pause", &SndPlayTilde::m_pause);
     obj.addMethod("ff", &SndPlayTilde::m_ff);
+    obj.addMethod("open", &SndPlayTilde::m_open);
+    obj.addMethod("pause", &SndPlayTilde::m_pause);
     obj.addMethod("rewind", &SndPlayTilde::m_rewind);
     obj.addMethod("seek", &SndPlayTilde::m_seek);
+    obj.addMethod("start", &SndPlayTilde::m_start);
+    obj.addMethod("stop", &SndPlayTilde::m_stop);
 }

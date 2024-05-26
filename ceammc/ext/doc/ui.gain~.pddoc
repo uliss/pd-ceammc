@@ -77,8 +77,8 @@
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
             <!-- MIDI -->
-            <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">binded
-            MIDI channel. 0 means listen to all channels</property>
+            <property name="@midi_channel" type="int" minvalue="0" maxvalue="255" default="0">
+            binded MIDI channel. 0 means listen to all channels</property>
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
             binded MIDI controller number. -1 means not binded to any controller.</property>
             <property name="@midi_pickup" type="bool" default="1">pickup current value. If slider

@@ -14,7 +14,6 @@
 #ifndef MATH_APPROX_H
 #define MATH_APPROX_H
 
-#include "ceammc_args.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;

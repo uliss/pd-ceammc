@@ -69,7 +69,7 @@
 |           |          |
 [ui.dt]     [ui.dt]    [ui.dt]
 
-[flow.match.syntax]
+[flow.match-syntax]
 ]]>
             </pdascii>
             <pdascii id="syntax">

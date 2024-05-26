@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 644 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 644 50 torus attractor;
+#X obj 643 50 cnv 1 122 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 643 50 torus attractor;
 #X obj 1 1 cnv 5 765 40 empty empty noise.torus 20 20 0 20 -104026
 -4096 0;
-#X obj 661 11 noise.torus;
+#X obj 660 11 noise.torus;
 #X obj 210 80 cnv 1 555 85 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 try these parameters:;
 #X text 215 105 0.7 1.1 1.3;
@@ -24,68 +24,70 @@
 #X msg 280 352 cr \$1;
 #X obj 50 380 noise.torus;
 #X obj 50 409 ui.display;
-#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 463 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 464 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 498 1\.;
-#X text 150 498 float;
-#X obj 246 499 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 498 X: x value (optional). Type: float.;
-#X text 110 518 2\.;
-#X text 150 518 float;
-#X obj 246 519 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 518 Y: y value (optional). Type: float.;
-#X text 110 538 3\.;
-#X text 150 538 float;
-#X obj 246 539 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 538 CR: cr value (optional). Type: float.;
-#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 573 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 735 467 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 499 1\.;
+#X text 150 499 float;
+#X obj 246 500 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 499 X: x value (optional). Type: float.;
+#X text 110 519 2\.;
+#X text 150 519 float;
+#X obj 246 520 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 519 Y: y value (optional). Type: float.;
+#X text 110 539 3\.;
+#X text 150 539 float;
+#X obj 246 540 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 539 CR: cr value (optional). Type: float.;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 574 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 608 cr;
-#X text 245 608 Arguments are:;
-#X obj 255 631 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 631 SEED: cr value. Type: float.;
-#X msg 110 656 om;
-#X text 245 656 Arguments are:;
-#X obj 255 679 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 679 OM: enables output when cut or fold value is changed.
+#X msg 110 609 cr;
+#X text 245 609 Arguments are:;
+#X obj 255 632 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 632 SEED: cr value. Type: float.;
+#X msg 110 657 om;
+#X text 245 657 Arguments are:;
+#X obj 255 680 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 680 OM: enables output when cut or fold value is changed.
 Type: int.;
-#X msg 110 719 reset;
-#X text 245 719 reset state.;
-#X msg 110 746 set;
-#X text 245 746 Arguments are:;
-#X obj 255 769 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 769 SET: set to value. Type: float.;
-#X msg 110 794 x;
-#X text 245 794 Arguments are:;
-#X obj 255 817 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 817 NX: x value. Type: float.;
-#X msg 110 842 y;
-#X text 245 842 Arguments are:;
-#X obj 255 865 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 865 NY: y value. Type: float.;
-#X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 905 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 720 reset;
+#X text 245 720 reset state.;
+#X msg 110 748 set;
+#X text 245 748 Arguments are:;
+#X obj 255 771 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 771 SET: set to value. Type: float.;
+#X msg 110 796 x;
+#X text 245 796 Arguments are:;
+#X obj 255 819 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 819 NX: x value. Type: float.;
+#X msg 110 844 y;
+#X text 245 844 Arguments are:;
+#X obj 255 867 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 867 NY: y value. Type: float.;
+#X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 907 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 906 1\.;
-#X text 150 906 *bang*;
-#X text 245 906 output value.;
-#X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 941 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 908 1\.;
+#X text 150 908 *bang*;
+#X text 245 908 output value.;
+#X obj 20 938 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 943 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 942 1\.;
-#X text 245 942 x outlet.;
-#X text 110 962 2\.;
-#X text 245 962 y outlet.;
+#X text 110 944 1\.;
+#X text 245 944 x outlet.;
+#X text 110 964 2\.;
+#X text 245 964 y outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1012 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1015 library: ceammc v0.9.7;
-#N canvas 10 1034 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
+#X obj 1 1014 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1017 library: ceammc v0.9.7;
+#N canvas 10 1036 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -109,7 +111,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1034 pd info;
+#X restore 10 1036 pd info;
 #X connect 8 0 9 0;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;

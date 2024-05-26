@@ -12,13 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_canvas.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_format.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "datatype_color.h"
 #include "fmt/core.h"
 #include "gperf_material_font.h"
@@ -171,6 +172,8 @@ UICanvas::~UICanvas()
 void UICanvas::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
+
+    createOutlet();
 
     draw::Create cmd;
     cmd.w = width();
@@ -1075,6 +1078,62 @@ void UICanvas::onZoom(t_float z)
     m_update();
 }
 
+void UICanvas::onMouseDown(t_object* view, const t_pt& pos, const t_pt& abs_pos, long mods)
+{
+    SmallAtomList data {
+        gensym("down"),
+        pos.x,
+        pos.y,
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
+void UICanvas::onMouseUp(t_object* view, const t_pt& pos, long mods)
+{
+    StaticAtomList<7> data {
+        gensym("up"),
+        pos.x,
+        pos.y,
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
+void UICanvas::onMouseDrag(t_object* view, const t_pt& pos, long mods)
+{
+    StaticAtomList<7> data {
+        gensym("drag"),
+        pos.x,
+        pos.y,
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
+void UICanvas::onDblClick(t_object *view, const t_pt &pos, long mods)
+{
+    StaticAtomList<7> data {
+        gensym("double"),
+        pos.x,
+        pos.y,
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
 void UICanvas::clearDrawQueue()
 {
     draw::DrawCommand cmd;
@@ -1225,6 +1284,8 @@ void UICanvas::setup()
     obj.addMethod("text", &UICanvas::m_text);
     obj.addMethod("translate", &UICanvas::m_translate);
     obj.addMethod("update", &UICanvas::m_update);
+
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
 }
 
 void setup_ui_canvas()

@@ -16,7 +16,8 @@ FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     n_->setArgIndex(0);
     addProperty(n_);
 
-    index_ = new SizeTProperty("@index", 0);
+    index_ = new IntProperty("@index", 0);
+    index_->checkMinEq(0);
     addProperty(index_);
 
     createInlet();

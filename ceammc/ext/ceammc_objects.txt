@@ -47,6 +47,7 @@ array.each
 array.fill
 array.grainer~
 array.hist
+array.histogram
 array.ltcplay~
 array.mean
 array.minmax
@@ -135,6 +136,7 @@ ceammc/bpm->hz
 ceammc/bpm->ms
 ceammc/bpm->sec
 ceammc/cabs~
+ceammc/canvas.active
 ceammc/car->pol
 ceammc/carg~
 ceammc/cc->amp
@@ -170,6 +172,7 @@ ceammc/gain~
 ceammc/gate
 ceammc/gate~
 ceammc/group
+ceammc/guido->note
 ceammc/helmholtz~
 ceammc/hex->int
 ceammc/hist~
@@ -322,6 +325,7 @@ conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
 conv.edge2bang
+conv.guido2note
 conv.hex2int
 conv.hsl2rgb
 conv.int2bits
@@ -363,6 +367,7 @@ data.float
 data.int
 data.list
 data.mlist
+data.path
 data.set
 data.set2list
 datetime
@@ -443,6 +448,8 @@ flow.gate
 flow.greater
 flow.greater_eq
 flow.group
+flow.hist
+flow.histogram
 flow.interval
 flow.less
 flow.less_eq
@@ -578,6 +585,7 @@ global.list
 global.mlist
 global.set
 group
+guido->note
 helmholtz~
 hex->int
 hist~
@@ -623,14 +631,16 @@ hoa.space
 hoa.wider~
 hpf->biquad
 hsl->rgb
+http.client
 http.send
 hw.apple_smc
 hw.apple_sms
 hw.arduino
-hw.cpu_temp
 hw.display
+hw.gamepad
 hw.kbd_light
 hw.motu.avb
+hw.printer
 hw.serial
 int->bits
 is_any
@@ -697,6 +707,7 @@ list.filter
 list.first
 list.foldl
 list.gen
+list.hist
 list.histogram
 list.insert
 list.integrator
@@ -934,6 +945,7 @@ ml
 mlist
 mlist.flatten
 modplug~
+mqtt.client
 ms->bpm
 ms->samp
 ms->samp~
@@ -944,6 +956,7 @@ msg.onclose
 msg.onload
 msg.pack
 msg.sched
+msg.unpack
 music.d->t
 music.dur2time
 music.v->m
@@ -951,16 +964,22 @@ music.voice2midi
 mux2~
 mux~
 net.artnet.send
+net.freesound
 net.host->ip
 net.host2ip
+net.http.client
 net.http.send
+net.mdns
+net.mqtt.client
 net.osc
 net.osc.r
 net.osc.receive
 net.osc.s
 net.osc.send
 net.osc.server
-net.ws.send
+net.telegram.bot
+net.ws.client
+net.ws.server
 noise.baker
 noise.chua~
 noise.clifford
@@ -1067,6 +1086,8 @@ prop.get
 prop.get~
 prop.join
 prop.random
+prop.route
+prop.route~
 prop.set
 prop.split
 prop<-
@@ -1119,6 +1140,8 @@ route.any
 route.b
 route.bang
 route.cycle
+route.d
+route.data
 route.f
 route.float
 route.l
@@ -1250,12 +1273,15 @@ synth.tube_bell~
 synth.voice_fofc~
 synth.voice_fofs~
 synth.wurley~
+system.cmd
 system.colorpanel
+system.command
 system.cursor
 system.exec
 system.exit
 system.getenv
 system.hostname
+system.info
 system.memsize
 system.memused
 system.screen_size

@@ -1,10 +1,16 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_crc32.h"
+#include "ceammc_impl.h"
 #include "ceammc_log.h"
 #include "ceammc_pd.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui_symbols.h"
 #include "fmt/core.h"
+
+#include "ebox.h"
+#include "eclass.h"
+#include "edefine.h"
+#include "eobj.h"
 
 #include <algorithm>
 
@@ -186,6 +192,16 @@ void UIObjectImpl::init(t_symbol* name, const AtomListView& args, bool usePreset
 
     if (use_presets_)
         presetInit();
+
+    auto cls = reinterpret_cast<t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
+    auto pos_args = args.arguments();
+
+    for (int i = 0; i < cls->c_nattr; i++) {
+        auto attr = cls->c_attr[i];
+        auto idx = attr->arg_index;
+        if (attr->arg_index >= 0 && idx < pos_args.size())
+            eobj_attr_setvalueof(&box_->b_obj, attr->name, 1, pos_args.subView(idx).toPdData());
+    }
 }
 
 t_symbol* UIObjectImpl::name() const
@@ -291,7 +307,6 @@ void UIObjectImpl::setDrawParams(t_edrawparams* params)
     params->d_bordercolor = prop_color_border;
     params->d_boxfillcolor = prop_color_background;
     params->d_labelcolor = prop_color_label;
-    params->d_hideiolets = false;
     params->d_hideborder = false;
 }
 
@@ -712,7 +727,8 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
 
     if (a->itemssize > 0) {
         info.setView(PropValueView::MENU);
-        info.setConstraints(PropValueConstraints::ENUM);
+        if (!info.setConstraints(PropValueConstraints::ENUM))
+            LIB_ERR << "can't set enum constraints";
 
         if (info.type() == PropValueType::SYMBOL) {
             for (size_t i = 0; i < a->itemssize; i++) {
@@ -750,6 +766,9 @@ static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
     PropertyInfo res(std::string("@") + a->name->s_name, PropValueType::ATOM);
 
     const auto attr_style = crc32_hash(a->style);
+
+    if (a->arg_index >= 0)
+        res.setArgIndex(a->arg_index);
 
     switch (crc32_hash(a->type)) {
     case hash_float:
@@ -924,6 +943,63 @@ boost::optional<PropertyInfo> UIObjectImpl::propertyInfo(t_symbol* name) const
     return {};
 }
 
+std::vector<t_symbol*> UIObjectImpl::methodsInfo() const
+{
+    std::vector<t_symbol*> res;
+    auto* cls = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
+
+    auto c = box_->b_obj.o_obj.te_g.g_pd;
+    for (int i = 0; i < c->c_nmethod; i++) {
+        auto mname = class_method_name(c, i);
+
+        switch (crc32_hash(mname)) {
+        case sym::methods::hash_mousedown:
+            if (cls->c_widget.w_mousedown)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mouseup:
+            if (cls->c_widget.w_mouseup)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mousewheel:
+            if (cls->c_widget.w_mousewheel)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mousemove:
+            if (cls->c_widget.w_mousemove)
+                res.push_back(mname);
+
+            if (cls->c_widget.w_mousedrag)
+                res.push_back(sym::methods::sym_mousedrag());
+
+            break;
+        case sym::methods::hash_mouseenter:
+            if (cls->c_widget.w_mouseenter)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_mouseleave:
+            if (cls->c_widget.w_mouseleave)
+                res.push_back(mname);
+
+            break;
+        case sym::methods::hash_dblclick:
+            if (cls->c_widget.w_dblclick)
+                res.push_back(mname);
+
+            break;
+        default:
+            res.push_back(mname);
+            break;
+        }
+    }
+
+    return res;
+}
+
 void UIObjectImpl::bindTo(t_symbol* s)
 {
     if (binded_signals_.find(s) == binded_signals_.end()) {
@@ -960,6 +1036,11 @@ float UIObjectImpl::fontSize() const
 float UIObjectImpl::fontSizeZoomed() const
 {
     return ebox_getzoomfontsize(box_);
+}
+
+void UIObjectImpl::hideXlets(bool value)
+{
+    asEBox()->b_boxparameters.d_hideiolets = value;
 }
 
 t_symbol* UIObjectImpl::genPresetName(t_symbol* prefix)
@@ -1008,26 +1089,6 @@ void UIObjectImpl::acquirePresetName(t_symbol* s)
 #endif
 }
 
-UIError::UIError(const UIObjectImpl* obj)
-    : obj_(obj)
-{
-}
-
-UIError::~UIError()
-{
-    pdError(obj_->asPd(), str());
-}
-
-UIDebug::UIDebug(const UIObjectImpl* obj)
-    : obj_(obj)
-{
-}
-
-UIDebug::~UIDebug()
-{
-    pdDebug(obj_->asPd(), str());
-}
-
 UIObject::UIObject()
     : UIObjectImpl(this)
 {
@@ -1063,4 +1124,20 @@ void UIDspObject::dspProcess(t_sample** ins, long n_ins,
     long sampleframes)
 {
 }
+
+UIDebug::UIDebug(const UIObjectImpl* obj)
+    : LogPdObject(obj ? obj->asPd() : nullptr, LOG_DEBUG)
+{
+}
+
+UIError::UIError(const UIObjectImpl* obj)
+    : LogPdObject(obj ? obj->asPd() : nullptr, LOG_ERROR)
+{
+}
+
+UIPost::UIPost(const UIObjectImpl* obj)
+    : LogPdObject(obj ? obj->asPd() : nullptr, LOG_POST)
+{
+}
+
 }

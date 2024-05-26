@@ -12,6 +12,12 @@
             <category>list</category>
             <keywords>list histogram</keywords>
             <since>0.3</since>
+            <also>
+                <see>array.hist</see>
+            </also>
+            <aliases>
+                <alias>list.hist</alias>
+            </aliases>
         </meta>
         <info>
             <par>Histogram outputted as list of probabilities in specified number of bins</par>

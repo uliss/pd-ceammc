@@ -4,72 +4,74 @@
 #X text 606 50 Chua's diode circuit;
 #X obj 1 1 cnv 5 765 40 empty empty noise.chua~ 20 20 0 20 -104026
 -4096 0;
-#X obj 660 11 noise.chua~;
+#X obj 659 11 noise.chua~;
 #X obj 50 118 gnoise.chua~;
 #X obj 50 305 ui.hgain2~;
 #X obj 213 305 ui.dsp~;
 #X obj 50 334 dac~;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 388 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 423 @id;
-#X text 245 423 (initonly) Get/Set OSC address id. If specified \,
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 424 @id;
+#X text 245 424 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/noise_chua/PROP_NAME osc address \, if empty
 bind to /noise_chua/PROP_NAME. Type: symbol.;
-#X msg 110 480 @osc;
-#X text 245 480 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 481 @osc;
+#X text 245 481 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 509 @C1;
-#X text 245 509 Get/Set C1 capacity in nF. Type: float. Default value:
+#X msg 110 511 @C1;
+#X text 245 511 Get/Set C1 capacity in nF. Type: float. Default value:
 5.5\. Range: 5.2\...6\.;
-#X msg 110 551 @C2;
-#X text 245 551 Get/Set C2 capacity in nF. Type: float. Default value:
+#X msg 110 553 @C2;
+#X text 245 553 Get/Set C2 capacity in nF. Type: float. Default value:
 49.5\. Range: 40\...60\.;
-#X msg 110 593 @L;
-#X text 245 593 Get/Set L in mH. Type: float. Default value: 7.07\.
+#X msg 110 595 @L;
+#X text 245 595 Get/Set L in mH. Type: float. Default value: 7.07\.
 Range: 6.5\...7.3\.;
-#X msg 110 635 @R;
-#X text 245 635 Get/Set R resistance in kOhm. Type: float. Default
+#X msg 110 637 @R;
+#X text 245 637 Get/Set R resistance in kOhm. Type: float. Default
 value: 1.6\. Range: 1.252\...1.7\.;
-#X msg 110 677 @active;
-#X text 245 677 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 679 @active;
+#X text 245 679 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 706 @gate;
-#X text 245 706 Get/Set play trigger >0: on \, 0: off. To set output
+#X msg 110 709 @gate;
+#X text 245 709 Get/Set play trigger >0: on \, 0: off. To set output
 gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
 0\. Range: 0\...1\.;
-#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 778 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 781 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 813 reset;
-#X text 245 813 reset generator.;
-#X msg 110 840 start;
-#X text 245 840 start generator.;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 882 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 816 reset;
+#X text 245 816 reset generator.;
+#X msg 110 844 start;
+#X text 245 844 start generator.;
+#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 887 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 883 1\.;
-#X text 150 883 *bang*;
-#X text 245 883 play with default duration and full gain.;
-#X text 150 903 *float*;
-#X text 245 903 play with default duration and specified gain.;
-#X text 150 923 *list*;
-#X text 245 923 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 958 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 888 1\.;
+#X text 150 888 *bang*;
+#X text 245 888 play with default duration and full gain.;
+#X text 150 908 *float*;
+#X text 245 908 play with default duration and specified gain.;
+#X text 150 928 *list*;
+#X text 245 928 GAIN(0\..1) DUR(ms) pair expected.;
+#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 963 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 959 1\.;
-#X text 245 959 X output (C1 Vout).;
-#X text 110 979 2\.;
-#X text 245 979 Y output (C2 Vout).;
+#X text 110 964 1\.;
+#X text 245 964 X output (C1 Vout).;
+#X text 110 984 2\.;
+#X text 245 984 Y output (C2 Vout).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1029 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1032 library: ceammc v0.9.7;
-#N canvas 10 1051 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1034 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1037 library: ceammc v0.9.7;
+#N canvas 10 1056 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -93,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1051 pd info;
+#X restore 10 1056 pd info;
 #X connect 4 0 5 0;
 #X connect 4 1 5 1;
 #X connect 5 0 7 0;

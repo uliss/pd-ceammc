@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class ListSlice : public BaseObject {
     IntProperty* from_;
-    SizeTProperty* step_;
+    IntProperty* step_;
     IntProperty* to_;
 
 public:

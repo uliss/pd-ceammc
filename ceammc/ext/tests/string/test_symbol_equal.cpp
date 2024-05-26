@@ -62,19 +62,19 @@ TEST_CASE("symbol.equal", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
         WHEN_SEND_LIST_TO(0, t, LA("b", "b", "c", "d"));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_LIST_TO(0, t, LA(1, "b"));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "b");
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
         WHEN_SEND_LIST_TO(0, t, LA("a", 1));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 1));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_LIST_TO(0, t, LA("b", "b"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);

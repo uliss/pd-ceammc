@@ -20,7 +20,7 @@ endif()
 set(CEAMMC_DISTRIB_VERSION "2023.10")
 
 if(APPLE)
-   exec_program(sw_vers ARGS -productVersion OUTPUT_VARIABLE MACOSX_VERSION)
+   execute_process(COMMAND sw_vers -productVersion OUTPUT_VARIABLE MACOSX_VERSION)
    string(REGEX MATCH "[0-9]+.[0-9]+" MACOSX_VERSION ${MACOSX_VERSION})
 
    if(WITH_DOUBLE_PRECISION)

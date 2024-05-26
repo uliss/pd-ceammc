@@ -16,6 +16,9 @@
                 <see>canvas.top</see>
             </also>
             <since>0.9.6</since>
+            <aliases>
+                <alias>ceammc/canvas.active</alias>
+            </aliases>
         </meta>
         <properties>
             <property name="@abs" type="bool" default="0">use canvas for abstractions</property>
@@ -39,7 +42,7 @@
 |
 [ui.dt]
 
-[canvas.active.abs]
+[canvas.active-abs]
 ]]>
             </pdascii>
             <pdascii id="abs">

@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_life.h"
-#include "ceammc_args.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
-static ArgChecker m_cell_check("i i b");
-static ArgChecker m_pos_check("i i");
+static const args::ArgChecker m_cell_check("ROW:i>=0 COL:i>=0 STATE:b");
+static const args::ArgChecker m_pos_check("ROW:i>=0 COL:i>=0");
 
 SeqLife::SeqLife(const PdArgs& args)
     : BaseObject(args)
@@ -27,13 +27,19 @@ SeqLife::SeqLife(const PdArgs& args)
     rows_ = new IntProperty("@rows", 16);
     rows_->checkClosedRange(1, MAX_MTX_SIZE);
     rows_->setArgIndex(0);
-    rows_->setSuccessFn([this](Property*) { out_buffer_.resizePad(numCells(), Atom(0.)); });
+    rows_->setSuccessFn([this](Property*) {
+        life_.set(rows_->value(), life_.cols());
+        out_buffer_.resizePad(numCells(), Atom(0.));
+    });
     addProperty(rows_);
 
     cols_ = new IntProperty("@cols", 16);
     cols_->checkClosedRange(1, MAX_MTX_SIZE);
     cols_->setArgIndex(1);
-    cols_->setSuccessFn([this](Property*) { out_buffer_.resizePad(numCells(), Atom(0.)); });
+    cols_->setSuccessFn([this](Property*) {
+        life_.set(life_.rows(), cols_->value());
+        out_buffer_.resizePad(numCells(), Atom(0.));
+    });
     addProperty(cols_);
 
     createCbIntProperty("@size", [this]() { return numCells(); });
@@ -63,9 +69,8 @@ void SeqLife::dump() const
 
 #define ADD_FIGURE(method)                     \
     {                                          \
-        if (!m_pos_check.check(lv)) {          \
-            METHOD_ERR(s) << "usage: ROW COL"; \
-            return;                            \
+        if (!m_pos_check.check(lv, this)) {    \
+            return m_pos_check.usage(this, s); \
         }                                      \
         const auto row = lv[0].asInt();        \
         const auto col = lv[1].asInt();        \
@@ -81,12 +86,10 @@ void SeqLife::m_blinker(t_symbol* s, const AtomListView& lv)
 
 void SeqLife::m_rand(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker argcheck("f0..1?");
+    static const args::ArgChecker chk("DENSITY:f[0,1]?");
 
-    if (!argcheck.check(lv)) {
-        METHOD_ERR(s) << "usage: DENSITY(0..1)";
-        return;
-    }
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     const auto dens = lv.floatAt(0, 0.6);
     if (!life_.random(dens))
@@ -115,10 +118,8 @@ void SeqLife::m_next(t_symbol* s, const AtomListView& lv)
 
 void SeqLife::m_cell(t_symbol* s, const AtomListView& lv)
 {
-    if (!m_cell_check.check(lv)) {
-        METHOD_ERR(s) << "usage: ROW COL STATE";
-        return;
-    }
+    if (!m_cell_check.check(lv, this))
+        return m_cell_check.usage(this, s);
 
     const auto row = lv[0].asInt();
     const auto col = lv[1].asInt();
@@ -170,13 +171,13 @@ bool SeqLife::checkPos(t_symbol* method, int row, int col)
 
 void SeqLife::output()
 {
+    size_t i = 0;
     for (size_t r = 0; r < life_.rows(); r++) {
         for (size_t c = 0; c < life_.cols(); c++) {
-            const size_t i = r * life_.rows() + c;
-            if (i > out_buffer_.size())
+            if (i >= out_buffer_.size())
                 break;
 
-            out_buffer_[i] = life_.at(r, c);
+            out_buffer_[i++] = life_.at(r, c);
         }
     }
 
@@ -201,5 +202,5 @@ void setup_seq_life()
 
     obj.setDescription("Conway game of life sequencer");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "conway", "life", "game"});
+    obj.setKeywords({ "seq", "conway", "life", "game" });
 }

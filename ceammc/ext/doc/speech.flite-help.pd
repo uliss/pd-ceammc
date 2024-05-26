@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 592 50 cnv 1 173 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 592 50 render speech to array;
+#X obj 591 50 cnv 1 174 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 591 50 render speech to array;
 #X obj 1 1 cnv 5 765 40 empty empty speech.flite 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 speech.flite;
@@ -10,10 +10,7 @@
 flite TTS engine.;
 #X text 215 120 Rendering is performed in separate thread.;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array arr_flite 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array arr_flite 100 float 0;
 #X coords 0 1 100 -1 500 80 1;
 #X restore 50 183 graph;
 #X obj 50 270 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -31,53 +28,57 @@ flite TTS engine.;
 #X obj 50 471 ui.gain~ @size 120 16;
 #X obj 299 471 ui.dsp~;
 #X obj 50 500 dac~;
-#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 554 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 589 1\.;
-#X text 150 589 symbol;
-#X obj 246 590 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 589 ARRAY: destination array name render to. Type: symbol.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 558 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 590 1\.;
+#X text 150 590 symbol;
+#X obj 246 591 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 590 ARRAY: destination array name render to. Type: symbol.;
+#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 625 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 659 @array;
-#X text 245 659 Get/Set destination array name. Type: symbol.;
-#X msg 110 688 @pitch;
-#X text 245 688 Get/Set voice pitch (-1 - default value). Type: float.
+#X obj 735 628 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 660 @array;
+#X text 245 660 Get/Set destination array name. Type: symbol.;
+#X msg 110 690 @pitch;
+#X text 245 690 Get/Set voice pitch (-1 - default value). Type: float.
 Default value: -1\.;
-#X msg 110 730 @speed;
-#X text 245 730 Get/Set speaking speed. Type: float. Default value:
+#X msg 110 732 @speed;
+#X text 245 732 Get/Set speaking speed. Type: float. Default value:
 1\. Range: 1\...4\.;
-#X msg 110 772 @voice;
-#X text 245 772 Get/Set default voice. Type: symbol. Default value:
+#X msg 110 774 @voice;
+#X text 245 774 Get/Set default voice. Type: symbol. Default value:
 kal16\. Allowed values: kal16 \, slt \, rms \, awb.;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 829 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 831 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 830 1\.;
-#X text 150 830 *float*;
-#X text 245 830 render number to array.;
-#X text 150 850 *symbol*;
-#X text 245 850 render text to array.;
-#X text 150 870 *list*;
-#X text 245 870 render text to array.;
-#X text 110 890 2\.;
-#X text 150 890 *symbol*;
-#X text 245 890 set target array name.;
-#X obj 20 920 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 925 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 832 1\.;
+#X text 150 832 *float*;
+#X text 245 832 render number to array.;
+#X text 150 852 *symbol*;
+#X text 245 852 render text to array.;
+#X text 150 872 *list*;
+#X text 245 872 render text to array.;
+#X text 110 892 2\.;
+#X text 150 892 *symbol*;
+#X text 245 892 set target array name.;
+#X obj 20 922 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 927 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 926 1\.;
-#X text 245 926 bang on done.;
+#X text 110 928 1\.;
+#X text 245 928 bang on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 976 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 979 library: ceammc v0.9.7;
-#N canvas 10 998 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
+#X obj 1 978 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 981 library: ceammc v0.9.7;
+#N canvas 10 1000 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 998 pd info;
+#X restore 10 1000 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 12 0;
 #X connect 10 0 13 0;

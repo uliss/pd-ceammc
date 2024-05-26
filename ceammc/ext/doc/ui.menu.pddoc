@@ -17,6 +17,16 @@
                 <see view="link">ui.radio</see>
             </also>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false">toggle the menu and choose the menu
+            item</event>
+            <event type="move" editmode="false">highlight hover menu item</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true">open Pd popup menu</event>
+        </mouse>
         <properties>
             <property name="@items" type="list" default="">list of menu items</property>
             <property name="@index" type="int" default="-1">current menu item index</property>
@@ -114,6 +124,8 @@
         <example>
             <pdascii>
 <![CDATA[
+[loadbang]
+|
 [erase, file_glob * %DOC%/sound, 0(
 |
 [expand_env]
@@ -124,16 +136,12 @@
 |
 [S digits=60]
 |
-[t       b s]
-|         ^|
-[del 100] [open $1(
-|         |
-[1( [0(   |
-|   |     |
-[readsf~  ]
+[open $1, 1(
 |
-[ui.gain~ @size 120 16]   [ui.dsp~]
-| \
+[snd.play~]
+| ^|.
+[ui.gain2~ @size 120 16]   [ui.dsp~]
+*|*
 [dac~]
 ]]>
             </pdascii>

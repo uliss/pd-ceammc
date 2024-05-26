@@ -102,7 +102,7 @@ namespace parser {
         }
     }
 
-    bool numeric_prop_random_range(const PropertyInfo& info, int& new_min, int& new_max)
+    bool numeric_prop_random_range(const PropertyInfo& info, t_int& new_min, t_int& new_max)
     {
         switch (info.constraints()) {
         case PropValueConstraints::CLOSED_RANGE:
@@ -133,10 +133,10 @@ namespace parser {
         return dist(rnd);
     }
 
-    int numeric_prop_calc_random(int min, int max)
+    t_int numeric_prop_calc_random(t_int min, t_int max)
     {
         std::random_device rnd;
-        std::uniform_int_distribution<int> dist(min, max);
+        std::uniform_int_distribution<t_int> dist(min, max);
         return dist(rnd);
     }
 

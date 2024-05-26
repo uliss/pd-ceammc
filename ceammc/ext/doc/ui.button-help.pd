@@ -8,90 +8,105 @@
 [ui.btn] @url ui.button-help.pd;
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.button] @url ui.button-help.pd;
-#X obj 50 118 ui.button;
+#X obj 50 118 ui.button @size 50 50 @nosave 1;
 #X floatatom 50 176 5 0 0 0 - - -;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 213 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 265 Left-click;
-#X text 285 265 outputs @on_value on mouse down and @off_value on mouse
+#X text 110 248 Left-click;
+#X text 285 248 outputs @on_value on mouse down and @off_value on mouse
 up.;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 268 Right-click + ⇧;
+#X text 285 268 open object help.;
+#X text 110 288 Right-click + ⌥;
+#X text 285 288 open properties dialog.;
+#X text 110 308 Right-click;
+#X text 285 308 opens Pd popup menu.;
+#X text 61 308 [Edit];
+#X text 110 328 Right-click + ⇧;
+#X text 285 328 open the object help.;
+#X text 61 328 [Edit];
+#X text 110 348 Right-click + ⌥;
+#X text 285 348 open properties dialog.;
+#X text 61 348 [Edit];
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 383 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 335 @off_value;
-#X text 245 335 Get/Set off value. Type: float. Default value: 0\.;
-#X msg 110 364 @on_value;
-#X text 245 364 Get/Set on value. Type: float. Default value: 1\.;
-#X msg 110 393 @receive;
-#X text 245 393 Get/Set receive source. Type: symbol. Default value:
+#X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 418 @off_value;
+#X text 245 418 Get/Set off value. Type: float. Default value: 0\.;
+#X msg 110 448 @on_value;
+#X text 245 448 Get/Set on value. Type: float. Default value: 1\.;
+#X msg 110 478 @receive;
+#X text 245 478 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 422 @send;
-#X text 245 422 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 508 @send;
+#X text 245 508 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 464 @active_color;
-#X text 245 464 Get/Set active color (list of red \, green \, blue
+#X msg 110 550 @active_color;
+#X text 245 550 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 506 @background_color;
-#X text 245 506 Get/Set element background color (list of red \, green
+#X msg 110 592 @background_color;
+#X text 245 592 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 563 @border_color;
-#X text 245 563 Get/Set border color (list of red \, green \, blue
+#X msg 110 649 @border_color;
+#X text 245 649 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 605 @fontname;
-#X text 245 605 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 691 @fontname;
+#X text 245 691 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 647 @fontsize;
-#X text 245 647 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 733 @fontsize;
+#X text 245 733 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 689 @fontslant;
-#X text 245 689 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 775 @fontslant;
+#X text 245 775 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 731 @fontweight;
-#X text 245 731 Get/Set font weight. Type: symbol. Default value: normal.
+#X msg 110 817 @fontweight;
+#X text 245 817 Get/Set font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X msg 110 773 @pinned;
-#X text 245 773 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 859 @pinned;
+#X text 245 859 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 815 @size;
-#X text 245 815 Get/Set element size (width \, height pair). Type:
+#X msg 110 901 @size;
+#X text 245 901 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 15\.;
-#X obj 20 867 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 872 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 958 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 907 pos;
-#X text 245 907 set UI element position. Arguments are:;
-#X obj 255 930 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 930 X: top left x-coord. Type: float.;
-#X obj 255 953 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 953 Y: top right y-coord. Type: float.;
-#X msg 110 978 dump;
-#X text 245 978 dumps all object info to Pd console window.;
-#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1020 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 993 pos;
+#X text 245 993 set UI element position. Arguments are:;
+#X obj 255 1016 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1016 X: top left x-coord. Type: float.;
+#X obj 255 1039 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1039 Y: top right y-coord. Type: float.;
+#X msg 110 1064 dump;
+#X text 245 1064 dumps all object info to Pd console window.;
+#X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1107 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1021 1\.;
-#X text 150 1021 *float*;
-#X text 245 1021 if *0* given \, sets state to unchecked and outputs
+#X text 110 1108 1\.;
+#X text 150 1108 *float*;
+#X text 245 1108 if *0* given \, sets state to unchecked and outputs
 @off_value. On any other number sets to checked state and outputs @on_value.;
-#X obj 20 1081 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1086 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1168 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1173 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1087 1\.;
-#X text 245 1087 outputs @on_value on mouse down and @off_value on
+#X text 110 1174 1\.;
+#X text 245 1174 outputs @on_value on mouse down and @off_value on
 mouse up (default 1 and 0).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1152 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1155 library: ceammc v0.9.7;
-#X text 598 1167 see also:;
-#X obj 672 1170 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1239 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1242 library: ceammc v0.9.7;
+#X text 597 1254 see also:;
+#X obj 672 1257 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.toggle] @url ui.toggle-help.pd;
-#N canvas 10 1174 400 290 info 0;
+#N canvas 10 1261 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -115,5 +130,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1174 pd info;
+#X restore 10 1261 pd info;
 #X connect 5 0 6 0;

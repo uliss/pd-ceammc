@@ -125,7 +125,7 @@ MidiKbd::MidiKbd(const PdArgs& args)
 
                 for (auto& kv : *pdict) {
                     if (kv.second.isInteger()) {
-                        auto note = kv.second[0].asT<int>();
+                        auto note = kv.second[0].asT<t_int>();
                         custom_[utf8_to_int(kv.first->s_name)] = note;
                     }
                 }

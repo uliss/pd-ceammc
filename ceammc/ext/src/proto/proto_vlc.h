@@ -1,8 +1,7 @@
 #ifndef PROTO_VLC_H
 #define PROTO_VLC_H
 
-#include "ceammc_pollthread_object.h"
-#include "ceammc_thread.h"
+#include "ceammc_pollthread_rwq.h"
 #include "datatype_dict.h"
 using namespace ceammc;
 

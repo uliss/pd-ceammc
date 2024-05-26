@@ -24,7 +24,7 @@
 
 using namespace ceammc;
 
-using Queue = boost::lockfree::spsc_queue<t_sample, boost::lockfree::capacity<8192>>;
+using Queue = boost::lockfree::spsc_queue<float, boost::lockfree::capacity<8192>>;
 
 using SndPlayBase = PollThreadTaskObject<int, Queue, SoundExternal>;
 
@@ -37,6 +37,8 @@ private:
     SymbolProperty* fname_ { nullptr };
     SymbolEnumProperty* sync_mode_ { nullptr };
     BoolProperty* stretch_ { nullptr };
+    SymbolProperty* on_err_ { nullptr };
+
     ThreadPdLogger logger_;
     // speed
     std::atomic<float> atomic_speed_ { 1 }; // set in caller thread, read in worker thread
@@ -65,12 +67,13 @@ public:
     void onSymbol(t_symbol* s) final;
     void processBlock(const t_sample** in, t_sample** out) final;
 
-    void m_start(t_symbol*, const AtomListView& lv);
-    void m_stop(t_symbol*, const AtomListView& lv);
-    void m_pause(t_symbol*, const AtomListView& lv);
     void m_ff(t_symbol*, const AtomListView& lv);
+    void m_open(t_symbol*, const AtomListView& lv);
+    void m_pause(t_symbol*, const AtomListView& lv);
     void m_rewind(t_symbol*, const AtomListView& lv);
     void m_seek(t_symbol*, const AtomListView& lv);
+    void m_start(t_symbol*, const AtomListView& lv);
+    void m_stop(t_symbol*, const AtomListView& lv);
 
     Future createTask() final;
     void processTask(int event) final;
@@ -78,6 +81,7 @@ public:
 private:
     inline void seekToBeg() { file_cur_pos_ = file_begin_; }
     void start(bool value);
+    void onError(const std::string& msg, t_symbol *s);
 
 private:
     static bool calcBegin(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result);

@@ -57,6 +57,7 @@ t_canvas* CanvasActive::currentCanvas()
 void setup_base_canvas_active()
 {
     ObjectFactory<CanvasActive> obj("canvas.active");
+    obj.addAlias("ceammc/canvas.active");
     obj.setXletsInfo({ "bang" }, { "int: 1 or 0" });
     obj.addMethod(".active", &CanvasActive::m_active);
 

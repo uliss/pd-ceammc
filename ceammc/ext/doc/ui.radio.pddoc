@@ -30,6 +30,7 @@
         <mouse>
             <event type="double-click" editmode="true" keys="Cmd">changes slider
             orientation</event>
+            <event type="drag" editmode="false">toggle radio cells in the checklist mode</event>
             <event type="left-click" editmode="0">select cell in radio mode, toggle cell in check
             list mode</event>
             <event type="right-click" editmode="0">show context menu</event>

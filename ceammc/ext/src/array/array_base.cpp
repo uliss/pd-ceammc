@@ -205,7 +205,7 @@ bool ArrayPositionProperty::setFloat(t_float v)
     return setSamples(v, true);
 }
 
-bool ArrayPositionProperty::setInt(int v)
+bool ArrayPositionProperty::setInt(t_int v)
 {
     return setSamples(v, true);
 }

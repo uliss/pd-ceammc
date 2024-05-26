@@ -34,6 +34,11 @@ proc display_txt_height { c tag } {
    return [expr abs($ty1 - $ty0)]
 }
 
+proc display_copy {txt} {
+    clipboard clear
+    clipboard append $txt
+}
+
 proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolor showtype type txt} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]

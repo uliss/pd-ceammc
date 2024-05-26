@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 433 50 cnv 1 332 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 433 50 convert phase value [0-1] to radians [0-2π];
+#X obj 432 50 cnv 1 333 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 432 50 convert phase value [0-1] to radians [0-2π];
 #X obj 1 1 cnv 5 765 40 empty empty conv.phase2rad 20 20 0 20 -104026
 -4096 0;
-#X obj 394 11 ceammc/phase->rad;
-#X obj 542 11 phase->rad;
+#X obj 393 11 ceammc/phase->rad;
+#X obj 541 11 phase->rad;
 #X obj 639 11 conv.phase2rad;
 #X obj 50 118 ui.knob;
 #X floatatom 50 176 5 0 0 0 - - -;
@@ -13,28 +13,28 @@
 #X floatatom 50 234 5 0 0 0 - - -;
 #X obj 50 262 rad->phase;
 #X obj 50 291 ui.knob;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 346 1\.;
-#X text 150 346 *float*;
-#X text 245 346 input value.;
-#X text 150 366 *list*;
-#X text 245 366 input values.;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 401 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 347 1\.;
+#X text 150 347 *float*;
+#X text 245 347 input value.;
+#X text 150 367 *list*;
+#X text 245 367 input values.;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 402 1\.;
-#X text 245 402 converted value.;
+#X text 110 403 1\.;
+#X text 245 403 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 565 520 see also:;
-#X obj 639 520 conv.rad2phase;
+#X text 563 520 see also:;
+#X obj 638 520 conv.rad2phase;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

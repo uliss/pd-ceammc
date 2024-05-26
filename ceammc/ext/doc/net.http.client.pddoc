@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="net.http.client">
+        <title>net.http.client</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>HTTP client</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>net http</keywords>
+            <since>0.9.8</since>
+            <aliases>
+                <alias>http.client</alias>
+            </aliases>
+        </meta>
+        <methods>
+            <!-- get -->
+            <method name="get">send GET request 
+            <param name="URL" type="symbol" required="true">request URL</param>
+            <param name="@header" type="list" required="false">additional http header: @header NAME
+            VALUE</param>
+            <param name="@form" type="list" required="false">form key-value pair: @form KEY VALUE.
+            For application/x-www-form-urlencoded MIME type.</param>
+            <param name="@auth" type="list" required="false">basic auth username/password: @auth
+            USER PASS</param>
+            <param name="@css" type="list" required="false">apply CSS selector to the request body:
+            @css SEL OUTPUT_TYPE, where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href',
+            'none'. 'html' - returns selected elenent HTML content, 'inner' - returns inner HTML
+            content, without element surrounding tags, 'text' returns element text without tags,
+            'href' - return href attribute of selected element, 'none' - returns empty
+            string</param>
+            <param name="@strip_ws" type="symbol" required="false">replace multiple
+            whitespaces/newlines/tabs with single space</param>
+            <param name="@json" type="symbol" required="false">parse result as Json and output it
+            as data:Dict()</param></method>
+            <!-- upload -->
+            <method name="upload">updload file for the form 
+            <param name="URL" type="symbol" required="true">upload URL</param>
+            <param name="FILE" type="symbol" required="true">upload file path in the
+            filesystem</param>
+            <param name="FORM_KEY" type="symbol" required="true">form entry key</param>
+            <param name="@PARAMS" type="list" required="false">see get method
+            parameters</param></method>
+            <method name="download">download file 
+            <param name="URL" type="symbol" required="true">download URL</param>
+            <param name="FILE" type="symbol" required="false">save filename. If not specified, use
+            HTTP document filename</param>
+            <param name="@PARAMS" type="list" required="false">see get method
+            parameters</param></method>
+            <method name="post">send POST request 
+            <param name="URL" type="symbol" required="true">request URL</param>
+            <param name="@PARAMS" type="list" required="false">see get method
+            parameters</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: HTTP status code</outlet>
+            <outlet>data:String: HTTP body or content of selected element</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[get http://puredata.info/ @css title text @strip_ws(
+|
+| [get https://github.com/uliss/pd-ceammc/releases @css a\[href$=".dmg"\] href #a(
+|
+|
+|
+|   [get http://ip.jsontest.com/ @json(
+|   |
+[net.http.client #z]
+|            ^|
+[F]          [print]
+
+[X a->z] [X b->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

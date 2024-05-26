@@ -6,73 +6,77 @@
 -104026 -4096 0;
 #X obj 489 11 hoa.projector~;
 #X obj 616 11 hoa.2d.projector~;
-#X obj 210 80 cnv 1 555 73 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 74 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Discretizes the ambisonic sound field into the plane
 waves domain.;
 #X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.2d.projector~-help.pd;
-#X obj 50 181 sig~ 1;
-#X obj 261 181 lfo.saw~ 0.05;
-#X obj 261 210 phase->rad~;
-#X obj 50 239 hoa.2d.encoder~ 3, f 30;
-#X obj 50 268 hoa.2d.projector~ 3 7, f 30;
-#X obj 50 325 ui.m~;
-#X obj 155 325 ui.m~;
-#X obj 261 325 ui.m~;
-#X obj 366 325 ui.m~;
-#X obj 472 325 ui.m~;
-#X obj 578 325 ui.m~;
-#X obj 683 325 ui.m~;
-#X obj 50 469 ui.dsp~;
-#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 182 sig~ 1;
+#X obj 261 182 lfo.saw~ 0.05;
+#X obj 261 211 phase->rad~;
+#X obj 50 240 hoa.2d.encoder~ 3, f 30;
+#X obj 50 269 hoa.2d.projector~ 3 7, f 30;
+#X obj 50 326 ui.m~;
+#X obj 155 326 ui.m~;
+#X obj 261 326 ui.m~;
+#X obj 366 326 ui.m~;
+#X obj 472 326 ui.m~;
+#X obj 578 326 ui.m~;
+#X obj 683 326 ui.m~;
+#X obj 50 470 ui.dsp~;
+#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 525 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 558 1\.;
-#X text 150 558 int;
-#X obj 246 559 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 558 ORDER: the order of decomposition. Type: int. Range:
+#X obj 735 528 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 560 1\.;
+#X text 150 560 int;
+#X obj 246 561 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 560 ORDER: the order of decomposition. Type: int. Range:
 1\...63;
-#X text 110 578 2\.;
-#X text 150 578 int;
-#X obj 246 579 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 578 N: number of channels. Type: int. Range: 1\...63;
-#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 613 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 580 2\.;
+#X text 150 580 int;
+#X obj 246 581 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 580 N: number of channels. Type: int. Range: 1\...63;
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 648 @n;
-#X text 245 648 (initonly) Get/Set number of channels (planewaves).
+#X obj 735 618 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 650 @n;
+#X text 245 650 (initonly) Get/Set number of channels (planewaves).
 Type: int. Default value: 0\. Range: 0\...63\.;
-#X msg 110 690 @order;
-#X text 245 690 (initonly) Get/Set the order of decomposition. Type:
+#X msg 110 692 @order;
+#X text 245 692 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...63\.;
-#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 747 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 749 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 748 1\.;
-#X text 245 748 input harmonic.;
-#X text 110 768 ....;
-#X text 245 768 ... input harmonic.;
-#X text 110 788 n.;
-#X text 245 788 n-th input harmonic.;
-#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 823 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 750 1\.;
+#X text 245 750 input harmonic.;
+#X text 110 770 ....;
+#X text 245 770 ... input harmonic.;
+#X text 110 790 n.;
+#X text 245 790 n-th input harmonic.;
+#X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 825 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 824 1\.;
-#X text 245 824 first plane wave output.;
-#X text 110 844 ....;
-#X text 245 844 ... plane wave output.;
-#X text 110 864 n.;
-#X text 245 864 n-th plane wave output.;
+#X text 110 826 1\.;
+#X text 245 826 first plane wave output.;
+#X text 110 846 ....;
+#X text 245 846 ... plane wave output.;
+#X text 110 866 n.;
+#X text 245 866 n-th plane wave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 914 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 917 library: ceammc v0.9.7;
-#X text 535 929 see also:;
-#X obj 609 929 hoa.2d.recomposer~;
-#N canvas 10 936 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 916 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 919 library: ceammc v0.9.7;
+#X text 534 931 see also:;
+#X obj 609 931 hoa.2d.recomposer~;
+#N canvas 10 938 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 936 pd info;
+#X restore 10 938 pd info;
 #X connect 9 0 10 0;
 #X connect 8 0 11 0;
 #X connect 10 0 11 1;

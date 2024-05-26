@@ -3,10 +3,10 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
+#include "ceammc_log.h"
 #include "ceammc_property_info.h"
 
 #include <initializer_list>
-#include <sstream>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -15,26 +15,24 @@ namespace ceammc {
 
 class UIObjectImpl;
 
-class UIError : public std::ostringstream {
-    const UIObjectImpl* obj_;
-
-public:
-    UIError(const UIObjectImpl* obj = nullptr);
-    ~UIError();
-    UIError& stream() { return *this; }
-};
-
-class UIDebug : public std::ostringstream {
-    const UIObjectImpl* obj_;
-
+class UIDebug : public LogPdObject {
 public:
     UIDebug(const UIObjectImpl* obj = nullptr);
-    ~UIDebug();
-    UIDebug& stream() { return *this; }
 };
 
-#define UI_ERR UIError(this).stream()
+class UIError : public LogPdObject {
+public:
+    UIError(const UIObjectImpl* obj = nullptr);
+};
+
+class UIPost : public LogPdObject {
+public:
+    UIPost(const UIObjectImpl* obj = nullptr);
+};
+
 #define UI_DBG UIDebug(this).stream()
+#define UI_ERR UIError(this).stream()
+#define UI_POST UIPost(this).stream()
 
 class UIObjectImpl {
     t_ebox* const box_;
@@ -178,6 +176,8 @@ public:
     std::vector<PropertyInfo> propsInfo() const;
     boost::optional<PropertyInfo> propertyInfo(t_symbol* name) const;
 
+    std::vector<t_symbol*> methodsInfo() const;
+
     // bind to global dispatcher
     void bindTo(t_symbol* s);
     void unbindFrom(t_symbol* s);
@@ -186,6 +186,11 @@ public:
     // fonts
     float fontSize() const;
     float fontSizeZoomed() const;
+
+    /**
+     * Hide/show object inlets/outlets
+     */
+    void hideXlets(bool value);
 
 public:
     static const char* BG_LAYER;

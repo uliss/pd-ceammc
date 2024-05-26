@@ -39,7 +39,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyFloatGetter 
 {
 }
 
-CallbackProperty::CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<int>)
+CallbackProperty::CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<t_int>)
     : Property(PropertyInfo(name, PropValueType::INTEGER), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
@@ -138,12 +138,12 @@ bool CallbackProperty::setList(const AtomListView& lv)
         if (!emptyCheck(lv))
             return false;
 
-        int res = false;
-        int value = false;
+        t_int res = false;
+        t_int value = false;
         if (!getInt(value))
             return false;
 
-        auto rc = numeric_prop_calc<int>(value, info(), lv, res);
+        auto rc = numeric_prop_calc<t_int>(value, info(), lv, res);
         switch (rc) {
         case PropParseRes::OK:
             return setInt(res);
@@ -468,7 +468,7 @@ bool CallbackProperty::getFloat(t_float& f) const
     return true;
 }
 
-bool CallbackProperty::getInt(int& i) const
+bool CallbackProperty::getInt(t_int& i) const
 {
     if (!hasIntCb(GETTER))
         return false;
@@ -529,7 +529,7 @@ bool CallbackProperty::setFloat(t_float f)
     CHECKED_SETTER_CALL(fn_float, f)
 }
 
-bool CallbackProperty::setInt(int i)
+bool CallbackProperty::setInt(t_int i)
 {
     if (!hasIntCb(SETTER) || !checkInt(i))
         return false;

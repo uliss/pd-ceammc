@@ -23,6 +23,15 @@
             address format - ROW COL.</par>
             <par>On click outputs message with format [cell ROW COL VALUE(</par>
         </info>
+        <mouse>
+            <event type="drag" editmode="false">toggle cells under cursor</event>
+            <event type="left-click" editmode="false">toggle cell under cursor</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open the object help</event>
+            <event type="right-click" editmode="true">open Pd popup menu</event>
+        </mouse>
         <arguments>
             <argument name="ROW" type="int" minvalue="1" maxvalue="64">matrix rows</argument>
             <argument name="COL" type="int" minvalue="1" maxvalue="64">matrix columns</argument>

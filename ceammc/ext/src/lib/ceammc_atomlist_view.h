@@ -98,6 +98,18 @@ public:
     template <typename T>
     bool isA() const { return n_ == 1 && data_ && data_->isA<T>(); }
 
+    // value checks
+    bool operator<(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] < f; }
+    bool operator<=(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] <= f; }
+    bool operator>(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] > f; }
+    bool operator>=(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] >= f; }
+
+    bool isIntLessThen(t_int x) const noexcept;
+    bool isIntLessEqual(t_int x) const noexcept;
+    bool isIntGreaterThen(t_int x) const noexcept;
+    bool isIntGreaterEqual(t_int x) const noexcept;
+    bool isIntInClosedInterval(t_int min, t_int max) const noexcept;
+
     /// value access
     /**
      * @brief returns pointer to element at specified relative position
@@ -334,9 +346,14 @@ public:
     AtomListView subView(size_t from, size_t len) const;
 
     /**
-     * Returns subview form specified position and before first property element
+     * Returns subview from specified position and up to first property element
      */
-    AtomListView argSubView(size_t from) const;
+    AtomListView arguments(size_t from = 0) const;
+
+    /**
+     * Returns subview of properties
+     */
+    AtomListView properties() const;
 
     /**
      * Returns true if contains specified atom, otherwise false
@@ -349,21 +366,35 @@ public:
      * @param pred - predicate function
      * @return true if for all atoms predicate returns true
      */
-    bool allOf(std::function<bool(const Atom&)> pred) const;
+    bool allOf(const AtomPredicate& pred) const;
+
+    /**
+     * Check if all atoms are floats and satisfies to predicate
+     * @param pred - predicate function
+     * @return true if for all atoms predicate returns true
+     */
+    bool allFloatsOf(const FloatPredicate& pred) const;
+
+    /**
+     * Check if all atoms are symbols and satisfies to predicate
+     * @param pred - predicate function
+     * @return true if for all atoms predicate returns true
+     */
+    bool allSymbolsOf(const SymbolPredicate& pred) const;
 
     /**
      * Check if at least one atom satisfies to predicate
      * @param pred - predicate function
      * @return true if for at least one atom predicate returns true
      */
-    bool anyOf(std::function<bool(const Atom&)> pred) const;
+    bool anyOf(const AtomPredicate& pred) const;
 
     /**
      * Check if no one atom satisfies to predicate
      * @param pred - predicate function
      * @return true if for all atoms predicate returns false
      */
-    bool noneOf(std::function<bool(const Atom&)> pred) const;
+    bool noneOf(const AtomPredicate& pred) const;
 
     friend class AtomList;
 
@@ -395,6 +426,28 @@ public:
      * @return false if empty
      */
     bool range(Atom& min, Atom& max) const noexcept;
+
+    /**
+     * returns pointer to min element
+     * @return pointer to min element or nullptr if not found
+     */
+    const Atom* min() const;
+
+    /**
+     * returns pointer to min element
+     * @return pointer to min element or nullptr if not found
+     */
+    const Atom* max() const;
+
+    /**
+     * Returns number of elements that compare equal to a
+     */
+    size_t count(const Atom& a) const noexcept;
+
+    /**
+     * Returns number of elements for that predicate pred returns true
+     */
+    CEAMMC_NO_ASAN size_t count(AtomPredicate pred) const noexcept;
 
     /**
      * Map atom values
@@ -546,7 +599,7 @@ inline bool AtomListView::isA<bool>() const { return isBool(); }
 template <>
 inline bool AtomListView::isA<t_float>() const { return isFloat(); }
 template <>
-inline bool AtomListView::isA<int>() const { return isInteger(); }
+inline bool AtomListView::isA<t_int>() const { return isInteger(); }
 template <>
 inline bool AtomListView::isA<t_symbol*>() const { return isSymbol(); }
 template <>

@@ -13,14 +13,14 @@
  *****************************************************************************/
 #include "test_external.h"
 
-void setup_prop_split();
+void setup_prop_route();
 
 struct Dummy {
 };
 
 TEST_CASE("prop.split", "[externals]")
 {
-    setup_prop_split();
+    setup_prop_route();
 
     SECTION("init")
     {

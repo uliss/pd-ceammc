@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="net.mqtt.client">
+        <title>net.mqtt.client</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>MQTT client</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>mqtt net client</keywords>
+            <since>0.9.8</since>
+            <aliases>
+                <alias>mqtt.client</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">
+            parsing mode for incoming/outcoming messages. If 'fudi' - interpret data as Pd
+            messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
+            convert json values to ceammc data.</property>
+            <property name="@id" type="symbol" default="pd_mqtt_client_0">client id</property>
+            <property name="@qos" type="int" default="0" enum="0 1 2">quality of service</property>
+            <property name="@retain" type="bool" default="0">retain flag</property>
+        </properties>
+        <methods>
+            <!-- publish -->
+            <method name="publish">publish message to topic 
+            <param name="TOPIC" type="symbol" required="true">topic</param>
+            <param name="ARGS" type="list" required="false">content</param></method>
+            <!-- subscribe -->
+            <method name="subscribe">subscribe to topic 
+            <param name="TOPIC" type="symbol" required="true">topic</param></method>
+            <!-- unsubscribe -->
+            <method name="unsubscribe">unsubscribe from topic 
+            <param name="TOPIC" type="symbol" required="true">topic</param></method>
+            <!-- close -->
+            <method name="close">close MQTT connection</method>
+            <!-- connect -->
+            <method name="connect">connect to websocket server 
+            <param name="URL" type="symbol" required="true">mqtt server url, for ex.:
+            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1
+            etc.</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>message input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output messages: topic data</outlet>
+            <outlet>bang: on ping message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*you can start testing mqtt server with command: 'nanomq -start'*/
+
+
+  [connect tcp://test.mosquitto.org:1883 #k(
+
+ [connect mqtt://ro:readonly@test.mosquitto.org:1884 #l(
+
+[connect mqtt://localhost:1883(  [subscribe topic/1 #e(
+|
+| [close #b(                     [subscribe topic/2 #f(
+|
+| [publish topic/1 MSG1 #c(      [subscribe topic/# #g(
+|
+| [publish topic/2 MSG2 #d(      [unsubscribe topic/1 #h(
+|
+|                                [unsubscribe topic/2 #i(
+|
+|                                [unsubscribe topic/# #j(
+|
+[net.mqtt.client #x ]
+|                  ^|
+[ui.dt]            [B]
+
+[X b->x] [X c->x] [X d->x] [X k->x] [X l->x]
+[X e->x] [X f->x] [X g->x] [X h->x] [X i->x] [X j->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

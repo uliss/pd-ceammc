@@ -14,11 +14,11 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="TEMPO" type="symbol" units="bpm">tempo in beats per minute</argument>
+            <argument name="TEMPO" type="atom" units="bpm">tempo in beats per minute</argument>
             <argument name="TSIG" type="symbol">time signature</argument>
         </arguments>
         <properties>
-            <property name="@tempo" type="symbol" default="60|4bpm" units="bpm">tempo. If beat
+            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">tempo. If beat
             division is ommitted, using 1/4</property>
             <property name="@tsig" type="symbol" default="|4/4|">metronome time signature, can be
             complex like: |1/4+15/16| etc.</property>
@@ -62,6 +62,7 @@
             <method name="on">manually play onbeat sound</method>
             <method name="off">manually play offbeat sound</method>
             <method name="mark">manually play mark sound</method>
+            <method name="reset">reset metro to the beginning</method>
         </methods>
         <inlets>
             <inlet>
@@ -87,7 +88,7 @@
 |   [F]
 |   |
 |   [@tempo $1( [1( [2( [3( [4(     [F]
-|   |           | .  |.  |.  |.     |..
+|   |           |.  |.  |.  |.      |..
 [synth.metro~ 120|8bpm |5/4+3/16| #z  ]
 |                          ^|
 [ui.hgain~]                [print BEAT]

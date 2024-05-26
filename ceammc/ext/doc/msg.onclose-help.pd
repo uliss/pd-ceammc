@@ -4,34 +4,36 @@
 #X text 530 50 send message when patch closes;
 #X obj 1 1 cnv 5 765 40 empty empty msg.onclose 20 20 0 20 -104026
 -4096 0;
-#X obj 660 11 msg.onclose;
+#X obj 659 11 msg.onclose;
 #X obj 50 118 msg.onclose MESSAGE;
 #X obj 50 147 print onclose;
-#X obj 20 196 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 201 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 202 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 236 1\.;
-#X text 150 236 list;
-#X obj 246 237 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 236 ARGS: message. Comma separated messages are supported.
+#X obj 735 205 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 237 1\.;
+#X text 150 237 list;
+#X obj 246 238 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 237 ARGS: message. Comma separated messages are supported.
 Type: list.;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 312 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 313 1\.;
-#X text 245 313 message output.;
+#X text 110 314 1\.;
+#X text 245 314 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title msg @url ceammc.msg-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 594 520 see also:;
-#X obj 668 520 msg.onload;
+#X text 592 520 see also:;
+#X obj 667 520 msg.onload;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

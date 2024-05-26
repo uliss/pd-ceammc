@@ -187,8 +187,8 @@ void ArduinoExternal::m_disconnect(t_symbol*, const AtomListView&)
 void ArduinoExternal::onConnect()
 {
     port_->setValue(gensym(arduino_->port().c_str()));
-    vid_->setValue(arduino_->vendorId());
-    pid_->setValue(arduino_->productId());
+    vid_->setValue(t_int(arduino_->vendorId()));
+    pid_->setValue(t_int(arduino_->productId()));
     serial_->setValue(gensym(arduino_->usbSerial().c_str()));
 
     // if @on_connect is not empty

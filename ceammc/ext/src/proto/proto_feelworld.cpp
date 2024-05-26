@@ -36,7 +36,7 @@ void ProtoFeelworld::m_input(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_BYTE))
         return;
 
-    int idx = lv[0].asT<int>();
+    int idx = lv[0].asT<t_int>();
     if (idx < INPUT_MIN || idx > INPUT_MAX) {
         METHOD_ERR(s) << fmt::format("invalid input: {}", idx);
         return;
@@ -72,7 +72,7 @@ void ProtoFeelworld::m_input(t_symbol* s, const AtomListView& lv)
     std::string str_msg;
     str_msg.reserve(atom_msg.size());
     for (auto& a : atom_msg)
-        str_msg += a.asT<int>();
+        str_msg += a.asT<t_int>();
 
     OBJ_LOG << str_msg;
 }

@@ -46,8 +46,8 @@ public:
         , int_data(0)
     {
         addProperty(new FloatProperty("@c", 101))->setArgIndex(0);
-        addProperty(new SizeTProperty("@d", 101))->setArgIndex(1);
         addProperty(new SymbolProperty("@s", gensym("empty")))->setArgIndex(2);
+        addProperty(new IntProperty("@d", 101))->setArgIndex(1);
         addProperty(new ListProperty("@l", LF(-1)))->setArgIndex(3);
 
         createCbListProperty("@cb", []() -> AtomList { return { 1, 2, 3 }; });
@@ -147,7 +147,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.property("@cbf")->isReadOnly());
         REQUIRE_PROPERTY(b, @cbf, 0.5);
 
-        auto cbi = b.createCbIntProperty("@cbi", []() -> int { return -5; });
+        auto cbi = b.createCbIntProperty("@cbi", []() -> t_int { return -5; });
         REQUIRE(b.hasProperty("@cbi"));
         REQUIRE(b.property("@cbi") == cbi);
         REQUIRE(b.property("@cbi")->isReadOnly());

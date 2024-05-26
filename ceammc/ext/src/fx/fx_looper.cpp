@@ -193,10 +193,14 @@ FxLooper::FxLooper(const PdArgs& args)
     createSignalOutlet();
     createOutlet();
 
-    // parse all properties
-    parseProperties();
+    debug_ = new BoolProperty("@debug", true);
+    debug_->setHidden();
+    addProperty(debug_);
+}
 
-    float len_sec = capacity_sec_->value();
+void FxLooper::initDone()
+{
+    auto len_sec = capacity_sec_->value();
     if (len_sec <= 0 || MAX_CAPACITY_SEC <= len_sec) {
         OBJ_ERR << fmt::format("invalid loop length: {}", len_sec);
 

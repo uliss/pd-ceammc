@@ -1,6 +1,7 @@
 #include "ui_dsp.h"
 #include "ceammc_pd.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "ui_dsp.tcl.h"
 
 CEAMMC_DEFINE_SYM(pd)

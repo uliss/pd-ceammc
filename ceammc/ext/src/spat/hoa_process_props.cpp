@@ -71,7 +71,7 @@ static void propToList(DataTypeProperty* prop, AtomList& out)
             out.append(Atom(f));
     } break;
     case PropValueType::INTEGER: {
-        int i = 0;
+        t_int i = 0;
         if (prop->getInt(i))
             out.append(Atom(i));
     } break;

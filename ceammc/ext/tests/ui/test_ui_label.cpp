@@ -23,7 +23,7 @@ TEST_CASE("ui.label", "[ui.label]")
     SECTION("construct")
     {
         TestLabel t("ui.label");
-        REQUIRE(t->numInlets() == 0);
+        REQUIRE(t->numInlets() == 1);
         REQUIRE(t->numOutlets() == 0);
 
         REQUIRE_UI_LIST_PROPERTY(t, "text", LA("Label"));

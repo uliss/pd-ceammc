@@ -20,31 +20,31 @@ extern "C" {
 #include "m_imp.h"
 }
 
+static const char* TYPE_NAMES[] = {
+    "bool", "int", "float",
+    "symbol", "variant", "list"
+};
+
+static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropValueType::LIST) + 1,
+    "type to symbol table size mismatch");
+
+static const char* VIEW_NAMES[] = {
+    "slider", "knob", "numbox",
+    "spinbox", "toggle", "menu",
+    "entry", "color"
+};
+
+static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropValueView::COLOR) + 1,
+    "view to symbol table size mismatch");
+
 static t_symbol* typeToSymbol(PropValueType t)
 {
-    static t_symbol* TYPE_NAMES[] = {
-        gensym("bool"), gensym("int"), gensym("float"),
-        gensym("symbol"), gensym("variant"), gensym("list")
-    };
-
-    static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropValueType::LIST) + 1,
-        "type to symbol table size mismatch");
-
-    return TYPE_NAMES[int(t)];
+    return gensym(TYPE_NAMES[int(t)]);
 }
 
 static t_symbol* viewToSymbol(PropValueView v)
 {
-    static t_symbol* VIEW_NAMES[] = {
-        gensym("slider"), gensym("knob"), gensym("numbox"),
-        gensym("spinbox"), gensym("toggle"), gensym("menu"),
-        gensym("entry"), gensym("color")
-    };
-
-    static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropValueView::COLOR) + 1,
-        "view to symbol table size mismatch");
-
-    return VIEW_NAMES[int(v)];
+    return gensym(VIEW_NAMES[int(v)]);
 }
 
 ObjProps::ObjProps(const PdArgs& args)
@@ -105,7 +105,7 @@ void ObjProps::onBang()
                 if (p.getDefault(f))
                     prop_info->insert(KEY_DEF, f);
             } else if (p.isInt()) {
-                int i;
+                t_int i;
                 if (p.getDefault(i))
                     prop_info->insert(KEY_DEF, Atom(i));
             } else if (p.isSymbol()) {

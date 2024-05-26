@@ -56,8 +56,8 @@ void RandomInt::onInlet(size_t n, const AtomListView& lv)
     case 1:
 
         if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
-            min_->setInt(lv[0].asT<int>());
-            max_->setInt(lv[1].asT<int>());
+            min_->setInt(lv[0].asT<t_int>());
+            max_->setInt(lv[1].asT<t_int>());
         } else
             min_->setList(lv);
 
@@ -73,7 +73,7 @@ void RandomInt::m_gen(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_NATURAL, s))
         return;
 
-    const auto n = lv[0].asT<int>();
+    const auto n = lv[0].asT<t_int>();
 
     AtomList res;
     res.reserve(n);

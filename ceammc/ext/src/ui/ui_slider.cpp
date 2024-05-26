@@ -2,6 +2,7 @@
 #include "ceammc_cicm.h"
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 #include <tuple>
 
@@ -227,6 +228,8 @@ void UISlider::setup()
 
     obj.addFloatProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addFloatProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
+    obj.setPropertyArgIndex("min", 0);
+    obj.setPropertyArgIndex("max", 1);
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);

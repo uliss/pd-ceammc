@@ -39,13 +39,13 @@ Hoa2dDecoder::Hoa2dDecoder(const PdArgs& args)
 
     Property* pcrop = createCbIntProperty(
         "@crop",
-        [this]() -> int { return propCropSize(); },
-        [this](int v) -> bool { return propSetCropSize(v); });
+        [this]() -> t_int { return propCropSize(); },
+        [this](t_int v) -> bool { return propSetCropSize(v); });
 
     pcrop->setUnits(PropValueUnits::SAMP);
     pcrop->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 512);
 
-    createCbIntProperty("@nharm", [this]() -> int { return decoder_ ? decoder_->getNumberOfHarmonics() : 0; });
+    createCbIntProperty("@nharm", [this]() -> t_int { return decoder_ ? decoder_->getNumberOfHarmonics() : 0; });
     createCbListProperty("@pw_x", [this]() -> AtomList { return propPlaneWavesX(); })
         ->setUnits(PropValueUnits::RAD);
     createCbListProperty("@pw_y", [this]() -> AtomList { return propPlaneWavesY(); })
@@ -69,11 +69,11 @@ void Hoa2dDecoder::parsePlainWavesNum()
     switch (crc32_hash(mode_->value())) {
     case hash_binaural:
         // num of plane waves ignored in binaural mode
-        num_chan_->setValue(2);
+        num_chan_->setValue(t_int(2));
         break;
     case hash_regular: {
-        const int MIN_PW_COUNT = 2 * order() + 1;
-        const int DEFAULT = 2 * order() + 2;
+        const t_int MIN_PW_COUNT = 2 * order() + 1;
+        const t_int DEFAULT = 2 * order() + 2;
 
         // property was not specified, set default
         if (num_chan_->value() == 0)
@@ -90,8 +90,8 @@ void Hoa2dDecoder::parsePlainWavesNum()
         }
     } break;
     case hash_irregular: {
-        const int MIN_PW_COUNT = 1;
-        const int DEFAULT = 5;
+        const t_int MIN_PW_COUNT = 1;
+        const t_int DEFAULT = 5;
 
         // property was not specified, use default
         if (num_chan_->value() == 0)

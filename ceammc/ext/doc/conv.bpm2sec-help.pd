@@ -4,7 +4,7 @@
 #X text 415 50 convert frequency in BPM to period in seconds;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bpm2sec 20 20 0 20 -104026
 -4096 0;
-#X obj 437 11 ceammc/bpm->sec;
+#X obj 436 11 ceammc/bpm->sec;
 #X obj 570 11 bpm->sec;
 #X obj 653 11 conv.bpm2sec;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
@@ -14,27 +14,27 @@ in seconds. It's simple as 60/f \, but more readable.;
 #X msg 117 158 60;
 #X obj 50 187 bpm->sec;
 #X floatatom 50 216 5 0 0 0 - - -;
-#X obj 20 265 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 270 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 248 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 253 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 271 1\.;
-#X text 150 271 *float*;
-#X text 245 271 frequency in BPM.;
-#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 306 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 254 1\.;
+#X text 150 254 *float*;
+#X text 245 254 frequency in BPM.;
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 307 1\.;
-#X text 245 307 period in seconds.;
+#X text 110 290 1\.;
+#X text 245 290 period in seconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 493 520 see also:;
-#X obj 567 520 conv.bpm2ms;
-#X obj 661 520 conv.bpm2hz;
+#X text 490 520 see also:;
+#X obj 565 520 conv.bpm2ms;
+#X obj 660 520 conv.bpm2hz;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

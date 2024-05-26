@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_map_ui.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_canvas.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
@@ -21,6 +21,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_signal.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "fmt/core.h"
 #include <forward_list>
 
@@ -640,7 +641,7 @@ void HoaMapUI::m_source(const AtomListView& lv)
                     strcat(description, lv[i].asSymbol()->s_name);
                     strcat(description, " ");
                 } else if (lv[i].isInteger()) {
-                    sprintf(number, "%d ", lv[i].asInt());
+                    sprintf(number, "%d ", (int)lv[i].asInt());
                     strcat(description, number);
                 } else if (lv[i].isFloat()) {
                     sprintf(number, "%f ", lv[i].asFloat());
@@ -787,7 +788,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
                     strcat(description, lv.symbolAt(i, &s_)->s_name);
                     strcat(description, " ");
                 } else if (lv[i].isInteger()) {
-                    sprintf(number, "%d ", lv[i].asInt());
+                    sprintf(number, "%d ", (int)lv[i].asInt());
                     strcat(description, number);
                 } else if (lv.isFloat()) {
                     sprintf(number, "%f ", lv[i].asFloat());

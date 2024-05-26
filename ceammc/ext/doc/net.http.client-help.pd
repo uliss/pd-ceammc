@@ -1,0 +1,118 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 675 50 cnv 1 90 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 675 50 HTTP client;
+#X obj 1 1 cnv 5 765 40 empty empty net.http.client 20 20 0 20 -104026
+-4096 0;
+#X obj 526 11 http.client;
+#X obj 631 11 net.http.client;
+#X msg 50 118 get http://puredata.info/ @css title text @strip_ws;
+#X msg 69 147 get https://github.com/uliss/pd-ceammc/releases @css a[href\$=".dmg"] href;
+#X msg 88 205 get http://ip.jsontest.com/ @json;
+#X obj 50 234 net.http.client;
+#X floatatom 50 262 5 0 0 0 - - -;
+#X obj 174 262 print;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 352 download;
+#X text 245 352 download file. Arguments are:;
+#X obj 255 375 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 375 URL: download URL. Type: symbol.;
+#X obj 255 398 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 398 [FILE]: save filename. If not specified \, use HTTP
+document filename. Type: symbol.;
+#X obj 255 436 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 436 [@PARAMS]: see get method parameters. Type: list.;
+#X msg 110 461 get;
+#X text 245 461 send GET request. Arguments are:;
+#X obj 255 484 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 484 URL: request URL. Type: symbol.;
+#X obj 255 507 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 507 [@header]: additional http header: @header NAME VALUE.
+Type: list.;
+#X obj 255 545 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 545 [@form]: form key-value pair: @form KEY VALUE. For
+application/x-www-form-urlencoded MIME type. Type: list.;
+#X obj 255 583 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 583 [@auth]: basic auth username/password: @auth USER PASS.
+Type: list.;
+#X obj 255 621 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 621 [@css]: apply CSS selector to the request body: @css
+SEL OUTPUT_TYPE \, where OUTPUT_TYPE is one of: 'html' \, 'inner' \,
+'text' \, 'href' \, 'none'. 'html' - returns selected elenent HTML
+content \, 'inner' - returns inner HTML content \, without element
+surrounding tags \, 'text' returns element text without tags \, 'href'
+- return href attribute of selected element \, 'none' - returns empty
+string. Type: list.;
+#X obj 255 735 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 735 [@strip_ws]: replace multiple whitespaces/newlines/tabs
+with single space. Type: symbol.;
+#X obj 255 773 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 773 [@json]: parse result as Json and output it as data:Dict().
+Type: symbol.;
+#X msg 110 813 post;
+#X text 245 813 send POST request. Arguments are:;
+#X obj 255 836 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 836 URL: request URL. Type: symbol.;
+#X obj 255 859 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 859 [@PARAMS]: see get method parameters. Type: list.;
+#X msg 110 884 upload;
+#X text 245 884 updload file for the form. Arguments are:;
+#X obj 255 907 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 907 URL: upload URL. Type: symbol.;
+#X obj 255 930 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 930 FILE: upload file path in the filesystem. Type: symbol.;
+#X obj 255 953 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 953 FORM_KEY: form entry key. Type: symbol.;
+#X obj 255 976 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 976 [@PARAMS]: see get method parameters. Type: list.;
+#X obj 20 1011 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1016 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1017 1\.;
+#X text 245 1017 input.;
+#X obj 20 1047 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1052 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1053 1\.;
+#X text 245 1053 int: HTTP status code.;
+#X text 110 1073 2\.;
+#X text 245 1073 data:String: HTTP body or content of selected element.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
+#X obj 1 1123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1126 library: ceammc v0.9.7;
+#N canvas 10 1145 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.7;
+#X text 10 54 object:;
+#X text 120 54 net.http.client;
+#X text 10 76 category:;
+#X text 120 76 net;
+#X text 10 98 since:;
+#X text 120 98 0.9.8;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 net \, http;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1145 pd info;
+#X connect 5 0 8 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 1 10 0;
+#X connect 6 0 8 0;

@@ -12,40 +12,47 @@
  * this file belongs to.
  *****************************************************************************/
 #include "symbol_equal.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 SymbolEqual::SymbolEqual(const PdArgs& a)
     : BaseObject(a)
-    , pattern_(nullptr)
 {
-    createInlet(&pattern_);
-    createOutlet();
+    pattern_ = new SymbolProperty("@cmp", nullptr);
+    pattern_->setArgIndex(0);
+    addProperty(pattern_);
 
-    pattern_ = parsedPosArgs().symbolAt(0, nullptr);
+    createInlet();
+    createOutlet();
 }
 
 void SymbolEqual::onSymbol(t_symbol* s)
 {
-    floatTo(0, s == pattern_);
+    floatTo(0, s == pattern_->value());
 }
 
 void SymbolEqual::onList(const AtomListView& lv)
 {
-    if (lv.size() < 1)
-        return;
+    if (lv.isSymbol())
+        return onSymbol(lv.asSymbol());
 
-    t_symbol* s = lv[0].asSymbol();
-    if (lv.size() > 1) {
-        if (!lv[1].getSymbol(&pattern_))
-            pattern_ = 0;
-    }
+    static const args::ArgChecker chk("s s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, &s_list);
 
-    floatTo(0, s == pattern_);
+    auto sym = lv[0].asSymbol();
+    pattern_->setSymbol(lv[1].asSymbol());
+    onSymbol(sym);
+}
+
+void SymbolEqual::onInlet(size_t n, const AtomListView& lv)
+{
+    pattern_->set(lv);
 }
 
 t_symbol* SymbolEqual::pattern() const
 {
-    return pattern_;
+    return pattern_->value();
 }
 
 void setup_symbol_equal()
@@ -54,5 +61,5 @@ void setup_symbol_equal()
 
     obj.setDescription("check symbols for equality");
     obj.setCategory("symbol");
-    obj.setKeywords({"symbol", "compare"});
+    obj.setKeywords({ "symbol", "compare" });
 }

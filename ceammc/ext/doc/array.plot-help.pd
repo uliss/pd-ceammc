@@ -1,14 +1,13 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 621 50 array data plotter;
+#X obj 620 50 cnv 1 145 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 620 50 array data plotter;
 #X obj 1 1 cnv 5 765 40 empty empty array.plot 20 20 0 20 -104026
 -4096 0;
-#X obj 668 11 array.plot;
+#X obj 667 11 array.plot;
 #X msg 50 118 1 100 3;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array APLT 10 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0;
+#X array APLT 10 float 0;
 #X coords 0 1 10 -1 300 160 1;
 #X restore 376 118 graph;
 #X obj 50 147 list.seq @closed 1;
@@ -17,66 +16,70 @@
 #X obj 50 277 array.plot APLT;
 #X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 392 1\.;
-#X text 150 392 symbol;
-#X obj 246 393 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 ARRAY: array name. Type: symbol.;
-#X text 110 412 2\.;
-#X text 150 412 float;
-#X obj 246 413 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 412 YMIN: minimal y-axis value. Type: float. Range: -2048\...2048;
-#X text 110 432 3\.;
-#X text 150 432 float;
-#X obj 246 433 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 432 YMAX: maximum y-axis value. Type: float. Range: -2048\...2048;
-#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 467 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 377 1\.;
+#X text 150 377 symbol;
+#X obj 246 378 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 377 ARRAY: array name. Type: symbol.;
+#X text 110 397 2\.;
+#X text 150 397 float;
+#X obj 246 398 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 397 YMIN: minimal y-axis value. Type: float. Range: -2048\...2048;
+#X text 110 417 3\.;
+#X text 150 417 float;
+#X obj 246 418 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 417 YMAX: maximum y-axis value. Type: float. Range: -2048\...2048;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 502 @array;
-#X text 245 502 Get/Set array name. Type: symbol.;
-#X msg 110 531 @nan;
-#X text 245 531 Get/Set value to replace nan on plot. Type: float.
+#X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 487 @array;
+#X text 245 487 Get/Set array name. Type: symbol.;
+#X msg 110 517 @nan;
+#X text 245 517 Get/Set value to replace nan on plot. Type: float.
 Default value: +inf.;
-#X msg 110 573 @yauto;
-#X text 245 573 Get/Set calculate y-axis range automatically. Type:
+#X msg 110 559 @yauto;
+#X text 245 559 Get/Set calculate y-axis range automatically. Type:
 bool. Default value: 1\.;
-#X msg 110 615 @ymax;
-#X text 245 615 Get/Set maximum y-axis value. Type: float. Default
+#X msg 110 601 @ymax;
+#X text 245 601 Get/Set maximum y-axis value. Type: float. Default
 value: 1\. Range: -2048\...2048\.;
-#X msg 110 657 @ymin;
-#X text 245 657 Get/Set minimal y-axis value. Type: float. Default
+#X msg 110 643 @ymin;
+#X text 245 643 Get/Set minimal y-axis value. Type: float. Default
 value: -1\. Range: -2048\...2048\.;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 714 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 700 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 715 1\.;
-#X text 150 715 *float*;
-#X text 245 715 single input sample.;
-#X text 150 735 *list*;
-#X text 245 735 resizes array to list size and plot all list values.;
-#X text 110 755 2\.;
-#X text 150 755 *bang*;
-#X text 245 755 plot all samples fitted to specified array.;
-#X text 150 775 *float*;
-#X text 245 775 plot specified number of samples \, resizes array.;
-#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 810 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 701 1\.;
+#X text 150 701 *float*;
+#X text 245 701 single input sample.;
+#X text 150 721 *list*;
+#X text 245 721 resizes array to list size and plot all list values.;
+#X text 110 741 2\.;
+#X text 150 741 *bang*;
+#X text 245 741 plot all samples fitted to specified array.;
+#X text 150 761 *float*;
+#X text 245 761 plot specified number of samples \, resizes array.;
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 811 1\.;
-#X text 245 811 bang on done.;
+#X text 110 797 1\.;
+#X text 245 797 bang on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 861 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 864 library: ceammc v0.9.7;
-#X text 585 876 see also:;
-#X obj 659 876 array.plot~;
-#N canvas 10 883 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 850 library: ceammc v0.9.7;
+#X text 584 862 see also:;
+#X obj 659 862 array.plot~;
+#N canvas 10 869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 883 pd info;
+#X restore 10 869 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 6 0 8 0;

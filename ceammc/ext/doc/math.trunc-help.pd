@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 truncate to integer value;
+#X obj 567 50 cnv 1 198 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 567 50 truncate to integer value;
 #X obj 1 1 cnv 5 765 40 empty empty math.trunc 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 math.trunc;
@@ -10,36 +10,33 @@
 in magnitude than x;
 #X msg 50 158 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array TRUNC 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array TRUNC 100 float 0;
 #X coords 0 4 100 -4 320 140 1;
 #X restore 270 158 graph;
 #X obj 50 187 list.seq -4 4 0.025;
 #X obj 50 216 math.trunc;
 #X obj 50 245 list->array TRUNC;
 #X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 335 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 336 1\.;
 #X text 245 336 input signal.;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 371 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 372 1\.;
 #X text 245 372 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 425 520 see also:;
-#X obj 499 520 math.ceil;
-#X obj 580 520 math.floor;
-#X obj 668 520 math.round;
+#X text 422 520 see also:;
+#X obj 497 520 math.ceil;
+#X obj 578 520 math.floor;
+#X obj 667 520 math.round;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

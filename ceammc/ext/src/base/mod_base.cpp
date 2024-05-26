@@ -53,6 +53,7 @@ void setup_base_gate_tilde();
 void setup_base_merge_tilde();
 void setup_base_msg();
 void setup_base_msg_pack();
+void setup_base_msg_unpack();
 void setup_base_replace();
 void setup_base_split_tilde();
 void setup_base_sync();
@@ -67,10 +68,10 @@ void setup_msg_onclose();
 void setup_msg_onload();
 void setup_nsig_tilde();
 void setup_prop_get();
-void setup_prop_get_tilde();
+void setup_prop_route_tilde();
 void setup_prop_join();
 void setup_prop_set();
-void setup_prop_split();
+void setup_prop_route();
 void setup_snd_file();
 void setup_snd_play_tilde();
 
@@ -103,6 +104,7 @@ void ceammc_base_setup()
     setup_base_mix();
     setup_base_msg();
     setup_base_msg_pack();
+    setup_base_msg_unpack();
     setup_base_prop();
     setup_base_radio();
     setup_base_replace();
@@ -138,11 +140,11 @@ void ceammc_base_setup()
     setup_patch_tree();
     setup_prop_declare();
     setup_prop_get();
-    setup_prop_get_tilde();
+    setup_prop_route_tilde();
     setup_prop_join();
     setup_prop_random();
     setup_prop_set();
-    setup_prop_split();
+    setup_prop_route();
     setup_snd_file();
     setup_snd_play_tilde();
 

@@ -1,0 +1,27 @@
+[package]
+name = "hw_rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+c_str_macro = "1.0.3"
+env_logger = "0.11.3"
+gilrs = "0.10.5"
+log = "0.4.21"
+tokio = { version = "1.36", features = ["rt", "rt-multi-thread", "signal", "sync", "macros", "time"] }
+
+[target.'cfg(windows)'.dependencies]
+winprint = {version = "0.1.0"}
+printers = {version = "2.0.0", default-features = false, features=[]}
+
+[target.'cfg(target_family="unix")'.dependencies]
+cups-sys = "0.1.4"
+
+[build-dependencies]
+cbindgen = "0.22.0"
+walkdir = "2.5.0"

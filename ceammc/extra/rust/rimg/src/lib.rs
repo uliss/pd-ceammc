@@ -13,6 +13,7 @@ pub enum ResultCode {
     InvalidFileName,
     InvalidString,
     InvalidArguments,
+    NullArgument,
 } 
 
 #[repr(C)]
@@ -22,19 +23,20 @@ pub struct Result {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn rimg_free_result(res: Option<&mut Result>) {
+pub unsafe extern "C" fn rimg_free_result(res: Option<&mut Result>) -> ResultCode {
     if res.is_none() {
-        return;
+        return ResultCode::NullArgument;
     }
 
     let res = res.unwrap();
     if res.data.is_null() {
-        return;
+        return ResultCode::NullArgument;
     }
 
     drop(Vec::from_raw_parts(res.data.cast_mut(), res.len, res.len));
     res.data = std::ptr::null();
     res.len = 0;
+    ResultCode::Ok
 }
 
 #[no_mangle]

@@ -25,7 +25,7 @@
 #include "ceammc_property_callback.h"
 #include "ceammc_symbols.h"
 #include "datatype_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_strings.h"
 
 #include <cstdarg>
@@ -629,7 +629,7 @@ bool BaseObject::parseProperty(Property* p, const AtomListView& props, PdArgs::P
             if (nargs > 0) {
                 auto v = props.subView(i + 1, nargs);
                 // optimization: do not parse float, boolean or float list
-                if (v.isFloat() || v.isBool() || v.allOf(isFloat)) {
+                if (v.isFloat() || v.isBool() || v.allOf(AtomPredicate(isFloat))) {
                     if (!p->setInit(v)) {
                         OBJ_ERR << "can't set property: " << name->s_name;
                         return false;

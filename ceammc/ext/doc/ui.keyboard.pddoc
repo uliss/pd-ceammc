@@ -42,7 +42,7 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <arguments>
-            <argument name="NKEYS" type="int" minvalue="5" maxvalue="88">number of keys</argument>
+            <argument name="KEYS" type="int" minvalue="5" maxvalue="88">number of keys</argument>
             <argument name="SHIFT" type="int" minvalue="6" maxvalue="88">pitch of starting
             key</argument>
         </arguments>

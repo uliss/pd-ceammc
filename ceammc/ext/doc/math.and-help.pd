@@ -1,12 +1,12 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 484 50 operation AND for multiple arguments;
+#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 483 50 operation AND for multiple arguments;
 #X obj 1 1 cnv 5 765 40 empty empty math.and 20 20 0 20 -104026 -4096
 0;
-#X obj 538 11 ceammc/and;
-#X obj 635 11 and;
-#X obj 682 11 math.and;
+#X obj 537 11 ceammc/and;
+#X obj 634 11 and;
+#X obj 681 11 math.and;
 #X obj 50 118 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #X obj 50 147 > 50;
@@ -21,56 +21,60 @@
 #X floatatom 50 262 5 0 0 0 - - -;
 #X obj 50 291 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 343 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 378 1\.;
-#X text 150 378 int;
-#X obj 246 379 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 378 N: number of arguments. Type: int. Range: 3\...16;
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 413 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 331 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 363 1\.;
+#X text 150 363 int;
+#X obj 246 364 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 363 N: number of arguments. Type: int. Range: 3\...16;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 448 @n;
-#X text 245 448 (initonly) Get/Set number of arguments. Type: int.
+#X obj 735 401 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 433 @n;
+#X text 245 433 (initonly) Get/Set number of arguments. Type: int.
 Default value: 3\. Range: 3\...16\.;
-#X msg 110 490 @sync;
-#X text 245 490 if specified - all inlets are 'hot'.;
-#X msg 110 519 @state?;
-#X text 245 519 (readonly) Get internal logic state as list of 1 and
+#X msg 110 475 @sync;
+#X text 245 475 if specified - all inlets are 'hot'.;
+#X msg 110 505 @state?;
+#X text 245 505 (readonly) Get internal logic state as list of 1 and
 0\. Type: list.;
-#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 576 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 562 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 611 reset;
-#X text 245 611 resets all input states to false.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 653 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 597 reset;
+#X text 245 597 resets all input states to false.;
+#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 640 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 654 1\.;
-#X text 150 654 *float*;
-#X text 245 654 1 or 0\.;
-#X text 110 674 ....;
-#X text 150 674 *float*;
-#X text 245 674 1 or 0\.;
-#X text 110 694 n.;
-#X text 150 694 *float*;
-#X text 245 694 1 or 0\.;
-#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 641 1\.;
+#X text 150 641 *float*;
+#X text 245 641 1 or 0\.;
+#X text 110 661 ....;
+#X text 150 661 *float*;
+#X text 245 661 1 or 0\.;
+#X text 110 681 n.;
+#X text 150 681 *float*;
+#X text 245 681 1 or 0\.;
+#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 716 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 730 1\.;
-#X text 245 730 1 - if all input values are true (1) \, 0 - otherwise.;
+#X text 110 717 1\.;
+#X text 245 717 1 - if all input values are true (1) \, 0 - otherwise.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 780 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 783 library: ceammc v0.9.7;
-#X text 615 795 see also:;
-#X obj 689 795 math.or;
-#N canvas 10 802 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 1 767 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 770 library: ceammc v0.9.7;
+#X text 613 782 see also:;
+#X obj 688 782 math.or;
+#N canvas 10 789 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -94,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 802 pd info;
+#X restore 10 789 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 10 0 11 0;

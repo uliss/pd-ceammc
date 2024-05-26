@@ -25,6 +25,7 @@ macro(ceammc_system_extension name)
 endmacro()
 
 ceammc_system_extension(colorpanel)
+ceammc_system_extension(command)
 ceammc_system_extension(cursor)
 ceammc_system_extension(exec)
 ceammc_system_extension(exit)
@@ -54,3 +55,26 @@ elseif(WIN32)
 endif()
 
 target_link_libraries(ceammc_system PRIVATE tiny-process-library)
+
+
+# command
+target_sources(ceammc_system PRIVATE system_command.cpp)
+if(WITH_SYSTEM_CMD)
+    target_include_directories(ceammc_system
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/system
+    )
+    target_link_libraries(ceammc_system PRIVATE system_rust)
+    target_compile_definitions(ceammc_system PRIVATE WITH_SYSTEM_CMD)
+endif()
+
+# sysinfo
+target_sources(ceammc_system PRIVATE system_info.cpp)
+if(WITH_SYSTEM_INFO)
+    target_include_directories(ceammc_system
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/system
+    )
+    target_link_libraries(ceammc_system PRIVATE system_rust)
+    target_compile_definitions(ceammc_system PRIVATE WITH_SYSTEM_INFO)
+endif()

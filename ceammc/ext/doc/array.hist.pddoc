@@ -15,6 +15,9 @@
             <also>
                 <see>list.histogram</see>
             </also>
+            <aliases>
+                <alias>array.histogram</alias>
+            </aliases>
         </meta>
         <info>
             <par>Values outside of range @min...@max are ignored</par>

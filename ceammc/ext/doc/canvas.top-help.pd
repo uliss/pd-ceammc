@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 438 50 verbose information about top-level canvas;
+#X obj 437 50 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 437 50 verbose information about top-level canvas;
 #X obj 1 1 cnv 5 765 40 empty empty canvas.top 20 20 0 20 -104026
 -4096 0;
-#X obj 668 11 canvas.top;
+#X obj 667 11 canvas.top;
 #X msg 50 118 @name?;
 #X msg 165 118 @dir?;
 #X msg 242 118 @width?;
@@ -15,70 +15,72 @@
 #X msg 184 176 @y?;
 #X obj 50 205 canvas.top;
 #X obj 50 234 ui.dt;
-#X obj 50 262 canvas.top.abs;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 262 canvas.top-abs;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 351 @abs;
-#X text 245 351 Get/Set if false: using toplevel canvas \, if true:
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 352 @abs;
+#X text 245 352 Get/Set if false: using toplevel canvas \, if true:
 using abstraction canvas. Type: bool. Default value: 1\.;
-#X msg 110 393 @dir?;
-#X text 245 393 (readonly) Get canvas directory. Type: symbol. Default
+#X msg 110 394 @dir?;
+#X text 245 394 (readonly) Get canvas directory. Type: symbol. Default
 value: /.;
-#X msg 110 435 @height?;
-#X text 245 435 (readonly) Get window height. Type: int. Default value:
+#X msg 110 436 @height?;
+#X text 245 436 (readonly) Get window height. Type: int. Default value:
 400\.;
-#X msg 110 464 @name?;
-#X text 245 464 (readonly) Get canvas name. Type: symbol. Default value:
+#X msg 110 466 @name?;
+#X text 245 466 (readonly) Get canvas name. Type: symbol. Default value:
 test_canvas.;
-#X msg 110 506 @paths?;
-#X text 245 506 (readonly) Get search paths. Type: list.;
-#X msg 110 535 @width?;
-#X text 245 535 (readonly) Get window width. Type: int. Default value:
+#X msg 110 508 @paths?;
+#X text 245 508 (readonly) Get search paths. Type: list.;
+#X msg 110 538 @width?;
+#X text 245 538 (readonly) Get window width. Type: int. Default value:
 600\.;
-#X msg 110 564 @x?;
-#X text 245 564 (readonly) Get window x-pos. Type: int. Default value:
+#X msg 110 568 @x?;
+#X text 245 568 (readonly) Get window x-pos. Type: int. Default value:
 0\.;
-#X msg 110 593 @y?;
-#X text 245 593 (readonly) Get window y-pos. Type: int. Default value:
+#X msg 110 598 @y?;
+#X text 245 598 (readonly) Get window y-pos. Type: int. Default value:
 0\.;
-#X msg 110 622 @font?;
-#X text 245 622 (readonly) Get window font. Type: int. Default value:
+#X msg 110 628 @font?;
+#X text 245 628 (readonly) Get window font. Type: int. Default value:
 10\.;
-#X msg 110 651 @size?;
-#X text 245 651 (readonly) Get window size. Type: list. Default value:
+#X msg 110 658 @size?;
+#X text 245 658 (readonly) Get window size. Type: list. Default value:
 600 400\.;
-#X obj 20 703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 708 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 715 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 743 postscript;
-#X text 245 743 save patch to postscript. Arguments are:;
-#X obj 255 766 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 766 [FNAME]: file. If not specified patch name used with
+#X msg 110 750 postscript;
+#X text 245 750 save patch to postscript. Arguments are:;
+#X obj 255 773 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 773 [FNAME]: file. If not specified patch name used with
 .ps extension. Type: symbol.;
-#X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 821 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 828 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 822 1\.;
-#X text 245 822 property request.;
-#X text 150 842 *bang*;
-#X text 245 842 output as dict.;
-#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 877 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 829 1\.;
+#X text 245 829 property request.;
+#X text 150 849 *bang*;
+#X text 245 849 output as dict.;
+#X obj 20 879 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 884 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 878 1\.;
-#X text 245 878 dict/property output.;
+#X text 110 885 1\.;
+#X text 245 885 dict/property output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title patch @url ceammc.patch-help.pd;
-#X obj 1 928 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 931 library: ceammc v0.9.7;
-#X text 478 943 see also:;
-#X obj 552 943 patch.args;
-#X obj 639 943 canvas.current;
-#N canvas 10 950 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
+#X obj 1 935 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 938 library: ceammc v0.9.7;
+#X text 477 950 see also:;
+#X obj 552 950 patch.args;
+#X obj 639 950 canvas.current;
+#N canvas 10 957 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -102,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 950 pd info;
+#X restore 10 957 pd info;
 #X connect 4 0 11 0;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;

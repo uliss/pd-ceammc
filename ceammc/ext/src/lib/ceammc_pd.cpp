@@ -15,9 +15,10 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_canvas.h"
 #include "ceammc_externals.h"
-#include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_impl.h"
+#include "ceammc_log.h"
+#include "ceammc_object.h"
 #include "ceammc_platform.h"
 
 #include "m_pd.h"
@@ -39,11 +40,12 @@ typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 
 using namespace ceammc;
 
-static t_listmethod old_print_mlist = nullptr;
+static t_listmethod old_print_list = nullptr;
+static t_anymethod old_print_any = nullptr;
 
 static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
 {
-    if (!old_print_mlist)
+    if (!old_print_list)
         return;
 
     bool contains_data = false;
@@ -58,7 +60,11 @@ static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
         constexpr size_t T = MAXPDSTRING - 25;
         auto str = to_string(AtomList(argc, argv));
         const size_t N = (str.size() / T) + 1;
-        startpost("[data]");
+
+        if (argc == 1)
+            startpost("[data]");
+        else
+            startpost("list ");
 
         for (size_t i = 0; i < N; i++) {
             poststring(str.substr(i * T, T).c_str());
@@ -66,7 +72,35 @@ static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
 
         endpost();
     } else
-        old_print_mlist(pd, s, argc, argv);
+        old_print_list(pd, s, argc, argv);
+}
+
+static void print_any_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
+{
+    if (!old_print_any)
+        return;
+
+    bool contains_data = false;
+    for (int i = 0; i < argc; i++) {
+        if (Atom::is_data(argv[i])) {
+            contains_data = true;
+            break;
+        }
+    }
+
+    if (contains_data) {
+        constexpr size_t T = MAXPDSTRING - 25;
+        auto str = to_string(AtomList(argc, argv));
+        const size_t N = (str.size() / T) + 1;
+        startpost(s->s_name);
+
+        for (size_t i = 0; i < N; i++) {
+            poststring(str.substr(i * T, T).c_str());
+        }
+
+        endpost();
+    } else
+        old_print_any(pd, s, argc, argv);
 }
 
 bool ceammc::pd::addPdPrintDataSupport()
@@ -75,13 +109,16 @@ bool ceammc::pd::addPdPrintDataSupport()
     if (!p.object())
         return false;
 
-    t_class* print_class = p.object()->te_g.g_pd;
+    auto print_class = p.object()->te_g.g_pd;
     if (!print_class)
         return false;
 
-    // save old callback
-    old_print_mlist = print_class->c_listmethod;
+    // save old callbacks
+    old_print_list = print_class->c_listmethod;
     print_class->c_listmethod = print_list_replace;
+
+    old_print_any = print_class->c_anymethod;
+    print_class->c_anymethod = print_any_replace;
     return true;
 }
 
@@ -127,7 +164,7 @@ pd::External::External(const char* name, const AtomList& lst)
     } catch (std::exception& e) {
         std::cerr << "error: " << e.what() << " while object creation [" << name << "]" << std::endl;
         obj_ = 0;
-    } catch(...) {
+    } catch (...) {
         std::cerr << "unknown exception while object creation [" << name << "]" << std::endl;
         obj_ = 0;
     }
@@ -473,10 +510,14 @@ std::vector<t_symbol*> pd::External::methods() const
     if (!obj_)
         return res;
 
-    t_class* c = obj_->te_g.g_pd;
-    for (int i = 0; i < c->c_nmethod; i++) {
-        auto mname = class_method_name(c, i);
-        res.push_back(mname);
+    if (isCeammcUI()) {
+        return ceammc_ui_methods(obj_);
+    } else {
+        t_class* c = obj_->te_g.g_pd;
+        for (int i = 0; i < c->c_nmethod; i++) {
+            auto mname = class_method_name(c, i);
+            res.push_back(mname);
+        }
     }
 
     return res;

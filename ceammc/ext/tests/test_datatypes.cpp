@@ -20,7 +20,7 @@
 static ceammc::Atom newIntData(const ceammc::AtomListView& args)
 {
     if (args.isInteger())
-        return new IntData(args.asT<int>());
+        return new IntData(args.asT<t_int>());
     else {
         using namespace ceammc;
         LIB_ERR << "integer is expected, got: " << args;

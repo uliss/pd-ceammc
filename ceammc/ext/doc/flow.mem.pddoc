@@ -79,7 +79,7 @@
 |            |.         |.
 [flow.mem          @ttl 4]
 |
-[flow.mem.osc~]
+[flow.mem-osc~]
 |
 [pan~ {i=1,o=2}]
 *|*
@@ -87,7 +87,7 @@
 *|*
 [dac~]
 
-[flow.mem.more]
+[flow.mem-more]
 ]]>
             </pdascii>
             <pdascii id="more">
@@ -106,7 +106,7 @@
 *|*                            |....            |....
 [flow.mem 4                          {i=5,o=4,w=66} ]
 |               ^|              ^^|             ^^^|
-[flow.mem.osc~] [flow.mem.osc~] [flow.mem.osc~] [flow.mem.osc~]
+[flow.mem-osc~] [flow.mem-osc~] [flow.mem-osc~] [flow.mem-osc~]
 |               |.              |..             |...
 [pan.spread~ 4                       {i=4,o=2,w=66}]
 *|*

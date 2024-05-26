@@ -12,10 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_3d_meter.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_dsp.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "hoa_common.h"
 
 CEAMMC_DEFINE_SYM_HASH(anticlock)

@@ -89,8 +89,8 @@ private:
     t_float realValueAt(size_t n) const;
     bool setRealValues(const AtomListView& lv);
 
-    t_float propCount() const;
-    void setPropCount(t_float f);
+    t_int propCount() const;
+    void setPropCount(t_int x);
     AtomList propAutoRangeMode() const;
     void setPropAutoRangeMode(const AtomListView& lv);
 

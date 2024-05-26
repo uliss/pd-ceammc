@@ -16,6 +16,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "hoa_common.h"
 #include "hoa_math_compat.h"
 

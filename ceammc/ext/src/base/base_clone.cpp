@@ -1215,7 +1215,7 @@ void BaseClone::m_send(t_symbol* s, const AtomListView& lv)
     // direct instance index
     // send N
     if (lv.size() >= 1 && lv[0].isFloat()) {
-        msg.first = lv[0].asT<int>();
+        msg.first = lv[0].asT<t_int>();
         msg.target = TARGET_TYPE_EQ;
         msg.inlet = -1;
         return send(msg, lv.subView(1));
@@ -1238,7 +1238,7 @@ void BaseClone::m_send_spread(t_symbol* s, const AtomListView& lv)
     // direct instance index
     // send: N
     if (lv.size() >= 1 && lv[0].isFloat()) {
-        msg.first = lv[0].asT<int>();
+        msg.first = lv[0].asT<t_int>();
         msg.target = TARGET_TYPE_EQ;
         msg.inlet = -1;
         return sendSpread(msg, lv.subView(1));
@@ -1261,7 +1261,7 @@ void BaseClone::m_dsp_set(t_symbol* s, const AtomListView& lv)
     // direct instance index
     // dsp= N
     if (lv.size() >= 1 && lv[0].isFloat()) {
-        msg.first = lv[0].asT<int>();
+        msg.first = lv[0].asT<t_int>();
         msg.target = TARGET_TYPE_EQ;
         return dspSet(msg, lv.subView(1));
     }
@@ -1283,7 +1283,7 @@ void BaseClone::m_dsp_toggle(t_symbol* s, const AtomListView& lv)
     // direct instance index
     // dsp~ N
     if (lv.size() >= 1 && lv[0].isFloat()) {
-        msg.first = lv[0].asT<int>();
+        msg.first = lv[0].asT<t_int>();
         msg.target = TARGET_TYPE_EQ;
         dspToggle(msg);
     } else if (lv.empty()) {
@@ -1307,7 +1307,7 @@ void BaseClone::m_dsp_spread(t_symbol* s, const AtomListView& lv)
     // direct instance index
     // dsp: N VALUES
     if (lv.size() >= 1 && lv[0].isFloat()) {
-        msg.first = lv[0].asT<int>();
+        msg.first = lv[0].asT<t_int>();
         msg.target = TARGET_TYPE_EQ;
         dspSpread(msg, lv.subView(1));
     } else

@@ -272,6 +272,7 @@ proc ::btnbar::showhide {mytoplevel} {
     if {$::editmode($mytoplevel)} {
         if {$::btnbar::hide_in_runmode} {
             ::btnbar::show $mytoplevel
+            update idletasks
         } {
             ::btnbar::enable $mytoplevel
         }

@@ -8,6 +8,8 @@
 # include <cstring>
 # include <cstdio>
 
+using ragel_char = std::uint8_t;
+
 namespace {
     using namespace ceammc;
     using namespace ceammc::music;
@@ -35,6 +37,7 @@ namespace parser {
 %%{
     machine units_full;
     include units_common "ragel_units.rl";
+    alphtype unsigned char;
 
     main := units;
     write data;
@@ -80,9 +83,9 @@ bool UnitsFullMatch::parse(const char* str)
     if (len == 0)
         return false;
 
-    const char* p = str;
-    const char* pe = p + len;
-    const char* eof = pe;
+    const ragel_char* p = (const ragel_char*)str;
+    const ragel_char* pe = p + len;
+    const ragel_char* eof = pe;
 
     PositionType pos_ = POSITION_ABS;
 
@@ -147,6 +150,7 @@ size_t UnitsFullMatch::parse(const AtomListView& lv, UnitVec& out)
 %%{
     machine units_type;
     include units_common "ragel_units.rl";
+    alphtype unsigned char;
 
     main := unit_suffixes | unit_bpm;
     write data;
@@ -160,9 +164,9 @@ bool UnitTypeFullMatch::parse(const char* str)
     if (len == 0)
         return false;
 
-    const char* p = str;
-    const char* pe = p + len;
-    const char* eof = pe;
+    const ragel_char* p = (const ragel_char*)str;
+    const ragel_char* pe = p + len;
+    const ragel_char* eof = pe;
 
     %% write init;
     %% write exec;
@@ -184,6 +188,7 @@ bool UnitTypeFullMatch::parse(const Atom& a)
 %%{
     machine parse_angles;
     include units_common "ragel_units.rl";
+    alphtype unsigned char;
 
     unit_pi = ('pi' | 'π') %{ ragel_num.vdouble *= std::acos(-1); ragel_type = TYPE_RADIAN; };
     unit = unit_rad | unit_deg | unit_pi;
@@ -246,9 +251,9 @@ Either<AngleUnit> parse_angle(const char* str)
         return RuntimeError("empty string");
 
     int cs = 0;
-    const char* p = str;
-    const char* pe = p + len;
-    const char* eof = pe;
+    const ragel_char* p = (const ragel_char*)str;
+    const ragel_char* pe = p + len;
+    const ragel_char* eof = pe;
     DECLARE_RAGEL_COMMON_VARS;
     DECLARE_RAGEL_NUMERIC_VARS;
 

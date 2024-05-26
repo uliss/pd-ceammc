@@ -1,81 +1,83 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 437 50 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 437 50 various percussion sounds from STK library;
+#X obj 436 50 cnv 1 329 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 436 50 various percussion sounds from STK library;
 #X obj 1 1 cnv 5 765 40 empty empty synth.shakers~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 synth.shakers~;
-#X obj 210 80 cnv 1 555 195 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 196 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 PhISEM (Physically Informed Stochastic Event Modeling)
 is an algorithmic approach for simulating collisions of multiple independent
 sound producing objects. This class is a meta-model that can simulate
 a Maraca \, Sekere \, Cabasa \, Bamboo Wind Chimes \, Water Drops \,
 Tambourine \, Sleighbells \, and a Guiro.;
-#X text 215 180 PhOLIES (Physically-Oriented Library of Imitated Environmental
+#X text 215 181 PhOLIES (Physically-Oriented Library of Imitated Environmental
 Sounds) is a similar approach for the synthesis of environmental sounds.
 This class implements simulations of breaking sticks \, crunchy snow
 (or not) \, a wrench \, sandpaper \, and more.;
-#X obj 50 303 ui.icon get_app;
-#X obj 222 303 loadbang;
-#X obj 328 303 r menu;
-#X obj 328 332 ui.menu;
-#X msg 50 361 @gate \$1;
-#X msg 222 361 @types?;
-#X msg 328 361 @type \$1;
-#X obj 50 390 synth.shakers~ big_rocks;
-#X obj 50 419 ~->;
-#X obj 88 447 prop-> @types;
-#X obj 126 476 msg @items;
-#X obj 126 505 flow.append 1;
-#X obj 126 534 s menu;
-#X obj 50 563 ui.gain~ @size 120 16;
-#X obj 290 563 ui.dsp~;
-#X obj 50 591 dac~;
-#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 645 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 304 ui.icon get_app;
+#X obj 222 304 loadbang;
+#X obj 328 304 r menu;
+#X obj 328 333 ui.menu;
+#X msg 50 362 @gate \$1;
+#X msg 222 362 @types?;
+#X msg 328 362 @type \$1;
+#X obj 50 391 synth.shakers~ big_rocks;
+#X obj 50 420 ~->;
+#X obj 88 448 prop-> @types;
+#X obj 126 477 msg @items;
+#X obj 126 506 flow.append 1;
+#X obj 126 535 s menu;
+#X obj 50 564 ui.gain~ @size 120 16;
+#X obj 290 564 ui.dsp~;
+#X obj 50 592 dac~;
+#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 647 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 680 @gate;
-#X text 245 680 Get/Set synth gate (>0 - play). Type: float. Default
+#X obj 735 650 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 682 @gate;
+#X text 245 682 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 722 @type;
-#X text 245 722 Get/Set instrument type. Type: atom. Default value:
+#X msg 110 724 @type;
+#X text 245 724 Get/Set instrument type. Type: atom. Default value:
 maraca. Allowed values: maraca \, cabasa \, sekere \, tambourine \,
 sleigh_bells \, bamboo_chimes \, sand_paper \, coke_can \, sticks \,
 crunch \, big_rocks \, little_rocks \, next_mug \, penny_mug \, nickle_mug
 \, dime_mug \, quarter_mug \, franc_mug \, peso_mug \, guiro \, wrench
 \, water_drops \, tuned_bamboo_chimes.;
-#X msg 110 824 @types?;
-#X text 245 824 (readonly) Get all instrument types. Type: list. Default
+#X msg 110 827 @types?;
+#X text 245 827 (readonly) Get all instrument types. Type: list. Default
 value: maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper
 coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug
 dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes.;
-#X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 941 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 945 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 976 cc;
-#X text 245 976 Control change. Arguments are:;
-#X obj 255 999 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 999 CTL: control number. Type: int.;
-#X obj 255 1022 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1022 VAL: value. Type: float.;
-#X obj 20 1057 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1062 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 980 cc;
+#X text 245 980 Control change. Arguments are:;
+#X obj 255 1003 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1003 CTL: control number. Type: int.;
+#X obj 255 1026 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1026 VAL: value. Type: float.;
+#X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1066 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1063 1\.;
-#X text 245 1063 control inlet.;
-#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1098 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1067 1\.;
+#X text 245 1067 control inlet.;
+#X obj 20 1097 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1102 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1099 1\.;
-#X text 245 1099;
+#X text 110 1103 1\.;
+#X text 245 1103;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1149 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1152 library: ceammc v0.9.7;
-#N canvas 10 1171 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1153 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1156 library: ceammc v0.9.7;
+#N canvas 10 1175 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1171 pd info;
+#X restore 10 1175 pd info;
 #X connect 9 0 10 0;
 #X connect 7 0 11 0;
 #X connect 8 0 12 0;

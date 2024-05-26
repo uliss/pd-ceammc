@@ -436,7 +436,7 @@ namespace osc {
     }
 
     int OscServer::logHandler(const char* path, const char* types, lo_arg** argv,
-        int argc, void* data, void* user_data)
+        int argc, lo_message data, void* user_data)
     {
         std::string str = fmt::format("{}", path);
         for (int i = 0; i < argc; i++) {
@@ -501,7 +501,7 @@ namespace osc {
         }
 
         if (lo_) {
-            auto fn = [](const char* path, const char* types, lo_arg** argv, int argc, void* /*data*/, void* user_data) -> int {
+            auto fn = [](const char* path, const char* types, lo_arg** argv, int argc, lo_message /*data*/, void* user_data) -> int {
                 OscServer* s = static_cast<OscServer*>(user_data);
                 if (s)
                     s->onMessage(path, types, argv, argc);

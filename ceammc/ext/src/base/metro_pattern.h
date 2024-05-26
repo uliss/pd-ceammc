@@ -10,7 +10,7 @@ class MetroPattern : public BaseObject {
     ClockMemberFunction<MetroPattern> clock_;
     AtomList new_pattern_;
     AtomList pattern_;
-    SizeTProperty* current_;
+    IntProperty* current_;
     BoolProperty* sync_;
     bool sync_update_;
 

@@ -4,7 +4,7 @@
 #X text 629 50 arc sine function;
 #X obj 1 1 cnv 5 765 40 empty empty math.asin 20 20 0 20 -104026 -4096
 0;
-#X obj 675 11 math.asin;
+#X obj 674 11 math.asin;
 #X obj 210 80 cnv 1 555 155 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 The asin() function computes the principal value of
 the arc sine of input value. The result is in the range [-pi/2 \, +pi/2].;
@@ -15,29 +15,29 @@ exception for |x| > 1\.;
 #X floatatom 50 263 5 0 0 0 - - -;
 #X obj 50 292 math.asin;
 #X floatatom 50 321 5 0 0 0 - - -;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 376 1\.;
-#X text 150 376 *float*;
-#X text 245 376 input value.;
-#X text 150 396 *list*;
-#X text 245 396 apply to all numeric values.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 431 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 359 1\.;
+#X text 150 359 *float*;
+#X text 245 359 input value.;
+#X text 150 379 *list*;
+#X text 245 379 apply to all numeric values.;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 432 1\.;
-#X text 245 432 result value.;
+#X text 110 415 1\.;
+#X text 245 415 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 448 520 see also:;
-#X obj 522 520 math.acos;
-#X obj 602 520 math.atan;
+#X text 445 520 see also:;
+#X obj 520 520 math.acos;
+#X obj 601 520 math.atan;
 #X obj 682 520 math.cos;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

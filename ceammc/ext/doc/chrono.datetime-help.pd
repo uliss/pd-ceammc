@@ -4,8 +4,8 @@
 #X text 506 50 output current date and time info;
 #X obj 1 1 cnv 5 765 40 empty empty chrono.datetime 20 20 0 20 -104026
 -4096 0;
-#X obj 414 11 ceammc/datetime;
-#X obj 548 11 datetime;
+#X obj 413 11 ceammc/datetime;
+#X obj 547 11 datetime;
 #X obj 631 11 chrono.datetime;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 184 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -14,31 +14,33 @@
 #X obj 50 176 datetime;
 #X obj 107 205 ui.dt;
 #X obj 50 234 ui.dt;
-#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 288 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 323 @utc;
-#X text 245 323 Get/Set output in UTC format. Type: bool. Default value:
+#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 324 @utc;
+#X text 245 324 Get/Set output in UTC format. Type: bool. Default value:
 0\.;
-#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 367 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 369 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 368 1\.;
-#X text 150 368 *bang*;
-#X text 245 368 output HOUR MIN SEC to second outlet and YEAR MONTH
+#X text 110 370 1\.;
+#X text 150 370 *bang*;
+#X text 245 370 output HOUR MIN SEC to second outlet and YEAR MONTH
 DAY to first outlet.;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 418 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 420 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 419 1\.;
-#X text 245 419 list: YEAR MONTH DAY.;
-#X text 110 439 2\.;
-#X text 245 439 list: HOUR MIN SEC.;
+#X text 110 421 1\.;
+#X text 245 421 list: YEAR MONTH DAY.;
+#X text 110 441 2\.;
+#X text 245 441 list: HOUR MIN SEC.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

@@ -43,7 +43,7 @@ public:
     // editor overloads
     void tableEditorClear() final;
     TableLineList getTableContentForEditor() const final;
-    void tableEditorAddLine(t_symbol* sel, const AtomListView& lv) final;
+    void tableEditorAddLine(t_symbol* sel, const AtomListView& lv) override;
     EditorTitleString editorTitle() const final;
 
     virtual bool setEditorPreset(size_t idx, const AtomListView& lv);

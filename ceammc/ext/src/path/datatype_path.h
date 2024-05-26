@@ -16,17 +16,38 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_data.h"
-#include "filesystem.hpp"
 
 #include <memory>
+
+namespace ghc {
+namespace filesystem {
+    class path;
+}
+}
 
 namespace ceammc {
 namespace path {
 
     using Path = ghc::filesystem::path;
+    using PathPtr = std::unique_ptr<Path>;
+
+    enum FileType {
+        FILE_TYPE_NONE,
+        FILE_TYPE_NOT_FOUND,
+        FILE_TYPE_REGULAR,
+        FILE_TYPE_DIRECTORY,
+        FILE_TYPE_SYMLINK,
+        FILE_TYPE_BLOCK,
+        FILE_TYPE_CHARACTER,
+        FILE_TYPE_FIFO,
+        FILE_TYPE_SOCKET,
+        FILE_TYPE_IS_UNKNOWN, // avoid name collision on Win32 with FILE_TYPE_UNKNOWN
+    };
+
+    const char* to_string(FileType t);
 
     class DataTypePath : public AbstractData {
-        Path path_;
+        PathPtr path_;
 
     public:
         DataTypePath();
@@ -35,8 +56,9 @@ namespace path {
         DataTypePath(const DataTypePath& path);
         explicit DataTypePath(const char* path);
         explicit DataTypePath(const std::string& path);
-        explicit DataTypePath(Path&& path);
+        explicit DataTypePath(PathPtr&& path);
         explicit DataTypePath(const Path& path);
+        explicit DataTypePath(const AtomListView& args);
 
         DataTypePath& operator=(const DataTypePath& path);
         DataTypePath& operator=(DataTypePath&& path);
@@ -69,9 +91,9 @@ namespace path {
 
         bool is_absolute() const;
         bool is_relative() const;
-        bool is_directory() const;
-        bool is_regular_file() const;
-        bool exists() const;
+        bool is_directory() const noexcept;
+        bool is_regular_file() const noexcept;
+        bool exists() const noexcept;
 
         std::string root_name() const;
         std::string root_directory() const;
@@ -80,14 +102,17 @@ namespace path {
         DataTypePath parent_path() const;
         std::string filename() const;
         std::string extension() const;
-        std::uintmax_t file_size() const;
+        std::uintmax_t file_size() const noexcept;
+        FileType file_type() const noexcept;
+        std::uint16_t permissions() const noexcept;
 
         DataTypePath lexically_normal() const;
 
         DataTypePath& replace_extension(const std::string& ext = {});
-        DataTypePath& clear();
+        DataTypePath& clear() noexcept;
+        DataTypePath& normalize();
 
-        bool empty() const;
+        bool empty() const noexcept;
 
     public:
         static DataTypePath find(const DataTypePath& dir, const std::string& filename, int max_iters = -1);

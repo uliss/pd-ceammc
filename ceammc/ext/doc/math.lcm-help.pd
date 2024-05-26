@@ -11,39 +11,41 @@
 #X msg 184 147 3 5;
 #X obj 50 176 math.lcm 12;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 294 1\.;
-#X text 150 294 int;
-#X obj 246 295 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 294 ARG2: second argument. Type: int.;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 277 1\.;
+#X text 150 277 int;
+#X obj 246 278 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 277 ARG2: second argument. Type: int.;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 330 1\.;
-#X text 150 330 *int*;
-#X text 245 330 sets first argument and outputs calculated LCM value.;
-#X text 150 350 *list*;
-#X text 245 350 sets first argument and second arguments \, then output
+#X text 110 313 1\.;
+#X text 150 313 *int*;
+#X text 245 313 sets first argument and outputs calculated LCM value.;
+#X text 150 333 *list*;
+#X text 245 333 sets first argument and second arguments \, then output
 calculated LCM value.;
-#X text 110 385 2\.;
-#X text 150 385 *int*;
-#X text 245 385 sets second value.;
-#X obj 20 415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 420 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 368 2\.;
+#X text 150 368 *int*;
+#X text 245 368 sets second value.;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 421 1\.;
-#X text 245 421 LCM value.;
+#X text 110 404 1\.;
+#X text 245 404 LCM value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 608 520 see also:;
-#X obj 682 520 math.gcd;
+#X text 606 520 see also:;
+#X obj 681 520 math.gcd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

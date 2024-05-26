@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "datatype_path.h"
 #include "datatype_string.h"
 #include "path_split.h"
 #include "test_path_base.h"
@@ -84,5 +85,14 @@ TEST_CASE("path.split", "[externals]")
         t << StringAtom("/A/B");
         REQUIRE(t.outputAtomAt(0) == StringAtom("/A"));
         REQUIRE(t.outputAtomAt(1) == StringAtom("B"));
+    }
+
+    SECTION("path")
+    {
+        TExt t("path.split");
+
+        t << PathAtom("/DIR/PATH.ext");
+        REQUIRE(t.outputAtomAt(0) == PathAtom("/DIR"));
+        REQUIRE(t.outputAtomAt(1) == PathAtom("PATH.ext"));
     }
 }

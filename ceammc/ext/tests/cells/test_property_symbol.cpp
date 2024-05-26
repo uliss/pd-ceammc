@@ -90,7 +90,7 @@ TEST_CASE("SymbolProperty", "[core]")
 
         bool b = false;
         t_float f;
-        int i;
+        t_int i;
         t_symbol* s;
         Atom a;
         AtomList l;
@@ -121,7 +121,7 @@ TEST_CASE("SymbolProperty", "[core]")
 
         REQUIRE_FALSE(p.setT(false));
         REQUIRE_FALSE(p.setT(t_float(1)));
-        REQUIRE_FALSE(p.setT(100));
+        REQUIRE_FALSE(p.setT(t_int(100)));
         REQUIRE_FALSE(p.setT(A(123)));
 
         REQUIRE(p.setT(SYM("a")));

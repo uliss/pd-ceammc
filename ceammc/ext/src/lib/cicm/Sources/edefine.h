@@ -502,6 +502,7 @@ struct t_eattr {
     bool save; /*!< If the attribute should be saved. */
     bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
     ceammc::PropValueVis visibility; /*!< the attribute is visibility. */
+    std::int8_t arg_index;
 };
 
 enum t_eattr_op : std::int8_t {

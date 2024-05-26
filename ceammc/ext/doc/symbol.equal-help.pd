@@ -11,25 +11,41 @@
 #X msg 290 147 symbol c;
 #X obj 50 176 symbol.equal b;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 260 1\.;
-#X text 150 260 *symbol*;
-#X text 245 260 first symbol.;
-#X text 110 280 2\.;
-#X text 150 280 *symbol*;
-#X text 245 280 second symbol.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 316 1\.;
-#X text 245 316 outputs 1 if symbols are equal \, otherwise 0\.;
+#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 277 1\.;
+#X text 150 277 symbol;
+#X obj 246 278 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 277 CMP: compare symbol. Type: symbol.;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 315 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 347 @cmp;
+#X text 245 347 Get/Set symbol to compare with. Type: symbol.;
+#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 392 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+0;
+#X text 110 393 1\.;
+#X text 150 393 *symbol*;
+#X text 245 393 first symbol.;
+#X text 110 413 2\.;
+#X text 150 413 *symbol*;
+#X text 245 413 second symbol.;
+#X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 448 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 449 1\.;
+#X text 245 449 outputs 1 if symbols are equal \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title symbol @url ceammc.symbol-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title symbol @url ceammc.symbol-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

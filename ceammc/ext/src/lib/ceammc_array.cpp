@@ -25,6 +25,8 @@ extern "C" {
 #include <cmath>
 #include <cstring>
 
+extern "C" t_scalar* garray_getscalar(t_garray* x);
+
 using namespace ceammc;
 
 Array::Array()
@@ -179,6 +181,60 @@ bool Array::open(t_symbol* name)
 bool Array::open(const char* name)
 {
     return open(gensym(name));
+}
+
+bool Array::setData(t_word* data, size_t len)
+{
+    if (!array_ || !data || len == 0)
+        return false;
+
+    auto x = garray_getarray(array_);
+    if (!x)
+        return false;
+
+    if (static_cast<void*>(data) == x->a_vec)
+        return false;
+
+    freebytes(x->a_vec, x->a_elemsize * x->a_n);
+    x->a_vec = static_cast<char*>(static_cast<void*>(data));
+    x->a_elemsize = sizeof(t_word);
+    x->a_n = len;
+    data_ = data;
+    size_ = len;
+
+    canvas_update_dsp();
+
+    // this code from g_array.c
+    int style = template_getfloat(
+        template_findbyname(
+            garray_getscalar(array_)->sc_template),
+        gensym("style"),
+        garray_getscalar(array_)->sc_vec,
+        1);
+    t_array* array = garray_getarray(array_);
+    t_glist* gl = garray_getglist(array_);
+    t_gobj* gobj = (t_gobj*)array_;
+    int n = len;
+
+    if (gl->gl_list == gobj && !gobj->g_next) {
+        vmess(&gl->gl_pd, gensym("bounds"), "ffff",
+            0., gl->gl_y1, (double)(style == PLOTSTYLE_POINTS || n == 1 ? n : n - 1),
+            gl->gl_y2);
+
+        /* hack - if the xlabels seem to want to be from 0 to table size-1,
+        update the second label */
+        if (gl->gl_nxlabels == 2 && !strcmp(gl->gl_xlabel[0]->s_name, "0")) {
+            t_atom a;
+            SETFLOAT(&a, n - 1);
+            gl->gl_xlabel[1] = atom_gensym(&a);
+            glist_redraw(gl);
+        }
+        /* close any dialogs that might have the wrong info now... */
+        pdgui_stub_deleteforkey(gl);
+    }
+    //
+
+    return true;
 }
 
 void Array::useInDSP()

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="conv.guido2note">
+        <title>conv.guido2note</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert Guido notation into MIDI and duration</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv guido midi</keywords>
+            <since>0.9.8</since>
+            <also>
+                <see>conv.note2guido</see>
+            </also>
+            <aliases>
+                <alias>ceammc/guido-&gt;note</alias>
+                <alias>guido-&gt;note</alias>
+            </aliases>
+        </meta>
+        <info>
+            <a href="https://en.wikipedia.org/wiki/GUIDO_music_notation">GUIDO music notation</a>
+        </info>
+        <arguments>
+            <argument name="TEMPO" type="atom" units="bpm">current tempo, if float - treat as
+            quarter-per-minute, if symbol - bpm format expected, for example: 120bpm, 60|1/8_bpm,
+            90|4._bpm etc.</argument>
+        </arguments>
+        <properties>
+            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">current
+            tempo</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">Guido note</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: MIDI pitch</outlet>
+            <outlet>float: note duration in milliseconds</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol c#0/4.(    [F]   [60( [120(
+|                  |     |    |
+[S digits=10]      [prop.set @tempo]
+|                  |
+[conv.guido2note @tempo 80bpm]
+|                    ^|
+[ui.dt]              [ui.dt]
+
+
+/*// music example*/
+
+[bang #a( [reset(
+|         |
+[list.walk b&2/8. g2/16 e2/16 d2/16 c#2/8 e2/8. cis2/16 a1/16 g1/16 f/4]
+|
+|
+[guido->note #x]
+|     ^|..
+[makenote 120 {w=22} #b]
+|
+[pack f f {i=2,o=1,w=18} #d] [sel 0 {x=16} #c]
+|
+[msg note]     [del {x=16} #e]
+|
+[sfizz~ \#sine]
+*|*
+[ui.hgain2~]         [ui.dsp~]
+*|*
+[dac~]
+
+[X b:1->d:1] [X b:1->c] [X e->a] [X c->e]
+#x @tempo 144
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

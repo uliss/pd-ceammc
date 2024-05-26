@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fluid.h"
-#include "ceammc_args.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
@@ -249,8 +249,10 @@ Fluid::Fluid(const PdArgs& args)
             return fluid_synth_set_polyphony(synth.get(), v) == FLUID_OK;
         });
 
-    if (polyphony->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
-        (void)polyphony->infoT().setRangeFloat(1, 1024);
+    if (polyphony->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE)) {
+        if (!polyphony->infoT().setRangeFloat(1, 1024))
+            LIB_ERR << __FUNCTION__ << " can't set property range";
+    }
 
     addProperty(polyphony);
 
@@ -456,12 +458,12 @@ Fluid::MidiChanValue3 Fluid::midiByteValue3(t_symbol* method,
     int v = 0;
 
     if (lv.size() == 3 && lv[0].isInteger() && lv[1].isFloat() && lv[2].isFloat()) {
-        chan = lv[0].asT<int>();
-        n = lv[1].asT<int>();
-        v = lv[2].asT<int>();
+        chan = lv[0].asT<t_int>();
+        n = lv[1].asT<t_int>();
+        v = lv[2].asT<t_int>();
     } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
-        n = lv[0].asT<int>();
-        v = lv[1].asT<int>();
+        n = lv[0].asT<t_int>();
+        v = lv[1].asT<t_int>();
     } else {
         METHOD_ERR(method) << fmt::format("CHAN[0..16]? {}[0..127] {}[0..127] expected, got: ", nName, vName)
                            << lv;
@@ -497,10 +499,10 @@ Fluid::MidiChanValue2 Fluid::midiByteValue2(t_symbol* method,
     int val = 0;
 
     if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
-        chan = lv[0].asT<int>();
-        val = lv[1].asT<int>();
+        chan = lv[0].asT<t_int>();
+        val = lv[1].asT<t_int>();
     } else if (lv.size() == 1 && lv[0].isFloat()) {
-        val = lv[0].asT<int>();
+        val = lv[0].asT<t_int>();
     } else {
         METHOD_ERR(method) << fmt::format("CHAN[0..16]? {}[0..127] expected, got: ", valueName)
                            << lv;
@@ -523,13 +525,13 @@ Fluid::MidiChanValue2 Fluid::midiByteValue2(t_symbol* method,
 
 void Fluid::m_bend(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHANNEL:i)? BEND:i[0..0x3FFF] expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, BEND_VALUE_NAME, ch, 0, 0x3FFF))
+    if (!checkChanValue<t_int>(s, BEND_VALUE_NAME, ch, 0, 0x3FFF))
         return;
 
     setBend(s, ch.chan, ch.value, lv);
@@ -537,13 +539,13 @@ void Fluid::m_bend(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_bend_int(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHANNEL:i)? BEND:i[-0x2000..0x1FFF] expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, BEND_VALUE_NAME, ch, -0x2000, 0x1FFF))
+    if (!checkChanValue<t_int>(s, BEND_VALUE_NAME, ch, -0x2000, 0x1FFF))
         return;
 
     setBend(s, ch.chan, ch.value + 0x2000, lv);
@@ -648,7 +650,7 @@ void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
     const auto N = lv.size();
     char data[N];
     for (size_t i = 0; i < N; i++)
-        data[i] = lv[i].asT<int>();
+        data[i] = lv[i].asT<t_int>();
 
     char small_reply[512];
     int reply_len = 512;
@@ -689,13 +691,13 @@ void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "CHAN:i? BEND_SENS:f[0..64] expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, BEND_SENS_VALUE_NAME, ch, 0, 64))
+    if (!checkChanValue<t_int>(s, BEND_SENS_VALUE_NAME, ch, 0, 64))
         return;
 
     auto fn = [](FluidSynthPtr& synth, int chan, int val) {
@@ -753,16 +755,13 @@ struct StreamGuard {
 
 void Fluid::m_tune_octave(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker chk("i i f f f f f f f f f f f f");
+    static const args::ArgChecker chk("BANK:i PROG:i f f f f f f f f f f f f");
 
     if (!synth_)
         return;
 
-    Error err(this);
-    chk.setOut(err);
-    StreamGuard g(chk);
-    if (!chk.check(lv))
-        return;
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     int tune_bank = lv[0].asInt();
     int tune_prog = lv[1].asInt();
@@ -790,13 +789,13 @@ void Fluid::m_tune_select(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_pan(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHAN:i)? PAN:f[0..+0x3fff] expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, PAN_VALUE_NAME, ch, 0, 0x3fff))
+    if (!checkChanValue<t_int>(s, PAN_VALUE_NAME, ch, 0, 0x3fff))
         return;
 
     setPan(s, ch.chan, pan_to_fluid<0, 0x2000, 0x3fff>(ch.value), lv);
@@ -818,13 +817,13 @@ void Fluid::m_pan_float(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_pan_int(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHAN:i)? PAN:f[-8192..+8191] expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, PAN_VALUE_NAME, ch, -0x2000, 0x1fff))
+    if (!checkChanValue<t_int>(s, PAN_VALUE_NAME, ch, -0x2000, 0x1fff))
         return;
 
     setPan(s, ch.chan, pan_to_fluid<-0x2000, 0, 0x1fff>(ch.value), lv);
@@ -832,13 +831,13 @@ void Fluid::m_pan_int(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_hold_pedal(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, HOLD_VALUE_NAME, ch, 0, 1))
+    if (!checkChanValue<t_int>(s, HOLD_VALUE_NAME, ch, 0, 1))
         return;
 
     auto fn = [](FluidSynthPtr& synth, int chan, bool on) {
@@ -849,13 +848,13 @@ void Fluid::m_hold_pedal(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, SOSTENUTO_VALUE_NAME, ch, 0, 1))
+    if (!checkChanValue<t_int>(s, SOSTENUTO_VALUE_NAME, ch, 0, 1))
         return;
 
     auto fn = [](FluidSynthPtr& synth, int chan, bool on) {
@@ -866,13 +865,13 @@ void Fluid::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_soft_pedal(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, SOFT_VALUE_NAME, ch, 0, 1))
+    if (!checkChanValue<t_int>(s, SOFT_VALUE_NAME, ch, 0, 1))
         return;
 
     auto fn = [](FluidSynthPtr& synth, int chan, bool on) {
@@ -883,13 +882,13 @@ void Fluid::m_soft_pedal(t_symbol* s, const AtomListView& lv)
 
 void Fluid::m_legato_pedal(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, LEGATO_VALUE_NAME, ch, 0, 1))
+    if (!checkChanValue<t_int>(s, LEGATO_VALUE_NAME, ch, 0, 1))
         return;
 
     auto fn = [](FluidSynthPtr& synth, int chan, bool on) {
@@ -902,7 +901,7 @@ void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
 {
     for (auto& byte : lv) {
         if (byte.isFloat()) {
-            auto res = midi_parser_.push(byte.asT<int>());
+            auto res = midi_parser_.push(byte.asT<t_int>());
             if (res.err != midi::MidiParser::NO_ERROR)
                 METHOD_ERR(s) << res.errStr();
         }

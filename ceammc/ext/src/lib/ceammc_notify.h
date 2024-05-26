@@ -18,6 +18,11 @@ public:
 
 using SubscriberId = uint64_t;
 
+enum class NotifyType : std::uint8_t {
+    ACTIVE,
+    REMOVED
+};
+
 struct NotifyMessage {
     SubscriberId id;
     int event;
@@ -26,6 +31,7 @@ struct NotifyMessage {
 struct SubscriberInfo {
     SubscriberId id;
     NotifiedObject* obj;
+    NotifyType type;
 };
 
 /**

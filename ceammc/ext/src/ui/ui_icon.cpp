@@ -15,6 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 #include "icons/generated_icons.h"
 #include "ui_icon.tcl.h"
 
@@ -75,10 +76,7 @@ UIIcon::UIIcon()
 void UIIcon::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    asEBox()->b_boxparameters.d_hideiolets = true;
-
-    if (args.size() > 0 && args[0].isSymbol() && !args[0].isProperty())
-        m_set(args[0]);
+    hideXlets(true);
 }
 
 void UIIcon::onPropChange(t_symbol* prop_name)
@@ -164,8 +162,9 @@ void UIIcon::onFloat(t_float f)
 void UIIcon::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers & EMOD_ALT) {
-        UI_DBG << "available icons: ";
-        UI_DBG << allIcons();
+        for (auto& a : allIcons())
+            UI_POST << a;
+
         return;
     }
 
@@ -334,6 +333,7 @@ void UIIcon::setup()
     obj.addProperty("icon", _("Icon"), "help", &UIIcon::prop_icon, icons_string, _("Main"));
     obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "18 24 36 48", _("Basic"));
     obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
+    obj.setPropertyArgIndex("icon", 0);
 
     obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang", _("Main"));
     obj.addProperty("enabled", &UIIcon::propEnabled, &UIIcon::propSetEnabled);

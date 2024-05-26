@@ -14,7 +14,7 @@
 #ifndef DYN_COMP_BASE_H
 #define DYN_COMP_BASE_H
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_faust.h"
 #include "ceammc_object.h"

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 409 50 cnv 1 356 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 409 50 reverses the order of the elements in the list;
+#X obj 408 50 cnv 1 357 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 408 50 reverses the order of the elements in the list;
 #X obj 1 1 cnv 5 765 40 empty empty list.reverse 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 list.reverse;
@@ -11,28 +11,28 @@
 #X obj 338 147 ml;
 #X obj 50 176 list.reverse;
 #X obj 50 205 ui.dt;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 260 1\.;
-#X text 150 260 *list*;
-#X text 245 260 input list.;
-#X text 150 280 *data:mlist*;
-#X text 245 280 input mlist.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 261 1\.;
+#X text 150 261 *list*;
+#X text 245 261 input list.;
+#X text 150 281 *data:mlist*;
+#X text 245 281 input mlist.;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 316 1\.;
-#X text 245 316 reversed list.;
+#X text 110 317 1\.;
+#X text 245 317 reversed list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 500 520 see also:;
-#X obj 574 520 list.sort;
+#X text 498 520 see also:;
+#X obj 573 520 list.sort;
 #X obj 653 520 list.shuffle;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

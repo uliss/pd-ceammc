@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class ListInsert : public BaseObject {
     ListProperty* lst_;
-    SizeTProperty* index_;
+    IntProperty* index_;
 
 public:
     ListInsert(const PdArgs& args);

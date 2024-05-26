@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 331 50 cnv 1 434 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 331 50 space in time messages received at the same logical
+#X obj 330 50 cnv 1 435 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 330 50 space in time messages received at the same logical
 time;
 #X obj 1 1 cnv 5 765 40 empty empty flow.space 20 20 0 20 -104026
 -4096 0;
-#X obj 668 11 flow.space;
+#X obj 667 11 flow.space;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 first message is delayed to next scheduler time;
 #X msg 50 143 7 \, 2 \, 1 \, 2 \, 0 \, 2 \, 1 \, 2;
@@ -22,61 +22,65 @@ time;
 #X obj 50 403 ui.hgain~;
 #X obj 194 403 ui.dsp~;
 #X obj 50 431 dac~;
-#X obj 50 460 flow.space.done;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 514 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 460 flow.space-done;
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 515 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 549 1\.;
-#X text 150 549 float;
-#X obj 246 550 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 549 DELAY(ms): time space between messages. Type: float.
+#X obj 735 518 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 550 1\.;
+#X text 150 550 float;
+#X obj 246 551 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 550 DELAY(ms): time space between messages. Type: float.
 Min value: 1;
-#X text 110 584 2\.;
-#X text 150 584 int;
-#X obj 246 585 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 584 DONE: time space = N*space after last outputted message.
+#X text 110 585 2\.;
+#X text 150 585 int;
+#X obj 246 586 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 585 DONE: time space = N*space after last outputted message.
 Type: int. Min value: 0;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 634 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 635 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 669 @delay;
-#X text 245 669 Get/Set time-space between messages. Type: float. Units:
+#X obj 735 638 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 670 @delay;
+#X text 245 670 Get/Set time-space between messages. Type: float. Units:
 'ms'. Default value: 1\. Min value: 1\.;
-#X msg 110 711 @dev;
-#X text 245 711 Get/Set random deviation. Type: float. Default value:
+#X msg 110 712 @dev;
+#X text 245 712 Get/Set random deviation. Type: float. Default value:
 0\. Range: 0\...1\.;
-#X msg 110 753 @done;
-#X text 245 753 Get/Set time space (=@done*@delay) after last outputted
+#X msg 110 754 @done;
+#X text 245 754 Get/Set time space (=@done*@delay) after last outputted
 message. After that delay output bang to second outlet. Type: int.
 Default value: 1\. Min value: 0\.;
-#X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 825 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 826 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 826 1\.;
-#X text 245 826 messages.;
-#X text 110 846 2\.;
-#X text 150 846 *float*;
-#X text 245 846 set space interval (ms).;
-#X text 245 866 reset: cancel all scheduled outputs and clear message
+#X text 110 827 1\.;
+#X text 245 827 messages.;
+#X text 110 847 2\.;
+#X text 150 847 *float*;
+#X text 245 847 set space interval (ms).;
+#X text 245 867 reset: cancel all scheduled outputs and clear message
 queue.;
-#X text 245 886 @delay: set @delay property.;
-#X text 245 906 @done: set @done property.;
-#X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 941 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 245 887 @delay: set @delay property.;
+#X text 245 907 @done: set @done property.;
+#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 942 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 942 1\.;
-#X text 245 942 output.;
-#X text 110 962 2\.;
-#X text 245 962 bang on finish (after @delay*@done ms after last outputted
+#X text 110 943 1\.;
+#X text 245 943 output.;
+#X text 110 963 2\.;
+#X text 245 963 bang on finish (after @delay*@done ms after last outputted
 message).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1027 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1030 library: ceammc v0.9.7;
-#N canvas 10 1049 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
+#X obj 1 1028 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1031 library: ceammc v0.9.7;
+#N canvas 10 1050 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1049 pd info;
+#X restore 10 1050 pd info;
 #X connect 8 0 9 0;
 #X connect 6 0 10 0;
 #X connect 9 0 10 0;

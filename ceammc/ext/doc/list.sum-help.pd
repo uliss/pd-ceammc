@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 515 50 cnv 1 250 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 515 50 calculates sum of floats in list;
+#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 514 50 calculates sum of floats in list;
 #X obj 1 1 cnv 5 765 40 empty empty list.sum 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 list.sum;
@@ -9,29 +9,29 @@
 #X msg 213 118 list a b c;
 #X obj 50 147 list.sum;
 #X floatatom 50 176 5 0 0 0 - - -;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 213 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 231 1\.;
-#X text 150 231 *list*;
-#X text 245 231 input list. Non float values are ignored.;
-#X text 150 251 *data:mlist*;
-#X text 245 251 input mlist.;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 214 1\.;
+#X text 150 214 *list*;
+#X text 245 214 input list. Non float values are ignored.;
+#X text 150 234 *data:mlist*;
+#X text 245 234 input mlist.;
+#X obj 20 264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 269 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 287 1\.;
-#X text 245 287 float list sum.;
+#X text 110 270 1\.;
+#X text 245 270 float list sum.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 486 520 see also:;
-#X obj 560 520 list.product;
-#X obj 661 520 list.reduce;
+#X text 483 520 see also:;
+#X obj 558 520 list.product;
+#X obj 660 520 list.reduce;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

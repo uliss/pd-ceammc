@@ -14,6 +14,7 @@
 #include "ui_arrayview.h"
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 constexpr const char* SYM_ARRAY_NAME = "array";
 constexpr const char* SYM_ATTR_WAVE_COLOR = "wave_color";

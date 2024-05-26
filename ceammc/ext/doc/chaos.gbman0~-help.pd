@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 483 50 Gingerbreadman map chaotic generator;
+#X obj 482 50 cnv 1 283 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 482 50 Gingerbreadman map chaotic generator;
 #X obj 1 1 cnv 5 765 40 empty empty chaos.gbman0~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 chaos.gbman0~;
-#X obj 210 80 cnv 1 555 123 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 124 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 A non-interpolating sound generator based on the difference
 equations:;
 #X text 215 120 x(n+1) = 1 - y(n) + |x(n)|;
@@ -13,60 +13,64 @@ equations:;
 #X obj 215 170 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Gingerbreadman map @url
 https://en.wikipedia.org/wiki/Gingerbreadman_map;
-#X msg 50 231 10;
-#X msg 98 231 100;
-#X msg 155 231 20000;
-#X obj 232 231 ui.dsp~;
-#X obj 328 231 sig~ 35;
-#X obj 50 260 sig~ 10;
-#X obj 328 260 chaos.gbman0~;
-#X obj 50 289 chaos.gbman0~;
-#X obj 328 289 l->l~ -3 6 50 10000 @clip minmax;
-#X obj 50 318 dyn.limit~;
-#X obj 328 318 osc.sin~;
-#X obj 50 347 ui.hgain~;
-#X obj 328 347 ui.hgain~;
-#X obj 50 375 dac~;
-#X obj 328 375 dac~;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 50 232 10;
+#X msg 98 232 100;
+#X msg 155 232 20000;
+#X obj 232 232 ui.dsp~;
+#X obj 328 232 sig~ 35;
+#X obj 50 261 sig~ 10;
+#X obj 328 261 chaos.gbman0~;
+#X obj 50 290 chaos.gbman0~;
+#X obj 328 290 l->l~ -3 6 50 10000 @clip minmax;
+#X obj 50 319 dyn.limit~;
+#X obj 328 319 osc.sin~;
+#X obj 50 348 ui.hgain~;
+#X obj 328 348 ui.hgain~;
+#X obj 50 376 dac~;
+#X obj 328 376 dac~;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 110 464 1\.;
-#X text 150 464 float;
-#X obj 246 465 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 464 X: initial x value \, default 1.2\. Type: float.;
-#X text 110 484 2\.;
-#X text 150 484 float;
-#X obj 246 485 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 484 Y: initial y value \, default 2.1\. Type: float.;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 519 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 735 434 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 466 1\.;
+#X text 150 466 float;
+#X obj 246 467 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 466 X: initial x value \, default 1.2\. Type: float.;
+#X text 110 486 2\.;
+#X text 150 486 float;
+#X obj 246 487 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 486 Y: initial y value \, default 2.1\. Type: float.;
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 521 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 579 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 735 524 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 639 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 641 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 640 1\.;
-#X text 245 640 generation frequency \, minimal value 0.001Hz.;
-#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 675 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 642 1\.;
+#X text 245 642 generation frequency \, minimal value 0.001Hz.;
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 677 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 676 1\.;
-#X text 245 676 outputs x value.;
-#X text 110 696 2\.;
-#X text 245 696 outputs y value.;
+#X text 110 678 1\.;
+#X text 245 678 outputs x value.;
+#X text 110 698 2\.;
+#X text 245 698 outputs y value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 746 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 749 library: ceammc v0.9.7;
-#X text 579 761 see also:;
-#X obj 653 761 chaos.gbman0;
-#N canvas 10 768 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
+#X obj 1 748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 751 library: ceammc v0.9.7;
+#X text 578 763 see also:;
+#X obj 653 763 chaos.gbman0;
+#N canvas 10 770 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -90,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 768 pd info;
+#X restore 10 770 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;

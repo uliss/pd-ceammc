@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="msg.unpack">
+        <title>msg.unpack</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>message unpack</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>msg</category>
+            <keywords>message unpack</keywords>
+            <since>0.9.8</since>
+            <also>
+                <see>msg</see>
+                <see>msg.pack</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="1" maxvalue="32">number of outputs</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="32"
+            access="initonly">number of outputs</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>any messages</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">symbol: message selector</outlet>
+            <outlet number="...">atom: message args</outlet>
+            <outlet number="n+1">list: last message args</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang #a(  [1 2 3 4 #d(  [L]
+                         |
+ [12.3 #b( [msg A 2 #e(  [msg #g]
+
+   [symbol ABC #c(
+
+ [1 2(     [msg A B 1 2 #f(
+ |
+[msg.unpack 3 #x]
+|
+[ui.dt #k]
+
+     [ui.dt #l]
+
+          [ui.dt #m]
+
+[X a->x] [X b->x] [X c->x] [X d->x] [X g->x]
+[X x:1->l] [X x:2->m] [X e->x] [X f->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,6 +1,6 @@
 [![pd-ceammc](https://snapcraft.io/pd-ceammc/badge.svg)](https://snapcraft.io/pd-ceammc)
 
-CEAMMC PureData distribution 2023.02
+CEAMMC PureData distribution 2023.10
 ------------------------------------
 
 General purpose Pd distribution and library used for work and education purposes 
@@ -45,6 +45,8 @@ this work is based on / includes:
    - rubberband
    - SFizz
    - minimp3
+   - libltc
+   - libartnet
 
 
 ### Authors

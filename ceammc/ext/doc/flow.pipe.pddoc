@@ -59,13 +59,13 @@
 | ^|. ^^|..
 [pack f f f]
 |
-[clone -s 1 flow.pipe.osc~ 3 {i=1,o=1}]
+[clone -s 1 flow.pipe-osc~ 3 {i=1,o=1}]
 |
 [ui.hgain~]    [ui.dsp~]
 |\
 [dac~]
 
-[flow.pipe.superdirt]
+[flow.pipe-superdirt]
 ]]>
             </pdascii>
             <pdascii id="osc~">

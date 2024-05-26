@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_dsp.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 constexpr int MIN_SIZE = 20;
 constexpr int HOA_DISPLAY_NPOINTS = 65;

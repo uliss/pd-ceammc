@@ -104,7 +104,7 @@
 |                          |
 [ui.dt]                    [ui.dt]
 
-[local.list.nonlocal]
+[local.list-nonlocal]
 ]]>
             </pdascii>
             <pdascii id="nonlocal">

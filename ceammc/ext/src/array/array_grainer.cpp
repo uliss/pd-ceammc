@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_grainer.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "aubio.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"

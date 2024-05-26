@@ -32,7 +32,7 @@ public:
     bool setList(const AtomListView& lv) override;
 
     bool setFloat(t_float v) override;
-    bool setInt(int v) override;
+    bool setInt(t_int v) override;
     bool getFloat(t_float& v) const override;
 
     t_sample value() { return v_; }

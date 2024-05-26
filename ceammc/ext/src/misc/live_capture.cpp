@@ -4,7 +4,7 @@
 using namespace ceammc;
 
 class LiveCapture : public faust_live_capture_tilde {
-    UIProperty *gate_ { 0 }, *div_ { 0 };
+    UIProperty *gate_ { nullptr }, *div_ { nullptr };
 
 public:
     LiveCapture(const PdArgs& args)

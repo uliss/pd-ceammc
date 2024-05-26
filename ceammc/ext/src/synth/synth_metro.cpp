@@ -1,5 +1,5 @@
 #include "synth_metro.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_clock.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_bpm.h"
@@ -86,12 +86,20 @@ public:
         switch (n) {
         case 1:
             return bangBeat(lv.intAt(0, music::BEAT_DOWN));
-        case 2:
-            tempo_->setList(lv);
-            break;
+        case 2: {
+            if (lv.empty())
+                reset();
+            else
+                tempo_->setList(lv);
+        } break;
         default:
             break;
         }
+    }
+
+    void reset()
+    {
+        pattern_idx_ = 0;
     }
 
     void m_tempo(t_symbol* s, const AtomListView& lv)
@@ -101,6 +109,11 @@ public:
             return chk.usage(this, s);
 
         tempo_->setBpm(lv.asT<t_float>());
+    }
+
+    void m_reset(t_symbol* s, const AtomListView& lv)
+    {
+        reset();
     }
 
     void m_down(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_DOWN); }
@@ -134,6 +147,7 @@ void setup_synth_metro_tilde()
     obj.addMethod("on", &SynthMetro::m_on);
     obj.addMethod("off", &SynthMetro::m_off);
     obj.addMethod("mark", &SynthMetro::m_mark);
+    obj.addMethod("reset", &SynthMetro::m_reset);
 
     obj.setXletsInfo({ "bool: on/off metro", "int: bang beat", "float: set bpm" }, { "signal: out", "int: current beat" });
 

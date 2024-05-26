@@ -41,7 +41,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                             [flow.ring.sound]
+[B]                             [flow.ring-sound]
 |
 [f 1] X [+ 1]        [fill -1, bang(
 |                    |.

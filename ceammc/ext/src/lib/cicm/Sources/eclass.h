@@ -244,6 +244,8 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list);
 
 void eclass_attr_sort(t_eclass* c);
 
+void eclass_attr_set_arg_index(t_eclass* c, const char* attrname, int index);
+
 void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn);
 
 /**

@@ -37,11 +37,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[B] [S digits=10]               [T]
+[B] [symbol \#CEA4(             [T]
 |   |                           |
-|   |                           [metro.pattern 100] [r hexpat]
+|   [S digits=10]               [metro.pattern 100] [r hexpat]
 |   |                           |                   |
-[rhythm.hexbeat \#D1]           [list.walk @fold     ]
+[rhythm.hexbeat \#D1]           [list.walk @wrap    ]
 |                               |
 [t l l]                         [sel 1]
 |   ^|                          |
@@ -49,11 +49,11 @@
 |   |                           |
 |   [@nitems $1, @size 150 15(  [flt.resonlp~ 1000 40]
 |   |                           |
-[ui.hrd* @nosave 1]             [ui.hgain~]
+[ui.hrd* @nosave 1]             [ui.hgain~]         [ui.dsp~]
 |                               |\
 [s hexpat]                      [dac~]
 
-[rhythm.hexbeat.list]
+[rhythm.hexbeat-list]
 ]]>
             </pdascii>
             <pdascii id="list">

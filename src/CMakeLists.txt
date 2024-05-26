@@ -203,9 +203,12 @@ else()
     set_target_properties(puredata-core PROPERTIES COMPILE_FLAGS "-fPIC")
 
     if(APPLE)
+        target_sources(puredata-core PRIVATE s_macos.mm)
+        target_compile_definitions(puredata-core PRIVATE -DPD_EVENTLOOP)
         target_link_libraries(puredata-core PRIVATE "-framework CoreMIDI")
         target_link_libraries(puredata-core PRIVATE "-framework CoreMedia")
         target_link_libraries(puredata-core PRIVATE "-framework CoreFoundation")
+        target_link_libraries(puredata-core PRIVATE "-framework AppKit")
     endif()
 endif()
 

@@ -15,6 +15,7 @@
 #include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "cicm/Sources/egraphics.h"
 
 UIPreset::UIPreset()
     : prop_color_text(rgba_black)
@@ -217,7 +218,7 @@ t_int UIPreset::propCurrent() const
 void UIPreset::indexAdd(const AtomListView& lv)
 {
     if (lv.isFloat()) {
-        int idx = lv.asT<int>();
+        int idx = lv.asT<t_int>();
         if (!checkIndex(idx))
             return;
 
@@ -232,7 +233,7 @@ void UIPreset::indexAdd(const AtomListView& lv)
 void UIPreset::indexRemove(const AtomListView& lv)
 {
     if (lv.isFloat()) {
-        int idx = lv.asT<int>();
+        int idx = lv.asT<t_int>();
         if (!checkIndex(idx))
             return;
 

@@ -45,8 +45,15 @@
             speed. If @stretch mode is disabled (default): changes playing speed (also with pitch
             change respectively) in realtime. If @stretch mode is enabled: can only change speed
             (without pitch change) only on the next playing cycle</property>
+            <property name="@on_err" type="symbol" default="">the error send destination. For
+            example, if soundfile was not found, the message [not_found( will be send to this
+            global name</property>
         </properties>
         <methods>
+            <!-- open -->
+            <method name="open">sets @name property 
+            <param name="FILENAME" type="symbol" required="true">absolute or relative to patch
+            soundfile name</param></method>
             <!-- start -->
             <method name="start">start playing 
             <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
@@ -94,7 +101,7 @@
 |
 [openpanel #a]
 
-[symbol %CEAMMC%/guitar1.wav, 1 #b(
+ [open %CEAMMC%/guitar1.wav, 1 #b(
 
  [@name %CEAMMC%/sound/loop_breakbeat.flac, 1(
  |
@@ -116,7 +123,7 @@
 *|*
 [dac~]
 
-[snd.play~.seek] [snd.play~.resamp]
+[snd.play~-seek] [snd.play~-resamp] [snd.play~-err]
 
 #c 0.25 4 @show_value 1
 
@@ -164,6 +171,17 @@
 
 #c %CEAMMC%/guitar1.wav, 1
 [X a->z] [X b->z]
+]]>
+            </pdascii>
+            <pdascii id="err">
+<![CDATA[
+[r snd-err]
+|
+[ui.dt]
+
+[open not_exists.wav, 1(
+|
+[snd.play~ 1 @on_err snd-err]
 ]]>
             </pdascii>
         </example>

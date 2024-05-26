@@ -21,8 +21,11 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="OPENED" type="int" enum="0 1">set init state</argument>
+            <argument name="PASS" type="bool">set init state</argument>
         </arguments>
+        <properties>
+            <property name="@pass" type="bool" default="1">open state</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">input flow</xinfo>
