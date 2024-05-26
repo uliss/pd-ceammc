@@ -59,8 +59,8 @@ value: 1\.;
 #X msg 110 696 @complex;
 #X text 245 696 Alias to @method complex. Complex Domain Method onset
 detection function.;
-#X msg 110 738 @compression;
-#X text 245 738 Get/Set lambda logarithmic compression factor \, 0
+#X msg 110 753 @compression;
+#X text 245 753 Get/Set lambda logarithmic compression factor \, 0
 to disable. Type: float. Default value: 1\. Min value: 0\.;
 #X msg 110 780 @delay;
 #X text 245 780 Get/Set constant system delay to take back from detection

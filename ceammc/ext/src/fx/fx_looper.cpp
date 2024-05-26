@@ -210,6 +210,9 @@ void FxLooper::initDone()
         OBJ_DBG << fmt::format("using default loop length: {}", len_sec);
     }
 
+    debug_ = new BoolProperty("@debug", true);
+    addProperty(debug_);
+
     resizeBuffer();
     calcXFades();
     OBJ_DBG << fmt::format("max loop length {} samples ({} sec)", max_samples_, capacity_sec_->value());

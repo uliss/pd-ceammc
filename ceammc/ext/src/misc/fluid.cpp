@@ -744,6 +744,15 @@ void Fluid::m_tune_semi(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, TUNE_CENTS_VALUE_NAME, lv);
 }
 
+struct StreamGuard {
+    ArgChecker& check;
+    StreamGuard(ArgChecker& chk)
+        : check(chk)
+    {
+    }
+    ~StreamGuard() { check.setOut(std::cerr); }
+};
+
 void Fluid::m_tune_octave(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("BANK:i PROG:i f f f f f f f f f f f f");
