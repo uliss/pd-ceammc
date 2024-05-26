@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["staticlib"]
 
 [dependencies]
-image = { version = "0.24.7", features = [ "ico", "gif", "jpeg", "pnm", "bmp", "webp" ], default-features = false }
+image = { version = "0.25.1", features = [ "ico", "gif", "jpeg", "pnm", "bmp", "webp" ], default-features = false }
 
 [build-dependencies]
 cbindgen = "0.22.0"
