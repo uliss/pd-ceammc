@@ -98,6 +98,7 @@ if(WITH_SFIZZ)
     cmake_minimum_required(VERSION 3.14)
 
     include(FetchContent)
+    cmake_policy(SET CMP0135 NEW)
     set(FETCHCONTENT_QUIET FALSE)
     set(SFIZZ_AU OFF CACHE INTERNAL "")
     set(SFIZZ_LV2 OFF CACHE INTERNAL "")

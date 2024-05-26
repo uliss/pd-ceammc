@@ -10,7 +10,7 @@ use walkdir::WalkDir;
 fn main() {
     let _crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
 
-    #[cfg(target_family = "unix")]
+    #[cfg(target_os = "macos")]
     cbindgen::generate(_crate_dir)
         .expect("Unable to generate bindings")
         .write_to_file("hw_rust.hpp");
