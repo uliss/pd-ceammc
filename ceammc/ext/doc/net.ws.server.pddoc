@@ -125,8 +125,11 @@
 |
 | [send != 2 MSG #d(                  [net.ws.client #xx]
 |                                     |
-| [clients #k(                        [ui.dt]
-| |
+|  [clients #k(                       [ui.dt]
+|
+|   [send_json all 1 2 3 #l(
+|
+|
 [net.ws.server #x]
 |
 [ui.dt]          [ui.dt #z]
@@ -134,7 +137,7 @@
 [print SRV #y]
 
 [X x->y] [X x:1->z]
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X k->x] [X l->x]
 [X f->xx] [X g->xx] [X h->xx] [X i->xx] [X j->xx]
 ]]>
             </pdascii>

@@ -66,7 +66,7 @@
 |          |
 [flt.lpf24~ 5000]
 |
-[ui.spectroscope~ @size=400x120]
+[ui.spectroscope~ @size 400 120]
 
 
 
