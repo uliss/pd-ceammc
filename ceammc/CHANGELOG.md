@@ -42,6 +42,7 @@
   - seq.life max size increased up to 64x64
 ### Fixed:
 - seq.life - fix errors on non square sizes (issue #203)
+- conv.car2pol - @positive property fix
 
 ## [0.9.7]
 ### Added:

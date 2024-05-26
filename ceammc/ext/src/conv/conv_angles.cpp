@@ -57,7 +57,14 @@ void Car2Pol::onList(const AtomListView& lv)
     const auto x = lv[0].asFloat();
     const auto y = lv[1].asFloat();
 
-    SmallAtomList res { std::hypot(x, y), wrapFloatMinMax<t_float>(std::atan2(y, x), 0, 2 * m_pi) };
+    AtomArray<2> res { std::hypot(x, y), 0 };
+    auto angle = std::atan2(y, x);
+
+    if (positive_range_->value())
+        res[1] = wrapFloatMinMax<t_float>(angle, 0, 2 * m_pi);
+    else
+        res[1] = wrapFloatMinMax<t_float>(angle, -m_pi, m_pi);
+
     listTo(0, res.view());
 }
 
