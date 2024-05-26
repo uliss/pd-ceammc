@@ -96,15 +96,15 @@ parts:
         cmake-parameters:
             - -DCMAKE_BUILD_TYPE=Release
             - -DCMAKE_INSTALL_PREFIX=/usr
-            - -DWITH_PORTAUDIO=OFF
-            - -DWITH_PORTMIDI=OFF
-            - -DWITH_JACK=OFF
-            - -DWITH_BENCHMARK=OFF
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
+            - -DWITH_BENCHMARK=OFF
             - -DWITH_EXT_FLEXT=OFF
-            - -DWITH_VEROVIO=OFF
+            - -DWITH_JACK=OFF
             - -DWITH_LIBSAMPLERATE=ON
+            - -DWITH_PORTAUDIO=OFF
+            - -DWITH_PORTMIDI=OFF
+            - -DWITH_VEROVIO=OFF
             - -DENABLE_TESTS=OFF
         source: .
         build-packages:
