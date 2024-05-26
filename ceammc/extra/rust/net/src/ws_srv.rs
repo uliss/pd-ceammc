@@ -1,5 +1,5 @@
 use futures_util::{SinkExt, StreamExt};
-use log::{debug, error, info, warn};
+use log::{debug, info, warn};
 use tokio::{net::TcpListener, sync::mpsc::UnboundedSender};
 use tungstenite::Message;
 
@@ -11,7 +11,7 @@ use std::{
     sync::{
         atomic::{AtomicUsize, Ordering},
         Arc, Mutex,
-    },
+    }, time::Duration,
 };
 
 use crate::service::{callback_msg, callback_notify, callback_progress};
@@ -335,10 +335,11 @@ pub extern "C" fn ceammc_ws_server_create(
     match addr {
         Ok(addr) => {
             let addr = format!("{addr}:{}", params.port);
-            let rt = tokio::runtime::Runtime::new();
-            // let rt = tokio::runtime::Builder::new_multi_thread()
-            // .thread_keep_alive(Duration::from_millis(1000))
-            // .build();
+            // let rt = tokio::runtime::Runtime::new();
+            let rt = tokio::runtime::Builder::new_multi_thread()
+                .thread_keep_alive(Duration::from_millis(1000))
+                .worker_threads(2)
+                .build();
 
             match rt {
                 Ok(rt) => {
@@ -352,10 +353,10 @@ pub extern "C" fn ceammc_ws_server_create(
                         Result<WsServerReply, crate::service::Error>,
                     >(32);
 
-                    std::thread::spawn(move || {
+                    std::thread::spawn(move || { 
                         debug!("starting worker thread ...");
 
-                        rt.block_on(async move {
+                        rt.block_on(async move { 
                             match TcpListener::bind(&addr).await {
                                 Ok(sock) => {
                                     info!("listening on: {}", addr);
