@@ -36,16 +36,18 @@ static inline bool looks_like_ssml(const std::string& str)
     return string::starts_with(str, "<?xml") || string::starts_with(str, "<speak");
 }
 
-static const std::array<const char*, 3> RHVOICE_CONFIG_PATHS {
+static const std::array<const char*, 4> RHVOICE_CONFIG_PATHS {
     "~/.local/etc/RHVoice.conf",
     "/usr/local/etc/RHVoice/RHVoice.conf",
     "/opt/local/etc/RHVoice/RHVoice.conf",
+    "/etc/RHVoice/RHVoice.conf",
 };
 
-static const std::array<const char*, 3> RHVOICE_DATA_PATHS {
+static const std::array<const char*, 4> RHVOICE_DATA_PATHS {
     "~/.local/share/RHVoice",
     "/usr/local/share/RHVoice",
     "/opt/local/share/RHVoice",
+    "/usr/share/RHVoice",
 };
 
 class SynthFloatProperty : public FloatProperty {
@@ -591,7 +593,7 @@ void SpeechRhvoiceTilde::initWorker()
 
                 notify_.waitFor(250);
             }
-        });
+    });
 }
 
 void setup_speech_rhvoice_tilde()
