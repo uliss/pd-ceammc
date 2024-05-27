@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Text color variables
 red=$(tput setaf 1) # red
@@ -18,13 +18,14 @@ if [ ! -d $BUNDLE ]; then
     exit 1
 fi
 
-rc=0
+num_errors=0
 
-find $BUNDLE -name *.d_amd64 -o -name *.dylib | while read external
+for external in $(find $BUNDLE -name *.d_amd64 -o -name *.pd_darwin -o -name *.dylib)
 do
     short_name=$(basename $external)
     dep=$(otool -L $external | grep -v -e '/System/Library' \
             -e '@loader_path' \
+            -e '@rpath' \
             -e $short_name \
             -e 'libc++' \
             -e '/usr/lib' \
@@ -32,13 +33,16 @@ do
             -e 'libgcc')
 
     if [ "$dep" ]; then
-        echo "${red}WARNING:${rst} external ${blu}${short_name}${rst} has this dependency:"
+        echo "${red}WARNING:${rst} external ${blu}${short_name}${rst} has this dependencies:"
         echo "         $dep"
-        rc=1
+        let num_errors=num_errors+1
     fi
 done
 
-if [[ $rc -eq 0 ]]
+if [[ $num_errors -eq 0 ]]
 then
     echo "${green}OK${rst}"
+    exit 0
+else
+    exit 2
 fi
