@@ -12,7 +12,10 @@ if(Rust_FOUND)
 
     if(WITH_RUST_APPS)
         corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml CRATE_TYPES bin)
-        install(FILES $<TARGET_FILE:rhvoice_download> DESTINATION ${CEAMMC_INSTALL_PATH})
+        install(FILES $<TARGET_FILE:rhvoice_download>
+            DESTINATION ${CEAMMC_INSTALL_PATH}
+            PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+            )
     endif()
 
     if(WITH_RUST_CORE)
