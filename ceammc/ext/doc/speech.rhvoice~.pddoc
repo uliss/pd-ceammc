@@ -103,6 +103,30 @@
     /*voices/ */
         /*| */
         /*voice1... */
+
+[symbol anna-rus(
+|
+[L digits=30]
+|
+[%CEAMMC%/rhvoice_download --voice $1(
+|
+|
+| [%CEAMMC%/rhvoice_download --list-voices(
+| |
+| |
+| | [%CEAMMC%/rhvoice_download --list-languages(
+| | |
+| | |
+| | |
+[expand_env @any]
+|
+|
+[system.cmd]
+          ^|
+           |
+           |
+          [print OUT]
+
 ]]>
             </pdascii>
             <pdascii id="extra">

@@ -1,4 +1,4 @@
-#N canvas 0 0 415 239 12;
+#N canvas 0 0 432 574 12;
 #X text 20 48 Pd Documents directory structure for RHVoice;
 #X text 20 77 rhvoice/;
 #X text 58 92 |;
@@ -9,3 +9,18 @@
 #X text 58 164 voices/;
 #X text 96 178 |;
 #X text 96 192 voice1...;
+#X msg 20 221 symbol anna-rus;
+#X listbox 20.0 250.39999999999998 30 0 0 0 - - -;
+#X msg 20 279 %CEAMMC%/rhvoice_download --voice \$1;
+#X msg 39 322 %CEAMMC%/rhvoice_download --list-voices;
+#X msg 58 365 %CEAMMC%/rhvoice_download --list-languages;
+#X obj 20 423 expand_env @any;
+#X obj 20 466 system.cmd;
+#X obj 116 524 print OUT;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 1 17 0;

@@ -1,6 +1,6 @@
-use std::{fs::read_dir, io::Write, path::Path};
-
 use clap::Parser;
+use indicatif::{ProgressBar, ProgressStyle};
+use std::{fs::read_dir, io::Write, path::Path};
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -22,8 +22,72 @@ struct Cli {
     dest: Option<String>,
 }
 
-const LANGUAGES: [&'static str; 2] = ["Russian", "English"];
-const VOICES: [&'static str; 2] = ["anna-rus", "victor-rus"];
+const LANGUAGES: [&'static str; 14] = [
+    "Albanian",
+    "Brazilian-Portuguese",
+    "Czech",
+    "English",
+    "Esperanto",
+    "Georgian",
+    "Kyrgyz",
+    "Macedonian",
+    "Polish",
+    "Russian",
+    "Serbian-bin",
+    "Slovak",
+    "Tatar",
+    "Uzbek-bin",
+];
+const VOICES: [&'static str; 48] = [
+    "alan-eng",
+    "aleksandr-hq-rus",
+    "aleksandr-rus",
+    "alicja-pol",
+    "anatol-ukr",
+    "anna-rus",
+    "arina-rus",
+    "artemiy-rus",
+    "azamat-kir",
+    "bdl-eng",
+    "cezary-pol",
+    "clb-eng",
+    "dilnavoz-uzb",
+    "dragana-srp",
+    "elena-rus",
+    "evgeniy-eng",
+    "evgeniy-rus",
+    "irina-rus",
+    "islom-uzb",
+    "kiko-mkd",
+    "ksp-eng",
+    "lyubov-eng",
+    "magda-pol",
+    "marianna-ukr",
+    "michal-pol",
+    "mikhail-rus",
+    "natalia-ukr",
+    "natan-pol",
+    "natia-kat",
+    "nazgul-kir",
+    "ondro-slk",
+    "pavel-rus",
+    "radek-cze",
+    "slt-eng",
+    "spomenka-epo",
+    "suze-mkd",
+    "talgat-tat",
+    "tatiana-rus",
+    "timofey-rus",
+    "umka-rus",
+    "victor-rus",
+    "victoria-rus",
+    "vitaliy-ng-rus",
+    "vitaliy-rus",
+    "volodymyr-ukr",
+    "vsevolod-rus",
+    "yuriy-rus",
+    "zdenek-cze",
+];
 
 fn default_download_directory() -> String {
     let mut home = match homedir::get_my_home() {
@@ -62,7 +126,7 @@ async fn download_latest_release(name: &str, dir: &str) -> bool {
                 let url = x.browser_download_url.clone();
                 log::debug!("URL: {url}");
                 match reqwest::get(url.clone()).await {
-                    Ok(response) => {
+                    Ok(mut response) => {
                         let fname = url
                             .path_segments()
                             .and_then(|segments| segments.last())
@@ -71,44 +135,69 @@ async fn download_latest_release(name: &str, dir: &str) -> bool {
 
                         log::debug!("file to download: '{}'", fname);
 
+                        let total_size = response.content_length().unwrap_or(0);
+                        log::debug!("total size in bytes: {total_size}");
+
                         match tempfile::tempfile() {
-                            Ok(mut file) => match response.bytes().await {
-                                Ok(bytes) => {
-                                    let _ = file.write(&bytes);
-                                    let _ = file.flush();
-                                    match zip::ZipArchive::new(file) {
-                                        Ok(mut zip) => {
-                                            if let Err(err) = zip.extract(dir) {
-                                                log::error!("zip error: {err}");
-                                                return false;
-                                            } else {
-                                                log::debug!("extracted into: {dir}");
-                                                let base_path = Path::new(dir).to_path_buf();
-                                                let data_path = base_path.join("data");
-                                                if data_path.exists() {
-                                                    for x in read_dir(data_path).unwrap() {
-                                                        let _  = x.map(|x| {
-                                                            let file_path = base_path.join(x.file_name());
-                                                            let _ = std::fs::rename(x.path(), file_path);
-                                                        });
-                                                    }
-                                                }
+                            Ok(mut file) => {
+                                let mut downloaded: u64 = 0;
 
+                                // Indicatif setup
+                                let pb = ProgressBar::new(total_size);
+                                pb.set_style(ProgressStyle::default_bar()
+                                .template("{msg}\n{spinner:.green} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {bytes}/{total_bytes} ({bytes_per_sec}, {eta})").unwrap().progress_chars("#>-"));
+                                pb.set_message(format!("Downloading {}", url));
 
-                                                count += 1;
-                                            }
-                                        }
-                                        Err(err) => {
-                                            log::error!("zip error: {err}");
+                                while let Ok(chunk) = response.chunk().await {
+                                    if let Some(bytes) = chunk {
+                                        if let Err(err) = file.write_all(&bytes) {
+                                            log::error!("write error: {}", err.to_string());
                                             return false;
                                         }
+
+                                        if total_size > 0 {
+                                            downloaded = std::cmp::min(
+                                                downloaded + (bytes.len() as u64),
+                                                total_size,
+                                            );
+                                            pb.set_position(downloaded);
+                                        }
+                                    } else {
+                                        break;
                                     }
                                 }
-                                Err(err) => {
-                                    log::error!("failed to download '{fname}' {err}");
-                                    return false;
+
+                                let _ = file.flush();
+
+                                match zip::ZipArchive::new(file) {
+                                    Ok(mut zip) => {
+                                        if let Err(err) = zip.extract(dir) {
+                                            log::error!("zip error: {err}");
+                                            return false;
+                                        } else {
+                                            log::debug!("extracted into: {dir}");
+                                            let base_path = Path::new(dir).to_path_buf();
+                                            let data_path = base_path.join("data");
+                                            if data_path.exists() {
+                                                for x in read_dir(data_path).unwrap() {
+                                                    let _ = x.map(|x| {
+                                                        let file_path =
+                                                            base_path.join(x.file_name());
+                                                        let _ =
+                                                            std::fs::rename(x.path(), file_path);
+                                                    });
+                                                }
+                                            }
+
+                                            count += 1;
+                                        }
+                                    }
+                                    Err(err) => {
+                                        log::error!("zip error: {err}");
+                                        return false;
+                                    }
                                 }
-                            },
+                            }
                             Err(err) => {
                                 log::error!("can't create file: {err}");
                                 return false;
