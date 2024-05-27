@@ -255,7 +255,9 @@ fn script_mode(args: &Cli, action_map: HashMap<String, FileFixes>) -> Result<(),
             .to_string_lossy()
             .to_string();
 
-        println!("cp '{dylib}' '{dylib_copy}'");
+        if *dylib != dylib_copy {
+            println!("cp '{dylib}' '{dylib_copy}'");
+        }
 
         let mut cmd = "install_name_tool".to_owned();
 
@@ -289,14 +291,18 @@ fn binary_mode(args: &Cli, action_map: HashMap<String, FileFixes>) -> Result<(),
             .join(Path::new(dylib).file_name().expect("no filename"))
             .to_string_lossy()
             .to_string();
-        println!("\tcopy {dylib} to {dylib_copy}");
-        std::fs::copy(dylib, &dylib_copy)?;
+        if *dylib != dylib_copy {
+            println!("\tcopy {dylib} to {dylib_copy}");
+            std::fs::copy(dylib, &dylib_copy)?;
+        }
 
+        let mut nargs = 0;
         let mut cmd = Command::new("install_name_tool");
 
         if let Some(new_id) = &fix.fix_id {
             println!("\tfix id: {}", format!("{new_id}").yellow());
             cmd.args(["-id", new_id]);
+            nargs += 1;
         }
 
         for (from, to) in fix.fix_rpath.iter() {
@@ -306,21 +312,43 @@ fn binary_mode(args: &Cli, action_map: HashMap<String, FileFixes>) -> Result<(),
                 format!("{to}").green()
             );
             cmd.args(["-change", from, to]);
+            nargs += 1;
         }
 
+        cmd.arg(dylib_copy.clone());
+        if nargs > 0 {
+            cmd.output()?;
+            let ok = cmd.status().and_then(|x| Ok(x.success()))?;
+            if ok {
+                println!("\tfix id and rpaths: {}", "Ok".green());
+            } else {
+                println!("\tfix id and rpaths: {}", "Failed".red());
+            }
+        }
+        drop(cmd);
+
+        // rpath fixes
+        let mut cmd2 = Command::new("install_name_tool");
+        // add after all delete
+        if fix.delete_rpath.len() > 0 {
+            cmd2.args(["-add_rpath", "."]);
+        }
+
+        // remove all rpaths
         for rpath in fix.delete_rpath.iter() {
             println!("\t{} {rpath}", format!("delete rpath:").red());
-            cmd.args(["-delete_rpath", rpath]);
+            cmd2.args(["-delete_rpath", rpath]);
         }
 
-        cmd.arg(dylib_copy);
-
-        cmd.output()?;
-        let ok = cmd.status().and_then(|x| Ok(x.success()))?;
-        if ok {
-            println!("\t{}", "Ok".green());
-        } else {
-            println!("\t{}", "Failed".red());
+        cmd2.arg(dylib_copy);
+        if fix.delete_rpath.len() > 0 {
+            cmd2.output()?;
+            let ok = cmd2.status().and_then(|x| Ok(x.success()))?;
+            if ok {
+                println!("\tclear rpaths: {}", "Ok".green());
+            } else {
+                println!("\tclear rpaths: {}", "Failed".red());
+            }
         }
     }
 

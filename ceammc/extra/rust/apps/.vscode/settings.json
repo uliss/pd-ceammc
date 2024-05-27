@@ -1,10 +1,16 @@
 {
     "cSpell.words": [
+        "dylib",
         "exitcode",
+        "libc",
+        "memmap",
+        "Mmap",
         "octocrab",
         "perc",
         "reqwest",
         "rhvoice",
+        "rpath",
+        "rpaths",
         "tempdir",
         "tempfile"
     ]
