@@ -207,7 +207,8 @@ if(APPLE)
         COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
-            -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
+            -P "${PROJECT_SOURCE_DIR}/cmake/bundle.cmake"
+        COMMAND sh "${PROJECT_SOURCE_DIR}/ceammc/distrib/mac/check_bundle.sh" ${BUNDLE_FULL_PATH}
         USES_TERMINAL
         )
 
