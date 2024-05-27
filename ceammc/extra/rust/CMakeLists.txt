@@ -15,6 +15,8 @@ if(Rust_FOUND)
         install(FILES $<TARGET_FILE:rhvoice_download>
             DESTINATION ${CEAMMC_INSTALL_PATH}
             PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
+        set(RUST_DYLIBFIX ${CMAKE_CURRENT_BINARY_DIR}/dylibfix CACHE STRING FORCE "set dylibfix app")
     endif()
 
     if(WITH_RUST_CORE)

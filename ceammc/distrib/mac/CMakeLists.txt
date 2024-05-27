@@ -16,6 +16,7 @@ if(APPLE)
     endif()
 
     set(DYLIBBUNDLER ${CMAKE_CURRENT_BINARY_DIR}/dylibbundler)
+    set(DYLIBFIX ${PROJECT_BINARY_DIR}/ceammc/extra/rust/dylibfix)
     set(CEAMMC_EXTERNAL_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${CEAMMC_EXTERNAL_NAME}")
 
     set(BUNDLE ${PD_MACOSX_APP})

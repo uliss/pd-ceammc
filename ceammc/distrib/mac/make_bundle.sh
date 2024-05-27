@@ -9,6 +9,7 @@ SRC_DIR="@PROJECT_SOURCE_DIR@"
 BUILD_DIR="@PROJECT_BINARY_DIR@"
 DIST_DIR="@PROJECT_BINARY_DIR@/dist"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
+DYLIBFIX="@DYLIBFIX@"
 BUNDLE="@BUNDLE@"
 WISH_APP="@WISH_APP@"
 TK_VERSION="@TK_VERSION@"
@@ -97,8 +98,7 @@ function dylib_external_fix() {
         --create-dir \
         --dest-dir "${dir}" \
         --install-path @loader_path/ \
-        --overwrite-files \
-        --ignore /usr/local/opt/llvm/lib &>"${BUILD_DIR}/bundle.log"
+        --overwrite-files &>"${BUILD_DIR}/bundle.log"
 }
 
 function copy()
@@ -115,7 +115,7 @@ function copy()
     fi
 }
 
-function copy_and_fix_dll()
+function copy_and_fix_exe()
 {
     file=$1
     dir=$2
@@ -183,9 +183,9 @@ mkdir -p "${BUNDLE_BIN}"
 ############
 
 section "Copying vanilla binaries"
-copy_and_fix_dll "$BUILD_DIR/src/pd" "${BUNDLE_BIN}"
-copy_and_fix_dll "$BUILD_DIR/src/pdsend" "${BUNDLE_BIN}"
-copy_and_fix_dll "$BUILD_DIR/src/pdreceive" "${BUNDLE_BIN}"
+copy_and_fix_exe "$BUILD_DIR/src/pd" "${BUNDLE_BIN}"
+copy_and_fix_exe "$BUILD_DIR/src/pdsend" "${BUNDLE_BIN}"
+copy_and_fix_exe "$BUILD_DIR/src/pdreceive" "${BUNDLE_BIN}"
 
 section "Copying vanilla tcl files"
 mkdir -p "${BUNDLE_TCL}/ceammc"
@@ -266,23 +266,14 @@ section "Copying CEAMMC tcl completion"
 copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_COMPLETIONS}"
 copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_COMPLETIONS}"
 
-section "Copying CEAMMC dll"
+section "Copying CEAMMC dll and externals"
 mkdir -p "${BUNDLE_CEAMMC}"
-for dll in $CEAMMC_EXT_BIN_DIR/lib/libceammc*.dylib
-do
-    copy ${dll} "${BUNDLE_CEAMMC}"
-done
+$DYLIBFIX --dir "${BUNDLE_CEAMMC}" --files $(find ${BUILD_DIR}/ceammc -name '*.dylib' -o -name '*.d_fat' -o -name '*.d_amd64' -o -name '*.d_i386' -o -name '*.pd_darwin' | grep -v tcl | tr '\n' ' ')
 
 section "Copying CEAMMC abstractions"
 for abs in $SRC_DIR/ceammc/ext/abstractions/*.pd
 do
     copy ${abs} "${BUNDLE_CEAMMC}"
-done
-
-section "Copying CEAMMC externals"
-external_files $CEAMMC_EXT_BIN_DIR | while read f
-do
-    copy_and_fix_dll ${f} "${BUNDLE_CEAMMC}"
 done
 
 section "Copying CEAMMC STK rawwaves"
@@ -374,7 +365,7 @@ for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_d
 do
     fname=$(basename $wrapper)
     mod_name=$(echo $fname | cut -d. -f1)
-    copy_and_fix_dll ${wrapper} "${BUNDLE_CEAMMC}"
+#    copy_and_fix_dll ${wrapper} "${BUNDLE_CEAMMC}"
     for pdhelp in $SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/*-help.pd
     do
         copy ${pdhelp} "${BUNDLE_CEAMMC}"
@@ -435,16 +426,8 @@ copy $SRC_DIR/LICENSE.txt "${BUNDLE_RESOURCES}/Scripts"
 # 3RD PARTY
 ##############
 
-section "Copying CEAMMC extra"
-copy_and_fix_dll ${BUILD_DIR}/ceammc/extra/comport/system.serial.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_CEAMMC}"
 
-# install soundtouch~ to ceammc
-section "Copying SoundTouch external"
-for ext in $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy_and_fix_dll ${ext} "${BUNDLE_CEAMMC}"
-done
-
+section "Copying soundtouch"
 for pdhelp in $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd
 do
     copy ${pdhelp} "${BUNDLE_CEAMMC}"
