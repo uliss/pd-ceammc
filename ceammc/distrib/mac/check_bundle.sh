@@ -41,8 +41,9 @@ done
 
 if [[ $num_errors -eq 0 ]]
 then
-    echo "${green}OK${rst}"
+    echo "Check bundle: ${green}OK${rst}"
     exit 0
 else
+    echo "Check bundle: ${red}FAILED${rst}"
     exit 2
 fi
