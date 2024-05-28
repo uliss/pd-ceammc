@@ -27,8 +27,10 @@ include_directories(${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib)
 add_library(ceammc_wrapper SHARED ${CLASS_WRAPPER_SOURCES})
 set_property(TARGET ceammc_wrapper
     APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
-set_property(TARGET ceammc_wrapper PROPERTY SOVERSION "1.0.0")
 target_link_libraries(ceammc_wrapper PRIVATE ceammc_core)
+if(UNIX AND NOT APPLE)
+    set_property(TARGET ceammc_wrapper PROPERTY SOVERSION 1 VERSION "1.0.0")
+endif()
 
 function(wrapper_add NAME)
     add_custom_target(
