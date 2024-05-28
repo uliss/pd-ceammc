@@ -415,8 +415,10 @@ done
 section "Copying CEAMMC about file"
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
    sed "s/%GIT_COMMIT%/$GIT_COMMIT/g" | \
-   sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > "${BUNDLE_CEAMMC}/about.pd"
+   sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > about.pd
+copy about.pd ${BUNDLE_CEAMMC}
 chmod 0444 "${BUNDLE_CEAMMC}/about.pd"
+rm about.pd
 
 section "Copying license"
 copy $SRC_DIR/LICENSE.txt "${BUNDLE_RESOURCES}/Scripts"
@@ -425,97 +427,56 @@ copy $SRC_DIR/LICENSE.txt "${BUNDLE_RESOURCES}/Scripts"
 # 3RD PARTY
 ##############
 
+# args
+# $1: name - relative project path to the external
+# $2: output_dir - relative output directory name
+copy_external() {
+    name=$(basename $1)
+    src_dir="${SRC_DIR}/$1"
+    bin_dir="${BUILD_DIR}/$1"
+    out_dir="${BUNDLE_EXTRA}/$2"
 
-section "Copying soundtouch"
-for pdhelp in $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd
-do
-    copy ${pdhelp} "${BUNDLE_CEAMMC}"
-done
+    FILES=$(external_files $bin_dir)
+    if [[ -n $FILES ]]
+    then
+        section "Copying $name to $2"
+        mkdir -p "$out_dir"
+        for ext in ${FILES}
+        do
+            copy $ext "$out_dir"
+        done
 
-section "Copying zconf"
-mkdir -p "${BUNDLE_EXTRA}/zconf"
-copy ${BUILD_DIR}/ceammc/extra/flext/zconf/zconf.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/zconf"
-copy ${SRC_DIR}/ceammc/extra/flext/zconf/zconf-help.pd "${BUNDLE_EXTRA}/zconf"
+        for pdhelp in $(find ${src_dir} -name '*\.pd')
+        do
+            copy ${pdhelp} "$out_dir"
+        done
 
-section "Copying libdir"
-mkdir -p "${BUNDLE_EXTRA}/libdir"
-copy $BUILD_DIR/ceammc/extra/libdir/libdir.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/libdir"
-copy $SRC_DIR/ceammc/extra/libdir/libdir/libdir-help.pd "${BUNDLE_EXTRA}/libdir"
-copy $SRC_DIR/ceammc/extra/libdir/libdir/libdir-meta.pd "${BUNDLE_EXTRA}/libdir"
-copy $SRC_DIR/ceammc/extra/libdir/libdir/LICENSE.txt "${BUNDLE_EXTRA}/libdir"
+        for txt in $(find ${src_dir} -name '*\.txt' | grep -v CMake)
+        do
+            copy ${txt} "$out_dir"
+        done
+    fi
+}
 
-section "Copying import"
-mkdir -p "${BUNDLE_EXTRA}/import"
-copy $BUILD_DIR/ceammc/extra/import/import.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/import"
-copy $SRC_DIR/ceammc/extra/import/import-help.pd "${BUNDLE_EXTRA}/import"
-copy $SRC_DIR/ceammc/extra/import/import-meta.pd "${BUNDLE_EXTRA}/import"
-copy $SRC_DIR/ceammc/extra/import/LICENSE.txt "${BUNDLE_EXTRA}/import"
+copy_external ceammc/extra/SoundTouch ceammc
+copy_external ceammc/extra/autotune autotune~
+copy_external ceammc/extra/import import
+copy_external ceammc/extra/libdir libdir
+copy_external ceammc/extra/flext/disis_munger disis_munger~
+copy_external ceammc/extra/flext/leapmotion leapmotion
+copy_external ceammc/extra/flext/vasp vasp
+copy_external ceammc/extra/flext/zconf zconf
 
-section "Copying VASP"
-mkdir -p "${BUNDLE_EXTRA}/vasp"
-copy $BUILD_DIR/ceammc/extra/flext/vasp.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/vasp"
-cp $SRC_DIR/ceammc/extra/flext/vasp/pd/* "${BUNDLE_EXTRA}/vasp"
-cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* "${BUNDLE_EXTRA}/vasp"
-copy $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt "${BUNDLE_EXTRA}/vasp"
-copy $SRC_DIR/ceammc/extra/flext/vasp/license.txt "${BUNDLE_EXTRA}/vasp"
-
-section "Copying xsample"
-mkdir -p "${BUNDLE_EXTRA}/xsample"
-copy $BUILD_DIR/ceammc/extra/flext/xsample/xsample.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/xsample"
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* "${BUNDLE_EXTRA}/xsample"
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* "${BUNDLE_EXTRA}/xsample"
-copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsample"
-copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
-
-# LeapMotion
-LEAPMOTION_FILES=$(external_files $BUILD_DIR/ceammc/extra/flext/leapmotion)
-if [[ -n $LEAPMOTION_FILES ]]
+XSAMPLE_FILES=$(external_files $BUILD_DIR/ceammc/extra/flext/xsample)
+if [[ -n $XSAMPLE_FILES ]]
 then
-    section "Copying LeapMotion"
-    mkdir -p "$BUNDLE_EXTRA/leapmotion"
-    for ext in ${LEAPMOTION_FILES}
-    do
-        copy $ext "$BUNDLE_EXTRA/leapmotion"
-    done
-
-    copy $LIB_LEAPMOTION "$BUNDLE_EXTRA/leapmotion"
-
-    for pdhelp in $SRC_DIR/ceammc/extra/flext/leapmotion/*.pd
-    do
-        copy ${pdhelp} "$BUNDLE_EXTRA/leapmotion"
-    done
-fi
-
-AUTOTUNE_FILES=$(external_files $BUILD_DIR/ceammc/extra/autotune)
-if [[ -n $AUTOTUNE_FILES ]]
-then
-    section "Copying autotune~ external"
-    mkdir -p "$BUNDLE_EXTRA/autotune~"
-    for ext in ${AUTOTUNE_FILES}
-    do
-        copy ${ext} "$BUNDLE_EXTRA/autotune~"
-    done
-
-    for pdhelp in $SRC_DIR/ceammc/extra/autotune/*-help.pd
-    do
-        copy ${pdhelp} "$BUNDLE_EXTRA/autotune~"
-    done
-fi
-
-DISIS_MUNGER_FILES=$(external_files $BUILD_DIR/ceammc/extra/flext/disis_munger)
-if [[ -n $DISIS_MUNGER_FILES ]]
-then
-    section "Copying disis_munger~ external"
-    mkdir -p "$BUNDLE_EXTRA/disis_munger~"
-    for ext in ${DISIS_MUNGER_FILES}
-    do
-        copy ${ext} "$BUNDLE_EXTRA/disis_munger~"
-    done
-
-    for pdhelp in $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd
-    do
-        copy ${pdhelp} "$BUNDLE_EXTRA/disis_munger~"
-    done
+    section "Copying xsample"
+    mkdir -p "${BUNDLE_EXTRA}/xsample"
+    copy $BUILD_DIR/ceammc/extra/flext/xsample/xsample.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/xsample"
+    cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* "${BUNDLE_EXTRA}/xsample"
+    cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* "${BUNDLE_EXTRA}/xsample"
+    copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsample"
+    copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
 fi
 
 section "Copying rust apps"
