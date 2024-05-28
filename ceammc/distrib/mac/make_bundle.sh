@@ -468,11 +468,16 @@ copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsampl
 copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
 
 # LeapMotion
-if exists $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin)
+LEAPMOTION_FILES=$(external_files $BUILD_DIR/ceammc/extra/flext/leapmotion)
+if [[ -n $LEAPMOTION_FILES ]]
 then
     section "Copying LeapMotion"
     mkdir -p "$BUNDLE_EXTRA/leapmotion"
-    copy $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin) "$BUNDLE_EXTRA/leapmotion"
+    for ext in ${LEAPMOTION_FILES}
+    do
+        copy $ext "$BUNDLE_EXTRA/leapmotion"
+    done
+
     copy $LIB_LEAPMOTION "$BUNDLE_EXTRA/leapmotion"
 
     for pdhelp in $SRC_DIR/ceammc/extra/flext/leapmotion/*.pd
