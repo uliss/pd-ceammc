@@ -84,7 +84,7 @@ CEAMMC_EXT_BIN_DIR="${BUILD_DIR}/ceammc/ext/src"
 # find all Pd externals in specified directory
 # usage: external_files DIR
 function external_files() {
-    find "$1" -type f | grep -e '\.d_fat' -e '\.d_amd64' -e '\.d_i386' -e '\.pd_darwin'
+    find "$1" -type f 2>/dev/null | grep -e '\.d_fat' -e '\.d_amd64' -e '\.d_i386' -e '\.pd_darwin'
 }
 
 function dylib_external_fix() {
@@ -481,29 +481,37 @@ then
     done
 fi
 
-section "Copying autotune external"
-mkdir -p "$BUNDLE_EXTRA/autotune"
-for ext in $BUILD_DIR/ceammc/extra/autotune/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "$BUNDLE_EXTRA/autotune"
-done
+AUTOTUNE_FILES=$(external_files $BUILD_DIR/ceammc/extra/autotune)
+if [[ -n $AUTOTUNE_FILES ]]
+then
+    section "Copying autotune~ external"
+    mkdir -p "$BUNDLE_EXTRA/autotune~"
+    for ext in ${AUTOTUNE_FILES}
+    do
+        copy ${ext} "$BUNDLE_EXTRA/autotune~"
+    done
 
-for pdhelp in $SRC_DIR/ceammc/extra/autotune/*-help.pd
-do
-    copy ${pdhelp} "$BUNDLE_EXTRA/autotune"
-done
+    for pdhelp in $SRC_DIR/ceammc/extra/autotune/*-help.pd
+    do
+        copy ${pdhelp} "$BUNDLE_EXTRA/autotune~"
+    done
+fi
 
-section "Copying disis_munger~ external"
-mkdir -p "$BUNDLE_EXTRA/disis_munger~"
-for ext in $BUILD_DIR/ceammc/extra/flext/disis_munger/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "$BUNDLE_EXTRA/disis_munger~"
-done
+DISIS_MUNGER_FILES=$(external_files $BUILD_DIR/ceammc/extra/flext/disis_munger)
+if [[ -n $DISIS_MUNGER_FILES ]]
+then
+    section "Copying disis_munger~ external"
+    mkdir -p "$BUNDLE_EXTRA/disis_munger~"
+    for ext in ${DISIS_MUNGER_FILES}
+    do
+        copy ${ext} "$BUNDLE_EXTRA/disis_munger~"
+    done
 
-for pdhelp in $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd
-do
-    copy ${pdhelp} "$BUNDLE_EXTRA/disis_munger~"
-done
+    for pdhelp in $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd
+    do
+        copy ${pdhelp} "$BUNDLE_EXTRA/disis_munger~"
+    done
+fi
 
 section "Copying rust apps"
 mkdir -p "${BUNDLE_CEAMMC}"
