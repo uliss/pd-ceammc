@@ -9,25 +9,25 @@
 #   Faust_INCLUDE_DIRS        ... libfaust include directory
 #
 # The following variables will be checked by the function
-#   FAUST_ROOT               ... if set, the libraries are exclusively searched
+#   Faust_ROOT               ... if set, the libraries are exclusively searched
 #                               under this path
 
 # If environment variable FAUST_DIR is specified, it has same effect as LTC_ROOT
-if(NOT FAUST_ROOT AND ENV{FAUST_DIR})
-    set(FAUST_ROOT $ENV{FAUST_DIR})
+if(NOT Faust_ROOT AND ENV{FAUST_DIR})
+    set(Faust_ROOT $ENV{FAUST_DIR})
 endif()
 
-if(FAUST_ROOT)
+if(Faust_ROOT)
 
     find_path(FAUST_INCLUDE_DIR
         NAMES "faust/dsp/faust-engine.h"
-        PATHS ${FAUST_ROOT}
+        PATHS ${Faust_ROOT}
         PATH_SUFFIXES "include"
         NO_DEFAULT_PATH)
 
     find_library(FAUST_LIBRARY
         NAMES "faust" "libfaust"
-        PATHS ${FAUST_ROOT}
+        PATHS ${Faust_ROOT}
         PATH_SUFFIXES "lib" "lib64"
         NO_DEFAULT_PATH)
 

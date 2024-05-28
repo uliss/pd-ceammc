@@ -365,7 +365,6 @@ for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_d
 do
     fname=$(basename $wrapper)
     mod_name=$(echo $fname | cut -d. -f1)
-#    copy_and_fix_dll ${wrapper} "${BUNDLE_CEAMMC}"
     for pdhelp in $SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/*-help.pd
     do
         copy ${pdhelp} "${BUNDLE_CEAMMC}"
@@ -383,7 +382,7 @@ section "Copying CEAMMC help files"
 rsync --archive --include='*.pd' --exclude='*' "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
 
 section "Copying Faust libraries"
-rsync --dirs --include='*.lib' --exclude='*' "${SRC_CEAMMC}/extra/faust/faust/libraries/" "${BUNDLE_CEAMMC}/faust"
+rsync --dirs --include='*.lib' --exclude='*' "${SRC_CEAMMC}/extra/faust/faustlibraries/" "${BUNDLE_CEAMMC}/faust"
 
 section "Copying Faust examples"
 rsync --dirs "${SRC_CEAMMC}/ext/doc/faust/" "${BUNDLE_CEAMMC}/faust"

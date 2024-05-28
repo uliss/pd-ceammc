@@ -58,9 +58,6 @@
 [submodule "ceammc/extra/glitch/glitch"]
 	path = ceammc/extra/glitch/glitch
 	url = https://github.com/naivesound/glitch.git
-[submodule "ceammc/extra/faust/faust"]
-	path = ceammc/extra/faust/faust
-	url = https://github.com/grame-cncm/faust.git
 [submodule "ceammc/extra/httplib/cpp-httplib"]
 	path = ceammc/extra/httplib/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib.git
@@ -85,3 +82,6 @@
 [submodule "ceammc/extra/verovio/verovio"]
 	path = ceammc/extra/verovio/verovio
 	url = https://github.com/uliss/verovio.git
+[submodule "ceammc/extra/faust/faustlibraries"]
+	path = ceammc/extra/faust/faustlibraries
+	url = https://github.com/grame-cncm/faustlibraries.git
