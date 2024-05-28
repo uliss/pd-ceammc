@@ -24,11 +24,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib)
 
-add_library(wrapper_lib SHARED ${CLASS_WRAPPER_SOURCES})
-set_property(TARGET wrapper_lib
+add_library(ceammc_wrapper SHARED ${CLASS_WRAPPER_SOURCES})
+set_property(TARGET ceammc_wrapper
     APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
-set_property(TARGET wrapper_lib PROPERTY SOVERSION "1.0.0")
-target_link_libraries(wrapper_lib PRIVATE ceammc_core)
+set_property(TARGET ceammc_wrapper PROPERTY SOVERSION "1.0.0")
+target_link_libraries(ceammc_wrapper PRIVATE ceammc_core)
 
 function(wrapper_add NAME)
     add_custom_target(
@@ -52,7 +52,7 @@ function(wrapper_add NAME)
     pd_add_external(NAME ${NAME}
         INTERNAL TRUE
         FILES modules/${NAME}/gen_${NAME}.cpp
-        LINK ceammc_core wrapper_lib
+        LINK ceammc_core ceammc_wrapper
         HELP_FILES ${_help_files})
 
 
@@ -61,12 +61,12 @@ function(wrapper_add NAME)
 
     # install completion
     install(FILES ${WRAPPER_COMPLETION} DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/user_objects)
-    #install wrapper_lib
+    #install ceammc_wrapper
     # install
     if(WIN32)
-        install(TARGETS wrapper_lib  RUNTIME DESTINATION ${PDCORE_LIB_INSTALL_PATH})
+        install(TARGETS ceammc_wrapper  RUNTIME DESTINATION ${PDCORE_LIB_INSTALL_PATH})
     else()
-        install(TARGETS wrapper_lib  LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
+        install(TARGETS ceammc_wrapper  LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
     endif()
 endfunction()
 
