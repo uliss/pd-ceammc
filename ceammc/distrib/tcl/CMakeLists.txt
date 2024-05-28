@@ -18,4 +18,6 @@ install(TARGETS tkdnd2.9.3
     ARCHIVE DESTINATION ${PD_GUI_PLUGINS_PATH}/tkdnd
 )
 
-set_target_properties(tkdnd2.9.3 PROPERTIES SOVERSION "2.9.3")
+if(UNIX AND NOT APPLE)
+    set_target_properties(tkdnd2.9.3 PROPERTIES SOVERSION "2.9.3")
+endif()
