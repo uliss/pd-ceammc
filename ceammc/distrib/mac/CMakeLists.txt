@@ -37,6 +37,7 @@ if(APPLE)
                    ${PROJECT_BINARY_DIR}/dist/diff_bundle.py @ONLY)
 
     configure_file(build_all.sh ${PROJECT_BINARY_DIR}/scripts/build_all.sh @ONLY)
+    configure_file(build_faust.sh ${PROJECT_BINARY_DIR}/scripts/build_faust.sh @ONLY)
     configure_file(gen_examples.sh ${PROJECT_BINARY_DIR}/scripts/gen_examples.sh @ONLY)
     configure_file(install_deps.sh ${PROJECT_BINARY_DIR}/scripts/install_deps.sh @ONLY)
     configure_file(ps_to_png.sh ${PROJECT_BINARY_DIR}/scripts/ps_to_png.sh @ONLY)
