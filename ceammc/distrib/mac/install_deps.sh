@@ -14,6 +14,13 @@ sudo port selfupdate
 sudo port upgrade outdated
 sudo port uninstall inactive
 
+if [[ $(uname -m) == "arm64" ]]
+then
+    llvm_ver=17
+else
+    llvm_ver=10
+fi
+
 sudo port install libsndfile \
         armadillo \
         boost \
@@ -29,7 +36,7 @@ sudo port install libsndfile \
         libmodplug \
         libsamplerate\
         libsndfile \
-        llvm-10 \
+        llvm-${llvm_ver} \
         llvm_select \
         luajit \
         ninja \
@@ -40,5 +47,5 @@ sudo port install libsndfile \
         rubberband \
         scons
 
-sudo port select llvm mp-llvm-10
+sudo port select llvm mp-llvm-${llvm_ver}
 pip3.11 install pddoc
