@@ -8,6 +8,8 @@ then
     exit 1
 fi
 
+rustup update
+
 sudo port selfupdate
 sudo port upgrade outdated
 
