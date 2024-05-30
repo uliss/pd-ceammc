@@ -311,7 +311,10 @@ mkdir -p "${BUNDLE_CEAMMC}"
 rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/ceammc/"  "${BUNDLE_CEAMMC}"
 rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/numeric/" "${BUNDLE_CEAMMC}"
 rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/matrix/"  "${BUNDLE_CEAMMC}"
-rsync_copy "${BUILD_DIR}/dist/pd_ceammc/share/verovio/"               "${BUNDLE_CEAMMC}/music/verovio"
+if [[ -d "${BUILD_DIR}/dist/pd_ceammc/share/verovio" ]]
+then
+    rsync_copy "${BUILD_DIR}/dist/pd_ceammc/share/verovio/"           "${BUNDLE_CEAMMC}/music/verovio"
+fi
 
 section "Copying CEAMMC dll and externals"
 $DYLIBFIX --dir "${BUNDLE_CEAMMC}" \
