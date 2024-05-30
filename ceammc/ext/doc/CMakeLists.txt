@@ -152,7 +152,10 @@ file(GLOB _PDDOC_INFOS "*-info.pd")
 file(GLOB _PDDOC_GLITCH "*.glitch")
 
 # install extra files
-install(FILES ${EXTRA_DOC_FILES}
+install(
+    FILES
+        ceammc_deken_objlist.txt
+        ${EXTRA_DOC_FILES}
         ${_PDDOC_WAV}
         ${_PDDOC_EXAMPLES}
         ${_PDDOC_INFOS}
