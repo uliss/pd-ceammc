@@ -12,6 +12,7 @@ rustup update
 
 sudo port selfupdate
 sudo port upgrade outdated
+sudo port uninstall inactive
 
 sudo port install libsndfile \
         armadillo \
@@ -39,5 +40,5 @@ sudo port install libsndfile \
         rubberband \
         scons
 
-sudo port select llvm llvm-10
+sudo port select llvm mp-llvm-10
 pip3.11 install pddoc
