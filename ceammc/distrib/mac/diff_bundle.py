@@ -69,7 +69,7 @@ if __name__ == "__main__":
             
             sym_dir=''
             if os.path.isdir(os.path.join(cmp_dir2, name)):
-                sym_dir = '/'
+                sym_dir = '/*'
                 
             prefix = cmp_dir2[len(dir2):]
             files_added.add(os.path.join(prefix, name) + sym_dir)
