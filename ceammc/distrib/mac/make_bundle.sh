@@ -124,15 +124,41 @@ function copy_and_fix_exe()
     dylib_external_fix "${dir}/$(basename $file)"  "${dir}"
 }
 
-function exists() {
-    [ -e "$1" ]
-}
-
 function section() {
     echo
     tput setaf 2
     echo $1 "..."
     tput sgr0
+}
+
+function rsync_output_decorate() {
+    tail -n +2 | sed '/\/$/d' | sed -E "s/^(.)/\t- copy \1/" | ghead -n -2
+}
+
+function rsync_copy() {
+    src=$1
+    dest=$2
+    if [[ -n $3 ]]
+    then
+        exclude="--exclude='$3'"
+    else
+        exclude=''
+    fi
+
+    rsync --archive \
+        --recursive \
+        --whole-file \
+        $include \
+        --exclude='CMake*' \
+        --exclude='Make*' \
+        --exclude='*.pddoc' \
+        --exclude='*.sh' \
+        --exclude='.*' \
+        --exclude='*.yml' \
+        $exclude \
+        "${src}/" "$dest" \
+        --no-motd \
+        --verbose | rsync_output_decorate
 }
 
 ##############
@@ -268,13 +294,14 @@ copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_COMPLETIONS}"
 
 section "Copying CEAMMC dll and externals"
 mkdir -p "${BUNDLE_CEAMMC}"
-$DYLIBFIX --dir "${BUNDLE_CEAMMC}" --files $(find ${BUILD_DIR}/ceammc -name '*.dylib' -o -name '*.d_fat' -o -name '*.d_amd64' -o -name '*.d_i386' -o -name '*.pd_darwin' | grep -v tcl | tr '\n' ' ')
+$DYLIBFIX --dir "${BUNDLE_CEAMMC}" \
+    --rpaths=${BUILD_DIR}/ceammc/ext/src/lib \
+    --files $(find ${BUILD_DIR}/ceammc -name '*.dylib' -o -name '*.d_fat' -o -name '*.d_amd64' -o -name '*.d_i386' -o -name '*.pd_darwin' | grep -v tcl | tr '\n' ' ')
 
-section "Copying CEAMMC abstractions"
-for abs in $SRC_DIR/ceammc/ext/abstractions/*.pd
-do
-    copy ${abs} "${BUNDLE_CEAMMC}"
-done
+if [[ $? -ne 0 ]]
+then
+    exit 1
+fi
 
 section "Copying CEAMMC STK rawwaves"
 mkdir -p "${BUNDLE_CEAMMC}/stk"
@@ -285,29 +312,9 @@ done
 
 section "Copying CEAMMC fluidsynth soundfonts"
 mkdir -p "${BUNDLE_SF2}"
-for sf in $SRC_CEAMMC/extra/fluidsynth/fluidsynth/sf2/*
+for sf in $SRC_CEAMMC/extra/fluidsynth/fluidsynth/sf2/*.@(sf2|sf3)
 do
     copy ${sf} "${BUNDLE_SF2}"
-done
-
-section "Copying CEAMMC sf2 soundfonts"
-for sf in $SRC_CEAMMC/ext/doc/sf2/*.sf2
-do
-    copy ${sf} "${BUNDLE_SF2}"
-done
-
-section "Copying CEAMMC sfz soundfonts"
-mkdir -p "${BUNDLE_SFZ}"
-for sf in $SRC_CEAMMC/ext/doc/sfz/*
-do
-    copy ${sf} "${BUNDLE_SFZ}"
-done
-
-section "Copying sound samples"
-mkdir -p "${BUNDLE_SAMPLES}"
-for samp in $SRC_CEAMMC/ext/doc/sound/*
-do
-    copy ${samp} "${BUNDLE_SAMPLES}"
 done
 
 section "Copying CEAMMC fonts"
@@ -317,59 +324,19 @@ do
     copy ${ft} "${BUNDLE_FONTS}"
 done
 
-section "Copying doc images"
-mkdir -p "${BUNDLE_IMAGES}"
-for img in $SRC_CEAMMC/ext/doc/img/*.@(png|svg|jpg)
-do
-    copy ${img} "${BUNDLE_IMAGES}"
-done
-
-section "Copying CEAMMC lua files"
-mkdir -p "${BUNDLE_LUA}"
-for lua in $SRC_CEAMMC/ext/doc/lua/*.@(lua)
-do
-    copy ${lua} "${BUNDLE_LUA}"
-done
-
 section "Copying RHVoice.conf"
 copy $SRC_CEAMMC/ext/src/misc/RHVoice.conf "${BUNDLE_CEAMMC}"
 
-section "Copying CEAMMC midi files"
-mkdir -p "${BUNDLE_MIDI}"
-for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
-do
-    copy ${midi} "${BUNDLE_MIDI}"
-done
-
-section "Copying CEAMMC music files"
-mkdir -p "${BUNDLE_MUSIC}"
-cp $SRC_CEAMMC/ext/doc/music/*.mxml "${BUNDLE_MUSIC}/"
-
 section "Copying CEAMMC verovio files"
 mkdir -p "${BUNDLE_MUSIC}/verovio"
-cp -R $SRC_CEAMMC/extra/verovio/verovio/data/ "${BUNDLE_MUSIC}/verovio"
-
-section "Copying Impulse Responses"
-mkdir -p "${BUNDLE_IR}"
-for ir in $SRC_CEAMMC/ext/doc/ir/*.@(md|wav|txt)
-do
-    copy ${ir} "${BUNDLE_IR}"
-done
+rsync --dirs \
+    --no-motd \
+    --verbose \
+    "${SRC_CEAMMC}/extra/verovio/verovio/data/" "${BUNDLE_CEAMMC}/verovio" | rsync_output_decorate
 
 section "Copying CEAMMC cmake files"
 mkdir -p "${BUNDLE_INCLUDE}"
 copy "${SRC_DIR}/cmake/PdExternal.cmake" "${BUNDLE_INCLUDE}"
-
-section "Copying CEAMMC class wrappers"
-for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    fname=$(basename $wrapper)
-    mod_name=$(echo $fname | cut -d. -f1)
-    for pdhelp in $SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/*-help.pd
-    do
-        copy ${pdhelp} "${BUNDLE_CEAMMC}"
-    done
-done
 
 section "Copying CEAMMC class wrappers completions"
 mkdir -p "${BUNDLE_COMPLETIONS}"
@@ -378,29 +345,27 @@ do
     copy $txt "${BUNDLE_COMPLETIONS}"
 done
 
-section "Copying CEAMMC help files"
-rsync --archive --include='*.pd' --exclude='*' "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
+section "Copying CEAMMC abstractions"
+rsync_copy "${SRC_CEAMMC}/ext/abstractions/" "${BUNDLE_CEAMMC}"
 
 section "Copying Faust libraries"
-rsync --dirs --include='*.lib' --exclude='*' "${SRC_CEAMMC}/extra/faust/faustlibraries/" "${BUNDLE_CEAMMC}/faust"
+rsync --dirs \
+    --include='*.lib' \
+    --exclude='*' \
+    --no-motd \
+    --verbose \
+    "${SRC_CEAMMC}/extra/faust/faustlibraries/" "${BUNDLE_CEAMMC}/faust" | rsync_output_decorate
 
-section "Copying Faust examples"
-rsync --dirs "${SRC_CEAMMC}/ext/doc/faust/" "${BUNDLE_CEAMMC}/faust"
-
-section "Copying CEAMMC help additional files"
-for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav|glitch)
+section "Copying CEAMMC class wrappers"
+for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_darwin)
 do
-    copy ${f} "${BUNDLE_CEAMMC}"
-    chmod 0444 "${BUNDLE_CEAMMC}/$(basename $f)"
+    fname=$(basename $wrapper)
+    mod_name=$(echo $fname | cut -d. -f1)
+    rsync_copy "$SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/" "${BUNDLE_CEAMMC}"
 done
 
-section "Copying CEAMMC HOA help files"
-mkdir -p "${BUNDLE_CEAMMC}/hoa"
-for f in $SRC_CEAMMC/ext/doc/hoa/*.@(pd|txt|svg|wav)
-do
-    copy ${f} "${BUNDLE_CEAMMC}/hoa"
-    chmod 0444 "${BUNDLE_CEAMMC}/hoa/$(basename $f)"
-done
+section "Copying CEAMMC help files"
+rsync_copy "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
 
 section "Change Pd help file"
 rm -f "${BUNDLE_CEAMMC}/index-help.pd"
@@ -459,6 +424,8 @@ copy_external() {
 }
 
 copy_external ceammc/extra/SoundTouch ceammc
+$DYLIBFIX --dir "${BUNDLE_EXTRA}/ceammc" --files $(external_files ${BUILD_DIR}/ceammc/extra/SoundTouch)
+
 copy_external ceammc/extra/autotune autotune~
 copy_external ceammc/extra/import import
 copy_external ceammc/extra/libdir libdir
