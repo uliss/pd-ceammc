@@ -9,6 +9,7 @@ then
 fi
 
 sudo port selfupdate
+sudo port upgrade outdated
 
 sudo port install libsndfile \
         armadillo \
