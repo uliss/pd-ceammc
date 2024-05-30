@@ -8,6 +8,7 @@ then
     exit 1
 fi
 
+sudo port selfupdate
 
 sudo port install libsndfile \
         armadillo \
@@ -36,6 +37,4 @@ sudo port install libsndfile \
         scons
 
 sudo port select llvm llvm-10
-sudo port select --set pip pip310
-sudo port select --set pip3 pip310
-pip3 install pddoc
+pip3.11 install pddoc
