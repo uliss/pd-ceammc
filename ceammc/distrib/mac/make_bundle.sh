@@ -134,7 +134,7 @@ function section() {
 }
 
 function rsync_output_decorate() {
-    tail -n +2 | sed '/\/$/d' | sed -E "s/^(.)/\t- copy \1/" | ghead -n -2
+    tail -n +2 | gsed '/\/$/d' | gsed -E "s/^(.)/\t- copy \1/" | ghead -n -2
 }
 
 function rsync_copy() {
