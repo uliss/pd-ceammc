@@ -1,5 +1,9 @@
 file(GLOB _BUILD_SCRIPTS "*.sh")
-add_custom_target(ceammc_distrib_mac_sources SOURCES ${_BUILD_SCRIPTS})
+add_custom_target(ceammc_distrib_mac_sources
+    SOURCES
+        ${_BUILD_SCRIPTS}
+        diff_bundle.py
+)
 
 if(APPLE)
     add_executable(dylibbundler
@@ -29,6 +33,8 @@ if(APPLE)
                    ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/diff_bundle.py
+                   ${PROJECT_BINARY_DIR}/dist/diff_bundle.py @ONLY)
 
     configure_file(gen_examples.sh ${PROJECT_BINARY_DIR}/scripts/gen_examples.sh @ONLY)
     configure_file(ps_to_png.sh ${PROJECT_BINARY_DIR}/scripts/ps_to_png.sh @ONLY)
@@ -121,5 +127,9 @@ if(APPLE)
 
     add_custom_target(dev_build_all
         COMMAND ${PROJECT_BINARY_DIR}/scripts/build_all.sh
+        USES_TERMINAL)
+
+    add_custom_target(dev_bundle_diff
+        COMMAND ${PROJECT_BINARY_DIR}/dist/diff_bundle.py
         USES_TERMINAL)
 endif()
