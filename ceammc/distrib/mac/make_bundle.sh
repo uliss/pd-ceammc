@@ -15,6 +15,8 @@ WISH_APP="@WISH_APP@"
 TK_VERSION="@TK_VERSION@"
 LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
 CEAMMC_LIB_VERSION="@CEAMMC_LIB_VERSION@"
+INSTALL_DIR="@PROJECT_BINARY_DIR@/dist/pd_ceammc"
+CMAKE="@CMAKE_COMMAND@"
 
 # relative dir names
 PD_APP="$(basename $BUNDLE)"
@@ -148,12 +150,14 @@ function rsync_copy() {
     rsync --archive \
         --recursive \
         --whole-file \
+        --prune-empty-dirs \
         $include \
         --exclude='CMake*' \
         --exclude='Make*' \
         --exclude='*.pddoc' \
         --exclude='*.sh' \
         --exclude='.*' \
+        --exclude='*.cmake' \
         --exclude='*.yml' \
         $exclude \
         "${src}/" "$dest" \
@@ -174,17 +178,21 @@ cd "${DIST_DIR}"
 # TCL/TK/WISH
 ##############
 
+section "installing"
+rm -rf "${INSTALL_DIR}"
+$CMAKE --install ${BUILD_DIR} --prefix ${INSTALL_DIR}
+
 section "Copy Wish Shell to ${PD_APP}"
 cp -R "${WISH_APP}" "${BUNDLE_APP}"
 
 # tcllib: base64
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
 # tklib: tooltip
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
 # tklib: ctext
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
 # tklib: tablelist
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tablelist" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/tablelist" ${BUNDLE_FRAMEWORKS}
 
 #
 # Info.plist
@@ -216,13 +224,19 @@ copy_and_fix_exe "$BUILD_DIR/src/pdreceive" "${BUNDLE_BIN}"
 section "Copying vanilla tcl files"
 mkdir -p "${BUNDLE_TCL}/ceammc"
 cd "${BUNDLE_TCL}/.."
-rsync -a --exclude="CMake*" --exclude="Make*" "${SRC_TCL}" .
+rsync -a --exclude="CMake*" --exclude="Make*" -m "${SRC_TCL}" .
 # link
 ln -s tcl Scripts
 
 section "Copying vanilla docs"
 cd "${BUNDLE_RESOURCES}"
-rsync -a --exclude=.DS_Store --exclude=CMake* "${SRC_DIR}/doc" .
+rsync -a \
+    --recursive \
+    --exclude=.DS_Store \
+    --exclude=CMake* \
+    --verbose --no-motd \
+     --prune-empty-dirs \
+    "${SRC_DIR}/doc" . | rsync_output_decorate
 
 section "Copying compiled PO translations"
 mkdir -p "${BUNDLE_PO}"
@@ -292,8 +306,14 @@ section "Copying CEAMMC tcl completion"
 copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_COMPLETIONS}"
 copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_COMPLETIONS}"
 
-section "Copying CEAMMC dll and externals"
+section "Copying CEAMMC"
 mkdir -p "${BUNDLE_CEAMMC}"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/ceammc/"  "${BUNDLE_CEAMMC}"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/numeric/" "${BUNDLE_CEAMMC}"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/matrix/"  "${BUNDLE_CEAMMC}"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/share/verovio/"               "${BUNDLE_CEAMMC}/music/verovio"
+
+section "Copying CEAMMC dll and externals"
 $DYLIBFIX --dir "${BUNDLE_CEAMMC}" \
     --rpaths=${BUILD_DIR}/ceammc/ext/src/lib \
     --files $(find ${BUILD_DIR}/ceammc -name '*.dylib' -o -name '*.d_fat' -o -name '*.d_amd64' -o -name '*.d_i386' -o -name '*.pd_darwin' | grep -v tcl | tr '\n' ' ')
@@ -302,37 +322,6 @@ if [[ $? -ne 0 ]]
 then
     exit 1
 fi
-
-section "Copying CEAMMC STK rawwaves"
-mkdir -p "${BUNDLE_CEAMMC}/stk"
-for wave in $SRC_DIR/ceammc/extra/stk/stk/rawwaves/*.raw
-do
-    copy ${wave} "${BUNDLE_CEAMMC}/stk"
-done
-
-section "Copying CEAMMC fluidsynth soundfonts"
-mkdir -p "${BUNDLE_SF2}"
-for sf in $SRC_CEAMMC/extra/fluidsynth/fluidsynth/sf2/*.@(sf2|sf3)
-do
-    copy ${sf} "${BUNDLE_SF2}"
-done
-
-section "Copying CEAMMC fonts"
-mkdir -p "${BUNDLE_FONTS}"
-for ft in $SRC_CEAMMC/distrib/fonts/*.ttf
-do
-    copy ${ft} "${BUNDLE_FONTS}"
-done
-
-section "Copying RHVoice.conf"
-copy $SRC_CEAMMC/ext/src/misc/RHVoice.conf "${BUNDLE_CEAMMC}"
-
-section "Copying CEAMMC verovio files"
-mkdir -p "${BUNDLE_MUSIC}/verovio"
-rsync --dirs \
-    --no-motd \
-    --verbose \
-    "${SRC_CEAMMC}/extra/verovio/verovio/data/" "${BUNDLE_CEAMMC}/verovio" | rsync_output_decorate
 
 section "Copying CEAMMC cmake files"
 mkdir -p "${BUNDLE_INCLUDE}"
@@ -344,28 +333,6 @@ find ${SRC_CEAMMC}/ext/class-wrapper/modules -name 'completion_*.txt' | while re
 do
     copy $txt "${BUNDLE_COMPLETIONS}"
 done
-
-section "Copying CEAMMC abstractions"
-rsync_copy "${SRC_CEAMMC}/ext/abstractions/" "${BUNDLE_CEAMMC}"
-
-section "Copying Faust libraries"
-rsync --dirs \
-    --include='*.lib' \
-    --exclude='*' \
-    --no-motd \
-    --verbose \
-    "${SRC_CEAMMC}/extra/faust/faustlibraries/" "${BUNDLE_CEAMMC}/faust" | rsync_output_decorate
-
-section "Copying CEAMMC class wrappers"
-for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    fname=$(basename $wrapper)
-    mod_name=$(echo $fname | cut -d. -f1)
-    rsync_copy "$SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/" "${BUNDLE_CEAMMC}"
-done
-
-section "Copying CEAMMC help files"
-rsync_copy "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
 
 section "Change Pd help file"
 rm -f "${BUNDLE_CEAMMC}/index-help.pd"
