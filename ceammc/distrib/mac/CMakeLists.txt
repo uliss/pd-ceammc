@@ -29,8 +29,8 @@ if(APPLE)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_bundle.sh
                    ${PROJECT_BINARY_DIR}/dist/make_bundle.sh @ONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh
-                   ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_library.sh
+                   ${PROJECT_BINARY_DIR}/dist/make_library.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/diff_bundle.py
@@ -45,7 +45,7 @@ if(APPLE)
 
     add_custom_target(ceammc_lib
         COMMAND ${CMAKE_COMMAND} -E rm -rf ${PROJECT_BINARY_DIR}/dist/pd_ceammc
-        COMMAND ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh "${PROJECT_BINARY_DIR}/dist"
+        COMMAND ${PROJECT_BINARY_DIR}/dist/make_library.sh "${PROJECT_BINARY_DIR}/dist"
         USES_TERMINAL)
 
     add_custom_target(dev_run
