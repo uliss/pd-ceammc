@@ -28,19 +28,61 @@ struct Cli {
     script: bool,
 }
 
-struct FileFixes {
+#[derive(Debug)]
+struct DylibFixes {
     fix_id: Option<String>,
     fix_rpath: HashSet<(String, String)>,
     delete_rpath: HashSet<String>,
 }
 
-impl FileFixes {
+impl DylibFixes {
     fn new() -> Self {
-        FileFixes {
+        DylibFixes {
             fix_id: None,
             fix_rpath: HashSet::new(),
             delete_rpath: HashSet::new(),
         }
+    }
+}
+
+struct DylibMap {
+    map: HashMap<String, DylibFixes>,
+}
+
+impl DylibMap {
+    fn new() -> Self {
+        DylibMap {
+            map: HashMap::new(),
+        }
+    }
+
+    fn contains(&self, path: &str) -> bool {
+        return self.map.contains_key(&path.to_string());
+    }
+
+    fn get_or_create(&mut self, path: &str) -> &mut DylibFixes {
+        let path = path.to_string();
+        if !self.map.contains_key(&path) {
+            self.map.insert(path.clone(), DylibFixes::new());
+        }
+
+        return self.map.get_mut(&path).unwrap();
+    }
+
+    fn fix_id(&mut self, path: &str, new_id: &str) {
+        self.get_or_create(path).fix_id = Some(new_id.to_string());
+    }
+
+    fn replace_rpath(&mut self, path: &str, from: &str, to: &str) {
+        self.get_or_create(path)
+            .fix_rpath
+            .insert((from.to_string(), to.to_string()));
+    }
+
+    fn delete_rpath(&mut self, path: &str, rpath: &str) {
+        self.get_or_create(path)
+            .delete_rpath
+            .insert(rpath.to_string());
     }
 }
 
@@ -61,7 +103,7 @@ impl fmt::Display for DylibError {
 impl Error for DylibError {}
 
 fn make_rpath(path: &str) -> String {
-    Path::new("@rpath")
+    Path::new("@loader_path")
         .join(
             Path::new(path)
                 .file_name()
@@ -73,11 +115,12 @@ fn make_rpath(path: &str) -> String {
         .to_string()
 }
 
-fn process_dylib(
-    args: &Cli,
-    path: &str,
-    map: &mut HashMap<String, FileFixes>,
-) -> Result<(), Box<dyn Error>> {
+fn process_dylib(args: &Cli, path: &str, map: &mut DylibMap) -> Result<(), Box<dyn Error>> {
+    if map.contains(path) {
+        debug!("already processed: {path}, skipping ...");
+        return Ok(());
+    }
+
     info!("process {path}");
 
     let file = File::open(path)?;
@@ -96,22 +139,15 @@ fn process_dylib(
         } => {
             for MachCommand(cmd, _) in commands.iter() {
                 match cmd {
+                    // dylib id
                     LoadCommand::IdDyLib(dylib) => {
-                        if !dylib.name.starts_with("@rpath")
-                            && !dylib.name.starts_with("@loader_path")
-                        {
+                        // replace dylib id with @loader_path/DYLIB.dylib
+                        if !dylib.name.starts_with("@loader_path") {
                             let new_id = make_rpath(dylib.name.as_str());
-
-                            if let Some(v) = map.get_mut(path) {
-                                v.fix_id = Some(new_id);
-                            } else {
-                                let mut fix = FileFixes::new();
-                                fix.fix_id = Some(new_id);
-                                map.insert(path.to_string(), fix);
-                            }
+                            map.fix_id(path, new_id.as_str());
                         }
                     }
-
+                    // dylib deps
                     LoadCommand::LoadDyLib(dylib)
                     | LoadCommand::LoadWeakDyLib(dylib)
                     | LoadCommand::ReexportDyLib(dylib)
@@ -125,19 +161,14 @@ fn process_dylib(
                         }
 
                         if !dylib.name.starts_with("@") {
+                            debug!("dll dep: {}", dylib.name);
                             let dylib_full_path = dylib.name.to_string();
-                            let replace = (
-                                dylib_full_path.clone(),
-                                make_rpath(dylib_full_path.as_str()),
-                            );
 
-                            if let Some(v) = map.get_mut(&path.to_owned()) {
-                                v.fix_rpath.insert(replace);
-                            } else {
-                                let mut fix = FileFixes::new();
-                                fix.fix_rpath.insert(replace);
-                                map.insert(path.to_string(), fix);
-                            }
+                            map.replace_rpath(
+                                path,
+                                dylib_full_path.as_str(),
+                                make_rpath(dylib_full_path.as_str()).as_str(),
+                            );
 
                             process_dylib(args, &dylib.name, map)?;
                         } else {
@@ -145,7 +176,7 @@ fn process_dylib(
                         }
                     }
                     LoadCommand::Rpath(x) => {
-                        info!("rpath: {x}");
+                        info!("rpath: {x} in {path}");
                         if x == "@rpath" || x == "@loader_path" {
                             rpaths.push(
                                 Path::new(path)
@@ -163,14 +194,9 @@ fn process_dylib(
                         }
 
                         if rpath.is_dir() {
-                            rpaths.push(rpath);
+                            rpaths.push(rpath.clone());
 
-                            if let Some(v) = map.get_mut(&path.to_owned()) {
-                                v.delete_rpath.insert(x.clone());
-                            } else {
-                                let mut fix = FileFixes::new();
-                                fix.delete_rpath.insert(x.clone());
-                            }
+                            map.delete_rpath(path, rpath.to_string_lossy().to_string().as_str());
                         } else {
                             warn!("rpath is not a directory: '{x}'");
                         }
@@ -185,7 +211,11 @@ fn process_dylib(
     fn search_in_rpaths(dylib_name: &std::ffi::OsStr, rpath_dir: &PathBuf) -> Option<String> {
         let abs_path = rpath_dir.join(dylib_name);
         if abs_path.exists() {
-            info!("@rpath dylib: {}", abs_path.to_string_lossy());
+            info!(
+                "rpath {} found in: {}",
+                dylib_name.to_string_lossy(),
+                abs_path.to_string_lossy()
+            );
             return Some(abs_path.to_string_lossy().to_string());
         } else {
             debug!(
@@ -201,6 +231,18 @@ fn process_dylib(
         info!("search rpath dylib: {dylib}");
         let dylib_name = Path::new(dylib).file_name().expect("invalid filepath");
 
+        // @rpath => @loader_path replacement
+        if dylib.starts_with("@rpath/") {
+            let new_rpath = format!("@loader_path/{}", dylib_name.to_string_lossy());
+
+            map.replace_rpath(
+                path,
+                dylib.as_str(),
+                new_rpath.as_str(),
+            );
+        }
+
+        // search in dylib rpaths
         for dir in rpaths.iter() {
             if let Some(path) = search_in_rpaths(&dylib_name, dir) {
                 process_dylib(args, &path, map)?;
@@ -208,6 +250,7 @@ fn process_dylib(
             }
         }
 
+        // search in command line rpaths
         for dir in args.rpaths.iter() {
             if let Some(path) = search_in_rpaths(&dylib_name, dir) {
                 process_dylib(args, &path, map)?;
@@ -215,7 +258,7 @@ fn process_dylib(
             }
         }
 
-        // exists in dylib parent directory
+        // search in dylib parent directory
         if let Some(path) = search_in_rpaths(
             &dylib_name,
             &Path::new(path)
@@ -227,7 +270,7 @@ fn process_dylib(
             continue 'outer;
         }
 
-        // exists in target directory
+        // search in target directory
         if let Some(path) =
             search_in_rpaths(&dylib_name, &Path::new(args.dir.as_str()).to_path_buf())
         {
@@ -235,19 +278,20 @@ fn process_dylib(
             continue 'outer;
         }
 
+        // not found
         return Err(Box::new(DylibError::FileNotFound(dylib.clone())));
     }
 
     Ok(())
 }
 
-fn script_mode(args: &Cli, action_map: HashMap<String, FileFixes>) -> Result<(), Box<dyn Error>> {
+fn script_mode(args: &Cli, action_map: &DylibMap) -> Result<(), Box<dyn Error>> {
     let dir = Path::new(args.dir.as_str());
     println!("#!/bin/sh");
     println!("# this is autogenerated shell script!");
     println!("mkdir -p '{}'", dir.to_string_lossy());
 
-    for (dylib, fix) in action_map.iter() {
+    for (dylib, fix) in action_map.map.iter() {
         println!("# dylib '{dylib}'");
 
         let dylib_copy = dir
@@ -279,20 +323,20 @@ fn script_mode(args: &Cli, action_map: HashMap<String, FileFixes>) -> Result<(),
     Ok(())
 }
 
-fn binary_mode(args: &Cli, action_map: HashMap<String, FileFixes>) -> Result<(), Box<dyn Error>> {
+fn binary_mode(args: &Cli, action_map: &DylibMap) -> Result<(), Box<dyn Error>> {
     let dir = Path::new(args.dir.as_str());
     if !dir.exists() {
         std::fs::create_dir_all(dir)?;
     }
 
-    for (dylib, fix) in action_map.iter() {
+    for (dylib, fix) in action_map.map.iter() {
         println!("{}", format!("{dylib}").blue());
         let dylib_copy = dir
             .join(Path::new(dylib).file_name().expect("no filename"))
             .to_string_lossy()
             .to_string();
         if *dylib != dylib_copy {
-            println!("\tcopy {dylib} to {dylib_copy}");
+            println!("\tcopy to {dylib_copy}");
             std::fs::copy(dylib, &dylib_copy)?;
         }
 
@@ -361,15 +405,15 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let args = Cli::parse();
 
-    let mut dylib_map = HashMap::new();
+    let mut dylib_map = DylibMap::new();
 
     for file in args.files.iter() {
         process_dylib(&args, file.as_str(), &mut dylib_map)?;
     }
 
     if args.script {
-        return script_mode(&args, dylib_map);
+        return script_mode(&args, &dylib_map);
     } else {
-        return binary_mode(&args, dylib_map);
+        return binary_mode(&args, &dylib_map);
     }
 }
