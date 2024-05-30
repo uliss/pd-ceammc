@@ -68,6 +68,8 @@ macro(ceammc_faust_gen_obj module name)
             -a ${CMAKE_SOURCE_DIR}/ceammc/faust/faust_arch_ceammc.cpp
             --class-name "${module}_${name}"
             --super-class-name "${module}_${name}_dsp"
+            --architecture-dir ${FAUST_INCLUDE_DIR}
+            --import-dir ${FAUST_DSP_LIBRARY}
             ${_args}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
             -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)

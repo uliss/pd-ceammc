@@ -31,6 +31,16 @@ if(Faust_ROOT)
         PATH_SUFFIXES "lib" "lib64"
         NO_DEFAULT_PATH)
 
+    find_path(FAUST_DSP_LIBRARY
+        NAMES stdfaust.lib
+        PATHS ${Faust_ROOT}
+        PATH_SUFFIXES "share/faust"
+        NO_DEFAULT_PATH)
+
+    if(FAUST_DSP_LIBRARY)
+        get_filename_component(FAUST_DSP_LIBRARY_DIR ${FAUST_DSP_LIBRARY} DIRECTORY)
+    endif()
+
 else()
 
     find_path(FAUST_INCLUDE_DIR

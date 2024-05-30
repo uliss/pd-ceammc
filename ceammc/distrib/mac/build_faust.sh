@@ -12,6 +12,7 @@ if [[ -d faust ]]
 then
     cd faust
     git checkout
+    git submodule update --init --recursive
     cd build
 else
     git clone https://github.com/grame-cncm/faust.git
@@ -20,7 +21,9 @@ else
         exit 1
     fi
 
-    cd faust/build
+    cd faust
+    git submodule update --init --recursive
+    cd build
 fi
 
 pwd
