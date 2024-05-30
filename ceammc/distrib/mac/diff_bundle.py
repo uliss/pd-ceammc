@@ -15,7 +15,7 @@ BUNDLE = "@PROJECT_BINARY_DIR@/dist/@BUNDLE@"
 TK_VERSION = "@TK_VERSION@"
 CEAMMC_LIB_VERSION = "@CEAMMC_LIB_VERSION@"
 
-CEAMMC_DIR = "/Contents/Resources/extra/ceammc"
+CEAMMC_DIR = "/Contents/Resources"
 
 
 def check_dir(dir: str):
