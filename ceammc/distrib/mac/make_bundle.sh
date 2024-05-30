@@ -93,7 +93,7 @@ function dylib_external_fix() {
     exec=$1
     dir=$2
 
-    echo -e "\t- fixing @loader_path for $(basename $exec) ..."
+    printf "\t- fixing @loader_path for $(basename $exec) ...\n"
     $DYLIBBUNDLER \
         --fix-file "${exec}" \
         --bundle-deps \
@@ -113,7 +113,7 @@ function copy()
     cp -f "${file}" "${dest}"
     if [ $? -eq 0 ];
     then
-        echo -e "\t- copying $(basename $1) to \"${rel_dest}\""
+        printf "\t- copying $(basename $1) to \"${rel_dest}\"\n"
     fi
 }
 
