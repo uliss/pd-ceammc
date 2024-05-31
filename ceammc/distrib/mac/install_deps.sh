@@ -27,6 +27,7 @@ sudo port install libsndfile \
         boost \
         cairo \
         cmake \
+        coreutils \
         fftw-3-single \
         flex \
         gettext \
@@ -50,6 +51,7 @@ sudo port install libsndfile \
         rubberband \
         scons \
         tcl \
+        tidy \
         tk
 
 sudo port select llvm mp-llvm-${llvm_ver}
