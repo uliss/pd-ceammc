@@ -28,6 +28,10 @@
 #include "lex/parser_units.h"
 #include "ui_canvas.tcl.h"
 
+#ifdef WITH_VEROVIO
+#include <verovio/vrvdef.h>
+#endif
+
 #include <boost/integer/common_factor.hpp>
 #include <cmath>
 
@@ -1120,7 +1124,7 @@ void UICanvas::onMouseDrag(t_object* view, const t_pt& pos, long mods)
     anyTo(0, gensym("mouse"), data.view());
 }
 
-void UICanvas::onDblClick(t_object *view, const t_pt &pos, long mods)
+void UICanvas::onDblClick(t_object* view, const t_pt& pos, long mods)
 {
     StaticAtomList<7> data {
         gensym("double"),
@@ -1294,4 +1298,8 @@ void setup_ui_canvas()
 
     UICanvas::setup();
     LIB_DBG << "cairo version: " << cairo_version_string();
+
+#ifdef WITH_VEROVIO
+    LIB_DBG << fmt::format("verovio version: {}.{}.{}", VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION);
+#endif
 }
