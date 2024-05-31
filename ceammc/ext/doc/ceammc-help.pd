@@ -1860,7 +1860,7 @@ ui.spectroscope~-help.pd;
 #X text 20 25983 version: v0.9.7 \, license: GPL3;
 #X obj 20 26011 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 26035 ui.link @title Generated with pddoc v0.7.7 @url
+#X obj 20 26035 ui.link @title Generated with pddoc v0.7.8 @url
 http://github.com/uliss/pddoc;
 #X obj 670 25998 loadmsg 0;
 #X obj 670 26033 switch~;
