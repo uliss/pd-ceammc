@@ -18,7 +18,14 @@ if [[ $(uname -m) == "arm64" ]]
 then
     llvm_ver=17
 else
-    llvm_ver=10
+    case "$(sw_vers -productVersion | cut -d. -f1,2)" in
+    "10.15")
+        llvm_ver=11
+    ;;
+    *)
+        llvm_ver=10
+    ;;
+    esac
 fi
 
 sudo port install libsndfile \
