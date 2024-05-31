@@ -23,10 +23,12 @@ fi
 
 sudo port install libsndfile \
         armadillo \
+        bison \
         boost \
         cairo \
         cmake \
         fftw-3-single \
+        flex \
         gettext \
         glib2 \
         liblo \
@@ -42,10 +44,13 @@ sudo port install libsndfile \
         ninja \
         pkgconfig \
         portaudio \
-        py310-pip \
+        py312-cairo \
+        py312-pip \
         ragel \
         rubberband \
-        scons
+        scons \
+        tcl \
+        tk
 
 sudo port select llvm mp-llvm-${llvm_ver}
-pip3.11 install pddoc
+pip-3.12 install pddoc
