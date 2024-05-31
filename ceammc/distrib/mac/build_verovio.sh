@@ -39,6 +39,7 @@ echo "building verovio ..."
 #rm -rf build
 mkdir -p build
 cd build
+rm -f CMakeCache.txt
 
 cmake -GNinja \
     $CLANG $CLANGXX \
