@@ -65,7 +65,6 @@ if(COMMAND llvm_map_components_to_libnames)
         asmprinter mcjit ipo objcarcopts)
     list(APPEND llvm_libs ${llvm_libs_base})
 
-    message(STATUS "llvm-libs: ${llvm_libs}")
     target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
 endif()
 

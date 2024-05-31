@@ -24,7 +24,8 @@
 #include "ceammc_filesystem.h"
 #include "ceammc_platform.h"
 #include "fmt/core.h"
-#include "verovio/tools/c_wrapper.h"
+
+#include <verovio/c_wrapper.h>
 #include <memory>
 
 namespace {
