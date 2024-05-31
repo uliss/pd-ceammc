@@ -1,8 +1,12 @@
 #!/bin/bash
 #
 
-
 PWD="@PROJECT_BINARY_DIR@"
+CLANG=""
+CLANGXX=""
+
+# CLANG="-DCMAKE_C_COMPILER=clang-mp-11"
+# CLANGXX="-DCMAKE_CXX_COMPILER=clang++-mp-11"
 
 mkdir -p "$PWD/_deps"
 cd "$PWD/_deps"
@@ -31,6 +35,7 @@ mkdir -p build
 cd build
 
 cmake -GNinja \
+    $CLANG $CLANGXX \
     -DCMAKE_INSTALL_PREFIX=~/.local/verovio \
     -DCMAKE_BUILD_TYPE=Release \
     -DNO_RUNTIME=OFF \
