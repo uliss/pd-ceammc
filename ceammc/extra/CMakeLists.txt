@@ -187,7 +187,7 @@ if(WITH_FAUST)
                         x86asmparser x86info x86desc x86codegen)
                     target_link_libraries(ceammc_faust PRIVATE ${llvm_libs_x86})
                 endif()
-            elseif(WIN32 OR UNIX)
+            elseif(WIN32)
                 list(APPEND llvm_libs ${llvm_libs_x86})
                 target_link_libraries(ceammc_faust PRIVATE
                     LLVMWindowsManifest

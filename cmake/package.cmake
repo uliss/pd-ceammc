@@ -54,8 +54,9 @@ if(DPKG_FOUND AND NOT WIN32)
     # note: linebreak and single space indent!
     set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Visual audio programming language
   ${CPACK_PACKAGE_DESCRIPTION}")
-    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+#    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
     set(CPACK_SET_DESTDIR TRUE)
+    set(CPACK_DEBIAN_PACKAGE_GENERATE_SHLIBS ON)
 
     set(POSTINST_FILE "${CMAKE_SOURCE_DIR}/ceammc/distrib/linux/deb/postinst")
     set(POSTRM_FILE "${CMAKE_SOURCE_DIR}/ceammc/distrib/linux/deb/postrm")
