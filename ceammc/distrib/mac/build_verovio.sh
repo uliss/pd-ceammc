@@ -2,11 +2,17 @@
 #
 
 PWD="@PROJECT_BINARY_DIR@"
-CLANG=""
-CLANGXX=""
 
-# CLANG="-DCMAKE_C_COMPILER=clang-mp-11"
-# CLANGXX="-DCMAKE_CXX_COMPILER=clang++-mp-11"
+case "$(sw_vers -productVersion | cut -d. -f1,2)" in
+    "10.15")
+        CLANG="-DCMAKE_C_COMPILER=clang-mp-11"
+        CLANGXX="-DCMAKE_CXX_COMPILER=clang++-mp-11"
+    ;;
+    *)
+        CLANG=""
+        CLANGXX=""
+    ;;
+esac
 
 mkdir -p "$PWD/_deps"
 cd "$PWD/_deps"
