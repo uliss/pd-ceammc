@@ -39,6 +39,7 @@ sudo port install libsndfile \
         flex \
         gettext \
         glib2 \
+        gsed \
         liblo \
         libltc \
         libmad \
