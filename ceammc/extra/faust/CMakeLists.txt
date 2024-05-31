@@ -3,7 +3,7 @@ if(APPLE)
         find_path(MACPORTS_LLVM
             NAMES llvm
             PATHS /opt/local/libexec
-            PATH_SUFFIXES llvm-13/lib/cmake
+            PATH_SUFFIXES llvm-17/lib/cmake
             NO_DEFAULT_PATH
             NO_CMAKE_SYSTEM_PATH
             REQUIRED
