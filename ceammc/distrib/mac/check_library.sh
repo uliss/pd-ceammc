@@ -7,22 +7,23 @@ blu=$(tput setaf 4) # blue
 rst=$(tput sgr0)    # reset
 
 if [ $# -ne 1 ]; then
-    echo "${red}Usage: $(basename $0) APP_BUNDLE${rst}"
+    echo "${red}Usage: $(basename $0) LIBRARY_DIR${rst}"
     exit 1
 fi
 
-BUNDLE=$1
+CEAMMC=$1
 
-if [ ! -d $BUNDLE ]; then
-    echo "${red}Invalid bundle directory:${rst} $BUNDLE"
+if [ ! -d $CEAMMC ]; then
+    echo "${red}Invalid library directory:${rst} $CEAMMC"
     exit 1
 fi
 
 num_errors=0
 
-for external in $(find $BUNDLE -name *.d_amd64 -o -name *.pd_darwin -o -name *.dylib)
+for external in $(find $CEAMMC -name *.d_amd64 -o -name *.d_fat -o -name *.pd_darwin -o -name *.dylib)
 do
     short_name=$(basename $external)
+
     dep=$(otool -L $external | grep -v -e '/System/Library' \
             -e '@loader_path' \
             -e '@rpath' \
@@ -36,6 +37,7 @@ do
         echo "${red}WARNING:${rst} external ${blu}${short_name}${rst} has this dependencies:"
         echo "         $dep"
         let num_errors=num_errors+1
+
         printf "check %-30s ❌\n" "'${short_name}'"
     else
         printf "check %-30s ✅\n" "'${short_name}'"
@@ -44,9 +46,9 @@ done
 
 if [[ $num_errors -eq 0 ]]
 then
-    echo "Check bundle: ${green}OK${rst}"
+    echo "Check library: ${green}OK${rst}"
     exit 0
 else
-    echo "Check bundle: ${red}FAILED${rst}"
+    echo "Check library: ${red}FAILED${rst}"
     exit 2
 fi

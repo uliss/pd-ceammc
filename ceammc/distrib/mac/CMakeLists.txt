@@ -86,7 +86,11 @@ if(APPLE)
     add_custom_target(dev_rmext
         COMMAND ${CMAKE_COMMAND} -E rm -rf "$ENV{HOME}/Documents/Pd/externals/ceammc")
 
-    add_custom_target(dev_check_app
+    add_custom_target(dev_check_lib
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/check_library.sh "${PROJECT_BINARY_DIR}/dist/ceammc"
+        USES_TERMINAL)
+
+    add_custom_target(dev_check_bundle
         COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/check_bundle.sh "${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_APP}"
         USES_TERMINAL)
 
