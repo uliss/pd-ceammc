@@ -1,6 +1,4 @@
 #!/bin/bash
-#
-
 
 PWD="@PROJECT_BINARY_DIR@"
 
@@ -26,8 +24,14 @@ else
     cd build
 fi
 
-pwd
-ls
+which llvm-config
+if [[ $? -ne 0 ]]
+then
+    echo "llvm-config not found ..."
+    echo "check that llvm is installed and selected with:"
+    echo "sudo port select llvm LLVM"
+    exit 1
+fi
 
 echo "building faust ..."
 
