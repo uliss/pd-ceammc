@@ -7,6 +7,8 @@ if(UNIX AND NOT APPLE)
                ${PROJECT_BINARY_DIR}/snap/snapcraft.yaml @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/snapcraft.yaml.in
                ${PROJECT_SOURCE_DIR}/snap/snapcraft.yaml @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_faust.sh
+               ${PROJECT_BINARY_DIR}/scripts/build_faust.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_verovio.sh
                ${PROJECT_BINARY_DIR}/scripts/build_verovio.sh @ONLY)
 
