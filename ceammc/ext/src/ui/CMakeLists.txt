@@ -70,6 +70,16 @@ if(Rust_FOUND)
     target_link_libraries(ceammc_ui PRIVATE resvg rimg)
     target_compile_definitions(ceammc_ui PRIVATE WITH_RIMG WITH_RESVG)
     if(WITH_VEROVIO)
+        if(WIN32)
+            # verovio expected to be installed with ./script/build_verovio.sh
+            # into this directory
+            set(VEROVIO_ROOT $ENV{USERPROFILE}/.local/verovio)
+        else()
+            # faust expected to be installed with ./script/build_verovio.sh
+            # into this directory
+            set(VEROVIO_ROOT $ENV{HOME}/.local/verovio)
+        endif()
+        message(FATAL "Verovio root is: ${VEROVIO_ROOT}")
         find_package(Verovio REQUIRED)
         target_compile_definitions(ceammc_ui PRIVATE WITH_VEROVIO)
         target_link_libraries(ceammc_ui PRIVATE ${VEROVIO_LIBRARIES})
@@ -77,6 +87,9 @@ if(Rust_FOUND)
         if (UNIX AND NOT APPLE)
             set(VEROVIO_INSTALL_DIR ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
             install(FILES "${VEROVIO_LIBRARY}" DESTINATION ${VEROVIO_INSTALL_DIR})
+        elseif(WIN32) # install verovio dll
+            set(VEROVIO_INSTALL_DIR ${PDCORE_LIB_INSTALL_PATH})
+            install(FILES "${VEROVIO_ROOT}/bin/libverovio.dll" DESTINATION ${VEROVIO_INSTALL_DIR})
         endif()
 
         install(DIRECTORY ${VEROVIO_DATA}
