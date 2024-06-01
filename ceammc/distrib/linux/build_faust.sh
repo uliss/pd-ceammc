@@ -29,7 +29,7 @@ if [[ $? -ne 0 ]]
 then
     echo "llvm-config not found ..."
     echo "check that llvm is installed and selected with:"
-    echo "sudo port select llvm LLVM"
+    echo "sudo update-alternatives --install /usr/bin/llvm-config llvm-config /usr/bin/YOUR_LLVM_CONFIG  200"
     exit 1
 fi
 
