@@ -74,6 +74,11 @@ if(Rust_FOUND)
         target_compile_definitions(ceammc_ui PRIVATE WITH_VEROVIO)
         target_link_libraries(ceammc_ui PRIVATE ${VEROVIO_LIBRARIES})
         target_include_directories(ceammc_ui PRIVATE ${VEROVIO_INCLUDE_DIRS})
+        if (UNIX AND NOT APPLE)
+            set(VEROVIO_INSTALL_DIR ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+            install(FILES "${VEROVIO_LIBRARY}" DESTINATION ${VEROVIO_INSTALL_DIR})
+        endif()
+
         install(DIRECTORY ${VEROVIO_DATA}
             DESTINATION ${PD_DOC_INSTALL_PATH}/extra/ceammc/music
             FILES_MATCHING PATTERN "*.xml" PATTERN "*.svg" PATTERN "*.css")

@@ -45,10 +45,15 @@ if(UNIX AND NOT APPLE)
     install(FILES "${_FAUST_LIBRARY_SO}" DESTINATION ${FAUSTLIB_INSTALL_DIR})
     install(FILES "${FAUST_LIBRARY}" DESTINATION ${FAUSTLIB_INSTALL_DIR})
     get_filename_component(_FAUST_LIBRARY_NAME ${_FAUST_LIBRARY_SO} NAME)
-    execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${_FAUST_LIBRARY_NAME} "libfaust.so.2"
+    execute_process(
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${_FAUST_LIBRARY_NAME} "libfaust.so.2"
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${_FAUST_LIBRARY_NAME} "libfaust.so.2."
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libfaust.so.2" DESTINATION ${FAUSTLIB_INSTALL_DIR})
+    install(FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/libfaust.so.2"
+        "${CMAKE_CURRENT_BINARY_DIR}/libfaust.so.2."
+        DESTINATION ${FAUSTLIB_INSTALL_DIR})
 endif()
 
 add_library(ceammc_faust STATIC ceammc_llvm.cpp)
