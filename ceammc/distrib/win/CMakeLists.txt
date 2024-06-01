@@ -62,7 +62,7 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/scripts/install_mingw64_deps.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_faust.sh
                    ${PROJECT_BINARY_DIR}/scripts/build_faust.sh @ONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_verovio.sh.sh
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_verovio.sh
                    ${PROJECT_BINARY_DIR}/scripts/build_verovio.sh @ONLY)
 
    add_custom_target(dev_fixdll
