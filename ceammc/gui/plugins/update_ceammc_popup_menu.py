@@ -3,7 +3,7 @@ import sys
 import lxml.etree as lx
 import textwrap
 
-LIB_PATH = "../../ext/doc/ceammc_lib.xml"
+LIB_PATH = "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/ceammc_lib.xml"
 OUT_FILE = None
 
 exclude_cats = ()

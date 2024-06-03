@@ -22,8 +22,15 @@ add_custom_target(gui_plugins SOURCES
     ceammc_popup_menu_extra.tcl
     ceammc_popup_menu_vanilla.tcl
 )
+
+configure_file(update_ceammc_popup_menu.py ${PROJECT_BINARY_DIR}/scripts/update_ceammc_popup_menu.py @ONLY)
+
+
 add_custom_target(popup_gen
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_ceammc_popup_list.py
+    COMMAND ${PROJECT_BINARY_DIR}/scripts/update_ceammc_popup_menu.py
     COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_popup_menu.sh
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    SOURCES gen_ceammc_popup_list.py gen_popup_menu.sh)
+    SOURCES
+        update_ceammc_popup_menu.py
+        gen_popup_menu.sh
+    )
