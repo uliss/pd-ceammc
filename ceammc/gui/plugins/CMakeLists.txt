@@ -24,13 +24,16 @@ add_custom_target(gui_plugins SOURCES
 )
 
 configure_file(update_ceammc_popup_menu.py ${PROJECT_BINARY_DIR}/scripts/update_ceammc_popup_menu.py @ONLY)
+configure_file(update_extra_popup_menu.sh ${PROJECT_BINARY_DIR}/scripts/update_extra_popup_menu.sh @ONLY)
 
 
 add_custom_target(popup_gen
     COMMAND ${PROJECT_BINARY_DIR}/scripts/update_ceammc_popup_menu.py
+    COMMAND ${PROJECT_BINARY_DIR}/scripts/update_extra_popup_menu.sh
     COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_popup_menu.sh
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     SOURCES
         update_ceammc_popup_menu.py
+        update_extra_popup_menu.sh
         gen_popup_menu.sh
     )
