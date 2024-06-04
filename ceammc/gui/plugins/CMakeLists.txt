@@ -5,13 +5,18 @@ add_custom_target(buttonbar
     USES_TERMINAL)
 
 file(GLOB GUI_PLUGINS "${CMAKE_CURRENT_SOURCE_DIR}/*-plugin.tcl")
-list(APPEND GUI_PLUGINS "${CMAKE_CURRENT_SOURCE_DIR}/ceammc_popup_menu_tree.tcl")
 file(GLOB GUI_COMPLETION_PLUGIN "${CMAKE_CURRENT_SOURCE_DIR}/completion-plugin/*-plugin.tcl")
 list(APPEND GUI_COMPLETION_PLUGIN "${CMAKE_CURRENT_SOURCE_DIR}/completion-plugin/completion.cfg")
 list(APPEND GUI_COMPLETION_PLUGIN "${CMAKE_CURRENT_SOURCE_DIR}/completion-plugin/manual.pd")
 list(APPEND GUI_COMPLETION_PLUGIN "${CMAKE_CURRENT_SOURCE_DIR}/completion-plugin/COPYING")
 
-install(FILES ${GUI_PLUGINS} ${GUI_COMPLETION_PLUGIN} DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc)
+install(
+    FILES
+        ${GUI_PLUGINS}
+        ${CMAKE_CURRENT_BINARY_DIR}/ceammc_popup_menu_tree.tcl
+        ${GUI_COMPLETION_PLUGIN}
+    DESTINATION
+        ${PD_GUI_PLUGINS_PATH}/ceammc)
 
 add_custom_target(gui_plugins SOURCES
     ${GUI_PLUGINS}
@@ -25,12 +30,13 @@ add_custom_target(gui_plugins SOURCES
 
 configure_file(update_ceammc_popup_menu.py ${PROJECT_BINARY_DIR}/scripts/update_ceammc_popup_menu.py @ONLY)
 configure_file(update_extra_popup_menu.sh ${PROJECT_BINARY_DIR}/scripts/update_extra_popup_menu.sh @ONLY)
+configure_file(gen_popup_menu.sh ${PROJECT_BINARY_DIR}/scripts/gen_popup_menu.sh @ONLY)
 
 
-add_custom_target(popup_gen
+add_custom_target(popup_gen ALL
     COMMAND ${PROJECT_BINARY_DIR}/scripts/update_ceammc_popup_menu.py
     COMMAND ${PROJECT_BINARY_DIR}/scripts/update_extra_popup_menu.sh
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_popup_menu.sh
+    COMMAND ${PROJECT_BINARY_DIR}/scripts/gen_popup_menu.sh
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     SOURCES
         update_ceammc_popup_menu.py

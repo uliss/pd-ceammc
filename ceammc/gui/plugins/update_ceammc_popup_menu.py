@@ -14,7 +14,7 @@ def parse_category(cat):
     if cname in exclude_cats:
         return
 
-    print("Processing category", '"' + cname + '"', "...")
+    # print("Processing category", '"' + cname + '"', "...")
 
     OUT_FILE.write("    {%s {\n" % cname)
 
@@ -43,6 +43,7 @@ def main():
     OUT_FILE.write("}\n")
 
 if __name__ == '__main__':
+    print("update ceammc_popup_menu_ceammc.tcl")
     OUT_FILE = open("ceammc_popup_menu_ceammc.tcl", "w")
     main()
     OUT_FILE.close()

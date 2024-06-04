@@ -53,7 +53,22 @@ target_compile_options(flext_static PUBLIC -Wno-inline-new-delete)
 include(PdExternal)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/flext/source)
 
+
+add_custom_target(_flext_completions
+    SOURCES
+        flext_objects.txt
+        vasp_objects.txt
+        zconf_objects.txt
+)
+
+
+install(FILES flext_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+install(FILES zconf_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+
+
 if(WITH_FLEXT_VASP)
+    install(FILES vasp_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+
     set(VASP_SRC
         vasp/source/arg.cpp
         vasp/source/arg.h

@@ -280,19 +280,6 @@ copy "${SRC_DIR}/src/m_pd.h" "${BUNDLE_INCLUDE}"
 # CEAMMC
 ############
 
-section "Copying CEAMMC tcl plugins"
-mkdir -p "${BUNDLE_COMPLETIONS}"
-for tcl in ${SRC_DIR}/ceammc/gui/plugins/*.tcl
-do
-    copy ${tcl} "${BUNDLE_TCL}/ceammc"
-done
-
-section "Copying Tk Completion plugin"
-mkdir -p "${BUNDLE_TCL}/completion-plugin"
-for f in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.@(tcl|cfg|pd)
-do
-    copy ${f} "${BUNDLE_TCL}/ceammc"
-done
 
 section "Copying Tk Drag-and-Drop plugin"
 mkdir -p "${BUNDLE_TCL}/tkdnd"
@@ -302,6 +289,9 @@ do
 done
 copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/*.dylib "${BUNDLE_TCL}/tkdnd"
 copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/library/*.tcl "${BUNDLE_TCL}/tkdnd"
+
+section "Copying CEAMMC tcl plugins"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/tcl/ceammc/"  "${BUNDLE_TCL}/ceammc"
 
 section "Copying CEAMMC tcl completion"
 copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_COMPLETIONS}"
