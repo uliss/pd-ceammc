@@ -35,8 +35,8 @@ if(DPKG_FOUND AND NOT WIN32)
         DESTINATION ${PD_ICONS_DIR})
     install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/puredata-ceammc.png"
         DESTINATION ${PD_ICONS_DIR}/hicolor/512x512/apps)
-    install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/pd_ceammc5.svg"
-        DESTINATION ${PD_ICONS_DIR}/hicolor/scalable/apps/puredata-ceammc.svg)
+    install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/puredata-ceammc.svg"
+        DESTINATION ${PD_ICONS_DIR}/hicolor/scalable/apps)
     # install to tcl dir because pd-gui.tcl sets app icon manually
     install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/puredata-ceammc.png"
         DESTINATION ${PD_GUI_PLUGINS_PATH})
