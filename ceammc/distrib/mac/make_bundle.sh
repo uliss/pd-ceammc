@@ -293,10 +293,6 @@ copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/library/*.tcl "${BUNDLE_TCL}/tkdnd"
 section "Copying CEAMMC tcl plugins"
 rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/tcl/ceammc/"  "${BUNDLE_TCL}/ceammc"
 
-section "Copying CEAMMC tcl completion"
-copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_COMPLETIONS}"
-copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_COMPLETIONS}"
-
 section "Copying CEAMMC"
 mkdir -p "${BUNDLE_CEAMMC}"
 rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/ceammc/"  "${BUNDLE_CEAMMC}"

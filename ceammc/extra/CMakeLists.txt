@@ -13,7 +13,7 @@ add_subdirectory(date)
 
 if(WITH_EXT_AUTOTUNE)
     add_subdirectory(autotune)
-    install(FILES autotune_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+    install(FILES autotune_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_EXT_FLEXT)
@@ -22,12 +22,12 @@ endif()
 
 if(WITH_EXT_FFTEASE)
     add_subdirectory(fftease)
-    install(FILES fftease_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+    install(FILES fftease_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_EXT_LYONPOTPOURRI)
     add_subdirectory(lyonpotpourri)
-    install(FILES lyonpotpourri_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+    install(FILES lyonpotpourri_objects.txt DESTINATION  ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_ARTNET)
@@ -80,7 +80,7 @@ if(WITH_EXPERIMENTAL)
             import_objects.txt
             libdir_objects.txt
         DESTINATION
-            ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions
+            ${PD_COMPLETION_PATH}
     )
 endif()
 

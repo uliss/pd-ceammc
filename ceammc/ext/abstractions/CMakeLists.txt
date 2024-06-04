@@ -3,7 +3,7 @@ set(ABSTRACTIONS_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/faust2ui.sh
     ${CMAKE_CURRENT_BINARY_DIR}/faust2ui.sh @ONLY)
 
-install(FILES abstraction_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+install(FILES abstraction_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 
 file(GLOB ABSTRACTION_FILES "*.pd")
 # install all abstractions files

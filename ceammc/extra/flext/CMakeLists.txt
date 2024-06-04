@@ -62,12 +62,12 @@ add_custom_target(_flext_completions
 )
 
 
-install(FILES flext_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
-install(FILES zconf_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+install(FILES flext_objects.txt DESTINATION ${PD_COMPLETION_PATH})
+install(FILES zconf_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 
 
 if(WITH_FLEXT_VASP)
-    install(FILES vasp_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+    install(FILES vasp_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 
     set(VASP_SRC
         vasp/source/arg.cpp

@@ -7,7 +7,7 @@ set(LEAPMOTION_SRC
 if(LEAPMOTION_FOUND)
     include_directories(${LEAPMOTION_INCLUDES})
 
-    install(FILES leapmotion_objects.txt DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+    install(FILES leapmotion_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 
    
     pd_add_external(NAME "leapmotion"
