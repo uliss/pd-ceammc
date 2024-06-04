@@ -1,7 +1,6 @@
 add_subdirectory(win)
 add_subdirectory(mac)
 add_subdirectory(linux)
-add_subdirectory(docker)
 add_subdirectory(fonts)
 
 set(MAKELIB_SCRIPT "")
