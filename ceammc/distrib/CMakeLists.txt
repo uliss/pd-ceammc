@@ -3,8 +3,6 @@ add_subdirectory(mac)
 add_subdirectory(linux)
 add_subdirectory(fonts)
 
-set(MAKELIB_SCRIPT "")
-
 if(WITH_DOUBLE_PRECISION)
     set(PD_FLOAT_SIZE 64)
 else()
@@ -54,7 +52,10 @@ endif()
 
 # deken scripts
 add_custom_target(ceammc_distrib_deken_sources
-    SOURCES deken_make_package.sh deken_upload_package.sh)
+    SOURCES
+        deken_make_package.sh
+        deken_upload_package.sh
+)
 
 
 # documentation check
