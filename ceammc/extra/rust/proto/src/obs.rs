@@ -261,7 +261,16 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
 
             return Ok(RequestResult::Reply(OBSReply::ListCollections(coll.into())));
         }
-        OBSRequest::GetCurrentCollection => todo!(),
+        OBSRequest::GetCurrentCollection => {
+            let cur = cli
+                .scene_collections()
+                .current()
+                .await
+                .map_err(|e| e.to_string())?;
+            return Ok(RequestResult::Reply(OBSReply::CurrentCollection(
+                CString::new(cur.as_str()).unwrap_or_default(),
+            )));
+        }
         OBSRequest::SetCurrentCollection(name) => {
             cli.scene_collections()
                 .set_current(&name)
@@ -645,6 +654,21 @@ fn obs_list_collections(cli: *const obs_client) -> Result<bool, String> {
 #[named]
 pub extern "C" fn ceammc_obs_list_collections(cli: *const obs_client) -> bool {
     obs_list_collections(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_request_current_collection(cli: *const obs_client) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::GetCurrentCollection)
+}
+
+/// request current OBS collection
+/// @param cli - pointer to obs client
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_request_current_collection(cli: *const obs_client) -> bool {
+    obs_request_current_collection(cli)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }

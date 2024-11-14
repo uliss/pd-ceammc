@@ -283,6 +283,10 @@ bool ceammc_obs_remove_scene(const ceammc_obs_client *cli, const char *name);
 /// @param idx - item index
 bool ceammc_obs_remove_scene_item(const ceammc_obs_client *cli, const char *scene, size_t idx);
 
+/// request current OBS collection
+/// @param cli - pointer to obs client
+bool ceammc_obs_request_current_collection(const ceammc_obs_client *cli);
+
 /// send current OBS scene request
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
