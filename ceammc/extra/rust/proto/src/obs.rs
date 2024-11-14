@@ -275,7 +275,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
     }
 }
 
-/// create OSB Studio client
+/// create OBS Studio client
 /// @param params - connection params
 /// @param cb_err - callback for error messages
 /// @param cb_post - callback for post messages
@@ -393,7 +393,7 @@ pub extern "C" fn ceammc_obs_get_version(cli: *const obs_client) -> bool {
         .is_ok()
 }
 
-fn osb_list_scenes(cli: *const obs_client) -> Result<bool, String> {
+fn obs_list_scenes(cli: *const obs_client) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
     cli.blocking_send(OBSRequest::ListScenes)
 }
@@ -404,7 +404,7 @@ fn osb_list_scenes(cli: *const obs_client) -> Result<bool, String> {
 #[no_mangle]
 #[named]
 pub extern "C" fn ceammc_obs_list_scenes(cli: *const obs_client) -> bool {
-    osb_list_scenes(cli)
+    obs_list_scenes(cli)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }
@@ -564,7 +564,7 @@ fn obs_scene_list_items(cli: *const obs_client, name: *const c_char) -> Result<b
     cli.blocking_send(OBSRequest::ListSceneItems(str_from_cstr(name)?))
 }
 
-/// list OSB scene items
+/// list OBS scene items
 /// @param cli - pointer to obs client
 /// @param scene - scene name
 #[no_mangle]
@@ -589,7 +589,7 @@ fn obs_scene_enable_item(
     ))
 }
 
-/// enable OSB scene item
+/// enable OBS scene item
 /// @param cli - pointer to obs client
 /// @param scene - scene name
 /// @param idx - item index
@@ -615,7 +615,7 @@ fn obs_scene_remove_item(
     cli.blocking_send(OBSRequest::RemoveSceneItem(str_from_cstr(scene)?, idx))
 }
 
-/// remove OSB scene item
+/// remove OBS scene item
 /// @param cli - pointer to obs client
 /// @param scene - scene name
 /// @param idx - item index

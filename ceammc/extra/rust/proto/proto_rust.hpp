@@ -71,7 +71,7 @@ extern "C" {
 /// @return true on success, false on error
 bool ceammc_obs_create_scene(const ceammc_obs_client *cli, const char *name);
 
-/// enable OSB scene item
+/// enable OBS scene item
 /// @param cli - pointer to obs client
 /// @param scene - scene name
 /// @param idx - item index
@@ -153,7 +153,7 @@ bool ceammc_obs_list_collections(const ceammc_obs_client *cli);
 /// @return true on success, false on error
 bool ceammc_obs_list_monitors(const ceammc_obs_client *cli);
 
-/// list OSB scene items
+/// list OBS scene items
 /// @param cli - pointer to obs client
 /// @param scene - scene name
 bool ceammc_obs_list_scene_items(const ceammc_obs_client *cli, const char *name);
@@ -192,7 +192,7 @@ uint32_t ceammc_obs_monitor_index(const ceammc_obs_monitor *m);
 /// @param m - pointer to monitor (not NULL!)
 const char *ceammc_obs_monitor_name(const ceammc_obs_monitor *m);
 
-/// create OSB Studio client
+/// create OBS Studio client
 /// @param params - connection params
 /// @param cb_err - callback for error messages
 /// @param cb_post - callback for post messages
@@ -230,7 +230,7 @@ bool ceammc_obs_process_events(ceammc_obs_client *cli);
 /// @return true on success, false on error
 bool ceammc_obs_remove_scene(const ceammc_obs_client *cli, const char *name);
 
-/// remove OSB scene item
+/// remove OBS scene item
 /// @param cli - pointer to obs client
 /// @param scene - scene name
 /// @param idx - item index
