@@ -23,6 +23,17 @@
             <!-- info -->
             <method name="info">request OBS studio information: OBS version, web-socket version, RPC version and list of supported image formats.
             This info is outputted as messages to first outlet.</method>
+            <method name="scene list">request scene list</method>
+            <method name="scene current get">request current scene</method>
+            <method name="scene current set">set current scene
+            <param name="SCENE" type="symbol" required="true">scene name</param>
+            </method>
+            <method name="scene next">change to next scene</method>
+            <method name="scene prev">change to prev scene</method>
+            <method name="collection list">request collection list</method>
+            <method name="collection current get">request current collection</method>
+            <method name="collection current set">set current collection
+            <param name="NAME" type="symbol" required="true">collection name</param></method>
         </methods>
         <properties>
             <property name="@host" type="symbol" default="localhost">OBS studio host
