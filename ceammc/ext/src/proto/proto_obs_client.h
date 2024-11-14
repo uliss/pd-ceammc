@@ -42,7 +42,6 @@ public:
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_disconnect(t_symbol* s, const AtomListView& lv);
     void m_scene(t_symbol* s, const AtomListView& lv);
-    void m_current(t_symbol* s, const AtomListView& lv);
     void m_monitor(t_symbol* s, const AtomListView& lv);
     void m_item(t_symbol* s, const AtomListView& lv);
     void m_collection(t_symbol* s, const AtomListView& lv);
