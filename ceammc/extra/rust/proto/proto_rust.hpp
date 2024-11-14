@@ -138,6 +138,12 @@ bool ceammc_obs_prev_scene(const ceammc_obs_client *cli);
 /// @return true on success, false on error
 bool ceammc_obs_process_events(ceammc_obs_client *cli);
 
+/// remove OBS scene
+/// @param cli - pointer to obs client
+/// @param name - scene name
+/// @return true on success, false on error
+bool ceammc_obs_remove_scene(ceammc_obs_client *cli, const char *name);
+
 /// set current scene
 /// @param cli - pointer to obs client
 /// @param name - scene name

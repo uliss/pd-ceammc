@@ -264,6 +264,7 @@ enum OBSRequest {
     SetCurrentScene(String),
     MoveScene(i32),
     CreateScene(String),
+    RemoveScene(String),
     Close,
 }
 
@@ -453,7 +454,20 @@ async fn process_request(
 
                     ProcessMode::Continue
                 }
-                OBSRequest::CreateScene(_) => todo!(),
+                OBSRequest::CreateScene(name) => {
+                    if let Err(err) = cli.scenes().create(name.as_str().into()).await {
+                        reply_error(cb_notify, rep_tx, err.to_string()).await
+                    }
+
+                    ProcessMode::Continue
+                }
+                OBSRequest::RemoveScene(name) => {
+                    if let Err(err) = cli.scenes().remove(name.as_str().into()).await {
+                        reply_error(cb_notify, rep_tx, err.to_string()).await;
+                    }
+
+                    ProcessMode::Continue
+                }
             }
         }
         None => ProcessMode::Break,
@@ -675,7 +689,7 @@ pub extern "C" fn ceammc_obs_prev_scene(cli: *const obs_client) -> bool {
 fn obs_create_scene(cli: *const obs_client, name: *const c_char) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
     let name = str_from_cstr(name)?;
-    cli.blocking_send(OBSRequest::CreateScene(name.to_owned()))?;
+    cli.blocking_send(OBSRequest::CreateScene(name))?;
     return Ok(true);
 }
 
@@ -687,6 +701,25 @@ fn obs_create_scene(cli: *const obs_client, name: *const c_char) -> Result<bool,
 #[named]
 pub extern "C" fn ceammc_obs_create_scene(cli: *mut obs_client, name: *const c_char) -> bool {
     obs_create_scene(cli, name)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_remove_scene(cli: *const obs_client, name: *const c_char) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    let name = str_from_cstr(name)?;
+    cli.blocking_send(OBSRequest::RemoveScene(name))?;
+    return Ok(true);
+}
+
+/// remove OBS scene
+/// @param cli - pointer to obs client
+/// @param name - scene name
+/// @return true on success, false on error
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_remove_scene(cli: *mut obs_client, name: *const c_char) -> bool {
+    obs_remove_scene(cli, name)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }
