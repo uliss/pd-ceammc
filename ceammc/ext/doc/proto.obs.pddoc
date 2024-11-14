@@ -14,25 +14,25 @@
             <since>0.9.8</since>
         </meta>
         <methods>
-            <method name="connect">connect to OBS studio. Message [connected 1( is send to output on success,
-            [connected 0( - on error.
+            <method name="connect">connect to OBS studio. Message [connected 1( is send to output
+            on success, [connected 0( - on error. 
             <param name="PASSWD" type="symbol" required="false">if specified, temporaly overrides
             @passwd property</param></method>
-            <method name="disconnect">disconnect from OBS studio.
-            Message [connected 0( is send to output</method>
+            <method name="disconnect">disconnect from OBS studio. Message [connected 0( is send to
+            output</method>
             <!-- info -->
-            <method name="info">request OBS studio information: OBS version, web-socket version, RPC version and list of supported image formats.
-            This info is outputted as messages to first outlet.</method>
+            <method name="info">request OBS studio information: OBS version, web-socket version,
+            RPC version and list of supported image formats. This info is outputted as messages to
+            first outlet.</method>
             <method name="scene list">request scene list</method>
             <method name="scene current get">request current scene</method>
-            <method name="scene current set">set current scene
-            <param name="SCENE" type="symbol" required="true">scene name</param>
-            </method>
+            <method name="scene current set">set current scene 
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
             <method name="scene next">change to next scene</method>
             <method name="scene prev">change to prev scene</method>
             <method name="collection list">request collection list</method>
             <method name="collection current get">request current collection</method>
-            <method name="collection current set">set current collection
+            <method name="collection current set">set current collection 
             <param name="NAME" type="symbol" required="true">collection name</param></method>
         </methods>
         <properties>

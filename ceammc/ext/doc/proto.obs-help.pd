@@ -35,9 +35,9 @@ value: 4455\. Range: 1\...32767\.;
 #X obj 20 510 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 545 collection current get;
-#X text 277 545 request current collection.;
+#X text 285 545 request current collection.;
 #X msg 110 573 collection current set;
-#X text 277 573 set current collection. Arguments are:;
+#X text 285 573 set current collection. Arguments are:;
 #X obj 255 596 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 596 NAME: collection name. Type: symbol.;
 #X msg 110 621 collection list;
