@@ -51,7 +51,10 @@ pub extern "C" fn ceammc_obs_get_collection_current(coll: &obs_collection_list) 
 /// @param idx - collection index
 /// @return NULL if not found
 #[no_mangle]
-pub extern "C" fn ceammc_obs_get_collection_at(coll: &obs_collection_list, idx: usize) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_collection_at(
+    coll: &obs_collection_list,
+    idx: usize,
+) -> *const c_char {
     coll.list.get(idx).map(|x| x.as_ptr()).unwrap_or(null())
 }
 
@@ -227,6 +230,7 @@ impl From<obws::responses::scenes::Scenes> for obs_scene_list {
         let scenes = sc
             .scenes
             .iter()
+            .rev()
             .map(|x| obs_scene::new(&x.id.name, &x.id.uuid.to_string()))
             .collect::<Vec<_>>();
 
@@ -307,7 +311,10 @@ pub extern "C" fn ceammc_obs_get_monitor_geom(
 /// get monitor at specified position
 /// @param ml - pointer to monitor list (not NULL!)
 /// @return pointer to monitor or nullptr if not found
-pub extern "C" fn ceammc_obs_get_monitor_at(ml: &obs_monitor_list, idx: usize) -> *const obs_monitor {
+pub extern "C" fn ceammc_obs_get_monitor_at(
+    ml: &obs_monitor_list,
+    idx: usize,
+) -> *const obs_monitor {
     ml.mons
         .get(idx)
         .map(|x| x as *const obs_monitor)
@@ -567,7 +574,7 @@ impl obs_client {
     }
 
     pub fn process_events(&mut self) {
-        use crate::common_ffi::Error; 
+        use crate::common_ffi::Error;
 
         while let Ok(rec) = self.recv.try_recv() {
             match rec {
