@@ -34,6 +34,7 @@
             <method name="collection current get">request current collection</method>
             <method name="collection current set">set current collection 
             <param name="NAME" type="symbol" required="true">collection name</param></method>
+            <method name="monitor list">request monitor list</method>
         </methods>
         <properties>
             <property name="@host" type="symbol" default="localhost">OBS studio host
@@ -59,7 +60,7 @@
 
  [info #c(           [scene next #f(        [S digits=15]
                                             |
-                     [scene prev #g(        [collection current set $1 #j(
+  [monitor list #k(  [scene prev #g(        [collection current set $1 #j(
 
 
 
@@ -69,7 +70,7 @@
 
 [X a->z] [X b->z] [X c->z]
 [X d->z] [X e->z] [X f->z] [X g->z]
-[X h->z] [X i->z] [X j->z]
+[X h->z] [X i->z] [X j->z] [X k->z]
 ]]>
             </pdascii>
         </example>

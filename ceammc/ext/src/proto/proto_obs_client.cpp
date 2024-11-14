@@ -179,7 +179,8 @@ void ProtoObsClient::m_monitor(t_symbol* s, const AtomListView& lv)
 {
     CHECK_CONNECT(cli_, s);
 
-    ceammc_obs_list_monitors(cli_->handle());
+    if (lv.size() > 0 || lv[0] == "list")
+        ceammc_obs_list_monitors(cli_->handle());
 }
 
 void ProtoObsClient::m_item(t_symbol* s, const AtomListView& lv)
