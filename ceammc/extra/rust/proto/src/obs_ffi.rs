@@ -4,7 +4,10 @@ use std::{
 };
 
 use log::warn;
-use obws::responses::scene_items::{SceneItem, SourceType};
+use obws::responses::{
+    scene_collections::SceneCollections,
+    scene_items::{SceneItem, SourceType},
+};
 
 use crate::common_ffi::callback_msg;
 
@@ -14,6 +17,49 @@ pub struct obs_init {
     pub host: *const c_char,
     pub password: *const c_char,
     pub port: u16,
+}
+
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+pub struct obs_collection_list {
+    current: CString,
+    list: Vec<CString>,
+}
+
+impl From<SceneCollections> for obs_collection_list {
+    fn from(value: SceneCollections) -> Self {
+        obs_collection_list {
+            current: CString::new(value.current.as_str()).unwrap_or_default(),
+            list: value
+                .collections
+                .iter()
+                .map(|x| CString::new(x.as_str()).unwrap_or_default())
+                .collect::<Vec<_>>(),
+        }
+    }
+}
+
+/// get OBS collection current
+/// @param coll - pointer to collection list (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_obs_get_collection_current(coll: &obs_collection_list) -> *const c_char {
+    coll.current.as_ptr()
+}
+
+/// get OBS collection at
+/// @param coll - pointer to collection list (not NULL!)
+/// @param idx - collection index
+/// @return NULL if not found
+#[no_mangle]
+pub extern "C" fn ceammc_obs_get_collection_at(coll: &obs_collection_list, idx: usize) -> *const c_char {
+    coll.list.get(idx).map(|x| x.as_ptr()).unwrap_or(null())
+}
+
+/// get OBS collection count
+/// @param coll - pointer to collection list (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_obs_get_collection_count(coll: &obs_collection_list) -> usize {
+    coll.list.len()
 }
 
 #[derive(Debug)]
@@ -399,6 +445,8 @@ pub struct obs_result_cb {
     user: *mut c_void,
     /// version callback function (can be NULL)
     cb_version: Option<extern "C" fn(user: *mut c_void, ver: &obs_version)>,
+    /// collection list callback function (can be NULL)
+    cb_collection_list: Option<extern "C" fn(user: *mut c_void, coll: &obs_collection_list)>,
     /// scene list callback function (can be NULL)
     cb_scene_list: Option<extern "C" fn(user: *mut c_void, scl: &obs_scene_list)>,
     /// scene itme list callback function (can be NULL)
@@ -431,6 +479,15 @@ impl obs_result_cb {
                 cb(self.user, &mons);
             }
             None => warn!("cb_monitor_list callback is not set"),
+        }
+    }
+
+    fn collection_list(&self, coll: obs_collection_list) {
+        match self.cb_collection_list {
+            Some(cb) => {
+                cb(self.user, &coll);
+            }
+            None => warn!("cb_collection_list callback is not set"),
         }
     }
 
@@ -513,6 +570,8 @@ impl obs_client {
                     OBSReply::ListMonitors(vec) => self.cb_reply.monitor_list(vec),
                     OBSReply::CurrentScene(cstr) => self.cb_reply.current_scene(&cstr),
                     OBSReply::ListSceneItems(items) => self.cb_reply.scene_item_list(items),
+                    OBSReply::ListCollections(coll) => self.cb_reply.collection_list(coll),
+                    OBSReply::CurrentCollection(cstring) => todo!(),
                 },
                 Err(err) => match err {
                     Error::Error(msg) => self.cb_err.exec(msg.as_str()),
@@ -536,6 +595,9 @@ impl obs_client {
 #[derive(Debug)]
 pub enum OBSRequest {
     GetVersion,
+    ListCollections,
+    GetCurrentCollection,
+    SetCurrentCollection(String),
     ListScenes,
     ListMonitors,
     GetCurrentScene,
@@ -554,9 +616,11 @@ pub enum OBSRequest {
 #[derive(Debug)]
 pub enum OBSReply {
     Version(obs_version),
+    ListCollections(obs_collection_list),
     ListScenes(obs_scene_list),
     ListSceneItems(obs_scene_item_list),
     ListMonitors(obs_monitor_list),
     CurrentScene(CString),
+    CurrentCollection(CString),
     Connected,
 }

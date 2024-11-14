@@ -8,7 +8,9 @@ use std::ptr::null_mut;
 use obws::Client;
 
 use crate::common_ffi::{callback_msg, callback_notify, Error};
-use crate::obs_ffi::{obs_client, obs_init, obs_result_cb, OBSReply, OBSRequest};
+use crate::obs_ffi::{
+    obs_client, obs_collection_list, obs_init, obs_result_cb, OBSReply, OBSRequest,
+};
 use crate::{fn_error, str_from_cstr};
 
 async fn reply_send(
@@ -250,6 +252,17 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
 
             return Ok(RequestResult::ReplyOk);
         }
+        OBSRequest::ListCollections => {
+            let coll = cli
+                .scene_collections()
+                .list()
+                .await
+                .map_err(|e| e.to_string())?;
+
+            return Ok(RequestResult::Reply(OBSReply::ListCollections(coll.into())));
+        }
+        OBSRequest::GetCurrentCollection => todo!(),
+        OBSRequest::SetCurrentCollection(_) => todo!(),
     }
 }
 
@@ -605,6 +618,25 @@ pub extern "C" fn ceammc_obs_remove_scene_item(
     idx: usize,
 ) -> bool {
     obs_scene_remove_item(cli, scene, idx)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_list_scene_collections(
+    cli: *const obs_client
+) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::ListCollections)
+}
+
+/// list OSB scene collections
+/// @param cli - pointer to obs client
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_list_scene_collections(
+    cli: *const obs_client
+) -> bool {
+    obs_list_scene_collections(cli)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }

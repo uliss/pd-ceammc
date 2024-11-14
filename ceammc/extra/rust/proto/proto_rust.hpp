@@ -9,6 +9,8 @@
 
 struct ceammc_obs_client;
 
+struct ceammc_obs_collection_list;
+
 struct ceammc_obs_monitor;
 
 struct ceammc_obs_monitor_list;
@@ -39,6 +41,8 @@ struct ceammc_obs_result_cb {
     void *user;
     /// version callback function (can be NULL)
     void (*cb_version)(void *user, const ceammc_obs_version *ver);
+    /// collection list callback function (can be NULL)
+    void (*cb_collection_list)(void *user, const ceammc_obs_collection_list *coll);
     /// scene list callback function (can be NULL)
     void (*cb_scene_list)(void *user, const ceammc_obs_scene_list *scl);
     /// scene itme list callback function (can be NULL)
@@ -82,6 +86,20 @@ bool ceammc_obs_first_scene(const ceammc_obs_client *cli);
 /// free OBS Studio client
 /// @param cli - pointer to obs client
 void ceammc_obs_free(ceammc_obs_client *cli);
+
+/// get OBS collection at
+/// @param coll - pointer to collection list (not NULL!)
+/// @param idx - collection index
+/// @return NULL if not found
+const char *ceammc_obs_get_collection_at(const ceammc_obs_collection_list *coll, size_t idx);
+
+/// get OBS collection count
+/// @param coll - pointer to collection list (not NULL!)
+size_t ceammc_obs_get_collection_count(const ceammc_obs_collection_list *coll);
+
+/// get OBS collection current
+/// @param coll - pointer to collection list (not NULL!)
+const char *ceammc_obs_get_collection_current(const ceammc_obs_collection_list *coll);
 
 /// get current OBS scene
 /// @param cli - pointer to obs client
@@ -128,6 +146,10 @@ bool ceammc_obs_last_scene(const ceammc_obs_client *cli);
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
 bool ceammc_obs_list_monitors(const ceammc_obs_client *cli);
+
+/// list OSB scene collections
+/// @param cli - pointer to obs client
+bool ceammc_obs_list_scene_collections(const ceammc_obs_client *cli);
 
 /// list OSB scene items
 /// @param cli - pointer to obs client
