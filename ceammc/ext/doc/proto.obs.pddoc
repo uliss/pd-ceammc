@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="proto.obs">
+        <title>proto.obs</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>OBS studio Web-Socket client</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>obs video</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <methods>
+            <method name="connect">connect to OBS studio. Message [connected 1( is send to output on success,
+            [connected 0( - on error.
+            <param name="PASSWD" type="symbol" required="false">if specified, temporaly overrides
+            @passwd property</param></method>
+            <method name="disconnect">disconnect from OBS studio.
+            Message [connected 0( is send to output</method>
+            <!-- info -->
+            <method name="info">request OBS studio information: OBS version, web-socket version, RPC version and list of supported image formats.
+            This info is outputted as messages to first outlet.</method>
+        </methods>
+        <properties>
+            <property name="@host" type="symbol" default="localhost">OBS studio host
+            name</property>
+            <property name="@passwd" type="symbol" default="">OBS studio password</property>
+            <property name="@port" type="int" default="4455" minvalue="1" maxvalue="32767">OBS
+            studio control port</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">raw midi input bytes</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>any messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[connect SECRET #a(  [scene list #d(
+
+ [disconnect #b(     [scene current get #e(
+
+ [info #c(           [scene next #f(
+
+                     [scene prev #g(
+
+
+
+[proto.obs #z]
+|
+[print OBS]
+
+[X a->z] [X b->z] [X c->z]
+[X d->z] [X e->z] [X f->z] [X g->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
