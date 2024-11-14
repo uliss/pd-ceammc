@@ -90,7 +90,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .map(|x| RequestResult::Reply(OBSReply::ListMonitors(x.into())))
                 .map_err(|err| err.to_string());
         }
-        OBSRequest::MoveScene(offset) => {
+        OBSRequest::ChangeSceneBy(offset) => {
             let cur = cli.scenes().list().await.map_err(|err| err.to_string())?;
             let name = cur.current_program_scene.unwrap().name;
             let mut iter = cur.scenes.iter();
@@ -373,7 +373,7 @@ pub extern "C" fn ceammc_obs_get_current_scene(cli: *const obs_client) -> bool {
 
 fn obs_next_scene(cli: *const obs_client) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
-    cli.blocking_send(OBSRequest::MoveScene(1))
+    cli.blocking_send(OBSRequest::ChangeSceneBy(1))
 }
 
 /// move to next OBS scene
@@ -389,7 +389,7 @@ pub extern "C" fn ceammc_obs_next_scene(cli: *const obs_client) -> bool {
 
 fn obs_prev_scene(cli: *const obs_client) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
-    cli.blocking_send(OBSRequest::MoveScene(-1))
+    cli.blocking_send(OBSRequest::ChangeSceneBy(-1))
 }
 
 /// move to previous OBS scene

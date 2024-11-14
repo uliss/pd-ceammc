@@ -434,7 +434,7 @@ pub enum OBSRequest {
     ListMonitors,
     GetCurrentScene,
     SetCurrentScene(String),
-    MoveScene(i32),
+    ChangeSceneBy(i32),
     CreateScene(String),
     RemoveScene(String),
     FirstScene,
