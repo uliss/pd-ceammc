@@ -114,28 +114,28 @@ pub extern "C" fn ceammc_obs_version_websocket(
 /// get RPC OBS version
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_version_rpc(v: &obs_version) -> u32 {
+pub extern "C" fn ceammc_obs_get_rpc_version(v: &obs_version) -> u32 {
     v.rpc_version
 }
 
 /// get OBS platform
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_version_platform(v: &obs_version) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_platform(v: &obs_version) -> *const c_char {
     v.platform.as_ptr()
 }
 
 /// get OBS platform description
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_version_platform_desc(v: &obs_version) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_platform_desc(v: &obs_version) -> *const c_char {
     v.platform_desc.as_ptr()
 }
 
 /// get OBS image format count
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_version_image_fmt_num(v: &obs_version) -> usize {
+pub extern "C" fn ceammc_obs_get_image_format_count(v: &obs_version) -> usize {
     v.image_formats.len()
 }
 
@@ -143,7 +143,7 @@ pub extern "C" fn ceammc_obs_version_image_fmt_num(v: &obs_version) -> usize {
 /// @param v - pointer to version struct
 /// @param idx - image format index
 #[no_mangle]
-pub extern "C" fn ceammc_obs_version_image_fmt_at(v: &obs_version, idx: usize) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_image_format_at(v: &obs_version, idx: usize) -> *const c_char {
     v.image_formats
         .get(idx)
         .unwrap_or(&CString::default())
@@ -193,14 +193,14 @@ impl obs_scene {
 /// get scene name as C-string
 /// @param scene - pointer to scene (not NULL!)
 #[no_mangle]
-pub extern "C" fn ceammc_obs_scene_name(scene: &obs_scene) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_scene_name(scene: &obs_scene) -> *const c_char {
     scene.name.as_ptr()
 }
 
 /// get scene UUID as C-string
 /// @param scene - pointer to scene (not NULL!)
 #[no_mangle]
-pub extern "C" fn ceammc_obs_scene_uuid(scene: &obs_scene) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_scene_uuid(scene: &obs_scene) -> *const c_char {
     scene.uuid.as_ptr()
 }
 
@@ -241,17 +241,17 @@ pub extern "C" fn ceammc_obs_scene_current(scl: &obs_scene_list) -> &obs_scene {
     &scl.current
 }
 
-/// get scene list length
+/// get scene count
 /// @param scenes - pointer to scenes (not NULL!)
 #[no_mangle]
-pub extern "C" fn ceammc_obs_scene_list_length(scl: &obs_scene_list) -> usize {
+pub extern "C" fn ceammc_obs_get_scene_count(scl: &obs_scene_list) -> usize {
     scl.scenes.len()
 }
 
 /// get scene list data
 /// @param scenes - pointer to scenes (not NULL!)
 #[no_mangle]
-pub extern "C" fn ceammc_obs_scene_list_at(scl: &obs_scene_list, idx: usize) -> *const obs_scene {
+pub extern "C" fn ceammc_obs_get_scene_at(scl: &obs_scene_list, idx: usize) -> *const obs_scene {
     scl.scenes
         .get(idx)
         .map(|x| x as *const obs_scene)
@@ -272,14 +272,14 @@ pub struct obs_monitor {
 #[no_mangle]
 /// get monitor name
 /// @param m - pointer to monitor (not NULL!)
-pub extern "C" fn ceammc_obs_monitor_name(m: &obs_monitor) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_monitor_name(m: &obs_monitor) -> *const c_char {
     m.name.as_ptr()
 }
 
 #[no_mangle]
 /// get monitor index
 /// @param m - pointer to monitor (not NULL!)
-pub extern "C" fn ceammc_obs_monitor_index(m: &obs_monitor) -> u32 {
+pub extern "C" fn ceammc_obs_get_monitor_index(m: &obs_monitor) -> u32 {
     m.index
 }
 
@@ -290,7 +290,7 @@ pub extern "C" fn ceammc_obs_monitor_index(m: &obs_monitor) -> u32 {
 /// @param y - pointer to store y coord
 /// @param w - pointer to store monitor width
 /// @param h - pointer to store monitor height
-pub extern "C" fn ceammc_obs_monitor_geom(
+pub extern "C" fn ceammc_obs_get_monitor_geom(
     m: &obs_monitor,
     x: &mut u16,
     y: &mut u16,
@@ -307,7 +307,7 @@ pub extern "C" fn ceammc_obs_monitor_geom(
 /// get monitor at specified position
 /// @param ml - pointer to monitor list (not NULL!)
 /// @return pointer to monitor or nullptr if not found
-pub extern "C" fn ceammc_obs_monitor_at(ml: &obs_monitor_list, idx: usize) -> *const obs_monitor {
+pub extern "C" fn ceammc_obs_get_monitor_at(ml: &obs_monitor_list, idx: usize) -> *const obs_monitor {
     ml.mons
         .get(idx)
         .map(|x| x as *const obs_monitor)
@@ -317,7 +317,7 @@ pub extern "C" fn ceammc_obs_monitor_at(ml: &obs_monitor_list, idx: usize) -> *c
 #[no_mangle]
 /// get monitor list length
 /// @param ml - pointer to monitor list (not NULL!)
-pub extern "C" fn ceammc_obs_monitor_count(ml: &obs_monitor_list) -> usize {
+pub extern "C" fn ceammc_obs_get_monitor_count(ml: &obs_monitor_list) -> usize {
     ml.mons.len()
 }
 
@@ -567,7 +567,7 @@ impl obs_client {
     }
 
     pub fn process_events(&mut self) {
-        use crate::common_ffi::Error;
+        use crate::common_ffi::Error; 
 
         while let Ok(rec) = self.recv.try_recv() {
             match rec {

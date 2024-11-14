@@ -108,6 +108,64 @@ const char *ceammc_obs_get_collection_current(const ceammc_obs_collection_list *
 /// @return true on success, false on error
 bool ceammc_obs_get_current_scene(const ceammc_obs_client *cli);
 
+/// get OBS image format at
+/// @param v - pointer to version struct
+/// @param idx - image format index
+const char *ceammc_obs_get_image_format_at(const ceammc_obs_version *v, size_t idx);
+
+/// get OBS image format count
+/// @param v - pointer to version struct
+size_t ceammc_obs_get_image_format_count(const ceammc_obs_version *v);
+
+/// get monitor at specified position
+/// @param ml - pointer to monitor list (not NULL!)
+/// @return pointer to monitor or nullptr if not found
+const ceammc_obs_monitor *ceammc_obs_get_monitor_at(const ceammc_obs_monitor_list *ml, size_t idx);
+
+/// get monitor list length
+/// @param ml - pointer to monitor list (not NULL!)
+size_t ceammc_obs_get_monitor_count(const ceammc_obs_monitor_list *ml);
+
+/// get monitor geometry
+/// @param m - pointer to monitor (not NULL!)
+/// @param x - pointer to store x coord
+/// @param y - pointer to store y coord
+/// @param w - pointer to store monitor width
+/// @param h - pointer to store monitor height
+void ceammc_obs_get_monitor_geom(const ceammc_obs_monitor *m,
+                                 uint16_t *x,
+                                 uint16_t *y,
+                                 uint16_t *w,
+                                 uint16_t *h);
+
+/// get monitor index
+/// @param m - pointer to monitor (not NULL!)
+uint32_t ceammc_obs_get_monitor_index(const ceammc_obs_monitor *m);
+
+/// get monitor name
+/// @param m - pointer to monitor (not NULL!)
+const char *ceammc_obs_get_monitor_name(const ceammc_obs_monitor *m);
+
+/// get OBS platform
+/// @param v - pointer to version struct
+const char *ceammc_obs_get_platform(const ceammc_obs_version *v);
+
+/// get OBS platform description
+/// @param v - pointer to version struct
+const char *ceammc_obs_get_platform_desc(const ceammc_obs_version *v);
+
+/// get RPC OBS version
+/// @param v - pointer to version struct
+uint32_t ceammc_obs_get_rpc_version(const ceammc_obs_version *v);
+
+/// get scene list data
+/// @param scenes - pointer to scenes (not NULL!)
+const ceammc_obs_scene *ceammc_obs_get_scene_at(const ceammc_obs_scene_list *scl, size_t idx);
+
+/// get scene count
+/// @param scenes - pointer to scenes (not NULL!)
+size_t ceammc_obs_get_scene_count(const ceammc_obs_scene_list *scl);
+
 /// get scene item at specified position
 /// @param itl - pointer to item list (not NULL!)
 /// @param idx - item position
@@ -134,10 +192,13 @@ const char *ceammc_obs_get_scene_item_name(const ceammc_obs_scene_item *item);
 /// @param item - pointer to item (not NULL!)
 const char *ceammc_obs_get_scene_item_type(const ceammc_obs_scene_item *item);
 
-/// send version request to OBS studio
-/// @param cli - pointer to obs client
-/// @return true on success, false on error
-bool ceammc_obs_get_version(const ceammc_obs_client *cli);
+/// get scene name as C-string
+/// @param scene - pointer to scene (not NULL!)
+const char *ceammc_obs_get_scene_name(const ceammc_obs_scene *scene);
+
+/// get scene UUID as C-string
+/// @param scene - pointer to scene (not NULL!)
+const char *ceammc_obs_get_scene_uuid(const ceammc_obs_scene *scene);
 
 /// change to last OBS scene
 /// @param cli - pointer to obs client
@@ -162,35 +223,6 @@ bool ceammc_obs_list_scene_items(const ceammc_obs_client *cli, const char *name)
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
 bool ceammc_obs_list_scenes(const ceammc_obs_client *cli);
-
-/// get monitor at specified position
-/// @param ml - pointer to monitor list (not NULL!)
-/// @return pointer to monitor or nullptr if not found
-const ceammc_obs_monitor *ceammc_obs_monitor_at(const ceammc_obs_monitor_list *ml, size_t idx);
-
-/// get monitor list length
-/// @param ml - pointer to monitor list (not NULL!)
-size_t ceammc_obs_monitor_count(const ceammc_obs_monitor_list *ml);
-
-/// get monitor geometry
-/// @param m - pointer to monitor (not NULL!)
-/// @param x - pointer to store x coord
-/// @param y - pointer to store y coord
-/// @param w - pointer to store monitor width
-/// @param h - pointer to store monitor height
-void ceammc_obs_monitor_geom(const ceammc_obs_monitor *m,
-                             uint16_t *x,
-                             uint16_t *y,
-                             uint16_t *w,
-                             uint16_t *h);
-
-/// get monitor index
-/// @param m - pointer to monitor (not NULL!)
-uint32_t ceammc_obs_monitor_index(const ceammc_obs_monitor *m);
-
-/// get monitor name
-/// @param m - pointer to monitor (not NULL!)
-const char *ceammc_obs_monitor_name(const ceammc_obs_monitor *m);
 
 /// create OBS Studio client
 /// @param params - connection params
@@ -236,25 +268,14 @@ bool ceammc_obs_remove_scene(const ceammc_obs_client *cli, const char *name);
 /// @param idx - item index
 bool ceammc_obs_remove_scene_item(const ceammc_obs_client *cli, const char *scene, size_t idx);
 
+/// send version request to OBS studio
+/// @param cli - pointer to obs client
+/// @return true on success, false on error
+bool ceammc_obs_request_version(const ceammc_obs_client *cli);
+
 /// get current scene
 /// @param scenes - pointer to scenes (not NULL!)
 const ceammc_obs_scene *ceammc_obs_scene_current(const ceammc_obs_scene_list *scl);
-
-/// get scene list data
-/// @param scenes - pointer to scenes (not NULL!)
-const ceammc_obs_scene *ceammc_obs_scene_list_at(const ceammc_obs_scene_list *scl, size_t idx);
-
-/// get scene list length
-/// @param scenes - pointer to scenes (not NULL!)
-size_t ceammc_obs_scene_list_length(const ceammc_obs_scene_list *scl);
-
-/// get scene name as C-string
-/// @param scene - pointer to scene (not NULL!)
-const char *ceammc_obs_scene_name(const ceammc_obs_scene *scene);
-
-/// get scene UUID as C-string
-/// @param scene - pointer to scene (not NULL!)
-const char *ceammc_obs_scene_uuid(const ceammc_obs_scene *scene);
 
 /// set current OBS collection
 /// @param cli - pointer to obs client
@@ -266,27 +287,6 @@ bool ceammc_obs_set_current_collection(const ceammc_obs_client *cli, const char 
 /// @param name - scene name
 /// @return true on success, false on error
 bool ceammc_obs_set_current_scene(ceammc_obs_client *cli, const char *name);
-
-/// get OBS image format at
-/// @param v - pointer to version struct
-/// @param idx - image format index
-const char *ceammc_obs_version_image_fmt_at(const ceammc_obs_version *v, size_t idx);
-
-/// get OBS image format count
-/// @param v - pointer to version struct
-size_t ceammc_obs_version_image_fmt_num(const ceammc_obs_version *v);
-
-/// get OBS platform
-/// @param v - pointer to version struct
-const char *ceammc_obs_version_platform(const ceammc_obs_version *v);
-
-/// get OBS platform description
-/// @param v - pointer to version struct
-const char *ceammc_obs_version_platform_desc(const ceammc_obs_version *v);
-
-/// get RPC OBS version
-/// @param v - pointer to version struct
-uint32_t ceammc_obs_version_rpc(const ceammc_obs_version *v);
 
 /// get OBS version
 /// @param v - pointer to version struct

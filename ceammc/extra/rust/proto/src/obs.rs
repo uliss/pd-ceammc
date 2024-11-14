@@ -327,7 +327,9 @@ pub extern "C" fn ceammc_obs_new(
                                     return ();
                                 }
 
-                                match process_request(req.unwrap(), &mut cli).await {
+                                let req = req.unwrap();
+
+                                match process_request(req, &mut cli).await {
                                     Ok(res) => match res {
                                         RequestResult::Reply(obsreply) => {
                                             reply_send(&cb_notify, &rep_tx, obsreply).await;
@@ -377,7 +379,7 @@ pub extern "C" fn ceammc_obs_free(cli: *mut obs_client) {
     }
 }
 
-fn obs_get_version(cli: *const obs_client) -> Result<bool, String> {
+fn obs_request_version(cli: *const obs_client) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
     cli.blocking_send(OBSRequest::GetVersion)
 }
@@ -387,8 +389,9 @@ fn obs_get_version(cli: *const obs_client) -> Result<bool, String> {
 /// @return true on success, false on error
 #[no_mangle]
 #[named]
-pub extern "C" fn ceammc_obs_get_version(cli: *const obs_client) -> bool {
-    obs_get_version(cli)
+pub extern "C" fn ceammc_obs_request_version(cli: *const obs_client) -> bool {
+    debug!(function_name!());
+    obs_request_version(cli)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }

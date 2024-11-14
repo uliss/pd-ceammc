@@ -41,10 +41,10 @@ public:
     void m_info(t_symbol* s, const AtomListView& lv);
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_disconnect(t_symbol* s, const AtomListView& lv);
-    void m_scenes(t_symbol* s, const AtomListView& lv);
+    void m_scene(t_symbol* s, const AtomListView& lv);
     void m_current(t_symbol* s, const AtomListView& lv);
-    void m_monitors(t_symbol* s, const AtomListView& lv);
-    void m_items(t_symbol* s, const AtomListView& lv);
+    void m_monitor(t_symbol* s, const AtomListView& lv);
+    void m_item(t_symbol* s, const AtomListView& lv);
     void m_collection(t_symbol* s, const AtomListView& lv);
 
 private:
@@ -55,7 +55,8 @@ private:
     void processItemsList(const ceammc_obs_scene_item_list* items);
     void processMonitorList(const ceammc_obs_monitor_list* mons);
     void processSceneList(const ceammc_obs_scene_list* scl);
-    void processVersion(const ceammc_obs_version* ver);
+    void processInfo(const ceammc_obs_version* ver);
+    void msg_connected(bool value);
 };
 
 } // namespace ceammc

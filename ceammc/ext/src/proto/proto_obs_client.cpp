@@ -15,7 +15,30 @@
 #include "args/argcheck.h"
 #include "ceammc_atomlist_view.h"
 #include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+
+CEAMMC_DEFINE_SYM(app)
+CEAMMC_DEFINE_SYM(collection)
+CEAMMC_DEFINE_SYM(connected)
+CEAMMC_DEFINE_SYM(current)
+CEAMMC_DEFINE_SYM(image_formats)
+CEAMMC_DEFINE_SYM(info)
+CEAMMC_DEFINE_SYM(localhost)
+CEAMMC_DEFINE_SYM(monitor)
+CEAMMC_DEFINE_SYM(platform)
+CEAMMC_DEFINE_SYM(platform_desc)
+CEAMMC_DEFINE_SYM(remove)
+CEAMMC_DEFINE_SYM(rpc)
+CEAMMC_DEFINE_SYM(scene)
+CEAMMC_DEFINE_SYM(version)
+CEAMMC_DEFINE_SYM(ws)
+
+#define CHECK_CONNECT(cli, m)             \
+    if (!cli || !cli->handle()) {         \
+        METHOD_ERR(m) << "not connected"; \
+        return;                           \
+    }
 
 namespace ceammc {
 
@@ -26,7 +49,7 @@ ProtoObsClient::ProtoObsClient(const PdArgs& args)
     port_->checkClosedRange(1, std::numeric_limits<std::int16_t>::max());
     addProperty(port_);
 
-    host_ = new SymbolProperty("@host", gensym("localhost"));
+    host_ = new SymbolProperty("@host", sym_localhost());
     addProperty(host_);
 
     passwd_ = new SymbolProperty("@passwd", &s_);
@@ -45,12 +68,9 @@ bool ProtoObsClient::notify(int code)
 
 void ProtoObsClient::m_info(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_) {
-        METHOD_ERR(s) << "not connected";
-        return;
-    }
+    CHECK_CONNECT(cli_, s);
 
-    ceammc_obs_get_version(cli_->handle());
+    ceammc_obs_request_version(cli_->handle());
 }
 
 void ProtoObsClient::m_connect(t_symbol* s, const AtomListView& lv)
@@ -77,8 +97,8 @@ void ProtoObsClient::m_connect(t_symbol* s, const AtomListView& lv)
         ceammc_obs_process_events,
         ceammc_obs_result_cb {
             this,
-            [](void* user, const ceammc_obs_version* ver) {
-                PROC_FN(user, processVersion, ver);
+            [](void* user, const ceammc_obs_version* info) {
+                PROC_FN(user, processInfo, info);
             },
             [](void* user, const ceammc_obs_collection_list* coll) {
                 PROC_FN(user, processCollectionList, coll);
@@ -104,28 +124,29 @@ void ProtoObsClient::m_connect(t_symbol* s, const AtomListView& lv)
         },
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
 
+    if (!cli_->handle()) {
+        cli_.reset();
+        msg_connected(false);
+        return;
+    }
+
     cli_->setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
     cli_->setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
 }
 
 void ProtoObsClient::m_disconnect(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_) {
-        OBJ_ERR << "not connected";
-        return;
-    }
+    CHECK_CONNECT(cli_, s);
 
-    cli_.release();
+    cli_.reset();
+    msg_connected(false);
 }
 
-void ProtoObsClient::m_scenes(t_symbol* s, const AtomListView& lv)
+void ProtoObsClient::m_scene(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_) {
-        OBJ_ERR << "not connected";
-        return;
-    }
+    CHECK_CONNECT(cli_, s);
 
-    if (lv.size() >= 2 && lv[0] == "current" && lv[1] == "get") {
+    if (lv.size() >= 2 && lv[0] == sym_current() && lv[1] == "get") {
         ceammc_obs_get_current_scene(cli_->handle());
     } else if (!lv.empty() && lv[0] == "next") {
         ceammc_obs_next_scene(cli_->handle());
@@ -140,7 +161,7 @@ void ProtoObsClient::m_scenes(t_symbol* s, const AtomListView& lv)
 
         if (chk_create.check(lv, this))
             ceammc_obs_create_scene(cli_->handle(), lv.symbolAt(1, &s_)->s_name);
-    } else if (!lv.empty() && lv[0] == "remove") {
+    } else if (!lv.empty() && lv[0] == sym_remove()) {
         static const args::ArgChecker chk_create("s=remove NAME:s");
 
         if (chk_create.check(lv, this))
@@ -152,30 +173,21 @@ void ProtoObsClient::m_scenes(t_symbol* s, const AtomListView& lv)
 
 void ProtoObsClient::m_current(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_) {
-        OBJ_ERR << "not connected";
-        return;
-    }
+    CHECK_CONNECT(cli_, s);
 
     ceammc_obs_set_current_scene(cli_->handle(), lv.symbolAt(0, &s_)->s_name);
 }
 
-void ProtoObsClient::m_monitors(t_symbol* s, const AtomListView& lv)
+void ProtoObsClient::m_monitor(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_) {
-        OBJ_ERR << "not connected";
-        return;
-    }
+    CHECK_CONNECT(cli_, s);
 
     ceammc_obs_list_monitors(cli_->handle());
 }
 
-void ProtoObsClient::m_items(t_symbol* s, const AtomListView& lv)
+void ProtoObsClient::m_item(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_) {
-        OBJ_ERR << "not connected";
-        return;
-    }
+    CHECK_CONNECT(cli_, s);
 
     if (lv.size() >= 1 && lv[0] == &s_list) {
         ceammc_obs_list_scene_items(cli_->handle(), lv.symbolAt(1, &s_)->s_name);
@@ -184,7 +196,7 @@ void ProtoObsClient::m_items(t_symbol* s, const AtomListView& lv)
             lv.symbolAt(1, &s_)->s_name,
             lv.intAt(2, 0),
             lv.boolAt(3, true));
-    } else if (lv.size() >= 1 && lv[0] == "remove") {
+    } else if (lv.size() >= 1 && lv[0] == sym_remove()) {
         ceammc_obs_remove_scene_item(cli_->handle(),
             lv.symbolAt(1, &s_)->s_name,
             lv.intAt(2, 0));
@@ -193,14 +205,11 @@ void ProtoObsClient::m_items(t_symbol* s, const AtomListView& lv)
 
 void ProtoObsClient::m_collection(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_) {
-        OBJ_ERR << "not connected";
-        return;
-    }
+    CHECK_CONNECT(cli_, s);
 
     if (lv.size() >= 1 && lv[0] == &s_list) {
         ceammc_obs_list_collections(cli_->handle());
-    } else if (lv.size() >= 1 && lv[0] == "current") {
+    } else if (lv.size() >= 1 && lv[0] == sym_current()) {
         ceammc_obs_set_current_collection(cli_->handle(), lv.symbolAt(1, &s_)->s_name);
     }
 }
@@ -208,7 +217,7 @@ void ProtoObsClient::m_collection(t_symbol* s, const AtomListView& lv)
 void ProtoObsClient::processCollectionList(const ceammc_obs_collection_list* coll)
 {
     auto current = ceammc_obs_get_collection_current(coll);
-    anyTo(0, gensym("collection"), AtomList { gensym("current"), gensym(current) });
+    anyTo(0, sym_collection(), AtomList { sym_current(), gensym(current) });
 
     auto N = ceammc_obs_get_collection_count(coll);
     AtomList res;
@@ -222,66 +231,79 @@ void ProtoObsClient::processCollectionList(const ceammc_obs_collection_list* col
         res.append(gensym(c));
     }
 
-    anyTo(0, gensym("collection"), res);
+    anyTo(0, sym_collection(), res);
 }
 
-void ProtoObsClient::processVersion(const ceammc_obs_version* ver)
+void ProtoObsClient::processInfo(const ceammc_obs_version* info)
 {
     {
         uint64_t maj, min, patch;
-        ceammc_obs_version_server(ver, &maj, &min, &patch);
-        AtomArray<4> msg { gensym("obs"), maj, min, patch };
-        anyTo(0, gensym("version"), msg.view());
+        ceammc_obs_version_server(info, &maj, &min, &patch);
+        AtomArray<4> msg { sym_app(), maj, min, patch };
+        anyTo(0, sym_version(), msg.view());
     }
 
     {
         uint64_t maj, min, patch;
-        ceammc_obs_version_websocket(ver, &maj, &min, &patch);
-        AtomArray<4> msg { gensym("obs"), maj, min, patch };
-        anyTo(0, gensym("version"), msg.view());
+        ceammc_obs_version_websocket(info, &maj, &min, &patch);
+        AtomArray<4> msg { sym_ws(), maj, min, patch };
+        anyTo(0, sym_version(), msg.view());
     }
 
     {
-        AtomArray<2> msg { gensym("rpc"), ceammc_obs_version_rpc(ver) };
-        anyTo(0, gensym("version"), msg.view());
+        AtomArray<2> msg { sym_rpc(), ceammc_obs_get_rpc_version(info) };
+        anyTo(0, sym_version(), msg.view());
     }
 
     {
-        AtomArray<2> msg { gensym("platform"), gensym(ceammc_obs_version_platform(ver)) };
-        anyTo(0, gensym("version"), msg.view());
+        AtomArray<2> msg { sym_platform(), gensym(ceammc_obs_get_platform(info)) };
+        anyTo(0, sym_version(), msg.view());
     }
 
     {
-        AtomArray<2> msg { gensym("platform_desc"), gensym(ceammc_obs_version_platform_desc(ver)) };
-        anyTo(0, gensym("version"), msg.view());
+        AtomArray<2> msg { sym_platform_desc(), gensym(ceammc_obs_get_platform_desc(info)) };
+        anyTo(0, sym_version(), msg.view());
     }
 
     {
         AtomList image_fmts;
-        auto fmt_count = ceammc_obs_version_image_fmt_num(ver);
-        image_fmts.reserve(fmt_count + 1);
-        image_fmts.append(gensym("image_formats"));
-        for (size_t i = 0; i < fmt_count; i++) {
-            image_fmts.append(gensym(ceammc_obs_version_image_fmt_at(ver, i)));
+        auto N = ceammc_obs_get_image_format_count(info);
+        image_fmts.reserve(N + 1);
+        image_fmts.append(sym_image_formats());
+        for (size_t i = 0; i < N; i++) {
+            image_fmts.append(gensym(ceammc_obs_get_image_format_at(info, i)));
         }
 
-        anyTo(0, gensym("info"), image_fmts);
+        anyTo(0, sym_info(), image_fmts);
     }
+}
+
+void ProtoObsClient::msg_connected(bool value)
+{
+    anyTo(0, sym_connected(), Atom(value));
 }
 
 void ProtoObsClient::processSceneList(const ceammc_obs_scene_list* scl)
 {
-    auto sc_cur = ceammc_obs_scene_current(scl);
-    anyTo(0, gensym("current"), Atom(gensym(ceammc_obs_scene_name(sc_cur))));
-
-    AtomList scenes;
-    for (size_t i = 0; i < ceammc_obs_scene_list_length(scl); i++) {
-        auto sc = ceammc_obs_scene_list_at(scl, i);
-        if (sc)
-            scenes.append(gensym(ceammc_obs_scene_name(sc)));
+    {
+        auto sc_cur = ceammc_obs_scene_current(scl);
+        auto name = ceammc_obs_get_scene_name(sc_cur);
+        AtomArray<2> msg { sym_current(), gensym(name) };
+        anyTo(0, sym_scene(), msg.view());
     }
 
-    anyTo(0, gensym("scenes"), scenes);
+    auto N = ceammc_obs_get_scene_count(scl);
+    AtomList scenes;
+    scenes.reserve(N + 1);
+    scenes.push_back(&s_list);
+
+    for (size_t i = 0; i < N; i++) {
+        auto sc = ceammc_obs_get_scene_at(scl, i);
+        if (sc)
+            scenes.append(gensym(ceammc_obs_get_scene_name(sc)));
+    }
+
+    anyTo(0, sym_scene(), scenes);
 }
 
 void ProtoObsClient::processItemsList(const ceammc_obs_scene_item_list* items)
@@ -301,39 +323,39 @@ void ProtoObsClient::processItemsList(const ceammc_obs_scene_item_list* items)
 
 void ProtoObsClient::processConnect(bool state)
 {
-    anyTo(0, gensym("connected"), Atom(state));
+    msg_connected(state);
 }
 
 void ProtoObsClient::processMonitorList(const ceammc_obs_monitor_list* mons)
 {
-    auto N = ceammc_obs_monitor_count(mons);
+    auto N = ceammc_obs_get_monitor_count(mons);
     for (size_t i = 0; i < N; i++) {
-        auto m = ceammc_obs_monitor_at(mons, i);
+        auto m = ceammc_obs_get_monitor_at(mons, i);
         if (!m)
             break;
 
         uint16_t x, y, w, h;
-        ceammc_obs_monitor_geom(m, &x, &y, &w, &h);
+        ceammc_obs_get_monitor_geom(m, &x, &y, &w, &h);
 
         const AtomArray<6> msg {
-            ceammc_obs_monitor_index(m),
+            ceammc_obs_get_monitor_index(m),
             w, h, x, y,
-            gensym(ceammc_obs_monitor_name(m))
+            gensym(ceammc_obs_get_monitor_name(m))
         };
-        anyTo(0, gensym("monitor"), msg.view());
+        anyTo(0, sym_monitor(), msg.view());
     }
 }
 
 void ProtoObsClient::processCurrentScene(const char* scene)
 {
-    AtomArray<2> msg { gensym("current"), gensym(scene) };
-    anyTo(0, gensym("scene"), msg.view());
+    AtomArray<2> msg { sym_current(), gensym(scene) };
+    anyTo(0, sym_scene(), msg.view());
 }
 
 void ProtoObsClient::processCurrentConnection(const char* scene)
 {
-    AtomArray<2> msg { gensym("current"), gensym(scene) };
-    anyTo(0, gensym("collection"), msg.view());
+    AtomArray<2> msg { sym_current(), gensym(scene) };
+    anyTo(0, sym_collection(), msg.view());
 }
 
 } // namespace ceammc
@@ -346,7 +368,7 @@ void setup_proto_obs_client()
     obj.addMethod("current", &ProtoObsClient::m_current);
     obj.addMethod("disconnect", &ProtoObsClient::m_disconnect);
     obj.addMethod("info", &ProtoObsClient::m_info);
-    obj.addMethod("items", &ProtoObsClient::m_items);
-    obj.addMethod("monitors", &ProtoObsClient::m_monitors);
-    obj.addMethod("scene", &ProtoObsClient::m_scenes);
+    obj.addMethod("item", &ProtoObsClient::m_item);
+    obj.addMethod("monitor", &ProtoObsClient::m_monitor);
+    obj.addMethod("scene", &ProtoObsClient::m_scene);
 }
