@@ -1,4 +1,6 @@
 pub mod obs;
+pub mod obs_ffi;
+mod common_ffi;
 
 use env_logger;
 
