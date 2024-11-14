@@ -89,9 +89,21 @@ const ceammc_obs_scene_item *ceammc_obs_get_scene_item_at(const ceammc_obs_scene
 /// @param itl - pointer to item list (not NULL!)
 size_t ceammc_obs_get_scene_item_count(const ceammc_obs_scene_item_list *itl);
 
+/// get scene item index
+/// @param item - pointer to item (not NULL!)
+uint32_t ceammc_obs_get_scene_item_index(const ceammc_obs_scene_item *item);
+
+/// get scene item input kind
+/// @param item - pointer to item (not NULL!)
+const char *ceammc_obs_get_scene_item_input_kind(const ceammc_obs_scene_item *item);
+
 /// get scene item name
 /// @param item - pointer to item (not NULL!)
 const char *ceammc_obs_get_scene_item_name(const ceammc_obs_scene_item *item);
+
+/// get scene item type
+/// @param item - pointer to item (not NULL!)
+const char *ceammc_obs_get_scene_item_type(const ceammc_obs_scene_item *item);
 
 /// send version request to OBS studio
 /// @param cli - pointer to obs client

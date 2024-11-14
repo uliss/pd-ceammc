@@ -4,7 +4,7 @@ use std::{
 };
 
 use log::warn;
-use obws::responses::scene_items::SceneItem;
+use obws::responses::scene_items::{SceneItem, SourceType};
 
 use crate::common_ffi::callback_msg;
 
@@ -305,8 +305,18 @@ pub struct obs_scene_item {
     pub id: i64,
     pub index: u32,
     pub name: CString,
-    // pub source_type: SourceType,
+    pub source: CString,
     pub input_kind: CString,
+}
+
+fn source_type_to_cstr(t: SourceType) -> CString {
+    match t {
+        SourceType::Input => CString::new("input").unwrap(),
+        SourceType::Filter => CString::new("filter").unwrap(),
+        SourceType::Transition => CString::new("transition").unwrap(),
+        SourceType::Scene => CString::new("scene").unwrap(),
+        _ => CString::new("unknown").unwrap(),
+    }
 }
 
 #[no_mangle]
@@ -314,6 +324,27 @@ pub struct obs_scene_item {
 /// @param item - pointer to item (not NULL!)
 pub extern "C" fn ceammc_obs_get_scene_item_name(item: &obs_scene_item) -> *const c_char {
     item.name.as_ptr()
+}
+
+#[no_mangle]
+/// get scene item type
+/// @param item - pointer to item (not NULL!)
+pub extern "C" fn ceammc_obs_get_scene_item_type(item: &obs_scene_item) -> *const c_char {
+    item.source.as_ptr()
+}
+
+#[no_mangle]
+/// get scene item input kind
+/// @param item - pointer to item (not NULL!)
+pub extern "C" fn ceammc_obs_get_scene_item_input_kind(item: &obs_scene_item) -> *const c_char {
+    item.input_kind.as_ptr()
+}
+
+#[no_mangle]
+/// get scene item index
+/// @param item - pointer to item (not NULL!)
+pub extern "C" fn ceammc_obs_get_scene_item_index(item: &obs_scene_item) -> u32 {
+    item.index
 }
 
 #[derive(Debug)]
@@ -331,7 +362,9 @@ impl From<Vec<SceneItem>> for obs_scene_item_list {
                     id: item.id,
                     index: item.index,
                     name: CString::new(item.source_name.as_str()).unwrap_or_default(),
-                    input_kind: CString::default(),
+                    source: source_type_to_cstr(item.source_type),
+                    input_kind: CString::new(item.input_kind.clone().unwrap_or_default().as_str())
+                        .unwrap_or_default(),
                 })
                 .collect::<Vec<_>>(),
         }
@@ -353,8 +386,7 @@ pub extern "C" fn ceammc_obs_get_scene_item_at(
     itl: &obs_scene_item_list,
     idx: usize,
 ) -> *const obs_scene_item {
-    itl
-        .items
+    itl.items
         .get(idx)
         .map(|x| x as *const obs_scene_item)
         .unwrap_or(null())
