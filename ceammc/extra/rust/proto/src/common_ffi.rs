@@ -28,3 +28,11 @@ impl callback_notify {
         self.cb.map(|f| f(self.id));
     }
 }
+
+#[derive(Debug)]
+pub enum Error {
+    Error(String),
+    Post(String),
+    Debug(String),
+    Log(String),
+}
