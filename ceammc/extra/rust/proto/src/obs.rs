@@ -63,6 +63,33 @@ pub struct obs_version {
     available_rpc_len: usize,
 }
 
+#[derive(Debug)]
+struct ObsScene {
+    name: CString,
+    uuid: CString,
+}
+
+impl ObsScene {
+    fn new(name: &String, uuid: &String) -> Self {
+        let name = CString::new(name.as_str()).unwrap_or_default();
+        let uuid = CString::new(uuid.as_str()).unwrap_or_default();
+        Self { name, uuid }
+    }
+
+    fn to_struct(&self) -> obs_data_scene {
+        obs_data_scene {
+            name: self.name.as_ptr(),
+            uuid: self.uuid.as_ptr(),
+        }
+    }
+}
+
+impl Default for ObsScene {
+    fn default() -> Self {
+        Self::new(&Default::default(), &Default::default())
+    }
+}
+
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct obs_data_scene {
@@ -70,18 +97,44 @@ pub struct obs_data_scene {
     uuid: *const c_char,
 }
 
-// impl obs_data_scene {
-//     fn new(id: obws::responses::scenes::CurrentProgramSceneId) -> Self {
-//         return obs_data_scene {
+#[derive(Debug)]
+struct ObsScenes {
+    current: ObsScene,
+    scenes: Vec<ObsScene>,
+}
 
-//         }
-//     }
-// }
+impl ObsScenes {
+    fn to_struct(&self) -> Vec<obs_data_scene> {
+        self.scenes
+            .iter()
+            .map(|x| x.to_struct())
+            .collect::<Vec<_>>()
+    }
+}
+
+impl From<obws::responses::scenes::Scenes> for ObsScenes {
+    fn from(sc: obws::responses::scenes::Scenes) -> Self {
+        let current = sc
+            .current_program_scene
+            .map(|x| ObsScene::new(&x.name, &x.uuid.to_string()))
+            .unwrap_or_default();
+
+        let scenes = sc
+            .scenes
+            .iter()
+            .map(|x| ObsScene::new(&x.id.name, &x.id.uuid.to_string()))
+            .collect::<Vec<_>>();
+
+        ObsScenes { current, scenes }
+    }
+}
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct obs_data_scenes {
     current_scene: *const obs_data_scene,
+    scenes: *const obs_data_scene,
+    num_scenes: usize,
 }
 
 #[allow(non_camel_case_types)]
@@ -156,17 +209,16 @@ impl obs_result_cb {
         }
     }
 
-    fn on_scenes(&self, _: &obws::responses::scenes::Scenes) {
+    fn on_scenes(&self, scenes: ObsScenes) {
         match self.cb_scenes {
-            Some(_) => {
-                // let cur_sc = scenes.current_program_scene.map(|x|
-                //     obs_data_scene::new(x)
-                // );
-
-                // let sc = obs_data_scenes {
-                //     current_scene: cur_sc
-                // };
-                // cb(self.user, &sc);
+            Some(cb) => {
+                let data = scenes.to_struct();
+                let scenes = obs_data_scenes {
+                    current_scene: &scenes.current.to_struct(),
+                    scenes: data.as_ptr(),
+                    num_scenes: data.len(),
+                };
+                cb(self.user, &scenes);
             }
             None => warn!("cb_scenes callback is not set"),
         }
@@ -273,7 +325,7 @@ enum OBSRequest {
 #[derive(Debug)]
 enum OBSReply {
     Version(obws::responses::general::Version),
-    ListScenes(obws::responses::scenes::Scenes),
+    ListScenes(ObsScenes),
     ListMonitors(Vec<obws::responses::ui::Monitor>),
     CurrentScene(CString),
     Connected,
@@ -337,10 +389,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .scenes()
                 .list()
                 .await
-                .map(|sc| {
-                    debug!("{sc:?}");
-                    RequestResult::ReplyOk
-                })
+                .map(|sc| RequestResult::Reply(OBSReply::ListScenes(sc.into())))
                 .map_err(|err| err.to_string());
         }
         OBSRequest::GetCurrentScene => {
@@ -771,13 +820,13 @@ pub extern "C" fn ceammc_obs_process_events(cli: *mut obs_client) -> bool {
     let cli = unsafe { &mut *cli };
 
     while let Ok(rec) = cli.recv.try_recv() {
-        match &rec {
+        match rec {
             Ok(reply) => match reply {
-                OBSReply::Version(version) => cli.cb_reply.on_version(version),
+                OBSReply::Version(version) => cli.cb_reply.on_version(&version),
                 OBSReply::Connected => cli.cb_reply.on_connect(),
                 OBSReply::ListScenes(scenes) => cli.cb_reply.on_scenes(scenes),
-                OBSReply::ListMonitors(vec) => cli.cb_reply.on_monitors(vec),
-                OBSReply::CurrentScene(cstr) => cli.cb_reply.on_current_scene(cstr),
+                OBSReply::ListMonitors(vec) => cli.cb_reply.on_monitors(&vec),
+                OBSReply::CurrentScene(cstr) => cli.cb_reply.on_current_scene(&cstr),
             },
             Err(err) => match err {
                 Error::Error(msg) => cli.cb_err.exec(msg.as_str()),

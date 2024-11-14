@@ -43,6 +43,8 @@ struct ceammc_obs_data_scene {
 
 struct ceammc_obs_data_scenes {
     const ceammc_obs_data_scene *current_scene;
+    const ceammc_obs_data_scene *scenes;
+    size_t num_scenes;
 };
 
 struct ceammc_obs_data_monitor {
