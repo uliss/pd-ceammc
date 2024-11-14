@@ -546,6 +546,8 @@ pub enum OBSRequest {
     FirstScene,
     LastScene,
     ListSceneItems(String),
+    EnableSceneItem(String, usize, bool),
+    RemoveSceneItem(String, usize),
     Close,
 }
 

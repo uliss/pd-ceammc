@@ -65,6 +65,15 @@ extern "C" {
 /// @return true on success, false on error
 bool ceammc_obs_create_scene(const ceammc_obs_client *cli, const char *name);
 
+/// enable OSB scene item
+/// @param cli - pointer to obs client
+/// @param scene - scene name
+/// @param idx - item index
+bool ceammc_obs_enable_scene_item(const ceammc_obs_client *cli,
+                                  const char *scene,
+                                  size_t idx,
+                                  bool enabled);
+
 /// change to first OBS scene
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
@@ -196,6 +205,12 @@ bool ceammc_obs_process_events(ceammc_obs_client *cli);
 /// @param name - scene name
 /// @return true on success, false on error
 bool ceammc_obs_remove_scene(const ceammc_obs_client *cli, const char *name);
+
+/// remove OSB scene item
+/// @param cli - pointer to obs client
+/// @param scene - scene name
+/// @param idx - item index
+bool ceammc_obs_remove_scene_item(const ceammc_obs_client *cli, const char *scene, size_t idx);
 
 /// get current scene
 /// @param scenes - pointer to scenes (not NULL!)

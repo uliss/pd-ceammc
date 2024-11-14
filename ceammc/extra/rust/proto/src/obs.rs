@@ -1,5 +1,7 @@
 use function_name::named;
 use log::{debug, error, warn};
+use obws::requests::scene_items::SetEnabled;
+use obws::requests::scenes::SceneId;
 use std::ffi::{c_char, CStr, CString};
 use std::ptr::null_mut;
 
@@ -38,6 +40,35 @@ enum RequestResult {
     Reply(OBSReply),
     ReplyOk,
     Break,
+}
+
+async fn handle_current_scene_name(cli: &mut Client, name: &String) -> Result<String, String> {
+    let mut scene = name.clone();
+    if scene.is_empty() || scene == "." {
+        scene = cli
+            .scenes()
+            .current_program_scene()
+            .await
+            .map(|x| x.id.name)
+            .map_err(|e| e.to_string())?;
+    }
+
+    return Ok(scene);
+}
+
+async fn get_scene_item_id_from_index(
+    cli: &mut Client,
+    scene: &String,
+    idx: usize,
+) -> Result<i64, String> {
+    Ok(cli
+        .scene_items()
+        .list(SceneId::Name(&scene))
+        .await
+        .map_err(|e| e.to_string())?
+        .get(idx)
+        .ok_or(format!("item not found at [{idx}]"))?
+        .id)
 }
 
 async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestResult, String> {
@@ -192,6 +223,32 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .map_err(|e| e.to_string())?;
 
             return Ok(RequestResult::Reply(OBSReply::ListSceneItems(items.into())));
+        }
+        OBSRequest::EnableSceneItem(scene, idx, enabled) => {
+            let scene = handle_current_scene_name(cli, &scene).await?;
+            let item_id = get_scene_item_id_from_index(cli, &scene, idx).await?;
+
+            cli.scene_items()
+                .set_enabled(SetEnabled {
+                    scene: SceneId::Name(&scene),
+                    item_id,
+                    enabled,
+                })
+                .await
+                .map_err(|e| e.to_string())?;
+
+            return Ok(RequestResult::ReplyOk);
+        }
+        OBSRequest::RemoveSceneItem(scene, idx) => {
+            let scene = handle_current_scene_name(cli, &scene).await?;
+            let item_id = get_scene_item_id_from_index(cli, &scene, idx).await?;
+
+            cli.scene_items()
+                .remove(SceneId::Name(&scene), item_id)
+                .await
+                .map_err(|e| e.to_string())?;
+
+            return Ok(RequestResult::ReplyOk);
         }
     }
 }
@@ -492,6 +549,62 @@ fn obs_scene_list_items(cli: *const obs_client, name: *const c_char) -> Result<b
 #[named]
 pub extern "C" fn ceammc_obs_list_scene_items(cli: *const obs_client, name: *const c_char) -> bool {
     obs_scene_list_items(cli, name)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_scene_enable_item(
+    cli: *const obs_client,
+    scene: *const c_char,
+    idx: usize,
+    enabled: bool,
+) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::EnableSceneItem(
+        str_from_cstr(scene)?,
+        idx,
+        enabled,
+    ))
+}
+
+/// enable OSB scene item
+/// @param cli - pointer to obs client
+/// @param scene - scene name
+/// @param idx - item index
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_enable_scene_item(
+    cli: *const obs_client,
+    scene: *const c_char,
+    idx: usize,
+    enabled: bool,
+) -> bool {
+    obs_scene_enable_item(cli, scene, idx, enabled)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_scene_remove_item(
+    cli: *const obs_client,
+    scene: *const c_char,
+    idx: usize,
+) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::RemoveSceneItem(str_from_cstr(scene)?, idx))
+}
+
+/// remove OSB scene item
+/// @param cli - pointer to obs client
+/// @param scene - scene name
+/// @param idx - item index
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_remove_scene_item(
+    cli: *const obs_client,
+    scene: *const c_char,
+    idx: usize,
+) -> bool {
+    obs_scene_remove_item(cli, scene, idx)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }
