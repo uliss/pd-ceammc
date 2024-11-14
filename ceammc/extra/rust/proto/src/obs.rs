@@ -45,8 +45,8 @@ pub struct obs_init {
     port: u16,
 }
 
+#[derive(Debug)]
 #[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct obs_version {
     obs_major: u64,
     obs_minor: u64,
@@ -55,12 +55,107 @@ pub struct obs_version {
     ws_minor: u64,
     ws_patch: u64,
     rpc_version: u32,
-    platform: *const c_char,
-    platform_desc: *const c_char,
-    image_formats: *const *const c_char,
-    image_formats_len: usize,
-    available_rpc: *const *const c_char,
-    available_rpc_len: usize,
+    platform: CString,
+    platform_desc: CString,
+    image_formats: Vec<CString>,
+}
+
+/// get OBS version
+/// @param v - pointer to version struct
+/// @param major - pointer to store major version data
+/// @param minor - pointer to store minor version data
+/// @param patch - pointer to store patch version data
+#[no_mangle]
+pub extern "C" fn ceammc_obs_version_server(
+    v: &obs_version,
+    major: &mut u64,
+    minor: &mut u64,
+    patch: &mut u64,
+) {
+    *major = v.obs_major;
+    *minor = v.obs_minor;
+    *patch = v.obs_patch;
+}
+
+/// get OBS Web Socket version
+/// @param v - pointer to version struct
+/// @param major - pointer to store major version data
+/// @param minor - pointer to store minor version data
+/// @param patch - pointer to store patch version data
+#[no_mangle]
+pub extern "C" fn ceammc_obs_version_websocket(
+    v: &obs_version,
+    major: &mut u64,
+    minor: &mut u64,
+    patch: &mut u64,
+) {
+    *major = v.ws_major;
+    *minor = v.ws_minor;
+    *patch = v.ws_patch;
+}
+
+/// get RPC OBS version
+/// @param v - pointer to version struct
+#[no_mangle]
+pub extern "C" fn ceammc_obs_version_rpc(v: &obs_version) -> u32 {
+    v.rpc_version
+}
+
+/// get OBS platform
+/// @param v - pointer to version struct
+#[no_mangle]
+pub extern "C" fn ceammc_obs_version_platform(v: &obs_version) -> *const c_char {
+    v.platform.as_ptr()
+}
+
+/// get OBS platform description
+/// @param v - pointer to version struct
+#[no_mangle]
+pub extern "C" fn ceammc_obs_version_platform_desc(v: &obs_version) -> *const c_char {
+    v.platform_desc.as_ptr()
+}
+
+/// get OBS image format count
+/// @param v - pointer to version struct
+#[no_mangle]
+pub extern "C" fn ceammc_obs_version_image_fmt_num(v: &obs_version) -> usize {
+    v.image_formats.len()
+}
+
+/// get OBS image format at
+/// @param v - pointer to version struct
+/// @param idx - image format index
+#[no_mangle]
+pub extern "C" fn ceammc_obs_version_image_fmt_at(v: &obs_version, idx: usize) -> *const c_char {
+    v.image_formats
+        .get(idx)
+        .unwrap_or(&CString::default())
+        .as_ptr()
+}
+
+impl From<obws::responses::general::Version> for obs_version {
+    fn from(version: obws::responses::general::Version) -> Self {
+        let platform = CString::new(version.platform.as_str()).unwrap();
+        let platform_desc = CString::new(version.platform_description.as_str()).unwrap();
+        let sup_img = version
+            .supported_image_formats
+            .iter()
+            .map(|f| CString::new(f.as_str()).unwrap())
+            .collect::<Vec<_>>();
+
+        return Self {
+            obs_major: version.obs_version.major,
+            obs_minor: version.obs_version.minor,
+            obs_patch: version.obs_version.patch,
+            ws_major: version.obs_web_socket_version.major,
+            ws_minor: version.obs_web_socket_version.minor,
+            ws_patch: version.obs_web_socket_version.patch,
+            rpc_version: version.rpc_version,
+            platform,
+            platform_desc,
+            image_formats: sup_img,
+        };
+    }
 }
 
 #[allow(non_camel_case_types)]
@@ -227,46 +322,11 @@ impl obs_result_cb {
         }
     }
 
-    fn on_version(&self, version: &obws::responses::general::Version) {
+    fn on_version(&self, version: &obs_version) {
         match self.cb_version {
             Some(cb) => {
-                let platform = CString::new(version.platform.as_str()).unwrap();
-                let platform_desc = CString::new(version.platform_description.as_str()).unwrap();
-                let sup_img = version
-                    .supported_image_formats
-                    .iter()
-                    .map(|f| CString::new(f.as_str()).unwrap())
-                    .collect::<Vec<_>>();
-
-                let sup_img_ptr = sup_img.iter().map(|f| f.as_ptr()).collect::<Vec<_>>();
-
-                let sup_rpc = version
-                    .available_requests
-                    .iter()
-                    .map(|f| CString::new(f.as_str()).unwrap())
-                    .collect::<Vec<CString>>();
-                let sup_rpc_ptr = sup_rpc.iter().map(|f| f.as_ptr()).collect::<Vec<_>>();
-
-                cb(
-                    self.user,
-                    &obs_version {
-                        obs_major: version.obs_version.major,
-                        obs_minor: version.obs_version.minor,
-                        obs_patch: version.obs_version.patch,
-                        ws_major: version.obs_web_socket_version.major,
-                        ws_minor: version.obs_web_socket_version.minor,
-                        ws_patch: version.obs_web_socket_version.patch,
-                        rpc_version: version.rpc_version,
-                        platform: platform.as_ptr(),
-                        platform_desc: platform_desc.as_ptr(),
-                        image_formats: sup_img_ptr.as_ptr(),
-                        image_formats_len: sup_img_ptr.len(),
-                        available_rpc: sup_rpc_ptr.as_ptr(),
-                        available_rpc_len: sup_rpc_ptr.len(),
-                    },
-                );
+                cb(self.user, &version);
             }
-
             None => warn!("cb_version callback is not set"),
         }
     }
@@ -327,7 +387,7 @@ enum OBSRequest {
 
 #[derive(Debug)]
 enum OBSReply {
-    Version(obws::responses::general::Version),
+    Version(obs_version),
     ListScenes(obs_scene_list),
     ListMonitors(Vec<obws::responses::ui::Monitor>),
     CurrentScene(CString),
@@ -380,7 +440,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .general()
                 .version()
                 .await
-                .map(|x| RequestResult::Reply(OBSReply::Version(x)))
+                .map(|x| RequestResult::Reply(OBSReply::Version(x.into())))
                 .map_err(|err| err.to_string());
         }
         OBSRequest::Close => {

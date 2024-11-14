@@ -13,6 +13,8 @@ struct ceammc_obs_scene;
 
 struct ceammc_obs_scene_list;
 
+struct ceammc_obs_version;
+
 struct ceammc_obs_init {
     const char *host;
     const char *password;
@@ -22,22 +24,6 @@ struct ceammc_obs_init {
 struct ceammc_callback_msg {
     void *user;
     void (*cb)(void *user, const char *msg);
-};
-
-struct ceammc_obs_version {
-    uint64_t obs_major;
-    uint64_t obs_minor;
-    uint64_t obs_patch;
-    uint64_t ws_major;
-    uint64_t ws_minor;
-    uint64_t ws_patch;
-    uint32_t rpc_version;
-    const char *platform;
-    const char *platform_desc;
-    const char *const *image_formats;
-    size_t image_formats_len;
-    const char *const *available_rpc;
-    size_t available_rpc_len;
 };
 
 struct ceammc_obs_data_monitor {
@@ -174,6 +160,47 @@ const char *ceammc_obs_scene_uuid(const ceammc_obs_scene *scene);
 /// @param name - scene name
 /// @return true on success, false on error
 bool ceammc_obs_set_current_scene(ceammc_obs_client *cli, const char *name);
+
+/// get OBS image format at
+/// @param v - pointer to version struct
+/// @param idx - image format index
+const char *ceammc_obs_version_image_fmt_at(const ceammc_obs_version *v, size_t idx);
+
+/// get OBS image format count
+/// @param v - pointer to version struct
+size_t ceammc_obs_version_image_fmt_num(const ceammc_obs_version *v);
+
+/// get OBS platform
+/// @param v - pointer to version struct
+const char *ceammc_obs_version_platform(const ceammc_obs_version *v);
+
+/// get OBS platform description
+/// @param v - pointer to version struct
+const char *ceammc_obs_version_platform_desc(const ceammc_obs_version *v);
+
+/// get RPC OBS version
+/// @param v - pointer to version struct
+uint32_t ceammc_obs_version_rpc(const ceammc_obs_version *v);
+
+/// get OBS version
+/// @param v - pointer to version struct
+/// @param major - pointer to store major version data
+/// @param minor - pointer to store minor version data
+/// @param patch - pointer to store patch version data
+void ceammc_obs_version_server(const ceammc_obs_version *v,
+                               uint64_t *major,
+                               uint64_t *minor,
+                               uint64_t *patch);
+
+/// get OBS Web Socket version
+/// @param v - pointer to version struct
+/// @param major - pointer to store major version data
+/// @param minor - pointer to store minor version data
+/// @param patch - pointer to store patch version data
+void ceammc_obs_version_websocket(const ceammc_obs_version *v,
+                                  uint64_t *major,
+                                  uint64_t *minor,
+                                  uint64_t *patch);
 
 /// init rust env_logger
 /// logger config is done with a RUST_LOG env variable
