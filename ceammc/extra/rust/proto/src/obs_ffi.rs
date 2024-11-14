@@ -453,6 +453,8 @@ pub struct obs_result_cb {
     cb_scene_item_list: Option<extern "C" fn(user: *mut c_void, items: &obs_scene_item_list)>,
     /// monitor list callback function (can be NULL)
     cb_monitor_list: Option<extern "C" fn(user: *mut c_void, mons: *const obs_monitor_list)>,
+    /// current collection callback function (can be NULL)
+    cb_current_collection: Option<extern "C" fn(user: *mut c_void, name: *const c_char)>,
     /// current scene callback function (can be NULL)
     cb_current_scene: Option<extern "C" fn(user: *mut c_void, name: *const c_char)>,
     /// connected/disconnected callback function (can be NULL)
@@ -467,7 +469,13 @@ impl obs_result_cb {
         }
     }
 
-    fn current_scene(&self, name: &CString) {
+    fn current_collection(&self, name: CString) {
+        if let Some(cb) = self.cb_current_collection {
+            cb(self.user, name.as_ptr());
+        }
+    }
+
+    fn current_scene(&self, name: CString) {
         if let Some(cb) = self.cb_current_scene {
             cb(self.user, name.as_ptr());
         }
@@ -568,10 +576,10 @@ impl obs_client {
                     OBSReply::Connected => self.cb_reply.connected(),
                     OBSReply::ListScenes(scenes) => self.cb_reply.scene_list(scenes),
                     OBSReply::ListMonitors(vec) => self.cb_reply.monitor_list(vec),
-                    OBSReply::CurrentScene(cstr) => self.cb_reply.current_scene(&cstr),
+                    OBSReply::CurrentScene(cstr) => self.cb_reply.current_scene(cstr),
                     OBSReply::ListSceneItems(items) => self.cb_reply.scene_item_list(items),
                     OBSReply::ListCollections(coll) => self.cb_reply.collection_list(coll),
-                    OBSReply::CurrentCollection(cstring) => todo!(),
+                    OBSReply::CurrentCollection(coll) => self.cb_reply.current_collection(coll),
                 },
                 Err(err) => match err {
                     Error::Error(msg) => self.cb_err.exec(msg.as_str()),

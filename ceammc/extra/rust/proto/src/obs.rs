@@ -9,7 +9,7 @@ use obws::Client;
 
 use crate::common_ffi::{callback_msg, callback_notify, Error};
 use crate::obs_ffi::{
-    obs_client, obs_collection_list, obs_init, obs_result_cb, OBSReply, OBSRequest,
+    obs_client, obs_init, obs_result_cb, OBSReply, OBSRequest,
 };
 use crate::{fn_error, str_from_cstr};
 
@@ -262,7 +262,16 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
             return Ok(RequestResult::Reply(OBSReply::ListCollections(coll.into())));
         }
         OBSRequest::GetCurrentCollection => todo!(),
-        OBSRequest::SetCurrentCollection(_) => todo!(),
+        OBSRequest::SetCurrentCollection(name) => {
+            cli.scene_collections()
+                .set_current(&name)
+                .await
+                .map_err(|e| e.to_string())?;
+
+            return Ok(RequestResult::Reply(OBSReply::CurrentCollection(
+                CString::new(name.as_str()).unwrap_or_default(),
+            )));
+        }
     }
 }
 
@@ -622,21 +631,34 @@ pub extern "C" fn ceammc_obs_remove_scene_item(
         .is_ok()
 }
 
-fn obs_list_scene_collections(
-    cli: *const obs_client
-) -> Result<bool, String> {
+fn obs_list_collections(cli: *const obs_client) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
     cli.blocking_send(OBSRequest::ListCollections)
 }
 
-/// list OSB scene collections
+/// list OBS scene collections
 /// @param cli - pointer to obs client
 #[no_mangle]
 #[named]
-pub extern "C" fn ceammc_obs_list_scene_collections(
-    cli: *const obs_client
-) -> bool {
-    obs_list_scene_collections(cli)
+pub extern "C" fn ceammc_obs_list_collections(cli: *const obs_client) -> bool {
+    obs_list_collections(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_set_current_collection(cli: *const obs_client, name: *const c_char) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    let name = str_from_cstr(name)?;
+    cli.blocking_send(OBSRequest::SetCurrentCollection(name))
+}
+
+/// set current OBS collection
+/// @param cli - pointer to obs client
+/// @param name - collection name
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_set_current_collection(cli: *const obs_client, name: *const c_char) -> bool {
+    obs_set_current_collection(cli, name)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }

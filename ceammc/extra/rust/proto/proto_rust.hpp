@@ -49,6 +49,8 @@ struct ceammc_obs_result_cb {
     void (*cb_scene_item_list)(void *user, const ceammc_obs_scene_item_list *items);
     /// monitor list callback function (can be NULL)
     void (*cb_monitor_list)(void *user, const ceammc_obs_monitor_list *mons);
+    /// current collection callback function (can be NULL)
+    void (*cb_current_collection)(void *user, const char *name);
     /// current scene callback function (can be NULL)
     void (*cb_current_scene)(void *user, const char *name);
     /// connected/disconnected callback function (can be NULL)
@@ -142,14 +144,14 @@ bool ceammc_obs_get_version(const ceammc_obs_client *cli);
 /// @return true on success, false on error
 bool ceammc_obs_last_scene(const ceammc_obs_client *cli);
 
+/// list OBS scene collections
+/// @param cli - pointer to obs client
+bool ceammc_obs_list_collections(const ceammc_obs_client *cli);
+
 /// request list of OBS studio monitors
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
 bool ceammc_obs_list_monitors(const ceammc_obs_client *cli);
-
-/// list OSB scene collections
-/// @param cli - pointer to obs client
-bool ceammc_obs_list_scene_collections(const ceammc_obs_client *cli);
 
 /// list OSB scene items
 /// @param cli - pointer to obs client
@@ -253,6 +255,11 @@ const char *ceammc_obs_scene_name(const ceammc_obs_scene *scene);
 /// get scene UUID as C-string
 /// @param scene - pointer to scene (not NULL!)
 const char *ceammc_obs_scene_uuid(const ceammc_obs_scene *scene);
+
+/// set current OBS collection
+/// @param cli - pointer to obs client
+/// @param name - collection name
+bool ceammc_obs_set_current_collection(const ceammc_obs_client *cli, const char *name);
 
 /// set current scene
 /// @param cli - pointer to obs client
