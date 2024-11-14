@@ -4,6 +4,7 @@ use std::{
 };
 
 use log::warn;
+use obws::responses::scene_items::SceneItem;
 
 use crate::common_ffi::callback_msg;
 
@@ -298,6 +299,67 @@ impl From<Vec<obws::responses::ui::Monitor>> for obs_monitor_list {
     }
 }
 
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+pub struct obs_scene_item {
+    pub id: i64,
+    pub index: u32,
+    pub name: CString,
+    // pub source_type: SourceType,
+    pub input_kind: CString,
+}
+
+#[no_mangle]
+/// get scene item name
+/// @param item - pointer to item (not NULL!)
+pub extern "C" fn ceammc_obs_get_scene_item_name(item: &obs_scene_item) -> *const c_char {
+    item.name.as_ptr()
+}
+
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+pub struct obs_scene_item_list {
+    items: Vec<obs_scene_item>,
+}
+
+impl From<Vec<SceneItem>> for obs_scene_item_list {
+    fn from(items: Vec<SceneItem>) -> Self {
+        obs_scene_item_list {
+            items: items
+                .iter()
+                .map(|item| obs_scene_item {
+                    id: item.id,
+                    index: item.index,
+                    name: CString::new(item.source_name.as_str()).unwrap_or_default(),
+                    input_kind: CString::default(),
+                })
+                .collect::<Vec<_>>(),
+        }
+    }
+}
+
+#[no_mangle]
+/// get number of scene items
+/// @param itl - pointer to item list (not NULL!)
+pub extern "C" fn ceammc_obs_get_scene_item_count(itl: &obs_scene_item_list) -> usize {
+    itl.items.len()
+}
+
+#[no_mangle]
+/// get scene item at specified position
+/// @param itl - pointer to item list (not NULL!)
+/// @param idx - item position
+pub extern "C" fn ceammc_obs_get_scene_item_at(
+    itl: &obs_scene_item_list,
+    idx: usize,
+) -> *const obs_scene_item {
+    itl
+        .items
+        .get(idx)
+        .map(|x| x as *const obs_scene_item)
+        .unwrap_or(null())
+}
+
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct obs_result_cb {
@@ -305,8 +367,10 @@ pub struct obs_result_cb {
     user: *mut c_void,
     /// version callback function (can be NULL)
     cb_version: Option<extern "C" fn(user: *mut c_void, ver: &obs_version)>,
-    /// scenes list callback function (can be NULL)
+    /// scene list callback function (can be NULL)
     cb_scene_list: Option<extern "C" fn(user: *mut c_void, scl: &obs_scene_list)>,
+    /// scene itme list callback function (can be NULL)
+    cb_scene_item_list: Option<extern "C" fn(user: *mut c_void, items: &obs_scene_item_list)>,
     /// monitor list callback function (can be NULL)
     cb_monitor_list: Option<extern "C" fn(user: *mut c_void, mons: *const obs_monitor_list)>,
     /// current scene callback function (can be NULL)
@@ -334,7 +398,7 @@ impl obs_result_cb {
             Some(cb) => {
                 cb(self.user, &mons);
             }
-            None => warn!("cb_monitors callback is not set"),
+            None => warn!("cb_monitor_list callback is not set"),
         }
     }
 
@@ -343,7 +407,16 @@ impl obs_result_cb {
             Some(cb) => {
                 cb(self.user, &scenes);
             }
-            None => warn!("cb_scenes callback is not set"),
+            None => warn!("cb_scene_list callback is not set"),
+        }
+    }
+
+    fn scene_item_list(&self, items: obs_scene_item_list) {
+        match self.cb_scene_item_list {
+            Some(cb) => {
+                cb(self.user, &items);
+            }
+            None => warn!("cb_scene_item_list callback is not set"),
         }
     }
 
@@ -407,6 +480,7 @@ impl obs_client {
                     OBSReply::ListScenes(scenes) => self.cb_reply.scene_list(scenes),
                     OBSReply::ListMonitors(vec) => self.cb_reply.monitor_list(vec),
                     OBSReply::CurrentScene(cstr) => self.cb_reply.current_scene(&cstr),
+                    OBSReply::ListSceneItems(items) => self.cb_reply.scene_item_list(items),
                 },
                 Err(err) => match err {
                     Error::Error(msg) => self.cb_err.exec(msg.as_str()),
@@ -439,6 +513,7 @@ pub enum OBSRequest {
     RemoveScene(String),
     FirstScene,
     LastScene,
+    ListSceneItems(String),
     Close,
 }
 
@@ -446,6 +521,7 @@ pub enum OBSRequest {
 pub enum OBSReply {
     Version(obs_version),
     ListScenes(obs_scene_list),
+    ListSceneItems(obs_scene_item_list),
     ListMonitors(obs_monitor_list),
     CurrentScene(CString),
     Connected,

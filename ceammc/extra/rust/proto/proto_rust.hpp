@@ -15,6 +15,10 @@ struct ceammc_obs_monitor_list;
 
 struct ceammc_obs_scene;
 
+struct ceammc_obs_scene_item;
+
+struct ceammc_obs_scene_item_list;
+
 struct ceammc_obs_scene_list;
 
 struct ceammc_obs_version;
@@ -35,8 +39,10 @@ struct ceammc_obs_result_cb {
     void *user;
     /// version callback function (can be NULL)
     void (*cb_version)(void *user, const ceammc_obs_version *ver);
-    /// scenes list callback function (can be NULL)
+    /// scene list callback function (can be NULL)
     void (*cb_scene_list)(void *user, const ceammc_obs_scene_list *scl);
+    /// scene itme list callback function (can be NULL)
+    void (*cb_scene_item_list)(void *user, const ceammc_obs_scene_item_list *items);
     /// monitor list callback function (can be NULL)
     void (*cb_monitor_list)(void *user, const ceammc_obs_monitor_list *mons);
     /// current scene callback function (can be NULL)
@@ -73,6 +79,20 @@ void ceammc_obs_free(ceammc_obs_client *cli);
 /// @return true on success, false on error
 bool ceammc_obs_get_current_scene(const ceammc_obs_client *cli);
 
+/// get scene item at specified position
+/// @param itl - pointer to item list (not NULL!)
+/// @param idx - item position
+const ceammc_obs_scene_item *ceammc_obs_get_scene_item_at(const ceammc_obs_scene_item_list *itl,
+                                                          size_t idx);
+
+/// get number of scene items
+/// @param itl - pointer to item list (not NULL!)
+size_t ceammc_obs_get_scene_item_count(const ceammc_obs_scene_item_list *itl);
+
+/// get scene item name
+/// @param item - pointer to item (not NULL!)
+const char *ceammc_obs_get_scene_item_name(const ceammc_obs_scene_item *item);
+
 /// send version request to OBS studio
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
@@ -87,6 +107,11 @@ bool ceammc_obs_last_scene(const ceammc_obs_client *cli);
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
 bool ceammc_obs_list_monitors(const ceammc_obs_client *cli);
+
+/// list OSB scene items
+/// @param cli - pointer to obs client
+/// @param scene - scene name
+bool ceammc_obs_list_scene_items(const ceammc_obs_client *cli, const char *name);
 
 /// send version request to OBS studio
 /// @param cli - pointer to obs client

@@ -6,8 +6,8 @@ use std::ptr::null_mut;
 use obws::Client;
 
 use crate::common_ffi::{callback_msg, callback_notify, Error};
-use crate::{fn_error, str_from_cstr};
 use crate::obs_ffi::{obs_client, obs_init, obs_result_cb, OBSReply, OBSRequest};
+use crate::{fn_error, str_from_cstr};
 
 async fn reply_send(
     cb: &callback_notify,
@@ -183,6 +183,15 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
 
             let new_scene = CString::new(first.name.as_str()).map_err(|e| e.to_string())?;
             return Ok(RequestResult::Reply(OBSReply::CurrentScene(new_scene)));
+        }
+        OBSRequest::ListSceneItems(id) => {
+            let items = cli
+                .scene_items()
+                .list(id.as_str().into())
+                .await
+                .map_err(|e| e.to_string())?;
+
+            return Ok(RequestResult::Reply(OBSReply::ListSceneItems(items.into())));
         }
     }
 }
@@ -467,6 +476,22 @@ fn obs_last_scene(cli: *const obs_client) -> Result<bool, String> {
 #[named]
 pub extern "C" fn ceammc_obs_last_scene(cli: *const obs_client) -> bool {
     obs_last_scene(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_scene_list_items(cli: *const obs_client, name: *const c_char) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::ListSceneItems(str_from_cstr(name)?))
+}
+
+/// list OSB scene items
+/// @param cli - pointer to obs client
+/// @param scene - scene name
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_list_scene_items(cli: *const obs_client, name: *const c_char) -> bool {
+    obs_scene_list_items(cli, name)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }
