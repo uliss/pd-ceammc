@@ -4,7 +4,7 @@ mod common_ffi;
 
 use env_logger;
 
-use std::sync::Once;
+use std::{ffi::{c_char, CStr}, sync::Once};
 static LOG_INIT: Once = Once::new();
 
 /// init rust env_logger
@@ -28,4 +28,14 @@ macro_rules! fn_debug {
     ($s:literal, $($arg:tt)*)
     =>
     (error!(concat!(function_name!(), "(): ", $s), $($arg)*));
+}
+
+fn str_from_cstr(str: *const c_char) -> Result<String, String> {
+    if str.is_null() {
+        Err("null string pointer".to_owned())
+    } else {
+        Ok(unsafe { CStr::from_ptr(str).to_str() }
+            .map_err(|err| err.to_string())?
+            .to_owned())
+    }
 }

@@ -6,18 +6,8 @@ use std::ptr::null_mut;
 use obws::Client;
 
 use crate::common_ffi::{callback_msg, callback_notify, Error};
-use crate::fn_error;
+use crate::{fn_error, str_from_cstr};
 use crate::obs_ffi::{obs_client, obs_init, obs_result_cb, OBSReply, OBSRequest};
-
-fn str_from_cstr(str: *const c_char) -> Result<String, String> {
-    if str.is_null() {
-        Err("null string pointer".to_owned())
-    } else {
-        Ok(unsafe { CStr::from_ptr(str).to_str() }
-            .map_err(|err| err.to_string())?
-            .to_owned())
-    }
-}
 
 async fn reply_send(
     cb: &callback_notify,
