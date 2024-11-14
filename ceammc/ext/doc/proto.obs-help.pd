@@ -17,78 +17,110 @@
 #X msg 69 205 monitor list;
 #X msg 251 205 scene prev;
 #X msg 472 205 collection current set \$1;
-#X obj 50 262 proto.obs;
-#X obj 50 291 print OBS;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X msg 251 234 scene first;
+#X msg 251 262 scene last;
+#X obj 50 291 proto.obs;
+#X obj 50 320 print OBS;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 381 @host;
-#X text 245 381 Get/Set OBS studio host name. Type: symbol. Default
+#X msg 110 410 @host;
+#X text 245 410 Get/Set OBS studio host name. Type: symbol. Default
 value: localhost.;
-#X msg 110 423 @passwd;
-#X text 245 423 Get/Set OBS studio password. Type: symbol.;
-#X msg 110 453 @port;
-#X text 245 453 Get/Set OBS studio control port. Type: int. Default
+#X msg 110 452 @passwd;
+#X text 245 452 Get/Set OBS studio password. Type: symbol.;
+#X msg 110 482 @port;
+#X text 245 482 Get/Set OBS studio control port. Type: int. Default
 value: 4455\. Range: 1\...32767\.;
-#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 510 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 539 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 545 collection current get;
-#X text 285 545 request current collection.;
-#X msg 110 573 collection current set;
-#X text 285 573 set current collection. Arguments are:;
-#X obj 255 596 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 596 NAME: collection name. Type: symbol.;
-#X msg 110 621 collection list;
-#X text 245 621 request collection list.;
-#X msg 110 649 connect;
-#X text 245 649 connect to OBS studio. Message [connected 1( is send
+#X msg 110 574 collection current get;
+#X text 285 574 request current collection.;
+#X msg 110 602 collection current set;
+#X text 285 602 set current collection. Arguments are:;
+#X obj 255 625 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 625 NAME: collection name. Type: symbol.;
+#X msg 110 650 collection list;
+#X text 245 650 request collection list.;
+#X msg 110 678 connect;
+#X text 245 678 connect to OBS studio. Message [connected 1( is send
 to output on success \, [connected 0( - on error. Arguments are:;
-#X obj 255 687 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 687 [PASSWD]: if specified \, temporaly overrides @passwd
+#X obj 255 716 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 716 [PASSWD]: if specified \, temporaly overrides @passwd
 property. Type: symbol.;
-#X msg 110 727 disconnect;
-#X text 245 727 disconnect from OBS studio. Message [connected 0( is
+#X msg 110 756 disconnect;
+#X text 245 756 disconnect from OBS studio. Message [connected 0( is
 send to output.;
-#X msg 110 767 info;
-#X text 245 767 request OBS studio information: OBS version \, web-socket
+#X msg 110 796 info;
+#X text 245 796 request OBS studio information: OBS version \, web-socket
 version \, RPC version and list of supported image formats. This info
 is outputted as messages to first outlet.;
-#X msg 110 822 monitor list;
-#X text 245 822 request monitor list.;
-#X msg 110 850 scene current get;
-#X text 245 850 request current scene.;
-#X msg 110 878 scene current set;
-#X text 245 878 set current scene. Arguments are:;
-#X obj 255 901 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 901 SCENE: scene name. Type: symbol.;
-#X msg 110 926 scene list;
-#X text 245 926 request scene list.;
-#X msg 110 954 scene next;
-#X text 245 954 change to next scene.;
-#X msg 110 982 scene prev;
-#X text 245 982 change to prev scene.;
-#X obj 20 1020 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1025 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 851 item enable;
+#X text 245 851 enable/disable scene item. Arguments are:;
+#X obj 255 874 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 874 SCENE: scene name. Type: symbol.;
+#X obj 255 897 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 897 IDX: item pos. Type: int.;
+#X obj 255 920 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 920 VALUE: value. Type: bool.;
+#X msg 110 945 item list;
+#X text 245 945 request list of scene items. Arguments are:;
+#X obj 255 968 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 968 SCENE: scene name. Type: symbol.;
+#X msg 110 993 item remove;
+#X text 245 993 remove scene item. Arguments are:;
+#X obj 255 1016 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1016 SCENE: scene name. Type: symbol.;
+#X obj 255 1039 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1039 IDX: item pos. Type: int.;
+#X msg 110 1064 monitor list;
+#X text 245 1064 request monitor list.;
+#X msg 110 1092 scene create;
+#X text 245 1092 create new scene. Arguments are:;
+#X obj 255 1115 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1115 SCENE: scene name. Type: symbol.;
+#X msg 110 1140 scene current get;
+#X text 245 1140 request current scene.;
+#X msg 110 1168 scene current set;
+#X text 245 1168 set current scene. Arguments are:;
+#X obj 255 1191 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1191 SCENE: scene name. Type: symbol.;
+#X msg 110 1216 scene first;
+#X text 245 1216 change to first scene.;
+#X msg 110 1244 scene last;
+#X text 245 1244 change to last scene.;
+#X msg 110 1272 scene list;
+#X text 245 1272 request scene list.;
+#X msg 110 1300 scene next;
+#X text 245 1300 change to next scene.;
+#X msg 110 1328 scene prev;
+#X text 245 1328 change to prev scene.;
+#X msg 110 1356 scene remove;
+#X text 245 1356 remove scene. Arguments are:;
+#X obj 255 1379 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1379 SCENE: scene name. Type: symbol.;
+#X obj 20 1414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1419 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1026 1\.;
-#X text 150 1026 *float*;
-#X text 245 1026 raw midi input bytes.;
-#X obj 20 1056 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1061 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1420 1\.;
+#X text 150 1420 *float*;
+#X text 245 1420 raw midi input bytes.;
+#X obj 20 1450 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1455 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1062 1\.;
-#X text 245 1062 any messages.;
+#X text 110 1456 1\.;
+#X text 245 1456 any messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1112 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1115 library: ceammc v0.9.7;
-#N canvas 10 1134 400 290 info 0;
+#X obj 1 1506 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1509 library: ceammc v0.9.7;
+#N canvas 10 1528 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,17 +144,19 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1134 pd info;
+#X restore 10 1528 pd info;
 #X connect 12 0 15 0;
-#X connect 16 0 17 0;
-#X connect 4 0 16 0;
-#X connect 7 0 16 0;
-#X connect 10 0 16 0;
-#X connect 5 0 16 0;
-#X connect 8 0 16 0;
-#X connect 11 0 16 0;
-#X connect 14 0 16 0;
-#X connect 6 0 16 0;
-#X connect 9 0 16 0;
-#X connect 15 0 16 0;
-#X connect 13 0 16 0;
+#X connect 18 0 19 0;
+#X connect 4 0 18 0;
+#X connect 7 0 18 0;
+#X connect 10 0 18 0;
+#X connect 5 0 18 0;
+#X connect 8 0 18 0;
+#X connect 11 0 18 0;
+#X connect 14 0 18 0;
+#X connect 6 0 18 0;
+#X connect 9 0 18 0;
+#X connect 15 0 18 0;
+#X connect 13 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;

@@ -91,7 +91,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .list()
                 .await
                 .map(|sc| RequestResult::Reply(OBSReply::ListScenes(sc.into())))
-                .map_err(|err| err.to_string());
+                .map_err(|err| format!("ListScenes: {err}"));
         }
         OBSRequest::GetCurrentScene => {
             return cli
@@ -186,7 +186,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .await
                 .map_err(|e| e.to_string())?
                 .scenes
-                .first()
+                .last() // in OBS scenes are in reversed order
                 .map(|x| x.id.clone())
                 .ok_or("scene is empty")?;
 
@@ -205,7 +205,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .await
                 .map_err(|e| e.to_string())?
                 .scenes
-                .last()
+                .first() // in OBS scenes are in reversed order
                 .map(|x| x.id.clone())
                 .ok_or("scene is empty")?;
 
@@ -336,9 +336,7 @@ pub extern "C" fn ceammc_obs_new(
                                     return ();
                                 }
 
-                                let req = req.unwrap();
-
-                                match process_request(req, &mut cli).await {
+                                match process_request(req.unwrap(), &mut cli).await {
                                     Ok(res) => match res {
                                         RequestResult::Reply(obsreply) => {
                                             reply_send(&cb_notify, &rep_tx, obsreply).await;

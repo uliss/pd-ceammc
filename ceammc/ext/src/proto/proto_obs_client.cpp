@@ -146,8 +146,6 @@ void ProtoObsClient::m_scene(t_symbol* s, const AtomListView& lv)
 {
     CHECK_CONNECT(cli_, s);
 
-    ceammc_obs_set_current_scene(cli_->handle(), lv.symbolAt(0, &s_)->s_name);
-
     if (lv.size() >= 2 && lv[0] == "current" && lv[1] == "get") { // scene current get
         ceammc_obs_request_current_scene(cli_->handle());
     } else if (lv.size() >= 2 && lv[0] == "current" && lv[1] == "set") { // scene current set
