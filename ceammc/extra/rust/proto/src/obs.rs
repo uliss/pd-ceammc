@@ -75,12 +75,12 @@ async fn get_scene_item_id_from_index(
 
 async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestResult, String> {
     match req {
-        OBSRequest::GetVersion => {
+        OBSRequest::GetInfo => {
             return cli
                 .general()
                 .version()
                 .await
-                .map(|x| RequestResult::Reply(OBSReply::Version(x.into())))
+                .map(|x| RequestResult::Reply(OBSReply::Info(x.into())))
                 .map_err(|err| err.to_string());
         }
         OBSRequest::Close => {
@@ -381,7 +381,7 @@ pub extern "C" fn ceammc_obs_free(cli: *mut obs_client) {
 
 fn obs_request_version(cli: *const obs_client) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
-    cli.blocking_send(OBSRequest::GetVersion)
+    cli.blocking_send(OBSRequest::GetInfo)
 }
 
 /// send version request to OBS studio
@@ -446,18 +446,18 @@ pub extern "C" fn ceammc_obs_set_current_scene(cli: *mut obs_client, name: *cons
         .is_ok()
 }
 
-fn obs_get_current_scene(cli: *const obs_client) -> Result<bool, String> {
+fn obs_request_current_scene(cli: *const obs_client) -> Result<bool, String> {
     let cli = obs_client::from_ptr(cli)?;
     cli.blocking_send(OBSRequest::GetCurrentScene)
 }
 
-/// get current OBS scene
+/// send current OBS scene request
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
 #[no_mangle]
 #[named]
-pub extern "C" fn ceammc_obs_get_current_scene(cli: *const obs_client) -> bool {
-    obs_get_current_scene(cli)
+pub extern "C" fn ceammc_obs_request_current_scene(cli: *const obs_client) -> bool {
+    obs_request_current_scene(cli)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
 }

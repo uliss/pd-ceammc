@@ -97,7 +97,7 @@ void ProtoObsClient::m_connect(t_symbol* s, const AtomListView& lv)
         ceammc_obs_process_events,
         ceammc_obs_result_cb {
             this,
-            [](void* user, const ceammc_obs_version* info) {
+            [](void* user, const ceammc_obs_info* info) {
                 PROC_FN(user, processInfo, info);
             },
             [](void* user, const ceammc_obs_collection_list* coll) {
@@ -147,7 +147,7 @@ void ProtoObsClient::m_scene(t_symbol* s, const AtomListView& lv)
     CHECK_CONNECT(cli_, s);
 
     if (lv.size() >= 2 && lv[0] == sym_current() && lv[1] == "get") {
-        ceammc_obs_get_current_scene(cli_->handle());
+        ceammc_obs_request_current_scene(cli_->handle());
     } else if (!lv.empty() && lv[0] == "next") {
         ceammc_obs_next_scene(cli_->handle());
     } else if (!lv.empty() && lv[0] == "prev") {
@@ -234,18 +234,18 @@ void ProtoObsClient::processCollectionList(const ceammc_obs_collection_list* col
     anyTo(0, sym_collection(), res);
 }
 
-void ProtoObsClient::processInfo(const ceammc_obs_version* info)
+void ProtoObsClient::processInfo(const ceammc_obs_info* info)
 {
     {
         uint64_t maj, min, patch;
-        ceammc_obs_version_server(info, &maj, &min, &patch);
+        ceammc_obs_get_app_version(info, &maj, &min, &patch);
         AtomArray<4> msg { sym_app(), maj, min, patch };
         anyTo(0, sym_version(), msg.view());
     }
 
     {
         uint64_t maj, min, patch;
-        ceammc_obs_version_websocket(info, &maj, &min, &patch);
+        ceammc_obs_get_websocket_version(info, &maj, &min, &patch);
         AtomArray<4> msg { sym_ws(), maj, min, patch };
         anyTo(0, sym_version(), msg.view());
     }

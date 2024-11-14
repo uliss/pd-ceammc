@@ -64,7 +64,7 @@ pub extern "C" fn ceammc_obs_get_collection_count(coll: &obs_collection_list) ->
 
 #[derive(Debug)]
 #[allow(non_camel_case_types)]
-pub struct obs_version {
+pub struct obs_info {
     obs_major: u64,
     obs_minor: u64,
     obs_patch: u64,
@@ -83,8 +83,8 @@ pub struct obs_version {
 /// @param minor - pointer to store minor version data
 /// @param patch - pointer to store patch version data
 #[no_mangle]
-pub extern "C" fn ceammc_obs_version_server(
-    v: &obs_version,
+pub extern "C" fn ceammc_obs_get_app_version(
+    v: &obs_info,
     major: &mut u64,
     minor: &mut u64,
     patch: &mut u64,
@@ -100,8 +100,8 @@ pub extern "C" fn ceammc_obs_version_server(
 /// @param minor - pointer to store minor version data
 /// @param patch - pointer to store patch version data
 #[no_mangle]
-pub extern "C" fn ceammc_obs_version_websocket(
-    v: &obs_version,
+pub extern "C" fn ceammc_obs_get_websocket_version(
+    v: &obs_info,
     major: &mut u64,
     minor: &mut u64,
     patch: &mut u64,
@@ -114,28 +114,28 @@ pub extern "C" fn ceammc_obs_version_websocket(
 /// get RPC OBS version
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_get_rpc_version(v: &obs_version) -> u32 {
+pub extern "C" fn ceammc_obs_get_rpc_version(v: &obs_info) -> u32 {
     v.rpc_version
 }
 
 /// get OBS platform
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_get_platform(v: &obs_version) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_platform(v: &obs_info) -> *const c_char {
     v.platform.as_ptr()
 }
 
 /// get OBS platform description
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_get_platform_desc(v: &obs_version) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_platform_desc(v: &obs_info) -> *const c_char {
     v.platform_desc.as_ptr()
 }
 
 /// get OBS image format count
 /// @param v - pointer to version struct
 #[no_mangle]
-pub extern "C" fn ceammc_obs_get_image_format_count(v: &obs_version) -> usize {
+pub extern "C" fn ceammc_obs_get_image_format_count(v: &obs_info) -> usize {
     v.image_formats.len()
 }
 
@@ -143,14 +143,14 @@ pub extern "C" fn ceammc_obs_get_image_format_count(v: &obs_version) -> usize {
 /// @param v - pointer to version struct
 /// @param idx - image format index
 #[no_mangle]
-pub extern "C" fn ceammc_obs_get_image_format_at(v: &obs_version, idx: usize) -> *const c_char {
+pub extern "C" fn ceammc_obs_get_image_format_at(v: &obs_info, idx: usize) -> *const c_char {
     v.image_formats
         .get(idx)
         .unwrap_or(&CString::default())
         .as_ptr()
 }
 
-impl From<obws::responses::general::Version> for obs_version {
+impl From<obws::responses::general::Version> for obs_info {
     fn from(version: obws::responses::general::Version) -> Self {
         let platform = CString::new(version.platform.as_str()).unwrap();
         let platform_desc = CString::new(version.platform_description.as_str()).unwrap();
@@ -443,8 +443,8 @@ pub extern "C" fn ceammc_obs_get_scene_item_at(
 pub struct obs_result_cb {
     /// user data pointer (can be NULL)
     user: *mut c_void,
-    /// version callback function (can be NULL)
-    cb_version: Option<extern "C" fn(user: *mut c_void, ver: &obs_version)>,
+    /// info callback function (can be NULL)
+    cb_info: Option<extern "C" fn(user: *mut c_void, info: &obs_info)>,
     /// collection list callback function (can be NULL)
     cb_collection_list: Option<extern "C" fn(user: *mut c_void, coll: &obs_collection_list)>,
     /// scene list callback function (can be NULL)
@@ -517,12 +517,12 @@ impl obs_result_cb {
         }
     }
 
-    fn version(&self, version: &obs_version) {
-        match self.cb_version {
+    fn info(&self, info: &obs_info) {
+        match self.cb_info {
             Some(cb) => {
-                cb(self.user, version);
+                cb(self.user, info);
             }
-            None => warn!("cb_version callback is not set"),
+            None => warn!("cb_info callback is not set"),
         }
     }
 }
@@ -572,7 +572,7 @@ impl obs_client {
         while let Ok(rec) = self.recv.try_recv() {
             match rec {
                 Ok(reply) => match reply {
-                    OBSReply::Version(version) => self.cb_reply.version(&version),
+                    OBSReply::Info(version) => self.cb_reply.info(&version),
                     OBSReply::Connected => self.cb_reply.connected(),
                     OBSReply::ListScenes(scenes) => self.cb_reply.scene_list(scenes),
                     OBSReply::ListMonitors(vec) => self.cb_reply.monitor_list(vec),
@@ -602,7 +602,7 @@ impl obs_client {
 
 #[derive(Debug)]
 pub enum OBSRequest {
-    GetVersion,
+    GetInfo,
     ListCollections,
     GetCurrentCollection,
     SetCurrentCollection(String),
@@ -623,7 +623,7 @@ pub enum OBSRequest {
 
 #[derive(Debug)]
 pub enum OBSReply {
-    Version(obs_version),
+    Info(obs_info),
     ListCollections(obs_collection_list),
     ListScenes(obs_scene_list),
     ListSceneItems(obs_scene_item_list),

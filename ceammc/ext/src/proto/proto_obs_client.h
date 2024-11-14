@@ -55,7 +55,7 @@ private:
     void processItemsList(const ceammc_obs_scene_item_list* items);
     void processMonitorList(const ceammc_obs_monitor_list* mons);
     void processSceneList(const ceammc_obs_scene_list* scl);
-    void processInfo(const ceammc_obs_version* ver);
+    void processInfo(const ceammc_obs_info* info);
     void msg_connected(bool value);
 };
 

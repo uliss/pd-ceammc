@@ -11,6 +11,8 @@ struct ceammc_obs_client;
 
 struct ceammc_obs_collection_list;
 
+struct ceammc_obs_info;
+
 struct ceammc_obs_monitor;
 
 struct ceammc_obs_monitor_list;
@@ -22,8 +24,6 @@ struct ceammc_obs_scene_item;
 struct ceammc_obs_scene_item_list;
 
 struct ceammc_obs_scene_list;
-
-struct ceammc_obs_version;
 
 struct ceammc_obs_init {
     const char *host;
@@ -39,8 +39,8 @@ struct ceammc_callback_msg {
 struct ceammc_obs_result_cb {
     /// user data pointer (can be NULL)
     void *user;
-    /// version callback function (can be NULL)
-    void (*cb_version)(void *user, const ceammc_obs_version *ver);
+    /// info callback function (can be NULL)
+    void (*cb_info)(void *user, const ceammc_obs_info *info);
     /// collection list callback function (can be NULL)
     void (*cb_collection_list)(void *user, const ceammc_obs_collection_list *coll);
     /// scene list callback function (can be NULL)
@@ -89,6 +89,16 @@ bool ceammc_obs_first_scene(const ceammc_obs_client *cli);
 /// @param cli - pointer to obs client
 void ceammc_obs_free(ceammc_obs_client *cli);
 
+/// get OBS version
+/// @param v - pointer to version struct
+/// @param major - pointer to store major version data
+/// @param minor - pointer to store minor version data
+/// @param patch - pointer to store patch version data
+void ceammc_obs_get_app_version(const ceammc_obs_info *v,
+                                uint64_t *major,
+                                uint64_t *minor,
+                                uint64_t *patch);
+
 /// get OBS collection at
 /// @param coll - pointer to collection list (not NULL!)
 /// @param idx - collection index
@@ -103,19 +113,14 @@ size_t ceammc_obs_get_collection_count(const ceammc_obs_collection_list *coll);
 /// @param coll - pointer to collection list (not NULL!)
 const char *ceammc_obs_get_collection_current(const ceammc_obs_collection_list *coll);
 
-/// get current OBS scene
-/// @param cli - pointer to obs client
-/// @return true on success, false on error
-bool ceammc_obs_get_current_scene(const ceammc_obs_client *cli);
-
 /// get OBS image format at
 /// @param v - pointer to version struct
 /// @param idx - image format index
-const char *ceammc_obs_get_image_format_at(const ceammc_obs_version *v, size_t idx);
+const char *ceammc_obs_get_image_format_at(const ceammc_obs_info *v, size_t idx);
 
 /// get OBS image format count
 /// @param v - pointer to version struct
-size_t ceammc_obs_get_image_format_count(const ceammc_obs_version *v);
+size_t ceammc_obs_get_image_format_count(const ceammc_obs_info *v);
 
 /// get monitor at specified position
 /// @param ml - pointer to monitor list (not NULL!)
@@ -148,15 +153,15 @@ const char *ceammc_obs_get_monitor_name(const ceammc_obs_monitor *m);
 
 /// get OBS platform
 /// @param v - pointer to version struct
-const char *ceammc_obs_get_platform(const ceammc_obs_version *v);
+const char *ceammc_obs_get_platform(const ceammc_obs_info *v);
 
 /// get OBS platform description
 /// @param v - pointer to version struct
-const char *ceammc_obs_get_platform_desc(const ceammc_obs_version *v);
+const char *ceammc_obs_get_platform_desc(const ceammc_obs_info *v);
 
 /// get RPC OBS version
 /// @param v - pointer to version struct
-uint32_t ceammc_obs_get_rpc_version(const ceammc_obs_version *v);
+uint32_t ceammc_obs_get_rpc_version(const ceammc_obs_info *v);
 
 /// get scene list data
 /// @param scenes - pointer to scenes (not NULL!)
@@ -199,6 +204,16 @@ const char *ceammc_obs_get_scene_name(const ceammc_obs_scene *scene);
 /// get scene UUID as C-string
 /// @param scene - pointer to scene (not NULL!)
 const char *ceammc_obs_get_scene_uuid(const ceammc_obs_scene *scene);
+
+/// get OBS Web Socket version
+/// @param v - pointer to version struct
+/// @param major - pointer to store major version data
+/// @param minor - pointer to store minor version data
+/// @param patch - pointer to store patch version data
+void ceammc_obs_get_websocket_version(const ceammc_obs_info *v,
+                                      uint64_t *major,
+                                      uint64_t *minor,
+                                      uint64_t *patch);
 
 /// change to last OBS scene
 /// @param cli - pointer to obs client
@@ -268,6 +283,11 @@ bool ceammc_obs_remove_scene(const ceammc_obs_client *cli, const char *name);
 /// @param idx - item index
 bool ceammc_obs_remove_scene_item(const ceammc_obs_client *cli, const char *scene, size_t idx);
 
+/// send current OBS scene request
+/// @param cli - pointer to obs client
+/// @return true on success, false on error
+bool ceammc_obs_request_current_scene(const ceammc_obs_client *cli);
+
 /// send version request to OBS studio
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
@@ -287,26 +307,6 @@ bool ceammc_obs_set_current_collection(const ceammc_obs_client *cli, const char 
 /// @param name - scene name
 /// @return true on success, false on error
 bool ceammc_obs_set_current_scene(ceammc_obs_client *cli, const char *name);
-
-/// get OBS version
-/// @param v - pointer to version struct
-/// @param major - pointer to store major version data
-/// @param minor - pointer to store minor version data
-/// @param patch - pointer to store patch version data
-void ceammc_obs_version_server(const ceammc_obs_version *v,
-                               uint64_t *major,
-                               uint64_t *minor,
-                               uint64_t *patch);
-
-/// get OBS Web Socket version
-/// @param v - pointer to version struct
-/// @param major - pointer to store major version data
-/// @param minor - pointer to store minor version data
-/// @param patch - pointer to store patch version data
-void ceammc_obs_version_websocket(const ceammc_obs_version *v,
-                                  uint64_t *major,
-                                  uint64_t *minor,
-                                  uint64_t *patch);
 
 /// init rust env_logger
 /// logger config is done with a RUST_LOG env variable
