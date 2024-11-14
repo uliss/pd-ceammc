@@ -80,7 +80,12 @@ extern "C" {
 /// @param cli - pointer to obs client
 /// @param name - scene name
 /// @return true on success, false on error
-bool ceammc_obs_create_scene(ceammc_obs_client *cli, const char *name);
+bool ceammc_obs_create_scene(const ceammc_obs_client *cli, const char *name);
+
+/// change to first OBS scene
+/// @param cli - pointer to obs client
+/// @return true on success, false on error
+bool ceammc_obs_first_scene(const ceammc_obs_client *cli);
 
 /// free OBS Studio client
 /// @param cli - pointer to obs client
@@ -95,6 +100,11 @@ bool ceammc_obs_get_current_scene(const ceammc_obs_client *cli);
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
 bool ceammc_obs_get_version(const ceammc_obs_client *cli);
+
+/// change to last OBS scene
+/// @param cli - pointer to obs client
+/// @return true on success, false on error
+bool ceammc_obs_last_scene(const ceammc_obs_client *cli);
 
 /// request list of OBS studio monitors
 /// @param cli - pointer to obs client
@@ -142,7 +152,7 @@ bool ceammc_obs_process_events(ceammc_obs_client *cli);
 /// @param cli - pointer to obs client
 /// @param name - scene name
 /// @return true on success, false on error
-bool ceammc_obs_remove_scene(ceammc_obs_client *cli, const char *name);
+bool ceammc_obs_remove_scene(const ceammc_obs_client *cli, const char *name);
 
 /// set current scene
 /// @param cli - pointer to obs client
