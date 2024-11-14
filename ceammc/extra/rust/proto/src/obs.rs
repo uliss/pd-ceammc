@@ -8,9 +8,7 @@ use std::ptr::null_mut;
 use obws::Client;
 
 use crate::common_ffi::{callback_msg, callback_notify, Error};
-use crate::obs_ffi::{
-    obs_client, obs_init, obs_result_cb, OBSReply, OBSRequest,
-};
+use crate::obs_ffi::{obs_client, obs_init, obs_result_cb, OBSReply, OBSRequest};
 use crate::{fn_error, str_from_cstr};
 
 async fn reply_send(
@@ -126,8 +124,9 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
         OBSRequest::ChangeSceneBy(offset) => {
             let cur = cli.scenes().list().await.map_err(|err| err.to_string())?;
             let name = cur.current_program_scene.unwrap().name;
-            let mut iter = cur.scenes.iter();
-            let idx = iter
+            let idx = cur
+                .scenes
+                .iter()
                 .find(|x| x.id.name == name)
                 .take()
                 .map_or(-1, |x| x.index as i32);
@@ -137,11 +136,12 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
             }
 
             debug!("current scene: {name}");
-            let move_idx = idx + offset;
+            // NB: OBS studio have reverse order of scenes
+            let move_idx = idx - offset;
             if move_idx < 0 && offset != 0 {
-                return Err(String::from("first scene is reached"));
-            } else if move_idx >= (cur.scenes.len() as i32) && offset != 0 {
                 return Err(String::from("last scene is reached"));
+            } else if move_idx >= (cur.scenes.len() as i32) && offset != 0 {
+                return Err(String::from("first scene is reached"));
             }
 
             let move_idx = move_idx.clamp(0, cur.scenes.len() as i32) as usize;
@@ -660,7 +660,10 @@ fn obs_set_current_collection(cli: *const obs_client, name: *const c_char) -> Re
 /// @param name - collection name
 #[no_mangle]
 #[named]
-pub extern "C" fn ceammc_obs_set_current_collection(cli: *const obs_client, name: *const c_char) -> bool {
+pub extern "C" fn ceammc_obs_set_current_collection(
+    cli: *const obs_client,
+    name: *const c_char,
+) -> bool {
     obs_set_current_collection(cli, name)
         .map_err(|err| fn_error!("{}", err))
         .is_ok()
