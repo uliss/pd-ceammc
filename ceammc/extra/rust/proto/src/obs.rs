@@ -1,9 +1,7 @@
 use function_name::named;
 use log::{debug, error, warn};
 use std::ffi::{c_char, c_void, CStr, CString};
-use std::ops::Index;
 use std::ptr::{null, null_mut};
-// use crate::service::{callback_msg, callback_notify, callback_progress, Service, ServiceCallback};
 
 // use obws::requests::scene_items::SetEnabled;
 use obws::Client;
@@ -230,6 +228,33 @@ pub struct obs_client {
     cb_reply: obs_result_cb,
 }
 
+impl obs_client {
+    fn blocking_send(&self, request: OBSRequest) -> Result<bool, String> {
+        self.send
+            .blocking_send(request)
+            .map(|_| true)
+            .map_err(|err| err.to_string())
+    }
+
+    fn from_ptr<'a>(cli: *const obs_client) -> Result<&'a obs_client, &'static str> {
+        if cli.is_null() {
+            Err("null pointer")
+        } else {
+            Ok(unsafe { &*cli })
+        }
+    }
+}
+
+fn str_from_cstr(str: *const c_char) -> Result<String, String> {
+    if str.is_null() {
+        Err("null string pointer".to_owned())
+    } else {
+        Ok(unsafe { CStr::from_ptr(str).to_str() }
+            .map_err(|err| err.to_string())?
+            .to_owned())
+    }
+}
+
 #[derive(Debug)]
 enum OBSRequest {
     GetVersion,
@@ -237,7 +262,8 @@ enum OBSRequest {
     ListMonitors,
     GetCurrentScene,
     SetCurrentScene(String),
-    NextScene,
+    MoveScene(i32),
+    CreateScene(String),
     Close,
 }
 
@@ -362,30 +388,61 @@ async fn process_request(
 
                     ProcessMode::Continue
                 }
-                OBSRequest::NextScene => {
+                OBSRequest::MoveScene(offset) => {
                     match cli.scenes().list().await {
                         Ok(cur) => {
                             let name = cur.current_program_scene.unwrap().name;
                             let mut iter = cur.scenes.iter();
-                            let idx = iter.find(|x| x.id.name == name).take().unwrap().index;
-                            debug!("current scene: {name}");
+                            let idx = iter
+                                .find(|x| x.id.name == name)
+                                .take()
+                                .map_or(-1, |x| x.index as i32);
 
-                            match cur.scenes.iter().find(|f| (f.index + 1) == idx) {
+                            if idx < 0 {
+                                reply_error(
+                                    cb_notify,
+                                    rep_tx,
+                                    String::from("no current scene is set"),
+                                )
+                                .await;
+                                return ProcessMode::Continue;
+                            }
+
+                            debug!("current scene: {name}");
+                            let move_idx = idx + offset;
+                            if move_idx < 0 && offset != 0 {
+                                reply_error(cb_notify, rep_tx, String::from("first scene")).await;
+                                return ProcessMode::Continue;
+                            } else if move_idx >= (cur.scenes.len() as i32) && offset != 0 {
+                                reply_error(cb_notify, rep_tx, String::from("last scene")).await;
+                                return ProcessMode::Continue;
+                            }
+
+                            let move_idx = move_idx.clamp(0, cur.scenes.len() as i32) as usize;
+
+                            match cur.scenes.iter().find(|f| f.index == move_idx) {
                                 Some(scene) => match cli
                                     .scenes()
                                     .set_current_program_scene(scene.id.name.as_str())
                                     .await
                                 {
                                     Ok(_) => {
-                                        debug!("move to scene: '{sname}'", sname = scene.id.name)
+                                        debug!(
+                                            "move to scene: '{sc}' [{move_idx}]",
+                                            sc = scene.id.name
+                                        )
                                     }
                                     Err(err) => {
                                         reply_error(cb_notify, rep_tx, err.to_string()).await;
                                     }
                                 },
                                 None => {
-                                    reply_error(cb_notify, rep_tx, String::from("last scene"))
-                                        .await;
+                                    reply_error(
+                                        cb_notify,
+                                        rep_tx,
+                                        format!("index not found: {move_idx}"),
+                                    )
+                                    .await;
                                 }
                             }
                         }
@@ -396,6 +453,7 @@ async fn process_request(
 
                     ProcessMode::Continue
                 }
+                OBSRequest::CreateScene(_) => todo!(),
             }
         }
         None => ProcessMode::Break,
@@ -500,50 +558,58 @@ pub extern "C" fn ceammc_obs_free(cli: *mut obs_client) {
     }
 }
 
-/// send version request to OBS studio
-/// @param cli - pointer to obs client
-#[no_mangle]
-pub extern "C" fn ceammc_obs_get_version(cli: *mut obs_client) {
-    if !cli.is_null() {
-        let cli = unsafe { &mut *cli };
-        match cli.send.blocking_send(OBSRequest::GetVersion) {
-            Ok(_) => {}
-            Err(err) => {
-                error!("ceammc_obs_get_version() send error: {err}")
-            }
-        }
-    }
+fn obs_get_version(cli: *const obs_client) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::GetVersion)
 }
 
 /// send version request to OBS studio
 /// @param cli - pointer to obs client
+/// @return true on success, false on error
 #[no_mangle]
-pub extern "C" fn ceammc_obs_list_scenes(cli: *mut obs_client) {
-    if !cli.is_null() {
-        let cli = unsafe { &mut *cli };
-        match cli.send.blocking_send(OBSRequest::ListScenes) {
-            Ok(_) => {}
-            Err(err) => {
-                error!("ceammc_obs_list_scenes() send error: {err}")
-            }
-        }
-    }
+#[named]
+pub extern "C" fn ceammc_obs_get_version(cli: *const obs_client) -> bool {
+    obs_get_version(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn osb_list_scenes(cli: *const obs_client) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::ListScenes)
+}
+
+/// send version request to OBS studio
+/// @param cli - pointer to obs client
+/// @return true on success, false on error
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_list_scenes(cli: *const obs_client) -> bool {
+    osb_list_scenes(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_list_monitors(cli: *const obs_client) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::ListMonitors)
 }
 
 /// request list of OBS studio monitors
 /// @param cli - pointer to obs client
+/// @return true on success, false on error
 #[no_mangle]
 #[named]
-pub extern "C" fn ceammc_obs_list_monitors(cli: *mut obs_client) {
-    if !cli.is_null() {
-        let cli = unsafe { &mut *cli };
-        match cli.send.blocking_send(OBSRequest::ListMonitors) {
-            Ok(_) => {}
-            Err(err) => {
-                fn_error!("send error: {}", err);
-            }
-        }
-    }
+pub extern "C" fn ceammc_obs_list_monitors(cli: *const obs_client) -> bool {
+    obs_list_monitors(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_set_current_scene(cli: *const obs_client, name: *const c_char) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    let name = str_from_cstr(name)?;
+    cli.blocking_send(OBSRequest::SetCurrentScene(name.to_owned()))
 }
 
 /// set current scene
@@ -553,26 +619,14 @@ pub extern "C" fn ceammc_obs_list_monitors(cli: *mut obs_client) {
 #[no_mangle]
 #[named]
 pub extern "C" fn ceammc_obs_set_current_scene(cli: *mut obs_client, name: *const c_char) -> bool {
-    if !cli.is_null() {
-        let cli = unsafe { &mut *cli };
-        let name = unsafe { CStr::from_ptr(name) }.to_str();
-        if let Err(err) = name {
-            fn_error!("name error: {}", err);
-            return false;
-        }
+    obs_set_current_scene(cli, name)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
 
-        match cli
-            .send
-            .blocking_send(OBSRequest::SetCurrentScene(name.unwrap().to_owned()))
-        {
-            Ok(_) => return true,
-            Err(err) => {
-                fn_error!("send error: {}", err);
-            }
-        }
-    }
-
-    return false;
+fn obs_get_current_scene(cli: *const obs_client) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::GetCurrentScene)
 }
 
 /// get current OBS scene
@@ -580,18 +634,15 @@ pub extern "C" fn ceammc_obs_set_current_scene(cli: *mut obs_client, name: *cons
 /// @return true on success, false on error
 #[no_mangle]
 #[named]
-pub extern "C" fn ceammc_obs_get_current_scene(cli: *mut obs_client) -> bool {
-    if !cli.is_null() {
-        let cli = unsafe { &mut *cli };
-        match cli.send.blocking_send(OBSRequest::GetCurrentScene) {
-            Ok(_) => return true,
-            Err(err) => {
-                fn_error!("send error: {}", err);
-            }
-        }
-    }
+pub extern "C" fn ceammc_obs_get_current_scene(cli: *const obs_client) -> bool {
+    obs_get_current_scene(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
 
-    return false;
+fn obs_next_scene(cli: *const obs_client) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::MoveScene(1))
 }
 
 /// move to next OBS scene
@@ -599,18 +650,45 @@ pub extern "C" fn ceammc_obs_get_current_scene(cli: *mut obs_client) -> bool {
 /// @return true on success, false on error
 #[no_mangle]
 #[named]
-pub extern "C" fn ceammc_obs_next_scene(cli: *mut obs_client) -> bool {
-    if !cli.is_null() {
-        let cli = unsafe { &mut *cli };
-        match cli.send.blocking_send(OBSRequest::NextScene) {
-            Ok(_) => return true,
-            Err(err) => {
-                fn_error!("send error: {}", err);
-            }
-        }
-    }
+pub extern "C" fn ceammc_obs_next_scene(cli: *const obs_client) -> bool {
+    obs_next_scene(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
 
-    return false;
+fn obs_prev_scene(cli: *const obs_client) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    cli.blocking_send(OBSRequest::MoveScene(-1))
+}
+
+/// move to previous OBS scene
+/// @param cli - pointer to obs client
+/// @return true on success, false on error
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_prev_scene(cli: *const obs_client) -> bool {
+    obs_prev_scene(cli)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
+}
+
+fn obs_create_scene(cli: *const obs_client, name: *const c_char) -> Result<bool, String> {
+    let cli = obs_client::from_ptr(cli)?;
+    let name = str_from_cstr(name)?;
+    cli.blocking_send(OBSRequest::CreateScene(name.to_owned()))?;
+    return Ok(true);
+}
+
+/// create new empty OBS scene
+/// @param cli - pointer to obs client
+/// @param name - scene name
+/// @return true on success, false on error
+#[no_mangle]
+#[named]
+pub extern "C" fn ceammc_obs_create_scene(cli: *mut obs_client, name: *const c_char) -> bool {
+    obs_create_scene(cli, name)
+        .map_err(|err| fn_error!("{}", err))
+        .is_ok()
 }
 
 /// process all available results from OBS studio

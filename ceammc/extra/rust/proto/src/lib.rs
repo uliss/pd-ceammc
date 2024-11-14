@@ -18,7 +18,7 @@ pub extern "C" fn ceammc_proto_log_init() {
 macro_rules! fn_error {
     ($s:literal, $($arg:tt)*)
     =>
-    (error!(concat!(function_name!(), ": ", $s), $($arg)*));
+    (error!(concat!(function_name!(), "(): ", $s), $($arg)*));
 }
 
 #[macro_export]

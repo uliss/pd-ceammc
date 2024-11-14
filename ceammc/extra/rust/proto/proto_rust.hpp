@@ -76,6 +76,12 @@ struct ceammc_callback_notify {
 
 extern "C" {
 
+/// create new empty OBS scene
+/// @param cli - pointer to obs client
+/// @param name - scene name
+/// @return true on success, false on error
+bool ceammc_obs_create_scene(ceammc_obs_client *cli, const char *name);
+
 /// free OBS Studio client
 /// @param cli - pointer to obs client
 void ceammc_obs_free(ceammc_obs_client *cli);
@@ -83,19 +89,22 @@ void ceammc_obs_free(ceammc_obs_client *cli);
 /// get current OBS scene
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
-bool ceammc_obs_get_current_scene(ceammc_obs_client *cli);
+bool ceammc_obs_get_current_scene(const ceammc_obs_client *cli);
 
 /// send version request to OBS studio
 /// @param cli - pointer to obs client
-void ceammc_obs_get_version(ceammc_obs_client *cli);
+/// @return true on success, false on error
+bool ceammc_obs_get_version(const ceammc_obs_client *cli);
 
 /// request list of OBS studio monitors
 /// @param cli - pointer to obs client
-void ceammc_obs_list_monitors(ceammc_obs_client *cli);
+/// @return true on success, false on error
+bool ceammc_obs_list_monitors(const ceammc_obs_client *cli);
 
 /// send version request to OBS studio
 /// @param cli - pointer to obs client
-void ceammc_obs_list_scenes(ceammc_obs_client *cli);
+/// @return true on success, false on error
+bool ceammc_obs_list_scenes(const ceammc_obs_client *cli);
 
 /// create OSB Studio client
 /// @param params - connection params
@@ -117,7 +126,12 @@ ceammc_obs_client *ceammc_obs_new(ceammc_obs_init params,
 /// move to next OBS scene
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
-bool ceammc_obs_next_scene(ceammc_obs_client *cli);
+bool ceammc_obs_next_scene(const ceammc_obs_client *cli);
+
+/// move to previous OBS scene
+/// @param cli - pointer to obs client
+/// @return true on success, false on error
+bool ceammc_obs_prev_scene(const ceammc_obs_client *cli);
 
 /// process all available results from OBS studio
 /// @param cli - pointer to obs client client
