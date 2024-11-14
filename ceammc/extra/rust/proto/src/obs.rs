@@ -3,7 +3,6 @@ use log::{debug, error, warn};
 use std::ffi::{c_char, c_void, CStr, CString};
 use std::ptr::{null, null_mut};
 
-// use obws::requests::scene_items::SetEnabled;
 use obws::Client;
 
 use crate::fn_error;
@@ -241,15 +240,91 @@ pub extern "C" fn ceammc_obs_scene_list_at(scl: &obs_scene_list, idx: usize) -> 
         .unwrap_or(null())
 }
 
+#[derive(Debug)]
 #[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct obs_data_monitor {
+pub struct obs_monitor {
     index: u32,
     w: u16,
     h: u16,
     x: u16,
     y: u16,
-    name: *const c_char,
+    name: CString,
+}
+
+#[no_mangle]
+/// get monitor name
+/// @param m - pointer to monitor (not NULL!)
+pub extern "C" fn ceammc_obs_monitor_name(m: &obs_monitor) -> *const c_char {
+    m.name.as_ptr()
+}
+
+#[no_mangle]
+/// get monitor index
+/// @param m - pointer to monitor (not NULL!)
+pub extern "C" fn ceammc_obs_monitor_index(m: &obs_monitor) -> u32 {
+    m.index
+}
+
+#[no_mangle]
+/// get monitor geometry
+/// @param m - pointer to monitor (not NULL!)
+/// @param x - pointer to store x coord
+/// @param y - pointer to store y coord
+/// @param w - pointer to store monitor width
+/// @param h - pointer to store monitor height
+pub extern "C" fn ceammc_obs_monitor_geom(
+    m: &obs_monitor,
+    x: &mut u16,
+    y: &mut u16,
+    w: &mut u16,
+    h: &mut u16,
+) {
+    *x = m.x;
+    *y = m.y;
+    *w = m.w;
+    *h = m.h;
+}
+
+#[no_mangle]
+/// get monitor at specified position
+/// @param ml - pointer to monitor list (not NULL!)
+/// @return pointer to monitor or nullptr if not found
+pub extern "C" fn ceammc_obs_monitor_at(ml: &obs_monitor_list, idx: usize) -> *const obs_monitor {
+    ml.mons
+        .get(idx)
+        .map(|x| x as *const obs_monitor)
+        .unwrap_or(null())
+}
+
+#[no_mangle]
+/// get monitor list length
+/// @param ml - pointer to monitor list (not NULL!)
+pub extern "C" fn ceammc_obs_monitor_count(ml: &obs_monitor_list) -> usize {
+    ml.mons.len()
+}
+
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+pub struct obs_monitor_list {
+    mons: Vec<obs_monitor>,
+}
+
+impl From<Vec<obws::responses::ui::Monitor>> for obs_monitor_list {
+    fn from(mons: Vec<obws::responses::ui::Monitor>) -> Self {
+        Self {
+            mons: mons
+                .iter()
+                .map(|m| obs_monitor {
+                    index: m.index,
+                    w: m.size.width,
+                    h: m.size.height,
+                    x: m.position.x,
+                    y: m.position.y,
+                    name: CString::new(m.name.as_str()).unwrap_or_default(),
+                })
+                .collect::<Vec<_>>(),
+        }
+    }
 }
 
 #[allow(non_camel_case_types)]
@@ -257,64 +332,43 @@ pub struct obs_data_monitor {
 pub struct obs_result_cb {
     /// user data pointer (can be NULL)
     user: *mut c_void,
-    /// version data callback function (can be NULL)
+    /// version callback function (can be NULL)
     cb_version: Option<extern "C" fn(user: *mut c_void, ver: &obs_version)>,
-    /// scenes data callback function (can be NULL)
-    cb_scenes: Option<extern "C" fn(user: *mut c_void, scenes: &obs_scene_list)>,
-    /// monitors data callback function (can be NULL)
-    cb_monitors:
-        Option<extern "C" fn(user: *mut c_void, mons: *const obs_data_monitor, len: usize)>,
+    /// scenes list callback function (can be NULL)
+    cb_scene_list: Option<extern "C" fn(user: *mut c_void, scl: &obs_scene_list)>,
+    /// monitor list callback function (can be NULL)
+    cb_monitor_list: Option<extern "C" fn(user: *mut c_void, mons: *const obs_monitor_list)>,
+    /// current scene callback function (can be NULL)
     cb_current_scene: Option<extern "C" fn(user: *mut c_void, name: *const c_char)>,
     /// connected/disconnected callback function (can be NULL)
     cb_connected: Option<extern "C" fn(user: *mut c_void, state: bool)>,
 }
 
 impl obs_result_cb {
-    fn on_connect(&self) {
+    fn connected(&self) {
         match self.cb_connected {
             Some(cb) => cb(self.user, true),
             None => warn!("cb_connected callback is not set"),
         }
     }
 
-    fn on_current_scene(&self, name: &CString) {
+    fn current_scene(&self, name: &CString) {
         if let Some(cb) = self.cb_current_scene {
             cb(self.user, name.as_ptr());
         }
     }
 
-    fn on_monitors(&self, mons: &Vec<obws::responses::ui::Monitor>) {
-        match self.cb_monitors {
+    fn monitor_list(&self, mons: obs_monitor_list) {
+        match self.cb_monitor_list {
             Some(cb) => {
-                let names = mons
-                    .iter()
-                    .map(|m| CString::new(m.name.as_str()).unwrap())
-                    .collect::<Vec<_>>();
-
-                let mut mons = mons
-                    .iter()
-                    .map(|m| obs_data_monitor {
-                        index: m.index,
-                        w: m.size.width,
-                        h: m.size.height,
-                        x: m.position.x,
-                        y: m.position.y,
-                        name: null(),
-                    })
-                    .collect::<Vec<_>>();
-
-                for (name, mon) in names.iter().zip(mons.iter_mut()) {
-                    mon.name = name.as_ptr()
-                }
-
-                cb(self.user, mons.as_ptr(), mons.len());
+                cb(self.user, &mons);
             }
             None => warn!("cb_monitors callback is not set"),
         }
     }
 
-    fn on_scenes(&self, scenes: obs_scene_list) {
-        match self.cb_scenes {
+    fn scene_list(&self, scenes: obs_scene_list) {
+        match self.cb_scene_list {
             Some(cb) => {
                 cb(self.user, &scenes);
             }
@@ -322,10 +376,10 @@ impl obs_result_cb {
         }
     }
 
-    fn on_version(&self, version: &obs_version) {
+    fn version(&self, version: &obs_version) {
         match self.cb_version {
             Some(cb) => {
-                cb(self.user, &version);
+                cb(self.user, version);
             }
             None => warn!("cb_version callback is not set"),
         }
@@ -389,7 +443,7 @@ enum OBSRequest {
 enum OBSReply {
     Version(obs_version),
     ListScenes(obs_scene_list),
-    ListMonitors(Vec<obws::responses::ui::Monitor>),
+    ListMonitors(obs_monitor_list),
     CurrentScene(CString),
     Connected,
 }
@@ -480,7 +534,7 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
                 .ui()
                 .list_monitors()
                 .await
-                .map(|x| RequestResult::Reply(OBSReply::ListMonitors(x)))
+                .map(|x| RequestResult::Reply(OBSReply::ListMonitors(x.into())))
                 .map_err(|err| err.to_string());
         }
         OBSRequest::MoveScene(offset) => {
@@ -885,11 +939,11 @@ pub extern "C" fn ceammc_obs_process_events(cli: *mut obs_client) -> bool {
     while let Ok(rec) = cli.recv.try_recv() {
         match rec {
             Ok(reply) => match reply {
-                OBSReply::Version(version) => cli.cb_reply.on_version(&version),
-                OBSReply::Connected => cli.cb_reply.on_connect(),
-                OBSReply::ListScenes(scenes) => cli.cb_reply.on_scenes(scenes),
-                OBSReply::ListMonitors(vec) => cli.cb_reply.on_monitors(&vec),
-                OBSReply::CurrentScene(cstr) => cli.cb_reply.on_current_scene(&cstr),
+                OBSReply::Version(version) => cli.cb_reply.version(&version),
+                OBSReply::Connected => cli.cb_reply.connected(),
+                OBSReply::ListScenes(scenes) => cli.cb_reply.scene_list(scenes),
+                OBSReply::ListMonitors(vec) => cli.cb_reply.monitor_list(vec),
+                OBSReply::CurrentScene(cstr) => cli.cb_reply.current_scene(&cstr),
             },
             Err(err) => match err {
                 Error::Error(msg) => cli.cb_err.exec(msg.as_str()),

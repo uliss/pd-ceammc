@@ -9,6 +9,10 @@
 
 struct ceammc_obs_client;
 
+struct ceammc_obs_monitor;
+
+struct ceammc_obs_monitor_list;
+
 struct ceammc_obs_scene;
 
 struct ceammc_obs_scene_list;
@@ -26,24 +30,16 @@ struct ceammc_callback_msg {
     void (*cb)(void *user, const char *msg);
 };
 
-struct ceammc_obs_data_monitor {
-    uint32_t index;
-    uint16_t w;
-    uint16_t h;
-    uint16_t x;
-    uint16_t y;
-    const char *name;
-};
-
 struct ceammc_obs_result_cb {
     /// user data pointer (can be NULL)
     void *user;
-    /// version data callback function (can be NULL)
+    /// version callback function (can be NULL)
     void (*cb_version)(void *user, const ceammc_obs_version *ver);
-    /// scenes data callback function (can be NULL)
-    void (*cb_scenes)(void *user, const ceammc_obs_scene_list *scenes);
-    /// monitors data callback function (can be NULL)
-    void (*cb_monitors)(void *user, const ceammc_obs_data_monitor *mons, size_t len);
+    /// scenes list callback function (can be NULL)
+    void (*cb_scene_list)(void *user, const ceammc_obs_scene_list *scl);
+    /// monitor list callback function (can be NULL)
+    void (*cb_monitor_list)(void *user, const ceammc_obs_monitor_list *mons);
+    /// current scene callback function (can be NULL)
     void (*cb_current_scene)(void *user, const char *name);
     /// connected/disconnected callback function (can be NULL)
     void (*cb_connected)(void *user, bool state);
@@ -96,6 +92,35 @@ bool ceammc_obs_list_monitors(const ceammc_obs_client *cli);
 /// @param cli - pointer to obs client
 /// @return true on success, false on error
 bool ceammc_obs_list_scenes(const ceammc_obs_client *cli);
+
+/// get monitor at specified position
+/// @param ml - pointer to monitor list (not NULL!)
+/// @return pointer to monitor or nullptr if not found
+const ceammc_obs_monitor *ceammc_obs_monitor_at(const ceammc_obs_monitor_list *ml, size_t idx);
+
+/// get monitor list length
+/// @param ml - pointer to monitor list (not NULL!)
+size_t ceammc_obs_monitor_count(const ceammc_obs_monitor_list *ml);
+
+/// get monitor geometry
+/// @param m - pointer to monitor (not NULL!)
+/// @param x - pointer to store x coord
+/// @param y - pointer to store y coord
+/// @param w - pointer to store monitor width
+/// @param h - pointer to store monitor height
+void ceammc_obs_monitor_geom(const ceammc_obs_monitor *m,
+                             uint16_t *x,
+                             uint16_t *y,
+                             uint16_t *w,
+                             uint16_t *h);
+
+/// get monitor index
+/// @param m - pointer to monitor (not NULL!)
+uint32_t ceammc_obs_monitor_index(const ceammc_obs_monitor *m);
+
+/// get monitor name
+/// @param m - pointer to monitor (not NULL!)
+const char *ceammc_obs_monitor_name(const ceammc_obs_monitor *m);
 
 /// create OSB Studio client
 /// @param params - connection params
