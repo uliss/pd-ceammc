@@ -63,78 +63,87 @@ pub struct obs_version {
     available_rpc_len: usize,
 }
 
+#[allow(non_camel_case_types)]
 #[derive(Debug)]
-struct ObsScene {
+pub struct obs_scene {
     name: CString,
     uuid: CString,
 }
 
-impl ObsScene {
+impl obs_scene {
     fn new(name: &String, uuid: &String) -> Self {
         let name = CString::new(name.as_str()).unwrap_or_default();
         let uuid = CString::new(uuid.as_str()).unwrap_or_default();
         Self { name, uuid }
     }
-
-    fn to_struct(&self) -> obs_data_scene {
-        obs_data_scene {
-            name: self.name.as_ptr(),
-            uuid: self.uuid.as_ptr(),
-        }
-    }
 }
 
-impl Default for ObsScene {
+/// get scene name as C-string
+/// @param scene - pointer to scene (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_obs_scene_name(scene: &obs_scene) -> *const c_char {
+    scene.name.as_ptr()
+}
+
+/// get scene UUID as C-string
+/// @param scene - pointer to scene (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_obs_scene_uuid(scene: &obs_scene) -> *const c_char {
+    scene.uuid.as_ptr()
+}
+
+impl Default for obs_scene {
     fn default() -> Self {
         Self::new(&Default::default(), &Default::default())
     }
 }
 
 #[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct obs_data_scene {
-    name: *const c_char,
-    uuid: *const c_char,
-}
-
 #[derive(Debug)]
-struct ObsScenes {
-    current: ObsScene,
-    scenes: Vec<ObsScene>,
+pub struct obs_scene_list {
+    current: obs_scene,
+    scenes: Vec<obs_scene>,
 }
 
-impl ObsScenes {
-    fn to_struct(&self) -> Vec<obs_data_scene> {
-        self.scenes
-            .iter()
-            .map(|x| x.to_struct())
-            .collect::<Vec<_>>()
-    }
-}
-
-impl From<obws::responses::scenes::Scenes> for ObsScenes {
+impl From<obws::responses::scenes::Scenes> for obs_scene_list {
     fn from(sc: obws::responses::scenes::Scenes) -> Self {
         let current = sc
             .current_program_scene
-            .map(|x| ObsScene::new(&x.name, &x.uuid.to_string()))
+            .map(|x| obs_scene::new(&x.name, &x.uuid.to_string()))
             .unwrap_or_default();
 
         let scenes = sc
             .scenes
             .iter()
-            .map(|x| ObsScene::new(&x.id.name, &x.id.uuid.to_string()))
+            .map(|x| obs_scene::new(&x.id.name, &x.id.uuid.to_string()))
             .collect::<Vec<_>>();
 
-        ObsScenes { current, scenes }
+        obs_scene_list { current, scenes }
     }
 }
 
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct obs_data_scenes {
-    current_scene: *const obs_data_scene,
-    scenes: *const obs_data_scene,
-    num_scenes: usize,
+/// get current scene
+/// @param scenes - pointer to scenes (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_obs_scene_current(scl: &obs_scene_list) -> &obs_scene {
+    &scl.current
+}
+
+/// get scene list length
+/// @param scenes - pointer to scenes (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_obs_scene_list_length(scl: &obs_scene_list) -> usize {
+    scl.scenes.len()
+}
+
+/// get scene list data
+/// @param scenes - pointer to scenes (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_obs_scene_list_at(scl: &obs_scene_list, idx: usize) -> *const obs_scene {
+    scl.scenes
+        .get(idx)
+        .map(|x| x as *const obs_scene)
+        .unwrap_or(null())
 }
 
 #[allow(non_camel_case_types)]
@@ -156,7 +165,7 @@ pub struct obs_result_cb {
     /// version data callback function (can be NULL)
     cb_version: Option<extern "C" fn(user: *mut c_void, ver: &obs_version)>,
     /// scenes data callback function (can be NULL)
-    cb_scenes: Option<extern "C" fn(user: *mut c_void, ver: &obs_data_scenes)>,
+    cb_scenes: Option<extern "C" fn(user: *mut c_void, scenes: &obs_scene_list)>,
     /// monitors data callback function (can be NULL)
     cb_monitors:
         Option<extern "C" fn(user: *mut c_void, mons: *const obs_data_monitor, len: usize)>,
@@ -209,15 +218,9 @@ impl obs_result_cb {
         }
     }
 
-    fn on_scenes(&self, scenes: ObsScenes) {
+    fn on_scenes(&self, scenes: obs_scene_list) {
         match self.cb_scenes {
             Some(cb) => {
-                let data = scenes.to_struct();
-                let scenes = obs_data_scenes {
-                    current_scene: &scenes.current.to_struct(),
-                    scenes: data.as_ptr(),
-                    num_scenes: data.len(),
-                };
                 cb(self.user, &scenes);
             }
             None => warn!("cb_scenes callback is not set"),
@@ -325,7 +328,7 @@ enum OBSRequest {
 #[derive(Debug)]
 enum OBSReply {
     Version(obws::responses::general::Version),
-    ListScenes(ObsScenes),
+    ListScenes(obs_scene_list),
     ListMonitors(Vec<obws::responses::ui::Monitor>),
     CurrentScene(CString),
     Connected,

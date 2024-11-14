@@ -9,6 +9,10 @@
 
 struct ceammc_obs_client;
 
+struct ceammc_obs_scene;
+
+struct ceammc_obs_scene_list;
+
 struct ceammc_obs_init {
     const char *host;
     const char *password;
@@ -36,17 +40,6 @@ struct ceammc_obs_version {
     size_t available_rpc_len;
 };
 
-struct ceammc_obs_data_scene {
-    const char *name;
-    const char *uuid;
-};
-
-struct ceammc_obs_data_scenes {
-    const ceammc_obs_data_scene *current_scene;
-    const ceammc_obs_data_scene *scenes;
-    size_t num_scenes;
-};
-
 struct ceammc_obs_data_monitor {
     uint32_t index;
     uint16_t w;
@@ -62,7 +55,7 @@ struct ceammc_obs_result_cb {
     /// version data callback function (can be NULL)
     void (*cb_version)(void *user, const ceammc_obs_version *ver);
     /// scenes data callback function (can be NULL)
-    void (*cb_scenes)(void *user, const ceammc_obs_data_scenes *ver);
+    void (*cb_scenes)(void *user, const ceammc_obs_scene_list *scenes);
     /// monitors data callback function (can be NULL)
     void (*cb_monitors)(void *user, const ceammc_obs_data_monitor *mons, size_t len);
     void (*cb_current_scene)(void *user, const char *name);
@@ -155,6 +148,26 @@ bool ceammc_obs_process_events(ceammc_obs_client *cli);
 /// @param name - scene name
 /// @return true on success, false on error
 bool ceammc_obs_remove_scene(const ceammc_obs_client *cli, const char *name);
+
+/// get current scene
+/// @param scenes - pointer to scenes (not NULL!)
+const ceammc_obs_scene *ceammc_obs_scene_current(const ceammc_obs_scene_list *scl);
+
+/// get scene list data
+/// @param scenes - pointer to scenes (not NULL!)
+const ceammc_obs_scene *ceammc_obs_scene_list_at(const ceammc_obs_scene_list *scl, size_t idx);
+
+/// get scene list length
+/// @param scenes - pointer to scenes (not NULL!)
+size_t ceammc_obs_scene_list_length(const ceammc_obs_scene_list *scl);
+
+/// get scene name as C-string
+/// @param scene - pointer to scene (not NULL!)
+const char *ceammc_obs_scene_name(const ceammc_obs_scene *scene);
+
+/// get scene UUID as C-string
+/// @param scene - pointer to scene (not NULL!)
+const char *ceammc_obs_scene_uuid(const ceammc_obs_scene *scene);
 
 /// set current scene
 /// @param cli - pointer to obs client
