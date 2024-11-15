@@ -79,7 +79,7 @@ if(Rust_FOUND)
             # into this directory
             set(VEROVIO_ROOT $ENV{HOME}/.local/verovio)
         endif()
-        message(FATAL "Verovio root is: ${VEROVIO_ROOT}")
+        message(STATUS "Verovio root is: ${VEROVIO_ROOT}")
         find_package(Verovio REQUIRED)
         target_compile_definitions(ceammc_ui PRIVATE WITH_VEROVIO)
         target_link_libraries(ceammc_ui PRIVATE ${VEROVIO_LIBRARIES})
