@@ -137,7 +137,7 @@ if(WITH_SFIZZ)
         add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
 
         if(WIN32)
-            install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
+            install(TARGETS sfizz_shared RUNTIME DESTINATION bin)
         endif()
     endif()
 endif()
