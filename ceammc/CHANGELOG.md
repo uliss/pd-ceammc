@@ -11,6 +11,7 @@
   - net.mqtt.client - MQTT client 
   - net.ws.client - WebSocket client
   - net.ws.server - WebSocket client 
+  - proto.obs - OBS studio client
   - route.data (with route.d alias) - separate data from other types
   - system.command (with system.cmd alias) - run several processes like in shell with pipes
   - system.info - object to get num cpu/temperature and other system information

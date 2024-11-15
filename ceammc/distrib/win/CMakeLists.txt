@@ -145,8 +145,6 @@ if(ISCC_PATH)
         USES_TERMINAL)
 endif()
 
-add_subdirectory(homebrew)
-
 if(WIN32)
     install(DIRECTORY fonts DESTINATION ${CMAKE_INSTALL_PREFIX})
 endif()

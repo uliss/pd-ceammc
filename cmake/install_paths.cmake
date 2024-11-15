@@ -27,4 +27,6 @@ else()
     set(PD_WATCHDOG_INSTALL_PATH lib/${PDDIR}/bin)
 endif()
 
+set(PD_COMPLETION_PATH ${PD_GUI_PLUGINS_PATH}/ceammc/custom_completions)
+
 

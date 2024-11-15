@@ -2072,6 +2072,9 @@
     <entry name="proto.mpv" descr="mpv video player control" ref_view="object">
       <xi:include href="proto.mpv.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.obs" descr="OBS studio Web-Socket client" ref_view="object">
+      <xi:include href="proto.obs.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.sp.alpaca" descr="protocol parser for Arduino-based CEAMMC footswitch" ref_view="object">
       <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
     </entry>

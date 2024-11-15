@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="proto.obs">
+        <title>proto.obs</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>OBS studio Web-Socket client</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>obs video</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <methods>
+            <method name="connect">connect to OBS studio. Message [connected 1( is send to output
+            on success, [connected 0( - on error. 
+            <param name="PASSWD" type="symbol" required="false">if specified, temporaly overrides
+            @passwd property</param></method>
+            <method name="disconnect">disconnect from OBS studio. Message [connected 0( is send to
+            output</method>
+            <!-- info -->
+            <method name="info">request OBS studio information: OBS version, web-socket version,
+            RPC version and list of supported image formats. This info is outputted as messages to
+            first outlet.</method>
+            <method name="scene list">request scene list</method>
+            <method name="scene current get">request current scene</method>
+            <method name="scene current set">set current scene 
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+            <method name="scene next">change to next scene</method>
+            <method name="scene prev">change to prev scene</method>
+            <method name="scene first">change to first scene</method>
+            <method name="scene last">change to last scene</method>
+            <method name="scene create">create new scene
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+            <method name="scene remove">remove scene
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+            <method name="collection list">request collection list</method>
+            <method name="collection current get">request current collection</method>
+            <method name="collection current set">set current collection 
+            <param name="NAME" type="symbol" required="true">collection name</param></method>
+            <method name="monitor list">request monitor list</method>
+            <method name="item list">request list of scene items
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+            <method name="item enable">enable/disable scene item
+            <param name="SCENE" type="symbol" required="true">scene name</param>
+            <param name="IDX" type="int" required="true">item pos</param>
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <method name="item remove">remove scene item
+            <param name="SCENE" type="symbol" required="true">scene name</param>
+            <param name="IDX" type="int" required="true">item pos</param></method>
+        </methods>
+        <properties>
+            <property name="@host" type="symbol" default="localhost">OBS studio host
+            name</property>
+            <property name="@passwd" type="symbol" default="">OBS studio password</property>
+            <property name="@port" type="int" default="4455" minvalue="1" maxvalue="32767">OBS
+            studio control port</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">raw midi input bytes</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>any messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[connect SECRET #a(  [scene list #d(        [collection list #h(
+
+ [disconnect #b(     [scene current get #e( [collection current get #i(
+
+ [info #c(           [scene next #f(        [S digits=15]
+                                            |
+  [monitor list #k(  [scene prev #g(        [collection current set $1 #j(
+
+                     [scene first #l(
+
+                     [scene last #m(
+
+[proto.obs #z]
+|
+[print OBS]
+
+[X a->z] [X b->z] [X c->z]
+[X d->z] [X e->z] [X f->z] [X g->z]
+[X h->z] [X i->z] [X j->z] [X k->z]
+[X l->z] [X m->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

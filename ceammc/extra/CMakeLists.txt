@@ -13,6 +13,7 @@ add_subdirectory(date)
 
 if(WITH_EXT_AUTOTUNE)
     add_subdirectory(autotune)
+    install(FILES autotune_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_EXT_FLEXT)
@@ -21,10 +22,12 @@ endif()
 
 if(WITH_EXT_FFTEASE)
     add_subdirectory(fftease)
+    install(FILES fftease_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_EXT_LYONPOTPOURRI)
     add_subdirectory(lyonpotpourri)
+    install(FILES lyonpotpourri_objects.txt DESTINATION  ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_ARTNET)
@@ -71,6 +74,14 @@ if(WITH_EXPERIMENTAL)
     add_subdirectory(import)
     add_subdirectory(libdir)
     add_subdirectory(libusb)
+
+    install(
+        FILES
+            import_objects.txt
+            libdir_objects.txt
+        DESTINATION
+            ${PD_COMPLETION_PATH}
+    )
 endif()
 
 if(WITH_FLUIDSYNTH)
@@ -91,8 +102,14 @@ if(WITH_TTS_FLITE)
     add_subdirectory(speech)
 endif()
 
-set(EXTRA_COMPLETION "extra_objects.txt")
-add_custom_target(_ceammc_extra_misc SOURCES ${EXTRA_COMPLETION})
+add_custom_target(_ceammc_extra_misc
+    SOURCES
+        autotune_objects.txt
+        extra_objects.txt
+        fftease_objects.txt
+        import_objects.txt
+        libdir_objects.txt
+)
 
 if(WITH_SFIZZ)
     cmake_minimum_required(VERSION 3.14)

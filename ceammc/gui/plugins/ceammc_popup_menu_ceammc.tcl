@@ -198,8 +198,8 @@
     {proto {
         proto.arturia.minilab proto.feelworld proto.firmata proto.inscore
         proto.ltc.in~ proto.ltc.out~ proto.midi proto.midi.casio proto.midi.cc
-        proto.midi.sysex proto.moppy proto.morse proto.mpv proto.sp.alpaca
-        proto.vlc proto.whammy proto.xtouch_ext
+        proto.midi.sysex proto.moppy proto.morse proto.mpv proto.obs
+        proto.sp.alpaca proto.vlc proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int

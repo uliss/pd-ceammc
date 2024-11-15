@@ -662,6 +662,7 @@ set(DOC_FILES
     proto.moppy
     proto.morse
     proto.mpv
+    proto.obs
     proto.sp.alpaca
     proto.vlc
     proto.whammy
