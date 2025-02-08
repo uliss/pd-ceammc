@@ -14,7 +14,6 @@
 
 #include "ceammc.h"
 #include "ceammc_config.h"
-#include "ceammc_impl.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "mod_init.h"
