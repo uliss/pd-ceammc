@@ -15,8 +15,6 @@
 #include "ceammc_atomlist_view.h"
 #include "ceammc_crc32.h"
 
-#include "re2/re2.h"
-
 #include <cstdint>
 #include <functional>
 #include <nonius/nonius.h++>
@@ -45,7 +43,6 @@ const AtomList LIST_TABLE[] = {
 };
 
 static const char* re_pattern = "[a-z].{2,4}";
-static re2::RE2 re2_re_precompiled(re_pattern);
 static std::regex std_re_precompiled(re_pattern);
 
 extern "C" void pd_init();
@@ -73,14 +70,6 @@ NONIUS_BENCHMARK("std::regex", [] {
 
 NONIUS_BENCHMARK("std::regex precompiled", [] {
     return std::regex_match(SYM_TABLE[sym_int(engine)], std_re_precompiled);
-})
-
-NONIUS_BENCHMARK("re2", [] {
-    return re2::RE2::FullMatch(SYM_TABLE[sym_int(engine)], re2::RE2(re_pattern));
-})
-
-NONIUS_BENCHMARK("re2 precompiled", [] {
-    return re2::RE2::FullMatch(SYM_TABLE[sym_int(engine)], re2_re_precompiled);
 })
 
 NONIUS_BENCHMARK("AtomList slice", [] {
