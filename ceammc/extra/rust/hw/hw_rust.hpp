@@ -203,6 +203,11 @@ ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_error_cb on_err, ceammc_hw_notify_c
 /// @param gp - pointer to gpio struct
 void ceammc_hw_gpio_process_events(ceammc_hw_gpio *gp);
 
+/// read pin request
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
 /// toggle pin level
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
@@ -212,11 +217,6 @@ bool ceammc_hw_gpio_toggle_pin(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 /// @param level - pin level (=0: low, >0: high)
-bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
-
-/// read pin request
-/// @param gpio - pointer to gpio struct
-/// @param pin - pin number
 bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
 
 int32_t ceammc_hw_print_file(const char *printer,

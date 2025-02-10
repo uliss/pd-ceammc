@@ -48,7 +48,7 @@ void HwGpio::m_write(t_symbol* s, const AtomListView& lv)
     if (!args::check_args("PIN:b VALUE:B", lv, this))
         return;
 
-    ceammc_hw_gpio_set_pin(gpio_, lv.intAt(0, 0), lv.intAt(1, 1));
+    ceammc_hw_gpio_write_pin(gpio_, lv.intAt(0, 0), lv.intAt(1, 1));
 }
 
 void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)

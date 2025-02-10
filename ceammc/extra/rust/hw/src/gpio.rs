@@ -301,7 +301,7 @@ pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: boo
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: bool) -> bool {
+pub extern "C" fn ceammc_hw_gpio_read_pin(gp: *mut hw_gpio, pin: u8) -> bool {
     if gp.is_null() {
         log::error!("NULL gpio pointer");
         return false;
