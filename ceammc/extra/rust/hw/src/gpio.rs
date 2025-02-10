@@ -158,7 +158,11 @@ fn gpio_write_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), CString> {
 
 #[cfg(target_os = "linux")]
 fn gpio_toggle_pin(gpio: &Gpio, pin: u8) -> Result<(), CString> {
-    gpio_output_pin(gpio, pin).map(|mut x| x.toggle())
+    gpio_output_pin(gpio, pin).map(|mut x| {
+        debug!("P[{}]: {}", x.pin(), x.is_set_high());
+        x.toggle();
+        debug!("P[{}]: {}", x.pin(), x.is_set_high());
+    })
 }
 
 impl HwGpio {
