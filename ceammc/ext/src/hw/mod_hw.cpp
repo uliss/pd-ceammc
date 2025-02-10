@@ -17,6 +17,7 @@
 void setup_hw_motu_avb();
 void setup_hw_gamepad();
 void setup_hw_printer();
+void setup_hw_gpio();
 
 void ceammc_hw_setup()
 {
@@ -26,9 +27,10 @@ void ceammc_hw_setup()
     setup_hw_apple_sms();
     setup_hw_display();
     setup_hw_gamepad();
-    setup_hw_printer();
+    setup_hw_gpio();
     setup_hw_keyboard_light();
     setup_hw_motu_avb();
+    setup_hw_printer();
 
 #ifdef WITH_LIBUSB_01
     setup_hw_udmx();
