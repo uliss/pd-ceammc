@@ -133,7 +133,11 @@ enum HwGpioReply {
 fn gpio_output_pin(gpio: &Gpio, pin: u8) -> Result<OutputPin, CString> {
     gpio.get(pin)
         .map_err(|err| CString::new(err.to_string()).unwrap_or_default())
-        .map(|x| x.into_output())
+        .map(|x| {
+            let mut pin = x.into_output();
+            pin.set_reset_on_drop(false);
+            pin
+        })
 }
 
 #[cfg(target_os = "linux")]
@@ -149,10 +153,12 @@ fn gpio_read_pin(gpio: &Gpio, pin: u8) -> Result<bool, CString> {
 #[cfg(target_os = "linux")]
 fn gpio_write_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), CString> {
     gpio_output_pin(gpio, pin).map(|mut x| {
+        debug!("P[{}]: {}", x.pin(), x.is_set_high());
         x.write(match state {
             true => gpio::Level::High,
             false => gpio::Level::Low,
-        })
+        });
+        debug!("P[{}]: {}", x.pin(), x.is_set_high());
     })
 }
 
