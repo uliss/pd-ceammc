@@ -29,7 +29,8 @@ public:
     ~HwGpio();
 
     bool notify(int code) final;
-    // void m_devices(t_symbol* s, const AtomListView& lv);
+    void m_set(t_symbol* s, const AtomListView& lv);
+    void m_toggle(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_gpio();

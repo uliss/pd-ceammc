@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_gpio.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 HwGpio::HwGpio(const PdArgs& args)
@@ -28,6 +29,22 @@ HwGpio::~HwGpio()
 bool HwGpio::notify(int code)
 {
     return true;
+}
+
+void HwGpio::m_set(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b VALUE:B", lv, this))
+        return;
+
+    ceammc_hw_gpio_set_pin(gpio_, lv.intAt(0, 0), lv.intAt(1, 1));
+}
+
+void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_toggle_pin(gpio_, lv.intAt(0, 0));
 }
 
 void setup_hw_gpio()
