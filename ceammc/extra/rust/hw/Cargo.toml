@@ -18,11 +18,11 @@ tokio = { version = "1.36", features = ["rt", "rt-multi-thread", "signal", "sync
 cups-sys = {version = "0.1.4", optional = true}
 lazy_static = "1.5.0"
 
-[target.'cfg(linux)'.dependencies]
-rppal = "0.22.1"
+#[target.'cfg(target_os="linux")'.dependencies]
+#rppal = "0.22.1"
 
 [target.'cfg(windows)'.dependencies]
-winprint = {version = "0.1.0"}
+winprint = {version = "0.2.0"}
 printers = {version = "2.0.0", default-features = false, features=[]}
 
 [build-dependencies]
