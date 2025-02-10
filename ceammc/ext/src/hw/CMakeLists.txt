@@ -1,6 +1,7 @@
 add_subdirectory(arduino)
 
-add_library(ceammc_hw STATIC mod_hw.cpp)
+add_library(ceammc_hw STATIC mod_hw.cpp
+    hw_gpio.h hw_gpio.cpp)
 
 function(ceammc_hw_external name)
     target_sources(ceammc_hw PRIVATE "hw_${name}.cpp")
@@ -102,6 +103,9 @@ if(WITH_PRINTER)
         )
     endif()
 endif()
+
+# GPIO
+target_sources(ceammc_hw PRIVATE hw_gpio.cpp)
 
 #if(WITH_EXPERIMENTAL)
 #    add_definitions(-DWITH_LIBUSB_01)
