@@ -54,3 +54,6 @@ pub mod printers_cups;
 
 #[cfg(target_os = "windows")]
 pub mod printers_win;
+
+// #[cfg(target_os = "linux")]
+pub mod gpio;
