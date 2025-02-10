@@ -328,6 +328,6 @@ mod tests {
         let g2 = Gpio::new().unwrap();
         let mut p2 = g2.get(1).unwrap().into_output();
         p2.set_low();
-        assert!(p2.is_set_high());
+        assert!(p2.is_set_low());
     }
 }
