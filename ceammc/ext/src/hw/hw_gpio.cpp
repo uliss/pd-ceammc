@@ -50,7 +50,8 @@ void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
 void setup_hw_gpio()
 {
     ObjectFactory<HwGpio> obj("hw.gpio");
-    // obj.addMethod("devices", &HwGpio::m_devices);
+    obj.addMethod("set", &HwGpio::m_set);
+    obj.addMethod("toggle", &HwGpio::m_toggle);
     // obj.setXletsInfo(
     //     { "control inlet" },
     //     {

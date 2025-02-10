@@ -149,16 +149,16 @@ struct ceammc_hw_printer_info_cb {
     void (*cb)(void *user, const ceammc_hw_printer_info *info);
 };
 
-struct ceammc_hw_print_options {
-    bool landscape;
-};
-
 /// error callback
 struct ceammc_hw_error_cb {
     /// pointer to user data (can be NULL)
     void *user;
     /// can be NULL
     void (*cb)(void*, const char*);
+};
+
+struct ceammc_hw_print_options {
+    bool landscape;
 };
 
 
@@ -193,10 +193,22 @@ void ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp);
 size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 
 /// create new gpio
+/// @param gpio - pointer to gpio struct
 void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
 
 /// create new gpio
-ceammc_hw_gpio *ceammc_hw_gpio_new();
+ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_error_cb on_err);
+
+/// set pin level
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param level - pin level (=0: low, >0: high)
+bool ceammc_hw_gpio_set_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
+
+/// toggle pin level
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_toggle_pin(ceammc_hw_gpio *gp, uint8_t pin);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,

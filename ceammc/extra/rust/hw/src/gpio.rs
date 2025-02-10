@@ -1,5 +1,5 @@
 use std::{
-    ffi::{c_char, c_void, CString},
+    ffi::{CString},
     ptr::null_mut,
     sync::{Arc, Mutex},
     time::Duration,
@@ -7,37 +7,20 @@ use std::{
 
 use lazy_static::lazy_static;
 use log::{debug, error};
+use tokio::time::sleep;
+use crate::hw_error_cb;
+
+#[cfg(target_os = "linux")]
 use rppal::{
     self,
     gpio::{self, Gpio, OutputPin},
 };
-use tokio::time::sleep;
-
-#[repr(C)]
-#[allow(non_camel_case_types)]
-pub struct gpio_err_cb {
-    /// pointer to user data
-    user: *mut c_void,
-    cb: Option<extern "C" fn(*mut c_void, *const c_char)>,
-}
-
-impl gpio_err_cb {
-    fn exec(&self, msg: &str) {
-        self.cb.map(|f| {
-            f(self.user, CString::new(msg).unwrap_or_default().as_ptr());
-        });
-    }
-}
 
 #[allow(non_camel_case_types)]
 /// gpio opaque type
 pub struct hw_gpio {
     gpio: Arc<HwGpio>,
-    on_err: gpio_err_cb,
-    // on_event: gamepad_event_cb,
-    // on_devinfo: gamepad_listdev_cb,
-    // req_tx: GamepadTx,
-    // reply_rx: GamepadRx,
+    on_err: hw_error_cb,
 }
 
 struct SharedGpio {
@@ -82,7 +65,7 @@ lazy_static! {
 }
 
 impl hw_gpio {
-    pub fn new(on_err: gpio_err_cb) -> Result<hw_gpio, CString> {
+    pub fn new(on_err: hw_error_cb) -> Result<hw_gpio, CString> {
         match GPIO.lock().as_mut() {
             Ok(x) => {
                 debug!("+1");
@@ -136,12 +119,14 @@ pub enum HwGpioRequest {
 
 enum HwGpioReply {}
 
+#[cfg(target_os = "linux")]
 fn gpio_output_pin(gpio: &Gpio, pin: u8) -> Result<OutputPin, CString> {
     gpio.get(pin)
         .map_err(|err| CString::new(err.to_string()).unwrap_or_default())
         .map(|x| x.into_output())
 }
 
+#[cfg(target_os = "linux")]
 fn gpio_set_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), CString> {
     gpio_output_pin(gpio, pin).map(|mut x| {
         x.write(match state {
@@ -151,6 +136,7 @@ fn gpio_set_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), CString> {
     })
 }
 
+#[cfg(target_os = "linux")]
 fn gpio_toggle_pin(gpio: &Gpio, pin: u8) -> Result<(), CString> {
     gpio_output_pin(gpio, pin).map(|mut x| x.toggle())
 }
@@ -170,6 +156,7 @@ impl HwGpio {
                     let _x: Result<(), CString> = rt.block_on(async move {
                         debug!("[worker thread] starting runloop ...");
 
+                        #[cfg(target_os = "linux")]
                         match &Gpio::new() {
                             Ok(gpio) => loop {
                                 if let Ok(req) = req_rx.try_recv() {
@@ -205,6 +192,9 @@ impl HwGpio {
                                 return Err(CString::new(err.to_string()).unwrap_or_default());
                             }
                         };
+
+                        #[cfg(not(target_os = "linux"))]
+                        Ok(())
                     });
 
                     debug!("[worker thread] exit");
@@ -229,7 +219,7 @@ impl Drop for HwGpio {
 
 /// create new gpio
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_new(on_err: gpio_err_cb) -> *mut hw_gpio {
+pub extern "C" fn ceammc_hw_gpio_new(on_err: hw_error_cb) -> *mut hw_gpio {
     match hw_gpio::new(on_err) {
         Ok(gpio) => Box::into_raw(Box::new(gpio)),
         Err(err) => {
@@ -240,17 +230,18 @@ pub extern "C" fn ceammc_hw_gpio_new(on_err: gpio_err_cb) -> *mut hw_gpio {
 }
 
 /// create new gpio
+/// @param gpio - pointer to gpio struct
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_free(
-    // on_err: gamepad_err_cb,
-    gpio: *mut hw_gpio,
-) {
+pub extern "C" fn ceammc_hw_gpio_free(gpio: *mut hw_gpio) {
     if !gpio.is_null() {
         drop(unsafe { Box::from_raw(gpio) })
     }
 }
 
 /// set pin level
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param level - pin level (=0: low, >0: high)
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_set_pin(gp: *mut hw_gpio, pin: u8, level: bool) -> bool {
     if gp.is_null() {
@@ -268,6 +259,8 @@ pub extern "C" fn ceammc_hw_gpio_set_pin(gp: *mut hw_gpio, pin: u8, level: bool)
 }
 
 /// toggle pin level
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
     if gp.is_null() {
