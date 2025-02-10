@@ -281,12 +281,12 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
     }
 }
 
-/// set pin level
+/// write pin value
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 /// @param level - pin level (=0: low, >0: high)
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_set_pin(gp: *mut hw_gpio, pin: u8, level: bool) -> bool {
+pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: bool) -> bool {
     if gp.is_null() {
         log::error!("NULL gpio pointer");
         return false;
@@ -295,6 +295,21 @@ pub extern "C" fn ceammc_hw_gpio_set_pin(gp: *mut hw_gpio, pin: u8, level: bool)
     let gp = unsafe { &mut *gp };
 
     gp.send(HwGpioRequest::Write(pin, level))
+}
+
+/// read pin request
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: bool) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+
+    gp.send(HwGpioRequest::Read(pin))
 }
 
 /// toggle pin level
