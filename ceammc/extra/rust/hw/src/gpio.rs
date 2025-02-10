@@ -325,7 +325,6 @@ mod tests {
 
 
         let g2 = Gpio::new().unwrap();
-        assert!(g2.get(0).is_ok());
         let p2 = g2.get(0).unwrap().into_output();
         assert!(p2.is_set_high());
 
