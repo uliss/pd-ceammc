@@ -29,7 +29,8 @@ public:
     ~HwGpio();
 
     bool notify(int code) final;
-    void m_set(t_symbol* s, const AtomListView& lv);
+    void m_read(t_symbol* s, const AtomListView& lv);
+    void m_write(t_symbol* s, const AtomListView& lv);
     void m_toggle(t_symbol* s, const AtomListView& lv);
 
 private:

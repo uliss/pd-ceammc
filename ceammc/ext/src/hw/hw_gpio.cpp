@@ -31,7 +31,15 @@ bool HwGpio::notify(int code)
     return true;
 }
 
-void HwGpio::m_set(t_symbol* s, const AtomListView& lv)
+void HwGpio::m_read(t_symbol *s, const AtomListView &lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_read_pin(gpio_, lv.intAt(0, 0));
+}
+
+void HwGpio::m_write(t_symbol* s, const AtomListView& lv)
 {
     if (!args::check_args("PIN:b VALUE:B", lv, this))
         return;
@@ -55,6 +63,6 @@ void HwGpio::on_error(void* data, const char* msg)
 void setup_hw_gpio()
 {
     ObjectFactory<HwGpio> obj("hw.gpio");
-    obj.addMethod("set", &HwGpio::m_set);
+    obj.addMethod("write", &HwGpio::m_write);
     obj.addMethod("toggle", &HwGpio::m_toggle);
 }
