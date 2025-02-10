@@ -18,7 +18,7 @@
 HwGpio::HwGpio(const PdArgs& args)
     : HwGpioBase(args)
 {
-    gpio_ = ceammc_hw_gpio_new();
+    gpio_ = ceammc_hw_gpio_new({ this, on_error });
 }
 
 HwGpio::~HwGpio()
@@ -47,17 +47,14 @@ void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_toggle_pin(gpio_, lv.intAt(0, 0));
 }
 
+void HwGpio::on_error(void* data, const char* msg)
+{
+    LIB_ERR << msg;
+}
+
 void setup_hw_gpio()
 {
     ObjectFactory<HwGpio> obj("hw.gpio");
     obj.addMethod("set", &HwGpio::m_set);
     obj.addMethod("toggle", &HwGpio::m_toggle);
-    // obj.setXletsInfo(
-    //     { "control inlet" },
-    //     {
-    //         "button: list ID BTN STATE VAL",
-    //         "axis: list ID AXIS VAL",
-    //         "any: connected ID STATE\n"
-    //         "any: device INFO",
-    //     });
 }
