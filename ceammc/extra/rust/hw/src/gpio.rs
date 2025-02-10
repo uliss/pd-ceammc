@@ -307,18 +307,29 @@ pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
 
 #[cfg(test)]
 mod tests {
+    use rppal::system::DeviceInfo;
+
     use super::*;
 
     #[test]
-    fn gpio_init() {
-        let g1 = Gpio::new();
-        assert!(g1.is_ok());
-        let g1 = g1.unwrap();
-        assert!(g1.get(0).is_ok());
+    fn gpio_info() {
+        println!("{}", DeviceInfo::new().unwrap().model());
+    }
 
-        let g2 = Gpio::new();
-        assert!(g2.is_ok());
-        let g2 = g2.unwrap();
+    #[test]
+    fn gpio_init() {
+        let g1 = Gpio::new().unwrap();
+        assert!(g1.get(0).is_ok());
+        let mut p1 = g1.get(0).unwrap().into_output_high();
+        assert!(p1.is_set_high());
+
+
+        let g2 = Gpio::new().unwrap();
         assert!(g2.get(0).is_ok());
+        let p2 = g2.get(0).unwrap().into_output();
+        assert!(p2.is_set_high());
+
+        p1.set_low();
+        assert!(p2.is_set_low());
     }
 }
