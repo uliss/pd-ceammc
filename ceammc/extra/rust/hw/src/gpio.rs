@@ -79,10 +79,11 @@ impl hw_gpio {
         if let Err(err) = self.gpio.tx.try_send(value) {
             self.on_err
                 .exec(format!("[owner] send error: {err}").as_str());
-            return false;
-        }
 
-        todo!()
+            false
+        } else {
+            true
+        }
     }
 }
 
