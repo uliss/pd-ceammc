@@ -67,6 +67,7 @@ void HwGpio::on_error(void* data, const char* msg)
 void setup_hw_gpio()
 {
     ObjectFactory<HwGpio> obj("hw.gpio");
+    obj.addMethod("read", &HwGpio::m_read);
     obj.addMethod("write", &HwGpio::m_write);
     obj.addMethod("toggle", &HwGpio::m_toggle);
 }
