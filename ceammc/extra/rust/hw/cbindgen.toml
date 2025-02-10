@@ -138,8 +138,8 @@ bitflags = false
 
 [parse]
 parse_deps = true
-# include = ["image"]
-# exclude = ["WebPQuality_MIN"]
+include = []
+exclude = []
 clean = false
 extra_bindings = []
 
