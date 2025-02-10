@@ -119,14 +119,6 @@ set(MISC_H
 
 set(PD_NEEDED_LIBS)
 
-if(WITH_FFTW)
-    include_directories(${FFTW_INCLUDE_DIRECTORIES})
-    list(APPEND D_SRC d_fft_fftw.c)
-    list(APPEND PD_NEEDED_LIBS ${FFTW_LIBRARIES})
-else()
-    list(APPEND D_SRC d_fft_fftsg.c)
-endif()
-
 # ALSA
 if(WITH_ALSA_AUDIO)
     list(APPEND S_SRC s_audio_alsa.c s_audio_alsamm.c)
@@ -162,13 +154,6 @@ endif()
 if(WITH_MMIO)
     add_definitions(-DUSEAPI_MMIO)
     list(APPEND S_SRC s_audio_mmio.c)
-endif()
-
-if(WITH_PORTMIDI)
-    include_directories(${PROJECT_SOURCE_DIR}/portmidi/portmidi/pm_common)
-    include_directories(${PROJECT_SOURCE_DIR}/portmidi/portmidi/porttime)
-    list(APPEND S_SRC s_midi_pm.c)
-    list(APPEND PD_NEEDED_LIBS portmidi-static)
 endif()
 
 if(WITH_COREMIDI)
@@ -210,6 +195,20 @@ else()
         target_link_libraries(puredata-core PRIVATE "-framework CoreFoundation")
         target_link_libraries(puredata-core PRIVATE "-framework AppKit")
     endif()
+endif()
+
+if(WITH_FFTW)
+    target_sources(puredata-core PRIVATE d_fft_fftw.c)
+    target_link_libraries(puredata-core PRIVATE ${FFTW_LIBRARIES})
+else()
+    target_sources(puredata-core PRIVATE d_fft_fftsg.c)
+endif()
+
+if(WITH_PORTMIDI)
+    # include_directories(${PROJECT_SOURCE_DIR}/portmidi/portmidi/pm_common)
+    # include_directories(${PROJECT_SOURCE_DIR}/portmidi/portmidi/porttime)
+    target_sources(puredata-core PRIVATE s_midi_pm.c)
+    target_link_libraries(puredata-core PRIVATE portmidi-static)
 endif()
 
 # Dummy
