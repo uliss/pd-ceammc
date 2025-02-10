@@ -28,8 +28,13 @@ list(APPEND STRING_SOURCES
 
 add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
 
+set_property(TARGET ceammc_string PROPERTY INCLUDE_DIRECTORIES "")
 target_include_directories(ceammc_string
-    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
-            "$<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>")
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/src
+        ${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/re2
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+)
 
 target_link_libraries(ceammc_string PRIVATE re2)
