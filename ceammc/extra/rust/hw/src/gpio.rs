@@ -1,14 +1,14 @@
 use std::{
-    ffi::{CString},
+    ffi::CString,
     ptr::null_mut,
     sync::{Arc, Mutex},
     time::Duration,
 };
 
+use crate::hw_error_cb;
 use lazy_static::lazy_static;
 use log::{debug, error};
 use tokio::time::sleep;
-use crate::hw_error_cb;
 
 #[cfg(target_os = "linux")]
 use rppal::{
@@ -79,10 +79,11 @@ impl hw_gpio {
         if let Err(err) = self.gpio.tx.try_send(value) {
             self.on_err
                 .exec(format!("[owner] send error: {err}").as_str());
-            return false;
-        }
 
-        todo!()
+            false
+        } else {
+            true
+        }
     }
 }
 
