@@ -18,7 +18,10 @@
 HwGpio::HwGpio(const PdArgs& args)
     : HwGpioBase(args)
 {
-    gpio_ = ceammc_hw_gpio_new({ this, on_error });
+    gpio_ = ceammc_hw_gpio_new(
+        { this, on_error },
+        { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } } //
+    );
 }
 
 HwGpio::~HwGpio()
@@ -28,6 +31,7 @@ HwGpio::~HwGpio()
 
 bool HwGpio::notify(int code)
 {
+    ceammc_hw_gpio_process_events(gpio_);
     return true;
 }
 
