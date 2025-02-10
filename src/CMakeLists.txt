@@ -205,10 +205,15 @@ else()
 endif()
 
 if(WITH_PORTMIDI)
-    # include_directories(${PROJECT_SOURCE_DIR}/portmidi/portmidi/pm_common)
-    # include_directories(${PROJECT_SOURCE_DIR}/portmidi/portmidi/porttime)
     target_sources(puredata-core PRIVATE s_midi_pm.c)
     target_link_libraries(puredata-core PRIVATE portmidi-static)
+
+    if(LINUX)
+        target_include_directories(puredata-core
+            PRIVATE
+                ${PROJECT_SOURCE_DIR}/portmidi/portmidi/pm_common
+                ${PROJECT_SOURCE_DIR}/portmidi/portmidi/porttime)
+    endif()
 endif()
 
 # Dummy
