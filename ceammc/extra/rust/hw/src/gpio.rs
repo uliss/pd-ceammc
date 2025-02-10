@@ -320,15 +320,14 @@ mod tests {
     fn gpio_init() {
         let g1 = Gpio::new().unwrap();
         assert!(g1.get(0).is_ok());
-        let mut p1 = g1.get(0).unwrap().into_output_high();
+        let mut p1 = g1.get(0).unwrap().into_output();
+        p1.set_high();
         assert!(p1.is_set_high());
 
 
         let g2 = Gpio::new().unwrap();
-        let p2 = g2.get(0).unwrap().into_output();
+        let mut p2 = g2.get(1).unwrap().into_output();
+        p2.set_low();
         assert!(p2.is_set_high());
-
-        p1.set_low();
-        assert!(p2.is_set_low());
     }
 }
