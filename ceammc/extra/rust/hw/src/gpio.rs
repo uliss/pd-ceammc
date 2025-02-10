@@ -5,7 +5,7 @@ use std::{
     time::Duration,
 };
 
-use crate::hw_error_cb;
+use crate::{hw_error_cb, hw_notify_cb};
 use lazy_static::lazy_static;
 use log::{debug, error};
 use tokio::time::sleep;
@@ -20,6 +20,7 @@ use rppal::{
 /// gpio opaque type
 pub struct hw_gpio {
     gpio: Arc<HwGpio>,
+    rx: tokio::sync::broadcast::Receiver<HwGpioReply>,
     on_err: hw_error_cb,
 }
 
@@ -37,9 +38,9 @@ impl SharedGpio {
         self.data = None;
     }
 
-    fn check_init(&mut self) -> Result<(), CString> {
+    fn check_init(&mut self, notify: hw_notify_cb) -> Result<(), CString> {
         if self.data.is_none() {
-            match &HwGpio::new() {
+            match &HwGpio::new(notify) {
                 Ok(gpio) => {
                     debug!("new");
                     self.data = Some(gpio.clone());
@@ -52,8 +53,8 @@ impl SharedGpio {
         }
     }
 
-    fn make(&mut self) -> Result<Arc<HwGpio>, CString> {
-        match self.check_init() {
+    fn make(&mut self, notify: hw_notify_cb) -> Result<Arc<HwGpio>, CString> {
+        match self.check_init(notify) {
             Ok(_) => Ok(self.data.as_ref().unwrap().clone()),
             Err(err) => Err(err),
         }
@@ -65,18 +66,25 @@ lazy_static! {
 }
 
 impl hw_gpio {
-    pub fn new(on_err: hw_error_cb) -> Result<hw_gpio, CString> {
+    pub fn new(on_err: hw_error_cb, notify: hw_notify_cb) -> Result<hw_gpio, CString> {
         match GPIO.lock().as_mut() {
             Ok(x) => {
                 debug!("+1");
-                x.make().map(|x| hw_gpio { gpio: x, on_err })
+                x.make(notify).map(|x| {
+                    let rx = x.reply_tx.subscribe();
+                    hw_gpio {
+                        gpio: x,
+                        rx,
+                        on_err,
+                    }
+                })
             }
             Err(err) => Err(CString::new(err.to_string()).unwrap_or_default()),
         }
     }
 
     pub fn send(&self, value: HwGpioRequest) -> bool {
-        if let Err(err) = self.gpio.tx.try_send(value) {
+        if let Err(err) = self.gpio.req_tx.try_send(value) {
             self.on_err
                 .exec(format!("[owner] send error: {err}").as_str());
 
@@ -97,8 +105,9 @@ impl Drop for hw_gpio {
 }
 
 struct HwGpio {
-    rx: tokio::sync::mpsc::Receiver<HwGpioReply>,
-    tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
+    // rx: tokio::sync::mpsc::Receiver<HwGpioReply>,
+    reply_tx: Arc<tokio::sync::broadcast::Sender<HwGpioReply>>,
+    req_tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
 }
 
 pub enum HwGpioRequest {
@@ -153,13 +162,15 @@ fn gpio_toggle_pin(gpio: &Gpio, pin: u8) -> Result<(), CString> {
 }
 
 impl HwGpio {
-    pub fn new() -> Result<Arc<HwGpio>, CString> {
+    pub fn new(notify: hw_notify_cb) -> Result<Arc<HwGpio>, CString> {
         match tokio::runtime::Runtime::new() {
             Ok(rt) => {
                 debug!("creating tokio runtime ...");
 
                 let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<HwGpioRequest>(16);
-                let (reply_tx, mut reply_rx) = tokio::sync::mpsc::channel::<HwGpioReply>(16);
+                let (reply_tx, _) = tokio::sync::broadcast::channel::<HwGpioReply>(16);
+                let reply_tx = Arc::new(reply_tx);
+                let reply_tx_worker = reply_tx.clone();
 
                 std::thread::spawn(move || {
                     debug!("[worker thread] starting ...");
@@ -178,13 +189,13 @@ impl HwGpio {
                                         }
                                         HwGpioRequest::Read(pin) => {
                                             let level = gpio_read_pin(gpio, pin)?;
-                                            reply_tx
+                                            reply_tx_worker
                                                 .send(HwGpioReply::PinLevel(pin, level))
-                                                .await
                                                 .map_err(|err| {
                                                     CString::new(err.to_string())
                                                         .unwrap_or_default()
                                                 })?;
+                                            notify.notify();
                                         }
                                         HwGpioRequest::Write(pin, state) => {
                                             gpio_write_pin(gpio, pin, state)?
@@ -215,10 +226,7 @@ impl HwGpio {
                     debug!("[worker thread] exit");
                 });
 
-                Ok(Arc::new(HwGpio {
-                    rx: reply_rx,
-                    tx: req_tx,
-                }))
+                Ok(Arc::new(HwGpio { reply_tx, req_tx }))
             }
             Err(err) => Err(CString::new(err.to_string()).unwrap_or_default()),
         }
@@ -228,14 +236,14 @@ impl HwGpio {
 impl Drop for HwGpio {
     fn drop(&mut self) {
         debug!("exit");
-        let _ = self.tx.blocking_send(HwGpioRequest::Quit);
+        let _ = self.req_tx.blocking_send(HwGpioRequest::Quit);
     }
 }
 
 /// create new gpio
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_new(on_err: hw_error_cb) -> *mut hw_gpio {
-    match hw_gpio::new(on_err) {
+pub extern "C" fn ceammc_hw_gpio_new(on_err: hw_error_cb, notify: hw_notify_cb) -> *mut hw_gpio {
+    match hw_gpio::new(on_err, notify) {
         Ok(gpio) => Box::into_raw(Box::new(gpio)),
         Err(err) => {
             error!("{}", err.to_str().unwrap_or_default());
@@ -264,13 +272,11 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
 
     let gp = unsafe { &mut *gp };
 
-    while let Ok(reply) = Arc::get_mut(&mut gp.gpio).unwrap().rx.try_recv() {
+    while let Ok(reply) = gp.rx.try_recv() {
         match reply {
-            HwGpioReply::PinLevel(_, _) => todo!(),
-            // Ok(data) => match data {
-
-            // },
-            // Err(err) => gp.on_err.exec_cstr(&err),
+            HwGpioReply::PinLevel(pin, level) => {
+                debug!("pin [{pin}] = {level}");
+            }
         }
     }
 }
@@ -323,7 +329,6 @@ mod tests {
         let mut p1 = g1.get(0).unwrap().into_output();
         p1.set_high();
         assert!(p1.is_set_high());
-
 
         let g2 = Gpio::new().unwrap();
         let mut p2 = g2.get(1).unwrap().into_output();
