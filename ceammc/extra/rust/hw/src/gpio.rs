@@ -49,7 +49,11 @@ impl hw_gpio {
         on_pin: hw_gpio_pin_cb,
         on_pin_list: hw_gpio_pin_list_cb,
     ) -> Result<hw_gpio, CString> {
-        match tokio::runtime::Runtime::new() {
+        match tokio::runtime::Builder::new_multi_thread()
+            .worker_threads(1)
+            .thread_name("pp-gpio-worker")
+            .build()
+        {
             Ok(rt) => {
                 debug!("creating tokio runtime ...");
 
