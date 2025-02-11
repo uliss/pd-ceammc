@@ -216,9 +216,11 @@ void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
 
 /// create new gpio
 /// @param on_err - on error callback for output error messages
+/// @param on_dbg - on error callback for output error messages
 /// @param notify - notification update callback
 /// @param on_pin_value - called on pin value output
 ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_error_cb on_err,
+                                   ceammc_hw_error_cb on_dbg,
                                    ceammc_hw_notify_cb notify,
                                    ceammc_hw_gpio_pin_cb on_pin);
 

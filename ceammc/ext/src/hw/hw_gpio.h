@@ -40,7 +40,6 @@ public:
     void m_reset(t_symbol* s, const AtomListView& lv);
 
 private:
-    static void on_error(void* data, const char* msg);
     static void on_pin_value(void* data, std::uint8_t pin, bool value);
 };
 

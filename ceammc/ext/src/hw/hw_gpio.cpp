@@ -22,7 +22,20 @@ HwGpio::HwGpio(const PdArgs& args)
     createOutlet();
 
     gpio_ = ceammc_hw_gpio_new(
-        { this, on_error },
+        { this, [](void* data, const char* msg) {
+             auto obj = static_cast<HwGpio*>(data);
+             if (!obj)
+                 return;
+
+             Error(obj) << msg;
+         } },
+        { this, [](void* data, const char* msg) {
+             auto obj = static_cast<HwGpio*>(data);
+             if (!obj)
+                 return;
+
+             Debug(obj) << msg;
+         } },
         { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } }, //
         { this, on_pin_value } //
     );
@@ -109,15 +122,6 @@ void HwGpio::m_reset(t_symbol* s, const AtomListView& lv)
         return;
 
     ceammc_hw_gpio_reset_pin(gpio_, lv.intAt(0, 0));
-}
-
-void HwGpio::on_error(void* data, const char* msg)
-{
-    auto obj = static_cast<HwGpio*>(data);
-    if (!obj)
-        return;
-
-    Error(obj) << msg;
 }
 
 void HwGpio::on_pin_value(void* data, std::uint8_t pin, bool value)
