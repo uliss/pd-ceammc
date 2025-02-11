@@ -26,12 +26,14 @@ pub struct hw_gpio {
     rx: tokio::sync::mpsc::Receiver<HwGpioReply>,
     tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
     on_err: hw_error_cb,
+    on_dbg: hw_error_cb,
     on_pin: hw_gpio_pin_cb,
 }
 
 impl hw_gpio {
     pub fn new(
         on_err: hw_error_cb,
+        on_dbg: hw_error_cb,
         notify: hw_notify_cb,
         on_pin: hw_gpio_pin_cb,
     ) -> Result<hw_gpio, CString> {
@@ -54,7 +56,16 @@ impl hw_gpio {
                                 //
                                 match DeviceInfo::new() {
                                     Ok(dev) => {
-                                        debug!("RPi model: {}, soc: {}", dev.model(), dev.soc());
+                                        reply_debug(
+                                            format!(
+                                                "RPi model: {}, soc: {}",
+                                                dev.model(),
+                                                dev.soc()
+                                            ),
+                                            &notify,
+                                            &reply_tx,
+                                        )
+                                        .await;
                                     }
                                     Err(err) => error!("{err}"),
                                 }
@@ -100,6 +111,7 @@ impl hw_gpio {
                     rx: reply_rx,
                     tx: req_tx,
                     on_err,
+                    on_dbg,
                     on_pin,
                 })
             }
@@ -148,6 +160,7 @@ pub enum HwGpioRequest {
 enum HwGpioReply {
     PinLevel(u8, bool),
     Error(CString),
+    Debug(CString),
 }
 
 enum ProcessFlow {
@@ -297,17 +310,32 @@ async fn reply_error(
     .await;
 }
 
+async fn reply_debug(
+    msg: String,
+    notify: &hw_notify_cb,
+    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
+) {
+    reply(
+        HwGpioReply::Debug(CString::new(msg).unwrap_or_default()),
+        notify,
+        reply_tx,
+    )
+    .await;
+}
+
 /// create new gpio
 /// @param on_err - on error callback for output error messages
+/// @param on_dbg - on error callback for output error messages
 /// @param notify - notification update callback
 /// @param on_pin_value - called on pin value output
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_new(
     on_err: hw_error_cb,
+    on_dbg: hw_error_cb,
     notify: hw_notify_cb,
     on_pin: hw_gpio_pin_cb,
 ) -> *mut hw_gpio {
-    match hw_gpio::new(on_err, notify, on_pin) {
+    match hw_gpio::new(on_err, on_dbg, notify, on_pin) {
         Ok(gpio) => Box::into_raw(Box::new(gpio)),
         Err(err) => {
             error!("{}", err.to_str().unwrap_or_default());
@@ -344,6 +372,9 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
             }
             HwGpioReply::Error(msg) => {
                 gp.on_err.exec_raw(msg.as_ptr());
+            }
+            HwGpioReply::Debug(msg) => {
+                gp.on_dbg.exec_raw(msg.as_ptr());
             }
         }
     }
