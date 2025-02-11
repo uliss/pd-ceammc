@@ -29,15 +29,17 @@ public:
     ~HwGpio();
 
     bool notify(int code) final;
-    void m_read(t_symbol* s, const AtomListView& lv);
-    void m_write(t_symbol* s, const AtomListView& lv);
-    void m_toggle(t_symbol* s, const AtomListView& lv);
-    void m_set_pwm(t_symbol* s, const AtomListView& lv);
-    void m_set_pwm_freq(t_symbol* s, const AtomListView& lv);
+
     void m_clear_pwm(t_symbol* s, const AtomListView& lv);
     void m_input(t_symbol* s, const AtomListView& lv);
+    void m_list_pins(t_symbol* s, const AtomListView& lv);
     void m_output(t_symbol* s, const AtomListView& lv);
+    void m_read(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
+    void m_set_pwm(t_symbol* s, const AtomListView& lv);
+    void m_set_pwm_freq(t_symbol* s, const AtomListView& lv);
+    void m_toggle(t_symbol* s, const AtomListView& lv);
+    void m_write(t_symbol* s, const AtomListView& lv);
 
 private:
     static void on_pin_value(void* data, std::uint8_t pin, bool value);

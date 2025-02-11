@@ -37,7 +37,18 @@ HwGpio::HwGpio(const PdArgs& args)
              Debug(obj) << msg;
          } },
         { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } }, //
-        { this, on_pin_value } //
+        { this, on_pin_value }, //
+        { this, [](void* user, const std::uint8_t* data, size_t len) {
+             auto obj = static_cast<HwGpio*>(user);
+             if (!obj)
+                 return;
+
+             AtomList atoms;
+             for (size_t i = 0; i < len; i++)
+                 atoms.append(Atom(data[i]));
+
+             obj->anyTo(0, gensym("pins"), atoms);
+         } } //
     );
 }
 
@@ -108,6 +119,11 @@ void HwGpio::m_input(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Input);
 }
 
+void HwGpio::m_list_pins(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_gpio_list_pins(gpio_);
+}
+
 void HwGpio::m_output(t_symbol* s, const AtomListView& lv)
 {
     if (!args::check_args("PIN:b", lv, this))
@@ -148,4 +164,6 @@ void setup_hw_gpio()
     obj.addMethod("input", &HwGpio::m_input);
     obj.addMethod("output", &HwGpio::m_output);
     obj.addMethod("reset", &HwGpio::m_reset);
+
+    obj.addMethod("list_pins", &HwGpio::m_list_pins);
 }

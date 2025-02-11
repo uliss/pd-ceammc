@@ -170,6 +170,14 @@ struct ceammc_hw_gpio_pin_cb {
     void (*cb)(void*, uint8_t, bool);
 };
 
+/// pin list callback
+struct ceammc_hw_gpio_pin_list_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, const uint8_t*, size_t);
+};
+
 struct ceammc_hw_print_options {
     bool landscape;
 };
@@ -214,15 +222,21 @@ bool ceammc_hw_gpio_clear_pwm(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param gpio - pointer to gpio struct
 void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
 
+/// list used pins
+/// @param gpio - pointer to gpio struct
+bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp);
+
 /// create new gpio
 /// @param on_err - on error callback for output error messages
 /// @param on_dbg - on error callback for output error messages
 /// @param notify - notification update callback
-/// @param on_pin_value - called on pin value output
+/// @param on_pin - called on pin value output
+/// @param on_pin_list - called on pin list reply
 ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_msg_cb on_err,
                                    ceammc_hw_msg_cb on_dbg,
                                    ceammc_hw_notify_cb notify,
-                                   ceammc_hw_gpio_pin_cb on_pin);
+                                   ceammc_hw_gpio_pin_cb on_pin,
+                                   ceammc_hw_gpio_pin_list_cb on_pin_list);
 
 /// process events
 /// @param gp - pointer to gpio struct
