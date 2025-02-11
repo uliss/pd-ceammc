@@ -1,10 +1,12 @@
+use std::collections::HashMap;
+use std::time::Duration;
 use std::{ffi::c_void, ffi::CString, ptr::null_mut};
 
 use crate::{hw_error_cb, hw_notify_cb};
 use log::{debug, error};
 
 #[cfg(target_os = "linux")]
-use rppal::gpio::{Gpio, Level, OutputPin};
+use rppal::gpio::{self, Gpio, IoPin, Level};
 #[cfg(target_os = "linux")]
 use rppal::system::DeviceInfo;
 
@@ -57,9 +59,15 @@ impl hw_gpio {
                                     Err(err) => error!("{err}"),
                                 }
 
+                                let mut pins: HashMap<u8, IoPin> = HashMap::new();
+
                                 loop {
                                     if let Some(req) = req_rx.recv().await {
-                                        match process_request(req, gpio, &notify, &reply_tx).await {
+                                        match process_request(
+                                            req, &notify, &reply_tx, &gpio, &mut pins,
+                                        )
+                                        .await
+                                        {
                                             Ok(flow) => match flow {
                                                 ProcessFlow::Continue => {}
                                                 ProcessFlow::Quit => {
@@ -122,13 +130,15 @@ impl Drop for hw_gpio {
 
 pub enum HwGpioRequest {
     Quit,
+    SetOutput(u8),
+    SetInput(u8),
     Read(u8),
     Write(u8, bool),
     Toggle(u8),
     SetPwmFreq(u8, f64, f64),
     SetPwm(u8, f64, f64),
     ClearPwm(u8),
-    SetBias(u8, u8),
+    SetBias(u8, gpio::Bias),
     SetInterrupt(u8, u8, f64),
     ClearInterrupt(u8),
 }
@@ -139,104 +149,131 @@ enum HwGpioReply {
     Error(CString),
 }
 
-#[cfg(target_os = "linux")]
-fn gpio_output_pin(gpio: &Gpio, pin: u8) -> Result<OutputPin, String> {
-    gpio.get(pin).map_err(|err| err.to_string()).map(|x| {
-        let mut pin = x.into_output();
-        pin.set_reset_on_drop(false);
-        pin
-    })
-}
-
-#[cfg(target_os = "linux")]
-fn gpio_read_pin(gpio: &Gpio, pin: u8) -> Result<bool, String> {
-    gpio.get(pin)
-        .map_err(|err| err.to_string())
-        .map(|x| match x.read() {
-            Level::Low => false,
-            Level::High => true,
-        })
-}
-
-#[cfg(target_os = "linux")]
-fn gpio_write_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), String> {
-    gpio_output_pin(gpio, pin).map(|mut x| {
-        x.write(match state {
-            true => Level::High,
-            false => Level::Low,
-        });
-    })
-}
-
-#[cfg(target_os = "linux")]
-fn gpio_toggle_pin(gpio: &Gpio, pin: u8) -> Result<(), String> {
-    gpio_output_pin(gpio, pin).map(|mut x| {
-        x.toggle();
-    })
-}
-
-#[cfg(target_os = "linux")]
-fn gpio_clear_pwm(gpio: &Gpio, pin: u8) -> Result<(), String> {
-    gpio_output_pin(gpio, pin).and_then(|mut pin| pin.clear_pwm().map_err(|e| e.to_string()))
-}
-
-#[cfg(target_os = "linux")]
-fn gpio_set_pwm_freq(gpio: &Gpio, pin: u8, freq: f64, duty: f64) -> Result<(), String> {
-    gpio_output_pin(gpio, pin)
-        .and_then(|mut pin| pin.set_pwm_frequency(freq, duty).map_err(|e| e.to_string()))
-}
-
-#[cfg(target_os = "linux")]
-fn gpio_set_pwm(gpio: &Gpio, pin: u8, period: f64, width: f64) -> Result<(), String> {
-    use std::time::Duration;
-
-    gpio_output_pin(gpio, pin).and_then(|mut pin| {
-        pin.set_pwm(
-            Duration::from_secs_f64(period * 0.001),
-            Duration::from_secs_f64(width * 0.001),
-        )
-        .map_err(|e| e.to_string())
-    })
-}
-
 enum ProcessFlow {
     Continue,
     Quit,
 }
 
+#[cfg(target_os = "linux")]
+fn get_pin(pin: u8, pins: &mut HashMap<u8, IoPin>) -> Result<&mut IoPin, String> {
+    Ok(pins
+        .get_mut(&pin)
+        .ok_or(format!("pin not configured for I/O: [{pin}]"))?)
+}
+
+#[cfg(target_os = "linux")]
+fn check_output(pin: &mut IoPin) -> Result<&mut IoPin, String> {
+    if pin.mode() != gpio::Mode::Output {
+        return Err(format!("pin [{}] not configured for output", pin.pin()));
+    } else {
+        Ok(pin)
+    }
+}
+
+#[cfg(target_os = "linux")]
+fn check_input(pin: &mut IoPin) -> Result<&mut IoPin, String> {
+    if pin.mode() != gpio::Mode::Input {
+        return Err(format!("pin [{}] not configured for input", pin.pin()));
+    } else {
+        Ok(pin)
+    }
+}
+
+#[cfg(target_os = "linux")]
 async fn process_request(
     req: HwGpioRequest,
-    gpio: &Gpio,
     notify: &hw_notify_cb,
     reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
+    gpio: &Gpio,
+    pins: &mut HashMap<u8, IoPin>,
 ) -> Result<ProcessFlow, String> {
     match req {
         HwGpioRequest::Quit => {
             return Ok(ProcessFlow::Quit);
         }
         HwGpioRequest::Read(pin) => {
-            let level = gpio_read_pin(gpio, pin)?;
-            reply_tx
-                .send(HwGpioReply::PinLevel(pin, level))
-                .await
-                .map_err(|err| err.to_string())?;
-            notify.notify();
+            let level = get_pin(pin, pins)?.read() == Level::High;
+            reply(HwGpioReply::PinLevel(pin, level), notify, reply_tx).await;
         }
         HwGpioRequest::Write(pin, state) => {
-            gpio_write_pin(gpio, pin, state)?;
+            let io_pin = get_pin(pin, pins).and_then(|pin| check_output(pin))?;
+            if state {
+                io_pin.set_high();
+            } else {
+                io_pin.set_low();
+            }
         }
-        HwGpioRequest::Toggle(pin) => gpio_toggle_pin(gpio, pin)?,
-        HwGpioRequest::SetPwmFreq(pin, freq, duty) => gpio_set_pwm_freq(gpio, pin, freq, duty)?,
+        HwGpioRequest::Toggle(pin) => {
+            get_pin(pin, pins)
+                .and_then(|pin| check_output(pin))
+                .and_then(|pin| Ok(pin.toggle()))?;
+        }
+        HwGpioRequest::SetPwmFreq(pin, freq, duty) => {
+            get_pin(pin, pins)
+                .and_then(|pin| check_output(pin))
+                .and_then(|pin| pin.set_pwm_frequency(freq, duty).map_err(|e| e.to_string()))?;
+        }
         HwGpioRequest::SetPwm(pin, period_ms, width_ms) => {
-            gpio_set_pwm(gpio, pin, period_ms, width_ms)?
+            get_pin(pin, pins)
+                .and_then(|pin| check_output(pin))
+                .and_then(|pin| {
+                    pin.set_pwm(
+                        Duration::from_secs_f64(period_ms * 0.001),
+                        Duration::from_secs_f64(width_ms * 0.001),
+                    )
+                    .map_err(|e| e.to_string())
+                })?;
         }
-        HwGpioRequest::ClearPwm(pin) => gpio_clear_pwm(gpio, pin)?,
-        HwGpioRequest::SetBias(_, _) => todo!(),
+        HwGpioRequest::ClearPwm(pin) => {
+            get_pin(pin, pins)
+                .and_then(|pin| check_output(pin))
+                .and_then(|pin| pin.clear_pwm().map_err(|e| e.to_string()))?;
+        }
+        HwGpioRequest::SetBias(pin, bias) => {
+            get_pin(pin, pins)
+                .and_then(|pin| check_input(pin))
+                .and_then(|pin| Ok(pin.set_bias(bias)))?;
+        }
         HwGpioRequest::SetInterrupt(_, _, _) => todo!(),
         HwGpioRequest::ClearInterrupt(_) => todo!(),
+        HwGpioRequest::SetOutput(pin) => match pins.get_mut(&pin) {
+            Some(pin) => {
+                pin.set_mode(gpio::Mode::Output);
+            }
+            None => {
+                let io_pin = gpio
+                    .get(pin)
+                    .map_err(|e| e.to_string())?
+                    .into_io(gpio::Mode::Output);
+                pins.insert(pin, io_pin);
+            }
+        },
+        HwGpioRequest::SetInput(pin) => match pins.get_mut(&pin) {
+            Some(pin) => {
+                pin.set_mode(gpio::Mode::Input);
+            }
+            None => {
+                let io_pin = gpio
+                    .get(pin)
+                    .map_err(|e| e.to_string())?
+                    .into_io(gpio::Mode::Input);
+                pins.insert(pin, io_pin);
+            }
+        },
     };
 
     Ok(ProcessFlow::Continue)
+}
+
+async fn reply(
+    msg: HwGpioReply,
+    notify: &hw_notify_cb,
+    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
+) {
+    match reply_tx.send(msg).await {
+        Ok(_) => notify.notify(),
+        Err(err) => error!("{err}"),
+    }
 }
 
 async fn reply_error(
@@ -244,13 +281,12 @@ async fn reply_error(
     notify: &hw_notify_cb,
     reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
 ) {
-    match reply_tx
-        .send(HwGpioReply::Error(CString::new(msg).unwrap_or_default()))
-        .await
-    {
-        Ok(_) => notify.notify(),
-        Err(err) => error!("{err}"),
-    }
+    reply(
+        HwGpioReply::Error(CString::new(msg).unwrap_or_default()),
+        notify,
+        reply_tx,
+    )
+    .await;
 }
 
 /// create new gpio
@@ -353,10 +389,15 @@ pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
 /// set software pwm freq on pin
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
-/// @param freq - freq in Herz
+/// @param freq - freq in Hertz
 /// @param duty_cycle - duty cycle in % [0-100] range
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(gp: *mut hw_gpio, pin: u8, freq: f64, duty_cycle: f64) -> bool {
+pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(
+    gp: *mut hw_gpio,
+    pin: u8,
+    freq: f64,
+    duty_cycle: f64,
+) -> bool {
     if gp.is_null() {
         log::error!("NULL gpio pointer");
         return false;
@@ -372,7 +413,12 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(gp: *mut hw_gpio, pin: u8, freq: f
 /// @param period - period in msec
 /// @param width - duty_cycle width in msec
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_set_pwm(gp: *mut hw_gpio, pin: u8, period: f64, width: f64) -> bool {
+pub extern "C" fn ceammc_hw_gpio_set_pwm(
+    gp: *mut hw_gpio,
+    pin: u8,
+    period: f64,
+    width: f64,
+) -> bool {
     if gp.is_null() {
         log::error!("NULL gpio pointer");
         return false;
