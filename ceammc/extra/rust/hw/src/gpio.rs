@@ -132,6 +132,7 @@ pub enum HwGpioRequest {
     Quit,
     SetOutput(u8),
     SetInput(u8),
+    ResetPin(u8),
     Read(u8),
     Write(u8, bool),
     Toggle(u8),
@@ -260,6 +261,13 @@ async fn process_request(
                 pins.insert(pin, io_pin);
             }
         },
+        HwGpioRequest::ResetPin(pin) => {
+            if !pins.contains_key(&pin) {
+                return Err(format!("pin [{pin}] not configured"));
+            } else {
+                pins.remove(&pin);
+            }
+        }
     };
 
     Ok(ProcessFlow::Continue)
@@ -453,12 +461,14 @@ pub extern "C" fn ceammc_hw_gpio_reset_pin(gp: *mut hw_gpio, pin: u8) -> bool {
     }
 
     let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::ResetPin(pin))
 }
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
 pub enum hw_gpio_mode {
-    Output, Input
+    Output,
+    Input,
 }
 
 /// set pin mode
@@ -473,6 +483,10 @@ pub extern "C" fn ceammc_hw_gpio_set_mode(gp: *mut hw_gpio, pin: u8, mode: hw_gp
     }
 
     let gp = unsafe { &mut *gp };
+    match mode {
+        hw_gpio_mode::Output => gp.send(HwGpioRequest::SetOutput(pin)),
+        hw_gpio_mode::Input => gp.send(HwGpioRequest::SetInput(pin)),
+    }
 }
 
 #[cfg(target_os = "linux")]
