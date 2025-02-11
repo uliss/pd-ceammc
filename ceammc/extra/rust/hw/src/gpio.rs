@@ -416,6 +416,19 @@ pub extern "C" fn ceammc_hw_gpio_set_mode(gp: *mut hw_gpio, pin: u8, mode: hw_gp
     let gp = unsafe { &mut *gp };
 }
 
+/// reset pin to initial state
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_reset_pin(gp: *mut hw_gpio, pin: u8) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+}
+
 #[cfg(target_os = "linux")]
 #[cfg(test)]
 mod tests {

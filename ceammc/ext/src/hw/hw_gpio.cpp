@@ -87,6 +87,30 @@ void HwGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_clear_pwm(gpio_, lv.intAt(0, 0));
 }
 
+void HwGpio::m_input(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Input);
+}
+
+void HwGpio::m_output(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Output);
+}
+
+void HwGpio::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_reset_pin(gpio_, lv.intAt(0, 0));
+}
+
 void HwGpio::on_error(void* data, const char* msg)
 {
     auto obj = static_cast<HwGpio*>(data);
@@ -116,4 +140,8 @@ void setup_hw_gpio()
     obj.addMethod("set_pwm", &HwGpio::m_set_pwm);
     obj.addMethod("set_pwm_freq", &HwGpio::m_set_pwm_freq);
     obj.addMethod("clear_pwm", &HwGpio::m_clear_pwm);
+
+    obj.addMethod("input", &HwGpio::m_input);
+    obj.addMethod("output", &HwGpio::m_output);
+    obj.addMethod("reset", &HwGpio::m_reset);
 }

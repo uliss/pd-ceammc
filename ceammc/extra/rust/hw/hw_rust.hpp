@@ -231,6 +231,11 @@ void ceammc_hw_gpio_process_events(ceammc_hw_gpio *gp);
 /// @param pin - pin number
 bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
 
+/// reset pin to initial state
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_reset_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
 /// set pin mode
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number

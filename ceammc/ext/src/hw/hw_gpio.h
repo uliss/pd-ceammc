@@ -35,6 +35,9 @@ public:
     void m_set_pwm(t_symbol* s, const AtomListView& lv);
     void m_set_pwm_freq(t_symbol* s, const AtomListView& lv);
     void m_clear_pwm(t_symbol* s, const AtomListView& lv);
+    void m_input(t_symbol* s, const AtomListView& lv);
+    void m_output(t_symbol* s, const AtomListView& lv);
+    void m_reset(t_symbol* s, const AtomListView& lv);
 
 private:
     static void on_error(void* data, const char* msg);
