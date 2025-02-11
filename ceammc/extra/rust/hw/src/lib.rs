@@ -23,14 +23,14 @@ pub mod gamepad;
 #[repr(C)]
 #[allow(non_camel_case_types)]
 /// error callback
-pub struct hw_error_cb {
+pub struct hw_msg_cb {
     /// pointer to user data (can be NULL)
     user: *mut c_void,
     /// can be NULL
     cb: Option<extern "C" fn(*mut c_void, *const c_char)>,
 }
 
-impl hw_error_cb {
+impl hw_msg_cb {
     pub fn exec(&self, msg: &str) {
         self.cb.map(|f| {
             let msg = CString::new(msg).unwrap_or_default();

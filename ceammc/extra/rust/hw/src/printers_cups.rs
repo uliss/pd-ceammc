@@ -125,7 +125,7 @@ pub fn get_default_printer() -> Option<PrinterInfo> {
     res
 }
 
-use crate::hw_error_cb;
+use crate::hw_msg_cb;
 use crate::printers::hw_print_options;
 use std::path::Path;
 
@@ -133,8 +133,8 @@ pub fn print_file(
     printer: *const c_char,
     path: &str,
     opts: &hw_print_options,
-    on_err: hw_error_cb,
-    _on_debug: hw_error_cb,
+    on_err: hw_msg_cb,
+    _on_debug: hw_msg_cb,
 ) -> i32 {
     // get printer name
     let printer = if !printer.is_null() {

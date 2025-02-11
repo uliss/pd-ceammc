@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::time::Duration;
 use std::{ffi::c_void, ffi::CString, ptr::null_mut};
 
-use crate::{hw_error_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb};
 use log::{debug, error};
 
 #[cfg(target_os = "linux")]
@@ -25,15 +25,15 @@ pub struct hw_gpio_pin_cb {
 pub struct hw_gpio {
     rx: tokio::sync::mpsc::Receiver<HwGpioReply>,
     tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
-    on_err: hw_error_cb,
-    on_dbg: hw_error_cb,
+    on_err: hw_msg_cb,
+    on_dbg: hw_msg_cb,
     on_pin: hw_gpio_pin_cb,
 }
 
 impl hw_gpio {
     pub fn new(
-        on_err: hw_error_cb,
-        on_dbg: hw_error_cb,
+        on_err: hw_msg_cb,
+        on_dbg: hw_msg_cb,
         notify: hw_notify_cb,
         on_pin: hw_gpio_pin_cb,
     ) -> Result<hw_gpio, CString> {
@@ -330,8 +330,8 @@ async fn reply_debug(
 /// @param on_pin_value - called on pin value output
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_new(
-    on_err: hw_error_cb,
-    on_dbg: hw_error_cb,
+    on_err: hw_msg_cb,
+    on_dbg: hw_msg_cb,
     notify: hw_notify_cb,
     on_pin: hw_gpio_pin_cb,
 ) -> *mut hw_gpio {

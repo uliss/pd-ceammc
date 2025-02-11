@@ -3,7 +3,7 @@ use std::{
     os::raw::c_void,
 };
 
-use crate::hw_error_cb;
+use crate::hw_msg_cb;
 
 #[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Default, Debug)]
@@ -136,8 +136,8 @@ pub extern "C" fn ceammc_hw_print_file(
     printer: *const c_char,
     path: *const c_char,
     opts: *const hw_print_options,
-    on_err: hw_error_cb,
-    on_debug: hw_error_cb,
+    on_err: hw_msg_cb,
+    on_debug: hw_msg_cb,
 ) -> i32 {
     let path = unsafe { CStr::from_ptr(path).to_str().unwrap_or_default() };
     let opts = if opts.is_null() {

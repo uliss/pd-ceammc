@@ -155,7 +155,7 @@ struct ceammc_hw_printer_info_cb {
 };
 
 /// error callback
-struct ceammc_hw_error_cb {
+struct ceammc_hw_msg_cb {
     /// pointer to user data (can be NULL)
     void *user;
     /// can be NULL
@@ -219,8 +219,8 @@ void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
 /// @param on_dbg - on error callback for output error messages
 /// @param notify - notification update callback
 /// @param on_pin_value - called on pin value output
-ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_error_cb on_err,
-                                   ceammc_hw_error_cb on_dbg,
+ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_msg_cb on_err,
+                                   ceammc_hw_msg_cb on_dbg,
                                    ceammc_hw_notify_cb notify,
                                    ceammc_hw_gpio_pin_cb on_pin);
 
@@ -272,8 +272,8 @@ bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
                              const ceammc_hw_print_options *opts,
-                             ceammc_hw_error_cb on_err,
-                             ceammc_hw_error_cb on_debug);
+                             ceammc_hw_msg_cb on_err,
+                             ceammc_hw_msg_cb on_debug);
 
 bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
 

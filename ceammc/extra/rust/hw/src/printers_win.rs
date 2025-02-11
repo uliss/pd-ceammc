@@ -1,4 +1,4 @@
-use crate::hw_error_cb;
+use crate::hw_msg_cb;
 use crate::printers::hw_print_options;
 use crate::printers::hw_printer_state;
 use crate::printers::PrinterInfo;
@@ -72,8 +72,8 @@ pub fn print_file(
     printer: *const c_char,
     path: &str,
     opts: &hw_print_options,
-    on_err: hw_error_cb,
-    on_debug: hw_error_cb,
+    on_err: hw_msg_cb,
+    on_debug: hw_msg_cb,
 ) -> i32 {
     let mut printer = unsafe { CStr::from_ptr(printer) }
         .to_str()
@@ -165,7 +165,7 @@ mod tests {
     fn print_file() {
         let p = CString::default();
         let opts = hw_print_options::default();
-        let cb = hw_error_cb {
+        let cb = hw_msg_cb {
             user: null_mut(),
             cb: Some(test_err),
         };
