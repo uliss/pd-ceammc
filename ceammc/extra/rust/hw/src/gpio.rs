@@ -350,6 +350,52 @@ pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
     gp.send(HwGpioRequest::Toggle(pin))
 }
 
+/// set software pwm freq on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param freq - freq in Herz
+/// @param duty_cycle - duty cycle in % [0-100] range
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(gp: *mut hw_gpio, pin: u8, freq: f64, duty_cycle: f64) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::SetPwmFreq(pin, freq, duty_cycle));
+}
+
+/// set software pwm on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param period - period in msec
+/// @param width - duty_cycle width in msec
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_set_pwm(gp: *mut hw_gpio, pin: u8, period: f64, width: f64) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::SetPwm(pin, period, width));
+}
+
+/// clear software pwm on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_clear_pwm(gp: *mut hw_gpio, pin: u8) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::ClearPwm(pin));
+}
+
 #[cfg(target_os = "linux")]
 #[cfg(test)]
 mod tests {

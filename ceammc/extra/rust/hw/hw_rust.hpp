@@ -200,6 +200,11 @@ void ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp);
 /// @return number of printers found
 size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 
+/// clear software pwm on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_clear_pwm(ceammc_hw_gpio *gp, uint8_t pin);
+
 /// create new gpio
 /// @param gpio - pointer to gpio struct
 void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
@@ -220,6 +225,20 @@ void ceammc_hw_gpio_process_events(ceammc_hw_gpio *gp);
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// set software pwm on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param period - period in msec
+/// @param width - duty_cycle width in msec
+bool ceammc_hw_gpio_set_pwm(ceammc_hw_gpio *gp, uint8_t pin, double period, double width);
+
+/// set software pwm freq on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param freq - freq in Herz
+/// @param duty_cycle - duty cycle in % [0-100] range
+bool ceammc_hw_gpio_set_pwm_freq(ceammc_hw_gpio *gp, uint8_t pin, double freq, double duty_cycle);
 
 /// toggle pin level
 /// @param gpio - pointer to gpio struct

@@ -63,6 +63,30 @@ void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_toggle_pin(gpio_, lv.intAt(0, 0));
 }
 
+void HwGpio::m_set_pwm(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b PERIOD:f>=0 WIDTH:f>=0", lv, this))
+        return;
+
+    ceammc_hw_gpio_set_pwm(gpio_, lv.intAt(0, 0), lv.floatAt(1, 1), lv.floatAt(2, 50));
+}
+
+void HwGpio::m_set_pwm_freq(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b FREQ:f>=0 DUTY:f>=0", lv, this))
+        return;
+
+    ceammc_hw_gpio_set_pwm_freq(gpio_, lv.intAt(0, 0), lv.floatAt(1, 1), lv.floatAt(2, 50));
+}
+
+void HwGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_clear_pwm(gpio_, lv.intAt(0, 0));
+}
+
 void HwGpio::on_error(void* data, const char* msg)
 {
     auto obj = static_cast<HwGpio*>(data);
@@ -88,4 +112,8 @@ void setup_hw_gpio()
     obj.addMethod("read", &HwGpio::m_read);
     obj.addMethod("write", &HwGpio::m_write);
     obj.addMethod("toggle", &HwGpio::m_toggle);
+
+    obj.addMethod("set_pwm", &HwGpio::m_set_pwm);
+    obj.addMethod("set_pwm_freq", &HwGpio::m_set_pwm_freq);
+    obj.addMethod("clear_pwm", &HwGpio::m_clear_pwm);
 }
