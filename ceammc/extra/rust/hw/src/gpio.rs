@@ -1,15 +1,7 @@
-use std::{
-    ffi::c_void,
-    ffi::CString,
-    ptr::null_mut,
-    sync::{Arc, Mutex},
-    time::Duration,
-};
+use std::{ffi::c_void, ffi::CString, ptr::null_mut};
 
 use crate::{hw_error_cb, hw_notify_cb};
-use lazy_static::lazy_static;
 use log::{debug, error};
-use tokio::time::sleep;
 
 #[cfg(target_os = "linux")]
 use rppal::{
@@ -30,51 +22,10 @@ pub struct hw_gpio_pin_cb {
 #[allow(non_camel_case_types)]
 /// gpio opaque type
 pub struct hw_gpio {
-    gpio: Arc<HwGpio>,
-    rx: tokio::sync::broadcast::Receiver<HwGpioReply>,
+    rx: tokio::sync::mpsc::Receiver<HwGpioReply>,
+    tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
     on_err: hw_error_cb,
     on_pin: hw_gpio_pin_cb,
-}
-
-struct SharedGpio {
-    data: Option<Arc<HwGpio>>,
-}
-
-impl SharedGpio {
-    fn new() -> Self {
-        SharedGpio { data: None }
-    }
-
-    fn reset(&mut self) {
-        debug!("reset");
-        self.data = None;
-    }
-
-    fn check_init(&mut self, notify: hw_notify_cb) -> Result<(), CString> {
-        if self.data.is_none() {
-            match &HwGpio::new(notify) {
-                Ok(gpio) => {
-                    debug!("new");
-                    self.data = Some(gpio.clone());
-                    Ok(())
-                }
-                Err(err) => return Err(err.clone()),
-            }
-        } else {
-            Ok(())
-        }
-    }
-
-    fn make(&mut self, notify: hw_notify_cb) -> Result<Arc<HwGpio>, CString> {
-        match self.check_init(notify) {
-            Ok(_) => Ok(self.data.as_ref().unwrap().clone()),
-            Err(err) => Err(err),
-        }
-    }
-}
-
-lazy_static! {
-    static ref GPIO: Mutex<SharedGpio> = Mutex::new(SharedGpio::new());
 }
 
 impl hw_gpio {
@@ -83,17 +34,56 @@ impl hw_gpio {
         notify: hw_notify_cb,
         on_pin: hw_gpio_pin_cb,
     ) -> Result<hw_gpio, CString> {
-        match GPIO.lock().as_mut() {
-            Ok(x) => {
-                debug!("+1");
-                x.make(notify).map(|x| {
-                    let rx = x.reply_tx.subscribe();
-                    hw_gpio {
-                        gpio: x,
-                        rx,
-                        on_err,
-                        on_pin,
-                    }
+        match tokio::runtime::Runtime::new() {
+            Ok(rt) => {
+                debug!("creating tokio runtime ...");
+
+                let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<HwGpioRequest>(16);
+                let (reply_tx, reply_rx) = tokio::sync::mpsc::channel::<HwGpioReply>(16);
+
+                std::thread::spawn(move || {
+                    debug!("[worker thread] starting ...");
+
+                    let _x: Result<(), CString> = rt.block_on(async move {
+                        debug!("[worker thread] starting runloop ...");
+
+                        #[cfg(target_os = "linux")]
+                        match &Gpio::new() {
+                            Ok(gpio) => loop {
+                                if let Some(req) = req_rx.recv().await {
+                                    match process_request(req, gpio, &notify, &reply_tx).await {
+                                        Ok(flow) => match flow {
+                                            ProcessFlow::Continue => {}
+                                            ProcessFlow::Quit => {
+                                                debug!("[worker thread] quit");
+                                                return Ok(());
+                                            }
+                                        },
+                                        Err(err) => {
+                                            error!("{err}");
+                                            reply_error(err, &notify, &reply_tx).await;
+                                        }
+                                    }
+                                }
+                            },
+                            Err(err) => {
+                                error!("can't init GPIO: {err}");
+                                return Err(CString::new(err.to_string()).unwrap_or_default());
+                            }
+                        };
+
+                        #[cfg(not(target_os = "linux"))]
+                        Ok(())
+                    });
+
+                    debug!("[worker thread] exit");
+                });
+
+                Ok(hw_gpio {
+                    rx: reply_rx,
+                    tx: req_tx,
+                    on_err,
+                    on_pin,
                 })
             }
             Err(err) => Err(CString::new(err.to_string()).unwrap_or_default()),
@@ -101,7 +91,7 @@ impl hw_gpio {
     }
 
     pub fn send(&self, value: HwGpioRequest) -> bool {
-        if let Err(err) = self.gpio.req_tx.try_send(value) {
+        if let Err(err) = self.tx.try_send(value) {
             self.on_err
                 .exec(format!("[owner] send error: {err}").as_str());
 
@@ -114,16 +104,11 @@ impl hw_gpio {
 
 impl Drop for hw_gpio {
     fn drop(&mut self) {
-        debug!("-1");
-        if Arc::strong_count(&self.gpio) <= 2 {
-            GPIO.lock().unwrap().reset();
+        debug!("exit");
+        if let Err(err) = self.tx.blocking_send(HwGpioRequest::Quit) {
+            error!("{err}");
         }
     }
-}
-
-struct HwGpio {
-    reply_tx: Arc<tokio::sync::broadcast::Sender<HwGpioReply>>,
-    req_tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
 }
 
 pub enum HwGpioRequest {
@@ -143,6 +128,7 @@ pub enum HwGpioRequest {
 #[derive(Clone)]
 enum HwGpioReply {
     PinLevel(u8, bool),
+    Error(CString),
 }
 
 #[cfg(target_os = "linux")]
@@ -186,21 +172,21 @@ enum ProcessFlow {
     Quit,
 }
 
-fn process_request(
+async fn process_request(
     req: HwGpioRequest,
     gpio: &Gpio,
     notify: &hw_notify_cb,
-    reply_tx: &Arc<tokio::sync::broadcast::Sender<HwGpioReply>>,
+    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
 ) -> Result<ProcessFlow, String> {
     match req {
         HwGpioRequest::Quit => {
-            debug!("[worker thread] quit");
             return Ok(ProcessFlow::Quit);
         }
         HwGpioRequest::Read(pin) => {
             let level = gpio_read_pin(gpio, pin)?;
             reply_tx
                 .send(HwGpioReply::PinLevel(pin, level))
+                .await
                 .map_err(|err| err.to_string())?;
             notify.notify();
         }
@@ -220,60 +206,17 @@ fn process_request(
     Ok(ProcessFlow::Continue)
 }
 
-impl HwGpio {
-    pub fn new(notify: hw_notify_cb) -> Result<Arc<HwGpio>, CString> {
-        match tokio::runtime::Runtime::new() {
-            Ok(rt) => {
-                debug!("creating tokio runtime ...");
-
-                let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<HwGpioRequest>(16);
-                let (reply_tx, _) = tokio::sync::broadcast::channel::<HwGpioReply>(16);
-                let reply_tx = Arc::new(reply_tx);
-                let reply_tx_worker = reply_tx.clone();
-
-                std::thread::spawn(move || {
-                    debug!("[worker thread] starting ...");
-
-                    let _x: Result<(), CString> = rt.block_on(async move {
-                        debug!("[worker thread] starting runloop ...");
-
-                        #[cfg(target_os = "linux")]
-                        match &Gpio::new() {
-                            Ok(gpio) => loop {
-                                if let Some(req) = req_rx.recv().await {
-                                    match process_request(req, gpio, &notify, &reply_tx_worker) {
-                                        Ok(flow) => match flow {
-                                            ProcessFlow::Continue => {}
-                                            ProcessFlow::Quit => return Ok(()),
-                                        },
-                                        Err(err) => error!("{err}"),
-                                    }
-                                }
-                            },
-                            Err(err) => {
-                                error!("can't init GPIO: {err}");
-                                return Err(CString::new(err.to_string()).unwrap_or_default());
-                            }
-                        };
-
-                        #[cfg(not(target_os = "linux"))]
-                        Ok(())
-                    });
-
-                    debug!("[worker thread] exit");
-                });
-
-                Ok(Arc::new(HwGpio { reply_tx, req_tx }))
-            }
-            Err(err) => Err(CString::new(err.to_string()).unwrap_or_default()),
-        }
-    }
-}
-
-impl Drop for HwGpio {
-    fn drop(&mut self) {
-        debug!("exit");
-        let _ = self.req_tx.blocking_send(HwGpioRequest::Quit);
+async fn reply_error(
+    msg: String,
+    notify: &hw_notify_cb,
+    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
+) {
+    match reply_tx
+        .send(HwGpioReply::Error(CString::new(msg).unwrap_or_default()))
+        .await
+    {
+        Ok(_) => notify.notify(),
+        Err(err) => error!("{err}"),
     }
 }
 
@@ -321,6 +264,9 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
             HwGpioReply::PinLevel(pin, level) => {
                 (gp.on_pin.cb)(gp.on_pin.user, pin, level);
                 debug!("pin [{pin}] = {level}");
+            }
+            HwGpioReply::Error(msg) => {
+                gp.on_err.exec_raw(msg.as_ptr());
             }
         }
     }
