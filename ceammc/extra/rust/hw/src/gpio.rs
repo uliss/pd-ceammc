@@ -4,10 +4,9 @@ use crate::{hw_error_cb, hw_notify_cb};
 use log::{debug, error};
 
 #[cfg(target_os = "linux")]
-use rppal::{
-    self,
-    gpio::{self, Gpio, OutputPin},
-};
+use rppal::gpio::{Gpio, Level, OutputPin};
+#[cfg(target_os = "linux")]
+use rppal::system::DeviceInfo;
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -49,23 +48,33 @@ impl hw_gpio {
 
                         #[cfg(target_os = "linux")]
                         match &Gpio::new() {
-                            Ok(gpio) => loop {
-                                if let Some(req) = req_rx.recv().await {
-                                    match process_request(req, gpio, &notify, &reply_tx).await {
-                                        Ok(flow) => match flow {
-                                            ProcessFlow::Continue => {}
-                                            ProcessFlow::Quit => {
-                                                debug!("[worker thread] quit");
-                                                return Ok(());
+                            Ok(gpio) => {
+                                //
+                                match DeviceInfo::new() {
+                                    Ok(dev) => {
+                                        debug!("RPi model: {}, soc: {}", dev.model(), dev.soc());
+                                    }
+                                    Err(err) => error!("{err}"),
+                                }
+
+                                loop {
+                                    if let Some(req) = req_rx.recv().await {
+                                        match process_request(req, gpio, &notify, &reply_tx).await {
+                                            Ok(flow) => match flow {
+                                                ProcessFlow::Continue => {}
+                                                ProcessFlow::Quit => {
+                                                    debug!("[worker thread] quit");
+                                                    return Ok(());
+                                                }
+                                            },
+                                            Err(err) => {
+                                                error!("{err}");
+                                                reply_error(err, &notify, &reply_tx).await;
                                             }
-                                        },
-                                        Err(err) => {
-                                            error!("{err}");
-                                            reply_error(err, &notify, &reply_tx).await;
                                         }
                                     }
                                 }
-                            },
+                            }
                             Err(err) => {
                                 error!("can't init GPIO: {err}");
                                 return Err(CString::new(err.to_string()).unwrap_or_default());
@@ -145,8 +154,8 @@ fn gpio_read_pin(gpio: &Gpio, pin: u8) -> Result<bool, String> {
     gpio.get(pin)
         .map_err(|err| err.to_string())
         .map(|x| match x.read() {
-            gpio::Level::Low => false,
-            gpio::Level::High => true,
+            Level::Low => false,
+            Level::High => true,
         })
 }
 
@@ -154,8 +163,8 @@ fn gpio_read_pin(gpio: &Gpio, pin: u8) -> Result<bool, String> {
 fn gpio_write_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), String> {
     gpio_output_pin(gpio, pin).map(|mut x| {
         x.write(match state {
-            true => gpio::Level::High,
-            false => gpio::Level::Low,
+            true => Level::High,
+            false => Level::Low,
         });
     })
 }
