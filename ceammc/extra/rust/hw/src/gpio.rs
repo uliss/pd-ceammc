@@ -1,6 +1,6 @@
 use std::{
-    ffi::CString,
     ffi::c_void,
+    ffi::CString,
     ptr::null_mut,
     sync::{Arc, Mutex},
     time::Duration,
@@ -146,20 +146,18 @@ enum HwGpioReply {
 }
 
 #[cfg(target_os = "linux")]
-fn gpio_output_pin(gpio: &Gpio, pin: u8) -> Result<OutputPin, CString> {
-    gpio.get(pin)
-        .map_err(|err| CString::new(err.to_string()).unwrap_or_default())
-        .map(|x| {
-            let mut pin = x.into_output();
-            pin.set_reset_on_drop(false);
-            pin
-        })
+fn gpio_output_pin(gpio: &Gpio, pin: u8) -> Result<OutputPin, String> {
+    gpio.get(pin).map_err(|err| err.to_string()).map(|x| {
+        let mut pin = x.into_output();
+        pin.set_reset_on_drop(false);
+        pin
+    })
 }
 
 #[cfg(target_os = "linux")]
-fn gpio_read_pin(gpio: &Gpio, pin: u8) -> Result<bool, CString> {
+fn gpio_read_pin(gpio: &Gpio, pin: u8) -> Result<bool, String> {
     gpio.get(pin)
-        .map_err(|err| CString::new(err.to_string()).unwrap_or_default())
+        .map_err(|err| err.to_string())
         .map(|x| match x.read() {
             gpio::Level::Low => false,
             gpio::Level::High => true,
@@ -167,24 +165,59 @@ fn gpio_read_pin(gpio: &Gpio, pin: u8) -> Result<bool, CString> {
 }
 
 #[cfg(target_os = "linux")]
-fn gpio_write_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), CString> {
+fn gpio_write_pin(gpio: &Gpio, pin: u8, state: bool) -> Result<(), String> {
     gpio_output_pin(gpio, pin).map(|mut x| {
-        debug!("P[{}]: {}", x.pin(), x.is_set_high());
         x.write(match state {
             true => gpio::Level::High,
             false => gpio::Level::Low,
         });
-        debug!("P[{}]: {}", x.pin(), x.is_set_high());
     })
 }
 
 #[cfg(target_os = "linux")]
-fn gpio_toggle_pin(gpio: &Gpio, pin: u8) -> Result<(), CString> {
+fn gpio_toggle_pin(gpio: &Gpio, pin: u8) -> Result<(), String> {
     gpio_output_pin(gpio, pin).map(|mut x| {
-        debug!("P[{}]: {}", x.pin(), x.is_set_high());
         x.toggle();
-        debug!("P[{}]: {}", x.pin(), x.is_set_high());
     })
+}
+
+enum ProcessFlow {
+    Continue,
+    Quit,
+}
+
+fn process_request(
+    req: HwGpioRequest,
+    gpio: &Gpio,
+    notify: &hw_notify_cb,
+    reply_tx: &Arc<tokio::sync::broadcast::Sender<HwGpioReply>>,
+) -> Result<ProcessFlow, String> {
+    match req {
+        HwGpioRequest::Quit => {
+            debug!("[worker thread] quit");
+            return Ok(ProcessFlow::Quit);
+        }
+        HwGpioRequest::Read(pin) => {
+            let level = gpio_read_pin(gpio, pin)?;
+            reply_tx
+                .send(HwGpioReply::PinLevel(pin, level))
+                .map_err(|err| err.to_string())?;
+            notify.notify();
+        }
+        HwGpioRequest::Write(pin, state) => {
+            gpio_write_pin(gpio, pin, state)?;
+        }
+        HwGpioRequest::Toggle(pin) => gpio_toggle_pin(gpio, pin)?,
+        HwGpioRequest::SetPwmFreq(_, _, _) => todo!(),
+        HwGpioRequest::SetPwm(_, _, _) => todo!(),
+        HwGpioRequest::ClearPwm(_) => todo!(),
+        HwGpioRequest::SetResetOnDrop(_, _) => todo!(),
+        HwGpioRequest::SetBias(_, _) => todo!(),
+        HwGpioRequest::SetInterrupt(_, _, _) => todo!(),
+        HwGpioRequest::ClearInterrupt(_) => todo!(),
+    };
+
+    Ok(ProcessFlow::Continue)
 }
 
 impl HwGpio {
@@ -208,36 +241,14 @@ impl HwGpio {
                         match &Gpio::new() {
                             Ok(gpio) => loop {
                                 if let Some(req) = req_rx.recv().await {
-                                    match req {
-                                        HwGpioRequest::Quit => {
-                                            debug!("[worker thread] quit");
-                                            return Ok(());
-                                        }
-                                        HwGpioRequest::Read(pin) => {
-                                            let level = gpio_read_pin(gpio, pin)?;
-                                            reply_tx_worker
-                                                .send(HwGpioReply::PinLevel(pin, level))
-                                                .map_err(|err| {
-                                                    CString::new(err.to_string())
-                                                        .unwrap_or_default()
-                                                })?;
-                                            notify.notify();
-                                        }
-                                        HwGpioRequest::Write(pin, state) => {
-                                            gpio_write_pin(gpio, pin, state)?
-                                        }
-                                        HwGpioRequest::Toggle(pin) => gpio_toggle_pin(gpio, pin)?,
-                                        HwGpioRequest::SetPwmFreq(_, _, _) => todo!(),
-                                        HwGpioRequest::SetPwm(_, _, _) => todo!(),
-                                        HwGpioRequest::ClearPwm(_) => todo!(),
-                                        HwGpioRequest::SetResetOnDrop(_, _) => todo!(),
-                                        HwGpioRequest::SetBias(_, _) => todo!(),
-                                        HwGpioRequest::SetInterrupt(_, _, _) => todo!(),
-                                        HwGpioRequest::ClearInterrupt(_) => todo!(),
+                                    match process_request(req, gpio, &notify, &reply_tx_worker) {
+                                        Ok(flow) => match flow {
+                                            ProcessFlow::Continue => {}
+                                            ProcessFlow::Quit => return Ok(()),
+                                        },
+                                        Err(err) => error!("{err}"),
                                     }
                                 }
-
-                                sleep(Duration::from_millis(100)).await;
                             },
                             Err(err) => {
                                 error!("can't init GPIO: {err}");
