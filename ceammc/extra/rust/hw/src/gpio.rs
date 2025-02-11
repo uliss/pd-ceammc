@@ -307,7 +307,7 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
     while let Ok(reply) = gp.rx.try_recv() {
         match reply {
             HwGpioReply::PinLevel(pin, level) => {
-                gp.on_pin(gp.data, pin, value);
+                gp.on_pin.cb(gp.on_pin.user, pin, value);
                 debug!("pin [{pin}] = {level}");
             }
         }
