@@ -128,7 +128,6 @@ pub enum HwGpioRequest {
     SetPwmFreq(u8, f64, f64),
     SetPwm(u8, f64, f64),
     ClearPwm(u8),
-    SetResetOnDrop(u8, bool),
     SetBias(u8, u8),
     SetInterrupt(u8, u8, f64),
     ClearInterrupt(u8),
@@ -176,6 +175,30 @@ fn gpio_toggle_pin(gpio: &Gpio, pin: u8) -> Result<(), String> {
     })
 }
 
+#[cfg(target_os = "linux")]
+fn gpio_clear_pwm(gpio: &Gpio, pin: u8) -> Result<(), String> {
+    gpio_output_pin(gpio, pin).and_then(|mut pin| pin.clear_pwm().map_err(|e| e.to_string()))
+}
+
+#[cfg(target_os = "linux")]
+fn gpio_set_pwm_freq(gpio: &Gpio, pin: u8, freq: f64, duty: f64) -> Result<(), String> {
+    gpio_output_pin(gpio, pin)
+        .and_then(|mut pin| pin.set_pwm_frequency(freq, duty).map_err(|e| e.to_string()))
+}
+
+#[cfg(target_os = "linux")]
+fn gpio_set_pwm(gpio: &Gpio, pin: u8, period: f64, width: f64) -> Result<(), String> {
+    use std::time::Duration;
+
+    gpio_output_pin(gpio, pin).and_then(|mut pin| {
+        pin.set_pwm(
+            Duration::from_secs_f64(period * 0.001),
+            Duration::from_secs_f64(width * 0.001),
+        )
+        .map_err(|e| e.to_string())
+    })
+}
+
 enum ProcessFlow {
     Continue,
     Quit,
@@ -203,10 +226,11 @@ async fn process_request(
             gpio_write_pin(gpio, pin, state)?;
         }
         HwGpioRequest::Toggle(pin) => gpio_toggle_pin(gpio, pin)?,
-        HwGpioRequest::SetPwmFreq(_, _, _) => todo!(),
-        HwGpioRequest::SetPwm(_, _, _) => todo!(),
-        HwGpioRequest::ClearPwm(_) => todo!(),
-        HwGpioRequest::SetResetOnDrop(_, _) => todo!(),
+        HwGpioRequest::SetPwmFreq(pin, freq, duty) => gpio_set_pwm_freq(gpio, pin, freq, duty)?,
+        HwGpioRequest::SetPwm(pin, period_ms, width_ms) => {
+            gpio_set_pwm(gpio, pin, period_ms, width_ms)?
+        }
+        HwGpioRequest::ClearPwm(pin) => gpio_clear_pwm(gpio, pin)?,
         HwGpioRequest::SetBias(_, _) => todo!(),
         HwGpioRequest::SetInterrupt(_, _, _) => todo!(),
         HwGpioRequest::ClearInterrupt(_) => todo!(),
