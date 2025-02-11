@@ -20,6 +20,16 @@ pub struct hw_gpio_pin_cb {
     cb: extern "C" fn(*mut c_void, u8, bool),
 }
 
+#[repr(C)]
+#[allow(non_camel_case_types)]
+/// pin list callback
+pub struct hw_gpio_pin_list_cb {
+    /// pointer to user data (can be NULL)
+    user: *mut c_void,
+    /// can not be NULL
+    cb: extern "C" fn(*mut c_void, *const u8, usize),
+}
+
 #[allow(non_camel_case_types)]
 /// gpio opaque type
 pub struct hw_gpio {
@@ -28,6 +38,7 @@ pub struct hw_gpio {
     on_err: hw_msg_cb,
     on_dbg: hw_msg_cb,
     on_pin: hw_gpio_pin_cb,
+    on_pin_list: hw_gpio_pin_list_cb,
 }
 
 impl hw_gpio {
@@ -36,6 +47,7 @@ impl hw_gpio {
         on_dbg: hw_msg_cb,
         notify: hw_notify_cb,
         on_pin: hw_gpio_pin_cb,
+        on_pin_list: hw_gpio_pin_list_cb,
     ) -> Result<hw_gpio, CString> {
         match tokio::runtime::Runtime::new() {
             Ok(rt) => {
@@ -113,6 +125,7 @@ impl hw_gpio {
                     on_err,
                     on_dbg,
                     on_pin,
+                    on_pin_list,
                 })
             }
             Err(err) => Err(CString::new(err.to_string()).unwrap_or_default()),
@@ -154,6 +167,7 @@ pub enum HwGpioRequest {
     SetBias(u8, gpio::Bias),
     SetInterrupt(u8, u8, f64),
     ClearInterrupt(u8),
+    ListPins,
 }
 
 #[derive(Clone)]
@@ -161,6 +175,7 @@ enum HwGpioReply {
     PinLevel(u8, bool),
     Error(CString),
     Debug(CString),
+    Pins(Vec<u8>),
 }
 
 enum ProcessFlow {
@@ -281,6 +296,10 @@ async fn process_request(
                 pins.remove(&pin);
             }
         }
+        HwGpioRequest::ListPins => {
+            let keys = pins.keys().into_iter().map(|k| *k).collect::<Vec<_>>();
+            reply(HwGpioReply::Pins(keys), notify, reply_tx).await;
+        }
     };
 
     Ok(ProcessFlow::Continue)
@@ -327,15 +346,17 @@ async fn reply_debug(
 /// @param on_err - on error callback for output error messages
 /// @param on_dbg - on error callback for output error messages
 /// @param notify - notification update callback
-/// @param on_pin_value - called on pin value output
+/// @param on_pin - called on pin value output
+/// @param on_pin_list - called on pin list reply
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_new(
     on_err: hw_msg_cb,
     on_dbg: hw_msg_cb,
     notify: hw_notify_cb,
     on_pin: hw_gpio_pin_cb,
+    on_pin_list: hw_gpio_pin_list_cb,
 ) -> *mut hw_gpio {
-    match hw_gpio::new(on_err, on_dbg, notify, on_pin) {
+    match hw_gpio::new(on_err, on_dbg, notify, on_pin, on_pin_list) {
         Ok(gpio) => Box::into_raw(Box::new(gpio)),
         Err(err) => {
             error!("{}", err.to_str().unwrap_or_default());
@@ -375,6 +396,9 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
             }
             HwGpioReply::Debug(msg) => {
                 gp.on_dbg.exec_raw(msg.as_ptr());
+            }
+            HwGpioReply::Pins(items) => {
+                (gp.on_pin_list.cb)(gp.on_pin_list.user, items.as_ptr(), items.len());
             }
         }
     }
@@ -518,6 +542,19 @@ pub extern "C" fn ceammc_hw_gpio_set_mode(gp: *mut hw_gpio, pin: u8, mode: hw_gp
         hw_gpio_mode::Output => gp.send(HwGpioRequest::SetOutput(pin)),
         hw_gpio_mode::Input => gp.send(HwGpioRequest::SetInput(pin)),
     }
+}
+
+/// list used pins
+/// @param gpio - pointer to gpio struct
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_list_pins(gp: *mut hw_gpio) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::ListPins)
 }
 
 #[cfg(target_os = "linux")]
