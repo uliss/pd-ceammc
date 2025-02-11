@@ -363,7 +363,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(gp: *mut hw_gpio, pin: u8, freq: f
     }
 
     let gp = unsafe { &mut *gp };
-    gp.send(HwGpioRequest::SetPwmFreq(pin, freq, duty_cycle));
+    gp.send(HwGpioRequest::SetPwmFreq(pin, freq, duty_cycle))
 }
 
 /// set software pwm on pin
@@ -379,7 +379,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm(gp: *mut hw_gpio, pin: u8, period: f64,
     }
 
     let gp = unsafe { &mut *gp };
-    gp.send(HwGpioRequest::SetPwm(pin, period, width));
+    gp.send(HwGpioRequest::SetPwm(pin, period, width))
 }
 
 /// clear software pwm on pin
@@ -393,7 +393,7 @@ pub extern "C" fn ceammc_hw_gpio_clear_pwm(gp: *mut hw_gpio, pin: u8) -> bool {
     }
 
     let gp = unsafe { &mut *gp };
-    gp.send(HwGpioRequest::ClearPwm(pin));
+    gp.send(HwGpioRequest::ClearPwm(pin))
 }
 
 #[cfg(target_os = "linux")]
