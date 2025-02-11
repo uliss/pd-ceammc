@@ -252,7 +252,7 @@ bool ceammc_hw_gpio_set_pwm(ceammc_hw_gpio *gp, uint8_t pin, double period, doub
 /// set software pwm freq on pin
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
-/// @param freq - freq in Herz
+/// @param freq - freq in Hertz
 /// @param duty_cycle - duty cycle in % [0-100] range
 bool ceammc_hw_gpio_set_pwm_freq(ceammc_hw_gpio *gp, uint8_t pin, double freq, double duty_cycle);
 
