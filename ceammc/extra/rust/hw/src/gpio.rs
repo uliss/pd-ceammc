@@ -16,12 +16,23 @@ use rppal::{
     gpio::{self, Gpio, OutputPin},
 };
 
+#[repr(C)]
+#[allow(non_camel_case_types)]
+/// pin value callback
+pub struct hw_gpio_pin_cb {
+    /// pointer to user data (can be NULL)
+    user: *mut c_void,
+    /// can not be NULL
+    cb: extern "C" fn(*mut c_void, u8, bool),
+}
+
 #[allow(non_camel_case_types)]
 /// gpio opaque type
 pub struct hw_gpio {
     gpio: Arc<HwGpio>,
     rx: tokio::sync::broadcast::Receiver<HwGpioReply>,
     on_err: hw_error_cb,
+    on_pin: hw_gpio_pin_cb,
 }
 
 struct SharedGpio {
@@ -66,7 +77,11 @@ lazy_static! {
 }
 
 impl hw_gpio {
-    pub fn new(on_err: hw_error_cb, notify: hw_notify_cb) -> Result<hw_gpio, CString> {
+    pub fn new(
+        on_err: hw_error_cb,
+        notify: hw_notify_cb,
+        on_pin: hw_gpio_pin_cb,
+    ) -> Result<hw_gpio, CString> {
         match GPIO.lock().as_mut() {
             Ok(x) => {
                 debug!("+1");
@@ -76,6 +91,7 @@ impl hw_gpio {
                         gpio: x,
                         rx,
                         on_err,
+                        on_pin,
                     }
                 })
             }
@@ -105,7 +121,6 @@ impl Drop for hw_gpio {
 }
 
 struct HwGpio {
-    // rx: tokio::sync::mpsc::Receiver<HwGpioReply>,
     reply_tx: Arc<tokio::sync::broadcast::Sender<HwGpioReply>>,
     req_tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
 }
@@ -251,9 +266,16 @@ impl Drop for HwGpio {
 }
 
 /// create new gpio
+/// @param on_err - on error callback for output error messages
+/// @param notify - notification update callback
+/// @param on_pin_value - called on pin value output
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_new(on_err: hw_error_cb, notify: hw_notify_cb) -> *mut hw_gpio {
-    match hw_gpio::new(on_err, notify) {
+pub extern "C" fn ceammc_hw_gpio_new(
+    on_err: hw_error_cb,
+    notify: hw_notify_cb,
+    on_pin: hw_gpio_pin_cb,
+) -> *mut hw_gpio {
+    match hw_gpio::new(on_err, notify, on_pin) {
         Ok(gpio) => Box::into_raw(Box::new(gpio)),
         Err(err) => {
             error!("{}", err.to_str().unwrap_or_default());
@@ -285,6 +307,7 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
     while let Ok(reply) = gp.rx.try_recv() {
         match reply {
             HwGpioReply::PinLevel(pin, level) => {
+                gb.on_pin();
                 debug!("pin [{pin}] = {level}");
             }
         }

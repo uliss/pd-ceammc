@@ -13,14 +13,18 @@
  *****************************************************************************/
 #include "hw_gpio.h"
 #include "args/argcheck.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 HwGpio::HwGpio(const PdArgs& args)
     : HwGpioBase(args)
 {
+    createOutlet();
+
     gpio_ = ceammc_hw_gpio_new(
         { this, on_error },
-        { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } } //
+        { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } }, //
+        { this, on_pin_value } //
     );
 }
 
@@ -35,7 +39,7 @@ bool HwGpio::notify(int code)
     return true;
 }
 
-void HwGpio::m_read(t_symbol *s, const AtomListView &lv)
+void HwGpio::m_read(t_symbol* s, const AtomListView& lv)
 {
     if (!args::check_args("PIN:b", lv, this))
         return;
@@ -61,7 +65,21 @@ void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
 
 void HwGpio::on_error(void* data, const char* msg)
 {
-    LIB_ERR << msg;
+    auto obj = static_cast<HwGpio*>(data);
+    if (!obj)
+        return;
+
+    Error(obj) << msg;
+}
+
+void HwGpio::on_pin_value(void* data, std::uint8_t pin, bool value)
+{
+    auto obj = static_cast<HwGpio*>(data);
+    if (!obj)
+        return;
+
+    AtomArray<2> atoms { t_float(pin), t_float(value) };
+    obj->anyTo(0, gensym("pin"), atoms.view());
 }
 
 void setup_hw_gpio()

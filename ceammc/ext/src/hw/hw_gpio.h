@@ -35,6 +35,7 @@ public:
 
 private:
     static void on_error(void* data, const char* msg);
+    static void on_pin_value(void* data, std::uint8_t pin, bool value);
 };
 
 void setup_hw_gpio();

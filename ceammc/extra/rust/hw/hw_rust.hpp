@@ -157,6 +157,14 @@ struct ceammc_hw_error_cb {
     void (*cb)(void*, const char*);
 };
 
+/// pin value callback
+struct ceammc_hw_gpio_pin_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, uint8_t, bool);
+};
+
 struct ceammc_hw_print_options {
     bool landscape;
 };
@@ -197,7 +205,12 @@ size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
 
 /// create new gpio
-ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_error_cb on_err, ceammc_hw_notify_cb notify);
+/// @param on_err - on error callback for output error messages
+/// @param notify - notification update callback
+/// @param on_pin_value - called on pin value output
+ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_error_cb on_err,
+                                   ceammc_hw_notify_cb notify,
+                                   ceammc_hw_gpio_pin_cb on_pin);
 
 /// process events
 /// @param gp - pointer to gpio struct
