@@ -63,6 +63,11 @@ enum class ceammc_hw_gamepad_powerstate {
     Charged,
 };
 
+enum class ceammc_hw_gpio_mode {
+    Output,
+    Input,
+};
+
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -225,6 +230,12 @@ void ceammc_hw_gpio_process_events(ceammc_hw_gpio *gp);
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// set pin mode
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param mode - pin mode
+bool ceammc_hw_gpio_set_mode(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_mode mode);
 
 /// set software pwm on pin
 /// @param gpio - pointer to gpio struct
