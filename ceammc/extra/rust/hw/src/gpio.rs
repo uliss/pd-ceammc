@@ -1,5 +1,6 @@
 use std::{
     ffi::CString,
+    ffi::c_void,
     ptr::null_mut,
     sync::{Arc, Mutex},
     time::Duration,
@@ -307,7 +308,7 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
     while let Ok(reply) = gp.rx.try_recv() {
         match reply {
             HwGpioReply::PinLevel(pin, level) => {
-                gp.on_pin.cb(gp.on_pin.user, pin, value);
+                (gp.on_pin.cb)(gp.on_pin.user, pin, level);
                 debug!("pin [{pin}] = {level}");
             }
         }
@@ -359,6 +360,7 @@ pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
     gp.send(HwGpioRequest::Toggle(pin))
 }
 
+#[cfg(target_os = "linux")]
 #[cfg(test)]
 mod tests {
     use rppal::system::DeviceInfo;
