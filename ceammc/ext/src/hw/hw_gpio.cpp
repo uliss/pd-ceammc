@@ -48,8 +48,8 @@ HwGpio::HwGpio(const PdArgs& args)
                  atoms.append(Atom(data[i]));
 
              obj->anyTo(0, gensym("pins"), atoms);
-         } } //
-    );
+         } }, //
+        { size_t(subscriberId()), [](size_t id, int data) { Dispatcher::instance().send(NotifyMessage { id, data }); } });
 }
 
 HwGpio::~HwGpio()

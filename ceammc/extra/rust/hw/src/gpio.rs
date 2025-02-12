@@ -230,7 +230,7 @@ fn get_input_pin(pin: u8, pins: &mut HashMap<u8, GpioPin>) -> Result<&mut gpio::
 #[allow(non_camel_case_types)]
 pub struct hw_gpio_poll_cb {
     id: usize,
-    cb: extern "C" fn(usize, u64),
+    cb: extern "C" fn(id: usize, data: std::ffi::c_int),
 }
 
 impl hw_gpio_poll_cb {

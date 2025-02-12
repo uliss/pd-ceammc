@@ -193,7 +193,7 @@ struct ceammc_hw_gpio_pin_list_cb {
 
 struct ceammc_hw_gpio_poll_cb {
     size_t id;
-    void (*cb)(size_t, uint64_t);
+    void (*cb)(size_t id, int data);
 };
 
 struct ceammc_hw_print_options {
