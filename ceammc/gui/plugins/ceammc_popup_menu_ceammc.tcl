@@ -91,7 +91,7 @@
         global.set
     }}
     {hw {
-        hw.apple_smc hw.apple_sms hw.arduino hw.display hw.gamepad
+        hw.apple_smc hw.apple_sms hw.arduino hw.display hw.gamepad hw.gpio
         hw.kbd_light hw.motu.avb hw.printer hw.serial
     }}
     {lang {
