@@ -63,6 +63,12 @@ enum class ceammc_hw_gamepad_powerstate {
     Charged,
 };
 
+enum class ceammc_hw_gpio_bias {
+    None,
+    PullUp,
+    PullDown,
+};
+
 enum class ceammc_hw_gpio_mode {
     Output,
     Input,
@@ -225,6 +231,11 @@ void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
 /// list used pins
 /// @param gpio - pointer to gpio struct
 bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp);
+
+/// set pin bias
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_bias bias);
 
 /// create new gpio
 /// @param on_err - on error callback for output error messages

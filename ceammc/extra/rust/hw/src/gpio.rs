@@ -561,6 +561,28 @@ pub extern "C" fn ceammc_hw_gpio_list_pins(gp: *mut hw_gpio) -> bool {
     gp.send(HwGpioRequest::ListPins)
 }
 
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub enum hw_gpio_bias {
+    None,
+    PullUp,
+    PullDown
+}
+
+/// set pin bias
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_list_pins(gp: *mut hw_gpio, pin: u8, bias: hw_gpio_bias) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::SetBias(bias))
+}
+
 #[cfg(target_os = "linux")]
 #[cfg(test)]
 mod tests {
