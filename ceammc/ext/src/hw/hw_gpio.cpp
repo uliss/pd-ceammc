@@ -61,8 +61,19 @@ bool HwGpio::notify(int code)
 {
     if (code != 0) {
         int pin = (code & 0xff);
-        int event = (code & 0xf00);
-        AtomArray<2> atoms { t_float(pin), t_float(event) };
+        auto event = static_cast<ceammc_hw_gpio_trigger>((code & 0xf00) >> 8);
+
+        AtomArray<2> atoms { t_float(pin), 0.0 };
+
+        switch (event) {
+        case ceammc_hw_gpio_trigger::RisingEdge:
+            atoms[1] = t_float(1);
+            break;
+        default:
+            atoms[0] = t_float(0);
+            break;
+        }
+
         anyTo(0, gensym("pin"), atoms.view());
         return true;
     }
