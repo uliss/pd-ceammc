@@ -235,9 +235,18 @@ pub struct hw_gpio_poll_cb {
 }
 
 impl hw_gpio_poll_cb {
-    fn exec(&self, data: c_int) {
+    fn exec(&self, pin: u8, trig: gpio::Trigger) {
+        let data: i32 = pin as i32;
+        let trig: i32 = match trig {
+            gpio::Trigger::Disabled => 0,
+            gpio::Trigger::RisingEdge => 1,
+            gpio::Trigger::FallingEdge => 2,
+            gpio::Trigger::Both => 3,
+        };
+        let data = (data | (trig << 8)) as c_int;
+
         (self.cb)(self.id, data);
-        debug!("poll [{}]: {data}",self.id);
+        debug!("poll [{pin}]: {trig}");
     }
 }
 
@@ -298,15 +307,7 @@ async fn process_request(
         HwGpioRequest::SetInterrupt(pin, trigger, debounce) => {
             get_input_pin(pin, pins).and_then(|x| {
                 x.set_async_interrupt(trigger, debounce, move |ev| {
-                    let data: i32 = pin as i32;
-                    let trig: i32 = match ev.trigger {
-                        gpio::Trigger::Disabled => 0,
-                        gpio::Trigger::RisingEdge => 1,
-                        gpio::Trigger::FallingEdge => 2,
-                        gpio::Trigger::Both => 3,
-                    };
-                    let data = (data | (trig << 8)) as c_int;
-                    poll_notify.exec(data);
+                    poll_notify.exec(pin, ev.trigger);
                 })
                 .map_err(|e| e.to_string())
             })?;
