@@ -74,6 +74,13 @@ enum class ceammc_hw_gpio_mode {
     Input,
 };
 
+enum class ceammc_hw_gpio_trigger {
+    None,
+    RisingEdge,
+    FallingEdge,
+    Both,
+};
+
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -219,6 +226,11 @@ void ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp);
 /// @return number of printers found
 size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 
+/// clear pin event polling
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+bool ceammc_hw_gpio_clear_poll(ceammc_hw_gpio *gp, uint8_t pin);
+
 /// clear software pwm on pin
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
@@ -268,6 +280,16 @@ bool ceammc_hw_gpio_set_bias(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_bia
 /// @param pin - pin number
 /// @param mode - pin mode
 bool ceammc_hw_gpio_set_mode(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_mode mode);
+
+/// poll pin events
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+/// @param trigger - event trigger
+/// @param debounce - debounce time in ms
+bool ceammc_hw_gpio_set_poll(ceammc_hw_gpio *gp,
+                             uint8_t pin,
+                             ceammc_hw_gpio_trigger trigger,
+                             double debounce);
 
 /// set software pwm on pin
 /// @param gpio - pointer to gpio struct
