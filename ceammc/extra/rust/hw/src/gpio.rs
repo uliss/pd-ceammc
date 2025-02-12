@@ -237,6 +237,7 @@ pub struct hw_gpio_poll_cb {
 impl hw_gpio_poll_cb {
     fn exec(&self, data: c_int) {
         (self.cb)(self.id, data);
+        debug!("poll [{}]: {data}",self.id);
     }
 }
 
