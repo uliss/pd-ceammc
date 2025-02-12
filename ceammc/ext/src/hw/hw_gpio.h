@@ -42,6 +42,8 @@ public:
     void m_write(t_symbol* s, const AtomListView& lv);
     void m_pull_up(t_symbol* s, const AtomListView& lv);
     void m_pull_down(t_symbol* s, const AtomListView& lv);
+    void m_start_poll(t_symbol* s, const AtomListView& lv);
+    void m_stop_poll(t_symbol* s, const AtomListView& lv);
 
 private:
     static void on_pin_value(void* data, std::uint8_t pin, bool value);
