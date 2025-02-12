@@ -79,6 +79,22 @@ void HwGpio::m_write(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_write_pin(gpio_, lv.intAt(0, 0), lv.intAt(1, 1));
 }
 
+void HwGpio::m_pull_up(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_set_bias(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_bias::PullUp);
+}
+
+void HwGpio::m_pull_down(t_symbol* s, const AtomListView& lv)
+{
+    if (!args::check_args("PIN:b", lv, this))
+        return;
+
+    ceammc_hw_gpio_set_bias(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_bias::PullDown);
+}
+
 void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
 {
     if (!args::check_args("PIN:b", lv, this))
@@ -166,4 +182,7 @@ void setup_hw_gpio()
     obj.addMethod("reset", &HwGpio::m_reset);
 
     obj.addMethod("list_pins", &HwGpio::m_list_pins);
+
+    obj.addMethod("pull_up", &HwGpio::m_pull_up);
+    obj.addMethod("pull_down", &HwGpio::m_pull_down);
 }

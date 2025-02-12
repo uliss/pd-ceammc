@@ -232,11 +232,6 @@ void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
 /// @param gpio - pointer to gpio struct
 bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp);
 
-/// set pin bias
-/// @param gpio - pointer to gpio struct
-/// @param pin - pin BCM number
-bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_bias bias);
-
 /// create new gpio
 /// @param on_err - on error callback for output error messages
 /// @param on_dbg - on error callback for output error messages
@@ -262,6 +257,11 @@ bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 bool ceammc_hw_gpio_reset_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// set pin bias
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+bool ceammc_hw_gpio_set_bias(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_bias bias);
 
 /// set pin mode
 /// @param gpio - pointer to gpio struct
