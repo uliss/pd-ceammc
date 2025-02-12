@@ -407,6 +407,7 @@ async fn reply_debug(
 /// @param notify - notification update callback
 /// @param on_pin - called on pin value output
 /// @param on_pin_list - called on pin list reply
+/// @param on_pin_poll - called on pin poll event
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_new(
     on_err: hw_msg_cb,

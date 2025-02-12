@@ -191,6 +191,11 @@ struct ceammc_hw_gpio_pin_list_cb {
     void (*cb)(void*, const uint8_t*, size_t);
 };
 
+struct ceammc_hw_gpio_poll_cb {
+    size_t id;
+    void (*cb)(size_t, uint64_t);
+};
+
 struct ceammc_hw_print_options {
     bool landscape;
 };
@@ -250,11 +255,13 @@ bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp);
 /// @param notify - notification update callback
 /// @param on_pin - called on pin value output
 /// @param on_pin_list - called on pin list reply
+/// @param on_pin_poll - called on pin poll event
 ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_msg_cb on_err,
                                    ceammc_hw_msg_cb on_dbg,
                                    ceammc_hw_notify_cb notify,
                                    ceammc_hw_gpio_pin_cb on_pin,
-                                   ceammc_hw_gpio_pin_list_cb on_pin_list);
+                                   ceammc_hw_gpio_pin_list_cb on_pin_list,
+                                   ceammc_hw_gpio_poll_cb on_pin_poll);
 
 /// process events
 /// @param gp - pointer to gpio struct
@@ -285,11 +292,11 @@ bool ceammc_hw_gpio_set_mode(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_mod
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin BCM number
 /// @param trigger - event trigger
-/// @param debounce - debounce time in ms
+/// @param debounce_ms - debounce time in ms
 bool ceammc_hw_gpio_set_poll(ceammc_hw_gpio *gp,
                              uint8_t pin,
                              ceammc_hw_gpio_trigger trigger,
-                             double debounce);
+                             double debounce_ms);
 
 /// set software pwm on pin
 /// @param gpio - pointer to gpio struct
