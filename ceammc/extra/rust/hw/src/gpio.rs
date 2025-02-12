@@ -301,13 +301,16 @@ async fn process_request(
             get_input_pin(pin, pins).and_then(|x| {
                 x.set_async_interrupt(trigger, debounce, move |ev| {
                     let mut data: c_int = pin as c_int;
+                    debug!("{data}");
                     let trig: c_int = match ev.trigger {
                         gpio::Trigger::Disabled => 0,
                         gpio::Trigger::RisingEdge => 1,
                         gpio::Trigger::FallingEdge => 2,
                         gpio::Trigger::Both => 3,
                     };
+                    debug!("{trig}");
                     data &= trig << (mem::size_of_val(&pin) * 8);
+                    debug!("{data}");
                     poll_notify.exec(data);
                 })
                 .map_err(|e| e.to_string())
