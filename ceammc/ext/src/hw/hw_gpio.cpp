@@ -108,7 +108,7 @@ void HwGpio::m_start_poll(t_symbol* s, const AtomListView& lv)
     if (!args::check_args("PIN:b DEBOUNCE:f>=0?", lv, this))
         return;
 
-    ceammc_hw_gpio_set_poll(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_trigger::RisingEdge, lv.floatAt(1, 0));
+    ceammc_hw_gpio_set_poll(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_trigger::Both, lv.floatAt(1, 10));
 }
 
 void HwGpio::m_stop_poll(t_symbol* s, const AtomListView& lv)
