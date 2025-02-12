@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::ffi::c_int;
 use std::time::Duration;
 use std::{ffi::c_void, ffi::CString, ptr::null_mut};
 
@@ -230,11 +231,11 @@ fn get_input_pin(pin: u8, pins: &mut HashMap<u8, GpioPin>) -> Result<&mut gpio::
 #[allow(non_camel_case_types)]
 pub struct hw_gpio_poll_cb {
     id: usize,
-    cb: extern "C" fn(id: usize, data: std::ffi::c_int),
+    cb: extern "C" fn(id: usize, data: c_int),
 }
 
 impl hw_gpio_poll_cb {
-    fn exec(&self, data: u64) {
+    fn exec(&self, data: c_int) {
         (self.cb)(self.id, data);
     }
 }
@@ -248,6 +249,8 @@ async fn process_request(
     gpio: &Gpio,
     pins: &mut HashMap<u8, GpioPin>,
 ) -> Result<ProcessFlow, String> {
+    use std::mem;
+
     match req {
         HwGpioRequest::Quit => {
             return Ok(ProcessFlow::Quit);
@@ -296,14 +299,14 @@ async fn process_request(
         HwGpioRequest::SetInterrupt(pin, trigger, debounce) => {
             get_input_pin(pin, pins).and_then(|x| {
                 x.set_async_interrupt(trigger, debounce, move |ev| {
-                    let mut data: u64 = pin as u64;
-                    let trig: u64 = match ev.trigger {
+                    let mut data: c_int = pin as c_int;
+                    let trig: c_int = match ev.trigger {
                         gpio::Trigger::Disabled => 0,
                         gpio::Trigger::RisingEdge => 1,
                         gpio::Trigger::FallingEdge => 2,
                         gpio::Trigger::Both => 3,
                     };
-                    data &= trig << 8;
+                    data &= trig << (mem::size_of_val(&pin) * 8);
                     poll_notify.exec(data);
                 })
                 .map_err(|e| e.to_string())

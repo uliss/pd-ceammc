@@ -59,6 +59,10 @@ HwGpio::~HwGpio()
 
 bool HwGpio::notify(int code)
 {
+    if(code != 0) {
+        OBJ_ERR << code;
+    }
+
     ceammc_hw_gpio_process_events(gpio_);
     return true;
 }
