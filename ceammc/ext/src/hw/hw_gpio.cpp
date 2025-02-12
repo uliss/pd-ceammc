@@ -70,7 +70,7 @@ bool HwGpio::notify(int code)
             atoms[1] = t_float(1);
             break;
         default:
-            atoms[0] = t_float(0);
+            atoms[1] = t_float(0);
             break;
         }
 
