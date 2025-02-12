@@ -3,13 +3,19 @@
 #![allow(non_camel_case_types)]
 
 use crate::{hw_msg_cb, hw_notify_cb};
-use gpio_impl::{hw_gpio, HwGpioReply, HwGpioRequest};
 use log::{debug, error};
-use rppal::gpio;
 use std::{
     ffi::{c_int, c_void},
     ptr::null_mut, time::Duration,
 };
+
+#[cfg(not(target_os="linux"))]
+pub struct hw_gpio;
+
+#[cfg(target_os="linux")]
+use gpio_impl::{hw_gpio, HwGpioReply, HwGpioRequest};
+#[cfg(target_os="linux")]
+use rppal::gpio;
 
 #[repr(C)]
 /// pin value callback
