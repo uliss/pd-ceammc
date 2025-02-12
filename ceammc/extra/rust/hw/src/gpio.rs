@@ -6,7 +6,7 @@ use crate::{hw_msg_cb, hw_notify_cb};
 use log::{debug, error};
 
 #[cfg(target_os = "linux")]
-use rppal::gpio::{self, Gpio, IoPin, Level};
+use rppal::gpio::{self, Gpio};
 #[cfg(target_os = "linux")]
 use rppal::system::DeviceInfo;
 
@@ -86,7 +86,7 @@ impl hw_gpio {
                                     Err(err) => error!("{err}"),
                                 }
 
-                                let mut pins: HashMap<u8, IoPin> = HashMap::new();
+                                let mut pins: HashMap<u8, GpioPin> = HashMap::new();
 
                                 loop {
                                     if let Some(req) = req_rx.recv().await {
@@ -169,7 +169,7 @@ pub enum HwGpioRequest {
     SetPwm(u8, f64, f64),
     ClearPwm(u8),
     SetBias(u8, gpio::Bias),
-    SetInterrupt(u8, u8, f64),
+    SetInterrupt(u8, gpio::Trigger, Option<Duration>),
     ClearInterrupt(u8),
     ListPins,
 }
@@ -187,28 +187,35 @@ enum ProcessFlow {
     Quit,
 }
 
-#[cfg(target_os = "linux")]
-fn get_pin(pin: u8, pins: &mut HashMap<u8, IoPin>) -> Result<&mut IoPin, String> {
-    Ok(pins
-        .get_mut(&pin)
-        .ok_or(format!("pin not configured for I/O: [{pin}]"))?)
+enum GpioPin {
+    Input(gpio::InputPin),
+    Output(gpio::OutputPin),
 }
 
 #[cfg(target_os = "linux")]
-fn check_output(pin: &mut IoPin) -> Result<&mut IoPin, String> {
-    if pin.mode() != gpio::Mode::Output {
-        return Err(format!("pin [{}] not configured for output", pin.pin()));
-    } else {
-        Ok(pin)
+fn get_output_pin(
+    pin: u8,
+    pins: &mut HashMap<u8, GpioPin>,
+) -> Result<&mut gpio::OutputPin, String> {
+    let x = pins
+        .get_mut(&pin)
+        .ok_or(format!("pin not configured for I/O: [{pin}]"))?;
+
+    match x {
+        GpioPin::Input(_) => Err(format!("pin [{pin}] not configured for output")),
+        GpioPin::Output(output_pin) => Ok(output_pin),
     }
 }
 
 #[cfg(target_os = "linux")]
-fn check_input(pin: &mut IoPin) -> Result<&mut IoPin, String> {
-    if pin.mode() != gpio::Mode::Input {
-        return Err(format!("pin [{}] not configured for input", pin.pin()));
-    } else {
-        Ok(pin)
+fn get_input_pin(pin: u8, pins: &mut HashMap<u8, GpioPin>) -> Result<&mut gpio::InputPin, String> {
+    let x = pins
+        .get_mut(&pin)
+        .ok_or(format!("pin not configured for I/O: [{pin}]"))?;
+
+    match x {
+        GpioPin::Input(input_pin) => Ok(input_pin),
+        GpioPin::Output(_) => Err(format!("pin [{pin}] not configured for input")),
     }
 }
 
@@ -218,18 +225,25 @@ async fn process_request(
     notify: &hw_notify_cb,
     reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
     gpio: &Gpio,
-    pins: &mut HashMap<u8, IoPin>,
+    pins: &mut HashMap<u8, GpioPin>,
 ) -> Result<ProcessFlow, String> {
     match req {
         HwGpioRequest::Quit => {
             return Ok(ProcessFlow::Quit);
         }
         HwGpioRequest::Read(pin) => {
-            let level = get_pin(pin, pins)?.read() == Level::High;
+            let level = match pins.get(&pin) {
+                Some(x) => match x {
+                    GpioPin::Input(input_pin) => input_pin.is_high(),
+                    GpioPin::Output(output_pin) => output_pin.is_set_high(),
+                },
+                None => return Err(format!("pin [{pin}] not configured")),
+            };
+
             reply(HwGpioReply::PinLevel(pin, level), notify, reply_tx).await;
         }
         HwGpioRequest::Write(pin, state) => {
-            let io_pin = get_pin(pin, pins).and_then(|pin| check_output(pin))?;
+            let io_pin = get_output_pin(pin, pins)?;
             if state {
                 io_pin.set_high();
             } else {
@@ -237,62 +251,75 @@ async fn process_request(
             }
         }
         HwGpioRequest::Toggle(pin) => {
-            get_pin(pin, pins)
-                .and_then(|pin| check_output(pin))
-                .and_then(|pin| Ok(pin.toggle()))?;
+            get_output_pin(pin, pins).and_then(|pin| Ok(pin.toggle()))?;
         }
         HwGpioRequest::SetPwmFreq(pin, freq, duty) => {
-            get_pin(pin, pins)
-                .and_then(|pin| check_output(pin))
+            get_output_pin(pin, pins)
                 .and_then(|pin| pin.set_pwm_frequency(freq, duty).map_err(|e| e.to_string()))?;
         }
         HwGpioRequest::SetPwm(pin, period_ms, width_ms) => {
-            get_pin(pin, pins)
-                .and_then(|pin| check_output(pin))
-                .and_then(|pin| {
-                    pin.set_pwm(
-                        Duration::from_secs_f64(period_ms * 0.001),
-                        Duration::from_secs_f64(width_ms * 0.001),
-                    )
-                    .map_err(|e| e.to_string())
-                })?;
+            get_output_pin(pin, pins).and_then(|pin| {
+                pin.set_pwm(
+                    Duration::from_secs_f64(period_ms * 0.001),
+                    Duration::from_secs_f64(width_ms * 0.001),
+                )
+                .map_err(|e| e.to_string())
+            })?;
         }
         HwGpioRequest::ClearPwm(pin) => {
-            get_pin(pin, pins)
-                .and_then(|pin| check_output(pin))
-                .and_then(|pin| pin.clear_pwm().map_err(|e| e.to_string()))?;
+            get_output_pin(pin, pins).and_then(|pin| pin.clear_pwm().map_err(|e| e.to_string()))?;
         }
         HwGpioRequest::SetBias(pin, bias) => {
-            get_pin(pin, pins)
-                .and_then(|pin| check_input(pin))
-                .and_then(|pin| Ok(pin.set_bias(bias)))?;
+            get_input_pin(pin, pins).and_then(|pin| Ok(pin.set_bias(bias)))?;
         }
-        HwGpioRequest::SetInterrupt(_, _, _) => todo!(),
-        HwGpioRequest::ClearInterrupt(_) => todo!(),
-        HwGpioRequest::SetOutput(pin) => match pins.get_mut(&pin) {
-            Some(pin) => {
-                pin.set_mode(gpio::Mode::Output);
+        HwGpioRequest::SetInterrupt(pin, trigger, debounce) => {
+            get_input_pin(pin, pins).and_then(|x| {
+                x.set_async_interrupt(trigger, debounce, |ev| {
+                    debug!("{ev:?}");
+                    // reply_tx.send(HwGpioReply::PinLevel(0, true));
+                })
+                .map_err(|e| e.to_string())
+            })?;
+        }
+        HwGpioRequest::ClearInterrupt(pin) => {
+            get_input_pin(pin, pins)
+                .and_then(|pin| pin.clear_async_interrupt().map_err(|e| e.to_string()))?;
+        }
+        HwGpioRequest::SetOutput(pin) => {
+            if pins.contains_key(&pin) {
+                match pins.get(&pin) {
+                    Some(x) => match x {
+                        GpioPin::Input(_) => {
+                            pins.remove(&pin);
+                        }
+                        _ => return Ok(ProcessFlow::Continue),
+                    },
+                    None => {}
+                }
             }
-            None => {
-                let io_pin = gpio
-                    .get(pin)
-                    .map_err(|e| e.to_string())?
-                    .into_io(gpio::Mode::Output);
-                pins.insert(pin, io_pin);
+
+            let out_pin = gpio.get(pin).map_err(|e| e.to_string())?.into_output();
+            pins.insert(pin, GpioPin::Output(out_pin));
+        }
+        HwGpioRequest::SetInput(pin) => {
+            if pins.contains_key(&pin) {
+                match pins.get(&pin) {
+                    Some(x) => match x {
+                        GpioPin::Output(_) => {
+                            pins.remove(&pin);
+                        }
+                        _ => return Ok(ProcessFlow::Continue),
+                    },
+                    None => {}
+                }
             }
-        },
-        HwGpioRequest::SetInput(pin) => match pins.get_mut(&pin) {
-            Some(pin) => {
-                pin.set_mode(gpio::Mode::Input);
-            }
-            None => {
-                let io_pin = gpio
-                    .get(pin)
-                    .map_err(|e| e.to_string())?
-                    .into_io(gpio::Mode::Input);
-                pins.insert(pin, io_pin);
-            }
-        },
+
+            let in_pin = gpio
+                .get(pin)
+                .map_err(|e| e.to_string())?
+                .into_input_pulldown();
+            pins.insert(pin, GpioPin::Input(in_pin));
+        }
         HwGpioRequest::ResetPin(pin) => {
             if !pins.contains_key(&pin) {
                 return Err(format!("pin [{pin}] not configured"));
@@ -588,6 +615,59 @@ pub extern "C" fn ceammc_hw_gpio_set_bias(gp: *mut hw_gpio, pin: u8, bias: hw_gp
             hw_gpio_bias::PullDown => gpio::Bias::PullDown,
         },
     ))
+}
+
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub enum hw_gpio_trigger {
+    None,
+    RisingEdge,
+    FallingEdge,
+    Both,
+}
+
+/// poll pin events
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+/// @param trigger - event trigger
+/// @param debounce - debounce time in ms
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_set_poll(
+    gp: *mut hw_gpio,
+    pin: u8,
+    trigger: hw_gpio_trigger,
+    debounce: f64,
+) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::SetInterrupt(
+        pin,
+        match trigger {
+            hw_gpio_trigger::None => gpio::Trigger::Disabled,
+            hw_gpio_trigger::RisingEdge => gpio::Trigger::RisingEdge,
+            hw_gpio_trigger::FallingEdge => gpio::Trigger::FallingEdge,
+            hw_gpio_trigger::Both => gpio::Trigger::Both,
+        },
+        None,
+    ))
+}
+
+/// clear pin event polling
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_clear_poll(gp: *mut hw_gpio, pin: u8) -> bool {
+    if gp.is_null() {
+        log::error!("NULL gpio pointer");
+        return false;
+    }
+
+    let gp = unsafe { &mut *gp };
+    gp.send(HwGpioRequest::ClearInterrupt(pin))
 }
 
 #[cfg(target_os = "linux")]
