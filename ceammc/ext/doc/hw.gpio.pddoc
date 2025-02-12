@@ -45,7 +45,7 @@
 |
 | [reset 17 #d(       [read 18 #h(
 |
-|                     [set_pwm 18 #j( [set_pwm_freq 18 4 0.5 #k(
+|                     [set_pwm 18 500 100 #j( [set_pwm_freq 18 4 0.5 #k(
 |
 |                     [clear_pwm 18 #l(
 |

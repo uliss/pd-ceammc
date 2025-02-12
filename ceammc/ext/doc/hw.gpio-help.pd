@@ -18,8 +18,8 @@
 #X msg 261 259 read 18;
 #X msg 69 287 reset 17;
 #X msg 261 287 read 18;
-#X msg 261 316 set_pwm 18;
-#X msg 414 316 set_pwm_freq 18 4 0.5;
+#X msg 261 316 set_pwm 18 500 100;
+#X msg 491 316 set_pwm_freq 18 4 0.5;
 #X msg 261 345 clear_pwm 18;
 #X obj 50 374 hw.gpio;
 #X obj 50 403 route pins;
