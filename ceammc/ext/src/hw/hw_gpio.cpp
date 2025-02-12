@@ -59,8 +59,12 @@ HwGpio::~HwGpio()
 
 bool HwGpio::notify(int code)
 {
-    if(code != 0) {
-        OBJ_ERR << code;
+    if (code != 0) {
+        int pin = (code & 0xff);
+        int event = (code & 0xf00);
+        AtomArray<2> atoms { t_float(pin), t_float(event) };
+        anyTo(0, gensym("pin"), atoms.view());
+        return true;
     }
 
     ceammc_hw_gpio_process_events(gpio_);
@@ -101,10 +105,10 @@ void HwGpio::m_pull_down(t_symbol* s, const AtomListView& lv)
 
 void HwGpio::m_start_poll(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
+    if (!args::check_args("PIN:b DEBOUNCE:f>=0?", lv, this))
         return;
 
-    ceammc_hw_gpio_set_poll(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_trigger::RisingEdge, 0);
+    ceammc_hw_gpio_set_poll(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_trigger::RisingEdge, lv.floatAt(1, 0));
 }
 
 void HwGpio::m_stop_poll(t_symbol* s, const AtomListView& lv)
