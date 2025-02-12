@@ -48,6 +48,7 @@ impl hw_gpio {
         notify: hw_notify_cb,
         on_pin: hw_gpio_pin_cb,
         on_pin_list: hw_gpio_pin_list_cb,
+        on_pin_poll: hw_gpio_poll_cb,
     ) -> Result<hw_gpio, CString> {
         match tokio::runtime::Builder::new_multi_thread()
             .worker_threads(1)
@@ -91,7 +92,12 @@ impl hw_gpio {
                                 loop {
                                     if let Some(req) = req_rx.recv().await {
                                         match process_request(
-                                            req, &notify, &reply_tx, &gpio, &mut pins,
+                                            req,
+                                            &notify,
+                                            on_pin_poll,
+                                            &reply_tx,
+                                            &gpio,
+                                            &mut pins,
                                         )
                                         .await
                                         {
@@ -219,10 +225,25 @@ fn get_input_pin(pin: u8, pins: &mut HashMap<u8, GpioPin>) -> Result<&mut gpio::
     }
 }
 
+#[repr(C)]
+#[derive(Clone, Copy)]
+#[allow(non_camel_case_types)]
+pub struct hw_gpio_poll_cb {
+    id: usize,
+    cb: extern "C" fn(usize, u64),
+}
+
+impl hw_gpio_poll_cb {
+    fn exec(&self, data: u64) {
+        (self.cb)(self.id, data);
+    }
+}
+
 #[cfg(target_os = "linux")]
 async fn process_request(
     req: HwGpioRequest,
     notify: &hw_notify_cb,
+    poll_notify: hw_gpio_poll_cb,
     reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
     gpio: &Gpio,
     pins: &mut HashMap<u8, GpioPin>,
@@ -274,9 +295,16 @@ async fn process_request(
         }
         HwGpioRequest::SetInterrupt(pin, trigger, debounce) => {
             get_input_pin(pin, pins).and_then(|x| {
-                x.set_async_interrupt(trigger, debounce, |ev| {
-                    debug!("{ev:?}");
-                    // reply_tx.send(HwGpioReply::PinLevel(0, true));
+                x.set_async_interrupt(trigger, debounce, move |ev| {
+                    let mut data: u64 = pin as u64;
+                    let trig: u64 = match ev.trigger {
+                        gpio::Trigger::Disabled => 0,
+                        gpio::Trigger::RisingEdge => 1,
+                        gpio::Trigger::FallingEdge => 2,
+                        gpio::Trigger::Both => 3,
+                    };
+                    data &= trig << 8;
+                    poll_notify.exec(data);
                 })
                 .map_err(|e| e.to_string())
             })?;
@@ -329,7 +357,7 @@ async fn process_request(
         }
         HwGpioRequest::ListPins => {
             let keys = pins.keys().into_iter().map(|k| *k).collect::<Vec<_>>();
-            reply(HwGpioReply::Pins(keys), notify, reply_tx).await;
+            reply(HwGpioReply::Pins(keys), &notify, reply_tx).await;
         }
     };
 
@@ -386,8 +414,9 @@ pub extern "C" fn ceammc_hw_gpio_new(
     notify: hw_notify_cb,
     on_pin: hw_gpio_pin_cb,
     on_pin_list: hw_gpio_pin_list_cb,
+    on_pin_poll: hw_gpio_poll_cb,
 ) -> *mut hw_gpio {
-    match hw_gpio::new(on_err, on_dbg, notify, on_pin, on_pin_list) {
+    match hw_gpio::new(on_err, on_dbg, notify, on_pin, on_pin_list, on_pin_poll) {
         Ok(gpio) => Box::into_raw(Box::new(gpio)),
         Err(err) => {
             error!("{}", err.to_str().unwrap_or_default());
@@ -630,13 +659,13 @@ pub enum hw_gpio_trigger {
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin BCM number
 /// @param trigger - event trigger
-/// @param debounce - debounce time in ms
+/// @param debounce_ms - debounce time in ms
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_set_poll(
     gp: *mut hw_gpio,
     pin: u8,
     trigger: hw_gpio_trigger,
-    debounce: f64,
+    debounce_ms: f64,
 ) -> bool {
     if gp.is_null() {
         log::error!("NULL gpio pointer");
@@ -652,7 +681,11 @@ pub extern "C" fn ceammc_hw_gpio_set_poll(
             hw_gpio_trigger::FallingEdge => gpio::Trigger::FallingEdge,
             hw_gpio_trigger::Both => gpio::Trigger::Both,
         },
-        None,
+        if debounce_ms <= 0.0 {
+            None
+        } else {
+            Some(Duration::from_secs_f64(debounce_ms * 0.001))
+        },
     ))
 }
 
