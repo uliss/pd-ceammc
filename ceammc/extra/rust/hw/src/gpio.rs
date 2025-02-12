@@ -250,8 +250,6 @@ async fn process_request(
     gpio: &Gpio,
     pins: &mut HashMap<u8, GpioPin>,
 ) -> Result<ProcessFlow, String> {
-    use std::mem;
-
     match req {
         HwGpioRequest::Quit => {
             return Ok(ProcessFlow::Quit);
@@ -307,8 +305,7 @@ async fn process_request(
                         gpio::Trigger::FallingEdge => 2,
                         gpio::Trigger::Both => 3,
                     };
-                    let data = (data & (trig << 8)) as c_int;
-                    debug!("{data}");
+                    let data = (data | (trig << 8)) as c_int;
                     poll_notify.exec(data);
                 })
                 .map_err(|e| e.to_string())
