@@ -1,5 +1,10 @@
 # CEAMMC external library changelog
 
+## [Unrelease]
+### Added:
+- new objects:
+  - hw.gpio - Raspberry Pi GPIO support
+
 ## [0.9.8]
 ### Added:
 - new objects:

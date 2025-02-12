@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.gpio">
+        <title>hw.gpio</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Raspberry Pi GPIO support</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display brightness</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <info>
+            <par>At this moment supports only MacOSX</par>
+        </info>
+        <methods>
+            <method name="input">config pin into input mode
+            <param name="PIN" type="int">pin number</param></method>
+            <method name="output">config pin into output mode
+            <param name="PIN" type="int">pin number</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>pins state output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadbang]
+|
+[input 17, pull_up 17, output 18(
+|
+| [read 17 #a(        [T] [toggle 18 #f(
+|                     |
+| [start_poll 17 #b(  [write 18 $1 #e(
+|
+| [stop_poll 17 #c(   [read 18 #g(
+|
+| [reset 17 #d(       [read 18 #h(
+|
+|                     [set_pwm 18 #j( [set_pwm_freq 18 4 0.5 #k(
+|
+|                     [clear_pwm 18 #l(
+|
+[hw.gpio #x]
+|
+[route pins]
+|
+[ui.dt]
+
+[X a->x] [X b->x] [X c->x] [X d->x]
+[X e->x] [X f->x] [X g->x] [X h->x]
+[X j->x] [X k->x] [X l->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

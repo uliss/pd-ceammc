@@ -18,8 +18,8 @@
 #X text 150 164 Distribution version:;
 #X text 150 179 ceammc version:;
 #X text 150 149 Git commit:;
-#X text 315 104 14 11 2024 UTC 20:40:12 ;
-#X text 315 149 v2023.10-721-g814a21fec;
+#X text 315 104 12 02 2025 UTC 21:20:20 ;
+#X text 315 149 v2023.10-819-g9f4095537;
 #X text 315 134 devel;
 #X text 150 134 Git branch:;
 #X text 315 164 v2023.10;
@@ -32,7 +32,7 @@
 #X restore 585 150 pd info;
 #X text 60 184 This is PureData distribution v2023.10 by Centre of electoacoustic music of Moscow Conservatory (CEAM). Made by Serge Poltavsky and Alex Nadzharov. It based on original 'vanilla' Pd-0.53.0 by Miller Puckette.;
 #X text 60 274 Distribution license is GPL 3;
-#X text 60 399 This distribution contains ceammc-0.9.7 library \, that aims to be standard base for education and artists purposes. It contains over      838 objects for working with audio \, lists \, MIDI \, OSC \, user interface \, etc.;
+#X text 60 399 This distribution contains ceammc-0.9.7 library \, that aims to be standard base for education and artists purposes. It contains over      839 objects for working with audio \, lists \, MIDI \, OSC \, user interface \, etc.;
 #X obj 476 328 ui.lcd @size 150 150 @receive "about-qrcode" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @cols 25 @rows 25;
 #N canvas 1009 305 700 500 qrcode 0;
 #X obj 108 233 s about-qrcode;

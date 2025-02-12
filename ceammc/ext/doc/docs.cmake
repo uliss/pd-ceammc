@@ -319,6 +319,7 @@ set(DOC_FILES
     hw.arduino
     hw.display
     hw.gamepad
+    hw.gpio
     hw.kbd_light
     hw.motu.avb
     hw.printer
