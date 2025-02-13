@@ -18,6 +18,7 @@ void setup_hw_motu_avb();
 void setup_hw_gamepad();
 void setup_hw_printer();
 void setup_hw_gpio();
+void setup_hw_sensor_dht11();
 
 void ceammc_hw_setup()
 {
@@ -31,6 +32,7 @@ void ceammc_hw_setup()
     setup_hw_keyboard_light();
     setup_hw_motu_avb();
     setup_hw_printer();
+    setup_hw_sensor_dht11();
 
 #ifdef WITH_LIBUSB_01
     setup_hw_udmx();

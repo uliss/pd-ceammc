@@ -106,6 +106,8 @@ endif()
 
 # GPIO
 target_sources(ceammc_hw PRIVATE hw_gpio.cpp)
+target_sources(ceammc_hw PRIVATE hw_sensors_dht11.cpp)
+
 
 #if(WITH_EXPERIMENTAL)
 #    add_definitions(-DWITH_LIBUSB_01)
