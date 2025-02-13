@@ -23,6 +23,7 @@ pub mod gamepad;
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
+#[derive(Clone, Copy)]
 /// error callback
 pub struct hw_msg_cb {
     /// pointer to user data (can be NULL)

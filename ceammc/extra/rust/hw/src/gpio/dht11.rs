@@ -122,6 +122,7 @@ pub extern "C" fn ceammc_hw_gpio_dht11_new(
             Ok(dht) => return Box::into_raw(Box::new(dht)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
+                on_err.exec_raw(err.as_ptr());
                 return null_mut();
             }
         }
