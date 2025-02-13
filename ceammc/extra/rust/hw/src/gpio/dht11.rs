@@ -5,7 +5,7 @@ use std::{
 };
 
 use dht11_gpio::{DHT11Controller, DHT11Result, Sensor};
-use log::error;
+use log::{debug, error};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -64,6 +64,8 @@ impl hw_gpio_dht11 {
     }
 
     fn do_measure(sensor: &Arc<Mutex<DHT11Controller>>) -> Result<DHT11Result, String> {
+        debug!("do_measure");
+
         Ok(sensor
             .lock()
             .map_err(|e| e.to_string())?
@@ -76,25 +78,33 @@ impl hw_gpio_dht11 {
         let notify = self.notify.clone();
         let sensor = self.sensor.clone();
 
-        std::thread::spawn(move || match Self::do_measure(&sensor) {
-            Ok(res) => {
-                let data = Reply::Measure(res);
-                let _ = tx
-                    .send(data)
-                    .and_then(|_| Ok(notify.notify()))
-                    .or_else(|e| Err(error!("{e}")));
+        std::thread::spawn(move || {
+            debug!("thread start");
+
+            match Self::do_measure(&sensor) {
+                Ok(res) => {
+                    debug!("measure done {} {}", res.humidity, res.temperature);
+
+                    let data = Reply::Measure(res);
+                    let _ = tx
+                        .send(data)
+                        .and_then(|_| Ok(notify.notify()))
+                        .or_else(|e| Err(error!("{e}")));
+                }
+                Err(err) => {
+                    let _ = tx
+                        .send(Reply::Error(CString::new(err).unwrap_or_default()))
+                        .and_then(|_| Ok(notify.notify()))
+                        .or_else(|e| Err(error!("{e}")));
+                }
             }
-            Err(err) => {
-                let _ = tx
-                    .send(Reply::Error(CString::new(err).unwrap_or_default()))
-                    .and_then(|_| Ok(notify.notify()))
-                    .or_else(|e| Err(error!("{e}")));
-            }
+            debug!("thread done");
         });
     }
 
     fn check_result(&self) {
         while let Ok(res) = self.rx.try_recv() {
+            debug!("check_result");
             match res {
                 Reply::Measure(res) => self.on_data.exec(&res),
                 Reply::Error(msg) => {
