@@ -8,6 +8,8 @@ HwSensorDht11::HwSensorDht11(const PdArgs& args)
 {
     pin_ = new IntProperty("@pin", 4, PropValueAccess::INITONLY);
     pin_->checkClosedRange(0, 255);
+    pin_->setArgIndex(0);
+    addProperty(pin_);
 
     createOutlet();
 }
