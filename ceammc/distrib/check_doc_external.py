@@ -297,7 +297,7 @@ def check_methods(name, doc, ext):
         'zoom',
     }
 
-    ignored_methods |= set(EXT_METHODS)
+    ignored_methods |= set(MOUSE_METHODS)
 
     undoc_methods_set = ext - doc - ignored_methods
     unknown_methods = doc - ext

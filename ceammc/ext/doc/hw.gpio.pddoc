@@ -18,9 +18,36 @@
         </info>
         <methods>
             <method name="input">config pin into input mode
-            <param name="PIN" type="int">pin number</param></method>
+            <param name="PIN" type="int" required="true">pin number</param></method>
             <method name="output">config pin into output mode
-            <param name="PIN" type="int">pin number</param></method>
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="read">read current pin value
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="reset">reset current pin to initial state
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="write">write value to the pin
+            <param name="PIN" type="int" required="true">pin number</param>
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <method name="toggle">toggle output pin current value
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="start_poll">start pin value polling
+            <param name="PIN" type="int" required="true">pin number</param>
+            <param name="DEBOUNCE" type="float" minvalue="0" default="10" units="millisecond">debounce time</param></method>
+            <method name="stop_poll">stop pin value polling
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="pull_up">pull internal pin resistors to high level
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="pull_down">pull internal pin resistors to low level
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="set_pwm">set software PWM for pin<param name="PIN" type="int" required="true">pin number</param>
+            <param name="PERIOD" type="float" units="msec" minvalue="0" required="true">period length</param>
+            <param name="DUTY" type="float" units="msec" minvalue="0" required="true">duty length</param></method>
+            <method name="set_pwm_freq">set software PWM frequency for pin<param name="PIN" type="int" required="true">pin number</param>
+            <param name="FREQ" type="float" units="hertz" minvalue="0" required="true">pwm freq</param>
+            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty cycle length</param></method>
+            <method name="clear_pwm">clear PWM settings for pin<param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="list_pins">method</method>
+
         </methods>
         <inlets>
             <inlet>
@@ -43,15 +70,15 @@
 |
 | [stop_poll 17 #c(   [read 18 #g(
 |
-| [reset 17 #d(       [read 18 #h(
-|
-|                     [set_pwm 18 500 100 #j( [set_pwm_freq 18 4 0.5 #k(
+| [reset 17 #d(       [set_pwm 18 500 100 #j( [set_pwm_freq 18 4 0.5 #k(
 |
 |                     [clear_pwm 18 #l(
 |
+|                     [reset 18 #h(
+|
 [hw.gpio #x]
 |
-[route pins]
+[route pin]
 |
 [ui.dt]
 
