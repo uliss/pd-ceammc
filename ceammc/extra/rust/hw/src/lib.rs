@@ -5,6 +5,7 @@ use std::{
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+#[derive(Clone)]
 pub struct hw_notify_cb {
     /// dispatcher ID
     id: usize,
