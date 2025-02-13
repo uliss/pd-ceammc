@@ -96,6 +96,8 @@ struct ceammc_hw_gpio;
 /// gpio opaque type
 struct ceammc_hw_gpio;
 
+struct ceammc_hw_gpio_dht11;
+
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
     void *user;
@@ -177,6 +179,14 @@ struct ceammc_hw_msg_cb {
     void (*cb)(void*, const char*);
 };
 
+/// error callback
+struct ceammc_hw_dht11_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, double temp, double hum);
+};
+
 /// pin value callback
 struct ceammc_hw_gpio_pin_cb {
     /// pointer to user data (can be NULL)
@@ -242,6 +252,28 @@ bool ceammc_hw_gpio_clear_poll(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 bool ceammc_hw_gpio_clear_pwm(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// free dht11 sensor
+/// @param dht - pointer to DHT11 struct
+void ceammc_hw_gpio_dht11_free(ceammc_hw_gpio_dht11 *dht);
+
+/// request measure
+/// @param dht - pointer to DHT11 struct
+bool ceammc_hw_gpio_dht11_measure(ceammc_hw_gpio_dht11 *dht);
+
+/// create new DHT11 sensor struct
+/// @param pin - connected GPIO pin
+/// @param notify - data check callback
+/// @param on_err - error message callback
+/// @param on_data - data callback
+ceammc_hw_gpio_dht11 *ceammc_hw_gpio_dht11_new(uint8_t pin,
+                                               ceammc_hw_notify_cb notify,
+                                               ceammc_hw_msg_cb on_err,
+                                               ceammc_hw_dht11_cb on_data);
+
+/// check measure data
+/// @param dht - pointer to DHT11 struct
+bool ceammc_hw_gpio_dht11_process(ceammc_hw_gpio_dht11 *dht);
 
 /// create new gpio
 /// @param gpio - pointer to gpio struct
