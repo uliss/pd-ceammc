@@ -75,7 +75,7 @@ impl hw_gpio_dht11 {
         //     .map_err(|e| e.to_string())?)
     }
 
-    fn measure(&mut self) {
+    fn measure(&self) {
         let result = self.result.clone();
         let notify = self.notify.clone();
         let pin = self.pin;
@@ -171,14 +171,14 @@ pub extern "C" fn ceammc_hw_gpio_dht11_free(dht: *mut hw_gpio_dht11) {
 /// request measure
 /// @param dht - pointer to DHT11 struct
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_dht11_measure(dht: *mut hw_gpio_dht11) -> bool {
+pub extern "C" fn ceammc_hw_gpio_dht11_measure(dht: *const hw_gpio_dht11) -> bool {
     gpio_check!({
         if dht.is_null() {
             error!("NULL dht pointer");
             return false;
         }
 
-        let dht = unsafe { &mut *dht };
+        let dht = unsafe { &*dht };
 
         dht.measure();
 
@@ -189,18 +189,14 @@ pub extern "C" fn ceammc_hw_gpio_dht11_measure(dht: *mut hw_gpio_dht11) -> bool 
 /// check measure data
 /// @param dht - pointer to DHT11 struct
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_dht11_process(dht: *mut hw_gpio_dht11) -> bool {
+pub extern "C" fn ceammc_hw_gpio_dht11_process(dht: *const hw_gpio_dht11) -> bool {
     gpio_check!({
-        if !dht.is_null() {
-            drop(unsafe { Box::from_raw(dht) })
-        }
-
         if dht.is_null() {
             error!("NULL dht pointer");
             return false;
         }
 
-        let dht = unsafe { &mut *dht };
+        let dht = unsafe { &*dht };
         dht.check_result();
         true
     });

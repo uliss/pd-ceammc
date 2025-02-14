@@ -259,7 +259,7 @@ void ceammc_hw_gpio_dht11_free(ceammc_hw_gpio_dht11 *dht);
 
 /// request measure
 /// @param dht - pointer to DHT11 struct
-bool ceammc_hw_gpio_dht11_measure(ceammc_hw_gpio_dht11 *dht);
+bool ceammc_hw_gpio_dht11_measure(const ceammc_hw_gpio_dht11 *dht);
 
 /// create new DHT11 sensor struct
 /// @param pin - connected GPIO pin
@@ -273,7 +273,7 @@ ceammc_hw_gpio_dht11 *ceammc_hw_gpio_dht11_new(uint8_t pin,
 
 /// check measure data
 /// @param dht - pointer to DHT11 struct
-bool ceammc_hw_gpio_dht11_process(ceammc_hw_gpio_dht11 *dht);
+bool ceammc_hw_gpio_dht11_process(const ceammc_hw_gpio_dht11 *dht);
 
 /// create new gpio
 /// @param gpio - pointer to gpio struct
