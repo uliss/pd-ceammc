@@ -32,8 +32,7 @@ enum Reply {
 
 pub struct hw_gpio_dht11 {
     sensor: Arc<Mutex<DHT11Controller>>,
-    rx: std::sync::mpsc::Receiver<Reply>,
-    tx: std::sync::mpsc::Sender<Reply>,
+    result: Arc<Mutex<Option<Reply>>>,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
     on_data: hw_dht11_cb,
@@ -51,12 +50,11 @@ impl hw_gpio_dht11 {
                 .map_err(|e| CString::new(e.to_string()).unwrap_or_default())?,
         ));
 
-        let (tx, rx) = std::sync::mpsc::channel();
+        let result = Arc::new(Mutex::new(None));
 
         Ok(hw_gpio_dht11 {
             sensor,
-            rx,
-            tx,
+            result,
             notify,
             on_err,
             on_data,
@@ -74,7 +72,7 @@ impl hw_gpio_dht11 {
     }
 
     fn measure(&mut self) {
-        let tx = self.tx.clone();
+        let result = self.result.clone();
         let notify = self.notify.clone();
         let sensor = self.sensor.clone();
 
@@ -86,16 +84,16 @@ impl hw_gpio_dht11 {
                     debug!("measure done {} {}", res.humidity, res.temperature);
 
                     let data = Reply::Measure(res);
-                    let _ = tx
-                        .send(data)
-                        .and_then(|_| Ok(notify.notify()))
-                        .or_else(|e| Err(error!("{e}")));
+                    result.lock().unwrap().replace(data);
+                    notify.notify();
                 }
                 Err(err) => {
-                    let _ = tx
-                        .send(Reply::Error(CString::new(err).unwrap_or_default()))
-                        .and_then(|_| Ok(notify.notify()))
-                        .or_else(|e| Err(error!("{e}")));
+                    error!("measure err: {err}");
+                    result
+                        .lock()
+                        .unwrap()
+                        .replace(Reply::Error(CString::new(err).unwrap_or_default()));
+                    notify.notify();
                 }
             }
             debug!("thread done");
@@ -103,13 +101,19 @@ impl hw_gpio_dht11 {
     }
 
     fn check_result(&self) {
-        while let Ok(res) = self.rx.try_recv() {
-            debug!("check_result");
-            match res {
-                Reply::Measure(res) => self.on_data.exec(&res),
-                Reply::Error(msg) => {
-                    self.on_err.exec_raw(msg.as_ptr());
-                }
+        debug!("check result");
+        match self.result.try_lock() {
+            Ok(res) => match res.as_ref() {
+                Some(reply) => match reply {
+                    Reply::Measure(res) => {
+                        self.on_data.exec(res);
+                    }
+                    Reply::Error(cstring) => self.on_err.exec_raw(cstring.as_ptr()),
+                },
+                None => self.on_err.exec("None"),
+            },
+            Err(err) => {
+                self.on_err.exec(err.to_string().as_str());
             }
         }
     }
