@@ -183,7 +183,7 @@ struct ceammc_hw_msg_cb {
 struct ceammc_hw_dht11_cb {
     /// pointer to user data (can be NULL)
     void *user;
-    /// can not be NULL
+    /// not NULL!
     void (*cb)(void*, double temp, double hum);
 };
 

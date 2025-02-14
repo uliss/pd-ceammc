@@ -36,6 +36,8 @@ void HwSensorDht11::initDone()
                  return;
 
              AtomArray<2> data;
+             data[0] = temp;
+             data[1] = hum;
              obj->listTo(0, data.view());
          } });
 }

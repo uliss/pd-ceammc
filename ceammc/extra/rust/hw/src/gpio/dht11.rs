@@ -15,7 +15,7 @@ use crate::{hw_msg_cb, hw_notify_cb};
 pub struct hw_dht11_cb {
     /// pointer to user data (can be NULL)
     user: *mut c_void,
-    /// can not be NULL
+    /// not NULL!
     cb: extern "C" fn(*mut c_void, temp: f64, hum: f64),
 }
 
@@ -31,8 +31,7 @@ enum Reply {
 }
 
 pub struct hw_gpio_dht11 {
-    // sensor: Arc<Mutex<DHT11Controller>>,
-    pin: u8,
+    sensor: Arc<Mutex<DHT11Controller>>,
     result: Arc<Mutex<Option<Reply>>>,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
@@ -47,10 +46,13 @@ impl hw_gpio_dht11 {
         on_data: hw_dht11_cb,
     ) -> Result<Self, CString> {
         let result = Arc::new(Mutex::new(None));
+        let sensor = Arc::new(Mutex::new(
+            DHT11Controller::new(pin)
+                .map_err(|e| CString::new(e.to_string()).unwrap_or_default())?,
+        ));
 
         Ok(hw_gpio_dht11 {
-            // sensor,
-            pin,
+            sensor,
             result,
             notify,
             on_err,
@@ -58,33 +60,25 @@ impl hw_gpio_dht11 {
         })
     }
 
-    fn do_measure(pin: u8) -> Result<DHT11Result, String> {
+    fn do_measure(sensor: &Arc<Mutex<DHT11Controller>>) -> Result<DHT11Result, String> {
         debug!("do_measure");
 
-        Ok(DHT11Controller::new(pin)
+        Ok(sensor
+            .lock()
             .map_err(|e| e.to_string())?
             .read_sensor_data()
             .map_err(|e| e.to_string())?)
-
-        // Ok(sensor)
-
-        // Ok(sensor
-        //     .lock()
-        //     .map_err(|e| e.to_string())?
-        //     .read_sensor_data()
-        //     .map_err(|e| e.to_string())?)
     }
 
     fn measure(&self) {
         let result = self.result.clone();
         let notify = self.notify.clone();
-        let pin = self.pin;
-        // let sensor = self.sensor.clone();
+        let sensor = self.sensor.clone();
 
         std::thread::spawn(move || {
             debug!("thread start");
 
-            match Self::do_measure(pin) {
+            match Self::do_measure(&sensor) {
                 Ok(res) => {
                     debug!("measure done {} {}", res.humidity, res.temperature);
 
@@ -103,26 +97,16 @@ impl hw_gpio_dht11 {
             }
             debug!("thread done");
         });
-        debug!(
-            "arc result: {} {}",
-            Arc::strong_count(&self.result),
-            Arc::weak_count(&self.result)
-        );
     }
 
     fn check_result(&self) {
-        debug!(
-            "check result: {} {}",
-            Arc::strong_count(&self.result),
-            Arc::weak_count(&self.result)
-        );
         match self.result.lock() {
             Ok(res) => match res.as_ref() {
                 Some(reply) => match reply {
                     Reply::Measure(res) => {
                         self.on_data.exec(res);
                     }
-                    Reply::Error(cstring) => self.on_err.exec_raw(cstring.as_ptr()),
+                    Reply::Error(msg) => self.on_err.exec_raw(msg.as_ptr()),
                 },
                 None => self.on_err.exec("None"),
             },
