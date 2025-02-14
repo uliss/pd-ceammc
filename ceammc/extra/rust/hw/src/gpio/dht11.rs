@@ -31,7 +31,8 @@ enum Reply {
 }
 
 pub struct hw_gpio_dht11 {
-    sensor: Arc<Mutex<DHT11Controller>>,
+    // sensor: Arc<Mutex<DHT11Controller>>,
+    pin: u8,
     result: Arc<Mutex<Option<Reply>>>,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
@@ -45,15 +46,11 @@ impl hw_gpio_dht11 {
         on_err: hw_msg_cb,
         on_data: hw_dht11_cb,
     ) -> Result<Self, CString> {
-        let sensor = Arc::new(Mutex::new(
-            DHT11Controller::new(pin)
-                .map_err(|e| CString::new(e.to_string()).unwrap_or_default())?,
-        ));
-
         let result = Arc::new(Mutex::new(None));
 
         Ok(hw_gpio_dht11 {
-            sensor,
+            // sensor,
+            pin,
             result,
             notify,
             on_err,
@@ -61,25 +58,33 @@ impl hw_gpio_dht11 {
         })
     }
 
-    fn do_measure(sensor: &Arc<Mutex<DHT11Controller>>) -> Result<DHT11Result, String> {
+    fn do_measure(pin: u8) -> Result<DHT11Result, String> {
         debug!("do_measure");
 
-        Ok(sensor
-            .lock()
+        Ok(DHT11Controller::new(pin)
             .map_err(|e| e.to_string())?
             .read_sensor_data()
             .map_err(|e| e.to_string())?)
+
+        // Ok(sensor)
+
+        // Ok(sensor
+        //     .lock()
+        //     .map_err(|e| e.to_string())?
+        //     .read_sensor_data()
+        //     .map_err(|e| e.to_string())?)
     }
 
     fn measure(&mut self) {
         let result = self.result.clone();
         let notify = self.notify.clone();
-        let sensor = self.sensor.clone();
+        let pin = self.pin;
+        // let sensor = self.sensor.clone();
 
         std::thread::spawn(move || {
             debug!("thread start");
 
-            match Self::do_measure(&sensor) {
+            match Self::do_measure(pin) {
                 Ok(res) => {
                     debug!("measure done {} {}", res.humidity, res.temperature);
 
@@ -98,10 +103,19 @@ impl hw_gpio_dht11 {
             }
             debug!("thread done");
         });
+        debug!(
+            "arc result: {} {}",
+            Arc::strong_count(&self.result),
+            Arc::weak_count(&self.result)
+        );
     }
 
     fn check_result(&self) {
-        debug!("check result: {} {}", Arc::strong_count(&self.result), Arc::weak_count(&self.result));
+        debug!(
+            "check result: {} {}",
+            Arc::strong_count(&self.result),
+            Arc::weak_count(&self.result)
+        );
         match self.result.lock() {
             Ok(res) => match res.as_ref() {
                 Some(reply) => match reply {
