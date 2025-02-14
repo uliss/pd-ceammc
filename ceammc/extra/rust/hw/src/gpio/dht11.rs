@@ -101,8 +101,8 @@ impl hw_gpio_dht11 {
     }
 
     fn check_result(&self) {
-        debug!("check result");
-        match self.result.try_lock() {
+        debug!("check result: {} {}", Arc::strong_count(&self.result), Arc::weak_count(&self.result));
+        match self.result.lock() {
             Ok(res) => match res.as_ref() {
                 Some(reply) => match reply {
                     Reply::Measure(res) => {
