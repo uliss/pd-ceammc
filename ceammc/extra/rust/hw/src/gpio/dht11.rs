@@ -1,7 +1,7 @@
 use std::{
     ffi::{c_void, CString},
     ptr::null_mut,
-    sync::{Arc, Mutex},
+    sync::{mpsc::TryRecvError, Arc, Mutex},
     time::Duration,
 };
 
@@ -34,7 +34,6 @@ enum Reply {
 enum Request {
     Poll(bool),
     OneShot,
-    Quit,
 }
 
 pub struct hw_gpio_dht11 {
@@ -74,29 +73,30 @@ impl hw_gpio_dht11 {
             let mut dht11 = dht11.unwrap();
             let mut cycle_mode = false;
 
-            'outer: loop {
-                'inner: while let Ok(req) = rx.recv_timeout(Duration::from_millis(200)) {
-                    match req {
+            loop {
+                match rx.try_recv() {
+                    Ok(req) => match req {
                         Request::Poll(state) => {
                             cycle_mode = state;
-
-                            if cycle_mode {
-                                break 'inner;
-                            }
                         }
                         Request::OneShot => {
                             cycle_mode = false;
                             Self::proc_sensor_data(&mut dht11, &result2, &notify);
                         }
-                        Request::Quit => break 'outer,
-                    }
-                }
+                    },
+                    Err(err) => match err {
+                        TryRecvError::Empty => std::thread::sleep(Duration::from_millis(200)),
+                        TryRecvError::Disconnected => break,
+                    },
+                };
 
                 if cycle_mode {
                     Self::proc_sensor_data(&mut dht11, &result2, &notify);
                     std::thread::sleep(Duration::from_millis(1000));
                 }
             }
+
+            debug!("thread done");
         });
 
         Ok(hw_gpio_dht11 {
@@ -190,12 +190,6 @@ pub extern "C" fn ceammc_hw_gpio_dht11_new(
 pub extern "C" fn ceammc_hw_gpio_dht11_free(dht: *mut hw_gpio_dht11) {
     gpio_check!((), {
         if !dht.is_null() {
-            let dht11 = unsafe { &*dht };
-            if let Err(err) = dht11.tx.send(Request::Quit) {
-                error!("{err}");
-                dht11.on_err.exec(err.to_string().as_str());
-            }
-
             drop(unsafe { Box::from_raw(dht) })
         }
     });
