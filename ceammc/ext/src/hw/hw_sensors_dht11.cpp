@@ -1,4 +1,5 @@
 #include "hw_sensors_dht11.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
@@ -47,6 +48,15 @@ void HwSensorDht11::onBang()
     ceammc_hw_gpio_dht11_measure(dht_);
 }
 
+void HwSensorDht11::m_poll(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker args("STATE:b");
+    if (!args.check(lv, this))
+        return args.usage(this, s);
+
+    ceammc_hw_gpio_dht11_poll(dht_, lv.boolAt(0, false));
+}
+
 bool HwSensorDht11::notify(int /*code*/)
 {
     return ceammc_hw_gpio_dht11_process(dht_);
@@ -55,4 +65,5 @@ bool HwSensorDht11::notify(int /*code*/)
 void setup_hw_sensor_dht11()
 {
     ObjectFactory<HwSensorDht11> obj("hw.sensor.dht11");
+    obj.addMethod("poll", &HwSensorDht11::m_poll);
 }

@@ -17,9 +17,10 @@ public:
     ~HwSensorDht11();
 
     void initDone() final;
+    bool notify(int code) final;
 
     void onBang() final;
-    bool notify(int code) final;
+    void m_poll(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_sensor_dht11();
