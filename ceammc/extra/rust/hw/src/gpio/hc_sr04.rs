@@ -2,11 +2,12 @@ use std::{
     ffi::{c_void, CString},
     ptr::null_mut,
     sync::{mpsc::TryRecvError, Arc, Mutex},
-    time::Duration,
+    time::{Duration, Instant},
 };
 
 use hc_sr04::{HcSr04, Unit};
 use log::{debug, error};
+use rppal::gpio::{Event, Level, Trigger};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -28,7 +29,7 @@ impl hw_sr04_cb {
 
 #[derive(Debug)]
 enum Reply {
-    Measure(Option<f32>),
+    Measure(f32),
     Error(CString),
 }
 
@@ -95,7 +96,7 @@ impl hw_gpio_sr04 {
                         TryRecvError::Empty => {
                             debug!("sleep");
                             std::thread::sleep(Duration::from_millis(1000));
-                        },
+                        }
                         TryRecvError::Disconnected => break,
                     },
                 };
@@ -132,17 +133,71 @@ impl hw_gpio_sr04 {
         result: &Arc<Mutex<Option<Reply>>>,
         notify: &hw_notify_cb,
     ) {
-        let reply = sensor
-            .measure_distance(Unit::Centimeters)
-            .map(|res| Reply::Measure(res))
-            .unwrap_or_else(|err| Reply::Error(CString::new(err.to_string()).unwrap_or_default()));
+        let gpio = rppal::gpio::Gpio::new().unwrap();
+
+        let mut echo = gpio.get(6).unwrap().into_input_pulldown();
+        echo.set_interrupt(Trigger::Both, None).unwrap();
+        let mut trig = gpio.get(5).unwrap().into_output_low();
+
+        trig.set_high();
+        std::thread::sleep(Duration::from_micros(10));
+        trig.set_low();
+
+        // Wait for the `RisingEdge` by ensuring the resulting level is `Level::High`.
+        while let Ok(x) = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
+            match x {
+                Some(event) => {
+                    if event.trigger != Trigger::RisingEdge {
+                        continue;
+                    } else {
+                        debug!("up");
+                        break;
+                    }
+                }
+                None => continue,
+            }
+        }
+
+        debug!("now");
+
+        let instant = Instant::now();
+
+        // Wait for the `RisingEdge` by ensuring the resulting level is `Level::High`.
+        while let Ok(x) = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
+            match x {
+                Some(event) => {
+                    if event.trigger != Trigger::FallingEdge {
+                        continue;
+                    } else {
+                        debug!("down");
+                        break;
+                    }
+                }
+                None => continue,
+            }
+        }
+
+        // Distance in m.
+        let reply = (330.0 * instant.elapsed().as_secs_f32()) / 2.;
+
+        // Ok(Some(match unit {
+        //     Unit::Millimeters => distance * 1000.,
+        //     Unit::Centimeters => distance * 100.,
+        //     Unit::Decimeters => distance * 10.,
+        //     Unit::Meters => distance,
+        // }))
+
+        // let reply = sensor
+        //     .measure_distance(Unit::Centimeters)
+        //     .map(|res| Reply::Measure(res))
+        //     .unwrap_or_else(|err| Reply::Error(CString::new(err.to_string()).unwrap_or_default()));
 
         debug!("measure: {reply:?}");
 
         result
             .lock()
             .and_then(|mut m| {
-                m.replace(reply);
+                m.replace(Reply::Measure(reply));
                 notify.notify();
                 Ok(())
             })
@@ -156,7 +211,8 @@ impl hw_gpio_sr04 {
             Ok(res) => match res.as_ref() {
                 Some(reply) => match reply {
                     Reply::Measure(res) => {
-                        res.map(|f| self.on_data.exec(f));
+                        self.on_data.exec(*res);
+                        // res.map(|f| self.on_data.exec(f));
                     }
                     Reply::Error(msg) => self.on_err.exec_raw(msg.as_ptr()),
                 },
