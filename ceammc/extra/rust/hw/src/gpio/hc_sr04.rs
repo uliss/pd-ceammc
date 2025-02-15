@@ -140,7 +140,7 @@ impl hw_gpio_sr04 {
 
         let mut echo = gpio.get(echo_pin).unwrap().into_input_pulldown();
         if let Err(err) = echo.set_interrupt(Trigger::Both, None) {
-            error!("{err}");
+            error!("echo pin: {err}");
             return;
         }
 
