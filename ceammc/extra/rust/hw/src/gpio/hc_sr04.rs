@@ -152,14 +152,17 @@ impl hw_gpio_sr04 {
         std::thread::sleep(Duration::from_micros(10));
         trig.set_low();
 
+        let mut t0 = Duration::new(0, 0);
+        let mut t1 = Duration::new(0, 0);
+
         // Wait for the `RisingEdge` by ensuring the resulting level is `Level::High`.
         while let Ok(x) = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
             match x {
                 Some(ev) => match ev.trigger {
                     Trigger::RisingEdge => {
-                        debug!("up");
-                        break
-                    },
+                        t0 = ev.timestamp;
+                        break;
+                    }
                     _ => continue,
                 },
                 None => break,
@@ -174,9 +177,10 @@ impl hw_gpio_sr04 {
             match x {
                 Some(ev) => match ev.trigger {
                     Trigger::FallingEdge => {
+                        t1 = ev.timestamp;
                         debug!("down");
-                        break
-                    },
+                        break;
+                    }
                     _ => continue,
                 },
                 None => break,
@@ -184,7 +188,7 @@ impl hw_gpio_sr04 {
         }
 
         // Distance in m.
-        let reply = (330.0 * instant.elapsed().as_secs_f32()) / 2.;
+        let reply = (1000.0 * 330.0 * (t1 - t0).as_secs_f32()) / 2.;
 
         // Ok(Some(match unit {
         //     Unit::Millimeters => distance * 1000.,
