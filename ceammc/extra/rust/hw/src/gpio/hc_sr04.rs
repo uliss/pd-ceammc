@@ -153,7 +153,7 @@ impl hw_gpio_sr04 {
         trig.set_low();
 
         // Wait for the `RisingEdge` by ensuring the resulting level is `Level::High`.
-        while let Ok(x) = echo.poll_interrupt(true, Some(Duration::from_millis(1000))) {
+        while let Ok(x) = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
             match x {
                 Some(ev) => match ev.trigger {
                     Trigger::RisingEdge => {
@@ -170,7 +170,7 @@ impl hw_gpio_sr04 {
 
         let instant = Instant::now();
 
-        while let Ok(x) = echo.poll_interrupt(true, Some(Duration::from_millis(1000))) {
+        while let Ok(x) = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
             match x {
                 Some(ev) => match ev.trigger {
                     Trigger::FallingEdge => {
