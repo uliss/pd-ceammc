@@ -71,9 +71,7 @@ impl hw_gpio_dht11 {
                 return;
             }
 
-            let dht11 = dht11.unwrap();
-
-            let sensor = Arc::new(Mutex::new(dht11));
+            let mut dht11 = dht11.unwrap();
             let mut cycle_mode = false;
 
             'outer: loop {
@@ -88,15 +86,15 @@ impl hw_gpio_dht11 {
                         }
                         Request::OneShot => {
                             cycle_mode = false;
-                            Self::proc_sensor_data(&sensor, &result2, &notify);
+                            Self::proc_sensor_data(&mut dht11, &result2, &notify);
                         }
                         Request::Quit => break 'outer,
                     }
                 }
 
                 if cycle_mode {
-                    Self::proc_sensor_data(&sensor, &result2, &notify);
-                    std::thread::sleep(Duration::from_millis(200));
+                    Self::proc_sensor_data(&mut dht11, &result2, &notify);
+                    std::thread::sleep(Duration::from_millis(1000));
                 }
             }
         });
@@ -119,27 +117,18 @@ impl hw_gpio_dht11 {
         }
     }
 
-    fn read_sensor_data(sensor: &Arc<Mutex<DHT11Controller>>) -> Result<DHT11Result, String> {
-        debug!("do_measure");
-
-        Ok(sensor
-            .lock()
-            .map_err(|e| e.to_string())?
-            .read_sensor_data()
-            .map_err(|e| e.to_string())?)
-    }
-
     fn proc_sensor_data(
-        sensor: &Arc<Mutex<DHT11Controller>>,
+        sensor: &mut DHT11Controller,
         result: &Arc<Mutex<Option<Reply>>>,
         notify: &hw_notify_cb,
     ) {
-        let reply = Self::read_sensor_data(&sensor)
+        let reply = sensor
+            .read_sensor_data()
             .map(|res| {
                 debug!("measure done t={}°C h={}", res.temperature, res.humidity);
                 Reply::Measure(res)
             })
-            .unwrap_or_else(|err| Reply::Error(CString::new(err).unwrap_or_default()));
+            .unwrap_or_else(|err| Reply::Error(CString::new(err.to_string()).unwrap_or_default()));
 
         result
             .lock()
