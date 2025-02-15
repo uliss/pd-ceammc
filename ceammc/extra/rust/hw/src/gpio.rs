@@ -94,6 +94,9 @@ mod gpio_impl;
 #[cfg(target_os = "linux")]
 mod dht11;
 
+#[cfg(target_os = "linux")]
+mod hc_sr04;
+
 /// create new gpio
 /// @param on_err - on error callback for output error messages
 /// @param on_dbg - on error callback for output error messages

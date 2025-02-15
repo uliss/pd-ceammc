@@ -98,6 +98,8 @@ struct ceammc_hw_gpio;
 
 struct ceammc_hw_gpio_dht11;
 
+struct ceammc_hw_gpio_sr04;
+
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
     void *user;
@@ -206,6 +208,14 @@ struct ceammc_hw_gpio_pin_list_cb {
 struct ceammc_hw_gpio_poll_cb {
     size_t id;
     void (*cb)(size_t id, int data);
+};
+
+/// error callback
+struct ceammc_hw_sr04_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// not NULL!
+    void (*cb)(void*, float distance);
 };
 
 struct ceammc_hw_print_options {
@@ -350,6 +360,30 @@ bool ceammc_hw_gpio_set_pwm(ceammc_hw_gpio *gp, uint8_t pin, double period, doub
 /// @param freq - freq in Hertz
 /// @param duty_cycle - duty cycle in % [0-100] range
 bool ceammc_hw_gpio_set_pwm_freq(ceammc_hw_gpio *gp, uint8_t pin, double freq, double duty_cycle);
+
+/// free dht11 sensor
+/// @param sr04 - pointer to SR04 struct
+void ceammc_hw_gpio_sr04_free(ceammc_hw_gpio_sr04 *sr04);
+
+/// singe measure request
+/// @param sr04 - pointer to SR04 struct
+bool ceammc_hw_gpio_sr04_measure(const ceammc_hw_gpio_sr04 *sr04);
+
+/// create new SR04 sensor struct
+/// @param trigger_pin - connected GPIO pin
+/// @param trigger_pin - connected GPIO pin
+/// @param notify - data check callback
+/// @param on_err - error message callback
+/// @param on_data - data callback
+ceammc_hw_gpio_sr04 *ceammc_hw_gpio_sr04_new(uint8_t trigger_pin,
+                                             uint8_t echo_pin,
+                                             ceammc_hw_notify_cb notify,
+                                             ceammc_hw_msg_cb on_err,
+                                             ceammc_hw_sr04_cb on_data);
+
+/// check measure data
+/// @param sr04 - pointer to SR04 struct
+bool ceammc_hw_gpio_sr04_process(const ceammc_hw_gpio_sr04 *sr04);
 
 /// toggle pin level
 /// @param gpio - pointer to gpio struct
