@@ -74,6 +74,8 @@ impl hw_gpio_sr04 {
                 return;
             }
 
+            debug!("create HcSr04 with trig [{trigger_pin}], echo [{echo_pin}]");
+
             let mut sr04 = sr04.unwrap();
             let mut cycle_mode = false;
 
@@ -84,12 +86,16 @@ impl hw_gpio_sr04 {
                             cycle_mode = state;
                         }
                         Request::OneShot => {
+                            debug!("one shot");
                             cycle_mode = false;
                             Self::proc_sensor_data(&mut sr04, &result2, &notify);
                         }
                     },
                     Err(err) => match err {
-                        TryRecvError::Empty => std::thread::sleep(Duration::from_millis(20)),
+                        TryRecvError::Empty => {
+                            debug!("sleep");
+                            std::thread::sleep(Duration::from_millis(1000));
+                        },
                         TryRecvError::Disconnected => break,
                     },
                 };
