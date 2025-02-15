@@ -26,6 +26,7 @@ impl hw_sr04_cb {
     }
 }
 
+#[derive(Debug)]
 enum Reply {
     Measure(Option<f32>),
     Error(CString),
@@ -62,9 +63,11 @@ impl hw_gpio_sr04 {
             let sr04 = HcSr04::new(trigger_pin, echo_pin, None);
             if let Err(err) = &sr04 {
                 if let Err(err) = result2.lock().and_then(|mut x| {
-                    Ok(x.replace(Reply::Error(
+                    let r = x.replace(Reply::Error(
                         CString::new(err.to_string()).unwrap_or_default(),
-                    )))
+                    ));
+                    notify.notify();
+                    Ok(r)
                 }) {
                     error!("{err}");
                 }
@@ -127,6 +130,8 @@ impl hw_gpio_sr04 {
             .measure_distance(Unit::Centimeters)
             .map(|res| Reply::Measure(res))
             .unwrap_or_else(|err| Reply::Error(CString::new(err.to_string()).unwrap_or_default()));
+
+        debug!("measure: {reply:?}");
 
         result
             .lock()
