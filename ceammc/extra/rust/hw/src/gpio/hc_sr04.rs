@@ -61,23 +61,23 @@ impl hw_gpio_sr04 {
         std::thread::spawn(move || {
             debug!("thread start");
 
-            let sr04 = HcSr04::new(trigger_pin, echo_pin, None);
-            if let Err(err) = &sr04 {
-                if let Err(err) = result2.lock().and_then(|mut x| {
-                    let r = x.replace(Reply::Error(
-                        CString::new(err.to_string()).unwrap_or_default(),
-                    ));
-                    notify.notify();
-                    Ok(r)
-                }) {
-                    error!("{err}");
-                }
-                return;
-            }
+            // let sr04 = HcSr04::new(trigger_pin, echo_pin, None);
+            // if let Err(err) = &sr04 {
+            //     if let Err(err) = result2.lock().and_then(|mut x| {
+            //         let r = x.replace(Reply::Error(
+            //             CString::new(err.to_string()).unwrap_or_default(),
+            //         ));
+            //         notify.notify();
+            //         Ok(r)
+            //     }) {
+            //         error!("{err}");
+            //     }
+            //     return;
+            // }
 
-            debug!("create HcSr04 with trig [{trigger_pin}], echo [{echo_pin}]");
+            // debug!("create HcSr04 with trig [{trigger_pin}], echo [{echo_pin}]");
 
-            let mut sr04 = sr04.unwrap();
+            // let mut sr04 = sr04.unwrap();
             let mut cycle_mode = false;
 
             loop {
@@ -89,7 +89,7 @@ impl hw_gpio_sr04 {
                         Request::OneShot => {
                             debug!("one shot");
                             cycle_mode = false;
-                            Self::proc_sensor_data(&mut sr04, &result2, &notify);
+                            Self::proc_sensor_data(trigger_pin, echo_pin, &result2, &notify);
                         }
                     },
                     Err(err) => match err {
@@ -102,7 +102,7 @@ impl hw_gpio_sr04 {
                 };
 
                 if cycle_mode {
-                    Self::proc_sensor_data(&mut sr04, &result2, &notify);
+                    Self::proc_sensor_data(trigger_pin, echo_pin, &result2, &notify);
                     std::thread::sleep(Duration::from_millis(1000));
                 }
             }
@@ -129,7 +129,8 @@ impl hw_gpio_sr04 {
     }
 
     fn proc_sensor_data(
-        sensor: &mut HcSr04,
+        trig_pin: u8,
+        echo_pin: u8,
         result: &Arc<Mutex<Option<Reply>>>,
         notify: &hw_notify_cb,
     ) {
@@ -137,15 +138,15 @@ impl hw_gpio_sr04 {
         let gpio = rppal::gpio::Gpio::new().unwrap();
         debug!("gpio init");
 
-        let mut echo = gpio.get(6).unwrap().into_input_pulldown();
+        let mut echo = gpio.get(echo_pin).unwrap().into_input_pulldown();
         if let Err(err) = echo.set_interrupt(Trigger::Both, None) {
             error!("{err}");
             return;
         }
-        
-        let mut trig = gpio.get(5).unwrap().into_output_low();
 
-        debug!("init pins");
+        let mut trig = gpio.get(trig_pin).unwrap().into_output_low();
+
+        debug!("init pins: {trig_pin} {echo_pin}");
 
         trig.set_high();
         std::thread::sleep(Duration::from_micros(10));
