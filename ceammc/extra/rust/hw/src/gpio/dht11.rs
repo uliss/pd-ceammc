@@ -96,6 +96,7 @@ impl hw_gpio_dht11 {
 
                 if cycle_mode {
                     Self::proc_sensor_data(&sensor, &result2, &notify);
+                    std::thread::sleep(Duration::from_millis(200));
                 }
             }
         });
