@@ -153,50 +153,33 @@ impl hw_gpio_sr04 {
         trig.set_low();
 
         // Wait for the `RisingEdge` by ensuring the resulting level is `Level::High`.
-        while let x = echo.poll_interrupt(true, Some(Duration::from_millis(1000))) {
-            // debug!("{x:?}");
+        while let Ok(x) = echo.poll_interrupt(true, Some(Duration::from_millis(1000))) {
             match x {
-                Ok(x) => {
-                    match x {
-                        Some(ev) => {
-                            debug!("{ev:?}");
-                        },
-                        None => {},
-                    }
+                Some(ev) => match ev.trigger {
+                    Trigger::RisingEdge => {
+                        debug!("up");
+                        break
+                    },
+                    _ => continue,
                 },
-                Err(err) => {
-                    error!("{err}");
-                },
+                None => break,
             }
-            // match x {
-            //     Some(event) => {
-            //         if event.trigger != Trigger::RisingEdge {
-            //             continue;
-            //         } else {
-            //             debug!("up");
-            //             break;
-            //         }
-            //     }
-            //     None => continue,
-            // }
         }
 
         debug!("now");
 
         let instant = Instant::now();
 
-        // Wait for the `RisingEdge` by ensuring the resulting level is `Level::High`.
-        while let Ok(x) = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
+        while let Ok(x) = echo.poll_interrupt(true, Some(Duration::from_millis(1000))) {
             match x {
-                Some(event) => {
-                    if event.trigger != Trigger::FallingEdge {
-                        continue;
-                    } else {
+                Some(ev) => match ev.trigger {
+                    Trigger::FallingEdge => {
                         debug!("down");
-                        break;
-                    }
-                }
-                None => continue,
+                        break
+                    },
+                    _ => continue,
+                },
+                None => break,
             }
         }
 
