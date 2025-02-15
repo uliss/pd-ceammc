@@ -138,7 +138,11 @@ impl hw_gpio_sr04 {
         debug!("gpio init");
 
         let mut echo = gpio.get(6).unwrap().into_input_pulldown();
-        echo.set_interrupt(Trigger::Both, None).unwrap();
+        if let Err(err) = echo.set_interrupt(Trigger::Both, None) {
+            error!("{err}");
+            return;
+        }
+        
         let mut trig = gpio.get(5).unwrap().into_output_low();
 
         debug!("init pins");
