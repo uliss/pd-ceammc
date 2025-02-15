@@ -2,6 +2,7 @@ use std::{
     ffi::{c_void, CString},
     ptr::null_mut,
     sync::{Arc, Mutex},
+    time::Duration,
 };
 
 use dht11_gpio::{DHT11Controller, DHT11Result, Sensor};
@@ -30,10 +31,15 @@ enum Reply {
     Error(CString),
 }
 
+enum Request {
+    Poll(bool),
+    OneShot,
+    Quit,
+}
+
 pub struct hw_gpio_dht11 {
-    sensor: Arc<Mutex<DHT11Controller>>,
     result: Arc<Mutex<Option<Reply>>>,
-    notify: hw_notify_cb,
+    tx: std::sync::mpsc::Sender<Request>,
     on_err: hw_msg_cb,
     on_data: hw_dht11_cb,
 }
@@ -46,21 +52,73 @@ impl hw_gpio_dht11 {
         on_data: hw_dht11_cb,
     ) -> Result<Self, CString> {
         let result = Arc::new(Mutex::new(None));
-        let sensor = Arc::new(Mutex::new(
-            DHT11Controller::new(pin)
-                .map_err(|e| CString::new(e.to_string()).unwrap_or_default())?,
-        ));
+        let result2 = result.clone();
+
+        let (tx, rx) = std::sync::mpsc::channel();
+
+        std::thread::spawn(move || {
+            debug!("thread start");
+
+            let dht11 = DHT11Controller::new(pin);
+            if let Err(err) = &dht11 {
+                if let Err(err) = result2.lock().and_then(|mut x| {
+                    Ok(x.replace(Reply::Error(
+                        CString::new(err.to_string()).unwrap_or_default(),
+                    )))
+                }) {
+                    error!("{err}");
+                }
+                return;
+            }
+
+            let dht11 = dht11.unwrap();
+
+            let sensor = Arc::new(Mutex::new(dht11));
+            let mut cycle_mode = false;
+
+            'outer: loop {
+                'inner: while let Ok(req) = rx.recv_timeout(Duration::from_millis(200)) {
+                    match req {
+                        Request::Poll(state) => {
+                            cycle_mode = state;
+
+                            if cycle_mode {
+                                break 'inner;
+                            }
+                        }
+                        Request::OneShot => {
+                            cycle_mode = false;
+                            Self::proc_sensor_data(&sensor, &result2, &notify);
+                        }
+                        Request::Quit => break 'outer,
+                    }
+                }
+
+                if cycle_mode {
+                    Self::proc_sensor_data(&sensor, &result2, &notify);
+                }
+            }
+        });
 
         Ok(hw_gpio_dht11 {
-            sensor,
             result,
-            notify,
+            tx,
             on_err,
             on_data,
         })
     }
 
-    fn do_measure(sensor: &Arc<Mutex<DHT11Controller>>) -> Result<DHT11Result, String> {
+    fn send(&self, req: Request) -> bool {
+        if let Err(err) = self.tx.send(req) {
+            error!("{err}");
+            self.on_err.exec(err.to_string().as_str());
+            false
+        } else {
+            true
+        }
+    }
+
+    fn read_sensor_data(sensor: &Arc<Mutex<DHT11Controller>>) -> Result<DHT11Result, String> {
         debug!("do_measure");
 
         Ok(sensor
@@ -70,33 +128,28 @@ impl hw_gpio_dht11 {
             .map_err(|e| e.to_string())?)
     }
 
-    fn measure(&self) {
-        let result = self.result.clone();
-        let notify = self.notify.clone();
-        let sensor = self.sensor.clone();
+    fn proc_sensor_data(
+        sensor: &Arc<Mutex<DHT11Controller>>,
+        result: &Arc<Mutex<Option<Reply>>>,
+        notify: &hw_notify_cb,
+    ) {
+        let reply = Self::read_sensor_data(&sensor)
+            .map(|res| {
+                debug!("measure done t={}°C h={}", res.temperature, res.humidity);
+                Reply::Measure(res)
+            })
+            .unwrap_or_else(|err| Reply::Error(CString::new(err).unwrap_or_default()));
 
-        std::thread::spawn(move || {
-            debug!("thread start");
-
-            match Self::do_measure(&sensor) {
-                Ok(res) => {
-                    debug!("measure done {} {}", res.humidity, res.temperature);
-
-                    let data = Reply::Measure(res);
-                    result.lock().unwrap().replace(data);
-                    notify.notify();
-                }
-                Err(err) => {
-                    error!("measure err: {err}");
-                    result
-                        .lock()
-                        .unwrap()
-                        .replace(Reply::Error(CString::new(err).unwrap_or_default()));
-                    notify.notify();
-                }
-            }
-            debug!("thread done");
-        });
+        result
+            .lock()
+            .and_then(|mut m| {
+                m.replace(reply);
+                notify.notify();
+                Ok(())
+            })
+            .unwrap_or_else(|err| {
+                error!("{err}");
+            });
     }
 
     fn check_result(&self) {
@@ -147,12 +200,18 @@ pub extern "C" fn ceammc_hw_gpio_dht11_new(
 pub extern "C" fn ceammc_hw_gpio_dht11_free(dht: *mut hw_gpio_dht11) {
     gpio_check!((), {
         if !dht.is_null() {
+            let dht11 = unsafe { &*dht };
+            if let Err(err) = dht11.tx.send(Request::Quit) {
+                error!("{err}");
+                dht11.on_err.exec(err.to_string().as_str());
+            }
+
             drop(unsafe { Box::from_raw(dht) })
         }
     });
 }
 
-/// request measure
+/// singe measure request
 /// @param dht - pointer to DHT11 struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_dht11_measure(dht: *const hw_gpio_dht11) -> bool {
@@ -163,10 +222,23 @@ pub extern "C" fn ceammc_hw_gpio_dht11_measure(dht: *const hw_gpio_dht11) -> boo
         }
 
         let dht = unsafe { &*dht };
+        dht.send(Request::OneShot)
+    });
+}
 
-        dht.measure();
+/// poll request
+/// @param dht - pointer to DHT11 struct
+/// @param state - poll state
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_dht11_poll(dht: *const hw_gpio_dht11, state: bool) -> bool {
+    gpio_check!({
+        if dht.is_null() {
+            error!("NULL dht pointer");
+            return false;
+        }
 
-        false
+        let dht = unsafe { &*dht };
+        dht.send(Request::Poll(state))
     });
 }
 

@@ -257,7 +257,7 @@ bool ceammc_hw_gpio_clear_pwm(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param dht - pointer to DHT11 struct
 void ceammc_hw_gpio_dht11_free(ceammc_hw_gpio_dht11 *dht);
 
-/// request measure
+/// singe measure request
 /// @param dht - pointer to DHT11 struct
 bool ceammc_hw_gpio_dht11_measure(const ceammc_hw_gpio_dht11 *dht);
 
@@ -270,6 +270,11 @@ ceammc_hw_gpio_dht11 *ceammc_hw_gpio_dht11_new(uint8_t pin,
                                                ceammc_hw_notify_cb notify,
                                                ceammc_hw_msg_cb on_err,
                                                ceammc_hw_dht11_cb on_data);
+
+/// poll request
+/// @param dht - pointer to DHT11 struct
+/// @param state - poll state
+bool ceammc_hw_gpio_dht11_poll(const ceammc_hw_gpio_dht11 *dht, bool state);
 
 /// check measure data
 /// @param dht - pointer to DHT11 struct
