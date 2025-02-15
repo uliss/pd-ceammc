@@ -148,6 +148,9 @@ impl hw_gpio_sr04 {
 
         debug!("init pins: {trig_pin} {echo_pin}");
 
+        std::thread::sleep(Duration::from_millis(300));
+        debug!("fire!");
+
         trig.set_high();
         std::thread::sleep(Duration::from_micros(10));
         trig.set_low();
@@ -189,6 +192,7 @@ impl hw_gpio_sr04 {
 
         // Distance in m.
         let reply = (1000.0 * 330.0 * (t1 - t0).as_secs_f32()) / 2.;
+        debug!("t delta: {}", (t1 - t0).as_millis());
 
         // Ok(Some(match unit {
         //     Unit::Millimeters => distance * 1000.,
