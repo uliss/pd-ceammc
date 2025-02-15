@@ -153,18 +153,25 @@ impl hw_gpio_sr04 {
         trig.set_low();
 
         // Wait for the `RisingEdge` by ensuring the resulting level is `Level::High`.
-        while let Ok(x) = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
+        while let x = echo.poll_interrupt(false, Some(Duration::from_millis(1000))) {
+            debug!("{x:?}");
             match x {
-                Some(event) => {
-                    if event.trigger != Trigger::RisingEdge {
-                        continue;
-                    } else {
-                        debug!("up");
-                        break;
-                    }
-                }
-                None => continue,
+                Ok(x) => {},
+                Err(err) => {
+                    error!("{err}");
+                },
             }
+            // match x {
+            //     Some(event) => {
+            //         if event.trigger != Trigger::RisingEdge {
+            //             continue;
+            //         } else {
+            //             debug!("up");
+            //             break;
+            //         }
+            //     }
+            //     None => continue,
+            // }
         }
 
         debug!("now");
