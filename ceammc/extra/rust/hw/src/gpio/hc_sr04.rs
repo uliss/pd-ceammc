@@ -133,11 +133,15 @@ impl hw_gpio_sr04 {
         result: &Arc<Mutex<Option<Reply>>>,
         notify: &hw_notify_cb,
     ) {
+        debug!("proc_sensor_data");
         let gpio = rppal::gpio::Gpio::new().unwrap();
+        debug!("gpio init");
 
         let mut echo = gpio.get(6).unwrap().into_input_pulldown();
         echo.set_interrupt(Trigger::Both, None).unwrap();
         let mut trig = gpio.get(5).unwrap().into_output_low();
+
+        debug!("init pins");
 
         trig.set_high();
         std::thread::sleep(Duration::from_micros(10));
