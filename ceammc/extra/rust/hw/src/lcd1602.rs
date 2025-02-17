@@ -15,6 +15,7 @@ use crate::{hw_msg_cb, hw_notify_cb};
 #[cfg(target_os = "linux")]
 mod lcd1602_impl;
 
+#[derive(Debug)]
 pub enum Request {
     WriteText(String),
     Clear,

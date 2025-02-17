@@ -26,8 +26,10 @@ impl hw_lcd1602 {
                 .unwrap();
 
             while let Ok(req) = rx.recv() {
-                match req {
+                debug!("{:?}", &req);
+                match &req {
                     crate::lcd1602::Request::WriteText(msg) => {
+                        lcd.return_home().unwrap();
                         lcd.write_str(msg.as_str()).unwrap_or_else(|e| {
                             error!("{e}");
                         });
