@@ -7,7 +7,7 @@ use crate::hw_msg_cb;
 use super::{hw_lcd1602, Request};
 
 impl hw_lcd1602 {
-    pub fn new(addr: Option<u8>, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(rows: u8, addr: Option<u8>, on_err: hw_msg_cb) -> Result<Self, CString> {
         const LCD_ADDRESS: u8 = 0x27; // Address depends on hardware, see link below
 
         let (tx, rx) = std::sync::mpsc::channel();
@@ -22,9 +22,9 @@ impl hw_lcd1602 {
 
             let lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
                 .with_address(addr)
-                .with_rows(2)
-                .with_cursor_on(true)
-                .with_cursor_blink(true)
+                .with_rows(rows)
+                .with_cursor_on(false)
+                .with_cursor_blink(false)
                 .init();
 
             match lcd {

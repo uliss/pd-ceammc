@@ -12,6 +12,10 @@ HwI2cLcd1602::HwI2cLcd1602(const PdArgs& args)
     addr_->setInitOnly();
     addr_->setArgIndex(0);
     addProperty(addr_);
+
+    rows_ = new IntEnumProperty("@rows", { 2, 4 });
+    rows_->setInitOnly();
+    addProperty(rows_);
 }
 
 HwI2cLcd1602::~HwI2cLcd1602()
@@ -22,8 +26,8 @@ HwI2cLcd1602::~HwI2cLcd1602()
 void HwI2cLcd1602::initDone()
 {
     lcd_ = ceammc_hw_lcd1602_new(
+        rows_->value(),
         addr_->value(),
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
         { this, [](void* user, const char* msg) {
              LIB_ERR << msg;
          } });
@@ -64,6 +68,16 @@ void HwI2cLcd1602::m_cursor_pos(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_cursor_pos(lcd_, lv.intAt(0, 0), lv.intAt(1, 0));
 }
 
+void HwI2cLcd1602::m_cursor_move(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_lcd1602_move_cursor(lcd_, lv.intAt(0, 1));
+}
+
+void HwI2cLcd1602::m_display_move(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_lcd1602_scroll_text(lcd_, lv.intAt(0, 1));
+}
+
 void setup_hw_i2c_lcd1602()
 {
     ObjectFactory<HwI2cLcd1602> obj("hw.i2c.lcd1602");
@@ -74,4 +88,7 @@ void setup_hw_i2c_lcd1602()
     obj.addMethod("cursor_on", &HwI2cLcd1602::m_cursor_on);
     obj.addMethod("cursor_blink", &HwI2cLcd1602::m_cursor_blink);
     obj.addMethod("cursor_pos", &HwI2cLcd1602::m_cursor_pos);
+
+    obj.addMethod("move_cursor", &HwI2cLcd1602::m_cursor_move);
+    obj.addMethod("move_display", &HwI2cLcd1602::m_display_move);
 }

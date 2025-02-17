@@ -35,11 +35,13 @@ pub struct hw_lcd1602 {
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_lcd1602_new(
+    rows: u8,
     i2c_addr: u8,
     on_err: hw_msg_cb,
 ) -> *mut hw_lcd1602 {
     rpi_check!(null_mut(), {
         match hw_lcd1602::new(
+            rows,
             if i2c_addr < 0x08 {
                 None
             } else {
