@@ -148,7 +148,7 @@ impl hw_gpio_sr04 {
                         Request::OneShot => {
                             debug!("one shot");
                             cycle_mode = false;
-                            Self::trig_fire(&mut trig_pin, &async_result2);
+                            Self::trig_fire(&mut trig_pin, &async_result2, notify);
                         }
                     },
                     Err(err) => match err {
@@ -160,7 +160,7 @@ impl hw_gpio_sr04 {
                 };
 
                 if cycle_mode {
-                    Self::trig_fire(&mut trig_pin, &async_result2);
+                    Self::trig_fire(&mut trig_pin, &async_result2, notify);
                 }
             }
 
@@ -187,7 +187,7 @@ impl hw_gpio_sr04 {
         let (mtx, cond) = var.as_ref();
 
         match mtx.lock() {
-            Ok(mut mg) => {
+            Ok(mg) => {
                 // 50ms have passed or may be we have result
                 match cond.wait_timeout(mg, Duration::from_millis(50)) {
                     Ok(res) => {
