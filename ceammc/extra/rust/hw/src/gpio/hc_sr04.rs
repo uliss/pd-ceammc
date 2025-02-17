@@ -96,12 +96,17 @@ impl hw_gpio_sr04 {
                             || prev_event.is_some_and(|event| event.trigger == Trigger::FallingEdge)
                         {
                             prev_event.replace(ev);
-                        };
+                            debug!("up");
+                        } else {
+                            debug!("unexpected up");
+                        }
                     }
                     Trigger::FallingEdge => {
                         if prev_event.is_some_and(|event| event.trigger == Trigger::RisingEdge) {
                             let length = ev.timestamp.checked_sub(prev_event.unwrap().timestamp);
                             prev_event.replace(ev);
+
+                            debug!("down...");
 
                             length
                                 .map(|len| {
@@ -178,7 +183,11 @@ impl hw_gpio_sr04 {
         })
     }
 
-    fn trig_fire(pin: &mut OutputPin, var: &Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>, notify: hw_notify_cb) {
+    fn trig_fire(
+        pin: &mut OutputPin,
+        var: &Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>,
+        notify: hw_notify_cb,
+    ) {
         // 10us impulse to start distance measure
         pin.set_high();
         std::thread::sleep(Duration::from_micros(10));
@@ -186,27 +195,32 @@ impl hw_gpio_sr04 {
 
         let (mtx, cond) = var.as_ref();
 
+        let mut do_sync = false;
+
         match mtx.lock() {
             Ok(mg) => {
                 // 50ms have passed or may be we have result
                 match cond.wait_timeout(mg, Duration::from_millis(50)) {
                     Ok(res) => {
+                        do_sync = true;
                         if res.1.timed_out() {
                             debug!("timeout");
                         }
-
-                        debug!("done");
-                        notify.notify();
-                        std::thread::sleep(Duration::from_millis(10));
-                    },
+                    }
                     Err(err) => {
                         error!("{err}");
-                    },
+                    }
                 }
-            },
+            }
             Err(err) => {
                 error!("{err}");
-            },
+            }
+        }
+
+        if do_sync {
+            debug!("done");
+            notify.notify();
+            std::thread::sleep(Duration::from_millis(10));
         }
     }
 
