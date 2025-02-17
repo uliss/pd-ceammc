@@ -51,7 +51,7 @@ impl hw_lcd1602 {
                         lcd.cursor_blink(*state).unwrap();
                     }
                     Request::CursorPos(row, col) => {
-                        lcd.set_cursor(row, col).unwrap();
+                        lcd.set_cursor(*row, *col).unwrap();
                     }
                 }
             }
