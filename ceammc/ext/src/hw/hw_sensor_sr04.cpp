@@ -1,4 +1,5 @@
 #include "hw_sensor_sr04.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 HwSensorSR04::HwSensorSR04(const PdArgs& args)
@@ -55,10 +56,15 @@ void HwSensorSR04::onBang()
 
 void HwSensorSR04::m_poll(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker args("STATE:b");
+    if (!args.check(lv, this))
+        return args.usage(this, s);
+
+    ceammc_hw_gpio_sr04_poll(sr04_, lv.boolAt(0, false));
 }
 
 void setup_hw_sensor_sr04()
 {
     ObjectFactory<HwSensorSR04> obj("hw.sensor.sr04");
-    //    obj.addMethod("poll", &HwSensorSR04::m_poll);
+    obj.addMethod("poll", &HwSensorSR04::m_poll);
 }
