@@ -420,10 +420,7 @@ bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
 /// @param i2c - pointer to i2c struct
 void ceammc_hw_i2c_free(ceammc_hw_i2c *i2c);
 
-ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t trigger_pin,
-                                 uint8_t echo_pin,
-                                 ceammc_hw_notify_cb notify,
-                                 ceammc_hw_msg_cb on_err);
+ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t addr, ceammc_hw_notify_cb notify, ceammc_hw_msg_cb on_err);
 
 /// turn on/off lcd1602 backlight
 /// @param lcd1602 - pointer to LCD1602 struct
@@ -454,9 +451,17 @@ bool ceammc_hw_lcd1602_cursor_pos(ceammc_hw_lcd1602 *lcd1602, uint8_t row, uint8
 /// @param lcd1602 - pointer to LCD1602 struct
 void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);
 
-ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(uint8_t i2c_addr,
-                                         ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_err);
+/// move lcd1602 cursor right/left
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param dir - <0 left, 0>right
+bool ceammc_hw_lcd1602_move_cursor(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
+
+ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(uint8_t i2c_addr, ceammc_hw_msg_cb on_err);
+
+/// scroll lcd1602 text right/left
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param dir - <0 left, 0>right
+bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
 
 /// write text to lcd1602
 /// @param lcd1602 - pointer to LCD1602 struct

@@ -23,6 +23,8 @@ pub enum Request {
     CursorOn(bool),
     CursorBlink(bool),
     CursorPos(u8, u8),
+    CursorMove(i8),
+    TextScroll(i8),
 }
 
 pub struct hw_lcd1602 {
@@ -34,7 +36,6 @@ pub struct hw_lcd1602 {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_lcd1602_new(
     i2c_addr: u8,
-    notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_lcd1602 {
     rpi_check!(null_mut(), {
@@ -44,7 +45,6 @@ pub extern "C" fn ceammc_hw_lcd1602_new(
             } else {
                 Some(i2c_addr)
             },
-            notify,
             on_err,
         ) {
             Ok(lcd1602) => return Box::into_raw(Box::new(lcd1602)),
@@ -165,5 +165,43 @@ pub extern "C" fn ceammc_hw_lcd1602_write_text(
         let lcd1602 = unsafe { &*lcd1602 };
         let txt = unsafe { CStr::from_ptr(txt).to_str().unwrap() };
         lcd1602.send(Request::WriteText(txt.to_owned()))
+    });
+}
+
+/// move lcd1602 cursor right/left
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param dir - <0 left, 0>right
+#[no_mangle]
+pub extern "C" fn ceammc_hw_lcd1602_move_cursor(
+    lcd1602: *mut hw_lcd1602,
+    dir: i8
+) -> bool {
+    rpi_check!({
+        if lcd1602.is_null() {
+            error!("NULL lcd1602 pointer");
+            return false;
+        }
+
+        let lcd1602 = unsafe { &*lcd1602 };
+        lcd1602.send(Request::CursorMove(dir))
+    });
+}
+
+/// scroll lcd1602 text right/left
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param dir - <0 left, 0>right
+#[no_mangle]
+pub extern "C" fn ceammc_hw_lcd1602_scroll_text(
+    lcd1602: *mut hw_lcd1602,
+    dir: i8
+) -> bool {
+    rpi_check!({
+        if lcd1602.is_null() {
+            error!("NULL lcd1602 pointer");
+            return false;
+        }
+
+        let lcd1602 = unsafe { &*lcd1602 };
+        lcd1602.send(Request::TextScroll(dir))
     });
 }

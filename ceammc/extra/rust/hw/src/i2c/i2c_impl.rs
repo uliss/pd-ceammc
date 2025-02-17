@@ -8,7 +8,7 @@ use crate::{hw_msg_cb, hw_notify_cb};
 use super::hw_i2c;
 
 impl hw_i2c {
-    pub fn new(notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(addr: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || -> Result<(), String> {
@@ -18,6 +18,9 @@ impl hw_i2c {
                 error!("{err}");
                 err.to_string()
             })?;
+
+            i2c.set_slave_address(addr as u16)
+                .map_err(|e| e.to_string())?;
 
             debug!("i2c init done");
 
