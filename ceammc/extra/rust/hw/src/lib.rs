@@ -84,3 +84,4 @@ pub mod printers_win;
 
 pub mod gpio;
 pub mod dht11;
+pub mod hc_sr04;
