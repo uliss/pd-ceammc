@@ -10,7 +10,7 @@ use std::{
 
 use log::error;
 
-use crate::{hc_sr04::hw_sr04_cb, hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb};
 
 #[cfg(target_os = "linux")]
 mod lcd1602_impl;
@@ -34,7 +34,7 @@ pub extern "C" fn ceammc_hw_lcd1602_new(
 ) -> *mut hw_lcd1602 {
     rpi_check!(null_mut(), {
         match hw_lcd1602::new(None, notify, on_err) {
-            Ok(sr04) => return Box::into_raw(Box::new(sr04)),
+            Ok(lcd1602) => return Box::into_raw(Box::new(lcd1602)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
                 on_err.exec_raw(err.as_ptr());
