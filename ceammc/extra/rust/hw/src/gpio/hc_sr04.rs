@@ -100,7 +100,6 @@ impl hw_gpio_sr04 {
                             || prev_event.is_some_and(|event| event.trigger == Trigger::FallingEdge)
                         {
                             prev_event.replace(ev);
-                            debug!("up");
                         } else {
                             debug!("unexpected up");
                         }
@@ -110,29 +109,28 @@ impl hw_gpio_sr04 {
                             let length = ev.timestamp.checked_sub(prev_event.unwrap().timestamp);
                             prev_event.replace(ev);
 
-                            debug!("down...");
-
                             length
                                 .map(|len| {
-                                    let res = Reply::Measure(len.as_secs_f32());
+                                    let distance_cm = 100.0 * 340.0 * 0.5 * len.as_secs_f64();
+                                    debug!("distance: {distance_cm} cm");
+                                    let res = Reply::Measure(distance_cm as f32);
 
                                     let (m, cond) = async_result.as_ref();
 
                                     match m.lock() {
                                         Ok(mut mg) => {
                                             mg.replace(res);
-                                            cond.notify_all();
                                         }
                                         Err(err) => {
                                             error!("{err}");
                                         }
                                     }
 
+                                    cond.notify_all();
+
                                     // pin_tx.send(res).unwrap_or_else(|e| {
                                     //     error!("{e}");
                                     // });
-
-                                    async_result.1.notify_all();
                                 })
                                 .or_else(|| {
                                     error!("duration overflow");
