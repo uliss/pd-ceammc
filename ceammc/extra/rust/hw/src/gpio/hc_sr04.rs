@@ -81,6 +81,7 @@ impl hw_gpio_sr04 {
             trig_pin.set_reset_on_drop(false);
 
             std::thread::sleep(Duration::from_millis(50));
+            debug!("gpio init done");
 
             // let (pin_tx, pin_rx) = std::sync::mpsc::channel();
             let mut prev_event: Option<Event> = None;
@@ -134,9 +135,13 @@ impl hw_gpio_sr04 {
                                     error!("duration overflow");
                                     None
                                 });
+                        } else {
+                            debug!("unexpected falling");
                         }
                     }
-                    _ => {}
+                    _ => {
+                        debug!("event ???");
+                    }
                 })
                 .map_err(|err| {
                     error!("{err}");
@@ -199,16 +204,17 @@ impl hw_gpio_sr04 {
 
         match mtx.lock() {
             Ok(mg) => {
+                debug!("echo waiting...");
                 // 50ms have passed or may be we have result
                 match cond.wait_timeout(mg, Duration::from_millis(50)) {
                     Ok(res) => {
                         do_sync = true;
                         if res.1.timed_out() {
-                            debug!("timeout");
+                            debug!("echo timeout");
                         }
                     }
                     Err(err) => {
-                        error!("{err}");
+                        error!("echo error: {err}");
                     }
                 }
             }
@@ -218,7 +224,7 @@ impl hw_gpio_sr04 {
         }
 
         if do_sync {
-            debug!("done");
+            debug!("measure done");
             notify.notify();
             std::thread::sleep(Duration::from_millis(10));
         }
