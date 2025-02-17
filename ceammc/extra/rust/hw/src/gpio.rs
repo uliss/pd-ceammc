@@ -91,7 +91,6 @@ macro_rules! gpio_check {
 #[cfg(target_os = "linux")]
 mod gpio_impl;
 
-#[cfg(target_os = "linux")]
 mod dht11;
 
 #[cfg(target_os = "linux")]
