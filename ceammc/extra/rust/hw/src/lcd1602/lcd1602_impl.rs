@@ -10,13 +10,14 @@ impl hw_lcd1602 {
     pub fn new(addr: Option<u8>, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         const LCD_ADDRESS: u8 = 0x27; // Address depends on hardware, see link below
 
-        let mut i2c = rppal::i2c::I2c::new().unwrap();
-
-        let mut delay = rppal::hal::Delay::new();
         let (tx, rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || {
             debug!("worker thread start");
+
+            let mut i2c = rppal::i2c::I2c::new().unwrap();
+
+            let mut delay = rppal::hal::Delay::new();
 
             let mut lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
                 .with_address(addr.unwrap_or(LCD_ADDRESS))
