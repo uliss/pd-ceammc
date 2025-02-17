@@ -85,12 +85,15 @@ impl hw_gpio_sr04 {
 
             // let (pin_tx, pin_rx) = std::sync::mpsc::channel();
             let mut prev_event: Option<Event> = None;
-            gpio.get(echo_pin)
+            let mut echo_pin = gpio
+                .get(echo_pin)
                 .map_err(|err| {
                     error!("echo pin [{echo_pin}]: {err}");
                     err.to_string()
                 })?
-                .into_input_pulldown()
+                .into_input_pulldown();
+
+            echo_pin
                 .set_async_interrupt(Trigger::Both, None, move |ev| match ev.trigger {
                     Trigger::RisingEdge => {
                         if prev_event.is_none()
@@ -174,6 +177,7 @@ impl hw_gpio_sr04 {
                 }
             }
 
+            debug!("{}", echo_pin.pin());
             debug!("thread done");
             Ok(())
         });
