@@ -1,14 +1,12 @@
-use core::time;
 use std::{
     ffi::{c_void, CString},
     ptr::null_mut,
     sync::{mpsc::TryRecvError, Arc, Condvar, Mutex},
-    time::{Duration, Instant},
+    time::Duration,
 };
 
-use hc_sr04::{HcSr04, Unit};
 use log::{debug, error};
-use rppal::gpio::{Event, InputPin, Level, OutputPin, Trigger};
+use rppal::gpio::{Event, OutputPin, Trigger};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -19,24 +17,28 @@ pub struct hw_sr04_cb {
     /// pointer to user data (can be NULL)
     user: *mut c_void,
     /// not NULL!
-    cb: extern "C" fn(*mut c_void, distance: f32),
+    cb: extern "C" fn(*mut c_void, distance_cm: f32, is_inf: bool),
 }
 
 impl hw_sr04_cb {
-    pub fn exec(&self, data: f32) {
-        (self.cb)(self.user, data);
+    pub fn exec(&self, data: f32, inf: bool) {
+        (self.cb)(self.user, data, inf);
     }
 }
+
+pub const HW_SR04_MIN_POLL_INTERVAL: u16 = 10;
+pub const HW_SR04_DEF_POLL_INTERVAL: u16 = 20;
+pub const HW_SR04_MAX_POLL_INTERVAL: u16 = 1000;
 
 #[derive(Debug)]
 enum Reply {
     Measure(f32),
-    Error(CString),
 }
 
 enum Request {
     Poll(bool),
     OneShot,
+    SetPollTime(u16),
 }
 
 pub struct hw_gpio_sr04 {
@@ -83,7 +85,6 @@ impl hw_gpio_sr04 {
             std::thread::sleep(Duration::from_millis(50));
             debug!("gpio init done");
 
-            // let (pin_tx, pin_rx) = std::sync::mpsc::channel();
             let mut prev_event: Option<Event> = None;
             let mut echo_pin = gpio
                 .get(echo_pin)
@@ -111,15 +112,19 @@ impl hw_gpio_sr04 {
 
                             length
                                 .map(|len| {
-                                    let distance_cm = 100.0 * 340.0 * 0.5 * len.as_secs_f64();
-                                    debug!("distance: {distance_cm} cm");
-                                    let res = Reply::Measure(distance_cm as f32);
+                                    // at 20 degrees celsius
+                                    let sound_speed_cm_sec = 343.0 * 100.0;
+                                    let distance_cm = sound_speed_cm_sec * 0.5 * len.as_secs_f64();
 
                                     let (m, cond) = async_result.as_ref();
 
                                     match m.lock() {
                                         Ok(mut mg) => {
-                                            mg.replace(res);
+                                            if len.as_millis() < 38 {
+                                                mg.replace(Reply::Measure(distance_cm as f32));
+                                            } else {
+                                                mg.take();
+                                            }
                                         }
                                         Err(err) => {
                                             error!("{err}");
@@ -127,10 +132,6 @@ impl hw_gpio_sr04 {
                                     }
 
                                     cond.notify_all();
-
-                                    // pin_tx.send(res).unwrap_or_else(|e| {
-                                    //     error!("{e}");
-                                    // });
                                 })
                                 .or_else(|| {
                                     error!("duration overflow");
@@ -150,6 +151,7 @@ impl hw_gpio_sr04 {
                 })?;
 
             let mut cycle_mode = false;
+            let mut poll_interval_msec = HW_SR04_DEF_POLL_INTERVAL;
             loop {
                 match rx.try_recv() {
                     Ok(req) => match req {
@@ -157,25 +159,33 @@ impl hw_gpio_sr04 {
                             cycle_mode = state;
                         }
                         Request::OneShot => {
-                            debug!("one shot");
                             cycle_mode = false;
-                            Self::trig_fire(&mut trig_pin, &async_result2, notify);
+                            Self::trig_fire(
+                                &mut trig_pin,
+                                &async_result2,
+                                notify,
+                                HW_SR04_DEF_POLL_INTERVAL,
+                            );
+                        }
+                        Request::SetPollTime(msec) => {
+                            poll_interval_msec =
+                                msec.clamp(HW_SR04_MIN_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL);
+                            debug!("set poll interval: {poll_interval_msec}");
                         }
                     },
                     Err(err) => match err {
                         TryRecvError::Empty => {
-                            std::thread::sleep(Duration::from_millis(50));
+                            std::thread::sleep(Duration::from_millis(55));
                         }
                         TryRecvError::Disconnected => break,
                     },
                 };
 
                 if cycle_mode {
-                    Self::trig_fire(&mut trig_pin, &async_result2, notify);
+                    Self::trig_fire(&mut trig_pin, &async_result2, notify, poll_interval_msec);
                 }
             }
 
-            debug!("{}", echo_pin.pin());
             debug!("thread done");
             Ok(())
         });
@@ -194,6 +204,7 @@ impl hw_gpio_sr04 {
         pin: &mut OutputPin,
         var: &Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>,
         notify: hw_notify_cb,
+        poll_interval: u16,
     ) {
         // 10us impulse to start distance measure
         pin.set_high();
@@ -206,7 +217,6 @@ impl hw_gpio_sr04 {
 
         match mtx.lock() {
             Ok(mg) => {
-                debug!("echo waiting...");
                 // 50ms have passed or may be we have result
                 match cond.wait_timeout(mg, Duration::from_millis(50)) {
                     Ok(res) => {
@@ -226,9 +236,9 @@ impl hw_gpio_sr04 {
         }
 
         if do_sync {
-            debug!("measure done");
+            // debug!("measure done");
             notify.notify();
-            std::thread::sleep(Duration::from_millis(10));
+            std::thread::sleep(Duration::from_millis(poll_interval as u64));
         }
     }
 
@@ -247,12 +257,12 @@ impl hw_gpio_sr04 {
             Ok(res) => match res.as_ref() {
                 Some(reply) => match reply {
                     Reply::Measure(res) => {
-                        self.on_data.exec(*res);
-                        // res.map(|f| self.on_data.exec(f));
+                        self.on_data.exec(*res, false);
                     }
-                    Reply::Error(msg) => self.on_err.exec_raw(msg.as_ptr()),
                 },
-                None => self.on_err.exec("None"),
+                None => {
+                    self.on_data.exec(0.0, true);
+                }
             },
             Err(err) => {
                 self.on_err.exec(err.to_string().as_str());
@@ -326,6 +336,25 @@ pub extern "C" fn ceammc_hw_gpio_sr04_poll(sr04: *const hw_gpio_sr04, state: boo
 
         let sr04 = unsafe { &*sr04 };
         sr04.send(Request::Poll(state))
+    });
+}
+
+/// set polling interval
+/// @param sr04 - pointer to SR04 struct
+/// @param poll_interval - polling interval (msec)
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_sr04_set_poll_interval(
+    sr04: *const hw_gpio_sr04,
+    poll_interval: u16,
+) -> bool {
+    gpio_check!({
+        if sr04.is_null() {
+            error!("NULL dht pointer");
+            return false;
+        }
+
+        let sr04 = unsafe { &*sr04 };
+        sr04.send(Request::SetPollTime(poll_interval))
     });
 }
 

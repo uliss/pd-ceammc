@@ -12,6 +12,7 @@ class HwSensorSR04 : public HwSR04Base {
     ceammc_hw_gpio_sr04* sr04_ { nullptr };
     IntProperty* trigger_pin_ { nullptr };
     IntProperty* echo_pin_ { nullptr };
+    IntProperty* poll_interval_ { nullptr };
 
 public:
     HwSensorSR04(const PdArgs& args);

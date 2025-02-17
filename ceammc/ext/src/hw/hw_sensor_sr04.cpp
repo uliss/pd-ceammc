@@ -6,6 +6,7 @@ HwSensorSR04::HwSensorSR04(const PdArgs& args)
     : HwSR04Base(args)
 {
     createOutlet();
+    createOutlet();
 
     trigger_pin_ = new IntProperty("@trig_pin", 5, PropValueAccess::INITONLY);
     trigger_pin_->checkClosedRange(0, 255);
@@ -16,6 +17,14 @@ HwSensorSR04::HwSensorSR04(const PdArgs& args)
     echo_pin_->checkClosedRange(0, 255);
     echo_pin_->setArgIndex(1);
     addProperty(echo_pin_);
+
+    poll_interval_ = new IntProperty("@poll_interval", ceammc_HW_SR04_DEF_POLL_INTERVAL);
+    poll_interval_->checkClosedRange(ceammc_HW_SR04_MIN_POLL_INTERVAL, ceammc_HW_SR04_MAX_POLL_INTERVAL);
+    poll_interval_->setUnits(PropValueUnits::MSEC);
+    poll_interval_->setSuccessFn([this](Property*) {
+        ceammc_hw_gpio_sr04_set_poll_interval(sr04_, poll_interval_->value());
+    });
+    addProperty(poll_interval_);
 }
 
 HwSensorSR04::~HwSensorSR04()
@@ -35,12 +44,15 @@ void HwSensorSR04::initDone()
 
              Error(obj) << msg;
          } },
-        { this, [](void* user, float measure) {
+        { this, [](void* user, float distance_cm, bool is_inf) {
              auto obj = static_cast<HwSensorSR04*>(user);
              if (!obj)
                  return;
 
-             obj->floatTo(0, measure);
+             if (!is_inf)
+                 obj->floatTo(0, distance_cm);
+             else
+                 obj->bangTo(1);
          } });
 }
 

@@ -7,6 +7,12 @@
 #include <cstddef>
 
 
+constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
+
+constexpr static const uint16_t ceammc_HW_SR04_MAX_POLL_INTERVAL = 1000;
+
+constexpr static const uint16_t ceammc_HW_SR04_MIN_POLL_INTERVAL = 10;
+
 constexpr static const int32_t ceammc_JOB_ERROR = -1;
 
 enum class ceammc_hw_gamepad_btn {
@@ -215,7 +221,7 @@ struct ceammc_hw_sr04_cb {
     /// pointer to user data (can be NULL)
     void *user;
     /// not NULL!
-    void (*cb)(void*, float distance);
+    void (*cb)(void*, float distance_cm, bool is_inf);
 };
 
 struct ceammc_hw_print_options {
@@ -389,6 +395,11 @@ bool ceammc_hw_gpio_sr04_poll(const ceammc_hw_gpio_sr04 *sr04, bool state);
 /// check measure data
 /// @param sr04 - pointer to SR04 struct
 bool ceammc_hw_gpio_sr04_process(const ceammc_hw_gpio_sr04 *sr04);
+
+/// set polling interval
+/// @param sr04 - pointer to SR04 struct
+/// @param poll_interval - polling interval (msec)
+bool ceammc_hw_gpio_sr04_set_poll_interval(const ceammc_hw_gpio_sr04 *sr04, uint16_t poll_interval);
 
 /// toggle pin level
 /// @param gpio - pointer to gpio struct
