@@ -30,6 +30,7 @@ void HwI2cLcd1602::initDone()
     lcd_ = ceammc_hw_lcd1602_new(
         rows_->value(),
         addr_->value(),
+        { subscriberId(), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } },
         { this, [](void* user, const char* msg) {
              LIB_ERR << msg;
          } });
@@ -37,7 +38,7 @@ void HwI2cLcd1602::initDone()
 
 bool HwI2cLcd1602::notify(int code)
 {
-    return true;
+    return ceammc_hw_lcd1602_process(lcd_);
 }
 
 void HwI2cLcd1602::m_clear(t_symbol* s, const AtomListView& lv)

@@ -456,7 +456,14 @@ void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);
 /// @param dir - <0 left, 0>right
 bool ceammc_hw_lcd1602_move_cursor(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
 
-ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(uint8_t rows, uint8_t i2c_addr, ceammc_hw_msg_cb on_err);
+ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(uint8_t rows,
+                                         uint8_t i2c_addr,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_err);
+
+/// process lcd1602 events
+/// @param lcd1602 - pointer to LCD1602 struct
+bool ceammc_hw_lcd1602_process(ceammc_hw_lcd1602 *lcd1602);
 
 /// scroll lcd1602 text right/left
 /// @param lcd1602 - pointer to LCD1602 struct
