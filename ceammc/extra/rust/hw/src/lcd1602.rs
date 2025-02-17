@@ -25,17 +25,15 @@ pub struct hw_lcd1602 {
     // result: Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>,
     tx: std::sync::mpsc::Sender<Request>,
     on_err: hw_msg_cb,
-    on_data: hw_sr04_cb,
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_lcd1602_new(
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
-    on_data: hw_sr04_cb,
 ) -> *mut hw_lcd1602 {
     rpi_check!(null_mut(), {
-        match hw_lcd1602::new(None, notify, on_err, on_data) {
+        match hw_lcd1602::new(None, notify, on_err) {
             Ok(sr04) => return Box::into_raw(Box::new(sr04)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());

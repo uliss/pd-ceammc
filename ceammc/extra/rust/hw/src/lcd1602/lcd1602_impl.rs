@@ -2,29 +2,15 @@ use std::ffi::CString;
 
 use log::{debug, error};
 
-use crate::{hc_sr04::hw_sr04_cb, hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb};
 
 use super::{hw_lcd1602, Request};
 
 impl hw_lcd1602 {
-    pub fn new(
-        addr: Option<u8>,
-        notify: hw_notify_cb,
-        on_err: hw_msg_cb,
-        on_data: hw_sr04_cb,
-    ) -> Result<Self, CString> {
+    pub fn new(addr: Option<u8>, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         const LCD_ADDRESS: u8 = 0x27; // Address depends on hardware, see link below
 
-        // Create a I2C instance, needs to implement embedded_hal::blocking::i2c::Write, this
-        // particular uses the arduino_hal crate for avr microcontrollers like the arduinos.
-        // let dp = rppal::hal::Peripherals::take().unwrap();
-        // let pins = arduino_hal::pins!(dp);
         let mut i2c = rppal::i2c::I2c::new().unwrap();
-        //     dp.TWI, //
-        //     pins.a4.into_pull_up_input(), // use respective pins
-        //     pins.a5.into_pull_up_input(),
-        //     50000,
-        // );
 
         let mut delay = rppal::hal::Delay::new();
         let (tx, rx) = std::sync::mpsc::channel();
@@ -62,11 +48,7 @@ impl hw_lcd1602 {
             debug!("worker thread done");
         });
 
-        Ok(hw_lcd1602 {
-            tx,
-            on_err,
-            on_data,
-        })
+        Ok(hw_lcd1602 { tx, on_err })
     }
 
     pub fn send(&self, req: Request) -> bool {
@@ -80,4 +62,4 @@ impl hw_lcd1602 {
     }
 }
 
-mod test {}
+mod test {} // true

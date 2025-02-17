@@ -438,9 +438,7 @@ bool ceammc_hw_lcd1602_clear(ceammc_hw_lcd1602 *lcd1602);
 /// @param lcd1602 - pointer to LCD1602 struct
 void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);
 
-ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_err,
-                                         ceammc_hw_sr04_cb on_data);
+ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(ceammc_hw_notify_cb notify, ceammc_hw_msg_cb on_err);
 
 /// write text to lcd1602
 /// @param lcd1602 - pointer to LCD1602 struct

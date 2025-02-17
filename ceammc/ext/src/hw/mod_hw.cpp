@@ -20,6 +20,7 @@ void setup_hw_printer();
 void setup_hw_gpio();
 void setup_hw_sensor_dht11();
 void setup_hw_sensor_sr04();
+void setup_hw_i2c_lcd1602();
 
 void ceammc_hw_setup()
 {
@@ -35,6 +36,7 @@ void ceammc_hw_setup()
     setup_hw_printer();
     setup_hw_sensor_dht11();
     setup_hw_sensor_sr04();
+    setup_hw_i2c_lcd1602();
 
 #ifdef WITH_LIBUSB_01
     setup_hw_udmx();
