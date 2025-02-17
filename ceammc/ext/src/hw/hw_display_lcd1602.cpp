@@ -36,7 +36,7 @@ void HwI2cLcd1602::m_backlight(t_symbol* s, const AtomListView& lv)
 
 void HwI2cLcd1602::m_write(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_lcd1602_backlight(lcd_, to_string(lv).c_str());
+    ceammc_hw_lcd1602_write_text(lcd_, to_string(lv).c_str());
 }
 
 void setup_hw_i2c_lcd1602()
