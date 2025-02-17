@@ -22,7 +22,9 @@ impl hw_lcd1602 {
             let mut lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
                 .with_address(addr.unwrap_or(LCD_ADDRESS))
                 .with_rows(2)
+                .with_rows(16)
                 .with_cursor_on(true)
+                .with_cursor_blink(true)
                 .init()
                 .unwrap();
 
