@@ -106,6 +106,10 @@ struct ceammc_hw_gpio_dht11;
 
 struct ceammc_hw_gpio_sr04;
 
+struct ceammc_hw_i2c;
+
+struct ceammc_hw_lcd1602;
+
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
     void *user;
@@ -411,6 +415,37 @@ bool ceammc_hw_gpio_toggle_pin(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param pin - pin number
 /// @param level - pin level (=0: low, >0: high)
 bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
+
+/// free i2c struct
+/// @param i2c - pointer to i2c struct
+void ceammc_hw_i2c_free(ceammc_hw_i2c *i2c);
+
+ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t trigger_pin,
+                                 uint8_t echo_pin,
+                                 ceammc_hw_notify_cb notify,
+                                 ceammc_hw_msg_cb on_err);
+
+/// turn on/off lcd1602 backlight
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param state - on/off state
+bool ceammc_hw_lcd1602_backlight(ceammc_hw_lcd1602 *lcd1602, bool state);
+
+/// clear lcd1602 display
+/// @param lcd1602 - pointer to LCD1602 struct
+bool ceammc_hw_lcd1602_clear(ceammc_hw_lcd1602 *lcd1602);
+
+/// free lcd1602 display
+/// @param lcd1602 - pointer to LCD1602 struct
+void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);
+
+ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_err,
+                                         ceammc_hw_sr04_cb on_data);
+
+/// write text to lcd1602
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param txt - text
+bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,

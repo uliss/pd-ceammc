@@ -85,3 +85,5 @@ pub mod printers_win;
 pub mod gpio;
 pub mod dht11;
 pub mod hc_sr04;
+pub mod lcd1602;
+pub mod i2c;
