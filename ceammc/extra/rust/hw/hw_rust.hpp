@@ -381,6 +381,11 @@ ceammc_hw_gpio_sr04 *ceammc_hw_gpio_sr04_new(uint8_t trigger_pin,
                                              ceammc_hw_msg_cb on_err,
                                              ceammc_hw_sr04_cb on_data);
 
+/// polling in cycle
+/// @param sr04 - pointer to SR04 struct
+/// @param state - poll state
+bool ceammc_hw_gpio_sr04_poll(const ceammc_hw_gpio_sr04 *sr04, bool state);
+
 /// check measure data
 /// @param sr04 - pointer to SR04 struct
 bool ceammc_hw_gpio_sr04_process(const ceammc_hw_gpio_sr04 *sr04);
