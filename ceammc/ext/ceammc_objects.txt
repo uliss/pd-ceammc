@@ -642,6 +642,8 @@ hw.gpio
 hw.kbd_light
 hw.motu.avb
 hw.printer
+hw.sensor.dht11
+hw.sensor.sr04
 hw.serial
 int->bits
 is_any

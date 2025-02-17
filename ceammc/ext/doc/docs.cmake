@@ -323,6 +323,7 @@ set(DOC_FILES
     hw.kbd_light
     hw.motu.avb
     hw.printer
+    hw.sensor.sr04
     hw.serial
     is_any
     is_bang

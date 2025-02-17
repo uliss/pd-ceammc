@@ -606,6 +606,7 @@ hw.gpio	Raspberry Pi GPIO support
 hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
 hw.printer	Basic printing support
+hw.sensor.sr04	HC-SR04 ulatrasonic ranging module
 hw.serial	serial port device
 lang.faust~	faust realtime compilation
 lang.lua	Lua JIT language bindings

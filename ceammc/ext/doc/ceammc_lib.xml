@@ -1036,6 +1036,9 @@
     <entry name="hw.printer" descr="Basic printing support" ref_view="object">
       <xi:include href="hw.printer.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.sensor.sr04" descr="HC-SR04 ulatrasonic ranging module" ref_view="object">
+      <xi:include href="hw.sensor.sr04.pddoc" parse="xml"/>
+    </entry>
     <entry name="hw.serial" descr="serial port device" ref_view="object">
       <xi:include href="hw.serial.pddoc" parse="xml"/>
     </entry>
