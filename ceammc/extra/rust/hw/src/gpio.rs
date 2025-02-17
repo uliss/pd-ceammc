@@ -62,26 +62,16 @@ pub enum hw_gpio_trigger {
     FallingEdge,
     Both,
 }
-
-macro_rules! return_unsupported {
-    ($x:expr) => {
-        #[cfg(not(target_os = "linux"))]
-        {
-            error!("OS != \"linux\" is not supported");
-            return $x;
-        }
-    };
-}
-
+ 
 macro_rules! gpio_check {
     ($res:expr, $code:block) => {
-        return_unsupported!($res);
+        return_not_rpi!($res);
 
         #[cfg(target_os = "linux")]
         $code
     };
     ($code:block) => {
-        return_unsupported!(false);
+        return_not_rpi!(false);
 
         #[cfg(target_os = "linux")]
         return $code;
@@ -90,8 +80,6 @@ macro_rules! gpio_check {
 
 #[cfg(target_os = "linux")]
 mod gpio_impl;
-
-mod dht11;
 
 #[cfg(target_os = "linux")]
 mod hc_sr04;

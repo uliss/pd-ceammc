@@ -1,7 +1,21 @@
-use dht11_gpio::{DHT11Controller, DHT11Result, Sensor};
+use std::{
+    ffi::CString,
+    sync::{mpsc::TryRecvError, Arc, Mutex},
+    time::Duration,
+};
+
+use dht11_gpio::{DHT11Controller, Sensor};
+use log::{debug, error};
+
+use crate::{
+    dht11::{Reply, Request},
+    hw_msg_cb, hw_notify_cb,
+};
+
+use super::{hw_dht11_cb, hw_gpio_dht11};
 
 impl hw_gpio_dht11 {
-    fn new(
+    pub fn new(
         pin: u8,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
@@ -64,7 +78,7 @@ impl hw_gpio_dht11 {
         })
     }
 
-    fn send(&self, req: Request) -> bool {
+    pub fn send(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
             error!("{err}");
             self.on_err.exec(err.to_string().as_str());
@@ -83,7 +97,7 @@ impl hw_gpio_dht11 {
             .read_sensor_data()
             .map(|res| {
                 debug!("measure done t={}°C h={}", res.temperature, res.humidity);
-                Reply::Measure(res)
+                Reply::Measure(res.temperature, res.humidity)
             })
             .unwrap_or_else(|err| Reply::Error(CString::new(err.to_string()).unwrap_or_default()));
 
@@ -99,12 +113,12 @@ impl hw_gpio_dht11 {
             });
     }
 
-    fn check_result(&self) {
+    pub fn check_result(&self) {
         match self.result.lock() {
             Ok(res) => match res.as_ref() {
                 Some(reply) => match reply {
-                    Reply::Measure(res) => {
-                        self.on_data.exec(res);
+                    Reply::Measure(temp, hum) => {
+                        self.on_data.exec(*temp, *hum);
                     }
                     Reply::Error(msg) => self.on_err.exec_raw(msg.as_ptr()),
                 },

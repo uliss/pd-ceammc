@@ -1,15 +1,16 @@
 #![cfg_attr(not(target_os = "linux"), allow(unused_imports))]
 #![cfg_attr(not(target_os = "linux"), allow(unused_variables))]
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
+#![allow(non_camel_case_types)]
+
+#[cfg(target_os = "linux")]
+mod dht11_impl;
 
 use std::{
-    ffi::{c_void, CString},
-    ptr::null_mut,
-    sync::{mpsc::TryRecvError, Arc, Mutex},
-    time::Duration,
+    ffi::{c_void, CString}, ptr::null_mut, sync::{Arc, Mutex}
 };
 
-use log::{debug, error};
+use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -29,12 +30,12 @@ impl hw_dht11_cb {
     }
 }
 
-enum Reply {
+pub enum Reply {
     Measure(f64, f64),
     Error(CString),
 }
 
-enum Request {
+pub enum Request {
     Poll(bool),
     OneShot,
 }
@@ -45,9 +46,6 @@ pub struct hw_gpio_dht11 {
     on_err: hw_msg_cb,
     on_data: hw_dht11_cb,
 }
-
-#[cfg(target_os = "linux")]
-mod dht11_impl;
 
 /// create new DHT11 sensor struct
 /// @param pin - connected GPIO pin
@@ -61,7 +59,7 @@ pub extern "C" fn ceammc_hw_gpio_dht11_new(
     on_err: hw_msg_cb,
     on_data: hw_dht11_cb,
 ) -> *mut hw_gpio_dht11 {
-    gpio_check!(null_mut(), {
+    rpi_check!(null_mut(), {
         match hw_gpio_dht11::new(pin, notify, on_err, on_data) {
             Ok(dht) => return Box::into_raw(Box::new(dht)),
             Err(err) => {
@@ -77,7 +75,7 @@ pub extern "C" fn ceammc_hw_gpio_dht11_new(
 /// @param dht - pointer to DHT11 struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_dht11_free(dht: *mut hw_gpio_dht11) {
-    gpio_check!((), {
+    rpi_check!((), {
         if !dht.is_null() {
             drop(unsafe { Box::from_raw(dht) })
         }
@@ -88,7 +86,7 @@ pub extern "C" fn ceammc_hw_gpio_dht11_free(dht: *mut hw_gpio_dht11) {
 /// @param dht - pointer to DHT11 struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_dht11_measure(dht: *const hw_gpio_dht11) -> bool {
-    gpio_check!({
+    rpi_check!({
         if dht.is_null() {
             error!("NULL dht pointer");
             return false;
@@ -104,7 +102,7 @@ pub extern "C" fn ceammc_hw_gpio_dht11_measure(dht: *const hw_gpio_dht11) -> boo
 /// @param state - poll state
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_dht11_poll(dht: *const hw_gpio_dht11, state: bool) -> bool {
-    gpio_check!({
+    rpi_check!({
         if dht.is_null() {
             error!("NULL dht pointer");
             return false;
@@ -119,7 +117,7 @@ pub extern "C" fn ceammc_hw_gpio_dht11_poll(dht: *const hw_gpio_dht11, state: bo
 /// @param dht - pointer to DHT11 struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_dht11_process(dht: *const hw_gpio_dht11) -> bool {
-    gpio_check!({
+    rpi_check!({
         if dht.is_null() {
             error!("NULL dht pointer");
             return false;

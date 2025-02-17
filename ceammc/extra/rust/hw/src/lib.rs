@@ -49,6 +49,31 @@ impl hw_msg_cb {
     }
 }
 
+macro_rules! return_not_rpi {
+    ($x:expr) => {
+        #[cfg(not(target_os = "linux"))]
+        {
+            error!("OS != \"linux\" is not supported");
+            return $x;
+        }
+    };
+}
+
+macro_rules! rpi_check {
+    ($res:expr, $code:block) => {
+        return_not_rpi!($res);
+
+        #[cfg(target_os = "linux")]
+        $code
+    };
+    ($code:block) => {
+        return_not_rpi!(false);
+
+        #[cfg(target_os = "linux")]
+        return $code;
+    };
+}
+
 pub mod printers;
 
 #[cfg(feature = "cups")]
@@ -58,3 +83,4 @@ pub mod printers_cups;
 pub mod printers_win;
 
 pub mod gpio;
+pub mod dht11;
