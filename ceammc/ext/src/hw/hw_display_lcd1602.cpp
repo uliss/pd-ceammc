@@ -7,16 +7,26 @@ HwI2cLcd1602::HwI2cLcd1602(const PdArgs& args)
 {
     createOutlet();
 
-    lcd_ = ceammc_hw_lcd1602_new(
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
-        { this, [](void* user, const char* msg) {
-             LIB_ERR << msg;
-         } });
+    addr_ = new IntProperty("@i2c_addr", 0);
+    addr_->checkClosedRange(0x0, 0x77);
+    addr_->setInitOnly();
+    addr_->setArgIndex(0);
+    addProperty(addr_);
 }
 
 HwI2cLcd1602::~HwI2cLcd1602()
 {
     ceammc_hw_lcd1602_free(lcd_);
+}
+
+void HwI2cLcd1602::initDone()
+{
+    lcd_ = ceammc_hw_lcd1602_new(
+        addr_->value(),
+        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
+        { this, [](void* user, const char* msg) {
+             LIB_ERR << msg;
+         } });
 }
 
 bool HwI2cLcd1602::notify(int code)

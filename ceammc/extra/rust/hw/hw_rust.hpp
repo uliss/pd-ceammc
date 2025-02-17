@@ -454,7 +454,9 @@ bool ceammc_hw_lcd1602_cursor_pos(ceammc_hw_lcd1602 *lcd1602, uint8_t row, uint8
 /// @param lcd1602 - pointer to LCD1602 struct
 void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);
 
-ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(ceammc_hw_notify_cb notify, ceammc_hw_msg_cb on_err);
+ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(uint8_t i2c_addr,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_err);
 
 /// write text to lcd1602
 /// @param lcd1602 - pointer to LCD1602 struct

@@ -33,11 +33,20 @@ pub struct hw_lcd1602 {
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_lcd1602_new(
+    i2c_addr: u8,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_lcd1602 {
     rpi_check!(null_mut(), {
-        match hw_lcd1602::new(None, notify, on_err) {
+        match hw_lcd1602::new(
+            if i2c_addr < 0x08 {
+                None
+            } else {
+                Some(i2c_addr)
+            },
+            notify,
+            on_err,
+        ) {
             Ok(lcd1602) => return Box::into_raw(Box::new(lcd1602)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());

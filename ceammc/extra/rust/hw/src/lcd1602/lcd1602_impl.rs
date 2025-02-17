@@ -25,6 +25,8 @@ impl hw_lcd1602 {
                 .init()
                 .unwrap();
 
+            debug!("I2c: {}", addr.unwrap_or(LCD_ADDRESS));
+
             while let Ok(req) = rx.recv() {
                 debug!("{:?}", &req);
                 match &req {

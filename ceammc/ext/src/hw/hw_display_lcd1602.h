@@ -8,12 +8,13 @@ using namespace ceammc;
 
 class HwI2cLcd1602 : public DispatchedObject<BaseObject> {
     ceammc_hw_lcd1602* lcd_ { nullptr };
+    IntProperty* addr_ { nullptr };
 
 public:
     HwI2cLcd1602(const PdArgs& args);
     ~HwI2cLcd1602();
 
-    //    void initDone() final;
+    void initDone() final;
     bool notify(int code) final;
 
     //    void onBang() final;
