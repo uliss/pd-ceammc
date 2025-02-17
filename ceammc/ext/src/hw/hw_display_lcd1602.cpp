@@ -7,7 +7,9 @@ HwI2cLcd1602::HwI2cLcd1602(const PdArgs& args)
 {
     createOutlet();
 
-    addr_ = new IntProperty("@i2c_addr", 0);
+    // for i2c PCF8574 using NXP chip: most likely 0x3F
+    // for i2c PCF8574 using TI (Texas Instruments): most likely: 0x27
+    addr_ = new IntProperty("@i2c_addr", 0x27);
     addr_->checkClosedRange(0x0, 0x77);
     addr_->setInitOnly();
     addr_->setArgIndex(0);
