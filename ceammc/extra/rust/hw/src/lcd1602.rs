@@ -20,6 +20,9 @@ pub enum Request {
     WriteText(String),
     Clear,
     Backlight(bool),
+    CursorOn(bool),
+    CursorBlink(bool),
+    CursorPos(u8, u8),
 }
 
 pub struct hw_lcd1602 {
@@ -84,6 +87,55 @@ pub extern "C" fn ceammc_hw_lcd1602_backlight(lcd1602: *mut hw_lcd1602, state: b
 
         let lcd1602 = unsafe { &*lcd1602 };
         lcd1602.send(Request::Backlight(state))
+    });
+}
+
+/// turn on/off lcd1602 cursor
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param state - on/off state
+#[no_mangle]
+pub extern "C" fn ceammc_hw_lcd1602_cursor_on(lcd1602: *mut hw_lcd1602, state: bool) -> bool {
+    rpi_check!({
+        if lcd1602.is_null() {
+            error!("NULL lcd1602 pointer");
+            return false;
+        }
+
+        let lcd1602 = unsafe { &*lcd1602 };
+        lcd1602.send(Request::CursorOn(state))
+    });
+}
+
+/// turn on/off lcd1602 cursor
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param state - on/off state
+#[no_mangle]
+pub extern "C" fn ceammc_hw_lcd1602_cursor_blink(lcd1602: *mut hw_lcd1602, state: bool) -> bool {
+    rpi_check!({
+        if lcd1602.is_null() {
+            error!("NULL lcd1602 pointer");
+            return false;
+        }
+
+        let lcd1602 = unsafe { &*lcd1602 };
+        lcd1602.send(Request::CursorBlink(state))
+    });
+}
+
+/// set lcd1602 cursor position
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param row - cursor row
+/// @param col - cursor column
+#[no_mangle]
+pub extern "C" fn ceammc_hw_lcd1602_cursor_pos(lcd1602: *mut hw_lcd1602, row: u8, col: u8) -> bool {
+    rpi_check!({
+        if lcd1602.is_null() {
+            error!("NULL lcd1602 pointer");
+            return false;
+        }
+
+        let lcd1602 = unsafe { &*lcd1602 };
+        lcd1602.send(Request::CursorPos(row, col))
     });
 }
 

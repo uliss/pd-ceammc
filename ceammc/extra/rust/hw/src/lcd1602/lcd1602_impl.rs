@@ -29,7 +29,7 @@ impl hw_lcd1602 {
                 debug!("{:?}", &req);
                 match &req {
                     crate::lcd1602::Request::WriteText(msg) => {
-                        lcd.return_home().unwrap();
+                        // lcd.return_home().unwrap();
                         lcd.write_str(msg.as_str()).unwrap_or_else(|e| {
                             error!("{e}");
                         });
@@ -43,6 +43,15 @@ impl hw_lcd1602 {
                             false => lcd_lcm1602_i2c::Backlight::Off,
                         })
                         .unwrap();
+                    }
+                    Request::CursorOn(state) => {
+                        lcd.cursor_on(*state).unwrap();
+                    }
+                    Request::CursorBlink(state) => {
+                        lcd.cursor_blink(*state).unwrap();
+                    }
+                    Request::CursorPos(row, col) => {
+                        lcd.set_cursor(row, col).unwrap();
                     }
                 }
             }

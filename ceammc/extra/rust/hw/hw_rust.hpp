@@ -434,6 +434,22 @@ bool ceammc_hw_lcd1602_backlight(ceammc_hw_lcd1602 *lcd1602, bool state);
 /// @param lcd1602 - pointer to LCD1602 struct
 bool ceammc_hw_lcd1602_clear(ceammc_hw_lcd1602 *lcd1602);
 
+/// turn on/off lcd1602 cursor
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param state - on/off state
+bool ceammc_hw_lcd1602_cursor_blink(ceammc_hw_lcd1602 *lcd1602, bool state);
+
+/// turn on/off lcd1602 cursor
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param state - on/off state
+bool ceammc_hw_lcd1602_cursor_on(ceammc_hw_lcd1602 *lcd1602, bool state);
+
+/// set lcd1602 cursor position
+/// @param lcd1602 - pointer to LCD1602 struct
+/// @param row - cursor row
+/// @param col - cursor column
+bool ceammc_hw_lcd1602_cursor_pos(ceammc_hw_lcd1602 *lcd1602, uint8_t row, uint8_t col);
+
 /// free lcd1602 display
 /// @param lcd1602 - pointer to LCD1602 struct
 void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);

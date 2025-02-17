@@ -20,6 +20,10 @@ public:
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_backlight(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
+
+    void m_cursor_on(t_symbol* s, const AtomListView& lv);
+    void m_cursor_blink(t_symbol* s, const AtomListView& lv);
+    void m_cursor_pos(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_i2c_lcd1602();
