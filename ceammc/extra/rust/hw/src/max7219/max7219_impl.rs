@@ -113,7 +113,11 @@ impl hw_max7219 {
                             }
                         }
                     },
-                    Request::WriteInt(addr, value) => display.write_integer(addr, value).unwrap(),
+                    Request::WriteInt(addr, value) => {
+                        display.write_integer(addr, value).unwrap_or_else(|_| {
+                            error!("integer overflow");
+                        });
+                    }
                 }
             }
 
