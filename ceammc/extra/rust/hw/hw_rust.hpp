@@ -477,6 +477,11 @@ bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
 /// @param txt - text
 bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
 
+/// set max7219 power on/off
+/// @param max7219 - pointer to max7219 struct
+/// @param state
+bool ceammc_hw_max7219_clear(ceammc_hw_max7219 *mx, int64_t addr);
+
 /// free max7219 struct
 /// @param max7219 - pointer to max7219 struct
 void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);

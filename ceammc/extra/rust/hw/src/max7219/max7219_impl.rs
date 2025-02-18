@@ -62,7 +62,9 @@ impl hw_max7219 {
                             }
                             str[i] = msg.as_bytes()[i];
                         }
-                        display.write_str(addr.unwrap_or_default(), &str, 0).unwrap();
+                        display
+                            .write_str(addr.unwrap_or_default(), &str, 0)
+                            .unwrap();
                     }
                     Request::PowerOn(state) => {
                         if state {
@@ -71,6 +73,16 @@ impl hw_max7219 {
                             display.power_off().unwrap();
                         }
                     }
+                    Request::Clear(addr) => match addr {
+                        Some(addr) => {
+                            display.clear_display(addr).unwrap();
+                        }
+                        None => {
+                            for x in 0..4 {
+                                display.clear_display(x).unwrap();
+                            }
+                        }
+                    },
                 }
             }
 

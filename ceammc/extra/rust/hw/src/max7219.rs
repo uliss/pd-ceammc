@@ -21,6 +21,7 @@ pub enum Request {
     Intensity(Option<usize>, u8),
     WriteString(Option<usize>, String),
     PowerOn(bool),
+    Clear(Option<usize>),
 }
 
 pub struct hw_max7219 {
@@ -99,6 +100,27 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
 /// @param max7219 - pointer to max7219 struct
 /// @param state
 #[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        if addr < 0 {
+            mx.send(Request::Clear(None));
+        } else {
+            mx.send(Request::Clear(Some(addr as usize)));
+        }
+        true
+    });
+}
+
+/// set max7219 power on/off
+/// @param max7219 - pointer to max7219 struct
+/// @param state
+#[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_string(
     mx: *mut hw_max7219,
     str: *const c_char,
@@ -117,7 +139,7 @@ pub extern "C" fn ceammc_hw_max7219_write_string(
         } else {
             mx.send(Request::WriteString(Some(addr as usize), str.to_owned()));
         }
-        
+
         true
     });
 }
