@@ -20,6 +20,7 @@ pub enum Request {
     // ScanDevices,
     Intensity(Option<usize>, u8),
     WriteString(Option<usize>, String),
+    WriteInt(usize, i32),
     PowerOn(bool),
     Clear(Option<usize>),
 }
@@ -140,6 +141,23 @@ pub extern "C" fn ceammc_hw_max7219_write_string(
             mx.send(Request::WriteString(Some(addr as usize), str.to_owned()));
         }
 
+        true
+    });
+}
+
+/// set max7219 power on/off
+/// @param max7219 - pointer to max7219 struct
+/// @param state
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, addr: usize) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(Request::WriteInt(addr, val));
         true
     });
 }

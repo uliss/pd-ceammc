@@ -38,7 +38,12 @@ void HwSpiMax7219::m_write(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_write_string(mx_, to_string(lv).c_str(), 0);
 }
 
-void HwSpiMax7219::m_clear(t_symbol *s, const AtomListView &lv)
+void HwSpiMax7219::m_write_int(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_max7219_write_int(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
+}
+
+void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_max7219_clear(mx_, lv.intAt(0, -1));
 }
@@ -49,5 +54,6 @@ void setup_hw_spi_max7219()
     obj.addMethod("intensity", &HwSpiMax7219::m_intensity);
     obj.addMethod("power", &HwSpiMax7219::m_power);
     obj.addMethod("write", &HwSpiMax7219::m_write);
+    obj.addMethod("write_int", &HwSpiMax7219::m_write_int);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
 }

@@ -503,6 +503,11 @@ bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
 /// set max7219 power on/off
 /// @param max7219 - pointer to max7219 struct
 /// @param state
+bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, size_t addr);
+
+/// set max7219 power on/off
+/// @param max7219 - pointer to max7219 struct
+/// @param state
 bool ceammc_hw_max7219_write_string(ceammc_hw_max7219 *mx, const char *str, int64_t addr);
 
 int32_t ceammc_hw_print_file(const char *printer,

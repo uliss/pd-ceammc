@@ -22,6 +22,7 @@ public:
     void m_intensity(t_symbol* s, const AtomListView& lv);
     void m_power(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
+    void m_write_int(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView &lv);
 
     //    void m_clear(t_symbol* s, const AtomListView& lv);

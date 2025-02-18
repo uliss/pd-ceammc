@@ -2,7 +2,7 @@ use std::ffi::CString;
 
 use log::{debug, error};
 // use rpi_embedded::{gpio::Gpio, spi::Spi};
-use rppal::{gpio::Gpio, spi::Spi};
+use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -15,14 +15,6 @@ impl hw_max7219 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            // let spi = Spi::new(
-            //     rppal::spi::Bus::Spi0,
-            //     rppal::spi::SlaveSelect::Ss0,
-            //     320000000,
-            //     rppal::spi::Mode::Mode0,
-            // )
-            // .unwrap();
-
             let gpio = Gpio::new().unwrap();
 
             let sck = gpio.get(11).unwrap().into_output_low();
@@ -34,10 +26,15 @@ impl hw_max7219 {
             // SS: Ss0 BCM GPIO 8 (physical pin 24)
 
             let mut display = max7219::MAX7219::from_pins(4, mosi, cs, sck).unwrap();
+            // display.set_decode_mode(0, mode);
 
             // make sure to wake the display up
             display.power_on().unwrap();
-            display.write_str(0, b"12345678", 0b11111111).unwrap();
+            display.clear_display(0).unwrap();
+            display.clear_display(1).unwrap();
+            display.clear_display(2).unwrap();
+            display.clear_display(3).unwrap();
+            // display.write_str(0, b"12345678", 0b11111111).unwrap();
 
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
@@ -83,6 +80,7 @@ impl hw_max7219 {
                             }
                         }
                     },
+                    Request::WriteInt(addr, value) => display.write_integer(addr, value).unwrap(),
                 }
             }
 
