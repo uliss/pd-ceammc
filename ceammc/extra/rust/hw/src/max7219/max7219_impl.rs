@@ -33,7 +33,7 @@ impl hw_max7219 {
             // SCLK: BCM GPIO 11 (physical pin 23)
             // SS: Ss0 BCM GPIO 8 (physical pin 24)
 
-            let mut display = max7219::MAX7219::from_pins(4, mosi, cs, sck).unwrap();
+            let mut display = max7219::MAX7219::from_pins(1, mosi, cs, sck).unwrap();
 
             // make sure to wake the display up
             display.power_on().unwrap();
