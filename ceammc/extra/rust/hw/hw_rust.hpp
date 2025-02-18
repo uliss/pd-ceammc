@@ -479,7 +479,7 @@ bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
 
 /// clear max7219 display
 /// @param max7219 - pointer to max7219 struct
-/// @param addr - lcd address, if <0 clear all connected addresses
+/// @param addr - lcd address in chain, if <0 clear all connected addresses
 bool ceammc_hw_max7219_clear(ceammc_hw_max7219 *mx, int64_t addr);
 
 /// free max7219 struct
@@ -505,10 +505,16 @@ ceammc_hw_max7219 *ceammc_hw_max7219_new(size_t num_displays,
 /// @param state
 bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
 
-/// write max7219 integer value to 8 segment display
+/// write max7219 unsigned hex value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param val - int value to display
-/// @param addr - display address
+/// @param val - unsigned int value to display
+/// @param addr - display address in chain
+bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, uint32_t val, size_t addr);
+
+/// write max7219 int value to 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param val - signed int value to display
+/// @param addr - display address in chain
 bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, size_t addr);
 
 int32_t ceammc_hw_print_file(const char *printer,

@@ -118,6 +118,11 @@ impl hw_max7219 {
                             error!("integer overflow");
                         });
                     }
+                    Request::WriteHex(addr, value) => {
+                        display.write_hex(addr, value).unwrap_or_else(|_| {
+                            error!("hex overflow");
+                        });
+                    }
                 }
             }
 

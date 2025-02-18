@@ -16,6 +16,7 @@ mod max7219_impl;
 pub enum Request {
     Intensity(Option<usize>, u8),
     WriteInt(usize, i32),
+    WriteHex(usize, u32),
     PowerOn(bool),
     Clear(Option<usize>),
 }
@@ -99,7 +100,7 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
 
 /// clear max7219 display
 /// @param max7219 - pointer to max7219 struct
-/// @param addr - lcd address, if <0 clear all connected addresses
+/// @param addr - lcd address in chain, if <0 clear all connected addresses
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> bool {
     rpi_check!({
@@ -118,10 +119,10 @@ pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> boo
     });
 }
 
-/// write max7219 integer value to 8 segment display
+/// write max7219 int value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param val - int value to display
-/// @param addr - display address
+/// @param val - signed int value to display
+/// @param addr - display address in chain
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, addr: usize) -> bool {
     rpi_check!({
@@ -132,6 +133,24 @@ pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, add
 
         let mx = unsafe { &*mx };
         mx.send(Request::WriteInt(addr, val));
+        true
+    });
+}
+
+/// write max7219 unsigned hex value to 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param val - unsigned int value to display
+/// @param addr - display address in chain
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, addr: usize) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(Request::WriteHex(addr, val));
         true
     });
 }

@@ -1,4 +1,5 @@
 #include "hw_spi_max7219.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 
@@ -34,21 +35,46 @@ bool HwSpiMax7219::notify(int code)
 
 void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("VALUE:i[0-15] ADDR:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
     ceammc_hw_max7219_intensity(mx_, lv.intAt(0, 0), lv.intAt(1, -1));
 }
 
 void HwSpiMax7219::m_power(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("STATE:B");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
     ceammc_hw_max7219_power(mx_, lv.boolAt(0, false));
 }
 
 void HwSpiMax7219::m_write_int(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("INT:i ADDR:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
     ceammc_hw_max7219_write_int(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
+}
+
+void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("HEX:i>=0 ADDR:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_max7219_write_hex(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
 }
 
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("ADDR:i?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
     ceammc_hw_max7219_clear(mx_, lv.intAt(0, -1));
 }
 
@@ -58,5 +84,6 @@ void setup_hw_spi_max7219()
     obj.addMethod("intensity", &HwSpiMax7219::m_intensity);
     obj.addMethod("power", &HwSpiMax7219::m_power);
     obj.addMethod("write_int", &HwSpiMax7219::m_write_int);
+    obj.addMethod("write_hex", &HwSpiMax7219::m_write_hex);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
 }
