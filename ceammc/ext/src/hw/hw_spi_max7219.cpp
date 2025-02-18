@@ -97,5 +97,6 @@ void setup_hw_spi_max7219()
     obj.addMethod("power", &HwSpiMax7219::m_power);
     obj.addMethod("write_int", &HwSpiMax7219::m_write_int);
     obj.addMethod("write_hex", &HwSpiMax7219::m_write_hex);
+    obj.addMethod("write_digit", &HwSpiMax7219::m_write_digit);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
 }
