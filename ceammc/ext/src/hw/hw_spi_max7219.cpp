@@ -22,7 +22,13 @@ bool HwSpiMax7219::notify(int code)
     return true;
 }
 
+void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_max7219_intensity(mx_, lv.intAt(0, 0));
+}
+
 void setup_hw_spi_max7219()
 {
     ObjectFactory<HwSpiMax7219> obj("hw.spi.max7219");
+    obj.addMethod("intensity", &HwSpiMax7219::m_intensity);
 }

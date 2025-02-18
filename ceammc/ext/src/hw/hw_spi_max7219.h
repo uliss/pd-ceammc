@@ -19,6 +19,8 @@ public:
 //    void initDone() final;
     bool notify(int code) final;
 
+    void m_intensity(t_symbol* s, const AtomListView& lv);
+
 //    void m_clear(t_symbol* s, const AtomListView& lv);
 //    void m_backlight(t_symbol* s, const AtomListView& lv);
 //    void m_write(t_symbol* s, const AtomListView& lv);

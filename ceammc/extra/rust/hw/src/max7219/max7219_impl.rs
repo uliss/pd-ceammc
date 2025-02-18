@@ -1,6 +1,6 @@
 use std::ffi::CString;
 
-use log::debug;
+use log::{debug, error};
 // use rpi_embedded::{gpio::Gpio, spi::Spi};
 use rppal::{gpio::Gpio, spi::Spi};
 
@@ -23,7 +23,6 @@ impl hw_max7219 {
             )
             .unwrap();
 
-
             let gpio = Gpio::new().unwrap();
 
             let sck = gpio.get(11).unwrap().into_output_low();
@@ -41,12 +40,16 @@ impl hw_max7219 {
             display.power_on().unwrap();
             // write given octet of ASCII characters with dots specified by 3rd param bits
             display.write_str(0, b"pls help", 0b00100000).unwrap();
-            // set display intensity lower
-            display.set_intensity(0, 0x1).unwrap();
-
 
             while let Ok(req) = rx.recv() {
-                match req {}
+                match req {
+                    Request::Intensity(val) => {
+                        display.set_intensity(0, val).unwrap();
+                        display.set_intensity(1, val).unwrap();
+                        display.set_intensity(2, val).unwrap();
+                        display.set_intensity(3, val).unwrap();
+                    }
+                }
             }
 
             debug!("worker thread done");
@@ -55,5 +58,15 @@ impl hw_max7219 {
         });
 
         Ok(hw_max7219 { tx, on_err })
+    }
+
+    pub fn send(&self, req: Request) -> bool {
+        if let Err(err) = self.tx.send(req) {
+            error!("{err}");
+            self.on_err.exec(err.to_string().as_str());
+            false
+        } else {
+            true
+        }
     }
 }

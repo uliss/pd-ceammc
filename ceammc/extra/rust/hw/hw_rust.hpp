@@ -481,6 +481,11 @@ bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
 /// @param max7219 - pointer to max7219 struct
 void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
 
+/// set max7219 intensity
+/// @param max7219 - pointer to max7219 struct
+/// @param intensity
+bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens);
+
 ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t addr,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_err);

@@ -14,6 +14,7 @@ mod max7219_impl;
 
 pub enum Request {
     // ScanDevices,
+    Intensity(u8),
 }
 
 pub struct hw_max7219 {
@@ -47,5 +48,22 @@ pub extern "C" fn ceammc_hw_max7219_free(mx: *mut hw_max7219) {
         if !mx.is_null() {
             drop(unsafe { Box::from_raw(mx) })
         }
+    });
+}
+
+/// set max7219 intensity
+/// @param max7219 - pointer to max7219 struct
+/// @param intensity
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, intens: u8) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(Request::Intensity(intens));
+        true
     });
 }
