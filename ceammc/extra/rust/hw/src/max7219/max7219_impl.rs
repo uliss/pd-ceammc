@@ -34,6 +34,11 @@ impl hw_max7219 {
             display.clear_display(1).unwrap();
             display.clear_display(2).unwrap();
             display.clear_display(3).unwrap();
+
+            display.write_raw(0, &[1, 1, 1, 1, 1, 1, 1, 1]).unwrap();
+            display.write_raw(1, &[3, 3, 3, 3, 3, 3, 3, 3]).unwrap();
+            display.write_raw(2, &[5, 5, 5, 5, 5, 5, 5, 5]).unwrap();
+            display.write_raw(3, &[0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]).unwrap();
             // display.write_str(0, b"12345678", 0b11111111).unwrap();
 
             while let Ok(req) = rx.recv() {
