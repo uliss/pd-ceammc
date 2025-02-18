@@ -29,16 +29,15 @@ impl hw_max7219 {
             let cs = gpio.get(8).unwrap().into_output_low();
             let mosi = gpio.get(10).unwrap().into_output_low();
 
-            // MISO: BCM GPIO 9 (physical pin 21)
             // MOSI: BCM GPIO 10 (physical pin 19)
             // SCLK: BCM GPIO 11 (physical pin 23)
-            // SS: Ss0 BCM GPIO 8 (physical pin 24), Ss1 BCM GPIO 7 (physical pin 26)
+            // SS: Ss0 BCM GPIO 8 (physical pin 24)
 
             let mut display = max7219::MAX7219::from_pins(4, mosi, cs, sck).unwrap();
 
             // make sure to wake the display up
             display.power_on().unwrap();
-            display.write_str(0, b"12345678", 0).unwrap();
+            display.write_str(0, b"12345678", 0b11111111).unwrap();
 
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
@@ -55,9 +54,15 @@ impl hw_max7219 {
                         }
                     },
                     Request::WriteString(addr, msg) => {
-                        // write given octet of ASCII characters with dots specified by 3rd param bits
-                        let str = msg.as_bytes();
-                        display.write_str(addr, b"________", 0).unwrap();
+                        let mut str: [u8; 8] = [30, 31, 32, 33, 34, 35, 36, 37];
+                        // let mut str: = [0u8, 0, 0, 0, 0, 0, 0, 0];
+                        for i in 0..msg.len() {
+                            if i >= 8 {
+                                break;
+                            }
+                            str[i] = msg.as_bytes()[i];
+                        }
+                        display.write_str(addr.unwrap_or_default(), &str, 0).unwrap();
                     }
                     Request::PowerOn(state) => {
                         if state {

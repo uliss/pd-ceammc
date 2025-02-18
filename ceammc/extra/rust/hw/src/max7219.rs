@@ -3,7 +3,10 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::ptr::null_mut;
+use std::{
+    ffi::{c_char, CStr},
+    ptr::null_mut,
+};
 
 use log::error;
 
@@ -16,7 +19,7 @@ mod max7219_impl;
 pub enum Request {
     // ScanDevices,
     Intensity(Option<usize>, u8),
-    WriteString(usize, String),
+    WriteString(Option<usize>, String),
     PowerOn(bool),
 }
 
@@ -88,6 +91,33 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
 
         let mx = unsafe { &*mx };
         mx.send(Request::PowerOn(state));
+        true
+    });
+}
+
+/// set max7219 power on/off
+/// @param max7219 - pointer to max7219 struct
+/// @param state
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_string(
+    mx: *mut hw_max7219,
+    str: *const c_char,
+    addr: i64,
+) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        let str = unsafe { CStr::from_ptr(str) }.to_str().unwrap_or_default();
+        if addr < 0 {
+            mx.send(Request::WriteString(None, str.to_owned()));
+        } else {
+            mx.send(Request::WriteString(Some(addr as usize), str.to_owned()));
+        }
+        
         true
     });
 }
