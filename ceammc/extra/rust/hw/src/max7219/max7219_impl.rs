@@ -15,13 +15,13 @@ impl hw_max7219 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            let spi = Spi::new(
-                rppal::spi::Bus::Spi0,
-                rppal::spi::SlaveSelect::Ss0,
-                320000000,
-                rppal::spi::Mode::Mode0,
-            )
-            .unwrap();
+            // let spi = Spi::new(
+            //     rppal::spi::Bus::Spi0,
+            //     rppal::spi::SlaveSelect::Ss0,
+            //     320000000,
+            //     rppal::spi::Mode::Mode0,
+            // )
+            // .unwrap();
 
             let gpio = Gpio::new().unwrap();
 
