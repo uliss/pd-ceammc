@@ -505,6 +505,16 @@ ceammc_hw_max7219 *ceammc_hw_max7219_new(size_t num_displays,
 /// @param state
 bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
 
+/// write max7219 digit data to 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param digit - digit index
+/// @param data - digit data
+bool ceammc_hw_max7219_write_digit_data(ceammc_hw_max7219 *mx,
+                                        size_t addr,
+                                        uint8_t digit,
+                                        uint8_t data);
+
 /// write max7219 unsigned hex value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
 /// @param val - unsigned int value to display

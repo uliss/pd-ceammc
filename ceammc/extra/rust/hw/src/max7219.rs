@@ -17,6 +17,9 @@ pub enum Request {
     Intensity(Option<usize>, u8),
     WriteInt(usize, i32),
     WriteHex(usize, u32),
+    WriteFloat(usize, f32, u8),
+    WriteDigit(usize, u8, u8),
+    // WriteSegments(usize, u8, u8),
     PowerOn(bool),
     Clear(Option<usize>),
 }
@@ -151,6 +154,30 @@ pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, add
 
         let mx = unsafe { &*mx };
         mx.send(Request::WriteHex(addr, val));
+        true
+    });
+}
+
+/// write max7219 digit data to 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param digit - digit index
+/// @param data - digit data
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_digit_data(
+    mx: *mut hw_max7219,
+    addr: usize,
+    digit: u8,
+    data: u8,
+) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(Request::WriteDigit(addr, digit, data));
         true
     });
 }

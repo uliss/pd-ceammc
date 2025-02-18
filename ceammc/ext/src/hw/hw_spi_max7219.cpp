@@ -35,7 +35,7 @@ bool HwSpiMax7219::notify(int code)
 
 void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("VALUE:i[0-15] ADDR:i>=0?");
+    static const args::ArgChecker chk("VALUE:i[0,15] ADDR:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -67,6 +67,18 @@ void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
 
     ceammc_hw_max7219_write_hex(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
+}
+
+void HwSpiMax7219::m_write_digit(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("DIGIT:i[0,7] DATA:b ADDR:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    const auto digit = lv.intAt(0, 0);
+    const auto data = lv.intAt(1, 0);
+    const auto addr = lv.intAt(2, 0);
+    ceammc_hw_max7219_write_digit_data(mx_, addr, digit, data);
 }
 
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
