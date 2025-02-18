@@ -44,9 +44,16 @@ impl hw_max7219 {
                 debug!("{req:?}");
 
                 match req {
-                    Request::Intensity(addr, val) => {
-                        display.set_intensity(addr, val).unwrap();
-                    }
+                    Request::Intensity(addr, val) => match addr {
+                        Some(addr) => display
+                            .set_intensity(addr, val.clamp(0, 255) as u8)
+                            .unwrap(),
+                        None => {
+                            for x in 0..4 {
+                                display.set_intensity(x, val.clamp(0, 255) as u8).unwrap();
+                            }
+                        }
+                    },
                     Request::WriteString(addr, msg) => {
                         // write given octet of ASCII characters with dots specified by 3rd param bits
                         let str = msg.as_bytes();

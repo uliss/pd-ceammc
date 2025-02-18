@@ -484,7 +484,7 @@ void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
 /// set max7219 intensity
 /// @param max7219 - pointer to max7219 struct
 /// @param intensity
-bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens);
+bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int64_t addr);
 
 ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t addr,
                                          ceammc_hw_notify_cb notify,

@@ -24,7 +24,7 @@ bool HwSpiMax7219::notify(int code)
 
 void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_max7219_intensity(mx_, lv.intAt(0, 0));
+    ceammc_hw_max7219_intensity(mx_, lv.intAt(0, 0), lv.intAt(1, -1));
 }
 
 void HwSpiMax7219::m_power(t_symbol *s, const AtomListView &lv)
