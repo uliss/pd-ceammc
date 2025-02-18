@@ -12,9 +12,12 @@ use crate::{hw_msg_cb, hw_notify_cb};
 #[cfg(target_os = "linux")]
 mod max7219_impl;
 
+#[derive(Debug)]
 pub enum Request {
     // ScanDevices,
-    Intensity(u8),
+    Intensity(usize, u8),
+    WriteString(usize, String),
+    PowerOn(bool),
 }
 
 pub struct hw_max7219 {
@@ -63,7 +66,24 @@ pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, intens: u8) -
         }
 
         let mx = unsafe { &*mx };
-        mx.send(Request::Intensity(intens));
+        mx.send(Request::Intensity(0, intens));
+        true
+    });
+}
+
+/// set max7219 power on/off
+/// @param max7219 - pointer to max7219 struct
+/// @param state
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(Request::PowerOn(state));
         true
     });
 }

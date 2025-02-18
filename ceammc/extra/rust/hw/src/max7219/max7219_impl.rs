@@ -38,16 +38,26 @@ impl hw_max7219 {
 
             // make sure to wake the display up
             display.power_on().unwrap();
-            // write given octet of ASCII characters with dots specified by 3rd param bits
-            display.write_str(0, b"pls help", 0b00100000).unwrap();
+            display.write_str(0, b"12345678", 0).unwrap();
 
             while let Ok(req) = rx.recv() {
+                debug!("{req:?}");
+
                 match req {
-                    Request::Intensity(val) => {
-                        display.set_intensity(0, val).unwrap();
-                        display.set_intensity(1, val).unwrap();
-                        display.set_intensity(2, val).unwrap();
-                        display.set_intensity(3, val).unwrap();
+                    Request::Intensity(addr, val) => {
+                        display.set_intensity(addr, val).unwrap();
+                    }
+                    Request::WriteString(addr, msg) => {
+                        // write given octet of ASCII characters with dots specified by 3rd param bits
+                        let str = msg.as_bytes();
+                        display.write_str(addr, b"________", 0).unwrap();
+                    }
+                    Request::PowerOn(state) => {
+                        if state {
+                            display.power_on().unwrap();
+                        } else {
+                            display.power_off().unwrap();
+                        }
                     }
                 }
             }
