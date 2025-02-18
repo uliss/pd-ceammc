@@ -3,10 +3,7 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{
-    ffi::{c_char, CStr},
-    ptr::null_mut,
-};
+use std::ptr::null_mut;
 
 use log::error;
 
@@ -17,9 +14,7 @@ mod max7219_impl;
 
 #[derive(Debug)]
 pub enum Request {
-    // ScanDevices,
     Intensity(Option<usize>, u8),
-    WriteString(Option<usize>, String),
     WriteInt(usize, i32),
     PowerOn(bool),
     Clear(Option<usize>),
@@ -30,14 +25,19 @@ pub struct hw_max7219 {
     on_err: hw_msg_cb,
 }
 
+/// create new max7219
+/// @param num_displays - number of connected lcd modules
+/// @param notify - notify callback
+/// @param on_err - error callback
+/// @return pointer to max7219 on NULL on error
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_new(
-    addr: u8,
+    num_displays: usize,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_max7219 {
     rpi_check!(null_mut(), {
-        match hw_max7219::new(addr, notify, on_err) {
+        match hw_max7219::new(num_displays, notify, on_err) {
             Ok(max2719) => return Box::into_raw(Box::new(max2719)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -61,7 +61,7 @@ pub extern "C" fn ceammc_hw_max7219_free(mx: *mut hw_max7219) {
 
 /// set max7219 intensity
 /// @param max7219 - pointer to max7219 struct
-/// @param intensity
+/// @param intensity in 0..0xF range
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, intens: u8, addr: i64) -> bool {
     rpi_check!({
@@ -97,9 +97,9 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
     });
 }
 
-/// set max7219 power on/off
+/// clear max7219 display
 /// @param max7219 - pointer to max7219 struct
-/// @param state
+/// @param addr - lcd address, if <0 clear all connected addresses
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> bool {
     rpi_check!({
@@ -118,36 +118,10 @@ pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> boo
     });
 }
 
-/// set max7219 power on/off
+/// write max7219 integer value to 8 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param state
-#[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_string(
-    mx: *mut hw_max7219,
-    str: *const c_char,
-    addr: i64,
-) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        let str = unsafe { CStr::from_ptr(str) }.to_str().unwrap_or_default();
-        if addr < 0 {
-            mx.send(Request::WriteString(None, str.to_owned()));
-        } else {
-            mx.send(Request::WriteString(Some(addr as usize), str.to_owned()));
-        }
-
-        true
-    });
-}
-
-/// set max7219 power on/off
-/// @param max7219 - pointer to max7219 struct
-/// @param state
+/// @param val - int value to display
+/// @param addr - display address
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, addr: usize) -> bool {
     rpi_check!({

@@ -1,7 +1,6 @@
 use std::ffi::CString;
 
 use log::{debug, error};
-// use rpi_embedded::{gpio::Gpio, spi::Spi};
 use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb};
@@ -9,23 +8,64 @@ use crate::{hw_msg_cb, hw_notify_cb};
 use super::{hw_max7219, Request};
 
 impl hw_max7219 {
-    pub fn new(addr: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(displays: usize, _notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel::<Request>();
 
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            let gpio = Gpio::new().unwrap();
+            let gpio = Gpio::new().map_err(|err| {
+                error!("{err}");
+                err.to_string()
+            })?;
 
-            let sck = gpio.get(11).unwrap().into_output_low();
-            let cs = gpio.get(8).unwrap().into_output_low();
-            let mosi = gpio.get(10).unwrap().into_output_low();
+            debug!("GPIO init done");
 
-            // MOSI: BCM GPIO 10 (physical pin 19)
-            // SCLK: BCM GPIO 11 (physical pin 23)
-            // SS: Ss0 BCM GPIO 8 (physical pin 24)
+            const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
+            const SCLK_PIN: u8 = 11; // [CLK]  BCM GPIO 11 (physical pin 23)
+            const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
 
-            let mut display = max7219::MAX7219::from_pins(4, mosi, cs, sck).unwrap();
+            let data = gpio
+                .get(MOSI_PIN)
+                .map_err(|err| {
+                    error!("{err}");
+                    err.to_string()
+                })?
+                .into_output_low();
+
+            let sclk = gpio
+                .get(SCLK_PIN)
+                .map_err(|err| {
+                    error!("{err}");
+                    err.to_string()
+                })?
+                .into_output_low();
+
+            let cs = gpio
+                .get(CS_PIN)
+                .map_err(|err| {
+                    error!("{err}");
+                    err.to_string()
+                })?
+                .into_output_low();
+
+            debug!(
+                "init GPIO pins: DATA={} CS={} CLK={}",
+                data.pin(),
+                cs.pin(),
+                sclk.pin()
+            );
+
+            let mut display =
+                max7219::MAX7219::from_pins(displays, data, cs, sclk).map_err(|err| {
+                    let err = match err {
+                        max7219::DataError::Spi => "SPI init error",
+                        max7219::DataError::Pin => "Pin init error",
+                    };
+                    error!("{err}");
+                    err
+                })?;
+
             // display.set_decode_mode(0, mode);
 
             // make sure to wake the display up
@@ -35,11 +75,12 @@ impl hw_max7219 {
             display.clear_display(2).unwrap();
             display.clear_display(3).unwrap();
 
-            display.write_raw(0, &[1, 1, 1, 1, 1, 1, 1, 1]).unwrap();
-            display.write_raw(1, &[3, 3, 3, 3, 3, 3, 3, 3]).unwrap();
-            display.write_raw(2, &[5, 5, 5, 5, 5, 5, 5, 5]).unwrap();
-            display.write_raw(3, &[0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]).unwrap();
-            // display.write_str(0, b"12345678", 0b11111111).unwrap();
+            // display.write_raw(0, &[1, 1, 1, 1, 1, 1, 1, 1]).unwrap();
+            // display.write_raw(1, &[3, 3, 3, 3, 3, 3, 3, 3]).unwrap();
+            // display.write_raw(2, &[5, 5, 5, 5, 5, 5, 5, 5]).unwrap();
+            // display
+            //     .write_raw(3, &[0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff])
+            //     .unwrap();
 
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
@@ -55,19 +96,6 @@ impl hw_max7219 {
                             }
                         }
                     },
-                    Request::WriteString(addr, msg) => {
-                        let mut str: [u8; 8] = [30, 31, 32, 33, 34, 35, 36, 37];
-                        // let mut str: = [0u8, 0, 0, 0, 0, 0, 0, 0];
-                        for i in 0..msg.len() {
-                            if i >= 8 {
-                                break;
-                            }
-                            str[i] = msg.as_bytes()[i];
-                        }
-                        display
-                            .write_str(addr.unwrap_or_default(), &str, 0)
-                            .unwrap();
-                    }
                     Request::PowerOn(state) => {
                         if state {
                             display.power_on().unwrap();

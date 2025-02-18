@@ -477,9 +477,9 @@ bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
 /// @param txt - text
 bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
 
-/// set max7219 power on/off
+/// clear max7219 display
 /// @param max7219 - pointer to max7219 struct
-/// @param state
+/// @param addr - lcd address, if <0 clear all connected addresses
 bool ceammc_hw_max7219_clear(ceammc_hw_max7219 *mx, int64_t addr);
 
 /// free max7219 struct
@@ -488,10 +488,15 @@ void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
 
 /// set max7219 intensity
 /// @param max7219 - pointer to max7219 struct
-/// @param intensity
+/// @param intensity in 0..0xF range
 bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int64_t addr);
 
-ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t addr,
+/// create new max7219
+/// @param num_displays - number of connected lcd modules
+/// @param notify - notify callback
+/// @param on_err - error callback
+/// @return pointer to max7219 on NULL on error
+ceammc_hw_max7219 *ceammc_hw_max7219_new(size_t num_displays,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_err);
 
@@ -500,15 +505,11 @@ ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t addr,
 /// @param state
 bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
 
-/// set max7219 power on/off
+/// write max7219 integer value to 8 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param state
+/// @param val - int value to display
+/// @param addr - display address
 bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, size_t addr);
-
-/// set max7219 power on/off
-/// @param max7219 - pointer to max7219 struct
-/// @param state
-bool ceammc_hw_max7219_write_string(ceammc_hw_max7219 *mx, const char *str, int64_t addr);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,

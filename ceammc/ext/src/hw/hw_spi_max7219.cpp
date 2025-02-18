@@ -5,17 +5,26 @@
 HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
 {
-
-    mx_ = ceammc_hw_max7219_new(0,
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
-        { this, [](void* user, const char* msg) {
-             LIB_ERR << msg;
-         } });
+    num_ = new IntProperty("@num", 1);
+    num_->setInitOnly();
+    num_->checkClosedRange(1, 4);
+    addProperty(num_);
 }
 
 HwSpiMax7219::~HwSpiMax7219()
 {
     ceammc_hw_max7219_free(mx_);
+}
+
+void HwSpiMax7219::initDone()
+{
+    mx_ = ceammc_hw_max7219_new(num_->value(),
+        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
+        { this, [](void* user, const char* msg) {
+             auto obj = static_cast<HwSpiMax7219*>(user);
+             if (obj)
+                 Error(obj) << msg;
+         } });
 }
 
 bool HwSpiMax7219::notify(int code)
@@ -33,11 +42,6 @@ void HwSpiMax7219::m_power(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_power(mx_, lv.boolAt(0, false));
 }
 
-void HwSpiMax7219::m_write(t_symbol* s, const AtomListView& lv)
-{
-    ceammc_hw_max7219_write_string(mx_, to_string(lv).c_str(), 0);
-}
-
 void HwSpiMax7219::m_write_int(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_max7219_write_int(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
@@ -53,7 +57,6 @@ void setup_hw_spi_max7219()
     ObjectFactory<HwSpiMax7219> obj("hw.spi.max7219");
     obj.addMethod("intensity", &HwSpiMax7219::m_intensity);
     obj.addMethod("power", &HwSpiMax7219::m_power);
-    obj.addMethod("write", &HwSpiMax7219::m_write);
     obj.addMethod("write_int", &HwSpiMax7219::m_write_int);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
 }
