@@ -110,6 +110,8 @@ struct ceammc_hw_i2c;
 
 struct ceammc_hw_lcd1602;
 
+struct ceammc_hw_max7219;
+
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
     void *user;
@@ -474,6 +476,14 @@ bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
 /// @param lcd1602 - pointer to LCD1602 struct
 /// @param txt - text
 bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
+
+/// free max7219 struct
+/// @param max7219 - pointer to max7219 struct
+void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
+
+ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t addr,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_err);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
