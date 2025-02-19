@@ -131,52 +131,14 @@ impl hw_max7219 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            // let gpio = Gpio::new().map_err(|err| {
-            //     error!("{err}");
-            //     err.to_string()
-            // })?;
-
-            // debug!("GPIO init done");
-
-            const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
-            const SCLK_PIN: u8 = 11; // [CLK]  BCM GPIO 11 (physical pin 23)
-            const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
-
-            // let data = gpio
-            //     .get(MOSI_PIN)
-            //     .map_err(|err| {
-            //         error!("{err}");
-            //         err.to_string()
-            //     })?
-            //     .into_output_low();
-
-            // let sclk = gpio
-            //     .get(SCLK_PIN)
-            //     .map_err(|err| {
-            //         error!("{err}");
-            //         err.to_string()
-            //     })?
-            //     .into_output_low();
-
-            // let cs = gpio
-            //     .get(CS_PIN)
-            //     .map_err(|err| {
-            //         error!("{err}");
-            //         err.to_string()
-            //     })?
-            //     .into_output_low();
-
-            // debug!(
-            //     "init GPIO pins: DATA={} CS={} CLK={}",
-            //     data.pin(),
-            //     cs.pin(),
-            //     sclk.pin()
-            // );
+            // const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
+            // const SCLK_PIN: u8 = 11; // [CLK]  BCM GPIO 11 (physical pin 23)
+            // const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
 
             let spi = rppal::spi::Spi::new(
                 rppal::spi::Bus::Spi0,
                 rppal::spi::SlaveSelect::Ss0,
-                10_000_000,
+                1_000_000,
                 rppal::spi::Mode::Mode0,
             )
             .map_err(|err| {
