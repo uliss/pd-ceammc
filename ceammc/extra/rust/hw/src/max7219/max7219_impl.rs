@@ -69,12 +69,15 @@ fn map_char(c: char) -> u8 {
     }
 }
 
-fn encode_string(str: &String) -> [u8; 8] {
+fn encode_string(str: &String, dots: u8) -> [u8; 8] {
     let bytes = str.chars().map(|x| map_char(x)).collect::<Vec<_>>();
 
     let mut buf: [u8; 8] = [0; 8];
-    for (b, c) in buf.iter_mut().zip(bytes.iter().rev()) {
+    for (idx, (b, c)) in buf.iter_mut().zip(bytes.iter().rev()).enumerate() {
         *b = *c;
+        if dots & (1 << idx) > 0 {
+            *b |= 0b1000_0000;
+        }
     }
 
     buf
@@ -237,7 +240,7 @@ impl hw_max7219 {
                                 error!("write digit overflow");
                             });
                     }
-                    Request::WriteString(addr, str, align) => {
+                    Request::WriteString(addr, str, align, dots) => {
                         let mut str = str.clone();
                         str.truncate(8);
                         if str.len() < 8 {
@@ -267,7 +270,7 @@ impl hw_max7219 {
                         }
 
                         display
-                            .write_raw(addr, &encode_string(&str))
+                            .write_raw(addr, &encode_string(&str, dots))
                             .unwrap_or_else(|_| {
                                 error!("write str overflow");
                             });

@@ -100,15 +100,16 @@ void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("STR:s ALIGN:s=left|right|center? ADDR:i>=0?");
+    static const args::ArgChecker chk("STR:s DOTS:b? ALIGN:s=left|right|center? ADDR:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
     const auto str = lv.symbolAt(0, &s_)->s_name;
+    const auto dots = lv.intAt(1, 0);
 
     ceammc_hw_max7219_string_align align = ceammc_hw_max7219_string_align::Right;
 
-    switch (crc32_hash(lv.symbolAt(1, gensym(str_right)))) {
+    switch (crc32_hash(lv.symbolAt(2, gensym(str_right)))) {
     case hash_center:
         align = ceammc_hw_max7219_string_align::Center;
         break;
@@ -123,8 +124,8 @@ void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
         break;
     }
 
-    const auto addr = lv.intAt(2, 0);
-    ceammc_hw_max7219_write_str(mx_, addr, str, align);
+    const auto addr = lv.intAt(3, 0);
+    ceammc_hw_max7219_write_str(mx_, addr, str, align, dots);
 }
 
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)

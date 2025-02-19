@@ -551,7 +551,8 @@ bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, size_t addr
 bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
                                  size_t addr,
                                  const char *str,
-                                 ceammc_hw_max7219_string_align align);
+                                 ceammc_hw_max7219_string_align align,
+                                 uint8_t dots);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,

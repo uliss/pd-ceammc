@@ -31,7 +31,7 @@ pub enum Request {
     WriteHex(usize, u32),
     WriteFloat(usize, f32, u8),
     WriteDigit(usize, u8, u8),
-    WriteString(usize, String, hw_max7219_string_align),
+    WriteString(usize, String, hw_max7219_string_align, u8),
     PowerOn(bool),
     Clear(Option<usize>),
 }
@@ -229,6 +229,7 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
     addr: usize,
     str: *const c_char,
     align: hw_max7219_string_align,
+    dots: u8,
 ) -> bool {
     rpi_check!({
         if mx.is_null() {
@@ -238,7 +239,7 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
 
         let mx = unsafe { &*mx };
         let str = unsafe { CStr::from_ptr(str) }.to_string_lossy().to_string();
-        mx.send(Request::WriteString(addr, str, align));
+        mx.send(Request::WriteString(addr, str, align, dots));
         true
     });
 }
