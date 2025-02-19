@@ -175,7 +175,7 @@ void HwSpiMax7219::m_test(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    const auto addr = lv.intAt(0, ceammc_HW_MAX7219_ADDRESS_ALL);
+    const auto addr = lv.intAt(1, ceammc_HW_MAX7219_ADDRESS_ALL);
     ceammc_hw_max7219_test(mx_, addr, lv.boolAt(0, false));
 }
 
