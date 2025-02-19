@@ -1,4 +1,5 @@
 set(BASE_SOURCES
+    base_bitmap.cpp
     base_log.cpp
     base_sync.cpp
     base_spring.cpp
@@ -88,7 +89,8 @@ if(RAGEL_FOUND)
     add_custom_target(ragel_base SOURCES parser_canvas_id.rl)
 endif()
 
-add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
+add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES}
+    base_bitmap.h base_bitmap.cpp)
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
 target_include_directories(ceammc_base

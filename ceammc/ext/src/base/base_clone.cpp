@@ -24,7 +24,6 @@
 
 #include <boost/container/small_vector.hpp>
 #include <boost/functional/hash.hpp>
-#include <cassert>
 #include <ctime>
 #include <memory>
 #include <random>
@@ -41,7 +40,6 @@ constexpr int PATTERN_WINDOW_H = 500;
 
 extern "C" {
 #include "g_canvas.h"
-#include "g_ceammc_draw.h"
 #include "m_imp.h"
 
 void canvas_dodsp(t_canvas* x, int toplevel, t_signal** sp);
@@ -160,7 +158,7 @@ void clone_bind_restore(t_object* owner)
  */
 void clone_copy_canvas_content(const t_canvas* z, t_binbuf* b)
 {
-    auto x = (t_canvas*)z;
+    auto x = const_cast<t_canvas*>(z);
 
     for (auto y = x->gl_list; y != nullptr; y = y->g_next)
         gobj_save(y, b);
@@ -262,8 +260,8 @@ public:
     BaseCloneFactory(const char* name, int flags)
         : SoundExternalFactory<BaseClone>(name, flags)
     {
-        class_addmethod(this->classPointer(), (t_method)restore_fn, gensym("restore"), A_GIMME, 0);
-        class_setsavefn(this->classPointer(), (t_savefn)save_fn);
+        class_addmethod(this->classPointer(), reinterpret_cast<t_method>(restore_fn), gensym("restore"), A_GIMME, 0);
+        class_setsavefn(this->classPointer(), reinterpret_cast<t_savefn>(save_fn));
     }
 
     static void save_fn(ObjectProxy* x, t_binbuf* b)
@@ -298,8 +296,8 @@ void canvas_new_mouse_fn(t_canvas* x, t_floatarg xpos, t_floatarg ypos,
     if (!x)
         return;
 
-    const bool runmode = (((int)mod & CTRLMOD) || (!x->gl_edit));
-    const bool rightclick = ((int)mod & RIGHTCLICK);
+    const bool runmode = ((static_cast<int>(mod) & CTRLMOD) || (!x->gl_edit));
+    const bool rightclick = (static_cast<int>(mod) & RIGHTCLICK);
 
     if (x->gl_editor && !runmode && !rightclick) {
         // find first selected BaseClone object
@@ -319,7 +317,7 @@ void canvas_new_mouse_fn(t_canvas* x, t_floatarg xpos, t_floatarg ypos,
     if (ceammc_old_canvas_mouse_fn)
         return ceammc_old_canvas_mouse_fn(x, xpos, ypos, which, mod);
 }
-}
+}  // namespace
 
 CloneInstance::CloneInstance(uint16_t idx, t_canvas* owner)
     : idx_(idx)
@@ -330,13 +328,13 @@ CloneInstance::CloneInstance(uint16_t idx, t_canvas* owner)
 
 CloneInstance::CloneInstance(CloneInstance&& ci)
     : idx_(ci.idx_)
-    , canvas_(std::move(ci.canvas_))
+    , canvas_(ci.canvas_)
 {
 }
 
 CloneInstance::~CloneInstance()
 {
-    if (canvas_) {
+    if (canvas_ != nullptr) {
         canvas_free(canvas_);
         canvas_ = nullptr;
     }
@@ -348,7 +346,7 @@ void CloneInstance::fillWithPattern(const t_binbuf* pattern, int num)
         return;
 
     clear();
-    clone_set_canvas_content(canvas_, pattern, num, (int)idx_);
+    clone_set_canvas_content(canvas_, pattern, num, static_cast<int>(idx_));
 }
 
 void CloneInstance::loadbang()
@@ -640,7 +638,7 @@ void BaseClone::updateOutlets()
         const auto inst_idx = i / NUM_PATTERN_OUTLETS;
         const auto src_idx = i % NUM_PATTERN_OUTLETS;
 
-        proxy_.emplace_back(this, (int)i);
+        proxy_.emplace_back(this, static_cast<int>(i));
 
         auto ci = instances_[inst_idx].canvas();
         auto x = &ci->gl_obj;
@@ -776,7 +774,7 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
                 dspSetInstance(i, v);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", static_cast<int>(msg.target));
 }
 
 void BaseClone::dspSetInstance(int16_t idx, bool value)
@@ -815,7 +813,7 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
                 dspToggleInstance(i);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", static_cast<int>(msg.target));
 }
 
 void BaseClone::dspToggleInstance(int16_t idx)
@@ -847,7 +845,7 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
         for (auto i = range.a; i < range.b; i++)
             dspSetInstance(i, lv.boolAt(i - range.a, false));
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", static_cast<int>(msg.target));
 }
 
 uint16_t BaseClone::genRandomInstanceIndex() const
@@ -1039,7 +1037,7 @@ void BaseClone::sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView
 
 bool BaseClone::sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv)
 {
-    if (inst < 0 || inst >= (int16_t)instances_.size()) {
+    if (inst < 0 || inst >= static_cast<int16_t>(instances_.size())) {
         OBJ_ERR << fmt::format("invalid instance: {}", inst);
         return false;
     }
@@ -1165,7 +1163,7 @@ void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView&
             sendToInstance(i + mm.first, inlet, lv.subView(i, 1));
     } break;
     default:
-        OBJ_ERR << fmt::format("unknown target: {:d}", (int)msg.target);
+        OBJ_ERR << fmt::format("unknown target: {:d}", static_cast<int>(msg.target));
         break;
     }
 }
@@ -1342,7 +1340,7 @@ void BaseClone::onRestore(const AtomListView& lv)
     }
 
     // current canvas pointer
-    auto x = (t_canvas*)z;
+    auto x = reinterpret_cast<t_canvas*>(z);
 
     clone_pop_canvas(x, false);
     x->gl_owner = wrapper_;
@@ -1379,10 +1377,10 @@ void BaseClone::onSave(t_binbuf* b) const
 
     // save object
     binbuf_addv(b, "ssii", sym_X, gensym("obj"),
-        (int)obj->te_xpix, (int)obj->te_ypix);
+        static_cast<int>(obj->te_xpix), static_cast<int>(obj->te_ypix));
     binbuf_addbinbuf(b, obj->te_binbuf);
     if (obj->te_width)
-        binbuf_addv(b, ",si", gensym("f"), (int)obj->te_width);
+        binbuf_addv(b, ",si", gensym("f"), static_cast<int>(obj->te_width));
     binbuf_addv(b, ";");
 
     if (wrapper_ && pattern_) {
@@ -1390,10 +1388,10 @@ void BaseClone::onSave(t_binbuf* b) const
 
         /* have to go to original binbuf to find out how we were named. */
         binbuf_addv(b, "ssiiiisi;", gensym("#N"), gensym("canvas"),
-            (int)(x->gl_screenx1),
-            (int)(x->gl_screeny1),
-            (int)(x->gl_screenx2 - x->gl_screenx1),
-            (int)(x->gl_screeny2 - x->gl_screeny1),
+            (x->gl_screenx1),
+            (x->gl_screeny1),
+            (x->gl_screenx2 - x->gl_screenx1),
+            (x->gl_screeny2 - x->gl_screeny1),
             gensym(PATTERN_NAME),
             0);
 
@@ -1412,7 +1410,7 @@ void BaseClone::onSave(t_binbuf* b) const
         }
 
         binbuf_addv(b, "ssiis", gensym(SYM_CANVAS_RESTORE), gensym("restore"),
-            (int)obj->te_xpix, (int)obj->te_ypix, gensym(PATTERN_NAME));
+            static_cast<int>(obj->te_xpix), static_cast<int>(obj->te_ypix), gensym(PATTERN_NAME));
         binbuf_addv(b, ";");
     }
 }
@@ -1436,10 +1434,10 @@ void setup_base_clone()
 
     // HACK to rename the object without loosing its pattern
     auto sym_mouse = gensym("mouse");
-    auto mouse_fn = (MouseFn)zgetfn(&canvas_class, sym_mouse);
+    auto mouse_fn = reinterpret_cast<MouseFn>(zgetfn(&canvas_class, sym_mouse));
     if (mouse_fn != canvas_new_mouse_fn) {
         LIB_LOG << fmt::format("[{}] replace '{}' method for canvas:", OBJ_NAME, sym_mouse->s_name);
         ceammc_old_canvas_mouse_fn = mouse_fn;
-        class_addmethod(canvas_class, (t_method)canvas_new_mouse_fn, sym_mouse, A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
+        class_addmethod(canvas_class, reinterpret_cast<t_method>(canvas_new_mouse_fn), sym_mouse, A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
     }
 }
