@@ -170,14 +170,17 @@ impl hw_max7219 {
             );
             // spi.
 
-            let mut display = max7219::MAX7219::from_spi(displays, spi).map_err(|err| {
-                let err = match err {
-                    max7219::DataError::Spi => "SPI init error",
-                    max7219::DataError::Pin => "Pin init error",
-                };
-                error!("{err}");
-                err
-            })?;
+            let mut display =
+                max7219::MAX7219::from_spi(displays.clamp(1, 8), spi).map_err(|err| {
+                    let err = match err {
+                        max7219::DataError::Spi => "SPI init error",
+                        max7219::DataError::Pin => "Pin init error",
+                    };
+                    error!("{err}");
+                    err
+                })?;
+
+            debug!("max7219 init: displays={displays}");
 
             // make sure to wake the display up
             display.power_on().unwrap();
@@ -273,6 +276,11 @@ impl hw_max7219 {
                             .unwrap_or_else(|_| {
                                 error!("write str overflow");
                             });
+                    }
+                    Request::Test(addr, state) => {
+                        display.test(addr, state).unwrap_or_else(|_| {
+                            error!("test error");
+                        });
                     }
                 }
             }

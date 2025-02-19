@@ -515,7 +515,7 @@ void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
 bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int64_t addr);
 
 /// create new max7219
-/// @param num_displays - number of connected lcd modules
+/// @param num_displays - number of connected lcd modules (1-8)
 /// @param spi - RPi SPI bus
 /// @param cs - RPi chip select
 /// @param notify - notify callback
@@ -537,6 +537,12 @@ ceammc_hw_max7219 *ceammc_hw_max7219_new(size_t num_displays,
 /// @param max7219 - pointer to max7219 struct
 /// @param state
 bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
+
+/// test max7219 display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr
+/// @param state
+bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, size_t addr, bool state);
 
 /// write max7219 digit data to 7 segment display
 /// @param max7219 - pointer to max7219 struct

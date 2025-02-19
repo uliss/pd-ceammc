@@ -55,6 +55,7 @@ pub enum Request {
     WriteString(usize, String, hw_max7219_string_align, u8),
     PowerOn(bool),
     Clear(Option<usize>),
+    Test(usize, bool),
 }
 
 pub struct hw_max7219 {
@@ -63,7 +64,7 @@ pub struct hw_max7219 {
 }
 
 /// create new max7219
-/// @param num_displays - number of connected lcd modules
+/// @param num_displays - number of connected lcd modules (1-8)
 /// @param spi - RPi SPI bus
 /// @param cs - RPi chip select
 /// @param notify - notify callback
@@ -271,6 +272,24 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
         let mx = unsafe { &*mx };
         let str = unsafe { CStr::from_ptr(str) }.to_string_lossy().to_string();
         mx.send(Request::WriteString(addr, str, align, dots));
+        true
+    });
+}
+
+/// test max7219 display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr
+/// @param state
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: usize, state: bool) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(Request::Test(addr, state));
         true
     });
 }

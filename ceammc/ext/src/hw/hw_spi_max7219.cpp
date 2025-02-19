@@ -149,6 +149,15 @@ void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_clear(mx_, lv.intAt(0, -1));
 }
 
+void HwSpiMax7219::m_test(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("STATE:B ADDR:i?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_max7219_test(mx_, lv.intAt(1, 0), lv.boolAt(0, false));
+}
+
 void setup_hw_spi_max7219()
 {
     ObjectFactory<HwSpiMax7219> obj("hw.spi.max7219");
@@ -160,4 +169,5 @@ void setup_hw_spi_max7219()
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
+    obj.addMethod("test", &HwSpiMax7219::m_test);
 }
