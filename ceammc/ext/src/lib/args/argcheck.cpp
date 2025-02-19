@@ -132,8 +132,8 @@ struct Check {
     ArgName name;
     CheckType type { CHECK_NONE };
     CompareType cmp { CMP_NONE };
-    int8_t rmin { 0 };
-    int8_t rmax { 0 };
+    int16_t rmin { 0 };
+    int16_t rmax { 0 };
 
     inline int repeatMin() const { return rmin; }
     inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }

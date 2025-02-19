@@ -340,6 +340,7 @@ TEST_CASE("args2", "[core]")
         REQUIRE_MATCH("i?", LF(500), 1, LF(500));
         REQUIRE_MATCH("i?", L(), 1, L());
         REQUIRE_MATCH("i{2,3} i?", LF(1, 2), 2, LF(1, 2), L());
+        REQUIRE_MATCH("i{2,3000} i?", LF(1, 2), 2, LF(1, 2), L());
         REQUIRE_MATCH("i{2,3} i?", LF(1, 2, 3), 2, LF(1, 2, 3), L());
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3), 3, LF(1, 2, 3), L(), L());
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A"), 3, LF(1, 2, 3), L(), LA("A"));
