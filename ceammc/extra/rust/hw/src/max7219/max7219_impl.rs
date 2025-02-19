@@ -198,7 +198,7 @@ impl LcdDisplay {
                 Some((digits, dots)) => self.display.write_str(addr, &digits, dots)?,
                 None => {}
             },
-            Request::WriteDigit(digit, data) => self.display.write_raw_byte(addr, *digit, *data)?,
+            Request::WriteRegister(register, data) => self.display.write_raw_byte(addr, *register, *data)?,
             Request::WriteString(str, align, dots) => self
                 .display
                 .write_raw(addr, &encode_string(&pad_string(str, *align), *dots))?,

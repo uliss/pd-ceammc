@@ -57,7 +57,8 @@ void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_max7219_intensity(mx_, lv.intAt(0, 0), lv.intAt(1, -1));
+    const auto addr = lv.intAt(1, ceammc_HW_MAX7219_ADDRESS_ALL);
+    ceammc_hw_max7219_intensity(mx_, addr, lv.intAt(0, 0));
 }
 
 void HwSpiMax7219::m_power(t_symbol* s, const AtomListView& lv)
@@ -75,7 +76,8 @@ void HwSpiMax7219::m_write_int(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_max7219_write_int(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
+    const auto addr = lv.intAt(1, 0);
+    ceammc_hw_max7219_write_int(mx_, addr, lv.intAt(0, 0));
 }
 
 void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
@@ -84,7 +86,8 @@ void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_max7219_write_hex(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
+    const auto addr = lv.intAt(1, 0);
+    ceammc_hw_max7219_write_hex(mx_, addr, lv.intAt(0, 0));
 }
 
 void HwSpiMax7219::m_write_data(t_symbol* s, const AtomListView& lv)
@@ -93,10 +96,10 @@ void HwSpiMax7219::m_write_data(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    const auto digit = lv.intAt(0, 0);
+    const auto reg = lv.intAt(0, 0);
     const auto data = lv.intAt(1, 0);
     const auto addr = lv.intAt(2, 0);
-    ceammc_hw_max7219_write_digit_data(mx_, addr, digit, data);
+    ceammc_hw_max7219_write_raw(mx_, addr, reg, data);
 }
 
 void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
@@ -147,7 +150,8 @@ void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_max7219_clear(mx_, lv.intAt(0, -1));
+    const auto addr = lv.intAt(0, ceammc_HW_MAX7219_ADDRESS_ALL);
+    ceammc_hw_max7219_clear(mx_, addr);
 }
 
 void HwSpiMax7219::m_test(t_symbol* s, const AtomListView& lv)

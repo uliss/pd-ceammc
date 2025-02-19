@@ -12,6 +12,22 @@ use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
+pub const HW_MAX7219_REG_DIGIT_0: u8 = 0x1;
+pub const HW_MAX7219_REG_DIGIT_1: u8 = 0x2;
+pub const HW_MAX7219_REG_DIGIT_2: u8 = 0x3;
+pub const HW_MAX7219_REG_DIGIT_3: u8 = 0x4;
+pub const HW_MAX7219_REG_DIGIT_4: u8 = 0x5;
+pub const HW_MAX7219_REG_DIGIT_5: u8 = 0x6;
+pub const HW_MAX7219_REG_DIGIT_6: u8 = 0x7;
+pub const HW_MAX7219_REG_DIGIT_7: u8 = 0x8;
+pub const HW_MAX7219_REG_DECODE_MODE: u8 = 0x9;
+pub const HW_MAX7219_REG_INTENSITY: u8 = 0xA;
+pub const HW_MAX7219_REG_SCAN_LIMIT: u8 = 0xB;
+pub const HW_MAX7219_REG_SHUTDOWN: u8 = 0xC;
+pub const HW_MAX7219_REG_DISPLAY_TEST: u8 = 0xF;
+
+pub const HW_MAX7219_ADDRESS_ALL: i32 = -1;
+
 #[cfg(target_os = "linux")]
 mod max7219_impl;
 
@@ -51,7 +67,8 @@ pub enum Request {
     WriteInt(i32),
     WriteHex(u32),
     WriteFloat(f32, u8),
-    WriteDigit(u8, u8),
+    WriteRegister(u8, u8),
+    WriteRaw([u8; 8]),
     WriteString(String, hw_max7219_string_align, u8),
     PowerOn(bool),
     Clear,
@@ -118,7 +135,7 @@ pub extern "C" fn ceammc_hw_max7219_free(mx: *mut hw_max7219) {
 /// @param max7219 - pointer to max7219 struct
 /// @param intensity in 0..0xF range
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, intens: u8, addr: i32) -> bool {
+pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, addr: i32, intens: u8) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -168,10 +185,10 @@ pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i32) -> boo
 
 /// write max7219 int value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param val - signed int value to display
 /// @param addr - display address in chain
+/// @param val - signed int value to display
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, addr: i32) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, addr: i32, val: i32) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -186,10 +203,10 @@ pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, add
 
 /// write max7219 unsigned hex value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param val - unsigned int value to display
 /// @param addr - display address in chain
+/// @param val - unsigned int value to display
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, addr: i32) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, addr: i32, val: u32) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -202,16 +219,17 @@ pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, add
     });
 }
 
-/// write max7219 digit data to 7 segment display
+/// write raw data to max7219 register
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - display address in chain
-/// @param digit - digit index
-/// @param data - digit data
+/// @param reg - register index
+/// @param data - register data
+/// @note this is low level write function!
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_digit_data(
+pub extern "C" fn ceammc_hw_max7219_write_raw(
     mx: *mut hw_max7219,
     addr: i32,
-    digit: u8,
+    reg: u8,
     data: u8,
 ) -> bool {
     rpi_check!({
@@ -221,7 +239,7 @@ pub extern "C" fn ceammc_hw_max7219_write_digit_data(
         }
 
         let mx = unsafe { &*mx };
-        mx.send(addr, Request::WriteDigit(digit, data));
+        mx.send(addr, Request::WriteRegister(reg, data));
         true
     });
 }
@@ -290,6 +308,31 @@ pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: i32, state: 
 
         let mx = unsafe { &*mx };
         mx.send(addr, Request::Test(state));
+        true
+    });
+}
+
+/// write data to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param reg - register index
+/// @param data - register data
+/// @note this is low level write function!
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_data(
+    mx: *mut hw_max7219,
+    addr: i32,
+    reg: u8,
+    data: u8,
+) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(addr, Request::WriteRegister(reg, data));
         true
     });
 }

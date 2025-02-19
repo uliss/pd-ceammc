@@ -7,6 +7,34 @@
 #include <cstddef>
 
 
+constexpr static const int32_t ceammc_HW_MAX7219_ADDRESS_ALL = -1;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DECODE_MODE = 9;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_0 = 1;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_1 = 2;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_2 = 3;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_3 = 4;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_4 = 5;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_5 = 6;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_6 = 7;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_7 = 8;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DISPLAY_TEST = 15;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_INTENSITY = 10;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_SCAN_LIMIT = 11;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_SHUTDOWN = 12;
+
 constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
 
 constexpr static const uint16_t ceammc_HW_SR04_MAX_POLL_INTERVAL = 1000;
@@ -512,7 +540,7 @@ void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
 /// set max7219 intensity
 /// @param max7219 - pointer to max7219 struct
 /// @param intensity in 0..0xF range
-bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int32_t addr);
+bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, int32_t addr, uint8_t intens);
 
 /// create new max7219
 /// @param num_displays - number of connected lcd modules (1-8)
@@ -544,15 +572,13 @@ bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
 /// @param state
 bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, int32_t addr, bool state);
 
-/// write max7219 digit data to 7 segment display
+/// write data to max7219
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - display address in chain
-/// @param digit - digit index
-/// @param data - digit data
-bool ceammc_hw_max7219_write_digit_data(ceammc_hw_max7219 *mx,
-                                        int32_t addr,
-                                        uint8_t digit,
-                                        uint8_t data);
+/// @param reg - register index
+/// @param data - register data
+/// @note this is low level write function!
+bool ceammc_hw_max7219_write_data(ceammc_hw_max7219 *mx, int32_t addr, uint8_t reg, uint8_t data);
 
 /// write float to max7219 7 segment display
 /// @param max7219 - pointer to max7219 struct
@@ -566,15 +592,23 @@ bool ceammc_hw_max7219_write_float(ceammc_hw_max7219 *mx,
 
 /// write max7219 unsigned hex value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param val - unsigned int value to display
 /// @param addr - display address in chain
-bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, uint32_t val, int32_t addr);
+/// @param val - unsigned int value to display
+bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, int32_t addr, uint32_t val);
 
 /// write max7219 int value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
-/// @param val - signed int value to display
 /// @param addr - display address in chain
-bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, int32_t addr);
+/// @param val - signed int value to display
+bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t addr, int32_t val);
+
+/// write raw data to max7219 register
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param reg - register index
+/// @param data - register data
+/// @note this is low level write function!
+bool ceammc_hw_max7219_write_raw(ceammc_hw_max7219 *mx, int32_t addr, uint8_t reg, uint8_t data);
 
 /// write string to max7219 7 segment display
 /// @param max7219 - pointer to max7219 struct
