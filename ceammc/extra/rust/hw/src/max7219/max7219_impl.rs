@@ -173,15 +173,25 @@ impl hw_max7219 {
                 sclk.pin()
             );
 
-            let mut display =
-                max7219::MAX7219::from_pins(displays, data, cs, sclk).map_err(|err| {
-                    let err = match err {
-                        max7219::DataError::Spi => "SPI init error",
-                        max7219::DataError::Pin => "Pin init error",
-                    };
-                    error!("{err}");
-                    err
-                })?;
+            let spi = rppal::spi::Spi::new(
+                rppal::spi::Bus::Spi0,
+                rppal::spi::SlaveSelect::Ss0,
+                10_000_000,
+                rppal::spi::Mode::Mode0,
+            )
+            .map_err(|err| {
+                error!("{err}");
+                err.to_string()
+            })?;
+
+            let mut display = max7219::MAX7219::from_spi(displays, spi).map_err(|err| {
+                let err = match err {
+                    max7219::DataError::Spi => "SPI init error",
+                    max7219::DataError::Pin => "Pin init error",
+                };
+                error!("{err}");
+                err
+            })?;
 
             // make sure to wake the display up
             display.power_on().unwrap();
