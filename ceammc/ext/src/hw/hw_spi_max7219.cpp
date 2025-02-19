@@ -166,7 +166,7 @@ void HwSpiMax7219::m_write_bytes(t_symbol* s, const AtomListView& lv)
         bytes.push_back(a.asInt());
     }
 
-    ceammc_hw_max7219_write_bits(mx_, addr, bytes.data(), bytes.size());
+    ceammc_hw_max7219_write_bytes(mx_, addr, bytes.data(), bytes.size());
 }
 
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)

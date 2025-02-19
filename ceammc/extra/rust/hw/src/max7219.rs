@@ -319,7 +319,7 @@ pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: i32, state: 
 /// @param data - pointer to data
 /// @param len - data length
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_bits(
+pub extern "C" fn ceammc_hw_max7219_write_bytes(
     mx: *mut hw_max7219,
     addr: i32,
     data: *const u8,
