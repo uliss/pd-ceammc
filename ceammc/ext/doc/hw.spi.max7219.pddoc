@@ -15,60 +15,84 @@
         </meta>
         <info>
             <par>Only Raspberry Pi support</par>
-            <par>Handles communication with the MAX7219 chip for 7-segmented or 8x8 LED dot matrix displays.
-            Each display can be connected in series with another and controlled via a single connection.</par>
-            <par>Note: in case of LED dot matrix disaply only write_bits and write_reg commands will work as expected</par>
-            <par>Note: 7-segment LED display supports only this charset: -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</par>
+            <par>Handles communication with the MAX7219 chip for 7-segmented or 8x8 LED dot matrix
+            displays. Each display can be connected in series with another and controlled via a
+            single connection.</par>
+            <par>Note: in case of LED dot matrix disaply only write_bits and write_reg commands
+            will work as expected</par>
+            <par>Note: 7-segment LED display supports only this charset:
+            -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</par>
             <par>Note: if the device address argument is -1 or ommited, requested action is aplied
             for all devices in a chain.</par>
         </info>
         <methods>
             <!-- clear -->
             <method name="clear">clear display 
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in chain</param></method>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
+            chain</param></method>
             <!-- write int -->
-            <method name="write_int">write signed integer value into 7-segment display (no led matrix support!)
+            <method name="write_int">write signed integer value into 7-segment display (no led
+            matrix support!) 
             <param name="INT" type="int" required="true">value</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain. If
-            ommited or -1: write to all displays</param></method>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
+            If ommited or -1: write to all displays</param></method>
             <!-- write str -->
-            <method name="write_str">write string into 7-segment display (no led matrix support!)
+            <method name="write_str">write string into 7-segment display (no led matrix support!) 
             <param name="STR" type="symbol" required="true">string. maxlength: 8 chars</param>
-            <param name="DOTS" type="int" minvalue="0" maxvalue="255">dots as bit value. For ex.: 0b00000011 turn on a two leftmost dots</param>
-            <param name="ALIGN" type="symbol" enum="left center right" default="right">string align</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in the chain</param></method>
+            <param name="DOTS" type="int" minvalue="0" maxvalue="255">dots as bit value. For ex.:
+            0b00000011 turn on a two leftmost dots</param>
+            <param name="ALIGN" type="symbol" enum="left center right" default="right">string
+            align</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
+            the chain</param></method>
             <!-- write float -->
-            <method name="write_float">write float value into 7-segment display (no led matrix support!)
+            <method name="write_float">write float value into 7-segment display (no led matrix
+            support!) 
             <param name="VAL" type="float" required="true">value</param>
-            <param name="PRECISION" type="int" minvalue="0" maxvalue="7">precision after the dot</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain. If
-            ommited or -1: write to all displays</param></method>
+            <param name="PRECISION" type="int" minvalue="0" maxvalue="7">precision after the
+            dot</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
+            If ommited or -1: write to all displays</param></method>
             <!-- write hex -->
-            <method name="write_hex">write hex unsigned integer value into 7-segment display (no led matrix support!)
+            <method name="write_hex">write hex unsigned integer value into 7-segment display (no
+            led matrix support!) 
             <param name="INT" type="int" minvalue="0" required="true">value</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in the chain</param></method>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
+            the chain</param></method>
             <!-- power -->
-            <method name="power">power on/off display
-                <param name="STATE" type="bool" required="true">on/off state</param>
-            </method>
+            <method name="power">power on/off display 
+            <param name="STATE" type="bool" required="true">on/off state</param></method>
             <!-- test -->
-            <method name="test">test display by turning all led on
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display address in the chain</param>
-            </method>
+            <method name="test">test display by turning all led on 
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display
+            address in the chain</param></method>
             <!-- intensity -->
-            <method name="intensity">set intensity level on the display
-            <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">intencity level</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display address in the chain</param></method>
+            <method name="intensity">set intensity level on the display 
+            <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">intencity
+            level</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display
+            address in the chain</param></method>
             <!-- write bits -->
-            <method name="write_bits">write war bit data into the display
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">target display address in the chain</param>
-            <param name="DATA" type="list" required="true">data as list of bytes. Max 8 values length</param>
-            </method>
+            <method name="write_bits">write raw bits into the display 
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
+            target display address in the chain</param>
+            <param name="BITS" type="list" required="true">list of bits. Max length:
+            256</param></method>
+            <!-- write bytes -->
+            <method name="write_bits">write raw bytes into the display 
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
+            target display address in the chain</param>
+            <param name="DATA" type="list" required="true">list of bytes. Max length:
+            8</param></method>
             <!-- write register -->
             <method name="write_reg">write the max7219 register data. Lowest level of communication
-            <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">max7219 register index</param>
-            <param name="DATA" type="int" minvalue="0" maxvalue="255" required="true">the register value</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">target display address in the chain</param></method>
+            
+            <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">max7219
+            register index</param>
+            <param name="DATA" type="int" minvalue="0" maxvalue="255" required="true">the register
+            value</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">target display
+            address in the chain</param></method>
         </methods>
         <arguments>
             <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="8">number of displays
@@ -87,7 +111,7 @@
                 <xinfo>control input</xinfo>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

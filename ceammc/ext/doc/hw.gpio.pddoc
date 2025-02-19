@@ -40,19 +40,19 @@
             <param name="PIN" type="int" required="true">pin number</param></method>
             <method name="pull_down">pull internal pin resistors to low level 
             <param name="PIN" type="int" required="true">pin number</param></method>
-            <method name="set_pwm">set software PWM for pin
+            <method name="set_pwm">set software PWM for pin 
             <param name="PIN" type="int" required="true">pin number</param>
             <param name="PERIOD" type="float" units="msec" minvalue="0" required="true">period
             length</param>
             <param name="DUTY" type="float" units="msec" minvalue="0" required="true">duty
             length</param></method>
-            <method name="set_pwm_freq">set software PWM frequency for pin
+            <method name="set_pwm_freq">set software PWM frequency for pin 
             <param name="PIN" type="int" required="true">pin number</param>
             <param name="FREQ" type="float" units="hertz" minvalue="0" required="true">pwm
             freq</param>
             <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty cycle
             length</param></method>
-            <method name="clear_pwm">clear PWM settings for pin
+            <method name="clear_pwm">clear PWM settings for pin 
             <param name="PIN" type="int" required="true">pin number</param></method>
             <method name="list_pins">method</method>
         </methods>

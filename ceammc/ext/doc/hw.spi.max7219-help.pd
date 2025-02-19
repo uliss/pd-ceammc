@@ -85,80 +85,86 @@ int. Range: -1\...7\.;
 #X text 255 1207 [ADDR=-1]: target display address in the chain. Type:
 int. Range: -1\...7\.;
 #X msg 110 1247 write_bits;
-#X text 245 1247 write war bit data into the display. Arguments are:;
+#X text 245 1247 write raw bits into the display. Arguments are:;
 #X obj 255 1270 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1270 ADDR=0: target display address in the chain. Type:
 int. Range: -1\...7\.;
-#X obj 255 1308 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1308 DATA: data as list of bytes. Max 8 values length.
-Type: list.;
-#X msg 110 1333 write_float;
-#X text 245 1333 write float value into 7-segment display (no led matrix
-support!). Arguments are:;
-#X obj 255 1371 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1371 VAL: value. Type: float.;
-#X obj 255 1394 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1394 [PRECISION]: precision after the dot. Type: int. Range:
-0\...7\.;
-#X obj 255 1432 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1432 [ADDR]: display address in the chain. If ommited or
--1: write to all displays. Type: int. Range: -1\...7\.;
-#X msg 110 1472 write_hex;
-#X text 245 1472 write hex unsigned integer value into 7-segment display
-(no led matrix support!). Arguments are:;
-#X obj 255 1510 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1510 INT: value. Type: int. Min value: 0\.;
-#X obj 255 1533 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1533 [ADDR=0]: display address in the chain. Type: int.
-Range: -1\...7\.;
-#X msg 110 1573 write_int;
-#X text 245 1573 write signed integer value into 7-segment display
-(no led matrix support!). Arguments are:;
-#X obj 255 1611 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1611 INT: value. Type: int.;
-#X obj 255 1634 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1634 [ADDR]: display address in the chain. If ommited or
--1: write to all displays. Type: int. Range: -1\...7\.;
-#X msg 110 1674 write_reg;
-#X text 245 1674 write the max7219 register data. Lowest level of communication.
-Arguments are:;
-#X obj 255 1712 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1712 REG: max7219 register index. Type: int. Range: 0\...15\.;
-#X obj 255 1735 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1735 DATA: the register value. Type: int. Range: 0\...255\.;
-#X obj 255 1758 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1758 [ADDR=0]: target display address in the chain. Type:
+#X obj 255 1308 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1308 BITS: list of bits. Max length: 256\. Type: list.;
+#X msg 110 1333 write_bits;
+#X text 245 1333 write raw bytes into the display. Arguments are:;
+#X obj 255 1356 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1356 ADDR=0: target display address in the chain. Type:
 int. Range: -1\...7\.;
-#X msg 110 1798 write_str;
-#X text 245 1798 write string into 7-segment display (no led matrix
+#X obj 255 1394 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1394 DATA: list of bytes. Max length: 8\. Type: list.;
+#X msg 110 1419 write_float;
+#X text 245 1419 write float value into 7-segment display (no led matrix
 support!). Arguments are:;
-#X obj 255 1836 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1836 STR: string. maxlength: 8 chars. Type: symbol.;
-#X obj 255 1859 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1859 [DOTS]: dots as bit value. For ex.: 0b00000011 turn
-on a two leftmost dots. Type: int. Range: 0\...255\.;
-#X obj 255 1897 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1897 [ALIGN=right]: string align. Type: symbol. Allowed
-values: left \, center \, right.;
-#X obj 255 1935 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1935 [ADDR=0]: display address in the chain. Type: int.
+#X obj 255 1457 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1457 VAL: value. Type: float.;
+#X obj 255 1480 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1480 [PRECISION]: precision after the dot. Type: int. Range:
+0\...7\.;
+#X obj 255 1518 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1518 [ADDR]: display address in the chain. If ommited or
+-1: write to all displays. Type: int. Range: -1\...7\.;
+#X msg 110 1558 write_hex;
+#X text 245 1558 write hex unsigned integer value into 7-segment display
+(no led matrix support!). Arguments are:;
+#X obj 255 1596 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1596 INT: value. Type: int. Min value: 0\.;
+#X obj 255 1619 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1619 [ADDR=0]: display address in the chain. Type: int.
 Range: -1\...7\.;
-#X obj 20 1985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1990 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1659 write_int;
+#X text 245 1659 write signed integer value into 7-segment display
+(no led matrix support!). Arguments are:;
+#X obj 255 1697 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1697 INT: value. Type: int.;
+#X obj 255 1720 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1720 [ADDR]: display address in the chain. If ommited or
+-1: write to all displays. Type: int. Range: -1\...7\.;
+#X msg 110 1760 write_reg;
+#X text 245 1760 write the max7219 register data. Lowest level of communication.
+Arguments are:;
+#X obj 255 1798 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1798 REG: max7219 register index. Type: int. Range: 0\...15\.;
+#X obj 255 1821 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1821 DATA: the register value. Type: int. Range: 0\...255\.;
+#X obj 255 1844 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1844 [ADDR=0]: target display address in the chain. Type:
+int. Range: -1\...7\.;
+#X msg 110 1884 write_str;
+#X text 245 1884 write string into 7-segment display (no led matrix
+support!). Arguments are:;
+#X obj 255 1922 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1922 STR: string. maxlength: 8 chars. Type: symbol.;
+#X obj 255 1945 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1945 [DOTS]: dots as bit value. For ex.: 0b00000011 turn
+on a two leftmost dots. Type: int. Range: 0\...255\.;
+#X obj 255 1983 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1983 [ALIGN=right]: string align. Type: symbol. Allowed
+values: left \, center \, right.;
+#X obj 255 2021 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2021 [ADDR=0]: display address in the chain. Type: int.
+Range: -1\...7\.;
+#X obj 20 2071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2076 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1991 1\.;
-#X text 245 1991 control input.;
-#X obj 20 2021 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2026 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2077 1\.;
+#X text 245 2077 control input.;
+#X obj 20 2107 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2112 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2067 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2070 library: ceammc v0.9.7;
-#N canvas 10 2089 400 290 info 0;
+#X obj 1 2153 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2156 library: ceammc v0.9.7;
+#N canvas 10 2175 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -182,7 +188,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2089 pd info;
+#X restore 10 2175 pd info;
 #X connect 13 0 16 0;
 #X connect 14 0 17 0;
 #X connect 15 0 18 0;
