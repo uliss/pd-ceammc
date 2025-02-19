@@ -13,23 +13,43 @@ struct float_fmt {
     leading_zero: bool,
 }
 
-fn float2digits(v: f32, precision: u8) -> Option<(i32, Option<float_fmt>)> {
-    let mut float_str = format!("{v:.0$}", precision.clamp(0, 7) as usize);
-    let dot_pos = float_str
-        .find('.')
-        .map(|pos| float_str.len() - (pos + 1))
-        .map(|x| float_fmt {
-            dot_pos: x as u8,
-            leading_zero: v.abs() < 1.0,
-        });
+fn float2str(v: f32, precision: u8) -> Option<([u8; 8], u8)> {
+    const MAX_LEN: usize = 8;
 
-    // println!("'{float_str}': {dot_pos:?}");
-    float_str.retain(|c| c != '.');
-    if float_str.len() >= 8 {
-        return None;
+    let mut buf: [u8; MAX_LEN] = *b"        ";
+    let mut str = format!("{v:.0$}", precision.clamp(0, 8) as usize);
+    let mut dot_pos = str.find('.');
+
+    str.retain(|c| c != '.');
+    if str.len() > MAX_LEN {
+        str.truncate(MAX_LEN);
+    } else if str.len() < MAX_LEN {
+        let pad_len = MAX_LEN - str.len();
+        // pad string
+        for _ in 0..pad_len {
+            str.insert(0, ' ');
+        }
+        // move dot
+        dot_pos.as_mut().map(|pos| {
+            *pos += pad_len;
+            pos
+        });
     }
 
-    float_str.parse::<i32>().map(|x| (x, dot_pos)).ok()
+    for (i, c) in str.as_bytes().iter().enumerate() {
+        buf[i] = *c;
+    }
+
+    let mut dots = 0;
+    dot_pos.map(|pos| {
+        if pos > 0 && pos < MAX_LEN {
+            dots = 0b1000_0000 >> (pos - 1);
+        } else {
+            dots = 0b0000_0001;
+        }
+    });
+
+    Some((buf, dots))
 }
 
 impl hw_max7219 {
@@ -148,9 +168,11 @@ impl hw_max7219 {
                             error!("hex overflow");
                         });
                     }
-                    Request::WriteFloat(addr, v, precision) => match float2digits(v, precision) {
+                    Request::WriteFloat(addr, v, precision) => match float2str(v, precision) {
                         Some((digits, dots)) => {
-                            display.write_integer(addr, digits).unwrap_or_else(|_| {});
+                            display
+                                .write_str(addr, &digits, dots)
+                                .unwrap_or_else(|_| {});
                         }
                         None => {}
                     },
@@ -185,46 +207,24 @@ impl hw_max7219 {
 
 #[cfg(test)]
 mod tests {
-    // use super::*;
 
-    use crate::max7219::max7219_impl::{float2digits, float_fmt};
-
-    fn make_fmt_float(v: i32, dot_pos: u8, leading_zero: bool) -> Option<(i32, Option<float_fmt>)> {
-        Some((
-            v,
-            Some(float_fmt {
-                dot_pos,
-                leading_zero,
-            }),
-        ))
-    }
-
-    fn make_fmt_int(v: i32) -> Option<(i32, Option<float_fmt>)> {
-        Some((v, None))
-    }
+    use crate::max7219::max7219_impl::float2str;
 
     #[test]
-    fn digits() {
-        assert_eq!(float2digits(0.0, 0), make_fmt_int(0));
-        assert_eq!(float2digits(0.0, 1), make_fmt_float(0, 1, true));
-        assert_eq!(float2digits(0.0, 2), make_fmt_float(0, 2, true));
-        assert_eq!(float2digits(0.5, 0), make_fmt_int(0));
-        assert_eq!(float2digits(0.5, 1), make_fmt_float(5, 1, true));
-        assert_eq!(float2digits(0.5, 2), make_fmt_float(50, 2, true));
-        assert_eq!(float2digits(0.5, 3), make_fmt_float(500, 3, true));
-        assert_eq!(float2digits(0.5, 4), make_fmt_float(5000, 4, true));
-        assert_eq!(float2digits(-0.5, 4), make_fmt_float(-5000, 4, true));
-        assert_eq!(float2digits(-0.5, 5), make_fmt_float(-50000, 5, true));
-        assert_eq!(float2digits(-0.5, 6), None); // -0.5000000 - overflow
-        assert_eq!(float2digits(0.25, 0), make_fmt_int(0));
-        assert_eq!(float2digits(0.25, 1), make_fmt_float(2, 1, true));
-        assert_eq!(float2digits(0.251, 1), make_fmt_float(3, 1, true));
-        assert_eq!(float2digits(0.12345, 5), make_fmt_float(12345, 5, true));
-        assert_eq!(float2digits(1.0, 0), make_fmt_int(1));
-        assert_eq!(float2digits(12.0, 0), make_fmt_int(12));
-        assert_eq!(float2digits(123.21, 0), make_fmt_int(123));
-        assert_eq!(float2digits(123.21, 1), make_fmt_float(1232, 1, false));
-        assert_eq!(float2digits(123.21, 2), make_fmt_float(12321, 2, false));
-        assert_eq!(float2digits(123.21, 3), make_fmt_float(123210, 3, false));
+    fn to_str() {
+        assert_eq!(float2str(0.0, 0), Some((*b"       0", 0b00000000)));
+        assert_eq!(float2str(0.0, 1), Some((*b"      00", 0b00000010)));
+        assert_eq!(float2str(0.0, 2), Some((*b"     000", 0b0000_0100)));
+        assert_eq!(float2str(0.0, 3), Some((*b"    0000", 0b0000_1000)));
+        assert_eq!(float2str(0.0, 4), Some((*b"   00000", 0b0001_0000)));
+        assert_eq!(float2str(0.0, 5), Some((*b"  000000", 0b0010_0000)));
+        assert_eq!(float2str(0.0, 6), Some((*b" 0000000", 0b0100_0000)));
+        assert_eq!(float2str(0.0, 7), Some((*b"00000000", 0b1000_0000)));
+        assert_eq!(float2str(0.0, 8), Some((*b"00000000", 0b1000_0000)));
+        assert_eq!(float2str(1.23456789, 0), Some((*b"       1", 0b0000_0000)));
+        assert_eq!(float2str(1.23456789, 1), Some((*b"      12", 0b0000_0010)));
+        assert_eq!(float2str(1.23456789, 4), Some((*b"   12346", 0b0001_0000)));
+        assert_eq!(float2str(200.5, 8), Some((*b"20050000", 0b0010_0000)));
+        assert_eq!(float2str(123456789.5, 8), Some((*b"12345679", 0b0000_0001)));
     }
 }
