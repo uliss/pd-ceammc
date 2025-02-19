@@ -181,3 +181,27 @@ pub extern "C" fn ceammc_hw_max7219_write_digit_data(
         true
     });
 }
+
+/// write float to max7219 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param value - float value
+/// @param precision - float precision
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_float(
+    mx: *mut hw_max7219,
+    addr: usize,
+    value: f32,
+    precision: u8,
+) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(Request::WriteFloat(addr, value, precision));
+        true
+    });
+}

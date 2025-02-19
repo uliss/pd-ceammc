@@ -22,7 +22,8 @@ public:
     void m_power(t_symbol* s, const AtomListView& lv);
     void m_write_int(t_symbol* s, const AtomListView& lv);
     void m_write_hex(t_symbol* s, const AtomListView& lv);
-    void m_write_digit(t_symbol* s, const AtomListView& lv);
+    void m_write_data(t_symbol* s, const AtomListView& lv);
+    void m_write_float(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
 };
 

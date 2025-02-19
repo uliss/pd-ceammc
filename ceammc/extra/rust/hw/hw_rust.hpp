@@ -515,6 +515,16 @@ bool ceammc_hw_max7219_write_digit_data(ceammc_hw_max7219 *mx,
                                         uint8_t digit,
                                         uint8_t data);
 
+/// write float to max7219 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param value - float value
+/// @param precision - float precision
+bool ceammc_hw_max7219_write_float(ceammc_hw_max7219 *mx,
+                                   size_t addr,
+                                   float value,
+                                   uint8_t precision);
+
 /// write max7219 unsigned hex value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
 /// @param val - unsigned int value to display

@@ -69,7 +69,7 @@ void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_write_hex(mx_, lv.intAt(0, 0), lv.intAt(1, 0));
 }
 
-void HwSpiMax7219::m_write_digit(t_symbol* s, const AtomListView& lv)
+void HwSpiMax7219::m_write_data(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("DIGIT:i[0,7] DATA:b ADDR:i>=0?");
     if (!chk.check(lv, this))
@@ -79,6 +79,18 @@ void HwSpiMax7219::m_write_digit(t_symbol* s, const AtomListView& lv)
     const auto data = lv.intAt(1, 0);
     const auto addr = lv.intAt(2, 0);
     ceammc_hw_max7219_write_digit_data(mx_, addr, digit, data);
+}
+
+void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("VALUE:f PRECIS:i[0,7] ADDR:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    const auto value = lv.floatAt(0, 0);
+    const auto precision = lv.intAt(1, 0);
+    const auto addr = lv.intAt(2, 0);
+    ceammc_hw_max7219_write_float(mx_, addr, value, precision);
 }
 
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
@@ -97,6 +109,7 @@ void setup_hw_spi_max7219()
     obj.addMethod("power", &HwSpiMax7219::m_power);
     obj.addMethod("write_int", &HwSpiMax7219::m_write_int);
     obj.addMethod("write_hex", &HwSpiMax7219::m_write_hex);
-    obj.addMethod("write_digit", &HwSpiMax7219::m_write_digit);
+    obj.addMethod("write_data", &HwSpiMax7219::m_write_data);
+    obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
 }

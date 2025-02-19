@@ -226,5 +226,6 @@ mod tests {
         assert_eq!(float2str(1.23456789, 4), Some((*b"   12346", 0b0001_0000)));
         assert_eq!(float2str(200.5, 8), Some((*b"20050000", 0b0010_0000)));
         assert_eq!(float2str(123456789.5, 8), Some((*b"12345679", 0b0000_0001)));
+        assert_eq!(float2str(-12.5, 2), Some((*b"   -1250", 0b0000_0100)));
     }
 }
