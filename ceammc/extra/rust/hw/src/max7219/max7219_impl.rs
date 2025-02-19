@@ -1,4 +1,4 @@
-use std::{ffi::CString, ops::Add};
+use std::ffi::CString;
 
 use log::{debug, error};
 use max7219::{connectors::SpiConnector, DataError};
@@ -198,11 +198,14 @@ impl LcdDisplay {
                 Some((digits, dots)) => self.display.write_str(addr, &digits, dots)?,
                 None => {}
             },
-            Request::WriteRegister(register, data) => self.display.write_raw_byte(addr, *register, *data)?,
+            Request::WriteRegister(register, data) => {
+                self.display.write_raw_byte(addr, *register, *data)?
+            }
             Request::WriteString(str, align, dots) => self
                 .display
                 .write_raw(addr, &encode_string(&pad_string(str, *align), *dots))?,
             Request::Test(state) => self.display.test(addr, *state)?,
+            Request::WriteRaw(buf) => self.display.write_raw(addr, buf)?,
         }
 
         Ok(())

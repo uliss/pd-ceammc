@@ -6,6 +6,7 @@
 use std::{
     ffi::{c_char, CStr},
     ptr::null_mut,
+    slice::from_raw_parts,
 };
 
 use log::error;
@@ -315,15 +316,14 @@ pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: i32, state: 
 /// write data to max7219
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - display address in chain
-/// @param reg - register index
-/// @param data - register data
-/// @note this is low level write function!
+/// @param data - pointer to data
+/// @param len - data length
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_data(
+pub extern "C" fn ceammc_hw_max7219_write_bits(
     mx: *mut hw_max7219,
     addr: i32,
-    reg: u8,
-    data: u8,
+    data: *const u8,
+    len: usize,
 ) -> bool {
     rpi_check!({
         if mx.is_null() {
@@ -331,8 +331,20 @@ pub extern "C" fn ceammc_hw_max7219_write_data(
             return false;
         }
 
+        if data.is_null() {
+            error!("NULL data pointer");
+            return false;
+        }
+
         let mx = unsafe { &*mx };
-        mx.send(addr, Request::WriteRegister(reg, data));
+
+        let data = unsafe { from_raw_parts(data, len) };
+        let mut buf: [u8; 8] = [0; 8];
+        for (a, b) in buf.iter_mut().zip(data.iter()) {
+            *a = *b;
+        }
+
+        mx.send(addr, Request::WriteRaw(buf));
         true
     });
 }

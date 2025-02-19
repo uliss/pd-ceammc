@@ -575,10 +575,12 @@ bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, int32_t addr, bool state);
 /// write data to max7219
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - display address in chain
-/// @param reg - register index
-/// @param data - register data
-/// @note this is low level write function!
-bool ceammc_hw_max7219_write_data(ceammc_hw_max7219 *mx, int32_t addr, uint8_t reg, uint8_t data);
+/// @param data - pointer to data
+/// @param len - data length
+bool ceammc_hw_max7219_write_bits(ceammc_hw_max7219 *mx,
+                                  int32_t addr,
+                                  const uint8_t *data,
+                                  size_t len);
 
 /// write float to max7219 7 segment display
 /// @param max7219 - pointer to max7219 struct
