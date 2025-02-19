@@ -36,7 +36,7 @@ pub enum hw_spi_cs {
     CS3,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 
 pub enum hw_max7219_string_align {
@@ -47,19 +47,26 @@ pub enum hw_max7219_string_align {
 
 #[derive(Debug)]
 pub enum Request {
-    Intensity(Option<usize>, u8),
-    WriteInt(usize, i32),
-    WriteHex(usize, u32),
-    WriteFloat(usize, f32, u8),
-    WriteDigit(usize, u8, u8),
-    WriteString(usize, String, hw_max7219_string_align, u8),
+    Intensity(u8),
+    WriteInt(i32),
+    WriteHex(u32),
+    WriteFloat(f32, u8),
+    WriteDigit(u8, u8),
+    WriteString(String, hw_max7219_string_align, u8),
     PowerOn(bool),
-    Clear(Option<usize>),
-    Test(usize, bool),
+    Clear,
+    Test(bool),
+}
+
+#[derive(Debug)]
+pub enum Address {
+    All,
+    Single(u8),
 }
 
 pub struct hw_max7219 {
-    tx: std::sync::mpsc::Sender<Request>,
+    displays: u8,
+    tx: std::sync::mpsc::Sender<(Address, Request)>,
     on_err: hw_msg_cb,
 }
 
@@ -78,7 +85,7 @@ pub struct hw_max7219 {
 /// SPI3 through SPI6 are only available on the Raspberry Pi 4 B, 400 and 5.
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_new(
-    num_displays: usize,
+    num_displays: u8,
     spi: hw_spi_bus,
     cs: hw_spi_cs,
     notify: hw_notify_cb,
@@ -111,7 +118,7 @@ pub extern "C" fn ceammc_hw_max7219_free(mx: *mut hw_max7219) {
 /// @param max7219 - pointer to max7219 struct
 /// @param intensity in 0..0xF range
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, intens: u8, addr: i64) -> bool {
+pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, intens: u8, addr: i32) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -119,11 +126,7 @@ pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, intens: u8, a
         }
 
         let mx = unsafe { &*mx };
-        if addr < 0 {
-            mx.send(Request::Intensity(None, intens));
-        } else {
-            mx.send(Request::Intensity(Some(addr as usize), intens));
-        }
+        mx.send(addr, Request::Intensity(intens));
         true
     });
 }
@@ -140,7 +143,8 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
         }
 
         let mx = unsafe { &*mx };
-        mx.send(Request::PowerOn(state));
+        // send to all internally in max7219 crate
+        mx.send(0, Request::PowerOn(state));
         true
     });
 }
@@ -149,7 +153,7 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - lcd address in chain, if <0 clear all connected addresses
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> bool {
+pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i32) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -157,11 +161,7 @@ pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> boo
         }
 
         let mx = unsafe { &*mx };
-        if addr < 0 {
-            mx.send(Request::Clear(None));
-        } else {
-            mx.send(Request::Clear(Some(addr as usize)));
-        }
+        mx.send(addr, Request::Clear);
         true
     });
 }
@@ -171,7 +171,7 @@ pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i64) -> boo
 /// @param val - signed int value to display
 /// @param addr - display address in chain
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, addr: usize) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, addr: i32) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -179,7 +179,7 @@ pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, add
         }
 
         let mx = unsafe { &*mx };
-        mx.send(Request::WriteInt(addr, val));
+        mx.send(addr, Request::WriteInt(val));
         true
     });
 }
@@ -189,7 +189,7 @@ pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, val: i32, add
 /// @param val - unsigned int value to display
 /// @param addr - display address in chain
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, addr: usize) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, addr: i32) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -197,7 +197,7 @@ pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, add
         }
 
         let mx = unsafe { &*mx };
-        mx.send(Request::WriteHex(addr, val));
+        mx.send(addr, Request::WriteHex(val));
         true
     });
 }
@@ -210,7 +210,7 @@ pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, val: u32, add
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_digit_data(
     mx: *mut hw_max7219,
-    addr: usize,
+    addr: i32,
     digit: u8,
     data: u8,
 ) -> bool {
@@ -221,7 +221,7 @@ pub extern "C" fn ceammc_hw_max7219_write_digit_data(
         }
 
         let mx = unsafe { &*mx };
-        mx.send(Request::WriteDigit(addr, digit, data));
+        mx.send(addr, Request::WriteDigit(digit, data));
         true
     });
 }
@@ -234,7 +234,7 @@ pub extern "C" fn ceammc_hw_max7219_write_digit_data(
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_float(
     mx: *mut hw_max7219,
-    addr: usize,
+    addr: i32,
     value: f32,
     precision: u8,
 ) -> bool {
@@ -245,7 +245,7 @@ pub extern "C" fn ceammc_hw_max7219_write_float(
         }
 
         let mx = unsafe { &*mx };
-        mx.send(Request::WriteFloat(addr, value, precision));
+        mx.send(addr, Request::WriteFloat(value, precision));
         true
     });
 }
@@ -258,7 +258,7 @@ pub extern "C" fn ceammc_hw_max7219_write_float(
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_str(
     mx: *mut hw_max7219,
-    addr: usize,
+    addr: i32,
     str: *const c_char,
     align: hw_max7219_string_align,
     dots: u8,
@@ -271,7 +271,7 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
 
         let mx = unsafe { &*mx };
         let str = unsafe { CStr::from_ptr(str) }.to_string_lossy().to_string();
-        mx.send(Request::WriteString(addr, str, align, dots));
+        mx.send(addr, Request::WriteString(str, align, dots));
         true
     });
 }
@@ -281,7 +281,7 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
 /// @param addr
 /// @param state
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: usize, state: bool) -> bool {
+pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: i32, state: bool) -> bool {
     rpi_check!({
         if mx.is_null() {
             error!("NULL max7219 pointer");
@@ -289,7 +289,7 @@ pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: usize, state
         }
 
         let mx = unsafe { &*mx };
-        mx.send(Request::Test(addr, state));
+        mx.send(addr, Request::Test(state));
         true
     });
 }

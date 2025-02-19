@@ -1,10 +1,12 @@
-use std::ffi::CString;
+use std::{ffi::CString, ops::Add};
 
 use log::{debug, error};
+use max7219::{connectors::SpiConnector, DataError};
+use rppal::spi::Spi;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
-use super::{hw_max7219, hw_spi_bus, hw_spi_cs, Request};
+use super::{hw_max7219, hw_max7219_string_align, hw_spi_bus, hw_spi_cs, Address, Request};
 
 #[derive(Debug, PartialEq)]
 struct float_fmt {
@@ -84,6 +86,38 @@ fn encode_string(str: &String, dots: u8) -> [u8; 8] {
     buf
 }
 
+fn pad_string(str: &String, align: hw_max7219_string_align) -> String {
+    let mut str = str.clone();
+    str.truncate(8);
+    if str.len() < 8 {
+        let pad_len = 8 - str.len();
+
+        match align {
+            crate::max7219::hw_max7219_string_align::Left => {
+                for _ in 0..pad_len {
+                    str.push(' ');
+                }
+            }
+            crate::max7219::hw_max7219_string_align::Right => {
+                for _ in 0..pad_len {
+                    str.insert(0, ' ');
+                }
+            }
+            crate::max7219::hw_max7219_string_align::Center => {
+                for idx in 0..pad_len {
+                    if idx % 2 == 0 {
+                        str.insert(0, ' ');
+                    } else {
+                        str.push(' ');
+                    }
+                }
+            }
+        }
+    }
+
+    str
+}
+
 fn float2str(v: f32, precision: u8) -> Option<([u8; 8], u8)> {
     const MAX_LEN: usize = 8;
 
@@ -123,166 +157,132 @@ fn float2str(v: f32, precision: u8) -> Option<([u8; 8], u8)> {
     Some((buf, dots))
 }
 
+struct LcdDisplay {
+    count: u8,
+    display: max7219::MAX7219<SpiConnector<Spi>>,
+}
+
+impl LcdDisplay {
+    fn write(&mut self, addr: Address, cmd: Request) -> Result<(), String> {
+        match addr {
+            Address::Single(x) => self.write_to_display(x as usize, &cmd),
+            Address::All => {
+                for x in 0..self.count {
+                    let res = self
+                        .write_to_display(x as usize, &cmd)
+                        .map_err(|_| "SPI write error".to_owned());
+                    if res.is_err() {
+                        return res;
+                    }
+                }
+                Ok(())
+            }
+        }
+        .map_err(|_| "SPI write error".to_owned())
+    }
+
+    fn write_to_display(&mut self, addr: usize, cmd: &Request) -> Result<(), DataError> {
+        match cmd {
+            Request::Intensity(val) => self.display.set_intensity(addr, (*val).clamp(0, 0x0f))?,
+            Request::PowerOn(state) => {
+                if *state {
+                    self.display.power_on()?
+                } else {
+                    self.display.power_off()?
+                }
+            }
+            Request::Clear => self.display.clear_display(addr)?,
+            Request::WriteInt(value) => self.display.write_integer(addr, *value)?,
+            Request::WriteHex(value) => self.display.write_hex(addr, *value)?,
+            Request::WriteFloat(v, precision) => match float2str(*v, *precision) {
+                Some((digits, dots)) => self.display.write_str(addr, &digits, dots)?,
+                None => {}
+            },
+            Request::WriteDigit(digit, data) => self.display.write_raw_byte(addr, *digit, *data)?,
+            Request::WriteString(str, align, dots) => self
+                .display
+                .write_raw(addr, &encode_string(&pad_string(str, *align), *dots))?,
+            Request::Test(state) => self.display.test(addr, *state)?,
+        }
+
+        Ok(())
+    }
+
+    fn new(count: u8, bus: hw_spi_bus, cs: hw_spi_cs) -> Result<Self, String> {
+        // const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
+        // const SCLK_PIN: u8 = 11; // [CLK]  BCM GPIO 11 (physical pin 23)
+        // const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
+
+        let spi = rppal::spi::Spi::new(
+            match bus {
+                hw_spi_bus::SPI0 => rppal::spi::Bus::Spi0,
+                hw_spi_bus::SPI1 => rppal::spi::Bus::Spi1,
+                hw_spi_bus::SPI2 => rppal::spi::Bus::Spi2,
+                hw_spi_bus::SPI3 => rppal::spi::Bus::Spi3,
+                hw_spi_bus::SPI4 => rppal::spi::Bus::Spi4,
+                hw_spi_bus::SPI5 => rppal::spi::Bus::Spi5,
+                hw_spi_bus::SPI6 => rppal::spi::Bus::Spi6,
+            },
+            match cs {
+                hw_spi_cs::CS0 => rppal::spi::SlaveSelect::Ss0,
+                hw_spi_cs::CS1 => rppal::spi::SlaveSelect::Ss1,
+                hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
+                hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
+            },
+            10_000_000,
+            rppal::spi::Mode::Mode0,
+        )
+        .map_err(|err| {
+            error!("SPI init error: {err}");
+            err.to_string()
+        })?;
+
+        debug!(
+            "SPI init done. spi={bus:?}, cs={cs:?}, clock_speed={}",
+            spi.clock_speed().unwrap_or_default()
+        );
+
+        let display =
+            max7219::MAX7219::from_spi(count.clamp(1, 8) as usize, spi).map_err(|err| {
+                let err = match err {
+                    max7219::DataError::Spi => "SPI init error",
+                    max7219::DataError::Pin => "Pin init error",
+                };
+                error!("{err}");
+                err
+            })?;
+
+        debug!("max7219 init: displays={count}");
+
+        Ok(LcdDisplay { count, display })
+    }
+}
+
 impl hw_max7219 {
     pub fn new(
-        displays: usize,
+        displays: u8,
         bus: hw_spi_bus,
         cs: hw_spi_cs,
         _notify: hw_notify_cb,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (tx, rx) = std::sync::mpsc::channel::<Request>();
+        let (tx, rx) = std::sync::mpsc::channel::<(Address, Request)>();
 
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            // const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
-            // const SCLK_PIN: u8 = 11; // [CLK]  BCM GPIO 11 (physical pin 23)
-            // const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
-
-            let spi = rppal::spi::Spi::new(
-                match bus {
-                    hw_spi_bus::SPI0 => rppal::spi::Bus::Spi0,
-                    hw_spi_bus::SPI1 => rppal::spi::Bus::Spi1,
-                    hw_spi_bus::SPI2 => rppal::spi::Bus::Spi2,
-                    hw_spi_bus::SPI3 => rppal::spi::Bus::Spi3,
-                    hw_spi_bus::SPI4 => rppal::spi::Bus::Spi4,
-                    hw_spi_bus::SPI5 => rppal::spi::Bus::Spi5,
-                    hw_spi_bus::SPI6 => rppal::spi::Bus::Spi6,
-                },
-                match cs {
-                    hw_spi_cs::CS0 => rppal::spi::SlaveSelect::Ss0,
-                    hw_spi_cs::CS1 => rppal::spi::SlaveSelect::Ss1,
-                    hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
-                    hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
-                },
-                10_000_000,
-                rppal::spi::Mode::Mode0,
-            )
-            .map_err(|err| {
-                error!("SPI init error: {err}");
-                err.to_string()
+            let mut lcd_display = LcdDisplay::new(displays, bus, cs).map_err(|err| {
+                error!("{err}");
+                err
             })?;
 
-            debug!(
-                "SPI init done. spi={bus:?}, cs={cs:?}, clock_speed={}",
-                spi.clock_speed().unwrap_or_default()
-            );
-            // spi.
+            lcd_display.write(Address::All, Request::PowerOn(true))?;
 
-            let mut display =
-                max7219::MAX7219::from_spi(displays.clamp(1, 8), spi).map_err(|err| {
-                    let err = match err {
-                        max7219::DataError::Spi => "SPI init error",
-                        max7219::DataError::Pin => "Pin init error",
-                    };
-                    error!("{err}");
-                    err
-                })?;
-
-            debug!("max7219 init: displays={displays}");
-
-            // make sure to wake the display up
-            display.power_on().unwrap();
-
-            while let Ok(req) = rx.recv() {
-                debug!("{req:?}");
-
-                match req {
-                    Request::Intensity(addr, val) => {
-                        let val = val.clamp(0, 0xf);
-                        match addr {
-                            Some(addr) => display.set_intensity(addr, val).unwrap(),
-                            None => {
-                                for x in 0..4 {
-                                    display.set_intensity(x, val).unwrap();
-                                }
-                            }
-                        }
-                    }
-                    Request::PowerOn(state) => {
-                        if state {
-                            display.power_on().unwrap();
-                        } else {
-                            display.power_off().unwrap();
-                        }
-                    }
-                    Request::Clear(addr) => match addr {
-                        Some(addr) => {
-                            display.clear_display(addr).unwrap();
-                        }
-                        None => {
-                            for x in 0..4 {
-                                display.clear_display(x).unwrap();
-                            }
-                        }
-                    },
-                    Request::WriteInt(addr, value) => {
-                        display.write_integer(addr, value).unwrap_or_else(|_| {
-                            error!("integer overflow");
-                        });
-                    }
-                    Request::WriteHex(addr, value) => {
-                        display.write_hex(addr, value).unwrap_or_else(|_| {
-                            error!("hex overflow");
-                        });
-                    }
-                    Request::WriteFloat(addr, v, precision) => match float2str(v, precision) {
-                        Some((digits, dots)) => {
-                            display
-                                .write_str(addr, &digits, dots)
-                                .unwrap_or_else(|_| {});
-                        }
-                        None => {}
-                    },
-                    Request::WriteDigit(addr, digit, data) => {
-                        display
-                            .write_raw_byte(addr, digit, data)
-                            .unwrap_or_else(|_| {
-                                error!("write digit overflow");
-                            });
-                    }
-                    Request::WriteString(addr, str, align, dots) => {
-                        let mut str = str.clone();
-                        str.truncate(8);
-                        if str.len() < 8 {
-                            let pad_len = 8 - str.len();
-
-                            match align {
-                                crate::max7219::hw_max7219_string_align::Left => {
-                                    for _ in 0..pad_len {
-                                        str.push(' ');
-                                    }
-                                }
-                                crate::max7219::hw_max7219_string_align::Right => {
-                                    for _ in 0..pad_len {
-                                        str.insert(0, ' ');
-                                    }
-                                }
-                                crate::max7219::hw_max7219_string_align::Center => {
-                                    for idx in 0..pad_len {
-                                        if idx % 2 == 0 {
-                                            str.insert(0, ' ');
-                                        } else {
-                                            str.push(' ');
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        display
-                            .write_raw(addr, &encode_string(&str, dots))
-                            .unwrap_or_else(|_| {
-                                error!("write str overflow");
-                            });
-                    }
-                    Request::Test(addr, state) => {
-                        display.test(addr, state).unwrap_or_else(|_| {
-                            error!("test error");
-                        });
-                    }
-                }
+            while let Ok((addr, req)) = rx.recv() {
+                debug!("{addr:?} {req:?}");
+                lcd_display
+                    .write(addr, req)
+                    .unwrap_or_else(|err| error!("{err}"));
             }
 
             debug!("worker thread done");
@@ -290,11 +290,21 @@ impl hw_max7219 {
             Ok(())
         });
 
-        Ok(hw_max7219 { tx, on_err })
+        Ok(hw_max7219 {
+            displays,
+            tx,
+            on_err,
+        })
     }
 
-    pub fn send(&self, req: Request) -> bool {
-        if let Err(err) = self.tx.send(req) {
+    pub fn send(&self, addr: i32, req: Request) -> bool {
+        let addr = if addr < 0 {
+            Address::All
+        } else {
+            Address::Single((addr as u8).clamp(0, self.displays))
+        };
+
+        if let Err(err) = self.tx.send((addr, req)) {
             error!("{err}");
             self.on_err.exec(err.to_string().as_str());
             false

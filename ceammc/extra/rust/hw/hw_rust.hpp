@@ -503,7 +503,7 @@ bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
 /// clear max7219 display
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - lcd address in chain, if <0 clear all connected addresses
-bool ceammc_hw_max7219_clear(ceammc_hw_max7219 *mx, int64_t addr);
+bool ceammc_hw_max7219_clear(ceammc_hw_max7219 *mx, int32_t addr);
 
 /// free max7219 struct
 /// @param max7219 - pointer to max7219 struct
@@ -512,7 +512,7 @@ void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
 /// set max7219 intensity
 /// @param max7219 - pointer to max7219 struct
 /// @param intensity in 0..0xF range
-bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int64_t addr);
+bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int32_t addr);
 
 /// create new max7219
 /// @param num_displays - number of connected lcd modules (1-8)
@@ -527,7 +527,7 @@ bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int64_t 
 /// SPI1 is available on models with a 40-pin header.
 /// SPI2 is only available on the Compute and Compute 3.
 /// SPI3 through SPI6 are only available on the Raspberry Pi 4 B, 400 and 5.
-ceammc_hw_max7219 *ceammc_hw_max7219_new(size_t num_displays,
+ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t num_displays,
                                          ceammc_hw_spi_bus spi,
                                          ceammc_hw_spi_cs cs,
                                          ceammc_hw_notify_cb notify,
@@ -542,7 +542,7 @@ bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
 /// @param max7219 - pointer to max7219 struct
 /// @param addr
 /// @param state
-bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, size_t addr, bool state);
+bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, int32_t addr, bool state);
 
 /// write max7219 digit data to 7 segment display
 /// @param max7219 - pointer to max7219 struct
@@ -550,7 +550,7 @@ bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, size_t addr, bool state);
 /// @param digit - digit index
 /// @param data - digit data
 bool ceammc_hw_max7219_write_digit_data(ceammc_hw_max7219 *mx,
-                                        size_t addr,
+                                        int32_t addr,
                                         uint8_t digit,
                                         uint8_t data);
 
@@ -560,7 +560,7 @@ bool ceammc_hw_max7219_write_digit_data(ceammc_hw_max7219 *mx,
 /// @param value - float value
 /// @param precision - float precision
 bool ceammc_hw_max7219_write_float(ceammc_hw_max7219 *mx,
-                                   size_t addr,
+                                   int32_t addr,
                                    float value,
                                    uint8_t precision);
 
@@ -568,13 +568,13 @@ bool ceammc_hw_max7219_write_float(ceammc_hw_max7219 *mx,
 /// @param max7219 - pointer to max7219 struct
 /// @param val - unsigned int value to display
 /// @param addr - display address in chain
-bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, uint32_t val, size_t addr);
+bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, uint32_t val, int32_t addr);
 
 /// write max7219 int value to 7 segment display
 /// @param max7219 - pointer to max7219 struct
 /// @param val - signed int value to display
 /// @param addr - display address in chain
-bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, size_t addr);
+bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, int32_t addr);
 
 /// write string to max7219 7 segment display
 /// @param max7219 - pointer to max7219 struct
@@ -582,7 +582,7 @@ bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, size_t addr
 /// @param str
 /// @param align - string align on display
 bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
-                                 size_t addr,
+                                 int32_t addr,
                                  const char *str,
                                  ceammc_hw_max7219_string_align align,
                                  uint8_t dots);
