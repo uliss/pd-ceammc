@@ -382,8 +382,8 @@ pub extern "C" fn ceammc_hw_max7219_write_bits(
                 if idx >= len {
                     break;
                 }
-
-                buf[i] = (0x1 << j) * bits[idx];
+                debug!("[{idx}] = {}", bits[idx]);
+                buf[i] |= (0x1 << j) * bits[idx];
             }
         }
 
