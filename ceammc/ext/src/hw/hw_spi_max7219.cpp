@@ -88,7 +88,7 @@ void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_data(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("DIGIT:i[0,7] DATA:b ADDR:i>=0?");
+    static const args::ArgChecker chk("REGISTER:i[0,15] DATA:b ADDR:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
