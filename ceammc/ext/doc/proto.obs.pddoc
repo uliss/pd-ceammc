@@ -32,22 +32,22 @@
             <method name="scene prev">change to prev scene</method>
             <method name="scene first">change to first scene</method>
             <method name="scene last">change to last scene</method>
-            <method name="scene create">create new scene
+            <method name="scene create">create new scene 
             <param name="SCENE" type="symbol" required="true">scene name</param></method>
-            <method name="scene remove">remove scene
+            <method name="scene remove">remove scene 
             <param name="SCENE" type="symbol" required="true">scene name</param></method>
             <method name="collection list">request collection list</method>
             <method name="collection current get">request current collection</method>
             <method name="collection current set">set current collection 
             <param name="NAME" type="symbol" required="true">collection name</param></method>
             <method name="monitor list">request monitor list</method>
-            <method name="item list">request list of scene items
+            <method name="item list">request list of scene items 
             <param name="SCENE" type="symbol" required="true">scene name</param></method>
-            <method name="item enable">enable/disable scene item
+            <method name="item enable">enable/disable scene item 
             <param name="SCENE" type="symbol" required="true">scene name</param>
             <param name="IDX" type="int" required="true">item pos</param>
             <param name="VALUE" type="bool" required="true">value</param></method>
-            <method name="item remove">remove scene item
+            <method name="item remove">remove scene item 
             <param name="SCENE" type="symbol" required="true">scene name</param>
             <param name="IDX" type="int" required="true">item pos</param></method>
         </methods>

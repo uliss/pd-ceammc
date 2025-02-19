@@ -1,0 +1,15 @@
+#N canvas 0 0 605 408 12;
+#X text 20 48 SPI buses;
+#X text 20 77 The Raspberry Pi's GPIO header exposes several SPI buses.
+SPI0 is available on all Raspberry Pi models. SPI1 is available on
+models with a 40-pin header. SPI2 is only available on the Compute
+and Compute 3. SPI3 through SPI6 are only available on the Raspberry
+Pi 4B \, 400 and 5.;
+#X text 58 178 SPI0 is disabled by default. You can enable it by running
+sudo raspi-config \, or by manually adding dtparam=spi=on to \/boot\/firmware\/config.txt.The
+associated pins are listed below:;
+#X text 96 264 MOSI: BCM GPIO 10 (physical pin 19) SCLK: BCM GPIO 11
+(physical pin 23) SS: Ss0 BCM GPIO 8 (physical pin 24) \, Ss1 BCM GPIO
+7 (physical pin 26);
+#X obj 58 351 ui.link @title More_information @url
+"https://docs.rs/rppal/latest/rppal/spi/index.html";

@@ -15,21 +15,28 @@
         </meta>
         <info>
             <par>Only Raspberry Pi</par>
-            <par>**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the Raspberry Pi's GPIO inputs operate at 3.3V.</par>
-            <par>Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you could damage your Raspberry Pi!</par>
+            <par>**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the
+            Raspberry Pi's GPIO inputs operate at 3.3V.</par>
+            <par>Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you
+            could damage your Raspberry Pi!</par>
         </info>
         <methods>
-            <method name="poll">turn the sensor polling on/off
+            <method name="poll">turn the sensor polling on/off 
             <param name="STATE" type="bool" required="true">poll state</param></method>
         </methods>
         <arguments>
-            <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">a trigger pin GPIO number</argument>
-            <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">an echo pin GPIO number</argument>
+            <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">a trigger pin GPIO
+            number</argument>
+            <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">an echo pin GPIO
+            number</argument>
         </arguments>
         <properties>
-            <property name="@trig_pin" type="int" default="5" minvalue="0" maxvalue="255" access="initonly">a trigger pin GPIO number</property>
-            <property name="@echo_pin" type="int" default="6" minvalue="0" maxvalue="255" access="initonly">an echo pin GPIO number</property>
-            <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000" units="msec">poll interval</property>
+            <property name="@trig_pin" type="int" default="5" minvalue="0" maxvalue="255"
+            access="initonly">a trigger pin GPIO number</property>
+            <property name="@echo_pin" type="int" default="6" minvalue="0" maxvalue="255"
+            access="initonly">an echo pin GPIO number</property>
+            <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
+            units="msec">poll interval</property>
         </properties>
         <inlets>
             <inlet>

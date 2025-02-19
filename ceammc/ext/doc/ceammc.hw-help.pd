@@ -24,6 +24,8 @@
 #X text 200 369 HC-SR04 ulatrasonic ranging module;
 #X obj 30 397 hw.serial;
 #X text 200 397 serial port device;
+#X obj 30 425 hw.spi.max7219;
+#X text 200 425 LED display driver based on max7219 chip;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

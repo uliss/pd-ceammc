@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.spi.max7219">
+        <title>hw.spi.max7219</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>LED display driver based on max7219 chip</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>led display max7219 spi rpi arduino</keywords>
+            <since>0.9.9</since>
+        </meta>
+        <info>
+            <par>Only Raspberry Pi support</par>
+            <par>Handles communication with the MAX7219 chip for 7-segmented or 8x8 LED dot matrix displays.
+            Each display can be connected in series with another and controlled via a single connection.</par>
+            <par>Note: If case of LED dot matrix disaply only write_bits and write_reg commands will work as expected</par>
+            <par>Note: 7-segment LED display supports only this charset: -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</par>
+            <par>Note: if the device address argument is -1 or ommited, requested action is aplied
+            for all devices in a chain.</par>
+        </info>
+        <methods>
+            <!-- clear -->
+            <method name="clear">clear display 
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in chain</param></method>
+            <!-- write int -->
+            <method name="write_int">write signed integer value into 7-segment display (no led matrix support!)
+            <param name="INT" type="int" required="true">value</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain. If
+            ommited or -1: write to all displays</param></method>
+            <!-- write str -->
+            <method name="write_str">write string into 7-segment display (no led matrix support!)
+            <param name="STR" type="symbol" required="true">string. maxlength: 8 chars</param>
+            <param name="DOTS" type="int" minvalue="0" maxvalue="255">dots as bit value. For ex.: 0b00000011 turn on a two leftmost dots</param>
+            <param name="ALIGN" type="symbol" enum="left center right" default="right">string align</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in the chain</param></method>
+            <!-- write float -->
+            <method name="write_float">write float value into 7-segment display (no led matrix support!)
+            <param name="VAL" type="float" required="true">value</param>
+            <param name="PRECISION" type="int" minvalue="0" maxvalue="7">precision after the dot</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain. If
+            ommited or -1: write to all displays</param></method>
+            <!-- write hex -->
+            <method name="write_hex">write hex unsigned integer value into 7-segment display (no led matrix support!)
+            <param name="INT" type="int" minvalue="0" required="true">value</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in the chain</param></method>
+            <!-- power -->
+            <method name="power">power on/off display
+                <param name="STATE" type="bool" required="true">on/off state</param>
+            </method>
+            <!-- test -->
+            <method name="test">test display by turning all led on
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display address in the chain</param>
+            </method>
+            <!-- intensity -->
+            <method name="intensity">set intensity level on the display
+            <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">intencity level</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display address in the chain</param></method>
+            <!-- write bits -->
+            <method name="write_bits">write war bit data into the display
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">target display address in the chain</param>
+            <param name="DATA" type="list" required="true">data as list of bytes. Max 8 values length</param>
+            </method>
+            <method name="write_reg">method</method>
+        </methods>
+        <arguments>
+            <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="8">number of displays
+            connected into chain</argument>
+        </arguments>
+        <properties>
+            <property name="@displays" type="int" default="1" minvalue="1" maxvalue="8"
+            access="initonly">number of displays connected into the chain</property>
+            <property name="@cs" type="int" default="0" minvalue="0" maxvalue="3"
+            access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
+            <property name="@spi" type="int" default="0" minvalue="0" maxvalue="6"
+            access="initonly">SPI bus number.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets></outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[clear #a( [T]           [T]
+           |             |
+    [F]    [power $1 #e( [test $1 #f 0(
+    |
+    [write_int $1 #b(
+
+
+    [write_float -10.25 3 #c(
+
+
+    [write_hex 355 #d(
+
+
+
+[hw.spi.max7219 #x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
+[hw.spi.max7219-spi]
+]]>
+            </pdascii>
+            <pdascii id="spi">
+<![CDATA[
+/*SPI buses*/
+
+/*The Raspberry Pi's GPIO header exposes several SPI buses. SPI0 is available on all Raspberry Pi models. SPI1 is available on models with a 40-pin header. SPI2 is only available on the Compute and Compute 3. SPI3 through SPI6 are only available on the Raspberry Pi 4B, 400 and 5.*/
+
+
+
+
+
+
+    /*SPI0 is disabled by default. You can enable it by running sudo raspi-config, or by manually adding dtparam=spi=on to \/boot\/firmware\/config.txt.The associated pins are listed below:*/
+
+
+
+
+
+        /*MOSI: BCM GPIO 10 (physical pin 19) SCLK: BCM GPIO 11 (physical pin 23) SS: Ss0 BCM GPIO 8 (physical pin 24), Ss1 BCM GPIO 7 (physical pin 26) */
+
+
+
+
+
+    [ui.link @title=More_information @url="https://docs.rs/rppal/latest/rppal/spi/index.html"]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,177 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 453 50 LED display driver based on max7219 chip;
+#X obj 1 1 cnv 5 765 40 empty empty hw.spi.max7219 20 20 0 20 -104026
+-4096 0;
+#X obj 638 11 hw.spi.max7219;
+#X obj 210 80 cnv 1 555 225 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Only Raspberry Pi support;
+#X text 215 105 Handles communication with the MAX7219 chip for 7-segmented
+or 8x8 LED dot matrix displays. Each display can be connected in series
+with another and controlled via a single connection.;
+#X text 215 175 Note: If case of LED dot matrix disaply only write_bits
+and write_reg commands will work as expected;
+#X text 215 215 Note: 7-segment LED display supports only this charset:
+-_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu;
+#X text 215 255 Note: if the device address argument is -1 or ommited
+\, requested action is aplied for all devices in a chain.;
+#X msg 50 333 clear;
+#X obj 155 333 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 290 333 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 88 362 5 0 0 0 - - -;
+#X msg 155 362 power \$1;
+#X msg 290 362 test \$1 0;
+#X msg 88 391 write_int \$1;
+#X msg 88 434 write_float -10.25 3;
+#X msg 88 477 write_hex 355;
+#X obj 50 535 hw.spi.max7219;
+#X obj 50 564 hw.spi.max7219-spi;
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 622 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 654 1\.;
+#X text 150 654 int;
+#X obj 246 655 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 654 DISPLAYS: number of displays connected into chain.
+Type: int. Range: 1\...8;
+#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 704 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 707 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 739 @cs;
+#X text 245 739 (initonly) Get/Set CS (ChipSelect \, SlaveSelect or
+ChipEnable) index. Type: int. Default value: 0\. Range: 0\...3\.;
+#X msg 110 781 @displays;
+#X text 245 781 (initonly) Get/Set number of displays connected into
+the chain. Type: int. Default value: 1\. Range: 1\...8\.;
+#X msg 110 823 @spi;
+#X text 245 823 (initonly) Get/Set SPI bus number. Type: int. Default
+value: 0\. Range: 0\...6\.;
+#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 880 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 915 clear;
+#X text 245 915 clear display. Arguments are:;
+#X obj 255 938 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 938 [ADDR=0]: display address in chain. Type: int. Range:
+-1\...7\.;
+#X msg 110 978 intensity;
+#X text 245 978 set intensity level on the display. Arguments are:;
+#X obj 255 1001 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1001 LEVEL: intencity level. Type: int. Range: 0\...15\.;
+#X obj 255 1024 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1024 [ADDR=-1]: target display address in the chain. Type:
+int. Range: -1\...7\.;
+#X msg 110 1064 power;
+#X text 245 1064 power on/off display. Arguments are:;
+#X obj 255 1087 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1087 STATE: on/off state. Type: bool.;
+#X msg 110 1112 test;
+#X text 245 1112 test display by turning all led on. Arguments are:;
+#X obj 255 1135 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1135 [ADDR=-1]: target display address in the chain. Type:
+int. Range: -1\...7\.;
+#X msg 110 1175 write_bits;
+#X text 245 1175 write war bit data into the display. Arguments are:;
+#X obj 255 1198 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1198 ADDR=0: target display address in the chain. Type:
+int. Range: -1\...7\.;
+#X obj 255 1236 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1236 DATA: data as list of bytes. Max 8 values length.
+Type: list.;
+#X msg 110 1261 write_float;
+#X text 245 1261 write float value into 7-segment display (no led matrix
+support!). Arguments are:;
+#X obj 255 1299 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1299 VAL: value. Type: float.;
+#X obj 255 1322 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1322 [PRECISION]: precision after the dot. Type: int. Range:
+0\...7\.;
+#X obj 255 1360 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1360 [ADDR]: display address in the chain. If ommited or
+-1: write to all displays. Type: int. Range: -1\...7\.;
+#X msg 110 1400 write_hex;
+#X text 245 1400 write hex unsigned integer value into 7-segment display
+(no led matrix support!). Arguments are:;
+#X obj 255 1438 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1438 INT: value. Type: int. Min value: 0\.;
+#X obj 255 1461 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1461 [ADDR=0]: display address in the chain. Type: int.
+Range: -1\...7\.;
+#X msg 110 1501 write_int;
+#X text 245 1501 write signed integer value into 7-segment display
+(no led matrix support!). Arguments are:;
+#X obj 255 1539 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1539 INT: value. Type: int.;
+#X obj 255 1562 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1562 [ADDR]: display address in the chain. If ommited or
+-1: write to all displays. Type: int. Range: -1\...7\.;
+#X msg 110 1602 write_reg;
+#X text 245 1602 method.;
+#X msg 110 1630 write_str;
+#X text 245 1630 write string into 7-segment display (no led matrix
+support!). Arguments are:;
+#X obj 255 1668 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1668 STR: string. maxlength: 8 chars. Type: symbol.;
+#X obj 255 1691 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1691 [DOTS]: dots as bit value. For ex.: 0b00000011 turn
+on a two leftmost dots. Type: int. Range: 0\...255\.;
+#X obj 255 1729 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1729 [ALIGN=right]: string align. Type: symbol. Allowed
+values: left \, center \, right.;
+#X obj 255 1767 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1767 [ADDR=0]: display address in the chain. Type: int.
+Range: -1\...7\.;
+#X obj 20 1817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1822 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1823 1\.;
+#X text 245 1823 control input.;
+#X obj 20 1853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1858 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 1899 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1902 library: ceammc v0.9.7;
+#N canvas 10 1921 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.7;
+#X text 10 54 object:;
+#X text 120 54 hw.spi.max7219;
+#X text 10 76 category:;
+#X text 120 76 hw;
+#X text 10 98 since:;
+#X text 120 98 0.9.9;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 led \, display \, max7219 \, spi \, rpi \, arduino;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1921 pd info;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
+#X connect 13 0 16 0;
+#X connect 10 0 19 0;
+#X connect 16 0 19 0;
+#X connect 17 0 19 0;
+#X connect 18 0 19 0;
+#X connect 14 0 19 0;
+#X connect 15 0 19 0;

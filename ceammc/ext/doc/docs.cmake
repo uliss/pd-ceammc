@@ -325,6 +325,7 @@ set(DOC_FILES
     hw.printer
     hw.sensor.sr04
     hw.serial
+    hw.spi.max7219
     is_any
     is_bang
     is_data
