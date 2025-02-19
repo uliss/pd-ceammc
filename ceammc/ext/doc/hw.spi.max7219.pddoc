@@ -17,7 +17,7 @@
             <par>Only Raspberry Pi support</par>
             <par>Handles communication with the MAX7219 chip for 7-segmented or 8x8 LED dot matrix displays.
             Each display can be connected in series with another and controlled via a single connection.</par>
-            <par>Note: If case of LED dot matrix disaply only write_bits and write_reg commands will work as expected</par>
+            <par>Note: in case of LED dot matrix disaply only write_bits and write_reg commands will work as expected</par>
             <par>Note: 7-segment LED display supports only this charset: -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</par>
             <par>Note: if the device address argument is -1 or ommited, requested action is aplied
             for all devices in a chain.</par>

@@ -10,7 +10,7 @@
 #X text 215 105 Handles communication with the MAX7219 chip for 7-segmented
 or 8x8 LED dot matrix displays. Each display can be connected in series
 with another and controlled via a single connection.;
-#X text 215 175 Note: If case of LED dot matrix disaply only write_bits
+#X text 215 175 Note: in case of LED dot matrix disaply only write_bits
 and write_reg commands will work as expected;
 #X text 215 215 Note: 7-segment LED display supports only this charset:
 -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu;
