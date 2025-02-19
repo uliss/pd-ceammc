@@ -115,27 +115,27 @@
         <example>
             <pdascii>
 <![CDATA[
-/*#7-segment only*/       /*#both*/     [clear #a(
-
-[F]                       [T]           [T]
+/*#7-segment only*/       /*#both*/     [clear #a(   [get list(
+                                                     |
+[F]                       [T]           [T]          [ui.matrix 8 8 #o]
 |                         |             |
 [write_int $1 #b(         [power $1 #e( [test $1 #f 0(
 
-[write_float -10.25 3 #c( [intensity 7 #m( [intensity 0 #n(
+[write_float -10.25 3 #c( [write_reg 2 15 0 #h(
 
-[write_hex 355 #d(        [write_reg 2 15 0 #h(
+[write_hex 355 #d(        [write_bytes -1 255 0 255 #g(
 
-[write_str DSP 0 left #j( [write_bits -1 255 0 255 #g(
-
-[write_str DSP 255 center #k(
-
-[write_str DSP 1 right #l(
+[write_str DSP 0 left #j(      [F min=0 max=15]
+                               |
+[write_str DSP 255 center #k(  [intensity $1 #m(     [route list #p]
+                                                     |
+[write_str DSP 1 right #l(                           [msg write_bits 0 #r]
 
 
 
 [hw.spi.max7219 4 #x]
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x] [X m->x] [X n->x]
+[X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p] [X r->x]
 [hw.spi.max7219-spi]
 ]]>
             </pdascii>
