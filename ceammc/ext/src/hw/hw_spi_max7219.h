@@ -10,6 +10,8 @@ using namespace ceammc;
 class HwSpiMax7219 : public DispatchedObject<BaseObject> {
     ceammc_hw_max7219* mx_ { nullptr };
     IntProperty* num_ { nullptr };
+    IntProperty* spi_ { nullptr };
+    IntProperty* cs_ { nullptr };
 
 public:
     HwSpiMax7219(const PdArgs& args);

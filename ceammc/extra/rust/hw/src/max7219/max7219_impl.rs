@@ -1,11 +1,10 @@
 use std::ffi::CString;
 
 use log::{debug, error};
-use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
-use super::{hw_max7219, Request};
+use super::{hw_max7219, hw_spi_bus, hw_spi_cs, Request};
 
 #[derive(Debug, PartialEq)]
 struct float_fmt {
@@ -125,7 +124,13 @@ fn float2str(v: f32, precision: u8) -> Option<([u8; 8], u8)> {
 }
 
 impl hw_max7219 {
-    pub fn new(displays: usize, _notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(
+        displays: usize,
+        bus: hw_spi_bus,
+        cs: hw_spi_cs,
+        _notify: hw_notify_cb,
+        on_err: hw_msg_cb,
+    ) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel::<Request>();
 
         std::thread::spawn(move || -> Result<(), String> {
@@ -136,8 +141,21 @@ impl hw_max7219 {
             // const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
 
             let spi = rppal::spi::Spi::new(
-                rppal::spi::Bus::Spi0,
-                rppal::spi::SlaveSelect::Ss0,
+                match bus {
+                    hw_spi_bus::SPI0 => rppal::spi::Bus::Spi0,
+                    hw_spi_bus::SPI1 => rppal::spi::Bus::Spi1,
+                    hw_spi_bus::SPI2 => rppal::spi::Bus::Spi2,
+                    hw_spi_bus::SPI3 => rppal::spi::Bus::Spi3,
+                    hw_spi_bus::SPI4 => rppal::spi::Bus::Spi4,
+                    hw_spi_bus::SPI5 => rppal::spi::Bus::Spi5,
+                    hw_spi_bus::SPI6 => rppal::spi::Bus::Spi6,
+                },
+                match cs {
+                    hw_spi_cs::CS0 => rppal::spi::SlaveSelect::Ss0,
+                    hw_spi_cs::CS1 => rppal::spi::SlaveSelect::Ss1,
+                    hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
+                    hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
+                },
                 1_000_000,
                 rppal::spi::Mode::Mode0,
             )
@@ -146,7 +164,10 @@ impl hw_max7219 {
                 err.to_string()
             })?;
 
-            debug!("SPI init done");
+            debug!(
+                "SPI init done. spi={bus:?}, cs={cs:?}, clock_speed={}",
+                spi.clock_speed().unwrap_or_default()
+            );
             // spi.
 
             let mut display = max7219::MAX7219::from_spi(displays, spi).map_err(|err| {
@@ -165,16 +186,17 @@ impl hw_max7219 {
                 debug!("{req:?}");
 
                 match req {
-                    Request::Intensity(addr, val) => match addr {
-                        Some(addr) => display
-                            .set_intensity(addr, val.clamp(0, 255) as u8)
-                            .unwrap(),
-                        None => {
-                            for x in 0..4 {
-                                display.set_intensity(x, val.clamp(0, 255) as u8).unwrap();
+                    Request::Intensity(addr, val) => {
+                        let val = val.clamp(0, 0xf);
+                        match addr {
+                            Some(addr) => display.set_intensity(addr, val).unwrap(),
+                            None => {
+                                for x in 0..4 {
+                                    display.set_intensity(x, val).unwrap();
+                                }
                             }
                         }
-                    },
+                    }
                     Request::PowerOn(state) => {
                         if state {
                             display.power_on().unwrap();

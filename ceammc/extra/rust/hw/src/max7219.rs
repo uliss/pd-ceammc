@@ -15,6 +15,27 @@ use crate::{hw_msg_cb, hw_notify_cb};
 #[cfg(target_os = "linux")]
 mod max7219_impl;
 
+#[repr(C)]
+#[derive(Debug)]
+pub enum hw_spi_bus {
+    SPI0,
+    SPI1,
+    SPI2,
+    SPI3,
+    SPI4,
+    SPI5,
+    SPI6,
+}
+
+#[repr(C)]
+#[derive(Debug)]
+pub enum hw_spi_cs {
+    CS0,
+    CS1,
+    CS2,
+    CS3,
+}
+
 #[derive(Debug)]
 #[repr(C)]
 
@@ -43,17 +64,27 @@ pub struct hw_max7219 {
 
 /// create new max7219
 /// @param num_displays - number of connected lcd modules
+/// @param spi - RPi SPI bus
+/// @param cs - RPi chip select
 /// @param notify - notify callback
 /// @param on_err - error callback
 /// @return pointer to max7219 on NULL on error
+///
+/// @note The Raspberry Pi’s GPIO header exposes several SPI buses.
+/// SPI0 is available on all Raspberry Pi models.
+/// SPI1 is available on models with a 40-pin header.
+/// SPI2 is only available on the Compute and Compute 3.
+/// SPI3 through SPI6 are only available on the Raspberry Pi 4 B, 400 and 5.
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_new(
     num_displays: usize,
+    spi: hw_spi_bus,
+    cs: hw_spi_cs,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_max7219 {
     rpi_check!(null_mut(), {
-        match hw_max7219::new(num_displays, notify, on_err) {
+        match hw_max7219::new(num_displays, spi, cs, notify, on_err) {
             Ok(max2719) => return Box::into_raw(Box::new(max2719)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());

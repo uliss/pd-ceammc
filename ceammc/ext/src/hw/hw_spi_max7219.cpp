@@ -15,6 +15,16 @@ HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
     num_->setInitOnly();
     num_->checkClosedRange(1, 4);
     addProperty(num_);
+
+    spi_ = new IntProperty("@spi", (int)ceammc_hw_spi_bus::SPI0);
+    spi_->setInitOnly();
+    spi_->checkClosedRange((int)ceammc_hw_spi_bus::SPI0, (int)ceammc_hw_spi_bus::SPI6);
+    addProperty(spi_);
+
+    cs_ = new IntProperty("@cs", (int)ceammc_hw_spi_cs::CS0);
+    cs_->setInitOnly();
+    cs_->checkClosedRange((int)ceammc_hw_spi_cs::CS0, (int)ceammc_hw_spi_cs::CS3);
+    addProperty(cs_);
 }
 
 HwSpiMax7219::~HwSpiMax7219()
@@ -25,6 +35,8 @@ HwSpiMax7219::~HwSpiMax7219()
 void HwSpiMax7219::initDone()
 {
     mx_ = ceammc_hw_max7219_new(num_->value(),
+        static_cast<ceammc_hw_spi_bus>(spi_->value()),
+        static_cast<ceammc_hw_spi_cs>(cs_->value()),
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
         { this, [](void* user, const char* msg) {
              auto obj = static_cast<HwSpiMax7219*>(user);

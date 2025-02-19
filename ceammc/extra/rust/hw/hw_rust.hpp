@@ -100,6 +100,23 @@ enum class ceammc_hw_printer_state {
     UNKNOWN,
 };
 
+enum class ceammc_hw_spi_bus {
+    SPI0,
+    SPI1,
+    SPI2,
+    SPI3,
+    SPI4,
+    SPI5,
+    SPI6,
+};
+
+enum class ceammc_hw_spi_cs {
+    CS0,
+    CS1,
+    CS2,
+    CS3,
+};
+
 /// gamepad opaque type
 struct ceammc_hw_gamepad;
 
@@ -499,10 +516,20 @@ bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, uint8_t intens, int64_t 
 
 /// create new max7219
 /// @param num_displays - number of connected lcd modules
+/// @param spi - RPi SPI bus
+/// @param cs - RPi chip select
 /// @param notify - notify callback
 /// @param on_err - error callback
 /// @return pointer to max7219 on NULL on error
+///
+/// @note The Raspberry Pi’s GPIO header exposes several SPI buses.
+/// SPI0 is available on all Raspberry Pi models.
+/// SPI1 is available on models with a 40-pin header.
+/// SPI2 is only available on the Compute and Compute 3.
+/// SPI3 through SPI6 are only available on the Raspberry Pi 4 B, 400 and 5.
 ceammc_hw_max7219 *ceammc_hw_max7219_new(size_t num_displays,
+                                         ceammc_hw_spi_bus spi,
+                                         ceammc_hw_spi_cs cs,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_err);
 
