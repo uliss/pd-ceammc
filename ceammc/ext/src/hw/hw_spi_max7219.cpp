@@ -17,14 +17,14 @@ HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
     displays_->setArgIndex(0);
     addProperty(displays_);
 
-    spi_ = new IntProperty("@spi", (int)ceammc_hw_spi_bus::SPI0);
+    spi_ = new IntProperty("@spi", static_cast<int>(ceammc_hw_spi_bus::SPI0));
     spi_->setInitOnly();
-    spi_->checkClosedRange((int)ceammc_hw_spi_bus::SPI0, (int)ceammc_hw_spi_bus::SPI6);
+    spi_->checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::SPI0), static_cast<int>(ceammc_hw_spi_bus::SPI6));
     addProperty(spi_);
 
-    cs_ = new IntProperty("@cs", (int)ceammc_hw_spi_cs::CS0);
+    cs_ = new IntProperty("@cs", static_cast<int>(ceammc_hw_spi_cs::CS0));
     cs_->setInitOnly();
-    cs_->checkClosedRange((int)ceammc_hw_spi_cs::CS0, (int)ceammc_hw_spi_cs::CS3);
+    cs_->checkClosedRange(static_cast<int>(ceammc_hw_spi_cs::CS0), static_cast<int>(ceammc_hw_spi_cs::CS3));
     addProperty(cs_);
 }
 
@@ -40,9 +40,10 @@ void HwSpiMax7219::initDone()
         static_cast<ceammc_hw_spi_cs>(cs_->value()),
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
         { this, [](void* user, const char* msg) {
-             auto obj = static_cast<HwSpiMax7219*>(user);
-             if (obj)
+             auto* obj = static_cast<HwSpiMax7219*>(user);
+             if (obj != nullptr) {
                  Error(obj) << msg;
+             }
          } });
 }
 
@@ -51,11 +52,16 @@ bool HwSpiMax7219::notify(int code)
     return true;
 }
 
+void HwSpiMax7219::onList(const AtomListView& lv)
+{
+}
+
 void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("VALUE:i[0,15] ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto addr = lv.intAt(1, ceammc_HW_MAX7219_ADDRESS_ALL);
     ceammc_hw_max7219_intensity(mx_, addr, lv.intAt(0, 0));
@@ -64,8 +70,9 @@ void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_power(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     ceammc_hw_max7219_power(mx_, lv.boolAt(0, false));
 }
@@ -73,8 +80,9 @@ void HwSpiMax7219::m_power(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_write_int(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("INT:i ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto addr = lv.intAt(1, 0);
     ceammc_hw_max7219_write_int(mx_, addr, lv.intAt(0, 0));
@@ -83,8 +91,9 @@ void HwSpiMax7219::m_write_int(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("HEX:i>=0 ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto addr = lv.intAt(1, 0);
     ceammc_hw_max7219_write_hex(mx_, addr, lv.intAt(0, 0));
@@ -93,8 +102,9 @@ void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_write_reg(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("REGISTER:i[0,15] DATA:b ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto reg = lv.intAt(0, 0);
     const auto data = lv.intAt(1, 0);
@@ -105,8 +115,9 @@ void HwSpiMax7219::m_write_reg(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("VALUE:f PRECIS:i[0,7] ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto value = lv.floatAt(0, 0);
     const auto precision = lv.intAt(1, 0);
@@ -117,8 +128,9 @@ void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STR:s DOTS:b? ALIGN:s=left|right|center? ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto str = lv.symbolAt(0, &s_)->s_name;
     const auto dots = lv.intAt(1, 0);
@@ -147,14 +159,16 @@ void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_write_bits(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ADDR:i[-1,7] BITS:b+");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto addr = lv.intAt(0, 0);
     std::vector<std::uint8_t> bytes;
     bytes.reserve(lv.size() - 1);
-    for (auto& a : lv.subView(1))
+    for (auto& a : lv.subView(1)) {
         bytes.push_back(a.asInt());
+    }
 
     ceammc_hw_max7219_write_bits(mx_, addr, bytes.data(), bytes.size());
 }
@@ -162,8 +176,9 @@ void HwSpiMax7219::m_write_bits(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto addr = lv.intAt(0, ceammc_HW_MAX7219_ADDRESS_ALL);
     ceammc_hw_max7219_clear(mx_, addr);
@@ -172,8 +187,9 @@ void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
 void HwSpiMax7219::m_test(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B ADDR:i[-1,7]?");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this)) {
         return chk.usage(this, s);
+    }
 
     const auto addr = lv.intAt(1, ceammc_HW_MAX7219_ADDRESS_ALL);
     ceammc_hw_max7219_test(mx_, addr, lv.boolAt(0, false));

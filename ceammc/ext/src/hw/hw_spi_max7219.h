@@ -3,7 +3,6 @@
 
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
-#include "ceammc_property_enum.h"
 #include "hw_rust.hpp"
 using namespace ceammc;
 
@@ -19,6 +18,7 @@ public:
 
     void initDone() final;
     bool notify(int code) final;
+    void onList(const AtomListView& lv) final;
 
     void m_intensity(t_symbol* s, const AtomListView& lv);
     void m_power(t_symbol* s, const AtomListView& lv);
