@@ -52,10 +52,6 @@ bool HwSpiMax7219::notify(int code)
     return true;
 }
 
-void HwSpiMax7219::onList(const AtomListView& lv)
-{
-}
-
 void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("VALUE:i[0,15] ADDR:i[-1,7]?");
@@ -156,7 +152,7 @@ void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_write_str(mx_, addr, str, align, dots);
 }
 
-void HwSpiMax7219::m_write_bits(t_symbol* s, const AtomListView& lv)
+void HwSpiMax7219::m_write_bytes(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ADDR:i[-1,7] BITS:b+");
     if (!chk.check(lv, this)) {
@@ -205,7 +201,7 @@ void setup_hw_spi_max7219()
     obj.addMethod("write_reg", &HwSpiMax7219::m_write_reg);
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
-    obj.addMethod("write_bits", &HwSpiMax7219::m_write_bits);
+    obj.addMethod("write_bytes", &HwSpiMax7219::m_write_bytes);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
     obj.addMethod("test", &HwSpiMax7219::m_test);
 }

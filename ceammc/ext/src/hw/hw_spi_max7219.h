@@ -18,7 +18,6 @@ public:
 
     void initDone() final;
     bool notify(int code) final;
-    void onList(const AtomListView& lv) final;
 
     void m_intensity(t_symbol* s, const AtomListView& lv);
     void m_power(t_symbol* s, const AtomListView& lv);
@@ -27,7 +26,7 @@ public:
     void m_write_reg(t_symbol* s, const AtomListView& lv);
     void m_write_float(t_symbol* s, const AtomListView& lv);
     void m_write_str(t_symbol* s, const AtomListView& lv);
-    void m_write_bits(t_symbol* s, const AtomListView& lv);
+    void m_write_bytes(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_test(t_symbol* s, const AtomListView& lv);
 };
