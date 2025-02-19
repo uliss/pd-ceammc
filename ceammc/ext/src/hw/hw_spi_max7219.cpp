@@ -154,7 +154,7 @@ void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_bytes(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("ADDR:i[-1,7] BYTES:b+");
+    static const args::ArgChecker chk("ADDR:i[-1,7] BYTES:b{1,8}");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
@@ -171,7 +171,7 @@ void HwSpiMax7219::m_write_bytes(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_bits(t_symbol *s, const AtomListView &lv)
 {
-    static const args::ArgChecker chk("ADDR:i[-1,7] BITS:B+");
+    static const args::ArgChecker chk("ADDR:i[-1,7] BITS:B{1,256}");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
