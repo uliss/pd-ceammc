@@ -105,15 +105,15 @@
 
     [write_str DSP 0 left #j(
 
-    [write_str DSP 255 center #k(
+    [write_str DSP 255 center #k( [intensity 7 #m(
 
-    [write_str DSP 1 right #l(
+    [write_str DSP 1 right #l(    [intensity 0 #m(
 
 
 
 [hw.spi.max7219 4 #x]
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x]
+[X j->x] [X k->x] [X l->x] [X m->x]
 [hw.spi.max7219-spi]
 ]]>
             </pdascii>
