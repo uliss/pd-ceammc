@@ -156,7 +156,7 @@ impl hw_max7219 {
                     hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
                     hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
                 },
-                1_000_000,
+                10_000_000,
                 rppal::spi::Mode::Mode0,
             )
             .map_err(|err| {
