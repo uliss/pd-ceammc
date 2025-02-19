@@ -9,7 +9,7 @@ using namespace ceammc;
 
 class HwSpiMax7219 : public DispatchedObject<BaseObject> {
     ceammc_hw_max7219* mx_ { nullptr };
-    IntProperty* num_ { nullptr };
+    IntProperty* displays_ { nullptr };
     IntProperty* spi_ { nullptr };
     IntProperty* cs_ { nullptr };
 

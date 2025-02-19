@@ -11,10 +11,11 @@ CEAMMC_DEFINE_HASH(center)
 HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
 {
-    num_ = new IntProperty("@num", 1);
-    num_->setInitOnly();
-    num_->checkClosedRange(1, 4);
-    addProperty(num_);
+    displays_ = new IntProperty("@displays", 1);
+    displays_->setInitOnly();
+    displays_->checkClosedRange(1, 4);
+    displays_->setArgIndex(0);
+    addProperty(displays_);
 
     spi_ = new IntProperty("@spi", (int)ceammc_hw_spi_bus::SPI0);
     spi_->setInitOnly();
@@ -34,7 +35,7 @@ HwSpiMax7219::~HwSpiMax7219()
 
 void HwSpiMax7219::initDone()
 {
-    mx_ = ceammc_hw_max7219_new(num_->value(),
+    mx_ = ceammc_hw_max7219_new(displays_->value(),
         static_cast<ceammc_hw_spi_bus>(spi_->value()),
         static_cast<ceammc_hw_spi_cs>(cs_->value()),
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
