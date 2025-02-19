@@ -24,6 +24,7 @@ public:
     void m_write_hex(t_symbol* s, const AtomListView& lv);
     void m_write_data(t_symbol* s, const AtomListView& lv);
     void m_write_float(t_symbol* s, const AtomListView& lv);
+    void m_write_str(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
 };
 

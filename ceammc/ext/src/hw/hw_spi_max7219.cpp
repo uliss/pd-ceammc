@@ -1,7 +1,12 @@
 #include "hw_spi_max7219.h"
 #include "args/argcheck.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+
+CEAMMC_DEFINE_HASH(left)
+CEAMMC_DEFINE_HASH(right)
+CEAMMC_DEFINE_HASH(center)
 
 HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
@@ -93,6 +98,32 @@ void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_write_float(mx_, addr, value, precision);
 }
 
+void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("STR:s ALIGN:s=left|right|center ADDR:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    const auto str = lv.symbolAt(0, &s_)->s_name;
+
+    ceammc_hw_max7219_string_align align = ceammc_hw_max7219_string_align::Left;
+
+    switch (crc32_hash(lv.symbolAt(1, gensym(str_left)))) {
+    case hash_center:
+        align = ceammc_hw_max7219_string_align::Center;
+        break;
+    case hash_right:
+        align = ceammc_hw_max7219_string_align::Right;
+        break;
+    default:
+        align = ceammc_hw_max7219_string_align::Left;
+        break;
+    }
+
+    const auto addr = lv.intAt(2, 0);
+    ceammc_hw_max7219_write_str(mx_, addr, str, align);
+}
+
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ADDR:i?");
@@ -111,5 +142,6 @@ void setup_hw_spi_max7219()
     obj.addMethod("write_hex", &HwSpiMax7219::m_write_hex);
     obj.addMethod("write_data", &HwSpiMax7219::m_write_data);
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
+    obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
 }

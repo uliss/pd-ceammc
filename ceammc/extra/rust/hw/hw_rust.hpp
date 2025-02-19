@@ -87,6 +87,12 @@ enum class ceammc_hw_gpio_trigger {
     Both,
 };
 
+enum class ceammc_hw_max7219_string_align {
+    Left,
+    Right,
+    Center,
+};
+
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -536,6 +542,16 @@ bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, uint32_t val, size_t add
 /// @param val - signed int value to display
 /// @param addr - display address in chain
 bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t val, size_t addr);
+
+/// write string to max7219 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param str
+/// @param align - string align on display
+bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
+                                 size_t addr,
+                                 const char *str,
+                                 ceammc_hw_max7219_string_align align);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,

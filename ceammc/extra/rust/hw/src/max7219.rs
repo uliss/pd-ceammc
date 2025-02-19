@@ -3,7 +3,10 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::ptr::null_mut;
+use std::{
+    ffi::{c_char, CStr},
+    ptr::null_mut,
+};
 
 use log::error;
 
@@ -13,13 +16,22 @@ use crate::{hw_msg_cb, hw_notify_cb};
 mod max7219_impl;
 
 #[derive(Debug)]
+#[repr(C)]
+
+pub enum hw_max7219_string_align {
+    Left,
+    Right,
+    Center,
+}
+
+#[derive(Debug)]
 pub enum Request {
     Intensity(Option<usize>, u8),
     WriteInt(usize, i32),
     WriteHex(usize, u32),
     WriteFloat(usize, f32, u8),
     WriteDigit(usize, u8, u8),
-    // WriteSegments(usize, u8, u8),
+    WriteString(usize, String, hw_max7219_string_align),
     PowerOn(bool),
     Clear(Option<usize>),
 }
@@ -202,6 +214,31 @@ pub extern "C" fn ceammc_hw_max7219_write_float(
 
         let mx = unsafe { &*mx };
         mx.send(Request::WriteFloat(addr, value, precision));
+        true
+    });
+}
+
+/// write string to max7219 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param str
+/// @param align - string align on display
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_str(
+    mx: *mut hw_max7219,
+    addr: usize,
+    str: *const c_char,
+    align: hw_max7219_string_align,
+) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        let str = unsafe { CStr::from_ptr(str) }.to_string_lossy().to_string();
+        mx.send(Request::WriteString(addr, str, align));
         true
     });
 }

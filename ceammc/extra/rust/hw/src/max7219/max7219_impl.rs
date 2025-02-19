@@ -13,6 +13,73 @@ struct float_fmt {
     leading_zero: bool,
 }
 
+fn map_char(c: char) -> u8 {
+    match c as char {
+        ' ' => 0b0000_0000, // "blank"
+        '.' => 0b1000_0000,
+        '-' => 0b0000_0001, // -
+        '_' => 0b0000_1000, // _
+        '0' => 0b0111_1110,
+        '1' => 0b0011_0000,
+        '2' => 0b0110_1101,
+        '3' => 0b0111_1001,
+        '4' => 0b0011_0011,
+        '5' => 0b0101_1011,
+        '6' => 0b0101_1111,
+        '7' => 0b0111_0000,
+        '8' => 0b0111_1111,
+        '9' => 0b0111_1011,
+        'a' | 'A' | 'а' | 'А' => 0b0111_0111,
+        'В' | 'B' => 0b0111_1111,
+        'б' | 'Б' => 0b0101_1111,
+        'b' | 'ь' | 'Ь' => 0b0001_1111,
+        'c' | 'с' => 0b001_1101,
+        'C' | 'С' => 0b0100_1110,
+        'd' => 0b0011_1101,
+        'e' | 'E' | 'Е' | 'е' => 0b0100_1111,
+        'f' | 'F' => 0b0100_0111,
+        'g' | 'G' => 0b0101_1110,
+        'H' | 'Н' => 0b0011_0111,
+        'h' => 0b0011_0111,
+        'i' | 'I' => 0b0011_0000,
+        'j' | 'J' => 0b0011_1100,
+        // K undoable
+        'l' | 'L' => 0b0000_1110,
+        // M undoable
+        'n' | 'N' => 0b0001_0101,
+        'o' | 'O' | 'о' | 'О' => 0b0111_1110,
+        'p' | 'P' | 'р' | 'Р' => 0b0110_0111,
+        'q' => 0b0111_0011,
+        'r' | 'г' | 'R' => 0b0000_1101,
+        's' | 'S' => 0b0101_1011,
+        't' | 'T' => 0b0001_0111,
+        'U' => 0b0011_1110,
+        'u' => 0b0001_1100,
+        'Г' => 0b0100_0110,
+        'П' | 'п' => 0b0111_0110,
+        'У' | 'у' => 0b0011_1011,
+        'ч' | 'Ч' => 0b0001_1011,
+        'э' | 'Э' | 'з' | 'З' => 0b0111_1001,
+        // V undoable
+        // W undoable
+        // X undoable
+        // Y undoable
+        // Z undoable
+        _ => 0b1110_0101, // ?
+    }
+}
+
+fn encode_string(str: &String) -> [u8; 8] {
+    let bytes = str.chars().map(|x| map_char(x)).collect::<Vec<_>>();
+
+    let mut buf: [u8; 8] = [0; 8];
+    for (b, c) in buf.iter_mut().zip(bytes.iter()) {
+        *b = *c;
+    }
+
+    buf
+}
+
 fn float2str(v: f32, precision: u8) -> Option<([u8; 8], u8)> {
     const MAX_LEN: usize = 8;
 
@@ -111,21 +178,8 @@ impl hw_max7219 {
                     err
                 })?;
 
-            // display.set_decode_mode(0, mode);
-
             // make sure to wake the display up
             display.power_on().unwrap();
-            display.clear_display(0).unwrap();
-            display.clear_display(1).unwrap();
-            display.clear_display(2).unwrap();
-            display.clear_display(3).unwrap();
-
-            // display.write_raw(0, &[1, 1, 1, 1, 1, 1, 1, 1]).unwrap();
-            // display.write_raw(1, &[3, 3, 3, 3, 3, 3, 3, 3]).unwrap();
-            // display.write_raw(2, &[5, 5, 5, 5, 5, 5, 5, 5]).unwrap();
-            // display
-            //     .write_raw(3, &[0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff])
-            //     .unwrap();
 
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
@@ -181,6 +235,41 @@ impl hw_max7219 {
                             .write_raw_byte(addr, digit, data)
                             .unwrap_or_else(|_| {
                                 error!("write digit overflow");
+                            });
+                    }
+                    Request::WriteString(addr, str, align) => {
+                        let mut str = str.clone();
+                        str.truncate(8);
+                        if str.len() < 8 {
+                            let pad_len = 8 - str.len();
+
+                            match align {
+                                crate::max7219::hw_max7219_string_align::Left => {
+                                    for _ in 0..pad_len {
+                                        str.push(' ');
+                                    }
+                                }
+                                crate::max7219::hw_max7219_string_align::Right => {
+                                    for _ in 0..pad_len {
+                                        str.insert(0, ' ');
+                                    }
+                                }
+                                crate::max7219::hw_max7219_string_align::Center => {
+                                    for idx in 0..pad_len {
+                                        if idx % 2 == 0 {
+                                            str.insert(0, ' ');
+                                        } else {
+                                            str.push(' ');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        display
+                            .write_raw(addr, &encode_string(&str))
+                            .unwrap_or_else(|_| {
+                                error!("write str overflow");
                             });
                     }
                 }
