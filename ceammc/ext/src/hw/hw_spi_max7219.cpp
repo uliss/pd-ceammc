@@ -154,7 +154,7 @@ void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_bytes(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("ADDR:i[-1,7] BITS:b+");
+    static const args::ArgChecker chk("ADDR:i[-1,7] BYTES:b+");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
@@ -167,6 +167,23 @@ void HwSpiMax7219::m_write_bytes(t_symbol* s, const AtomListView& lv)
     }
 
     ceammc_hw_max7219_write_bytes(mx_, addr, bytes.data(), bytes.size());
+}
+
+void HwSpiMax7219::m_write_bits(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("ADDR:i[-1,7] BITS:B+");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    const auto addr = lv.intAt(0, 0);
+    std::vector<std::uint8_t> bits;
+    bits.reserve(lv.size() - 1);
+    for (auto& a : lv.subView(1)) {
+        bits.push_back(a.asInt());
+    }
+
+    ceammc_hw_max7219_write_bits(mx_, addr, bits.data(), bits.size());
 }
 
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
@@ -202,6 +219,7 @@ void setup_hw_spi_max7219()
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
     obj.addMethod("write_bytes", &HwSpiMax7219::m_write_bytes);
+    obj.addMethod("write_bits", &HwSpiMax7219::m_write_bits);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
     obj.addMethod("test", &HwSpiMax7219::m_test);
 }

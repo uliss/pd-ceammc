@@ -572,6 +572,16 @@ bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
 /// @param state
 bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, int32_t addr, bool state);
 
+/// write raw bits to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param data - pointer to bit array
+/// @param len - data length
+bool ceammc_hw_max7219_write_bits(ceammc_hw_max7219 *mx,
+                                  int32_t addr,
+                                  const uint8_t *bits,
+                                  size_t len);
+
 /// write data to max7219
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - display address in chain

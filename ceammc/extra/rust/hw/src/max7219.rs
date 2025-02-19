@@ -9,7 +9,7 @@ use std::{
     slice::from_raw_parts,
 };
 
-use log::error;
+use log::{debug, error};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -343,6 +343,51 @@ pub extern "C" fn ceammc_hw_max7219_write_bytes(
         for (a, b) in buf.iter_mut().zip(data.iter()) {
             *a = *b;
         }
+
+        mx.send(addr, Request::WriteRaw(buf));
+        true
+    });
+}
+
+/// write raw bits to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param data - pointer to bit array
+/// @param len - data length
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_bits(
+    mx: *mut hw_max7219,
+    addr: i32,
+    bits: *const u8,
+    len: usize,
+) -> bool {
+    rpi_check!({
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        if bits.is_null() {
+            error!("NULL data pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+
+        let bits = unsafe { from_raw_parts(bits, len) };
+        let mut buf: [u8; 8] = [0; 8];
+        for i in 0..buf.len() {
+            for j in 0..8 {
+                let idx = i * 8 + j;
+                if idx >= len {
+                    break;
+                }
+
+                buf[i] = (0x1 << j) * bits[idx];
+            }
+        }
+
+        debug!("{buf:?}");
 
         mx.send(addr, Request::WriteRaw(buf));
         true
