@@ -131,47 +131,47 @@ impl hw_max7219 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            let gpio = Gpio::new().map_err(|err| {
-                error!("{err}");
-                err.to_string()
-            })?;
+            // let gpio = Gpio::new().map_err(|err| {
+            //     error!("{err}");
+            //     err.to_string()
+            // })?;
 
-            debug!("GPIO init done");
+            // debug!("GPIO init done");
 
             const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
             const SCLK_PIN: u8 = 11; // [CLK]  BCM GPIO 11 (physical pin 23)
             const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
 
-            let data = gpio
-                .get(MOSI_PIN)
-                .map_err(|err| {
-                    error!("{err}");
-                    err.to_string()
-                })?
-                .into_output_low();
+            // let data = gpio
+            //     .get(MOSI_PIN)
+            //     .map_err(|err| {
+            //         error!("{err}");
+            //         err.to_string()
+            //     })?
+            //     .into_output_low();
 
-            let sclk = gpio
-                .get(SCLK_PIN)
-                .map_err(|err| {
-                    error!("{err}");
-                    err.to_string()
-                })?
-                .into_output_low();
+            // let sclk = gpio
+            //     .get(SCLK_PIN)
+            //     .map_err(|err| {
+            //         error!("{err}");
+            //         err.to_string()
+            //     })?
+            //     .into_output_low();
 
-            let cs = gpio
-                .get(CS_PIN)
-                .map_err(|err| {
-                    error!("{err}");
-                    err.to_string()
-                })?
-                .into_output_low();
+            // let cs = gpio
+            //     .get(CS_PIN)
+            //     .map_err(|err| {
+            //         error!("{err}");
+            //         err.to_string()
+            //     })?
+            //     .into_output_low();
 
-            debug!(
-                "init GPIO pins: DATA={} CS={} CLK={}",
-                data.pin(),
-                cs.pin(),
-                sclk.pin()
-            );
+            // debug!(
+            //     "init GPIO pins: DATA={} CS={} CLK={}",
+            //     data.pin(),
+            //     cs.pin(),
+            //     sclk.pin()
+            // );
 
             let spi = rppal::spi::Spi::new(
                 rppal::spi::Bus::Spi0,
@@ -180,9 +180,12 @@ impl hw_max7219 {
                 rppal::spi::Mode::Mode0,
             )
             .map_err(|err| {
-                error!("{err}");
+                error!("SPI init error: {err}");
                 err.to_string()
             })?;
+
+            debug!("SPI init done");
+            // spi.
 
             let mut display = max7219::MAX7219::from_spi(displays, spi).map_err(|err| {
                 let err = match err {
