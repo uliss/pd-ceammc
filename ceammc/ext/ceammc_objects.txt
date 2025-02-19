@@ -639,12 +639,14 @@ hw.arduino
 hw.display
 hw.gamepad
 hw.gpio
+hw.i2c.lcd1602
 hw.kbd_light
 hw.motu.avb
 hw.printer
 hw.sensor.dht11
 hw.sensor.sr04
 hw.serial
+hw.spi.max7219
 int->bits
 is_any
 is_bang
