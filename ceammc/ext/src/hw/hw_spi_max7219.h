@@ -27,6 +27,7 @@ public:
     void m_write_reg(t_symbol* s, const AtomListView& lv);
     void m_write_float(t_symbol* s, const AtomListView& lv);
     void m_write_str(t_symbol* s, const AtomListView& lv);
+    void m_write_bits(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_test(t_symbol* s, const AtomListView& lv);
 };

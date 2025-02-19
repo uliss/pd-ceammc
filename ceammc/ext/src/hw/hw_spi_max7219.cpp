@@ -53,7 +53,7 @@ bool HwSpiMax7219::notify(int code)
 
 void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("VALUE:i[0,15] ADDR:i>=0?");
+    static const args::ArgChecker chk("VALUE:i[0,15] ADDR:i?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -82,7 +82,7 @@ void HwSpiMax7219::m_write_int(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("HEX:i>=0 ADDR:i>=0?");
+    static const args::ArgChecker chk("HEX:i>=0 ADDR:i?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -104,7 +104,7 @@ void HwSpiMax7219::m_write_reg(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("VALUE:f PRECIS:i[0,7] ADDR:i>=0?");
+    static const args::ArgChecker chk("VALUE:f PRECIS:i[0,7] ADDR:i?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -116,7 +116,7 @@ void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
 
 void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("STR:s DOTS:b? ALIGN:s=left|right|center? ADDR:i>=0?");
+    static const args::ArgChecker chk("STR:s DOTS:b? ALIGN:s=left|right|center? ADDR:i?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -144,6 +144,21 @@ void HwSpiMax7219::m_write_str(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_write_str(mx_, addr, str, align, dots);
 }
 
+void HwSpiMax7219::m_write_bits(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("ADDR:i BITS:b+");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    const auto addr = lv.intAt(0, 0);
+    std::vector<std::uint8_t> bytes;
+    bytes.reserve(lv.size() - 1);
+    for (auto& a : lv.subView(1))
+        bytes.push_back(a.asInt());
+
+    ceammc_hw_max7219_write_bits(mx_, addr, bytes.data(), bytes.size());
+}
+
 void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ADDR:i?");
@@ -160,7 +175,8 @@ void HwSpiMax7219::m_test(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_max7219_test(mx_, lv.intAt(1, 0), lv.boolAt(0, false));
+    const auto addr = lv.intAt(0, ceammc_HW_MAX7219_ADDRESS_ALL);
+    ceammc_hw_max7219_test(mx_, addr, lv.boolAt(0, false));
 }
 
 void setup_hw_spi_max7219()
@@ -173,6 +189,7 @@ void setup_hw_spi_max7219()
     obj.addMethod("write_reg", &HwSpiMax7219::m_write_reg);
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
+    obj.addMethod("write_bits", &HwSpiMax7219::m_write_bits);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
     obj.addMethod("test", &HwSpiMax7219::m_test);
 }
