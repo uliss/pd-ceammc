@@ -103,10 +103,17 @@
 
     [write_hex 355 #d(   [write_bits -1 255 0 255 #g(
 
+    [write_str DSP 0 left #j(
+
+    [write_str DSP 255 center #k(
+
+    [write_str DSP 1 right #l(
 
 
-[hw.spi.max7219 #x]
+
+[hw.spi.max7219 4 #x]
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
+[X j->x] [X k->x] [X l->x]
 [hw.spi.max7219-spi]
 ]]>
             </pdascii>
