@@ -21,10 +21,12 @@ BaseBitmap::BaseBitmap(const PdArgs& args)
 {
     w_ = new IntProperty("@w", 8);
     w_->checkClosedRange(1, 256);
+    w_->setArgIndex(0);
     addProperty(w_);
 
     h_ = new IntProperty("@h", 8);
     h_->checkClosedRange(1, 256);
+    h_->setArgIndex(1);
     addProperty(h_);
 
     createOutlet();
