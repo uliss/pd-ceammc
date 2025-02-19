@@ -90,7 +90,7 @@ void HwSpiMax7219::m_write_hex(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_write_hex(mx_, addr, lv.intAt(0, 0));
 }
 
-void HwSpiMax7219::m_write_data(t_symbol* s, const AtomListView& lv)
+void HwSpiMax7219::m_write_reg(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("REGISTER:i[0,15] DATA:b ADDR:i>=0?");
     if (!chk.check(lv, this))
@@ -99,7 +99,7 @@ void HwSpiMax7219::m_write_data(t_symbol* s, const AtomListView& lv)
     const auto reg = lv.intAt(0, 0);
     const auto data = lv.intAt(1, 0);
     const auto addr = lv.intAt(2, 0);
-    ceammc_hw_max7219_write_raw(mx_, addr, reg, data);
+    ceammc_hw_max7219_write_reg(mx_, addr, reg, data);
 }
 
 void HwSpiMax7219::m_write_float(t_symbol* s, const AtomListView& lv)
@@ -170,7 +170,7 @@ void setup_hw_spi_max7219()
     obj.addMethod("power", &HwSpiMax7219::m_power);
     obj.addMethod("write_int", &HwSpiMax7219::m_write_int);
     obj.addMethod("write_hex", &HwSpiMax7219::m_write_hex);
-    obj.addMethod("write_data", &HwSpiMax7219::m_write_data);
+    obj.addMethod("write_reg", &HwSpiMax7219::m_write_reg);
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);

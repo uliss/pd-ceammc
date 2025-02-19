@@ -226,7 +226,7 @@ pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, addr: i32, va
 /// @param data - register data
 /// @note this is low level write function!
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_raw(
+pub extern "C" fn ceammc_hw_max7219_write_reg(
     mx: *mut hw_max7219,
     addr: i32,
     reg: u8,

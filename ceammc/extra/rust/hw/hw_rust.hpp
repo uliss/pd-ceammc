@@ -608,7 +608,7 @@ bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t addr, int32_t va
 /// @param reg - register index
 /// @param data - register data
 /// @note this is low level write function!
-bool ceammc_hw_max7219_write_raw(ceammc_hw_max7219 *mx, int32_t addr, uint8_t reg, uint8_t data);
+bool ceammc_hw_max7219_write_reg(ceammc_hw_max7219 *mx, int32_t addr, uint8_t reg, uint8_t data);
 
 /// write string to max7219 7 segment display
 /// @param max7219 - pointer to max7219 struct
