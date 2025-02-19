@@ -73,7 +73,7 @@ fn encode_string(str: &String) -> [u8; 8] {
     let bytes = str.chars().map(|x| map_char(x)).collect::<Vec<_>>();
 
     let mut buf: [u8; 8] = [0; 8];
-    for (b, c) in buf.iter_mut().zip(bytes.iter()) {
+    for (b, c) in buf.iter_mut().zip(bytes.iter().rev()) {
         *b = *c;
     }
 
