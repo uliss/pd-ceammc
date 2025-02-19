@@ -382,12 +382,10 @@ pub extern "C" fn ceammc_hw_max7219_write_bits(
                 if idx >= len {
                     break;
                 }
-                debug!("[{idx}] = {}", bits[idx]);
-                buf[i] |= (0x1 << j) * bits[idx];
+           
+                buf[i] |= (0b1000_0000 >> j) * bits[idx];
             }
         }
-
-        debug!("{buf:?}");
 
         mx.send(addr, Request::WriteRaw(buf));
         true
