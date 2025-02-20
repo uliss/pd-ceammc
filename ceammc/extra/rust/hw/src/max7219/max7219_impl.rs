@@ -274,16 +274,16 @@ impl hw_max7219 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            let mut lcd_display = LedDisplay::new(displays, bus, cs).map_err(|err| {
+            let mut led_display = LedDisplay::new(displays, bus, cs).map_err(|err| {
                 error!("{err}");
                 err
             })?;
 
-            lcd_display.write(Address::All, Request::PowerOn(true))?;
+            led_display.write(Address::All, Request::PowerOn(true))?;
 
             while let Ok((addr, req)) = rx.recv() {
                 debug!("{addr:?} {req:?}");
-                lcd_display
+                led_display
                     .write(addr, req)
                     .unwrap_or_else(|err| error!("{err}"));
             }
@@ -314,6 +314,16 @@ impl hw_max7219 {
         } else {
             true
         }
+    }
+
+    pub fn send_raw(mx: *mut hw_max7219, addr: i32, req: Request) -> bool {
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(addr,req)
     }
 }
 

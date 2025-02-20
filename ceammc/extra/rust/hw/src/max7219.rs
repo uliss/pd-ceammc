@@ -137,16 +137,7 @@ pub extern "C" fn ceammc_hw_max7219_free(mx: *mut hw_max7219) {
 /// @param intensity in 0..0xF range
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, addr: i32, intens: u8) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        mx.send(addr, Request::Intensity(intens));
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::Intensity(intens)) });
 }
 
 /// set max7219 power on/off
@@ -154,17 +145,7 @@ pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, addr: i32, in
 /// @param state
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        // send to all internally in max7219 crate
-        mx.send(0, Request::PowerOn(state));
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, 0, Request::PowerOn(state)) });
 }
 
 /// clear max7219 display
@@ -172,16 +153,7 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
 /// @param addr - lcd address in chain, if <0 clear all connected addresses
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i32) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        mx.send(addr, Request::Clear);
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::Clear) });
 }
 
 /// write max7219 int value to 7 segment display
@@ -190,16 +162,7 @@ pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i32) -> boo
 /// @param val - signed int value to display
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, addr: i32, val: i32) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        mx.send(addr, Request::WriteInt(val));
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteInt(val)) });
 }
 
 /// write max7219 unsigned hex value to 7 segment display
@@ -208,16 +171,7 @@ pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, addr: i32, va
 /// @param val - unsigned int value to display
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, addr: i32, val: u32) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        mx.send(addr, Request::WriteHex(val));
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteHex(val)) });
 }
 
 /// write raw data to max7219 register
@@ -233,16 +187,7 @@ pub extern "C" fn ceammc_hw_max7219_write_reg(
     reg: u8,
     data: u8,
 ) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        mx.send(addr, Request::WriteRegister(reg, data));
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteRegister(reg, data)) });
 }
 
 /// write float to max7219 7 segment display
@@ -257,16 +202,7 @@ pub extern "C" fn ceammc_hw_max7219_write_float(
     value: f32,
     precision: u8,
 ) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        mx.send(addr, Request::WriteFloat(value, precision));
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteFloat(value, precision)) });
 }
 
 /// write string to max7219 7 segment display
@@ -301,16 +237,7 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
 /// @param state
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: i32, state: bool) -> bool {
-    rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
-        mx.send(addr, Request::Test(state));
-        true
-    });
+    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::Test(state)) });
 }
 
 /// write data to max7219
@@ -382,7 +309,7 @@ pub extern "C" fn ceammc_hw_max7219_write_bits(
                 if idx >= len {
                     break;
                 }
-           
+
                 buf[i] |= (0b1000_0000 >> j) * bits[idx];
             }
         }
