@@ -102,7 +102,7 @@ target_include_directories(ceammc_base
 
 )
 
-target_link_libraries(ceammc_base PRIVATE fftconv)
+target_link_libraries(ceammc_base PRIVATE fftconv core_rust)
 
 find_package(RubberBand REQUIRED)
 if(RUBBERBAND_FOUND)
