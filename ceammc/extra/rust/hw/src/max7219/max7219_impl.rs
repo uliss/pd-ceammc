@@ -157,12 +157,12 @@ fn float2str(v: f32, precision: u8) -> Option<([u8; 8], u8)> {
     Some((buf, dots))
 }
 
-struct LcdDisplay {
+struct LedDisplay {
     count: u8,
     display: max7219::MAX7219<SpiConnector<Spi>>,
 }
 
-impl LcdDisplay {
+impl LedDisplay {
     fn write(&mut self, addr: Address, cmd: Request) -> Result<(), String> {
         match addr {
             Address::Single(x) => self.write_to_display(x as usize, &cmd),
@@ -257,7 +257,7 @@ impl LcdDisplay {
 
         debug!("max7219 init: displays={count}");
 
-        Ok(LcdDisplay { count, display })
+        Ok(LedDisplay { count, display })
     }
 }
 
@@ -274,7 +274,7 @@ impl hw_max7219 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            let mut lcd_display = LcdDisplay::new(displays, bus, cs).map_err(|err| {
+            let mut lcd_display = LedDisplay::new(displays, bus, cs).map_err(|err| {
                 error!("{err}");
                 err
             })?;
