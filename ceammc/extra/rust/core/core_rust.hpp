@@ -26,6 +26,8 @@ enum class ceammc_mdns_rc {
     SERVICENOTFOUND,
 };
 
+struct ceammc_core_async_bitmap;
+
 struct ceammc_mdns;
 
 struct ceammc_net_addr4;
@@ -41,6 +43,27 @@ struct ceammc_net_iface_addr4;
 struct ceammc_net_iface_addr6;
 
 struct ceammc_net_ifaces;
+
+struct ceammc_core_notify {
+    /**
+     * dispatcher ID
+     */
+    size_t id;
+    /**
+     * dispatcher callback (not NULL!)
+     */
+    void (*f)(size_t id);
+};
+
+struct ceammc_core_bitmap_on_data {
+    void *user;
+    void (*cb)(void *user, const uint8_t *data, size_t len);
+};
+
+struct ceammc_core_on_msg {
+    void *user;
+    void (*cb)(void *user, const char *msg);
+};
 
 struct ceammc_mdns_cb_err {
     void *user;
@@ -151,6 +174,29 @@ struct ceammc_net_err_cb {
 };
 
 extern "C" {
+
+bool ceammc_bitmap_clear(ceammc_core_async_bitmap *bitmap);
+
+void ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
+                             const char *txt,
+                             int16_t x,
+                             int16_t y);
+
+bool ceammc_bitmap_fill(ceammc_core_async_bitmap *bitmap, bool value);
+
+void ceammc_bitmap_free(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_get(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_invert(ceammc_core_async_bitmap *bitmap);
+
+ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
+                                            uint16_t h,
+                                            ceammc_core_notify notify,
+                                            ceammc_core_bitmap_on_data on_data,
+                                            ceammc_core_on_msg on_err);
+
+void ceammc_bitmap_process(ceammc_core_async_bitmap *bitmap);
 
 /**
  * create new MDNS service handler

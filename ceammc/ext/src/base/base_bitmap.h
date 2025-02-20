@@ -14,16 +14,29 @@
 #ifndef BASE_BITMAP_H
 #define BASE_BITMAP_H
 
+#include "../ceammc/extra/rust/core/core_rust.hpp"
 #include "ceammc_object.h"
+#include "ceammc_poll_dispatcher.h"
 
 namespace ceammc {
 
-class BaseBitmap : public BaseObject {
+class BaseBitmap : public DispatchedObject<BaseObject> {
     IntProperty* w_ { nullptr };
     IntProperty* h_ { nullptr };
+    ceammc_core_async_bitmap* bm_ { nullptr };
 
 public:
     explicit BaseBitmap(const PdArgs& args);
+    ~BaseBitmap();
+
+    void initDone() final;
+    bool notify(int code) final;
+    void onBang() final;
+
+    void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_text(t_symbol* s, const AtomListView& lv);
+    void m_fill(t_symbol* s, const AtomListView& lv);
+    void m_invert(t_symbol* s, const AtomListView& lv);
 };
 
 } // namespace ceammc
