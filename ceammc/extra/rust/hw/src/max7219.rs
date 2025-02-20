@@ -9,7 +9,7 @@ use std::{
     slice::from_raw_parts,
 };
 
-use log::{debug, error};
+use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -253,17 +253,10 @@ pub extern "C" fn ceammc_hw_max7219_write_bytes(
     len: usize,
 ) -> bool {
     rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
         if data.is_null() {
             error!("NULL data pointer");
             return false;
         }
-
-        let mx = unsafe { &*mx };
 
         let data = unsafe { from_raw_parts(data, len) };
         let mut buf: [u8; 8] = [0; 8];
@@ -271,8 +264,7 @@ pub extern "C" fn ceammc_hw_max7219_write_bytes(
             *a = *b;
         }
 
-        mx.send(addr, Request::WriteRaw(buf));
-        true
+        hw_max7219::send_raw(mx, addr, Request::WriteRaw(buf))
     });
 }
 
@@ -289,17 +281,10 @@ pub extern "C" fn ceammc_hw_max7219_write_bits(
     len: usize,
 ) -> bool {
     rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
         if bits.is_null() {
             error!("NULL data pointer");
             return false;
         }
-
-        let mx = unsafe { &*mx };
 
         let bits = unsafe { from_raw_parts(bits, len) };
         let mut buf: [u8; 8] = [0; 8];
@@ -314,7 +299,6 @@ pub extern "C" fn ceammc_hw_max7219_write_bits(
             }
         }
 
-        mx.send(addr, Request::WriteRaw(buf));
-        true
+        hw_max7219::send_raw(mx, addr, Request::WriteRaw(buf))
     });
 }
