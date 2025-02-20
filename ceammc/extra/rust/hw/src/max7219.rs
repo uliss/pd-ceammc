@@ -219,15 +219,8 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
     dots: u8,
 ) -> bool {
     rpi_check!({
-        if mx.is_null() {
-            error!("NULL max7219 pointer");
-            return false;
-        }
-
-        let mx = unsafe { &*mx };
         let str = unsafe { CStr::from_ptr(str) }.to_string_lossy().to_string();
-        mx.send(addr, Request::WriteString(str, align, dots));
-        true
+        hw_max7219::send_raw(mx, addr, Request::WriteString(str, align, dots))
     });
 }
 
