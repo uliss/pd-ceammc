@@ -237,6 +237,7 @@ void setup_hw_spi_max7219()
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
     obj.addMethod("write_bytes", &HwSpiMax7219::m_write_bytes);
+    obj.addMethod("write_matrix", &HwSpiMax7219::m_write_matrix);
     obj.addMethod("write_bits", &HwSpiMax7219::m_write_bits);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
     obj.addMethod("test", &HwSpiMax7219::m_test);
