@@ -3,9 +3,10 @@ pub mod mdns_sd;
 pub mod net_iface;
 
 use env_logger;
+use log::error;
 
 use std::{
-    ffi::{c_char, c_void, CString},
+    ffi::{c_char, c_void, CStr, CString},
     sync::Once,
 };
 static LOG_INIT: Once = Once::new();
@@ -47,4 +48,14 @@ impl core_notify {
     fn notify(&self) {
         (self.f)(self.id);
     }
+}
+
+fn cstr_to_string(cstr: *const c_char) -> String {
+    unsafe { CStr::from_ptr(cstr) }
+        .to_str()
+        .unwrap_or_else(|err| {
+            error!("{err}");
+            ""
+        })
+        .to_owned()
 }

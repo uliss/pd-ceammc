@@ -1,5 +1,5 @@
 #![allow(non_camel_case_types)]
-use std::ffi::{c_char, c_void, CStr};
+use std::ffi::{c_char, c_void};
 use std::{ffi::CString, ptr::null_mut};
 
 use embedded_graphics::mono_font::ascii::FONT_6X10;
@@ -12,12 +12,12 @@ use embedded_graphics::{
     Pixel,
 };
 use log::{debug, error};
+use ndarray::Array2;
 
-use crate::{core_notify, core_on_msg};
+use crate::{core_notify, core_on_msg, cstr_to_string};
 
 #[derive(Debug)]
 pub enum Request {
-    Quit,
     Fill(bool),
     Clear,
     Invert,
@@ -67,27 +67,23 @@ impl core_bitmap_on_data {
 }
 
 struct BitmapDisplay {
-    buf: Vec<u8>,
-    w: u16,
-    h: u16,
+    buf: Array2<u8>,
 }
 
 impl BitmapDisplay {
     fn new(w: u16, h: u16) -> Self {
-        let len = (w * h) as usize;
         BitmapDisplay {
-            buf: vec![0; len],
-            w,
-            h,
+            buf: Array2::zeros((h as usize, w as usize)),
         }
+    }
+
+    fn to_vec(&self) -> Vec<u8> {
+        self.buf.flatten().to_vec()
     }
 }
 
 impl DrawTarget for BitmapDisplay {
     type Color = BinaryColor;
-    // `ExampleDisplay` uses a framebuffer and doesn't need to communicate with the display
-    // controller to draw pixel, which means that drawing operations can never fail. To reflect
-    // this the type `Infallible` was chosen as the `Error` type.
     type Error = core::convert::Infallible;
 
     fn draw_iter<I>(&mut self, pixels: I) -> Result<(), Self::Error>
@@ -95,14 +91,10 @@ impl DrawTarget for BitmapDisplay {
         I: IntoIterator<Item = Pixel<Self::Color>>,
     {
         for Pixel(coord, color) in pixels.into_iter() {
-            // Check if the pixel coordinates are out of bounds (negative or greater than
-            // (63,63)). `DrawTarget` implementation are required to discard any out of bounds
-            // pixels without returning an error or causing a panic.
-            let w = self.w as i32;
-            let h = self.h as i32;
+            let w = self.buf.dim().1 as i32;
+            let h = self.buf.dim().0 as i32;
             if coord.x >= 0 && coord.x < w && coord.y >= 0 && coord.y < h {
-                let index = coord.x + (coord.y * w);
-                self.buf[index as usize] = if color.is_on() { 1 } else { 0 };
+                self.buf[[coord.y as usize, coord.x as usize]] = if color.is_on() { 1 } else { 0 };
             }
         }
 
@@ -112,7 +104,7 @@ impl DrawTarget for BitmapDisplay {
 
 impl OriginDimensions for BitmapDisplay {
     fn size(&self) -> Size {
-        Size::new(self.w as u32, self.h as u32)
+        Size::new(self.buf.dim().1 as u32, self.buf.dim().0 as u32)
     }
 }
 
@@ -136,13 +128,9 @@ impl core_async_bitmap {
                 debug!("{req:?}");
 
                 match req {
-                    Request::Quit => {
-                        debug!("quit");
-                        break;
-                    }
                     Request::Fill(value) => display.buf.fill(if value { 1 } else { 0 }),
                     Request::DrawPixel(x, y) => {
-                        // display.draw_iter(Pixel::new())
+                        display.buf[(y as usize, x as usize)] = 1;
                     }
                     Request::DrawText(str, x, y) => {
                         // Create a new character style
@@ -154,7 +142,7 @@ impl core_async_bitmap {
                     }
                     Request::GetData => {
                         rep_tx
-                            .send(Reply::Data(display.buf.clone()))
+                            .send(Reply::Data(display.to_vec()))
                             .unwrap_or_else(|err| {
                                 error!("{err}");
                             });
@@ -210,10 +198,8 @@ pub extern "C" fn ceammc_bitmap_free(bitmap: *mut core_async_bitmap) {
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_process(bitmap: *mut core_async_bitmap) {
     if !bitmap.is_null() {
-        debug!("notify");
         let bitmap = unsafe { &*bitmap };
         while let Ok(rep) = bitmap.rx.try_recv() {
-            debug!("notify get reply: {rep:?}");
             match rep {
                 Reply::Data(items) => {
                     bitmap.on_data.exec(items.as_ptr(), items.len());
@@ -232,10 +218,7 @@ pub extern "C" fn ceammc_bitmap_draw_text(
 ) {
     if !bitmap.is_null() {
         let bitmap = unsafe { &*bitmap };
-        let str = unsafe { CStr::from_ptr(txt) }
-            .to_str()
-            .unwrap_or_default()
-            .to_owned();
+        let str = cstr_to_string(txt);
 
         bitmap
             .tx
@@ -264,4 +247,31 @@ pub extern "C" fn ceammc_bitmap_invert(bitmap: *mut core_async_bitmap) -> bool {
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_fill(bitmap: *mut core_async_bitmap, value: bool) -> bool {
     core_async_bitmap::send_request(bitmap, Request::Fill(value))
+}
+
+#[cfg(test)]
+mod tests {
+    use embedded_graphics::{
+        pixelcolor::BinaryColor,
+        prelude::{DrawTarget, OriginDimensions, Point, Size},
+        Pixel,
+    };
+
+    use super::BitmapDisplay;
+
+    #[test]
+    fn draw() {
+        let mut d = BitmapDisplay::new(3, 2);
+        assert_eq!(d.size(), Size::new(3, 2));
+        d.draw_iter([
+            Pixel(Point::new(0, 0), BinaryColor::On),
+            Pixel(Point::new(1, 0), BinaryColor::Off),
+            Pixel(Point::new(2, 0), BinaryColor::On),
+            Pixel(Point::new(0, 1), BinaryColor::Off),
+            Pixel(Point::new(1, 1), BinaryColor::On),
+            Pixel(Point::new(2, 1), BinaryColor::Off),
+        ])
+        .unwrap();
+        assert_eq!(d.to_vec(), vec![1, 0, 1, 0, 1, 0]);
+    }
 }
