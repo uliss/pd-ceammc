@@ -177,7 +177,7 @@ void HwSpiMax7219::m_write_matrix(t_symbol *s, const AtomListView &lv)
     }
 
     const auto nrows = lv.intAt(0, 0);
-    const auto ncols = lv.intAt(0, 0);
+    const auto ncols = lv.intAt(1, 0);
     std::vector<std::uint8_t> bits;
     bits.reserve(lv.size() - 2);
     for (auto& a : lv.subView(2)) {
