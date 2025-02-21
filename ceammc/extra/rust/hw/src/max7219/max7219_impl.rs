@@ -2,7 +2,6 @@ use std::ffi::CString;
 
 use log::{debug, error};
 use max7219::{connectors::SpiConnector, DataError};
-use ndarray::SliceArg;
 use rppal::spi::Spi;
 
 use crate::{hw_msg_cb, hw_notify_cb};
@@ -218,7 +217,7 @@ impl LedDisplay {
                     for ri in 0..8 {
                         for ci in 0..8 {
                             if mtx[[ri, ci]] != 0 {
-                                buf[ri] |= 1 << ci;
+                                buf[ri] |= 0b1000_0000 >> ci;
                             }
                         }
                     }

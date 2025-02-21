@@ -10,7 +10,7 @@ use std::{
 };
 
 use log::error;
-use ndarray::{Array, Array1, Array2};
+use ndarray::{Array1, Array2};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -316,8 +316,11 @@ pub extern "C" fn ceammc_hw_max7219_write_matrix(
             return false;
         }
 
-        let bits = unsafe { from_raw_parts(matrix, len) };
-        let arr = Array1::from(bits.to_vec()).into_shape_with_order((nrows as usize, ncols as usize)).unwrap();
+        let mut bits = unsafe { from_raw_parts(matrix, len) }.to_vec();
+        bits.resize((nrows * ncols) as usize, 0);
+        let arr = Array1::from(bits)
+            .into_shape_with_order((nrows as usize, ncols as usize))
+            .unwrap();
 
         hw_max7219::send_raw(mx, 0, Request::WriteMatrix(arr))
     });
