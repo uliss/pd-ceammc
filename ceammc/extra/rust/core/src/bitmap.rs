@@ -4,6 +4,7 @@ use std::{ffi::CString, ptr::null_mut};
 
 use embedded_graphics::mono_font::ascii::FONT_6X10;
 use embedded_graphics::mono_font::MonoTextStyle;
+use embedded_graphics::primitives::{Line, PrimitiveStyle, StyledDrawable};
 use embedded_graphics::text::Text;
 use embedded_graphics::Drawable;
 use embedded_graphics::{
@@ -23,6 +24,7 @@ pub enum Request {
     Invert,
     DrawPixel(u16, u16),
     DrawText(String, i16, i16),
+    DrawLine(i16, i16, i16, i16),
     GetData,
 }
 
@@ -124,6 +126,9 @@ impl core_async_bitmap {
             let mut display = BitmapDisplay::new(w, h);
             debug!("create bitmap: {w}x{h}");
 
+            let to_pt = |x: i16, y: i16| Point::new(x as i32, y as i32);
+            let mut draw_style = PrimitiveStyle::new();
+
             while let Ok(req) = req_rx.recv() {
                 debug!("{req:?}");
 
@@ -155,6 +160,15 @@ impl core_async_bitmap {
                         display.buf.iter_mut().for_each(|x| {
                             *x ^= 1;
                         });
+                    }
+                    Request::DrawLine(x0, y0, x1, y1) => {
+                        draw_style.stroke_width = 1;
+                        draw_style.fill_color = None;
+                        draw_style.stroke_color = Some(BinaryColor::On);
+
+                        Line::new(to_pt(x0, y0), to_pt(x1, y1))
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
                     }
                 }
             }
@@ -227,6 +241,17 @@ pub extern "C" fn ceammc_bitmap_draw_text(
                 error!("{err}");
             });
     }
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_line(
+    bitmap: *mut core_async_bitmap,
+    x0: i16,
+    y0: i16,
+    x1: i16,
+    y1: i16,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawLine(x0, y0, x1, y1))
 }
 
 #[no_mangle]
