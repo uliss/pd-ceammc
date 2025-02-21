@@ -157,12 +157,12 @@ fn float2str(v: f32, precision: u8) -> Option<([u8; 8], u8)> {
     Some((buf, dots))
 }
 
-struct LcdDisplay {
+struct LedDisplay {
     count: u8,
     display: max7219::MAX7219<SpiConnector<Spi>>,
 }
 
-impl LcdDisplay {
+impl LedDisplay {
     fn write(&mut self, addr: Address, cmd: Request) -> Result<(), String> {
         match addr {
             Address::Single(x) => self.write_to_display(x as usize, &cmd),
@@ -206,6 +206,25 @@ impl LcdDisplay {
                 .write_raw(addr, &encode_string(&pad_string(str, *align), *dots))?,
             Request::Test(state) => self.display.test(addr, *state)?,
             Request::WriteRaw(buf) => self.display.write_raw(addr, buf)?,
+            Request::WriteMatrix(array) => {
+                use ndarray::s;
+                let (_, ncols) = array.dim();
+                for mtx_idx in 0..(ncols / 8) {
+                    let idx = mtx_idx * 8;
+                    let mtx = array.slice(s!(..8, idx..(idx + 8)));
+                    debug!("{mtx_idx}: {mtx}");
+                    let mut buf = [0; 8];
+                    for ri in 0..8 {
+                        for ci in 0..8 {
+                            if mtx[[ri, ci]] != 0 {
+                                buf[ri] |= 0b1000_0000 >> ci;
+                            }
+                        }
+                    }
+                    debug!("{buf:?}");
+                    self.display.write_raw(mtx_idx, &buf)?
+                }
+            }
         }
 
         Ok(())
@@ -257,7 +276,7 @@ impl LcdDisplay {
 
         debug!("max7219 init: displays={count}");
 
-        Ok(LcdDisplay { count, display })
+        Ok(LedDisplay { count, display })
     }
 }
 
@@ -274,16 +293,16 @@ impl hw_max7219 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker thread start");
 
-            let mut lcd_display = LcdDisplay::new(displays, bus, cs).map_err(|err| {
+            let mut led_display = LedDisplay::new(displays, bus, cs).map_err(|err| {
                 error!("{err}");
                 err
             })?;
 
-            lcd_display.write(Address::All, Request::PowerOn(true))?;
+            led_display.write(Address::All, Request::PowerOn(true))?;
 
             while let Ok((addr, req)) = rx.recv() {
                 debug!("{addr:?} {req:?}");
-                lcd_display
+                led_display
                     .write(addr, req)
                     .unwrap_or_else(|err| error!("{err}"));
             }
@@ -315,10 +334,22 @@ impl hw_max7219 {
             true
         }
     }
+
+    pub fn send_raw(mx: *mut hw_max7219, addr: i32, req: Request) -> bool {
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.send(addr, req)
+    }
 }
 
 #[cfg(test)]
 mod tests {
+
+    use ndarray::{arr2, s, Array1};
 
     use crate::max7219::max7219_impl::float2str;
 
@@ -339,5 +370,26 @@ mod tests {
         assert_eq!(float2str(200.5, 8), Some((*b"20050000", 0b0010_0000)));
         assert_eq!(float2str(123456789.5, 8), Some((*b"12345679", 0b0000_0001)));
         assert_eq!(float2str(-12.5, 2), Some((*b"   -1250", 0b0000_0100)));
+    }
+
+    #[test]
+    fn subview() {
+        let a1 = Array1::from(vec![1, 2, 3, 4, 5, 6]);
+        let a2 = a1.into_shape_with_order((2, 3)).unwrap();
+        assert_eq!(a2, arr2(&[[1, 2, 3], [4, 5, 6]]));
+        assert_eq!(a2.dim().0, 2);
+        assert_eq!(a2.dim().1, 3);
+        assert_eq!(a2.slice(s!(..1, ..)), arr2(&[[1, 2, 3]]));
+        assert_eq!(a2.slice(s!(1.., ..)), arr2(&[[4, 5, 6]]));
+        assert_eq!(a2.slice(s!(0..2, 0..2)), arr2(&[[1, 2], [4, 5]]));
+        assert_eq!(a2.slice(s!(.., ..1)), arr2(&[[1], [4]]));
+
+        let mut buf = [0; 6];
+        for ri in 0..2 {
+            for ci in 0..3 {
+                buf[ri * 3 + ci] = a2[[ri, ci]];
+            }
+        }
+        assert_eq!(buf.to_vec(), vec![1, 2, 3, 4, 5, 6]);
     }
 }

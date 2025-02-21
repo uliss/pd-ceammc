@@ -169,6 +169,24 @@ void HwSpiMax7219::m_write_bytes(t_symbol* s, const AtomListView& lv)
     ceammc_hw_max7219_write_bytes(mx_, addr, bytes.data(), bytes.size());
 }
 
+void HwSpiMax7219::m_write_matrix(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("ROWS:i>=0 COLS:i>=0 MAXTRIX:B{1,512}");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    const auto nrows = lv.intAt(0, 0);
+    const auto ncols = lv.intAt(1, 0);
+    std::vector<std::uint8_t> bits;
+    bits.reserve(lv.size() - 2);
+    for (auto& a : lv.subView(2)) {
+        bits.push_back(a.asInt());
+    }
+
+    ceammc_hw_max7219_write_matrix(mx_, nrows, ncols, bits.data(), bits.size());
+}
+
 void HwSpiMax7219::m_write_bits(t_symbol *s, const AtomListView &lv)
 {
     static const args::ArgChecker chk("ADDR:i[-1,7] BITS:B{1,256}");
@@ -219,6 +237,7 @@ void setup_hw_spi_max7219()
     obj.addMethod("write_float", &HwSpiMax7219::m_write_float);
     obj.addMethod("write_str", &HwSpiMax7219::m_write_str);
     obj.addMethod("write_bytes", &HwSpiMax7219::m_write_bytes);
+    obj.addMethod("write_matrix", &HwSpiMax7219::m_write_matrix);
     obj.addMethod("write_bits", &HwSpiMax7219::m_write_bits);
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
     obj.addMethod("test", &HwSpiMax7219::m_test);
