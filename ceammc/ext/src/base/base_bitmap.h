@@ -34,9 +34,10 @@ public:
     void onBang() final;
 
     void m_clear(t_symbol* s, const AtomListView& lv);
-    void m_text(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
     void m_invert(t_symbol* s, const AtomListView& lv);
+    void m_line(t_symbol* s, const AtomListView& lv);
+    void m_text(t_symbol* s, const AtomListView& lv);
 };
 
 } // namespace ceammc

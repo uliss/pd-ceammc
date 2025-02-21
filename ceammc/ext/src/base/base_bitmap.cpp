@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "base_bitmap.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 using namespace ceammc;
@@ -96,12 +97,23 @@ void BaseBitmap::m_invert(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_invert(bm_);
 }
 
+void BaseBitmap::m_line(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X0:i Y0:i X1:i Y1:i");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    ceammc_bitmap_draw_line(bm_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
+}
+
 void setup_base_bitmap()
 {
     ObjectFactory<BaseBitmap> obj("bitmap");
 
-    obj.addMethod("text", &BaseBitmap::m_text);
     obj.addMethod("clear", &BaseBitmap::m_clear);
     obj.addMethod("fill", &BaseBitmap::m_fill);
     obj.addMethod("invert", &BaseBitmap::m_invert);
+    obj.addMethod("line", &BaseBitmap::m_line);
+    obj.addMethod("text", &BaseBitmap::m_text);
 }
