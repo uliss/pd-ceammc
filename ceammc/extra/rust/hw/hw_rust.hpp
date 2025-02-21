@@ -614,6 +614,16 @@ bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, int32_t addr, uint32_t v
 /// @param val - signed int value to display
 bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t addr, int32_t val);
 
+/// write matrix to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param data - pointer to matrix flat data
+/// @param len - data length
+bool ceammc_hw_max7219_write_matrix(ceammc_hw_max7219 *mx,
+                                    uint32_t nrows,
+                                    uint32_t ncols,
+                                    const uint8_t *matrix,
+                                    size_t len);
+
 /// write raw data to max7219 register
 /// @param max7219 - pointer to max7219 struct
 /// @param addr - display address in chain

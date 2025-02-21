@@ -10,6 +10,7 @@ use std::{
 };
 
 use log::error;
+use ndarray::{Array, Array1, Array2};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -71,6 +72,7 @@ pub enum Request {
     WriteRegister(u8, u8),
     WriteRaw([u8; 8]),
     WriteString(String, hw_max7219_string_align, u8),
+    WriteMatrix(Array2<u8>),
     PowerOn(bool),
     Clear,
     Test(bool),
@@ -293,5 +295,30 @@ pub extern "C" fn ceammc_hw_max7219_write_bits(
         }
 
         hw_max7219::send_raw(mx, addr, Request::WriteRaw(buf))
+    });
+}
+
+/// write matrix to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param data - pointer to matrix flat data
+/// @param len - data length
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_write_matrix(
+    mx: *mut hw_max7219,
+    nrows: u32,
+    ncols: u32,
+    matrix: *const u8,
+    len: usize,
+) -> bool {
+    rpi_check!({
+        if matrix.is_null() {
+            error!("NULL data pointer");
+            return false;
+        }
+
+        let bits = unsafe { from_raw_parts(matrix, len) };
+        let arr = Array1::from(bits.to_vec()).into_shape_with_order((nrows as usize, ncols as usize)).unwrap();
+
+        hw_max7219::send_raw(mx, 0, Request::WriteMatrix(arr))
     });
 }
