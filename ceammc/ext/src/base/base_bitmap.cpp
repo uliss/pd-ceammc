@@ -107,6 +107,16 @@ void BaseBitmap::m_hshift(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_hshift(bm_, lv.intAt(0, 0));
 }
 
+void BaseBitmap::m_font(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FONT:s");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    ceammc_bitmap_font(bm_, lv.symbolAt(0, &s_)->s_name);
+}
+
 void BaseBitmap::m_fill(t_symbol* s, const AtomListView& lv)
 {
     ceammc_bitmap_fill(bm_, lv.boolAt(0, false));
@@ -138,4 +148,5 @@ void setup_base_bitmap()
     obj.addMethod("text", &BaseBitmap::m_text);
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
     obj.addMethod("hshift", &BaseBitmap::m_hshift);
+    obj.addMethod("font", &BaseBitmap::m_font);
 }

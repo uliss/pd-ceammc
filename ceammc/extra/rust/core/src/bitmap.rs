@@ -1,8 +1,9 @@
 #![allow(non_camel_case_types)]
+use std::collections::HashMap;
 use std::ffi::{c_char, c_void};
 use std::{ffi::CString, ptr::null_mut};
 
-use embedded_graphics::mono_font::ascii::FONT_6X10;
+use embedded_graphics::mono_font::iso_8859_5::{FONT_4X6, FONT_5X7, FONT_5X8, FONT_6X10, FONT_6X9};
 use embedded_graphics::mono_font::MonoTextStyle;
 use embedded_graphics::primitives::{Line, PrimitiveStyle, StyledDrawable};
 use embedded_graphics::text::Text;
@@ -27,6 +28,7 @@ pub enum Request {
     DrawLine(i16, i16, i16, i16),
     VShift(i16),
     HShift(i16),
+    SetFont(String),
     GetData,
 }
 
@@ -184,6 +186,15 @@ impl core_async_bitmap {
 
             let to_pt = |x: i16, y: i16| Point::new(x as i32, y as i32);
             let mut draw_style = PrimitiveStyle::new();
+            let mut text_style = MonoTextStyle::new(&FONT_5X8, BinaryColor::On);
+
+            let mut font_map = HashMap::new();
+
+            font_map.insert("FONT_4X6", &FONT_4X6);
+            font_map.insert("FONT_5X7", &FONT_5X7);
+            font_map.insert("FONT_5X8", &FONT_5X8);
+            font_map.insert("FONT_6X9", &FONT_6X9);
+            font_map.insert("FONT_6X10", &FONT_6X10);
 
             while let Ok(req) = req_rx.recv() {
                 debug!("{req:?}");
@@ -194,10 +205,7 @@ impl core_async_bitmap {
                         display.buf[(y as usize, x as usize)] = 1;
                     }
                     Request::DrawText(str, x, y) => {
-                        // Create a new character style
-                        let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-
-                        Text::new(str.as_str(), Point::new(x as i32, y as i32), style)
+                        Text::new(str.as_str(), to_pt(x, y), text_style)
                             .draw(&mut display)
                             .unwrap();
                     }
@@ -231,6 +239,18 @@ impl core_async_bitmap {
                     }
                     Request::HShift(dx) => {
                         display.rotate_right(dx);
+                    }
+                    Request::SetFont(font) => {
+                        let font = font.to_uppercase();
+                        debug!("set font: {font}");
+                        match font_map.get(font.as_str()) {
+                            Some(ft) => {
+                                text_style.font = ft;
+                            }
+                            None => {
+                                error!("unknown font: {font}");
+                            }
+                        }
                     }
                 }
             }
@@ -344,6 +364,11 @@ pub extern "C" fn ceammc_bitmap_vshift(bitmap: *mut core_async_bitmap, dy: i16) 
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_hshift(bitmap: *mut core_async_bitmap, dx: i16) -> bool {
     core_async_bitmap::send_request(bitmap, Request::HShift(dx))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_font(bitmap: *mut core_async_bitmap, font: *const c_char) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::SetFont(cstr_to_string(font)))
 }
 
 #[cfg(test)]

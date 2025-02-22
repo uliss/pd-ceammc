@@ -190,6 +190,8 @@ void ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
 
 bool ceammc_bitmap_fill(ceammc_core_async_bitmap *bitmap, bool value);
 
+bool ceammc_bitmap_font(ceammc_core_async_bitmap *bitmap, const char *font);
+
 void ceammc_bitmap_free(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_get(ceammc_core_async_bitmap *bitmap);
