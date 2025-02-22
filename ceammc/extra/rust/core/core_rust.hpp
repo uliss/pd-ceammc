@@ -194,6 +194,8 @@ void ceammc_bitmap_free(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_get(ceammc_core_async_bitmap *bitmap);
 
+bool ceammc_bitmap_hshift(ceammc_core_async_bitmap *bitmap, int16_t dx);
+
 bool ceammc_bitmap_invert(ceammc_core_async_bitmap *bitmap);
 
 ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
@@ -203,6 +205,8 @@ ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
                                             ceammc_core_on_msg on_err);
 
 void ceammc_bitmap_process(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
 
 /**
  * create new MDNS service handler

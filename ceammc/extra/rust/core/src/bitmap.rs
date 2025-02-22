@@ -25,6 +25,8 @@ pub enum Request {
     DrawPixel(u16, u16),
     DrawText(String, i16, i16),
     DrawLine(i16, i16, i16, i16),
+    VShift(i16),
+    HShift(i16),
     GetData,
 }
 
@@ -81,6 +83,60 @@ impl BitmapDisplay {
 
     fn to_vec(&self) -> Vec<u8> {
         self.buf.flatten().to_vec()
+    }
+
+    fn rotate_up(&mut self, dy: i16) {
+        use ndarray::s;
+
+        let ydim = self.buf.dim().0;
+        let dy = if dy >= 0 {
+            (dy as usize) % ydim
+        } else {
+            (ydim - ((dy.abs() as usize) % ydim)) % ydim
+        };
+
+        if dy == 0 {
+            return;
+        }
+
+        let copy = self.buf.clone();
+        let l0 = dy;
+        let l1 = ydim - dy;
+
+        self.buf
+            .slice_mut(s![..l1, ..])
+            .assign(&copy.slice(s![l0.., ..]));
+
+        self.buf
+            .slice_mut(s![l1.., ..])
+            .assign(&copy.slice(s![..l0, ..]));
+    }
+
+    fn rotate_right(&mut self, dx: i16) {
+        use ndarray::s;
+
+        let xdim = self.buf.dim().1;
+        let dx = if dx >= 0 {
+            (dx as usize) % xdim
+        } else {
+            (xdim - ((dx.abs() as usize) % xdim)) % xdim
+        };
+
+        if dx == 0 {
+            return;
+        }
+
+        let copy = self.buf.clone();
+        let l0 = dx;
+        let l1 = xdim - dx;
+
+        self.buf
+            .slice_mut(s![.., ..l1])
+            .assign(&copy.slice(s![.., l0..]));
+
+        self.buf
+            .slice_mut(s![.., l1..])
+            .assign(&copy.slice(s![.., ..l0]));
     }
 }
 
@@ -169,6 +225,12 @@ impl core_async_bitmap {
                         Line::new(to_pt(x0, y0), to_pt(x1, y1))
                             .draw_styled(&draw_style, &mut display)
                             .unwrap();
+                    }
+                    Request::VShift(dy) => {
+                        display.rotate_up(dy);
+                    }
+                    Request::HShift(dx) => {
+                        display.rotate_right(dx);
                     }
                 }
             }
@@ -274,6 +336,16 @@ pub extern "C" fn ceammc_bitmap_fill(bitmap: *mut core_async_bitmap, value: bool
     core_async_bitmap::send_request(bitmap, Request::Fill(value))
 }
 
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_vshift(bitmap: *mut core_async_bitmap, dy: i16) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::VShift(dy))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_hshift(bitmap: *mut core_async_bitmap, dx: i16) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::HShift(dx))
+}
+
 #[cfg(test)]
 mod tests {
     use embedded_graphics::{
@@ -281,6 +353,7 @@ mod tests {
         prelude::{DrawTarget, OriginDimensions, Point, Size},
         Pixel,
     };
+    use ndarray::arr2;
 
     use super::BitmapDisplay;
 
@@ -298,5 +371,32 @@ mod tests {
         ])
         .unwrap();
         assert_eq!(d.to_vec(), vec![1, 0, 1, 0, 1, 0]);
+    }
+
+    #[test]
+    fn rotate() {
+        let mut d = BitmapDisplay::new(3, 2);
+        assert_eq!(d.size(), Size::new(3, 2));
+        d.buf = arr2(&[[1, 2, 3], [4, 5, 6]]);
+
+        d.rotate_up(1);
+        assert_eq!(d.buf, arr2(&[[4, 5, 6], [1, 2, 3]]));
+        d.rotate_up(2);
+        assert_eq!(d.buf, arr2(&[[4, 5, 6], [1, 2, 3]]));
+        d.rotate_up(-1);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+        d.rotate_up(-2);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+
+        d.rotate_right(3);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+        d.rotate_right(-3);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+        d.rotate_right(1);
+        assert_eq!(d.buf, arr2(&[[2, 3, 1], [5, 6, 4]]));
+        d.rotate_right(-1);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+        d.rotate_right(2);
+        assert_eq!(d.buf, arr2(&[[3, 1, 2], [6, 4, 5]]));
     }
 }
