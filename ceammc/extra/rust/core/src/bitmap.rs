@@ -140,6 +140,17 @@ impl BitmapDisplay {
             .slice_mut(s![.., l1..])
             .assign(&copy.slice(s![.., ..l0]));
     }
+
+    fn set_pixel(&mut self, x: u16, y: u16, value: u8) {
+        let x = x as usize;
+        let y = y as usize;
+
+        if x < self.buf.dim().1 && x < self.buf.dim().0 {
+            self.buf[(y, x)] = value;
+        } else {
+            error!("invalid pixel value: {x} {y}");
+        }
+    }
 }
 
 impl DrawTarget for BitmapDisplay {
@@ -202,7 +213,7 @@ impl core_async_bitmap {
                 match req {
                     Request::Fill(value) => display.buf.fill(if value { 1 } else { 0 }),
                     Request::DrawPixel(x, y) => {
-                        display.buf[(y as usize, x as usize)] = 1;
+                        display.set_pixel(x, y, 1);
                     }
                     Request::DrawText(str, x, y) => {
                         Text::new(str.as_str(), to_pt(x, y), text_style)
