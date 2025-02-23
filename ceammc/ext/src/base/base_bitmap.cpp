@@ -87,7 +87,7 @@ void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_draw_text(bm_, lv.symbolAt(2, &s_)->s_name, x, y);
 }
 
-void BaseBitmap::m_pixel(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_pixel(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:i>=0 Y:i>=0 VALUE:B?");
     if (!chk.check(lv, this)) {
@@ -101,7 +101,7 @@ void BaseBitmap::m_pixel(t_symbol *s, const AtomListView &lv)
     ceammc_bitmap_draw_pixel(bm_, x, y, value);
 }
 
-void BaseBitmap::m_circle(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_circle(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:i>=0 Y:i>=0 DIAM:i>0 CENTER:B?");
     if (!chk.check(lv, this)) {
@@ -111,8 +111,25 @@ void BaseBitmap::m_circle(t_symbol *s, const AtomListView &lv)
     auto x = lv.intAt(0, 0);
     auto y = lv.intAt(1, 0);
     auto diam = lv.intAt(2, 2);
+    auto center = lv.boolAt(3, false);
 
-    ceammc_bitmap_draw_circle(bm_, x, y, diam, lv.boolAt(3, false));
+    ceammc_bitmap_draw_circle(bm_, x, y, diam, center);
+}
+
+void BaseBitmap::m_ellipse(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:i>=0 Y:i>=0 W:i>0 H:i>0 CENTER:B?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto x = lv.intAt(0, 0);
+    auto y = lv.intAt(1, 0);
+    auto w = lv.intAt(2, 0);
+    auto h = lv.intAt(3, 0);
+    auto center = lv.boolAt(4, false);
+
+    ceammc_bitmap_draw_ellipse(bm_, x, y, w, h, center);
 }
 
 void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
@@ -150,7 +167,7 @@ void BaseBitmap::m_fill(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_fill(bm_, lv.boolAt(0, false));
 }
 
-void BaseBitmap::m_fill_color(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_fill_color(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("COLOR:i?");
     if (!chk.check(lv, this)) {
@@ -175,17 +192,23 @@ void BaseBitmap::m_line(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_draw_line(bm_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
 }
 
-void BaseBitmap::m_rect(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_rect(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:i Y:i WIDTH:i>0 HEIGHT:i>0 CENTER:B?");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
 
-    ceammc_bitmap_draw_rect(bm_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0), lv.boolAt(4, false));
+    auto x = lv.intAt(0, 0);
+    auto y = lv.intAt(1, 0);
+    auto w = lv.intAt(2, 0);
+    auto h = lv.intAt(3, 0);
+    auto center = lv.boolAt(4, false);
+
+    ceammc_bitmap_draw_rect(bm_, x, y, w, h, center);
 }
 
-void BaseBitmap::m_stroke_color(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_stroke_color(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("COLOR:i?");
     if (!chk.check(lv, this)) {
@@ -195,7 +218,7 @@ void BaseBitmap::m_stroke_color(t_symbol *s, const AtomListView &lv)
     ceammc_bitmap_set_stroke_color(bm_, lv.intAt(0, -1));
 }
 
-void BaseBitmap::m_stroke_width(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_stroke_width(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("WD:i>=0?");
     if (!chk.check(lv, this)) {
@@ -211,6 +234,7 @@ void setup_base_bitmap()
 
     obj.addMethod("circle", &BaseBitmap::m_circle);
     obj.addMethod("clear", &BaseBitmap::m_clear);
+    obj.addMethod("ellipse", &BaseBitmap::m_ellipse);
     obj.addMethod("fill", &BaseBitmap::m_fill);
     obj.addMethod("fill_color", &BaseBitmap::m_fill_color);
     obj.addMethod("font", &BaseBitmap::m_font);

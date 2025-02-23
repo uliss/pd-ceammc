@@ -237,6 +237,7 @@ impl core_async_bitmap {
             let mut draw_style = PrimitiveStyle::new();
             draw_style.stroke_color = Some(BinaryColor::On);
             draw_style.stroke_alignment = StrokeAlignment::Inside;
+            draw_style.stroke_width = 1;
             let mut text_style = MonoTextStyle::new(&FONT_5X8, BinaryColor::On);
 
             let mut font_map = HashMap::new();
