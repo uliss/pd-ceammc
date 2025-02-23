@@ -36,6 +36,7 @@ public:
     void m_arc(t_symbol* s, const AtomListView& lv);
     void m_circle(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_column(t_symbol* s, const AtomListView& lv);
     void m_ellipse(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
     void m_fill_color(t_symbol* s, const AtomListView& lv);

@@ -390,20 +390,26 @@ impl core_async_bitmap {
                             .unwrap();
                     }
                     Request::DrawRow(row, offset, length) => {
-                        let start = Point::new(offset as i32, row as i32);
-                        let end = Point::new((offset + length) as i32, row as i32);
+                        if length.abs() > 0 {
+                            let start = Point::new(offset as i32, row as i32);
+                            let end =
+                                Point::new((offset + length - length.signum()) as i32, row as i32);
 
-                        Line::new(start, end)
-                            .draw_styled(&draw_style, &mut display)
-                            .unwrap();
+                            Line::new(start, end)
+                                .draw_styled(&draw_style, &mut display)
+                                .unwrap();
+                        }
                     }
                     Request::DrawColumn(col, offset, length) => {
-                        let start = Point::new(col as i32, offset as i32);
-                        let end = Point::new(col as i32, (offset + length) as i32);
+                        if length.abs() > 0 {
+                            let start = Point::new(col as i32, offset as i32);
+                            let end =
+                                Point::new(col as i32, (offset + length - length.signum()) as i32);
 
-                        Line::new(start, end)
-                            .draw_styled(&draw_style, &mut display)
-                            .unwrap();
+                            Line::new(start, end)
+                                .draw_styled(&draw_style, &mut display)
+                                .unwrap();
+                        }
                     }
                 }
             }

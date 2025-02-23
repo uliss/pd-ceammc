@@ -97,6 +97,20 @@ void BaseBitmap::m_clear(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_clear(bm_);
 }
 
+void BaseBitmap::m_column(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("COL:i>=0 HT:i DY:i?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto col = lv.intAt(0, 0);
+    auto ht = lv.intAt(1, 0);
+    auto dy = lv.intAt(2, 0);
+
+    ceammc_bitmap_draw_column(bm_, col, ht, dy);
+}
+
 void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
 {
     auto x = lv.intAt(0, 0);
@@ -286,6 +300,7 @@ void setup_base_bitmap()
     obj.addMethod("arc", &BaseBitmap::m_arc);
     obj.addMethod("circle", &BaseBitmap::m_circle);
     obj.addMethod("clear", &BaseBitmap::m_clear);
+    obj.addMethod("column", &BaseBitmap::m_column);
     obj.addMethod("ellipse", &BaseBitmap::m_ellipse);
     obj.addMethod("fill", &BaseBitmap::m_fill);
     obj.addMethod("fill_color", &BaseBitmap::m_fill_color);
