@@ -183,6 +183,13 @@ bool ceammc_bitmap_draw_circle(ceammc_core_async_bitmap *bitmap,
                                uint16_t diam,
                                bool center);
 
+bool ceammc_bitmap_draw_ellipse(ceammc_core_async_bitmap *bitmap,
+                                int16_t x,
+                                int16_t y,
+                                uint16_t w,
+                                uint16_t h,
+                                bool center);
+
 bool ceammc_bitmap_draw_line(ceammc_core_async_bitmap *bitmap,
                              int16_t x0,
                              int16_t y0,
