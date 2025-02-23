@@ -40,6 +40,7 @@ public:
     void m_invert(t_symbol* s, const AtomListView& lv);
     void m_line(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
+    void m_pixel(t_symbol* s, const AtomListView& lv);
     void m_vshift(t_symbol* s, const AtomListView& lv);
 };
 

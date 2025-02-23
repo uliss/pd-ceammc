@@ -183,6 +183,8 @@ bool ceammc_bitmap_draw_line(ceammc_core_async_bitmap *bitmap,
                              int16_t x1,
                              int16_t y1);
 
+bool ceammc_bitmap_draw_pixel(ceammc_core_async_bitmap *bitmap, uint16_t x, uint16_t y, bool value);
+
 void ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
                              const char *txt,
                              int16_t x,

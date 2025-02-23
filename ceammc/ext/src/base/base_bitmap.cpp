@@ -87,6 +87,20 @@ void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_draw_text(bm_, lv.symbolAt(2, &s_)->s_name, x, y);
 }
 
+void BaseBitmap::m_pixel(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("X:i>=0 Y:>=0 VALUE:B?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto x = lv.intAt(0, 0);
+    auto y = lv.intAt(1, 0);
+    auto value = lv.boolAt(2, true);
+
+    ceammc_bitmap_draw_pixel(bm_, x, y, value);
+}
+
 void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("DY:i");
@@ -143,10 +157,11 @@ void setup_base_bitmap()
 
     obj.addMethod("clear", &BaseBitmap::m_clear);
     obj.addMethod("fill", &BaseBitmap::m_fill);
+    obj.addMethod("font", &BaseBitmap::m_font);
+    obj.addMethod("hshift", &BaseBitmap::m_hshift);
     obj.addMethod("invert", &BaseBitmap::m_invert);
     obj.addMethod("line", &BaseBitmap::m_line);
+    obj.addMethod("pixel", &BaseBitmap::m_pixel);
     obj.addMethod("text", &BaseBitmap::m_text);
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
-    obj.addMethod("hshift", &BaseBitmap::m_hshift);
-    obj.addMethod("font", &BaseBitmap::m_font);
 }

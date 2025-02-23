@@ -23,7 +23,7 @@ pub enum Request {
     Fill(bool),
     Clear,
     Invert,
-    DrawPixel(u16, u16),
+    DrawPixel(u16, u16, bool),
     DrawText(String, i16, i16),
     DrawLine(i16, i16, i16, i16),
     VShift(i16),
@@ -141,12 +141,12 @@ impl BitmapDisplay {
             .assign(&copy.slice(s![.., ..l0]));
     }
 
-    fn set_pixel(&mut self, x: u16, y: u16, value: u8) {
+    fn set_pixel(&mut self, x: u16, y: u16, value: bool) {
         let x = x as usize;
         let y = y as usize;
 
         if x < self.buf.dim().1 && x < self.buf.dim().0 {
-            self.buf[(y, x)] = value;
+            self.buf[(y, x)] = if value { 1 } else { 0 };
         } else {
             error!("invalid pixel value: {x} {y}");
         }
@@ -212,8 +212,8 @@ impl core_async_bitmap {
 
                 match req {
                     Request::Fill(value) => display.buf.fill(if value { 1 } else { 0 }),
-                    Request::DrawPixel(x, y) => {
-                        display.set_pixel(x, y, 1);
+                    Request::DrawPixel(x, y, value) => {
+                        display.set_pixel(x, y, value);
                     }
                     Request::DrawText(str, x, y) => {
                         Text::new(str.as_str(), to_pt(x, y), text_style)
@@ -345,6 +345,16 @@ pub extern "C" fn ceammc_bitmap_draw_line(
     y1: i16,
 ) -> bool {
     core_async_bitmap::send_request(bitmap, Request::DrawLine(x0, y0, x1, y1))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_pixel(
+    bitmap: *mut core_async_bitmap,
+    x: u16,
+    y: u16,
+    value: bool,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawPixel(x, y, value))
 }
 
 #[no_mangle]
