@@ -33,6 +33,7 @@ public:
     bool notify(int code) final;
     void onBang() final;
 
+    void m_arc(t_symbol* s, const AtomListView& lv);
     void m_circle(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_ellipse(t_symbol* s, const AtomListView& lv);

@@ -177,6 +177,14 @@ extern "C" {
 
 bool ceammc_bitmap_clear(ceammc_core_async_bitmap *bitmap);
 
+bool ceammc_bitmap_draw_arc(ceammc_core_async_bitmap *bitmap,
+                            int16_t x,
+                            int16_t y,
+                            uint16_t diam,
+                            float angle_start,
+                            float arc_length,
+                            bool center);
+
 bool ceammc_bitmap_draw_circle(ceammc_core_async_bitmap *bitmap,
                                int16_t x,
                                int16_t y,
