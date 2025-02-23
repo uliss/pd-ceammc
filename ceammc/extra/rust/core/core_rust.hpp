@@ -180,7 +180,8 @@ bool ceammc_bitmap_clear(ceammc_core_async_bitmap *bitmap);
 bool ceammc_bitmap_draw_circle(ceammc_core_async_bitmap *bitmap,
                                int16_t x,
                                int16_t y,
-                               uint16_t diam);
+                               uint16_t diam,
+                               bool center);
 
 bool ceammc_bitmap_draw_line(ceammc_core_async_bitmap *bitmap,
                              int16_t x0,
@@ -194,7 +195,8 @@ bool ceammc_bitmap_draw_rect(ceammc_core_async_bitmap *bitmap,
                              int16_t x,
                              int16_t y,
                              uint16_t w,
-                             uint16_t h);
+                             uint16_t h,
+                             bool center);
 
 void ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
                              const char *txt,

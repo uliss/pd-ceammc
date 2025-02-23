@@ -28,8 +28,8 @@ pub enum Request {
     SetPixel(u16, u16, bool),
     DrawText(String, i16, i16),
     DrawLine(i16, i16, i16, i16),
-    DrawRect(i16, i16, u16, u16),
-    DrawCircle(i16, i16, u16),
+    DrawRect(i16, i16, u16, u16, bool),
+    DrawCircle(i16, i16, u16, bool),
     VShift(i16),
     HShift(i16),
     SetFont(String),
@@ -293,10 +293,16 @@ impl core_async_bitmap {
                             }
                         }
                     }
-                    Request::DrawRect(x, y, w, h) => {
-                        Rectangle::new(to_pt(x, y), to_size(w, h))
-                            .draw_styled(&draw_style, &mut display)
-                            .unwrap();
+                    Request::DrawRect(x, y, w, h, center) => {
+                        if center {
+                            Rectangle::with_center(to_pt(x, y), to_size(w, h))
+                                .draw_styled(&draw_style, &mut display)
+                                .unwrap();
+                        } else {
+                            Rectangle::new(to_pt(x, y), to_size(w, h))
+                                .draw_styled(&draw_style, &mut display)
+                                .unwrap();
+                        }
                     }
                     Request::SetStrokeWidth(wd) => draw_style.stroke_width = wd as u32,
                     Request::SetStrokeColor(color) => {
@@ -305,10 +311,16 @@ impl core_async_bitmap {
                     Request::SetFillColor(color) => {
                         draw_style.fill_color = color.map(|c| to_color(c))
                     }
-                    Request::DrawCircle(x, y, diam) => {
-                        Circle::new(to_pt(x, y), diam as u32)
-                            .draw_styled(&draw_style, &mut display)
-                            .unwrap();
+                    Request::DrawCircle(x, y, diam, center) => {
+                        if center {
+                            Circle::with_center(to_pt(x, y), diam as u32)
+                                .draw_styled(&draw_style, &mut display)
+                                .unwrap();
+                        } else {
+                            Circle::new(to_pt(x, y), diam as u32)
+                                .draw_styled(&draw_style, &mut display)
+                                .unwrap();
+                        }
                     }
                 }
             }
@@ -405,8 +417,9 @@ pub extern "C" fn ceammc_bitmap_draw_rect(
     y: i16,
     w: u16,
     h: u16,
+    center: bool,
 ) -> bool {
-    core_async_bitmap::send_request(bitmap, Request::DrawRect(x, y, w, h))
+    core_async_bitmap::send_request(bitmap, Request::DrawRect(x, y, w, h, center))
 }
 
 #[no_mangle]
@@ -415,8 +428,9 @@ pub extern "C" fn ceammc_bitmap_draw_circle(
     x: i16,
     y: i16,
     diam: u16,
+    center: bool,
 ) -> bool {
-    core_async_bitmap::send_request(bitmap, Request::DrawCircle(x, y, diam))
+    core_async_bitmap::send_request(bitmap, Request::DrawCircle(x, y, diam, center))
 }
 
 #[no_mangle]

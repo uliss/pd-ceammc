@@ -103,7 +103,7 @@ void BaseBitmap::m_pixel(t_symbol *s, const AtomListView &lv)
 
 void BaseBitmap::m_circle(t_symbol *s, const AtomListView &lv)
 {
-    static const args::ArgChecker chk("X:i>=0 Y:i>=0 DIAM:i>0");
+    static const args::ArgChecker chk("X:i>=0 Y:i>=0 DIAM:i>0 CENTER:B?");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
@@ -112,7 +112,7 @@ void BaseBitmap::m_circle(t_symbol *s, const AtomListView &lv)
     auto y = lv.intAt(1, 0);
     auto diam = lv.intAt(2, 2);
 
-    ceammc_bitmap_draw_circle(bm_, x, y, diam);
+    ceammc_bitmap_draw_circle(bm_, x, y, diam, lv.boolAt(3, false));
 }
 
 void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
@@ -177,12 +177,12 @@ void BaseBitmap::m_line(t_symbol* s, const AtomListView& lv)
 
 void BaseBitmap::m_rect(t_symbol *s, const AtomListView &lv)
 {
-    static const args::ArgChecker chk("X:i Y:i WIDTH:i>0 HEIGHT:i>0");
+    static const args::ArgChecker chk("X:i Y:i WIDTH:i>0 HEIGHT:i>0 CENTER:B?");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
 
-    ceammc_bitmap_draw_rect(bm_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
+    ceammc_bitmap_draw_rect(bm_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0), lv.boolAt(4, false));
 }
 
 void BaseBitmap::m_stroke_color(t_symbol *s, const AtomListView &lv)
