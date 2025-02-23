@@ -213,6 +213,14 @@ bool ceammc_bitmap_draw_rect(ceammc_core_async_bitmap *bitmap,
                              uint16_t h,
                              bool center);
 
+bool ceammc_bitmap_draw_sector(ceammc_core_async_bitmap *bitmap,
+                               int16_t x,
+                               int16_t y,
+                               uint16_t diam,
+                               float angle_start,
+                               float arc_length,
+                               bool center);
+
 void ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
                              const char *txt,
                              int16_t x,

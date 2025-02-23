@@ -7,7 +7,7 @@ use embedded_graphics::mono_font::iso_8859_5::{FONT_4X6, FONT_5X7, FONT_5X8, FON
 use embedded_graphics::mono_font::MonoTextStyle;
 use embedded_graphics::prelude::Angle;
 use embedded_graphics::primitives::{
-    Arc, Circle, Ellipse, Line, PrimitiveStyle, Rectangle, StrokeAlignment, StyledDrawable,
+    Arc, Circle, Ellipse, Line, PrimitiveStyle, Rectangle, Sector, StrokeAlignment, StyledDrawable,
 };
 use embedded_graphics::text::Text;
 use embedded_graphics::Drawable;
@@ -33,6 +33,7 @@ pub enum Request {
     DrawCircle(i16, i16, u16, bool),
     DrawEllipse(i16, i16, u16, u16, bool),
     DrawArc(i16, i16, u16, f32, f32, bool),
+    DrawSector(i16, i16, u16, f32, f32, bool),
     VShift(i16),
     HShift(i16),
     SetFont(String),
@@ -358,6 +359,27 @@ impl core_async_bitmap {
                             .unwrap();
                         }
                     }
+                    Request::DrawSector(x, y, diam, start, length, center) => {
+                        if center {
+                            Sector::with_center(
+                                to_pt(x, y),
+                                diam as u32,
+                                Angle::from_degrees(start),
+                                Angle::from_degrees(length),
+                            )
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
+                        } else {
+                            Sector::new(
+                                to_pt(x, y),
+                                diam as u32,
+                                Angle::from_degrees(start),
+                                Angle::from_degrees(length),
+                            )
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
+                        }
+                    }
                 }
             }
 
@@ -494,6 +516,22 @@ pub extern "C" fn ceammc_bitmap_draw_arc(
     core_async_bitmap::send_request(
         bitmap,
         Request::DrawArc(x, y, diam, angle_start, arc_length, center),
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_sector(
+    bitmap: *mut core_async_bitmap,
+    x: i16,
+    y: i16,
+    diam: u16,
+    angle_start: f32,
+    arc_length: f32,
+    center: bool,
+) -> bool {
+    core_async_bitmap::send_request(
+        bitmap,
+        Request::DrawSector(x, y, diam, angle_start, arc_length, center),
     )
 }
 

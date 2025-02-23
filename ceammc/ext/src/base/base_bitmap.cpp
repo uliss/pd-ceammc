@@ -225,6 +225,23 @@ void BaseBitmap::m_rect(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_draw_rect(bm_, x, y, w, h, center);
 }
 
+void BaseBitmap::m_sector(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:i>=0 Y:i>=0 DIAM:i>0 ANGLE:f LEN:f CENTER:B?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto x = lv.intAt(0, 0);
+    auto y = lv.intAt(1, 0);
+    auto diam = lv.intAt(2, 2);
+    auto start = lv.floatAt(3, 2);
+    auto length = lv.floatAt(4, 2);
+    auto center = lv.boolAt(5, false);
+
+    ceammc_bitmap_draw_sector(bm_, x, y, diam, start, length, center);
+}
+
 void BaseBitmap::m_stroke_color(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("COLOR:i?");
@@ -261,6 +278,7 @@ void setup_base_bitmap()
     obj.addMethod("line", &BaseBitmap::m_line);
     obj.addMethod("pixel", &BaseBitmap::m_pixel);
     obj.addMethod("rect", &BaseBitmap::m_rect);
+    obj.addMethod("sector", &BaseBitmap::m_sector);
     obj.addMethod("stroke_color", &BaseBitmap::m_stroke_color);
     obj.addMethod("stroke_width", &BaseBitmap::m_stroke_width);
     obj.addMethod("text", &BaseBitmap::m_text);
