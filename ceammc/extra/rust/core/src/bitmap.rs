@@ -8,6 +8,7 @@ use embedded_graphics::mono_font::MonoTextStyle;
 use embedded_graphics::prelude::Angle;
 use embedded_graphics::primitives::{
     Arc, Circle, Ellipse, Line, PrimitiveStyle, Rectangle, Sector, StrokeAlignment, StyledDrawable,
+    Triangle,
 };
 use embedded_graphics::text::Text;
 use embedded_graphics::Drawable;
@@ -34,6 +35,7 @@ pub enum Request {
     DrawEllipse(i16, i16, u16, u16, bool),
     DrawArc(i16, i16, u16, f32, f32, bool),
     DrawSector(i16, i16, u16, f32, f32, bool),
+    DrawTriangle(i16, i16, i16, i16, i16, i16),
     VShift(i16),
     HShift(i16),
     SetFont(String),
@@ -380,6 +382,11 @@ impl core_async_bitmap {
                             .unwrap();
                         }
                     }
+                    Request::DrawTriangle(x0, y0, x1, y1, x2, y2) => {
+                        Triangle::new(to_pt(x0, y0), to_pt(x1, y1), to_pt(x2, y2))
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
+                    }
                 }
             }
 
@@ -533,6 +540,19 @@ pub extern "C" fn ceammc_bitmap_draw_sector(
         bitmap,
         Request::DrawSector(x, y, diam, angle_start, arc_length, center),
     )
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_triangle(
+    bitmap: *mut core_async_bitmap,
+    x0: i16,
+    y0: i16,
+    x1: i16,
+    y1: i16,
+    x2: i16,
+    y2: i16,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawTriangle(x0, y0, x1, y1, x2, y2))
 }
 
 #[no_mangle]

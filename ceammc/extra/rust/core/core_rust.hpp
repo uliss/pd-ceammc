@@ -226,6 +226,14 @@ void ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
                              int16_t x,
                              int16_t y);
 
+bool ceammc_bitmap_draw_triangle(ceammc_core_async_bitmap *bitmap,
+                                 int16_t x0,
+                                 int16_t y0,
+                                 int16_t x1,
+                                 int16_t y1,
+                                 int16_t x2,
+                                 int16_t y2);
+
 bool ceammc_bitmap_fill(ceammc_core_async_bitmap *bitmap, bool value);
 
 bool ceammc_bitmap_font(ceammc_core_async_bitmap *bitmap, const char *font);

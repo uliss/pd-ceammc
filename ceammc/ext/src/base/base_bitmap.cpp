@@ -104,6 +104,23 @@ void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_draw_text(bm_, lv.symbolAt(2, &s_)->s_name, x, y);
 }
 
+void BaseBitmap::m_triangle(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("X0:i Y0:i X1:i Y1:i X2:i Y2:i");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto x0 = lv.intAt(0, 0);
+    auto y0 = lv.intAt(1, 0);
+    auto x1 = lv.intAt(2, 0);
+    auto y1 = lv.intAt(3, 0);
+    auto x2 = lv.intAt(4, 0);
+    auto y2 = lv.intAt(5, 0);
+
+    ceammc_bitmap_draw_triangle(bm_, x0, y0, x1, y1, x2, y2);
+}
+
 void BaseBitmap::m_pixel(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:i>=0 Y:i>=0 VALUE:B?");
@@ -282,5 +299,6 @@ void setup_base_bitmap()
     obj.addMethod("stroke_color", &BaseBitmap::m_stroke_color);
     obj.addMethod("stroke_width", &BaseBitmap::m_stroke_width);
     obj.addMethod("text", &BaseBitmap::m_text);
+    obj.addMethod("triangle", &BaseBitmap::m_triangle);
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
 }

@@ -49,6 +49,7 @@ public:
     void m_stroke_color(t_symbol* s, const AtomListView& lv);
     void m_stroke_width(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
+    void m_triangle(t_symbol* s, const AtomListView& lv);
     void m_vshift(t_symbol* s, const AtomListView& lv);
 };
 
