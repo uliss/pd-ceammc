@@ -36,6 +36,8 @@ pub enum Request {
     DrawArc(i16, i16, u16, f32, f32, bool),
     DrawSector(i16, i16, u16, f32, f32, bool),
     DrawTriangle(i16, i16, i16, i16, i16, i16),
+    DrawRow(u16, i16, i16),
+    DrawColumn(u16, i16, i16),
     VShift(i16),
     HShift(i16),
     SetFont(String),
@@ -387,6 +389,22 @@ impl core_async_bitmap {
                             .draw_styled(&draw_style, &mut display)
                             .unwrap();
                     }
+                    Request::DrawRow(row, offset, length) => {
+                        let start = Point::new(offset as i32, row as i32);
+                        let end = Point::new((offset + length) as i32, row as i32);
+
+                        Line::new(start, end)
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
+                    }
+                    Request::DrawColumn(col, offset, length) => {
+                        let start = Point::new(col as i32, offset as i32);
+                        let end = Point::new(col as i32, (offset + length) as i32);
+
+                        Line::new(start, end)
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
+                    }
                 }
             }
 
@@ -563,6 +581,26 @@ pub extern "C" fn ceammc_bitmap_draw_pixel(
     value: bool,
 ) -> bool {
     core_async_bitmap::send_request(bitmap, Request::SetPixel(x, y, value))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_column(
+    bitmap: *mut core_async_bitmap,
+    col: u16,
+    height: i16,
+    offset: i16,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawColumn(col, offset, height))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_row(
+    bitmap: *mut core_async_bitmap,
+    row: u16,
+    width: i16,
+    offset: i16,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawRow(row, offset, width))
 }
 
 #[no_mangle]
