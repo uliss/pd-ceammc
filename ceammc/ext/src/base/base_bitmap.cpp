@@ -89,7 +89,7 @@ void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
 
 void BaseBitmap::m_pixel(t_symbol *s, const AtomListView &lv)
 {
-    static const args::ArgChecker chk("X:i>=0 Y:>=0 VALUE:B?");
+    static const args::ArgChecker chk("X:i>=0 Y:i>=0 VALUE:B?");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
@@ -136,6 +136,16 @@ void BaseBitmap::m_fill(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_fill(bm_, lv.boolAt(0, false));
 }
 
+void BaseBitmap::m_fill_color(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("COLOR:i?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    ceammc_bitmap_set_fill_color(bm_, lv.intAt(0, -1));
+}
+
 void BaseBitmap::m_invert(t_symbol* s, const AtomListView& lv)
 {
     ceammc_bitmap_invert(bm_);
@@ -151,17 +161,51 @@ void BaseBitmap::m_line(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_draw_line(bm_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
 }
 
+void BaseBitmap::m_rect(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("X:i Y:i WIDTH:i>0 HEIGHT:i>0");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    ceammc_bitmap_draw_rect(bm_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
+}
+
+void BaseBitmap::m_stroke_color(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("COLOR:i?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    ceammc_bitmap_set_stroke_color(bm_, lv.intAt(0, -1));
+}
+
+void BaseBitmap::m_stroke_width(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("WD:i>=0?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    ceammc_bitmap_set_stroke_width(bm_, lv.intAt(0, 0));
+}
+
 void setup_base_bitmap()
 {
     ObjectFactory<BaseBitmap> obj("bitmap");
 
     obj.addMethod("clear", &BaseBitmap::m_clear);
     obj.addMethod("fill", &BaseBitmap::m_fill);
+    obj.addMethod("fill_color", &BaseBitmap::m_fill_color);
     obj.addMethod("font", &BaseBitmap::m_font);
     obj.addMethod("hshift", &BaseBitmap::m_hshift);
     obj.addMethod("invert", &BaseBitmap::m_invert);
     obj.addMethod("line", &BaseBitmap::m_line);
     obj.addMethod("pixel", &BaseBitmap::m_pixel);
+    obj.addMethod("rect", &BaseBitmap::m_rect);
+    obj.addMethod("stroke_color", &BaseBitmap::m_stroke_color);
+    obj.addMethod("stroke_width", &BaseBitmap::m_stroke_width);
     obj.addMethod("text", &BaseBitmap::m_text);
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
 }

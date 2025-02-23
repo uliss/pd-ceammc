@@ -5,7 +5,9 @@ use std::{ffi::CString, ptr::null_mut};
 
 use embedded_graphics::mono_font::iso_8859_5::{FONT_4X6, FONT_5X7, FONT_5X8, FONT_6X10, FONT_6X9};
 use embedded_graphics::mono_font::MonoTextStyle;
-use embedded_graphics::primitives::{Line, PrimitiveStyle, Rectangle, StyledDrawable};
+use embedded_graphics::primitives::{
+    Line, PrimitiveStyle, Rectangle, StrokeAlignment, StyledDrawable,
+};
 use embedded_graphics::text::Text;
 use embedded_graphics::Drawable;
 use embedded_graphics::{
@@ -30,18 +32,23 @@ pub enum Request {
     VShift(i16),
     HShift(i16),
     SetFont(String),
+    SetStrokeWidth(u8),
+    SetStrokeColor(Option<bool>),
+    SetFillColor(Option<bool>),
     GetData,
 }
 
 #[derive(Debug)]
 pub enum Reply {
     Data(Vec<u8>),
+    Error(CString),
 }
 
 pub struct core_async_bitmap {
     tx: std::sync::mpsc::Sender<Request>,
     rx: std::sync::mpsc::Receiver<Reply>,
     on_data: core_bitmap_on_data,
+    on_err: core_on_msg,
 }
 
 impl core_async_bitmap {
@@ -70,6 +77,16 @@ pub struct core_bitmap_on_data {
 impl core_bitmap_on_data {
     fn exec(&self, data: *const u8, len: usize) {
         (self.cb)(self.user, data, len);
+    }
+}
+
+fn i2_into_color(x: i8) -> Option<bool> {
+    if x > 0 {
+        Some(true)
+    } else if x == 0 {
+        Some(false)
+    } else {
+        None
     }
 }
 
@@ -152,6 +169,14 @@ impl BitmapDisplay {
             error!("invalid pixel value: {x} {y}");
         }
     }
+
+    fn send_error(&self, tx: &std::sync::mpsc::Sender<Reply>, msg: &str, notify: core_notify) {
+        error!("{msg}");
+
+        tx.send(Reply::Error(CString::new(msg).unwrap_or_default()))
+            .map(|_| notify.notify())
+            .unwrap_or_else(|err| error!("{err}"));
+    }
 }
 
 impl DrawTarget for BitmapDisplay {
@@ -186,6 +211,7 @@ impl core_async_bitmap {
         h: u16,
         notify: core_notify,
         on_data: core_bitmap_on_data,
+        on_err: core_on_msg,
     ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
@@ -198,7 +224,17 @@ impl core_async_bitmap {
 
             let to_pt = |x: i16, y: i16| Point::new(x as i32, y as i32);
             let to_size = |x: u16, y: u16| Size::new(x as u32, y as u32);
+            let to_color = |color: bool| {
+                if color {
+                    BinaryColor::On
+                } else {
+                    BinaryColor::Off
+                }
+            };
+
             let mut draw_style = PrimitiveStyle::new();
+            draw_style.stroke_color = Some(BinaryColor::On);
+            draw_style.stroke_alignment = StrokeAlignment::Inside;
             let mut text_style = MonoTextStyle::new(&FONT_5X8, BinaryColor::On);
 
             let mut font_map = HashMap::new();
@@ -214,9 +250,7 @@ impl core_async_bitmap {
 
                 match req {
                     Request::Fill(value) => display.buf.fill(if value { 1 } else { 0 }),
-                    Request::SetPixel(x, y, value) => {
-                        display.set_pixel(x, y, value);
-                    }
+                    Request::SetPixel(x, y, value) => display.set_pixel(x, y, value),
                     Request::DrawText(str, x, y) => {
                         Text::new(str.as_str(), to_pt(x, y), text_style)
                             .draw(&mut display)
@@ -230,38 +264,31 @@ impl core_async_bitmap {
                             });
                         notify.notify();
                     }
-                    Request::Clear => {
-                        display.buf.fill(0);
-                    }
+                    Request::Clear => display.buf.fill(0),
                     Request::Invert => {
                         display.buf.iter_mut().for_each(|x| {
                             *x ^= 1;
                         });
                     }
                     Request::DrawLine(x0, y0, x1, y1) => {
-                        draw_style.stroke_width = 1;
-                        draw_style.fill_color = None;
-                        draw_style.stroke_color = Some(BinaryColor::On);
-
                         Line::new(to_pt(x0, y0), to_pt(x1, y1))
                             .draw_styled(&draw_style, &mut display)
                             .unwrap();
                     }
-                    Request::VShift(dy) => {
-                        display.rotate_up(dy);
-                    }
-                    Request::HShift(dx) => {
-                        display.rotate_right(dx);
-                    }
+                    Request::VShift(dy) => display.rotate_up(dy),
+                    Request::HShift(dx) => display.rotate_right(dx),
                     Request::SetFont(font) => {
                         let font = font.to_uppercase();
-                        debug!("set font: {font}");
                         match font_map.get(font.as_str()) {
                             Some(ft) => {
                                 text_style.font = ft;
                             }
                             None => {
-                                error!("unknown font: {font}");
+                                display.send_error(
+                                    &rep_tx,
+                                    format!("unknown font: {font}").as_str(),
+                                    notify,
+                                );
                             }
                         }
                     }
@@ -269,6 +296,13 @@ impl core_async_bitmap {
                         Rectangle::new(to_pt(x, y), to_size(w, h))
                             .draw_styled(&draw_style, &mut display)
                             .unwrap();
+                    }
+                    Request::SetStrokeWidth(wd) => draw_style.stroke_width = wd as u32,
+                    Request::SetStrokeColor(color) => {
+                        draw_style.stroke_color = color.map(|c| to_color(c))
+                    }
+                    Request::SetFillColor(color) => {
+                        draw_style.fill_color = color.map(|c| to_color(c))
                     }
                 }
             }
@@ -281,6 +315,7 @@ impl core_async_bitmap {
             tx: req_tx,
             rx: rep_rx,
             on_data,
+            on_err,
         })
     }
 }
@@ -293,7 +328,7 @@ pub extern "C" fn ceammc_bitmap_new(
     on_data: core_bitmap_on_data,
     on_err: core_on_msg,
 ) -> *mut core_async_bitmap {
-    match core_async_bitmap::new(w, h, notify, on_data) {
+    match core_async_bitmap::new(w, h, notify, on_data, on_err.clone()) {
         Ok(dht) => return Box::into_raw(Box::new(dht)),
         Err(err) => {
             on_err.exec_raw(&err);
@@ -317,6 +352,9 @@ pub extern "C" fn ceammc_bitmap_process(bitmap: *mut core_async_bitmap) {
             match rep {
                 Reply::Data(items) => {
                     bitmap.on_data.exec(items.as_ptr(), items.len());
+                }
+                Reply::Error(str) => {
+                    bitmap.on_err.exec_raw(&str);
                 }
             }
         }
@@ -408,6 +446,27 @@ pub extern "C" fn ceammc_bitmap_hshift(bitmap: *mut core_async_bitmap, dx: i16) 
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_font(bitmap: *mut core_async_bitmap, font: *const c_char) -> bool {
     core_async_bitmap::send_request(bitmap, Request::SetFont(cstr_to_string(font)))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_set_fill_color(bitmap: *mut core_async_bitmap, color: i8) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::SetFillColor(i2_into_color(color)))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_set_stroke_color(
+    bitmap: *mut core_async_bitmap,
+    color: i8,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::SetFillColor(i2_into_color(color)))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_set_stroke_width(
+    bitmap: *mut core_async_bitmap,
+    width: u8,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::SetStrokeWidth(width))
 }
 
 #[cfg(test)]

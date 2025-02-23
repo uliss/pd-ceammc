@@ -21,6 +21,7 @@ pub extern "C" fn ceammc_rust_log_init() {
 }
 
 #[allow(non_camel_case_types)]
+#[derive(Clone)]
 #[repr(C)]
 pub struct core_on_msg {
     user: *mut c_void,

@@ -35,12 +35,16 @@ public:
 
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
+    void m_fill_color(t_symbol* s, const AtomListView& lv);
     void m_font(t_symbol* s, const AtomListView& lv);
     void m_hshift(t_symbol* s, const AtomListView& lv);
     void m_invert(t_symbol* s, const AtomListView& lv);
     void m_line(t_symbol* s, const AtomListView& lv);
-    void m_text(t_symbol* s, const AtomListView& lv);
     void m_pixel(t_symbol* s, const AtomListView& lv);
+    void m_rect(t_symbol* s, const AtomListView& lv);
+    void m_stroke_color(t_symbol* s, const AtomListView& lv);
+    void m_stroke_width(t_symbol* s, const AtomListView& lv);
+    void m_text(t_symbol* s, const AtomListView& lv);
     void m_vshift(t_symbol* s, const AtomListView& lv);
 };
 
