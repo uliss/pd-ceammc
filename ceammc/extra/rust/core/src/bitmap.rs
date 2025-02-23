@@ -5,7 +5,7 @@ use std::{ffi::CString, ptr::null_mut};
 
 use embedded_graphics::mono_font::iso_8859_5::{FONT_4X6, FONT_5X7, FONT_5X8, FONT_6X10, FONT_6X9};
 use embedded_graphics::mono_font::MonoTextStyle;
-use embedded_graphics::primitives::{Line, PrimitiveStyle, StyledDrawable};
+use embedded_graphics::primitives::{Line, PrimitiveStyle, Rectangle, StyledDrawable};
 use embedded_graphics::text::Text;
 use embedded_graphics::Drawable;
 use embedded_graphics::{
@@ -26,6 +26,7 @@ pub enum Request {
     SetPixel(u16, u16, bool),
     DrawText(String, i16, i16),
     DrawLine(i16, i16, i16, i16),
+    DrawRect(i16, i16, u16, u16),
     VShift(i16),
     HShift(i16),
     SetFont(String),
@@ -196,6 +197,7 @@ impl core_async_bitmap {
             debug!("create bitmap: {w}x{h}");
 
             let to_pt = |x: i16, y: i16| Point::new(x as i32, y as i32);
+            let to_size = |x: u16, y: u16| Size::new(x as u32, y as u32);
             let mut draw_style = PrimitiveStyle::new();
             let mut text_style = MonoTextStyle::new(&FONT_5X8, BinaryColor::On);
 
@@ -262,6 +264,11 @@ impl core_async_bitmap {
                                 error!("unknown font: {font}");
                             }
                         }
+                    }
+                    Request::DrawRect(x, y, w, h) => {
+                        Rectangle::new(to_pt(x, y), to_size(w, h))
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
                     }
                 }
             }
@@ -345,6 +352,17 @@ pub extern "C" fn ceammc_bitmap_draw_line(
     y1: i16,
 ) -> bool {
     core_async_bitmap::send_request(bitmap, Request::DrawLine(x0, y0, x1, y1))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_rect(
+    bitmap: *mut core_async_bitmap,
+    x: i16,
+    y: i16,
+    w: u16,
+    h: u16,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawRect(x, y, w, h))
 }
 
 #[no_mangle]
