@@ -146,7 +146,7 @@ impl BitmapDisplay {
         let x = x as usize;
         let y = y as usize;
 
-        if x < self.buf.dim().1 && x < self.buf.dim().0 {
+        if x < self.buf.dim().1 && y < self.buf.dim().0 {
             self.buf[(y, x)] = if value { 1 } else { 0 };
         } else {
             error!("invalid pixel value: {x} {y}");
