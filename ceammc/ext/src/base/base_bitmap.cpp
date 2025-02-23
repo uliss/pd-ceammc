@@ -101,6 +101,20 @@ void BaseBitmap::m_pixel(t_symbol *s, const AtomListView &lv)
     ceammc_bitmap_draw_pixel(bm_, x, y, value);
 }
 
+void BaseBitmap::m_circle(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("X:i>=0 Y:i>=0 DIAM:i>0");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto x = lv.intAt(0, 0);
+    auto y = lv.intAt(1, 0);
+    auto diam = lv.intAt(2, 2);
+
+    ceammc_bitmap_draw_circle(bm_, x, y, diam);
+}
+
 void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("DY:i");
@@ -195,6 +209,7 @@ void setup_base_bitmap()
 {
     ObjectFactory<BaseBitmap> obj("bitmap");
 
+    obj.addMethod("circle", &BaseBitmap::m_circle);
     obj.addMethod("clear", &BaseBitmap::m_clear);
     obj.addMethod("fill", &BaseBitmap::m_fill);
     obj.addMethod("fill_color", &BaseBitmap::m_fill_color);

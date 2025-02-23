@@ -6,7 +6,7 @@ use std::{ffi::CString, ptr::null_mut};
 use embedded_graphics::mono_font::iso_8859_5::{FONT_4X6, FONT_5X7, FONT_5X8, FONT_6X10, FONT_6X9};
 use embedded_graphics::mono_font::MonoTextStyle;
 use embedded_graphics::primitives::{
-    Line, PrimitiveStyle, Rectangle, StrokeAlignment, StyledDrawable,
+    Circle, Line, PrimitiveStyle, Rectangle, StrokeAlignment, StyledDrawable,
 };
 use embedded_graphics::text::Text;
 use embedded_graphics::Drawable;
@@ -29,6 +29,7 @@ pub enum Request {
     DrawText(String, i16, i16),
     DrawLine(i16, i16, i16, i16),
     DrawRect(i16, i16, u16, u16),
+    DrawCircle(i16, i16, u16),
     VShift(i16),
     HShift(i16),
     SetFont(String),
@@ -304,6 +305,11 @@ impl core_async_bitmap {
                     Request::SetFillColor(color) => {
                         draw_style.fill_color = color.map(|c| to_color(c))
                     }
+                    Request::DrawCircle(x, y, diam) => {
+                        Circle::new(to_pt(x, y), diam as u32)
+                            .draw_styled(&draw_style, &mut display)
+                            .unwrap();
+                    }
                 }
             }
 
@@ -401,6 +407,16 @@ pub extern "C" fn ceammc_bitmap_draw_rect(
     h: u16,
 ) -> bool {
     core_async_bitmap::send_request(bitmap, Request::DrawRect(x, y, w, h))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_draw_circle(
+    bitmap: *mut core_async_bitmap,
+    x: i16,
+    y: i16,
+    diam: u16,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawCircle(x, y, diam))
 }
 
 #[no_mangle]
