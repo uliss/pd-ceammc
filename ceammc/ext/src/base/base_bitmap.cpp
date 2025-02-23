@@ -111,6 +111,20 @@ void BaseBitmap::m_column(t_symbol *s, const AtomListView &lv)
     ceammc_bitmap_draw_column(bm_, col, ht, dy);
 }
 
+void BaseBitmap::m_row(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("ROW:i>=0 HT:i DY:i?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto row = lv.intAt(0, 0);
+    auto wd = lv.intAt(1, 0);
+    auto dx = lv.intAt(2, 0);
+
+    ceammc_bitmap_draw_row(bm_, row, wd, dx);
+}
+
 void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
 {
     auto x = lv.intAt(0, 0);
@@ -310,6 +324,7 @@ void setup_base_bitmap()
     obj.addMethod("line", &BaseBitmap::m_line);
     obj.addMethod("pixel", &BaseBitmap::m_pixel);
     obj.addMethod("rect", &BaseBitmap::m_rect);
+    obj.addMethod("row", &BaseBitmap::m_row);
     obj.addMethod("sector", &BaseBitmap::m_sector);
     obj.addMethod("stroke_color", &BaseBitmap::m_stroke_color);
     obj.addMethod("stroke_width", &BaseBitmap::m_stroke_width);

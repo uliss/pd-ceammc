@@ -46,6 +46,7 @@ public:
     void m_line(t_symbol* s, const AtomListView& lv);
     void m_pixel(t_symbol* s, const AtomListView& lv);
     void m_rect(t_symbol* s, const AtomListView& lv);
+    void m_row(t_symbol* s, const AtomListView& lv);
     void m_sector(t_symbol* s, const AtomListView& lv);
     void m_stroke_color(t_symbol* s, const AtomListView& lv);
     void m_stroke_width(t_symbol* s, const AtomListView& lv);
