@@ -23,7 +23,7 @@ pub enum Request {
     Fill(bool),
     Clear,
     Invert,
-    DrawPixel(u16, u16, bool),
+    SetPixel(u16, u16, bool),
     DrawText(String, i16, i16),
     DrawLine(i16, i16, i16, i16),
     VShift(i16),
@@ -212,7 +212,7 @@ impl core_async_bitmap {
 
                 match req {
                     Request::Fill(value) => display.buf.fill(if value { 1 } else { 0 }),
-                    Request::DrawPixel(x, y, value) => {
+                    Request::SetPixel(x, y, value) => {
                         display.set_pixel(x, y, value);
                     }
                     Request::DrawText(str, x, y) => {
@@ -354,7 +354,7 @@ pub extern "C" fn ceammc_bitmap_draw_pixel(
     y: u16,
     value: bool,
 ) -> bool {
-    core_async_bitmap::send_request(bitmap, Request::DrawPixel(x, y, value))
+    core_async_bitmap::send_request(bitmap, Request::SetPixel(x, y, value))
 }
 
 #[no_mangle]
