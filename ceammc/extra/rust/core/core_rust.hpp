@@ -7,6 +7,11 @@
 #include <cstddef>
 
 
+enum class ceammc_core_bitmap_output_format {
+    LIST,
+    MATRIX,
+};
+
 enum class ceammc_mdns_iface {
     ANY,
     V4,
@@ -57,7 +62,7 @@ struct ceammc_core_notify {
 
 struct ceammc_core_bitmap_on_data {
     void *user;
-    void (*cb)(void *user, const uint8_t *data, size_t len);
+    void (*cb)(void *user, uint16_t rows, uint16_t cols, ceammc_core_bitmap_output_format format, const uint8_t *data, size_t len);
 };
 
 struct ceammc_core_on_msg {
@@ -250,7 +255,15 @@ bool ceammc_bitmap_font(ceammc_core_async_bitmap *bitmap, const char *font);
 
 void ceammc_bitmap_free(ceammc_core_async_bitmap *bitmap);
 
-bool ceammc_bitmap_get(ceammc_core_async_bitmap *bitmap);
+bool ceammc_bitmap_get_data(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_get_matrix(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_get_submatrix(ceammc_core_async_bitmap *bitmap,
+                                 uint16_t row,
+                                 uint16_t col,
+                                 uint16_t num_rows,
+                                 uint16_t num_cols);
 
 bool ceammc_bitmap_hshift(ceammc_core_async_bitmap *bitmap, int16_t dx);
 

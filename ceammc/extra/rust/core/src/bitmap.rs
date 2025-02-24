@@ -18,7 +18,7 @@ use embedded_graphics::{
     Pixel,
 };
 use log::{debug, error};
-use ndarray::Array2;
+use ndarray::{arr2, Array2};
 
 use crate::{core_notify, core_on_msg, cstr_to_string};
 
@@ -45,11 +45,15 @@ pub enum Request {
     SetStrokeColor(Option<bool>),
     SetFillColor(Option<bool>),
     GetData,
+    GetMatrix,
+    GetSubMatrix(u16, u16, u16, u16),
+    SetData(Vec<u8>),
+    SetMatrix(Vec<u8>, u16, u16, u16, u16),
 }
 
 #[derive(Debug)]
 pub enum Reply {
-    Data(Vec<u8>),
+    Data(core_bitmap_output_format, u16, u16, Vec<u8>),
     Error(CString),
 }
 
@@ -58,6 +62,13 @@ pub struct core_async_bitmap {
     rx: std::sync::mpsc::Receiver<Reply>,
     on_data: core_bitmap_on_data,
     on_err: core_on_msg,
+}
+
+#[derive(Debug)]
+#[repr(C)]
+pub enum core_bitmap_output_format {
+    List,
+    Matrix,
 }
 
 impl core_async_bitmap {
@@ -80,12 +91,26 @@ impl core_async_bitmap {
 #[repr(C)]
 pub struct core_bitmap_on_data {
     user: *mut c_void,
-    cb: extern "C" fn(user: *mut c_void, data: *const u8, len: usize),
+    cb: extern "C" fn(
+        user: *mut c_void,
+        rows: u16,
+        cols: u16,
+        format: core_bitmap_output_format,
+        data: *const u8,
+        len: usize,
+    ),
 }
 
 impl core_bitmap_on_data {
-    fn exec(&self, data: *const u8, len: usize) {
-        (self.cb)(self.user, data, len);
+    fn exec(
+        &self,
+        rows: u16,
+        cols: u16,
+        format: core_bitmap_output_format,
+        data: *const u8,
+        len: usize,
+    ) {
+        (self.cb)(self.user, rows, cols, format, data, len);
     }
 }
 
@@ -112,6 +137,20 @@ impl BitmapDisplay {
 
     fn to_vec(&self) -> Vec<u8> {
         self.buf.flatten().to_vec()
+    }
+
+    fn to_submatrix(&self, row: u16, col: u16, num_rows: u16, num_cols: u16) -> Array2<u8> {
+        let r0 = row as usize;
+        let c0 = col as usize;
+        if r0 >= self.buf.dim().0 || c0 >= self.buf.dim().1 {
+            return arr2(&[[]]);
+        }
+
+        let r1 = (r0 + num_rows as usize).min(self.buf.dim().0);
+        let c1 = (c0 + num_cols as usize).min(self.buf.dim().1);
+
+        use ndarray::s;
+        self.buf.slice(s![r0..r1, c0..c1]).to_owned()
     }
 
     fn rotate_up(&mut self, dy: i16) {
@@ -179,12 +218,62 @@ impl BitmapDisplay {
         }
     }
 
+    fn set_data(&mut self, mut data: Vec<u8>) {
+        data.resize(self.buf.len(), 0);
+        match Array2::from_shape_vec([self.buf.dim().0, self.buf.dim().1], data) {
+            Ok(arr) => {
+                self.buf = arr;
+            }
+            Err(err) => {
+                error!("{err}")
+            }
+        }
+    }
+
+    fn set_matrix(&mut self, mut data: Vec<u8>, nrows: u16, ncols: u16, row: u16, col: u16) {
+        use ndarray::s;
+
+        let nrows = nrows as usize;
+        let ncols = ncols as usize;
+        data.resize(nrows * ncols, 0);
+
+        let row = row as usize;
+        let col = col as usize;
+
+        // if nrows + row >= self.buf.dim().0 || ncols + col >= self.buf.dim().1 {
+        //     error!("invalid matrix position: ({row}, {col})");
+        //     return;
+        // }
+
+        let new_rows = self.buf.dim().0.min(nrows + row);
+        let new_cols = self.buf.dim().1.min(ncols + col);
+
+        match Array2::from_shape_vec([nrows, ncols], data) {
+            Ok(arr) => {
+                self.buf
+                    .slice_mut(s![row..new_rows, col..new_cols])
+                    .assign(&arr.slice(s![..new_rows - row, ..new_cols - col]));
+            }
+            Err(err) => {
+                error!("{err}")
+            }
+        }
+    }
+
+    fn send_reply(&self, tx: &std::sync::mpsc::Sender<Reply>, msg: Reply, notify: core_notify) {
+        tx.send(msg)
+            .map(|_| notify.notify())
+            .unwrap_or_else(|err| error!("{err}"))
+    }
+
     fn send_error(&self, tx: &std::sync::mpsc::Sender<Reply>, msg: &str, notify: core_notify) {
         error!("{msg}");
 
-        tx.send(Reply::Error(CString::new(msg).unwrap_or_default()))
-            .map(|_| notify.notify())
-            .unwrap_or_else(|err| error!("{err}"));
+        self.send_reply(
+            tx,
+            Reply::Error(CString::new(msg).unwrap_or_default()),
+            notify,
+        )
     }
 }
 
@@ -267,12 +356,42 @@ impl core_async_bitmap {
                             .unwrap();
                     }
                     Request::GetData => {
-                        rep_tx
-                            .send(Reply::Data(display.to_vec()))
-                            .unwrap_or_else(|err| {
-                                error!("{err}");
-                            });
-                        notify.notify();
+                        display.send_reply(
+                            &rep_tx,
+                            Reply::Data(
+                                core_bitmap_output_format::List,
+                                display.buf.dim().0 as u16,
+                                display.buf.dim().1 as u16,
+                                display.to_vec(),
+                            ),
+                            notify,
+                        );
+                    }
+                    Request::GetMatrix => {
+                        display.send_reply(
+                            &rep_tx,
+                            Reply::Data(
+                                core_bitmap_output_format::Matrix,
+                                display.buf.dim().0 as u16,
+                                display.buf.dim().1 as u16,
+                                display.to_vec(),
+                            ),
+                            notify,
+                        );
+                    }
+                    Request::GetSubMatrix(row, col, num_rows, num_cols) => {
+                        let sub_mtx = display.to_submatrix(row, col, num_rows, num_cols);
+
+                        display.send_reply(
+                            &rep_tx,
+                            Reply::Data(
+                                core_bitmap_output_format::Matrix,
+                                sub_mtx.dim().0 as u16,
+                                sub_mtx.dim().1 as u16,
+                                sub_mtx.flatten().to_vec(),
+                            ),
+                            notify,
+                        );
                     }
                     Request::Clear => display.buf.fill(0),
                     Request::Invert => {
@@ -411,6 +530,10 @@ impl core_async_bitmap {
                                 .unwrap();
                         }
                     }
+                    Request::SetData(data) => display.set_data(data),
+                    Request::SetMatrix(data, nrows, ncols, row, col) => {
+                        display.set_matrix(data, nrows, ncols, row, col);
+                    }
                 }
             }
 
@@ -457,8 +580,10 @@ pub extern "C" fn ceammc_bitmap_process(bitmap: *mut core_async_bitmap) {
         let bitmap = unsafe { &*bitmap };
         while let Ok(rep) = bitmap.rx.try_recv() {
             match rep {
-                Reply::Data(items) => {
-                    bitmap.on_data.exec(items.as_ptr(), items.len());
+                Reply::Data(format, rows, cols, data) => {
+                    bitmap
+                        .on_data
+                        .exec(rows, cols, format, data.as_ptr(), data.len());
                 }
                 Reply::Error(str) => {
                     bitmap.on_err.exec_raw(&str);
@@ -610,8 +735,24 @@ pub extern "C" fn ceammc_bitmap_draw_row(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_bitmap_get(bitmap: *mut core_async_bitmap) -> bool {
+pub extern "C" fn ceammc_bitmap_get_data(bitmap: *mut core_async_bitmap) -> bool {
     core_async_bitmap::send_request(bitmap, Request::GetData)
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_get_matrix(bitmap: *mut core_async_bitmap) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::GetMatrix)
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_get_submatrix(
+    bitmap: *mut core_async_bitmap,
+    row: u16,
+    col: u16,
+    num_rows: u16,
+    num_cols: u16,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::GetSubMatrix(row, col, num_rows, num_cols))
 }
 
 #[no_mangle]
@@ -672,7 +813,7 @@ mod tests {
         prelude::{DrawTarget, OriginDimensions, Point, Size},
         Pixel,
     };
-    use ndarray::arr2;
+    use ndarray::{arr2, Array};
 
     use super::BitmapDisplay;
 
@@ -717,5 +858,76 @@ mod tests {
         assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
         d.rotate_right(2);
         assert_eq!(d.buf, arr2(&[[3, 1, 2], [6, 4, 5]]));
+    }
+
+    #[test]
+    fn submatrix() {
+        let mut d = BitmapDisplay::new(4, 4);
+        d.buf = Array::range(0., 16., 1.)
+            .into_shape_with_order((4, 4))
+            .unwrap()
+            .map(|x| *x as u8);
+
+        assert_eq!(d.to_submatrix(0, 0, 1, 1), arr2(&[[0]]));
+        assert_eq!(d.to_submatrix(3, 3, 1, 1), arr2(&[[15]]));
+
+        assert_eq!(d.to_submatrix(0, 0, 2, 2), arr2(&[[0, 1], [4, 5]]));
+        assert_eq!(d.to_submatrix(2, 2, 10, 10), arr2(&[[10, 11], [14, 15]]));
+        assert_eq!(d.to_submatrix(10, 10, 10, 10), arr2(&[[]]));
+    }
+
+    #[test]
+    fn set_data() {
+        let mut d = BitmapDisplay::new(3, 2);
+        d.set_data(vec![1, 2, 3, 4]);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 0, 0]]));
+
+        d.set_data(vec![1, 2, 3, 4, 5, 6]);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+
+        d.set_data(vec![2, 3, 4, 5, 6, 7, 8]);
+        assert_eq!(d.buf, arr2(&[[2, 3, 4], [5, 6, 7]]));
+
+        d.set_data(vec![1, 2]);
+        assert_eq!(d.buf, arr2(&[[1, 2, 0], [0, 0, 0]]));
+    }
+
+    #[test]
+    fn set_matrix() {
+        let mut d = BitmapDisplay::new(4, 3);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 0, 0);
+        assert_eq!(d.buf, arr2(&[[1, 2, 0, 0], [3, 4, 0, 0], [0, 0, 0, 0]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 0, 1);
+        assert_eq!(d.buf, arr2(&[[0, 1, 2, 0], [0, 3, 4, 0], [0, 0, 0, 0]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 0, 2);
+        assert_eq!(d.buf, arr2(&[[0, 0, 1, 2], [0, 0, 3, 4], [0, 0, 0, 0]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 0, 3);
+        assert_eq!(d.buf, arr2(&[[0, 0, 0, 1], [0, 0, 0, 3], [0, 0, 0, 0]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 0, 4);
+        assert_eq!(d.buf, arr2(&[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 1, 2);
+        assert_eq!(d.buf, arr2(&[[0, 0, 0, 0], [0, 0, 1, 2], [0, 0, 3, 4]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 2, 2);
+        assert_eq!(d.buf, arr2(&[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 2]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 2, 3);
+        assert_eq!(d.buf, arr2(&[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 1]]));
+
+        d.buf.fill(0);
+        d.set_matrix(vec![1, 2, 3, 4], 2, 2, 3, 4);
+        assert_eq!(d.buf, arr2(&[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]));
     }
 }

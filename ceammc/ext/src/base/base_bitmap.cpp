@@ -42,18 +42,36 @@ void BaseBitmap::initDone()
 {
     bm_ = ceammc_bitmap_new(w_->value(), h_->value(),
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
-        { this, [](void* user, const std::uint8_t* data, size_t len) {
+        { this, [](void* user, std::uint16_t rows, std::uint16_t cols, ceammc_core_bitmap_output_format fmt, const std::uint8_t* data, size_t len) {
              auto obj = static_cast<BaseBitmap*>(user);
              if (!obj)
                  return;
 
              AtomList res;
+             switch (fmt) {
+             case ceammc_core_bitmap_output_format::LIST:
+                 res.reserve(len);
+                 break;
+             case ceammc_core_bitmap_output_format::MATRIX:
+                 res.reserve(len + 2);
+                 res.push_back(rows);
+                 res.push_back(cols);
+                 break;
+             }
+
              res.reserve(len);
              for (size_t i = 0; i < len; i++) {
                  res.push_back(data[i]);
              }
 
-             obj->listTo(0, res);
+             switch (fmt) {
+             case ceammc_core_bitmap_output_format::LIST:
+                 obj->listTo(0, res);
+                 break;
+             case ceammc_core_bitmap_output_format::MATRIX:
+                 obj->anyTo(0, gensym("matrix"), res);
+                 break;
+             }
          } },
         { this, [](void* user, const char* msg) {
              auto obj = static_cast<BaseBitmap*>(user);
@@ -72,7 +90,7 @@ bool BaseBitmap::notify(int code)
 
 void BaseBitmap::onBang()
 {
-    ceammc_bitmap_get(bm_);
+    ceammc_bitmap_get_data(bm_);
 }
 
 void BaseBitmap::m_arc(t_symbol* s, const AtomListView& lv)
@@ -97,7 +115,7 @@ void BaseBitmap::m_clear(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_clear(bm_);
 }
 
-void BaseBitmap::m_column(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_column(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("COL:i>=0 HT:i DY:i?");
     if (!chk.check(lv, this)) {
@@ -111,7 +129,7 @@ void BaseBitmap::m_column(t_symbol *s, const AtomListView &lv)
     ceammc_bitmap_draw_column(bm_, col, ht, dy);
 }
 
-void BaseBitmap::m_row(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_row(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ROW:i>=0 HT:i DY:i?");
     if (!chk.check(lv, this)) {
@@ -132,7 +150,7 @@ void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_draw_text(bm_, lv.symbolAt(2, &s_)->s_name, x, y);
 }
 
-void BaseBitmap::m_triangle(t_symbol *s, const AtomListView &lv)
+void BaseBitmap::m_triangle(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("X0:i Y0:i X1:i Y1:i X2:i Y2:i");
     if (!chk.check(lv, this)) {
@@ -202,6 +220,26 @@ void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
     }
 
     ceammc_bitmap_vshift(bm_, lv.intAt(0, 0));
+}
+
+void BaseBitmap::m_get_matrix(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_bitmap_get_matrix(bm_);
+}
+
+void BaseBitmap::m_get_submatrix(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("ROW:i>=0 COL:i>=0 NROWS:i>=0 NCOLS:i>=0");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto r = lv.intAt(0, 0);
+    auto c = lv.intAt(1, 0);
+    auto nrows = lv.intAt(2, 0);
+    auto ncols = lv.intAt(3, 0);
+
+    ceammc_bitmap_get_submatrix(bm_, r, c, nrows, ncols);
 }
 
 void BaseBitmap::m_hshift(t_symbol* s, const AtomListView& lv)
@@ -331,4 +369,7 @@ void setup_base_bitmap()
     obj.addMethod("text", &BaseBitmap::m_text);
     obj.addMethod("triangle", &BaseBitmap::m_triangle);
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
+
+    obj.addMethod("get_matrix", &BaseBitmap::m_get_matrix);
+    obj.addMethod("get_submatrix", &BaseBitmap::m_get_submatrix);
 }
