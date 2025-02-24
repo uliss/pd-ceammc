@@ -88,6 +88,26 @@ def pddoc_float(value: str) -> float:
 signal.signal(signal.SIGINT, signal_handler)
 
 
+def print_arg_template(arg):
+    str = "argument "
+    name = ""
+
+    if "name" in arg:
+        str += f'name="{arg["name"]}" '
+    if "type" in arg:
+        str += f'type="{arg["type"]}" '
+    if "min" in arg:
+        str += f'minvalue="{arg["min"]}" '
+    if "max" in arg:
+        str += f'maxvalue="{arg["max"]}" '
+    if "property" in arg:
+        name = f'See {arg["property"]}'
+
+
+    str = str.strip()
+    cprint(f'<{str}>{name}</argument>', 'white')
+
+
 # methods starting with @ - properties in UI objects
 # methods starting with . or _ - internal methods
 # methods ending with _aliased - overwritten methods
@@ -365,6 +385,12 @@ def check_args(name, doc, ext):
     if len(undoc_args):
         cprint(f"[{ext_name}] undocumented arguments: {undoc_args}",
             'magenta')
+
+        cprint("<arguments>", 'white')
+        for arg in undoc_args:
+            print_arg_template(ext[arg])
+
+        cprint("</arguments>", 'white')
 
     if len(unknown_args):
         cprint(f"[{ext_name}] unknown arguments in doc: {unknown_args}",

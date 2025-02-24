@@ -22,10 +22,12 @@ BaseBitmap::BaseBitmap(const PdArgs& args)
 {
     w_ = new IntProperty("@w", 8);
     w_->checkClosedRange(1, 256);
+    w_->setInitOnly();
     w_->setArgIndex(0);
     addProperty(w_);
 
     h_ = new IntProperty("@h", 8);
+    h_->setInitOnly();
     h_->checkClosedRange(1, 256);
     h_->setArgIndex(1);
     addProperty(h_);
@@ -436,5 +438,4 @@ void setup_base_bitmap()
     obj.addMethod("set_matrix", &BaseBitmap::m_set_matrix);
     obj.addMethod("matrix", &BaseBitmap::m_set_matrix); // alias
     obj.addMethod("set_matrix_at", &BaseBitmap::m_set_matrix_at);
-
 }

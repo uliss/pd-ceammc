@@ -47,6 +47,8 @@ hist~	calculate and output signal histogram
 plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
 plot.logspace~	outputs numbers spaced evenly on a log scale
 plot.response~	output amp/phase freq response to impulse
+bitmap	bitmap (2D bit matrix)
+ceammc/bitmap	bitmap (2D bit matrix)
 ceammc.search	ceammc library search object
 chrono.datetime	output current date and time info
 ceammc/datetime	output current date and time info

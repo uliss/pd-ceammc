@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="bitmap">
+        <title>bitmap</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>bitmap (2D bit matrix)</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>bitmap</keywords>
+            <also>
+                <see view="link">ui.matrix</see>
+            </also>
+            <since>0.9.9</since>
+            <aliases>
+                <alias>ceammc/bitmap</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="W" type="int" minvalue="1" maxvalue="256">bitmap width in pixels, see @w</argument>
+            <argument name="H" type="int" minvalue="1" maxvalue="256">bitmap height in pixels, see @h</argument>
+        </arguments>
+        <properties>
+            <property name="@w" type="int" default="8" minvalue="1" maxvalue="256" access="initonly">bitmap width in pixels</property>
+            <property name="@h" type="int" default="8" minvalue="1" maxvalue="256" access="initonly">bitmap height in pixels</property>
+        </properties>
+        <methods>
+<!--            <method name="arc">method</method>-->
+            <!-- circle -->
+            <method name="circle">draw circle
+                <param name="X" type="int" required="true">x coord</param>
+                <param name="Y" type="int" required="true">y coord</param>
+                <param name="D" type="int" required="true">diameter</param>
+                <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of the circle center,
+                not the top-left corner</param>
+            </method>
+            <!-- clear -->
+            <method name="clear">clear bitmap (set all pixels to 0)</method>
+<!--            <method name="column">method</method>-->
+             <!-- ellipse -->
+            <method name="ellipse">draw ellipse
+                <param name="X" type="int" required="true">x coord</param>
+                <param name="Y" type="int" required="true">y coord</param>
+                <param name="W" type="int" required="true">width</param>
+                <param name="H" type="int" required="true">height</param>
+                <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of the ellipse center,
+                not the top-left corner</param>
+            </method>
+            <!-- fill -->
+            <method name="fill">set all pixels to value
+            <param name="V" type="int" default="0">value</param>
+            </method>
+            <!-- fill_color -->
+            <method name="fill_color">set fill color
+            <param name="COLOR" type="int">fill color (0 or 1)</param>
+            </method>
+            <method name="font">method</method>
+            <method name="get">method</method>
+            <method name="get_matrix">method</method>
+            <method name="get_submatrix">method</method>
+            <method name="hshift">method</method>
+            <!-- invert -->
+            <method name="invert">invert all pixel values</method>
+            <method name="line">draw line
+                <param name="X0" type="int" required="true">x0 coord</param>
+                <param name="Y0" type="int" required="true">y0 coord</param>
+                <param name="X1" type="int" required="true">x1 coord</param>
+                <param name="Y1" type="int" required="true">y1 coord</param>
+            </method>
+            <method name="matrix">method</method>
+            <!-- pixel -->
+            <method name="pixel">set pixel
+                <param name="X" type="int" required="true">x coord</param>
+                <param name="Y" type="int" required="true">y coord</param>
+                <param name="VAL" type="bool" required="false" default="1">new pixel value</param>
+            </method>
+            <method name="rect">method</method>
+            <method name="row">method</method>
+            <method name="sector">method</method>
+            <method name="set">method</method>
+            <method name="set_matrix">method</method>
+            <method name="set_matrix_at">method</method>
+            <method name="stroke_color">method</method>
+            <method name="text">draw text
+            <param name="X" type="int" required="true">left x-coord</param>
+            <param name="Y" type="int" required="true">bottom y-coord</param>
+            <param name="TXT" type="symbol" required="true">text</param>
+            </method>
+            <method name="triangle">method</method>
+            <method name="vshift">method</method>
+            <!-- stroke_width -->
+            <method name="stroke_width">set stroke width
+            <param name="W" type="int" minvalue="0" required="true">new width</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>property request</xinfo>
+                <xinfo on="bang">output as dict</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>dict/property output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[clear #a(          [rect 1 2 10 5 #f(
+
+  [fill 1 #b(       [clear, ellipse 1 2 10 5 #g(
+
+  [invert #c(       [clear, text 1 6 Hi! #h(
+
+  [fill_color 1 #d( [clear, line 0 7 15 0 #i(
+
+  [fill_color 0 #e( [pixel 15 7 #l(
+
+  [stroke_width 1 #j(
+
+  [stroke_width 2 #k(
+
+
+
+
+[msg.after bang #x]
+|
+[bitmap 16 8]
+|
+[ui.matrix 8 16]
+
+
+/* ... */
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
+[X f->x] [X g->x] [X h->x] [X i->x] [X j->x] [X k->x]
+[X l->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

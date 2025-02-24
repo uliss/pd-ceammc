@@ -122,6 +122,9 @@
     </entry>
   </category>
   <category name="base">
+    <entry name="bitmap" descr="bitmap (2D bit matrix)" ref_view="object">
+      <xi:include href="bitmap.pddoc" parse="xml"/>
+    </entry>
     <entry name="ceammc.search" descr="ceammc library search object" ref_view="object">
       <xi:include href="ceammc.search.pddoc" parse="xml"/>
     </entry>

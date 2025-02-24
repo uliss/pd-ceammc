@@ -35,6 +35,7 @@ set(DOC_FILES
     array.variance
     array.vplay
     array.window
+    bitmap
     canvas.active
     canvas.current
     canvas.dir

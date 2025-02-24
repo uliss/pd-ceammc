@@ -12,10 +12,10 @@
         plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search chrono.datetime convolve~ function function.call gain~
-        gate~ logger matrix~ merge~ metro.choice metro.pattern metro.random
-        metro.seq metro.wchoice mix~ nsig~ obj.props radio split~ spring sync
-        window xdac~ xfade2~ xfade~ z~
+        bitmap ceammc.search chrono.datetime convolve~ function function.call
+        gain~ gate~ logger matrix~ merge~ metro.choice metro.pattern
+        metro.random metro.seq metro.wchoice mix~ nsig~ obj.props radio split~
+        spring sync window xdac~ xfade2~ xfade~ z~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
