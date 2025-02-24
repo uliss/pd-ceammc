@@ -60,7 +60,7 @@ public:
 
     void m_set(t_symbol* s, const AtomListView& lv);
     void m_set_matrix(t_symbol* s, const AtomListView& lv);
-    void m_set_submatrix(t_symbol* s, const AtomListView& lv);
+    void m_set_matrix_at(t_symbol* s, const AtomListView& lv);
 };
 
 } // namespace ceammc

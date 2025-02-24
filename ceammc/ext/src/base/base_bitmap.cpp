@@ -278,7 +278,7 @@ void BaseBitmap::m_set_matrix(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_set_matrix(bm_, num_rows, num_cols, 0, 0, bytes.data(), bytes.size());
 }
 
-void BaseBitmap::m_set_submatrix(t_symbol* s, const AtomListView& lv)
+void BaseBitmap::m_set_matrix_at(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("NROWS:i>0 NCOLS:i>0 AT_ROW:i>=0 AT_COL:i>=0 DATA:i+");
     if (!chk.check(lv, this)) {
@@ -434,6 +434,7 @@ void setup_base_bitmap()
 
     obj.addMethod("set", &BaseBitmap::m_set);
     obj.addMethod("set_matrix", &BaseBitmap::m_set_matrix);
-    obj.addMethod("set_submatrix", &BaseBitmap::m_set_submatrix);
-    obj.addMethod("matrix", &BaseBitmap::m_set_matrix);
+    obj.addMethod("matrix", &BaseBitmap::m_set_matrix); // alias
+    obj.addMethod("set_matrix_at", &BaseBitmap::m_set_matrix_at);
+
 }
