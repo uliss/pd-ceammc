@@ -20,7 +20,7 @@ use embedded_graphics::{
 use log::{debug, error};
 use ndarray::{arr2, Array2};
 
-use crate::{core_notify, core_on_msg, cstr_to_string};
+use crate::{core_notify, core_on_msg, cstr_to_string, data_to_vec};
 
 #[derive(Debug)]
 pub enum Request {
@@ -753,6 +753,31 @@ pub extern "C" fn ceammc_bitmap_get_submatrix(
     num_cols: u16,
 ) -> bool {
     core_async_bitmap::send_request(bitmap, Request::GetSubMatrix(row, col, num_rows, num_cols))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_set_data(
+    bitmap: *mut core_async_bitmap,
+    data: *const u8,
+    len: usize,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::SetData(data_to_vec(data, len)))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_set_matrix(
+    bitmap: *mut core_async_bitmap,
+    nrows: u16,
+    ncols: u16,
+    row: u16,
+    col: u16,
+    data: *const u8,
+    len: usize,
+) -> bool {
+    core_async_bitmap::send_request(
+        bitmap,
+        Request::SetMatrix(data_to_vec(data, len), nrows, ncols, row, col),
+    )
 }
 
 #[no_mangle]

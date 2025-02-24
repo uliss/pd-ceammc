@@ -7,6 +7,7 @@ use log::error;
 
 use std::{
     ffi::{c_char, c_void, CStr, CString},
+    slice::from_raw_parts,
     sync::Once,
 };
 static LOG_INIT: Once = Once::new();
@@ -59,4 +60,16 @@ fn cstr_to_string(cstr: *const c_char) -> String {
             ""
         })
         .to_owned()
+}
+
+fn data_to_vec<T>(data: *const T, len: usize) -> Vec<T>
+where
+    T: Clone,
+{
+    if data.is_null() {
+        error!("NULL data pointer");
+        return vec![];
+    } else {
+        unsafe { from_raw_parts(data, len) }.to_vec()
+    }
 }
