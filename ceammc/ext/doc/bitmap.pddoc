@@ -132,12 +132,11 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>property request</xinfo>
-                <xinfo on="bang">output as dict</xinfo>
+                <xinfo on="bang">output as list</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>dict/property output</outlet>
+            <outlet>output</outlet>
         </outlets>
         <example>
             <pdascii>
