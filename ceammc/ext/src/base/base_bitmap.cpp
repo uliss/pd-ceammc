@@ -222,9 +222,15 @@ void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_vshift(bm_, lv.intAt(0, 0));
 }
 
+void BaseBitmap::m_get(t_symbol* s, const AtomListView& lv)
+{
+    onBang();
+}
+
 void BaseBitmap::m_get_matrix(t_symbol* s, const AtomListView& lv)
 {
     ceammc_bitmap_get_matrix(bm_);
+    // outputs matrix NROWS NCOLS DATA...
 }
 
 void BaseBitmap::m_get_submatrix(t_symbol* s, const AtomListView& lv)
@@ -240,6 +246,58 @@ void BaseBitmap::m_get_submatrix(t_symbol* s, const AtomListView& lv)
     auto ncols = lv.intAt(3, 0);
 
     ceammc_bitmap_get_submatrix(bm_, r, c, nrows, ncols);
+    // outputs matrix NROWS NCOLS DATA...
+}
+
+void BaseBitmap::m_set(t_symbol* s, const AtomListView& lv)
+{
+    std::vector<std::uint8_t> bytes;
+    bytes.reserve(lv.size());
+    for (auto& a : lv)
+        bytes.push_back(a.asInt());
+
+    ceammc_bitmap_set_data(bm_, bytes.data(), bytes.size());
+}
+
+void BaseBitmap::m_set_matrix(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("NROWS:i>0 NCOLS:i>0 DATA:i+");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto num_rows = lv.intAt(0, 0);
+    auto num_cols = lv.intAt(1, 0);
+    auto data = lv.subView(2);
+
+    std::vector<std::uint8_t> bytes;
+    bytes.reserve(data.size());
+    for (auto& a : data)
+        bytes.push_back(a.asInt());
+
+    ceammc_bitmap_set_matrix(bm_, num_rows, num_cols, 0, 0, bytes.data(), bytes.size());
+}
+
+void BaseBitmap::m_set_submatrix(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("NROWS:i>0 NCOLS:i>0 AT_ROW:i>=0 AT_COL:i>=0 DATA:i+");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto num_rows = lv.intAt(0, 0);
+    auto num_cols = lv.intAt(1, 0);
+    auto at_row = lv.intAt(2, 0);
+    auto at_col = lv.intAt(3, 0);
+
+    auto data = lv.subView(4);
+
+    std::vector<std::uint8_t> bytes;
+    bytes.reserve(data.size());
+    for (auto& a : data)
+        bytes.push_back(a.asInt());
+
+    ceammc_bitmap_set_matrix(bm_, num_rows, num_cols, at_row, at_col, bytes.data(), bytes.size());
 }
 
 void BaseBitmap::m_hshift(t_symbol* s, const AtomListView& lv)
@@ -370,6 +428,12 @@ void setup_base_bitmap()
     obj.addMethod("triangle", &BaseBitmap::m_triangle);
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
 
+    obj.addMethod("get", &BaseBitmap::m_get);
     obj.addMethod("get_matrix", &BaseBitmap::m_get_matrix);
     obj.addMethod("get_submatrix", &BaseBitmap::m_get_submatrix);
+
+    obj.addMethod("set", &BaseBitmap::m_set);
+    obj.addMethod("set_matrix", &BaseBitmap::m_set_matrix);
+    obj.addMethod("set_submatrix", &BaseBitmap::m_set_submatrix);
+    obj.addMethod("matrix", &BaseBitmap::m_set_matrix);
 }
