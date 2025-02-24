@@ -769,14 +769,14 @@ pub extern "C" fn ceammc_bitmap_set_matrix(
     bitmap: *mut core_async_bitmap,
     nrows: u16,
     ncols: u16,
-    row: u16,
-    col: u16,
+    at_row: u16,
+    at_col: u16,
     data: *const u8,
     len: usize,
 ) -> bool {
     core_async_bitmap::send_request(
         bitmap,
-        Request::SetMatrix(data_to_vec(data, len), nrows, ncols, row, col),
+        Request::SetMatrix(data_to_vec(data, len), nrows, ncols, at_row, at_col),
     )
 }
 
