@@ -655,4 +655,26 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         t.call("load", LF(3));
         REQUIRE(t->matrix() == m2);
     }
+
+    SECTION("matrix")
+    {
+        TestExtMatrix t("ui.matrix", LA("@rows", 3, "@cols", 4));
+
+        t.call("matrix", {});
+        REQUIRE(t->matrix() == BitMatrix());
+
+        t.call("matrix", LF(2, 2, 1, 0, 0, 1));
+        REQUIRE(t->matrix() != BitMatrix());
+        REQUIRE(t->row(0) == BitS(0b1000));
+        REQUIRE(t->row(1) == BitS(0b0100));
+        REQUIRE(t->row(2) == BitS(0b0000));
+
+        t.clearAll();
+
+        t.call("matrix", LF(4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ));
+        REQUIRE(t->matrix() != BitMatrix());
+        REQUIRE(t->row(0) == BitS(0b1111));
+        REQUIRE(t->row(1) == BitS(0b1111));
+        REQUIRE(t->row(2) == BitS(0b1111));
+    }
 }

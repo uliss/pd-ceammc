@@ -1,4 +1,5 @@
 #include "ui_matrix.h"
+#include "args/argcheck.h"
 #include "ceammc_convert.h"
 #include "ceammc_format.h"
 #include "ceammc_preset.h"
@@ -791,7 +792,7 @@ void UIMatrix::m_set(const AtomListView& lv)
         return;
     }
 
-    t_symbol* sel = lv[0].asSymbol();
+    auto sel = lv[0].asSymbol();
     const auto args = lv.subView(1);
 
     if (sel == SYM_CELL) {
@@ -806,6 +807,31 @@ void UIMatrix::m_set(const AtomListView& lv)
         UI_ERR << "unknown method: " << sel->s_name;
         UI_ERR << "    usage: set col|row|cell|list [ARGS]";
         return;
+    }
+
+    drawActiveCells();
+}
+
+void UIMatrix::m_matrix(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("NROWS:i>0 NCOLS:i>0 DATA:i+");
+    if (!chk.check(lv, nullptr)) {
+        return chk.usage();
+    }
+
+    auto nrows = lv.intAt(0, 0);
+    auto ncols = lv.intAt(1, 0);
+    auto data = lv.subView(2);
+
+    int idx = 0;
+    for (auto& a : data) {
+        auto row = idx / ncols;
+        auto col = idx % ncols;
+
+        if (row < prop_rows_ && col < prop_cols_)
+            setCell(row, col, a.asBool());
+
+        idx++;
     }
 
     drawActiveCells();
@@ -992,6 +1018,7 @@ void UIMatrix::setup()
     obj.addMethod("random", &UIMatrix::m_random);
     obj.addMethod("get", &UIMatrix::m_get);
     obj.addMethod("set", &UIMatrix::m_set);
+    obj.addMethod("matrix", &UIMatrix::m_matrix);
 }
 
 void UIMatrix::addToUpdateList(int row, int col)

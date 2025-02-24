@@ -4,6 +4,8 @@
 ### Added:
 - new objects:
   - hw.gpio - Raspberry Pi GPIO support
+- new methods:
+  - matrix method added to ui.matrix
 
 ## [0.9.8]
 ### Added:
