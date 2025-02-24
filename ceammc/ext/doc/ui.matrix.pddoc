@@ -152,6 +152,12 @@
                 <param name="FNAME" type="symbol">write matrix values to text file (space
                 separated). If fname argument is not specified opens file chooser dialog</param>
             </method>
+            <!-- matrix -->
+            <method name="matrix">set matrix data
+                <param name="NROWS" type="int" minvalue="1" required="true">number of rows in matrix</param>
+                <param name="NCOLS" type="int" minvalue="1" required="true">number of columns in matrix</param>
+                <param name="BYTES" type="list" required="true">list of 0 or 1</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
@@ -169,10 +175,10 @@
 [dump(    |            |
 |         [get row $1( [get col $1(
 | [reset( |            |
-| |       | [bang(     | [flip( [get list(
+| |       | [bang(     | [flip( [get list( [matrix 2 2 1 0 0 1 #a(
 | |       | |          | |      |
 | |       | |          | |      |
-[ui.matrix                      ]
+[ui.matrix                      #x]
 |
 |
 |
@@ -186,6 +192,7 @@
 |     [ui.d]
 |
 [ui.d]
+[X a->x]
 ]]>
             </pdascii>
         </example>

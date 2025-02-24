@@ -37,6 +37,7 @@ MOUSE_METHODS = [
     "mousedrag",
     "mousemove",
     "mousewheel",
+    "mouseleave",
     "rightclick",
     ]
 
@@ -57,6 +58,8 @@ def mouse_method2event(event: str) -> str:
         return "double-click"
     elif event == "mousewheel":
         return "wheel"
+    elif event == "mouseleave":
+        return None
     else:
         return event
 
@@ -713,7 +716,9 @@ if __name__ == '__main__':
 
     for m in MOUSE_METHODS:
         if m in EXT_METHODS:
-            ext_mouse.add(mouse_method2event(m))
+            ev = mouse_method2event(m);
+            if ev is not None:
+                ext_mouse.add(ev)
 
     mouse_no_doc = ext_mouse - doc_mouse
     mouse_invalid = doc_mouse - ext_mouse
