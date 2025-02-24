@@ -28,7 +28,15 @@
             <property name="@h" type="int" default="8" minvalue="1" maxvalue="256" access="initonly">bitmap height in pixels</property>
         </properties>
         <methods>
-<!--            <method name="arc">method</method>-->
+            <method name="arc">draw arc
+                <param name="X" type="int" required="true">x coord</param>
+                <param name="Y" type="int" required="true">y coord</param>
+                <param name="D" type="int" required="true">diameter</param>
+                <param name="START" type="int" required="true" units="degree">start angle. 0 - top</param>
+                <param name="LEN" type="int" required="true" units="degree">arc length, counter-clockwise</param>
+                <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of the arc center,
+                not the top-left corner</param>
+            </method>
             <!-- circle -->
             <method name="circle">draw circle
                 <param name="X" type="int" required="true">x coord</param>
@@ -77,7 +85,15 @@
                 <param name="Y" type="int" required="true">y coord</param>
                 <param name="VAL" type="bool" required="false" default="1">new pixel value</param>
             </method>
-            <method name="rect">method</method>
+            <!-- pixel -->
+            <method name="rect">draw rect
+                <param name="X" type="int" required="true">x coord</param>
+                <param name="Y" type="int" required="true">y coord</param>
+                <param name="W" type="int" required="true">width</param>
+                <param name="H" type="int" required="true">height</param>
+                <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of the rect center,
+                not the top-left corner</param>
+            </method>
             <method name="row">method</method>
             <method name="sector">method</method>
             <method name="set">method</method>
@@ -89,7 +105,15 @@
             <param name="Y" type="int" required="true">bottom y-coord</param>
             <param name="TXT" type="symbol" required="true">text</param>
             </method>
-            <method name="triangle">method</method>
+            <!-- triangle -->
+            <method name="triangle">draw triangle
+            <param name="X0" type="int" required="true">x0 coord</param>
+            <param name="Y0" type="int" required="true">y0 coord</param>
+            <param name="X1" type="int" required="true">x1 coord</param>
+            <param name="Y1" type="int" required="true">y1 coord</param>
+            <param name="X2" type="int" required="true">x2 coord</param>
+            <param name="Y2" type="int" required="true">y2 coord</param>
+            </method>
             <method name="vshift">method</method>
             <!-- stroke_width -->
             <method name="stroke_width">set stroke width
@@ -108,19 +132,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[clear #a(          [rect 1 2 10 5 #f(
+[clear #a(            [rect 1 2 10 5 #f(
 
-  [fill 1 #b(       [clear, ellipse 1 2 10 5 #g(
+  [fill 1 #b(         [clear, ellipse 1 2 10 5 #g(
 
-  [invert #c(       [clear, text 1 6 Hi! #h(
+  [invert #c(         [clear, text 1 6 Hi! #h(
 
-  [fill_color 1 #d( [clear, line 0 7 15 0 #i(
+  [fill_color 1 #d(   [clear, line 0 7 15 0 #i(
 
-  [fill_color 0 #e( [pixel 15 7 #l(
+  [fill_color 0 #e(   [pixel 15 7 #l(
 
-  [stroke_width 1 #j(
+  [stroke_width 1 #j( [triangle 0 0 8 0 4 7 #m(
 
-  [stroke_width 2 #k(
+  [stroke_width 2 #k( [arc 1 1 6 0 270 #n(
 
 
 
@@ -135,7 +159,7 @@
 /* ... */
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
 [X f->x] [X g->x] [X h->x] [X i->x] [X j->x] [X k->x]
-[X l->x]
+[X l->x] [X m->x] [X n->x]
 ]]>
             </pdascii>
         </example>
