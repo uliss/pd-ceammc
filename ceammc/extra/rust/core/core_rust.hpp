@@ -182,6 +182,16 @@ extern "C" {
 
 bool ceammc_bitmap_clear(ceammc_core_async_bitmap *bitmap);
 
+/**
+ * draw open arc
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param diam - correspoding circle diameter
+ * @param angle_start - start angle in degrees, 0º - NORD orientation
+ * @param arc_length - length in degrees, 360º - full circle
+ * @param center - use center coord as origin
+ */
 bool ceammc_bitmap_draw_arc(ceammc_core_async_bitmap *bitmap,
                             int16_t x,
                             int16_t y,
@@ -190,6 +200,14 @@ bool ceammc_bitmap_draw_arc(ceammc_core_async_bitmap *bitmap,
                             float arc_length,
                             bool center);
 
+/**
+ * draw circle
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param diam - circle diameter
+ * @param center - use center coord as origin
+ */
 bool ceammc_bitmap_draw_circle(ceammc_core_async_bitmap *bitmap,
                                int16_t x,
                                int16_t y,
@@ -201,6 +219,15 @@ bool ceammc_bitmap_draw_column(ceammc_core_async_bitmap *bitmap,
                                int16_t height,
                                int16_t offset);
 
+/**
+ * draw ellipse
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param w - ellipse width
+ * @param h - ellipse height
+ * @param center - use center coord as origin
+ */
 bool ceammc_bitmap_draw_ellipse(ceammc_core_async_bitmap *bitmap,
                                 int16_t x,
                                 int16_t y,
@@ -208,6 +235,14 @@ bool ceammc_bitmap_draw_ellipse(ceammc_core_async_bitmap *bitmap,
                                 uint16_t h,
                                 bool center);
 
+/**
+ * draw line
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x0 - start x coord
+ * @param y0 - start y coord
+ * @param x1 - end x coord
+ * @param y1 - end y coord
+ */
 bool ceammc_bitmap_draw_line(ceammc_core_async_bitmap *bitmap,
                              int16_t x0,
                              int16_t y0,
@@ -216,6 +251,15 @@ bool ceammc_bitmap_draw_line(ceammc_core_async_bitmap *bitmap,
 
 bool ceammc_bitmap_draw_pixel(ceammc_core_async_bitmap *bitmap, uint16_t x, uint16_t y, bool value);
 
+/**
+ * draw rect
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param w - rect width
+ * @param h - rect height
+ * @param center - use center coord as origin
+ */
 bool ceammc_bitmap_draw_rect(ceammc_core_async_bitmap *bitmap,
                              int16_t x,
                              int16_t y,
@@ -228,6 +272,16 @@ bool ceammc_bitmap_draw_row(ceammc_core_async_bitmap *bitmap,
                             int16_t width,
                             int16_t offset);
 
+/**
+ * draw filled sector
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param diam - correspoding circle diameter
+ * @param angle_start - start angle in degrees, 0º - NORD orientation
+ * @param arc_length - length in degrees, 360º - full circle
+ * @param center - use center coord as origin
+ */
 bool ceammc_bitmap_draw_sector(ceammc_core_async_bitmap *bitmap,
                                int16_t x,
                                int16_t y,
@@ -236,7 +290,14 @@ bool ceammc_bitmap_draw_sector(ceammc_core_async_bitmap *bitmap,
                                float arc_length,
                                bool center);
 
-void ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
+/**
+ * draw text on bitmap
+ * @param bitmap - bitmap pointer (nullable)
+ * @param txt - text C-string
+ * @param x - start left coord
+ * @param y - start bottom coord
+ */
+bool ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
                              const char *txt,
                              int16_t x,
                              int16_t y);
@@ -253,6 +314,10 @@ bool ceammc_bitmap_fill(ceammc_core_async_bitmap *bitmap, bool value);
 
 bool ceammc_bitmap_font(ceammc_core_async_bitmap *bitmap, const char *font);
 
+/**
+ * free bitmap struct and stops worker thread
+ * @param bitmap - bitmap pointer (nullable)
+ */
 void ceammc_bitmap_free(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_get_data(ceammc_core_async_bitmap *bitmap);
@@ -269,12 +334,25 @@ bool ceammc_bitmap_hshift(ceammc_core_async_bitmap *bitmap, int16_t dx);
 
 bool ceammc_bitmap_invert(ceammc_core_async_bitmap *bitmap);
 
+/**
+ * create bitmap struct and starts separate worker thread(!)
+ * @param w - bitmap width in pixels
+ * @param h - bitmap height in pixels
+ * @param notify - notify callback called when some processing result is ready
+ * @param on_data - data callback
+ * @param on_err - error callback
+ * @return point to bitmap or NULL on error
+ */
 ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
                                             uint16_t h,
                                             ceammc_core_notify notify,
                                             ceammc_core_bitmap_on_data on_data,
                                             ceammc_core_on_msg on_err);
 
+/**
+ * process ready bitmap data
+ * @param bitmap - bitmap pointer (nullable)
+ */
 void ceammc_bitmap_process(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_set_data(ceammc_core_async_bitmap *bitmap, const uint8_t *data, size_t len);

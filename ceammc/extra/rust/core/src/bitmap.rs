@@ -550,6 +550,13 @@ impl core_async_bitmap {
     }
 }
 
+/// create bitmap struct and starts separate worker thread(!)
+/// @param w - bitmap width in pixels
+/// @param h - bitmap height in pixels
+/// @param notify - notify callback called when some processing result is ready
+/// @param on_data - data callback
+/// @param on_err - error callback
+/// @return point to bitmap or NULL on error
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_new(
     w: u16,
@@ -567,6 +574,8 @@ pub extern "C" fn ceammc_bitmap_new(
     }
 }
 
+/// free bitmap struct and stops worker thread
+/// @param bitmap - bitmap pointer (nullable)
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_free(bitmap: *mut core_async_bitmap) {
     if !bitmap.is_null() {
@@ -574,6 +583,8 @@ pub extern "C" fn ceammc_bitmap_free(bitmap: *mut core_async_bitmap) {
     }
 }
 
+/// process ready bitmap data
+/// @param bitmap - bitmap pointer (nullable)
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_process(bitmap: *mut core_async_bitmap) {
     if !bitmap.is_null() {
@@ -593,26 +604,27 @@ pub extern "C" fn ceammc_bitmap_process(bitmap: *mut core_async_bitmap) {
     }
 }
 
+/// draw text on bitmap
+/// @param bitmap - bitmap pointer (nullable)
+/// @param txt - text C-string
+/// @param x - start left coord
+/// @param y - start bottom coord
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_draw_text(
     bitmap: *mut core_async_bitmap,
     txt: *const c_char,
     x: i16,
     y: i16,
-) {
-    if !bitmap.is_null() {
-        let bitmap = unsafe { &*bitmap };
-        let str = cstr_to_string(txt);
-
-        bitmap
-            .tx
-            .send(Request::DrawText(str, x, y))
-            .unwrap_or_else(|err| {
-                error!("{err}");
-            });
-    }
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::DrawText(cstr_to_string(txt), x, y))
 }
 
+/// draw line
+/// @param bitmap - bitmap pointer (nullable)
+/// @param x0 - start x coord
+/// @param y0 - start y coord
+/// @param x1 - end x coord
+/// @param y1 - end y coord
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_draw_line(
     bitmap: *mut core_async_bitmap,
@@ -624,6 +636,13 @@ pub extern "C" fn ceammc_bitmap_draw_line(
     core_async_bitmap::send_request(bitmap, Request::DrawLine(x0, y0, x1, y1))
 }
 
+/// draw rect
+/// @param bitmap - bitmap pointer (nullable)
+/// @param x - left or center x coord
+/// @param y - top or center y coord
+/// @param w - rect width
+/// @param h - rect height
+/// @param center - use center coord as origin
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_draw_rect(
     bitmap: *mut core_async_bitmap,
@@ -636,6 +655,12 @@ pub extern "C" fn ceammc_bitmap_draw_rect(
     core_async_bitmap::send_request(bitmap, Request::DrawRect(x, y, w, h, center))
 }
 
+/// draw circle
+/// @param bitmap - bitmap pointer (nullable)
+/// @param x - left or center x coord
+/// @param y - top or center y coord
+/// @param diam - circle diameter
+/// @param center - use center coord as origin
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_draw_circle(
     bitmap: *mut core_async_bitmap,
@@ -647,6 +672,13 @@ pub extern "C" fn ceammc_bitmap_draw_circle(
     core_async_bitmap::send_request(bitmap, Request::DrawCircle(x, y, diam, center))
 }
 
+/// draw ellipse
+/// @param bitmap - bitmap pointer (nullable)
+/// @param x - left or center x coord
+/// @param y - top or center y coord
+/// @param w - ellipse width
+/// @param h - ellipse height
+/// @param center - use center coord as origin
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_draw_ellipse(
     bitmap: *mut core_async_bitmap,
@@ -659,6 +691,14 @@ pub extern "C" fn ceammc_bitmap_draw_ellipse(
     core_async_bitmap::send_request(bitmap, Request::DrawEllipse(x, y, w, h, center))
 }
 
+/// draw open arc
+/// @param bitmap - bitmap pointer (nullable)
+/// @param x - left or center x coord
+/// @param y - top or center y coord
+/// @param diam - correspoding circle diameter
+/// @param angle_start - start angle in degrees, 0º - NORD orientation
+/// @param arc_length - length in degrees, 360º - full circle
+/// @param center - use center coord as origin
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_draw_arc(
     bitmap: *mut core_async_bitmap,
@@ -675,6 +715,14 @@ pub extern "C" fn ceammc_bitmap_draw_arc(
     )
 }
 
+/// draw filled sector
+/// @param bitmap - bitmap pointer (nullable)
+/// @param x - left or center x coord
+/// @param y - top or center y coord
+/// @param diam - correspoding circle diameter
+/// @param angle_start - start angle in degrees, 0º - NORD orientation
+/// @param arc_length - length in degrees, 360º - full circle
+/// @param center - use center coord as origin
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_draw_sector(
     bitmap: *mut core_async_bitmap,
