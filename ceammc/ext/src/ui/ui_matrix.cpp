@@ -1,6 +1,8 @@
 #include "ui_matrix.h"
 #include "args/argcheck.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
@@ -15,16 +17,23 @@
 #include <limits>
 #include <random>
 
-static t_symbol* SYM_CELL;
-static t_symbol* SYM_ROW;
-static t_symbol* SYM_COL;
-static t_symbol* SYM_LIST;
-static t_symbol* SYM_OUTPUT_ALL_COLS;
-static t_symbol* SYM_OUTPUT_ALL_ROWS;
-static t_symbol* SYM_OUTPUT_ALL_CELLS;
+CEAMMC_DEFINE_SYM_HASH(cell)
+CEAMMC_DEFINE_SYM_HASH(cells)
+CEAMMC_DEFINE_SYM_HASH(col)
+CEAMMC_DEFINE_SYM_HASH(cols)
+CEAMMC_DEFINE_SYM_HASH(list)
+CEAMMC_DEFINE_SYM_HASH(matrix)
+CEAMMC_DEFINE_SYM_HASH(row)
+CEAMMC_DEFINE_SYM_HASH(rows)
 
 #define CELL_TAG_FMT "cell_#%x_%d_%d"
 #define ALL_CELLS_TAG_FMT "cells_#%x"
+
+#define CHECK_UI_ARGS(lv, chk, method)                      \
+    {                                                       \
+        if (!chk.check_pd_obj(lv, asPdObject()))            \
+            return chk.usage(asPdObject(), gensym(method)); \
+    }
 
 static const int CELL_MARGIN = 0;
 
@@ -122,16 +131,16 @@ bool UIMatrix::cell(size_t row, size_t col) const
 
 void UIMatrix::setCell(const AtomListView& lv)
 {
-    if (lv.size() != 3) {
-        UI_ERR << "usage set cell ROW COL VALUE";
-        return;
+    static const args::ArgChecker args("ROW:i>=0 COL:i>=0 VALUE:B");
+    if (!args.check_pd_obj(lv, asPdObject())) {
+        return args.usage(asPdObject(), nullptr);
     }
 
-    int row = lv[0].asInt(-1);
-    int col = lv[1].asInt(-1);
+    int row = lv[0].asInt(0);
+    int col = lv[1].asInt(0);
     int v = lv[2].asInt(0);
 
-    if (row < 0 || row >= prop_rows_ || col < 0 || col >= prop_cols_) {
+    if (row >= prop_rows_ || col >= prop_cols_) {
         UI_ERR << "invalid indexes: " << lv;
         return;
     }
@@ -440,8 +449,8 @@ void UIMatrix::outputCell(size_t row, size_t col)
     args[1] = col;
     args[2] = cell(row, col) ? 1 : 0;
 
-    anyTo(0, SYM_CELL, AtomListView(args, N));
-    send(SYM_CELL, AtomListView(args, N));
+    anyTo(0, sym_cell(), AtomListView(args, N));
+    send(sym_cell(), AtomListView(args, N));
 }
 
 void UIMatrix::outputCell(const AtomListView& args)
@@ -472,8 +481,8 @@ void UIMatrix::outputCol(size_t col)
         res[i + 1] = cell(i, col) ? 1 : 0;
 
     AtomListView lv(res, N);
-    anyTo(0, SYM_COL, lv);
-    send(SYM_COL, lv);
+    anyTo(0, sym_col(), lv);
+    send(sym_col(), lv);
 }
 
 void UIMatrix::outputCol(const AtomListView& args)
@@ -504,8 +513,8 @@ void UIMatrix::outputRow(size_t row)
 
     AtomListView lv(res, N);
 
-    anyTo(0, SYM_ROW, lv);
-    send(SYM_ROW, lv);
+    anyTo(0, sym_row(), lv);
+    send(sym_row(), lv);
 }
 
 void UIMatrix::outputRow(const AtomListView& args)
@@ -523,6 +532,25 @@ void UIMatrix::outputRow(const AtomListView& args)
     }
 
     outputRow(size_t(idx));
+}
+
+void UIMatrix::outputMatrix()
+{
+    const int N = prop_cols_ * prop_rows_;
+    if (N < 1)
+        return;
+
+    SmallAtomListN<66> res;
+    res.push_back(prop_rows_);
+    res.push_back(prop_cols_);
+
+    for (int r = 0; r < prop_rows_; r++) {
+        for (int c = 0; c < prop_cols_; c++) {
+            res.push_back(cell(r, c));
+        }
+    }
+
+    anyTo(0, gensym("matrix"), res.view());
 }
 
 void UIMatrix::outputAllCols()
@@ -684,7 +712,7 @@ void UIMatrix::m_flip(const AtomListView& lv)
         if (lv[0].isSymbol()) {
             t_symbol* s = lv[0].asSymbol();
 
-            if (s == SYM_COL) {
+            if (s == sym_col()) {
                 int col = lv[1].asInt(-1);
 
                 if (col < 0 || col >= prop_cols_) {
@@ -694,7 +722,7 @@ void UIMatrix::m_flip(const AtomListView& lv)
 
                 flipColumn(col);
 
-            } else if (s == SYM_ROW) {
+            } else if (s == sym_row()) {
                 int row = lv[1].asInt(-1);
 
                 if (row < 0 || row >= prop_rows_) {
@@ -754,70 +782,79 @@ void UIMatrix::m_random()
 
 void UIMatrix::m_get(const AtomListView& lv)
 {
-    if (lv.empty() || !lv[0].isSymbol()) {
-        UI_ERR << "missing arguments: ";
-        UI_ERR << "    usage: get col|row|cell|list|cols|rows|cells [ARGS]";
-        return;
-    }
+    static const args::ArgChecker chk("s=col|row|cell|list|cols|rows|cells|matrix ARGS:a*");
+    CHECK_UI_ARGS(lv, chk, "get");
 
-    t_symbol* sel = lv[0].asSymbol();
+    auto sel = lv.symbolAt(0, &s_);
     const auto args = lv.subView(1);
 
-    if (sel == SYM_CELL) {
+    switch (crc32_hash(sel)) {
+    case hash_cell:
         outputCell(args);
-    } else if (sel == SYM_COL) {
+        break;
+    case hash_col:
         outputCol(args);
-    } else if (sel == SYM_ROW) {
+        break;
+    case hash_row:
         outputRow(args);
-    } else if (sel == SYM_LIST) {
+        break;
+    case hash_matrix:
+        outputMatrix();
+        break;
+    case hash_list:
         outputAllList();
-    } else if (sel == SYM_OUTPUT_ALL_COLS) {
-        outputAllCols();
-    } else if (sel == SYM_OUTPUT_ALL_ROWS) {
+        break;
+    case hash_rows:
         outputAllRows();
-    } else if (sel == SYM_OUTPUT_ALL_CELLS) {
+        break;
+    case hash_cols:
+        outputAllCols();
+        break;
+    case hash_cells:
         outputAllCells();
-    } else {
-        UI_ERR << "unknown method: " << sel->s_name;
-        UI_ERR << "    usage: get col|row|cell|list|cols|rows|cells [ARGS]";
-        return;
+        break;
+    default:
+        chk.usage(asPdObject());
+        break;
     }
 }
 
 void UIMatrix::m_set(const AtomListView& lv)
 {
-    if (lv.empty() || !lv[0].isSymbol()) {
-        UI_ERR << "missing arguments: ";
-        UI_ERR << "    usage: set col|row|cell|list [ARGS]";
-        return;
-    }
+    static const args::ArgChecker chk("s=col|row|cell|list|matrix ARGS:a*");
+    CHECK_UI_ARGS(lv, chk, "set");
 
-    auto sel = lv[0].asSymbol();
+    auto sel = lv.symbolAt(0, &s_);
     const auto args = lv.subView(1);
 
-    if (sel == SYM_CELL) {
+    switch (crc32_hash(sel)) {
+    case hash_cell:
         setCell(args);
-    } else if (sel == SYM_COL) {
+        break;
+    case hash_col:
         setColumn(args);
-    } else if (sel == SYM_ROW) {
+        break;
+    case hash_row:
         setRow(args);
-    } else if (sel == SYM_LIST) {
+        break;
+    case hash_list:
         setList(args);
-    } else {
-        UI_ERR << "unknown method: " << sel->s_name;
-        UI_ERR << "    usage: set col|row|cell|list [ARGS]";
+        break;
+    case hash_matrix:
+        setMatrix(args);
+        break;
+    default:
+        chk.usage(asPdObject());
         return;
     }
 
     drawActiveCells();
 }
 
-void UIMatrix::m_matrix(const AtomListView& lv)
+void UIMatrix::setMatrix(const AtomListView& lv)
 {
     static const args::ArgChecker chk("NROWS:i>0 NCOLS:i>0 DATA:i+");
-    if (!chk.check(lv, nullptr)) {
-        return chk.usage();
-    }
+    CHECK_UI_ARGS(lv, chk, "set matrix");
 
     auto nrows = lv.intAt(0, 0);
     auto ncols = lv.intAt(1, 0);
@@ -833,8 +870,6 @@ void UIMatrix::m_matrix(const AtomListView& lv)
 
         idx++;
     }
-
-    drawActiveCells();
 }
 
 void UIMatrix::loadPreset(size_t idx)
@@ -975,14 +1010,6 @@ void UIMatrix::p_setCols(t_float n)
 
 void UIMatrix::setup()
 {
-    SYM_CELL = gensym("cell");
-    SYM_ROW = gensym("row");
-    SYM_COL = gensym("col");
-    SYM_LIST = gensym("list");
-    SYM_OUTPUT_ALL_COLS = gensym("cols");
-    SYM_OUTPUT_ALL_ROWS = gensym("rows");
-    SYM_OUTPUT_ALL_CELLS = gensym("cells");
-
     UIObjectFactory<UIMatrix> obj("ui.matrix");
     obj.setDefaultSize(105, 53);
 
@@ -1018,7 +1045,6 @@ void UIMatrix::setup()
     obj.addMethod("random", &UIMatrix::m_random);
     obj.addMethod("get", &UIMatrix::m_get);
     obj.addMethod("set", &UIMatrix::m_set);
-    obj.addMethod("matrix", &UIMatrix::m_matrix);
 }
 
 void UIMatrix::addToUpdateList(int row, int col)

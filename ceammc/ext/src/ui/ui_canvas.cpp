@@ -456,8 +456,8 @@ void UICanvas::m_line_cap(const AtomListView& lv)
 {
     static const args::ArgChecker chk("TYPE:s=butt|round|square");
 
-    if (!chk.check(lv, nullptr))
-        return chk.usage(nullptr, gensym("line_cap"));
+    if (!chk.check_pd_obj(lv, asPdObject()))
+        return chk.usage(asPdObject(), gensym("line_cap"));
 
     out_queue_.enqueue(draw::SetLineCap(sym2line_cap(lv[0].asT<t_symbol*>())));
 }

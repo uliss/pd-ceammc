@@ -658,23 +658,28 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
     SECTION("matrix")
     {
-        TestExtMatrix t("ui.matrix", LA("@rows", 3, "@cols", 4));
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
 
-        t.call("matrix", {});
+        t.call("set", LA("matrix"));
         REQUIRE(t->matrix() == BitMatrix());
+        REQUIRE(t->row(0) == BitS(0b000));
+        REQUIRE(t->row(1) == BitS(0b000));
 
-        t.call("matrix", LF(2, 2, 1, 0, 0, 1));
+        t.call("set", LA("matrix", 2, 2, 1, 0., 0., 1));
         REQUIRE(t->matrix() != BitMatrix());
-        REQUIRE(t->row(0) == BitS(0b1000));
-        REQUIRE(t->row(1) == BitS(0b0100));
-        REQUIRE(t->row(2) == BitS(0b0000));
+        REQUIRE(t->row(0) == BitS(0b100));
+        REQUIRE(t->row(1) == BitS(0b010));
+        t.call("get", LA("matrix"));
+        REQUIRE(t.outputAnyAt(0) == LA("matrix", 2, 3, 1, 0., 0., 0., 1, 0.));
 
         t.clearAll();
 
-        t.call("matrix", LF(4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ));
+        t.call("set", LA("matrix", 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1));
         REQUIRE(t->matrix() != BitMatrix());
-        REQUIRE(t->row(0) == BitS(0b1111));
-        REQUIRE(t->row(1) == BitS(0b1111));
-        REQUIRE(t->row(2) == BitS(0b1111));
+        REQUIRE(t->row(0) == BitS(0b111));
+        REQUIRE(t->row(1) == BitS(0b111));
+
+        t.call("get", LA("matrix"));
+        REQUIRE(t.outputAnyAt(0) == LA("matrix", 2, 3, 1, 1, 1, 1, 1, 1));
     }
 }
