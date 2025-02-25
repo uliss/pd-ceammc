@@ -20,17 +20,21 @@ public:
     bool notify(int code) final;
 
     void m_intensity(t_symbol* s, const AtomListView& lv);
-    void m_power(t_symbol* s, const AtomListView& lv);
-    void m_write_int(t_symbol* s, const AtomListView& lv);
-    void m_write_hex(t_symbol* s, const AtomListView& lv);
-    void m_write_reg(t_symbol* s, const AtomListView& lv);
-    void m_write_float(t_symbol* s, const AtomListView& lv);
-    void m_write_str(t_symbol* s, const AtomListView& lv);
-    void m_write_bytes(t_symbol* s, const AtomListView& lv);
-    void m_write_matrix(t_symbol* s, const AtomListView& lv);
-    void m_write_bits(t_symbol* s, const AtomListView& lv);
+
     void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_power(t_symbol* s, const AtomListView& lv);
     void m_test(t_symbol* s, const AtomListView& lv);
+    void m_write(t_symbol* s, const AtomListView& lv);
+
+private:
+    void writeBits(t_symbol* s, const AtomListView& lv);
+    void writeBytes(t_symbol* s, const AtomListView& lv);
+    void writeFloat(t_symbol* s, const AtomListView& lv);
+    void writeHex(t_symbol* s, const AtomListView& lv);
+    void writeInt(t_symbol* s, const AtomListView& lv);
+    void writeMatrix(t_symbol* s, const AtomListView& lv);
+    void writeReg(t_symbol* s, const AtomListView& lv);
+    void writeStr(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_spi_max7219();

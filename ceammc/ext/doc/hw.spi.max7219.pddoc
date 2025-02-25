@@ -31,13 +31,13 @@
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
             chain</param></method>
             <!-- write int -->
-            <method name="write_int">write signed integer value into 7-segment display (no led
+            <method name="write int">write signed integer value into 7-segment display (no led
             matrix support!) 
             <param name="INT" type="int" required="true">value</param>
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
             If ommited or -1: write to all displays</param></method>
             <!-- write str -->
-            <method name="write_str">write string into 7-segment display (no led matrix support!) 
+            <method name="write str">write string into 7-segment display (no led matrix support!)
             <param name="STR" type="symbol" required="true">string. maxlength: 8 chars</param>
             <param name="DOTS" type="int" minvalue="0" maxvalue="255">dots as bit value. For ex.:
             0b00000011 turn on a two leftmost dots</param>
@@ -46,7 +46,7 @@
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
             the chain</param></method>
             <!-- write float -->
-            <method name="write_float">write float value into 7-segment display (no led matrix
+            <method name="write float">write float value into 7-segment display (no led matrix
             support!) 
             <param name="VAL" type="float" required="true">value</param>
             <param name="PRECISION" type="int" minvalue="0" maxvalue="7">precision after the
@@ -54,7 +54,7 @@
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
             If ommited or -1: write to all displays</param></method>
             <!-- write hex -->
-            <method name="write_hex">write hex unsigned integer value into 7-segment display (no
+            <method name="write hex">write hex unsigned integer value into 7-segment display (no
             led matrix support!) 
             <param name="INT" type="int" minvalue="0" required="true">value</param>
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
@@ -73,20 +73,19 @@
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display
             address in the chain</param></method>
             <!-- write bits -->
-            <method name="write_bits">write raw bits into the display 
+            <method name="write bits">write raw bits into the display
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
             target display address in the chain</param>
             <param name="BITS" type="list" required="true">list of bits. Max length:
             256</param></method>
             <!-- write bytes -->
-            <method name="write_bits">write raw bytes into the display 
+            <method name="write bytes">write raw bytes into the display
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
             target display address in the chain</param>
             <param name="DATA" type="list" required="true">list of bytes. Max length:
             8</param></method>
             <!-- write register -->
-            <method name="write_reg">write the max7219 register data. Lowest level of communication
-            
+            <method name="write reg">write the max7219 register data. Lowest level of communication
             <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">max7219
             register index</param>
             <param name="DATA" type="int" minvalue="0" maxvalue="255" required="true">the register
@@ -115,27 +114,34 @@
         <example>
             <pdascii>
 <![CDATA[
-/*#7-segment only*/       /*#both*/     [clear #a(   [get list(
+/*#7-segment only*/       /*#both*/     [clear #a(   [get matrix(
                                                      |
 [F]                       [T]           [T]          [ui.matrix 8 8 #o]
 |                         |             |
-[write_int $1 #b(         [power $1 #e( [test $1 #f 0(
+[write int $1 #b(         [power $1 #e( [test $1 #f 0(
 
-[write_float -10.25 3 #c( [write_reg 2 15 0 #h(
+[write float -10.25 3 #c( [write reg 2 15 0 #h(
 
-[write_hex 355 #d(        [write_bytes -1 255 0 255 #g(
+[write hex 355 #d(        [write bytes -1 255 0 255 #g(
 
-[write_str DSP 0 left #j(      [F min=0 max=15]
+[write str DSP 0 left #j(      [F min=0 max=15]
                                |
-[write_str DSP 255 center #k(  [intensity $1 #m(     [route list #p]
-                                                     |
-[write_str DSP 1 right #l(                           [msg write_bits 0 #r]
+[write str DSP 255 center #k(  [intensity $1 #m(     [msg write #p]
+
+[write str DSP 1 right #l(     /*matrix only*/
+
+                               [font FONT_4x6, text 1 6 ЦЭАМ, get matrix(
+                               |
+                               [bitmap 32 8]
+                               |
+                               [msg write #q]
 
 
 
 [hw.spi.max7219 4 #x]
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p] [X r->x]
+[X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p] [X p->x] [X r->x]
+[X q->x]
 [hw.spi.max7219-spi]
 ]]>
             </pdascii>
