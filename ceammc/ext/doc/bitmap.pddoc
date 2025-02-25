@@ -70,10 +70,18 @@
             <method name="font">set font 
             <param name="NAME" type="symbol" required="true"
             enum="FONT_4X6 FONT_5X7 FONT_5X8 FONT_6X10 FONT_6X9">font name</param></method>
-            <!--            <method name="get">method</method>-->
-            <!--            <method name="get_matrix">method</method>-->
-            <!--            <method name="get_submatrix">method</method>-->
-            <!--            <method name="hshift">method</method>-->
+            <method name="get">output content as list</method>
+            <method name="get_matrix">output bitmap content as: [matrix NROWS NCOLS DATA...(
+            message</method>
+            <method name="get_submatrix">output submatrix bitmap content as: [matrix NROWS NCOLS
+            DATA...( message 
+            <param name="NROWS" type="int" required="true">matrix number of rows</param>
+            <param name="NCOLS" type="int" required="true">matrix number of columns</param>
+            <param name="AT_ROW" type="int" required="true">row position</param>
+            <param name="AT_COL" type="int" required="true">columns position</param></method>
+            <!-- hshift -->
+            <method name="hshift">horizontal shift (rotate) 
+            <param name="V" type="int" required="true">number of pixels to shift</param></method>
             <!-- invert -->
             <method name="invert">invert all pixel values</method>
             <method name="line">draw line 
@@ -81,7 +89,7 @@
             <param name="Y0" type="int" required="true">y0 coord</param>
             <param name="X1" type="int" required="true">x1 coord</param>
             <param name="Y1" type="int" required="true">y1 coord</param></method>
-            <method name="matrix">method</method>
+            <method name="matrix">alias for [set_matrix( method</method>
             <!-- pixel -->
             <method name="pixel">set pixel 
             <param name="X" type="int" required="true">x coord</param>
@@ -108,9 +116,21 @@
             counter-clockwise</param>
             <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
             the sector center, not the top-left corner</param></method>
-            <!--            <method name="set">method</method>-->
-            <!--            <method name="set_matrix">method</method>-->
-            <!--            <method name="set_matrix_at">method</method>-->
+            <!-- set -->
+            <method name="set">set bitmap content from list 
+            <param name="DATA" type="int" required="true">list of 0 and 1</param></method>
+            <!-- set_matrix -->
+            <method name="set_matrix">set matrix data 
+            <param name="NROWS" type="int" required="true">matrix number of rows</param>
+            <param name="NCOLS" type="int" required="true">matrix number of columns</param>
+            <param name="DATA" type="list" required="true">data</param></method>
+            <!-- set_matrix_at -->
+            <method name="set_matrix_at">set matrix data at specified position 
+            <param name="NROWS" type="int" required="true">matrix number of rows</param>
+            <param name="NCOLS" type="int" required="true">matrix number of columns</param>
+            <param name="AT_ROW" type="int" required="true">row position</param>
+            <param name="AT_COL" type="int" required="true">columns position</param>
+            <param name="DATA" type="list" required="true">data</param></method>
             <!--            <method name="stroke_color">method</method>-->
             <!-- text -->
             <method name="text">draw text 
@@ -125,7 +145,9 @@
             <param name="Y1" type="int" required="true">y1 coord</param>
             <param name="X2" type="int" required="true">x2 coord</param>
             <param name="Y2" type="int" required="true">y2 coord</param></method>
-            <!--            <method name="vshift">method</method>-->
+            <!-- vshift -->
+            <method name="vshift">vertical shift 
+            <param name="V" type="int" required="true">number of pixels to shift</param></method>
             <!-- stroke_width -->
             <method name="stroke_width">set stroke width 
             <param name="W" type="int" minvalue="0" required="true">new width</param></method>
@@ -155,11 +177,11 @@
 
   [stroke_width 2 #k( [arc 1 1 6 0 270 #n(
 
-  [font FONT_4x6 #o(
+  [font FONT_4x6 #o(  [set 0 1 0 1 0 1 1 #t(
 
-  [font FONT_5x7 #p(
+  [font FONT_5x7 #p(  [set_matrix 3 3 1 0 1 0 1 0 1 0 1 #u(
 
-  [hshift 1 #r(
+  [hshift 1 #r(       [set_matrix_at 2 2 6 10 1 0 0 1 #v(
 
   [hshift -1 #s(
 
@@ -177,7 +199,7 @@
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
 [X f->x] [X g->x] [X h->x] [X i->x] [X j->x] [X k->x]
 [X l->x] [X m->x] [X n->x] [X o->x] [X p->x]
-[X r->x] [X s->x]
+[X r->x] [X s->x] [X t->x] [X u->x] [X v->x]
 ]]>
             </pdascii>
         </example>
