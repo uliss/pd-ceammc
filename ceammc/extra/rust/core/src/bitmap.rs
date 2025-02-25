@@ -157,10 +157,10 @@ impl BitmapDisplay {
         use ndarray::s;
 
         let ydim = self.buf.dim().0;
-        let dy = if dy >= 0 {
-            (dy as usize) % ydim
+        let dy = if dy < 0 {
+            (dy.abs() as usize) % ydim
         } else {
-            (ydim - ((dy.abs() as usize) % ydim)) % ydim
+            (ydim - ((dy as usize) % ydim)) % ydim
         };
 
         if dy == 0 {
@@ -184,10 +184,10 @@ impl BitmapDisplay {
         use ndarray::s;
 
         let xdim = self.buf.dim().1;
-        let dx = if dx >= 0 {
-            (dx as usize) % xdim
+        let dx = if dx < 0 {
+            (dx.abs() as usize) % xdim
         } else {
-            (xdim - ((dx.abs() as usize) % xdim)) % xdim
+            (xdim - ((dx as usize) % xdim)) % xdim
         };
 
         if dx == 0 {
@@ -864,24 +864,24 @@ mod tests {
         assert_eq!(d.size(), Size::new(3, 2));
         d.buf = arr2(&[[1, 2, 3], [4, 5, 6]]);
 
-        d.rotate_up(1);
-        assert_eq!(d.buf, arr2(&[[4, 5, 6], [1, 2, 3]]));
-        d.rotate_up(2);
-        assert_eq!(d.buf, arr2(&[[4, 5, 6], [1, 2, 3]]));
         d.rotate_up(-1);
-        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+        assert_eq!(d.buf, arr2(&[[4, 5, 6], [1, 2, 3]]));
         d.rotate_up(-2);
+        assert_eq!(d.buf, arr2(&[[4, 5, 6], [1, 2, 3]]));
+        d.rotate_up(1);
+        assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
+        d.rotate_up(2);
         assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
 
         d.rotate_right(3);
         assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
         d.rotate_right(-3);
         assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
-        d.rotate_right(1);
-        assert_eq!(d.buf, arr2(&[[2, 3, 1], [5, 6, 4]]));
         d.rotate_right(-1);
+        assert_eq!(d.buf, arr2(&[[2, 3, 1], [5, 6, 4]]));
+        d.rotate_right(1);
         assert_eq!(d.buf, arr2(&[[1, 2, 3], [4, 5, 6]]));
-        d.rotate_right(2);
+        d.rotate_right(-2);
         assert_eq!(d.buf, arr2(&[[3, 1, 2], [6, 4, 5]]));
     }
 
