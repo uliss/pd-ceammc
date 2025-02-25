@@ -176,7 +176,7 @@
 [dump(    |            |
 |         [get row $1( [get col $1(
 | [reset( |            |
-| |       | [bang(     | [flip( [get list( [matrix 2 2 1 0 0 1 #a(
+| |       | [bang(     | [flip( [get list( [set matrix 2 2 1 0 0 1 #a(
 | |       | |          | |      |
 | |       | |          | |      |
 [ui.matrix                      #x]

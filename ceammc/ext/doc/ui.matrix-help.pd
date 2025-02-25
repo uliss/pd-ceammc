@@ -20,7 +20,7 @@ VALUE(;
 #X msg 165 241 bang;
 #X msg 290 241 flip;
 #X msg 357 241 get list;
-#X msg 462 241 matrix 2 2 1 0 0 1;
+#X msg 462 241 set matrix 2 2 1 0 0 1;
 #X obj 50 284 ui.matrix;
 #X obj 50 356 route cell row col;
 #X obj 222 385 ui.d;
