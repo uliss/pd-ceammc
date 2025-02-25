@@ -74,10 +74,10 @@
             <method name="font">set font 
             <param name="NAME" type="symbol" required="true"
             enum="FONT_4X6 FONT_5X7 FONT_5X8 FONT_6X10 FONT_6X9">font name</param></method>
-            <method name="get">output content as list</method>
-            <method name="get_matrix">output bitmap content as: [matrix NROWS NCOLS DATA...(
+            <method name="get list">output content as list</method>
+            <method name="get matrix">output bitmap content as: [matrix NROWS NCOLS DATA...(
             message</method>
-            <method name="get_submatrix">output submatrix bitmap content as: [matrix NROWS NCOLS
+            <method name="get submatrix">output submatrix bitmap content as: [matrix NROWS NCOLS
             DATA...( message 
             <param name="NROWS" type="int" required="true">matrix number of rows</param>
             <param name="NCOLS" type="int" required="true">matrix number of columns</param>
@@ -93,7 +93,6 @@
             <param name="Y0" type="int" required="true">y0 coord</param>
             <param name="X1" type="int" required="true">x1 coord</param>
             <param name="Y1" type="int" required="true">y1 coord</param></method>
-            <method name="matrix">alias for [set_matrix( method</method>
             <!-- pixel -->
             <method name="pixel">set pixel 
             <param name="X" type="int" required="true">x coord</param>
@@ -126,17 +125,17 @@
             <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
             the sector center, not the top-left corner</param></method>
             <!-- set -->
-            <method name="set">set bitmap content from list 
-            <param name="DATA" type="int" required="true">list of 0 and 1</param></method>
+            <method name="set list">set bitmap content from list
+            <param name="DATA" type="list" required="true">list of 0 and 1</param></method>
             <!-- set_matrix -->
-            <method name="set_matrix">set matrix data 
-            <param name="NROWS" type="int" required="true">matrix number of rows</param>
-            <param name="NCOLS" type="int" required="true">matrix number of columns</param>
+            <method name="set matrix">set matrix data
+            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of rows</param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of columns</param>
             <param name="DATA" type="list" required="true">data</param></method>
-            <!-- set_matrix_at -->
-            <method name="set_matrix_at">set matrix data at specified position 
-            <param name="NROWS" type="int" required="true">matrix number of rows</param>
-            <param name="NCOLS" type="int" required="true">matrix number of columns</param>
+            <!-- set matrix_at -->
+            <method name="set matrix_at">set matrix data at specified position
+            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of rows</param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of columns</param>
             <param name="AT_ROW" type="int" required="true">row position</param>
             <param name="AT_COL" type="int" required="true">columns position</param>
             <param name="DATA" type="list" required="true">data</param></method>
@@ -187,11 +186,11 @@
 
   [stroke_width 2 #k( [arc 1 1 6 0 270 #n(
 
-  [font FONT_4x6 #o(  [set 0 1 0 1 0 1 1 #t(
+  [font FONT_4x6 #o(  [set list 0 1 0 1 0 1 1 #t(
 
-  [font FONT_5x7 #p(  [set_matrix 3 3 1 0 1 0 1 0 1 0 1 #u(
+  [font FONT_5x7 #p(  [set matrix 3 3 1 0 1 0 1 0 1 0 1 #u(
 
-  [hshift 1 #r(       [set_matrix_at 2 2 6 10 1 0 0 1 #v(
+  [hshift 1 #r(       [set matrix_at 2 2 6 10 1 0 0 1 #v(
 
   [hshift -1 #s(      [row 1 10 1 #a1(
 
