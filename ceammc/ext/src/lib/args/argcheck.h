@@ -16,7 +16,6 @@
 
 #include "ceammc_atomlist_view.h"
 
-#include <iosfwd>
 #include <memory>
 
 #include <boost/container/small_vector.hpp>
@@ -35,7 +34,7 @@ namespace args {
         std::unique_ptr<ArgCheckImp> chk_;
 
     public:
-        ArgChecker(const char* str);
+        explicit ArgChecker(const char* str);
         ~ArgChecker();
 
         /**
@@ -47,9 +46,21 @@ namespace args {
          * @return true on success, false on error
          */
         bool check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches = nullptr, bool printErr = true) const;
+
+        /**
+         * Check specified list
+         * @param lv - argument list
+         * @param obj - pointer to parent pd object (can be nullptr)
+         * @param matches - pointer to write matched items
+         * @param printErr - if true, print errors
+         * @return true on success, false on error
+         */
+        bool check_pd_obj(const AtomListView& lv, t_object* obj, ArgMatchList* matches = nullptr, bool printErr = true) const;
+
         bool checkSilent(const AtomListView& lv) const { return check(lv, nullptr, nullptr, false); }
 
         void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr) const;
+        void usage(t_object* obj, t_symbol* m = nullptr) const;
     };
 
     bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, ArgMatchList* matches = nullptr);

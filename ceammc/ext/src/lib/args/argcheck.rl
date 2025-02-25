@@ -816,13 +816,12 @@ public:
 
 ArgChecker::~ArgChecker()  = default;
 
-bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches, bool printErr) const
+bool ArgChecker::check_pd_obj(const AtomListView& lv, t_object* x, ArgMatchList* matches, bool printErr) const
 {
     if (!chk_)
         return false;
 
     ArgMatchList m;
-    const void* x = obj ? obj->owner() : nullptr;
 
     const int N = lv.size();
     int atom_idx = 0;
@@ -867,6 +866,11 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* ma
     return true;
 }
 
+bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches, bool printErr) const
+{
+    return check_pd_obj(lv, obj ? obj->owner() : nullptr, matches, printErr);
+}
+
 ArgChecker::ArgChecker(const char* str)
     : chk_(new ArgCheckImp)
 {
@@ -893,14 +897,22 @@ ArgChecker::ArgChecker(const char* str)
 
 void ArgChecker::usage(BaseObject* obj, t_symbol* m) const
 {
+    return usage(obj ? obj->owner() : nullptr, m);
+}
+
+void ArgChecker::usage(t_object* obj, t_symbol* m) const
+{
     if (!chk_)
         return;
 
-    Error err(obj);
-    if (m)
-        err << '[' << m->s_name << "( ";
+    std::string str;
 
-    err << chk_->help();
+    if (m)
+        str = fmt::format("[{}( ", m->s_name);
+
+    str += chk_->help();
+
+    pdError(obj, str);
 }
 
 bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj, ArgMatchList* matches)
