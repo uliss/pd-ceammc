@@ -52,7 +52,11 @@
             the circle center, not the top-left corner</param></method>
             <!-- clear -->
             <method name="clear">clear bitmap (set all pixels to 0)</method>
-            <!--            <method name="column">method</method>-->
+            <method name="column">draw column 
+            <param name="COL" type="int" required="true">column</param>
+            <param name="H" type="int" required="true">column height, can be negative(!), to draw
+            in opposite direction</param>
+            <param name="DY" type="int" required="true">y offset</param></method>
             <!-- ellipse -->
             <method name="ellipse">draw ellipse 
             <param name="X" type="int" required="true">x coord</param>
@@ -104,7 +108,12 @@
             <param name="H" type="int" required="true">height</param>
             <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
             the rect center, not the top-left corner</param></method>
-            <!--            <method name="row">method</method>-->
+            <!-- row -->
+            <method name="row">draw draw 
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="W" type="int" required="true">row width, can be negative(!), to draw in
+            opposite right to left</param>
+            <param name="DX" type="int" required="true">x offset</param></method>
             <!-- sector -->
             <method name="sector">draw sector 
             <param name="X" type="int" required="true">x coord</param>
@@ -131,7 +140,8 @@
             <param name="AT_ROW" type="int" required="true">row position</param>
             <param name="AT_COL" type="int" required="true">columns position</param>
             <param name="DATA" type="list" required="true">data</param></method>
-            <!--            <method name="stroke_color">method</method>-->
+            <method name="stroke_color">set stroke color 
+            <param name="COLOR" type="int">stroke color (0 or 1)</param></method>
             <!-- text -->
             <method name="text">draw text 
             <param name="X" type="int" required="true">left x-coord</param>
@@ -183,7 +193,7 @@
 
   [hshift 1 #r(       [set_matrix_at 2 2 6 10 1 0 0 1 #v(
 
-  [hshift -1 #s(
+  [hshift -1 #s(      [row 1 10 1 #a1(
 
 
 
@@ -200,6 +210,7 @@
 [X f->x] [X g->x] [X h->x] [X i->x] [X j->x] [X k->x]
 [X l->x] [X m->x] [X n->x] [X o->x] [X p->x]
 [X r->x] [X s->x] [X t->x] [X u->x] [X v->x]
+[X a1->x]
 ]]>
             </pdascii>
         </example>

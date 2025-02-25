@@ -133,7 +133,7 @@ void BaseBitmap::m_column(t_symbol* s, const AtomListView& lv)
 
 void BaseBitmap::m_row(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("ROW:i>=0 HT:i DY:i?");
+    static const args::ArgChecker chk("ROW:i>=0 WD:i DX:i?");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
