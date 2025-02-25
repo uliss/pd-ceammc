@@ -111,6 +111,8 @@
             <param name="N" type="int" minvalue="0" required="true">row index</param></method>
             <!-- get rows -->
             <method name="get rows">output all rows as separate messages [row N V0 V1...(</method>
+            <!-- get matrix -->
+            <method name="get matrix">output as matrix [matrix NROWS NCOLS DATA...(</method>
             <!-- interp -->
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
@@ -136,7 +138,7 @@
             <param name="..." type="list" required="true">cell values (1 - checked, 0 -
             unchecked)</param></method>
             <!-- set list ... -->
-            <method name="set list ...">set matrix without output 
+            <method name="set list ...">set matrix data without output
             <param name="..." type="list" required="true">cell values (1 - checked, 0 - unchecked),
             row by row</param></method>
             <!-- set row N ... -->
@@ -144,21 +146,22 @@
             <param name="N" type="int" minvalue="0" required="true">row index</param>
             <param name="..." type="list" required="true">cell values (1 - checked, 0 -
             unchecked)</param></method>
+            <!-- set matrix R C ... -->
+            <method name="set matrix R C ...">set matrix without output
+            <param name="R" type="int" minvalue="1" required="true">number of rows in
+            matrix</param>
+            <param name="C" type="int" minvalue="1" required="true">number of columns in
+            matrix</param>
+            <param name="..." type="list" required="true">cell values (1 - checked, 0 -
+            unchecked)</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- write -->
             <method name="write">
-                <param name="FNAME" type="symbol">write matrix values to text file (space
-                separated). If fname argument is not specified opens file chooser dialog</param>
+            <param name="FNAME" type="symbol">write matrix values to text file (space
+            separated). If fname argument is not specified opens file chooser dialog</param>
             </method>
-            <!-- matrix -->
-            <method name="matrix">set matrix data 
-            <param name="NROWS" type="int" minvalue="1" required="true">number of rows in
-            matrix</param>
-            <param name="NCOLS" type="int" minvalue="1" required="true">number of columns in
-            matrix</param>
-            <param name="BYTES" type="list" required="true">list of 0 or 1</param></method>
         </methods>
         <inlets>
             <inlet>
