@@ -418,6 +418,20 @@ impl core_async_bitmap {
                                     format!("unknown font: {font}").as_str(),
                                     notify,
                                 );
+
+                                let font_list =
+                                    font_map.iter().fold(String::new(), |mut a, (key, _)| {
+                                        a += " ";
+                                        a += *key;
+                                        a
+                                    });
+
+                                display.send_error(
+                                    &rep_tx,
+                                    format!("supported fonts are: {}", font_list.trim_start())
+                                        .as_str(),
+                                    notify,
+                                );
                             }
                         }
                     }
