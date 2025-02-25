@@ -865,6 +865,9 @@ void UIMatrix::setMatrix(const AtomListView& lv)
         auto row = idx / ncols;
         auto col = idx % ncols;
 
+        if (row >= nrows)
+            break;
+
         if (row < prop_rows_ && col < prop_cols_)
             setCell(row, col, a.asBool());
 

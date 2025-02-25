@@ -681,5 +681,13 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
         t.call("get", LA("matrix"));
         REQUIRE(t.outputAnyAt(0) == LA("matrix", 2, 3, 1, 1, 1, 1, 1, 1));
+
+        t.call("set", LA("matrix", 1, 2, 0., 0.));
+        REQUIRE(t->row(0) == BitS(0b001));
+        REQUIRE(t->row(1) == BitS(0b111));
+
+        t.call("set", LA("matrix", 1, 2, 0., 0., 0., 0., 0.));
+        REQUIRE(t->row(0) == BitS(0b001));
+        REQUIRE(t->row(1) == BitS(0b111));
     }
 }
