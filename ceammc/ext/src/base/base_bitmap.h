@@ -55,12 +55,15 @@ public:
     void m_vshift(t_symbol* s, const AtomListView& lv);
 
     void m_get(t_symbol* s, const AtomListView& lv);
-    void m_get_matrix(t_symbol* s, const AtomListView& lv);
-    void m_get_submatrix(t_symbol* s, const AtomListView& lv);
-
     void m_set(t_symbol* s, const AtomListView& lv);
-    void m_set_matrix(t_symbol* s, const AtomListView& lv);
-    void m_set_matrix_at(t_symbol* s, const AtomListView& lv);
+
+private:
+    std::vector<std::uint8_t> listToBytes(const AtomListView& data);
+
+    void outputSubmatrix(t_symbol* s, const AtomListView& lv);
+    void setList(const AtomListView& lv);
+    void setMatrix(t_symbol* s, const AtomListView& lv);
+    void setMatrixAt(t_symbol* s, const AtomListView& lv);
 };
 
 } // namespace ceammc

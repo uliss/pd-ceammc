@@ -13,9 +13,15 @@
  *****************************************************************************/
 #include "base_bitmap.h"
 #include "args/argcheck.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 using namespace ceammc;
+
+CEAMMC_DEFINE_SYM_HASH(list)
+CEAMMC_DEFINE_SYM_HASH(matrix)
+CEAMMC_DEFINE_SYM_HASH(matrix_at)
+CEAMMC_DEFINE_SYM_HASH(submatrix)
 
 BaseBitmap::BaseBitmap(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
@@ -226,16 +232,26 @@ void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
 
 void BaseBitmap::m_get(t_symbol* s, const AtomListView& lv)
 {
-    onBang();
+    static const args::ArgChecker chk("s=list|matrix|submatrix ARGS:a*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto sel = lv.symbolAt(0, &s_);
+    switch (crc32_hash(sel)) {
+    case hash_list:
+        return onBang();
+    case hash_matrix:
+        ceammc_bitmap_get_matrix(bm_);
+        // outputs matrix NROWS NCOLS DATA...
+        return;
+    case hash_submatrix:
+        return outputSubmatrix(sel, lv.subView(1));
+    default:
+        chk.usage(this, s);
+    }
 }
 
-void BaseBitmap::m_get_matrix(t_symbol* s, const AtomListView& lv)
-{
-    ceammc_bitmap_get_matrix(bm_);
-    // outputs matrix NROWS NCOLS DATA...
-}
-
-void BaseBitmap::m_get_submatrix(t_symbol* s, const AtomListView& lv)
+void BaseBitmap::outputSubmatrix(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ROW:i>=0 COL:i>=0 NROWS:i>=0 NCOLS:i>=0");
     if (!chk.check(lv, this)) {
@@ -251,17 +267,43 @@ void BaseBitmap::m_get_submatrix(t_symbol* s, const AtomListView& lv)
     // outputs matrix NROWS NCOLS DATA...
 }
 
-void BaseBitmap::m_set(t_symbol* s, const AtomListView& lv)
+void ceammc::BaseBitmap::setList(const AtomListView& lv)
 {
-    std::vector<std::uint8_t> bytes;
-    bytes.reserve(lv.size());
-    for (auto& a : lv)
-        bytes.push_back(a.asInt());
-
+    auto bytes = listToBytes(lv);
     ceammc_bitmap_set_data(bm_, bytes.data(), bytes.size());
 }
 
-void BaseBitmap::m_set_matrix(t_symbol* s, const AtomListView& lv)
+void BaseBitmap::m_set(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("s=list|matrix|matrix_at ARGS:a*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto sel = lv.symbolAt(0, &s_);
+    switch (crc32_hash(sel)) {
+    case hash_list:
+        return setList(lv.subView(1));
+    case hash_matrix:
+        return setMatrix(sel, lv.subView(1));
+    case hash_matrix_at:
+        return setMatrixAt(sel, lv.subView(1));
+    default:
+        chk.usage(this, s);
+        break;
+    }
+}
+
+std::vector<std::uint8_t> ceammc::BaseBitmap::listToBytes(const AtomListView& data)
+{
+    std::vector<std::uint8_t> bytes;
+    bytes.reserve(data.size());
+    for (auto& a : data)
+        bytes.push_back(a.asInt());
+
+    return bytes;
+}
+
+void BaseBitmap::setMatrix(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("NROWS:i>0 NCOLS:i>0 DATA:i+");
     if (!chk.check(lv, this)) {
@@ -270,17 +312,12 @@ void BaseBitmap::m_set_matrix(t_symbol* s, const AtomListView& lv)
 
     auto num_rows = lv.intAt(0, 0);
     auto num_cols = lv.intAt(1, 0);
-    auto data = lv.subView(2);
-
-    std::vector<std::uint8_t> bytes;
-    bytes.reserve(data.size());
-    for (auto& a : data)
-        bytes.push_back(a.asInt());
+    auto bytes = listToBytes(lv.subView(2));
 
     ceammc_bitmap_set_matrix(bm_, num_rows, num_cols, 0, 0, bytes.data(), bytes.size());
 }
 
-void BaseBitmap::m_set_matrix_at(t_symbol* s, const AtomListView& lv)
+void BaseBitmap::setMatrixAt(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("NROWS:i>0 NCOLS:i>0 AT_ROW:i>=0 AT_COL:i>=0 DATA:i+");
     if (!chk.check(lv, this)) {
@@ -291,13 +328,7 @@ void BaseBitmap::m_set_matrix_at(t_symbol* s, const AtomListView& lv)
     auto num_cols = lv.intAt(1, 0);
     auto at_row = lv.intAt(2, 0);
     auto at_col = lv.intAt(3, 0);
-
-    auto data = lv.subView(4);
-
-    std::vector<std::uint8_t> bytes;
-    bytes.reserve(data.size());
-    for (auto& a : data)
-        bytes.push_back(a.asInt());
+    auto bytes = listToBytes(lv.subView(4));
 
     ceammc_bitmap_set_matrix(bm_, num_rows, num_cols, at_row, at_col, bytes.data(), bytes.size());
 }
@@ -431,11 +462,5 @@ void setup_base_bitmap()
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
 
     obj.addMethod("get", &BaseBitmap::m_get);
-    obj.addMethod("get_matrix", &BaseBitmap::m_get_matrix);
-    obj.addMethod("get_submatrix", &BaseBitmap::m_get_submatrix);
-
     obj.addMethod("set", &BaseBitmap::m_set);
-    obj.addMethod("set_matrix", &BaseBitmap::m_set_matrix);
-    obj.addMethod("matrix", &BaseBitmap::m_set_matrix); // alias
-    obj.addMethod("set_matrix_at", &BaseBitmap::m_set_matrix_at);
 }
