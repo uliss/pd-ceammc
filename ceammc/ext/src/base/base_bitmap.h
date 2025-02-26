@@ -14,7 +14,7 @@
 #ifndef BASE_BITMAP_H
 #define BASE_BITMAP_H
 
-#include "../ceammc/extra/rust/core/core_rust.hpp"
+#include "core_rust.hpp"
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 
