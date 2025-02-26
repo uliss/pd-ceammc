@@ -158,7 +158,7 @@ NCOLS DATA...( message. Arguments are:;
 #X obj 255 2034 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2034 Y1: y1 coord. Type: int.;
 #X msg 110 2059 mirror;
-#X text 245 2059 mirror horizontally or vertically. Arguments are:;
+#X text 245 2059 mirror bitmap. Arguments are:;
 #X obj 255 2082 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2082 AXIS: mirror axis. Type: symbol. Allowed values: x
 \, y.;

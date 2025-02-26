@@ -6,7 +6,7 @@
 0;
 #X obj 689 11 hw.gpio;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 At this moment supports only MacOSX;
+#X text 215 80 Note: only RaspberryPi support;
 #X obj 50 143 loadbang;
 #X msg 50 172 input 17 \, pull_up 17 \, output 18;
 #X msg 69 201 read 17;
@@ -127,13 +127,13 @@ Units: 'ms'.;
 #X text 10 76 category:;
 #X text 120 76 hw;
 #X text 10 98 since:;
-#X text 120 98 0.9.1;
+#X text 120 98 0.9.9;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 display \, brightness;
+#X text 120 164 display \, gpio \, raspberry;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
