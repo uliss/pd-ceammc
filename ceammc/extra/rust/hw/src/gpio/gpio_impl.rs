@@ -9,21 +9,16 @@ use std::ffi::CString;
 use std::time::Duration;
 
 use rppal::gpio::{self, Gpio};
-use tokio::sync::mpsc::error::TryRecvError;
+use std::sync::mpsc::TryRecvError;
 
+use super::hw_gpio;
+use super::hw_gpio_bias;
 use super::hw_gpio_pin_cb;
 use super::hw_gpio_pin_list_cb;
 use super::hw_gpio_poll_cb;
-
-/// gpio opaque type
-pub struct hw_gpio {
-    rx: tokio::sync::mpsc::Receiver<HwGpioReply>,
-    tx: tokio::sync::mpsc::Sender<HwGpioRequest>,
-    pub on_err: hw_msg_cb,
-    pub on_dbg: hw_msg_cb,
-    on_pin: hw_gpio_pin_cb,
-    on_pin_list: hw_gpio_pin_list_cb,
-}
+use super::hw_gpio_trigger;
+use super::HwGpioReply;
+use super::HwGpioRequest;
 
 impl hw_gpio {
     pub fn try_recv(&mut self) -> Result<HwGpioReply, TryRecvError> {
@@ -34,8 +29,7 @@ impl hw_gpio {
         (self.on_pin.cb)(self.on_pin.user, pin, level);
     }
 
-    pub fn exec_pin_list(&self, items: &Vec<u8>)
-    {
+    pub fn exec_pin_list(&self, items: &Vec<u8>) {
         (self.on_pin_list.cb)(self.on_pin_list.user, items.as_ptr(), items.len());
     }
 
@@ -47,96 +41,55 @@ impl hw_gpio {
         on_pin_list: hw_gpio_pin_list_cb,
         on_pin_poll: hw_gpio_poll_cb,
     ) -> Result<hw_gpio, CString> {
-        match tokio::runtime::Builder::new_multi_thread()
-            .worker_threads(1)
-            .thread_name("pp-gpio-worker")
-            .build()
-        {
-            Ok(rt) => {
-                debug!("creating tokio runtime ...");
+        let (req_tx, req_rx) = std::sync::mpsc::channel();
+        let (reply_tx, reply_rx) = std::sync::mpsc::channel();
 
-                let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<HwGpioRequest>(16);
-                let (reply_tx, reply_rx) = tokio::sync::mpsc::channel::<HwGpioReply>(16);
+        std::thread::spawn(move || -> Result<(), String> {
+            debug!("[worker thread] starting ...");
 
-                std::thread::spawn(move || {
-                    debug!("[worker thread] starting ...");
+            let gpio = Gpio::new().map_err(|err| {
+                error!("{err}");
+                err.to_string()
+            })?;
 
-                    let _x: Result<(), CString> = rt.block_on(async move {
-                        debug!("[worker thread] starting runloop ...");
+            let dev = DeviceInfo::new().map_err(|err| {
+                error!("{err}");
+                err.to_string()
+            })?;
 
-                        match &Gpio::new() {
-                            Ok(gpio) => {
-                                //
-                                match DeviceInfo::new() {
-                                    Ok(dev) => {
-                                        reply_debug(
-                                            format!(
-                                                "RPi model: {}, soc: {}",
-                                                dev.model(),
-                                                dev.soc()
-                                            ),
-                                            &notify,
-                                            &reply_tx,
-                                        )
-                                        .await;
-                                    }
-                                    Err(err) => error!("{err}"),
-                                }
+            reply_debug(
+                format!("RPi model: {}, soc: {}", dev.model(), dev.soc()),
+                &notify,
+                &reply_tx,
+            );
 
-                                let mut pins: HashMap<u8, GpioPin> = HashMap::new();
+            let mut pins: HashMap<u8, GpioPin> = HashMap::new();
 
-                                loop {
-                                    if let Some(req) = req_rx.recv().await {
-                                        match process_request(
-                                            req,
-                                            &notify,
-                                            on_pin_poll,
-                                            &reply_tx,
-                                            &gpio,
-                                            &mut pins,
-                                        )
-                                        .await
-                                        {
-                                            Ok(flow) => match flow {
-                                                ProcessFlow::Continue => {}
-                                                ProcessFlow::Quit => {
-                                                    debug!("[worker thread] quit");
-                                                    return Ok(());
-                                                }
-                                            },
-                                            Err(err) => {
-                                                error!("{err}");
-                                                reply_error(err, &notify, &reply_tx).await;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            Err(err) => {
-                                error!("can't init GPIO: {err}");
-                                return Err(CString::new(err.to_string()).unwrap_or_default());
-                            }
-                        };
-                    });
-
-                    debug!("[worker thread] exit");
-                });
-
-                Ok(hw_gpio {
-                    rx: reply_rx,
-                    tx: req_tx,
-                    on_err,
-                    on_dbg,
-                    on_pin,
-                    on_pin_list,
-                })
+            while let Ok(req) = req_rx.recv() {
+                if let Err(err) =
+                    process_request(req, &notify, on_pin_poll, &reply_tx, &gpio, &mut pins)
+                {
+                    error!("{err}");
+                    reply_error(err, &notify, &reply_tx);
+                }
             }
-            Err(err) => Err(CString::new(err.to_string()).unwrap_or_default()),
-        }
+
+            debug!("[worker thread] exit");
+            Ok(())
+        });
+
+        Ok(hw_gpio {
+            rx: reply_rx,
+            tx: req_tx,
+            on_err,
+            on_dbg,
+            on_pin,
+            on_pin_list,
+        })
     }
 
     pub fn send(&self, value: HwGpioRequest) -> bool {
-        if let Err(err) = self.tx.try_send(value) {
+        if let Err(err) = self.tx.send(value) {
             self.on_err
                 .exec(format!("[owner] send error: {err}").as_str());
 
@@ -145,45 +98,6 @@ impl hw_gpio {
             true
         }
     }
-}
-
-impl Drop for hw_gpio {
-    fn drop(&mut self) {
-        debug!("exit");
-        if let Err(err) = self.tx.blocking_send(HwGpioRequest::Quit) {
-            error!("{err}");
-        }
-    }
-}
-
-pub enum HwGpioRequest {
-    Quit,
-    SetOutput(u8),
-    SetInput(u8),
-    ResetPin(u8),
-    Read(u8),
-    Write(u8, bool),
-    Toggle(u8),
-    SetPwmFreq(u8, f64, f64),
-    SetPwm(u8, f64, f64),
-    ClearPwm(u8),
-    SetBias(u8, gpio::Bias),
-    SetInterrupt(u8, gpio::Trigger, Option<Duration>),
-    ClearInterrupt(u8),
-    ListPins,
-}
-
-#[derive(Clone)]
-pub enum HwGpioReply {
-    PinLevel(u8, bool),
-    Error(CString),
-    Debug(CString),
-    Pins(Vec<u8>),
-}
-
-pub enum ProcessFlow {
-    Continue,
-    Quit,
 }
 
 enum GpioPin {
@@ -232,18 +146,15 @@ impl hw_gpio_poll_cb {
     }
 }
 
-async fn process_request(
+fn process_request(
     req: HwGpioRequest,
     notify: &hw_notify_cb,
     poll_notify: hw_gpio_poll_cb,
-    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
+    reply_tx: &std::sync::mpsc::Sender<HwGpioReply>,
     gpio: &Gpio,
     pins: &mut HashMap<u8, GpioPin>,
-) -> Result<ProcessFlow, String> {
+) -> Result<(), String> {
     match req {
-        HwGpioRequest::Quit => {
-            return Ok(ProcessFlow::Quit);
-        }
         HwGpioRequest::Read(pin) => {
             let level = match pins.get(&pin) {
                 Some(x) => match x {
@@ -253,7 +164,7 @@ async fn process_request(
                 None => return Err(format!("pin [{pin}] not configured")),
             };
 
-            reply(HwGpioReply::PinLevel(pin, level), notify, reply_tx).await;
+            reply(HwGpioReply::PinLevel(pin, level), notify, reply_tx);
         }
         HwGpioRequest::Write(pin, state) => {
             let io_pin = get_output_pin(pin, pins)?;
@@ -283,13 +194,28 @@ async fn process_request(
             get_output_pin(pin, pins).and_then(|pin| pin.clear_pwm().map_err(|e| e.to_string()))?;
         }
         HwGpioRequest::SetBias(pin, bias) => {
-            get_input_pin(pin, pins).and_then(|pin| Ok(pin.set_bias(bias)))?;
+            get_input_pin(pin, pins).and_then(|pin| {
+                Ok(pin.set_bias(match bias {
+                    hw_gpio_bias::None => gpio::Bias::Off,
+                    hw_gpio_bias::PullUp => gpio::Bias::PullUp,
+                    hw_gpio_bias::PullDown => gpio::Bias::PullDown,
+                }))
+            })?;
         }
         HwGpioRequest::SetInterrupt(pin, trigger, debounce) => {
             get_input_pin(pin, pins).and_then(|x| {
-                x.set_async_interrupt(trigger, debounce, move |ev| {
-                    poll_notify.exec(pin, ev.trigger);
-                })
+                x.set_async_interrupt(
+                    match trigger {
+                        hw_gpio_trigger::None => gpio::Trigger::Disabled,
+                        hw_gpio_trigger::RisingEdge => gpio::Trigger::RisingEdge,
+                        hw_gpio_trigger::FallingEdge => gpio::Trigger::FallingEdge,
+                        hw_gpio_trigger::Both => gpio::Trigger::Both,
+                    },
+                    debounce,
+                    move |ev| {
+                        poll_notify.exec(pin, ev.trigger);
+                    },
+                )
                 .map_err(|e| e.to_string())
             })?;
         }
@@ -304,7 +230,7 @@ async fn process_request(
                         GpioPin::Input(_) => {
                             pins.remove(&pin);
                         }
-                        _ => return Ok(ProcessFlow::Continue),
+                        _ => return Ok(()),
                     },
                     None => {}
                 }
@@ -320,7 +246,7 @@ async fn process_request(
                         GpioPin::Output(_) => {
                             pins.remove(&pin);
                         }
-                        _ => return Ok(ProcessFlow::Continue),
+                        _ => return Ok(()),
                     },
                     None => {}
                 }
@@ -341,46 +267,40 @@ async fn process_request(
         }
         HwGpioRequest::ListPins => {
             let keys = pins.keys().into_iter().map(|k| *k).collect::<Vec<_>>();
-            reply(HwGpioReply::Pins(keys), &notify, reply_tx).await;
+            reply(HwGpioReply::Pins(keys), &notify, reply_tx);
         }
     };
 
-    Ok(ProcessFlow::Continue)
+    Ok(())
 }
 
-async fn reply(
-    msg: HwGpioReply,
-    notify: &hw_notify_cb,
-    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
-) {
-    match reply_tx.send(msg).await {
+fn reply(msg: HwGpioReply, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<HwGpioReply>) {
+    match reply_tx.send(msg) {
         Ok(_) => notify.notify(),
         Err(err) => error!("{err}"),
     }
 }
 
-async fn reply_error(
+fn reply_error(
     msg: String,
     notify: &hw_notify_cb,
-    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
+    reply_tx: &std::sync::mpsc::Sender<HwGpioReply>,
 ) {
     reply(
         HwGpioReply::Error(CString::new(msg).unwrap_or_default()),
         notify,
         reply_tx,
     )
-    .await;
 }
 
-async fn reply_debug(
+fn reply_debug(
     msg: String,
     notify: &hw_notify_cb,
-    reply_tx: &tokio::sync::mpsc::Sender<HwGpioReply>,
+    reply_tx: &std::sync::mpsc::Sender<HwGpioReply>,
 ) {
     reply(
         HwGpioReply::Debug(CString::new(msg).unwrap_or_default()),
         notify,
         reply_tx,
     )
-    .await;
 }

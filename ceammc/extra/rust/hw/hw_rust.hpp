@@ -148,8 +148,6 @@ enum class ceammc_hw_spi_cs {
 /// gamepad opaque type
 struct ceammc_hw_gamepad;
 
-struct ceammc_hw_gpio;
-
 /// gpio opaque type
 struct ceammc_hw_gpio;
 

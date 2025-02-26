@@ -5,17 +5,44 @@
 use crate::{hw_msg_cb, hw_notify_cb};
 use log::{debug, error};
 use std::{
-    ffi::{c_int, c_void},
-    ptr::null_mut, time::Duration,
+    ffi::{c_int, c_void, CString},
+    ptr::null_mut,
+    time::Duration,
 };
 
-#[cfg(not(target_os="linux"))]
-pub struct hw_gpio;
+#[derive(Clone)]
+pub enum HwGpioReply {
+    PinLevel(u8, bool),
+    Error(CString),
+    Debug(CString),
+    Pins(Vec<u8>),
+}
 
-#[cfg(target_os="linux")]
-use gpio_impl::{hw_gpio, HwGpioReply, HwGpioRequest};
-#[cfg(target_os="linux")]
-use rppal::gpio;
+pub enum HwGpioRequest {
+    SetOutput(u8),
+    SetInput(u8),
+    ResetPin(u8),
+    Read(u8),
+    Write(u8, bool),
+    Toggle(u8),
+    SetPwmFreq(u8, f64, f64),
+    SetPwm(u8, f64, f64),
+    ClearPwm(u8),
+    SetBias(u8, hw_gpio_bias),
+    SetInterrupt(u8, hw_gpio_trigger, Option<Duration>),
+    ClearInterrupt(u8),
+    ListPins,
+}
+
+/// gpio opaque type
+pub struct hw_gpio {
+    rx: std::sync::mpsc::Receiver<HwGpioReply>,
+    tx: std::sync::mpsc::Sender<HwGpioRequest>,
+    pub on_err: hw_msg_cb,
+    pub on_dbg: hw_msg_cb,
+    on_pin: hw_gpio_pin_cb,
+    on_pin_list: hw_gpio_pin_list_cb,
+}
 
 #[repr(C)]
 /// pin value callback
@@ -62,21 +89,6 @@ pub enum hw_gpio_trigger {
     FallingEdge,
     Both,
 }
- 
-macro_rules! gpio_check {
-    ($res:expr, $code:block) => {
-        return_not_rpi!($res);
-
-        #[cfg(target_os = "linux")]
-        $code
-    };
-    ($code:block) => {
-        return_not_rpi!(false);
-
-        #[cfg(target_os = "linux")]
-        return $code;
-    };
-}
 
 #[cfg(target_os = "linux")]
 mod gpio_impl;
@@ -97,7 +109,7 @@ pub extern "C" fn ceammc_hw_gpio_new(
     on_pin_list: hw_gpio_pin_list_cb,
     on_pin_poll: hw_gpio_poll_cb,
 ) -> *mut hw_gpio {
-    gpio_check!(null_mut(), {
+    rpi_check!(null_mut(), {
         match hw_gpio::new(on_err, on_dbg, notify, on_pin, on_pin_list, on_pin_poll) {
             Ok(gpio) => return Box::into_raw(Box::new(gpio)),
             Err(err) => {
@@ -112,7 +124,7 @@ pub extern "C" fn ceammc_hw_gpio_new(
 /// @param gpio - pointer to gpio struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_free(gpio: *mut hw_gpio) {
-    gpio_check!((), {
+    rpi_check!((), {
         if !gpio.is_null() {
             drop(unsafe { Box::from_raw(gpio) })
         }
@@ -123,7 +135,7 @@ pub extern "C" fn ceammc_hw_gpio_free(gpio: *mut hw_gpio) {
 /// @param gp - pointer to gpio struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
-    gpio_check!((), {
+    rpi_check!((), {
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return;
@@ -157,7 +169,7 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
 /// @param level - pin level (=0: low, >0: high)
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: bool) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             error!("NULL gpio pointer");
             return false;
@@ -174,7 +186,7 @@ pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: boo
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_read_pin(gp: *mut hw_gpio, pin: u8) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -191,7 +203,7 @@ pub extern "C" fn ceammc_hw_gpio_read_pin(gp: *mut hw_gpio, pin: u8) -> bool {
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -214,7 +226,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(
     freq: f64,
     duty_cycle: f64,
 ) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -237,7 +249,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm(
     period: f64,
     width: f64,
 ) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -253,7 +265,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm(
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_clear_pwm(gp: *mut hw_gpio, pin: u8) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -269,7 +281,7 @@ pub extern "C" fn ceammc_hw_gpio_clear_pwm(gp: *mut hw_gpio, pin: u8) -> bool {
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_reset_pin(gp: *mut hw_gpio, pin: u8) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -286,7 +298,7 @@ pub extern "C" fn ceammc_hw_gpio_reset_pin(gp: *mut hw_gpio, pin: u8) -> bool {
 /// @param mode - pin mode
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_set_mode(gp: *mut hw_gpio, pin: u8, mode: hw_gpio_mode) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -304,7 +316,7 @@ pub extern "C" fn ceammc_hw_gpio_set_mode(gp: *mut hw_gpio, pin: u8, mode: hw_gp
 /// @param gpio - pointer to gpio struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_list_pins(gp: *mut hw_gpio) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -320,21 +332,14 @@ pub extern "C" fn ceammc_hw_gpio_list_pins(gp: *mut hw_gpio) -> bool {
 /// @param pin - pin BCM number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_set_bias(gp: *mut hw_gpio, pin: u8, bias: hw_gpio_bias) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
         }
 
         let gp = unsafe { &mut *gp };
-        gp.send(HwGpioRequest::SetBias(
-            pin,
-            match bias {
-                hw_gpio_bias::None => gpio::Bias::Off,
-                hw_gpio_bias::PullUp => gpio::Bias::PullUp,
-                hw_gpio_bias::PullDown => gpio::Bias::PullDown,
-            },
-        ))
+        gp.send(HwGpioRequest::SetBias(pin, bias))
     });
 }
 
@@ -350,7 +355,7 @@ pub extern "C" fn ceammc_hw_gpio_set_poll(
     trigger: hw_gpio_trigger,
     debounce_ms: f64,
 ) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
@@ -359,12 +364,7 @@ pub extern "C" fn ceammc_hw_gpio_set_poll(
         let gp = unsafe { &mut *gp };
         gp.send(HwGpioRequest::SetInterrupt(
             pin,
-            match trigger {
-                hw_gpio_trigger::None => gpio::Trigger::Disabled,
-                hw_gpio_trigger::RisingEdge => gpio::Trigger::RisingEdge,
-                hw_gpio_trigger::FallingEdge => gpio::Trigger::FallingEdge,
-                hw_gpio_trigger::Both => gpio::Trigger::Both,
-            },
+            trigger,
             if debounce_ms <= 0.0 {
                 None
             } else {
@@ -379,7 +379,7 @@ pub extern "C" fn ceammc_hw_gpio_set_poll(
 /// @param pin - pin BCM number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_clear_poll(gp: *mut hw_gpio, pin: u8) -> bool {
-    gpio_check!({
+    rpi_check!({
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
