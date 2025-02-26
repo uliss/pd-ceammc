@@ -1,5 +1,6 @@
 #![cfg_attr(not(target_os = "linux"), allow(unused_imports))]
 #![cfg_attr(not(target_os = "linux"), allow(unused_variables))]
+#![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
 use crate::{hw_msg_cb, hw_notify_cb};
