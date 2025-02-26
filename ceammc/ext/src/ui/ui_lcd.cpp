@@ -32,7 +32,20 @@ constexpr int DEF_ROWS = 8;
 constexpr int MAX_ROWS = 128;
 constexpr int MIN_ROWS = 2;
 
+#define CHECK_UI_ARGS(chk, lv, method)                      \
+    {                                                       \
+        if (!chk.check_pd_obj(lv, asPdObject()))            \
+            return chk.usage(asPdObject(), gensym(method)); \
+    }
+
 namespace ceammc {
+
+CEAMMC_DEFINE_HASH(col)
+CEAMMC_DEFINE_HASH(cursor)
+CEAMMC_DEFINE_HASH(list)
+CEAMMC_DEFINE_HASH(matrix)
+CEAMMC_DEFINE_HASH(pixel)
+CEAMMC_DEFINE_HASH(row)
 
 UILcd::UILcd()
     : prop_color_active(rgba_blue)
@@ -95,67 +108,134 @@ void UILcd::paint()
     sys_vgui("\n");
 }
 
-void UILcd::m_set(const AtomListView& lv)
+void ceammc::UILcd::setCursor(const AtomListView& lv)
 {
-    if (lv.size() < 3) {
-        UI_ERR << "usage: set [pixel|col|row|cursor]? ARGS...";
+    static const args::ArgChecker chk("X:i Y:i");
+    CHECK_UI_ARGS(chk, lv, "cursor");
+
+    cursor_.x = lv.intAt(0, 0);
+    cursor_.y = lv.intAt(1, 0);
+}
+
+void UILcd::setList(const AtomListView& lv)
+{
+    // set list 1 0 0 1
+    auto N = pixels_.size();
+    for (size_t i = 0; i < std::min(lv.size(), N); i++) {
+        auto row = i / prop_ncols;
+        auto col = i % prop_ncols;
+        auto idx = pixelIndex(col, row);
+        if (idx >= N)
+            break;
+
+        pixels_.set(idx, lv.boolAt(i, false));
+    }
+}
+
+void ceammc::UILcd::setPixel(const AtomListView& lv)
+{
+    // set pixel X Y 1
+    static const args::ArgChecker chk("X:i Y:i VAL:B");
+    CHECK_UI_ARGS(chk, lv, "pixel");
+
+    pixels_.set(pixelIndex(lv.intAt(0, 0), lv.intAt(1, 0)), lv.boolAt(2, false));
+}
+
+void UILcd::setCol(const AtomListView& lv)
+{
+    // set col IDX 0 1 1 0 1
+    static const args::ArgChecker chk("IDX:i>=0 DATA:B+");
+    CHECK_UI_ARGS(chk, lv, "col");
+
+    const auto col = lv.intAt(0, 0);
+    const auto data = lv.subView(1);
+
+    if (col >= prop_ncols) {
+        UI_ERR << fmt::format("invalid column value, expected in [0,{}) range, got: ", prop_ncols, col);
         return;
     }
 
-    auto sel = crc32_hash(lv.symbolAt(0, &s_));
+    for (int i = 0; i < std::min<int>(data.size(), prop_ncols); i++) {
+        auto idx = pixelIndex(col, i);
+        if (idx >= pixels_.size())
+            break;
 
-    switch (sel) {
-    case "cursor"_hash:
-        cursor_.x = lv.intAt(1, 0);
-        cursor_.y = lv.intAt(2, 0);
+        pixels_.set(idx, data.boolAt(i, false));
+    }
+}
+
+void UILcd::setRow(const AtomListView& lv)
+{
+    // set row IDX 0 1 1 0 1
+    static const args::ArgChecker chk("IDX:i>=0 DATA:B+");
+    CHECK_UI_ARGS(chk, lv, "row");
+
+    const auto row = lv.intAt(0, 0);
+    const auto data = lv.subView(1);
+
+    if (row >= prop_nrows) {
+        UI_ERR << fmt::format("invalid row value, expected in [0,{}) range, got: ", prop_nrows, row);
+        return;
+    }
+
+    for (int i = 0; i < std::min<int>(data.size(), prop_nrows); i++) {
+        auto idx = pixelIndex(i, row);
+        if (idx >= pixels_.size())
+            break;
+
+        pixels_.set(idx, data.boolAt(i, false));
+    }
+}
+
+void UILcd::setMatrix(const AtomListView& lv)
+{
+    // set matrix NROWS NCOLS 0 1 1 0 1
+    static const args::ArgChecker chk("NROWS:i>=0 NCOLS:i>=0 DATA:B+");
+    CHECK_UI_ARGS(chk, lv, "matrix");
+
+    auto nrows = lv.intAt(0, 0);
+    auto ncols = lv.intAt(1, 0);
+    auto data = lv.subView(2);
+
+    for (int r = 0; r < std::min(nrows, prop_nrows); r++) {
+        for (int c = 0; c < std::min(ncols, prop_ncols); c++) {
+            auto idx = r * ncols + c;
+            if (idx >= data.size())
+                continue;
+
+            auto val = data.boolAt(idx, false);
+            pixels_.set(pixelIndex(c, r), val);
+        }
+    }
+}
+
+void UILcd::m_set(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("s=list|pixel|col|row|cursor|matrix DATA:a*");
+    CHECK_UI_ARGS(chk, lv, "set");
+
+    auto sel = lv.symbolAt(0, &s_);
+    auto data = lv.subView(1);
+
+    switch (crc32_hash(sel)) {
+    case hash_cursor:
+        setCursor(data);
         break;
-    case "pixel"_hash:
-        pixels_.set(pixelIndex(lv.intAt(1, 0), lv.intAt(2, 0)), lv.boolAt(3, false));
+    case hash_pixel:
+        setPixel(data);
         break;
-    case "row"_hash: {
-        // set row IDX 0 1 1 0 1
-        const auto ROW_IDX = lv.intAt(1, -1);
-        if (ROW_IDX < 0 || ROW_IDX >= prop_nrows) {
-            UI_ERR << fmt::format("invalid row value, expected in [0,{}) range, got: ", prop_nrows, ROW_IDX);
-            return;
-        }
-
-        for (int i = 0; i < std::min<int>(lv.size() - 2, prop_ncols); i++) {
-            auto idx = pixelIndex(i, ROW_IDX);
-            if (idx >= pixels_.size())
-                break;
-
-            pixels_.set(idx, lv.boolAt(i + 2, false));
-        }
-    } break;
-    case "col"_hash: {
-        // set col IDX 0 1 1 0 1
-        const auto COL_IDX = lv.intAt(1, -1);
-        if (COL_IDX < 0 || COL_IDX >= prop_ncols) {
-            UI_ERR << fmt::format("invalid column value, expected in [0,{}) range, got: ", prop_ncols, COL_IDX);
-            return;
-        }
-
-        for (int i = 0; i < std::min<int>(lv.size() - 2, prop_nrows); i++) {
-            auto idx = pixelIndex(COL_IDX, i);
-            if (idx >= pixels_.size())
-                break;
-
-            pixels_.set(idx, lv.boolAt(i + 2, false));
-        }
-    } break;
-    default: {
-        auto N = pixels_.size();
-        for (size_t i = 0; i < std::min(lv.size(), N); i++) {
-            auto row = i / prop_ncols;
-            auto col = i % prop_ncols;
-            auto idx = pixelIndex(col, row);
-            if (idx >= N)
-                break;
-
-            pixels_.set(idx, lv.boolAt(i, false));
-        }
-    } break;
+    case hash_row:
+        setRow(data);
+        break;
+    case hash_col:
+        setCol(data);
+        break;
+    case hash_matrix:
+        setMatrix(data);
+        break;
+    default:
+        setList(data);
+        break;
     }
 
     redrawBGLayer();

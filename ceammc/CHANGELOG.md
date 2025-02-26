@@ -4,8 +4,9 @@
 ### Added:
 - new objects:
   - hw.gpio - Raspberry Pi GPIO support
+  - bitmap - bitmap image
 - new methods:
-  - matrix method added to ui.matrix
+  - [set matrix( set method added to ui.matrix
 
 ## [0.9.8]
 ### Added:
