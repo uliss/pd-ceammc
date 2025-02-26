@@ -98,6 +98,43 @@ impl hw_gpio {
             true
         }
     }
+
+    pub fn send_ptr(gp: *mut hw_gpio, req: HwGpioRequest) -> bool {
+        if gp.is_null() {
+            log::error!("NULL gpio pointer");
+            return false;
+        }
+
+        let gp = unsafe { &mut *gp };
+        gp.send(req)
+    }
+
+    pub fn process_ptr(gp: *mut hw_gpio) {
+        if gp.is_null() {
+            log::error!("NULL gpio pointer");
+            return;
+        }
+
+        let gp = unsafe { &mut *gp };
+
+        while let Ok(reply) = gp.try_recv() {
+            match reply {
+                HwGpioReply::PinLevel(pin, level) => {
+                    gp.exec_pin(pin, level);
+                    debug!("pin [{pin}] = {level}");
+                }
+                HwGpioReply::Error(msg) => {
+                    gp.on_err.exec_raw(msg.as_ptr());
+                }
+                HwGpioReply::Debug(msg) => {
+                    gp.on_dbg.exec_raw(msg.as_ptr());
+                }
+                HwGpioReply::Pins(items) => {
+                    gp.exec_pin_list(&items);
+                }
+            }
+        }
+    }
 }
 
 enum GpioPin {
