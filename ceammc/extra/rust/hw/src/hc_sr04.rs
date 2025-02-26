@@ -95,31 +95,15 @@ pub extern "C" fn ceammc_hw_gpio_sr04_free(sr04: *mut hw_gpio_sr04) {
 /// @param sr04 - pointer to SR04 struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_sr04_measure(sr04: *const hw_gpio_sr04) -> bool {
-    rpi_check!({
-        if sr04.is_null() {
-            error!("NULL dht pointer");
-            return false;
-        }
-
-        let sr04 = unsafe { &*sr04 };
-        sr04.send(Request::OneShot)
-    });
+    rpi_check!({ hw_gpio_sr04::send_ptr(sr04, Request::OneShot) });
 }
 
-/// polling in cycle
+/// set polling in cycle
 /// @param sr04 - pointer to SR04 struct
 /// @param state - poll state
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_sr04_poll(sr04: *const hw_gpio_sr04, state: bool) -> bool {
-    rpi_check!({
-        if sr04.is_null() {
-            error!("NULL dht pointer");
-            return false;
-        }
-
-        let sr04 = unsafe { &*sr04 };
-        sr04.send(Request::Poll(state))
-    });
+    rpi_check!({ hw_gpio_sr04::send_ptr(sr04, Request::Poll(state)) });
 }
 
 /// set polling interval
@@ -130,29 +114,12 @@ pub extern "C" fn ceammc_hw_gpio_sr04_set_poll_interval(
     sr04: *const hw_gpio_sr04,
     poll_interval: u16,
 ) -> bool {
-    rpi_check!({
-        if sr04.is_null() {
-            error!("NULL dht pointer");
-            return false;
-        }
-
-        let sr04 = unsafe { &*sr04 };
-        sr04.send(Request::SetPollTime(poll_interval))
-    });
+    rpi_check!({ hw_gpio_sr04::send_ptr(sr04, Request::SetPollTime(poll_interval)) });
 }
 
 /// check measure data
 /// @param sr04 - pointer to SR04 struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_sr04_process(sr04: *const hw_gpio_sr04) -> bool {
-    rpi_check!({
-        if sr04.is_null() {
-            error!("NULL sr04 pointer");
-            return false;
-        }
-
-        let sr04 = unsafe { &*sr04 };
-        sr04.check_result();
-        true
-    });
+    rpi_check!({ hw_gpio_sr04::check_result_ptr(sr04) });
 }

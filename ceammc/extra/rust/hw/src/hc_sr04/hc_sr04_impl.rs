@@ -1,9 +1,19 @@
-use std::{ffi::CString, sync::{mpsc::TryRecvError, Arc, Condvar, Mutex}, time::Duration};
+use std::{
+    ffi::CString,
+    sync::{mpsc::TryRecvError, Arc, Condvar, Mutex},
+    time::Duration,
+};
 
 use log::{debug, error};
 use rppal::gpio::{Event, Trigger};
 
-use crate::{hc_sr04::{Reply, Request, HW_SR04_DEF_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL, HW_SR04_MIN_POLL_INTERVAL}, hw_msg_cb, hw_notify_cb};
+use crate::{
+    hc_sr04::{
+        Reply, Request, HW_SR04_DEF_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL,
+        HW_SR04_MIN_POLL_INTERVAL,
+    },
+    hw_msg_cb, hw_notify_cb,
+};
 
 use super::{hw_gpio_sr04, hw_sr04_cb};
 
@@ -211,6 +221,16 @@ impl hw_gpio_sr04 {
         }
     }
 
+    pub fn send_ptr(sr04: *const hw_gpio_sr04, req: Request) -> bool {
+        if sr04.is_null() {
+            error!("NULL sr04 pointer");
+            return false;
+        }
+
+        let sr04 = unsafe { &*sr04 };
+        sr04.send(req)
+    }
+
     pub fn check_result(&self) {
         match self.result.0.try_lock() {
             Ok(res) => match res.as_ref() {
@@ -227,5 +247,16 @@ impl hw_gpio_sr04 {
                 self.on_err.exec(err.to_string().as_str());
             }
         }
+    }
+
+    pub fn check_result_ptr(sr04: *const hw_gpio_sr04) -> bool {
+        if sr04.is_null() {
+            error!("NULL sr04 pointer");
+            return false;
+        }
+
+        let sr04 = unsafe { &*sr04 };
+        sr04.check_result();
+        true
     }
 }
