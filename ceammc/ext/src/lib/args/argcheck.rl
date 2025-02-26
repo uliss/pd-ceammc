@@ -802,7 +802,8 @@ public:
         for (auto& c: *this)
             fmt::format_to(bs, "{}{} ", c.argName(), c.helpRepeats());
 
-        str.push_back('\n');
+        *bs = '\n';
+
         for (auto& c: *this) {
             fmt::format_to(bs, " - {}\n", c.argInfo());
         }
