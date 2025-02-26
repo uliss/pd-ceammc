@@ -230,6 +230,20 @@ void BaseBitmap::m_vshift(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_vshift(bm_, lv.intAt(0, 0));
 }
 
+void BaseBitmap::m_mirror(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("AXIS:s=x|y");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto axis = Atom(lv.symbolAt(0, &s_));
+    if (axis == "x")
+        ceammc_bitmap_invert_axis(bm_, ceammc_core_bitmap_axis::X);
+    else if (axis == "y")
+        ceammc_bitmap_invert_axis(bm_, ceammc_core_bitmap_axis::Y);
+}
+
 void BaseBitmap::m_get(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("s=list|matrix|submatrix ARGS:a*");
@@ -451,6 +465,7 @@ void setup_base_bitmap()
     obj.addMethod("hshift", &BaseBitmap::m_hshift);
     obj.addMethod("invert", &BaseBitmap::m_invert);
     obj.addMethod("line", &BaseBitmap::m_line);
+    obj.addMethod("mirror", &BaseBitmap::m_mirror);
     obj.addMethod("pixel", &BaseBitmap::m_pixel);
     obj.addMethod("rect", &BaseBitmap::m_rect);
     obj.addMethod("row", &BaseBitmap::m_row);

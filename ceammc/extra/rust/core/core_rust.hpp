@@ -7,6 +7,11 @@
 #include <cstddef>
 
 
+enum class ceammc_core_bitmap_axis {
+    X,
+    Y,
+};
+
 enum class ceammc_core_bitmap_output_format {
     LIST,
     MATRIX,
@@ -333,6 +338,8 @@ bool ceammc_bitmap_get_submatrix(ceammc_core_async_bitmap *bitmap,
 bool ceammc_bitmap_hshift(ceammc_core_async_bitmap *bitmap, int16_t dx);
 
 bool ceammc_bitmap_invert(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_invert_axis(ceammc_core_async_bitmap *bitmap, ceammc_core_bitmap_axis axis);
 
 /**
  * create bitmap struct and starts separate worker thread(!)

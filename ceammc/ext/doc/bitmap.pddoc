@@ -160,6 +160,9 @@
             <!-- stroke_width -->
             <method name="stroke_width">set stroke width 
             <param name="W" type="int" minvalue="0" required="true">new width</param></method>
+            <!-- mirror -->
+            <method name="mirror">mirror bitmap
+            <param name="AXIS" type="symbol" enum="x y" required="true">mirror axis</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -172,7 +175,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[clear #a(            [rect 1 2 10 5 #f(
+[clear #a(            [rect 1 2 10 5 #f(  [mirror x #b1(
 
   [fill 1 #b(         [clear, ellipse 1 2 10 5 #g(
 
@@ -209,7 +212,7 @@
 [X f->x] [X g->x] [X h->x] [X i->x] [X j->x] [X k->x]
 [X l->x] [X m->x] [X n->x] [X o->x] [X p->x]
 [X r->x] [X s->x] [X t->x] [X u->x] [X v->x]
-[X a1->x]
+[X a1->x] [X b1->x]
 ]]>
             </pdascii>
         </example>

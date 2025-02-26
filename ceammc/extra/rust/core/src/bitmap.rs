@@ -18,7 +18,7 @@ use embedded_graphics::{
     Pixel,
 };
 use log::{debug, error};
-use ndarray::{arr2, Array2};
+use ndarray::{arr2, Array2, Axis};
 
 use crate::{core_notify, core_on_msg, cstr_to_string, data_to_vec};
 
@@ -49,6 +49,7 @@ pub enum Request {
     GetSubMatrix(u16, u16, u16, u16),
     SetData(Vec<u8>),
     SetMatrix(Vec<u8>, u16, u16, u16, u16),
+    InvertAxis(core_bitmap_axis),
 }
 
 #[derive(Debug)]
@@ -69,6 +70,13 @@ pub struct core_async_bitmap {
 pub enum core_bitmap_output_format {
     List,
     Matrix,
+}
+
+#[derive(Debug)]
+#[repr(C)]
+pub enum core_bitmap_axis {
+    X,
+    Y,
 }
 
 impl core_async_bitmap {
@@ -239,11 +247,6 @@ impl BitmapDisplay {
 
         let row = row as usize;
         let col = col as usize;
-
-        // if nrows + row >= self.buf.dim().0 || ncols + col >= self.buf.dim().1 {
-        //     error!("invalid matrix position: ({row}, {col})");
-        //     return;
-        // }
 
         let new_rows = self.buf.dim().0.min(nrows + row);
         let new_cols = self.buf.dim().1.min(ncols + col);
@@ -547,6 +550,12 @@ impl core_async_bitmap {
                     Request::SetData(data) => display.set_data(data),
                     Request::SetMatrix(data, nrows, ncols, row, col) => {
                         display.set_matrix(data, nrows, ncols, row, col);
+                    }
+                    Request::InvertAxis(axis) => {
+                        display.buf.invert_axis(Axis(match axis {
+                            core_bitmap_axis::X => 0,
+                            core_bitmap_axis::Y => 1,
+                        }));
                     }
                 }
             }
@@ -891,6 +900,14 @@ pub extern "C" fn ceammc_bitmap_set_stroke_width(
     width: u8,
 ) -> bool {
     core_async_bitmap::send_request(bitmap, Request::SetStrokeWidth(width))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_invert_axis(
+    bitmap: *mut core_async_bitmap,
+    axis: core_bitmap_axis,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::InvertAxis(axis))
 }
 
 #[cfg(test)]
