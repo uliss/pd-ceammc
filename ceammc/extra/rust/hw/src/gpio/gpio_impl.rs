@@ -111,10 +111,10 @@ fn get_output_pin(
 ) -> Result<&mut gpio::OutputPin, String> {
     let x = pins
         .get_mut(&pin)
-        .ok_or(format!("pin not configured for I/O: [{pin}]"))?;
+        .ok_or(format!("pin is not configured for I/O: [{pin}]"))?;
 
     match x {
-        GpioPin::Input(_) => Err(format!("pin [{pin}] not configured for output")),
+        GpioPin::Input(_) => Err(format!("pin [{pin}] is not configured for output")),
         GpioPin::Output(output_pin) => Ok(output_pin),
     }
 }
@@ -122,11 +122,11 @@ fn get_output_pin(
 fn get_input_pin(pin: u8, pins: &mut HashMap<u8, GpioPin>) -> Result<&mut gpio::InputPin, String> {
     let x = pins
         .get_mut(&pin)
-        .ok_or(format!("pin not configured for I/O: [{pin}]"))?;
+        .ok_or(format!("pin is not configured for I/O: [{pin}]"))?;
 
     match x {
         GpioPin::Input(input_pin) => Ok(input_pin),
-        GpioPin::Output(_) => Err(format!("pin [{pin}] not configured for input")),
+        GpioPin::Output(_) => Err(format!("pin [{pin}] is not configured for input")),
     }
 }
 
@@ -161,7 +161,7 @@ fn process_request(
                     GpioPin::Input(input_pin) => input_pin.is_high(),
                     GpioPin::Output(output_pin) => output_pin.is_set_high(),
                 },
-                None => return Err(format!("pin [{pin}] not configured")),
+                None => return Err(format!("pin [{pin}] is not configured")),
             };
 
             reply(HwGpioReply::PinLevel(pin, level), notify, reply_tx);
