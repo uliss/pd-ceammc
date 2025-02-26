@@ -124,9 +124,9 @@
 
 [write hex 355 #d(        [write bytes -1 255 0 255 #g(
 
-[write str DSP 0 left #j(      [F min=0 max=15]
-                               |
-[write str DSP 255 center #k(  [intensity $1 #m(     [msg write #p]
+[write str DSP 0 left #j(      [F min=0 max=15]      [route matrix #p0]
+                               |                     |
+[write str DSP 255 center #k(  [intensity $1 #m(     [msg write matrix #p]
 
 [write str DSP 1 right #l(     /*matrix only*/
 
@@ -139,8 +139,8 @@
 
 
 [hw.spi.max7219 4 #x]
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p] [X p->x] [X r->x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
+[X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p0] [X p->x] [X r->x]
 [X q->x]
 [hw.spi.max7219-spi]
 ]]>
