@@ -16,7 +16,6 @@ use crate::{hw_msg_cb, hw_notify_cb};
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
-/// error callback
 pub struct hw_dht11_cb {
     /// pointer to user data (can be NULL)
     user: *mut c_void,
