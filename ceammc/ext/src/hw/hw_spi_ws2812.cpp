@@ -47,4 +47,5 @@ void HwSpiWs2812::m_write(t_symbol* s, const AtomListView& lv)
 void setup_hw_spi_ws2812()
 {
     ObjectFactory<HwSpiWs2812> obj("hw.spi.ws2812");
+    obj.addMethod("write", &HwSpiWs2812::m_write);
 }
