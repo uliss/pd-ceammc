@@ -33,7 +33,16 @@ bool HwRpiPwm::notify(int code)
     return true;
 }
 
-void HwRpiPwm::m_set_freq(t_symbol* s, const AtomListView& lv)
+void HwRpiPwm::m_enable(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("STATE:B");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_rpi_pwm_enable(pwm_, lv.boolAt(0, true));
+}
+
+void HwRpiPwm::m_freq(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("FREQ:f>=0 DUTY:f?");
     if (!chk.check(lv, this))
@@ -45,5 +54,5 @@ void HwRpiPwm::m_set_freq(t_symbol* s, const AtomListView& lv)
 void setup_hw_rpi_pwm()
 {
     ObjectFactory<HwRpiPwm> obj("hw.rpi.pwm");
-    obj.addMethod("set_freq", &HwRpiPwm::m_set_freq);
+    obj.addMethod("freq", &HwRpiPwm::m_freq);
 }
