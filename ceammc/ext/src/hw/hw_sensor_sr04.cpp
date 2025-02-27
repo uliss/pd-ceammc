@@ -2,18 +2,21 @@
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
+constexpr int DEFAULT_TRIG_GPIO_PIN = 17;
+constexpr int DEFAULT_ECHO_GPIO_PIN = 27;
+
 HwSensorSR04::HwSensorSR04(const PdArgs& args)
     : HwSR04Base(args)
 {
     createOutlet();
     createOutlet();
 
-    trigger_pin_ = new IntProperty("@trig_pin", 5, PropValueAccess::INITONLY);
+    trigger_pin_ = new IntProperty("@trig_pin", DEFAULT_TRIG_GPIO_PIN, PropValueAccess::INITONLY);
     trigger_pin_->checkClosedRange(0, 255);
     trigger_pin_->setArgIndex(0);
     addProperty(trigger_pin_);
 
-    echo_pin_ = new IntProperty("@echo_pin", 6, PropValueAccess::INITONLY);
+    echo_pin_ = new IntProperty("@echo_pin", DEFAULT_ECHO_GPIO_PIN, PropValueAccess::INITONLY);
     echo_pin_->checkClosedRange(0, 255);
     echo_pin_->setArgIndex(1);
     addProperty(echo_pin_);
