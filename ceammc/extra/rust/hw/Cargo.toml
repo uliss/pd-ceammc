@@ -26,11 +26,14 @@ cups-sys = { version = "0.1.4", optional = true }
 ndarray = "0.16.1"
 
 [target.'cfg(target_os="linux")'.dependencies]
-rppal = { version = "0.22.1", features = ["hal"]}
+rppal = { version = "0.22.1", features = ["hal"] }
 dht11_gpio = "0.1.0"
 # lcd-lcm1602-i2c = { git = "https://github.com/KuabeM/lcd-lcm1602-i2c.git" }
 lcd-lcm1602-i2c = "0.3.0"
-max7219 ="0.4.2"
+max7219 = "0.4.2"
+ws2812-spi = "0.5.0"
+rgb = "0.8.5"
+smart-leds-trait = "0.3.1"
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }

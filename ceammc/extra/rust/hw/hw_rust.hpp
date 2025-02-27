@@ -163,6 +163,8 @@ struct ceammc_hw_max7219;
 
 struct ceammc_hw_rpi_pwm;
 
+struct ceammc_hw_spi_ws2812;
+
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
     void *user;
@@ -659,6 +661,13 @@ ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
                                          ceammc_hw_msg_cb on_err);
 
 bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
+
+void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *pwm);
+
+ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
+                                               ceammc_hw_spi_cs cs,
+                                               ceammc_hw_notify_cb notify,
+                                               ceammc_hw_msg_cb on_err);
 
 } // extern "C"
 
