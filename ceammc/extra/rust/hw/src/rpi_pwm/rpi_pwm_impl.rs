@@ -24,16 +24,18 @@ impl hw_rpi_pwm {
             }
         };
 
-        let pwm = Pwm::new(channel).map_err(|err| {
-            error!("{err}");
-            CString::new(err.to_string()).unwrap_or_default()
-        })?;
-
         let (tx, rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
-        std::thread::spawn(move || {
+        std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
+
+            let pwm = Pwm::new(channel).map_err(|err| {
+                error!("{err}");
+                CString::new(err.to_string()).unwrap_or_default()
+            })?;
+
+            debug!("init pwm done: {pwm:?}");
 
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
@@ -51,7 +53,7 @@ impl hw_rpi_pwm {
                             pwm.set_frequency(freq, duty)?;
                         }
                         Request::SetPeriod(msec) => {
-                            pwm.set_period(Duration::from_secs_f64(msec * 0.001))?
+                            pwm.set_period(Duration::from_secs_f64(msec.abs() * 0.001))?
                         }
                         Request::SetPolarity(p) => pwm.set_polarity(match p {
                             crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => {
@@ -62,9 +64,20 @@ impl hw_rpi_pwm {
                             }
                         })?,
                         Request::SetPulseWidth(msec) => {
-                            pwm.set_pulse_width(Duration::from_secs_f64(msec * 0.001))?
+                            pwm.set_pulse_width(Duration::from_secs_f64(msec.abs() * 0.001))?
                         }
+                        Request::SetDutyCycle(duty) => pwm.set_duty_cycle(duty)?,
                     }
+
+                    debug!(
+                        "enabled: {}, freq={}Hz, period={}ms, duty={}% pulse_width={}ms polarity={}",
+                        pwm.is_enabled()?,
+                        pwm.frequency()?,
+                        pwm.period()?.as_secs_f32() * 1000.0,
+                        pwm.duty_cycle()? * 100.0,
+                        pwm.pulse_width()?.as_millis(),
+                        pwm.polarity()?
+                    );
 
                     Ok(())
                 };
@@ -80,6 +93,7 @@ impl hw_rpi_pwm {
             }
 
             debug!("thread done");
+            Ok(())
         });
 
         Ok(hw_rpi_pwm {
