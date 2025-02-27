@@ -84,64 +84,72 @@ bool HwGpio::notify(int code)
 
 void HwGpio::m_read(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_read_pin(gpio_, lv.intAt(0, 0));
 }
 
 void HwGpio::m_write(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b VALUE:B", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b VALUE:B");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_write_pin(gpio_, lv.intAt(0, 0), lv.intAt(1, 1));
 }
 
 void HwGpio::m_pull_up(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_set_bias(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_bias::PullUp);
 }
 
 void HwGpio::m_pull_down(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_set_bias(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_bias::PullDown);
 }
 
 void HwGpio::m_start_poll(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b DEBOUNCE:f>=0?", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b DEBOUNCE:f>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_set_poll(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_trigger::Both, lv.floatAt(1, 10));
 }
 
 void HwGpio::m_stop_poll(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_clear_poll(gpio_, lv.intAt(0, 0));
 }
 
 void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_toggle_pin(gpio_, lv.intAt(0, 0));
 }
 
 void HwGpio::m_set_pwm(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b PERIOD:f>=0 WIDTH:f>=0", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b PERIOD:f>=0 WIDTH:f>=0");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_set_pwm(gpio_, lv.intAt(0, 0), lv.floatAt(1, 1), lv.floatAt(2, 50));
 }
@@ -156,16 +164,18 @@ void HwGpio::m_set_pwm_freq(t_symbol* s, const AtomListView& lv)
 
 void HwGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_clear_pwm(gpio_, lv.intAt(0, 0));
 }
 
 void HwGpio::m_input(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Input);
 }
@@ -177,16 +187,18 @@ void HwGpio::m_list_pins(t_symbol* s, const AtomListView& lv)
 
 void HwGpio::m_output(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Output);
 }
 
 void HwGpio::m_reset(t_symbol* s, const AtomListView& lv)
 {
-    if (!args::check_args("PIN:b", lv, this))
-        return;
+    static const args::ArgChecker chk("PIN:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     ceammc_hw_gpio_reset_pin(gpio_, lv.intAt(0, 0));
 }
