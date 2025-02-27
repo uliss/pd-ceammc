@@ -82,7 +82,3 @@ pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(
     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetFreq(freq_hz, duty_cycle)) });
 }
 
-// #[no_mangle]
-// pub extern "C" fn ceammc_hw_gpio_sr04_process(sr04: *const hw_gpio_sr04) -> bool {
-//     rpi_check!({ hw_gpio_sr04::check_result_ptr(sr04) });
-// }
