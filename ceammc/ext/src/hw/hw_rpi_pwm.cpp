@@ -10,6 +10,7 @@ HwRpiPwm::HwRpiPwm(const PdArgs& args)
     chan_ = new IntProperty("@ch", 0);
     chan_->setInitOnly();
     chan_->checkClosedRange(0, 3);
+    chan_->setArgIndex(0);
     addProperty(chan_);
 }
 
