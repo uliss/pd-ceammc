@@ -23,6 +23,7 @@ void setup_hw_sensor_sr04();
 void setup_hw_i2c_lcd1602();
 void setup_hw_spi_max7219();
 void setup_hw_rpi_pwm();
+void setup_hw_spi_ws2812();
 
 void ceammc_hw_setup()
 {
@@ -41,6 +42,7 @@ void ceammc_hw_setup()
     setup_hw_i2c_lcd1602();
     setup_hw_spi_max7219();
     setup_hw_rpi_pwm();
+    setup_hw_spi_ws2812();
 
 #ifdef WITH_LIBUSB_01
     setup_hw_udmx();

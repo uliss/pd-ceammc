@@ -112,6 +112,7 @@ target_sources(ceammc_hw PRIVATE
     hw_display_lcd1602.cpp
     hw_spi_max7219.cpp
     hw_rpi_pwm.cpp
+    hw_spi_ws2812.cpp
 )
 
 
