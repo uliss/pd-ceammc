@@ -78,7 +78,7 @@ pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(
     freq_hz: f64,
     duty_cycle: f64,
 ) -> bool {
-    rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetFreq(freq_hz, duty)) });
+    rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetFreq(freq_hz, duty_cycle)) });
 }
 
 // #[no_mangle]
