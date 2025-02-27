@@ -12,27 +12,25 @@ use super::hw_rpi_pwm;
 
 impl hw_rpi_pwm {
     pub fn new(channel: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
-        // let channel = match channel {
-        //     0 => rppal::pwm::Channel::Pwm0,
-        //     1 => rppal::pwm::Channel::Pwm1,
-        //     2 => rppal::pwm::Channel::Pwm2,
-        //     3 => rppal::pwm::Channel::Pwm3,
-        //     _ => {
-        //         return Err(
-        //             CString::new(format!("invalid channel value: {channel}")).unwrap_or_default()
-        //         );
-        //     }
-        // };
+        let channel = match channel {
+            0 => rppal::pwm::Channel::Pwm0,
+            1 => rppal::pwm::Channel::Pwm1,
+            2 => rppal::pwm::Channel::Pwm2,
+            3 => rppal::pwm::Channel::Pwm3,
+            _ => {
+                return Err(
+                    CString::new(format!("invalid channel value: {channel}")).unwrap_or_default()
+                );
+            }
+        };
 
         let (tx, rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
-        debug!("channel={channel}");
-
         std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
 
-            let pwm = Pwm::with_pwmchip(0, channel).map_err(|err| {
+            let pwm = Pwm::new(channel).map_err(|err| {
                 error!("{err}");
                 CString::new(err.to_string()).unwrap_or_default()
             })?;
