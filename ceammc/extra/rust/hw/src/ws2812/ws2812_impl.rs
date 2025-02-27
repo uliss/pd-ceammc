@@ -2,6 +2,7 @@ use std::ffi::CString;
 
 use log::{debug, error};
 use rgb::RGB8;
+use smart_leds::Brightness;
 use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::Ws2812;
 
@@ -59,6 +60,8 @@ impl hw_spi_ws2812 {
 
             debug!("ws2182 init");
 
+            let mut brightness = 127;
+
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
 
@@ -70,10 +73,15 @@ impl hw_spi_ws2812 {
                         data[1] = [0_u8, 0xFF_u8, 0_u8].into(); // Full GREEN
                         data[2] = [0_u8, 0_u8, 0xFF_u8].into(); // Full BLUE
 
-                        if let Err(err) = ws.write(data) {
+                        if let Err(err) =
+                            ws.write(smart_leds::brightness(data.iter().cloned(), brightness))
+                        {
                             error!("write error: {err}");
                         }
                     }
+                    Request::SetBrightness(b) => {
+                        brightness = b;
+                    },
                 }
             }
 

@@ -18,6 +18,7 @@ mod ws2812_impl;
 #[derive(Debug)]
 pub enum Request {
     ColorRGB(u8, u8, u8),
+    SetBrightness(u8),
 }
 
 #[derive(Debug)]
@@ -68,4 +69,9 @@ pub extern "C" fn ceammc_hw_spi_ws2812_write(
     b: u8,
 ) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::ColorRGB(r, g, b)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_set_brightness(pwm: *const hw_spi_ws2812, b: u8) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetBrightness(b)) });
 }

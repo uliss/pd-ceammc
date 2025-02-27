@@ -1,4 +1,5 @@
 #include "hw_spi_ws2812.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
@@ -39,6 +40,12 @@ bool HwSpiWs2812::notify(int code)
     return true;
 }
 
+void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("BRIGHT:b");
+    ceammc_hw_spi_ws2812_set_brightness(ws_, lv.intAt(0, 0));
+}
+
 void HwSpiWs2812::m_write(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_spi_ws2812_write(ws_, 255, 0, 125);
@@ -48,4 +55,5 @@ void setup_hw_spi_ws2812()
 {
     ObjectFactory<HwSpiWs2812> obj("hw.spi.ws2812");
     obj.addMethod("write", &HwSpiWs2812::m_write);
+    obj.addMethod("brightness", &HwSpiWs2812::m_brightness);
 }

@@ -18,6 +18,7 @@ public:
     void initDone() final;
     bool notify(int code) final;
 
+    void m_brightness(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
 };
 
