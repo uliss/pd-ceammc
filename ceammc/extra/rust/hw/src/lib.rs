@@ -88,3 +88,4 @@ pub mod hc_sr04;
 pub mod lcd1602;
 pub mod i2c;
 pub mod max7219;
+pub mod rpi_pwm;

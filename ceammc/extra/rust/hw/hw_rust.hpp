@@ -161,6 +161,8 @@ struct ceammc_hw_lcd1602;
 
 struct ceammc_hw_max7219;
 
+struct ceammc_hw_rpi_pwm;
+
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
     void *user;
@@ -242,7 +244,6 @@ struct ceammc_hw_msg_cb {
     void (*cb)(void*, const char*);
 };
 
-/// error callback
 struct ceammc_hw_dht11_cb {
     /// pointer to user data (can be NULL)
     void *user;
@@ -648,6 +649,16 @@ int32_t ceammc_hw_print_file(const char *printer,
                              ceammc_hw_msg_cb on_debug);
 
 bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
+
+bool ceammc_hw_rpi_pwm_enable(const ceammc_hw_rpi_pwm *pwm, bool state);
+
+void ceammc_hw_rpi_pwm_free(ceammc_hw_rpi_pwm *pwm);
+
+ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_err);
+
+bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
 
 } // extern "C"
 
