@@ -10,7 +10,7 @@ use crate::{
     max7219::{hw_spi_bus, hw_spi_cs},
 };
 
-use super::hw_spi_ws2812;
+use super::{hw_spi_ws2812, Request};
 
 impl hw_spi_ws2812 {
     pub fn new(
@@ -86,5 +86,22 @@ impl hw_spi_ws2812 {
             on_err,
             notify,
         })
+    }
+
+    pub fn send_ptr(ws: *const Self, req: Request) -> bool {
+        if ws.is_null() {
+            error!("NULL ws pointer");
+            return false;
+        }
+
+        let ws = unsafe { &*ws };
+
+        if let Err(err) = ws.tx.send(req) {
+            error!("send error: {err}");
+            return false;
+        }
+
+        ws.notify.notify();
+        true
     }
 }

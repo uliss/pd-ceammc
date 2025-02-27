@@ -669,6 +669,8 @@ ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_notify_cb notify,
                                                ceammc_hw_msg_cb on_err);
 
+bool ceammc_hw_spi_ws2812_write(const ceammc_hw_spi_ws2812 *pwm, uint8_t r, uint8_t g, uint8_t b);
+
 } // extern "C"
 
 #endif // ceammc_rust_hw_h

@@ -7,14 +7,17 @@ use std::{ffi::CString, ptr::null_mut};
 
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, max7219::{hw_spi_bus, hw_spi_cs}};
+use crate::{
+    hw_msg_cb, hw_notify_cb,
+    max7219::{hw_spi_bus, hw_spi_cs},
+};
 
 #[cfg(target_os = "linux")]
 mod ws2812_impl;
 
 #[derive(Debug)]
 pub enum Request {
-    ColorRGB(u8, u8, u8)
+    ColorRGB(u8, u8, u8),
 }
 
 #[derive(Debug)]
@@ -55,4 +58,14 @@ pub extern "C" fn ceammc_hw_spi_ws2812_free(pwm: *mut hw_spi_ws2812) {
             drop(unsafe { Box::from_raw(pwm) })
         }
     });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_write(
+    pwm: *const hw_spi_ws2812,
+    r: u8,
+    g: u8,
+    b: u8,
+) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::ColorRGB(r, g, b)) });
 }
