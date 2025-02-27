@@ -55,4 +55,5 @@ void setup_hw_rpi_pwm()
 {
     ObjectFactory<HwRpiPwm> obj("hw.rpi.pwm");
     obj.addMethod("freq", &HwRpiPwm::m_freq);
+    obj.addMethod("enable", &HwRpiPwm::m_enable);
 }
