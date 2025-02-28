@@ -13,6 +13,19 @@ use crate::{
 
 use super::{hw_spi_ws2812, Request};
 
+fn pos2index(idx: i32, len: usize) -> usize {
+    if idx >= 0 {
+        (idx as usize).min(len)
+    } else {
+        let idx = idx.abs() as usize;
+        if idx < len {
+            len - idx
+        } else {
+            0
+        }
+    }
+}
+
 impl hw_spi_ws2812 {
     pub fn new(
         bus: hw_spi_bus,
@@ -70,12 +83,8 @@ impl hw_spi_ws2812 {
                 debug!("{req:?}");
 
                 match req {
-                    crate::ws2812::Request::SetColorRGB(idx, r, g, b) => match leds.get_mut(idx) {
-                        Some(c) => {
-                            c.r = r;
-                            c.g = g;
-                            c.b = b;
-                        }
+                    crate::ws2812::Request::SetPixelColor(idx, rgb) => match leds.get_mut(idx) {
+                        Some(c) => *c = rgb,
                         None => Self::send_error(
                             &rep_tx,
                             notify,
@@ -102,8 +111,28 @@ impl hw_spi_ws2812 {
                     Request::Clear => {
                         leds.fill(RGB8::default());
                     }
-                    Request::Fill(r, g, b) => {
-                        leds.fill(RGB8::new(r, g, b));
+                    Request::Fill(rgb) => {
+                        leds.fill(rgb);
+                    }
+                    Request::SetSliceColor(slice, rgb) => {
+                        let a = pos2index(slice.first, leds.len());
+                        let b = pos2index(slice.last, leds.len());
+
+                        for idx in (a..b).step_by(slice.step) {
+                            leds.get_mut(idx).map(|c| {
+                                *c = rgb;
+                            });
+                        }
+                    }
+                    Request::SetRangeColor(range, rgb) => {
+                        let a = pos2index(range.first, leds.len());
+                        let b = (a + range.length).min(leds.len());
+
+                        for idx in a..b {
+                            leds.get_mut(idx).map(|c| {
+                                *c = rgb;
+                            });
+                        }
                     }
                 }
             }
@@ -146,5 +175,49 @@ impl hw_spi_ws2812 {
             .unwrap_or_else(|err| {
                 error!("send error: {err}");
             });
+    }
+
+    pub fn process_ptr(ws: *mut Self) {
+        if ws.is_null() {
+            error!("NULL ws pointer");
+            return;
+        }
+
+        let ws = unsafe { &*ws };
+        while let Ok(rep) = ws.rx.try_recv() {
+            match rep {
+                Reply::Error(str) => {
+                    ws.on_err.exec_raw(str.as_ptr());
+                }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::ws2812::ws2812_impl::pos2index;
+
+    #[test]
+    fn p2i() {
+        assert_eq!(pos2index(0, 3), 0);
+        assert_eq!(pos2index(1, 3), 1);
+        assert_eq!(pos2index(2, 3), 2);
+        assert_eq!(pos2index(3, 3), 3);
+        assert_eq!(pos2index(3, 3), 3);
+        assert_eq!(pos2index(-1, 3), 2);
+        assert_eq!(pos2index(-2, 3), 1);
+        assert_eq!(pos2index(-3, 3), 0);
+        assert_eq!(pos2index(0, 1), 0);
+        assert_eq!(pos2index(-4, 3), 0);
+
+        assert_eq!(pos2index(0, 1), 0);
+        assert_eq!(pos2index(1, 1), 1);
+        assert_eq!(pos2index(-1, 1), 0);
+        assert_eq!(pos2index(-2, 1), 0);
+
+        assert_eq!(pos2index(0, 0), 0);
+        assert_eq!(pos2index(1, 0), 0);
+        assert_eq!(pos2index(-1, 0), 0);
     }
 }

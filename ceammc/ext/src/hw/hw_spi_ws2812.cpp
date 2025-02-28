@@ -42,6 +42,7 @@ void HwSpiWs2812::initDone()
 
 bool HwSpiWs2812::notify(int code)
 {
+    ceammc_hw_spi_ws2812_process_reply(ws_);
     return true;
 }
 
@@ -88,6 +89,24 @@ void HwSpiWs2812::m_set(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_set_color(ws_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
 }
 
+void HwSpiWs2812::m_set_range(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("START:i LEN:i>0 R:b G:b B:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_spi_ws2812_set_range(ws_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0), lv.intAt(4, 0));
+}
+
+void HwSpiWs2812::m_set_slice(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("START:i END:i STEP:i>0 R:b G:b B:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_spi_ws2812_set_slice(ws_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0), lv.intAt(4, 0), lv.intAt(5, 0));
+}
+
 void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 {
     onBang();
@@ -111,4 +130,6 @@ void setup_hw_spi_ws2812()
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
     obj.addMethod("set", &HwSpiWs2812::m_set);
+    obj.addMethod("set_range", &HwSpiWs2812::m_set_range);
+    obj.addMethod("set_slice", &HwSpiWs2812::m_set_slice);
 }

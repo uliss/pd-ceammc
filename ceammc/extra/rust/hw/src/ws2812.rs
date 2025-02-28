@@ -6,6 +6,7 @@
 use std::{ffi::CString, ptr::null_mut};
 
 use log::error;
+use rgb::RGB8;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
@@ -16,9 +17,24 @@ use crate::{
 mod ws2812_impl;
 
 #[derive(Debug)]
+pub struct Slice {
+    first: i32,
+    last: i32,
+    step: usize,
+}
+
+#[derive(Debug)]
+pub struct Range {
+    first: i32,
+    length: usize,
+}
+
+#[derive(Debug)]
 pub enum Request {
-    SetColorRGB(usize, u8, u8, u8),
-    Fill(u8, u8, u8),
+    SetPixelColor(usize, RGB8),
+    SetSliceColor(Slice, RGB8),
+    SetRangeColor(Range, RGB8),
+    Fill(RGB8),
     SetBrightness(u8),
     Flush,
     Clear,
@@ -74,7 +90,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_set_color(
     g: u8,
     b: u8,
 ) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetColorRGB(idx, r, g, b)) });
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetPixelColor(idx, RGB8 { r, g, b })) });
 }
 
 #[no_mangle]
@@ -104,5 +120,52 @@ pub extern "C" fn ceammc_hw_spi_ws2812_fill(
     g: u8,
     b: u8,
 ) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Fill(r, g, b)) });
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Fill(RGB8 { r, g, b })) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_set_range(
+    pwm: *const hw_spi_ws2812,
+    start: i32,
+    len: usize,
+    r: u8,
+    g: u8,
+    b: u8,
+) -> bool {
+    rpi_check!({
+        hw_spi_ws2812::send_ptr(
+            pwm,
+            Request::SetRangeColor(
+                Range {
+                    first: start,
+                    length: len,
+                },
+                RGB8 { r, g, b },
+            ),
+        )
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_set_slice(
+    pwm: *const hw_spi_ws2812,
+    first: i32,
+    last: i32,
+    step: usize,
+    r: u8,
+    g: u8,
+    b: u8,
+) -> bool {
+    rpi_check!({
+        hw_spi_ws2812::send_ptr(
+            pwm,
+            Request::SetSliceColor(Slice { first, last, step }, RGB8 { r, g, b }),
+        )
+    });
+}
+
+/// process events
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_process_reply(ws: *mut hw_spi_ws2812) {
+    rpi_check!((), { hw_spi_ws2812::process_ptr(ws) });
 }

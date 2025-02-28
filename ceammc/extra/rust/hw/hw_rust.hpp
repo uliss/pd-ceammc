@@ -676,12 +676,30 @@ ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_notify_cb notify,
                                                ceammc_hw_msg_cb on_err);
 
+/// process events
+void ceammc_hw_spi_ws2812_process_reply(ceammc_hw_spi_ws2812 *ws);
+
 bool ceammc_hw_spi_ws2812_rotate(const ceammc_hw_spi_ws2812 *pwm, int32_t delta);
 
 bool ceammc_hw_spi_ws2812_set_brightness(const ceammc_hw_spi_ws2812 *pwm, uint8_t b);
 
 bool ceammc_hw_spi_ws2812_set_color(const ceammc_hw_spi_ws2812 *pwm,
                                     size_t idx,
+                                    uint8_t r,
+                                    uint8_t g,
+                                    uint8_t b);
+
+bool ceammc_hw_spi_ws2812_set_range(const ceammc_hw_spi_ws2812 *pwm,
+                                    int32_t start,
+                                    size_t len,
+                                    uint8_t r,
+                                    uint8_t g,
+                                    uint8_t b);
+
+bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *pwm,
+                                    int32_t first,
+                                    int32_t last,
+                                    size_t step,
                                     uint8_t r,
                                     uint8_t g,
                                     uint8_t b);

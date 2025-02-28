@@ -27,6 +27,8 @@ public:
     void m_flush(t_symbol* s, const AtomListView& lv);
     void m_rotate(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
+    void m_set_range(t_symbol* s, const AtomListView& lv);
+    void m_set_slice(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_spi_ws2812();
