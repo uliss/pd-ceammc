@@ -41,7 +41,7 @@ pub enum Request {
     SetPixelColor(usize, RGB8),
     SetSliceColor(Slice, RGB8),
     SetRangeColor(Range, RGB8),
-    ApplyEffect(Range, hw_led_fx, f32),
+    ApplyEffect(Range, hw_led_fx, f32, bool),
     Fill(RGB8),
     SetBrightness(u8),
     Flush,
@@ -183,6 +183,6 @@ pub extern "C" fn ceammc_hw_spi_ws2812_apply_rx(
     arg: f32,
 ) -> bool {
     rpi_check!({
-        hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx, arg))
+        hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx, arg, true))
     });
 }

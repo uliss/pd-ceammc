@@ -134,13 +134,22 @@ impl hw_spi_ws2812 {
                             });
                         }
                     }
-                    Request::ApplyEffect(range, fx, arg) => match fx {
+                    Request::ApplyEffect(range, fx, arg, flush) => match fx {
                         crate::ws2812::hw_led_fx::Rainbow => {
                             let a = pos2index(range.first, leds.len());
                             let b = (a + range.length).min(leds.len());
 
                             for (idx, c) in &mut leds[a..b].iter_mut().enumerate() {
                                 *c = led_fx::rainbow(idx, b, arg);
+                            }
+
+                            if flush {
+                                if let Err(err) = ws.write(smart_leds::brightness(
+                                    leds[a..b].iter().cloned(),
+                                    brightness,
+                                )) {
+                                    Self::send_error(&rep_tx, notify, err.to_string().as_str());
+                                }
                             }
                         }
                     },
