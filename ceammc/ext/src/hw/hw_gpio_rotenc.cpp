@@ -1,7 +1,7 @@
 #include "hw_gpio_rotenc.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
