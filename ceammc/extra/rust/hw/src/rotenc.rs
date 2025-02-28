@@ -3,7 +3,10 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::{c_void, CString}, ptr::null_mut};
+use std::{
+    ffi::{c_void, CString},
+    ptr::null_mut,
+};
 
 use log::error;
 
@@ -14,15 +17,17 @@ mod rotenc_impl;
 
 #[derive(Debug)]
 pub enum Request {
-    SetValue(i32),
+    SetValue(f64),
+    SetStep(f64),
     ResetValue,
+    GetValue,
 }
 
 #[derive(Debug)]
 pub enum Reply {
     Error(CString),
     Click,
-    Data(i32, i8),
+    Data(f64, i8),
 }
 
 pub struct hw_gpio_rotenc {
@@ -37,7 +42,7 @@ pub struct hw_gpio_rotenc_data {
     /// pointer to user data (can be NULL)
     user: *mut c_void,
     /// can not be NULL
-    cb: extern "C" fn(*mut c_void, i32, i8),
+    cb: extern "C" fn(*mut c_void, f64, i8),
 }
 
 #[no_mangle]
@@ -45,7 +50,7 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_new(
     dt: u8,
     clk: u8,
     btn: u8,
-    init: i32,
+    init: f64,
     notify: hw_notify_cb,
     on_data: hw_gpio_rotenc_data,
     on_err: hw_msg_cb,
@@ -74,4 +79,24 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_free(enc: *mut hw_gpio_rotenc) {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_process_events(enc: *mut hw_gpio_rotenc) {
     rpi_check!((), { hw_gpio_rotenc::process_ptr(enc) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_rotenc_reset(enc: *mut hw_gpio_rotenc) -> bool {
+    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::ResetValue) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_rotenc_get_value(enc: *mut hw_gpio_rotenc) -> bool {
+    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::GetValue) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_rotenc_set_value(enc: *mut hw_gpio_rotenc, value: f64) -> bool {
+    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetValue(value)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_rotenc_set_step(enc: *mut hw_gpio_rotenc, step: f64) -> bool {
+    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetStep(step)) });
 }

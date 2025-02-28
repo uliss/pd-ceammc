@@ -284,7 +284,7 @@ struct ceammc_hw_gpio_rotenc_data {
     /// pointer to user data (can be NULL)
     void *user;
     /// can not be NULL
-    void (*cb)(void*, int32_t, int8_t);
+    void (*cb)(void*, double, int8_t);
 };
 
 /// error callback
@@ -405,15 +405,23 @@ bool ceammc_hw_gpio_reset_pin(ceammc_hw_gpio *gp, uint8_t pin);
 
 void ceammc_hw_gpio_rotenc_free(ceammc_hw_gpio_rotenc *enc);
 
+bool ceammc_hw_gpio_rotenc_get_value(ceammc_hw_gpio_rotenc *enc);
+
 ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
                                                  uint8_t clk,
                                                  uint8_t btn,
-                                                 int32_t init,
+                                                 double init,
                                                  ceammc_hw_notify_cb notify,
                                                  ceammc_hw_gpio_rotenc_data on_data,
                                                  ceammc_hw_msg_cb on_err);
 
 void ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
+
+bool ceammc_hw_gpio_rotenc_reset(ceammc_hw_gpio_rotenc *enc);
+
+bool ceammc_hw_gpio_rotenc_set_step(ceammc_hw_gpio_rotenc *enc, double step);
+
+bool ceammc_hw_gpio_rotenc_set_value(ceammc_hw_gpio_rotenc *enc, double value);
 
 /// set pin bias
 /// @param gpio - pointer to gpio struct

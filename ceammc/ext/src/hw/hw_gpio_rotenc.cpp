@@ -1,4 +1,5 @@
 #include "hw_gpio_rotenc.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
@@ -22,9 +23,15 @@ HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
     btn_pin_->setInitOnly();
     addProperty(btn_pin_);
 
-    init_ = new IntProperty("@init", 0);
+    init_ = new FloatProperty("@init", 0);
     init_->setInitOnly();
     addProperty(init_);
+
+    step_ = new FloatProperty("@step", 1);
+    step_->setSuccessFn([this](Property*) {
+        ceammc_hw_gpio_rotenc_set_step(enc_, step_->value());
+    });
+    addProperty(step_);
 }
 
 HwGpioRotaryEncoder::~HwGpioRotaryEncoder()
@@ -40,7 +47,7 @@ void HwGpioRotaryEncoder::initDone()
         init_->value(),
         //
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
-        { this, [](void* user, std::int32_t value, std::int8_t dir) {
+        { this, [](void* user, double value, std::int8_t dir) {
              auto obj = static_cast<HwGpioRotaryEncoder*>(user);
              if (!obj)
                  return;
@@ -60,11 +67,34 @@ bool HwGpioRotaryEncoder::notify(int code)
     return true;
 }
 
-void HwGpioRotaryEncoder::m_poll(t_symbol* s, const AtomListView& lv)
+void HwGpioRotaryEncoder::onBang()
 {
+    ceammc_hw_gpio_rotenc_get_value(enc_);
+}
+
+void HwGpioRotaryEncoder::m_get(t_symbol* s, const AtomListView& lv)
+{
+    onBang();
+}
+
+void HwGpioRotaryEncoder::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_gpio_rotenc_reset(enc_);
+}
+
+void HwGpioRotaryEncoder::m_set(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("VALUE:f");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_gpio_rotenc_set_value(enc_, lv.floatAt(0, 0));
 }
 
 void setup_hw_gpio_rotenc()
 {
     ObjectFactory<HwGpioRotaryEncoder> obj("hw.gpio.rotenc");
+    obj.addMethod("reset", &HwGpioRotaryEncoder::m_reset);
+    obj.addMethod("get", &HwGpioRotaryEncoder::m_get);
+    obj.addMethod("set", &HwGpioRotaryEncoder::m_set);
 }

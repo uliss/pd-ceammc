@@ -11,7 +11,8 @@ class HwGpioRotaryEncoder : public DispatchedObject<BaseObject> {
     IntProperty* dt_pin_ { nullptr };
     IntProperty* clk_pin_ { nullptr };
     IntProperty* btn_pin_ { nullptr };
-    IntProperty* init_ { nullptr };
+    FloatProperty* init_ { nullptr };
+    FloatProperty* step_ { nullptr };
 
 public:
     HwGpioRotaryEncoder(const PdArgs& args);
@@ -20,7 +21,11 @@ public:
     void initDone() final;
     bool notify(int code) final;
 
-    void m_poll(t_symbol* s, const AtomListView& lv);
+    void onBang() final;
+
+    void m_get(t_symbol* s, const AtomListView& lv);
+    void m_reset(t_symbol* s, const AtomListView& lv);
+    void m_set(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_gpio_rotenc();

@@ -7,14 +7,14 @@ use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
-use super::{hw_gpio_rotenc, hw_gpio_rotenc_data, Reply};
+use super::{hw_gpio_rotenc, hw_gpio_rotenc_data, Reply, Request};
 
 impl hw_gpio_rotenc {
     pub fn new(
         dt: u8,
         clk: u8,
         btn: u8,
-        init: i32,
+        init: f64,
         notify: hw_notify_cb,
         on_data: hw_gpio_rotenc_data,
         on_err: hw_msg_cb,
@@ -56,7 +56,8 @@ impl hw_gpio_rotenc {
 
             let mut rotary_encoder = RotaryEncoder::new(dt_pin, clk_pin).into_standard_mode();
 
-            let mut value: i32 = init;
+            let mut value = init;
+            let mut step = 1.0;
 
             // ...timer initialize at 900Hz to poll the rotary encoder
             loop {
@@ -65,11 +66,11 @@ impl hw_gpio_rotenc {
 
                 match dir {
                     rotary_encoder_embedded::Direction::Clockwise => {
-                        value += 1;
+                        value += step;
                         Self::send_reply(&rep_tx, notify, Reply::Data(value, 1));
                     }
                     rotary_encoder_embedded::Direction::Anticlockwise => {
-                        value -= 1;
+                        value -= step;
                         Self::send_reply(&rep_tx, notify, Reply::Data(value, -1));
                     }
                     _ => {}
@@ -77,8 +78,12 @@ impl hw_gpio_rotenc {
 
                 match req_rx.try_recv() {
                     Ok(req) => match req {
-                        crate::rotenc::Request::SetValue(val) => value = val,
-                        crate::rotenc::Request::ResetValue => value = init,
+                        Request::SetValue(val) => value = val,
+                        Request::ResetValue => value = init,
+                        Request::SetStep(val) => step = val,
+                        Request::GetValue => {
+                            Self::send_reply(&rep_tx, notify, Reply::Data(value, 0));
+                        }
                     },
                     Err(err) => match err {
                         std::sync::mpsc::TryRecvError::Empty => {}
@@ -125,6 +130,23 @@ impl hw_gpio_rotenc {
                     (enc.on_data.cb)(enc.on_data.user, value, dir);
                 }
             }
+        }
+
+        true
+    }
+
+    pub fn send_ptr(enc: *const Self, req: Request) -> bool {
+        if enc.is_null() {
+            error!("NULL encoder pointer");
+            return false;
+        }
+
+        let enc = unsafe { &*enc };
+        if let Err(err) = enc.tx.send(req) {
+            let msg = format!("request send error: {err}");
+            error!("{msg}");
+            enc.on_err.exec(msg.as_str());
+            return false;
         }
 
         true
