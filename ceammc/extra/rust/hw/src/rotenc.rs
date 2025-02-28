@@ -19,6 +19,8 @@ mod rotenc_impl;
 pub enum Request {
     SetValue(f64),
     SetStep(f64),
+    SetMin(f64),
+    SetMax(f64),
     ResetValue,
     GetValue,
 }
@@ -51,12 +53,17 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_new(
     clk: u8,
     btn: u8,
     init: f64,
+    step: f64,
+    min_value: f64,
+    max_value: f64,
     notify: hw_notify_cb,
     on_data: hw_gpio_rotenc_data,
     on_err: hw_msg_cb,
 ) -> *mut hw_gpio_rotenc {
     rpi_check!(null_mut(), {
-        match hw_gpio_rotenc::new(dt, clk, btn, init, notify, on_data, on_err) {
+        match hw_gpio_rotenc::new(
+            dt, clk, btn, init, step, min_value, max_value, notify, on_data, on_err,
+        ) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -99,4 +106,14 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_set_value(enc: *mut hw_gpio_rotenc, valu
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_set_step(enc: *mut hw_gpio_rotenc, step: f64) -> bool {
     rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetStep(step)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_rotenc_set_min(enc: *mut hw_gpio_rotenc, val: f64) -> bool {
+    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetMin(val)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_rotenc_set_max(enc: *mut hw_gpio_rotenc, val: f64) -> bool {
+    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetMax(val)) });
 }

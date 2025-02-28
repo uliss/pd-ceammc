@@ -1,6 +1,7 @@
 #include "hw_gpio_rotenc.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
+#include "fmt/format.h"
 
 HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
@@ -29,9 +30,24 @@ HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
 
     step_ = new FloatProperty("@step", 1);
     step_->setSuccessFn([this](Property*) {
-        ceammc_hw_gpio_rotenc_set_step(enc_, step_->value());
+        if (enc_)
+            ceammc_hw_gpio_rotenc_set_step(enc_, step_->value());
     });
     addProperty(step_);
+
+    min_ = new FloatProperty("@min", -100);
+    min_->setSuccessFn([this](Property*) {
+        if (enc_)
+            ceammc_hw_gpio_rotenc_set_min(enc_, min_->value());
+    });
+    addProperty(min_);
+
+    max_ = new FloatProperty("@max", 100);
+    max_->setSuccessFn([this](Property*) {
+        if (enc_)
+            ceammc_hw_gpio_rotenc_set_max(enc_, max_->value());
+    });
+    addProperty(max_);
 }
 
 HwGpioRotaryEncoder::~HwGpioRotaryEncoder()
@@ -41,10 +57,16 @@ HwGpioRotaryEncoder::~HwGpioRotaryEncoder()
 
 void HwGpioRotaryEncoder::initDone()
 {
+    if (min_->value() >= max_->value())
+        OBJ_ERR << fmt::format("@min ({}) >= @max ({})", min_->value(), max_->value());
+
     enc_ = ceammc_hw_gpio_rotenc_new(dt_pin_->value(),
         clk_pin_->value(),
         btn_pin_->value(),
         init_->value(),
+        step_->value(),
+        min_->value(),
+        max_->value(),
         //
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
         { this, [](void* user, double value, std::int8_t dir) {

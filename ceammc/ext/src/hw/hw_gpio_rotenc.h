@@ -13,6 +13,8 @@ class HwGpioRotaryEncoder : public DispatchedObject<BaseObject> {
     IntProperty* btn_pin_ { nullptr };
     FloatProperty* init_ { nullptr };
     FloatProperty* step_ { nullptr };
+    FloatProperty* min_ { nullptr };
+    FloatProperty* max_ { nullptr };
 
 public:
     HwGpioRotaryEncoder(const PdArgs& args);

@@ -15,6 +15,9 @@ impl hw_gpio_rotenc {
         clk: u8,
         btn: u8,
         init: f64,
+        step: f64,
+        min_value: f64,
+        max_value: f64,
         notify: hw_notify_cb,
         on_data: hw_gpio_rotenc_data,
         on_err: hw_msg_cb,
@@ -56,8 +59,14 @@ impl hw_gpio_rotenc {
 
             let mut rotary_encoder = RotaryEncoder::new(dt_pin, clk_pin).into_standard_mode();
 
-            let mut value = init;
-            let mut step = 1.0;
+            let mut enc_value = init;
+            let mut enc_step = step;
+            let mut enc_min = min_value;
+            let mut enc_max = max_value;
+
+            const DIR_NONE: i8 = 0;
+            const DIR_INC: i8 = 1;
+            const DIR_DEC: i8 = -1;
 
             // ...timer initialize at 900Hz to poll the rotary encoder
             loop {
@@ -66,25 +75,33 @@ impl hw_gpio_rotenc {
 
                 match dir {
                     rotary_encoder_embedded::Direction::Clockwise => {
-                        value += step;
-                        Self::send_reply(&rep_tx, notify, Reply::Data(value, 1));
+                        enc_value += enc_step;
+                        enc_value = enc_value.clamp(enc_min, enc_max);
+                        Self::send_reply(&rep_tx, notify, Reply::Data(enc_value, DIR_INC));
                     }
                     rotary_encoder_embedded::Direction::Anticlockwise => {
-                        value -= step;
-                        Self::send_reply(&rep_tx, notify, Reply::Data(value, -1));
+                        enc_value -= enc_step;
+                        enc_value = enc_value.clamp(enc_min, enc_max);
+                        Self::send_reply(&rep_tx, notify, Reply::Data(enc_value, DIR_DEC));
                     }
                     _ => {}
                 }
 
                 match req_rx.try_recv() {
-                    Ok(req) => match req {
-                        Request::SetValue(val) => value = val,
-                        Request::ResetValue => value = init,
-                        Request::SetStep(val) => step = val,
-                        Request::GetValue => {
-                            Self::send_reply(&rep_tx, notify, Reply::Data(value, 0));
+                    Ok(req) => {
+                        debug!("{req:?}");
+                        
+                        match req {
+                            Request::SetValue(val) => enc_value = val,
+                            Request::ResetValue => enc_value = init,
+                            Request::SetStep(val) => enc_step = val,
+                            Request::GetValue => {
+                                Self::send_reply(&rep_tx, notify, Reply::Data(enc_value, DIR_NONE));
+                            }
+                            Request::SetMin(min) => enc_min = min,
+                            Request::SetMax(max) => enc_max = max,
                         }
-                    },
+                    }
                     Err(err) => match err {
                         std::sync::mpsc::TryRecvError::Empty => {}
                         std::sync::mpsc::TryRecvError::Disconnected => {

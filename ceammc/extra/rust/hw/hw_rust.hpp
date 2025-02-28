@@ -411,6 +411,9 @@ ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
                                                  uint8_t clk,
                                                  uint8_t btn,
                                                  double init,
+                                                 double step,
+                                                 double min_value,
+                                                 double max_value,
                                                  ceammc_hw_notify_cb notify,
                                                  ceammc_hw_gpio_rotenc_data on_data,
                                                  ceammc_hw_msg_cb on_err);
@@ -418,6 +421,10 @@ ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
 void ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
 
 bool ceammc_hw_gpio_rotenc_reset(ceammc_hw_gpio_rotenc *enc);
+
+bool ceammc_hw_gpio_rotenc_set_max(ceammc_hw_gpio_rotenc *enc, double val);
+
+bool ceammc_hw_gpio_rotenc_set_min(ceammc_hw_gpio_rotenc *enc, double val);
 
 bool ceammc_hw_gpio_rotenc_set_step(ceammc_hw_gpio_rotenc *enc, double step);
 
