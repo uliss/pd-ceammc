@@ -45,8 +45,8 @@
 <![CDATA[
 [@step 0.5 #a(
 
-  [B]  [set 50(
-  |    |
+  [B]  [set 50( [reset(
+  |    |        |
 [hw.gpio.rotenc @dt 22 @clk 23 @btn 27 #x]
 |                         ^|
 |                         [route btn dir ]
