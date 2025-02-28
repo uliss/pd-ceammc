@@ -28,7 +28,7 @@ pub enum Request {
 #[derive(Debug)]
 pub enum Reply {
     Error(CString),
-    Click,
+    Click(bool),
     Data(f64, i8),
 }
 
@@ -36,6 +36,7 @@ pub struct hw_gpio_rotenc {
     tx: std::sync::mpsc::Sender<Request>,
     rx: std::sync::mpsc::Receiver<Reply>,
     on_data: hw_gpio_rotenc_data,
+    on_click: hw_gpio_rotenc_click,
     on_err: hw_msg_cb,
 }
 
@@ -45,6 +46,14 @@ pub struct hw_gpio_rotenc_data {
     user: *mut c_void,
     /// can not be NULL
     cb: extern "C" fn(*mut c_void, f64, i8),
+}
+
+#[repr(C)]
+pub struct hw_gpio_rotenc_click {
+    /// pointer to user data (can be NULL)
+    user: *mut c_void,
+    /// can not be NULL
+    cb: extern "C" fn(*mut c_void, bool),
 }
 
 #[no_mangle]
@@ -58,11 +67,12 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_new(
     max_value: f64,
     notify: hw_notify_cb,
     on_data: hw_gpio_rotenc_data,
+    on_click: hw_gpio_rotenc_click,
     on_err: hw_msg_cb,
 ) -> *mut hw_gpio_rotenc {
     rpi_check!(null_mut(), {
         match hw_gpio_rotenc::new(
-            dt, clk, btn, init, step, min_value, max_value, notify, on_data, on_err,
+            dt, clk, btn, init, step, min_value, max_value, notify, on_data, on_click, on_err,
         ) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {

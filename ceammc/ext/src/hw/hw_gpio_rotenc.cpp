@@ -74,8 +74,15 @@ void HwGpioRotaryEncoder::initDone()
              if (!obj)
                  return;
 
-             obj->floatTo(1, dir);
+             obj->anyTo(1, gensym("dir"), Atom(dir));
              obj->floatTo(0, value);
+         } },
+        { this, [](void* user, bool state) {
+             auto obj = static_cast<HwGpioRotaryEncoder*>(user);
+             if (!obj)
+                 return;
+
+             obj->anyTo(1, gensym("btn"), Atom(state));
          } },
         { this, [](void* user, const char* msg) {
              auto obj = static_cast<HwGpioRotaryEncoder*>(user);

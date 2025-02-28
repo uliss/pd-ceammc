@@ -1,13 +1,12 @@
-// use em
 use std::{ffi::CString, thread::sleep, time::Duration};
 
 use log::{debug, error};
 use rotary_encoder_embedded::RotaryEncoder;
-use rppal::gpio::Gpio;
+use rppal::gpio::{Gpio, Trigger};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
-use super::{hw_gpio_rotenc, hw_gpio_rotenc_data, Reply, Request};
+use super::{hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request};
 
 impl hw_gpio_rotenc {
     pub fn new(
@@ -20,6 +19,7 @@ impl hw_gpio_rotenc {
         max_value: f64,
         notify: hw_notify_cb,
         on_data: hw_gpio_rotenc_data,
+        on_click: hw_gpio_rotenc_click,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
@@ -57,6 +57,39 @@ impl hw_gpio_rotenc {
                 })?
                 .into_input_pullup();
 
+            let mut btn_pin = None;
+            if btn > 0 {
+                let mut pin = gpio
+                    .get(btn)
+                    .map_err(|err| {
+                        error!("BTN pin error: {err}");
+                        err.to_string()
+                    })?
+                    .into_input_pullup();
+
+                let rep_rx2 = rep_tx.clone();
+
+                pin.set_async_interrupt(
+                    rppal::gpio::Trigger::Both,
+                    Some(Duration::from_millis(10)),
+                    move |ev| match ev.trigger {
+                        Trigger::RisingEdge => {
+                            Self::send_reply(&rep_rx2, notify, Reply::Click(false));
+                        }
+                        Trigger::FallingEdge => {
+                            Self::send_reply(&rep_rx2, notify, Reply::Click(true));
+                        }
+                        _ => {}
+                    },
+                )
+                .map_err(|err| {
+                    error!("button pin init error: {err}");
+                    err.to_string()
+                })?;
+
+                btn_pin.replace(pin);
+            }
+
             let mut rotary_encoder = RotaryEncoder::new(dt_pin, clk_pin).into_standard_mode();
 
             let mut enc_value = init;
@@ -90,7 +123,7 @@ impl hw_gpio_rotenc {
                 match req_rx.try_recv() {
                     Ok(req) => {
                         debug!("{req:?}");
-                        
+
                         match req {
                             Request::SetValue(val) => enc_value = val,
                             Request::ResetValue => enc_value = init,
@@ -119,6 +152,7 @@ impl hw_gpio_rotenc {
             tx: req_tx,
             rx: rep_rx,
             on_data,
+            on_click,
             on_err,
         })
     }
@@ -142,7 +176,9 @@ impl hw_gpio_rotenc {
         while let Ok(rep) = enc.rx.try_recv() {
             match rep {
                 Reply::Error(str) => enc.on_err.exec_raw(str.as_ptr()),
-                Reply::Click => {}
+                Reply::Click(state) => {
+                    (enc.on_click.cb)(enc.on_click.user, state);
+                }
                 Reply::Data(value, dir) => {
                     (enc.on_data.cb)(enc.on_data.user, value, dir);
                 }

@@ -287,6 +287,13 @@ struct ceammc_hw_gpio_rotenc_data {
     void (*cb)(void*, double, int8_t);
 };
 
+struct ceammc_hw_gpio_rotenc_click {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, bool);
+};
+
 /// error callback
 struct ceammc_hw_sr04_cb {
     /// pointer to user data (can be NULL)
@@ -416,6 +423,7 @@ ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
                                                  double max_value,
                                                  ceammc_hw_notify_cb notify,
                                                  ceammc_hw_gpio_rotenc_data on_data,
+                                                 ceammc_hw_gpio_rotenc_click on_click,
                                                  ceammc_hw_msg_cb on_err);
 
 void ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
