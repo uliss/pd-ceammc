@@ -157,6 +157,8 @@ struct ceammc_hw_gpio;
 
 struct ceammc_hw_gpio_dht11;
 
+struct ceammc_hw_gpio_rotenc;
+
 struct ceammc_hw_gpio_sr04;
 
 struct ceammc_hw_i2c;
@@ -393,6 +395,14 @@ bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param gpio - pointer to gpio struct
 /// @param pin - pin number
 bool ceammc_hw_gpio_reset_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+void ceammc_hw_gpio_rotenc_free(ceammc_hw_gpio_rotenc *enc);
+
+ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
+                                                 uint8_t clk,
+                                                 uint8_t btn,
+                                                 ceammc_hw_notify_cb notify,
+                                                 ceammc_hw_msg_cb on_err);
 
 /// set pin bias
 /// @param gpio - pointer to gpio struct

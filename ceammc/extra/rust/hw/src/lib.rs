@@ -90,3 +90,4 @@ pub mod i2c;
 pub mod max7219;
 pub mod rpi_pwm;
 pub mod ws2812;
+pub mod rotenc;

@@ -107,11 +107,12 @@ endif()
 # GPIO
 target_sources(ceammc_hw PRIVATE hw_gpio.cpp)
 target_sources(ceammc_hw PRIVATE
-    hw_sensors_dht11.cpp
-    hw_sensor_sr04.cpp
     hw_display_lcd1602.cpp
-    hw_spi_max7219.cpp
+    hw_gpio_rotenc.cpp
     hw_rpi_pwm.cpp
+    hw_sensor_sr04.cpp
+    hw_sensors_dht11.cpp
+    hw_spi_max7219.cpp
     hw_spi_ws2812.cpp
 )
 
