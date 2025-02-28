@@ -45,6 +45,11 @@ bool HwSpiWs2812::notify(int code)
     return true;
 }
 
+void HwSpiWs2812::onBang()
+{
+    ceammc_hw_spi_ws2812_flush(ws_);
+}
+
 void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("BRIGHT:b");
@@ -85,7 +90,7 @@ void HwSpiWs2812::m_set(t_symbol* s, const AtomListView& lv)
 
 void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_spi_ws2812_flush(ws_);
+    onBang();
 }
 
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)

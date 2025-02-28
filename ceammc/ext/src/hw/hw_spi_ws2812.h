@@ -19,6 +19,8 @@ public:
     void initDone() final;
     bool notify(int code) final;
 
+    void onBang() final;
+
     void m_brightness(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
