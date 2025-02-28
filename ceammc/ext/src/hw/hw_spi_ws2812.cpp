@@ -117,7 +117,7 @@ void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 
 void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FX:s=rainbow START:i? LEN:i>=0?");
+    static const args::ArgChecker chk("FX:s=rainbow ARG:f[0,1]? START:i? LEN:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -131,7 +131,11 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         break;
     }
 
-    ceammc_hw_spi_ws2812_apply_rx(ws_, lv.intAt(1, 0), lv.intAt(2, size_->value()), fx);
+    auto arg = lv.floatAt(1, 0);
+    auto start = lv.intAt(2, 0);
+    auto len = lv.intAt(3, size_->value());
+
+    ceammc_hw_spi_ws2812_apply_rx(ws_, start, len, fx, arg);
 }
 
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)

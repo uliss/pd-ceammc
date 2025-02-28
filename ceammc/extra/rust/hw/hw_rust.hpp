@@ -670,7 +670,8 @@ bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, do
 bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,
                                    int32_t first,
                                    size_t length,
-                                   ceammc_hw_led_fx fx);
+                                   ceammc_hw_led_fx fx,
+                                   float arg);
 
 bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *ws);
 

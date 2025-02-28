@@ -13,6 +13,7 @@ use crate::{
     max7219::{hw_spi_bus, hw_spi_cs},
 };
 
+mod led_fx;
 #[cfg(target_os = "linux")]
 mod ws2812_impl;
 
@@ -40,7 +41,7 @@ pub enum Request {
     SetPixelColor(usize, RGB8),
     SetSliceColor(Slice, RGB8),
     SetRangeColor(Range, RGB8),
-    ApplyEffect(Range, hw_led_fx),
+    ApplyEffect(Range, hw_led_fx, f32),
     Fill(RGB8),
     SetBrightness(u8),
     Flush,
@@ -179,6 +180,9 @@ pub extern "C" fn ceammc_hw_spi_ws2812_apply_rx(
     first: i32,
     length: usize,
     fx: hw_led_fx,
+    arg: f32,
 ) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx)) });
+    rpi_check!({
+        hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx, arg))
+    });
 }
