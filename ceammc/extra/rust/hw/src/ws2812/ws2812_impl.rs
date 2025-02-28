@@ -2,13 +2,13 @@ use std::ffi::CString;
 
 use log::{debug, error};
 use rgb::RGB8;
-use smart_leds::Brightness;
 use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::Ws2812;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
     max7219::{hw_spi_bus, hw_spi_cs},
+    ws2812::Reply,
 };
 
 use super::{hw_spi_ws2812, Request};
@@ -17,6 +17,7 @@ impl hw_spi_ws2812 {
     pub fn new(
         bus: hw_spi_bus,
         cs: hw_spi_cs,
+        size: usize,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
@@ -58,7 +59,10 @@ impl hw_spi_ws2812 {
 
             let mut ws = Ws2812::new(spi);
 
-            debug!("ws2182 init");
+            debug!("ws2182 init with size: {size}");
+
+            let mut leds = Vec::with_capacity(size);
+            leds.resize(size, RGB8::default());
 
             let mut brightness = 127;
 
@@ -66,22 +70,35 @@ impl hw_spi_ws2812 {
                 debug!("{req:?}");
 
                 match req {
-                    crate::ws2812::Request::ColorRGB(r, g, b) => {
-                        // setup some data to write
-                        let mut data = [RGB8::default(); 3];
-                        data[0] = [0xFF_u8, 0_u8, 0_u8].into(); // Full RED
-                        data[1] = [0_u8, 0xFF_u8, 0_u8].into(); // Full GREEN
-                        data[2] = [0_u8, 0_u8, 0xFF_u8].into(); // Full BLUE
-
-                        if let Err(err) =
-                            ws.write(smart_leds::brightness(data.iter().cloned(), brightness))
-                        {
-                            error!("write error: {err}");
+                    crate::ws2812::Request::SetColorRGB(idx, r, g, b) => match leds.get_mut(idx) {
+                        Some(c) => {
+                            c.r = r;
+                            c.g = g;
+                            c.b = b;
                         }
-                    }
+                        None => Self::send_error(
+                            &rep_tx,
+                            notify,
+                            format!("invalid pixel index: {idx}").as_str(),
+                        ),
+                    },
                     Request::SetBrightness(b) => {
                         brightness = b;
-                    },
+                    }
+                    Request::Flush => {
+                        if let Err(err) =
+                            ws.write(smart_leds::brightness(leds.iter().cloned(), brightness))
+                        {
+                            Self::send_error(&rep_tx, notify, err.to_string().as_str());
+                        }
+                    }
+                    Request::Rotate(delta) => {
+                        if delta > 0 {
+                            leds.rotate_right(delta as usize);
+                        } else {
+                            leds.rotate_left(delta.abs() as usize);
+                        }
+                    }
                 }
             }
 
@@ -111,5 +128,17 @@ impl hw_spi_ws2812 {
 
         ws.notify.notify();
         true
+    }
+
+    fn send_error(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
+        error!("ws2812 write error: {err}");
+
+        tx.send(Reply::Error(CString::new(err).unwrap_or_default()))
+            .map(|_| {
+                notify.notify();
+            })
+            .unwrap_or_else(|err| {
+                error!("send error: {err}");
+            });
     }
 }

@@ -17,8 +17,10 @@ mod ws2812_impl;
 
 #[derive(Debug)]
 pub enum Request {
-    ColorRGB(u8, u8, u8),
+    SetColorRGB(usize, u8, u8, u8),
     SetBrightness(u8),
+    Flush,
+    Rotate(i32),
 }
 
 #[derive(Debug)]
@@ -37,11 +39,12 @@ pub struct hw_spi_ws2812 {
 pub extern "C" fn ceammc_hw_spi_ws2812_new(
     bus: hw_spi_bus,
     cs: hw_spi_cs,
+    size: usize,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_spi_ws2812 {
     rpi_check!(null_mut(), {
-        match hw_spi_ws2812::new(bus, cs, notify, on_err) {
+        match hw_spi_ws2812::new(bus, cs, size, notify, on_err) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -62,16 +65,27 @@ pub extern "C" fn ceammc_hw_spi_ws2812_free(pwm: *mut hw_spi_ws2812) {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_write(
+pub extern "C" fn ceammc_hw_spi_ws2812_set_color(
     pwm: *const hw_spi_ws2812,
+    idx: usize,
     r: u8,
     g: u8,
     b: u8,
 ) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::ColorRGB(r, g, b)) });
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetColorRGB(idx, r, g, b)) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_spi_ws2812_set_brightness(pwm: *const hw_spi_ws2812, b: u8) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetBrightness(b)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_rotate(pwm: *const hw_spi_ws2812, delta: i32) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Rotate(delta)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_flush(pwm: *const hw_spi_ws2812) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Flush) });
 }

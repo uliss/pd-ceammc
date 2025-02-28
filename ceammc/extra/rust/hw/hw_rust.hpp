@@ -662,16 +662,25 @@ ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
 
 bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
 
+bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *pwm);
+
 void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *pwm);
 
 ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_spi_cs cs,
+                                               size_t size,
                                                ceammc_hw_notify_cb notify,
                                                ceammc_hw_msg_cb on_err);
 
+bool ceammc_hw_spi_ws2812_rotate(const ceammc_hw_spi_ws2812 *pwm, int32_t delta);
+
 bool ceammc_hw_spi_ws2812_set_brightness(const ceammc_hw_spi_ws2812 *pwm, uint8_t b);
 
-bool ceammc_hw_spi_ws2812_write(const ceammc_hw_spi_ws2812 *pwm, uint8_t r, uint8_t g, uint8_t b);
+bool ceammc_hw_spi_ws2812_set_color(const ceammc_hw_spi_ws2812 *pwm,
+                                    size_t idx,
+                                    uint8_t r,
+                                    uint8_t g,
+                                    uint8_t b);
 
 } // extern "C"
 

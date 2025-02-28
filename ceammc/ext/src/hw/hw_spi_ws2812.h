@@ -10,6 +10,7 @@ class HwSpiWs2812 : public DispatchedObject<BaseObject> {
     ceammc_hw_spi_ws2812* ws_ { nullptr };
     IntProperty* spi_ { nullptr };
     IntProperty* cs_ { nullptr };
+    IntProperty* size_ { nullptr };
 
 public:
     HwSpiWs2812(const PdArgs& args);
@@ -19,10 +20,11 @@ public:
     bool notify(int code) final;
 
     void m_brightness(t_symbol* s, const AtomListView& lv);
-    void m_write(t_symbol* s, const AtomListView& lv);
+    void m_flush(t_symbol* s, const AtomListView& lv);
+    void m_rotate(t_symbol* s, const AtomListView& lv);
+    void m_set(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_spi_ws2812();
-
 
 #endif // HW_SPI_WS2812_H
