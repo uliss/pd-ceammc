@@ -125,17 +125,21 @@
             <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
             the sector center, not the top-left corner</param></method>
             <!-- set -->
-            <method name="set list">set bitmap content from list
+            <method name="set list">set bitmap content from list 
             <param name="DATA" type="list" required="true">list of 0 and 1</param></method>
             <!-- set_matrix -->
-            <method name="set matrix">set matrix data
-            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of rows</param>
-            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of columns</param>
+            <method name="set matrix">set matrix data 
+            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of
+            rows</param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of
+            columns</param>
             <param name="DATA" type="list" required="true">data</param></method>
             <!-- set matrix_at -->
-            <method name="set matrix_at">set matrix data at specified position
-            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of rows</param>
-            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of columns</param>
+            <method name="set matrix_at">set matrix data at specified position 
+            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of
+            rows</param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of
+            columns</param>
             <param name="AT_ROW" type="int" required="true">row position</param>
             <param name="AT_COL" type="int" required="true">columns position</param>
             <param name="DATA" type="list" required="true">data</param></method>
@@ -161,8 +165,9 @@
             <method name="stroke_width">set stroke width 
             <param name="W" type="int" minvalue="0" required="true">new width</param></method>
             <!-- mirror -->
-            <method name="mirror">mirror bitmap
-            <param name="AXIS" type="symbol" enum="x y" required="true">mirror axis</param></method>
+            <method name="mirror">mirror bitmap 
+            <param name="AXIS" type="symbol" enum="x y" required="true">mirror
+            axis</param></method>
         </methods>
         <inlets>
             <inlet>

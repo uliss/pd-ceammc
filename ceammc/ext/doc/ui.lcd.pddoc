@@ -106,7 +106,7 @@
             <param name="Y" type="int" required="true">Y-position (from top)</param>
             <param name="VALUE" type="bool" required="true">pixel value</param></method>
             <!-- set matrix -->
-            <method name="set matrix">set matrix data
+            <method name="set matrix">set matrix data 
             <param name="NROWS" type="int" required="true">matrix row number</param>
             <param name="NCOLS" type="int" required="true">matrix column numbers</param>
             <param name="VALUES" type="list" required="true">pixel values</param></method>

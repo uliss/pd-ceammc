@@ -321,6 +321,7 @@ set(DOC_FILES
     hw.display
     hw.gamepad
     hw.gpio
+    hw.gpio.rotenc
     hw.kbd_light
     hw.motu.avb
     hw.printer

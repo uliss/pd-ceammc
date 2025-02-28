@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.gpio.rotenc">
+        <title>hw.gpio.rotenc</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Rotary encoder connected to GPIO</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display gpio raspberry rotary encoder</keywords>
+            <since>0.9.9</since>
+        </meta>
+        <info>
+            <par>Note: only RaspberryPi support</par>
+        </info>
+        <methods>
+            <method name="get">request current value output</method>
+            <method name="set">set current value 
+            <param name="VAL" type="float" required="true">new value</param></method>
+            <method name="reset">reset current value to @init</method>
+        </methods>
+        <properties>
+            <property name="@init" type="float" default="0">init encoder value</property>
+            <property name="@dt" type="int" default="0">DT GPIO pin</property>
+            <property name="@min" type="float" default="-100">min encoder value</property>
+            <property name="@clk" type="int" default="0">CLK GPIO pin</property>
+            <property name="@btn" type="int" default="0">BTN GPIO pin</property>
+            <property name="@step" type="float" default="1">encoder step</property>
+            <property name="@max" type="float" default="100">max encoder value</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: current encoder value</outlet>
+            <outlet>[dir -1|1( or [btn 1|0( messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@step 0.5 #a(
+
+  [B]  [set 50(
+  |    |
+[hw.gpio.rotenc @dt 22 @clk 23 @btn 27 #x]
+|                         ^|
+|                         [route btn dir ]
+|                         |             ^|
+[F digit=4]               [T]          [F]
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

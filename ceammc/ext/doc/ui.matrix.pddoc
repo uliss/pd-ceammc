@@ -138,7 +138,7 @@
             <param name="..." type="list" required="true">cell values (1 - checked, 0 -
             unchecked)</param></method>
             <!-- set list ... -->
-            <method name="set list ...">set matrix data without output
+            <method name="set list ...">set matrix data without output 
             <param name="..." type="list" required="true">cell values (1 - checked, 0 - unchecked),
             row by row</param></method>
             <!-- set row N ... -->
@@ -147,7 +147,7 @@
             <param name="..." type="list" required="true">cell values (1 - checked, 0 -
             unchecked)</param></method>
             <!-- set matrix R C ... -->
-            <method name="set matrix R C ...">set matrix without output
+            <method name="set matrix R C ...">set matrix without output 
             <param name="R" type="int" minvalue="1" required="true">number of rows in
             matrix</param>
             <param name="C" type="int" minvalue="1" required="true">number of columns in
@@ -159,8 +159,8 @@
             <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- write -->
             <method name="write">
-            <param name="FNAME" type="symbol">write matrix values to text file (space
-            separated). If fname argument is not specified opens file chooser dialog</param>
+                <param name="FNAME" type="symbol">write matrix values to text file (space
+                separated). If fname argument is not specified opens file chooser dialog</param>
             </method>
         </methods>
         <inlets>

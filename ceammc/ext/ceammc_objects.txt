@@ -79,6 +79,7 @@ array.window
 artnet.send
 bar->ms
 bimap
+bitmap
 bits->bang
 bits->int
 bits->note
@@ -128,6 +129,7 @@ ceammc/apf->biquad
 ceammc/approx
 ceammc/bar->ms
 ceammc/bimap
+ceammc/bitmap
 ceammc/bits->bang
 ceammc/bits->int
 ceammc/bits->note
@@ -639,14 +641,17 @@ hw.arduino
 hw.display
 hw.gamepad
 hw.gpio
+hw.gpio.rotenc
 hw.i2c.lcd1602
 hw.kbd_light
 hw.motu.avb
 hw.printer
+hw.rpi.pwm
 hw.sensor.dht11
 hw.sensor.sr04
 hw.serial
 hw.spi.max7219
+hw.spi.ws2812
 int->bits
 is_any
 is_bang
