@@ -59,6 +59,7 @@ pub struct hw_spi_ws2812 {
     rx: std::sync::mpsc::Receiver<Reply>,
     on_err: hw_msg_cb,
     notify: hw_notify_cb,
+    clear_on_exit: bool,
 }
 
 #[no_mangle]
@@ -68,9 +69,10 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
     size: usize,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
+    clear_on_exit: bool,
 ) -> *mut hw_spi_ws2812 {
     rpi_check!(null_mut(), {
-        match hw_spi_ws2812::new(bus, cs, size, notify, on_err) {
+        match hw_spi_ws2812::new(bus, cs, size, notify, on_err, clear_on_exit) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -183,6 +185,9 @@ pub extern "C" fn ceammc_hw_spi_ws2812_apply_rx(
     arg: f32,
 ) -> bool {
     rpi_check!({
-        hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx, arg, true))
+        hw_spi_ws2812::send_ptr(
+            ws,
+            Request::ApplyEffect(Range { first, length }, fx, arg, true),
+        )
     });
 }

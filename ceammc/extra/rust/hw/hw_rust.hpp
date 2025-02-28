@@ -685,7 +685,8 @@ ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_spi_cs cs,
                                                size_t size,
                                                ceammc_hw_notify_cb notify,
-                                               ceammc_hw_msg_cb on_err);
+                                               ceammc_hw_msg_cb on_err,
+                                               bool clear_on_exit);
 
 /// process events
 void ceammc_hw_spi_ws2812_process_reply(ceammc_hw_spi_ws2812 *ws);

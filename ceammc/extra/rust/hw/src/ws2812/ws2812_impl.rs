@@ -33,6 +33,7 @@ impl hw_spi_ws2812 {
         size: usize,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
+        clear_on_exit: bool,
     ) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
@@ -164,7 +165,18 @@ impl hw_spi_ws2812 {
             rx: rep_rx,
             on_err,
             notify,
+            clear_on_exit,
         })
+    }
+
+    fn send(&self, req: Request) -> bool {
+        if let Err(err) = self.tx.send(req) {
+            error!("send error: {err}");
+            return false;
+        }
+
+        self.notify.notify();
+        true
     }
 
     pub fn send_ptr(ws: *const Self, req: Request) -> bool {
@@ -174,14 +186,7 @@ impl hw_spi_ws2812 {
         }
 
         let ws = unsafe { &*ws };
-
-        if let Err(err) = ws.tx.send(req) {
-            error!("send error: {err}");
-            return false;
-        }
-
-        ws.notify.notify();
-        true
+        ws.send(req)
     }
 
     fn send_error(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
@@ -208,6 +213,16 @@ impl hw_spi_ws2812 {
                 Reply::Error(str) => {
                     ws.on_err.exec_raw(str.as_ptr());
                 }
+            }
+        }
+    }
+}
+
+impl Drop for hw_spi_ws2812 {
+    fn drop(&mut self) {
+        if self.clear_on_exit {
+            if self.send(Request::Clear) {
+                self.send(Request::Flush);
             }
         }
     }

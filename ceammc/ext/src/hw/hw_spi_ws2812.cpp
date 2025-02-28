@@ -31,9 +31,6 @@ HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
 
 HwSpiWs2812::~HwSpiWs2812()
 {
-    if (clear_on_exit_->value())
-        ceammc_hw_spi_ws2812_clear(ws_);
-
     ceammc_hw_spi_ws2812_free(ws_);
 }
 
@@ -47,7 +44,8 @@ void HwSpiWs2812::initDone()
         { this, [](void* user, const char* msg) {
              auto* obj = static_cast<HwSpiWs2812*>(user);
              Error(obj) << msg;
-         } });
+         } },
+        clear_on_exit_->value());
 }
 
 bool HwSpiWs2812::notify(int code)
