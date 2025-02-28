@@ -118,7 +118,7 @@ impl hw_spi_ws2812 {
                         let a = pos2index(slice.first, leds.len());
                         let b = pos2index(slice.last, leds.len());
 
-                        for idx in (a..b).step_by(slice.step) {
+                        for idx in (a..(b + 1)).step_by(slice.step) {
                             leds.get_mut(idx).map(|c| {
                                 *c = rgb;
                             });
