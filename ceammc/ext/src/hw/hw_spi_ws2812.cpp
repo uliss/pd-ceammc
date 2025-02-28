@@ -21,12 +21,19 @@ HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
     addProperty(cs_);
 
     size_ = new IntProperty("@size", 16);
+    size_->setInitOnly();
     size_->checkClosedRange(1, 4096);
     addProperty(size_);
+
+    clear_on_exit_ = new BoolProperty("@clear", true);
+    addProperty(clear_on_exit_);
 }
 
 HwSpiWs2812::~HwSpiWs2812()
 {
+    if (clear_on_exit_->value())
+        ceammc_hw_spi_ws2812_clear(ws_);
+
     ceammc_hw_spi_ws2812_free(ws_);
 }
 

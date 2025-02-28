@@ -11,6 +11,7 @@ class HwSpiWs2812 : public DispatchedObject<BaseObject> {
     IntProperty* spi_ { nullptr };
     IntProperty* cs_ { nullptr };
     IntProperty* size_ { nullptr };
+    BoolProperty* clear_on_exit_ { nullptr };
 
 public:
     HwSpiWs2812(const PdArgs& args);
