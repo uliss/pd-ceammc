@@ -30,10 +30,17 @@ pub struct Range {
 }
 
 #[derive(Debug)]
+#[repr(C)]
+pub enum hw_led_fx {
+    Rainbow,
+}
+
+#[derive(Debug)]
 pub enum Request {
     SetPixelColor(usize, RGB8),
     SetSliceColor(Slice, RGB8),
     SetRangeColor(Range, RGB8),
+    ApplyEffect(Range, hw_led_fx),
     Fill(RGB8),
     SetBrightness(u8),
     Flush,
@@ -74,10 +81,10 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_free(pwm: *mut hw_spi_ws2812) {
+pub extern "C" fn ceammc_hw_spi_ws2812_free(ws: *mut hw_spi_ws2812) {
     rpi_check!((), {
-        if !pwm.is_null() {
-            drop(unsafe { Box::from_raw(pwm) })
+        if !ws.is_null() {
+            drop(unsafe { Box::from_raw(ws) })
         }
     });
 }
@@ -94,38 +101,33 @@ pub extern "C" fn ceammc_hw_spi_ws2812_set_color(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_set_brightness(pwm: *const hw_spi_ws2812, b: u8) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetBrightness(b)) });
+pub extern "C" fn ceammc_hw_spi_ws2812_set_brightness(ws: *const hw_spi_ws2812, b: u8) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetBrightness(b)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_rotate(pwm: *const hw_spi_ws2812, delta: i32) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Rotate(delta)) });
+pub extern "C" fn ceammc_hw_spi_ws2812_rotate(ws: *const hw_spi_ws2812, delta: i32) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Rotate(delta)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_flush(pwm: *const hw_spi_ws2812) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Flush) });
+pub extern "C" fn ceammc_hw_spi_ws2812_flush(ws: *const hw_spi_ws2812) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Flush) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_clear(pwm: *const hw_spi_ws2812) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Clear) });
+pub extern "C" fn ceammc_hw_spi_ws2812_clear(ws: *const hw_spi_ws2812) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Clear) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_fill(
-    pwm: *const hw_spi_ws2812,
-    r: u8,
-    g: u8,
-    b: u8,
-) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Fill(RGB8 { r, g, b })) });
+pub extern "C" fn ceammc_hw_spi_ws2812_fill(ws: *const hw_spi_ws2812, r: u8, g: u8, b: u8) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Fill(RGB8 { r, g, b })) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_spi_ws2812_set_range(
-    pwm: *const hw_spi_ws2812,
+    ws: *const hw_spi_ws2812,
     start: i32,
     len: usize,
     r: u8,
@@ -134,7 +136,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_set_range(
 ) -> bool {
     rpi_check!({
         hw_spi_ws2812::send_ptr(
-            pwm,
+            ws,
             Request::SetRangeColor(
                 Range {
                     first: start,
@@ -148,7 +150,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_set_range(
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_spi_ws2812_set_slice(
-    pwm: *const hw_spi_ws2812,
+    ws: *const hw_spi_ws2812,
     first: i32,
     last: i32,
     step: usize,
@@ -158,7 +160,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_set_slice(
 ) -> bool {
     rpi_check!({
         hw_spi_ws2812::send_ptr(
-            pwm,
+            ws,
             Request::SetSliceColor(Slice { first, last, step }, RGB8 { r, g, b }),
         )
     });
@@ -168,4 +170,15 @@ pub extern "C" fn ceammc_hw_spi_ws2812_set_slice(
 #[no_mangle]
 pub extern "C" fn ceammc_hw_spi_ws2812_process_reply(ws: *mut hw_spi_ws2812) {
     rpi_check!((), { hw_spi_ws2812::process_ptr(ws) });
+}
+
+/// apply fx
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_apply_rx(
+    ws: *mut hw_spi_ws2812,
+    first: i32,
+    length: usize,
+    fx: hw_led_fx,
+) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx)) });
 }

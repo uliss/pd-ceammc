@@ -1,6 +1,9 @@
 #include "hw_spi_ws2812.h"
 #include "args/argcheck.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+
+CEAMMC_DEFINE_HASH(rainbow)
 
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
@@ -112,6 +115,25 @@ void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
     onBang();
 }
 
+void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FX:s=rainbow START:i? LEN:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_led_fx fx {};
+
+    switch (crc32_hash(lv.symbolAt(0, &s_))) {
+    case hash_rainbow:
+        fx = ceammc_hw_led_fx::Rainbow;
+        break;
+    default:
+        break;
+    }
+
+    ceammc_hw_spi_ws2812_apply_rx(ws_, lv.intAt(1, 0), lv.intAt(2, size_->value()), fx);
+}
+
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("i");
@@ -128,6 +150,7 @@ void setup_hw_spi_ws2812()
     obj.addMethod("clear", &HwSpiWs2812::m_clear);
     obj.addMethod("fill", &HwSpiWs2812::m_fill);
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
+    obj.addMethod("fx", &HwSpiWs2812::m_fx);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
     obj.addMethod("set", &HwSpiWs2812::m_set);
     obj.addMethod("set_range", &HwSpiWs2812::m_set_range);

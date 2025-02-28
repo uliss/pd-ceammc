@@ -2,6 +2,7 @@ use std::ffi::CString;
 
 use log::{debug, error};
 use rgb::RGB8;
+use smart_led_effects::strip::{self, EffectIterator};
 use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::Ws2812;
 
@@ -79,6 +80,9 @@ impl hw_spi_ws2812 {
 
             let mut brightness = 127;
 
+            // fx
+            let mut fx_rainbow = None;
+
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
 
@@ -118,7 +122,7 @@ impl hw_spi_ws2812 {
                         let a = pos2index(slice.first, leds.len());
                         let b = pos2index(slice.last, leds.len());
 
-                        for idx in (a..(b + 1)).step_by(slice.step) {
+                        for idx in (a..=b).step_by(slice.step) {
                             leds.get_mut(idx).map(|c| {
                                 *c = rgb;
                             });
@@ -134,6 +138,24 @@ impl hw_spi_ws2812 {
                             });
                         }
                     }
+                    Request::ApplyEffect(range, fx) => match fx {
+                        crate::ws2812::hw_led_fx::Rainbow => {
+                            if fx_rainbow.is_none() {
+                                fx_rainbow.replace(strip::Rainbow::new(range.length, None));
+                            }
+
+                            let a = pos2index(range.first, leds.len());
+                            let b = (a + range.length).min(leds.len());
+
+                            let fx = fx_rainbow.as_mut().unwrap().next().unwrap();
+
+                            for (c, d) in leds[a..b].iter_mut().zip(fx.iter()) {
+                                c.r = d.red;
+                                c.g = d.green;
+                                c.b = d.blue;
+                            }
+                        }
+                    },
                 }
             }
 

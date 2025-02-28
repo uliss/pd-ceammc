@@ -115,6 +115,10 @@ enum class ceammc_hw_gpio_trigger {
     Both,
 };
 
+enum class ceammc_hw_led_fx {
+    Rainbow,
+};
+
 enum class ceammc_hw_max7219_string_align {
     Left,
     Right,
@@ -662,13 +666,19 @@ ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
 
 bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
 
-bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *pwm);
+/// apply fx
+bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,
+                                   int32_t first,
+                                   size_t length,
+                                   ceammc_hw_led_fx fx);
 
-bool ceammc_hw_spi_ws2812_fill(const ceammc_hw_spi_ws2812 *pwm, uint8_t r, uint8_t g, uint8_t b);
+bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *ws);
 
-bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *pwm);
+bool ceammc_hw_spi_ws2812_fill(const ceammc_hw_spi_ws2812 *ws, uint8_t r, uint8_t g, uint8_t b);
 
-void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *pwm);
+bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *ws);
+
+void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *ws);
 
 ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_spi_cs cs,
@@ -679,9 +689,9 @@ ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
 /// process events
 void ceammc_hw_spi_ws2812_process_reply(ceammc_hw_spi_ws2812 *ws);
 
-bool ceammc_hw_spi_ws2812_rotate(const ceammc_hw_spi_ws2812 *pwm, int32_t delta);
+bool ceammc_hw_spi_ws2812_rotate(const ceammc_hw_spi_ws2812 *ws, int32_t delta);
 
-bool ceammc_hw_spi_ws2812_set_brightness(const ceammc_hw_spi_ws2812 *pwm, uint8_t b);
+bool ceammc_hw_spi_ws2812_set_brightness(const ceammc_hw_spi_ws2812 *ws, uint8_t b);
 
 bool ceammc_hw_spi_ws2812_set_color(const ceammc_hw_spi_ws2812 *pwm,
                                     size_t idx,
@@ -689,14 +699,14 @@ bool ceammc_hw_spi_ws2812_set_color(const ceammc_hw_spi_ws2812 *pwm,
                                     uint8_t g,
                                     uint8_t b);
 
-bool ceammc_hw_spi_ws2812_set_range(const ceammc_hw_spi_ws2812 *pwm,
+bool ceammc_hw_spi_ws2812_set_range(const ceammc_hw_spi_ws2812 *ws,
                                     int32_t start,
                                     size_t len,
                                     uint8_t r,
                                     uint8_t g,
                                     uint8_t b);
 
-bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *pwm,
+bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *ws,
                                     int32_t first,
                                     int32_t last,
                                     size_t step,
