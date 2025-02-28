@@ -60,7 +60,7 @@ impl hw_spi_ws2812 {
                     hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
                     hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
                 },
-                2_500_000,
+                3_700_000,
                 rppal::spi::Mode::Mode0,
             )
             .map_err(|err| {
