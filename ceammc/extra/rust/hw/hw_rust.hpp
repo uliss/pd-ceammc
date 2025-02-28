@@ -280,6 +280,13 @@ struct ceammc_hw_gpio_poll_cb {
     void (*cb)(size_t id, int data);
 };
 
+struct ceammc_hw_gpio_rotenc_data {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, int32_t, int8_t);
+};
+
 /// error callback
 struct ceammc_hw_sr04_cb {
     /// pointer to user data (can be NULL)
@@ -401,8 +408,12 @@ void ceammc_hw_gpio_rotenc_free(ceammc_hw_gpio_rotenc *enc);
 ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
                                                  uint8_t clk,
                                                  uint8_t btn,
+                                                 int32_t init,
                                                  ceammc_hw_notify_cb notify,
+                                                 ceammc_hw_gpio_rotenc_data on_data,
                                                  ceammc_hw_msg_cb on_err);
+
+void ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
 
 /// set pin bias
 /// @param gpio - pointer to gpio struct

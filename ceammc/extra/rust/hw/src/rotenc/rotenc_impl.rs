@@ -3,18 +3,20 @@ use std::{ffi::CString, thread::sleep, time::Duration};
 
 use log::{debug, error};
 use rotary_encoder_embedded::RotaryEncoder;
-use rppal::{gpio::Gpio, system::DeviceInfo};
+use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
-use super::hw_gpio_rotenc;
+use super::{hw_gpio_rotenc, hw_gpio_rotenc_data, Reply};
 
 impl hw_gpio_rotenc {
     pub fn new(
         dt: u8,
         clk: u8,
         btn: u8,
+        init: i32,
         notify: hw_notify_cb,
+        on_data: hw_gpio_rotenc_data,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
@@ -23,7 +25,7 @@ impl hw_gpio_rotenc {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("thread start");
 
-            debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn}");
+            debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn} and init value={init}");
 
             if dt == 0 || clk == 0 {
                 debug!("invalid pins");
@@ -35,11 +37,6 @@ impl hw_gpio_rotenc {
                 err.to_string()
             })?;
 
-            // let dev = DeviceInfo::new().map_err(|err| {
-            //     error!("{err}");
-            //     err.to_string()
-            // })?;
-
             // Configure DT and CLK pins, typically pullup input
             let dt_pin = gpio
                 .get(dt)
@@ -49,8 +46,6 @@ impl hw_gpio_rotenc {
                 })?
                 .into_input_pullup();
 
-            // dt_pin.
-
             let clk_pin = gpio
                 .get(clk)
                 .map_err(|err| {
@@ -59,32 +54,32 @@ impl hw_gpio_rotenc {
                 })?
                 .into_input_pullup();
 
-            // Initialize the rotary encoder
             let mut rotary_encoder = RotaryEncoder::new(dt_pin, clk_pin).into_standard_mode();
 
-            // Now you can update the state of the rotary encoder and get a direction value. Call this from an update routine, timer task or interrupt
-            // let _dir =
-
-            // gpio.
-            // dt_pin.set_async_interrupt(trigger, debounce, callback);
+            let mut value: i32 = init;
 
             // ...timer initialize at 900Hz to poll the rotary encoder
             loop {
-                // gpio.poll_interrupts(&[&dt_pin, &clk_pin], false, Some(Duration::from_millis(10)));
-
                 sleep(Duration::from_millis(1));
                 let dir = rotary_encoder.update();
 
-                debug!("{dir:?}");
-
                 match dir {
-                    rotary_encoder_embedded::Direction::None => {}
-                    rotary_encoder_embedded::Direction::Clockwise => {}
-                    rotary_encoder_embedded::Direction::Anticlockwise => {}
+                    rotary_encoder_embedded::Direction::Clockwise => {
+                        value += 1;
+                        Self::send_reply(&rep_tx, notify, Reply::Data(value, 1));
+                    }
+                    rotary_encoder_embedded::Direction::Anticlockwise => {
+                        value -= 1;
+                        Self::send_reply(&rep_tx, notify, Reply::Data(value, -1));
+                    }
+                    _ => {}
                 }
 
                 match req_rx.try_recv() {
-                    Ok(_) => {}
+                    Ok(req) => match req {
+                        crate::rotenc::Request::SetValue(val) => value = val,
+                        crate::rotenc::Request::ResetValue => value = init,
+                    },
                     Err(err) => match err {
                         std::sync::mpsc::TryRecvError::Empty => {}
                         std::sync::mpsc::TryRecvError::Disconnected => {
@@ -101,8 +96,37 @@ impl hw_gpio_rotenc {
         Ok(hw_gpio_rotenc {
             tx: req_tx,
             rx: rep_rx,
+            on_data,
             on_err,
-            notify,
         })
+    }
+
+    fn send_reply(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, rep: Reply) -> bool {
+        if let Err(err) = tx.send(rep) {
+            error!("send error: {err}");
+            return false;
+        }
+
+        notify.notify();
+        true
+    }
+
+    pub fn process_ptr(enc: *mut Self) -> bool {
+        if enc.is_null() {
+            return false;
+        }
+
+        let enc = unsafe { &*enc };
+        while let Ok(rep) = enc.rx.try_recv() {
+            match rep {
+                Reply::Error(str) => enc.on_err.exec_raw(str.as_ptr()),
+                Reply::Click => {}
+                Reply::Data(value, dir) => {
+                    (enc.on_data.cb)(enc.on_data.user, value, dir);
+                }
+            }
+        }
+
+        true
     }
 }

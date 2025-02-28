@@ -11,6 +11,7 @@ class HwGpioRotaryEncoder : public DispatchedObject<BaseObject> {
     IntProperty* dt_pin_ { nullptr };
     IntProperty* clk_pin_ { nullptr };
     IntProperty* btn_pin_ { nullptr };
+    IntProperty* init_ { nullptr };
 
 public:
     HwGpioRotaryEncoder(const PdArgs& args);

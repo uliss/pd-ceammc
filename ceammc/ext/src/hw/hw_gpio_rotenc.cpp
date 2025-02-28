@@ -5,6 +5,7 @@ HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
 {
     createOutlet();
+    createOutlet();
 
     dt_pin_ = new IntProperty("@dt", 0);
     dt_pin_->checkClosedRange(0, 30);
@@ -20,6 +21,10 @@ HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
     btn_pin_->checkClosedRange(0, 30);
     btn_pin_->setInitOnly();
     addProperty(btn_pin_);
+
+    init_ = new IntProperty("@init", 0);
+    init_->setInitOnly();
+    addProperty(init_);
 }
 
 HwGpioRotaryEncoder::~HwGpioRotaryEncoder()
@@ -29,8 +34,20 @@ HwGpioRotaryEncoder::~HwGpioRotaryEncoder()
 
 void HwGpioRotaryEncoder::initDone()
 {
-    enc_ = ceammc_hw_gpio_rotenc_new(dt_pin_->value(), clk_pin_->value(), btn_pin_->value(), //
+    enc_ = ceammc_hw_gpio_rotenc_new(dt_pin_->value(),
+        clk_pin_->value(),
+        btn_pin_->value(),
+        init_->value(),
+        //
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
+        { this, [](void* user, std::int32_t value, std::int8_t dir) {
+             auto obj = static_cast<HwGpioRotaryEncoder*>(user);
+             if (!obj)
+                 return;
+
+             obj->floatTo(1, dir);
+             obj->floatTo(0, value);
+         } },
         { this, [](void* user, const char* msg) {
              auto obj = static_cast<HwGpioRotaryEncoder*>(user);
              Error(obj) << msg;
@@ -39,6 +56,7 @@ void HwGpioRotaryEncoder::initDone()
 
 bool HwGpioRotaryEncoder::notify(int code)
 {
+    ceammc_hw_gpio_rotenc_process_events(enc_);
     return true;
 }
 
