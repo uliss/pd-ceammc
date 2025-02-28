@@ -23,15 +23,22 @@ impl hw_gpio_rotenc {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("thread start");
 
+            debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn}");
+
+            if dt == 0 || clk == 0 {
+                debug!("invalid pins");
+                return Ok(());
+            }
+
             let gpio = Gpio::new().map_err(|err| {
                 error!("{err}");
                 err.to_string()
             })?;
 
-            let dev = DeviceInfo::new().map_err(|err| {
-                error!("{err}");
-                err.to_string()
-            })?;
+            // let dev = DeviceInfo::new().map_err(|err| {
+            //     error!("{err}");
+            //     err.to_string()
+            // })?;
 
             // Configure DT and CLK pins, typically pullup input
             let dt_pin = gpio
