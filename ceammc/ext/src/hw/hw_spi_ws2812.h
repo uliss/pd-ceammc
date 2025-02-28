@@ -20,6 +20,8 @@ public:
     bool notify(int code) final;
 
     void m_brightness(t_symbol* s, const AtomListView& lv);
+    void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_fill(t_symbol* s, const AtomListView& lv);
     void m_flush(t_symbol* s, const AtomListView& lv);
     void m_rotate(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);

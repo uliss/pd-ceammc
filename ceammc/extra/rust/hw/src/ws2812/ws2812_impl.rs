@@ -99,6 +99,12 @@ impl hw_spi_ws2812 {
                             leds.rotate_left(delta.abs() as usize);
                         }
                     }
+                    Request::Clear => {
+                        leds.fill(RGB8::default());
+                    }
+                    Request::Fill(r, g, b) => {
+                        leds.fill(RGB8::new(r, g, b));
+                    }
                 }
             }
 

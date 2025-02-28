@@ -18,8 +18,10 @@ mod ws2812_impl;
 #[derive(Debug)]
 pub enum Request {
     SetColorRGB(usize, u8, u8, u8),
+    Fill(u8, u8, u8),
     SetBrightness(u8),
     Flush,
+    Clear,
     Rotate(i32),
 }
 
@@ -88,4 +90,19 @@ pub extern "C" fn ceammc_hw_spi_ws2812_rotate(pwm: *const hw_spi_ws2812, delta: 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_spi_ws2812_flush(pwm: *const hw_spi_ws2812) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Flush) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_clear(pwm: *const hw_spi_ws2812) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Clear) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_spi_ws2812_fill(
+    pwm: *const hw_spi_ws2812,
+    r: u8,
+    g: u8,
+    b: u8,
+) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::Fill(r, g, b)) });
 }

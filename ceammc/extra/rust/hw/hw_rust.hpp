@@ -662,6 +662,10 @@ ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
 
 bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
 
+bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *pwm);
+
+bool ceammc_hw_spi_ws2812_fill(const ceammc_hw_spi_ws2812 *pwm, uint8_t r, uint8_t g, uint8_t b);
+
 bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *pwm);
 
 void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *pwm);
