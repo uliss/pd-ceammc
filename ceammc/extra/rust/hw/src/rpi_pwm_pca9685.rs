@@ -7,17 +7,23 @@ use std::{ffi::CString, ptr::null_mut};
 
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb, rpi_pwm::hw_rpi_pwm_polarity};
 
 #[cfg(target_os = "linux")]
 mod pca9685_impl;
+
+// 255 = round(osc_value / (4096 * 24)) - 1
+pub const HW_PCA9685_OSC_VALUE: u32 = 256 * 24;
+pub const HW_PCA9685_MIN_FREQ_HZ: u32 = HW_PCA9685_OSC_VALUE / 255;
+pub const HW_PCA9685_MAX_FREQ_HZ: u32 = HW_PCA9685_OSC_VALUE / 3;
 
 #[derive(Debug)]
 pub enum Request {
     Enable(bool),
     SetChanOnOff(u8, u16, u16),
+    SetFreq(f32),
     // SetPeriod(f64),
-    // SetPolarity(hw_rpi_pwm_polarity),
+    SetPolarity(hw_rpi_pwm_polarity),
     // SetPulseWidth(f64),
     // SetDutyCycle(f64),
     // SetPwm(f64, f64),
@@ -74,14 +80,10 @@ pub extern "C" fn ceammc_hw_rpi_pwm_pca9685_enable(
     rpi_check!({ hw_rpi_pwm_pca9685::send_request(pwm, Request::Enable(state)) });
 }
 
-// #[no_mangle]
-// pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(
-//     pwm: *const hw_rpi_pwm,
-//     freq_hz: f64,
-//     duty_cycle: f64,
-// ) -> bool {
-//     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetFreq(freq_hz, duty_cycle)) });
-// }
+#[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_pca9685_set_freq(pwm: *const hw_rpi_pwm_pca9685, freq_hz: f32) -> bool {
+    rpi_check!({ hw_rpi_pwm_pca9685::send_request(pwm, Request::SetFreq(freq_hz)) });
+}
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_rpi_pwm_pca9685_set_on_off(
@@ -111,10 +113,10 @@ pub extern "C" fn ceammc_hw_rpi_pwm_pca9685_set_on_off(
 //     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetDutyCycle(duty_cycle)) });
 // }
 
-// #[no_mangle]
-// pub extern "C" fn ceammc_hw_rpi_pwm_set_polarity(
-//     pwm: *const hw_rpi_pwm,
-//     polarity: hw_rpi_pwm_polarity,
-// ) -> bool {
-//     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPolarity(polarity)) });
-// }
+#[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_pca9685i_set_polarity(
+    pwm: *const hw_rpi_pwm_pca9685,
+    polarity: hw_rpi_pwm_polarity,
+) -> bool {
+    rpi_check!({ hw_rpi_pwm_pca9685::send_request(pwm, Request::SetPolarity(polarity)) });
+}

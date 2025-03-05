@@ -35,6 +35,12 @@ constexpr static const uint8_t ceammc_HW_MAX7219_REG_SCAN_LIMIT = 11;
 
 constexpr static const uint8_t ceammc_HW_MAX7219_REG_SHUTDOWN = 12;
 
+constexpr static const uint32_t ceammc_HW_PCA9685_MAX_FREQ_HZ = (ceammc_HW_PCA9685_OSC_VALUE / 3);
+
+constexpr static const uint32_t ceammc_HW_PCA9685_MIN_FREQ_HZ = (ceammc_HW_PCA9685_OSC_VALUE / 255);
+
+constexpr static const uint32_t ceammc_HW_PCA9685_OSC_VALUE = (256 * 24);
+
 constexpr static const int8_t ceammc_HW_RPI_PWM_MAX_CHAN = 3;
 
 constexpr static const int8_t ceammc_HW_RPI_PWM_MIN_CHAN = 0;
@@ -731,10 +737,15 @@ ceammc_hw_rpi_pwm_pca9685 *ceammc_hw_rpi_pwm_pca9685_new(int8_t bus,
 
 bool ceammc_hw_rpi_pwm_pca9685_proc_reply(const ceammc_hw_rpi_pwm_pca9685 *pwm);
 
+bool ceammc_hw_rpi_pwm_pca9685_set_freq(const ceammc_hw_rpi_pwm_pca9685 *pwm, float freq_hz);
+
 bool ceammc_hw_rpi_pwm_pca9685_set_on_off(const ceammc_hw_rpi_pwm_pca9685 *pwm,
                                           uint8_t chan,
                                           uint16_t on,
                                           uint16_t off);
+
+bool ceammc_hw_rpi_pwm_pca9685i_set_polarity(const ceammc_hw_rpi_pwm_pca9685 *pwm,
+                                             ceammc_hw_rpi_pwm_polarity polarity);
 
 bool ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
 

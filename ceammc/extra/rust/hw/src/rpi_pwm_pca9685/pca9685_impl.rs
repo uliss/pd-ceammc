@@ -4,7 +4,11 @@ use log::{debug, error};
 use pwm_pca9685::{Address, Channel, Pca9685};
 use rppal::i2c::I2c;
 
-use crate::{hw_msg_cb, hw_notify_cb, str_to_cstr};
+use crate::{
+    hw_msg_cb, hw_notify_cb,
+    rpi_pwm_pca9685::{HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MIN_FREQ_HZ, HW_PCA9685_OSC_VALUE},
+    str_to_cstr,
+};
 
 use super::{hw_rpi_pwm_pca9685, Reply, Request};
 
@@ -71,6 +75,28 @@ impl hw_rpi_pwm_pca9685 {
                     Request::SetChanOnOff(chan, on, off) => {
                         pwm.set_channel_on_off(to_channel(chan), on, off)
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                    }
+                    Request::SetFreq(freq_hz) => {
+                        let freq_hz = freq_hz
+                            .clamp(HW_PCA9685_MIN_FREQ_HZ as f32, HW_PCA9685_MAX_FREQ_HZ as f32);
+                        let prescale =
+                            ((HW_PCA9685_OSC_VALUE as f32 / freq_hz).round() as u8).clamp(0, 255);
+
+                        debug!("set PWM freq: {freq_hz}Hz (prescale: {prescale})");
+
+                        pwm.set_prescale(prescale)
+                            .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                    }
+                    Request::SetPolarity(polarity) => {
+                        pwm.set_output_logic_state(match polarity {
+                            crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => {
+                                pwm_pca9685::OutputLogicState::Direct
+                            }
+                            crate::rpi_pwm::hw_rpi_pwm_polarity::INVERSE => {
+                                pwm_pca9685::OutputLogicState::Inverted
+                            }
+                        })
+                        .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                 }
             }

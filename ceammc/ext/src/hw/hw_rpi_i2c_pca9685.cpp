@@ -41,13 +41,35 @@ void HwI2cPca8695::m_on_off(t_symbol* s, const AtomListView& lv)
     ceammc_hw_rpi_pwm_pca9685_set_on_off(pwm_, chan, on, off);
 }
 
-void HwI2cPca8695::m_enable(t_symbol *s, const AtomListView &lv)
+void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("STATE:B?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_rpi_pwm_pca9685i_set_polarity(pwm_,
+        lv.boolAt(0, true)
+            ? ceammc_hw_rpi_pwm_polarity::INVERSE
+            : ceammc_hw_rpi_pwm_polarity::NORMAL);
+}
+
+void HwI2cPca8695::m_enable(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
     ceammc_hw_rpi_pwm_pca9685_enable(pwm_, lv.boolAt(0, true));
+}
+
+void HwI2cPca8695::m_freq(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FREQ:f[24,2048]");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto freq = lv.floatAt(0, 0);
+    ceammc_hw_rpi_pwm_pca9685_set_freq(pwm_, freq);
 }
 
 void setup_hw_rpi_i2c_pca9685()
@@ -57,4 +79,6 @@ void setup_hw_rpi_i2c_pca9685()
 
     obj.addMethod("set_on_off", &HwI2cPca8695::m_on_off);
     obj.addMethod("enable", &HwI2cPca8695::m_enable);
+    obj.addMethod("freq", &HwI2cPca8695::m_freq);
+    obj.addMethod("polarity", &HwI2cPca8695::m_polarity);
 }
