@@ -1040,7 +1040,7 @@
       <xi:include href="hw.printer.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.gpio" descr="Raspberry Pi GPIO support" ref_view="object">
-      <xi:include href="hw.gpio.pddoc" parse="xml"/>
+      <xi:include href="hw.rpi.gpio.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.pwm" descr="Hardware PWM output for RaspberryPi" ref_view="object">
       <xi:include href="hw.rpi.pwm.pddoc" parse="xml"/>

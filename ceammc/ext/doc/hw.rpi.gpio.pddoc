@@ -13,9 +13,6 @@
             <keywords>display gpio raspberry</keywords>
             <since>0.9.9</since>
         </meta>
-        <info>
-            <par>Note: only RaspberryPi support</par>
-        </info>
         <methods>
             <method name="input">config pin into input mode 
             <param name="PIN" type="int" required="true">pin number</param></method>

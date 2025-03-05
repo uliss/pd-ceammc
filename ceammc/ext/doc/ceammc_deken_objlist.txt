@@ -604,11 +604,11 @@ hw.apple_sms	query the sudden motion sensor in Apples
 hw.arduino	Arduino device
 hw.display	get/set display properties
 hw.gamepad	gamepad controller
-hw.gpio	Raspberry Pi GPIO support
 hw.gpio.rotenc	Rotary encoder connected to GPIO
 hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
 hw.printer	Basic printing support
+hw.rpi.gpio	Raspberry Pi GPIO support
 hw.rpi.pwm	Hardware PWM output for RaspberryPi
 hw.sensor.sr04	HC-SR04 ulatrasonic ranging module
 hw.serial	serial port device
