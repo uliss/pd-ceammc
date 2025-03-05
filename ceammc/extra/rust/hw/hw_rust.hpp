@@ -184,7 +184,7 @@ struct ceammc_hw_lcd1602;
 
 struct ceammc_hw_max7219;
 
-struct ceammc_hw_rpi_pca9685;
+struct ceammc_hw_pca9685;
 
 struct ceammc_hw_rpi_pwm;
 
@@ -711,6 +711,28 @@ bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
                                  ceammc_hw_max7219_string_align align,
                                  uint8_t dots);
 
+bool ceammc_hw_pca9685_enable(const ceammc_hw_pca9685 *pwm, bool state);
+
+void ceammc_hw_pca9685_free(ceammc_hw_pca9685 *pwm);
+
+ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t bus,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_err);
+
+bool ceammc_hw_pca9685_proc_reply(const ceammc_hw_pca9685 *pwm);
+
+bool ceammc_hw_pca9685_set_freq(const ceammc_hw_pca9685 *pwm, float freq_hz);
+
+bool ceammc_hw_pca9685_set_on_off(const ceammc_hw_pca9685 *pwm,
+                                  uint8_t chan,
+                                  uint16_t on,
+                                  uint16_t off);
+
+bool ceammc_hw_pca9685_set_period(const ceammc_hw_pca9685 *pwm, double period_ms);
+
+bool ceammc_hw_pca9685i_set_polarity(const ceammc_hw_pca9685 *pwm,
+                                     ceammc_hw_rpi_pwm_polarity polarity);
+
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
                              const ceammc_hw_print_options *opts,
@@ -718,28 +740,6 @@ int32_t ceammc_hw_print_file(const char *printer,
                              ceammc_hw_msg_cb on_debug);
 
 bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
-
-bool ceammc_hw_rpi_pca9685_enable(const ceammc_hw_rpi_pca9685 *pwm, bool state);
-
-void ceammc_hw_rpi_pca9685_free(ceammc_hw_rpi_pca9685 *pwm);
-
-ceammc_hw_rpi_pca9685 *ceammc_hw_rpi_pca9685_new(int8_t bus,
-                                                 ceammc_hw_notify_cb notify,
-                                                 ceammc_hw_msg_cb on_err);
-
-bool ceammc_hw_rpi_pca9685_proc_reply(const ceammc_hw_rpi_pca9685 *pwm);
-
-bool ceammc_hw_rpi_pca9685_set_freq(const ceammc_hw_rpi_pca9685 *pwm, float freq_hz);
-
-bool ceammc_hw_rpi_pca9685_set_on_off(const ceammc_hw_rpi_pca9685 *pwm,
-                                      uint8_t chan,
-                                      uint16_t on,
-                                      uint16_t off);
-
-bool ceammc_hw_rpi_pca9685_set_period(const ceammc_hw_rpi_pca9685 *pwm, double period_ms);
-
-bool ceammc_hw_rpi_pca9685i_set_polarity(const ceammc_hw_rpi_pca9685 *pwm,
-                                         ceammc_hw_rpi_pwm_polarity polarity);
 
 bool ceammc_hw_rpi_pwm_enable(const ceammc_hw_rpi_pwm *pwm, bool state);
 

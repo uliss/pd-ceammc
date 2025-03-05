@@ -34,20 +34,20 @@ pub enum Reply {
     Error(CString),
 }
 
-pub struct hw_rpi_pca9685 {
+pub struct hw_pca9685 {
     tx: std::sync::mpsc::Sender<Request>,
     rx: std::sync::mpsc::Receiver<Reply>,
     on_err: hw_msg_cb,
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685_new(
+pub extern "C" fn ceammc_hw_pca9685_new(
     bus: i8,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
-) -> *mut hw_rpi_pca9685 {
+) -> *mut hw_pca9685 {
     rpi_check!(null_mut(), {
-        match hw_rpi_pca9685::new(bus, notify, on_err) {
+        match hw_pca9685::new(bus, notify, on_err) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -59,7 +59,7 @@ pub extern "C" fn ceammc_hw_rpi_pca9685_new(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685_free(pwm: *mut hw_rpi_pca9685) {
+pub extern "C" fn ceammc_hw_pca9685_free(pwm: *mut hw_pca9685) {
     rpi_check!((), {
         if !pwm.is_null() {
             drop(unsafe { Box::from_raw(pwm) })
@@ -68,36 +68,36 @@ pub extern "C" fn ceammc_hw_rpi_pca9685_free(pwm: *mut hw_rpi_pca9685) {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685_proc_reply(pwm: *const hw_rpi_pca9685) -> bool {
-    rpi_check!({ hw_rpi_pca9685::process_reply(pwm) });
+pub extern "C" fn ceammc_hw_pca9685_proc_reply(pwm: *const hw_pca9685) -> bool {
+    rpi_check!({ hw_pca9685::process_reply(pwm) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685_enable(
-    pwm: *const hw_rpi_pca9685,
+pub extern "C" fn ceammc_hw_pca9685_enable(
+    pwm: *const hw_pca9685,
     state: bool,
 ) -> bool {
-    rpi_check!({ hw_rpi_pca9685::send_request(pwm, Request::Enable(state)) });
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::Enable(state)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685_set_freq(pwm: *const hw_rpi_pca9685, freq_hz: f32) -> bool {
-    rpi_check!({ hw_rpi_pca9685::send_request(pwm, Request::SetFreq(freq_hz)) });
+pub extern "C" fn ceammc_hw_pca9685_set_freq(pwm: *const hw_pca9685, freq_hz: f32) -> bool {
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetFreq(freq_hz)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685_set_on_off(
-    pwm: *const hw_rpi_pca9685,
+pub extern "C" fn ceammc_hw_pca9685_set_on_off(
+    pwm: *const hw_pca9685,
     chan: u8,
     on: u16,
     off: u16,
 ) -> bool {
-    rpi_check!({ hw_rpi_pca9685::send_request(pwm, Request::SetChanOnOff(chan, on, off)) });
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetChanOnOff(chan, on, off)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685_set_period(pwm: *const hw_rpi_pca9685, period_ms: f64) -> bool {
-    rpi_check!({ hw_rpi_pca9685::send_request(pwm, Request::SetPeriod(period_ms)) });
+pub extern "C" fn ceammc_hw_pca9685_set_period(pwm: *const hw_pca9685, period_ms: f64) -> bool {
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetPeriod(period_ms)) });
 }
 
 // #[no_mangle]
@@ -114,9 +114,9 @@ pub extern "C" fn ceammc_hw_rpi_pca9685_set_period(pwm: *const hw_rpi_pca9685, p
 // }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pca9685i_set_polarity(
-    pwm: *const hw_rpi_pca9685,
+pub extern "C" fn ceammc_hw_pca9685i_set_polarity(
+    pwm: *const hw_pca9685,
     polarity: hw_rpi_pwm_polarity,
 ) -> bool {
-    rpi_check!({ hw_rpi_pca9685::send_request(pwm, Request::SetPolarity(polarity)) });
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetPolarity(polarity)) });
 }

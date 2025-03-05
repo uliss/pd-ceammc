@@ -10,7 +10,7 @@ use crate::{
     str_to_cstr,
 };
 
-use super::{hw_rpi_pca9685, Reply, Request};
+use super::{hw_pca9685, Reply, Request};
 
 fn to_channel(ch: u8) -> Channel {
     match ch {
@@ -42,7 +42,7 @@ where
     cstr
 }
 
-impl hw_rpi_pca9685 {
+impl hw_pca9685 {
     pub fn new(bus: i8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel::<Request>();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
@@ -106,7 +106,7 @@ impl hw_rpi_pca9685 {
             Ok(())
         });
 
-        Ok(hw_rpi_pca9685 {
+        Ok(hw_pca9685 {
             tx: req_tx,
             rx: rep_rx,
             on_err,
