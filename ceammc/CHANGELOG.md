@@ -3,7 +3,8 @@
 ## [Unrelease]
 ### Added:
 - new objects:
-  - hw.gpio - Raspberry Pi GPIO support
+  - hw.rpi.gpio - Raspberry Pi GPIO support
+  - hw.rpi.pwm - Raspberry Pi PWM support
   - bitmap - bitmap image
 - new methods:
   - [set matrix( set method added to ui.matrix

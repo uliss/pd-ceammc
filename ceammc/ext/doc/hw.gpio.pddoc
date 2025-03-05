@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="hw.gpio">
-        <title>hw.gpio</title>
+    <object name="hw.rpi.gpio">
+        <title>hw.rpi.gpio</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -83,7 +83,7 @@
 |
 |                     [reset 18 #h(
 |
-[hw.gpio #x]
+[hw.rpi.gpio #x]
 |
 [route pin]
 |

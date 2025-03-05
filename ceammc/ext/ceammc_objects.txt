@@ -640,12 +640,12 @@ hw.apple_sms
 hw.arduino
 hw.display
 hw.gamepad
-hw.gpio
 hw.gpio.rotenc
 hw.i2c.lcd1602
 hw.kbd_light
 hw.motu.avb
 hw.printer
+hw.rpi.gpio
 hw.rpi.pwm
 hw.sensor.dht11
 hw.sensor.sr04

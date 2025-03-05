@@ -1,7 +1,7 @@
 add_subdirectory(arduino)
 
 add_library(ceammc_hw STATIC mod_hw.cpp
-    hw_gpio.h hw_gpio.cpp)
+    hw_rpi_gpio.h hw_rpi_gpio.cpp)
 
 function(ceammc_hw_external name)
     target_sources(ceammc_hw PRIVATE "hw_${name}.cpp")
@@ -105,10 +105,10 @@ if(WITH_PRINTER)
 endif()
 
 # GPIO
-target_sources(ceammc_hw PRIVATE hw_gpio.cpp)
 target_sources(ceammc_hw PRIVATE
     hw_display_lcd1602.cpp
     hw_gpio_rotenc.cpp
+    hw_rpi_gpio
     hw_rpi_pwm.cpp
     hw_sensor_sr04.cpp
     hw_sensors_dht11.cpp

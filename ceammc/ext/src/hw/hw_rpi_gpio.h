@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HW_GPIO_H
-#define HW_GPIO_H
+#ifndef HW_RPI_GPIO_H
+#define HW_RPI_GPIO_H
 
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
@@ -49,4 +49,4 @@ private:
 
 void setup_hw_rpi_gpio();
 
-#endif // HW_GPIO_H
+#endif // HW_RPI_GPIO_H

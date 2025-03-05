@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hw_gpio.h"
+#include "hw_rpi_gpio.h"
 #include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
@@ -215,7 +215,7 @@ void HwRpiGpio::on_pin_value(void* data, std::uint8_t pin, bool value)
 
 void setup_hw_rpi_gpio()
 {
-    ObjectFactory<HwRpiGpio> obj("hw.gpio");
+    ObjectFactory<HwRpiGpio> obj("hw.rpi.gpio");
     obj.addMethod("read", &HwRpiGpio::m_read);
     obj.addMethod("write", &HwRpiGpio::m_write);
     obj.addMethod("toggle", &HwRpiGpio::m_toggle);
