@@ -325,6 +325,7 @@ set(DOC_FILES
     hw.kbd_light
     hw.motu.avb
     hw.printer
+    hw.rpi.pwm
     hw.sensor.sr04
     hw.serial
     hw.spi.max7219
