@@ -7,7 +7,7 @@
 using namespace ceammc;
 
 class HwI2cPca8695 : public DispatchedObject<BaseObject> {
-    ceammc_hw_rpi_pwm_pca9685* pwm_ { nullptr };
+    ceammc_hw_rpi_pca9685* pwm_ { nullptr };
     IntProperty* chan_ { nullptr };
 
 public:
