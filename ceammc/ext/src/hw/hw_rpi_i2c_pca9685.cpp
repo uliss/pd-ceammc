@@ -30,7 +30,7 @@ bool HwI2cPca8695::notify(int code)
 
 void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("CHAN:i[0,16] DUTY:f PHASE:f");
+    static const args::ArgChecker chk("CHAN:i[0,16] DUTY:f PHASE:f?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
