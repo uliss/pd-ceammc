@@ -30,6 +30,6 @@ public:
     void m_set(t_symbol* s, const AtomListView& lv);
 };
 
-void setup_hw_gpio_rotenc();
+void setup_hw_rpi_rotenc();
 
 #endif // HW_RPI_ROTENC_H

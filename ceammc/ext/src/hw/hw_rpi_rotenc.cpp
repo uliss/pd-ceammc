@@ -120,7 +120,7 @@ void HwRpiRotaryEncoder::m_set(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_rotenc_set_value(enc_, lv.floatAt(0, 0));
 }
 
-void setup_hw_gpio_rotenc()
+void setup_hw_rpi_rotenc()
 {
     ObjectFactory<HwRpiRotaryEncoder> obj("hw.rpi.rotenc");
 

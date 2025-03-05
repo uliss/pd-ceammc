@@ -104,18 +104,18 @@ if(WITH_PRINTER)
 endif()
 
 # GPIO
-ceammc_hw_external(rpi_rotenc)
-ceammc_hw_external(rpi_pwm)
 ceammc_hw_external(rpi_gpio)
+ceammc_hw_external(rpi_pwm)
 ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_rotenc)
+ceammc_hw_external(rpi_rotenc)
+ceammc_hw_external(rpi_sr04)
+ceammc_hw_external(sensors_dht11)
 
 target_sources(ceammc_hw PRIVATE
     hw_display_lcd1602.cpp
-    hw_sensor_sr04.cpp
-    hw_sensors_dht11.cpp
     hw_spi_max7219.cpp
     hw_spi_ws2812.cpp
 )
