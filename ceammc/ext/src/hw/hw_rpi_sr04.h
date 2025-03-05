@@ -6,7 +6,6 @@
 #include "hw_rust.hpp"
 using namespace ceammc;
 
-
 class HwRpiSr04 : public DispatchedObject<BaseObject> {
     ceammc_hw_gpio_sr04* sr04_ { nullptr };
     IntProperty* trigger_pin_ { nullptr };
