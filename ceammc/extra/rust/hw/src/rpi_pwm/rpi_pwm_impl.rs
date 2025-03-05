@@ -102,10 +102,13 @@ impl hw_rpi_pwm {
                             }
                         }
                         crate::rpi_pwm::Request::SetFreq(freq, duty) => {
-                            pwm.set_frequency(freq, duty)?;
+                            // this depends from PWM clock divider
+                            // we assume divider equal 384
+                            // gpio pwmc 384
+                            pwm.set_frequency(1000.0 * freq, duty)?;
                         }
                         Request::SetPeriod(msec) => {
-                            pwm.set_period(Duration::from_secs_f64(msec.abs() * 0.001))?
+                            pwm.set_period(Duration::from_secs_f64(msec.abs()))?
                         }
                         Request::SetPolarity(p) => pwm.set_polarity(match p {
                             crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => {
@@ -116,7 +119,7 @@ impl hw_rpi_pwm {
                             }
                         })?,
                         Request::SetPulseWidth(msec) => {
-                            pwm.set_pulse_width(Duration::from_secs_f64(msec.abs() * 0.001))?
+                            pwm.set_pulse_width(Duration::from_secs_f64(msec.abs()))?
                         }
                         Request::SetDutyCycle(duty) => pwm.set_duty_cycle(duty)?,
                     }
