@@ -15,7 +15,7 @@
 #endif
 
 void setup_hw_gamepad();
-void setup_hw_gpio();
+void setup_hw_rpi_gpio();
 void setup_hw_gpio_rotenc();
 void setup_hw_i2c_lcd1602();
 void setup_hw_motu_avb();
@@ -34,7 +34,7 @@ void ceammc_hw_setup()
     setup_hw_apple_sms();
     setup_hw_display();
     setup_hw_gamepad();
-    setup_hw_gpio();
+    setup_hw_rpi_gpio();
     setup_hw_gpio_rotenc();
     setup_hw_i2c_lcd1602();
     setup_hw_keyboard_light();

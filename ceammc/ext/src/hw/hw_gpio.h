@@ -19,14 +19,12 @@
 #include "hw_rust.hpp"
 using namespace ceammc;
 
-using HwGpioBase = DispatchedObject<BaseObject>;
-
-class HwGpio : public HwGpioBase {
+class HwRpiGpio : public DispatchedObject<BaseObject> {
     ceammc_hw_gpio* gpio_ { nullptr };
 
 public:
-    HwGpio(const PdArgs& args);
-    ~HwGpio();
+    explicit HwRpiGpio(const PdArgs& args);
+    ~HwRpiGpio();
 
     bool notify(int code) final;
 
@@ -49,6 +47,6 @@ private:
     static void on_pin_value(void* data, std::uint8_t pin, bool value);
 };
 
-void setup_hw_gpio();
+void setup_hw_rpi_gpio();
 
 #endif // HW_GPIO_H
