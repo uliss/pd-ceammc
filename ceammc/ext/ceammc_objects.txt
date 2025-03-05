@@ -644,11 +644,11 @@ hw.i2c.lcd1602
 hw.kbd_light
 hw.motu.avb
 hw.printer
+hw.rpi.dht11
 hw.rpi.gpio
 hw.rpi.pwm
 hw.rpi.rotenc
 hw.rpi.sr04
-hw.sensor.dht11
 hw.serial
 hw.spi.max7219
 hw.spi.ws2812
