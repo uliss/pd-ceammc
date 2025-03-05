@@ -68,10 +68,8 @@ pub extern "C" fn ceammc_hw_rpi_pwm_free(pwm: *mut hw_rpi_pwm) {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pwm_proc_reply(pwm: *const hw_rpi_pwm) {
-    rpi_check!({
-        hw_rpi_pwm::process_reply(pwm);
-    });
+pub extern "C" fn ceammc_hw_rpi_pwm_proc_reply(pwm: *const hw_rpi_pwm) -> bool {
+    rpi_check!({ hw_rpi_pwm::process_reply(pwm) });
 }
 
 #[no_mangle]

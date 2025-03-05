@@ -713,7 +713,7 @@ ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_err);
 
-void ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
+bool ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
 
 bool ceammc_hw_rpi_pwm_set_duty_cycle(const ceammc_hw_rpi_pwm *pwm, double duty_cycle);
 
