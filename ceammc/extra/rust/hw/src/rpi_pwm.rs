@@ -9,6 +9,10 @@ use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
+pub const HW_RPI_PWM_MIN_CHAN: i8 = 0x0;
+pub const HW_RPI_PWM_MAX_CHAN: i8 = 0x3;
+pub const HW_RPI_PWM_NONE_CHAN: i8 = -1;
+
 #[cfg(target_os = "linux")]
 mod rpi_pwm_impl;
 
@@ -42,7 +46,7 @@ pub enum hw_rpi_pwm_polarity {
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_rpi_pwm_new(
-    channel: u8,
+    channel: i8,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_rpi_pwm {

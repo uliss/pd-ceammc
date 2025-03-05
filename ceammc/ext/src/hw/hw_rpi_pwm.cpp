@@ -2,14 +2,22 @@
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
+#define CHECK_PWM_CHAN()                                                                          \
+    {                                                                                             \
+        if (chan_->value() == ceammc_HW_RPI_PWM_NONE_CHAN) {                                      \
+            OBJ_ERR << "PWM channel is not configured, valid channel values are: "                \
+                    << (int)ceammc_HW_RPI_PWM_MIN_CHAN << "-" << (int)ceammc_HW_RPI_PWM_MAX_CHAN; \
+        }                                                                                         \
+    }
+
 HwRpiPwm::HwRpiPwm(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
 {
     createOutlet();
 
-    chan_ = new IntProperty("@ch", 0);
+    chan_ = new IntProperty("@ch", ceammc_HW_RPI_PWM_NONE_CHAN);
     chan_->setInitOnly();
-    chan_->checkClosedRange(0, 3);
+    chan_->checkClosedRange(ceammc_HW_RPI_PWM_NONE_CHAN, ceammc_HW_RPI_PWM_MAX_CHAN);
     chan_->setArgIndex(0);
     addProperty(chan_);
 }
@@ -40,6 +48,8 @@ void HwRpiPwm::m_duty(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    CHECK_PWM_CHAN();
+
     ceammc_hw_rpi_pwm_set_duty_cycle(pwm_, lv.floatAt(0, 0.5));
 }
 
@@ -48,6 +58,8 @@ void HwRpiPwm::m_enable(t_symbol* s, const AtomListView& lv)
     static const args::ArgChecker chk("STATE:B");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
+
+    CHECK_PWM_CHAN();
 
     ceammc_hw_rpi_pwm_enable(pwm_, lv.boolAt(0, true));
 }
@@ -58,14 +70,18 @@ void HwRpiPwm::m_freq(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    CHECK_PWM_CHAN();
+
     ceammc_hw_rpi_pwm_set_freq(pwm_, lv.floatAt(0, 0), lv.floatAt(1, 0.5));
 }
 
-void HwRpiPwm::m_period(t_symbol *s, const AtomListView &lv)
+void HwRpiPwm::m_period(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PERIOD:f>=0");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
+
+    CHECK_PWM_CHAN();
 
     ceammc_hw_rpi_pwm_set_period(pwm_, lv.floatAt(0, 0));
 }
@@ -82,11 +98,13 @@ void HwRpiPwm::m_polarity(t_symbol* s, const AtomListView& lv)
             : ceammc_hw_rpi_pwm_polarity::NORMAL);
 }
 
-void HwRpiPwm::m_width(t_symbol *s, const AtomListView &lv)
+void HwRpiPwm::m_width(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("WIDTH:f>=0");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
+
+    CHECK_PWM_CHAN();
 
     ceammc_hw_rpi_pwm_set_pulse_width(pwm_, lv.floatAt(0, 0));
 }

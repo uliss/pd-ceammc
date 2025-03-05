@@ -35,6 +35,12 @@ constexpr static const uint8_t ceammc_HW_MAX7219_REG_SCAN_LIMIT = 11;
 
 constexpr static const uint8_t ceammc_HW_MAX7219_REG_SHUTDOWN = 12;
 
+constexpr static const int8_t ceammc_HW_RPI_PWM_MAX_CHAN = 3;
+
+constexpr static const int8_t ceammc_HW_RPI_PWM_MIN_CHAN = 0;
+
+constexpr static const int8_t ceammc_HW_RPI_PWM_NONE_CHAN = -1;
+
 constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
 
 constexpr static const uint16_t ceammc_HW_SR04_MAX_POLL_INTERVAL = 1000;
@@ -709,7 +715,7 @@ bool ceammc_hw_rpi_pwm_enable(const ceammc_hw_rpi_pwm *pwm, bool state);
 
 void ceammc_hw_rpi_pwm_free(ceammc_hw_rpi_pwm *pwm);
 
-ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
+ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(int8_t channel,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_err);
 
