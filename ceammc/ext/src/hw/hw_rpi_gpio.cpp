@@ -11,26 +11,26 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hw_gpio.h"
+#include "hw_rpi_gpio.h"
 #include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
-HwGpio::HwGpio(const PdArgs& args)
-    : HwGpioBase(args)
+HwRpiGpio::HwRpiGpio(const PdArgs& args)
+    : DispatchedObject<BaseObject>(args)
 {
     createOutlet();
 
     gpio_ = ceammc_hw_gpio_new(
         { this, [](void* data, const char* msg) {
-             auto obj = static_cast<HwGpio*>(data);
+             auto obj = static_cast<HwRpiGpio*>(data);
              if (!obj)
                  return;
 
              Error(obj) << msg;
          } },
         { this, [](void* data, const char* msg) {
-             auto obj = static_cast<HwGpio*>(data);
+             auto obj = static_cast<HwRpiGpio*>(data);
              if (!obj)
                  return;
 
@@ -39,7 +39,7 @@ HwGpio::HwGpio(const PdArgs& args)
         { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } }, //
         { this, on_pin_value }, //
         { this, [](void* user, const std::uint8_t* data, size_t len) {
-             auto obj = static_cast<HwGpio*>(user);
+             auto obj = static_cast<HwRpiGpio*>(user);
              if (!obj)
                  return;
 
@@ -52,18 +52,18 @@ HwGpio::HwGpio(const PdArgs& args)
         { size_t(subscriberId()), [](size_t id, int data) { Dispatcher::instance().send(NotifyMessage { id, data }); } });
 }
 
-HwGpio::~HwGpio()
+HwRpiGpio::~HwRpiGpio()
 {
     ceammc_hw_gpio_free(gpio_);
 }
 
-bool HwGpio::notify(int code)
+bool HwRpiGpio::notify(int code)
 {
     if (code != 0) {
         int pin = (code & 0xff);
         auto event = static_cast<ceammc_hw_gpio_trigger>((code & 0xf00) >> 8);
 
-        AtomArray<2> atoms { t_float(pin), 0.0 };
+        AtomArray<2> atoms { static_cast<t_float>(pin), 0.0 };
 
         switch (event) {
         case ceammc_hw_gpio_trigger::RisingEdge:
@@ -82,7 +82,7 @@ bool HwGpio::notify(int code)
     return true;
 }
 
-void HwGpio::m_read(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_read(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -91,7 +91,7 @@ void HwGpio::m_read(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_read_pin(gpio_, lv.intAt(0, 0));
 }
 
-void HwGpio::m_write(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_write(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b VALUE:B");
     if (!chk.check(lv, this))
@@ -100,7 +100,7 @@ void HwGpio::m_write(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_write_pin(gpio_, lv.intAt(0, 0), lv.intAt(1, 1));
 }
 
-void HwGpio::m_pull_up(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_pull_up(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -109,7 +109,7 @@ void HwGpio::m_pull_up(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_bias(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_bias::PullUp);
 }
 
-void HwGpio::m_pull_down(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_pull_down(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -118,25 +118,23 @@ void HwGpio::m_pull_down(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_bias(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_bias::PullDown);
 }
 
-void HwGpio::m_start_poll(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_poll(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("PIN:b DEBOUNCE:f>=0?");
+    static const args::ArgChecker chk("PIN:b STATE:B DEBOUNCE:f>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_gpio_set_poll(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_trigger::Both, lv.floatAt(1, 10));
+    auto pin = lv.intAt(0, 0);
+    auto state = lv.boolAt(1, false);
+    auto debounce_ms = lv.floatAt(2, 10);
+
+    if (state)
+        ceammc_hw_gpio_set_poll(gpio_, pin, ceammc_hw_gpio_trigger::Both, debounce_ms);
+    else
+        ceammc_hw_gpio_clear_poll(gpio_, pin);
 }
 
-void HwGpio::m_stop_poll(t_symbol* s, const AtomListView& lv)
-{
-    static const args::ArgChecker chk("PIN:b");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
-
-    ceammc_hw_gpio_clear_poll(gpio_, lv.intAt(0, 0));
-}
-
-void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_toggle(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -145,7 +143,7 @@ void HwGpio::m_toggle(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_toggle_pin(gpio_, lv.intAt(0, 0));
 }
 
-void HwGpio::m_set_pwm(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_soft_pwm(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b PERIOD:f>=0 WIDTH:f>=0");
     if (!chk.check(lv, this))
@@ -154,7 +152,7 @@ void HwGpio::m_set_pwm(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_pwm(gpio_, lv.intAt(0, 0), lv.floatAt(1, 1), lv.floatAt(2, 50));
 }
 
-void HwGpio::m_set_pwm_freq(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_soft_pwm_freq(t_symbol* s, const AtomListView& lv)
 {
     if (!args::check_args("PIN:b FREQ:f>=0 DUTY:f>=0", lv, this))
         return;
@@ -162,7 +160,7 @@ void HwGpio::m_set_pwm_freq(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_pwm_freq(gpio_, lv.intAt(0, 0), lv.floatAt(1, 1), lv.floatAt(2, 50));
 }
 
-void HwGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -171,7 +169,7 @@ void HwGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_clear_pwm(gpio_, lv.intAt(0, 0));
 }
 
-void HwGpio::m_input(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_input(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -180,12 +178,12 @@ void HwGpio::m_input(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Input);
 }
 
-void HwGpio::m_list_pins(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_list_pins(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_gpio_list_pins(gpio_);
 }
 
-void HwGpio::m_output(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_output(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -194,7 +192,7 @@ void HwGpio::m_output(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Output);
 }
 
-void HwGpio::m_reset(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_reset(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
     if (!chk.check(lv, this))
@@ -203,36 +201,35 @@ void HwGpio::m_reset(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_reset_pin(gpio_, lv.intAt(0, 0));
 }
 
-void HwGpio::on_pin_value(void* data, std::uint8_t pin, bool value)
+void HwRpiGpio::on_pin_value(void* data, std::uint8_t pin, bool value)
 {
-    auto obj = static_cast<HwGpio*>(data);
+    auto obj = static_cast<HwRpiGpio*>(data);
     if (!obj)
         return;
 
-    AtomArray<2> atoms { t_float(pin), t_float(value) };
+    AtomArray<2> atoms { static_cast<t_float>(pin), static_cast<t_float>(value) };
     obj->anyTo(0, gensym("pin"), atoms.view());
 }
 
-void setup_hw_gpio()
+void setup_hw_rpi_gpio()
 {
-    ObjectFactory<HwGpio> obj("hw.gpio");
-    obj.addMethod("read", &HwGpio::m_read);
-    obj.addMethod("write", &HwGpio::m_write);
-    obj.addMethod("toggle", &HwGpio::m_toggle);
+    ObjectFactory<HwRpiGpio> obj("hw.rpi.gpio");
+    obj.addMethod("read", &HwRpiGpio::m_read);
+    obj.addMethod("write", &HwRpiGpio::m_write);
+    obj.addMethod("toggle", &HwRpiGpio::m_toggle);
 
-    obj.addMethod("set_pwm", &HwGpio::m_set_pwm);
-    obj.addMethod("set_pwm_freq", &HwGpio::m_set_pwm_freq);
-    obj.addMethod("clear_pwm", &HwGpio::m_clear_pwm);
+    obj.addMethod("soft_pwm", &HwRpiGpio::m_soft_pwm);
+    obj.addMethod("soft_pwm_freq", &HwRpiGpio::m_soft_pwm_freq);
+    obj.addMethod("clear_pwm", &HwRpiGpio::m_clear_pwm);
 
-    obj.addMethod("input", &HwGpio::m_input);
-    obj.addMethod("output", &HwGpio::m_output);
-    obj.addMethod("reset", &HwGpio::m_reset);
+    obj.addMethod("input", &HwRpiGpio::m_input);
+    obj.addMethod("output", &HwRpiGpio::m_output);
+    obj.addMethod("reset", &HwRpiGpio::m_reset);
 
-    obj.addMethod("list_pins", &HwGpio::m_list_pins);
+    obj.addMethod("list_pins", &HwRpiGpio::m_list_pins);
 
-    obj.addMethod("pull_up", &HwGpio::m_pull_up);
-    obj.addMethod("pull_down", &HwGpio::m_pull_down);
+    obj.addMethod("pull_up", &HwRpiGpio::m_pull_up);
+    obj.addMethod("pull_down", &HwRpiGpio::m_pull_down);
 
-    obj.addMethod("start_poll", &HwGpio::m_start_poll);
-    obj.addMethod("stop_poll", &HwGpio::m_stop_poll);
+    obj.addMethod("poll", &HwRpiGpio::m_poll);
 }

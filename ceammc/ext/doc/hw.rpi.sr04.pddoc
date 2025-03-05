@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="hw.sensor.sr04">
-        <title>hw.sensor.sr04</title>
+    <object name="hw.rpi.sr04">
+        <title>hw.rpi.sr04</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>HC-SR04 ulatrasonic ranging module</description>
+            <description>HC-SR04 ulatrasonic ranging module for Raspberry Pi</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>hw</category>
@@ -14,7 +14,6 @@
             <since>0.9.9</since>
         </meta>
         <info>
-            <par>Only Raspberry Pi</par>
             <par>**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the
             Raspberry Pi's GPIO inputs operate at 3.3V.</par>
             <par>Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you
@@ -57,12 +56,12 @@
 |
 |
 |
-[hw.sensor.sr04 5 6 #x]
+[hw.rpi.sr04 5 6 #x]
 |         ^|
 [F]       [B]
 
 
-[hw.sensor.sr04-more]
+[hw.rpi.sr04-more]
 [X a->x]
 ]]>
             </pdascii>

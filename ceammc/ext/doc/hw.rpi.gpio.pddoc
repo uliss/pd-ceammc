@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="hw.gpio">
-        <title>hw.gpio</title>
+    <object name="hw.rpi.gpio">
+        <title>hw.rpi.gpio</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -13,9 +13,6 @@
             <keywords>display gpio raspberry</keywords>
             <since>0.9.9</since>
         </meta>
-        <info>
-            <par>Note: only RaspberryPi support</par>
-        </info>
         <methods>
             <method name="input">config pin into input mode 
             <param name="PIN" type="int" required="true">pin number</param></method>
@@ -30,23 +27,22 @@
             <param name="VALUE" type="bool" required="true">value</param></method>
             <method name="toggle">toggle output pin current value 
             <param name="PIN" type="int" required="true">pin number</param></method>
-            <method name="start_poll">start pin value polling 
+            <method name="poll">start/stop pin value polling
             <param name="PIN" type="int" required="true">pin number</param>
+            <param name="STATE" type="bool" required="true">poll state</param>
             <param name="DEBOUNCE" type="float" minvalue="0" default="10" units="millisecond">
             debounce time</param></method>
-            <method name="stop_poll">stop pin value polling 
-            <param name="PIN" type="int" required="true">pin number</param></method>
             <method name="pull_up">pull internal pin resistors to high level 
             <param name="PIN" type="int" required="true">pin number</param></method>
             <method name="pull_down">pull internal pin resistors to low level 
             <param name="PIN" type="int" required="true">pin number</param></method>
-            <method name="set_pwm">set software PWM for pin 
+            <method name="soft_pwm">set software PWM for pin
             <param name="PIN" type="int" required="true">pin number</param>
             <param name="PERIOD" type="float" units="msec" minvalue="0" required="true">period
             length</param>
             <param name="DUTY" type="float" units="msec" minvalue="0" required="true">duty
             length</param></method>
-            <method name="set_pwm_freq">set software PWM frequency for pin 
+            <method name="soft_pwm_freq">set software PWM frequency for pin
             <param name="PIN" type="int" required="true">pin number</param>
             <param name="FREQ" type="float" units="hertz" minvalue="0" required="true">pwm
             freq</param>
@@ -73,17 +69,17 @@
 |
 | [read 17 #a(        [T] [toggle 18 #f(
 |                     |
-| [start_poll 17 #b(  [write 18 $1 #e(
+| [T]                 [write 18 $1 #e(
+| |
+| [poll 17 $1 #c(     [read 18 #g(
 |
-| [stop_poll 17 #c(   [read 18 #g(
-|
-| [reset 17 #d(       [set_pwm 18 500 100 #j( [set_pwm_freq 18 4 0.5 #k(
+| [reset 17 #d(       [soft_pwm 18 500 100 #j( [soft_pwm_freq 18 4 0.5 #k(
 |
 |                     [clear_pwm 18 #l(
 |
 |                     [reset 18 #h(
 |
-[hw.gpio #x]
+[hw.rpi.gpio #x]
 |
 [route pin]
 |

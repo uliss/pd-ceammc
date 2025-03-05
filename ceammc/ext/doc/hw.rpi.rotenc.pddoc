@@ -1,21 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="hw.gpio.rotenc">
-        <title>hw.gpio.rotenc</title>
+    <object name="hw.rpi.rotenc">
+        <title>hw.rpi.rotenc</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Rotary encoder connected to GPIO</description>
+            <description>Rotary encoder for Raspberry GPIO</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>hw</category>
             <keywords>display gpio raspberry rotary encoder</keywords>
             <since>0.9.9</since>
         </meta>
-        <info>
-            <par>Note: only RaspberryPi support</par>
-        </info>
         <methods>
             <method name="get">request current value output</method>
             <method name="set">set current value 
@@ -47,7 +44,7 @@
 
   [B]  [set 50( [reset(
   |    |        |
-[hw.gpio.rotenc @dt 22 @clk 23 @btn 27 #x]
+[hw.rpi.rotenc @dt 22 @clk 23 @btn 27 #x]
 |                         ^|
 |                         [route btn dir ]
 |                         |             ^|

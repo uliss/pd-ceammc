@@ -2,9 +2,9 @@
 #X declare -lib ceammc;
 #X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 568 50 Raspberry Pi GPIO support;
-#X obj 1 1 cnv 5 765 40 empty empty hw.gpio 20 20 0 20 -104026 -4096
-0;
-#X obj 689 11 hw.gpio;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.gpio 20 20 0 20 -104026
+-4096 0;
+#X obj 660 11 hw.rpi.gpio;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Note: only RaspberryPi support;
 #X obj 50 143 loadbang;
@@ -21,7 +21,7 @@
 #X msg 491 287 set_pwm_freq 18 4 0.5;
 #X msg 261 316 clear_pwm 18;
 #X msg 261 345 reset 18;
-#X obj 50 374 hw.gpio;
+#X obj 50 374 hw.rpi.gpio;
 #X obj 50 403 route pin;
 #X obj 50 431 ui.dt;
 #X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -123,7 +123,7 @@ Units: 'ms'.;
 #X text 10 32 version:;
 #X text 120 32 0.9.7;
 #X text 10 54 object:;
-#X text 120 54 hw.gpio;
+#X text 120 54 hw.rpi.gpio;
 #X text 10 76 category:;
 #X text 120 76 hw;
 #X text 10 98 since:;

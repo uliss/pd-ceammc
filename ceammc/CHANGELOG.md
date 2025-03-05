@@ -3,7 +3,11 @@
 ## [Unrelease]
 ### Added:
 - new objects:
-  - hw.gpio - Raspberry Pi GPIO support
+  - hw.rpi.gpio - Raspberry Pi GPIO support
+  - hw.rpi.pwm - Raspberry Pi PWM support
+  - hw.rpi.rotenc - rotary encoder for Raspberry Pi
+  - hw.rpi.sr04 - ultrasonic sensor HC-SR04 for Raspberry Pi
+  - hw.rpi.dht11 - temperature sensor for Raspberry Pi
   - bitmap - bitmap image
 - new methods:
   - [set matrix( set method added to ui.matrix

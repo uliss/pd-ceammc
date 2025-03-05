@@ -11,22 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HW_GPIO_H
-#define HW_GPIO_H
+#ifndef HW_RPI_GPIO_H
+#define HW_RPI_GPIO_H
 
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
 using namespace ceammc;
 
-using HwGpioBase = DispatchedObject<BaseObject>;
-
-class HwGpio : public HwGpioBase {
+class HwRpiGpio : public DispatchedObject<BaseObject> {
     ceammc_hw_gpio* gpio_ { nullptr };
 
 public:
-    HwGpio(const PdArgs& args);
-    ~HwGpio();
+    explicit HwRpiGpio(const PdArgs& args);
+    ~HwRpiGpio();
 
     bool notify(int code) final;
 
@@ -36,19 +34,18 @@ public:
     void m_output(t_symbol* s, const AtomListView& lv);
     void m_read(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
-    void m_set_pwm(t_symbol* s, const AtomListView& lv);
-    void m_set_pwm_freq(t_symbol* s, const AtomListView& lv);
+    void m_soft_pwm(t_symbol* s, const AtomListView& lv);
+    void m_soft_pwm_freq(t_symbol* s, const AtomListView& lv);
     void m_toggle(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
     void m_pull_up(t_symbol* s, const AtomListView& lv);
     void m_pull_down(t_symbol* s, const AtomListView& lv);
-    void m_start_poll(t_symbol* s, const AtomListView& lv);
-    void m_stop_poll(t_symbol* s, const AtomListView& lv);
+    void m_poll(t_symbol* s, const AtomListView& lv);
 
 private:
     static void on_pin_value(void* data, std::uint8_t pin, bool value);
 };
 
-void setup_hw_gpio();
+void setup_hw_rpi_gpio();
 
-#endif // HW_GPIO_H
+#endif // HW_RPI_GPIO_H
