@@ -36,7 +36,6 @@ ws2812-spi = "0.5.0"
 smart-leds-trait = "0.3.1"
 smart-leds = "0.4.0"
 rotary-encoder-embedded = "0.4.0"
-wiringpi = { git = "https://github.com/axos88/rust-wiringpi.git", rev = "b35fa04b4defd302e67fe670e6fdaeef904e756f" }
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }

@@ -1,17 +1,37 @@
 use std::{ffi::CString, time::Duration};
 
 use log::{debug, error};
-use rppal::pwm::Pwm;
+use rppal::{gpio::Gpio, pwm::Pwm, system::DeviceInfo};
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
-    rpi_pwm::{Reply, Request},
+    rpi_pwm::{Reply, Request}, str_to_cstr,
 };
 
 use super::hw_rpi_pwm;
 
+fn send_reply(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, rep: Reply) -> bool {
+    if let Err(err) = tx.send(rep) {
+        error!("send error: {err}");
+        false
+    } else {
+        notify.notify();
+        true
+    }
+}
+
+fn send_error<T>(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, msg: T) -> CString
+where
+    T: Into<Vec<u8>>,
+{
+    let cstr = str_to_cstr(msg);
+    error!("{}", cstr.to_str().unwrap());
+    send_reply(tx, notify, Reply::Error(cstr.clone()));
+    cstr
+}
+
 impl hw_rpi_pwm {
-    pub fn new(channel: u8, _notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(channel: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let channel = match channel {
             0 => rppal::pwm::Channel::Pwm0,
             1 => rppal::pwm::Channel::Pwm1,
@@ -30,13 +50,41 @@ impl hw_rpi_pwm {
         std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
 
-            let pwm = Pwm::new(channel).map_err(|err| {
-                error!("{err}");
-                CString::new(err.to_string()).unwrap_or_default()
-            })?;
+            let dev_info = DeviceInfo::new()
+                .map_err(|err| send_error(&rep_tx, notify, err.to_string().as_str()))?;
 
-            let pi = wiringpi::setup_gpio();
-            pi.pwm_pin();
+            let (pwm_pin, pin_mode) = match dev_info.model() {
+                rppal::system::Model::RaspberryPi5 => match channel {
+                    rppal::pwm::Channel::Pwm0 => (12u8, rppal::gpio::Mode::Alt0),
+                    rppal::pwm::Channel::Pwm1 => (13, rppal::gpio::Mode::Alt0),
+                    rppal::pwm::Channel::Pwm2 => (18, rppal::gpio::Mode::Alt3),
+                    rppal::pwm::Channel::Pwm3 => (19, rppal::gpio::Mode::Alt3),
+                },
+                _ => match channel {
+                    rppal::pwm::Channel::Pwm0 => (12u8, rppal::gpio::Mode::Alt0),
+                    rppal::pwm::Channel::Pwm1 => (13, rppal::gpio::Mode::Alt0),
+                    _ => {
+                        return Err(send_error(
+                            &rep_tx,
+                            notify,
+                            format!("unsupported PWM channel: {channel:?}"),
+                        ));
+                    }
+                },
+            };
+
+            debug!("using pin: {pwm_pin} at mode: {pin_mode:?}");
+
+            let gpio = Gpio::new().map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+            let mut pwm_pin = gpio
+                .get(pwm_pin)
+                .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?
+                .into_io(pin_mode);
+
+            pwm_pin.set_reset_on_drop(true);
+
+            let pwm =
+                Pwm::new(channel).map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
 
             debug!("init pwm done: {pwm:?}");
 

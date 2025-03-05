@@ -49,6 +49,13 @@ impl hw_msg_cb {
     }
 }
 
+pub fn str_to_cstr<T>(s: T) -> CString
+where
+    T: Into<Vec<u8>>,
+{
+    CString::new(s).unwrap_or_default()
+}
+
 macro_rules! return_not_rpi {
     ($x:expr) => {
         #[cfg(not(target_os = "linux"))]
@@ -82,12 +89,12 @@ pub mod printers_cups;
 #[cfg(target_os = "windows")]
 pub mod printers_win;
 
-pub mod gpio;
 pub mod dht11;
+pub mod gpio;
 pub mod hc_sr04;
-pub mod lcd1602;
 pub mod i2c;
+pub mod lcd1602;
 pub mod max7219;
+pub mod rotenc;
 pub mod rpi_pwm;
 pub mod ws2812;
-pub mod rotenc;
