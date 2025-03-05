@@ -26,7 +26,7 @@ cups-sys = { version = "0.1.4", optional = true }
 ndarray = "0.16.1"
 rgb = "0.8.5"
 palette = { version = "0.7.6", features = ["std", "approx"] }
-            
+
 [target.'cfg(target_os="linux")'.dependencies]
 rppal = { version = "0.22.1", features = ["hal"] }
 dht11_gpio = "0.1.0"
@@ -36,6 +36,7 @@ ws2812-spi = "0.5.0"
 smart-leds-trait = "0.3.1"
 smart-leds = "0.4.0"
 rotary-encoder-embedded = "0.4.0"
+wiringpi = { git = "https://github.com/axos88/rust-wiringpi.git", rev = "b35fa04b4defd302e67fe670e6fdaeef904e756f" }
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }

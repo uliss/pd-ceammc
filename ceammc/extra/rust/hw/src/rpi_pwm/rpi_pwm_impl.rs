@@ -11,7 +11,7 @@ use crate::{
 use super::hw_rpi_pwm;
 
 impl hw_rpi_pwm {
-    pub fn new(channel: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(channel: u8, _notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let channel = match channel {
             0 => rppal::pwm::Channel::Pwm0,
             1 => rppal::pwm::Channel::Pwm1,
@@ -25,7 +25,7 @@ impl hw_rpi_pwm {
         };
 
         let (tx, rx) = std::sync::mpsc::channel();
-        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+        let (rep_tx, _rep_rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
@@ -34,6 +34,9 @@ impl hw_rpi_pwm {
                 error!("{err}");
                 CString::new(err.to_string()).unwrap_or_default()
             })?;
+
+            let pi = wiringpi::setup_gpio();
+            pi.pwm_pin();
 
             debug!("init pwm done: {pwm:?}");
 
@@ -98,9 +101,8 @@ impl hw_rpi_pwm {
 
         Ok(hw_rpi_pwm {
             tx,
-            rx: rep_rx,
+            // rx: rep_rx,
             on_err,
-            notify,
         })
     }
 
@@ -116,7 +118,6 @@ impl hw_rpi_pwm {
             return false;
         }
 
-        pwm.notify.notify();
         true
     }
 }

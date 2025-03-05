@@ -29,9 +29,8 @@ pub enum Reply {
 
 pub struct hw_rpi_pwm {
     tx: std::sync::mpsc::Sender<Request>,
-    rx: std::sync::mpsc::Receiver<Reply>,
+    // rx: std::sync::mpsc::Receiver<Reply>,
     on_err: hw_msg_cb,
-    notify: hw_notify_cb,
 }
 
 #[derive(Debug)]
