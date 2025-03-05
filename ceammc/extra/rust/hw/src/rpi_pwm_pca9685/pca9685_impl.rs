@@ -51,6 +51,9 @@ impl hw_rpi_pwm_pca9685 {
             debug!("I2c init: {i2c:?}");
 
             let address = Address::default();
+
+            debug!("using addr: {address:?}");
+
             let mut pwm = Pca9685::new(i2c, address)
                 .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
 
@@ -58,8 +61,13 @@ impl hw_rpi_pwm_pca9685 {
                 .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
 
             while let Ok(req) = req_rx.recv() {
+                debug!("{req:?}");
+
                 match req {
-                    Request::Enable(state) => {}
+                    Request::Enable(state) => {
+                        let _ = if state { pwm.enable() } else { pwm.disable() }
+                            .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                    }
                     Request::SetChanOnOff(chan, on, off) => {
                         pwm.set_channel_on_off(to_channel(chan), on, off)
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;

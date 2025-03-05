@@ -41,10 +41,20 @@ void HwI2cPca8695::m_on_off(t_symbol* s, const AtomListView& lv)
     ceammc_hw_rpi_pwm_pca9685_set_on_off(pwm_, chan, on, off);
 }
 
+void HwI2cPca8695::m_enable(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("STATE:B?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_rpi_pwm_pca9685_enable(pwm_, lv.boolAt(0, true));
+}
+
 void setup_hw_rpi_i2c_pca9685()
 {
     ObjectFactory<HwI2cPca8695> obj("hw.rpi.pwm.pca9685");
     obj.addAlias("hw.rpi.i2c.pca9685");
 
     obj.addMethod("set_on_off", &HwI2cPca8695::m_on_off);
+    obj.addMethod("enable", &HwI2cPca8695::m_enable);
 }

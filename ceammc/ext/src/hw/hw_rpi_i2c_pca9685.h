@@ -18,6 +18,7 @@ public:
     bool notify(int code) final;
 
     void m_on_off(t_symbol* s, const AtomListView& lv);
+    void m_enable(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_rpi_i2c_pca9685();
