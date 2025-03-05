@@ -118,22 +118,20 @@ void HwRpiGpio::m_pull_down(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_bias(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_bias::PullDown);
 }
 
-void HwRpiGpio::m_start_poll(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_poll(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("PIN:b DEBOUNCE:f>=0?");
+    static const args::ArgChecker chk("PIN:b STATE:B DEBOUNCE:f>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_gpio_set_poll(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_trigger::Both, lv.floatAt(1, 10));
-}
+    auto pin = lv.intAt(0, 0);
+    auto state = lv.boolAt(1, false);
+    auto debounce_ms = lv.floatAt(2, 10);
 
-void HwRpiGpio::m_stop_poll(t_symbol* s, const AtomListView& lv)
-{
-    static const args::ArgChecker chk("PIN:b");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
-
-    ceammc_hw_gpio_clear_poll(gpio_, lv.intAt(0, 0));
+    if (state)
+        ceammc_hw_gpio_set_poll(gpio_, pin, ceammc_hw_gpio_trigger::Both, debounce_ms);
+    else
+        ceammc_hw_gpio_clear_poll(gpio_, pin);
 }
 
 void HwRpiGpio::m_toggle(t_symbol* s, const AtomListView& lv)
@@ -145,7 +143,7 @@ void HwRpiGpio::m_toggle(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_toggle_pin(gpio_, lv.intAt(0, 0));
 }
 
-void HwRpiGpio::m_set_pwm(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_soft_pwm(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b PERIOD:f>=0 WIDTH:f>=0");
     if (!chk.check(lv, this))
@@ -154,7 +152,7 @@ void HwRpiGpio::m_set_pwm(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_pwm(gpio_, lv.intAt(0, 0), lv.floatAt(1, 1), lv.floatAt(2, 50));
 }
 
-void HwRpiGpio::m_set_pwm_freq(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_soft_pwm_freq(t_symbol* s, const AtomListView& lv)
 {
     if (!args::check_args("PIN:b FREQ:f>=0 DUTY:f>=0", lv, this))
         return;
@@ -220,8 +218,8 @@ void setup_hw_rpi_gpio()
     obj.addMethod("write", &HwRpiGpio::m_write);
     obj.addMethod("toggle", &HwRpiGpio::m_toggle);
 
-    obj.addMethod("set_pwm", &HwRpiGpio::m_set_pwm);
-    obj.addMethod("set_pwm_freq", &HwRpiGpio::m_set_pwm_freq);
+    obj.addMethod("soft_pwm", &HwRpiGpio::m_soft_pwm);
+    obj.addMethod("soft_pwm_freq", &HwRpiGpio::m_soft_pwm_freq);
     obj.addMethod("clear_pwm", &HwRpiGpio::m_clear_pwm);
 
     obj.addMethod("input", &HwRpiGpio::m_input);
@@ -233,6 +231,5 @@ void setup_hw_rpi_gpio()
     obj.addMethod("pull_up", &HwRpiGpio::m_pull_up);
     obj.addMethod("pull_down", &HwRpiGpio::m_pull_down);
 
-    obj.addMethod("start_poll", &HwRpiGpio::m_start_poll);
-    obj.addMethod("stop_poll", &HwRpiGpio::m_stop_poll);
+    obj.addMethod("poll", &HwRpiGpio::m_poll);
 }
