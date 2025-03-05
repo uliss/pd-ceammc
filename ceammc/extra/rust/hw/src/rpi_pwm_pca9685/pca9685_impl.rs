@@ -6,7 +6,9 @@ use rppal::i2c::I2c;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
-    rpi_pwm_pca9685::{HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MIN_FREQ_HZ, HW_PCA9685_OSC_VALUE},
+    rpi_pwm_pca9685::{
+        HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MAX_PERIOD_MS, HW_PCA9685_MIN_FREQ_HZ, HW_PCA9685_MIN_PERIOD_MS, HW_PCA9685_OSC_VALUE
+    },
     str_to_cstr,
 };
 
@@ -98,7 +100,18 @@ impl hw_pca9685 {
                         })
                         .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
-                    Request::SetPeriod(msec) => {}
+                    Request::SetPeriod(period_ms) => {
+                        let period =
+                            period_ms.clamp(HW_PCA9685_MIN_PERIOD_MS, HW_PCA9685_MAX_PERIOD_MS);
+                        let prescale = ((HW_PCA9685_OSC_VALUE as f32 * period * 0.001).round()
+                            as u8)
+                            .clamp(0, 255);
+
+                        debug!("set PWM freq: {period_ms}ms (prescale: {prescale})");
+
+                        pwm.set_prescale(prescale)
+                            .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                    }
                 }
             }
 

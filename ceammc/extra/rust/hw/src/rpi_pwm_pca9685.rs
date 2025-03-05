@@ -16,13 +16,15 @@ mod pca9685_impl;
 pub const HW_PCA9685_OSC_VALUE: u32 = 256 * 24;
 pub const HW_PCA9685_MIN_FREQ_HZ: u32 = HW_PCA9685_OSC_VALUE / 255;
 pub const HW_PCA9685_MAX_FREQ_HZ: u32 = HW_PCA9685_OSC_VALUE / 3;
+pub const HW_PCA9685_MIN_PERIOD_MS: f32 = 1000.0 / HW_PCA9685_MAX_FREQ_HZ as f32;
+pub const HW_PCA9685_MAX_PERIOD_MS: f32 = 1000.0 / HW_PCA9685_MIN_FREQ_HZ as f32;
 
 #[derive(Debug)]
 pub enum Request {
     Enable(bool),
     SetChanOnOff(u8, u16, u16),
     SetFreq(f32),
-    SetPeriod(f64),
+    SetPeriod(f32),
     SetPolarity(hw_rpi_pwm_polarity),
     // SetPulseWidth(f64),
     // SetDutyCycle(f64),
@@ -96,7 +98,7 @@ pub extern "C" fn ceammc_hw_pca9685_set_on_off(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685_set_period(pwm: *const hw_pca9685, period_ms: f64) -> bool {
+pub extern "C" fn ceammc_hw_pca9685_set_period(pwm: *const hw_pca9685, period_ms: f32) -> bool {
     rpi_check!({ hw_pca9685::send_request(pwm, Request::SetPeriod(period_ms)) });
 }
 

@@ -20,6 +20,7 @@ public:
     void m_enable(t_symbol* s, const AtomListView& lv);
     void m_freq(t_symbol* s, const AtomListView& lv);
     void m_on_off(t_symbol* s, const AtomListView& lv);
+    void m_period(t_symbol* s, const AtomListView& lv);
     void m_polarity(t_symbol* s, const AtomListView& lv);
 };
 

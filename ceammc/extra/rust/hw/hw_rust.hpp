@@ -55,6 +55,10 @@ constexpr static const uint32_t ceammc_HW_PCA9685_MIN_FREQ_HZ = (ceammc_HW_PCA96
 
 constexpr static const uint32_t ceammc_HW_PCA9685_MAX_FREQ_HZ = (ceammc_HW_PCA9685_OSC_VALUE / 3);
 
+constexpr static const float ceammc_HW_PCA9685_MIN_PERIOD_MS = (1000.0 / (float)ceammc_HW_PCA9685_MAX_FREQ_HZ);
+
+constexpr static const float ceammc_HW_PCA9685_MAX_PERIOD_MS = (1000.0 / (float)ceammc_HW_PCA9685_MIN_FREQ_HZ);
+
 enum class ceammc_hw_gamepad_btn {
     South,
     East,
@@ -728,7 +732,7 @@ bool ceammc_hw_pca9685_set_on_off(const ceammc_hw_pca9685 *pwm,
                                   uint16_t on,
                                   uint16_t off);
 
-bool ceammc_hw_pca9685_set_period(const ceammc_hw_pca9685 *pwm, double period_ms);
+bool ceammc_hw_pca9685_set_period(const ceammc_hw_pca9685 *pwm, float period_ms);
 
 bool ceammc_hw_pca9685i_set_polarity(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_rpi_pwm_polarity polarity);
