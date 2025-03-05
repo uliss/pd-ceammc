@@ -132,6 +132,11 @@ enum class ceammc_hw_printer_state {
     UNKNOWN,
 };
 
+enum class ceammc_hw_rpi_pwm_polarity {
+    NORMAL,
+    INVERSE,
+};
+
 enum class ceammc_hw_spi_bus {
     SPI0,
     SPI1,
@@ -708,7 +713,18 @@ ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(uint8_t channel,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_err);
 
+void ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
+
+bool ceammc_hw_rpi_pwm_set_duty_cycle(const ceammc_hw_rpi_pwm *pwm, double duty_cycle);
+
 bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
+
+bool ceammc_hw_rpi_pwm_set_period(const ceammc_hw_rpi_pwm *pwm, double period_ms);
+
+bool ceammc_hw_rpi_pwm_set_polarity(const ceammc_hw_rpi_pwm *pwm,
+                                    ceammc_hw_rpi_pwm_polarity polarity);
+
+bool ceammc_hw_rpi_pwm_set_pulse_width(const ceammc_hw_rpi_pwm *pwm, double width_ms);
 
 /// apply fx
 bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,

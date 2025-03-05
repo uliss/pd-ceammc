@@ -5,7 +5,8 @@ use rppal::{gpio::Gpio, pwm::Pwm, system::DeviceInfo};
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
-    rpi_pwm::{Reply, Request}, str_to_cstr,
+    rpi_pwm::{Reply, Request},
+    str_to_cstr,
 };
 
 use super::hw_rpi_pwm;
@@ -44,8 +45,8 @@ impl hw_rpi_pwm {
             }
         };
 
-        let (tx, rx) = std::sync::mpsc::channel();
-        let (rep_tx, _rep_rx) = std::sync::mpsc::channel();
+        let (req_tx, req_rx) = std::sync::mpsc::channel();
+        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
@@ -88,7 +89,7 @@ impl hw_rpi_pwm {
 
             debug!("init pwm done: {pwm:?}");
 
-            while let Ok(req) = rx.recv() {
+            while let Ok(req) = req_rx.recv() {
                 debug!("{req:?}");
 
                 let proc = |req: Request| -> Result<(), rppal::pwm::Error> {
@@ -148,8 +149,8 @@ impl hw_rpi_pwm {
         });
 
         Ok(hw_rpi_pwm {
-            tx,
-            // rx: rep_rx,
+            tx: req_tx,
+            rx: rep_rx,
             on_err,
         })
     }
@@ -164,6 +165,24 @@ impl hw_rpi_pwm {
         if let Err(err) = pwm.tx.send(req) {
             pwm.on_err.exec(format!("request error: {err}").as_str());
             return false;
+        }
+
+        true
+    }
+
+    pub fn process_reply(pwm: *const Self) -> bool {
+        if pwm.is_null() {
+            error!("NULL pwm pointer");
+            return false;
+        }
+
+        let pwm = unsafe { &*pwm };
+        while let Ok(rep) = pwm.rx.try_recv() {
+            match rep {
+                Reply::Error(cstring) => {
+                    pwm.on_err.exec_raw(cstring.as_ptr());
+                }
+            }
         }
 
         true

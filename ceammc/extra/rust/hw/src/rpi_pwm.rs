@@ -29,7 +29,7 @@ pub enum Reply {
 
 pub struct hw_rpi_pwm {
     tx: std::sync::mpsc::Sender<Request>,
-    // rx: std::sync::mpsc::Receiver<Reply>,
+    rx: std::sync::mpsc::Receiver<Reply>,
     on_err: hw_msg_cb,
 }
 
@@ -68,6 +68,13 @@ pub extern "C" fn ceammc_hw_rpi_pwm_free(pwm: *mut hw_rpi_pwm) {
 }
 
 #[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_proc_reply(pwm: *const hw_rpi_pwm) {
+    rpi_check!({
+        hw_rpi_pwm::process_reply(pwm);
+    });
+}
+
+#[no_mangle]
 pub extern "C" fn ceammc_hw_rpi_pwm_enable(pwm: *const hw_rpi_pwm, state: bool) -> bool {
     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::Enable(state)) });
 }
@@ -81,3 +88,28 @@ pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(
     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetFreq(freq_hz, duty_cycle)) });
 }
 
+#[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_set_period(pwm: *const hw_rpi_pwm, period_ms: f64) -> bool {
+    rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPeriod(period_ms)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_set_pulse_width(pwm: *const hw_rpi_pwm, width_ms: f64) -> bool {
+    rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPulseWidth(width_ms)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_set_duty_cycle(
+    pwm: *const hw_rpi_pwm,
+    duty_cycle: f64,
+) -> bool {
+    rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetDutyCycle(duty_cycle)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_set_polarity(
+    pwm: *const hw_rpi_pwm,
+    polarity: hw_rpi_pwm_polarity,
+) -> bool {
+    rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPolarity(polarity)) });
+}
