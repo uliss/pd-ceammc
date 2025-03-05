@@ -5,6 +5,7 @@
 - new objects:
   - hw.rpi.gpio - Raspberry Pi GPIO support
   - hw.rpi.pwm - Raspberry Pi PWM support
+  - hw.rpi.rotenc - rotary encoder for Raspberry Pi
   - bitmap - bitmap image
 - new methods:
   - [set matrix( set method added to ui.matrix

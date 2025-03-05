@@ -1,10 +1,9 @@
 add_subdirectory(arduino)
 
-add_library(ceammc_hw STATIC mod_hw.cpp
-    hw_rpi_gpio.h hw_rpi_gpio.cpp)
+add_library(ceammc_hw STATIC mod_hw.cpp)
 
 function(ceammc_hw_external name)
-    target_sources(ceammc_hw PRIVATE "hw_${name}.cpp")
+    target_sources(ceammc_hw PRIVATE "hw_${name}.h" "hw_${name}.cpp")
 endfunction()
 
 # Sudden motion sensor on macbook's
@@ -105,11 +104,16 @@ if(WITH_PRINTER)
 endif()
 
 # GPIO
+ceammc_hw_external(rpi_rotenc)
+ceammc_hw_external(rpi_pwm)
+ceammc_hw_external(rpi_gpio)
+ceammc_hw_external(rpi_rotenc)
+ceammc_hw_external(rpi_rotenc)
+ceammc_hw_external(rpi_rotenc)
+ceammc_hw_external(rpi_rotenc)
+
 target_sources(ceammc_hw PRIVATE
     hw_display_lcd1602.cpp
-    hw_gpio_rotenc.cpp
-    hw_rpi_gpio
-    hw_rpi_pwm.cpp
     hw_sensor_sr04.cpp
     hw_sensors_dht11.cpp
     hw_spi_max7219.cpp

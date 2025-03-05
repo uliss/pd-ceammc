@@ -1,12 +1,12 @@
-#ifndef HW_GPIO_ROTENC_H
-#define HW_GPIO_ROTENC_H
+#ifndef HW_RPI_ROTENC_H
+#define HW_RPI_ROTENC_H
 
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
 using namespace ceammc;
 
-class HwGpioRotaryEncoder : public DispatchedObject<BaseObject> {
+class HwRpiRotaryEncoder : public DispatchedObject<BaseObject> {
     ceammc_hw_gpio_rotenc* enc_ { nullptr };
     IntProperty* dt_pin_ { nullptr };
     IntProperty* clk_pin_ { nullptr };
@@ -17,8 +17,8 @@ class HwGpioRotaryEncoder : public DispatchedObject<BaseObject> {
     FloatProperty* max_ { nullptr };
 
 public:
-    HwGpioRotaryEncoder(const PdArgs& args);
-    ~HwGpioRotaryEncoder();
+    explicit HwRpiRotaryEncoder(const PdArgs& args);
+    ~HwRpiRotaryEncoder();
 
     void initDone() final;
     bool notify(int code) final;
@@ -32,4 +32,4 @@ public:
 
 void setup_hw_gpio_rotenc();
 
-#endif // HW_GPIO_ROTENC_H
+#endif // HW_RPI_ROTENC_H

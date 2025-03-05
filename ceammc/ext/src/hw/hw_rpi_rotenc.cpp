@@ -1,9 +1,9 @@
-#include "hw_gpio_rotenc.h"
+#include "hw_rpi_rotenc.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
-HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
+HwRpiRotaryEncoder::HwRpiRotaryEncoder(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
 {
     createOutlet();
@@ -50,12 +50,12 @@ HwGpioRotaryEncoder::HwGpioRotaryEncoder(const PdArgs& args)
     addProperty(max_);
 }
 
-HwGpioRotaryEncoder::~HwGpioRotaryEncoder()
+HwRpiRotaryEncoder::~HwRpiRotaryEncoder()
 {
     ceammc_hw_gpio_rotenc_free(enc_);
 }
 
-void HwGpioRotaryEncoder::initDone()
+void HwRpiRotaryEncoder::initDone()
 {
     if (min_->value() >= max_->value())
         OBJ_ERR << fmt::format("@min ({}) >= @max ({})", min_->value(), max_->value());
@@ -70,7 +70,7 @@ void HwGpioRotaryEncoder::initDone()
         //
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
         { this, [](void* user, double value, std::int8_t dir) {
-             auto obj = static_cast<HwGpioRotaryEncoder*>(user);
+             auto obj = static_cast<HwRpiRotaryEncoder*>(user);
              if (!obj)
                  return;
 
@@ -78,40 +78,40 @@ void HwGpioRotaryEncoder::initDone()
              obj->floatTo(0, value);
          } },
         { this, [](void* user, bool state) {
-             auto obj = static_cast<HwGpioRotaryEncoder*>(user);
+             auto obj = static_cast<HwRpiRotaryEncoder*>(user);
              if (!obj)
                  return;
 
              obj->anyTo(1, gensym("btn"), Atom(state));
          } },
         { this, [](void* user, const char* msg) {
-             auto obj = static_cast<HwGpioRotaryEncoder*>(user);
+             auto obj = static_cast<HwRpiRotaryEncoder*>(user);
              Error(obj) << msg;
          } });
 }
 
-bool HwGpioRotaryEncoder::notify(int code)
+bool HwRpiRotaryEncoder::notify(int code)
 {
     ceammc_hw_gpio_rotenc_process_events(enc_);
     return true;
 }
 
-void HwGpioRotaryEncoder::onBang()
+void HwRpiRotaryEncoder::onBang()
 {
     ceammc_hw_gpio_rotenc_get_value(enc_);
 }
 
-void HwGpioRotaryEncoder::m_get(t_symbol* s, const AtomListView& lv)
+void HwRpiRotaryEncoder::m_get(t_symbol* s, const AtomListView& lv)
 {
     onBang();
 }
 
-void HwGpioRotaryEncoder::m_reset(t_symbol* s, const AtomListView& lv)
+void HwRpiRotaryEncoder::m_reset(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_gpio_rotenc_reset(enc_);
 }
 
-void HwGpioRotaryEncoder::m_set(t_symbol* s, const AtomListView& lv)
+void HwRpiRotaryEncoder::m_set(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("VALUE:f");
     if (!chk.check(lv, this))
@@ -122,8 +122,9 @@ void HwGpioRotaryEncoder::m_set(t_symbol* s, const AtomListView& lv)
 
 void setup_hw_gpio_rotenc()
 {
-    ObjectFactory<HwGpioRotaryEncoder> obj("hw.gpio.rotenc");
-    obj.addMethod("reset", &HwGpioRotaryEncoder::m_reset);
-    obj.addMethod("get", &HwGpioRotaryEncoder::m_get);
-    obj.addMethod("set", &HwGpioRotaryEncoder::m_set);
+    ObjectFactory<HwRpiRotaryEncoder> obj("hw.rpi.rotenc");
+
+    obj.addMethod("get", &HwRpiRotaryEncoder::m_get);
+    obj.addMethod("reset", &HwRpiRotaryEncoder::m_reset);
+    obj.addMethod("set", &HwRpiRotaryEncoder::m_set);
 }
