@@ -732,6 +732,8 @@ bool ceammc_hw_rpi_pwm_set_polarity(const ceammc_hw_rpi_pwm *pwm,
 
 bool ceammc_hw_rpi_pwm_set_pulse_width(const ceammc_hw_rpi_pwm *pwm, double width_ms);
 
+bool ceammc_hw_rpi_pwm_set_pwm(const ceammc_hw_rpi_pwm *pwm, double period_ms, double width_ms);
+
 /// apply fx
 bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,
                                    int32_t first,

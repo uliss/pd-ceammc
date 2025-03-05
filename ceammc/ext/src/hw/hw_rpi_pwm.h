@@ -22,6 +22,7 @@ public:
     void m_freq(t_symbol* s, const AtomListView& lv);
     void m_period(t_symbol* s, const AtomListView& lv);
     void m_polarity(t_symbol* s, const AtomListView& lv);
+    void m_pwm(t_symbol* s, const AtomListView& lv);
     void m_width(t_symbol* s, const AtomListView& lv);
 };
 

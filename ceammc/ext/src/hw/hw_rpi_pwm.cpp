@@ -1,13 +1,14 @@
 #include "hw_rpi_pwm.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
-#define CHECK_PWM_CHAN()                                                                          \
-    {                                                                                             \
-        if (chan_->value() == ceammc_HW_RPI_PWM_NONE_CHAN) {                                      \
-            OBJ_ERR << "PWM channel is not configured, valid channel values are: "                \
-                    << (int)ceammc_HW_RPI_PWM_MIN_CHAN << "-" << (int)ceammc_HW_RPI_PWM_MAX_CHAN; \
-        }                                                                                         \
+#define CHECK_PWM_CHAN()                                                                                \
+    {                                                                                                   \
+        if (chan_->value() == ceammc_HW_RPI_PWM_NONE_CHAN) {                                            \
+            METHOD_ERR(s) << "PWM channel is not configured, valid channel values are: "                \
+                          << (int)ceammc_HW_RPI_PWM_MIN_CHAN << "-" << (int)ceammc_HW_RPI_PWM_MAX_CHAN; \
+        }                                                                                               \
     }
 
 HwRpiPwm::HwRpiPwm(const PdArgs& args)
@@ -98,6 +99,23 @@ void HwRpiPwm::m_polarity(t_symbol* s, const AtomListView& lv)
             : ceammc_hw_rpi_pwm_polarity::NORMAL);
 }
 
+void HwRpiPwm::m_pwm(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("PERIOD:f>=0 WIDTH:f>=0");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    CHECK_PWM_CHAN();
+
+    auto period = lv.floatAt(0, 0);
+    auto width = lv.floatAt(1, 0);
+    if (width > period) {
+        METHOD_ERR(s) << fmt::format("expected width<=period, get: {}>{}", width, period);
+    }
+
+    ceammc_hw_rpi_pwm_set_pwm(pwm_, period, width);
+}
+
 void HwRpiPwm::m_width(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("WIDTH:f>=0");
@@ -118,5 +136,6 @@ void setup_hw_rpi_pwm()
     obj.addMethod("freq", &HwRpiPwm::m_freq);
     obj.addMethod("period", &HwRpiPwm::m_period);
     obj.addMethod("polarity", &HwRpiPwm::m_polarity);
+    obj.addMethod("pwm", &HwRpiPwm::m_pwm);
     obj.addMethod("width", &HwRpiPwm::m_width);
 }

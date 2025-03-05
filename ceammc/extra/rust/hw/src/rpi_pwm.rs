@@ -92,6 +92,15 @@ pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(
 }
 
 #[no_mangle]
+pub extern "C" fn ceammc_hw_rpi_pwm_set_pwm(
+    pwm: *const hw_rpi_pwm,
+    period_ms: f64,
+    width_ms: f64,
+) -> bool {
+    rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPwm(period_ms, width_ms)) });
+}
+
+#[no_mangle]
 pub extern "C" fn ceammc_hw_rpi_pwm_set_period(pwm: *const hw_rpi_pwm, period_ms: f64) -> bool {
     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPeriod(period_ms)) });
 }

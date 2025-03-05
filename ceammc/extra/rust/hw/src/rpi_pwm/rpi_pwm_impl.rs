@@ -123,13 +123,14 @@ impl hw_rpi_pwm {
                         }
                         Request::SetDutyCycle(duty) => pwm.set_duty_cycle(duty)?,
                         Request::SetPwm(period_ms, width_ms) => {
+                            let period_ms = period_ms.max(0.0);
                             let width_ms = width_ms.clamp(0.0, period_ms);
                             pwm.set_pulse_width(Duration::from_secs(0))?;
                             pwm.set_period(msec_to_pwm_time(period_ms))?;
                             pwm.set_pulse_width(msec_to_pwm_time(width_ms))?
                         }
                     }
-                    
+
                     Ok(())
                 };
 
