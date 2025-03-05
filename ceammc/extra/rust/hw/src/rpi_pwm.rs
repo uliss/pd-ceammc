@@ -24,6 +24,7 @@ pub enum Request {
     SetPolarity(hw_rpi_pwm_polarity),
     SetPulseWidth(f64),
     SetDutyCycle(f64),
+    SetPwm(f64, f64),
 }
 
 #[derive(Debug)]

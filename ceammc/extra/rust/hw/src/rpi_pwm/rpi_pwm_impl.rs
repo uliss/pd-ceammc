@@ -31,6 +31,10 @@ where
     cstr
 }
 
+fn msec_to_pwm_time(msec: f64) -> Duration {
+    Duration::from_secs_f64(0.000001 * msec.max(0.0))
+}
+
 impl hw_rpi_pwm {
     pub fn new(channel: i8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let channel = match channel {
@@ -56,8 +60,8 @@ impl hw_rpi_pwm {
                 rppal::system::Model::RaspberryPi5 => match channel {
                     rppal::pwm::Channel::Pwm0 => (12u8, rppal::gpio::Mode::Alt0),
                     rppal::pwm::Channel::Pwm1 => (13, rppal::gpio::Mode::Alt0),
-                    rppal::pwm::Channel::Pwm2 => (18, rppal::gpio::Mode::Alt3),
-                    rppal::pwm::Channel::Pwm3 => (19, rppal::gpio::Mode::Alt3),
+                    rppal::pwm::Channel::Pwm2 => (18, rppal::gpio::Mode::Alt5),
+                    rppal::pwm::Channel::Pwm3 => (19, rppal::gpio::Mode::Alt5),
                 },
                 _ => match channel {
                     rppal::pwm::Channel::Pwm0 => (12u8, rppal::gpio::Mode::Alt0),
@@ -105,9 +109,7 @@ impl hw_rpi_pwm {
                             // gpio pwmc 384
                             pwm.set_frequency(1000.0 * freq, duty)?;
                         }
-                        Request::SetPeriod(msec) => {
-                            pwm.set_period(Duration::from_secs_f64(0.000001 * msec.abs()))?
-                        }
+                        Request::SetPeriod(msec) => pwm.set_period(msec_to_pwm_time(msec))?,
                         Request::SetPolarity(p) => pwm.set_polarity(match p {
                             crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => {
                                 rppal::pwm::Polarity::Normal
@@ -117,21 +119,17 @@ impl hw_rpi_pwm {
                             }
                         })?,
                         Request::SetPulseWidth(msec) => {
-                            pwm.set_pulse_width(Duration::from_secs_f64(0.000001 * msec.abs()))?
+                            pwm.set_pulse_width(msec_to_pwm_time(msec))?
                         }
                         Request::SetDutyCycle(duty) => pwm.set_duty_cycle(duty)?,
+                        Request::SetPwm(period_ms, width_ms) => {
+                            let width_ms = width_ms.clamp(0.0, period_ms);
+                            pwm.set_pulse_width(Duration::from_secs(0))?;
+                            pwm.set_period(msec_to_pwm_time(period_ms))?;
+                            pwm.set_pulse_width(msec_to_pwm_time(width_ms))?
+                        }
                     }
-
-                    debug!(
-                        "enabled: {}, freq={}Hz, period={}ms, duty={}% pulse_width={}ms polarity={}",
-                        pwm.is_enabled()?,
-                        pwm.frequency()?,
-                        pwm.period()?.as_secs_f32() * 1000.0,
-                        pwm.duty_cycle()? * 100.0,
-                        pwm.pulse_width()?.as_millis(),
-                        pwm.polarity()?
-                    );
-
+                    
                     Ok(())
                 };
 
