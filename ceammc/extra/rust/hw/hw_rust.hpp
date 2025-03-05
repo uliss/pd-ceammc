@@ -59,6 +59,8 @@ constexpr static const float ceammc_HW_PCA9685_MIN_PERIOD_MS = (1000.0 / (float)
 
 constexpr static const float ceammc_HW_PCA9685_MAX_PERIOD_MS = (1000.0 / (float)ceammc_HW_PCA9685_MIN_FREQ_HZ);
 
+constexpr static const uint8_t ceammc_HW_PCA9685_ALL_CHAN = 16;
+
 enum class ceammc_hw_gamepad_btn {
     South,
     East,
@@ -724,6 +726,11 @@ ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t bus,
                                          ceammc_hw_msg_cb on_err);
 
 bool ceammc_hw_pca9685_proc_reply(const ceammc_hw_pca9685 *pwm);
+
+bool ceammc_hw_pca9685_set_duty_cycle(const ceammc_hw_pca9685 *pwm,
+                                      uint8_t chan,
+                                      float duty_cycle,
+                                      float phase);
 
 bool ceammc_hw_pca9685_set_freq(const ceammc_hw_pca9685 *pwm, float freq_hz);
 

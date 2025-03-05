@@ -18,6 +18,7 @@ pub const HW_PCA9685_MIN_FREQ_HZ: u32 = HW_PCA9685_OSC_VALUE / 255;
 pub const HW_PCA9685_MAX_FREQ_HZ: u32 = HW_PCA9685_OSC_VALUE / 3;
 pub const HW_PCA9685_MIN_PERIOD_MS: f32 = 1000.0 / HW_PCA9685_MAX_FREQ_HZ as f32;
 pub const HW_PCA9685_MAX_PERIOD_MS: f32 = 1000.0 / HW_PCA9685_MIN_FREQ_HZ as f32;
+pub const HW_PCA9685_ALL_CHAN: u8 = 16;
 
 #[derive(Debug)]
 pub enum Request {
@@ -26,9 +27,9 @@ pub enum Request {
     SetFreq(f32),
     SetPeriod(f32),
     SetPolarity(hw_rpi_pwm_polarity),
-    // SetPulseWidth(f64),
-    // SetDutyCycle(f64),
-    // SetPwm(f64, f64),
+    SetChanPulseWidth(u8, f32, f32),
+    SetChanDutyCycle(u8, f32, f32),
+    // SetPwm(u8, f64),
 }
 
 #[derive(Debug)]
@@ -75,10 +76,7 @@ pub extern "C" fn ceammc_hw_pca9685_proc_reply(pwm: *const hw_pca9685) -> bool {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685_enable(
-    pwm: *const hw_pca9685,
-    state: bool,
-) -> bool {
+pub extern "C" fn ceammc_hw_pca9685_enable(pwm: *const hw_pca9685, state: bool) -> bool {
     rpi_check!({ hw_pca9685::send_request(pwm, Request::Enable(state)) });
 }
 
@@ -107,13 +105,15 @@ pub extern "C" fn ceammc_hw_pca9685_set_period(pwm: *const hw_pca9685, period_ms
 //     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPulseWidth(width_ms)) });
 // }
 
-// #[no_mangle]
-// pub extern "C" fn ceammc_hw_rpi_pwm_set_duty_cycle(
-//     pwm: *const hw_rpi_pwm,
-//     duty_cycle: f64,
-// ) -> bool {
-//     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetDutyCycle(duty_cycle)) });
-// }
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pca9685_set_duty_cycle(
+    pwm: *const hw_pca9685,
+    chan: u8,
+    duty_cycle: f32,
+    phase: f32,
+) -> bool {
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetChanDutyCycle(chan, duty_cycle, phase)) });
+}
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_pca9685i_set_polarity(

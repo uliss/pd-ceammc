@@ -28,7 +28,20 @@ bool HwI2cPca8695::notify(int code)
     return ceammc_hw_pca9685_proc_reply(pwm_);
 }
 
-void HwI2cPca8695::m_on_off(t_symbol* s, const AtomListView& lv)
+void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,16] DUTY:f PHASE:f");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto chan = lv.intAt(0, 0);
+    auto duty = lv.floatAt(1, 0);
+    auto phase = lv.floatAt(2, 0);
+
+    ceammc_hw_pca9685_set_duty_cycle(pwm_, chan, duty, phase);
+}
+
+void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("CHAN:i[0,16] ON:i[0,4095] OFF:i[0,4095]");
     if (!chk.check(lv, this))
@@ -86,9 +99,10 @@ void setup_hw_rpi_i2c_pca9685()
     ObjectFactory<HwI2cPca8695> obj("hw.rpi.pwm.pca9685");
     obj.addAlias("hw.rpi.i2c.pca9685");
 
-    obj.addMethod("set_on_off", &HwI2cPca8695::m_on_off);
+    obj.addMethod("duty", &HwI2cPca8695::m_duty);
     obj.addMethod("enable", &HwI2cPca8695::m_enable);
     obj.addMethod("freq", &HwI2cPca8695::m_freq);
-    obj.addMethod("polarity", &HwI2cPca8695::m_polarity);
     obj.addMethod("period", &HwI2cPca8695::m_period);
+    obj.addMethod("polarity", &HwI2cPca8695::m_polarity);
+    obj.addMethod("set_raw", &HwI2cPca8695::m_set_raw);
 }

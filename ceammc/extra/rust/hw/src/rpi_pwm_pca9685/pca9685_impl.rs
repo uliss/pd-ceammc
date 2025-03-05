@@ -7,19 +7,33 @@ use rppal::i2c::I2c;
 use crate::{
     hw_msg_cb, hw_notify_cb,
     rpi_pwm_pca9685::{
-        HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MAX_PERIOD_MS, HW_PCA9685_MIN_FREQ_HZ, HW_PCA9685_MIN_PERIOD_MS, HW_PCA9685_OSC_VALUE
+        HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MAX_PERIOD_MS, HW_PCA9685_MIN_FREQ_HZ,
+        HW_PCA9685_MIN_PERIOD_MS, HW_PCA9685_OSC_VALUE,
     },
     str_to_cstr,
 };
 
-use super::{hw_pca9685, Reply, Request};
+use super::{hw_pca9685, Reply, Request, HW_PCA9685_ALL_CHAN};
 
 fn to_channel(ch: u8) -> Channel {
     match ch {
         0 => Channel::C0,
         1 => Channel::C1,
         2 => Channel::C2,
+        3 => Channel::C3,
+        4 => Channel::C4,
+        5 => Channel::C5,
+        6 => Channel::C6,
         7 => Channel::C7,
+        8 => Channel::C8,
+        9 => Channel::C9,
+        10 => Channel::C10,
+        11 => Channel::C11,
+        12 => Channel::C12,
+        13 => Channel::C13,
+        14 => Channel::C14,
+        15 => Channel::C15,
+        HW_PCA9685_ALL_CHAN => Channel::All,
         _ => Channel::All,
     }
 }
@@ -42,6 +56,10 @@ where
     error!("{}", cstr.to_str().unwrap());
     send_reply(tx, notify, Reply::Error(cstr.clone()));
     cstr
+}
+
+fn f32_to_pos(x: f32) -> u16 {
+    (((((x * 4096.0).round() as i64) % 4096) + 4096) % 4096) as u16
 }
 
 impl hw_pca9685 {
@@ -112,6 +130,24 @@ impl hw_pca9685 {
                         pwm.set_prescale(prescale)
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
+                    Request::SetChanPulseWidth(chan, width_ms, phase) => {
+                        
+                        // pwm.set_channel_on(chan, 0)
+                        // .and_then(|_| {
+                        //     pwm.set_channel_off(chan, (4095.0 * duty).round() as u16)?;
+                        //     Ok(())
+                        // })
+                        // .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                    }
+                    Request::SetChanDutyCycle(chan, duty, phase) => {
+                        let chan = to_channel(chan);
+                        pwm.set_channel_on(chan, f32_to_pos(phase))
+                            .and_then(|_| {
+                                pwm.set_channel_off(chan, f32_to_pos(phase + duty))?;
+                                Ok(())
+                            })
+                            .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                    }
                 }
             }
 
@@ -159,5 +195,25 @@ impl hw_pca9685 {
                 true
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::rpi_pwm_pca9685::pca9685_impl::f32_to_pos;
+
+    #[test]
+    fn convert() {
+        assert_eq!(f32_to_pos(0.0), 0);
+        assert_eq!(f32_to_pos(0.25), 1024);
+        assert_eq!(f32_to_pos(0.5), 2048);
+        assert_eq!(f32_to_pos(0.75), 3072);
+        assert_eq!(f32_to_pos(1.0), 0);
+        assert_eq!(f32_to_pos(1.25), 1024);
+        assert_eq!(f32_to_pos(-0.25), 3072);
+        assert_eq!(f32_to_pos(-0.5), 2048);
+        assert_eq!(f32_to_pos(-0.75), 1024);
+        assert_eq!(f32_to_pos(-1.0), 0);
+        assert_eq!(f32_to_pos(-1.25), 3072);
     }
 }
