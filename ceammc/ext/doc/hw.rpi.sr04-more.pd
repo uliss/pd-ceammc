@@ -1,0 +1,7 @@
+#N canvas 0 0 429 383 12;
+#X obj 20 48 loadbang;
+#X msg 20 77 clear \, image 10 10 img/hc_sr04.png 0.35 \, update;
+#X obj 20 106 ui.canvas @size 500 350;
+#X text 20 336 comment;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;

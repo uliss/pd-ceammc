@@ -24,8 +24,8 @@
 #X text 200 369 Hardware PWM output for RaspberryPi;
 #X obj 30 397 hw.rpi.rotenc;
 #X text 200 397 Rotary encoder for Raspberry GPIO;
-#X obj 30 425 hw.sensor.sr04;
-#X text 200 425 HC-SR04 ulatrasonic ranging module;
+#X obj 30 425 hw.rpi.sr04;
+#X text 200 425 HC-SR04 ulatrasonic ranging module for Raspberry Pi;
 #X obj 30 453 hw.serial;
 #X text 200 453 serial port device;
 #X obj 30 481 hw.spi.max7219;

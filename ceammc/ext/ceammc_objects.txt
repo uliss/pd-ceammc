@@ -647,8 +647,8 @@ hw.printer
 hw.rpi.gpio
 hw.rpi.pwm
 hw.rpi.rotenc
+hw.rpi.sr04
 hw.sensor.dht11
-hw.sensor.sr04
 hw.serial
 hw.spi.max7219
 hw.spi.ws2812
