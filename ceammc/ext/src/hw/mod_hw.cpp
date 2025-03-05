@@ -20,6 +20,7 @@ void setup_hw_motu_avb();
 void setup_hw_printer();
 void setup_hw_rpi_dht11();
 void setup_hw_rpi_gpio();
+void setup_hw_rpi_i2c_pca9685();
 void setup_hw_rpi_pwm();
 void setup_hw_rpi_rotenc();
 void setup_hw_rpi_sr04();
@@ -41,6 +42,7 @@ void ceammc_hw_setup()
     setup_hw_printer();
     setup_hw_rpi_dht11();
     setup_hw_rpi_gpio();
+    setup_hw_rpi_i2c_pca9685();
     setup_hw_rpi_pwm();
     setup_hw_rpi_rotenc();
     setup_hw_rpi_sr04();
