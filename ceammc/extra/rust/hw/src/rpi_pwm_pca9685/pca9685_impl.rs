@@ -87,7 +87,7 @@ impl FreqData {
         let period_ms = 1000.0 / self.freq;
         let width_ms = width_ms.clamp(0.0, period_ms);
 
-        (4096.0 * width_ms / period_ms).round().clamp(0.0, 4095.0) as u16
+        ((4096.0 * width_ms) / period_ms).round().clamp(0.0, 4095.0) as u16
     }
 }
 
@@ -150,17 +150,11 @@ impl hw_pca9685 {
                     }
                     Request::SetChanPulseWidth(chan, width_ms, phase) => {
                         let chan = to_channel(chan);
-                        
+
                         let on_pos = f32_to_pos(phase);
                         let off_pos = (on_pos + pwm_freq.calc_width(width_ms)) % 4096;
 
-                        debug!("on|off {on_pos} {off_pos}");
-
-                        pwm.set_channel_on(chan, off_pos)
-                            .and_then(|_| {
-                                pwm.set_channel_off(chan, off_pos)?;
-                                Ok(())
-                            })
+                        pwm.set_channel_on_off(chan, on_pos, off_pos)
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                     Request::SetChanDutyCycle(chan, duty, phase) => {
@@ -169,13 +163,7 @@ impl hw_pca9685 {
                         let on_pos = f32_to_pos(phase);
                         let off_pos = f32_to_pos(phase + duty);
 
-                        debug!("on|off {on_pos} {off_pos}");
-
-                        pwm.set_channel_on(chan, on_pos)
-                            .and_then(|_| {
-                                pwm.set_channel_off(chan, off_pos)?;
-                                Ok(())
-                            })
+                        pwm.set_channel_on_off(chan, on_pos, off_pos)
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                 }
@@ -232,6 +220,8 @@ impl hw_pca9685 {
 mod tests {
     use crate::rpi_pwm_pca9685::pca9685_impl::f32_to_pos;
 
+    use super::FreqData;
+
     #[test]
     fn convert() {
         assert_eq!(f32_to_pos(0.0), 0);
@@ -245,5 +235,13 @@ mod tests {
         assert_eq!(f32_to_pos(-0.75), 1024);
         assert_eq!(f32_to_pos(-1.0), 0);
         assert_eq!(f32_to_pos(-1.25), 3072);
+    }
+
+    #[test]
+    fn freq() {
+        let f = FreqData::new(50.0);
+        assert_eq!(f.freq, 50.0);
+        assert_eq!(f.calc_width(10.0), 2048);
+        assert_eq!(f.calc_width(5.0), 1024);
     }
 }
