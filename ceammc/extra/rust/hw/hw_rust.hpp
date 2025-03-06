@@ -741,6 +741,11 @@ bool ceammc_hw_pca9685_set_on_off(const ceammc_hw_pca9685 *pwm,
 
 bool ceammc_hw_pca9685_set_period(const ceammc_hw_pca9685 *pwm, float period_ms);
 
+bool ceammc_hw_pca9685_set_pulse_width(const ceammc_hw_pca9685 *pwm,
+                                       uint8_t chan,
+                                       float width_ms,
+                                       float phase);
+
 bool ceammc_hw_pca9685i_set_polarity(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_rpi_pwm_polarity polarity);
 

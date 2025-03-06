@@ -100,10 +100,10 @@ pub extern "C" fn ceammc_hw_pca9685_set_period(pwm: *const hw_pca9685, period_ms
     rpi_check!({ hw_pca9685::send_request(pwm, Request::SetPeriod(period_ms)) });
 }
 
-// #[no_mangle]
-// pub extern "C" fn ceammc_hw_rpi_pwm_set_pulse_width(pwm: *const hw_rpi_pwm, width_ms: f64) -> bool {
-//     rpi_check!({ hw_rpi_pwm::send_ptr(pwm, Request::SetPulseWidth(width_ms)) });
-// }
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pca9685_set_pulse_width(pwm: *const hw_pca9685, chan: u8, width_ms: f32, phase: f32) -> bool {
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetChanPulseWidth(chan, width_ms, phase)) });
+}
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_pca9685_set_duty_cycle(

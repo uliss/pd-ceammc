@@ -23,6 +23,7 @@ public:
     void m_period(t_symbol* s, const AtomListView& lv);
     void m_polarity(t_symbol* s, const AtomListView& lv);
     void m_set_raw(t_symbol* s, const AtomListView& lv);
+    void m_width(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_rpi_i2c_pca9685();

@@ -54,6 +54,19 @@ void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
     ceammc_hw_pca9685_set_on_off(pwm_, chan, on, off);
 }
 
+void HwI2cPca8695::m_width(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,16] WIDTH:f[0.5,40] PHASE:f[0,1]?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto chan = lv.intAt(0, 0);
+    auto width_ms = lv.floatAt(1, 0);
+    auto phase = lv.floatAt(2, 0);
+
+    ceammc_hw_pca9685_set_pulse_width(pwm_, chan, width_ms, phase);
+}
+
 void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PERIOD:f[0.5,40]");
@@ -105,4 +118,5 @@ void setup_hw_rpi_i2c_pca9685()
     obj.addMethod("period", &HwI2cPca8695::m_period);
     obj.addMethod("polarity", &HwI2cPca8695::m_polarity);
     obj.addMethod("set_raw", &HwI2cPca8695::m_set_raw);
+    obj.addMethod("width", &HwI2cPca8695::m_width);
 }
