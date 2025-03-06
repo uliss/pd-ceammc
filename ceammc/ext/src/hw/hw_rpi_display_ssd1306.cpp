@@ -29,7 +29,10 @@ bool HwRpiDisplaySsd1306::notify(int code)
 
 void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
 {
-    //    ceammc_hw_display_ssd1306_new()
+    auto txt = lv.symbolAt(0, &s_);
+    auto x = lv.intAt(1, 0);
+    auto y = lv.intAt(2, 0);
+    ceammc_hw_display_ssd1306_text(display_, txt->s_name, x, y);
 }
 
 void setup_hw_rpi_display_ssd1306()

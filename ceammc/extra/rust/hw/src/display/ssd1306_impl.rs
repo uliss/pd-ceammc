@@ -1,12 +1,15 @@
 use std::ffi::CString;
 
-use embedded_graphics::{mono_font::{ascii::FONT_6X10, MonoTextStyleBuilder}, pixelcolor::BinaryColor, prelude::Point, text::{Baseline, Text}, Drawable};
-use log::{debug, error};
-use rppal::i2c::I2c;
-use ssd1306::{
-    mode::DisplayConfig, prelude::DisplayRotation, size::DisplaySize128x64, I2CDisplayInterface,
-    Ssd1306,
+use embedded_graphics::{
+    mono_font::{ascii::FONT_6X10, MonoTextStyleBuilder},
+    pixelcolor::BinaryColor,
+    prelude::{PixelIteratorExt, Point},
+    text::{Baseline, Text},
+    Drawable,
 };
+use log::{debug, error};
+use rppal::{gpio::Gpio, i2c::I2c, spi::Spi};
+use ssd1306::{prelude::DisplayRotation, size::DisplaySize128x64, I2CDisplayInterface, Ssd1306};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
@@ -21,10 +24,38 @@ impl hw_display_ssd1306 {
             debug!("thread started");
 
             let i2c = I2c::new().unwrap();
-            let interface = I2CDisplayInterface::new(i2c);
-            let mut display = Ssd1306::new(interface, DisplaySize128x64, DisplayRotation::Rotate0)
+            let i2c_iface = I2CDisplayInterface::new(i2c);
+
+            // let gpio = Gpio::new().unwrap();
+            // let dc = gpio.get(16).unwrap().into_output();
+            // let spi = Spi::new(
+            //     rppal::spi::Bus::Spi0,
+            //     rppal::spi::SlaveSelect::Ss0,
+            //     1_000_000,
+            //     rppal::spi::Mode::Mode0,
+            // )
+            // .unwrap();
+
+            // let spi_iface = SPIInterface::new(spi, dc);
+            // spi_iface.
+            let mut display = Ssd1306::new(i2c_iface, DisplaySize128x64, DisplayRotation::Rotate0)
                 .into_buffered_graphics_mode();
-            display.init().unwrap();
+
+            // display.into_buffered_graphics_mode().reset(rst, delay)
+
+            // display.reset(rst, delay)
+
+            // Spam some characters to the display
+            // for c in 97..123 {
+            //     let _ = display.write_str(unsafe { core::str::from_utf8_unchecked(&[c]) });
+            // }
+            // for c in 65..91 {
+            //     let _ = display.write_str(unsafe { core::str::from_utf8_unchecked(&[c]) });
+            // }
+
+            //
+            // display.
+            // display.init().unwrap();
             // display.clear_buffer();
             // display.clear().unwrap();
 
@@ -45,11 +76,24 @@ impl hw_display_ssd1306 {
 
             // display.set_display_on(true);
             // display.
-            display.flush().unwrap();
+            // display.flush().unwrap();
 
             while let Ok(req) = req_rx.try_recv() {
                 match req {
-                    Request::Enable(_) => {}
+                    Request::DrawText(cstr, x, y) => {
+                        display.clear_buffer();
+
+                        Text::with_baseline(
+                            cstr.into_string().unwrap().as_str(),
+                            Point::new(x as i32, y as i32),
+                            text_style,
+                            Baseline::Top,
+                        )
+                        .draw(&mut display)
+                        .unwrap();
+
+                        display.flush().unwrap();
+                    }
                 }
             }
 

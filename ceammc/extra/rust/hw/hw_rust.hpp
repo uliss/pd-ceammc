@@ -344,6 +344,11 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new(int8_t channel,
 
 bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *disp);
 
+bool ceammc_hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *disp,
+                                    const char *txt,
+                                    int16_t x,
+                                    int16_t y);
+
 /// free gamepad
 /// @param gp - pointer to gp
 void ceammc_hw_gamepad_free(ceammc_hw_gamepad *gp);
@@ -851,8 +856,6 @@ bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *ws,
                                     uint8_t r,
                                     uint8_t g,
                                     uint8_t b);
-
-bool hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *disp, const char *txt);
 
 } // extern "C"
 

@@ -3,7 +3,10 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::{c_char, CString}, ptr::null_mut};
+use std::{
+    ffi::{c_char, CStr, CString},
+    ptr::null_mut,
+};
 
 use log::error;
 
@@ -14,7 +17,7 @@ mod ssd1306_impl;
 
 #[derive(Debug)]
 pub enum Request {
-    Enable(bool),
+    DrawText(CString, i16, i16),
 }
 
 #[derive(Debug)]
@@ -61,6 +64,15 @@ pub extern "C" fn ceammc_hw_display_ssd1306_proc_reply(disp: *const hw_display_s
 }
 
 #[no_mangle]
-pub extern "C" fn hw_display_ssd1306_text(disp: *const hw_display_ssd1306, txt: *const c_char) -> bool {
-    rpi_check!({ hw_display_ssd1306::send_request(disp, Request::Enable(true)) });
+pub extern "C" fn ceammc_hw_display_ssd1306_text(
+    disp: *const hw_display_ssd1306,
+    txt: *const c_char,
+    x: i16,
+    y: i16,
+) -> bool {
+    rpi_check!({
+        let txt = unsafe { CStr::from_ptr(txt).to_str().unwrap() };
+        let txt = CString::new(txt).unwrap_or_default();
+        hw_display_ssd1306::send_request(disp, Request::DrawText(txt, x, y))
+    });
 }
