@@ -6,10 +6,7 @@ use rppal::i2c::I2c;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
-    rpi_pwm_pca9685::{
-        HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MAX_PERIOD_MS, HW_PCA9685_MIN_FREQ_HZ,
-        HW_PCA9685_MIN_PERIOD_MS, HW_PCA9685_OSC_VALUE,
-    },
+    rpi_pwm_pca9685::{HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MIN_FREQ_HZ, HW_PCA9685_OSC_VALUE},
     str_to_cstr,
 };
 
@@ -62,8 +59,40 @@ fn f32_to_pos(x: f32) -> u16 {
     (((((x * 4096.0).round() as i64) % 4096) + 4096) % 4096) as u16
 }
 
+struct FreqData {
+    freq: f32,
+}
+
+impl FreqData {
+    fn new(freq: f32) -> Self {
+        let freq = freq.clamp(HW_PCA9685_MIN_FREQ_HZ as f32, HW_PCA9685_MAX_FREQ_HZ as f32);
+        FreqData { freq }
+    }
+
+    fn set_freq(&mut self, freq: f32) {
+        *self = Self::new(freq);
+    }
+
+    fn set_period_ms(&mut self, period: f32) {
+        self.set_freq(1000.0 / period);
+    }
+
+    fn prescale(&self) -> u8 {
+        (HW_PCA9685_OSC_VALUE as f32 / self.freq)
+            .round()
+            .clamp(0.0, 255.0) as u8
+    }
+
+    fn calc_width(&self, width_ms: f32) -> u16 {
+        let period_ms = 1000.0 / self.freq;
+        let width_ms = width_ms.clamp(0.0, period_ms);
+
+        (4096.0 * width_ms / period_ms).round().clamp(0.0, 4095.0) as u16
+    }
+}
+
 impl hw_pca9685 {
-    pub fn new(bus: i8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(_bus: i8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel::<Request>();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
@@ -81,7 +110,9 @@ impl hw_pca9685 {
             let mut pwm = Pca9685::new(i2c, address)
                 .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
 
-            pwm.set_prescale(100)
+            let mut pwm_freq = FreqData::new(50.0);
+
+            pwm.set_prescale(pwm_freq.prescale())
                 .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
 
             while let Ok(req) = req_rx.recv() {
@@ -97,14 +128,8 @@ impl hw_pca9685 {
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                     Request::SetFreq(freq_hz) => {
-                        let freq_hz = freq_hz
-                            .clamp(HW_PCA9685_MIN_FREQ_HZ as f32, HW_PCA9685_MAX_FREQ_HZ as f32);
-                        let prescale =
-                            ((HW_PCA9685_OSC_VALUE as f32 / freq_hz).round() as u8).clamp(0, 255);
-
-                        debug!("set PWM freq: {freq_hz}Hz (prescale: {prescale})");
-
-                        pwm.set_prescale(prescale)
+                        pwm_freq.set_freq(freq_hz);
+                        pwm.set_prescale(pwm_freq.prescale())
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                     Request::SetPolarity(polarity) => {
@@ -119,25 +144,23 @@ impl hw_pca9685 {
                         .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                     Request::SetPeriod(period_ms) => {
-                        let period =
-                            period_ms.clamp(HW_PCA9685_MIN_PERIOD_MS, HW_PCA9685_MAX_PERIOD_MS);
-                        let prescale = ((HW_PCA9685_OSC_VALUE as f32 * period * 0.001).round()
-                            as u8)
-                            .clamp(0, 255);
-
-                        debug!("set PWM freq: {period_ms}ms (prescale: {prescale})");
-
-                        pwm.set_prescale(prescale)
+                        pwm_freq.set_period_ms(period_ms);
+                        pwm.set_prescale(pwm_freq.prescale())
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                     Request::SetChanPulseWidth(chan, width_ms, phase) => {
-                        
-                        // pwm.set_channel_on(chan, 0)
-                        // .and_then(|_| {
-                        //     pwm.set_channel_off(chan, (4095.0 * duty).round() as u16)?;
-                        //     Ok(())
-                        // })
-                        // .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                        let chan = to_channel(chan);
+                        let on_pos = f32_to_pos(phase);
+                        let off_pos = (on_pos + pwm_freq.calc_width(width_ms)) % 4096;
+
+                        debug!("on|off {on_pos} {off_pos}");
+
+                        pwm.set_channel_on(chan, off_pos)
+                            .and_then(|_| {
+                                pwm.set_channel_off(chan, off_pos)?;
+                                Ok(())
+                            })
+                            .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                     Request::SetChanDutyCycle(chan, duty, phase) => {
                         let chan = to_channel(chan);
