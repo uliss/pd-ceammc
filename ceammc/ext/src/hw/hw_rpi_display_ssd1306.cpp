@@ -1,10 +1,28 @@
 #include "hw_rpi_display_ssd1306.h"
+#include "args/argcheck.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+
+CEAMMC_DEFINE_SYM_HASH(i2c)
+CEAMMC_DEFINE_SYM_HASH(spi)
 
 HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
     : DispatchedObject<BaseObject>(args)
 {
     createOutlet();
+
+    mode_ = new SymbolEnumProperty("@mode", { sym_i2c(), sym_spi() });
+    mode_->setInitOnly();
+    mode_->setArgIndex(0);
+    addProperty(mode_);
+
+    spi_ = new ListProperty("@spi");
+    spi_->setInitOnly();
+    addProperty(spi_);
+
+    i2c_ = new ListProperty("@i2c");
+    i2c_->setInitOnly();
+    addProperty(i2c_);
 }
 
 HwRpiDisplaySsd1306::~HwRpiDisplaySsd1306()
@@ -14,17 +32,50 @@ HwRpiDisplaySsd1306::~HwRpiDisplaySsd1306()
 
 void HwRpiDisplaySsd1306::initDone()
 {
-    display_ = ceammc_hw_display_ssd1306_new(0,
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
-        { this, [](void* user, const char* msg) {
-             Error err(static_cast<HwRpiDisplaySsd1306*>(user));
-             err << msg;
-         } });
+    switch (crc32_hash(mode_->value())) {
+    case hash_i2c:
+        OBJ_ERR << "not implemented";
+        break;
+    case hash_spi: {
+        static const args::ArgChecker chk("BUS:b DC:b CS:b");
+        if (!chk.check(spi_->value(), this))
+            return chk.usage(this);
+
+        auto& args = spi_->value();
+        auto bus = args.intAt(0, 0);
+        auto dc = args.intAt(1, 0);
+        auto cs = args.intAt(2, 0);
+
+        display_ = ceammc_hw_display_ssd1306_new_spi(bus, dc, cs,
+            { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
+            { this, [](void* user, const char* msg) {
+                 Error err(static_cast<HwRpiDisplaySsd1306*>(user));
+                 err << msg;
+             } });
+    } break;
+    default:
+        OBJ_ERR << "not implemented";
+        break;
+    }
 }
 
 bool HwRpiDisplaySsd1306::notify(int code)
 {
     return ceammc_hw_display_ssd1306_proc_reply(display_);
+}
+
+void HwRpiDisplaySsd1306::m_clear(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FLUSH:B?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_display_ssd1306_clear(display_, lv.boolAt(0, false));
+}
+
+void HwRpiDisplaySsd1306::m_flush(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_display_ssd1306_flush(display_);
 }
 
 void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
@@ -38,5 +89,7 @@ void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
 void setup_hw_rpi_display_ssd1306()
 {
     ObjectFactory<HwRpiDisplaySsd1306> obj("hw.rpi.display.ssd1306");
+
+    obj.addMethod("flush", &HwRpiDisplaySsd1306::m_flush);
     obj.addMethod("text", &HwRpiDisplaySsd1306::m_text);
 }

@@ -336,15 +336,21 @@ struct ceammc_hw_print_options {
 
 extern "C" {
 
-void ceammc_hw_display_ssd1306_free(ceammc_hw_display_ssd1306 *disp);
+bool ceammc_hw_display_ssd1306_clear(const ceammc_hw_display_ssd1306 *display, bool flush);
 
-ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new(int8_t channel,
-                                                         ceammc_hw_notify_cb notify,
-                                                         ceammc_hw_msg_cb on_err);
+bool ceammc_hw_display_ssd1306_flush(const ceammc_hw_display_ssd1306 *display);
 
-bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *disp);
+void ceammc_hw_display_ssd1306_free(ceammc_hw_display_ssd1306 *display);
 
-bool ceammc_hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *disp,
+ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
+                                                             uint8_t dc_pin,
+                                                             uint8_t cs_pin,
+                                                             ceammc_hw_notify_cb notify,
+                                                             ceammc_hw_msg_cb on_err);
+
+bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
+
+bool ceammc_hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *display,
                                     const char *txt,
                                     int16_t x,
                                     int16_t y);

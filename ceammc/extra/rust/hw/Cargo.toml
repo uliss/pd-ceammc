@@ -26,7 +26,6 @@ cups-sys = { version = "0.1.4", optional = true }
 ndarray = "0.16.1"
 rgb = "0.8.5"
 palette = { version = "0.7.6", features = ["std", "approx"] }
-ssd1306 = "0.9.0"
 embedded-graphics = "0.8.1"
 
 [target.'cfg(target_os="linux")'.dependencies]
@@ -39,6 +38,7 @@ smart-leds-trait = "0.3.1"
 smart-leds = "0.4.0"
 rotary-encoder-embedded = "0.4.0"
 pwm-pca9685 = "1.0.0"
+ssd1306 = "0.8.4"
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }

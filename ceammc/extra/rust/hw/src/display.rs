@@ -17,7 +17,10 @@ mod ssd1306_impl;
 
 #[derive(Debug)]
 pub enum Request {
+    Clear(bool),
+    Flush,
     DrawText(CString, i16, i16),
+    SetFont(CString),
 }
 
 #[derive(Debug)]
@@ -32,13 +35,15 @@ pub struct hw_display_ssd1306 {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_new(
-    channel: i8,
+pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
+    spi_bus: i8,
+    dc_pin: u8,
+    cs_pin: u8,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
-        match hw_display_ssd1306::new(channel, notify, on_err) {
+        match hw_display_ssd1306::new_spi(spi_bus, dc_pin, cs_pin, notify, on_err) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -50,22 +55,22 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_free(disp: *mut hw_display_ssd1306) {
+pub extern "C" fn ceammc_hw_display_ssd1306_free(display: *mut hw_display_ssd1306) {
     rpi_check!((), {
-        if !disp.is_null() {
-            drop(unsafe { Box::from_raw(disp) })
+        if !display.is_null() {
+            drop(unsafe { Box::from_raw(display) })
         }
     });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_proc_reply(disp: *const hw_display_ssd1306) -> bool {
-    rpi_check!({ hw_display_ssd1306::process_reply(disp) });
+pub extern "C" fn ceammc_hw_display_ssd1306_proc_reply(display: *const hw_display_ssd1306) -> bool {
+    rpi_check!({ hw_display_ssd1306::process_reply(display) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_display_ssd1306_text(
-    disp: *const hw_display_ssd1306,
+    display: *const hw_display_ssd1306,
     txt: *const c_char,
     x: i16,
     y: i16,
@@ -73,6 +78,19 @@ pub extern "C" fn ceammc_hw_display_ssd1306_text(
     rpi_check!({
         let txt = unsafe { CStr::from_ptr(txt).to_str().unwrap() };
         let txt = CString::new(txt).unwrap_or_default();
-        hw_display_ssd1306::send_request(disp, Request::DrawText(txt, x, y))
+        hw_display_ssd1306::send_request(display, Request::DrawText(txt, x, y))
     });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_flush(display: *const hw_display_ssd1306) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::Flush) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_clear(
+    display: *const hw_display_ssd1306,
+    flush: bool,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::Clear(flush)) });
 }
