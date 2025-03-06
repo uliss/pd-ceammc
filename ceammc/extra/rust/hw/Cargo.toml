@@ -26,6 +26,8 @@ cups-sys = { version = "0.1.4", optional = true }
 ndarray = "0.16.1"
 rgb = "0.8.5"
 palette = { version = "0.7.6", features = ["std", "approx"] }
+ssd1306 = "0.9.0"
+embedded-graphics = "0.8.1"
 
 [target.'cfg(target_os="linux")'.dependencies]
 rppal = { version = "0.22.1", features = ["hal"] }

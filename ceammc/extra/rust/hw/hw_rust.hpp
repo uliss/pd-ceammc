@@ -172,6 +172,8 @@ enum class ceammc_hw_spi_cs {
     CS3,
 };
 
+struct ceammc_hw_display_ssd1306;
+
 /// gamepad opaque type
 struct ceammc_hw_gamepad;
 
@@ -195,6 +197,21 @@ struct ceammc_hw_pca9685;
 struct ceammc_hw_rpi_pwm;
 
 struct ceammc_hw_spi_ws2812;
+
+struct ceammc_hw_notify_cb {
+    /// dispatcher ID
+    size_t id;
+    /// dispatcher callback (not NULL!)
+    void (*f)(size_t id);
+};
+
+/// error callback
+struct ceammc_hw_msg_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can be NULL
+    void (*cb)(void*, const char*);
+};
 
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
@@ -246,13 +263,6 @@ struct ceammc_gamepad_listdev_cb {
     void (*cb)(void *user, const ceammc_gamepad_dev_info *info);
 };
 
-struct ceammc_hw_notify_cb {
-    /// dispatcher ID
-    size_t id;
-    /// dispatcher callback (not NULL!)
-    void (*f)(size_t id);
-};
-
 struct ceammc_hw_printer_info {
     const char *name;
     const char *system_name;
@@ -267,14 +277,6 @@ struct ceammc_hw_printer_info {
 struct ceammc_hw_printer_info_cb {
     void *user;
     void (*cb)(void *user, const ceammc_hw_printer_info *info);
-};
-
-/// error callback
-struct ceammc_hw_msg_cb {
-    /// pointer to user data (can be NULL)
-    void *user;
-    /// can be NULL
-    void (*cb)(void*, const char*);
 };
 
 struct ceammc_hw_dht11_cb {
@@ -333,6 +335,14 @@ struct ceammc_hw_print_options {
 
 
 extern "C" {
+
+void ceammc_hw_display_ssd1306_free(ceammc_hw_display_ssd1306 *disp);
+
+ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new(int8_t channel,
+                                                         ceammc_hw_notify_cb notify,
+                                                         ceammc_hw_msg_cb on_err);
+
+bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *disp);
 
 /// free gamepad
 /// @param gp - pointer to gp
@@ -841,6 +851,8 @@ bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *ws,
                                     uint8_t r,
                                     uint8_t g,
                                     uint8_t b);
+
+bool hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *disp, const char *txt);
 
 } // extern "C"
 

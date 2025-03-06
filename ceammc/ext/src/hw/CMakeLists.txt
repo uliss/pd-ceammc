@@ -105,6 +105,7 @@ endif()
 
 # GPIO
 ceammc_hw_external(rpi_dht11)
+ceammc_hw_external(rpi_display_ssd1306)
 ceammc_hw_external(rpi_gpio)
 ceammc_hw_external(rpi_i2c_pca9685)
 ceammc_hw_external(rpi_pwm)
