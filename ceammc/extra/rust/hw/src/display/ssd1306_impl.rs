@@ -69,7 +69,7 @@ impl hw_display_ssd1306 {
                 .map_err(|err| proc_err(err, &rep_tx, notify))?
                 .into_output();
 
-            debug!("use DC=GPIO_{dc_pin:02} CS=GPIO_{cs_pin:02}");
+            debug!("GPIO init: DC=GPIO_{dc_pin:02} CS=GPIO_{cs_pin:02}");
 
             let bus = match spi_bus {
                 0 => rppal::spi::Bus::Spi0,
@@ -89,6 +89,8 @@ impl hw_display_ssd1306 {
                 rppal::spi::Mode::Mode0,
             )
             .map_err(|err| proc_err(err, &rep_tx, notify))?;
+
+            debug!("SPI init: {spi:?}");
 
             let spi_iface = SPIInterface::new(spi, dc, cs);
             let mut display = Ssd1306::new(spi_iface, DisplaySize128x64, DisplayRotation::Rotate0)
@@ -111,6 +113,8 @@ impl hw_display_ssd1306 {
                 .build();
 
             while let Ok(req) = req_rx.recv() {
+                debug!("{req:?}");
+                
                 match req {
                     Request::DrawText(cstr, x, y) => {
                         Text::with_baseline(
