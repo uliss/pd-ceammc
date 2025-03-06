@@ -22,6 +22,8 @@ public:
 
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_flush(t_symbol* s, const AtomListView& lv);
+    void m_invert(t_symbol* s, const AtomListView& lv);
+    void m_mirror(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
 };
 

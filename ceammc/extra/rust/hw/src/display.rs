@@ -21,6 +21,8 @@ pub enum Request {
     Flush,
     DrawText(CString, i16, i16),
     SetFont(CString),
+    Invert(bool),
+    Mirror(bool),
 }
 
 #[derive(Debug)]
@@ -112,3 +114,20 @@ pub extern "C" fn ceammc_hw_display_ssd1306_clear(
 ) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::Clear(flush)) });
 }
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_invert(
+    display: *const hw_display_ssd1306,
+    state: bool,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::Invert(state)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_mirror(
+    display: *const hw_display_ssd1306,
+    state: bool,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::Mirror(state)) });
+}
+

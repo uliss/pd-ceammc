@@ -79,6 +79,24 @@ void HwRpiDisplaySsd1306::m_flush(t_symbol* s, const AtomListView& lv)
     ceammc_hw_display_ssd1306_flush(display_);
 }
 
+void HwRpiDisplaySsd1306::m_invert(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("INVERT:B");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_display_ssd1306_invert(display_, lv.boolAt(0, false));
+}
+
+void HwRpiDisplaySsd1306::m_mirror(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("MIRROR:B");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_display_ssd1306_mirror(display_, lv.boolAt(0, false));
+}
+
 void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
 {
     auto txt = lv.symbolAt(0, &s_);
@@ -93,5 +111,7 @@ void setup_hw_rpi_display_ssd1306()
 
     obj.addMethod("clear", &HwRpiDisplaySsd1306::m_clear);
     obj.addMethod("flush", &HwRpiDisplaySsd1306::m_flush);
+    obj.addMethod("invert", &HwRpiDisplaySsd1306::m_invert);
+    obj.addMethod("mirror", &HwRpiDisplaySsd1306::m_mirror);
     obj.addMethod("text", &HwRpiDisplaySsd1306::m_text);
 }

@@ -205,6 +205,16 @@ impl hw_display_ssd1306 {
                             ),
                         }
                     }
+                    Request::Invert(state) => {
+                        display.set_invert(state).unwrap_or_else(|_| {
+                            proc_err("display error", &rep_tx, notify);
+                        });
+                    }
+                    Request::Mirror(state) => {
+                        display.set_mirror(state).unwrap_or_else(|_| {
+                            proc_err("display error", &rep_tx, notify);
+                        });
+                    }
                 }
             }
 
