@@ -342,6 +342,9 @@ bool ceammc_hw_display_ssd1306_flush(const ceammc_hw_display_ssd1306 *display);
 
 void ceammc_hw_display_ssd1306_free(ceammc_hw_display_ssd1306 *display);
 
+ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(ceammc_hw_notify_cb notify,
+                                                             ceammc_hw_msg_cb on_err);
+
 ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
                                                              uint8_t dc_pin,
                                                              uint8_t cs_pin,

@@ -56,6 +56,23 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
 }
 
 #[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
+    notify: hw_notify_cb,
+    on_err: hw_msg_cb,
+) -> *mut hw_display_ssd1306 {
+    rpi_check!(null_mut(), {
+        match hw_display_ssd1306::new_i2c(notify, on_err) {
+            Ok(pwm) => return Box::into_raw(Box::new(pwm)),
+            Err(err) => {
+                error!("{}", err.to_str().unwrap_or_default());
+                on_err.exec_raw(err.as_ptr());
+                return null_mut();
+            }
+        }
+    });
+}
+
+#[no_mangle]
 pub extern "C" fn ceammc_hw_display_ssd1306_free(display: *mut hw_display_ssd1306) {
     rpi_check!((), {
         if !display.is_null() {
