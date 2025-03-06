@@ -37,7 +37,7 @@ void HwRpiDisplaySsd1306::initDone()
         OBJ_ERR << "not implemented";
         break;
     case hash_spi: {
-        static const args::ArgChecker chk("BUS:b DC:b CS:b");
+        static const args::ArgChecker chk("BUS:b DC:b CS:b FREQ:i?");
         if (!chk.check(spi_->value(), this))
             return chk.usage(this);
 
@@ -45,8 +45,9 @@ void HwRpiDisplaySsd1306::initDone()
         auto bus = args.intAt(0, 0);
         auto dc = args.intAt(1, 0);
         auto cs = args.intAt(2, 0);
+        auto freq = args.intAt(3, 1000000);
 
-        display_ = ceammc_hw_display_ssd1306_new_spi(bus, dc, cs,
+        display_ = ceammc_hw_display_ssd1306_new_spi(bus, dc, cs, freq,
             { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
             { this, [](void* user, const char* msg) {
                  Error err(static_cast<HwRpiDisplaySsd1306*>(user));
@@ -90,6 +91,7 @@ void setup_hw_rpi_display_ssd1306()
 {
     ObjectFactory<HwRpiDisplaySsd1306> obj("hw.rpi.display.ssd1306");
 
+    obj.addMethod("clear", &HwRpiDisplaySsd1306::m_clear);
     obj.addMethod("flush", &HwRpiDisplaySsd1306::m_flush);
     obj.addMethod("text", &HwRpiDisplaySsd1306::m_text);
 }

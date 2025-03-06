@@ -39,11 +39,12 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
     spi_bus: i8,
     dc_pin: u8,
     cs_pin: u8,
+    freq: u32,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
-        match hw_display_ssd1306::new_spi(spi_bus, dc_pin, cs_pin, notify, on_err) {
+        match hw_display_ssd1306::new_spi(spi_bus, dc_pin, cs_pin, freq, notify, on_err) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());

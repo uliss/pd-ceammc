@@ -46,6 +46,7 @@ impl hw_display_ssd1306 {
         spi_bus: i8,
         dc_pin: u8,
         cs_pin: u8,
+        freq: u32,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
@@ -85,12 +86,12 @@ impl hw_display_ssd1306 {
             let spi = Spi::new(
                 bus,
                 rppal::spi::SlaveSelect::Ss0,
-                1_000_000,
+                freq,
                 rppal::spi::Mode::Mode0,
             )
             .map_err(|err| proc_err(err, &rep_tx, notify))?;
 
-            debug!("SPI init: {spi:?}");
+            debug!("SPI init: {spi:?} freq={freq}");
 
             let spi_iface = SPIInterface::new(spi, dc, cs);
             let mut display = Ssd1306::new(spi_iface, DisplaySize128x64, DisplayRotation::Rotate0)
@@ -114,7 +115,7 @@ impl hw_display_ssd1306 {
 
             while let Ok(req) = req_rx.recv() {
                 debug!("{req:?}");
-                
+
                 match req {
                     Request::DrawText(cstr, x, y) => {
                         Text::with_baseline(
