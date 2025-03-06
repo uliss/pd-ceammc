@@ -150,6 +150,7 @@ impl hw_pca9685 {
                     }
                     Request::SetChanPulseWidth(chan, width_ms, phase) => {
                         let chan = to_channel(chan);
+                        
                         let on_pos = f32_to_pos(phase);
                         let off_pos = (on_pos + pwm_freq.calc_width(width_ms)) % 4096;
 
@@ -164,9 +165,15 @@ impl hw_pca9685 {
                     }
                     Request::SetChanDutyCycle(chan, duty, phase) => {
                         let chan = to_channel(chan);
-                        pwm.set_channel_on(chan, f32_to_pos(phase))
+
+                        let on_pos = f32_to_pos(phase);
+                        let off_pos = f32_to_pos(phase + duty);
+
+                        debug!("on|off {on_pos} {off_pos}");
+
+                        pwm.set_channel_on(chan, on_pos)
                             .and_then(|_| {
-                                pwm.set_channel_off(chan, f32_to_pos(phase + duty))?;
+                                pwm.set_channel_off(chan, off_pos)?;
                                 Ok(())
                             })
                             .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
