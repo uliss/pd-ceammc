@@ -12,6 +12,8 @@ use crate::{
 
 use super::{hw_pca9685, Reply, Request, HW_PCA9685_ALL_CHAN};
 
+const PWM_MAX: u16 = 4096;
+
 fn to_channel(ch: u8) -> Channel {
     match ch {
         0 => Channel::C0,
@@ -87,7 +89,9 @@ impl FreqData {
         let period_ms = 1000.0 / self.freq;
         let width_ms = width_ms.clamp(0.0, period_ms);
 
-        ((4096.0 * width_ms) / period_ms).round().clamp(0.0, 4095.0) as u16
+        ((PWM_MAX as f32 * width_ms) / period_ms)
+            .round()
+            .clamp(0.0, PWM_MAX as f32) as u16
     }
 }
 
@@ -152,10 +156,14 @@ impl hw_pca9685 {
                         let chan = to_channel(chan);
 
                         let on_pos = f32_to_pos(phase);
-                        let off_pos = (on_pos + pwm_freq.calc_width(width_ms)) % 4096;
+                        let off_pos = on_pos + pwm_freq.calc_width(width_ms);
 
-                        pwm.set_channel_on_off(chan, on_pos, off_pos)
-                            .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                        if on_pos == 0 && off_pos == PWM_MAX {
+                            pwm.set_channel_full_on(chan, on_pos)
+                        } else {
+                            pwm.set_channel_on_off(chan, on_pos, off_pos)
+                        }
+                        .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                     Request::SetChanDutyCycle(chan, duty, phase) => {
                         let chan = to_channel(chan);
