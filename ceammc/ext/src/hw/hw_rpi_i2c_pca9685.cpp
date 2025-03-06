@@ -28,6 +28,19 @@ bool HwI2cPca8695::notify(int code)
     return ceammc_hw_pca9685_proc_reply(pwm_);
 }
 
+void HwI2cPca8695::m_const(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,16] VALUE:B DELAY:f[0,1)?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto chan = lv.intAt(0, 0);
+    auto value = lv.boolAt(1, 0);
+    float delay = lv.floatAt(2, 0);
+
+    ceammc_hw_pca9685_set_const(pwm_, chan, value, delay);
+}
+
 void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("CHAN:i[0,16] DUTY:f PHASE:f?");
@@ -112,6 +125,7 @@ void setup_hw_rpi_i2c_pca9685()
     ObjectFactory<HwI2cPca8695> obj("hw.rpi.pwm.pca9685");
     obj.addAlias("hw.rpi.i2c.pca9685");
 
+    obj.addMethod("const", &HwI2cPca8695::m_const);
     obj.addMethod("duty", &HwI2cPca8695::m_duty);
     obj.addMethod("enable", &HwI2cPca8695::m_enable);
     obj.addMethod("freq", &HwI2cPca8695::m_freq);

@@ -194,6 +194,17 @@ impl hw_pca9685 {
                         }
                         .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
+                    Request::SetChanConst(chan, value, delay) => {
+                        let chan = to_channel(chan);
+                        let delay = phase_to_raw_pwm_wrapped(delay);
+
+                        if value {
+                            pwm.set_channel_full_on(chan, delay)
+                        } else {
+                            pwm.set_channel_full_off(chan)
+                        }
+                        .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                    }
                 }
             }
 
@@ -246,7 +257,9 @@ impl hw_pca9685 {
 
 #[cfg(test)]
 mod tests {
-    use crate::rpi_pwm_pca9685::pca9685_impl::{phase_to_raw_pwm_clipped, phase_to_raw_pwm_wrapped};
+    use crate::rpi_pwm_pca9685::pca9685_impl::{
+        phase_to_raw_pwm_clipped, phase_to_raw_pwm_wrapped,
+    };
 
     use super::FreqData;
 

@@ -727,6 +727,11 @@ ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t bus,
 
 bool ceammc_hw_pca9685_proc_reply(const ceammc_hw_pca9685 *pwm);
 
+bool ceammc_hw_pca9685_set_const(const ceammc_hw_pca9685 *pwm,
+                                 uint8_t chan,
+                                 bool value,
+                                 float delay);
+
 /// set duty cycle
 /// @param pwm - pointer to pca9685 struct (nullable)
 /// @param chan - target PWM channel

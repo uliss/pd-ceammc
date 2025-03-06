@@ -29,7 +29,7 @@ pub enum Request {
     SetPolarity(hw_rpi_pwm_polarity),
     SetChanPulseWidth(u8, f32, f32),
     SetChanDutyCycle(u8, f32, Option<f32>),
-    // SetPwm(u8, f64),
+    SetChanConst(u8, bool, f32),
 }
 
 #[derive(Debug)]
@@ -112,12 +112,22 @@ pub extern "C" fn ceammc_hw_pca9685_set_pulse_width(
     });
 }
 
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pca9685_set_const(
+    pwm: *const hw_pca9685,
+    chan: u8,
+    value: bool,
+    delay: f32,
+) -> bool {
+    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetChanConst(chan, value, delay)) });
+}
+
 /// set duty cycle
 /// @param pwm - pointer to pca9685 struct (nullable)
 /// @param chan - target PWM channel
 /// @param duty_cycle in 0.0-1.0 range
 /// @param phase - pointer to phase offset (nullable)
-/// 
+///
 /// @note if phase is NULL and duty_cycle = 1.0 - turns PWM always on
 #[no_mangle]
 pub extern "C" fn ceammc_hw_pca9685_set_duty_cycle(
