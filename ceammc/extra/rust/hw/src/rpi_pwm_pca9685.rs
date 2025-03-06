@@ -3,7 +3,7 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::CString, ptr::null_mut};
+use std::{f32, ffi::CString, ptr::null_mut};
 
 use log::error;
 
@@ -28,7 +28,7 @@ pub enum Request {
     SetPeriod(f32),
     SetPolarity(hw_rpi_pwm_polarity),
     SetChanPulseWidth(u8, f32, f32),
-    SetChanDutyCycle(u8, f32, f32),
+    SetChanDutyCycle(u8, f32, Option<f32>),
     // SetPwm(u8, f64),
 }
 
@@ -101,18 +101,45 @@ pub extern "C" fn ceammc_hw_pca9685_set_period(pwm: *const hw_pca9685, period_ms
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685_set_pulse_width(pwm: *const hw_pca9685, chan: u8, width_ms: f32, phase: f32) -> bool {
-    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetChanPulseWidth(chan, width_ms, phase)) });
+pub extern "C" fn ceammc_hw_pca9685_set_pulse_width(
+    pwm: *const hw_pca9685,
+    chan: u8,
+    width_ms: f32,
+    phase: f32,
+) -> bool {
+    rpi_check!({
+        hw_pca9685::send_request(pwm, Request::SetChanPulseWidth(chan, width_ms, phase))
+    });
 }
 
+/// set duty cycle
+/// @param pwm - pointer to pca9685 struct (nullable)
+/// @param chan - target PWM channel
+/// @param duty_cycle in 0.0-1.0 range
+/// @param phase - pointer to phase offset (nullable)
+/// 
+/// @note if phase is NULL and duty_cycle = 1.0 - turns PWM always on
 #[no_mangle]
 pub extern "C" fn ceammc_hw_pca9685_set_duty_cycle(
     pwm: *const hw_pca9685,
     chan: u8,
     duty_cycle: f32,
-    phase: f32,
+    phase: *const f32,
 ) -> bool {
-    rpi_check!({ hw_pca9685::send_request(pwm, Request::SetChanDutyCycle(chan, duty_cycle, phase)) });
+    rpi_check!({
+        hw_pca9685::send_request(
+            pwm,
+            Request::SetChanDutyCycle(
+                chan,
+                duty_cycle,
+                if phase.is_null() {
+                    None
+                } else {
+                    Some(unsafe { *phase })
+                },
+            ),
+        )
+    });
 }
 
 #[no_mangle]

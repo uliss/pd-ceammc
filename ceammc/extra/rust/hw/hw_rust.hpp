@@ -727,10 +727,17 @@ ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t bus,
 
 bool ceammc_hw_pca9685_proc_reply(const ceammc_hw_pca9685 *pwm);
 
+/// set duty cycle
+/// @param pwm - pointer to pca9685 struct (nullable)
+/// @param chan - target PWM channel
+/// @param duty_cycle in 0.0-1.0 range
+/// @param phase - pointer to phase offset (nullable)
+///
+/// @note if phase is NULL and duty_cycle = 1.0 - turns PWM always on
 bool ceammc_hw_pca9685_set_duty_cycle(const ceammc_hw_pca9685 *pwm,
                                       uint8_t chan,
                                       float duty_cycle,
-                                      float phase);
+                                      const float *phase);
 
 bool ceammc_hw_pca9685_set_freq(const ceammc_hw_pca9685 *pwm, float freq_hz);
 

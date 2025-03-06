@@ -36,9 +36,9 @@ void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
 
     auto chan = lv.intAt(0, 0);
     auto duty = lv.floatAt(1, 0);
-    auto phase = lv.floatAt(2, 0);
+    float phase = lv.floatAt(2, 0);
 
-    ceammc_hw_pca9685_set_duty_cycle(pwm_, chan, duty, phase);
+    ceammc_hw_pca9685_set_duty_cycle(pwm_, chan, duty, lv.size() > 2 ? &phase : nullptr);
 }
 
 void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
@@ -54,7 +54,7 @@ void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
     ceammc_hw_pca9685_set_on_off(pwm_, chan, on, off);
 }
 
-void HwI2cPca8695::m_width(t_symbol *s, const AtomListView &lv)
+void HwI2cPca8695::m_width(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("CHAN:i[0,16] WIDTH:f[0.5,40] PHASE:f[0,1]?");
     if (!chk.check(lv, this))

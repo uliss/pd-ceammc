@@ -57,8 +57,13 @@ where
     cstr
 }
 
-fn f32_to_pos(x: f32) -> u16 {
-    (((((x * 4096.0).round() as i64) % 4096) + 4096) % 4096) as u16
+fn phase_to_raw_pwm_wrapped(x: f32) -> u16 {
+    (((((x * PWM_MAX as f32).round() as i64) % PWM_MAX as i64) + PWM_MAX as i64) % PWM_MAX as i64)
+        as u16
+}
+
+fn phase_to_raw_pwm_clipped(x: f32) -> u16 {
+    (x.clamp(0.0, 1.0) * PWM_MAX as f32).round() as u16
 }
 
 struct FreqData {
@@ -155,10 +160,10 @@ impl hw_pca9685 {
                     Request::SetChanPulseWidth(chan, width_ms, phase) => {
                         let chan = to_channel(chan);
 
-                        let on_pos = f32_to_pos(phase);
+                        let on_pos = phase_to_raw_pwm_wrapped(phase);
                         let off_pos = on_pos + pwm_freq.calc_width(width_ms);
 
-                        if on_pos == 0 && off_pos == PWM_MAX {
+                        if on_pos == 0 && off_pos >= PWM_MAX {
                             pwm.set_channel_full_on(chan, on_pos)
                         } else {
                             pwm.set_channel_on_off(chan, on_pos, off_pos)
@@ -168,11 +173,26 @@ impl hw_pca9685 {
                     Request::SetChanDutyCycle(chan, duty, phase) => {
                         let chan = to_channel(chan);
 
-                        let on_pos = f32_to_pos(phase);
-                        let off_pos = f32_to_pos(phase + duty);
+                        let on_pos: u16;
+                        let off_pos: u16;
 
-                        pwm.set_channel_on_off(chan, on_pos, off_pos)
-                            .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
+                        match phase {
+                            Some(phase) => {
+                                on_pos = phase_to_raw_pwm_wrapped(phase);
+                                off_pos = phase_to_raw_pwm_wrapped(phase + duty);
+                            }
+                            None => {
+                                on_pos = 0;
+                                off_pos = phase_to_raw_pwm_clipped(duty);
+                            }
+                        }
+
+                        if on_pos == 0 && off_pos == PWM_MAX {
+                            pwm.set_channel_full_on(chan, on_pos)
+                        } else {
+                            pwm.set_channel_on_off(chan, on_pos, off_pos)
+                        }
+                        .map_err(|err| send_error(&rep_tx, notify, err.to_string()))?;
                     }
                 }
             }
@@ -226,23 +246,29 @@ impl hw_pca9685 {
 
 #[cfg(test)]
 mod tests {
-    use crate::rpi_pwm_pca9685::pca9685_impl::f32_to_pos;
+    use crate::rpi_pwm_pca9685::pca9685_impl::{phase_to_raw_pwm_clipped, phase_to_raw_pwm_wrapped};
 
     use super::FreqData;
 
     #[test]
     fn convert() {
-        assert_eq!(f32_to_pos(0.0), 0);
-        assert_eq!(f32_to_pos(0.25), 1024);
-        assert_eq!(f32_to_pos(0.5), 2048);
-        assert_eq!(f32_to_pos(0.75), 3072);
-        assert_eq!(f32_to_pos(1.0), 0);
-        assert_eq!(f32_to_pos(1.25), 1024);
-        assert_eq!(f32_to_pos(-0.25), 3072);
-        assert_eq!(f32_to_pos(-0.5), 2048);
-        assert_eq!(f32_to_pos(-0.75), 1024);
-        assert_eq!(f32_to_pos(-1.0), 0);
-        assert_eq!(f32_to_pos(-1.25), 3072);
+        assert_eq!(phase_to_raw_pwm_wrapped(0.0), 0);
+        assert_eq!(phase_to_raw_pwm_wrapped(0.25), 1024);
+        assert_eq!(phase_to_raw_pwm_wrapped(0.5), 2048);
+        assert_eq!(phase_to_raw_pwm_wrapped(0.75), 3072);
+        assert_eq!(phase_to_raw_pwm_wrapped(1.0), 0);
+        assert_eq!(phase_to_raw_pwm_wrapped(1.25), 1024);
+        assert_eq!(phase_to_raw_pwm_wrapped(-0.25), 3072);
+        assert_eq!(phase_to_raw_pwm_wrapped(-0.5), 2048);
+
+        assert_eq!(phase_to_raw_pwm_clipped(0.0), 0);
+        assert_eq!(phase_to_raw_pwm_clipped(0.25), 1024);
+        assert_eq!(phase_to_raw_pwm_clipped(0.5), 2048);
+        assert_eq!(phase_to_raw_pwm_clipped(0.75), 3072);
+        assert_eq!(phase_to_raw_pwm_clipped(1.0), 4096);
+        assert_eq!(phase_to_raw_pwm_clipped(1.25), 4096);
+        assert_eq!(phase_to_raw_pwm_clipped(-0.25), 0);
+        assert_eq!(phase_to_raw_pwm_clipped(-0.5), 0);
     }
 
     #[test]
