@@ -64,21 +64,21 @@ impl hw_display_ssd1306 {
                 .text_color(BinaryColor::On)
                 .build();
 
-            Text::with_baseline("Hello world!", Point::zero(), text_style, Baseline::Top)
-                .draw(&mut display)
-                .unwrap();
+            // Text::with_baseline("Hello world!", Point::zero(), text_style, Baseline::Top)
+            //     .draw(&mut display)
+            //     .unwrap();
 
-            Text::with_baseline("Hello Rust!", Point::new(0, 16), text_style, Baseline::Top)
-                .draw(&mut display)
-                .unwrap();
+            // Text::with_baseline("Hello Rust!", Point::new(0, 16), text_style, Baseline::Top)
+            //     .draw(&mut display)
+            //     .unwrap();
 
-            display.flush().unwrap();
+            // display.flush().unwrap();
 
             // display.set_display_on(true);
             // display.
             // display.flush().unwrap();
 
-            while let Ok(req) = req_rx.try_recv() {
+            while let Ok(req) = req_rx.recv() {
                 match req {
                     Request::DrawText(cstr, x, y) => {
                         display.clear_buffer();
