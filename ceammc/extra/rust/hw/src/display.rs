@@ -23,6 +23,7 @@ pub enum Request {
     SetFont(CString),
     Invert(bool),
     Mirror(bool),
+    SwitchOn(bool),
 }
 
 #[derive(Debug)]
@@ -131,3 +132,10 @@ pub extern "C" fn ceammc_hw_display_ssd1306_mirror(
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::Mirror(state)) });
 }
 
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_switch_on(
+    display: *const hw_display_ssd1306,
+    state: bool,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::SwitchOn(state)) });
+}

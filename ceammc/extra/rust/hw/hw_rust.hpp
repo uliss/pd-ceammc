@@ -358,6 +358,8 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
 
 bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
 
+bool ceammc_hw_display_ssd1306_switch_on(const ceammc_hw_display_ssd1306 *display, bool state);
+
 bool ceammc_hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *display,
                                     const char *txt,
                                     int16_t x,

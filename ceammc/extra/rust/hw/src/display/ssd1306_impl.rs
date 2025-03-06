@@ -215,6 +215,11 @@ impl hw_display_ssd1306 {
                             proc_err("display error", &rep_tx, notify);
                         });
                     }
+                    Request::SwitchOn(state) => {
+                        display.set_display_on(state).unwrap_or_else(|_| {
+                            proc_err("display error", &rep_tx, notify);
+                        });
+                    }
                 }
             }
 
