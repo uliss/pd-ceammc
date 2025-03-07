@@ -123,6 +123,14 @@ impl hw_display_ssd1306 {
                         proc_err("display error", tx, notify);
                     });
                 }
+                Request::SetPixel(x, y, value) => {
+                    display.set_pixel(x as u32, y as u32, value);
+                }
+                Request::SetData(data) => {
+                    display.draw(data.as_slice()).unwrap_or_else(|_| {
+                        proc_err("display error", tx, notify);
+                    });
+                }
             }
         }
     }

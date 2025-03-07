@@ -366,12 +366,21 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
 
 bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
 
+bool ceammc_hw_display_ssd1306_set_pixel(const ceammc_hw_display_ssd1306 *display,
+                                         uint16_t x,
+                                         uint16_t y,
+                                         bool state);
+
 bool ceammc_hw_display_ssd1306_switch_on(const ceammc_hw_display_ssd1306 *display, bool state);
 
 bool ceammc_hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *display,
                                     const char *txt,
                                     int16_t x,
                                     int16_t y);
+
+bool ceammc_hw_display_ssd1306_write_bytes(const ceammc_hw_display_ssd1306 *display,
+                                           const uint8_t *data,
+                                           size_t len);
 
 /// free gamepad
 /// @param gp - pointer to gp

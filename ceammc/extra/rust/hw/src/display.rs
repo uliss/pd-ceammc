@@ -6,6 +6,7 @@
 use std::{
     ffi::{c_char, CStr, CString},
     ptr::null_mut,
+    slice::from_raw_parts,
 };
 
 use log::error;
@@ -28,6 +29,8 @@ pub enum Request {
     Invert(bool),
     Mirror(bool),
     SwitchOn(bool),
+    SetPixel(u16, u16, bool),
+    SetData(Vec<u8>),
 }
 
 #[derive(Debug)]
@@ -144,4 +147,26 @@ pub extern "C" fn ceammc_hw_display_ssd1306_switch_on(
     state: bool,
 ) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::SwitchOn(state)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_set_pixel(
+    display: *const hw_display_ssd1306,
+    x: u16,
+    y: u16,
+    state: bool,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::SetPixel(x, y, state)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_write_bytes(
+    display: *const hw_display_ssd1306,
+    data: *const u8,
+    len: usize,
+) -> bool {
+    rpi_check!({
+        let data = unsafe { from_raw_parts(data, len) };
+        hw_display_ssd1306::send_request(display, Request::SetData(data.to_vec()))
+    });
 }

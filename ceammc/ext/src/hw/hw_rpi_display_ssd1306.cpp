@@ -3,7 +3,9 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
+CEAMMC_DEFINE_SYM_HASH(bytes)
 CEAMMC_DEFINE_SYM_HASH(i2c)
+CEAMMC_DEFINE_SYM_HASH(matrix)
 CEAMMC_DEFINE_SYM_HASH(spi)
 
 HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
@@ -115,6 +117,15 @@ void HwRpiDisplaySsd1306::m_mirror(t_symbol* s, const AtomListView& lv)
     ceammc_hw_display_ssd1306_mirror(display_, lv.boolAt(0, false));
 }
 
+void HwRpiDisplaySsd1306::m_pixel(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:i>=0 Y:i>=0 VALUE:B");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_display_ssd1306_set_pixel(display_, lv.intAt(0, 0), lv.intAt(1, 0), lv.boolAt(2, true));
+}
+
 void HwRpiDisplaySsd1306::m_switch_on(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ON:B");
@@ -132,6 +143,39 @@ void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
     ceammc_hw_display_ssd1306_text(display_, txt->s_name, x, y);
 }
 
+void HwRpiDisplaySsd1306::m_write(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("s=bytes|matrix DATA:a+");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto sel = lv.symbolAt(0, &s_);
+    switch (crc32_hash(sel)) {
+    case hash_bytes:
+        return writeBytes(sel, lv.subView(1));
+    case hash_matrix:
+//        return writeMatrix(sel, lv.subView(1));
+    default:
+        chk.usage(this, s);
+    }
+}
+
+void HwRpiDisplaySsd1306::writeBytes(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("BYTES:b+");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    std::vector<std::uint8_t> bytes;
+    bytes.reserve(lv.size());
+    for (auto& a : lv) {
+        bytes.push_back(a.asInt());
+    }
+
+    ceammc_hw_display_ssd1306_write_bytes(display_, bytes.data(), bytes.size());
+}
+
 void setup_hw_rpi_display_ssd1306()
 {
     ObjectFactory<HwRpiDisplaySsd1306> obj("hw.rpi.display.ssd1306");
@@ -140,6 +184,8 @@ void setup_hw_rpi_display_ssd1306()
     obj.addMethod("flush", &HwRpiDisplaySsd1306::m_flush);
     obj.addMethod("invert", &HwRpiDisplaySsd1306::m_invert);
     obj.addMethod("mirror", &HwRpiDisplaySsd1306::m_mirror);
+    obj.addMethod("pixel", &HwRpiDisplaySsd1306::m_pixel);
     obj.addMethod("switch_on", &HwRpiDisplaySsd1306::m_switch_on);
     obj.addMethod("text", &HwRpiDisplaySsd1306::m_text);
+    obj.addMethod("write", &HwRpiDisplaySsd1306::m_write);
 }
