@@ -31,6 +31,7 @@ pub enum Request {
     SwitchOn(bool),
     SetPixel(u16, u16, bool),
     SetData(Vec<u8>),
+    DrawBitmap(i16, i16, u16, Vec<u8>),
 }
 
 #[derive(Debug)]
@@ -168,5 +169,20 @@ pub extern "C" fn ceammc_hw_display_ssd1306_write_bytes(
     rpi_check!({
         let data = unsafe { from_raw_parts(data, len) };
         hw_display_ssd1306::send_request(display, Request::SetData(data.to_vec()))
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_write_bitmap(
+    display: *const hw_display_ssd1306,
+    x: i16,
+    y: i16,
+    width: u16,
+    data: *const u8,
+    len: usize,
+) -> bool {
+    rpi_check!({
+        let data = unsafe { from_raw_parts(data, len) };
+        hw_display_ssd1306::send_request(display, Request::DrawBitmap(x, y, width, data.to_vec()))
     });
 }

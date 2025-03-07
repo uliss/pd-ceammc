@@ -31,6 +31,7 @@ public:
 
 private:
     void writeBytes(t_symbol* s, const AtomListView& lv);
+    void writeBitmap(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_rpi_display_ssd1306();

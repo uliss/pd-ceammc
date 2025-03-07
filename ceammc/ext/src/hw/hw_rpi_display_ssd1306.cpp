@@ -3,6 +3,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
+CEAMMC_DEFINE_SYM_HASH(bitmap)
 CEAMMC_DEFINE_SYM_HASH(bytes)
 CEAMMC_DEFINE_SYM_HASH(i2c)
 CEAMMC_DEFINE_SYM_HASH(matrix)
@@ -145,7 +146,7 @@ void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplaySsd1306::m_write(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("s=bytes|matrix DATA:a+");
+    static const args::ArgChecker chk("s=bytes|matrix|bitmap DATA:a+");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -153,8 +154,10 @@ void HwRpiDisplaySsd1306::m_write(t_symbol* s, const AtomListView& lv)
     switch (crc32_hash(sel)) {
     case hash_bytes:
         return writeBytes(sel, lv.subView(1));
+    case hash_bitmap:
+        return writeBitmap(sel, lv.subView(1));
     case hash_matrix:
-//        return writeMatrix(sel, lv.subView(1));
+        //        return writeMatrix(sel, lv.subView(1));
     default:
         chk.usage(this, s);
     }
@@ -174,6 +177,32 @@ void HwRpiDisplaySsd1306::writeBytes(t_symbol* s, const AtomListView& lv)
     }
 
     ceammc_hw_display_ssd1306_write_bytes(display_, bytes.data(), bytes.size());
+}
+
+void HwRpiDisplaySsd1306::writeBitmap(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:i Y:i WIDTH:i>0 BYTES:b+");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    auto x = lv.intAt(0, 0);
+    auto y = lv.intAt(1, 0);
+    auto w = lv.intAt(2, 0);
+    auto data = lv.subView(3);
+
+    std::vector<std::uint8_t> bitmap;
+    for (size_t i = 0; i < data.size(); i++) {
+        auto bidx = i % 8;
+
+        if (bidx == 0)
+            bitmap.push_back(0);
+
+        if (data[i].toT<int>(0))
+            bitmap.back() |= (1 << bidx);
+    }
+
+    ceammc_hw_display_ssd1306_write_bitmap(display_, x, y, w, bitmap.data(), bitmap.size());
 }
 
 void setup_hw_rpi_display_ssd1306()

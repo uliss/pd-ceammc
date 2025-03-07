@@ -378,6 +378,13 @@ bool ceammc_hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *display,
                                     int16_t x,
                                     int16_t y);
 
+bool ceammc_hw_display_ssd1306_write_bitmap(const ceammc_hw_display_ssd1306 *display,
+                                            int16_t x,
+                                            int16_t y,
+                                            uint16_t width,
+                                            const uint8_t *data,
+                                            size_t len);
+
 bool ceammc_hw_display_ssd1306_write_bytes(const ceammc_hw_display_ssd1306 *display,
                                            const uint8_t *data,
                                            size_t len);

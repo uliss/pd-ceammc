@@ -1,6 +1,7 @@
 use std::{collections::HashMap, ffi::CString};
 
 use embedded_graphics::{
+    image::{Image, ImageRaw},
     mono_font::{
         iso_8859_5::FONT_6X10, iso_8859_5::FONT_6X12, iso_8859_5::FONT_6X13, iso_8859_5::FONT_7X13,
         MonoTextStyleBuilder,
@@ -128,6 +129,19 @@ impl hw_display_ssd1306 {
                 }
                 Request::SetData(data) => {
                     display.draw(data.as_slice()).unwrap_or_else(|_| {
+                        proc_err("display error", tx, notify);
+                    });
+                }
+                Request::DrawBitmap(x, y, w, data) => {
+                    let raw_image = ImageRaw::<BinaryColor>::new(data.as_slice(), w.into());
+                    let image = Image::new(
+                        &raw_image,
+                        Point {
+                            x: x.into(),
+                            y: y.into(),
+                        },
+                    );
+                    image.draw(display).unwrap_or_else(|_| {
                         proc_err("display error", tx, notify);
                     });
                 }
