@@ -199,7 +199,7 @@ void HwRpiDisplaySsd1306::writeBitmap(t_symbol* s, const AtomListView& lv)
             bitmap.push_back(0);
 
         if (data[i].asT<t_int>())
-            bitmap.back() |= (0b1000000 >> bidx);
+            bitmap.back() |= (0b10000000 >> bidx);
     }
 
     ceammc_hw_display_ssd1306_write_bitmap(display_, x, y, w, bitmap.data(), bitmap.size());
