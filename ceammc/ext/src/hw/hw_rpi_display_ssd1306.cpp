@@ -33,9 +33,14 @@ HwRpiDisplaySsd1306::~HwRpiDisplaySsd1306()
 void HwRpiDisplaySsd1306::initDone()
 {
     switch (crc32_hash(mode_->value())) {
-    case hash_i2c:
-        OBJ_ERR << "not implemented";
-        break;
+    case hash_i2c: {
+        display_ = ceammc_hw_display_ssd1306_new_i2c(
+            { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
+            { this, [](void* user, const char* msg) {
+                 Error err(static_cast<HwRpiDisplaySsd1306*>(user));
+                 err << msg;
+             } });
+    } break;
     case hash_spi: {
         static const args::ArgChecker chk("BUS:b DC:b CS:b FREQ:i?");
         if (!chk.check(spi_->value(), this))

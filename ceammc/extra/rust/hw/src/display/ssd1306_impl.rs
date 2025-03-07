@@ -14,8 +14,9 @@ use embedded_graphics::{
 use log::{debug, error};
 use rppal::{gpio::Gpio, i2c::I2c, spi::Spi};
 use ssd1306::{
-    prelude::{DisplayConfig, DisplayRotation, SPIInterfaceNoCS},
-    size::DisplaySize128x64,
+    mode::BufferedGraphicsMode,
+    prelude::{DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand},
+    size::{DisplaySize, DisplaySize128x64},
     Ssd1306,
 };
 
@@ -42,6 +43,85 @@ where
 }
 
 impl hw_display_ssd1306 {
+    fn process_loop<DI, SIZE>(
+        display: &mut Ssd1306<DI, SIZE, BufferedGraphicsMode<SIZE>>,
+        tx: &std::sync::mpsc::Sender<Reply>,
+        rx: &std::sync::mpsc::Receiver<Request>,
+        notify: hw_notify_cb,
+    ) where
+        DI: WriteOnlyDataCommand,
+        SIZE: DisplaySize,
+    {
+        let mut font_map = HashMap::new();
+        font_map.insert("FONT6x10", &FONT_6X10);
+        font_map.insert("FONT_6X12", &FONT_6X12);
+        font_map.insert("FONT_6X13", &FONT_6X13);
+        font_map.insert("FONT_7X13", &FONT_7X13);
+
+        let mut text_style = MonoTextStyleBuilder::new()
+            .font(&FONT_6X10)
+            .text_color(BinaryColor::On)
+            .build();
+
+        while let Ok(req) = rx.recv() {
+            match req {
+                Request::Clear(flush) => {
+                    display.clear_buffer();
+
+                    if flush {
+                        display.flush().unwrap_or_else(|_| {
+                            proc_err("display error", tx, notify);
+                        });
+                    }
+                }
+                Request::Flush => {
+                    display.flush().unwrap_or_else(|_| {
+                        proc_err("display error", tx, notify);
+                    });
+                }
+                Request::DrawText(cstr, x, y) => {
+                    Text::with_baseline(
+                        cstr.into_string().unwrap().as_str(),
+                        Point::new(x as i32, y as i32),
+                        text_style,
+                        Baseline::Top,
+                    )
+                    .draw(display)
+                    .map_err(|_| {
+                        proc_err("display error", tx, notify);
+                    })
+                    .unwrap_or_default();
+                }
+                Request::SetFont(font) => {
+                    let font = font.to_string_lossy();
+                    match font_map.get(font.as_ref()) {
+                        Some(ft) => {
+                            text_style.font = *ft;
+                        }
+                        None => {
+                            send_error(tx, notify, format!("font not found: {font:?}").as_str())
+                        }
+                    }
+                }
+                Request::Invert(state) => {
+                    display.set_invert(state).unwrap_or_else(|_| {
+                        proc_err("display error", tx, notify);
+                    });
+                }
+                Request::Mirror(state) => {
+                    display.set_mirror(state).unwrap_or_else(|_| {
+                        proc_err("display error", tx, notify);
+                    });
+                }
+                Request::SwitchOn(state) => {
+                    display.set_display_on(state).unwrap_or_else(|_| {
+                        proc_err("display error", tx, notify);
+                    });
+                }
+            }
+        }
+    }
+
     pub fn new_i2c(notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
@@ -62,11 +142,7 @@ impl hw_display_ssd1306 {
             display.clear_buffer();
             display.flush().unwrap_or_default();
 
-            while let Ok(req) = req_rx.recv() {
-                debug!("{req:?}");
-
-                // Self::proc_request(req, &mut display, &rep_tx, notify);
-            }
+            Self::process_loop(&mut display, &rep_tx, &req_rx, notify);
 
             debug!("thread done");
             Ok(())
@@ -150,78 +226,7 @@ impl hw_display_ssd1306 {
                 .map_err(|_| proc_err("display error", &rep_tx, notify))?;
             display.clear_buffer();
 
-            let mut font_map = HashMap::new();
-            font_map.insert("FONT6x10", &FONT_6X10);
-            font_map.insert("FONT_6X12", &FONT_6X12);
-            font_map.insert("FONT_6X13", &FONT_6X13);
-            font_map.insert("FONT_7X13", &FONT_7X13);
-
-            let mut text_style = MonoTextStyleBuilder::new()
-                .font(&FONT_6X10)
-                .text_color(BinaryColor::On)
-                .build();
-
-            while let Ok(req) = req_rx.recv() {
-                debug!("{req:?}");
-
-                match req {
-                    Request::DrawText(cstr, x, y) => {
-                        Text::with_baseline(
-                            cstr.into_string().unwrap().as_str(),
-                            Point::new(x as i32, y as i32),
-                            text_style,
-                            Baseline::Top,
-                        )
-                        .draw(&mut display)
-                        .map_err(|_| {
-                            proc_err("display error", &rep_tx, notify);
-                        })
-                        .unwrap_or_default();
-                    }
-                    Request::Clear(flush) => {
-                        display.clear_buffer();
-
-                        if flush {
-                            display.flush().unwrap_or_else(|_| {
-                                proc_err("display error", &rep_tx, notify);
-                            });
-                        }
-                    }
-                    Request::Flush => {
-                        display.flush().unwrap_or_else(|_| {
-                            proc_err("display error", &rep_tx, notify);
-                        });
-                    }
-                    Request::SetFont(font) => {
-                        let font = font.to_string_lossy();
-                        match font_map.get(font.as_ref()) {
-                            Some(ft) => {
-                                text_style.font = *ft;
-                            }
-                            None => send_error(
-                                &rep_tx,
-                                notify,
-                                format!("font not found: {font:?}").as_str(),
-                            ),
-                        }
-                    }
-                    Request::Invert(state) => {
-                        display.set_invert(state).unwrap_or_else(|_| {
-                            proc_err("display error", &rep_tx, notify);
-                        });
-                    }
-                    Request::Mirror(state) => {
-                        display.set_mirror(state).unwrap_or_else(|_| {
-                            proc_err("display error", &rep_tx, notify);
-                        });
-                    }
-                    Request::SwitchOn(state) => {
-                        display.set_display_on(state).unwrap_or_else(|_| {
-                            proc_err("display error", &rep_tx, notify);
-                        });
-                    }
-                }
-            }
+            Self::process_loop(&mut display, &rep_tx, &req_rx, notify);
 
             debug!("thread stopped");
             Ok(())
