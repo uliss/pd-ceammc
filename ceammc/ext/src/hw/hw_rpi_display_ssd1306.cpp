@@ -34,7 +34,20 @@ void HwRpiDisplaySsd1306::initDone()
 {
     switch (crc32_hash(mode_->value())) {
     case hash_i2c: {
+        static const args::ArgChecker chk("BUS:i>=0? ADDR:i?");
+        if (!chk.check(i2c_->value(), this))
+            return chk.usage(this);
+
+        auto& args = i2c_->value();
+        auto bus = args.intAt(0, ceammc_HW_RPI_I2C_DEFAULT_BUS);
+        auto addr = args.intAt(1, ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR);
+        if (addr == -1)
+            addr = ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR;
+        else if (addr == -2)
+            addr = ceammc_HW_RPI_SDD1306_I2C_ALT_ADDR;
+
         display_ = ceammc_hw_display_ssd1306_new_i2c(
+            bus, addr,
             { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
             { this, [](void* user, const char* msg) {
                  Error err(static_cast<HwRpiDisplaySsd1306*>(user));

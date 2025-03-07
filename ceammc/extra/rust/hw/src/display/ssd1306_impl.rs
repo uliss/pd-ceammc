@@ -20,7 +20,12 @@ use ssd1306::{
     Ssd1306,
 };
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{
+    display::{
+        HW_RPI_I2C_DEFAULT_BUS, HW_RPI_SDD1306_I2C_ALT_ADDR, HW_RPI_SDD1306_I2C_DEFAULT_ADDR,
+    },
+    hw_msg_cb, hw_notify_cb,
+};
 
 use super::{hw_display_ssd1306, Reply, Request};
 
@@ -122,17 +127,53 @@ impl hw_display_ssd1306 {
         }
     }
 
-    pub fn new_i2c(notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new_i2c(
+        bus: u16,
+        addr: u16,
+        notify: hw_notify_cb,
+        on_err: hw_msg_cb,
+    ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || -> Result<(), String> {
             debug!("thread started");
 
-            let i2c = I2c::new().map_err(|err| proc_err(err, &rep_tx, notify))?;
+            let i2c = match bus {
+                HW_RPI_I2C_DEFAULT_BUS => {
+                    I2c::new().map_err(|err| proc_err(err, &rep_tx, notify))?
+                }
+                bus if bus < 256 => {
+                    I2c::with_bus(bus as u8).map_err(|err| proc_err(err, &rep_tx, notify))?
+                }
+                _ => {
+                    return Err(proc_err(
+                        format!("invalid I2C bus value: {bus}"),
+                        &rep_tx,
+                        notify,
+                    ));
+                }
+            };
+
             debug!("I2C init: {i2c:?}");
 
-            let i2c_iface = ssd1306::I2CDisplayInterface::new(i2c);
+            let i2c_iface = match addr {
+                HW_RPI_SDD1306_I2C_DEFAULT_ADDR => ssd1306::I2CDisplayInterface::new(i2c),
+                HW_RPI_SDD1306_I2C_ALT_ADDR => {
+                    ssd1306::I2CDisplayInterface::new_alternate_address(i2c)
+                }
+                addr if addr < 256 => {
+                    ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr as u8)
+                }
+                _ => {
+                    return Err(proc_err(
+                        format!("invalid I2C address: {addr}"),
+                        &rep_tx,
+                        notify,
+                    ));
+                }
+            };
+
             let mut display = Ssd1306::new(i2c_iface, DisplaySize128x64, DisplayRotation::Rotate0)
                 .into_buffered_graphics_mode();
 

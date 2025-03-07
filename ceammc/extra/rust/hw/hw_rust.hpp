@@ -61,6 +61,12 @@ constexpr static const float ceammc_HW_PCA9685_MAX_PERIOD_MS = (1000.0 / (float)
 
 constexpr static const uint8_t ceammc_HW_PCA9685_ALL_CHAN = 16;
 
+constexpr static const uint16_t ceammc_HW_RPI_I2C_DEFAULT_BUS = 65535;
+
+constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR = 65520;
+
+constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_ALT_ADDR = 65521;
+
 enum class ceammc_hw_gamepad_btn {
     South,
     East,
@@ -346,7 +352,9 @@ bool ceammc_hw_display_ssd1306_invert(const ceammc_hw_display_ssd1306 *display, 
 
 bool ceammc_hw_display_ssd1306_mirror(const ceammc_hw_display_ssd1306 *display, bool state);
 
-ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(ceammc_hw_notify_cb notify,
+ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(uint16_t i2c_bus,
+                                                             uint16_t i2c_addr,
+                                                             ceammc_hw_notify_cb notify,
                                                              ceammc_hw_msg_cb on_err);
 
 ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
