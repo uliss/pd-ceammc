@@ -198,7 +198,7 @@ void HwRpiDisplaySsd1306::writeBitmap(t_symbol* s, const AtomListView& lv)
         if (bidx == 0)
             bitmap.push_back(0);
 
-        if (data[i].toT<int>(0))
+        if (data[i].asT<t_int>())
             bitmap.back() |= (1 << bidx);
     }
 
