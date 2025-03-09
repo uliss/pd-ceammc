@@ -114,6 +114,7 @@ ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_rotenc)
+ceammc_hw_external(rpi_sensor_vc53l0x)
 ceammc_hw_external(rpi_sr04)
 
 target_sources(ceammc_hw PRIVATE

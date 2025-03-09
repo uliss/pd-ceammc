@@ -30,6 +30,8 @@ impl hw_sensor_vl53l0x {
             debug!("vk53l0x init");
 
             while let Ok(req) = req_rx.recv() {
+                debug!("{req:?}");
+
                 match req {
                     crate::vl53l0x::Request::ReadMM => {
                         match lv.read_range_single_millimeters_blocking() {
