@@ -62,16 +62,21 @@ trait MakePdError<Error> {
     fn pd_err(msg: CString) -> Error;
 }
 
+fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb)
+{
+    if let Err(err) = tx.send(rep) {
+        error!("reply send error: {err}");
+    } else {
+        notify.notify();
+    }
+}
+
 fn send_error<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str)
 where
     R: MakePdError<R>,
 {
     error!("{msg}");
-    if let Err(err) = tx.send(R::pd_err(CString::new(msg).unwrap_or_default())) {
-        error!("reply send error: {err}");
-    } else {
-        notify.notify();
-    }
+    send_reply(R::pd_err(CString::new(msg).unwrap_or_default()), tx, notify)
 }
 
 fn process_err<E, R>(err: E, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
