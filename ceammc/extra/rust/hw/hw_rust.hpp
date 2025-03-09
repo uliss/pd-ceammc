@@ -862,6 +862,8 @@ ceammc_hw_sensor_vl53l0x *ceammc_hw_sensor_vl53l0x_new(int8_t i2c_bus,
                                                        ceammc_hw_sensor_vl53l0x_data_cb on_data,
                                                        ceammc_hw_msg_cb on_err);
 
+bool ceammc_hw_sensor_vl53l0x_poll(const ceammc_hw_sensor_vl53l0x *display, bool state);
+
 bool ceammc_hw_sensor_vl53l0x_proc_reply(const ceammc_hw_sensor_vl53l0x *vl);
 
 bool ceammc_hw_sensor_vl53l0x_read_mm(const ceammc_hw_sensor_vl53l0x *display);

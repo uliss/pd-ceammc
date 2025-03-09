@@ -15,6 +15,7 @@ mod vl53l0x_impl;
 #[derive(Debug)]
 pub enum Request {
     ReadMM,
+    Poll(bool),
 }
 
 #[derive(Debug)]
@@ -81,4 +82,9 @@ pub extern "C" fn ceammc_hw_sensor_vl53l0x_proc_reply(vl: *const hw_sensor_vl53l
 #[no_mangle]
 pub extern "C" fn ceammc_hw_sensor_vl53l0x_read_mm(display: *const hw_sensor_vl53l0x) -> bool {
     rpi_check!({ hw_sensor_vl53l0x::send_request(display, Request::ReadMM) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_sensor_vl53l0x_poll(display: *const hw_sensor_vl53l0x, state: bool) -> bool {
+    rpi_check!({ hw_sensor_vl53l0x::send_request(display, Request::Poll(state)) });
 }

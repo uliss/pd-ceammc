@@ -6,7 +6,7 @@ use vl53l0x::VL53L0x;
 
 use crate::{hw_msg_cb, hw_notify_cb, process_err};
 
-use super::{hw_sensor_vl53l0x, Request, hw_sensor_vl53l0x_data_cb};
+use super::{hw_sensor_vl53l0x, hw_sensor_vl53l0x_data_cb, Request};
 
 impl hw_sensor_vl53l0x {
     pub fn new(
@@ -34,14 +34,20 @@ impl hw_sensor_vl53l0x {
                 debug!("{req:?}");
 
                 match req {
-                    crate::vl53l0x::Request::ReadMM => {
-                        match lv.read_range_single_millimeters_blocking() {
-                            Ok(res) => {
-                                debug!("distance: {res}mm");
-                            }
-                            Err(err) => {
-                                process_err(format!("{err:?}"), &rep_tx, notify);
-                            }
+                    Request::ReadMM => match lv.read_range_single_millimeters_blocking() {
+                        Ok(res) => {
+                            debug!("distance: {res}mm");
+                        }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &rep_tx, notify);
+                        }
+                    },
+                    Request::Poll(state) => {
+                        if state {
+                            lv.start_continuous(100).map_err(|err| process_err(err, &rep_tx, notify)).unwrap_or_default();
+                        } else {
+                            lv.stop_continuous()
+                                .map_err(|err| process_err(err, &rep_tx, notify)).unwrap_or_default();
                         }
                     }
                 }
@@ -73,8 +79,8 @@ impl hw_sensor_vl53l0x {
                         vc.on_err.exec_raw(msg.as_ptr());
                     }
                     super::Reply::Distance(mm) => {
-                       (vc.on_data.cb)(vc.on_data.user, mm);
-                    },
+                        (vc.on_data.cb)(vc.on_data.user, mm);
+                    }
                 }
             }
 
