@@ -6,13 +6,14 @@ use vl53l0x::VL53L0x;
 
 use crate::{hw_msg_cb, hw_notify_cb, process_err};
 
-use super::{hw_sensor_vl53l0x, Request};
+use super::{hw_sensor_vl53l0x, Request, hw_sensor_vl53l0x_data_cb};
 
 impl hw_sensor_vl53l0x {
     pub fn new(
         i2c_bus: i8,
         i2d_addr: u8,
         notify: hw_notify_cb,
+        on_data: hw_sensor_vl53l0x_data_cb,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
@@ -54,6 +55,7 @@ impl hw_sensor_vl53l0x {
         Ok(Self {
             tx: req_tx,
             rx: rep_rx,
+            on_data,
             on_err,
         })
     }
@@ -70,6 +72,9 @@ impl hw_sensor_vl53l0x {
                     super::Reply::Error(msg) => {
                         vc.on_err.exec_raw(msg.as_ptr());
                     }
+                    super::Reply::Distance(mm) => {
+                       (vc.on_data.cb)(vc.on_data.user, mm);
+                    },
                 }
             }
 

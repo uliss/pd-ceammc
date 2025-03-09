@@ -14,7 +14,13 @@ HwRpiSensorVc53l0x::~HwRpiSensorVc53l0x()
 
 void HwRpiSensorVc53l0x::initDone()
 {
-    vc_ = ceammc_hw_sensor_vl53l0x_new(0, 0, on_notify(), on_err());
+    vc_ = ceammc_hw_sensor_vl53l0x_new(0, 0, on_notify(), //
+        { this, [](void* user, std::uint16_t mm) {
+             auto obj = static_cast<HwRpiSensorVc53l0x*>(user);
+             if (obj)
+                 obj->floatTo(0, mm);
+         } },
+        on_err());
 }
 
 bool HwRpiSensorVc53l0x::notify(int code)

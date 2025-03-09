@@ -341,6 +341,11 @@ struct ceammc_hw_print_options {
     bool landscape;
 };
 
+struct ceammc_hw_sensor_vl53l0x_data_cb {
+    void *user;
+    void (*cb)(void*, uint16_t data);
+};
+
 
 extern "C" {
 
@@ -854,6 +859,7 @@ void ceammc_hw_sensor_vl53l0x_free(ceammc_hw_sensor_vl53l0x *vl);
 ceammc_hw_sensor_vl53l0x *ceammc_hw_sensor_vl53l0x_new(int8_t i2c_bus,
                                                        uint8_t i2d_addr,
                                                        ceammc_hw_notify_cb notify,
+                                                       ceammc_hw_sensor_vl53l0x_data_cb on_data,
                                                        ceammc_hw_msg_cb on_err);
 
 bool ceammc_hw_sensor_vl53l0x_proc_reply(const ceammc_hw_sensor_vl53l0x *vl);

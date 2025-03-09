@@ -3,7 +3,7 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::CString, ptr::null_mut};
+use std::{ffi::{CString, c_void}, ptr::null_mut};
 
 use log::error;
 
@@ -20,6 +20,15 @@ pub enum Request {
 #[derive(Debug)]
 pub enum Reply {
     Error(CString),
+    Distance(u16),
+}
+
+#[repr(C)]
+pub struct hw_sensor_vl53l0x_data_cb {
+    // nullable
+    user: *mut c_void,
+    // no null
+    cb: extern "C" fn (*mut c_void, data: u16),
 }
 
 impl MakePdError<Reply> for Reply {
@@ -32,6 +41,7 @@ pub struct hw_sensor_vl53l0x {
     tx: std::sync::mpsc::Sender<Request>,
     rx: std::sync::mpsc::Receiver<Reply>,
     on_err: hw_msg_cb,
+    on_data: hw_sensor_vl53l0x_data_cb
 }
 
 #[no_mangle]
@@ -39,10 +49,11 @@ pub extern "C" fn ceammc_hw_sensor_vl53l0x_new(
     i2c_bus: i8,
     i2d_addr: u8,
     notify: hw_notify_cb,
+    on_data: hw_sensor_vl53l0x_data_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_sensor_vl53l0x {
     rpi_check!(null_mut(), {
-        match hw_sensor_vl53l0x::new(i2c_bus, i2d_addr, notify, on_err) {
+        match hw_sensor_vl53l0x::new(i2c_bus, i2d_addr, notify, on_data, on_err) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
