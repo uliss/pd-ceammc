@@ -3,6 +3,8 @@ use std::{
     os::raw::{c_char, c_void},
 };
 
+use log::error;
+
 #[allow(non_camel_case_types)]
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -56,6 +58,32 @@ where
     CString::new(s).unwrap_or_default()
 }
 
+trait MakePdError<Error> {
+    fn pd_err(msg: CString) -> Error;
+}
+
+fn send_error<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str)
+where
+    R: MakePdError<R>,
+{
+    error!("{msg}");
+    if let Err(err) = tx.send(R::pd_err(CString::new(msg).unwrap_or_default())) {
+        error!("reply send error: {err}");
+    } else {
+        notify.notify();
+    }
+}
+
+fn process_err<E, R>(err: E, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
+where
+    E: std::fmt::Display,
+    R: MakePdError<R>,
+{
+    let str = err.to_string();
+    send_error(tx, notify, str.as_str());
+    str
+}
+
 macro_rules! return_not_rpi {
     ($x:expr) => {
         #[cfg(not(target_os = "linux"))]
@@ -90,6 +118,7 @@ pub mod printers_cups;
 pub mod printers_win;
 
 pub mod dht11;
+pub mod display;
 pub mod gpio;
 pub mod hc_sr04;
 pub mod i2c;
@@ -98,5 +127,5 @@ pub mod max7219;
 pub mod rotenc;
 pub mod rpi_pwm;
 pub mod rpi_pwm_pca9685;
+pub mod vl53l0x;
 pub mod ws2812;
-pub mod display;

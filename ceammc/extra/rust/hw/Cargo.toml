@@ -27,6 +27,7 @@ ndarray = "0.16.1"
 rgb = "0.8.5"
 palette = { version = "0.7.6", features = ["std", "approx"] }
 embedded-graphics = "0.8.1"
+vl53l0x = "1.0.1"
 
 [target.'cfg(target_os="linux")'.dependencies]
 rppal = { version = "0.22.1", features = ["hal"] }

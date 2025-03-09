@@ -9,6 +9,12 @@
 
 constexpr static const int32_t ceammc_JOB_ERROR = -1;
 
+constexpr static const uint16_t ceammc_HW_RPI_I2C_DEFAULT_BUS = 65535;
+
+constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR = 65520;
+
+constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_ALT_ADDR = 65521;
+
 constexpr static const uint16_t ceammc_HW_SR04_MIN_POLL_INTERVAL = 10;
 
 constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
@@ -60,12 +66,6 @@ constexpr static const float ceammc_HW_PCA9685_MIN_PERIOD_MS = (1000.0 / (float)
 constexpr static const float ceammc_HW_PCA9685_MAX_PERIOD_MS = (1000.0 / (float)ceammc_HW_PCA9685_MIN_FREQ_HZ);
 
 constexpr static const uint8_t ceammc_HW_PCA9685_ALL_CHAN = 16;
-
-constexpr static const uint16_t ceammc_HW_RPI_I2C_DEFAULT_BUS = 65535;
-
-constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR = 65520;
-
-constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_ALT_ADDR = 65521;
 
 enum class ceammc_hw_gamepad_btn {
     South,
@@ -201,6 +201,8 @@ struct ceammc_hw_max7219;
 struct ceammc_hw_pca9685;
 
 struct ceammc_hw_rpi_pwm;
+
+struct ceammc_hw_sensor_vl53l0x;
 
 struct ceammc_hw_spi_ws2812;
 
@@ -846,6 +848,17 @@ bool ceammc_hw_rpi_pwm_set_polarity(const ceammc_hw_rpi_pwm *pwm,
 bool ceammc_hw_rpi_pwm_set_pulse_width(const ceammc_hw_rpi_pwm *pwm, double width_ms);
 
 bool ceammc_hw_rpi_pwm_set_pwm(const ceammc_hw_rpi_pwm *pwm, double period_ms, double width_ms);
+
+void ceammc_hw_sensor_vl53l0x_free(ceammc_hw_sensor_vl53l0x *vl);
+
+ceammc_hw_sensor_vl53l0x *ceammc_hw_sensor_vl53l0x_new(int8_t i2c_bus,
+                                                       uint8_t i2d_addr,
+                                                       ceammc_hw_notify_cb notify,
+                                                       ceammc_hw_msg_cb on_err);
+
+bool ceammc_hw_sensor_vl53l0x_proc_reply(const ceammc_hw_sensor_vl53l0x *vl);
+
+bool ceammc_hw_sensor_vl53l0x_read_mm(const ceammc_hw_sensor_vl53l0x *display);
 
 /// apply fx
 bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,
