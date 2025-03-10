@@ -73,7 +73,7 @@ fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) 
     }
 }
 
-fn send_error<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str)
+fn send_error<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
 where
     R: MakePdError<R>,
 {
