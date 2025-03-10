@@ -1,4 +1,4 @@
-use std::ffi::CString;
+use std::{ffi::CString, sync::Arc};
 
 use log::{debug, error};
 use vl53l0x::VL53L0x;
@@ -24,7 +24,7 @@ impl hw_sensor_vl53l0x {
             let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &rep_tx, notify)?;
             debug!("i2c init: {i2c:?}");
 
-            let mut lv = match i2c_addr {
+            let lv = match i2c_addr {
                 I2cAddress::Invalid(addr) => {
                     return Err(format!("invalid i2c address: {addr}"));
                 }
@@ -33,34 +33,95 @@ impl hw_sensor_vl53l0x {
             }
             .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?;
 
+            let lv = Arc::new(std::sync::Mutex::new(lv));
+
+            let poll_mode = std::sync::atomic::AtomicBool::new(false);
+
             debug!("vk53l0x init");
 
             while let Ok(req) = req_rx.recv() {
                 debug!("{req:?}");
 
                 match req {
-                    Request::ReadMM => match lv.read_range_single_millimeters_blocking() {
-                        Ok(res) => {
-                            debug!("distance: {res}mm");
-                            send_reply(Reply::Distance(res), &rep_tx, notify);
+                    Request::ReadMM => {
+                        match lv.lock().unwrap().read_range_single_millimeters_blocking() {
+                            Ok(res) => {
+                                debug!("distance: {res}mm");
+                                send_reply(Reply::Distance(res), &rep_tx, notify);
+                            }
+                            Err(err) => {
+                                process_err(format!("{err:?}"), &rep_tx, notify);
+                            }
                         }
-                        Err(err) => {
-                            process_err(format!("{err:?}"), &rep_tx, notify);
-                        }
-                    },
+                    }
                     Request::Poll(state) => {
                         if state {
-                            lv.start_continuous(100)
+                            lv.lock()
+                                .unwrap()
+                                .start_continuous(100)
                                 .map_err(|err| process_err(err, &rep_tx, notify))
                                 .unwrap_or_default();
+
+                            if poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
+                                process_err(format!("already polling"), &rep_tx, notify);
+                            } else {
+                                poll_mode.store(true, std::sync::atomic::Ordering::SeqCst);
+
+                                let lv2 = lv.clone();
+                                let tx2 = rep_tx.clone();
+
+                                std::thread::scope(|s| {
+                                    s.spawn(|| {
+                                        debug!("start poll loop");
+
+                                        let mut lv = lv2.lock().unwrap();
+                                        loop {
+                                            match lv.read_range_continuous_millimeters_blocking() {
+                                                Ok(mm) => {
+                                                    send_reply(Reply::Distance(mm), &tx2, notify);
+                                                }
+                                                Err(err) => match err {
+                                                    vl53l0x::Error::Timeout => {
+                                                        // ok
+                                                    }
+                                                    _ => {
+                                                        process_err(
+                                                            format!("{err:?}"),
+                                                            &tx2,
+                                                            notify,
+                                                        );
+                                                        break;
+                                                    }
+                                                },
+                                            }
+
+                                            if !&poll_mode.load(std::sync::atomic::Ordering::SeqCst)
+                                            {
+                                                debug!("exit poll loop");
+                                                break;
+                                            }
+                                        }
+                                    });
+                                });
+                            }
                         } else {
-                            lv.stop_continuous()
+                            lv.lock()
+                                .unwrap()
+                                .stop_continuous()
                                 .map_err(|err| process_err(err, &rep_tx, notify))
                                 .unwrap_or_default();
+
+                            if !poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
+                                process_err(format!("not polling"), &rep_tx, notify);
+                            } else {
+                                poll_mode.store(false, std::sync::atomic::Ordering::SeqCst);
+                            }
                         }
                     }
                     Request::SetAddress(addr) => {
-                        lv.set_address(addr)
+                        lv.lock()
+                            .unwrap()
+                            .set_address(addr)
                             .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))
                             .unwrap_or_default();
                     }
