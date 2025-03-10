@@ -43,9 +43,19 @@ void HwRpiSensorVc53l0x::m_poll(t_symbol* s, const AtomListView& lv)
     ceammc_hw_sensor_vl53l0x_poll(vc_, lv.boolAt(0, true));
 }
 
+void HwRpiSensorVc53l0x::m_address(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("ADDR:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_sensor_vl53l0x_set_address(vc_, lv.intAt(0, true));
+}
+
 void setup_hw_rpi_sensor_vc53l0x()
 {
     ObjectFactory<HwRpiSensorVc53l0x> obj("hw.rpi.sensor.vl53l0x");
 
     obj.addMethod("poll", &HwRpiSensorVc53l0x::m_poll);
+    obj.addMethod("address", &HwRpiSensorVc53l0x::m_address);
 }

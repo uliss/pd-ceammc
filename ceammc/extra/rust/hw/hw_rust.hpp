@@ -868,6 +868,8 @@ bool ceammc_hw_sensor_vl53l0x_proc_reply(const ceammc_hw_sensor_vl53l0x *vl);
 
 bool ceammc_hw_sensor_vl53l0x_read_mm(const ceammc_hw_sensor_vl53l0x *display);
 
+bool ceammc_hw_sensor_vl53l0x_set_address(const ceammc_hw_sensor_vl53l0x *display, uint8_t addr);
+
 /// apply fx
 bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,
                                    int32_t first,

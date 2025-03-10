@@ -19,6 +19,7 @@ public:
     void onBang() final;
 
     void m_poll(t_symbol* s, const AtomListView& lv);
+    void m_address(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_rpi_sensor_vc53l0x();

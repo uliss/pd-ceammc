@@ -54,6 +54,11 @@ impl hw_sensor_vl53l0x {
                                 .unwrap_or_default();
                         }
                     }
+                    Request::SetAddress(addr) => {
+                        lv.set_address(addr)
+                            .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))
+                            .unwrap_or_default();
+                    }
                 }
             }
 
