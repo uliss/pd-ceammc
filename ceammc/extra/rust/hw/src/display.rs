@@ -16,9 +16,6 @@ use crate::{hw_msg_cb, hw_notify_cb, MakePdError, i2c::I2cAddress};
 #[cfg(target_os = "linux")]
 mod ssd1306_impl;
 
-pub const HW_RPI_SDD1306_I2C_DEFAULT_ADDR: u16 = 0xfff0;
-pub const HW_RPI_SDD1306_I2C_ALT_ADDR: u16 = 0xfff1;
-
 #[derive(Debug)]
 pub enum Request {
     Clear(bool),

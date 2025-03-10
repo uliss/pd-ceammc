@@ -9,10 +9,6 @@
 
 constexpr static const int32_t ceammc_JOB_ERROR = -1;
 
-constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR = 65520;
-
-constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_ALT_ADDR = 65521;
-
 constexpr static const uint16_t ceammc_HW_SR04_MIN_POLL_INTERVAL = 10;
 
 constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;

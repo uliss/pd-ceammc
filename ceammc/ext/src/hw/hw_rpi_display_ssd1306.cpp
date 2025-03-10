@@ -43,11 +43,7 @@ void HwRpiDisplaySsd1306::initDone()
 
         auto& args = i2c_->value();
         auto bus = args.intAt(0, ceammc_HW_I2C_DEFAULT_BUS);
-        auto addr = args.intAt(1, ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR);
-        if (addr == -1)
-            addr = ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR;
-        else if (addr == -2)
-            addr = ceammc_HW_RPI_SDD1306_I2C_ALT_ADDR;
+        auto addr = args.intAt(1, ceammc_HW_I2C_DEFAULT_ADDR);
 
         display_ = ceammc_hw_display_ssd1306_new_i2c(
             bus, addr,
