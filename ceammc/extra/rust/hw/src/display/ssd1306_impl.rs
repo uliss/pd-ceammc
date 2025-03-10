@@ -13,7 +13,7 @@ use embedded_graphics::{
 };
 
 use log::{debug, error};
-use rppal::{gpio::Gpio, i2c::I2c, spi::Spi};
+use rppal::{gpio::Gpio, spi::Spi};
 use ssd1306::{
     mode::BufferedGraphicsMode,
     prelude::{DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand},
@@ -22,10 +22,8 @@ use ssd1306::{
 };
 
 use crate::{
-    display::{
-        HW_RPI_I2C_DEFAULT_BUS, HW_RPI_SDD1306_I2C_ALT_ADDR, HW_RPI_SDD1306_I2C_DEFAULT_ADDR,
-    },
     hw_msg_cb, hw_notify_cb,
+    i2c::{i2c_impl::create_i2c_bus, I2cAddress},
 };
 
 use super::{hw_display_ssd1306, Reply, Request};
@@ -150,8 +148,8 @@ impl hw_display_ssd1306 {
     }
 
     pub fn new_i2c(
-        bus: u16,
-        addr: u16,
+        bus: i8,
+        addr: I2cAddress,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
@@ -161,38 +159,17 @@ impl hw_display_ssd1306 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("thread started");
 
-            let i2c = match bus {
-                HW_RPI_I2C_DEFAULT_BUS => {
-                    I2c::new().map_err(|err| proc_err(err, &rep_tx, notify))?
-                }
-                bus if bus < 256 => {
-                    I2c::with_bus(bus as u8).map_err(|err| proc_err(err, &rep_tx, notify))?
-                }
-                _ => {
-                    return Err(proc_err(
-                        format!("invalid I2C bus value: {bus}"),
-                        &rep_tx,
-                        notify,
-                    ));
-                }
-            };
-
+            let i2c = create_i2c_bus(bus, &rep_tx, notify)?;
             debug!("I2C init: {i2c:?}");
 
             let i2c_iface = match addr {
-                HW_RPI_SDD1306_I2C_DEFAULT_ADDR => ssd1306::I2CDisplayInterface::new(i2c),
-                HW_RPI_SDD1306_I2C_ALT_ADDR => {
-                    ssd1306::I2CDisplayInterface::new_alternate_address(i2c)
+                I2cAddress::Default => ssd1306::I2CDisplayInterface::new(i2c),
+                I2cAddress::Alt => ssd1306::I2CDisplayInterface::new_alternate_address(i2c),
+                I2cAddress::Invalid(addr) => {
+                    return Err(format!("invalid i2c address: {addr}"));
                 }
-                addr if addr < 256 => {
-                    ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr as u8)
-                }
-                _ => {
-                    return Err(proc_err(
-                        format!("invalid I2C address: {addr}"),
-                        &rep_tx,
-                        notify,
-                    ));
+                I2cAddress::Addr(addr) => {
+                    ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr)
                 }
             };
 

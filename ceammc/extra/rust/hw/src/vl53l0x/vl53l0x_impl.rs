@@ -1,17 +1,16 @@
 use std::ffi::CString;
 
 use log::{debug, error};
-use rppal::i2c::I2c;
 use vl53l0x::VL53L0x;
 
-use crate::{hw_msg_cb, hw_notify_cb, process_err, send_reply, vl53l0x::Reply};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, process_err, send_reply, vl53l0x::Reply};
 
 use super::{hw_sensor_vl53l0x, hw_sensor_vl53l0x_data_cb, Request};
 
 impl hw_sensor_vl53l0x {
     pub fn new(
         i2c_bus: i8,
-        i2d_addr: u8,
+        i2c_addr: I2cAddress,
         notify: hw_notify_cb,
         on_data: hw_sensor_vl53l0x_data_cb,
         on_err: hw_msg_cb,
@@ -22,11 +21,17 @@ impl hw_sensor_vl53l0x {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("worker start");
 
-            let i2c = I2c::new().map_err(|err| process_err(err.to_string(), &rep_tx, notify))?;
+            let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &rep_tx, notify)?;
             debug!("i2c init: {i2c:?}");
 
-            let mut lv = VL53L0x::new(i2c)
-                .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?;
+            let mut lv = match i2c_addr {
+                I2cAddress::Invalid(addr) => {
+                    return Err(format!("invalid i2c address: {addr}"));
+                }
+                I2cAddress::Addr(addr) => VL53L0x::with_address(i2c, addr),
+                _ => VL53L0x::new(i2c),
+            }
+            .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?;
 
             debug!("vk53l0x init");
 

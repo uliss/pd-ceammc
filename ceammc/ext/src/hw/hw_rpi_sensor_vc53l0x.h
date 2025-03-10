@@ -8,6 +8,8 @@ using namespace ceammc;
 
 class HwRpiSensorVc53l0x : public RustDispatchedObject<BaseObject> {
     ceammc_hw_sensor_vl53l0x* vc_ { nullptr };
+    IntProperty* i2c_bus_ { nullptr };
+    IntProperty* i2c_addr_ { nullptr };
 
 public:
     explicit HwRpiSensorVc53l0x(const PdArgs& args);

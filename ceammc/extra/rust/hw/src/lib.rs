@@ -58,7 +58,7 @@ where
     CString::new(s).unwrap_or_default()
 }
 
-trait MakePdError<Error> {
+pub trait MakePdError<Error> {
     fn pd_err(msg: CString) -> Error;
 }
 

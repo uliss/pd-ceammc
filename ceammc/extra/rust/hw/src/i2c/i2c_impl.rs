@@ -3,12 +3,38 @@ use std::ffi::CString;
 use log::{debug, error};
 use rppal::i2c::I2c;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb, process_err, MakePdError};
 
 use super::hw_i2c;
 
+#[allow(non_snake_case)]
+pub fn create_i2c_bus<Reply>(
+    bus: i8,
+    tx: &std::sync::mpsc::Sender<Reply>,
+    notify: hw_notify_cb,
+) -> Result<I2c, String>
+where
+    Reply: MakePdError<Reply>,
+{
+    match bus {
+        crate::i2c::HW_I2C_DEFAULT_BUS => {
+            Ok(I2c::new().map_err(|err| process_err(err, tx, notify))?)
+        }
+        bus if bus >= 0 && bus < 16 => {
+            Ok(I2c::with_bus(bus as u8).map_err(|err| process_err(err, tx, notify))?)
+        }
+        _ => {
+            return Err(process_err(
+                format!("invalid I2C bus: {bus}"),
+                tx,
+                notify,
+            ));
+        }
+    }
+}
+
 impl hw_i2c {
-    pub fn new(addr: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(addr: u8, _notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || -> Result<(), String> {
@@ -37,7 +63,10 @@ impl hw_i2c {
             Ok(())
         });
 
-        Ok(hw_i2c { tx, on_err })
+        Ok(hw_i2c {
+            _tx: tx,
+            _on_err: on_err,
+        })
     }
 
     fn scan_devices(i2c: &mut I2c) -> Result<(), String> {

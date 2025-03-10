@@ -6,6 +6,12 @@ HwRpiSensorVc53l0x::HwRpiSensorVc53l0x(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
+
+    i2c_addr_ = new IntProperty("@addr", ceammc_HW_I2C_DEFAULT_ADDR);
+    addProperty(i2c_addr_);
+
+    i2c_bus_ = new IntProperty("@bus", ceammc_HW_I2C_DEFAULT_BUS);
+    addProperty(i2c_bus_);
 }
 
 HwRpiSensorVc53l0x::~HwRpiSensorVc53l0x()
@@ -15,7 +21,8 @@ HwRpiSensorVc53l0x::~HwRpiSensorVc53l0x()
 
 void HwRpiSensorVc53l0x::initDone()
 {
-    vc_ = ceammc_hw_sensor_vl53l0x_new(0, 0, on_notify(), //
+    vc_ = ceammc_hw_sensor_vl53l0x_new(i2c_bus_->value(), //
+        i2c_addr_->value(), on_notify(), //
         { this, [](void* user, std::uint16_t mm) {
              auto obj = static_cast<HwRpiSensorVc53l0x*>(user);
              if (obj)

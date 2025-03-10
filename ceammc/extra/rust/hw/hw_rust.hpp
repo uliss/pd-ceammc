@@ -9,8 +9,6 @@
 
 constexpr static const int32_t ceammc_JOB_ERROR = -1;
 
-constexpr static const uint16_t ceammc_HW_RPI_I2C_DEFAULT_BUS = 65535;
-
 constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_DEFAULT_ADDR = 65520;
 
 constexpr static const uint16_t ceammc_HW_RPI_SDD1306_I2C_ALT_ADDR = 65521;
@@ -20,6 +18,12 @@ constexpr static const uint16_t ceammc_HW_SR04_MIN_POLL_INTERVAL = 10;
 constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
 
 constexpr static const uint16_t ceammc_HW_SR04_MAX_POLL_INTERVAL = 1000;
+
+constexpr static const int8_t ceammc_HW_I2C_DEFAULT_BUS = -1;
+
+constexpr static const int8_t ceammc_HW_I2C_DEFAULT_ADDR = -1;
+
+constexpr static const int8_t ceammc_HW_I2C_ALT_ADDR = -2;
 
 constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_0 = 1;
 
@@ -359,8 +363,8 @@ bool ceammc_hw_display_ssd1306_invert(const ceammc_hw_display_ssd1306 *display, 
 
 bool ceammc_hw_display_ssd1306_mirror(const ceammc_hw_display_ssd1306 *display, bool state);
 
-ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(uint16_t i2c_bus,
-                                                             uint16_t i2c_addr,
+ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(int8_t i2c_bus,
+                                                             int8_t i2c_addr,
                                                              ceammc_hw_notify_cb notify,
                                                              ceammc_hw_msg_cb on_err);
 
@@ -857,7 +861,7 @@ bool ceammc_hw_rpi_pwm_set_pwm(const ceammc_hw_rpi_pwm *pwm, double period_ms, d
 void ceammc_hw_sensor_vl53l0x_free(ceammc_hw_sensor_vl53l0x *vl);
 
 ceammc_hw_sensor_vl53l0x *ceammc_hw_sensor_vl53l0x_new(int8_t i2c_bus,
-                                                       uint8_t i2d_addr,
+                                                       int8_t i2c_addr,
                                                        ceammc_hw_notify_cb notify,
                                                        ceammc_hw_sensor_vl53l0x_data_cb on_data,
                                                        ceammc_hw_msg_cb on_err);

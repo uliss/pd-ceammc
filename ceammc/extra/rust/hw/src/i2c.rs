@@ -10,7 +10,30 @@ use log::error;
 use crate::{hw_msg_cb, hw_notify_cb};
 
 #[cfg(target_os = "linux")]
-mod i2c_impl;
+pub mod i2c_impl;
+
+pub const HW_I2C_DEFAULT_BUS: i8 = -1;
+pub const HW_I2C_DEFAULT_ADDR: i8 = -1;
+pub const HW_I2C_ALT_ADDR: i8 = -2;
+
+#[derive(Debug)]
+pub enum I2cAddress {
+    Default,
+    Alt,
+    Invalid(i8),
+    Addr(u8),
+}
+
+impl I2cAddress {
+    pub fn new(addr: i8) -> I2cAddress {
+        match addr {
+            HW_I2C_DEFAULT_ADDR => I2cAddress::Default,
+            HW_I2C_ALT_ADDR => I2cAddress::Alt,
+            addr if addr > 0x7 && addr < 0x78 => I2cAddress::Addr(addr as u8),
+            _ => I2cAddress::Invalid(addr),
+        }
+    }
+}
 
 pub enum Request {
     ScanDevices,
@@ -18,8 +41,8 @@ pub enum Request {
 
 pub struct hw_i2c {
     // result: Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>,
-    tx: std::sync::mpsc::Sender<Request>,
-    on_err: hw_msg_cb,
+    _tx: std::sync::mpsc::Sender<Request>,
+    _on_err: hw_msg_cb,
 }
 
 #[no_mangle]
