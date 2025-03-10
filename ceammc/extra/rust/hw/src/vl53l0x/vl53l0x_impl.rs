@@ -61,50 +61,44 @@ impl hw_sensor_vl53l0x {
                             } else {
                                 poll_mode.store(true, std::sync::atomic::Ordering::SeqCst);
 
-                                let lv2 = lv.clone();
-                                let tx2 = rep_tx.clone();
+                                let lv = lv.clone();
+                                let tx = rep_tx.clone();
+                                let poll_mode = poll_mode.clone();
 
-                                std::thread::scope(|s| {
-                                    lv2.lock()
-                                        .unwrap()
-                                        .start_continuous(0)
-                                        .map_err(|err| process_err(err, &rep_tx, notify))
-                                        .unwrap_or_default();
+                                lv.lock()
+                                    .unwrap()
+                                    .start_continuous(0)
+                                    .map_err(|err| process_err(err, &rep_tx, notify))
+                                    .unwrap_or_default();
 
-                                    s.spawn(|| {
-                                        debug!("start poll loop");
+                                std::thread::spawn(move || {
+                                    debug!("start poll loop");
 
-                                        loop {
-                                            match lv2.lock().unwrap().read_range_mm() {
-                                                Ok(res) => {
-                                                    debug!("distance: {res}mm");
-                                                    send_reply(Reply::Distance(res), &tx2, notify);
+                                    loop {
+                                        match lv.lock().unwrap().read_range_mm() {
+                                            Ok(res) => {
+                                                debug!("distance: {res}mm");
+                                                send_reply(Reply::Distance(res), &tx, notify);
+                                            }
+                                            Err(err) => match err {
+                                                pwm_pca9685::nb::Error::WouldBlock => {
+                                                    debug!("no data");
                                                 }
-                                                Err(err) => match err {
-                                                    pwm_pca9685::nb::Error::WouldBlock => {
-                                                        debug!("no data");
-                                                    }
-                                                    _ => {
-                                                        process_err(
-                                                            format!("{err:?}"),
-                                                            &tx2,
-                                                            notify,
-                                                        );
-                                                        break;
-                                                    }
-                                                },
-                                            }
-
-                                            if !&poll_mode.load(std::sync::atomic::Ordering::SeqCst)
-                                            {
-                                                break;
-                                            }
-
-                                            std::thread::sleep(Duration::from_millis(30));
+                                                _ => {
+                                                    process_err(format!("{err:?}"), &tx, notify);
+                                                    break;
+                                                }
+                                            },
                                         }
 
-                                        debug!("exit poll loop");
-                                    });
+                                        if !&poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
+                                            break;
+                                        }
+
+                                        std::thread::sleep(Duration::from_millis(30));
+                                    }
+
+                                    debug!("exit poll loop");
                                 });
                             }
                         } else {
