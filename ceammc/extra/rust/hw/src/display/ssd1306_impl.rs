@@ -24,27 +24,10 @@ use ssd1306::{
 use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
+    process_err, send_error,
 };
 
 use super::{hw_display_ssd1306, Reply, Request};
-
-fn send_error(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, msg: &str) {
-    error!("{msg}");
-    if let Err(err) = tx.send(Reply::Error(CString::new(msg).unwrap_or_default())) {
-        error!("reply send error: {err}");
-    } else {
-        notify.notify();
-    }
-}
-
-fn proc_err<E>(err: E, tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb) -> String
-where
-    E: std::fmt::Display,
-{
-    let str = err.to_string();
-    send_error(tx, notify, str.as_str());
-    str
-}
 
 impl hw_display_ssd1306 {
     fn process_loop<DI, SIZE>(
@@ -73,14 +56,14 @@ impl hw_display_ssd1306 {
                     display.clear_buffer();
 
                     if flush {
-                        display.flush().unwrap_or_else(|_| {
-                            proc_err("display error", tx, notify);
+                        display.flush().unwrap_or_else(|err| {
+                            process_err(format!("{err:?}"), tx, notify);
                         });
                     }
                 }
                 Request::Flush => {
-                    display.flush().unwrap_or_else(|_| {
-                        proc_err("display error", tx, notify);
+                    display.flush().unwrap_or_else(|err| {
+                        process_err(format!("{err:?}"), tx, notify);
                     });
                 }
                 Request::DrawText(cstr, x, y) => {
@@ -91,8 +74,8 @@ impl hw_display_ssd1306 {
                         Baseline::Top,
                     )
                     .draw(display)
-                    .map_err(|_| {
-                        proc_err("display error", tx, notify);
+                    .map_err(|err| {
+                        process_err(format!("{err:?}"), tx, notify);
                     })
                     .unwrap_or_default();
                 }
@@ -103,31 +86,31 @@ impl hw_display_ssd1306 {
                             text_style.font = *ft;
                         }
                         None => {
-                            send_error(tx, notify, format!("font not found: {font:?}").as_str())
+                            send_error(tx, notify, format!("font not found: {font:?}").as_str());
                         }
                     }
                 }
                 Request::Invert(state) => {
-                    display.set_invert(state).unwrap_or_else(|_| {
-                        proc_err("display error", tx, notify);
+                    display.set_invert(state).unwrap_or_else(|err| {
+                        process_err(format!("{err:?}"), tx, notify);
                     });
                 }
                 Request::Mirror(state) => {
-                    display.set_mirror(state).unwrap_or_else(|_| {
-                        proc_err("display error", tx, notify);
+                    display.set_mirror(state).unwrap_or_else(|err| {
+                        process_err(format!("{err:?}"), tx, notify);
                     });
                 }
                 Request::SwitchOn(state) => {
-                    display.set_display_on(state).unwrap_or_else(|_| {
-                        proc_err("display error", tx, notify);
+                    display.set_display_on(state).unwrap_or_else(|err| {
+                        process_err(format!("{err:?}"), tx, notify);
                     });
                 }
                 Request::SetPixel(x, y, value) => {
                     display.set_pixel(x as u32, y as u32, value);
                 }
                 Request::SetData(data) => {
-                    display.draw(data.as_slice()).unwrap_or_else(|_| {
-                        proc_err("display error", tx, notify);
+                    display.draw(data.as_slice()).unwrap_or_else(|err| {
+                        process_err(format!("{err:?}"), tx, notify);
                     });
                 }
                 Request::DrawBitmap(x, y, w, data) => {
@@ -139,8 +122,8 @@ impl hw_display_ssd1306 {
                             y: y.into(),
                         },
                     );
-                    image.draw(display).unwrap_or_else(|_| {
-                        proc_err("display error", tx, notify);
+                    image.draw(display).unwrap_or_else(|err| {
+                        process_err(format!("{err:?}"), tx, notify);
                     });
                 }
             }
@@ -156,36 +139,43 @@ impl hw_display_ssd1306 {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
-        std::thread::spawn(move || -> Result<(), String> {
+        std::thread::spawn(move || {
             debug!("thread started");
 
-            let i2c = create_i2c_bus(bus, &rep_tx, notify)?;
-            debug!("I2C init: {i2c:?}");
+            let worker = || -> Result<(), String> {
+                let i2c = create_i2c_bus(bus, &rep_tx, notify)?;
+                debug!("I2C init: {i2c:?}");
 
-            let i2c_iface = match addr {
-                I2cAddress::Default => ssd1306::I2CDisplayInterface::new(i2c),
-                I2cAddress::Alt => ssd1306::I2CDisplayInterface::new_alternate_address(i2c),
-                I2cAddress::Invalid(addr) => {
-                    return Err(format!("invalid i2c address: {addr}"));
-                }
-                I2cAddress::Addr(addr) => {
-                    ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr)
-                }
+                let i2c_iface = match addr {
+                    I2cAddress::Default => ssd1306::I2CDisplayInterface::new(i2c),
+                    I2cAddress::Alt => ssd1306::I2CDisplayInterface::new_alternate_address(i2c),
+                    I2cAddress::Invalid(addr) => {
+                        return Err(format!("invalid i2c address: {addr}"));
+                    }
+                    I2cAddress::Addr(addr) => {
+                        ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr)
+                    }
+                };
+
+                let mut display =
+                    Ssd1306::new(i2c_iface, DisplaySize128x64, DisplayRotation::Rotate0)
+                        .into_buffered_graphics_mode();
+
+                display
+                    .init()
+                    .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?;
+                display.clear_buffer();
+                display.flush().unwrap_or_default();
+
+                Self::process_loop(&mut display, &rep_tx, &req_rx, notify);
+                Ok(())
             };
 
-            let mut display = Ssd1306::new(i2c_iface, DisplaySize128x64, DisplayRotation::Rotate0)
-                .into_buffered_graphics_mode();
-
-            display
-                .init()
-                .map_err(|_| proc_err("display error", &rep_tx, notify))?;
-            display.clear_buffer();
-            display.flush().unwrap_or_default();
-
-            Self::process_loop(&mut display, &rep_tx, &req_rx, notify);
+            if let Err(err) = worker() {
+                process_err(err, &rep_tx, notify);
+            }
 
             debug!("thread done");
-            Ok(())
         });
 
         Ok(Self {
@@ -209,10 +199,10 @@ impl hw_display_ssd1306 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("thread started");
 
-            let gpio = Gpio::new().map_err(|err| proc_err(err, &rep_tx, notify))?;
+            let gpio = Gpio::new().map_err(|err| process_err(err, &rep_tx, notify))?;
             let dc = gpio
                 .get(dc_pin)
-                .map_err(|err| proc_err(err, &rep_tx, notify))?
+                .map_err(|err| process_err(err, &rep_tx, notify))?
                 .into_output_low();
 
             debug!("GPIO init: DC=GPIO_{dc_pin:02}");
@@ -253,7 +243,7 @@ impl hw_display_ssd1306 {
             };
 
             let spi = Spi::new(bus, cs, freq, rppal::spi::Mode::Mode0)
-                .map_err(|err| proc_err(err, &rep_tx, notify))?;
+                .map_err(|err| process_err(err, &rep_tx, notify))?;
 
             debug!("SPI init: {spi:?} freq={freq} cs={cs}");
 
@@ -263,7 +253,7 @@ impl hw_display_ssd1306 {
 
             display
                 .init()
-                .map_err(|_| proc_err("display error", &rep_tx, notify))?;
+                .map_err(|_| process_err("display error", &rep_tx, notify))?;
             display.clear_buffer();
 
             Self::process_loop(&mut display, &rep_tx, &req_rx, notify);
