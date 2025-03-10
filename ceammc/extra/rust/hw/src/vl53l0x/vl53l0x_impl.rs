@@ -35,7 +35,7 @@ impl hw_sensor_vl53l0x {
 
             let lv = Arc::new(std::sync::Mutex::new(lv));
 
-            let poll_mode = std::sync::atomic::AtomicBool::new(false);
+            let poll_mode = Arc::new(std::sync::atomic::AtomicBool::new(false));
 
             debug!("vk53l0x init");
 
@@ -106,8 +106,6 @@ impl hw_sensor_vl53l0x {
                                         debug!("exit poll loop");
                                     });
                                 });
-
-                                debug!("set poll done");
                             }
                         } else {
                             lv.lock()
