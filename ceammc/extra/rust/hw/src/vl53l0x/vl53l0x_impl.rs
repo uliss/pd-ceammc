@@ -1,4 +1,4 @@
-use std::{ffi::CString, sync::Arc};
+use std::{ffi::CString, sync::Arc, time::Duration};
 
 use log::{debug, error};
 use vl53l0x::VL53L0x;
@@ -74,11 +74,15 @@ impl hw_sensor_vl53l0x {
                                     s.spawn(|| {
                                         debug!("start poll loop");
 
-                                        let mut lv = lv2.lock().unwrap();
                                         loop {
-                                            match lv.read_range_continuous_millimeters_blocking() {
-                                                Ok(mm) => {
-                                                    send_reply(Reply::Distance(mm), &tx2, notify);
+                                            match lv2
+                                                .lock()
+                                                .unwrap()
+                                                .read_range_continuous_millimeters_blocking()
+                                            {
+                                                Ok(res) => {
+                                                    debug!("distance: {res}mm");
+                                                    send_reply(Reply::Distance(res), &tx2, notify);
                                                 }
                                                 Err(err) => match err {
                                                     vl53l0x::Error::Timeout => {
@@ -100,6 +104,8 @@ impl hw_sensor_vl53l0x {
                                                 debug!("exit poll loop");
                                                 break;
                                             }
+
+                                            std::thread::sleep(Duration::from_millis(10));
                                         }
                                     });
                                 });
