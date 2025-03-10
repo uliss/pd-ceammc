@@ -24,27 +24,30 @@ impl hw_sensor_vl53l0x {
             let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &rep_tx, notify)?;
             debug!("i2c init: {i2c:?}");
 
-            let lv = match i2c_addr {
-                I2cAddress::Invalid(addr) => {
-                    return Err(format!("invalid i2c address: {addr}"));
+            let sensor = Arc::new(std::sync::Mutex::new(
+                match i2c_addr {
+                    I2cAddress::Invalid(addr) => {
+                        return Err(format!("invalid i2c address: {addr}"));
+                    }
+                    I2cAddress::Addr(addr) => VL53L0x::with_address(i2c, addr),
+                    _ => VL53L0x::new(i2c),
                 }
-                I2cAddress::Addr(addr) => VL53L0x::with_address(i2c, addr),
-                _ => VL53L0x::new(i2c),
-            }
-            .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?;
-
-            let lv = Arc::new(std::sync::Mutex::new(lv));
+                .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?,
+            ));
+            debug!("vk53l0x init");
 
             let poll_mode = Arc::new(std::sync::atomic::AtomicBool::new(false));
-
-            debug!("vk53l0x init");
 
             while let Ok(req) = req_rx.recv() {
                 debug!("{req:?}");
 
                 match req {
                     Request::ReadMM => {
-                        match lv.lock().unwrap().read_range_single_millimeters_blocking() {
+                        match sensor
+                            .lock()
+                            .unwrap()
+                            .read_range_single_millimeters_blocking()
+                        {
                             Ok(res) => {
                                 debug!("distance: {res}mm");
                                 send_reply(Reply::Distance(res), &rep_tx, notify);
@@ -61,11 +64,12 @@ impl hw_sensor_vl53l0x {
                             } else {
                                 poll_mode.store(true, std::sync::atomic::Ordering::SeqCst);
 
-                                let lv = lv.clone();
+                                let sensor = sensor.clone();
                                 let tx = rep_tx.clone();
                                 let poll_mode = poll_mode.clone();
 
-                                lv.lock()
+                                sensor
+                                    .lock()
                                     .unwrap()
                                     .start_continuous(0)
                                     .map_err(|err| process_err(err, &rep_tx, notify))
@@ -75,10 +79,12 @@ impl hw_sensor_vl53l0x {
                                     debug!("start poll loop");
 
                                     loop {
-                                        match lv.lock().unwrap().read_range_mm() {
+                                        match sensor.lock().unwrap().read_range_mm() {
                                             Ok(res) => {
                                                 debug!("distance: {res}mm");
-                                                send_reply(Reply::Distance(res), &tx, notify);
+                                                if !send_reply(Reply::Distance(res), &tx, notify) {
+                                                    break;
+                                                }
                                             }
                                             Err(err) => match err {
                                                 pwm_pca9685::nb::Error::WouldBlock => {
@@ -95,14 +101,15 @@ impl hw_sensor_vl53l0x {
                                             break;
                                         }
 
-                                        std::thread::sleep(Duration::from_millis(30));
+                                        std::thread::sleep(Duration::from_millis(25));
                                     }
 
                                     debug!("exit poll loop");
                                 });
                             }
                         } else {
-                            lv.lock()
+                            sensor
+                                .lock()
                                 .unwrap()
                                 .stop_continuous()
                                 .map_err(|err| process_err(err, &rep_tx, notify))
@@ -116,7 +123,8 @@ impl hw_sensor_vl53l0x {
                         }
                     }
                     Request::SetAddress(addr) => {
-                        lv.lock()
+                        sensor
+                            .lock()
                             .unwrap()
                             .set_address(addr)
                             .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))
@@ -124,6 +132,9 @@ impl hw_sensor_vl53l0x {
                     }
                 }
             }
+
+            // to stop poll sensor thread
+            poll_mode.store(false, std::sync::atomic::Ordering::SeqCst);
 
             debug!("worker done");
 

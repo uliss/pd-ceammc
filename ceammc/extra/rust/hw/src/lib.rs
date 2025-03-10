@@ -62,12 +62,14 @@ pub trait MakePdError<Error> {
     fn pd_err(msg: CString) -> Error;
 }
 
-fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb)
+fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> bool
 {
     if let Err(err) = tx.send(rep) {
         error!("reply send error: {err}");
+        false
     } else {
         notify.notify();
+        true
     }
 }
 
