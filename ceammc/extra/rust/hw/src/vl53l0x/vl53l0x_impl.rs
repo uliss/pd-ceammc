@@ -75,19 +75,14 @@ impl hw_sensor_vl53l0x {
                                         debug!("start poll loop");
 
                                         loop {
-                                            match lv2
-                                                .lock()
-                                                .unwrap()
-                                                .read_range_continuous_millimeters_blocking()
-                                            {
+                                            match lv2.lock().unwrap().read_range_mm() {
                                                 Ok(res) => {
                                                     debug!("distance: {res}mm");
                                                     send_reply(Reply::Distance(res), &tx2, notify);
                                                 }
                                                 Err(err) => match err {
-                                                    vl53l0x::Error::Timeout => {
-                                                        debug!("timeout");
-                                                        // ok
+                                                    pwm_pca9685::nb::Error::WouldBlock => {
+                                                        debug!("not data");
                                                     }
                                                     _ => {
                                                         process_err(
@@ -105,7 +100,7 @@ impl hw_sensor_vl53l0x {
                                                 break;
                                             }
 
-                                            std::thread::sleep(Duration::from_millis(10));
+                                            std::thread::sleep(Duration::from_millis(30));
                                         }
 
                                         debug!("exit poll loop");
