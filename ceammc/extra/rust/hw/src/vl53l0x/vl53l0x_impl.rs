@@ -67,7 +67,7 @@ impl hw_sensor_vl53l0x {
                                 std::thread::scope(|s| {
                                     lv2.lock()
                                         .unwrap()
-                                        .start_continuous(100)
+                                        .start_continuous(0)
                                         .map_err(|err| process_err(err, &rep_tx, notify))
                                         .unwrap_or_default();
 
@@ -82,7 +82,7 @@ impl hw_sensor_vl53l0x {
                                                 }
                                                 Err(err) => match err {
                                                     pwm_pca9685::nb::Error::WouldBlock => {
-                                                        debug!("not data");
+                                                        debug!("no data");
                                                     }
                                                     _ => {
                                                         process_err(
@@ -106,6 +106,8 @@ impl hw_sensor_vl53l0x {
                                         debug!("exit poll loop");
                                     });
                                 });
+
+                                debug!("set poll done");
                             }
                         } else {
                             lv.lock()
