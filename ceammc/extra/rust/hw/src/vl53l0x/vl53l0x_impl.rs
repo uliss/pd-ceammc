@@ -56,12 +56,6 @@ impl hw_sensor_vl53l0x {
                     }
                     Request::Poll(state) => {
                         if state {
-                            lv.lock()
-                                .unwrap()
-                                .start_continuous(100)
-                                .map_err(|err| process_err(err, &rep_tx, notify))
-                                .unwrap_or_default();
-
                             if poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
                                 process_err(format!("already polling"), &rep_tx, notify);
                             } else {
@@ -71,6 +65,12 @@ impl hw_sensor_vl53l0x {
                                 let tx2 = rep_tx.clone();
 
                                 std::thread::scope(|s| {
+                                    lv2.lock()
+                                        .unwrap()
+                                        .start_continuous(100)
+                                        .map_err(|err| process_err(err, &rep_tx, notify))
+                                        .unwrap_or_default();
+
                                     s.spawn(|| {
                                         debug!("start poll loop");
 
@@ -86,6 +86,7 @@ impl hw_sensor_vl53l0x {
                                                 }
                                                 Err(err) => match err {
                                                     vl53l0x::Error::Timeout => {
+                                                        debug!("timeout");
                                                         // ok
                                                     }
                                                     _ => {
@@ -101,12 +102,13 @@ impl hw_sensor_vl53l0x {
 
                                             if !&poll_mode.load(std::sync::atomic::Ordering::SeqCst)
                                             {
-                                                debug!("exit poll loop");
                                                 break;
                                             }
 
                                             std::thread::sleep(Duration::from_millis(10));
                                         }
+
+                                        debug!("exit poll loop");
                                     });
                                 });
                             }
