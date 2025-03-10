@@ -81,14 +81,13 @@ impl hw_sensor_vl53l0x {
                                     loop {
                                         match sensor.lock().unwrap().read_range_mm() {
                                             Ok(res) => {
-                                                debug!("distance: {res}mm");
                                                 if !send_reply(Reply::Distance(res), &tx, notify) {
                                                     break;
                                                 }
                                             }
                                             Err(err) => match err {
                                                 pwm_pca9685::nb::Error::WouldBlock => {
-                                                    debug!("no data");
+                                                    continue;
                                                 }
                                                 _ => {
                                                     process_err(format!("{err:?}"), &tx, notify);
