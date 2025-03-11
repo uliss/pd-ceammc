@@ -40,7 +40,7 @@ impl hw_display_ssd1306 {
         SIZE: DisplaySize,
     {
         let mut font_map = HashMap::new();
-        font_map.insert("FONT6x10", &FONT_6X10);
+        font_map.insert("FONT6X10", &FONT_6X10);
         font_map.insert("FONT_6X12", &FONT_6X12);
         font_map.insert("FONT_6X13", &FONT_6X13);
         font_map.insert("FONT_7X13", &FONT_7X13);
@@ -83,7 +83,7 @@ impl hw_display_ssd1306 {
                 }
                 Request::SetFont(font) => {
                     let font = font.to_string_lossy();
-                    match font_map.get(font.as_ref()) {
+                    match font_map.get(font.to_uppercase().as_str()) {
                         Some(ft) => {
                             text_style.font = *ft;
                         }
