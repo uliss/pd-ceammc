@@ -54,7 +54,7 @@ void HwRpiDisplaySsd1306::initDone()
              } });
     } break;
     case hash_spi: {
-        static const args::ArgChecker chk("BUS:b DC:b CS:b FREQ:i?");
+        static const args::ArgChecker chk("BUS:b DC:b CS:b RS:b FREQ:i?");
         if (!chk.check(spi_->value(), this))
             return chk.usage(this);
 
@@ -62,9 +62,10 @@ void HwRpiDisplaySsd1306::initDone()
         auto bus = args.intAt(0, 0);
         auto dc = args.intAt(1, 0);
         auto cs = args.intAt(2, 0);
-        auto freq = args.intAt(3, 1000000);
+        auto rs = args.intAt(3, 0);
+        auto freq = args.intAt(4, 1000000);
 
-        display_ = ceammc_hw_display_ssd1306_new_spi(bus, dc, cs, freq,
+        display_ = ceammc_hw_display_ssd1306_new_spi(bus, dc, cs, rs, freq,
             { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
             { this, [](void* user, const char* msg) {
                  Error err(static_cast<HwRpiDisplaySsd1306*>(user));

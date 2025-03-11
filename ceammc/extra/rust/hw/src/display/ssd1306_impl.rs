@@ -208,7 +208,7 @@ impl hw_display_ssd1306 {
                 .map_err(|err| process_err(err, &rep_tx, notify))?
                 .into_output_low();
 
-            let rst = gpio
+            let mut rst = gpio
                 .get(rs_pin)
                 .map_err(|err| process_err(err, &rep_tx, notify))?
                 .into_output_high();
@@ -217,7 +217,7 @@ impl hw_display_ssd1306 {
             std::thread::sleep(Duration::from_millis(100));
             rst.write(rppal::gpio::Level::High);
 
-            debug!("GPIO init: DC=GPIO_{dc_pin:02}");
+            debug!("GPIO init: DC=GPIO_{dc_pin:02} RST=GPIO_{rs_pin:02}");
 
             let bus = match spi_bus {
                 0 => rppal::spi::Bus::Spi0,
