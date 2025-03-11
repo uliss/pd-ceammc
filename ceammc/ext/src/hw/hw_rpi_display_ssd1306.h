@@ -26,6 +26,7 @@ public:
     void m_invert(t_symbol* s, const AtomListView& lv);
     void m_mirror(t_symbol* s, const AtomListView& lv);
     void m_pixel(t_symbol* s, const AtomListView& lv);
+    void m_rotation(t_symbol* s, const AtomListView& lv);
     void m_switch_on(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);

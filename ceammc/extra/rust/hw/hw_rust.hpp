@@ -67,6 +67,13 @@ constexpr static const float ceammc_HW_PCA9685_MAX_PERIOD_MS = (1000.0 / (float)
 
 constexpr static const uint8_t ceammc_HW_PCA9685_ALL_CHAN = 16;
 
+enum class ceammc_hw_display_rotation {
+    ROTATE_0,
+    ROTATE_90,
+    ROTATE_180,
+    ROTATE_270,
+};
+
 enum class ceammc_hw_gamepad_btn {
     South,
     East,
@@ -380,6 +387,9 @@ bool ceammc_hw_display_ssd1306_set_pixel(const ceammc_hw_display_ssd1306 *displa
                                          uint16_t x,
                                          uint16_t y,
                                          bool state);
+
+bool ceammc_hw_display_ssd1306_set_rotation(const ceammc_hw_display_ssd1306 *display,
+                                            ceammc_hw_display_rotation rotation);
 
 bool ceammc_hw_display_ssd1306_switch_on(const ceammc_hw_display_ssd1306 *display, bool state);
 

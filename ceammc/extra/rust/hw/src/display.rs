@@ -11,10 +11,19 @@ use std::{
 
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, str_to_cstr, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, MakePdError};
 
 #[cfg(target_os = "linux")]
 mod ssd1306_impl;
+
+#[derive(Debug)]
+#[repr(C)]
+pub enum hw_display_rotation {
+    ROTATE_0,
+    ROTATE_90,
+    ROTATE_180,
+    ROTATE_270,
+}
 
 #[derive(Debug)]
 pub enum Request {
@@ -28,6 +37,7 @@ pub enum Request {
     SetPixel(u16, u16, bool),
     SetData(Vec<u8>),
     DrawBitmap(i16, i16, u16, Vec<u8>),
+    SetRotation(hw_display_rotation),
 }
 
 #[derive(Debug)]
@@ -151,6 +161,14 @@ pub extern "C" fn ceammc_hw_display_ssd1306_mirror(
     state: bool,
 ) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::Mirror(state)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_set_rotation(
+    display: *const hw_display_ssd1306,
+    rotation: hw_display_rotation,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::SetRotation(rotation)) });
 }
 
 #[no_mangle]

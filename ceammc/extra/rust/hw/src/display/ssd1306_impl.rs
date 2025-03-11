@@ -139,6 +139,26 @@ impl hw_display_ssd1306 {
                         process_err(format!("{err:?}"), tx, notify);
                     });
                 }
+                Request::SetRotation(rotate) => {
+                    display
+                        .set_rotation(match rotate {
+                            crate::display::hw_display_rotation::ROTATE_0 => {
+                                DisplayRotation::Rotate0
+                            }
+                            crate::display::hw_display_rotation::ROTATE_90 => {
+                                DisplayRotation::Rotate90
+                            }
+                            crate::display::hw_display_rotation::ROTATE_180 => {
+                                DisplayRotation::Rotate180
+                            }
+                            crate::display::hw_display_rotation::ROTATE_270 => {
+                                DisplayRotation::Rotate270
+                            }
+                        })
+                        .unwrap_or_else(|err| {
+                            process_err(format!("{err:?}"), tx, notify);
+                        });
+                }
             }
         }
     }

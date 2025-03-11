@@ -133,6 +133,31 @@ void HwRpiDisplaySsd1306::m_pixel(t_symbol* s, const AtomListView& lv)
     ceammc_hw_display_ssd1306_set_pixel(display_, lv.intAt(0, 0), lv.intAt(1, 0), lv.boolAt(2, true));
 }
 
+void HwRpiDisplaySsd1306::m_rotation(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("angle:i=0|90|180|270");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_display_rotation rot;
+    switch (lv.intAt(0, 0)) {
+    case 90:
+        rot = ceammc_hw_display_rotation::ROTATE_90;
+        break;
+    case 180:
+        rot = ceammc_hw_display_rotation::ROTATE_180;
+        break;
+    case 270:
+        rot = ceammc_hw_display_rotation::ROTATE_270;
+        break;
+    default:
+        rot = ceammc_hw_display_rotation::ROTATE_0;
+        break;
+    }
+
+    ceammc_hw_display_ssd1306_set_rotation(display_, rot);
+}
+
 void HwRpiDisplaySsd1306::m_switch_on(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ON:B");
@@ -221,6 +246,7 @@ void setup_hw_rpi_display_ssd1306()
     obj.addMethod("invert", &HwRpiDisplaySsd1306::m_invert);
     obj.addMethod("mirror", &HwRpiDisplaySsd1306::m_mirror);
     obj.addMethod("pixel", &HwRpiDisplaySsd1306::m_pixel);
+    obj.addMethod("rotation", &HwRpiDisplaySsd1306::m_rotation);
     obj.addMethod("switch_on", &HwRpiDisplaySsd1306::m_switch_on);
     obj.addMethod("text", &HwRpiDisplaySsd1306::m_text);
     obj.addMethod("write", &HwRpiDisplaySsd1306::m_write);
