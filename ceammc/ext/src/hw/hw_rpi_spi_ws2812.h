@@ -1,12 +1,12 @@
-#ifndef HW_SPI_WS2812_H
-#define HW_SPI_WS2812_H
+#ifndef HW_RPI_SPI_WS2812_H
+#define HW_RPI_SPI_WS2812_H
 
 #include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
+#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwSpiWs2812 : public DispatchedObject<BaseObject> {
+class HwSpiWs2812 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_spi_ws2812* ws_ { nullptr };
     IntProperty* spi_ { nullptr };
     IntProperty* cs_ { nullptr };
@@ -14,7 +14,7 @@ class HwSpiWs2812 : public DispatchedObject<BaseObject> {
     BoolProperty* clear_on_exit_ { nullptr };
 
 public:
-    HwSpiWs2812(const PdArgs& args);
+    explicit HwSpiWs2812(const PdArgs& args);
     ~HwSpiWs2812();
 
     void initDone() final;
@@ -33,6 +33,6 @@ public:
     void m_set_slice(t_symbol* s, const AtomListView& lv);
 };
 
-void setup_hw_spi_ws2812();
+void setup_hw_rpi_spi_ws2812();
 
-#endif // HW_SPI_WS2812_H
+#endif // HW_RPI_SPI_WS2812_H

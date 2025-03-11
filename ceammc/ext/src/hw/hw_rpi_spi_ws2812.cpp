@@ -1,4 +1,4 @@
-#include "hw_spi_ws2812.h"
+#include "hw_rpi_spi_ws2812.h"
 #include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -6,7 +6,7 @@
 CEAMMC_DEFINE_HASH(rainbow)
 
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
 
@@ -40,11 +40,8 @@ void HwSpiWs2812::initDone()
         static_cast<ceammc_hw_spi_bus>(spi_->value()),
         static_cast<ceammc_hw_spi_cs>(cs_->value()),
         size_->value(),
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
-        { this, [](void* user, const char* msg) {
-             auto* obj = static_cast<HwSpiWs2812*>(user);
-             Error(obj) << msg;
-         } },
+        on_notify(),
+        on_err(),
         clear_on_exit_->value());
 }
 
@@ -152,7 +149,7 @@ void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_rotate(ws_, lv.intAt(0, 0));
 }
 
-void setup_hw_spi_ws2812()
+void setup_hw_rpi_spi_ws2812()
 {
     ObjectFactory<HwSpiWs2812> obj("hw.spi.ws2812");
     obj.addMethod("brightness", &HwSpiWs2812::m_brightness);

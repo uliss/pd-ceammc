@@ -26,8 +26,8 @@ void setup_hw_rpi_rotenc();
 void setup_hw_rpi_sensor_dht11();
 void setup_hw_rpi_sensor_sr04();
 void setup_hw_rpi_sensor_vc53l0x();
-void setup_hw_spi_max7219();
-void setup_hw_spi_ws2812();
+void setup_hw_rpi_spi_max7219();
+void setup_hw_rpi_spi_ws2812();
 
 void ceammc_hw_setup()
 {
@@ -50,8 +50,8 @@ void ceammc_hw_setup()
     setup_hw_rpi_sensor_dht11();
     setup_hw_rpi_sensor_sr04();
     setup_hw_rpi_sensor_vc53l0x();
-    setup_hw_spi_max7219();
-    setup_hw_spi_ws2812();
+    setup_hw_rpi_spi_max7219();
+    setup_hw_rpi_spi_ws2812();
 
 #ifdef WITH_LIBUSB_01
     setup_hw_udmx();

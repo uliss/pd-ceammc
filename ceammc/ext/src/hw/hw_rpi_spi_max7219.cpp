@@ -1,4 +1,4 @@
-#include "hw_spi_max7219.h"
+#include "hw_rpi_spi_max7219.h"
 #include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -17,7 +17,7 @@ CEAMMC_DEFINE_HASH(reg)
 CEAMMC_DEFINE_HASH(str)
 
 HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     displays_ = new IntProperty("@displays", 1);
     displays_->setInitOnly();
@@ -46,13 +46,8 @@ void HwSpiMax7219::initDone()
     mx_ = ceammc_hw_max7219_new(displays_->value(),
         static_cast<ceammc_hw_spi_bus>(spi_->value()),
         static_cast<ceammc_hw_spi_cs>(cs_->value()),
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
-        { this, [](void* user, const char* msg) {
-             auto* obj = static_cast<HwSpiMax7219*>(user);
-             if (obj != nullptr) {
-                 Error(obj) << msg;
-             }
-         } });
+        on_notify(),
+        on_err());
 }
 
 bool HwSpiMax7219::notify(int code)
@@ -263,7 +258,7 @@ void HwSpiMax7219::m_write(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void setup_hw_spi_max7219()
+void setup_hw_rpi_spi_max7219()
 {
     ObjectFactory<HwSpiMax7219> obj("hw.spi.max7219");
     obj.addMethod("intensity", &HwSpiMax7219::m_intensity);
