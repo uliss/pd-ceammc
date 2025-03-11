@@ -368,6 +368,8 @@ bool ceammc_hw_display_ssd1306_mirror(const ceammc_hw_display_ssd1306 *display, 
 
 ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(int8_t i2c_bus,
                                                              int8_t i2c_addr,
+                                                             uint16_t width,
+                                                             uint16_t height,
                                                              ceammc_hw_notify_cb notify,
                                                              ceammc_hw_msg_cb on_err);
 

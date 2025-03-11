@@ -17,18 +17,18 @@ use rppal::{gpio::Gpio, spi::Spi};
 use ssd1306::{
     mode::BufferedGraphicsMode,
     prelude::{DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand},
-    size::{DisplaySize, DisplaySize128x64},
+    size::DisplaySize,
     Ssd1306,
 };
 
 use crate::{
-    hw_msg_cb, hw_notify_cb,
+    hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     process_err, send_error,
     spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus},
 };
 
-use super::{hw_display_ssd1306, DisplaySpiArgs, Reply, Request};
+use super::{hw_display_ssd1306, DisplayI2cArgs, DisplaySpiArgs, Reply, Request, Ssd1306Worker};
 
 impl hw_display_ssd1306 {
     fn process_loop<DI, SIZE>(
@@ -164,80 +164,59 @@ impl hw_display_ssd1306 {
         }
     }
 
-    pub fn new_i2c(
-        bus: i8,
-        addr: I2cAddress,
-        notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+    pub fn new_i2c<SIZE: DisplaySize + Send + 'static>(
+        args: DisplayI2cArgs,
+        size: SIZE,
     ) -> Result<Self, CString> {
-        let (req_tx, req_rx) = std::sync::mpsc::channel();
-        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+        let (worker, rx, tx) = Ssd1306Worker::new(args.on_err);
 
-        std::thread::spawn(move || {
-            debug!("thread started");
+        worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
+            let i2c = create_i2c_bus(args.i2c_bus, &tx, args.notify)?;
+            debug!("I2C init: {i2c:?}");
 
-            let worker = || -> Result<(), String> {
-                let i2c = create_i2c_bus(bus, &rep_tx, notify)?;
-                debug!("I2C init: {i2c:?}");
-
-                let i2c_iface = match addr {
-                    I2cAddress::Default => ssd1306::I2CDisplayInterface::new(i2c),
-                    I2cAddress::Alt => ssd1306::I2CDisplayInterface::new_alternate_address(i2c),
-                    I2cAddress::Invalid(addr) => {
-                        return Err(format!("invalid i2c address: {addr}"));
-                    }
-                    I2cAddress::Addr(addr) => {
-                        ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr)
-                    }
-                };
-
-                let mut display =
-                    Ssd1306::new(i2c_iface, DisplaySize128x64, DisplayRotation::Rotate0)
-                        .into_buffered_graphics_mode();
-
-                display
-                    .init()
-                    .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?;
-                display.clear_buffer();
-                display.flush().unwrap_or_default();
-
-                Self::process_loop(&mut display, &rep_tx, &req_rx, notify);
-                Ok(())
+            let i2c_iface = match args.i2c_addr {
+                I2cAddress::Default => ssd1306::I2CDisplayInterface::new(i2c),
+                I2cAddress::Alt => ssd1306::I2CDisplayInterface::new_alternate_address(i2c),
+                I2cAddress::Invalid(addr) => {
+                    return Err(format!("invalid i2c address: {addr}"));
+                }
+                I2cAddress::Addr(addr) => {
+                    ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr)
+                }
             };
 
-            if let Err(err) = worker() {
-                process_err(err, &rep_tx, notify);
-            }
+            let mut display = Ssd1306::new(i2c_iface, size, DisplayRotation::Rotate0)
+                .into_buffered_graphics_mode();
 
-            debug!("thread done");
+            display
+                .init()
+                .map_err(|err| process_err(format!("{err:?}"), &tx, args.notify))?;
+            display.clear_buffer();
+            display.flush().unwrap_or_default();
+
+            Self::process_loop(&mut display, &tx, &rx, args.notify);
+            Ok(())
         });
 
-        Ok(Self {
-            tx: req_tx,
-            rx: rep_rx,
-            on_err,
-        })
+        Ok(Self { worker })
     }
 
     pub fn new_spi<SIZE: DisplaySize + Send + 'static>(
         args: DisplaySpiArgs,
         size: SIZE,
     ) -> Result<Self, CString> {
-        let (req_tx, req_rx) = std::sync::mpsc::channel();
-        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+        let (worker, rx, tx) = Ssd1306Worker::new(args.on_err);
 
-        std::thread::spawn(move || -> Result<(), String> {
-            debug!("thread started");
-
-            let gpio = Gpio::new().map_err(|err| process_err(err, &rep_tx, args.notify))?;
+        worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
+            let gpio = Gpio::new().map_err(|err| process_err(err, &tx, args.notify))?;
             let dc = gpio
                 .get(args.dc_pin)
-                .map_err(|err| process_err(err, &rep_tx, args.notify))?
+                .map_err(|err| process_err(err, &tx, args.notify))?
                 .into_output_low();
 
             let mut rst = gpio
                 .get(args.rs_pin)
-                .map_err(|err| process_err(err, &rep_tx, args.notify))?
+                .map_err(|err| process_err(err, &tx, args.notify))?
                 .into_output_low();
 
             debug!("GPIO init");
@@ -251,7 +230,7 @@ impl hw_display_ssd1306 {
                         "SPI init error: {err}, bus={bus}, cs={cs}, freq={}",
                         args.freq
                     ),
-                    &rep_tx,
+                    &tx,
                     args.notify,
                 )
             })?;
@@ -272,27 +251,20 @@ impl hw_display_ssd1306 {
 
             display
                 .reset(&mut rst, &mut rppal::hal::Delay::default())
-                .map_err(|err| {
-                    process_err(format!("display error: {err:?}"), &rep_tx, args.notify)
-                })?;
+                .map_err(|err| process_err(format!("display error: {err:?}"), &tx, args.notify))?;
 
-            display.init().map_err(|err| {
-                process_err(format!("display error: {err:?}"), &rep_tx, args.notify)
-            })?;
+            display
+                .init()
+                .map_err(|err| process_err(format!("display error: {err:?}"), &tx, args.notify))?;
 
             display.clear_buffer();
 
-            Self::process_loop(&mut display, &rep_tx, &req_rx, args.notify);
+            Self::process_loop(&mut display, &tx, &rx, args.notify);
 
-            debug!("thread stopped");
             Ok(())
         });
 
-        Ok(Self {
-            tx: req_tx,
-            rx: rep_rx,
-            on_err: args.on_err,
-        })
+        Ok(Self { worker })
     }
 
     pub fn process_reply(display: *const Self) -> bool {
@@ -301,15 +273,10 @@ impl hw_display_ssd1306 {
             false
         } else {
             let display = unsafe { &*display };
-            while let Ok(rep) = display.rx.try_recv() {
-                match rep {
-                    super::Reply::Error(cstr) => {
-                        display.on_err.exec_raw(cstr.as_ptr());
-                    }
-                }
-            }
 
-            true
+            display.worker.process_reply(&|rep| match rep {
+                super::Reply::Error(cstr) => display.worker.caller_error(&cstr),
+            })
         }
     }
 
@@ -319,13 +286,7 @@ impl hw_display_ssd1306 {
             false
         } else {
             let display = unsafe { &*display };
-            if let Err(err) = display.tx.send(req) {
-                error!("send request error: {err}");
-                display.on_err.exec(err.to_string().as_str());
-                false
-            } else {
-                true
-            }
+            display.worker.send_request(req)
         }
     }
 }

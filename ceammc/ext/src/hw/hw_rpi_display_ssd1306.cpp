@@ -54,9 +54,11 @@ void HwRpiDisplaySsd1306::initDone()
         auto& args = i2c_->value();
         auto bus = args.intAt(0, ceammc_HW_I2C_DEFAULT_BUS);
         auto addr = args.intAt(1, ceammc_HW_I2C_DEFAULT_ADDR);
+        auto w = size_->value().intAt(0, 0);
+        auto h = size_->value().intAt(1, 0);
 
         display_ = ceammc_hw_display_ssd1306_new_i2c(
-            bus, addr,
+            bus, addr, w, h,
             on_notify(),
             on_err());
     } break;

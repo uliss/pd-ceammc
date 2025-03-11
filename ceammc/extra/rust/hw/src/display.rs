@@ -15,7 +15,9 @@ use ssd1306::size::{
     DisplaySize96x16,
 };
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdError};
+
+type Ssd1306Worker = HwThreadWorker<Request, Reply>;
 
 #[cfg(target_os = "linux")]
 mod ssd1306_impl;
@@ -56,9 +58,7 @@ impl MakePdError<Reply> for Reply {
 }
 
 pub struct hw_display_ssd1306 {
-    tx: std::sync::mpsc::Sender<Request>,
-    rx: std::sync::mpsc::Receiver<Reply>,
-    on_err: hw_msg_cb,
+    worker: Ssd1306Worker,
 }
 
 pub struct DisplaySpiArgs {
@@ -119,15 +119,45 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
     });
 }
 
+pub struct DisplayI2cArgs {
+    i2c_bus: i8,
+    i2c_addr: I2cAddress,
+    notify: hw_notify_cb,
+    on_err: hw_msg_cb,
+}
+
 #[no_mangle]
 pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
     i2c_bus: i8,
     i2c_addr: i8,
+    width: u16,
+    height: u16,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
-        match hw_display_ssd1306::new_i2c(i2c_bus, I2cAddress::new(i2c_addr), notify, on_err) {
+        let args = DisplayI2cArgs {
+            i2c_bus,
+            i2c_addr: I2cAddress::new(i2c_addr),
+            notify,
+            on_err,
+        };
+
+        match match (width, height) {
+            (128, 64) => hw_display_ssd1306::new_i2c(args, DisplaySize128x32),
+            (128, 32) => hw_display_ssd1306::new_i2c(args, DisplaySize128x32),
+            (96, 63) => hw_display_ssd1306::new_i2c(args, DisplaySize96x16),
+            (72, 40) => hw_display_ssd1306::new_i2c(args, DisplaySize72x40),
+            (64, 48) => hw_display_ssd1306::new_i2c(args, DisplaySize64x48),
+            (64, 32) => hw_display_ssd1306::new_i2c(args, DisplaySize64x32),
+            _ => {
+                let msg = format!(
+                    "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
+                );
+                on_err.exec(msg.as_str());
+                return null_mut();
+            }
+        } {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());

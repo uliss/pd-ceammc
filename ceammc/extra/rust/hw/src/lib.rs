@@ -155,8 +155,14 @@ where
         )
     }
 
-    pub fn worker_error(&self, str: &str) {
+    pub fn worker_error(
+        &self,
+        str: &str,
+        tx: &std::sync::mpsc::Sender<Reply>,
+        notify: hw_notify_cb,
+    ) {
         error!("worker error {str}");
+        process_err(format!("worker error: {str}"), tx, notify);
     }
 
     pub fn spawn<F>(&self, tx: std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, fx: F)
@@ -238,6 +244,6 @@ pub mod max7219;
 pub mod rotenc;
 pub mod rpi_pwm;
 pub mod rpi_pwm_pca9685;
+pub mod spi;
 pub mod vl53l0x;
 pub mod ws2812;
-pub mod spi;
