@@ -44,6 +44,7 @@ pub enum Request {
     SetData(Vec<u8>),
     DrawBitmap(i16, i16, u16, Vec<u8>),
     SetRotation(hw_display_rotation),
+    SetBrightness(u8),
 }
 
 #[derive(Debug)]
@@ -259,6 +260,21 @@ pub extern "C" fn ceammc_hw_display_ssd1306_set_pixel(
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::SetPixel(x, y, state)) });
 }
 
+/// set display brightness
+/// @param display - pointer to hw_display_ssd1306 struct
+/// @param level - value in 0..4 range from dimmest to brightest
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_set_brightness(
+    display: *const hw_display_ssd1306,
+    level: u8,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::SetBrightness(level)) });
+}
+
+/// writes raw data to the display
+/// @param display - pointer to hw_display_ssd1306 struct
+/// @param data - pointer to data (not NULL!)
+/// @param len - data size
 #[no_mangle]
 pub extern "C" fn ceammc_hw_display_ssd1306_write_bytes(
     display: *const hw_display_ssd1306,

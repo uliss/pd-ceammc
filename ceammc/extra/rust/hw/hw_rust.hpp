@@ -385,6 +385,12 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
 
 bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
 
+/// set display brightness
+/// @param display - pointer to hw_display_ssd1306 struct
+/// @param level - value in 0..4 range from dimmest to brightest
+bool ceammc_hw_display_ssd1306_set_brightness(const ceammc_hw_display_ssd1306 *display,
+                                              uint8_t level);
+
 bool ceammc_hw_display_ssd1306_set_font(const ceammc_hw_display_ssd1306 *display, const char *font);
 
 bool ceammc_hw_display_ssd1306_set_pixel(const ceammc_hw_display_ssd1306 *display,
@@ -409,6 +415,10 @@ bool ceammc_hw_display_ssd1306_write_bitmap(const ceammc_hw_display_ssd1306 *dis
                                             const uint8_t *data,
                                             size_t len);
 
+/// writes raw data to the display
+/// @param display - pointer to hw_display_ssd1306 struct
+/// @param data - pointer to data (not NULL!)
+/// @param len - data size
 bool ceammc_hw_display_ssd1306_write_bytes(const ceammc_hw_display_ssd1306 *display,
                                            const uint8_t *data,
                                            size_t len);

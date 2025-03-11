@@ -16,7 +16,7 @@ use log::{debug, error};
 use rppal::{gpio::Gpio, spi::Spi};
 use ssd1306::{
     mode::BufferedGraphicsMode,
-    prelude::{DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand},
+    prelude::{Brightness, DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand},
     size::DisplaySize,
     Ssd1306,
 };
@@ -155,6 +155,20 @@ impl hw_display_ssd1306 {
                             crate::display::hw_display_rotation::ROTATE_270 => {
                                 DisplayRotation::Rotate270
                             }
+                        })
+                        .unwrap_or_else(|err| {
+                            process_err(format!("{err:?}"), tx, notify);
+                        });
+                }
+                Request::SetBrightness(level) => {
+                    display
+                        .set_brightness(match level {
+                            0 => Brightness::DIMMEST,
+                            1 => Brightness::DIM,
+                            2 => Brightness::NORMAL,
+                            3 => Brightness::BRIGHT,
+                            4 => Brightness::BRIGHTEST,
+                            _ => Brightness::NORMAL,
                         })
                         .unwrap_or_else(|err| {
                             process_err(format!("{err:?}"), tx, notify);
