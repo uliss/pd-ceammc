@@ -104,9 +104,7 @@ if(WITH_PRINTER)
 endif()
 
 # GPIO
-ceammc_hw_external(display_lcd1602)
-ceammc_hw_external(spi_max7219)
-ceammc_hw_external(spi_ws2812)
+ceammc_hw_external(rpi_display_lcd1602)
 ceammc_hw_external(rpi_display_ssd1306)
 ceammc_hw_external(rpi_gpio)
 ceammc_hw_external(rpi_i2c_pca9685)
@@ -115,6 +113,8 @@ ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_sensor_dht11)
 ceammc_hw_external(rpi_sensor_sr04)
 ceammc_hw_external(rpi_sensor_vc53l0x)
+ceammc_hw_external(spi_max7219)
+ceammc_hw_external(spi_ws2812)
 
 
 #if(WITH_EXPERIMENTAL)

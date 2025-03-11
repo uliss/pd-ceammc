@@ -1,20 +1,20 @@
-#ifndef HW_DISPLAY_LCD1602_H
-#define HW_DISPLAY_LCD1602_H
+#ifndef HW_RPI_DISPLAY_LCD1602_H
+#define HW_RPI_DISPLAY_LCD1602_H
 
 #include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
 #include "ceammc_property_enum.h"
 #include "hw_rust.hpp"
+#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwI2cLcd1602 : public DispatchedObject<BaseObject> {
+class HwRpiDisplayLcd1602 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_lcd1602* lcd_ { nullptr };
     IntProperty* addr_ { nullptr };
     IntEnumProperty* rows_ { nullptr };
 
 public:
-    HwI2cLcd1602(const PdArgs& args);
-    ~HwI2cLcd1602();
+    explicit HwRpiDisplayLcd1602(const PdArgs& args);
+    ~HwRpiDisplayLcd1602();
 
     void initDone() final;
     bool notify(int code) final;
@@ -31,6 +31,6 @@ public:
     void m_display_move(t_symbol* s, const AtomListView& lv);
 };
 
-void setup_hw_i2c_lcd1602();
+void setup_hw_rpi_display_lcd1602();
 
-#endif // HW_DISPLAY_LCD1602_H
+#endif // HW_RPI_DISPLAY_LCD1602_H
