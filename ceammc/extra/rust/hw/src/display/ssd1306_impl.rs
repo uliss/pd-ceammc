@@ -1,4 +1,4 @@
-use std::{collections::HashMap, ffi::CString};
+use std::{collections::HashMap, ffi::CString, time::Duration};
 
 use embedded_graphics::{
     image::{Image, ImageRaw},
@@ -16,9 +16,7 @@ use log::{debug, error};
 use rppal::{gpio::Gpio, spi::Spi};
 use ssd1306::{
     mode::BufferedGraphicsMode,
-    prelude::{
-        DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand,
-    },
+    prelude::{DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand},
     size::{DisplaySize, DisplaySize128x64},
     Ssd1306,
 };
@@ -193,6 +191,7 @@ impl hw_display_ssd1306 {
         spi_bus: i8,
         dc_pin: u8,
         cs_pin: u8,
+        rs_pin: u8,
         freq: u32,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
@@ -208,6 +207,15 @@ impl hw_display_ssd1306 {
                 .get(dc_pin)
                 .map_err(|err| process_err(err, &rep_tx, notify))?
                 .into_output_low();
+
+            let rst = gpio
+                .get(rs_pin)
+                .map_err(|err| process_err(err, &rep_tx, notify))?
+                .into_output_high();
+            std::thread::sleep(Duration::from_millis(100));
+            rst.write(rppal::gpio::Level::Low);
+            std::thread::sleep(Duration::from_millis(100));
+            rst.write(rppal::gpio::Level::High);
 
             debug!("GPIO init: DC=GPIO_{dc_pin:02}");
 
