@@ -1,8 +1,8 @@
-#include "hw_rpi_sensor_vc53l0x.h"
+#include "hw_rpi_sensor_vl53l0x.h"
 #include "ceammc_args.h"
 #include "ceammc_factory.h"
 
-HwRpiSensorVc53l0x::HwRpiSensorVc53l0x(const PdArgs& args)
+HwRpiSensorVl53l0x::HwRpiSensorVl53l0x(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
@@ -14,34 +14,34 @@ HwRpiSensorVc53l0x::HwRpiSensorVc53l0x(const PdArgs& args)
     addProperty(i2c_bus_);
 }
 
-HwRpiSensorVc53l0x::~HwRpiSensorVc53l0x()
+HwRpiSensorVl53l0x::~HwRpiSensorVl53l0x()
 {
     ceammc_hw_sensor_vl53l0x_free(vc_);
 }
 
-void HwRpiSensorVc53l0x::initDone()
+void HwRpiSensorVl53l0x::initDone()
 {
     vc_ = ceammc_hw_sensor_vl53l0x_new(i2c_bus_->value(), //
         i2c_addr_->value(), on_notify(), //
         { this, [](void* user, std::uint16_t mm) {
-             auto obj = static_cast<HwRpiSensorVc53l0x*>(user);
+             auto obj = static_cast<HwRpiSensorVl53l0x*>(user);
              if (obj)
                  obj->floatTo(0, mm);
          } },
         on_err());
 }
 
-bool HwRpiSensorVc53l0x::notify(int code)
+bool HwRpiSensorVl53l0x::notify(int code)
 {
     return ceammc_hw_sensor_vl53l0x_proc_reply(vc_);
 }
 
-void HwRpiSensorVc53l0x::onBang()
+void HwRpiSensorVl53l0x::onBang()
 {
     ceammc_hw_sensor_vl53l0x_read_mm(vc_);
 }
 
-void HwRpiSensorVc53l0x::m_poll(t_symbol* s, const AtomListView& lv)
+void HwRpiSensorVl53l0x::m_poll(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B");
     if (!chk.check(lv, this))
@@ -50,7 +50,7 @@ void HwRpiSensorVc53l0x::m_poll(t_symbol* s, const AtomListView& lv)
     ceammc_hw_sensor_vl53l0x_poll(vc_, lv.boolAt(0, true));
 }
 
-void HwRpiSensorVc53l0x::m_address(t_symbol* s, const AtomListView& lv)
+void HwRpiSensorVl53l0x::m_address(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("ADDR:b");
     if (!chk.check(lv, this))
@@ -59,10 +59,10 @@ void HwRpiSensorVc53l0x::m_address(t_symbol* s, const AtomListView& lv)
     ceammc_hw_sensor_vl53l0x_set_address(vc_, lv.intAt(0, true));
 }
 
-void setup_hw_rpi_sensor_vc53l0x()
+void setup_hw_rpi_sensor_vl53l0x()
 {
-    ObjectFactory<HwRpiSensorVc53l0x> obj("hw.rpi.sensor.vl53l0x");
+    ObjectFactory<HwRpiSensorVl53l0x> obj("hw.rpi.sensor.vl53l0x");
 
-    obj.addMethod("poll", &HwRpiSensorVc53l0x::m_poll);
-    obj.addMethod("address", &HwRpiSensorVc53l0x::m_address);
+    obj.addMethod("poll", &HwRpiSensorVl53l0x::m_poll);
+    obj.addMethod("address", &HwRpiSensorVl53l0x::m_address);
 }

@@ -112,7 +112,7 @@ ceammc_hw_external(rpi_pwm)
 ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_sensor_dht11)
 ceammc_hw_external(rpi_sensor_sr04)
-ceammc_hw_external(rpi_sensor_vc53l0x)
+ceammc_hw_external(rpi_sensor_vl53l0x)
 ceammc_hw_external(rpi_spi_max7219)
 ceammc_hw_external(rpi_spi_ws2812)
 
