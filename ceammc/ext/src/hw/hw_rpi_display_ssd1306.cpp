@@ -97,6 +97,11 @@ bool HwRpiDisplaySsd1306::notify(int code)
     return ceammc_hw_display_ssd1306_proc_reply(display_);
 }
 
+void HwRpiDisplaySsd1306::m_brightness(t_symbol *s, const AtomListView &lv)
+{
+
+}
+
 void HwRpiDisplaySsd1306::m_clear(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("FLUSH:B?");
@@ -254,6 +259,7 @@ void setup_hw_rpi_display_ssd1306()
 {
     ObjectFactory<HwRpiDisplaySsd1306> obj("hw.rpi.display.ssd1306");
 
+    obj.addMethod("brightness", &HwRpiDisplaySsd1306::m_brightness);
     obj.addMethod("clear", &HwRpiDisplaySsd1306::m_clear);
     obj.addMethod("flush", &HwRpiDisplaySsd1306::m_flush);
     obj.addMethod("font", &HwRpiDisplaySsd1306::m_font);
