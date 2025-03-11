@@ -16,7 +16,9 @@ use log::{debug, error};
 use rppal::{gpio::Gpio, spi::Spi};
 use ssd1306::{
     mode::BufferedGraphicsMode,
-    prelude::{DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand},
+    prelude::{
+        DisplayConfig, DisplayRotation, SPIInterfaceNoCS, WriteOnlyDataCommand,
+    },
     size::{DisplaySize, DisplaySize128x64},
     Ssd1306,
 };
@@ -242,8 +244,13 @@ impl hw_display_ssd1306 {
                 }
             };
 
-            let spi = Spi::new(bus, cs, freq, rppal::spi::Mode::Mode0)
-                .map_err(|err| process_err(err, &rep_tx, notify))?;
+            let spi = Spi::new(bus, cs, freq, rppal::spi::Mode::Mode0).map_err(|err| {
+                process_err(
+                    format!("SPI init error: {err}, bus={bus}, cs={cs}, freq={freq}"),
+                    &rep_tx,
+                    notify,
+                )
+            })?;
 
             debug!("SPI init: {spi:?} freq={freq} cs={cs}");
 
