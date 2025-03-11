@@ -10,7 +10,7 @@ CEAMMC_DEFINE_SYM_HASH(matrix)
 CEAMMC_DEFINE_SYM_HASH(spi)
 
 HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
 
@@ -26,6 +26,16 @@ HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
     i2c_ = new ListProperty("@i2c");
     i2c_->setInitOnly();
     addProperty(i2c_);
+
+    size_ = new ListProperty("@size", { 128, 64 });
+    size_->setInitOnly();
+    size_->checkRangeElementCount(2, 2);
+    size_->setListCheckFn([](const AtomListView& lv) -> bool {
+        return lv.size() == 2 && lv.allOf([](const Atom& a) -> bool {
+            return a.isInteger() && a.asInt() > 0;
+        });
+    });
+    addProperty(size_);
 }
 
 HwRpiDisplaySsd1306::~HwRpiDisplaySsd1306()
@@ -47,11 +57,8 @@ void HwRpiDisplaySsd1306::initDone()
 
         display_ = ceammc_hw_display_ssd1306_new_i2c(
             bus, addr,
-            { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
-            { this, [](void* user, const char* msg) {
-                 Error err(static_cast<HwRpiDisplaySsd1306*>(user));
-                 err << msg;
-             } });
+            on_notify(),
+            on_err());
     } break;
     case hash_spi: {
         static const args::ArgChecker chk("BUS:b DC:b CS:b RS:b FREQ:i?");
@@ -64,13 +71,18 @@ void HwRpiDisplaySsd1306::initDone()
         auto cs = args.intAt(2, 0);
         auto rs = args.intAt(3, 0);
         auto freq = args.intAt(4, 1000000);
+        auto w = size_->value().intAt(0, 0);
+        auto h = size_->value().intAt(1, 0);
 
-        display_ = ceammc_hw_display_ssd1306_new_spi(bus, dc, cs, rs, freq,
-            { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
-            { this, [](void* user, const char* msg) {
-                 Error err(static_cast<HwRpiDisplaySsd1306*>(user));
-                 err << msg;
-             } });
+        display_ = ceammc_hw_display_ssd1306_new_spi(
+            bus,
+            dc,
+            cs,
+            rs,
+            freq,
+            w, h,
+            on_notify(),
+            on_err());
     } break;
     default:
         OBJ_ERR << "not implemented";

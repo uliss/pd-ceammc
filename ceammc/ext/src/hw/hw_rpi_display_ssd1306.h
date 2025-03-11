@@ -5,13 +5,15 @@
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_property_enum.h"
 #include "hw_rust.hpp"
+#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiDisplaySsd1306 : public DispatchedObject<BaseObject> {
+class HwRpiDisplaySsd1306 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_display_ssd1306* display_ { nullptr };
     SymbolEnumProperty* mode_ = { nullptr };
     ListProperty* i2c_ = { nullptr };
     ListProperty* spi_ = { nullptr };
+    ListProperty* size_ = { nullptr };
 
 public:
     HwRpiDisplaySsd1306(const PdArgs& args);

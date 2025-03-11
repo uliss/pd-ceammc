@@ -1,4 +1,4 @@
-use std::{collections::HashMap, ffi::CString, time::Duration};
+use std::{collections::HashMap, ffi::CString};
 
 use embedded_graphics::{
     image::{Image, ImageRaw},
@@ -25,9 +25,10 @@ use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     process_err, send_error,
+    spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus},
 };
 
-use super::{hw_display_ssd1306, Reply, Request};
+use super::{hw_display_ssd1306, DisplaySpiArgs, Reply, Request};
 
 impl hw_display_ssd1306 {
     fn process_loop<DI, SIZE>(
@@ -218,14 +219,9 @@ impl hw_display_ssd1306 {
         })
     }
 
-    pub fn new_spi(
-        spi_bus: i8,
-        dc_pin: u8,
-        cs_pin: u8,
-        rs_pin: u8,
-        freq: u32,
-        notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+    pub fn new_spi<SIZE: DisplaySize + Send + 'static>(
+        args: DisplaySpiArgs,
+        size: SIZE,
     ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
@@ -233,78 +229,60 @@ impl hw_display_ssd1306 {
         std::thread::spawn(move || -> Result<(), String> {
             debug!("thread started");
 
-            let gpio = Gpio::new().map_err(|err| process_err(err, &rep_tx, notify))?;
+            let gpio = Gpio::new().map_err(|err| process_err(err, &rep_tx, args.notify))?;
             let dc = gpio
-                .get(dc_pin)
-                .map_err(|err| process_err(err, &rep_tx, notify))?
+                .get(args.dc_pin)
+                .map_err(|err| process_err(err, &rep_tx, args.notify))?
                 .into_output_low();
 
             let mut rst = gpio
-                .get(rs_pin)
-                .map_err(|err| process_err(err, &rep_tx, notify))?
-                .into_output_high();
-            std::thread::sleep(Duration::from_millis(100));
-            rst.write(rppal::gpio::Level::Low);
-            std::thread::sleep(Duration::from_millis(100));
-            rst.write(rppal::gpio::Level::High);
+                .get(args.rs_pin)
+                .map_err(|err| process_err(err, &rep_tx, args.notify))?
+                .into_output_low();
 
-            debug!("GPIO init: DC=GPIO_{dc_pin:02} RST=GPIO_{rs_pin:02}");
+            debug!("GPIO init");
 
-            let bus = match spi_bus {
-                0 => rppal::spi::Bus::Spi0,
-                1 => rppal::spi::Bus::Spi1,
-                2 => rppal::spi::Bus::Spi2,
-                3 => rppal::spi::Bus::Spi3,
-                4 => rppal::spi::Bus::Spi4,
-                5 => rppal::spi::Bus::Spi5,
-                6 => rppal::spi::Bus::Spi6,
-                _ => rppal::spi::Bus::Spi0,
-            };
+            let bus = i8_to_spi_bus(args.spi_bus);
+            let cs = i8_to_slave_select(args.cs_pin)?;
 
-            let cs = match cs_pin {
-                0 => rppal::spi::SlaveSelect::Ss0,
-                1 => rppal::spi::SlaveSelect::Ss1,
-                2 => rppal::spi::SlaveSelect::Ss2,
-                3 => rppal::spi::SlaveSelect::Ss3,
-                4 => rppal::spi::SlaveSelect::Ss4,
-                5 => rppal::spi::SlaveSelect::Ss5,
-                6 => rppal::spi::SlaveSelect::Ss6,
-                7 => rppal::spi::SlaveSelect::Ss7,
-                8 => rppal::spi::SlaveSelect::Ss8,
-                9 => rppal::spi::SlaveSelect::Ss9,
-                10 => rppal::spi::SlaveSelect::Ss10,
-                11 => rppal::spi::SlaveSelect::Ss11,
-                12 => rppal::spi::SlaveSelect::Ss12,
-                13 => rppal::spi::SlaveSelect::Ss13,
-                14 => rppal::spi::SlaveSelect::Ss14,
-                15 => rppal::spi::SlaveSelect::Ss15,
-                _ => {
-                    let msg = format!("invalid CS value: {cs_pin}");
-                    send_error(&rep_tx, notify, msg.as_str());
-                    return Err(msg);
-                }
-            };
-
-            let spi = Spi::new(bus, cs, freq, rppal::spi::Mode::Mode0).map_err(|err| {
+            let spi = Spi::new(bus, cs, args.freq, rppal::spi::Mode::Mode0).map_err(|err| {
                 process_err(
-                    format!("SPI init error: {err}, bus={bus}, cs={cs}, freq={freq}"),
+                    format!(
+                        "SPI init error: {err}, bus={bus}, cs={cs}, freq={}",
+                        args.freq
+                    ),
                     &rep_tx,
-                    notify,
+                    args.notify,
                 )
             })?;
 
-            debug!("SPI init: {spi:?} freq={freq} cs={cs}");
+            debug!("SPI init: {spi:?} freq={} cs={cs}", args.freq);
 
             let spi_iface = SPIInterfaceNoCS::new(spi, dc);
-            let mut display = Ssd1306::new(spi_iface, DisplaySize128x64, DisplayRotation::Rotate0)
+
+            let mut display = Ssd1306::new(spi_iface, size, DisplayRotation::Rotate0)
                 .into_buffered_graphics_mode();
 
+            debug!(
+                "display init: DC=GPIO_{:02} RST=GPIO_{:02} size={:?}",
+                args.dc_pin,
+                args.rs_pin,
+                display.dimensions()
+            );
+
             display
-                .init()
-                .map_err(|_| process_err("display error", &rep_tx, notify))?;
+                .reset(&mut rst, &mut rppal::hal::Delay::default())
+                .map_err(|err| {
+                    process_err(format!("display error: {err:?}"), &rep_tx, args.notify)
+                })?;
+
+            display.init().map_err(|err| {
+                process_err(format!("display error: {err:?}"), &rep_tx, args.notify)
+            })?;
+
             display.clear_buffer();
 
-            Self::process_loop(&mut display, &rep_tx, &req_rx, notify);
+            Self::process_loop(&mut display, &rep_tx, &req_rx, args.notify);
 
             debug!("thread stopped");
             Ok(())
@@ -313,7 +291,7 @@ impl hw_display_ssd1306 {
         Ok(Self {
             tx: req_tx,
             rx: rep_rx,
-            on_err,
+            on_err: args.on_err,
         })
     }
 
