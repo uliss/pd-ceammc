@@ -63,15 +63,16 @@ void HwRpiDisplaySsd1306::initDone()
             on_err());
     } break;
     case hash_spi: {
-        static const args::ArgChecker chk("BUS:b DC:b CS:b RS:b FREQ:i?");
+        static const args::ArgChecker chk("DC:b RS:b CS:b? SPI_BUS:b? FREQ:i?");
         if (!chk.check(spi_->value(), this))
             return chk.usage(this);
 
         auto& args = spi_->value();
-        auto bus = args.intAt(0, 0);
-        auto dc = args.intAt(1, 0);
+
+        auto dc = args.intAt(0, 0);
+        auto rs = args.intAt(1, 0);
         auto cs = args.intAt(2, 0);
-        auto rs = args.intAt(3, 0);
+        auto bus = args.intAt(3, 0);
         auto freq = args.intAt(4, 1000000);
         auto w = size_->value().intAt(0, 0);
         auto h = size_->value().intAt(1, 0);
@@ -97,7 +98,7 @@ bool HwRpiDisplaySsd1306::notify(int code)
     return ceammc_hw_display_ssd1306_proc_reply(display_);
 }
 
-void HwRpiDisplaySsd1306::m_brightness(t_symbol *s, const AtomListView &lv)
+void HwRpiDisplaySsd1306::m_brightness(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("LEVEL:i[0,4]?");
     if (!chk.check(lv, this))
