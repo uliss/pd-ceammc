@@ -97,6 +97,15 @@ void HwRpiDisplaySsd1306::m_flush(t_symbol* s, const AtomListView& lv)
     ceammc_hw_display_ssd1306_flush(display_);
 }
 
+void HwRpiDisplaySsd1306::m_font(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FONT:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_display_ssd1306_set_font(display_, lv.symbolAt(0, &s_)->s_name);
+}
+
 void HwRpiDisplaySsd1306::m_invert(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("INVERT:B");
@@ -208,6 +217,7 @@ void setup_hw_rpi_display_ssd1306()
 
     obj.addMethod("clear", &HwRpiDisplaySsd1306::m_clear);
     obj.addMethod("flush", &HwRpiDisplaySsd1306::m_flush);
+    obj.addMethod("font", &HwRpiDisplaySsd1306::m_font);
     obj.addMethod("invert", &HwRpiDisplaySsd1306::m_invert);
     obj.addMethod("mirror", &HwRpiDisplaySsd1306::m_mirror);
     obj.addMethod("pixel", &HwRpiDisplaySsd1306::m_pixel);

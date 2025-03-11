@@ -88,7 +88,18 @@ impl hw_display_ssd1306 {
                             text_style.font = *ft;
                         }
                         None => {
-                            send_error(tx, notify, format!("font not found: {font:?}").as_str());
+                            let keys = font_map
+                                .keys()
+                                .map(|k| k.to_string())
+                                .collect::<Vec<_>>()
+                                .join(", ");
+
+                            send_error(
+                                tx,
+                                notify,
+                                format!("font not found: {font:?}. supported fonts are: {keys}")
+                                    .as_str(),
+                            );
                         }
                     }
                 }

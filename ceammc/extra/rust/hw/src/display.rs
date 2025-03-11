@@ -11,7 +11,7 @@ use std::{
 
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, str_to_cstr, MakePdError};
 
 #[cfg(target_os = "linux")]
 mod ssd1306_impl;
@@ -127,6 +127,14 @@ pub extern "C" fn ceammc_hw_display_ssd1306_clear(
     flush: bool,
 ) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::Clear(flush)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_display_ssd1306_set_font(
+    display: *const hw_display_ssd1306,
+    font: *const c_char,
+) -> bool {
+    rpi_check!({ hw_display_ssd1306::send_request(display, Request::SetFont(ptr_to_cstr(font))) });
 }
 
 #[no_mangle]

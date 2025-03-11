@@ -1,5 +1,5 @@
 use std::{
-    ffi::CString,
+    ffi::{CStr, CString},
     os::raw::{c_char, c_void},
 };
 
@@ -56,6 +56,14 @@ where
     T: Into<Vec<u8>>,
 {
     CString::new(s).unwrap_or_default()
+}
+
+pub fn ptr_to_cstr(s: *const c_char) -> CString {
+    if s.is_null() {
+        CString::new("").unwrap_or_default()
+    } else {
+        unsafe { CStr::from_ptr(s) }.to_owned()
+    }
 }
 
 pub trait MakePdError<Error> {

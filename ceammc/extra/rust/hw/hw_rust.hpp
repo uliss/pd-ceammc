@@ -374,6 +374,8 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
 
 bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
 
+bool ceammc_hw_display_ssd1306_set_font(const ceammc_hw_display_ssd1306 *display, const char *font);
+
 bool ceammc_hw_display_ssd1306_set_pixel(const ceammc_hw_display_ssd1306 *display,
                                          uint16_t x,
                                          uint16_t y,
