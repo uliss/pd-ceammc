@@ -10,10 +10,6 @@ use std::{
 };
 
 use log::error;
-use ssd1306::size::{
-    DisplaySize128x32, DisplaySize128x64, DisplaySize64x32, DisplaySize64x48, DisplaySize72x40,
-    DisplaySize96x16,
-};
 
 use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdError};
 
@@ -85,6 +81,8 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
     on_err: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
+        use ssd1306::size::*;
+
         let args = DisplaySpiArgs {
             spi_bus,
             dc_pin,
@@ -137,6 +135,8 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
     on_err: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
+        use ssd1306::size::*;
+
         let args = DisplayI2cArgs {
             i2c_bus,
             i2c_addr: I2cAddress::new(i2c_addr),
