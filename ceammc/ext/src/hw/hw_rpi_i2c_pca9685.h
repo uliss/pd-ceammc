@@ -2,11 +2,11 @@
 #define HW_RPI_I2C_PCA9685_H
 
 #include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
+#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwI2cPca8695 : public DispatchedObject<BaseObject> {
+class HwI2cPca8695 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_pca9685* pwm_ { nullptr };
     IntProperty* chan_ { nullptr };
 

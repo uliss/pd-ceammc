@@ -3,7 +3,7 @@
 #include "ceammc_factory.h"
 
 HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
 }
@@ -16,11 +16,8 @@ HwI2cPca8695::~HwI2cPca8695()
 void HwI2cPca8695::initDone()
 {
     pwm_ = ceammc_hw_pca9685_new(1, //
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
-        { this, [](void* user, const char* msg) {
-             auto obj = static_cast<HwI2cPca8695*>(user);
-             Error(obj) << msg;
-         } });
+        on_notify(),
+        on_err());
 }
 
 bool HwI2cPca8695::notify(int code)
