@@ -60,6 +60,14 @@
 |
 |
 [hw.rpi.display.ssd1306 #x]
+
+[open img/conn_spi_ssd1306.png #a(
+
+[open img/conn_i2c_ssd1306.png #b(
+
+[ui {i=1} #z]
+
+[X a->z] [X b->z]
 ]]>
             </pdascii>
         </example>
