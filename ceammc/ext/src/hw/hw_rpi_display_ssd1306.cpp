@@ -99,7 +99,11 @@ bool HwRpiDisplaySsd1306::notify(int code)
 
 void HwRpiDisplaySsd1306::m_brightness(t_symbol *s, const AtomListView &lv)
 {
+    static const args::ArgChecker chk("LEVEL:i[0,4]?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
+    ceammc_hw_display_ssd1306_set_brightness(display_, lv.intAt(0, 0));
 }
 
 void HwRpiDisplaySsd1306::m_clear(t_symbol* s, const AtomListView& lv)
