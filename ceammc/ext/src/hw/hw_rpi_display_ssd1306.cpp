@@ -135,7 +135,7 @@ void HwRpiDisplaySsd1306::m_pixel(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplaySsd1306::m_rotation(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("angle:i=0|90|180|270");
+    static const args::ArgChecker chk("ANGLE:i=0|90|180|270");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
