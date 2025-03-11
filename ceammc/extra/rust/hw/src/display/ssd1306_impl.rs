@@ -53,6 +53,8 @@ impl hw_display_ssd1306 {
             .build();
 
         while let Ok(req) = rx.recv() {
+            debug!("{req:?}");
+
             match req {
                 Request::Clear(flush) => {
                     display.clear_buffer();
