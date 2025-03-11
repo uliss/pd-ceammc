@@ -1,18 +1,18 @@
-#ifndef HW_RPI_DHT11_H
-#define HW_RPI_DHT11_H
+#ifndef HW_RPI_SENSOR_DHT11_H
+#define HW_RPI_SENSOR_DHT11_H
 
 #include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
+#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiDht11 : public DispatchedObject<BaseObject> {
+class HwRpiSensorDht11 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_gpio_dht11* dht_ { nullptr };
     IntProperty* pin_ { nullptr };
 
 public:
-    explicit HwRpiDht11(const PdArgs& args);
-    ~HwRpiDht11();
+    explicit HwRpiSensorDht11(const PdArgs& args);
+    ~HwRpiSensorDht11();
 
     void initDone() final;
     bool notify(int code) final;
@@ -21,6 +21,6 @@ public:
     void m_poll(t_symbol* s, const AtomListView& lv);
 };
 
-void setup_hw_rpi_dht11();
+void setup_hw_rpi_sensor_dht11();
 
-#endif // HW_RPI_DHT11_H
+#endif // HW_RPI_SENSOR_DHT11_H
