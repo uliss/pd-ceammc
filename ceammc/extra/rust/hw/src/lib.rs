@@ -3,7 +3,7 @@ use std::{
     os::raw::{c_char, c_void},
 };
 
-use log::error;
+use log::{debug, error};
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -62,8 +62,7 @@ pub trait MakePdError<Error> {
     fn pd_err(msg: CString) -> Error;
 }
 
-fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> bool
-{
+fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> bool {
     if let Err(err) = tx.send(rep) {
         error!("reply send error: {err}");
         false
@@ -114,6 +113,103 @@ macro_rules! rpi_check {
         #[cfg(target_os = "linux")]
         return $code;
     };
+}
+
+pub struct HwThreadWorker<Request, Reply> {
+    rx: std::sync::mpsc::Receiver<Reply>,
+    tx: std::sync::mpsc::Sender<Request>,
+    on_err: hw_msg_cb,
+}
+
+impl<Request, Reply> HwThreadWorker<Request, Reply>
+where
+    Request: Send,
+    Reply: MakePdError<Reply>,
+{
+    pub fn new(
+        on_err: hw_msg_cb,
+    ) -> (
+        Self,
+        std::sync::mpsc::Receiver<Request>,
+        std::sync::mpsc::Sender<Reply>,
+    ) {
+        let (req_tx, req_rx) = std::sync::mpsc::channel();
+        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+
+        (
+            Self {
+                rx: rep_rx,
+                tx: req_tx,
+                on_err,
+            },
+            req_rx,
+            rep_tx,
+        )
+    }
+
+    pub fn worker_error(&self, str: &str) {
+        error!("worker error {str}");
+    }
+
+    pub fn spawn<F>(&self, tx: std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, fx: F)
+    where
+        F: FnOnce() -> Result<(), String>,
+        F: Send + 'static,
+        Reply: Send + 'static,
+    {
+        std::thread::spawn(move || {
+            debug!("worker thread start");
+
+            if let Err(err) = fx() {
+                process_err(format!("worker error: {err}"), &tx, notify);
+            }
+
+            debug!("worker thread done");
+        });
+    }
+
+    pub fn caller_error(&self, msg: &CString) {
+        self.on_err.exec_raw(msg.as_ptr());
+    }
+
+    pub fn send_request(&self, req: Request) -> bool {
+        if let Err(err) = self.tx.send(req) {
+            self.on_err.exec(err.to_string().as_str());
+            false
+        } else {
+            true
+        }
+    }
+
+    pub fn send_request_ptr(x: *const Self, req: Request) -> bool {
+        if x.is_null() {
+            error!("NULL pointer");
+            false
+        } else {
+            let x = unsafe { &*x };
+
+            x.send_request(req)
+        }
+    }
+
+    pub fn process_reply(&self, fx: &dyn Fn(Reply) -> ()) -> bool {
+        if let Ok(rep) = self.rx.try_recv() {
+            fx(rep)
+        }
+
+        true
+    }
+
+    pub fn process_reply_ptr(x: *const Self, fx: &dyn Fn(Reply) -> ()) -> bool {
+        if x.is_null() {
+            error!("NULL pointer");
+            false
+        } else {
+            let x = unsafe { &*x };
+
+            x.process_reply(fx)
+        }
+    }
 }
 
 pub mod printers;

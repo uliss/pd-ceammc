@@ -1,11 +1,15 @@
-use std::{ffi::CString, sync::Arc, time::Duration};
+use std::{
+    ffi::CString,
+    sync::{atomic::AtomicBool, Arc},
+    time::Duration,
+};
 
 use log::{debug, error};
 use vl53l0x::VL53L0x;
 
 use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, process_err, send_reply, vl53l0x::Reply};
 
-use super::{hw_sensor_vl53l0x, hw_sensor_vl53l0x_data_cb, Request};
+use super::{hw_sensor_vl53l0x, hw_sensor_vl53l0x_data_cb, LaserSensorWorker, Request};
 
 impl hw_sensor_vl53l0x {
     pub fn new(
@@ -15,12 +19,9 @@ impl hw_sensor_vl53l0x {
         on_data: hw_sensor_vl53l0x_data_cb,
         on_err: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (req_tx, req_rx) = std::sync::mpsc::channel();
-        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+        let (worker, rx, rep_tx) = LaserSensorWorker::new(on_err);
 
-        std::thread::spawn(move || -> Result<(), String> {
-            debug!("worker start");
-
+        worker.spawn(rep_tx.clone(), notify, move || -> Result<(), String> {
             let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &rep_tx, notify)?;
             debug!("i2c init: {i2c:?}");
 
@@ -36,11 +37,9 @@ impl hw_sensor_vl53l0x {
             ));
             debug!("vk53l0x init");
 
-            let poll_mode = Arc::new(std::sync::atomic::AtomicBool::new(false));
+            let poll_mode = Arc::new(AtomicBool::new(false));
 
-            while let Ok(req) = req_rx.recv() {
-                debug!("{req:?}");
-
+            while let Ok(req) = rx.recv() {
                 match req {
                     Request::ReadMM => {
                         match sensor
@@ -131,40 +130,30 @@ impl hw_sensor_vl53l0x {
                     }
                 }
             }
-
             // to stop poll sensor thread
             poll_mode.store(false, std::sync::atomic::Ordering::SeqCst);
-
-            debug!("worker done");
 
             Ok(())
         });
 
-        Ok(Self {
-            tx: req_tx,
-            rx: rep_rx,
-            on_data,
-            on_err,
-        })
+        Ok(Self { worker, on_data })
     }
 
     pub fn process_reply(vc: *const Self) -> bool {
         if vc.is_null() {
-            error!("NULL vc53l0x pointer");
+            error!("NULL vl53l0x pointer");
             false
         } else {
             let vc = unsafe { &*vc };
 
-            while let Ok(rep) = vc.rx.try_recv() {
-                match rep {
-                    super::Reply::Error(msg) => {
-                        vc.on_err.exec_raw(msg.as_ptr());
-                    }
-                    super::Reply::Distance(mm) => {
-                        (vc.on_data.cb)(vc.on_data.user, mm);
-                    }
+            vc.worker.process_reply(&|rep| match rep {
+                super::Reply::Error(msg) => {
+                    vc.worker.caller_error(&msg);
                 }
-            }
+                super::Reply::Distance(mm) => {
+                    (vc.on_data.cb)(vc.on_data.user, mm);
+                }
+            });
 
             true
         }
@@ -177,12 +166,7 @@ impl hw_sensor_vl53l0x {
         } else {
             let vc = unsafe { &*vc };
 
-            if let Err(err) = vc.tx.send(req) {
-                vc.on_err.exec(err.to_string().as_str());
-                false
-            } else {
-                true
-            }
+            vc.worker.send_request(req)
         }
     }
 }

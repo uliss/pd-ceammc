@@ -10,7 +10,7 @@ use std::{
 
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdError};
 
 #[cfg(target_os = "linux")]
 mod vl53l0x_impl;
@@ -42,10 +42,10 @@ impl MakePdError<Reply> for Reply {
     }
 }
 
+type LaserSensorWorker = HwThreadWorker<Request, Reply>;
+
 pub struct hw_sensor_vl53l0x {
-    tx: std::sync::mpsc::Sender<Request>,
-    rx: std::sync::mpsc::Receiver<Reply>,
-    on_err: hw_msg_cb,
+    worker: LaserSensorWorker,
     on_data: hw_sensor_vl53l0x_data_cb,
 }
 
