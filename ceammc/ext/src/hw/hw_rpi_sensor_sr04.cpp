@@ -1,12 +1,12 @@
-#include "hw_rpi_sr04.h"
+#include "hw_rpi_sensor_sr04.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 constexpr int DEFAULT_TRIG_GPIO_PIN = 17;
 constexpr int DEFAULT_ECHO_GPIO_PIN = 27;
 
-HwRpiSr04::HwRpiSr04(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
     createOutlet();
@@ -30,25 +30,19 @@ HwRpiSr04::HwRpiSr04(const PdArgs& args)
     addProperty(poll_interval_);
 }
 
-HwRpiSr04::~HwRpiSr04()
+HwRpiSensorSr04::~HwRpiSensorSr04()
 {
     ceammc_hw_gpio_sr04_free(sr04_);
 }
 
-void HwRpiSr04::initDone()
+void HwRpiSensorSr04::initDone()
 {
     sr04_ = ceammc_hw_gpio_sr04_new(trigger_pin_->value(),
         echo_pin_->value(),
-        { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } }, //
-        { this, [](void* data, const char* msg) {
-             auto obj = static_cast<HwRpiSr04*>(data);
-             if (!obj)
-                 return;
-
-             Error(obj) << msg;
-         } },
+        on_notify(), //
+        on_err(),
         { this, [](void* user, float distance_cm, bool is_inf) {
-             auto obj = static_cast<HwRpiSr04*>(user);
+             auto obj = static_cast<HwRpiSensorSr04*>(user);
              if (!obj)
                  return;
 
@@ -59,17 +53,17 @@ void HwRpiSr04::initDone()
          } });
 }
 
-bool HwRpiSr04::notify(int code)
+bool HwRpiSensorSr04::notify(int code)
 {
     return ceammc_hw_gpio_sr04_process(sr04_);
 }
 
-void HwRpiSr04::onBang()
+void HwRpiSensorSr04::onBang()
 {
     ceammc_hw_gpio_sr04_measure(sr04_);
 }
 
-void HwRpiSr04::m_poll(t_symbol* s, const AtomListView& lv)
+void HwRpiSensorSr04::m_poll(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker args("STATE:b");
     if (!args.check(lv, this))
@@ -78,8 +72,8 @@ void HwRpiSr04::m_poll(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_sr04_poll(sr04_, lv.boolAt(0, false));
 }
 
-void setup_hw_rpi_sr04()
+void setup_hw_rpi_sensor_sr04()
 {
-    ObjectFactory<HwRpiSr04> obj("hw.rpi.sr04");
-    obj.addMethod("poll", &HwRpiSr04::m_poll);
+    ObjectFactory<HwRpiSensorSr04> obj("hw.rpi.sr04");
+    obj.addMethod("poll", &HwRpiSensorSr04::m_poll);
 }
