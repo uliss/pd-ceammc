@@ -35,20 +35,19 @@ impl hw_infrared {
             let mut new_packet = true;
 
             let mut opt_err_tolerance = 100;
+            let mut opt_max_gap = 30000;
+            let mut opt_perc_tolerance = 30;
 
             'outer: loop {
-                // debug!("listen for packet...");
-
                 'inner: while let Ok(res) =
                     ir_pin.poll_interrupt(new_packet, Some(Duration::from_millis(30)))
                 {
                     match res {
                         Some(event) => {
-                            let delta = event.timestamp - prev_event;
+                            let delta = event.timestamp.saturating_sub(prev_event);
                             new_packet = false;
 
                             match event.trigger {
-                                rppal::gpio::Trigger::Disabled => {}
                                 rppal::gpio::Trigger::RisingEdge => {
                                     if event.seqno > 1 {
                                         packet.push(irp::InfraredData::Flash(
@@ -62,35 +61,26 @@ impl hw_infrared {
                                             .push(irp::InfraredData::Gap(delta.as_micros() as u32));
                                     }
                                 }
-                                rppal::gpio::Trigger::Both => {}
+                                _ => {}
                             }
 
                             prev_event = event.timestamp;
                         }
                         None => {
                             if !packet.is_empty() {
-                                packet.push(irp::InfraredData::Gap(15000));
-
-                                let x = packet
-                                    .iter()
-                                    .map(|x| x.to_string())
-                                    .collect::<Vec<_>>()
-                                    .join(" ");
-
-                                debug!("{x}");
+                                packet.push(irp::InfraredData::Gap(opt_max_gap / 2));
+                                debug!("{packet:?}");
 
                                 let options = irp::Options {
                                     aeps: opt_err_tolerance,
-                                    eps: 30,
-                                    max_gap: 20000,
+                                    eps: opt_perc_tolerance,
+                                    max_gap: opt_max_gap,
                                     ..Default::default()
                                 };
 
                                 let irp = get_irp(crate::infrared::irp::Protocol::NEC);
                                 let dfa = irp.compile(&options).expect("build dfa should succeed");
 
-                                // Create a decoder with 100 microsecond tolerance, 30% relative tolerance,
-                                // and 20000 microseconds maximum gap.
                                 let mut decoder = irp::Decoder::new(options);
                                 // let mut num_decoded = 0;
 
@@ -128,10 +118,9 @@ impl hw_infrared {
                 'req: loop {
                     match rx.try_recv() {
                         Ok(req) => match req {
-                            crate::infrared::Request::Poll(_) => todo!(),
-                            crate::infrared::Request::SetTolerance(usec) => {
-                                opt_err_tolerance = usec.into();
-                            }
+                            Request::SetToleranceUsec(usec) => opt_err_tolerance = usec.into(),
+                            Request::SetMaxGap(usec) => opt_max_gap = usec,
+                            Request::SetTolerancePerc(perc) => opt_perc_tolerance = perc.into(),
                         },
                         Err(err) => match err {
                             std::sync::mpsc::TryRecvError::Empty => break 'req,
@@ -209,13 +198,6 @@ mod test {
         };
 
         let irp = get_irp(crate::infrared::irp::Protocol::NEC);
-
-        //     let irp = Irp::parse(
-        //         r#"
-        //    {38.4k,564}<1,-1|1,-3>(16,-8,D:8,S:8,F:8,~F:8,E:8,~E:8,1,^108m)[D:0..255,S:0..255=255-D,F:0..255,E:0..255]"#,
-        //     )
-        //     .expect("parse should succeed");
-
         let dfa = irp.compile(&options).expect("build dfa should succeed");
 
         // Create a decoder with 100 microsecond tolerance, 30% relative tolerance,
@@ -227,29 +209,11 @@ mod test {
         vars.set(String::from("D"), 255);
         vars.set(String::from("S"), 0xff);
         vars.set(String::from("F"), 1);
-        // vars.set(String::from("E"), 23);
-        // // encode message with 0 repeats
         let message = irp.encode_raw(vars, 1).expect("encode should succeed");
         if let Some(carrier) = &message.carrier {
             println!("carrier: {}Hz", carrier);
         }
-        // if let Some(duty_cycle) = &message.duty_cycle {
-        //     println!("duty cycle: {}%", duty_cycle);
-        // }
         println!("{}", message.print_rawir());
-
-        // let valid = "+9024 -4512
-        //     +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692
-        //     +564 -564  +564 -564  +564 -1692 +564 -564  +564 -1692 +564 -1692 +564 -564  +564 -564
-
-        //     +564 -1692 +564 -564  +564 -564  +564 -564  +564 -564  +564 -564  +564 -564  +564 -564
-        //     +564 -564  +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692
-
-        //     +564 -1692 +564 -1692 +564 -1692 +564 -564  +564 -1692 +564 -564  +564 -564  +564 -564
-        //     +564 -564  +564 -564  +564 -564  +564 -1692 +564 -564  +564 -1692 +564 -1692 +564 -1692
-        //     +564 -9300";
-
-        // println!("test");
         for ir in InfraredData::from_rawir(msg).unwrap() {
             decoder.dfa_input(ir, &dfa, |event, vars| {
                 println!("decoded: {} {:?}", event, vars);

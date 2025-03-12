@@ -16,6 +16,7 @@ public:
 
     bool notify(int code) final;
 
+    void m_max_gap(t_symbol* s, const AtomListView& lv);
     void m_poll(t_symbol* s, const AtomListView& lv);
     void m_tolerance(t_symbol* s, const AtomListView& lv);
 
