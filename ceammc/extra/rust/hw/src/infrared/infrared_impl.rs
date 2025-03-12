@@ -1,5 +1,6 @@
 use std::{ffi::CString, time::Duration};
 
+use irp::Options;
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
@@ -66,6 +67,42 @@ impl hw_infrared {
                                     .join(" ");
 
                                 debug!("{x}");
+
+                                let options = irp::Options {
+                                    aeps: 100,
+                                    eps: 30,
+                                    max_gap: 20000,
+                                    ..Default::default()
+                                };
+
+                                let irp = irp::Irp::parse(
+                                    r#"
+        {36k,msb,889}<1,-1|-1,1>((1,~F:1:6,T:1,D:5,F:6,^114m)*,T=1-T)
+        [D:0..31,F:0..127,T@:0..1=0]"#,
+                                )
+                                .expect("parse should succeed");
+
+                            
+                                let irp = irp::Irp::parse(r#"
+                                {38.4k,564}<1,-1|1,-3>(16,-8,D:8,S:8,F:8,~F:8,1,^108m,(16,-4,1,^108m)*)
+                                [D:0..255,S:0..255=255-D,F:0..255]"#)
+                                .expect("parse should succeed");
+
+                                let dfa = irp.compile(&options).expect("build dfa should succeed");
+
+                                // Create a decoder with 100 microsecond tolerance, 30% relative tolerance,
+                                // and 20000 microseconds maximum gap.
+                                let mut decoder = irp::Decoder::new(options);
+
+                                for ir in irp::InfraredData::from_rawir(x.as_str()).unwrap() {
+                                    decoder.dfa_input(ir, &dfa, |event, vars| {
+                                        println!(
+                                            "decoded: {} F={} D={} T={}",
+                                            event, vars["F"], vars["D"], vars["T"]
+                                        );
+                                    });
+                                }
+
                                 packet.clear();
                             }
 
