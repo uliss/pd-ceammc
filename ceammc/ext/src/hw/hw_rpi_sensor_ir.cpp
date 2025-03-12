@@ -19,7 +19,16 @@ HwRpiSensorIR::~HwRpiSensorIR()
 
 void HwRpiSensorIR::initDone()
 {
-    ir_ = ceammc_hw_infrared_new(pin_->value(), on_notify(), on_err());
+    ir_ = ceammc_hw_infrared_new(pin_->value(),
+        on_notify(),
+        on_err(), //
+        { this, [](void* user, const char* key, std::int64_t value) {
+             auto obj = static_cast<HwRpiSensorIR*>(user);
+             if (!obj)
+                 return;
+
+             obj->anyTo(0, gensym(key), Atom(value));
+         } });
 }
 
 bool HwRpiSensorIR::notify(int code)

@@ -3,7 +3,10 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::CString, ptr::null_mut};
+use std::{
+    ffi::{c_char, c_void, CString},
+    ptr::null_mut,
+};
 
 use lib_macro::PdError;
 use log::error;
@@ -23,12 +26,20 @@ pub enum Request {
 pub enum Reply {
     Error(CString),
     Data(i64),
+    Reply(CString, i64),
 }
 
 type InfraredWorker = HwThreadWorker<Request, Reply>;
 
+#[repr(C)]
+pub struct hw_infrared_key_cb {
+    user: *mut c_void, // can be null
+    cb: extern "C" fn(user: *mut c_void, key: *const c_char, value: i64),
+}
+
 pub struct hw_infrared {
     worker: InfraredWorker,
+    on_key: hw_infrared_key_cb,
 }
 
 #[no_mangle]
@@ -36,9 +47,10 @@ pub extern "C" fn ceammc_hw_infrared_new(
     pin: u8,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
+    on_key: hw_infrared_key_cb,
 ) -> *mut hw_infrared {
     rpi_check!(null_mut(), {
-        match hw_infrared::new(pin, notify, on_err) {
+        match hw_infrared::new(pin, notify, on_err, on_key) {
             Ok(ir) => return Box::into_raw(Box::new(ir)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());

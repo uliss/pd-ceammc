@@ -1,15 +1,19 @@
 use std::{ffi::CString, time::Duration};
 
 use log::{debug, error};
-use rgb::bytemuck::Contiguous;
 use rppal::gpio::Gpio;
 
-use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp};
+use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp, send_reply};
 
-use super::{hw_infrared, InfraredWorker, Reply, Request};
+use super::{hw_infrared, hw_infrared_key_cb, InfraredWorker, Reply, Request};
 
 impl hw_infrared {
-    pub fn new(pin: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(
+        pin: u8,
+        notify: hw_notify_cb,
+        on_err: hw_msg_cb,
+        on_key: hw_infrared_key_cb,
+    ) -> Result<Self, CString> {
         let (worker, rx, tx) = InfraredWorker::new(on_err);
 
         worker.spawn(tx.clone(), notify, move || {
@@ -94,10 +98,26 @@ impl hw_infrared {
                                     }
                                 });
 
+                                let mut num_decoded = 0;
+
                                 for ir in data {
                                     decoder.dfa_input(ir, &dfa, |event, vars| {
-                                        println!("decoded: {event} {vars:?}");
+                                        debug!("event: {event}");
+                                        num_decoded += 1;
+
+                                        for (k, v) in &vars {
+                                            tx.send(Reply::Reply(
+                                                CString::new(k.as_str()).unwrap_or_default(),
+                                                *v,
+                                            ))
+                                            .map_err(|err| error!("send error: {err}"))
+                                            .unwrap_or_default();
+                                        }
                                     });
+                                }
+
+                                if num_decoded > 0 {
+                                    notify.notify();
                                 }
 
                                 packet.clear();
@@ -128,7 +148,7 @@ impl hw_infrared {
             Ok(())
         });
 
-        Ok(Self { worker })
+        Ok(Self { worker, on_key })
     }
 
     pub fn process_reply_ptr(ir: *const Self) -> bool {
@@ -142,6 +162,7 @@ impl hw_infrared {
                 Reply::Data(data) => {
                     debug!("data: {data}");
                 }
+                Reply::Reply(key, value) => (ir.on_key.cb)(ir.on_key.user, key.as_ptr(), value),
             })
         }
     }

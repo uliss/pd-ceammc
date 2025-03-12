@@ -348,6 +348,11 @@ struct ceammc_hw_sr04_cb {
     void (*cb)(void*, float distance_cm, bool is_inf);
 };
 
+struct ceammc_hw_infrared_key_cb {
+    void *user;
+    void (*cb)(void *user, const char *key, int64_t value);
+};
+
 struct ceammc_hw_print_options {
     bool landscape;
 };
@@ -655,7 +660,8 @@ bool ceammc_hw_infrared_free_process_reply(const ceammc_hw_infrared *ir);
 
 ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
                                            ceammc_hw_notify_cb notify,
-                                           ceammc_hw_msg_cb on_err);
+                                           ceammc_hw_msg_cb on_err,
+                                           ceammc_hw_infrared_key_cb on_key);
 
 bool ceammc_hw_infrared_set_tolerance(const ceammc_hw_infrared *ir, uint16_t tolerance);
 
