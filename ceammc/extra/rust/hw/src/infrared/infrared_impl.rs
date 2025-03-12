@@ -21,7 +21,7 @@ impl hw_infrared {
             let mut ir_pin = gpio
                 .get(pin)
                 .map_err(|err| format!("GPIO init error: {err}"))?
-                .into_input_pullup();
+                .into_input_pulldown();
 
             debug!("GPIO pin: {pin}");
 
@@ -29,8 +29,11 @@ impl hw_infrared {
             let mut packet = Vec::<i64>::new();
 
             'outer: loop {
+
+                debug!("listen for packet...");
+
                 'inner: while let Ok(res) =
-                    ir_pin.poll_interrupt(packet.is_empty(), Some(Duration::from_millis(50)))
+                    ir_pin.poll_interrupt(packet.is_empty(), Some(Duration::from_millis(100)))
                 {
                     match res {
                         Some(event) => {
@@ -52,15 +55,17 @@ impl hw_infrared {
                             prev_event = event.timestamp;
                         }
                         None => {
-                            let x = packet
-                                .iter()
-                                .map(|x| x.to_string())
-                                .collect::<Vec<_>>()
-                                .join(" ");
+                            if !packet.is_empty() {
+                                let x = packet
+                                    .iter()
+                                    .map(|x| x.to_string())
+                                    .collect::<Vec<_>>()
+                                    .join(" ");
 
-                            debug!("{x}");
+                                debug!("{x}");
+                                packet.clear();
+                            }
 
-                            packet.clear();
                             break 'inner;
                         }
                     }
