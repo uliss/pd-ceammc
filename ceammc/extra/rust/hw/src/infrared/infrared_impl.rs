@@ -1,6 +1,5 @@
 use std::ffi::CString;
 
-use itertools::Itertools;
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
@@ -78,9 +77,21 @@ impl hw_infrared {
                     match ir_rx.try_recv() {
                         Ok(res) => {
                             decoder.dfa_input(res, &dfa, |_ev, vars| {
-                                for (k, v) in vars.iter().sorted_by_key(|x| x.0) {
-                                    let key = CString::new(k.as_str()).unwrap_or_default();
-                                    send_reply(Reply::Reply(key, *v), &tx, notify);
+                                let mut keys = vars.keys().collect::<Vec<_>>();
+                                keys.sort();
+
+                                for k in &keys {
+                                    if let Some(v) = vars.get(*k) {
+                                        let key = CString::new(k.as_str()).unwrap_or_default();
+                                        if let Err(err) = tx.send(Reply::Reply(key, *v)) {
+                                            error!("send error: {err}");
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if keys.len() > 0 {
+                                    notify.notify();
                                 }
                             });
                         }
