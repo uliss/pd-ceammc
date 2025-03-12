@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.display.ssd1306">
+        <title>hw.rpi.display.ssd1306</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>OLED ssd1306 display for Raspberry Pi</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display ssd1306 spi i2c rpi</keywords>
+            <since>0.9.9</since>
+        </meta>
+        <info>
+            <par>Both I2c and SPI connections are supported</par>
+        </info>
+        <methods>
+            <method name="rotation">method</method>
+            <method name="invert">invert display<param type="bool" required="true" name="VALUE">value</param></method>
+            <method name="mirror">mirror display<param type="bool" required="true" name="VALUE">value</param></method>
+            <method name="font">set </method>
+            <method name="write">method</method>
+            <method name="clear">method</method>
+            <method name="brightness">set display brightness<param type="int" enum="0 1 2 3 4" required="true" name="LEVEL">
+            brightness level from 0 (lowest) to 4 (brightest). Normal level is 2.</param></method>
+            <method name="switch_on">method</method>
+            <method name="flush">flush internal buffer to device</method>
+            <method name="text">method</method>
+            <method name="pixel">method</method>
+        </methods>
+        <arguments>
+            <argument name="MODE" type="symbol" enum="i2c spi">display connection. See @mode</argument>
+        </arguments>
+        <properties>
+        <property name="@mode" type="symbol" default="i2c" enum="i2c spi" access="initonly">display connection</property>
+        <property name="@spi" type="list" default="" access="initonly">SPI connection arguments: DC RS CS? SPI? FREQ?.
+            DC: GPIO pin, RS: GPIO pin, CS: chip select pin (logical numbering, not GPIO!, default: 0 (GPIO8)),
+            SPI: spi bus (default 1),
+            FREQ: SPI clock frequency in hertz (default: 10_000_000)
+        </property>
+        <property name="@size" type="list" default="128 64" access="initonly">display size</property>
+        <property name="@i2c" type="list" default="" access="initonly">I2c connection arguments: I2C? ADDR?.
+        I2C: i2c bus index (if none - using default i2c bus), ADDR: device i2c address (if none - using default address)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet></outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[clear(
+|
+|
+|
+[hw.rpi.display.ssd1306 #x]
+
+[open img/conn_spi_ssd1306.png #a(
+
+[open img/conn_i2c_ssd1306.png #b(
+
+[ui {i=1} #z]
+
+[X a->z] [X b->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -607,6 +607,7 @@ hw.gamepad	gamepad controller
 hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
 hw.printer	Basic printing support
+hw.rpi.display.ssd1306	OLED ssd1306 display for Raspberry Pi
 hw.rpi.gpio	Raspberry Pi GPIO support
 hw.rpi.pwm	Hardware PWM output for RaspberryPi
 hw.rpi.rotenc	Rotary encoder for Raspberry GPIO

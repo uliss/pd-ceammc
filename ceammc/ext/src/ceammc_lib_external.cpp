@@ -141,7 +141,7 @@ void ceammc_tcl_path_init()
     if (extern_dir)
         sys_vgui("lappend ::auto_path {%s/tcl}\n", extern_dir);
 }
-}
+}  // namespace
 
 extern "C" CEAMMC_EXTERN int ceammc_init_done()
 {

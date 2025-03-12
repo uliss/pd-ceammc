@@ -92,8 +92,8 @@
     }}
     {hw {
         hw.apple_smc hw.apple_sms hw.arduino hw.display hw.gamepad
-        hw.kbd_light hw.motu.avb hw.printer hw.rpi.gpio hw.rpi.pwm
-        hw.rpi.rotenc hw.rpi.sr04 hw.serial hw.spi.max7219
+        hw.kbd_light hw.motu.avb hw.printer hw.rpi.display.ssd1306 hw.rpi.gpio
+        hw.rpi.pwm hw.rpi.rotenc hw.rpi.sr04 hw.serial hw.spi.max7219
     }}
     {lang {
         lang.faust~ lang.lua ui.faust~
