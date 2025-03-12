@@ -59,7 +59,6 @@ impl hw_infrared {
                         }
                         None => {
                             if !packet.is_empty() {
-                                packet.push(560);
                                 packet.push(-30000);
 
                                 let x = packet
