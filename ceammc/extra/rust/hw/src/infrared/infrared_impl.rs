@@ -34,6 +34,8 @@ impl hw_infrared {
                 {
                     match res {
                         Some(event) => {
+                            debug!("{event:?}");
+
                             let delta = event.timestamp - prev_event;
 
                             match event.trigger {
@@ -64,13 +66,13 @@ impl hw_infrared {
                     }
                 }
 
-                loop {
+                'req: loop {
                     match rx.try_recv() {
                         Ok(req) => match req {
                             super::Request::Poll(_) => todo!(),
                         },
                         Err(err) => match err {
-                            std::sync::mpsc::TryRecvError::Empty => {}
+                            std::sync::mpsc::TryRecvError::Empty => break 'req,
                             std::sync::mpsc::TryRecvError::Disconnected => break 'outer,
                         },
                     }
