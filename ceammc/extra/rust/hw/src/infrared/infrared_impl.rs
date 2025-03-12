@@ -23,14 +23,17 @@ impl hw_infrared {
                 .map_err(|err| format!("GPIO init error: {err}"))?
                 .into_input_pulldown();
 
+            ir_pin
+                .set_interrupt(rppal::gpio::Trigger::Both, None)
+                .map_err(|err| format!("GPIO init error: {err}"))?;
+
             debug!("GPIO pin: {pin}");
 
             let mut prev_event = Duration::default();
             let mut packet = Vec::<i64>::new();
 
             'outer: loop {
-
-                debug!("listen for packet...");
+                // debug!("listen for packet...");
 
                 'inner: while let Ok(res) =
                     ir_pin.poll_interrupt(packet.is_empty(), Some(Duration::from_millis(100)))
