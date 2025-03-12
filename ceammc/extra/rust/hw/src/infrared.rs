@@ -5,6 +5,7 @@
 
 use std::{ffi::CString, ptr::null_mut};
 
+use lib_macro::PdError;
 use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdError};
@@ -16,18 +17,13 @@ pub enum Request {
     Poll(bool),
 }
 
+#[derive(PdError)]
 pub enum Reply {
     Error(CString),
     Data(i64),
 }
 
 type InfraredWorker = HwThreadWorker<Request, Reply>;
-
-impl MakePdError<Reply> for Reply {
-    fn pd_err(msg: CString) -> Reply {
-        Reply::Error(msg)
-    }
-}
 
 pub struct hw_infrared {
     worker: InfraredWorker,

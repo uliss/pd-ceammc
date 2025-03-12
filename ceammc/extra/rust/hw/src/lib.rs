@@ -234,11 +234,13 @@ pub mod printers_cups;
 #[cfg(target_os = "windows")]
 pub mod printers_win;
 
+pub mod ads1115;
 pub mod dht11;
 pub mod display;
 pub mod gpio;
 pub mod hc_sr04;
 pub mod i2c;
+pub mod infrared;
 pub mod lcd1602;
 pub mod max7219;
 pub mod rotenc;
@@ -247,5 +249,3 @@ pub mod rpi_pwm_pca9685;
 pub mod spi;
 pub mod vl53l0x;
 pub mod ws2812;
-pub mod ads1115;
-pub mod infrared;

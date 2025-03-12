@@ -1,13 +1,9 @@
-use std::{
-    ffi::CString,
-    sync::{atomic::Ordering, Arc},
-    time::Duration,
-};
+use std::{ffi::CString, time::Duration};
 
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
-use crate::{hw_msg_cb, hw_notify_cb, send_reply};
+use crate::{hw_msg_cb, hw_notify_cb};
 
 use super::{hw_infrared, InfraredWorker, Reply};
 
@@ -31,18 +27,18 @@ impl hw_infrared {
 
             let mut prev_event = Duration::default();
             let mut packet = Vec::<i64>::new();
+            let mut new_packet = true;
 
             'outer: loop {
                 // debug!("listen for packet...");
 
                 'inner: while let Ok(res) =
-                    ir_pin.poll_interrupt(packet.is_empty(), Some(Duration::from_millis(30)))
+                    ir_pin.poll_interrupt(new_packet, Some(Duration::from_millis(30)))
                 {
                     match res {
                         Some(event) => {
-                            // debug!("{event:?}");
-
                             let delta = event.timestamp - prev_event;
+                            new_packet = false;
 
                             match event.trigger {
                                 rppal::gpio::Trigger::Disabled => {}
@@ -73,6 +69,7 @@ impl hw_infrared {
                                 packet.clear();
                             }
 
+                            new_packet = true;
                             break 'inner;
                         }
                     }
