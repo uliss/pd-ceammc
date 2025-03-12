@@ -1,6 +1,5 @@
 use std::{ffi::CString, time::Duration};
 
-use irp::Options;
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
@@ -75,12 +74,12 @@ impl hw_infrared {
                                     ..Default::default()
                                 };
 
-                                let irp = irp::Irp::parse(
-                                    r#"
-        {36k,msb,889}<1,-1|-1,1>((1,~F:1:6,T:1,D:5,F:6,^114m)*,T=1-T)
-        [D:0..31,F:0..127,T@:0..1=0]"#,
-                                )
-                                .expect("parse should succeed");
+        //                         let irp = irp::Irp::parse(
+        //                             r#"
+        // {36k,msb,889}<1,-1|-1,1>((1,~F:1:6,T:1,D:5,F:6,^114m)*,T=1-T)
+        // [D:0..31,F:0..127,T@:0..1=0]"#,
+        //                         )
+        //                         .expect("parse should succeed");
 
                             
                                 let irp = irp::Irp::parse(r#"
@@ -94,7 +93,15 @@ impl hw_infrared {
                                 // and 20000 microseconds maximum gap.
                                 let mut decoder = irp::Decoder::new(options);
 
-                                for ir in irp::InfraredData::from_rawir(x.as_str()).unwrap() {
+                                let data = packet.iter().map(|x| {
+                                    if *x >= 0 {
+                                        irp::InfraredData::Flash(*x as u32)
+                                    } else {
+                                        irp::InfraredData::Gap(x.abs() as u32)
+                                    }
+                                } );
+
+                                for ir in data {
                                     decoder.dfa_input(ir, &dfa, |event, vars| {
                                         println!(
                                             "decoded: {} F={} D={} T={}",
