@@ -207,7 +207,7 @@ where
     }
 
     pub fn process_reply(&self, fx: &dyn Fn(Reply) -> ()) -> bool {
-        if let Ok(rep) = self.rx.try_recv() {
+        while let Ok(rep) = self.rx.try_recv() {
             fx(rep)
         }
 
