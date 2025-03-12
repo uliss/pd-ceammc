@@ -7,6 +7,7 @@ HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
     createOutlet();
     pin_ = new IntProperty("@pin", 0);
     pin_->setInitOnly();
+    pin_->setArgIndex(0);
     addProperty(pin_);
 }
 
