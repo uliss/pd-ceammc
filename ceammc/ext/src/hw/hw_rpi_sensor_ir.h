@@ -14,13 +14,14 @@ public:
     explicit HwRpiSensorIR(const PdArgs& args);
     ~HwRpiSensorIR();
 
-    void initDone() final;
     bool notify(int code) final;
 
-    //    void onBang() final;
-    //    void m_poll(t_symbol* s, const AtomListView& lv);
-
+    void m_poll(t_symbol* s, const AtomListView& lv);
     void m_tolerance(t_symbol* s, const AtomListView& lv);
+
+private:
+    void startSensor();
+    void stopSensor();
 };
 
 void setup_hw_rpi_sensor_ir();

@@ -31,7 +31,7 @@ impl hw_infrared {
             debug!("GPIO pin: {pin}");
 
             let mut prev_event = Duration::default();
-            let mut packet = Vec::<i64>::new();
+            let mut packet = Vec::<irp::InfraredData>::new();
             let mut new_packet = true;
 
             let mut opt_err_tolerance = 100;
@@ -51,12 +51,15 @@ impl hw_infrared {
                                 rppal::gpio::Trigger::Disabled => {}
                                 rppal::gpio::Trigger::RisingEdge => {
                                     if event.seqno > 1 {
-                                        packet.push(delta.as_micros() as i64);
+                                        packet.push(irp::InfraredData::Flash(
+                                            delta.as_micros() as u32
+                                        ));
                                     }
                                 }
                                 rppal::gpio::Trigger::FallingEdge => {
                                     if event.seqno > 1 {
-                                        packet.push(-(delta.as_micros() as i64));
+                                        packet
+                                            .push(irp::InfraredData::Gap(delta.as_micros() as u32));
                                     }
                                 }
                                 rppal::gpio::Trigger::Both => {}
@@ -66,7 +69,7 @@ impl hw_infrared {
                         }
                         None => {
                             if !packet.is_empty() {
-                                packet.push(-30000);
+                                packet.push(irp::InfraredData::Gap(15000));
 
                                 let x = packet
                                     .iter()
@@ -89,36 +92,29 @@ impl hw_infrared {
                                 // Create a decoder with 100 microsecond tolerance, 30% relative tolerance,
                                 // and 20000 microseconds maximum gap.
                                 let mut decoder = irp::Decoder::new(options);
+                                // let mut num_decoded = 0;
 
-                                let data = packet.iter().map(|x| {
-                                    if *x >= 0 {
-                                        irp::InfraredData::Flash(*x as u32)
-                                    } else {
-                                        irp::InfraredData::Gap(x.abs() as u32)
-                                    }
-                                });
-
-                                let mut num_decoded = 0;
-
-                                for ir in data {
-                                    decoder.dfa_input(ir, &dfa, |event, vars| {
+                                for ir in &packet {
+                                    decoder.dfa_input(*ir, &dfa, |event, vars| {
                                         debug!("event: {event}");
-                                        num_decoded += 1;
+                                        // num_decoded += 1;
 
                                         for (k, v) in &vars {
-                                            tx.send(Reply::Reply(
-                                                CString::new(k.as_str()).unwrap_or_default(),
-                                                *v,
-                                            ))
-                                            .map_err(|err| error!("send error: {err}"))
-                                            .unwrap_or_default();
+                                            send_reply(
+                                                Reply::Reply(
+                                                    CString::new(k.as_str()).unwrap_or_default(),
+                                                    *v,
+                                                ),
+                                                &tx,
+                                                notify,
+                                            );
                                         }
                                     });
                                 }
 
-                                if num_decoded > 0 {
-                                    notify.notify();
-                                }
+                                // if num_decoded > 0 {
+                                //     notify.notify();
+                                // }
 
                                 packet.clear();
                             }
