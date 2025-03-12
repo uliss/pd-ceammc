@@ -201,6 +201,10 @@ struct ceammc_hw_gpio_sr04;
 
 struct ceammc_hw_i2c;
 
+struct ceammc_hw_i2c_ads1115;
+
+struct ceammc_hw_infrared;
+
 struct ceammc_hw_lcd1602;
 
 struct ceammc_hw_max7219;
@@ -355,6 +359,13 @@ struct ceammc_hw_sensor_vl53l0x_data_cb {
 
 
 extern "C" {
+
+void ceammc_hw_ads1115_free(ceammc_hw_i2c_ads1115 *adc);
+
+ceammc_hw_i2c_ads1115 *ceammc_hw_ads1115_new(int8_t i2c_bus,
+                                             int8_t i2c_addr,
+                                             ceammc_hw_notify_cb notify,
+                                             ceammc_hw_msg_cb on_err);
 
 bool ceammc_hw_display_ssd1306_clear(const ceammc_hw_display_ssd1306 *display, bool flush);
 
@@ -637,6 +648,14 @@ bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
 void ceammc_hw_i2c_free(ceammc_hw_i2c *i2c);
 
 ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t addr, ceammc_hw_notify_cb notify, ceammc_hw_msg_cb on_err);
+
+void ceammc_hw_infrared_free(ceammc_hw_infrared *ir);
+
+bool ceammc_hw_infrared_free_process_reply(const ceammc_hw_infrared *ir);
+
+ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
+                                           ceammc_hw_notify_cb notify,
+                                           ceammc_hw_msg_cb on_err);
 
 /// turn on/off lcd1602 backlight
 /// @param lcd1602 - pointer to LCD1602 struct
