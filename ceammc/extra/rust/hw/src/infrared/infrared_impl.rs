@@ -1,9 +1,10 @@
 use std::ffi::CString;
 
+use itertools::Itertools;
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
-use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp};
+use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp, send_reply};
 
 use super::{hw_infrared, hw_infrared_key_cb, InfraredWorker, Reply, Request};
 
@@ -76,8 +77,11 @@ impl hw_infrared {
                 'chan_async: loop {
                     match ir_rx.try_recv() {
                         Ok(res) => {
-                            decoder.dfa_input(res, &dfa, |event, vars| {
-                                debug!("{event} {vars:?}");
+                            decoder.dfa_input(res, &dfa, |_ev, vars| {
+                                for (k, v) in vars.iter().sorted_by_key(|x| x.0) {
+                                    let key = CString::new(k.as_str()).unwrap_or_default();
+                                    send_reply(Reply::Reply(key, *v), &tx, notify);
+                                }
                             });
                         }
                         Err(err) => match err {

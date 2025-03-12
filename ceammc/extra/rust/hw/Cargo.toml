@@ -34,6 +34,7 @@ embedded-graphics = "0.8.1"
 embedded-hal = { version = "1.0.0", features = [] }
 irp = "0.3.3"
 infrared = "0.14.2"
+itertools = "0.14.0"
 
 [target.'cfg(target_os="linux")'.dependencies]
 rppal = { version = "0.22.1", features = ["hal", "nb"] }
