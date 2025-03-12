@@ -28,16 +28,12 @@ impl hw_infrared {
 
             debug!("GPIO pin: {pin}");
 
-            let mut prev_event = Duration::default();
-            let mut packet = Vec::<irp::InfraredData>::new();
-            let mut new_packet = true;
-
             let mut opt_err_tolerance = 100;
             let mut opt_max_gap = 30000;
             let mut opt_perc_tolerance = 30;
 
             let mut prev_event_time = 0u128;
-            let mut edges: Vec<irp::InfraredData> = vec![];
+            let mut edges = Vec::<irp::InfraredData>::new();
 
             ir_pin
                 .set_async_interrupt(rppal::gpio::Trigger::Both, None, move |event| {
@@ -45,6 +41,7 @@ impl hw_infrared {
 
                     if diff >= 50_000 {
                         if !edges.is_empty() {
+                            debug!("long event");
                             let irp = get_irp(crate::infrared::irp::Protocol::NEC);
 
                             let options = irp::Options {
@@ -70,21 +67,41 @@ impl hw_infrared {
                                     //         &tx,
                                     //         notify,
                                     //     );
-                                    // }
+                                    // }            // let ir = infrared::Receiver::builder()
+                                    //     .frequency(20_000)
+                                    //     .nec()
+                                    //     .pin(ir_pin)
+                                    //     .build();
+                                    // let ir = infrared::PeriodicPoll::with_pin(20_000, ir_pin);
+
+                                    // infrared::PeriodicPoll::with_input(0, ir_pin);
+                                    // let r1= infrared::Receiver::with_
+                                    // infraredpin(40_000, ir_pin);
+
+                                    // let r2: infrared::PeriodicPoll<infrared::protocol::Nec, InputPin> =
+                                    //     infrared::PeriodicPoll::with_pin(40_000, ir_pin);
+
+                                    // let mut r3: BufferInputReceiver<Rc6> = BufferInputReceiver::with_frequenzy(20_000);
+
+                                    // let buf: &[u32] = &[20, 40, 20];
+                                    // let cmd_iter = r3.iter(buf);
                                 });
                             }
 
                             debug!("{edges:?}");
 
                             edges.clear();
+                            return;
                         }
                     }
 
                     match event.trigger {
                         rppal::gpio::Trigger::RisingEdge => {
+                            debug!("1");
                             edges.push(irp::InfraredData::Flash(diff as u32));
                         }
                         rppal::gpio::Trigger::FallingEdge => {
+                            debug!("0");
                             edges.push(irp::InfraredData::Gap(diff as u32));
                         }
                         _ => {}
