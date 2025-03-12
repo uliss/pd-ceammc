@@ -17,13 +17,14 @@ use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdError};
 mod infrared_impl;
 mod irp;
 
+#[derive(Debug)]
 pub enum Request {
     SetToleranceUsec(u16),
     SetMaxGap(u32),
     SetTolerancePerc(u8),
 }
 
-#[derive(PdError)]
+#[derive(PdError, Debug)]
 pub enum Reply {
     Error(CString),
     Data(i64),

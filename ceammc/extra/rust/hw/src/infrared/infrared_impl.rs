@@ -1,6 +1,8 @@
-use std::{ffi::CString, time::Duration};
+use std::{ffi::CString, sync::Arc, time::Duration, vec};
 
+use embedded_hal::digital::InputPin;
 use log::{debug, error};
+use palette::num::SaturatingSub;
 use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp, send_reply};
@@ -24,10 +26,6 @@ impl hw_infrared {
                 .map_err(|err| format!("GPIO init error: {err}"))?
                 .into_input_pulldown();
 
-            ir_pin
-                .set_interrupt(rppal::gpio::Trigger::Both, None)
-                .map_err(|err| format!("GPIO init error: {err}"))?;
-
             debug!("GPIO pin: {pin}");
 
             let mut prev_event = Duration::default();
@@ -38,90 +36,76 @@ impl hw_infrared {
             let mut opt_max_gap = 30000;
             let mut opt_perc_tolerance = 30;
 
-            'outer: loop {
-                'inner: while let Ok(res) =
-                    ir_pin.poll_interrupt(new_packet, Some(Duration::from_millis(30)))
-                {
-                    match res {
-                        Some(event) => {
-                            let delta = event.timestamp.saturating_sub(prev_event);
-                            new_packet = false;
+            let mut prev_event_time = 0u128;
+            let mut edges: Vec<irp::InfraredData> = vec![];
 
-                            match event.trigger {
-                                rppal::gpio::Trigger::RisingEdge => {
-                                    if event.seqno > 1 {
-                                        packet.push(irp::InfraredData::Flash(
-                                            delta.as_micros() as u32
-                                        ));
-                                    }
-                                }
-                                rppal::gpio::Trigger::FallingEdge => {
-                                    if event.seqno > 1 {
-                                        packet
-                                            .push(irp::InfraredData::Gap(delta.as_micros() as u32));
-                                    }
-                                }
-                                _ => {}
+            ir_pin
+                .set_async_interrupt(rppal::gpio::Trigger::Both, None, move |event| {
+                    let diff = event.timestamp.as_millis().saturating_sub(prev_event_time);
+
+                    if diff >= 50_000 {
+                        if !edges.is_empty() {
+                            let irp = get_irp(crate::infrared::irp::Protocol::NEC);
+
+                            let options = irp::Options {
+                                aeps: opt_err_tolerance,
+                                eps: opt_perc_tolerance,
+                                max_gap: opt_max_gap,
+                                ..Default::default()
+                            };
+                            let dfa = irp.compile(&options).expect("build dfa should succeed");
+                            let mut decoder = irp::Decoder::new(options);
+
+                            for ir in &edges {
+                                decoder.dfa_input(*ir, &dfa, |event, vars| {
+                                    debug!("event: {event} {vars:?}");
+                                    // num_decoded += 1;
+
+                                    // for (k, v) in &vars {
+                                    //     send_reply(
+                                    //         Reply::Reply(
+                                    //             CString::new(k.as_str()).unwrap_or_default(),
+                                    //             *v,
+                                    //         ),
+                                    //         &tx,
+                                    //         notify,
+                                    //     );
+                                    // }
+                                });
                             }
 
-                            prev_event = event.timestamp;
-                        }
-                        None => {
-                            if !packet.is_empty() {
-                                packet.push(irp::InfraredData::Gap(opt_max_gap / 2));
-                                debug!("{packet:?}");
+                            debug!("{edges:?}");
 
-                                let options = irp::Options {
-                                    aeps: opt_err_tolerance,
-                                    eps: opt_perc_tolerance,
-                                    max_gap: opt_max_gap,
-                                    ..Default::default()
-                                };
-
-                                let irp = get_irp(crate::infrared::irp::Protocol::NEC);
-                                let dfa = irp.compile(&options).expect("build dfa should succeed");
-
-                                let mut decoder = irp::Decoder::new(options);
-                                // let mut num_decoded = 0;
-
-                                for ir in &packet {
-                                    decoder.dfa_input(*ir, &dfa, |event, vars| {
-                                        debug!("event: {event}");
-                                        // num_decoded += 1;
-
-                                        for (k, v) in &vars {
-                                            send_reply(
-                                                Reply::Reply(
-                                                    CString::new(k.as_str()).unwrap_or_default(),
-                                                    *v,
-                                                ),
-                                                &tx,
-                                                notify,
-                                            );
-                                        }
-                                    });
-                                }
-
-                                // if num_decoded > 0 {
-                                //     notify.notify();
-                                // }
-
-                                packet.clear();
-                            }
-
-                            new_packet = true;
-                            break 'inner;
+                            edges.clear();
                         }
                     }
-                }
 
+                    match event.trigger {
+                        rppal::gpio::Trigger::RisingEdge => {
+                            edges.push(irp::InfraredData::Flash(diff as u32));
+                        }
+                        rppal::gpio::Trigger::FallingEdge => {
+                            edges.push(irp::InfraredData::Gap(diff as u32));
+                        }
+                        _ => {}
+                    }
+
+                    prev_event_time = event.timestamp.as_millis();
+                })
+                .map_err(|err| format!("GPIO init error: {err}"))?;
+
+            'outer: loop {
                 'req: loop {
                     match rx.try_recv() {
-                        Ok(req) => match req {
-                            Request::SetToleranceUsec(usec) => opt_err_tolerance = usec.into(),
-                            Request::SetMaxGap(usec) => opt_max_gap = usec,
-                            Request::SetTolerancePerc(perc) => opt_perc_tolerance = perc.into(),
-                        },
+                        Ok(req) => {
+                            debug!("{req:?}");
+
+                            match req {
+                                Request::SetToleranceUsec(usec) => opt_err_tolerance = usec.into(),
+                                Request::SetMaxGap(usec) => opt_max_gap = usec,
+                                Request::SetTolerancePerc(perc) => opt_perc_tolerance = perc.into(),
+                            }
+                        }
                         Err(err) => match err {
                             std::sync::mpsc::TryRecvError::Empty => break 'req,
                             std::sync::mpsc::TryRecvError::Disconnected => break 'outer,
