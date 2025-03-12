@@ -36,21 +36,25 @@ impl hw_infrared {
                 // debug!("listen for packet...");
 
                 'inner: while let Ok(res) =
-                    ir_pin.poll_interrupt(packet.is_empty(), Some(Duration::from_millis(100)))
+                    ir_pin.poll_interrupt(packet.is_empty(), Some(Duration::from_millis(30)))
                 {
                     match res {
                         Some(event) => {
-                            debug!("{event:?}");
+                            // debug!("{event:?}");
 
                             let delta = event.timestamp - prev_event;
 
                             match event.trigger {
                                 rppal::gpio::Trigger::Disabled => {}
                                 rppal::gpio::Trigger::RisingEdge => {
-                                    packet.push(delta.as_micros() as i64);
+                                    if event.seqno > 1 {
+                                        packet.push(delta.as_micros() as i64);
+                                    }
                                 }
                                 rppal::gpio::Trigger::FallingEdge => {
-                                    packet.push(-(delta.as_micros() as i64));
+                                    if event.seqno > 1 {
+                                        packet.push(-(delta.as_micros() as i64));
+                                    }
                                 }
                                 rppal::gpio::Trigger::Both => {}
                             }
