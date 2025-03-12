@@ -16,6 +16,7 @@ mod irp;
 
 pub enum Request {
     Poll(bool),
+    SetTolerance(u16),
 }
 
 #[derive(PdError)]
@@ -60,4 +61,9 @@ pub extern "C" fn ceammc_hw_infrared_free(ir: *mut hw_infrared) {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_infrared_free_process_reply(ir: *const hw_infrared) -> bool {
     rpi_check!({ hw_infrared::process_reply_ptr(ir) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_infrared_set_tolerance(ir: *const hw_infrared, tolerance: u16) -> bool {
+    rpi_check!({ hw_infrared::send_request_ptr(ir, Request::SetTolerance(tolerance)) });
 }

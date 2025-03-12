@@ -1,11 +1,12 @@
 use std::{ffi::CString, time::Duration};
 
 use log::{debug, error};
+use rgb::bytemuck::Contiguous;
 use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp};
 
-use super::{hw_infrared, InfraredWorker, Reply};
+use super::{hw_infrared, InfraredWorker, Reply, Request};
 
 impl hw_infrared {
     pub fn new(pin: u8, notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
@@ -28,6 +29,8 @@ impl hw_infrared {
             let mut prev_event = Duration::default();
             let mut packet = Vec::<i64>::new();
             let mut new_packet = true;
+
+            let mut opt_err_tolerance = 100;
 
             'outer: loop {
                 // debug!("listen for packet...");
@@ -70,7 +73,7 @@ impl hw_infrared {
                                 debug!("{x}");
 
                                 let options = irp::Options {
-                                    aeps: 100,
+                                    aeps: opt_err_tolerance,
                                     eps: 30,
                                     max_gap: 20000,
                                     ..Default::default()
@@ -109,7 +112,10 @@ impl hw_infrared {
                 'req: loop {
                     match rx.try_recv() {
                         Ok(req) => match req {
-                            super::Request::Poll(_) => todo!(),
+                            crate::infrared::Request::Poll(_) => todo!(),
+                            crate::infrared::Request::SetTolerance(usec) => {
+                                opt_err_tolerance = usec.into();
+                            }
                         },
                         Err(err) => match err {
                             std::sync::mpsc::TryRecvError::Empty => break 'req,
@@ -137,6 +143,16 @@ impl hw_infrared {
                     debug!("data: {data}");
                 }
             })
+        }
+    }
+
+    pub fn send_request_ptr(ir: *const Self, req: Request) -> bool {
+        if ir.is_null() {
+            error!("NULL IR pointer");
+            false
+        } else {
+            let ir = unsafe { &*ir };
+            ir.worker.send_request(req)
         }
     }
 }

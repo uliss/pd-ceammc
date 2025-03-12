@@ -657,6 +657,8 @@ ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
                                            ceammc_hw_notify_cb notify,
                                            ceammc_hw_msg_cb on_err);
 
+bool ceammc_hw_infrared_set_tolerance(const ceammc_hw_infrared *ir, uint16_t tolerance);
+
 /// turn on/off lcd1602 backlight
 /// @param lcd1602 - pointer to LCD1602 struct
 /// @param state - on/off state
