@@ -3,7 +3,7 @@ use std::{ffi::CString, time::Duration};
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp};
 
 use super::{hw_infrared, InfraredWorker, Reply};
 
@@ -59,6 +59,9 @@ impl hw_infrared {
                         }
                         None => {
                             if !packet.is_empty() {
+                                packet.push(560);
+                                packet.push(-30000);
+
                                 let x = packet
                                     .iter()
                                     .map(|x| x.to_string())
@@ -74,19 +77,7 @@ impl hw_infrared {
                                     ..Default::default()
                                 };
 
-        //                         let irp = irp::Irp::parse(
-        //                             r#"
-        // {36k,msb,889}<1,-1|-1,1>((1,~F:1:6,T:1,D:5,F:6,^114m)*,T=1-T)
-        // [D:0..31,F:0..127,T@:0..1=0]"#,
-        //                         )
-        //                         .expect("parse should succeed");
-
-                            
-                                let irp = irp::Irp::parse(r#"
-                                {38.4k,564}<1,-1|1,-3>(16,-8,D:8,S:8,F:8,~F:8,1,^108m,(16,-4,1,^108m)*)
-                                [D:0..255,S:0..255=255-D,F:0..255]"#)
-                                .expect("parse should succeed");
-
+                                let irp = get_irp(crate::infrared::irp::Protocol::NEC);
                                 let dfa = irp.compile(&options).expect("build dfa should succeed");
 
                                 // Create a decoder with 100 microsecond tolerance, 30% relative tolerance,
@@ -99,7 +90,7 @@ impl hw_infrared {
                                     } else {
                                         irp::InfraredData::Gap(x.abs() as u32)
                                     }
-                                } );
+                                });
 
                                 for ir in data {
                                     decoder.dfa_input(ir, &dfa, |event, vars| {
@@ -132,50 +123,6 @@ impl hw_infrared {
                 }
             }
 
-            // while let Ok(req) = rx.recv() {
-            //     match req {
-            //         super::Request::Poll(state) => {
-            //             let _ = if state {
-            //                 // let prev_rising = prev_rising.clone();
-            //                 let tx = tx.clone();
-            //                 let prev_event_time = prev_event_time.clone();
-
-            //                 pin.set_async_interrupt(
-            //                     rppal::gpio::Trigger::Both,
-            //                     None,
-            //                     move |event| {
-            //                         let dur = event.timestamp - *prev_event_time.read().unwrap();
-
-            //                         match event.trigger {
-            //                             rppal::gpio::Trigger::Disabled => {}
-            //                             rppal::gpio::Trigger::RisingEdge => {
-            //                                 send_reply(
-            //                                     Reply::Data(dur.as_millis() as i64),
-            //                                     &tx,
-            //                                     notify,
-            //                                 );
-            //                             }
-            //                             rppal::gpio::Trigger::FallingEdge => {
-            //                                 send_reply(
-            //                                     Reply::Data(-(dur.as_millis() as i64)),
-            //                                     &tx,
-            //                                     notify,
-            //                                 );
-            //                             }
-            //                             rppal::gpio::Trigger::Both => {}
-            //                         }
-
-            //                         *prev_event_time.write().unwrap() = event.timestamp;
-            //                     },
-            //                 )
-            //             } else {
-            //                 pin.clear_async_interrupt()
-            //             }
-            //             .map_err(|err| format!("GPIO init error: {err}"))?;
-            //         }
-            //     }
-            // }
-
             Ok(())
         });
 
@@ -196,4 +143,89 @@ impl hw_infrared {
             })
         }
     }
+}
+
+#[cfg(test)]
+mod test {
+    use irp::{InfraredData, Message, Vartable};
+
+    use crate::infrared::irp::get_irp;
+
+    #[test]
+    fn test_decode() {
+        let msg = "9092 -4582 
+        540 -605  538 -582  537 -608  541 -603  512 -607  541 -603  513 -634  513 -606
+        541 -1744 545 -1715 533 -1726 542 -1743 540 -1721 511 -1745 541 -1746 512 -1746
+
+        511 -1747 538 -609  504 -1752 540 -605  538 -1720 538 -607  516 -628  513 -606
+        539 -606  513 -1745 537 -607  514 -1743 537 -608  510 -1748 538 -1747 512 -1745 +564 -30732";
+        let rawir = Message::parse(msg).expect("parse should succeed");
+        assert_eq!(
+            rawir.raw,
+            vec![
+                9092, 4582, //
+                540, 605, 538, 582, 537, 608, 541, 603, 512, 607, 541, 603, 513, 634, 513, 606,
+                541, 1744, 545, 1715, 533, 1726, 542, 1743, 540, 1721, 511, 1745, 541, 1746, 512,
+                1746, 511, 1747, 538, 609, 504, 1752, 540, 605, 538, 1720, 538, 607, 516, 628, 513,
+                606, 539, 606, 513, 1745, 537, 607, 514, 1743, 537, 608, 510, 1748, 538, 1747, 512,
+                1745, 564, 30732
+            ]
+        );
+
+        let options = irp::Options {
+            aeps: 100,
+            eps: 30,
+            max_gap: 20000,
+            ..Default::default()
+        };
+
+        let irp = get_irp(crate::infrared::irp::Protocol::NEC);
+
+        //     let irp = Irp::parse(
+        //         r#"
+        //    {38.4k,564}<1,-1|1,-3>(16,-8,D:8,S:8,F:8,~F:8,E:8,~E:8,1,^108m)[D:0..255,S:0..255=255-D,F:0..255,E:0..255]"#,
+        //     )
+        //     .expect("parse should succeed");
+
+        let dfa = irp.compile(&options).expect("build dfa should succeed");
+
+        // Create a decoder with 100 microsecond tolerance, 30% relative tolerance,
+        // and 20000 microseconds maximum gap.
+        let mut decoder = irp::Decoder::new(options);
+
+        // Set some values for D, S, and F
+        let mut vars = Vartable::new();
+        vars.set(String::from("D"), 255);
+        vars.set(String::from("S"), 0xff);
+        vars.set(String::from("F"), 1);
+        // vars.set(String::from("E"), 23);
+        // // encode message with 0 repeats
+        let message = irp.encode_raw(vars, 1).expect("encode should succeed");
+        if let Some(carrier) = &message.carrier {
+            println!("carrier: {}Hz", carrier);
+        }
+        // if let Some(duty_cycle) = &message.duty_cycle {
+        //     println!("duty cycle: {}%", duty_cycle);
+        // }
+        println!("{}", message.print_rawir());
+
+        // let valid = "+9024 -4512
+        //     +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692
+        //     +564 -564  +564 -564  +564 -1692 +564 -564  +564 -1692 +564 -1692 +564 -564  +564 -564
+
+        //     +564 -1692 +564 -564  +564 -564  +564 -564  +564 -564  +564 -564  +564 -564  +564 -564
+        //     +564 -564  +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692 +564 -1692
+
+        //     +564 -1692 +564 -1692 +564 -1692 +564 -564  +564 -1692 +564 -564  +564 -564  +564 -564
+        //     +564 -564  +564 -564  +564 -564  +564 -1692 +564 -564  +564 -1692 +564 -1692 +564 -1692
+        //     +564 -9300";
+
+        // println!("test");
+        for ir in InfraredData::from_rawir(msg).unwrap() {
+            decoder.dfa_input(ir, &dfa, |event, vars| {
+                println!("decoded: {} {:?}", event, vars);
+            });
+        }
+    }
+    //
 }

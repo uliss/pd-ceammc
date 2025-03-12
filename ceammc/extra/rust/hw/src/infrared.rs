@@ -12,6 +12,7 @@ use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdError};
 
 #[cfg(target_os = "linux")]
 mod infrared_impl;
+mod irp;
 
 pub enum Request {
     Poll(bool),
