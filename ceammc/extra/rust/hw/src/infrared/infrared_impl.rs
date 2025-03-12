@@ -32,14 +32,15 @@ impl hw_infrared {
             let mut opt_max_gap = 30000;
             let mut opt_perc_tolerance = 30;
 
-            let mut prev_event_time = 0u128;
+            let mut prev_event_usec = 0u128;
             let mut edges = Vec::<irp::InfraredData>::new();
 
             ir_pin
                 .set_async_interrupt(rppal::gpio::Trigger::Both, None, move |event| {
-                    let diff = event.timestamp.as_millis().saturating_sub(prev_event_time);
+                    let event_usec = event.timestamp.as_micros();
+                    let delta_usec = event_usec.saturating_sub(prev_event_usec);
 
-                    if diff >= 50_000 {
+                    if delta_usec >= 50_000 {
                         if !edges.is_empty() {
                             debug!("long event");
                             let irp = get_irp(crate::infrared::irp::Protocol::NEC);
@@ -97,17 +98,15 @@ impl hw_infrared {
 
                     match event.trigger {
                         rppal::gpio::Trigger::RisingEdge => {
-                            debug!("1");
-                            edges.push(irp::InfraredData::Flash(diff as u32));
+                            edges.push(irp::InfraredData::Flash(delta_usec as u32));
                         }
                         rppal::gpio::Trigger::FallingEdge => {
-                            debug!("0");
-                            edges.push(irp::InfraredData::Gap(diff as u32));
+                            edges.push(irp::InfraredData::Gap(delta_usec as u32));
                         }
                         _ => {}
                     }
 
-                    prev_event_time = event.timestamp.as_millis();
+                    prev_event_usec = event_usec;
                 })
                 .map_err(|err| format!("GPIO init error: {err}"))?;
 
