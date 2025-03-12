@@ -1,11 +1,9 @@
-use std::{ffi::CString, sync::Arc, time::Duration, vec};
+use std::ffi::CString;
 
-use embedded_hal::digital::InputPin;
 use log::{debug, error};
-use palette::num::SaturatingSub;
 use rppal::gpio::Gpio;
 
-use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp, send_reply};
+use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp};
 
 use super::{hw_infrared, hw_infrared_key_cb, InfraredWorker, Reply, Request};
 
@@ -28,80 +26,29 @@ impl hw_infrared {
 
             debug!("GPIO pin: {pin}");
 
-            let mut opt_err_tolerance = 100;
-            let mut opt_max_gap = 30000;
-            let mut opt_perc_tolerance = 30;
-
+            // async move
+            let (ir_tx, ir_rx) = std::sync::mpsc::channel();
             let mut prev_event_usec = 0u128;
-            let mut edges = Vec::<irp::InfraredData>::new();
 
             ir_pin
                 .set_async_interrupt(rppal::gpio::Trigger::Both, None, move |event| {
                     let event_usec = event.timestamp.as_micros();
                     let delta_usec = event_usec.saturating_sub(prev_event_usec);
 
-                    if delta_usec >= 50_000 {
-                        if !edges.is_empty() {
-                            debug!("long event");
-                            let irp = get_irp(crate::infrared::irp::Protocol::NEC);
-
-                            let options = irp::Options {
-                                aeps: opt_err_tolerance,
-                                eps: opt_perc_tolerance,
-                                max_gap: opt_max_gap,
-                                ..Default::default()
-                            };
-                            let dfa = irp.compile(&options).expect("build dfa should succeed");
-                            let mut decoder = irp::Decoder::new(options);
-
-                            for ir in &edges {
-                                decoder.dfa_input(*ir, &dfa, |event, vars| {
-                                    debug!("event: {event} {vars:?}");
-                                    // num_decoded += 1;
-
-                                    // for (k, v) in &vars {
-                                    //     send_reply(
-                                    //         Reply::Reply(
-                                    //             CString::new(k.as_str()).unwrap_or_default(),
-                                    //             *v,
-                                    //         ),
-                                    //         &tx,
-                                    //         notify,
-                                    //     );
-                                    // }            // let ir = infrared::Receiver::builder()
-                                    //     .frequency(20_000)
-                                    //     .nec()
-                                    //     .pin(ir_pin)
-                                    //     .build();
-                                    // let ir = infrared::PeriodicPoll::with_pin(20_000, ir_pin);
-
-                                    // infrared::PeriodicPoll::with_input(0, ir_pin);
-                                    // let r1= infrared::Receiver::with_
-                                    // infraredpin(40_000, ir_pin);
-
-                                    // let r2: infrared::PeriodicPoll<infrared::protocol::Nec, InputPin> =
-                                    //     infrared::PeriodicPoll::with_pin(40_000, ir_pin);
-
-                                    // let mut r3: BufferInputReceiver<Rc6> = BufferInputReceiver::with_frequenzy(20_000);
-
-                                    // let buf: &[u32] = &[20, 40, 20];
-                                    // let cmd_iter = r3.iter(buf);
-                                });
-                            }
-
-                            debug!("{edges:?}");
-
-                            edges.clear();
-                            return;
-                        }
+                    if delta_usec > 50000 {
+                        ir_tx.send(irp::InfraredData::Reset).unwrap_or_default();
                     }
 
                     match event.trigger {
                         rppal::gpio::Trigger::RisingEdge => {
-                            edges.push(irp::InfraredData::Flash(delta_usec as u32));
+                            ir_tx
+                                .send(irp::InfraredData::Flash(delta_usec as u32))
+                                .unwrap_or_default();
                         }
                         rppal::gpio::Trigger::FallingEdge => {
-                            edges.push(irp::InfraredData::Gap(delta_usec as u32));
+                            ir_tx
+                                .send(irp::InfraredData::Gap(delta_usec as u32))
+                                .unwrap_or_default();
                         }
                         _ => {}
                     }
@@ -110,14 +57,43 @@ impl hw_infrared {
                 })
                 .map_err(|err| format!("GPIO init error: {err}"))?;
 
+            let mut opt_usec_tolerance = 100;
+            let mut opt_max_gap = 30000;
+            let mut opt_perc_tolerance = 30;
+
+            let irp = get_irp(crate::infrared::irp::Protocol::NEC);
+            let options = irp::Options {
+                aeps: opt_usec_tolerance,
+                eps: opt_perc_tolerance,
+                max_gap: opt_max_gap,
+                ..Default::default()
+            };
+
+            let dfa = irp.compile(&options).expect("build dfa should succeed");
+            let mut decoder = irp::Decoder::new(options);
+
             'outer: loop {
+                'chan_async: loop {
+                    match ir_rx.try_recv() {
+                        Ok(res) => {
+                            decoder.dfa_input(res, &dfa, |event, vars| {
+                                debug!("{event} {vars:?}");
+                            });
+                        }
+                        Err(err) => match err {
+                            std::sync::mpsc::TryRecvError::Empty => break 'chan_async,
+                            std::sync::mpsc::TryRecvError::Disconnected => break 'outer,
+                        },
+                    }
+                }
+
                 'req: loop {
                     match rx.try_recv() {
                         Ok(req) => {
                             debug!("{req:?}");
 
                             match req {
-                                Request::SetToleranceUsec(usec) => opt_err_tolerance = usec.into(),
+                                Request::SetToleranceUsec(usec) => opt_usec_tolerance = usec.into(),
                                 Request::SetMaxGap(usec) => opt_max_gap = usec,
                                 Request::SetTolerancePerc(perc) => opt_perc_tolerance = perc.into(),
                             }
