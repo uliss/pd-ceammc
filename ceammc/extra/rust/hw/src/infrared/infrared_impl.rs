@@ -93,10 +93,7 @@ impl hw_infrared {
 
                                 for ir in data {
                                     decoder.dfa_input(ir, &dfa, |event, vars| {
-                                        println!(
-                                            "decoded: {} F={} D={} T={}",
-                                            event, vars["F"], vars["D"], vars["T"]
-                                        );
+                                        println!("decoded: {event} {vars:?}");
                                     });
                                 }
 
