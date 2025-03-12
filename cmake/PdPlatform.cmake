@@ -238,6 +238,10 @@ endif()
 if(UNIX AND NOT APPLE)
     add_compile_options(-funroll-loops)
 
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        add_link_options(-fno-lto)
+    endif()
+
     if(CMAKE_BUILD_TYPE STREQUAL "Release")
         add_compile_options(-O2)
         add_compile_options(-ffast-math)
