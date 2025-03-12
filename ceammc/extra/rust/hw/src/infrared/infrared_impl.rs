@@ -82,6 +82,8 @@ impl hw_infrared {
 
                                 for k in &keys {
                                     if let Some(v) = vars.get(*k) {
+                                        debug!("{k}={v}");
+
                                         let key = CString::new(k.as_str()).unwrap_or_default();
                                         if let Err(err) = tx.send(Reply::Reply(key, *v)) {
                                             error!("send error: {err}");
@@ -90,9 +92,7 @@ impl hw_infrared {
                                     }
                                 }
 
-                                if keys.len() > 0 {
-                                    notify.notify();
-                                }
+                                notify.notify();
                             });
                         }
                         Err(err) => match err {
