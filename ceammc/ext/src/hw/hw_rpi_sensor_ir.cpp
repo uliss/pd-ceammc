@@ -21,6 +21,7 @@ HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
 
     tolerance_perc_ = new IntProperty("@tolerance_perc", 30);
     tolerance_perc_->checkClosedRange(0, 100);
+    tolerance_perc_->setUnits(PropValueUnits::PERCENT);
     addProperty(tolerance_perc_);
 
     tolerance_usec_ = new IntProperty("@tolerance_usec", 200);

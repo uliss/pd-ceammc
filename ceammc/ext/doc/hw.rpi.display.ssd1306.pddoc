@@ -18,14 +18,14 @@
         </info>
         <methods>
             <method name="rotation">method</method>
-            <method name="invert">invert display
+            <method name="invert">invert display 
             <param name="VALUE" type="bool" required="true">value</param></method>
-            <method name="mirror">mirror display
+            <method name="mirror">mirror display 
             <param name="VALUE" type="bool" required="true">value</param></method>
             <method name="font">set</method>
             <method name="write">method</method>
             <method name="clear">method</method>
-            <method name="brightness">set display brightness
+            <method name="brightness">set display brightness 
             <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">brightness level from 0
             (lowest) to 4 (brightest). Normal level is 2.</param></method>
             <method name="switch_on">method</method>
