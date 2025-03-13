@@ -317,10 +317,10 @@ TEST_CASE("args2", "[core]")
     SECTION("mixed")
     {
         args::ArgMatchList ml;
-        REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B"), nullptr, &ml));
+        REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B"), nullptr, &s_, &ml));
         REQUIRE(ml.size() == 4);
         REQUIRE(args::check_args("a f<0 i+ s=A|BC*", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC")));
-        REQUIRE(args::check_args("A:a f<0 i[1,5]+ NAME:s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100), nullptr, &ml));
+        REQUIRE(args::check_args("A:a f<0 i[1,5]+ NAME:s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100), nullptr, &s_, &ml));
         REQUIRE(ml.size() == 5);
     }
 
@@ -332,7 +332,7 @@ TEST_CASE("args2", "[core]")
     {                                                       \
         args::ArgMatchList ml;                              \
         AtomList largs = lst;                               \
-        args::check_args(fmt, largs, nullptr, &ml);         \
+        args::check_args(fmt, largs, nullptr, &s_, &ml);         \
         REQUIRE(ml.size() == n);                            \
         REQUIRE(ml == args::ArgMatchList({ __VA_ARGS__ })); \
     }

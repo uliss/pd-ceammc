@@ -277,19 +277,21 @@ void UILcd::m_draw(const AtomListView& lv)
     static const args::ArgChecker chk_left("s=left N:i>0?");
     static const args::ArgChecker chk_right("s=right N:i>0?");
 
-    if (chk_set.check(lv, nullptr, nullptr, false)) {
+    auto method = gensym("draw");
+
+    if (chk_set.check(lv, nullptr, method, nullptr, false)) {
         draw_value_ = lv.boolAt(1, true);
         return;
-    } else if (chk_up.check(lv, nullptr, nullptr, false)) {
+    } else if (chk_up.check(lv, nullptr, method, nullptr, false)) {
         moveCursorY(-lv.intAt(1, 1));
         drawCursor();
-    } else if (chk_down.check(lv, nullptr, nullptr, false)) {
+    } else if (chk_down.check(lv, nullptr, method, nullptr, false)) {
         moveCursorY(lv.intAt(1, 1));
         drawCursor();
-    } else if (chk_left.check(lv, nullptr, nullptr, false)) {
+    } else if (chk_left.check(lv, nullptr, method, nullptr, false)) {
         moveCursorX(-lv.intAt(1, 1));
         drawCursor();
-    } else if (chk_right.check(lv, nullptr, nullptr, false)) {
+    } else if (chk_right.check(lv, nullptr, method, nullptr, false)) {
         moveCursorX(lv.intAt(1, 1));
         drawCursor();
     }

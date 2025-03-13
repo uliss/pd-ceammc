@@ -412,7 +412,7 @@ void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
                                 "GRAIN:a*");
 
     args::ArgMatchList m;
-    if (!chk.check(lv, this, &m)) {
+    if (!chk.check(lv, this, s, &m)) {
         chk.usage(this, s);
         return;
     }
@@ -490,7 +490,7 @@ void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
                                 "TAG:s?");
 
     args::ArgMatchList m;
-    if (!chk.check(lv, this, &m)) {
+    if (!chk.check(lv, this, s, &m)) {
         chk.usage(this, s);
         return;
     }
@@ -510,7 +510,7 @@ void ArrayGrainer::m_permutate(t_symbol* s, const AtomListView& lv)
                                 "TAG:s?");
 
     args::ArgMatchList m;
-    if (!chk.check(lv, this, &m)) {
+    if (!chk.check(lv, this, s, &m)) {
         chk.usage(this, s);
         return;
     }
@@ -531,7 +531,7 @@ void ArrayGrainer::m_defer(t_symbol* s, const AtomListView& lv)
                                 "ARG:a*");
 
     args::ArgMatchList m;
-    if (!chk.check(lv, this, &m)) {
+    if (!chk.check(lv, this, s, &m)) {
         chk.usage(this, s);
         return;
     }

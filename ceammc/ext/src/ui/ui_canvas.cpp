@@ -383,7 +383,9 @@ void UICanvas::m_font(const AtomListView& lv)
     cmd.weight = CAIRO_FONT_WEIGHT_NORMAL;
     cmd.freetype = 0;
 
-    if (chk1.check(lv, nullptr, nullptr, false)) {
+    auto method = gensym("font");
+
+    if (chk1.check(lv, nullptr, method, nullptr, false)) {
         cmd.family = lv.symbolAt(0, &s_)->s_name;
         out_queue_.enqueue(cmd);
 
@@ -391,7 +393,7 @@ void UICanvas::m_font(const AtomListView& lv)
             sz.size = lv.floatAt(1, 16);
             out_queue_.enqueue(sz);
         }
-    } else if (chk2.check(lv, nullptr, nullptr, false)) {
+    } else if (chk2.check(lv, nullptr, method, nullptr, false)) {
         cmd.family = lv.symbolAt(0, &s_)->s_name;
         if (!set_font_options(lv.symbolAt(1, &s_), &cmd)) {
             UI_ERR << fmt::format("invalid font option: '{}', expected normal|italic|bold", to_string(lv[1]));
@@ -403,7 +405,7 @@ void UICanvas::m_font(const AtomListView& lv)
             sz.size = lv.floatAt(2, 16);
             out_queue_.enqueue(sz);
         }
-    } else if (chk3.check(lv, nullptr, nullptr, false)) {
+    } else if (chk3.check(lv, nullptr, method, nullptr, false)) {
         cmd.family = lv.symbolAt(0, &s_)->s_name;
         cmd.slant = CAIRO_FONT_SLANT_ITALIC;
         cmd.weight = CAIRO_FONT_WEIGHT_BOLD;
