@@ -171,29 +171,29 @@ struct Check {
     inline std::string checkInfo() const {
         switch (cmp) {
         case CMP_MODULE:
-            return fmt::format("check: %{}==0", arg_to_string(values));
+            return fmt::format(", check: %{}==0", arg_to_string(values));
         case CMP_LESS:
-            return fmt::format("check: <{}", arg_to_string(values));
+            return fmt::format(", check: <{}", arg_to_string(values));
         case CMP_LESS_EQ:
-            return fmt::format("check: <={}", arg_to_string(values));
+            return fmt::format(", check: <={}", arg_to_string(values));
         case CMP_GREATER:
-            return fmt::format("check: >{}", arg_to_string(values));
+            return fmt::format(", check: >{}", arg_to_string(values));
         case CMP_GREATER_EQ:
-            return fmt::format("check: >={}", arg_to_string(values));
+            return fmt::format(", check: >={}", arg_to_string(values));
         case CMP_RANGE_CLOSED:
-            return fmt::format("range: [{}]", arg_to_string(values, ","));
+            return fmt::format(", range: [{}]", arg_to_string(values, ","));
         case CMP_RANGE_SEMIOPEN:
-            return fmt::format("range: [{})", arg_to_string(values, ","));
+            return fmt::format(", range: [{})", arg_to_string(values, ","));
         case CMP_EQUAL:
             if (values.size() == 1)
-                return fmt::format("check: ={}", arg_to_string(values));
+                return fmt::format(", check: ={}", arg_to_string(values));
             else
-                return fmt::format("enum: {}", arg_to_string(values, "|"));
+                return fmt::format(", enum: {}", arg_to_string(values, "|"));
         case CMP_APPROX:
             if (values.size() == 1)
-                return fmt::format("check: ~{}", arg_to_string(values));
+                return fmt::format(", check: ~{}", arg_to_string(values));
             else
-                return fmt::format("enum: ~{}", arg_to_string(values, "|"));
+                return fmt::format(", enum: ~{}", arg_to_string(values, "|"));
         default:
             return {};
         }
@@ -201,9 +201,9 @@ struct Check {
 
     inline std::string argInfo() const {
         if (name.empty())
-            return fmt::format("{:10s} [{}]{}", typeNames[type], checkInfo(), helpRepeats());
+            return fmt::format("{:10s} ({}){}", typeNames[type], checkInfo(), helpRepeats());
         else
-            return fmt::format("{:10s} [type: {} {}]{}", name.data(), typeNames[type], checkInfo(), helpRepeats());
+            return fmt::format("{:10s} (type: {}{}){}", name.data(), typeNames[type], checkInfo(), helpRepeats());
     }
 
     inline std::string helpRepeats() const {
@@ -795,17 +795,34 @@ public:
         return { str.data(), str.size() };
     }
 
-    std::string help() const {
+    std::string help(const char* method) const {
         string::MediumString str;
         auto bs = std::back_inserter(str);
-        fmt::format_to(bs, "usage: ");
-        for (auto& c: *this)
-            fmt::format_to(bs, "{}{} ", c.argName(), c.helpRepeats());
 
-        *bs = '\n';
+        if (method) {
+            fmt::format_to(bs, "'{}' method usage:\n[{}", method, method);
 
-        for (auto& c: *this) {
-            fmt::format_to(bs, " - {}\n", c.argInfo());
+            for (auto& c: *this)
+                fmt::format_to(bs, " {}{}", c.argName(), c.helpRepeats());
+
+            fmt::format_to(bs, "(");
+
+            *bs = '\n';
+
+            for (auto& c: *this) {
+                fmt::format_to(bs, "  - {}\n", c.argInfo());
+            }
+        } else {
+            fmt::format_to(bs, "usage:");
+
+            for (auto& c: *this)
+                fmt::format_to(bs, " {}{}", c.argName(), c.helpRepeats());
+
+            *bs = '\n';
+
+            for (auto& c: *this) {
+                fmt::format_to(bs, "  - {}\n", c.argInfo());
+            }
         }
 
         if (str.size() > 0 && str.back() == '\n')
@@ -906,14 +923,15 @@ void ArgChecker::usage(t_object* obj, t_symbol* m) const
     if (!chk_)
         return;
 
-    std::string str;
+    pdError(obj, chk_->help(m ? m->s_name : nullptr));
+}
 
-    if (m)
-        str = fmt::format("[{}( ", m->s_name);
-
-    str += chk_->help();
-
-    pdError(obj, str);
+std::string ArgChecker::usage_str(t_symbol* m) const
+{
+    if (!chk_)
+        return {};
+    else
+        return chk_->help(m ? m->s_name : nullptr);
 }
 
 bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj, ArgMatchList* matches)

@@ -357,4 +357,24 @@ TEST_CASE("args2", "[core]")
         REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "@param", "A2"), nullptr));
         REQUIRE(!ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "@param", 10), nullptr));
     }
+
+    SECTION("usage string")
+    {
+        using namespace args;
+        REQUIRE(ArgChecker("").usage_str() == "");
+        REQUIRE(ArgChecker("X:i").usage_str() == "usage: X\n  - X          (type: int)");
+        REQUIRE(ArgChecker("X:i>0").usage_str() == "usage: X\n  - X          (type: int, check: >0)");
+        REQUIRE(ArgChecker("X:f~1").usage_str() == "usage: X\n  - X          (type: float, check: ~1)");
+        REQUIRE(ArgChecker("X:s=a|b").usage_str() == "usage: X\n  - X          (type: symbol, enum: 'a'|'b')");
+        REQUIRE(ArgChecker("X:i=0|1").usage_str() == "usage: X\n  - X          (type: int, enum: 0|1)");
+
+        REQUIRE(ArgChecker("X:i Y:B").usage_str() == "usage: X Y\n"
+                                                     "  - X          (type: int)\n"
+                                                     "  - Y          (type: bool)");
+
+        REQUIRE(ArgChecker("X:b Y:B").usage_str(gensym("test")) == "'test' method usage:\n"
+                                                                   "[test X Y(\n"
+                                                                   "  - X          (type: byte)\n"
+                                                                   "  - Y          (type: bool)");
+    }
 }

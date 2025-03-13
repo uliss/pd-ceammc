@@ -61,6 +61,13 @@ namespace args {
 
         void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr) const;
         void usage(t_object* obj, t_symbol* m = nullptr) const;
+
+        /**
+         * return usage message as string
+         * @param m - optional method name
+         * @return usage string
+         */
+        std::string usage_str(t_symbol* m = nullptr) const;
     };
 
     bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, ArgMatchList* matches = nullptr);
