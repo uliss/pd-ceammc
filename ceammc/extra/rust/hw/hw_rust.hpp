@@ -9,6 +9,10 @@
 
 constexpr static const int32_t ceammc_JOB_ERROR = -1;
 
+constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MIN_MSEC = 0.001;
+
+constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MAX_MSEC = 100.0;
+
 constexpr static const uint16_t ceammc_HW_SR04_MIN_POLL_INTERVAL = 10;
 
 constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
@@ -507,6 +511,11 @@ bool ceammc_hw_gpio_dht11_process(const ceammc_hw_gpio_dht11 *dht);
 /// create new gpio
 /// @param gpio - pointer to gpio struct
 void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
+
+/// send single impulse
+/// @param gpio - pointer to gpio struct
+/// @param length - impulse length in milliseconds >0 and <500
+bool ceammc_hw_gpio_impulse(ceammc_hw_gpio *gp, uint8_t pin, double length);
 
 /// list used pins
 /// @param gpio - pointer to gpio struct

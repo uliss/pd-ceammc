@@ -169,6 +169,15 @@ void HwRpiGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_clear_pwm(gpio_, lv.intAt(0, 0));
 }
 
+void HwRpiGpio::m_impulse(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("PIN:b LENGTH:f[0.001,100]");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_gpio_impulse(gpio_, lv.intAt(0, 0), lv.floatAt(1, ceammc_HW_GPIO_IMPULSE_LENGTH_MAX_MSEC));
+}
+
 void HwRpiGpio::m_input(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b");
@@ -232,4 +241,5 @@ void setup_hw_rpi_gpio()
     obj.addMethod("pull_down", &HwRpiGpio::m_pull_down);
 
     obj.addMethod("poll", &HwRpiGpio::m_poll);
+    obj.addMethod("impulse", &HwRpiGpio::m_impulse);
 }

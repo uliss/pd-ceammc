@@ -3,7 +3,8 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdError};
+use lib_macro::PdError;
 use log::error;
 use std::{
     ffi::{c_int, c_void, CString},
@@ -11,15 +12,19 @@ use std::{
     time::Duration,
 };
 
-#[derive(Clone)]
-pub enum HwGpioReply {
+pub const HW_GPIO_IMPULSE_LENGTH_MIN_MSEC: f64 = 0.001;
+pub const HW_GPIO_IMPULSE_LENGTH_MAX_MSEC: f64 = 100.0;
+
+
+#[derive(PdError, Clone)]
+pub enum Reply {
     PinLevel(u8, bool),
     Error(CString),
     Debug(CString),
     Pins(Vec<u8>),
 }
 
-pub enum HwGpioRequest {
+pub enum Request {
     SetOutput(u8),
     SetInput(u8),
     ResetPin(u8),
@@ -32,14 +37,15 @@ pub enum HwGpioRequest {
     SetBias(u8, hw_gpio_bias),
     SetInterrupt(u8, hw_gpio_trigger, Option<Duration>),
     ClearInterrupt(u8),
+    Impulse(u8, f64),
     ListPins,
 }
 
+type GpioThreadWorker = HwThreadWorker<Request, Reply>;
+
 /// gpio opaque type
 pub struct hw_gpio {
-    rx: std::sync::mpsc::Receiver<HwGpioReply>,
-    tx: std::sync::mpsc::Sender<HwGpioRequest>,
-    pub on_err: hw_msg_cb,
+    worker: GpioThreadWorker,
     pub on_dbg: hw_msg_cb,
     on_pin: hw_gpio_pin_cb,
     on_pin_list: hw_gpio_pin_list_cb,
@@ -145,7 +151,7 @@ pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
 /// @param level - pin level (=0: low, >0: high)
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: bool) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::Write(pin, level)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::Write(pin, level)) });
 }
 
 /// read pin request
@@ -153,7 +159,7 @@ pub extern "C" fn ceammc_hw_gpio_write_pin(gp: *mut hw_gpio, pin: u8, level: boo
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_read_pin(gp: *mut hw_gpio, pin: u8) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::Read(pin)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::Read(pin)) });
 }
 
 /// toggle pin level
@@ -161,7 +167,7 @@ pub extern "C" fn ceammc_hw_gpio_read_pin(gp: *mut hw_gpio, pin: u8) -> bool {
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_toggle_pin(gp: *mut hw_gpio, pin: u8) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::Toggle(pin)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::Toggle(pin)) });
 }
 
 /// set software pwm freq on pin
@@ -176,7 +182,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm_freq(
     freq: f64,
     duty_cycle: f64,
 ) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::SetPwmFreq(pin, freq, duty_cycle)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::SetPwmFreq(pin, freq, duty_cycle)) });
 }
 
 /// set software pwm on pin
@@ -191,7 +197,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm(
     period: f64,
     width: f64,
 ) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::SetPwm(pin, period, width)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::SetPwm(pin, period, width)) });
 }
 
 /// clear software pwm on pin
@@ -199,7 +205,7 @@ pub extern "C" fn ceammc_hw_gpio_set_pwm(
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_clear_pwm(gp: *mut hw_gpio, pin: u8) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::ClearPwm(pin)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::ClearPwm(pin)) });
 }
 
 /// reset pin to initial state
@@ -207,7 +213,7 @@ pub extern "C" fn ceammc_hw_gpio_clear_pwm(gp: *mut hw_gpio, pin: u8) -> bool {
 /// @param pin - pin number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_reset_pin(gp: *mut hw_gpio, pin: u8) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::ResetPin(pin)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::ResetPin(pin)) });
 }
 
 /// set pin mode
@@ -218,8 +224,8 @@ pub extern "C" fn ceammc_hw_gpio_reset_pin(gp: *mut hw_gpio, pin: u8) -> bool {
 pub extern "C" fn ceammc_hw_gpio_set_mode(gp: *mut hw_gpio, pin: u8, mode: hw_gpio_mode) -> bool {
     rpi_check!({
         match mode {
-            hw_gpio_mode::Output => hw_gpio::send_ptr(gp, HwGpioRequest::SetOutput(pin)),
-            hw_gpio_mode::Input => hw_gpio::send_ptr(gp, HwGpioRequest::SetInput(pin)),
+            hw_gpio_mode::Output => hw_gpio::send_request_ptr(gp, Request::SetOutput(pin)),
+            hw_gpio_mode::Input => hw_gpio::send_request_ptr(gp, Request::SetInput(pin)),
         }
     });
 }
@@ -228,7 +234,7 @@ pub extern "C" fn ceammc_hw_gpio_set_mode(gp: *mut hw_gpio, pin: u8, mode: hw_gp
 /// @param gpio - pointer to gpio struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_list_pins(gp: *mut hw_gpio) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::ListPins) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::ListPins) });
 }
 
 /// set pin bias
@@ -236,7 +242,7 @@ pub extern "C" fn ceammc_hw_gpio_list_pins(gp: *mut hw_gpio) -> bool {
 /// @param pin - pin BCM number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_set_bias(gp: *mut hw_gpio, pin: u8, bias: hw_gpio_bias) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::SetBias(pin, bias)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::SetBias(pin, bias)) });
 }
 
 /// poll pin events
@@ -252,9 +258,9 @@ pub extern "C" fn ceammc_hw_gpio_set_poll(
     debounce_ms: f64,
 ) -> bool {
     rpi_check!({
-        hw_gpio::send_ptr(
+        hw_gpio::send_request_ptr(
             gp,
-            HwGpioRequest::SetInterrupt(
+            Request::SetInterrupt(
                 pin,
                 trigger,
                 if debounce_ms <= 0.0 {
@@ -272,5 +278,13 @@ pub extern "C" fn ceammc_hw_gpio_set_poll(
 /// @param pin - pin BCM number
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_clear_poll(gp: *mut hw_gpio, pin: u8) -> bool {
-    rpi_check!({ hw_gpio::send_ptr(gp, HwGpioRequest::ClearInterrupt(pin)) });
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::ClearInterrupt(pin)) });
+}
+
+/// send single impulse
+/// @param gpio - pointer to gpio struct
+/// @param length - impulse length in milliseconds >0 and <500
+#[no_mangle]
+pub extern "C" fn ceammc_hw_gpio_impulse(gp: *mut hw_gpio, pin: u8, length: f64) -> bool {
+    rpi_check!({ hw_gpio::send_request_ptr(gp, Request::Impulse(pin, length)) });
 }

@@ -1,3 +1,4 @@
+use crate::gpio::HW_GPIO_IMPULSE_LENGTH_MIN_MSEC;
 use crate::hw_msg_cb;
 use crate::hw_notify_cb;
 use log::{debug, error};
@@ -9,7 +10,6 @@ use std::ffi::CString;
 use std::time::Duration;
 
 use rppal::gpio::{self, Gpio};
-use std::sync::mpsc::TryRecvError;
 
 use super::hw_gpio;
 use super::hw_gpio_bias;
@@ -17,14 +17,12 @@ use super::hw_gpio_pin_cb;
 use super::hw_gpio_pin_list_cb;
 use super::hw_gpio_poll_cb;
 use super::hw_gpio_trigger;
-use super::HwGpioReply;
-use super::HwGpioRequest;
+use super::GpioThreadWorker;
+use super::Reply;
+use super::Request;
+use super::HW_GPIO_IMPULSE_LENGTH_MAX_MSEC;
 
 impl hw_gpio {
-    pub fn try_recv(&mut self) -> Result<HwGpioReply, TryRecvError> {
-        self.rx.try_recv()
-    }
-
     pub fn exec_pin(&self, pin: u8, level: bool) {
         (self.on_pin.cb)(self.on_pin.user, pin, level);
     }
@@ -41,8 +39,7 @@ impl hw_gpio {
         on_pin_list: hw_gpio_pin_list_cb,
         on_pin_poll: hw_gpio_poll_cb,
     ) -> Result<hw_gpio, CString> {
-        let (req_tx, req_rx) = std::sync::mpsc::channel();
-        let (reply_tx, reply_rx) = std::sync::mpsc::channel();
+        let (worker, rx, tx) = GpioThreadWorker::new(on_err);
 
         std::thread::spawn(move || -> Result<(), String> {
             debug!("[worker thread] starting ...");
@@ -60,17 +57,16 @@ impl hw_gpio {
             reply_debug(
                 format!("RPi model: {}, soc: {}", dev.model(), dev.soc()),
                 &notify,
-                &reply_tx,
+                &tx,
             );
 
             let mut pins: HashMap<u8, GpioPin> = HashMap::new();
 
-            while let Ok(req) = req_rx.recv() {
-                if let Err(err) =
-                    process_request(req, &notify, on_pin_poll, &reply_tx, &gpio, &mut pins)
+            while let Ok(req) = rx.recv() {
+                if let Err(err) = process_request(req, &notify, on_pin_poll, &tx, &gpio, &mut pins)
                 {
                     error!("{err}");
-                    reply_error(err, &notify, &reply_tx);
+                    reply_error(err, &notify, &tx);
                 }
             }
 
@@ -79,61 +75,45 @@ impl hw_gpio {
         });
 
         Ok(hw_gpio {
-            rx: reply_rx,
-            tx: req_tx,
-            on_err,
+            worker,
             on_dbg,
             on_pin,
             on_pin_list,
         })
     }
 
-    pub fn send(&self, value: HwGpioRequest) -> bool {
-        if let Err(err) = self.tx.send(value) {
-            self.on_err
-                .exec(format!("[owner] send error: {err}").as_str());
-
-            false
-        } else {
-            true
-        }
-    }
-
-    pub fn send_ptr(gp: *mut hw_gpio, req: HwGpioRequest) -> bool {
+    pub fn send_request_ptr(gp: *mut hw_gpio, req: Request) -> bool {
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;
         }
 
         let gp = unsafe { &mut *gp };
-        gp.send(req)
+        gp.worker.send_request(req)
     }
 
-    pub fn process_ptr(gp: *mut hw_gpio) {
+    pub fn process_ptr(gp: *mut hw_gpio) -> bool {
         if gp.is_null() {
             log::error!("NULL gpio pointer");
-            return;
+            return false;
         }
 
         let gp = unsafe { &mut *gp };
-
-        while let Ok(reply) = gp.try_recv() {
-            match reply {
-                HwGpioReply::PinLevel(pin, level) => {
-                    gp.exec_pin(pin, level);
-                    debug!("pin [{pin}] = {level}");
-                }
-                HwGpioReply::Error(msg) => {
-                    gp.on_err.exec_raw(msg.as_ptr());
-                }
-                HwGpioReply::Debug(msg) => {
-                    gp.on_dbg.exec_raw(msg.as_ptr());
-                }
-                HwGpioReply::Pins(items) => {
-                    gp.exec_pin_list(&items);
-                }
+        gp.worker.process_reply(&|reply| match reply {
+            Reply::PinLevel(pin, level) => {
+                gp.exec_pin(pin, level);
+                debug!("pin [{pin}] = {level}");
             }
-        }
+            Reply::Error(msg) => {
+                gp.worker.caller_error(&msg);
+            }
+            Reply::Debug(msg) => {
+                gp.on_dbg.exec_raw(msg.as_ptr());
+            }
+            Reply::Pins(items) => {
+                gp.exec_pin_list(&items);
+            }
+        })
     }
 }
 
@@ -184,15 +164,15 @@ impl hw_gpio_poll_cb {
 }
 
 fn process_request(
-    req: HwGpioRequest,
+    req: Request,
     notify: &hw_notify_cb,
     poll_notify: hw_gpio_poll_cb,
-    reply_tx: &std::sync::mpsc::Sender<HwGpioReply>,
+    reply_tx: &std::sync::mpsc::Sender<Reply>,
     gpio: &Gpio,
     pins: &mut HashMap<u8, GpioPin>,
 ) -> Result<(), String> {
     match req {
-        HwGpioRequest::Read(pin) => {
+        Request::Read(pin) => {
             let level = match pins.get(&pin) {
                 Some(x) => match x {
                     GpioPin::Input(input_pin) => input_pin.is_high(),
@@ -201,9 +181,9 @@ fn process_request(
                 None => return Err(format!("pin [{pin}] is not configured")),
             };
 
-            reply(HwGpioReply::PinLevel(pin, level), notify, reply_tx);
+            reply(Reply::PinLevel(pin, level), notify, reply_tx);
         }
-        HwGpioRequest::Write(pin, state) => {
+        Request::Write(pin, state) => {
             let io_pin = get_output_pin(pin, pins)?;
             if state {
                 io_pin.set_high();
@@ -211,14 +191,14 @@ fn process_request(
                 io_pin.set_low();
             }
         }
-        HwGpioRequest::Toggle(pin) => {
+        Request::Toggle(pin) => {
             get_output_pin(pin, pins).and_then(|pin| Ok(pin.toggle()))?;
         }
-        HwGpioRequest::SetPwmFreq(pin, freq, duty) => {
+        Request::SetPwmFreq(pin, freq, duty) => {
             get_output_pin(pin, pins)
                 .and_then(|pin| pin.set_pwm_frequency(freq, duty).map_err(|e| e.to_string()))?;
         }
-        HwGpioRequest::SetPwm(pin, period_ms, width_ms) => {
+        Request::SetPwm(pin, period_ms, width_ms) => {
             get_output_pin(pin, pins).and_then(|pin| {
                 pin.set_pwm(
                     Duration::from_secs_f64(period_ms * 0.001),
@@ -227,10 +207,10 @@ fn process_request(
                 .map_err(|e| e.to_string())
             })?;
         }
-        HwGpioRequest::ClearPwm(pin) => {
+        Request::ClearPwm(pin) => {
             get_output_pin(pin, pins).and_then(|pin| pin.clear_pwm().map_err(|e| e.to_string()))?;
         }
-        HwGpioRequest::SetBias(pin, bias) => {
+        Request::SetBias(pin, bias) => {
             get_input_pin(pin, pins).and_then(|pin| {
                 Ok(pin.set_bias(match bias {
                     hw_gpio_bias::None => gpio::Bias::Off,
@@ -239,7 +219,7 @@ fn process_request(
                 }))
             })?;
         }
-        HwGpioRequest::SetInterrupt(pin, trigger, debounce) => {
+        Request::SetInterrupt(pin, trigger, debounce) => {
             get_input_pin(pin, pins).and_then(|x| {
                 x.set_async_interrupt(
                     match trigger {
@@ -256,11 +236,11 @@ fn process_request(
                 .map_err(|e| e.to_string())
             })?;
         }
-        HwGpioRequest::ClearInterrupt(pin) => {
+        Request::ClearInterrupt(pin) => {
             get_input_pin(pin, pins)
                 .and_then(|pin| pin.clear_async_interrupt().map_err(|e| e.to_string()))?;
         }
-        HwGpioRequest::SetOutput(pin) => {
+        Request::SetOutput(pin) => {
             if pins.contains_key(&pin) {
                 match pins.get(&pin) {
                     Some(x) => match x {
@@ -276,7 +256,7 @@ fn process_request(
             let out_pin = gpio.get(pin).map_err(|e| e.to_string())?.into_output();
             pins.insert(pin, GpioPin::Output(out_pin));
         }
-        HwGpioRequest::SetInput(pin) => {
+        Request::SetInput(pin) => {
             if pins.contains_key(&pin) {
                 match pins.get(&pin) {
                     Some(x) => match x {
@@ -295,48 +275,58 @@ fn process_request(
                 .into_input_pulldown();
             pins.insert(pin, GpioPin::Input(in_pin));
         }
-        HwGpioRequest::ResetPin(pin) => {
+        Request::ResetPin(pin) => {
             if !pins.contains_key(&pin) {
                 return Err(format!("pin [{pin}] not configured"));
             } else {
                 pins.remove(&pin);
             }
         }
-        HwGpioRequest::ListPins => {
+        Request::ListPins => {
             let keys = pins.keys().into_iter().map(|k| *k).collect::<Vec<_>>();
-            reply(HwGpioReply::Pins(keys), &notify, reply_tx);
+            reply(Reply::Pins(keys), &notify, reply_tx);
+        }
+        Request::Impulse(pin, length_ms) => {
+            if length_ms < HW_GPIO_IMPULSE_LENGTH_MIN_MSEC
+                || length_ms > HW_GPIO_IMPULSE_LENGTH_MAX_MSEC
+            {
+                return Err(format!("invalid impulse length: {length_ms}, should be in [{HW_GPIO_IMPULSE_LENGTH_MIN_MSEC} ... {HW_GPIO_IMPULSE_LENGTH_MAX_MSEC}] range"));
+            }
+
+            let pin = get_output_pin(pin, pins)?;
+            pin.set_high();
+            std::thread::sleep(Duration::from_micros(
+                (length_ms.clamp(
+                    HW_GPIO_IMPULSE_LENGTH_MIN_MSEC,
+                    HW_GPIO_IMPULSE_LENGTH_MAX_MSEC,
+                ) * 1000.0)
+                    .round() as u64,
+            ));
+            pin.set_low();
         }
     };
 
     Ok(())
 }
 
-fn reply(msg: HwGpioReply, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<HwGpioReply>) {
+fn reply(msg: Reply, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<Reply>) {
     match reply_tx.send(msg) {
         Ok(_) => notify.notify(),
         Err(err) => error!("{err}"),
     }
 }
 
-fn reply_error(
-    msg: String,
-    notify: &hw_notify_cb,
-    reply_tx: &std::sync::mpsc::Sender<HwGpioReply>,
-) {
+fn reply_error(msg: String, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<Reply>) {
     reply(
-        HwGpioReply::Error(CString::new(msg).unwrap_or_default()),
+        Reply::Error(CString::new(msg).unwrap_or_default()),
         notify,
         reply_tx,
     )
 }
 
-fn reply_debug(
-    msg: String,
-    notify: &hw_notify_cb,
-    reply_tx: &std::sync::mpsc::Sender<HwGpioReply>,
-) {
+fn reply_debug(msg: String, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<Reply>) {
     reply(
-        HwGpioReply::Debug(CString::new(msg).unwrap_or_default()),
+        Reply::Debug(CString::new(msg).unwrap_or_default()),
         notify,
         reply_tx,
     )
