@@ -57,8 +57,8 @@ ceammc_ui_external(touchosc)
 
 add_library(ceammc_ui STATIC mod_ui.cpp
     ${NUI_SOURCES} ${UI_SOURCES}
-    ui.h ui.cpp
-    ui_control.tcl)
+
+)
 
 target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
 target_include_directories(ceammc_ui PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
@@ -141,7 +141,6 @@ tcl_ui_deps(ui_bang.tcl)
 tcl_ui_deps(ui_button.tcl)
 tcl_ui_deps(ui_canvas.tcl)
 tcl_ui_deps(ui_circular_meter.tcl)
-tcl_ui_deps(ui_control.tcl)
 tcl_ui_deps(ui_display.tcl)
 tcl_ui_deps(ui_dsp.tcl)
 tcl_ui_deps(ui_filter.tcl)
