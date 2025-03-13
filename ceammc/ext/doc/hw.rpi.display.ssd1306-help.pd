@@ -9,91 +9,92 @@
 #X text 215 80 Both I2c and SPI connections are supported;
 #X msg 50 143 clear;
 #X obj 50 201 hw.rpi.display.ssd1306;
-#X msg 50 230 open img/conn_spi_ssd1306.png;
-#X msg 50 259 open img/conn_i2c_ssd1306.png;
-#X obj 50 287 ui;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 230 ui.link @title 'SPI_connection' @url
+ceammc://img/conn_spi_ssd1306.png;
+#X obj 50 259 ui.link @title 'I2C_connection' @url
+ceammc://img/conn_i2c_ssd1306.png;
+#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 321 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 324 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 377 1\.;
-#X text 150 377 symbol;
-#X obj 246 378 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 377 MODE: display connection. See @mode. Allowed values:
+#X text 110 356 1\.;
+#X text 150 356 symbol;
+#X obj 246 357 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 356 MODE: display connection. See @mode. Allowed values:
 i2c \, spi. Type: symbol.;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 406 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 409 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 462 @i2c;
-#X text 245 462 (initonly) Get/Set I2c connection arguments: I2C? ADDR?.
+#X msg 110 441 @i2c;
+#X text 245 441 (initonly) Get/Set I2c connection arguments: I2C? ADDR?.
 I2C: i2c bus index (if none - using default i2c bus) \, ADDR: device
 i2c address (if none - using default address). Type: list.;
-#X msg 110 519 @mode;
-#X text 245 519 (initonly) Get/Set display connection. Type: symbol.
+#X msg 110 498 @mode;
+#X text 245 498 (initonly) Get/Set display connection. Type: symbol.
 Default value: i2c. Allowed values: i2c \, spi.;
-#X msg 110 561 @spi;
-#X text 245 561 (initonly) Get/Set SPI connection arguments: DC RS
+#X msg 110 540 @spi;
+#X text 245 540 (initonly) Get/Set SPI connection arguments: DC RS
 CS? SPI? FREQ?. DC: GPIO pin \, RS: GPIO pin \, CS: chip select pin
 (logical numbering \, not GPIO! \, default: 0 (GPIO8)) \, SPI: spi
 bus (default 1) \, FREQ: SPI clock frequency in hertz (default: 10_000_000).
 Type: list.;
-#X msg 110 648 @size;
-#X text 245 648 (initonly) Get/Set display size. Type: list. Default
+#X msg 110 627 @size;
+#X text 245 627 (initonly) Get/Set display size. Type: list. Default
 value: 128 64\.;
-#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 705 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 684 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 740 brightness;
-#X text 245 740 set display brightness. Arguments are:;
-#X obj 255 763 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 763 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
+#X msg 110 719 brightness;
+#X text 245 719 set display brightness. Arguments are:;
+#X obj 255 742 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 742 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
 Normal level is 2\. Type: int. Allowed values: 0 \, 1 \, 2 \, 3 \,
 4\.;
-#X msg 110 818 clear;
-#X text 245 818 method.;
-#X msg 110 846 flush;
-#X text 245 846 flush internal buffer to device.;
-#X msg 110 874 font;
-#X text 245 874 set.;
-#X msg 110 902 invert;
-#X text 245 902 invert display. Arguments are:;
-#X obj 255 925 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 925 VALUE: value. Type: bool.;
-#X msg 110 950 mirror;
-#X text 245 950 mirror display. Arguments are:;
-#X obj 255 973 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 973 VALUE: value. Type: bool.;
-#X msg 110 998 pixel;
-#X text 245 998 method.;
-#X msg 110 1026 rotation;
-#X text 245 1026 method.;
-#X msg 110 1054 switch_on;
-#X text 245 1054 method.;
-#X msg 110 1082 text;
-#X text 245 1082 method.;
-#X msg 110 1110 write;
-#X text 245 1110 method.;
-#X obj 20 1148 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1153 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 797 clear;
+#X text 245 797 method.;
+#X msg 110 825 flush;
+#X text 245 825 flush internal buffer to device.;
+#X msg 110 853 font;
+#X text 245 853 set.;
+#X msg 110 881 invert;
+#X text 245 881 invert display. Arguments are:;
+#X obj 255 904 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 904 VALUE: value. Type: bool.;
+#X msg 110 929 mirror;
+#X text 245 929 mirror display. Arguments are:;
+#X obj 255 952 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 952 VALUE: value. Type: bool.;
+#X msg 110 977 pixel;
+#X text 245 977 method.;
+#X msg 110 1005 rotation;
+#X text 245 1005 method.;
+#X msg 110 1033 switch_on;
+#X text 245 1033 method.;
+#X msg 110 1061 text;
+#X text 245 1061 method.;
+#X msg 110 1089 write;
+#X text 245 1089 method.;
+#X obj 20 1127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1132 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1154 1\.;
-#X text 245 1154 control input.;
-#X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1189 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1133 1\.;
+#X text 245 1133 control input.;
+#X obj 20 1163 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1168 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1190 1\.;
-#X text 245 1190;
+#X text 110 1169 1\.;
+#X text 245 1169;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1240 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1243 library: ceammc v0.9.7;
-#N canvas 10 1262 400 290 info 0;
+#X obj 1 1219 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1222 library: ceammc v0.9.7;
+#N canvas 10 1241 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -117,7 +118,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1262 pd info;
+#X restore 10 1241 pd info;
 #X connect 6 0 7 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
