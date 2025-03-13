@@ -665,6 +665,8 @@ ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
 
 bool ceammc_hw_infrared_set_max_gap(const ceammc_hw_infrared *ir, uint32_t max_gap);
 
+bool ceammc_hw_infrared_set_protocol(const ceammc_hw_infrared *ir, const char *proto);
+
 bool ceammc_hw_infrared_set_tolerance_perc(const ceammc_hw_infrared *ir, uint8_t perc);
 
 bool ceammc_hw_infrared_set_tolerance_usec(const ceammc_hw_infrared *ir, uint16_t usec);

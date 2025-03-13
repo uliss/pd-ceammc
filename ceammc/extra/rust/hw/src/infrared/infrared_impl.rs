@@ -3,7 +3,7 @@ use std::ffi::CString;
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
-use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_irp, send_reply};
+use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_dfa, process_err};
 
 use super::{hw_infrared, hw_infrared_key_cb, InfraredWorker, Reply, Request};
 
@@ -61,7 +61,6 @@ impl hw_infrared {
             let mut opt_max_gap = 30000;
             let mut opt_perc_tolerance = 30;
 
-            let irp = get_irp(crate::infrared::irp::Protocol::NEC);
             let options = irp::Options {
                 aeps: opt_usec_tolerance,
                 eps: opt_perc_tolerance,
@@ -69,7 +68,7 @@ impl hw_infrared {
                 ..Default::default()
             };
 
-            let dfa = irp.compile(&options).expect("build dfa should succeed");
+            let mut dfa = get_dfa("NEC", &options)?;
             let mut decoder = irp::Decoder::new(options);
 
             'outer: loop {
@@ -82,10 +81,8 @@ impl hw_infrared {
 
                                 for k in &keys {
                                     if let Some(v) = vars.get(*k) {
-                                        debug!("{k}={v}");
-
                                         let key = CString::new(k.as_str()).unwrap_or_default();
-                                        if let Err(err) = tx.send(Reply::Reply(key, *v)) {
+                                        if let Err(err) = tx.send(Reply::Key(key, *v)) {
                                             error!("send error: {err}");
                                             break;
                                         }
@@ -111,6 +108,19 @@ impl hw_infrared {
                                 Request::SetToleranceUsec(usec) => opt_usec_tolerance = usec.into(),
                                 Request::SetMaxGap(usec) => opt_max_gap = usec,
                                 Request::SetTolerancePerc(perc) => opt_perc_tolerance = perc.into(),
+                                Request::SetProtocol(proto) => {
+                                    let options = irp::Options {
+                                        aeps: opt_usec_tolerance,
+                                        eps: opt_perc_tolerance,
+                                        max_gap: opt_max_gap,
+                                        ..Default::default()
+                                    };
+
+                                    dfa = get_dfa(proto.to_string_lossy().as_ref(), &options)
+                                        .map_err(|err| process_err(err, &tx, notify))
+                                        .unwrap_or_default();
+                                    decoder = irp::Decoder::new(options);
+                                }
                             }
                         }
                         Err(err) => match err {
@@ -135,10 +145,7 @@ impl hw_infrared {
             let ir = unsafe { &*ir };
             ir.worker.process_reply(&|rep| match rep {
                 Reply::Error(err) => ir.worker.caller_error(&err),
-                Reply::Data(data) => {
-                    debug!("data: {data}");
-                }
-                Reply::Reply(key, value) => (ir.on_key.cb)(ir.on_key.user, key.as_ptr(), value),
+                Reply::Key(key, value) => (ir.on_key.cb)(ir.on_key.user, key.as_ptr(), value),
             })
         }
     }
@@ -152,64 +159,4 @@ impl hw_infrared {
             ir.worker.send_request(req)
         }
     }
-}
-
-#[cfg(test)]
-mod test {
-    use irp::{InfraredData, Message, Vartable};
-
-    use crate::infrared::irp::get_irp;
-
-    #[test]
-    fn test_decode() {
-        let msg = "9092 -4582 
-        540 -605  538 -582  537 -608  541 -603  512 -607  541 -603  513 -634  513 -606
-        541 -1744 545 -1715 533 -1726 542 -1743 540 -1721 511 -1745 541 -1746 512 -1746
-
-        511 -1747 538 -609  504 -1752 540 -605  538 -1720 538 -607  516 -628  513 -606
-        539 -606  513 -1745 537 -607  514 -1743 537 -608  510 -1748 538 -1747 512 -1745 +564 -30732";
-        let rawir = Message::parse(msg).expect("parse should succeed");
-        assert_eq!(
-            rawir.raw,
-            vec![
-                9092, 4582, //
-                540, 605, 538, 582, 537, 608, 541, 603, 512, 607, 541, 603, 513, 634, 513, 606,
-                541, 1744, 545, 1715, 533, 1726, 542, 1743, 540, 1721, 511, 1745, 541, 1746, 512,
-                1746, 511, 1747, 538, 609, 504, 1752, 540, 605, 538, 1720, 538, 607, 516, 628, 513,
-                606, 539, 606, 513, 1745, 537, 607, 514, 1743, 537, 608, 510, 1748, 538, 1747, 512,
-                1745, 564, 30732
-            ]
-        );
-
-        let options = irp::Options {
-            aeps: 100,
-            eps: 30,
-            max_gap: 20000,
-            ..Default::default()
-        };
-
-        let irp = get_irp(crate::infrared::irp::Protocol::NEC);
-        let dfa = irp.compile(&options).expect("build dfa should succeed");
-
-        // Create a decoder with 100 microsecond tolerance, 30% relative tolerance,
-        // and 20000 microseconds maximum gap.
-        let mut decoder = irp::Decoder::new(options);
-
-        // Set some values for D, S, and F
-        let mut vars = Vartable::new();
-        vars.set(String::from("D"), 255);
-        vars.set(String::from("S"), 0xff);
-        vars.set(String::from("F"), 1);
-        let message = irp.encode_raw(vars, 1).expect("encode should succeed");
-        if let Some(carrier) = &message.carrier {
-            println!("carrier: {}Hz", carrier);
-        }
-        println!("{}", message.print_rawir());
-        for ir in InfraredData::from_rawir(msg).unwrap() {
-            decoder.dfa_input(ir, &dfa, |event, vars| {
-                println!("decoded: {} {:?}", event, vars);
-            });
-        }
-    }
-    //
 }

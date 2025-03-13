@@ -11,7 +11,7 @@ use std::{
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdError};
 
 #[cfg(target_os = "linux")]
 mod infrared_impl;
@@ -22,13 +22,13 @@ pub enum Request {
     SetToleranceUsec(u16),
     SetMaxGap(u32),
     SetTolerancePerc(u8),
+    SetProtocol(CString),
 }
 
 #[derive(PdError, Debug)]
 pub enum Reply {
     Error(CString),
-    Data(i64),
-    Reply(CString, i64),
+    Key(CString, i64),
 }
 
 type InfraredWorker = HwThreadWorker<Request, Reply>;
@@ -90,4 +90,12 @@ pub extern "C" fn ceammc_hw_infrared_set_tolerance_perc(ir: *const hw_infrared, 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_infrared_set_max_gap(ir: *const hw_infrared, max_gap: u32) -> bool {
     rpi_check!({ hw_infrared::send_request_ptr(ir, Request::SetMaxGap(max_gap)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_infrared_set_protocol(
+    ir: *const hw_infrared,
+    proto: *const c_char,
+) -> bool {
+    rpi_check!({ hw_infrared::send_request_ptr(ir, Request::SetProtocol(ptr_to_cstr(proto))) });
 }

@@ -70,6 +70,10 @@ pub trait MakePdError<Error> {
     fn pd_err(msg: CString) -> Error;
 }
 
+pub trait MakePdDebug<Debug> {
+    fn pd_debug(msg: CString) -> Debug;
+}
+
 fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> bool {
     if let Err(err) = tx.send(rep) {
         error!("reply send error: {err}");
@@ -88,6 +92,19 @@ where
     send_reply(R::pd_err(CString::new(msg).unwrap_or_default()), tx, notify)
 }
 
+#[allow(dead_code)]
+fn send_debug<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
+where
+    R: MakePdDebug<R>,
+{
+    debug!("{msg}");
+    send_reply(
+        R::pd_debug(CString::new(msg).unwrap_or_default()),
+        tx,
+        notify,
+    )
+}
+
 fn process_err<E, R>(err: E, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
 where
     E: std::fmt::Display,
@@ -95,6 +112,17 @@ where
 {
     let str = err.to_string();
     send_error(tx, notify, str.as_str());
+    str
+}
+
+#[allow(dead_code)]
+fn process_debug<D, R>(msg: D, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
+where
+    D: std::fmt::Display,
+    R: MakePdDebug<R>,
+{
+    let str = msg.to_string();
+    send_debug(tx, notify, str.as_str());
     str
 }
 
