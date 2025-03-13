@@ -70,6 +70,15 @@ void HwRpiSensorIR::m_tolerance(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void HwRpiSensorIR::m_protocol(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("PROTO:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_infrared_set_protocol(ir_, lv.symbolAt(0, &s_)->s_name);
+}
+
 void HwRpiSensorIR::startSensor()
 {
     if (ir_) {
@@ -103,5 +112,6 @@ void setup_hw_rpi_sensor_ir()
 
     obj.addMethod("max_gap", &HwRpiSensorIR::m_max_gap);
     obj.addMethod("poll", &HwRpiSensorIR::m_poll);
+    obj.addMethod("proto", &HwRpiSensorIR::m_protocol);
     obj.addMethod("tolerance", &HwRpiSensorIR::m_tolerance);
 }
