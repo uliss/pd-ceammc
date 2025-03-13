@@ -158,9 +158,11 @@ fn get_irp(proto: &str) -> Result<Irp, String> {
             Ok(irp)
         }
         None => {
-            let keys = XML_PROTOCOLS.keys().map(|x| x.clone()).collect::<Vec<_>>().join(", ");
+            let mut keys = XML_PROTOCOLS.keys().map(|x| x.clone()).collect::<Vec<_>>();
+            keys.sort();
             return Err(format!(
-                "unknown protocol: {proto}, supported values are: {keys}"
+                "unknown protocol: {proto}, supported values are: {}",
+                keys.join(", ")
             ));
         }
     }
