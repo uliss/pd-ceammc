@@ -26,13 +26,15 @@
 #X text 200 397 Hardware PWM output for RaspberryPi;
 #X obj 30 425 hw.rpi.rotenc;
 #X text 200 425 Rotary encoder for Raspberry GPIO;
-#X obj 30 453 hw.rpi.sr04;
-#X text 200 453 HC-SR04 ulatrasonic ranging module for Raspberry Pi;
-#X obj 30 481 hw.serial;
-#X text 200 481 serial port device;
-#X obj 30 509 hw.spi.max7219;
-#X text 200 509 LED display driver based on max7219 chip;
+#X obj 30 453 hw.rpi.sensor.ir;
+#X text 200 453 Infrared sensor support for Raspberry Pi;
+#X obj 30 481 hw.rpi.sr04;
+#X text 200 481 HC-SR04 ulatrasonic ranging module for Raspberry Pi;
+#X obj 30 509 hw.serial;
+#X text 200 509 serial port device;
+#X obj 30 537 hw.spi.max7219;
+#X text 200 537 LED display driver based on max7219 chip;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
-#X obj 1 537 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 547 library: ceammc;
+#X obj 1 565 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 575 library: ceammc;

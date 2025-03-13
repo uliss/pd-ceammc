@@ -8,14 +8,14 @@
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 165 118 ui.menu NEC RC5 RC6 JVC SHARP;
 #X msg 50 147 poll \$1;
-#X msg 165 147 @protocol \$1;
+#X msg 165 147 @proto \$2;
 #X obj 50 190 hw.rpi.sensor.ir @pin 23;
-#X obj 50 219 route D S E;
+#X obj 50 219 route D S F;
 #X floatatom 50 248 5 0 0 0 - - -;
 #X floatatom 117 248 5 0 0 0 - - -;
 #X floatatom 184 248 5 0 0 0 - - -;
 #X obj 50 277 print IR;
-#X obj 50 305 ui.link @title Connection @url
+#X obj 50 305 ui.link @title Connection_Scheme @url
 ceammc://img/conn_infrared.png;
 #X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 367 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144

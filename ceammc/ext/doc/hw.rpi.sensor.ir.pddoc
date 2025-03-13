@@ -40,18 +40,18 @@
 <![CDATA[
 [T]         [ui.menu NEC RC5 RC6 JVC SHARP]
 |           |
-[poll $1(   [@protocol $1(
+[poll $1(   [@proto $2(
 |           |
 |           |
 [hw.rpi.sensor.ir @pin 23 #x]
 |
-[route D S E   ]
+[route D S F   ]
 |     ^|     ^^|
 [F]    [F]    [F]
 
 [print IR #a]
 
-[ui.link @url=ceammc://img/conn_infrared.png @title=Connection]
+[ui.link @url=ceammc://img/conn_infrared.png @title=Connection_Scheme]
 [X x->a]
 ]]>
             </pdascii>
