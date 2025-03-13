@@ -272,8 +272,11 @@ action append_opt_real {
         real += rl_den / double(rl_den_cnt);
 
     rl_chk.values.push_back(rl_sign * real);
+
+    // cleanup
     rl_den = 0;
     rl_den_cnt = 0;
+    rl_sign = 1;
 }
 
 action append_opt_sym {
