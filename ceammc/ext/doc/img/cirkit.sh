@@ -3,6 +3,9 @@
 ZOOM=1.5
 BG='#fff'
 CROP=150
+RIGHT=150
+LEFT=150
+TOP=500
 IN=$(basename $1)
 OUT=${IN%.svg}.png
 
@@ -13,5 +16,5 @@ then
 fi
 
 resvg --background $BG -z $ZOOM $1 $OUT
-convert $OUT -crop +$CROP+$CROP -crop -$CROP-$CROP tmp
+convert $OUT -crop +$LEFT+$TOP -crop -$RIGHT-$CROP tmp
 mv tmp $OUT
