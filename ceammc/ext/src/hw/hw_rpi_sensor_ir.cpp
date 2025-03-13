@@ -15,6 +15,17 @@ HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
     pin_->setInitOnly();
     pin_->setArgIndex(0);
     addProperty(pin_);
+
+    proto_ = new SymbolProperty("@proto", gensym("NEC"));
+    addProperty(proto_);
+
+    tolerance_perc_ = new IntProperty("@tolerance_perc", 30);
+    tolerance_perc_->checkClosedRange(0, 100);
+    addProperty(tolerance_perc_);
+
+    tolerance_usec_ = new IntProperty("@tolerance_usec", 200);
+    tolerance_usec_->checkClosedRange(0, 1000);
+    addProperty(tolerance_usec_);
 }
 
 HwRpiSensorIR::~HwRpiSensorIR()
@@ -25,15 +36,6 @@ HwRpiSensorIR::~HwRpiSensorIR()
 bool HwRpiSensorIR::notify(int code)
 {
     return ceammc_hw_infrared_free_process_reply(ir_);
-}
-
-void HwRpiSensorIR::m_max_gap(t_symbol* s, const AtomListView& lv)
-{
-    static const args::ArgChecker chk("GAP_USEC:i>0");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
-
-    ceammc_hw_infrared_set_max_gap(ir_, lv.intAt(0, 0));
 }
 
 void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
@@ -48,35 +50,6 @@ void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
     } else if (!poll && ir_) {
         stopSensor();
     }
-}
-
-void HwRpiSensorIR::m_tolerance(t_symbol* s, const AtomListView& lv)
-{
-    static const args::ArgChecker chk("VALUE:i>=0 UNIT:s=usec|perc|us");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
-
-    auto val = lv.intAt(0, 0);
-
-    switch (crc32_hash(lv.symbolAt(1, &s_))) {
-    case hash_usec:
-    case hash_us:
-        ceammc_hw_infrared_set_tolerance_usec(ir_, val);
-        break;
-    case hash_perc:
-    default:
-        ceammc_hw_infrared_set_tolerance_perc(ir_, val);
-        break;
-    }
-}
-
-void HwRpiSensorIR::m_protocol(t_symbol *s, const AtomListView &lv)
-{
-    static const args::ArgChecker chk("PROTO:s");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
-
-    ceammc_hw_infrared_set_protocol(ir_, lv.symbolAt(0, &s_)->s_name);
 }
 
 void HwRpiSensorIR::startSensor()
@@ -96,6 +69,10 @@ void HwRpiSensorIR::startSensor()
 
              obj->anyTo(0, gensym(key), Atom(value));
          } });
+
+    ceammc_hw_infrared_set_protocol(ir_, proto_->value()->s_name);
+    ceammc_hw_infrared_set_tolerance_usec(ir_, tolerance_usec_->value());
+    ceammc_hw_infrared_set_tolerance_perc(ir_, tolerance_perc_->value());
 }
 
 void HwRpiSensorIR::stopSensor()
@@ -110,8 +87,5 @@ void setup_hw_rpi_sensor_ir()
 {
     ObjectFactory<HwRpiSensorIR> obj("hw.rpi.sensor.ir");
 
-    obj.addMethod("max_gap", &HwRpiSensorIR::m_max_gap);
     obj.addMethod("poll", &HwRpiSensorIR::m_poll);
-    obj.addMethod("proto", &HwRpiSensorIR::m_protocol);
-    obj.addMethod("tolerance", &HwRpiSensorIR::m_tolerance);
 }
