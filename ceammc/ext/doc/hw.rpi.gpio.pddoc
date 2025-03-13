@@ -27,7 +27,7 @@
             <param name="VALUE" type="bool" required="true">value</param></method>
             <method name="toggle">toggle output pin current value 
             <param name="PIN" type="int" required="true">pin number</param></method>
-            <method name="poll">start/stop pin value polling
+            <method name="poll">start/stop pin value polling 
             <param name="PIN" type="int" required="true">pin number</param>
             <param name="STATE" type="bool" required="true">poll state</param>
             <param name="DEBOUNCE" type="float" minvalue="0" default="10" units="millisecond">
@@ -36,13 +36,13 @@
             <param name="PIN" type="int" required="true">pin number</param></method>
             <method name="pull_down">pull internal pin resistors to low level 
             <param name="PIN" type="int" required="true">pin number</param></method>
-            <method name="soft_pwm">set software PWM for pin
+            <method name="soft_pwm">set software PWM for pin 
             <param name="PIN" type="int" required="true">pin number</param>
             <param name="PERIOD" type="float" units="msec" minvalue="0" required="true">period
             length</param>
             <param name="DUTY" type="float" units="msec" minvalue="0" required="true">duty
             length</param></method>
-            <method name="soft_pwm_freq">set software PWM frequency for pin
+            <method name="soft_pwm_freq">set software PWM frequency for pin 
             <param name="PIN" type="int" required="true">pin number</param>
             <param name="FREQ" type="float" units="hertz" minvalue="0" required="true">pwm
             freq</param>

@@ -45,15 +45,15 @@
             frequency</param>
             <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty
             cycle</param></method>
-            <method name="pwm">set period and pulse width. Expected width&lt;=pulse.
+            <method name="pwm">set period and pulse width. Expected width&lt;=pulse. 
             <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">the whole
             cycle period</param>
             <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">pulse
             width</param></method>
-            <method name="period">set period. Expected width&lt;=pulse.
+            <method name="period">set period. Expected width&lt;=pulse. 
             <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">the whole
             cycle period</param></method>
-            <method name="width">set pulse width. Expected width&lt;=pulse.
+            <method name="width">set pulse width. Expected width&lt;=pulse. 
             <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">pulse
             width</param></method>
             <method name="enable">enable PWM. By default it is disabled. 
