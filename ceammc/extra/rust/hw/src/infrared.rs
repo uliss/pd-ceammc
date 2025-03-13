@@ -15,6 +15,7 @@ use crate::{hw_msg_cb, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdError};
 
 #[cfg(target_os = "linux")]
 mod infrared_impl;
+#[cfg(target_os = "linux")]
 mod irp;
 
 #[derive(Debug)]
