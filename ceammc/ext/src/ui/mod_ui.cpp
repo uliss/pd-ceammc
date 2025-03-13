@@ -39,7 +39,6 @@
 
 void setup_ui_canvas();
 void setup_ui_circular_meter();
-void setup_ui_control();
 void setup_ui_filter();
 void setup_ui_filter_tilde();
 void setup_ui_lcd();
@@ -49,8 +48,6 @@ void setup_nui_toggle();
 
 void ceammc_ui_setup()
 {
-    setup_ui_control();
-
     setup_ui_arrayview();
     setup_ui_bang();
     setup_ui_button();
@@ -93,6 +90,6 @@ void ceammc_ui_setup()
     setup_ui_toggle();
     setup_ui_touchosc();
 
-//    setup_nui_bang();
-//    setup_nui_toggle();
+    //    setup_nui_bang();
+    //    setup_nui_toggle();
 }
