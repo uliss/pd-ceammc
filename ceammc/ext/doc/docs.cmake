@@ -327,6 +327,7 @@ set(DOC_FILES
     hw.rpi.gpio
     hw.rpi.pwm
     hw.rpi.rotenc
+    hw.rpi.sensor.ir
     hw.rpi.sr04
     hw.serial
     hw.spi.max7219

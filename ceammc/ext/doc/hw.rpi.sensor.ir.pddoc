@@ -30,7 +30,7 @@
             maxvalue="100">relative error tolerance</property>
         </properties>
         <inlets>
-            <inlet>control input</inlet>
+            <inlet><xinfo>control input</xinfo></inlet>
         </inlets>
         <outlets>
             <outlet>pressed infrared remote keys accoring to protocol</outlet>

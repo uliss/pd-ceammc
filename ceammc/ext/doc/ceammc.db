@@ -326,6 +326,7 @@ hw.rpi.display.ssd1306		.		.
 hw.rpi.gpio		.		.
 hw.rpi.pwm		.		.
 hw.rpi.rotenc		.		..
+hw.rpi.sensor.ir		.		.
 hw.rpi.sr04		.		..
 hw.serial		.		.
 hw.spi.max7219		.		-
