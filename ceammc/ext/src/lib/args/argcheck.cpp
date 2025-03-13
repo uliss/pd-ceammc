@@ -802,8 +802,21 @@ bool ArgChecker::check_pd_obj(const AtomListView& lv, t_object* x, t_symbol* met
     }
 
     if (atom_idx < N) {
-        if (printErr)
-            pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
+        if (printErr) {
+            auto method_name = (method && method != &s_) ? method->s_name : nullptr;
+            if (method_name)
+                pdError(x, fmt::format("[{}( exceeded max argument count ({}), got {} extra arguments: {}",
+                        method_name,
+                        chk_->size(),
+                        N - atom_idx,
+                        list_to_string(lv.subView(atom_idx))
+                        ));
+            else
+                pdError(x, fmt::format("exceeded max argument count ({}), got {} extra arguments: {}",
+                        chk_->size(),
+                        N - atom_idx,
+                        list_to_string(lv.subView(atom_idx))));
+        }
 
         return false;
     }
@@ -833,12 +846,12 @@ ArgChecker::ArgChecker(const char* str)
     const char* rl_sym_start = 0;
 
     
-#line 837 "args/argcheck.cpp"
+#line 850 "args/argcheck.cpp"
 	{
 	cs = arg_check2_start;
 	}
 
-#line 842 "args/argcheck.cpp"
+#line 855 "args/argcheck.cpp"
 	{
 	switch ( cs )
 	{
@@ -998,7 +1011,7 @@ tr148:
 st1:
 	p += 1;
 case 1:
-#line 1002 "args/argcheck.cpp"
+#line 1015 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 66: goto tr2;
 		case 95: goto tr0;
@@ -1027,7 +1040,7 @@ tr0:
 st2:
 	p += 1;
 case 2:
-#line 1031 "args/argcheck.cpp"
+#line 1044 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr9;
@@ -1045,7 +1058,7 @@ tr9:
 st3:
 	p += 1;
 case 3:
-#line 1049 "args/argcheck.cpp"
+#line 1062 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr11;
@@ -1063,7 +1076,7 @@ tr11:
 st4:
 	p += 1;
 case 4:
-#line 1067 "args/argcheck.cpp"
+#line 1080 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr12;
@@ -1081,7 +1094,7 @@ tr12:
 st5:
 	p += 1;
 case 5:
-#line 1085 "args/argcheck.cpp"
+#line 1098 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr13;
@@ -1099,7 +1112,7 @@ tr13:
 st6:
 	p += 1;
 case 6:
-#line 1103 "args/argcheck.cpp"
+#line 1116 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr14;
@@ -1117,7 +1130,7 @@ tr14:
 st7:
 	p += 1;
 case 7:
-#line 1121 "args/argcheck.cpp"
+#line 1134 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr15;
@@ -1135,7 +1148,7 @@ tr15:
 st8:
 	p += 1;
 case 8:
-#line 1139 "args/argcheck.cpp"
+#line 1152 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr16;
@@ -1153,7 +1166,7 @@ tr16:
 st9:
 	p += 1;
 case 9:
-#line 1157 "args/argcheck.cpp"
+#line 1170 "args/argcheck.cpp"
 	if ( (*p) == 58 )
 		goto st10;
 	goto st0;
@@ -1217,7 +1230,7 @@ tr140:
 st11:
 	p += 1;
 case 11:
-#line 1221 "args/argcheck.cpp"
+#line 1234 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
@@ -1397,7 +1410,7 @@ tr147:
 st74:
 	p += 1;
 case 74:
-#line 1401 "args/argcheck.cpp"
+#line 1414 "args/argcheck.cpp"
 	goto st0;
 tr20:
 #line 441 "args/argcheck.rl"
@@ -1664,7 +1677,7 @@ tr151:
 st12:
 	p += 1;
 case 12:
-#line 1668 "args/argcheck.cpp"
+#line 1681 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr24;
 		case 32: goto tr25;
@@ -1759,7 +1772,7 @@ tr152:
 st13:
 	p += 1;
 case 13:
-#line 1763 "args/argcheck.cpp"
+#line 1776 "args/argcheck.cpp"
 	if ( (*p) == 48 )
 		goto tr26;
 	if ( 49 <= (*p) && (*p) <= 57 )
@@ -1772,7 +1785,7 @@ tr26:
 st14:
 	p += 1;
 case 14:
-#line 1776 "args/argcheck.cpp"
+#line 1789 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 44: goto st15;
 		case 125: goto tr29;
@@ -1795,7 +1808,7 @@ tr30:
 st16:
 	p += 1;
 case 16:
-#line 1799 "args/argcheck.cpp"
+#line 1812 "args/argcheck.cpp"
 	if ( (*p) == 125 )
 		goto st12;
 	goto st0;
@@ -1810,7 +1823,7 @@ tr33:
 st17:
 	p += 1;
 case 17:
-#line 1814 "args/argcheck.cpp"
+#line 1827 "args/argcheck.cpp"
 	if ( (*p) == 125 )
 		goto st12;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -1827,7 +1840,7 @@ tr34:
 st18:
 	p += 1;
 case 18:
-#line 1831 "args/argcheck.cpp"
+#line 1844 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 44: goto st15;
 		case 125: goto tr29;
@@ -1842,7 +1855,7 @@ tr5:
 st19:
 	p += 1;
 case 19:
-#line 1846 "args/argcheck.cpp"
+#line 1859 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
@@ -1879,7 +1892,7 @@ tr66:
 st21:
 	p += 1;
 case 21:
-#line 1883 "args/argcheck.cpp"
+#line 1896 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr42;
 		case 45: goto tr43;
@@ -1902,7 +1915,7 @@ tr43:
 st22:
 	p += 1;
 case 22:
-#line 1906 "args/argcheck.cpp"
+#line 1919 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr45;
 	goto st0;
@@ -1927,7 +1940,7 @@ tr51:
 st23:
 	p += 1;
 case 23:
-#line 1931 "args/argcheck.cpp"
+#line 1944 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr46;
 		case 32: goto tr47;
@@ -1959,7 +1972,7 @@ tr55:
 st25:
 	p += 1;
 case 25:
-#line 1963 "args/argcheck.cpp"
+#line 1976 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr46;
 		case 32: goto tr47;
@@ -1978,7 +1991,7 @@ tr36:
 st26:
 	p += 1;
 case 26:
-#line 1982 "args/argcheck.cpp"
+#line 1995 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr42;
 		case 45: goto tr43;
@@ -2008,7 +2021,7 @@ tr63:
 st27:
 	p += 1;
 case 27:
-#line 2012 "args/argcheck.cpp"
+#line 2025 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr57;
 		case 45: goto tr58;
@@ -2031,7 +2044,7 @@ tr58:
 st28:
 	p += 1;
 case 28:
-#line 2035 "args/argcheck.cpp"
+#line 2048 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr60;
 	goto st0;
@@ -2056,7 +2069,7 @@ tr62:
 st29:
 	p += 1;
 case 29:
-#line 2060 "args/argcheck.cpp"
+#line 2073 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr46;
 		case 32: goto tr47;
@@ -2089,7 +2102,7 @@ tr65:
 st31:
 	p += 1;
 case 31:
-#line 2093 "args/argcheck.cpp"
+#line 2106 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr46;
 		case 32: goto tr47;
@@ -2109,7 +2122,7 @@ tr38:
 st32:
 	p += 1;
 case 32:
-#line 2113 "args/argcheck.cpp"
+#line 2126 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr42;
 		case 45: goto tr43;
@@ -2143,7 +2156,7 @@ tr68:
 st34:
 	p += 1;
 case 34:
-#line 2147 "args/argcheck.cpp"
+#line 2160 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr70;
 	goto st0;
@@ -2168,7 +2181,7 @@ tr73:
 st35:
 	p += 1;
 case 35:
-#line 2172 "args/argcheck.cpp"
+#line 2185 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 44: goto tr71;
 		case 46: goto st41;
@@ -2189,7 +2202,7 @@ tr71:
 st36:
 	p += 1;
 case 36:
-#line 2193 "args/argcheck.cpp"
+#line 2206 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr74;
 		case 45: goto tr75;
@@ -2212,7 +2225,7 @@ tr75:
 st37:
 	p += 1;
 case 37:
-#line 2216 "args/argcheck.cpp"
+#line 2229 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr77;
 	goto st0;
@@ -2237,7 +2250,7 @@ tr80:
 st38:
 	p += 1;
 case 38:
-#line 2241 "args/argcheck.cpp"
+#line 2254 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 41: goto tr78;
 		case 46: goto st39;
@@ -2265,7 +2278,7 @@ tr83:
 st40:
 	p += 1;
 case 40:
-#line 2269 "args/argcheck.cpp"
+#line 2282 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 41: goto tr78;
 		case 93: goto tr81;
@@ -2292,7 +2305,7 @@ tr85:
 st42:
 	p += 1;
 case 42:
-#line 2296 "args/argcheck.cpp"
+#line 2309 "args/argcheck.cpp"
 	if ( (*p) == 44 )
 		goto tr71;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -2305,7 +2318,7 @@ tr6:
 st43:
 	p += 1;
 case 43:
-#line 2309 "args/argcheck.cpp"
+#line 2322 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
@@ -2343,7 +2356,7 @@ tr114:
 st45:
 	p += 1;
 case 45:
-#line 2347 "args/argcheck.cpp"
+#line 2360 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr94;
 		case 45: goto tr95;
@@ -2366,7 +2379,7 @@ tr95:
 st46:
 	p += 1;
 case 46:
-#line 2370 "args/argcheck.cpp"
+#line 2383 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr97;
 	goto st0;
@@ -2391,7 +2404,7 @@ tr102:
 st47:
 	p += 1;
 case 47:
-#line 2395 "args/argcheck.cpp"
+#line 2408 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr98;
 		case 32: goto tr99;
@@ -2410,7 +2423,7 @@ tr87:
 st48:
 	p += 1;
 case 48:
-#line 2414 "args/argcheck.cpp"
+#line 2427 "args/argcheck.cpp"
 	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr105;
 	goto st0;
@@ -2427,7 +2440,7 @@ tr106:
 st49:
 	p += 1;
 case 49:
-#line 2431 "args/argcheck.cpp"
+#line 2444 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr98;
 		case 32: goto tr99;
@@ -2446,7 +2459,7 @@ tr88:
 st50:
 	p += 1;
 case 50:
-#line 2450 "args/argcheck.cpp"
+#line 2463 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr94;
 		case 45: goto tr95;
@@ -2468,7 +2481,7 @@ tr113:
 st51:
 	p += 1;
 case 51:
-#line 2472 "args/argcheck.cpp"
+#line 2485 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr108;
 		case 45: goto tr109;
@@ -2491,7 +2504,7 @@ tr109:
 st52:
 	p += 1;
 case 52:
-#line 2495 "args/argcheck.cpp"
+#line 2508 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr111;
 	goto st0;
@@ -2516,7 +2529,7 @@ tr112:
 st53:
 	p += 1;
 case 53:
-#line 2520 "args/argcheck.cpp"
+#line 2533 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr98;
 		case 32: goto tr99;
@@ -2536,7 +2549,7 @@ tr90:
 st54:
 	p += 1;
 case 54:
-#line 2540 "args/argcheck.cpp"
+#line 2553 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr94;
 		case 45: goto tr95;
@@ -2570,7 +2583,7 @@ tr116:
 st56:
 	p += 1;
 case 56:
-#line 2574 "args/argcheck.cpp"
+#line 2587 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr118;
 	goto st0;
@@ -2595,7 +2608,7 @@ tr120:
 st57:
 	p += 1;
 case 57:
-#line 2599 "args/argcheck.cpp"
+#line 2612 "args/argcheck.cpp"
 	if ( (*p) == 44 )
 		goto tr119;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -2610,7 +2623,7 @@ tr119:
 st58:
 	p += 1;
 case 58:
-#line 2614 "args/argcheck.cpp"
+#line 2627 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 43: goto tr121;
 		case 45: goto tr122;
@@ -2633,7 +2646,7 @@ tr122:
 st59:
 	p += 1;
 case 59:
-#line 2637 "args/argcheck.cpp"
+#line 2650 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr124;
 	goto st0;
@@ -2658,7 +2671,7 @@ tr126:
 st60:
 	p += 1;
 case 60:
-#line 2662 "args/argcheck.cpp"
+#line 2675 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 41: goto tr125;
 		case 93: goto tr127;
@@ -2675,7 +2688,7 @@ tr125:
 st61:
 	p += 1;
 case 61:
-#line 2679 "args/argcheck.cpp"
+#line 2692 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr128;
 		case 32: goto tr129;
@@ -2694,7 +2707,7 @@ tr127:
 st62:
 	p += 1;
 case 62:
-#line 2698 "args/argcheck.cpp"
+#line 2711 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr134;
 		case 32: goto tr135;
@@ -2717,7 +2730,7 @@ tr7:
 st64:
 	p += 1;
 case 64:
-#line 2721 "args/argcheck.cpp"
+#line 2734 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
@@ -2771,7 +2784,7 @@ tr153:
 st65:
 	p += 1;
 case 65:
-#line 2775 "args/argcheck.cpp"
+#line 2788 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 34: goto tr142;
 		case 35: goto tr143;
@@ -2795,7 +2808,7 @@ tr142:
 st66:
 	p += 1;
 case 66:
-#line 2799 "args/argcheck.cpp"
+#line 2812 "args/argcheck.cpp"
 	if ( (*p) == 34 )
 		goto st0;
 	goto st67;
@@ -2825,7 +2838,7 @@ tr143:
 st69:
 	p += 1;
 case 69:
-#line 2829 "args/argcheck.cpp"
+#line 2842 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr147;
 		case 32: goto tr148;
@@ -2854,7 +2867,7 @@ tr144:
 st70:
 	p += 1;
 case 70:
-#line 2858 "args/argcheck.cpp"
+#line 2871 "args/argcheck.cpp"
 	if ( (*p) == 39 )
 		goto st0;
 	goto st71;
@@ -2875,7 +2888,7 @@ tr2:
 st72:
 	p += 1;
 case 72:
-#line 2879 "args/argcheck.cpp"
+#line 2892 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
@@ -2903,7 +2916,7 @@ tr156:
 st73:
 	p += 1;
 case 73:
-#line 2907 "args/argcheck.cpp"
+#line 2920 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr24;
 		case 32: goto tr25;
@@ -2921,7 +2934,7 @@ case 73:
 	_out: {}
 	}
 
-#line 908 "args/argcheck.rl"
+#line 921 "args/argcheck.rl"
 
 
     if (cs < 74) {

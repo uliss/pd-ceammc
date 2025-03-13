@@ -872,8 +872,21 @@ bool ArgChecker::check_pd_obj(const AtomListView& lv, t_object* x, t_symbol* met
     }
 
     if (atom_idx < N) {
-        if (printErr)
-            pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
+        if (printErr) {
+            auto method_name = (method && method != &s_) ? method->s_name : nullptr;
+            if (method_name)
+                pdError(x, fmt::format("[{}( exceeded max argument count ({}), got {} extra arguments: {}",
+                        method_name,
+                        chk_->size(),
+                        N - atom_idx,
+                        list_to_string(lv.subView(atom_idx))
+                        ));
+            else
+                pdError(x, fmt::format("exceeded max argument count ({}), got {} extra arguments: {}",
+                        chk_->size(),
+                        N - atom_idx,
+                        list_to_string(lv.subView(atom_idx))));
+        }
 
         return false;
     }

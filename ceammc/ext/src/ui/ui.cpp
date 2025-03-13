@@ -26,7 +26,7 @@ UIControl::UIControl(const PdArgs& args)
 void UIControl::m_open(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("FILE:s");
-    if (!chk.check(lv, this))
+    if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
     auto file = lv.symbolAt(0, &s_)->s_name;
