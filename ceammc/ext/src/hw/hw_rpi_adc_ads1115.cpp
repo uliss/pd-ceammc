@@ -15,6 +15,9 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     mode_->setArgIndex(0);
     mode_->setInitOnly();
     addProperty(mode_);
+
+    i2c_bus_ = new IntProperty("@bus", ceammc_HW_I2C_DEFAULT_BUS);
+    addProperty(i2c_bus_);
 }
 
 HwRpiAdcAds1115::~HwRpiAdcAds1115()
@@ -35,7 +38,7 @@ void HwRpiAdcAds1115::initDone()
         break;
     }
 
-    adc_ = ceammc_hw_ads1115_new(0, 0, mode, on_notify(), on_err(),
+    adc_ = ceammc_hw_ads1115_new(i2c_bus_->value(), ceammc_HW_I2C_DEFAULT_ADDR, mode, on_notify(), on_err(),
         { this,
             [](void* user, std::uint8_t chan, std::int16_t value) {},
             [](void* user, std::int16_t values[4]) {} });

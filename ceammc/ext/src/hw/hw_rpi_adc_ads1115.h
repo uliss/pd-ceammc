@@ -10,6 +10,7 @@ using namespace ceammc;
 class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_i2c_ads1115* adc_ { nullptr };
     SymbolEnumProperty* mode_ { nullptr };
+    IntProperty* i2c_bus_ { nullptr };
 
 public:
     explicit HwRpiAdcAds1115(const PdArgs& args);
