@@ -63,7 +63,7 @@ impl hw_infrared {
 
             'outer: loop {
                 'chan_async: loop {
-                    match ir_rx.try_recv() {
+                    match ir_rx.recv_timeout(Duration::from_millis(10)) {
                         Ok(res) => {
                             dec.dfa_input(res, &dfa, |_ev, vars| {
                                 let mut keys = vars.keys().collect::<Vec<_>>();
@@ -83,8 +83,8 @@ impl hw_infrared {
                             });
                         }
                         Err(err) => match err {
-                            std::sync::mpsc::TryRecvError::Empty => break 'chan_async,
-                            std::sync::mpsc::TryRecvError::Disconnected => break 'outer,
+                            std::sync::mpsc::RecvTimeoutError::Timeout => break 'chan_async,
+                            std::sync::mpsc::RecvTimeoutError::Disconnected => break 'outer,
                         },
                     }
                 }
