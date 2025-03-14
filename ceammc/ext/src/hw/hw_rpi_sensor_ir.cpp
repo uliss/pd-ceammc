@@ -18,15 +18,6 @@ HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
 
     proto_ = new SymbolProperty("@proto", gensym("NEC"));
     addProperty(proto_);
-
-    tolerance_perc_ = new IntProperty("@tolerance_perc", 30);
-    tolerance_perc_->checkClosedRange(0, 100);
-    tolerance_perc_->setUnits(PropValueUnits::PERCENT);
-    addProperty(tolerance_perc_);
-
-    tolerance_usec_ = new IntProperty("@tolerance_usec", 200);
-    tolerance_usec_->checkClosedRange(0, 1000);
-    addProperty(tolerance_usec_);
 }
 
 HwRpiSensorIR::~HwRpiSensorIR()
@@ -72,8 +63,6 @@ void HwRpiSensorIR::startSensor()
          } });
 
     ceammc_hw_infrared_set_protocol(ir_, proto_->value()->s_name);
-    ceammc_hw_infrared_set_tolerance_usec(ir_, tolerance_usec_->value());
-    ceammc_hw_infrared_set_tolerance_perc(ir_, tolerance_perc_->value());
 }
 
 void HwRpiSensorIR::stopSensor()

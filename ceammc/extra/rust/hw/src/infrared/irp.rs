@@ -1,7 +1,8 @@
 use std::{collections::HashMap, io::BufReader};
 
-use irp::{Irp, DFA};
+use irp::{Decoder, Irp, DFA};
 use lazy_static::lazy_static;
+use log::debug;
 use std::str::FromStr;
 use xml::reader::{EventReader, XmlEvent};
 
@@ -18,13 +19,27 @@ enum Element {
     RejectRepeatLess,
 }
 
-fn create_proto_map() -> HashMap<String, String> {
+#[derive(Clone, Debug)]
+struct ProtoParams {
+    irp: String,
+    abs_tolerance: u32,
+    rel_tolerance: f32,
+}
+
+fn create_proto_map() -> HashMap<String, ProtoParams> {
     let data = parse_xml().unwrap();
 
     let mut res = HashMap::new();
 
     for x in &data {
-        res.insert(x.name.clone(), x.irp.clone());
+        res.insert(
+            x.name.clone(),
+            ProtoParams {
+                irp: x.irp.clone(),
+                abs_tolerance: x.absolute_tolerance,
+                rel_tolerance: x.relative_tolerance,
+            },
+        );
     }
 
     res
@@ -147,15 +162,15 @@ fn parse_xml() -> Result<Vec<irp::Protocol>, String> {
     Ok(protocols)
 }
 
-fn get_irp(proto: &str) -> Result<Irp, String> {
+fn get_irp(proto: &str) -> Result<(Irp, ProtoParams), String> {
     lazy_static! {
-        static ref XML_PROTOCOLS: HashMap<String, String> = create_proto_map();
+        static ref XML_PROTOCOLS: HashMap<String, ProtoParams> = create_proto_map();
     }
 
     match XML_PROTOCOLS.get(proto) {
         Some(x) => {
-            let irp = irp::Irp::parse(x).unwrap();
-            Ok(irp)
+            let irp = irp::Irp::parse(&x.irp).unwrap();
+            Ok((irp, x.clone()))
         }
         None => {
             let mut keys = XML_PROTOCOLS.keys().map(|x| x.clone()).collect::<Vec<_>>();
@@ -168,8 +183,18 @@ fn get_irp(proto: &str) -> Result<Irp, String> {
     }
 }
 
-pub fn get_dfa(proto: &str, opts: &irp::Options<'_>) -> Result<DFA, String> {
-    let irp = get_irp(proto)?;
-    let dfa = irp.compile(opts)?;
-    Ok(dfa)
+pub fn get_decoder<'a>(proto: String) -> Result<(DFA, Decoder<'a>), String> {
+    let (irp, params) = get_irp(proto.as_str())?;
+
+    let options = irp::Options {
+        aeps: params.abs_tolerance,
+        eps: (params.rel_tolerance * 100.0).round().clamp(0.0, 100.0) as u32,
+        max_gap: 20000,
+        ..Default::default()
+    };
+
+    debug!("proto params: {options:?}");
+
+    let dfa = irp.compile(&options)?;
+    Ok((dfa, irp::Decoder::new(options)))
 }

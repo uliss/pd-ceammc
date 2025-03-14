@@ -9,8 +9,6 @@ using namespace ceammc;
 class HwRpiSensorIR : public RustDispatchedObject<BaseObject> {
     ceammc_hw_infrared* ir_ { nullptr };
     IntProperty* pin_ { nullptr };
-    IntProperty* tolerance_usec_ { nullptr };
-    IntProperty* tolerance_perc_ { nullptr };
     SymbolProperty* proto_ { nullptr };
 
 public:

@@ -1,9 +1,9 @@
-use std::ffi::CString;
+use std::{ffi::CString, time::Duration};
 
-use log::{debug, error};
+use log::{debug, error, trace};
 use rppal::gpio::Gpio;
 
-use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_dfa, process_err};
+use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_decoder, process_err};
 
 use super::{hw_infrared, hw_infrared_key_cb, InfraredWorker, Reply, Request};
 
@@ -35,10 +35,6 @@ impl hw_infrared {
                     let event_usec = event.timestamp.as_micros();
                     let delta_usec = event_usec.saturating_sub(prev_event_usec);
 
-                    if delta_usec > 50000 {
-                        ir_tx.send(irp::InfraredData::Reset).unwrap_or_default();
-                    }
-
                     match event.trigger {
                         rppal::gpio::Trigger::RisingEdge => {
                             ir_tx
@@ -57,25 +53,16 @@ impl hw_infrared {
                 })
                 .map_err(|err| format!("GPIO init error: {err}"))?;
 
-            let mut opt_usec_tolerance = 100;
-            let mut opt_max_gap = 30000;
-            let mut opt_perc_tolerance = 30;
-
-            let options = irp::Options {
-                aeps: opt_usec_tolerance,
-                eps: opt_perc_tolerance,
-                max_gap: opt_max_gap,
-                ..Default::default()
-            };
-
-            let mut dfa = get_dfa("NEC", &options)?;
-            let mut decoder = irp::Decoder::new(options);
+            let mut proto_name = "NEC".to_owned();
+            let (mut dfa, mut dec) = get_decoder(proto_name)?;
 
             'outer: loop {
                 'chan_async: loop {
                     match ir_rx.try_recv() {
                         Ok(res) => {
-                            decoder.dfa_input(res, &dfa, |_ev, vars| {
+                            debug!("{res}");
+
+                            dec.dfa_input(res, &dfa, |_ev, vars| {
                                 let mut keys = vars.keys().collect::<Vec<_>>();
                                 keys.sort();
 
@@ -105,21 +92,15 @@ impl hw_infrared {
                             debug!("{req:?}");
 
                             match req {
-                                Request::SetToleranceUsec(usec) => opt_usec_tolerance = usec.into(),
-                                Request::SetMaxGap(usec) => opt_max_gap = usec,
-                                Request::SetTolerancePerc(perc) => opt_perc_tolerance = perc.into(),
                                 Request::SetProtocol(proto) => {
-                                    let options = irp::Options {
-                                        aeps: opt_usec_tolerance,
-                                        eps: opt_perc_tolerance,
-                                        max_gap: opt_max_gap,
-                                        ..Default::default()
-                                    };
+                                    proto_name = proto.to_string_lossy().to_string();
 
-                                    dfa = get_dfa(proto.to_string_lossy().as_ref(), &options)
+                                    if let Ok((a, b)) = get_decoder(proto_name)
                                         .map_err(|err| process_err(err, &tx, notify))
-                                        .unwrap_or_default();
-                                    decoder = irp::Decoder::new(options);
+                                    {
+                                        dfa = a;
+                                        dec = b;
+                                    }
                                 }
                             }
                         }
