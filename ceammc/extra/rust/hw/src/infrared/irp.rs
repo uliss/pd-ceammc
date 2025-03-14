@@ -191,7 +191,7 @@ pub fn get_decoder<'a>(proto: String) -> Result<(DFA, Decoder<'a>), String> {
     let options = irp::Options {
         aeps: params.abs_tolerance,
         eps: (params.rel_tolerance * 100.0).round().clamp(0.0, 100.0) as u32,
-        max_gap: params.min_leadout,
+        max_gap: 20000,
         ..Default::default()
     };
 

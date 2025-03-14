@@ -36,9 +36,9 @@ impl hw_infrared {
                     let event_usec = event.timestamp.as_micros();
                     let delta_usec = event_usec.saturating_sub(prev_event_usec);
 
-                    if delta_usec > 20000 {
-                        ir_tx.send(irp::InfraredData::Reset).unwrap_or_default();
-                    }
+                    // if delta_usec > 20000 {
+                    //     ir_tx.send(irp::InfraredData::Reset).unwrap_or_default();
+                    // }
 
                     match event.trigger {
                         rppal::gpio::Trigger::RisingEdge => {
