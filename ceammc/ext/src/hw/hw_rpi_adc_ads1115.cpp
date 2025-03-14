@@ -8,7 +8,10 @@
 CEAMMC_DEFINE_SYM_HASH(single)
 CEAMMC_DEFINE_SYM_HASH(diff)
 
-#define MVOLT_VALUE(v) constexpr int mv##v = v;
+#define MVOLT_VALUE(v)           \
+    constexpr t_float mv##v = v; \
+    constexpr int int_mv##v = v; \
+    CEAMMC_DEFINE_SYM_HASH(v##mv);
 
 MVOLT_VALUE(256)
 MVOLT_VALUE(512)
@@ -32,11 +35,18 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     i2c_bus_->checkClosedRange(-1, 16);
     addProperty(i2c_bus_);
 
-    range_ = new IntEnumProperty("@range", { mv6144, mv256, mv512, mv1024, mv2048, mv4096 });
-    range_->setInitOnly();
-    addProperty(range_);
+    fsr_ = new SymbolFloatEnumProperty("@fsr", {
+                                                   { sym_6144mv(), mv6144 },
+                                                   { sym_256mv(), mv256 },
+                                                   { sym_512mv(), mv512 },
+                                                   { sym_1024mv(), mv1024 },
+                                                   { sym_2048mv(), mv2048 },
+                                                   { sym_4096mv(), mv4096 },
+                                               });
+    fsr_->setInitOnly();
+    addProperty(fsr_);
 
-    normalize_ = new FlagProperty("@norm");
+    normalize_ = new BoolProperty("@norm", false);
     addProperty(normalize_);
 
     out_max_ = new FloatProperty("@out_max", 1);
@@ -93,23 +103,23 @@ void HwRpiAdcAds1115::initDone()
 
     ceammc_hw_i2c_ads1115_range range;
 
-    switch (range_->value()) {
-    case mv256:
+    switch (int(fsr_->valuePair())) {
+    case int_mv256:
         range = ceammc_hw_i2c_ads1115_range::Within_0_256V;
         break;
-    case mv512:
+    case int_mv512:
         range = ceammc_hw_i2c_ads1115_range::Within_0_512V;
         break;
-    case mv1024:
+    case int_mv1024:
         range = ceammc_hw_i2c_ads1115_range::Within_1_024V;
         break;
-    case mv2048:
+    case int_mv2048:
         range = ceammc_hw_i2c_ads1115_range::Within_2_048V;
         break;
-    case mv4096:
+    case int_mv4096:
         range = ceammc_hw_i2c_ads1115_range::Within_4_096V;
         break;
-    case mv6144:
+    case int_mv6144:
     default:
         range = ceammc_hw_i2c_ads1115_range::Within_6_144V;
         break;
@@ -148,7 +158,7 @@ void HwRpiAdcAds1115::m_measure(t_symbol* s, const AtomListView& lv)
 
 t_float HwRpiAdcAds1115::normalizeValue(std::int16_t value) const
 {
-    const auto FSR = range_->value();
+    const auto FSR = fsr_->valuePair();
 
     auto value_in_mv = (mode_->index() == 0) ? convert::lin2lin<double>(value, 0, 0x8000, 0, FSR)
                                              : convert::lin2lin<double>(value, -0x7fff, 0x8000, -FSR, FSR);

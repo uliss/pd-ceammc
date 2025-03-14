@@ -9,10 +9,11 @@ using namespace ceammc;
 
 class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_i2c_ads1115* adc_ { nullptr };
-    SymbolEnumProperty* mode_ { nullptr };
     IntProperty* i2c_bus_ { nullptr };
-    IntEnumProperty* range_ { nullptr };
-    FlagProperty* normalize_ { nullptr };
+    SymbolEnumProperty* mode_ { nullptr };
+    SymbolFloatEnumProperty* fsr_ { nullptr };
+    // normalization
+    BoolProperty* normalize_ { nullptr };
     FloatProperty* out_min_ { nullptr };
     FloatProperty* out_max_ { nullptr };
     FloatProperty* in_min_ { nullptr };
