@@ -49,7 +49,8 @@ pwm-pca9685 = "1.0.0"                                    # PWM 16-ch I2C
 ssd1306 = "0.8.4"                                        # OLED display
 vl53l0x = "1.0.1"                                        # laser distance sensor
 ads1x1x = "0.3.0"                                        # I2C ADC 16-channel
-irp = "0.3.3"
+irp = "0.3.3"                                            # infrared protocol support
+mpu6050 = "0.1.6"                                        # gyro+accelerometer
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }

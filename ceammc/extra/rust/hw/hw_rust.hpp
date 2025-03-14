@@ -233,6 +233,8 @@ struct ceammc_hw_lcd1602;
 
 struct ceammc_hw_max7219;
 
+struct ceammc_hw_mpu6050;
+
 struct ceammc_hw_pca9685;
 
 struct ceammc_hw_rpi_pwm;
@@ -882,6 +884,13 @@ bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
                                  const char *str,
                                  ceammc_hw_max7219_string_align align,
                                  uint8_t dots);
+
+void ceammc_hw_mpu6050_free(ceammc_hw_mpu6050 *mpu);
+
+ceammc_hw_mpu6050 *ceammc_hw_mpu6050_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_err);
 
 bool ceammc_hw_pca9685_enable(const ceammc_hw_pca9685 *pwm, bool state);
 
