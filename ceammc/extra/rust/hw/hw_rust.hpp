@@ -155,6 +155,15 @@ enum class ceammc_hw_i2c_ads1115_measure_mode {
     Diff,
 };
 
+enum class ceammc_hw_i2c_ads1115_range {
+    Within_0_256V,
+    Within_0_512V,
+    Within_1_024V,
+    Within_2_048V,
+    Within_4_096V,
+    Within_6_144V,
+};
+
 enum class ceammc_hw_led_fx {
     Rainbow,
 };
@@ -396,6 +405,9 @@ ceammc_hw_i2c_ads1115 *ceammc_hw_ads1115_new(int8_t i2c_bus,
 bool ceammc_hw_ads1115_poll(ceammc_hw_i2c_ads1115 *adc, bool state);
 
 bool ceammc_hw_ads1115_process_reply(ceammc_hw_i2c_ads1115 *adc);
+
+bool ceammc_hw_ads1115_set_input_range(ceammc_hw_i2c_ads1115 *adc,
+                                       ceammc_hw_i2c_ads1115_range range);
 
 bool ceammc_hw_display_ssd1306_clear(const ceammc_hw_display_ssd1306 *display, bool flush);
 

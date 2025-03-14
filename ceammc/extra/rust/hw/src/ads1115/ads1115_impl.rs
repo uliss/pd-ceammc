@@ -14,20 +14,23 @@ use crate::{
     send_error, send_reply,
 };
 
-use super::{hw_i2c_ads1115, hw_i2c_ads1115_data_cb, hw_i2c_ads1115_measure_mode, Ads1115Worker};
+use super::{
+    hw_i2c_ads1115, hw_i2c_ads1115_data_cb, hw_i2c_ads1115_measure_mode, hw_i2c_ads1115_range,
+    Ads1115Worker,
+};
 
 impl hw_i2c_ads1115 {
-    fn to_fsr(range: u8) -> Result<FullScaleRange, String> {
+    fn to_fsr(range: hw_i2c_ads1115_range) -> FullScaleRange {
         use ads1x1x::FullScaleRange as FSR;
+        use hw_i2c_ads1115_range as R;
 
         match range {
-            0 => Ok(FSR::Within0_256V),
-            1 => Ok(FSR::Within0_512V),
-            2 => Ok(FSR::Within1_024V),
-            3 => Ok(FSR::Within2_048V),
-            4 => Ok(FSR::Within4_096V),
-            6 => Ok(FSR::Within6_144V),
-            _ => Err(format!("invalid range value: {range}")),
+            R::Within_0_256V => FSR::Within0_256V,
+            R::Within_0_512V => FSR::Within0_512V,
+            R::Within_1_024V => FSR::Within1_024V,
+            R::Within_2_048V => FSR::Within2_048V,
+            R::Within_4_096V => FSR::Within4_096V,
+            R::Within_6_144V => FSR::Within6_144V,
         }
     }
 
@@ -120,8 +123,7 @@ impl hw_i2c_ads1115 {
                                 send_reply(Reply::MeasureAll(result.into()), &tx, notify);
                             }
                             Request::SetFullScaleRange(range) => {
-                                let fsr = Self::to_fsr(range)?;
-                                adc.set_full_scale_range(fsr)
+                                adc.set_full_scale_range(Self::to_fsr(range))
                                     .map_err(|err| format!("SetFullScaleRange: {err:?}"))
                                     .unwrap_or_default();
                             }

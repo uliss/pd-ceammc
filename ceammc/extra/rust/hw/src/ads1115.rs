@@ -37,11 +37,22 @@ pub enum hw_i2c_ads1115_measure_mode {
     Diff,
 }
 
+#[repr(C)]
+#[derive(Debug)]
+pub enum hw_i2c_ads1115_range {
+    Within_0_256V,
+    Within_0_512V,
+    Within_1_024V,
+    Within_2_048V,
+    Within_4_096V,
+    Within_6_144V,
+}
+
 #[derive(Debug)]
 pub enum Request {
     MeasureChan(u8),
     MeasureAll,
-    SetFullScaleRange(u8),
+    SetFullScaleRange(hw_i2c_ads1115_range),
     Poll(bool),
     SetPollTime(u16),
     SetMeasureMode(hw_i2c_ads1115_measure_mode),
@@ -109,4 +120,9 @@ pub extern "C" fn ceammc_hw_ads1115_poll(adc: *mut hw_i2c_ads1115, state: bool) 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_ads1115_process_reply(adc: *mut hw_i2c_ads1115) -> bool {
     rpi_check!({ hw_i2c_ads1115::process_reply_ptr(adc) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_ads1115_set_input_range(adc: *mut hw_i2c_ads1115, range: hw_i2c_ads1115_range) -> bool {
+    rpi_check!({ hw_i2c_ads1115::send_request_ptr(adc, Request::SetFullScaleRange(range)) });
 }

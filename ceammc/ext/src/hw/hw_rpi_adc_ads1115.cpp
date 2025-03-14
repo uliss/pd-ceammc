@@ -17,7 +17,13 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     addProperty(mode_);
 
     i2c_bus_ = new IntProperty("@bus", ceammc_HW_I2C_DEFAULT_BUS);
+    i2c_bus_->setInitOnly();
+    i2c_bus_->checkClosedRange(-1, 16);
     addProperty(i2c_bus_);
+
+    range_ = new IntEnumProperty("@range", { 6144, 256, 512, 1024, 2048, 4096 });
+    range_->setInitOnly();
+    addProperty(range_);
 }
 
 HwRpiAdcAds1115::~HwRpiAdcAds1115()
@@ -42,6 +48,31 @@ void HwRpiAdcAds1115::initDone()
         { this,
             [](void* user, std::uint8_t chan, std::int16_t value) {},
             [](void* user, std::int16_t values[4]) {} });
+
+    ceammc_hw_i2c_ads1115_range range;
+
+    switch (range_->value()) {
+    case 256:
+        range = ceammc_hw_i2c_ads1115_range::Within_0_256V;
+        break;
+    case 512:
+        range = ceammc_hw_i2c_ads1115_range::Within_0_512V;
+        break;
+    case 1024:
+        range = ceammc_hw_i2c_ads1115_range::Within_1_024V;
+        break;
+    case 2048:
+        range = ceammc_hw_i2c_ads1115_range::Within_2_048V;
+        break;
+    case 4096:
+        range = ceammc_hw_i2c_ads1115_range::Within_4_096V;
+        break;
+    default:
+        range = ceammc_hw_i2c_ads1115_range::Within_6_144V;
+        break;
+    }
+
+    ceammc_hw_ads1115_set_input_range(adc_, range);
 }
 
 bool HwRpiAdcAds1115::notify(int code)
