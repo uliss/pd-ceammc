@@ -1,6 +1,5 @@
-use std::{ffi::CString, rc::Rc, time::Duration};
+use std::{ffi::CString, time::Duration};
 
-use irp::DFA;
 use log::{debug, error, trace};
 use rppal::gpio::Gpio;
 
@@ -38,15 +37,11 @@ impl hw_infrared {
 
                     match event.trigger {
                         rppal::gpio::Trigger::RisingEdge => {
-                            trace!("flash: {delta_usec}");
-
                             ir_tx
                                 .send(irp::InfraredData::Flash(delta_usec as u32))
                                 .unwrap_or_default();
                         }
                         rppal::gpio::Trigger::FallingEdge => {
-                            trace!("gap: {delta_usec}");
-
                             ir_tx
                                 .send(irp::InfraredData::Gap(delta_usec as u32))
                                 .unwrap_or_default();
@@ -63,10 +58,10 @@ impl hw_infrared {
 
             'outer: loop {
                 'chan_async: loop {
-                    match ir_rx.recv_timeout(Duration::from_millis(10)) {
+                    match ir_rx.try_recv() {
                         Ok(res) => {
                             debug!("{res}");
-                            
+
                             dec.dfa_input(res, &dfa, |_ev, vars| {
                                 let mut keys = vars.keys().collect::<Vec<_>>();
                                 keys.sort();
@@ -85,8 +80,8 @@ impl hw_infrared {
                             });
                         }
                         Err(err) => match err {
-                            std::sync::mpsc::RecvTimeoutError::Timeout => break 'chan_async,
-                            std::sync::mpsc::RecvTimeoutError::Disconnected => break 'outer,
+                            std::sync::mpsc::TryRecvError::Empty => break 'chan_async,
+                            std::sync::mpsc::TryRecvError::Disconnected => break 'outer,
                         },
                     }
                 }

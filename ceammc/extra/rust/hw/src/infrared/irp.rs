@@ -24,7 +24,6 @@ struct ProtoParams {
     irp: String,
     abs_tolerance: u32,
     rel_tolerance: f32,
-    min_leadout: u32,
 }
 
 fn create_proto_map() -> HashMap<String, ProtoParams> {
@@ -39,7 +38,6 @@ fn create_proto_map() -> HashMap<String, ProtoParams> {
                 irp: x.irp.clone(),
                 abs_tolerance: x.absolute_tolerance,
                 rel_tolerance: x.relative_tolerance,
-                min_leadout: x.minimum_leadout,
             },
         );
     }
