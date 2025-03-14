@@ -133,7 +133,10 @@ t_float HwRpiAdcAds1115::normalizeValue(std::int16_t value) const
         auto a = norm_min_->value();
         auto b = norm_max_->value();
 
-        return convert::lin2lin<t_float>(value, -0x7fff, 0x8000, a, b);
+        if (mode_->index() == 0)
+            return convert::lin2lin<t_float>(value, 0, 0x8000, a, b);
+        else
+            return convert::lin2lin<t_float>(value, -0x7fff, 0x8000, a, b);
     } else {
         return value;
     }
