@@ -144,7 +144,7 @@ void HwRpiAdcAds1115::outputValue(uint8_t ch, int16_t value)
     AtomArray<2> data;
     data[0] = ch;
     data[1] = normalizeValue(value);
-    anyTo(0, sym_channel_, normalizeValue(value));
+    anyTo(0, sym_channel_, data.view());
 }
 
 void setup_hw_rpi_adc_ads1115()
