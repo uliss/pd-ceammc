@@ -178,8 +178,27 @@ public:
     SymbolEnumProperty(const std::string& name, std::initializer_list<const char*> values, PropValueAccess access = PropValueAccess::READWRITE);
 
     bool setList(const AtomListView& lv) override;
+    bool setSymbol(t_symbol* s) override;
 
     bool isEqual(const char* str) const { return std::strcmp(value()->s_name, str) == 0; }
+    const char* str() const { return value()->s_name; }
+    t_symbol* symbol() const { return value(); }
+};
+
+class SymbolFloatEnumProperty : public SymbolEnumProperty {
+public:
+    SymbolFloatEnumProperty(const std::string& name,
+        std::initializer_list<std::pair<t_symbol*, t_float>> values,
+        PropValueAccess access = PropValueAccess::READWRITE);
+
+    SymbolFloatEnumProperty(const std::string& name,
+        std::initializer_list<std::pair<const char*, t_float>> values,
+        PropValueAccess access = PropValueAccess::READWRITE);
+
+    t_float valuePair() const;
+
+private:
+    std::vector<t_float> data_;
 };
 
 /**

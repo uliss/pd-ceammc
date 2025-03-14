@@ -135,4 +135,25 @@ TEST_CASE("SymbolProperty", "[core]")
         REQUIRE(p.setSymbol(SYM("b")));
         REQUIRE(p.value() == SYM("b"));
     }
+
+    SECTION("setList/setT")
+    {
+        SymbolProperty p("@s", SYM("B"));
+
+        REQUIRE_FALSE(p.setT(false));
+        REQUIRE_FALSE(p.setT(t_float(1)));
+        REQUIRE_FALSE(p.setT(t_int(100)));
+        REQUIRE_FALSE(p.setT(A(123)));
+
+        REQUIRE(p.setT(SYM("a")));
+        REQUIRE(p.value() == SYM("a"));
+
+        REQUIRE_FALSE(p.setBool(true));
+        REQUIRE_FALSE(p.setFloat(1));
+        REQUIRE_FALSE(p.setInt(1));
+        REQUIRE_FALSE(p.setAtom(A(123)));
+
+        REQUIRE(p.setSymbol(SYM("b")));
+        REQUIRE(p.value() == SYM("b"));
+    }
 }

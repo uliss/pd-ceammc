@@ -49,4 +49,37 @@ bool SymbolEnumProperty::setList(const AtomListView& lv)
     }
 }
 
+bool SymbolEnumProperty::setSymbol(t_symbol* s)
+{
+    return setValue(s);
+}
+
+SymbolFloatEnumProperty::SymbolFloatEnumProperty(const std::string& name,
+    std::initializer_list<std::pair<t_symbol*, t_float>> values,
+    PropValueAccess access)
+    : SymbolEnumProperty(name, values.begin()->first, access)
+{
+    for (auto& v : values) {
+        appendEnum(v.first);
+        data_.push_back(v.second);
+    }
+}
+
+SymbolFloatEnumProperty::SymbolFloatEnumProperty(const std::string& name,
+    std::initializer_list<std::pair<const char*, t_float>> values,
+    PropValueAccess access)
+    : SymbolEnumProperty(name, gensym(values.begin()->first), access)
+{
+    for (auto& v : values) {
+        appendEnum(gensym(v.first));
+        data_.push_back(v.second);
+    }
+}
+
+t_float SymbolFloatEnumProperty::valuePair() const
+{
+    auto idx = index();
+    return idx < data_.size() ? data_[idx] : 0;
+}
+
 }
