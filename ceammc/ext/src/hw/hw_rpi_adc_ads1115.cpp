@@ -1,5 +1,6 @@
 #include "hw_rpi_adc_ads1115.h"
 #include "args/argcheck.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -34,6 +35,8 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
 
     norm_min_ = new FloatProperty("@min", 0);
     addProperty(norm_min_);
+
+    sym_channel_ = gensym("ch");
 }
 
 HwRpiAdcAds1115::~HwRpiAdcAds1115()
@@ -59,13 +62,14 @@ void HwRpiAdcAds1115::initDone()
             [](void* user, std::uint8_t chan, std::int16_t value) {
                 auto obj = static_cast<HwRpiAdcAds1115*>(user);
                 if (obj)
-                    obj->anyTo(0, gensym("ch"), obj->normalizeValue(value));
+                    obj->outputValue(chan, value);
             },
             [](void* user, std::int16_t values[4]) {
                 auto obj = static_cast<HwRpiAdcAds1115*>(user);
                 if (obj) {
-                    for (size_t i = 0; i < 4; i++)
-                        obj->anyTo(0, gensym("ch"), obj->normalizeValue(values[i]));
+                    for (size_t i = 0; i < 4; i++) {
+                        obj->outputValue(i, values[i]);
+                    }
                 }
             } });
 
@@ -133,6 +137,14 @@ t_float HwRpiAdcAds1115::normalizeValue(std::int16_t value) const
     } else {
         return value;
     }
+}
+
+void HwRpiAdcAds1115::outputValue(uint8_t ch, int16_t value)
+{
+    AtomArray<2> data;
+    data[0] = ch;
+    data[1] = normalizeValue(value);
+    anyTo(0, sym_channel_, normalizeValue(value));
 }
 
 void setup_hw_rpi_adc_ads1115()

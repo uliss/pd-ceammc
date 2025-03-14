@@ -15,6 +15,7 @@ class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
     FlagProperty* normalize_ { nullptr };
     FloatProperty* norm_min_ { nullptr };
     FloatProperty* norm_max_ { nullptr };
+    t_symbol* sym_channel_ { nullptr };
 
 public:
     explicit HwRpiAdcAds1115(const PdArgs& args);
@@ -28,6 +29,7 @@ public:
 
 private:
     t_float normalizeValue(int16_t value) const;
+    void outputValue(std::uint8_t ch, std::int16_t value);
 };
 
 void setup_hw_rpi_adc_ads1115();
