@@ -1,4 +1,4 @@
-use std::{ffi::CString, rc::Rc};
+use std::{ffi::CString, rc::Rc, time::Duration};
 
 use irp::DFA;
 use log::{debug, error};
@@ -32,30 +32,30 @@ impl hw_infrared {
             let mut prev_event_usec = 0u128;
 
             ir_pin
-                .set_async_interrupt(rppal::gpio::Trigger::Both, None, move |event| {
-                    let event_usec = event.timestamp.as_micros();
-                    let delta_usec = event_usec.saturating_sub(prev_event_usec);
+                .set_async_interrupt(
+                    rppal::gpio::Trigger::Both,
+                    Some(Duration::from_micros(100)),
+                    move |event| {
+                        let event_usec = event.timestamp.as_micros();
+                        let delta_usec = event_usec.saturating_sub(prev_event_usec);
 
-                    // if delta_usec > 20000 {
-                    //     ir_tx.send(irp::InfraredData::Reset).unwrap_or_default();
-                    // }
-
-                    match event.trigger {
-                        rppal::gpio::Trigger::RisingEdge => {
-                            ir_tx
-                                .send(irp::InfraredData::Flash(delta_usec as u32))
-                                .unwrap_or_default();
+                        match event.trigger {
+                            rppal::gpio::Trigger::RisingEdge => {
+                                ir_tx
+                                    .send(irp::InfraredData::Flash(delta_usec as u32))
+                                    .unwrap_or_default();
+                            }
+                            rppal::gpio::Trigger::FallingEdge => {
+                                ir_tx
+                                    .send(irp::InfraredData::Gap(delta_usec as u32))
+                                    .unwrap_or_default();
+                            }
+                            _ => {}
                         }
-                        rppal::gpio::Trigger::FallingEdge => {
-                            ir_tx
-                                .send(irp::InfraredData::Gap(delta_usec as u32))
-                                .unwrap_or_default();
-                        }
-                        _ => {}
-                    }
 
-                    prev_event_usec = event_usec;
-                })
+                        prev_event_usec = event_usec;
+                    },
+                )
                 .map_err(|err| format!("GPIO init error: {err}"))?;
 
             let mut proto_name = "NEC".to_owned();
