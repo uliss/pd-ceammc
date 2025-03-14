@@ -65,6 +65,8 @@ impl hw_infrared {
                 'chan_async: loop {
                     match ir_rx.recv_timeout(Duration::from_millis(10)) {
                         Ok(res) => {
+                            debug!("{res}");
+                            
                             dec.dfa_input(res, &dfa, |_ev, vars| {
                                 let mut keys = vars.keys().collect::<Vec<_>>();
                                 keys.sort();
