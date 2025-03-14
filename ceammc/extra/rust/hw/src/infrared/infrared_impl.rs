@@ -1,7 +1,7 @@
 use std::{ffi::CString, rc::Rc, time::Duration};
 
 use irp::DFA;
-use log::{debug, error};
+use log::{debug, error, trace};
 use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_decoder, process_err};
@@ -38,11 +38,15 @@ impl hw_infrared {
 
                     match event.trigger {
                         rppal::gpio::Trigger::RisingEdge => {
+                            trace!("flash: {delta_usec}");
+
                             ir_tx
                                 .send(irp::InfraredData::Flash(delta_usec as u32))
                                 .unwrap_or_default();
                         }
                         rppal::gpio::Trigger::FallingEdge => {
+                            trace!("gap: {delta_usec}");
+
                             ir_tx
                                 .send(irp::InfraredData::Gap(delta_usec as u32))
                                 .unwrap_or_default();
