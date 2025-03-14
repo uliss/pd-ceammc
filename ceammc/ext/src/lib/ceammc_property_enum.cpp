@@ -59,9 +59,12 @@ SymbolFloatEnumProperty::SymbolFloatEnumProperty(const std::string& name,
     PropValueAccess access)
     : SymbolEnumProperty(name, values.begin()->first, access)
 {
-    for (auto& v : values) {
-        appendEnum(v.first);
-        data_.push_back(v.second);
+    data_.push_back(values.begin()->second);
+
+    for (size_t i = 1; i < values.size(); i++) {
+        auto& p = *(values.begin() + i);
+        appendEnum(p.first);
+        data_.push_back(p.second);
     }
 }
 
@@ -70,9 +73,12 @@ SymbolFloatEnumProperty::SymbolFloatEnumProperty(const std::string& name,
     PropValueAccess access)
     : SymbolEnumProperty(name, gensym(values.begin()->first), access)
 {
-    for (auto& v : values) {
-        appendEnum(gensym(v.first));
-        data_.push_back(v.second);
+    data_.push_back(values.begin()->second);
+
+    for (size_t i = 1; i < values.size(); i++) {
+        auto& p = *(values.begin() + i);
+        appendEnum(gensym(p.first));
+        data_.push_back(p.second);
     }
 }
 
