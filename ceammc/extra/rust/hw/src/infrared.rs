@@ -20,9 +20,6 @@ mod irp;
 
 #[derive(Debug)]
 pub enum Request {
-    SetToleranceUsec(u16),
-    SetMaxGap(u32),
-    SetTolerancePerc(u8),
     SetProtocol(CString),
 }
 
@@ -76,21 +73,6 @@ pub extern "C" fn ceammc_hw_infrared_free(ir: *mut hw_infrared) {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_infrared_free_process_reply(ir: *const hw_infrared) -> bool {
     rpi_check!({ hw_infrared::process_reply_ptr(ir) });
-}
-
-#[no_mangle]
-pub extern "C" fn ceammc_hw_infrared_set_tolerance_usec(ir: *const hw_infrared, usec: u16) -> bool {
-    rpi_check!({ hw_infrared::send_request_ptr(ir, Request::SetToleranceUsec(usec)) });
-}
-
-#[no_mangle]
-pub extern "C" fn ceammc_hw_infrared_set_tolerance_perc(ir: *const hw_infrared, perc: u8) -> bool {
-    rpi_check!({ hw_infrared::send_request_ptr(ir, Request::SetTolerancePerc(perc)) });
-}
-
-#[no_mangle]
-pub extern "C" fn ceammc_hw_infrared_set_max_gap(ir: *const hw_infrared, max_gap: u32) -> bool {
-    rpi_check!({ hw_infrared::send_request_ptr(ir, Request::SetMaxGap(max_gap)) });
 }
 
 #[no_mangle]

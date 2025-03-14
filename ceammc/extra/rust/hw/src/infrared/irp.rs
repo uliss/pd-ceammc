@@ -1,6 +1,6 @@
 use std::{collections::HashMap, io::BufReader};
 
-use irp::{Irp, DFA};
+use irp::{Decoder, Irp, DFA};
 use lazy_static::lazy_static;
 use log::debug;
 use std::str::FromStr;
@@ -24,6 +24,7 @@ struct ProtoParams {
     irp: String,
     abs_tolerance: u32,
     rel_tolerance: f32,
+    min_leadout: u32,
 }
 
 fn create_proto_map() -> HashMap<String, ProtoParams> {
@@ -38,6 +39,7 @@ fn create_proto_map() -> HashMap<String, ProtoParams> {
                 irp: x.irp.clone(),
                 abs_tolerance: x.absolute_tolerance,
                 rel_tolerance: x.relative_tolerance,
+                min_leadout: x.minimum_leadout,
             },
         );
     }
@@ -183,11 +185,18 @@ fn get_irp(proto: &str) -> Result<(Irp, ProtoParams), String> {
     }
 }
 
-pub fn get_dfa(proto: &str, opts: &irp::Options<'_>) -> Result<DFA, String> {
+pub fn get_decoder(proto: &str) -> Result<(DFA, Decoder), String> {
     let (irp, params) = get_irp(proto)?;
+
+    let options = irp::Options {
+        aeps: params.abs_tolerance,
+        eps: (params.rel_tolerance * 100.0).round().clamp(0.0, 100.0) as u32,
+        max_gap: params.min_leadout,
+        ..Default::default()
+    };
 
     debug!("proto params: {params:?}");
 
-    let dfa = irp.compile(opts)?;
-    Ok(dfa)
+    let dfa = irp.compile(&options)?;
+    Ok((dfa, irp::Decoder::new(options)))
 }
