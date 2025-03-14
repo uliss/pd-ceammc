@@ -3,8 +3,12 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::CString, ptr::null_mut};
+use std::{
+    ffi::{c_void, CString},
+    ptr::null_mut,
+};
 
+use lib_macro::PdError;
 use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdError};
@@ -14,36 +18,60 @@ mod ads1115_impl;
 
 type Ads1115Worker = HwThreadWorker<Request, Reply>;
 
-pub struct hw_i2c_ads1115 {
-    worker: Ads1115Worker,
-}
-pub enum Request {
-    Measure(u8, bool),
-    MeasureAll(bool),
-    SetFullScaleRange(u8),
+#[repr(C)]
+pub struct hw_i2c_ads1115_data_cb {
+    user: *mut c_void,
+    cb_chan: extern "C" fn(user: *mut c_void, chan: u8, data: i16),
+    cb_all: extern "C" fn(user: *mut c_void, data: [i16; 4]),
 }
 
+pub struct hw_i2c_ads1115 {
+    worker: Ads1115Worker,
+    on_data: hw_i2c_ads1115_data_cb,
+}
+
+#[repr(C)]
+#[derive(Debug)]
+pub enum hw_i2c_ads1115_measure_mode {
+    Single,
+    Diff,
+}
+
+#[derive(Debug)]
+pub enum Request {
+    MeasureChan(u8),
+    MeasureAll,
+    SetFullScaleRange(u8),
+    Poll(bool),
+    SetPollTime(u16),
+    SetMeasureMode(hw_i2c_ads1115_measure_mode),
+}
+
+#[derive(PdError)]
 pub enum Reply {
     Error(CString),
     Measure(u8, i16),
     MeasureAll([i16; 4]),
 }
 
-impl MakePdError<Reply> for Reply {
-    fn pd_err(msg: CString) -> Reply {
-        Reply::Error(msg)
-    }
-}
-
 #[no_mangle]
 pub extern "C" fn ceammc_hw_ads1115_new(
     i2c_bus: i8,
     i2c_addr: i8,
+    mode: hw_i2c_ads1115_measure_mode,
     notify: hw_notify_cb,
     on_err: hw_msg_cb,
+    on_data: hw_i2c_ads1115_data_cb,
 ) -> *mut hw_i2c_ads1115 {
     rpi_check!(null_mut(), {
-        match hw_i2c_ads1115::new_oneshot(i2c_bus, I2cAddress::new(i2c_addr), notify, on_err) {
+        match hw_i2c_ads1115::new(
+            i2c_bus,
+            I2cAddress::new(i2c_addr),
+            mode,
+            notify,
+            on_err,
+            on_data,
+        ) {
             Ok(adc) => return Box::into_raw(Box::new(adc)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -61,4 +89,24 @@ pub extern "C" fn ceammc_hw_ads1115_free(adc: *mut hw_i2c_ads1115) {
             drop(unsafe { Box::from_raw(adc) })
         }
     });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_ads1115_measure_all(adc: *mut hw_i2c_ads1115) -> bool {
+    rpi_check!({ hw_i2c_ads1115::send_request_ptr(adc, Request::MeasureAll) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_ads1115_measure_chan(adc: *mut hw_i2c_ads1115, chan: u8) -> bool {
+    rpi_check!({ hw_i2c_ads1115::send_request_ptr(adc, Request::MeasureChan(chan)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_ads1115_poll(adc: *mut hw_i2c_ads1115, state: bool) -> bool {
+    rpi_check!({ hw_i2c_ads1115::send_request_ptr(adc, Request::Poll(state)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_ads1115_process_reply(adc: *mut hw_i2c_ads1115) -> bool {
+    rpi_check!({ hw_i2c_ads1115::process_reply_ptr(adc) });
 }

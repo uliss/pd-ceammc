@@ -1,7 +1,10 @@
-use std::ffi::CString;
+use std::{
+    ffi::CString,
+    time::{Duration, Instant},
+};
 
-use ads1x1x::{channel, Ads1x1x, ChannelId, FullScaleRange, ModeChangeError, TargetAddr};
-use log::debug;
+use ads1x1x::{channel, Ads1x1x, FullScaleRange, TargetAddr};
+use log::{debug, error};
 use pwm_pca9685::nb::block;
 
 use crate::{
@@ -11,27 +14,30 @@ use crate::{
     send_error, send_reply,
 };
 
-use super::{hw_i2c_ads1115, Ads1115Worker};
+use super::{hw_i2c_ads1115, hw_i2c_ads1115_data_cb, hw_i2c_ads1115_measure_mode, Ads1115Worker};
 
 impl hw_i2c_ads1115 {
-    fn to_fsr(range: u8) -> FullScaleRange {
+    fn to_fsr(range: u8) -> Result<FullScaleRange, String> {
         use ads1x1x::FullScaleRange as FSR;
 
         match range {
-            0 => FSR::Within0_256V,
-            1 => FSR::Within0_512V,
-            2 => FSR::Within1_024V,
-            3 => FSR::Within2_048V,
-            4 => FSR::Within4_096V,
-            _ => FSR::Within6_144V,
+            0 => Ok(FSR::Within0_256V),
+            1 => Ok(FSR::Within0_512V),
+            2 => Ok(FSR::Within1_024V),
+            3 => Ok(FSR::Within2_048V),
+            4 => Ok(FSR::Within4_096V),
+            6 => Ok(FSR::Within6_144V),
+            _ => Err(format!("invalid range value: {range}")),
         }
     }
 
-    pub fn new_oneshot(
+    pub fn new(
         i2c_bus: i8,
-        i2c_addr: I2cAddress,
+        _i2c_addr: I2cAddress,
+        mode: hw_i2c_ads1115_measure_mode,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
+        on_data: hw_i2c_ads1115_data_cb,
     ) -> Result<Self, CString> {
         let (worker, rx, tx) = Ads1115Worker::new(on_err);
 
@@ -41,45 +47,110 @@ impl hw_i2c_ads1115 {
 
             let mut adc = Ads1x1x::new_ads1115(i2c, TargetAddr::default());
 
-            while let Ok(req) = rx.recv() {
-                match req {
-                    Request::Measure(chan, diff) => {
-                        match match (chan, diff) {
-                            (0, false) => block!(adc.read(channel::SingleA0)),
-                            (1, false) => block!(adc.read(channel::SingleA1)),
-                            (2, false) => block!(adc.read(channel::SingleA2)),
-                            (3, false) => block!(adc.read(channel::SingleA3)),
-                            (0, true) => block!(adc.read(channel::DifferentialA0A1)),
-                            (1, true) => block!(adc.read(channel::DifferentialA0A3)),
-                            (2, true) => block!(adc.read(channel::DifferentialA1A3)),
-                            (3, true) => block!(adc.read(channel::DifferentialA2A3)),
-                            _ => {
-                                send_error(&tx, notify, format!("invalid channel: chan").as_str());
-                                continue;
+            let mut poll_mode = false;
+            let mut poll_time = Duration::from_millis(10);
+            let mut measure_mode = mode;
+
+            'outer: loop {
+                match rx.try_recv() {
+                    Ok(req) => {
+                        debug!("{req:?}");
+                        match req {
+                            Request::MeasureChan(chan) => {
+                                use ads1x1x::channel::*;
+                                use hw_i2c_ads1115_measure_mode::*;
+                                // single measure
+                                match match (&measure_mode, chan) {
+                                    (Single, 0) => block!(adc.read(SingleA0)),
+                                    (Single, 1) => block!(adc.read(SingleA1)),
+                                    (Single, 2) => block!(adc.read(SingleA2)),
+                                    (Single, 3) => block!(adc.read(SingleA3)),
+                                    (Diff, 0) => block!(adc.read(DifferentialA0A1)),
+                                    (Diff, 1) => block!(adc.read(DifferentialA0A3)),
+                                    (Diff, 2) => block!(adc.read(DifferentialA1A3)),
+                                    (Diff, 3) => block!(adc.read(DifferentialA2A3)),
+                                    _ => {
+                                        send_error(
+                                            &tx,
+                                            notify,
+                                            format!("invalid channel: {chan}").as_str(),
+                                        );
+                                        continue;
+                                    }
+                                } {
+                                    Ok(res) => {
+                                        debug!("measure: {res}");
+                                        send_reply(Reply::Measure(chan, res), &tx, notify);
+                                    }
+                                    Err(err) => {
+                                        send_error(
+                                            &tx,
+                                            notify,
+                                            format!("measure error: {err:?}").as_str(),
+                                        );
+                                    }
+                                }
                             }
-                        } {
-                            Ok(res) => {
-                                debug!("measure: {res}");
-                                send_reply(Reply::Measure(chan, res), &tx, notify);
+                            Request::MeasureAll => {
+                                let result = match measure_mode {
+                                    hw_i2c_ads1115_measure_mode::Single => {
+                                        let a0 =
+                                            block!(adc.read(channel::SingleA0)).unwrap_or_default();
+                                        let a1 =
+                                            block!(adc.read(channel::SingleA1)).unwrap_or_default();
+                                        let a2 =
+                                            block!(adc.read(channel::SingleA2)).unwrap_or_default();
+                                        let a3 =
+                                            block!(adc.read(channel::SingleA3)).unwrap_or_default();
+                                        (a0, a1, a2, a3)
+                                    }
+                                    hw_i2c_ads1115_measure_mode::Diff => {
+                                        let d0 = block!(adc.read(channel::DifferentialA0A1))
+                                            .unwrap_or_default();
+                                        let d1 = block!(adc.read(channel::DifferentialA0A3))
+                                            .unwrap_or_default();
+                                        let d2 = block!(adc.read(channel::DifferentialA1A3))
+                                            .unwrap_or_default();
+                                        let d3 = block!(adc.read(channel::DifferentialA2A3))
+                                            .unwrap_or_default();
+                                        (d0, d1, d2, d3)
+                                    }
+                                };
+
+                                send_reply(Reply::MeasureAll(result.into()), &tx, notify);
                             }
-                            Err(err) => {
-                                send_error(&tx, notify, format!("measure error: {err:?}").as_str());
+                            Request::SetFullScaleRange(range) => {
+                                let fsr = Self::to_fsr(range)?;
+                                adc.set_full_scale_range(fsr)
+                                    .map_err(|err| format!("SetFullScaleRange: {err:?}"))
+                                    .unwrap_or_default();
+                            }
+                            Request::Poll(state) => poll_mode = state,
+                            Request::SetPollTime(msec) => {
+                                poll_time = Duration::from_millis(msec.into());
+                            }
+                            Request::SetMeasureMode(mode) => {
+                                measure_mode = mode;
                             }
                         }
                     }
-                    Request::SetFullScaleRange(range) => {
-                        adc.set_full_scale_range(Self::to_fsr(range))
-                            .map_err(|err| format!("SetFullScaleRange: {err:?}"))
-                            .unwrap_or_default();
-                    }
-                    Request::MeasureAll(diff) => {
-                        let res = if !diff {
+                    Err(err) => match err {
+                        std::sync::mpsc::TryRecvError::Empty => {} // just no request
+                        std::sync::mpsc::TryRecvError::Disconnected => break 'outer,
+                    },
+                }
+
+                if poll_mode {
+                    let now = Instant::now();
+                    let result = match &measure_mode {
+                        hw_i2c_ads1115_measure_mode::Single => {
                             let a0 = block!(adc.read(channel::SingleA0)).unwrap_or_default();
                             let a1 = block!(adc.read(channel::SingleA1)).unwrap_or_default();
                             let a2 = block!(adc.read(channel::SingleA2)).unwrap_or_default();
                             let a3 = block!(adc.read(channel::SingleA3)).unwrap_or_default();
                             (a0, a1, a2, a3)
-                        } else {
+                        }
+                        hw_i2c_ads1115_measure_mode::Diff => {
                             let d0 =
                                 block!(adc.read(channel::DifferentialA0A1)).unwrap_or_default();
                             let d1 =
@@ -89,71 +160,51 @@ impl hw_i2c_ads1115 {
                             let d3 =
                                 block!(adc.read(channel::DifferentialA2A3)).unwrap_or_default();
                             (d0, d1, d2, d3)
-                        };
-
-                        send_reply(Reply::MeasureAll(res.into()), &tx, notify);
-                    }
-                }
-            }
-
-            Ok(())
-        });
-
-        Ok(Self { worker })
-    }
-
-    fn ch<CH>(chan: CH) {
-
-    }
-
-    pub fn new_continuos(
-        i2c_bus: i8,
-        i2c_addr: I2cAddress,
-        notify: hw_notify_cb,
-        on_err: hw_msg_cb,
-    ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Ads1115Worker::new(on_err);
-
-        worker.spawn(tx.clone(), notify, move || {
-            let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
-            debug!("I2C init: {i2c:?}");
-
-            let mut adc = Ads1x1x::new_ads1115(i2c, TargetAddr::default())
-                .into_continuous()
-                .map_err(|ModeChangeError::I2C(err, _)| format!("I2c error: {err:?}"))?;
-
-            let mut current_chan = 0;
-            // let mut poll_enabled = true;
-
-            Self::ch(channel::SingleA0);
-
-            loop {
-                match adc.read() {
-                    Ok(res) => {
-                        send_reply(Reply::Measure(current_chan, res), &tx, notify);
-                    }
-                    Err(err) => {}
-                }
-
-                match rx.recv() {
-                    Ok(req) => match req {
-                        Request::Measure(_, _) => todo!(),
-                        Request::MeasureAll(_) => todo!(),
-                        Request::SetFullScaleRange(range) => {
-                            adc.set_full_scale_range(Self::to_fsr(range))
-                                .map_err(|err| format!("SetFullScaleRange: {err:?}"))
-                                .unwrap_or_default();
                         }
-                    },
-                    Err(err) => {
-                        break;
-                    }
+                    };
+
+                    send_reply(Reply::MeasureAll(result.into()), &tx, notify);
+
+                    let elapsed = Instant::now() - now;
+                    debug!("elapsed: {}usec", elapsed.as_millis());
+
+                    std::thread::sleep(poll_time);
+                } else {
+                    std::thread::sleep(poll_time);
                 }
             }
 
             Ok(())
         });
 
-        Ok(Self { worker })
+        Ok(Self { worker, on_data })
+    }
+
+    pub fn send_request_ptr(adc: *mut Self, req: Request) -> bool {
+        if adc.is_null() {
+            error!("NULL adc pointer");
+            false
+        } else {
+            let adc = unsafe { &*adc };
+            adc.worker.send_request(req)
+        }
+    }
+
+    pub fn process_reply_ptr(adc: *mut Self) -> bool {
+        if adc.is_null() {
+            error!("NULL adc pointer");
+            false
+        } else {
+            let adc = unsafe { &*adc };
+            adc.worker.process_reply(&|rep| match rep {
+                Reply::Error(err) => adc.worker.caller_error(&err),
+                Reply::Measure(chan, value) => {
+                    (adc.on_data.cb_chan)(adc.on_data.user, chan, value);
+                }
+                Reply::MeasureAll(data) => {
+                    (adc.on_data.cb_all)(adc.on_data.user, data);
+                }
+            })
+        }
     }
 }

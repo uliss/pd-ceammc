@@ -104,6 +104,7 @@ if(WITH_PRINTER)
 endif()
 
 # GPIO
+ceammc_hw_external(rpi_adc_ads1115)
 ceammc_hw_external(rpi_display_lcd1602)
 ceammc_hw_external(rpi_display_ssd1306)
 ceammc_hw_external(rpi_gpio)

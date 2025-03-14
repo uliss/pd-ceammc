@@ -150,6 +150,11 @@ enum class ceammc_hw_gpio_trigger {
     Both,
 };
 
+enum class ceammc_hw_i2c_ads1115_measure_mode {
+    Single,
+    Diff,
+};
+
 enum class ceammc_hw_led_fx {
     Rainbow,
 };
@@ -234,6 +239,12 @@ struct ceammc_hw_msg_cb {
     void *user;
     /// can be NULL
     void (*cb)(void*, const char*);
+};
+
+struct ceammc_hw_i2c_ads1115_data_cb {
+    void *user;
+    void (*cb_chan)(void *user, uint8_t chan, int16_t data);
+    void (*cb_all)(void *user, int16_t data[4]);
 };
 
 struct ceammc_gamepad_err_cb {
@@ -371,10 +382,20 @@ extern "C" {
 
 void ceammc_hw_ads1115_free(ceammc_hw_i2c_ads1115 *adc);
 
+bool ceammc_hw_ads1115_measure_all(ceammc_hw_i2c_ads1115 *adc);
+
+bool ceammc_hw_ads1115_measure_chan(ceammc_hw_i2c_ads1115 *adc, uint8_t chan);
+
 ceammc_hw_i2c_ads1115 *ceammc_hw_ads1115_new(int8_t i2c_bus,
                                              int8_t i2c_addr,
+                                             ceammc_hw_i2c_ads1115_measure_mode mode,
                                              ceammc_hw_notify_cb notify,
-                                             ceammc_hw_msg_cb on_err);
+                                             ceammc_hw_msg_cb on_err,
+                                             ceammc_hw_i2c_ads1115_data_cb on_data);
+
+bool ceammc_hw_ads1115_poll(ceammc_hw_i2c_ads1115 *adc, bool state);
+
+bool ceammc_hw_ads1115_process_reply(ceammc_hw_i2c_ads1115 *adc);
 
 bool ceammc_hw_display_ssd1306_clear(const ceammc_hw_display_ssd1306 *display, bool flush);
 
