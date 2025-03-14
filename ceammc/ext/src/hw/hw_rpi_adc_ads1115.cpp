@@ -8,6 +8,15 @@
 CEAMMC_DEFINE_SYM_HASH(single)
 CEAMMC_DEFINE_SYM_HASH(diff)
 
+#define MVOLT_VALUE(v) constexpr int mv##v = v;
+
+MVOLT_VALUE(256)
+MVOLT_VALUE(512)
+MVOLT_VALUE(1024)
+MVOLT_VALUE(2048)
+MVOLT_VALUE(4096)
+MVOLT_VALUE(6144)
+
 HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
@@ -23,18 +32,24 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     i2c_bus_->checkClosedRange(-1, 16);
     addProperty(i2c_bus_);
 
-    range_ = new IntEnumProperty("@range", { 6144, 256, 512, 1024, 2048, 4096 });
+    range_ = new IntEnumProperty("@range", { mv6144, mv256, mv512, mv1024, mv2048, mv4096 });
     range_->setInitOnly();
     addProperty(range_);
 
     normalize_ = new FlagProperty("@norm");
     addProperty(normalize_);
 
-    norm_max_ = new FloatProperty("@max", 1);
-    addProperty(norm_max_);
+    out_max_ = new FloatProperty("@out_max", 1);
+    addProperty(out_max_);
 
-    norm_min_ = new FloatProperty("@min", 0);
-    addProperty(norm_min_);
+    out_min_ = new FloatProperty("@out_min", 0);
+    addProperty(out_min_);
+
+    in_max_ = new FloatProperty("@in_max", 5);
+    addProperty(in_max_);
+
+    in_min_ = new FloatProperty("@in_min", 0);
+    addProperty(in_min_);
 
     sym_channel_ = gensym("ch");
 }
@@ -77,21 +92,22 @@ void HwRpiAdcAds1115::initDone()
     ceammc_hw_i2c_ads1115_range range;
 
     switch (range_->value()) {
-    case 256:
+    case mv256:
         range = ceammc_hw_i2c_ads1115_range::Within_0_256V;
         break;
-    case 512:
+    case mv512:
         range = ceammc_hw_i2c_ads1115_range::Within_0_512V;
         break;
-    case 1024:
+    case mv1024:
         range = ceammc_hw_i2c_ads1115_range::Within_1_024V;
         break;
-    case 2048:
+    case mv2048:
         range = ceammc_hw_i2c_ads1115_range::Within_2_048V;
         break;
-    case 4096:
+    case mv4096:
         range = ceammc_hw_i2c_ads1115_range::Within_4_096V;
         break;
+    case mv6144:
     default:
         range = ceammc_hw_i2c_ads1115_range::Within_6_144V;
         break;
@@ -130,16 +146,17 @@ void HwRpiAdcAds1115::m_measure(t_symbol* s, const AtomListView& lv)
 
 t_float HwRpiAdcAds1115::normalizeValue(std::int16_t value) const
 {
-    if (normalize_->value()) {
-        auto a = norm_min_->value();
-        auto b = norm_max_->value();
+    const auto FSR = range_->value();
 
-        if (mode_->index() == 0)
-            return convert::lin2lin<t_float>(value, 0, 0x8000, a, b);
-        else
-            return convert::lin2lin<t_float>(value, -0x7fff, 0x8000, a, b);
+    auto value_in_mv = (mode_->index() == 0) ? convert::lin2lin<double>(value, 0, 0x8000, 0, FSR)
+                                             : convert::lin2lin<double>(value, -0x7fff, 0x8000, -FSR, FSR);
+
+    if (normalize_->value()) {
+        return convert::lin2lin<double>(value_in_mv,
+            in_min_->value(), in_max_->value(),
+            out_min_->value(), out_max_->value());
     } else {
-        return value;
+        return value_in_mv;
     }
 }
 

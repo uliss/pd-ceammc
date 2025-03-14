@@ -13,8 +13,11 @@ class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
     IntProperty* i2c_bus_ { nullptr };
     IntEnumProperty* range_ { nullptr };
     FlagProperty* normalize_ { nullptr };
-    FloatProperty* norm_min_ { nullptr };
-    FloatProperty* norm_max_ { nullptr };
+    FloatProperty* out_min_ { nullptr };
+    FloatProperty* out_max_ { nullptr };
+    FloatProperty* in_min_ { nullptr };
+    FloatProperty* in_max_ { nullptr };
+    //
     t_symbol* sym_channel_ { nullptr };
 
 public:
