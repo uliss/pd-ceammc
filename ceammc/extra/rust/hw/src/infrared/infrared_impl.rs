@@ -1,6 +1,6 @@
-use std::{ffi::CString, time::Duration};
+use std::ffi::CString;
 
-use log::{debug, error, trace};
+use log::{debug, error};
 use rppal::gpio::Gpio;
 
 use crate::{hw_msg_cb, hw_notify_cb, infrared::irp::get_decoder, process_err};
