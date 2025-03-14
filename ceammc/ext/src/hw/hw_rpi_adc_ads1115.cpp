@@ -1,5 +1,6 @@
 #include "hw_rpi_adc_ads1115.h"
 #include "args/argcheck.h"
+#include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
@@ -24,6 +25,15 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     range_ = new IntEnumProperty("@range", { 6144, 256, 512, 1024, 2048, 4096 });
     range_->setInitOnly();
     addProperty(range_);
+
+    normalize_ = new FlagProperty("@norm");
+    addProperty(normalize_);
+
+    norm_max_ = new FloatProperty("@max", 1);
+    addProperty(norm_max_);
+
+    norm_min_ = new FloatProperty("@min", 0);
+    addProperty(norm_min_);
 }
 
 HwRpiAdcAds1115::~HwRpiAdcAds1115()
@@ -46,8 +56,18 @@ void HwRpiAdcAds1115::initDone()
 
     adc_ = ceammc_hw_ads1115_new(i2c_bus_->value(), ceammc_HW_I2C_DEFAULT_ADDR, mode, on_notify(), on_err(),
         { this,
-            [](void* user, std::uint8_t chan, std::int16_t value) {},
-            [](void* user, std::int16_t values[4]) {} });
+            [](void* user, std::uint8_t chan, std::int16_t value) {
+                auto obj = static_cast<HwRpiAdcAds1115*>(user);
+                if (obj)
+                    obj->anyTo(0, gensym("ch"), obj->normalizeValue(value));
+            },
+            [](void* user, std::int16_t values[4]) {
+                auto obj = static_cast<HwRpiAdcAds1115*>(user);
+                if (obj) {
+                    for (size_t i = 0; i < 4; i++)
+                        obj->anyTo(0, gensym("ch"), obj->normalizeValue(values[i]));
+                }
+            } });
 
     ceammc_hw_i2c_ads1115_range range;
 
@@ -101,6 +121,18 @@ void HwRpiAdcAds1115::m_measure(t_symbol* s, const AtomListView& lv)
         ceammc_hw_ads1115_measure_all(adc_);
     else
         ceammc_hw_ads1115_measure_chan(adc_, lv.intAt(0, 0));
+}
+
+t_float HwRpiAdcAds1115::normalizeValue(std::int16_t value) const
+{
+    if (normalize_->value()) {
+        auto a = norm_min_->value();
+        auto b = norm_max_->value();
+
+        return convert::lin2lin<t_float>(value, -0x7fff, 0x8000, a, b);
+    } else {
+        return value;
+    }
 }
 
 void setup_hw_rpi_adc_ads1115()

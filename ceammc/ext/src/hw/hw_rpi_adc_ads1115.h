@@ -12,6 +12,9 @@ class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
     SymbolEnumProperty* mode_ { nullptr };
     IntProperty* i2c_bus_ { nullptr };
     IntEnumProperty* range_ { nullptr };
+    FlagProperty* normalize_ { nullptr };
+    FloatProperty* norm_min_ { nullptr };
+    FloatProperty* norm_max_ { nullptr };
 
 public:
     explicit HwRpiAdcAds1115(const PdArgs& args);
@@ -22,6 +25,9 @@ public:
 
     void m_poll(t_symbol* s, const AtomListView& lv);
     void m_measure(t_symbol* s, const AtomListView& lv);
+
+private:
+    t_float normalizeValue(int16_t value) const;
 };
 
 void setup_hw_rpi_adc_ads1115();
