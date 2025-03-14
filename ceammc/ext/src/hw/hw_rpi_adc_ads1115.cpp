@@ -64,12 +64,13 @@ void HwRpiAdcAds1115::initDone()
                 if (obj)
                     obj->outputValue(chan, value);
             },
-            [](void* user, std::int16_t values[4]) {
+            [](void* user, int16_t a0, int16_t a1, int16_t a2, int16_t a3) {
                 auto obj = static_cast<HwRpiAdcAds1115*>(user);
                 if (obj) {
-                    for (size_t i = 0; i < 4; i++) {
-                        obj->outputValue(i, values[i]);
-                    }
+                    obj->outputValue(3, a3);
+                    obj->outputValue(2, a2);
+                    obj->outputValue(1, a1);
+                    obj->outputValue(0, a0);
                 }
             } });
 

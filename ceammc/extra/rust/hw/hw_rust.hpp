@@ -253,7 +253,7 @@ struct ceammc_hw_msg_cb {
 struct ceammc_hw_i2c_ads1115_data_cb {
     void *user;
     void (*cb_chan)(void *user, uint8_t chan, int16_t data);
-    void (*cb_all)(void *user, int16_t data[4]);
+    void (*cb_all)(void *user, int16_t a0, int16_t a1, int16_t a2, int16_t a3);
 };
 
 struct ceammc_gamepad_err_cb {

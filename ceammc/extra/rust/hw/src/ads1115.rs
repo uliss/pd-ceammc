@@ -22,7 +22,7 @@ type Ads1115Worker = HwThreadWorker<Request, Reply>;
 pub struct hw_i2c_ads1115_data_cb {
     user: *mut c_void,
     cb_chan: extern "C" fn(user: *mut c_void, chan: u8, data: i16),
-    cb_all: extern "C" fn(user: *mut c_void, data: [i16; 4]),
+    cb_all: extern "C" fn(user: *mut c_void, a0: i16, a1: i16, a2: i16, a3: i16),
 }
 
 pub struct hw_i2c_ads1115 {
@@ -62,7 +62,7 @@ pub enum Request {
 pub enum Reply {
     Error(CString),
     Measure(u8, i16),
-    MeasureAll([i16; 4]),
+    MeasureAll((i16, i16, i16, i16)),
 }
 
 #[no_mangle]

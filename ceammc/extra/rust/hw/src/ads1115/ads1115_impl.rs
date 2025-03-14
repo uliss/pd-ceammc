@@ -165,7 +165,7 @@ impl hw_i2c_ads1115 {
                         }
                     };
 
-                    send_reply(Reply::MeasureAll(result.into()), &tx, notify);
+                    send_reply(Reply::MeasureAll(result), &tx, notify);
 
                     let elapsed = Instant::now() - now;
                     debug!("elapsed: {}usec", elapsed.as_millis());
@@ -203,8 +203,8 @@ impl hw_i2c_ads1115 {
                 Reply::Measure(chan, value) => {
                     (adc.on_data.cb_chan)(adc.on_data.user, chan, value);
                 }
-                Reply::MeasureAll(data) => {
-                    (adc.on_data.cb_all)(adc.on_data.user, data);
+                Reply::MeasureAll((a0, a1, a2, a3)) => {
+                    (adc.on_data.cb_all)(adc.on_data.user, a0, a1, a2, a3);
                 }
             })
         }
