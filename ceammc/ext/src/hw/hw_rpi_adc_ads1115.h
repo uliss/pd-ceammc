@@ -12,6 +12,7 @@ class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
     IntProperty* i2c_bus_ { nullptr };
     SymbolEnumProperty* mode_ { nullptr };
     SymbolFloatEnumProperty* fsr_ { nullptr };
+    FloatProperty* poll_time_ { nullptr };
     // normalization
     BoolProperty* normalize_ { nullptr };
     FloatProperty* out_min_ { nullptr };

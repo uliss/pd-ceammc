@@ -122,6 +122,11 @@ pub extern "C" fn ceammc_hw_ads1115_poll(adc: *mut hw_i2c_ads1115, state: bool) 
 }
 
 #[no_mangle]
+pub extern "C" fn ceammc_hw_ads1115_set_poll_time(adc: *mut hw_i2c_ads1115, time_ms: u16) -> bool {
+    rpi_check!({ hw_i2c_ads1115::send_request_ptr(adc, Request::SetPollTime(time_ms)) });
+}
+
+#[no_mangle]
 pub extern "C" fn ceammc_hw_ads1115_process_reply(adc: *mut hw_i2c_ads1115) -> bool {
     rpi_check!({ hw_i2c_ads1115::process_reply_ptr(adc) });
 }

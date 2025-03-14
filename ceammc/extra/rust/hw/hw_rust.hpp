@@ -415,6 +415,8 @@ bool ceammc_hw_ads1115_process_reply(ceammc_hw_i2c_ads1115 *adc);
 bool ceammc_hw_ads1115_set_input_range(ceammc_hw_i2c_ads1115 *adc,
                                        ceammc_hw_i2c_ads1115_range range);
 
+bool ceammc_hw_ads1115_set_poll_time(ceammc_hw_i2c_ads1115 *adc, uint16_t time_ms);
+
 bool ceammc_hw_display_ssd1306_clear(const ceammc_hw_display_ssd1306 *display, bool flush);
 
 bool ceammc_hw_display_ssd1306_flush(const ceammc_hw_display_ssd1306 *display);

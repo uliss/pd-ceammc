@@ -177,9 +177,9 @@ impl hw_i2c_ads1115 {
                     send_reply(Reply::MeasureAll(result), &tx, notify);
 
                     let elapsed = Instant::now() - now;
-                    debug!("elapsed: {}usec", elapsed.as_millis());
-
-                    std::thread::sleep(poll_time);
+                    if elapsed < poll_time {
+                        std::thread::sleep(poll_time - elapsed);
+                    }
                 } else {
                     std::thread::sleep(poll_time);
                 }

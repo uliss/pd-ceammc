@@ -46,6 +46,11 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     fsr_->setInitOnly();
     addProperty(fsr_);
 
+    poll_time_ = new FloatProperty("@poll_time", ceammc_HW_ADC_ADS1115_DEF_POLL_TIME_MSEC);
+    poll_time_->setInitOnly();
+    poll_time_->checkClosedRange(ceammc_HW_ADC_ADS1115_MIN_POLL_TIME_MSEC, ceammc_HW_ADC_ADS1115_MAX_POLL_TIME_MSEC);
+    addProperty(poll_time_);
+
     normalize_ = new BoolProperty("@norm", false);
     addProperty(normalize_);
 
@@ -126,6 +131,7 @@ void HwRpiAdcAds1115::initDone()
     }
 
     ceammc_hw_ads1115_set_input_range(adc_, range);
+    ceammc_hw_ads1115_set_poll_time(adc_, poll_time_->value());
 }
 
 bool HwRpiAdcAds1115::notify(int code)
