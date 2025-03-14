@@ -185,8 +185,8 @@ fn get_irp(proto: &str) -> Result<(Irp, ProtoParams), String> {
     }
 }
 
-pub fn get_decoder(proto: &str) -> Result<(DFA, Decoder), String> {
-    let (irp, params) = get_irp(proto)?;
+pub fn get_decoder<'a>(proto: String) -> Result<(DFA, Decoder<'a>), String> {
+    let (irp, params) = get_irp(proto.as_str())?;
 
     let options = irp::Options {
         aeps: params.abs_tolerance,
@@ -195,7 +195,7 @@ pub fn get_decoder(proto: &str) -> Result<(DFA, Decoder), String> {
         ..Default::default()
     };
 
-    debug!("proto params: {params:?}");
+    debug!("proto params: {options:?}");
 
     let dfa = irp.compile(&options)?;
     Ok((dfa, irp::Decoder::new(options)))

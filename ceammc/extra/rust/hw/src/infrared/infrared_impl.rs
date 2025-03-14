@@ -1,5 +1,6 @@
-use std::ffi::CString;
+use std::{ffi::CString, rc::Rc};
 
+use irp::DFA;
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
@@ -57,13 +58,14 @@ impl hw_infrared {
                 })
                 .map_err(|err| format!("GPIO init error: {err}"))?;
 
-            let (mut dfa, mut decoder) = get_decoder("NEC")?;
+            let mut proto_name = "NEC".to_owned();
+            let (mut dfa, mut dec) = get_decoder(proto_name)?;
 
             'outer: loop {
                 'chan_async: loop {
                     match ir_rx.try_recv() {
                         Ok(res) => {
-                            decoder.dfa_input(res, &dfa, |_ev, vars| {
+                            dec.dfa_input(res, &dfa, |_ev, vars| {
                                 let mut keys = vars.keys().collect::<Vec<_>>();
                                 keys.sort();
 
@@ -94,12 +96,13 @@ impl hw_infrared {
 
                             match req {
                                 Request::SetProtocol(proto) => {
-                                    if let Ok((a, b)) =
-                                        get_decoder(proto.to_string_lossy().as_ref())
-                                            .map_err(|err| process_err(err, &tx, notify))
+                                    proto_name = proto.to_string_lossy().to_string();
+
+                                    if let Ok((a, b)) = get_decoder(proto_name)
+                                        .map_err(|err| process_err(err, &tx, notify))
                                     {
                                         dfa = a;
-                                        decoder = b;
+                                        dec = b;
                                     }
                                 }
                             }
