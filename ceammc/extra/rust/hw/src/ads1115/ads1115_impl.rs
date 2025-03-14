@@ -8,7 +8,9 @@ use log::{debug, error};
 use pwm_pca9685::nb::block;
 
 use crate::{
-    ads1115::{Reply, Request},
+    ads1115::{
+        Reply, Request, HW_ADC_ADS1115_MAX_POLL_TIME_MSEC, HW_ADC_ADS1115_MIN_POLL_TIME_MSEC,
+    },
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     send_error, send_reply,
@@ -51,7 +53,8 @@ impl hw_i2c_ads1115 {
             let mut adc = Ads1x1x::new_ads1115(i2c, TargetAddr::default());
 
             let mut poll_mode = false;
-            let mut poll_time = Duration::from_millis(10);
+            let mut poll_time =
+                Duration::from_millis(super::HW_ADC_ADS1115_DEF_POLL_TIME_MSEC.into());
             let mut measure_mode = mode;
 
             'outer: loop {
@@ -129,7 +132,13 @@ impl hw_i2c_ads1115 {
                             }
                             Request::Poll(state) => poll_mode = state,
                             Request::SetPollTime(msec) => {
-                                poll_time = Duration::from_millis(msec.into());
+                                poll_time = Duration::from_millis(
+                                    msec.clamp(
+                                        HW_ADC_ADS1115_MIN_POLL_TIME_MSEC,
+                                        HW_ADC_ADS1115_MAX_POLL_TIME_MSEC,
+                                    )
+                                    .into(),
+                                );
                             }
                             Request::SetMeasureMode(mode) => {
                                 measure_mode = mode;

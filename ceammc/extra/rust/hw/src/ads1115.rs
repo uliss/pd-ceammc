@@ -18,6 +18,10 @@ mod ads1115_impl;
 
 type Ads1115Worker = HwThreadWorker<Request, Reply>;
 
+pub const HW_ADC_ADS1115_MIN_POLL_TIME_MSEC: u16 = 5;
+pub const HW_ADC_ADS1115_MAX_POLL_TIME_MSEC: u16 = 250;
+pub const HW_ADC_ADS1115_DEF_POLL_TIME_MSEC: u16 = 20;
+
 #[repr(C)]
 pub struct hw_i2c_ads1115_data_cb {
     user: *mut c_void,
