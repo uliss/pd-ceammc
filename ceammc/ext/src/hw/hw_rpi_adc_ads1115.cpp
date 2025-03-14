@@ -45,10 +45,12 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     out_min_ = new FloatProperty("@out_min", 0);
     addProperty(out_min_);
 
-    in_max_ = new FloatProperty("@in_max", 5);
+    in_max_ = new FloatProperty("@in_max", 5000);
+    in_max_->checkClosedRange(0, mv6144);
     addProperty(in_max_);
 
     in_min_ = new FloatProperty("@in_min", 0);
+    in_min_->checkClosedRange(0, mv6144);
     addProperty(in_min_);
 
     sym_channel_ = gensym("ch");
@@ -152,9 +154,21 @@ t_float HwRpiAdcAds1115::normalizeValue(std::int16_t value) const
                                              : convert::lin2lin<double>(value, -0x7fff, 0x8000, -FSR, FSR);
 
     if (normalize_->value()) {
-        return convert::lin2lin<double>(value_in_mv,
-            in_min_->value(), in_max_->value(),
-            out_min_->value(), out_max_->value());
+        auto x0 = in_min_->value();
+        auto x1 = in_max_->value();
+        if (x0 == x1) {
+            OBJ_DBG << "zero input range: " << x0 << ' ' << x1;
+            return 0;
+        }
+
+        auto y0 = out_min_->value();
+        auto y1 = out_max_->value();
+        if (y0 == y1) {
+            OBJ_DBG << "zero output range: " << y0 << ' ' << y1;
+            return 0;
+        }
+
+        return convert::lin2lin<double>(value_in_mv, x0, x1, y0, y1);
     } else {
         return value_in_mv;
     }
