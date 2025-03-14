@@ -26,6 +26,7 @@ void setup_hw_rpi_pwm();
 void setup_hw_rpi_rotenc();
 void setup_hw_rpi_sensor_dht11();
 void setup_hw_rpi_sensor_ir();
+void setup_hw_rpi_sensor_mpu6050();
 void setup_hw_rpi_sensor_sr04();
 void setup_hw_rpi_sensor_vl53l0x();
 void setup_hw_rpi_spi_max7219();
@@ -52,6 +53,7 @@ void ceammc_hw_setup()
     setup_hw_rpi_rotenc();
     setup_hw_rpi_sensor_dht11();
     setup_hw_rpi_sensor_ir();
+    setup_hw_rpi_sensor_mpu6050();
     setup_hw_rpi_sensor_sr04();
     setup_hw_rpi_sensor_vl53l0x();
     setup_hw_rpi_spi_max7219();
