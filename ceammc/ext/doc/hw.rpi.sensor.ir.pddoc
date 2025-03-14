@@ -25,7 +25,8 @@
             pin</property>
             <property name="@tolerance_usec" type="int" default="200" minvalue="0" maxvalue="1000">
             absolute error tolerance in microsecons</property>
-            <property name="@proto" type="symbol" default="NEC">protocol name</property>
+            <property name="@proto" type="symbol" default="NEC">protocol name. You should switch off/on pollling to take effect
+            after chaning this property</property>
             <property name="@tolerance_perc" type="int" default="30" units="percent" minvalue="0"
             maxvalue="100">relative error tolerance</property>
         </properties>
@@ -38,16 +39,16 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]         [ui.menu NEC RC5 RC6 JVC SHARP]
+[T]         [ui.menu NEC RC5 RC6 JVC Sharp]
 |           |
 [poll $1(   [@proto $2(
 |           |
 |           |
 [hw.rpi.sensor.ir @pin 23 #x]
-|
-[route D S F   ]
-|     ^|     ^^|
-[F]    [F]    [F]
+ |
+ [route D S F   ]
+ |     ^|     ^^|
+ [F]    [F]    [F]
 
 [print IR #a]
 
