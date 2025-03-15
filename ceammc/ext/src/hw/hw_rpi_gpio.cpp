@@ -23,7 +23,6 @@ HwRpiGpio::HwRpiGpio(const PdArgs& args)
 
     gpio_ = ceammc_hw_gpio_new(
         on_message(),
-        on_message(),
         on_notify(), //
         { this, on_pin_value }, //
         { this, [](void* user, const std::uint8_t* data, size_t len) {
