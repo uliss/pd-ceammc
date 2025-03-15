@@ -47,16 +47,14 @@ impl hw_mpu6050 {
             mpu.initialize_dmp(&mut delay)
                 .map_err(|err| process_err(format!("MPU6050 DMP init: {err:?}"), &tx, notify))?;
 
-            // Configure calibration parameters
-            let calibration_params = CalibrationParameters::new(
+            info!("Calibrating Sensor ...");
+            mpu6050_dmp::calibration_blocking::collect_mean_values(
+                &mut mpu,
+                &mut delay,
                 mpu6050_dmp::accel::AccelFullScale::G2,
-                mpu6050_dmp::gyro::GyroFullScale::Deg2000,
                 mpu6050_dmp::calibration::ReferenceGravity::ZN,
-            );
-
-            info!("Calibrating Sensor");
-            mpu6050_dmp::calibration_blocking::calibrate(&mut mpu, &mut delay, &calibration_params)
-                .map_err(|err| format!("{err:?}"))?;
+            )
+            .map_err(|err| format!("{err:?}"))?;
 
             info!("Sensor Calibrated");
 
