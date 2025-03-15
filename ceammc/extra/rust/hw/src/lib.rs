@@ -72,10 +72,6 @@ pub trait MakePdMessage<Message> {
     fn pd_info(msg: CString) -> Message;
 }
 
-pub trait MakePdDebug<Debug> {
-    fn pd_debug(msg: CString) -> Debug;
-}
-
 fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> bool {
     if let Err(err) = tx.send(rep) {
         error!("reply send error: {err}");
@@ -97,11 +93,24 @@ where
 #[allow(dead_code)]
 fn send_debug<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
 where
-    R: MakePdDebug<R>,
+    R: MakePdMessage<R>,
 {
     debug!("{msg}");
     send_reply(
         R::pd_debug(CString::new(msg).unwrap_or_default()),
+        tx,
+        notify,
+    )
+}
+
+#[allow(dead_code)]
+fn send_info<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
+where
+    R: MakePdMessage<R>,
+{
+    debug!("{msg}");
+    send_reply(
+        R::pd_info(CString::new(msg).unwrap_or_default()),
         tx,
         notify,
     )
@@ -121,7 +130,18 @@ where
 fn process_debug<D, R>(msg: D, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
 where
     D: std::fmt::Display,
-    R: MakePdDebug<R>,
+    R: MakePdMessage<R>,
+{
+    let str = msg.to_string();
+    send_debug(tx, notify, str.as_str());
+    str
+}
+
+#[allow(dead_code)]
+fn process_info<D, R>(msg: D, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
+where
+    D: std::fmt::Display,
+    R: MakePdMessage<R>,
 {
     let str = msg.to_string();
     send_debug(tx, notify, str.as_str());
