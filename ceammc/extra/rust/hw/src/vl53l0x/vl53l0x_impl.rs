@@ -17,9 +17,9 @@ impl hw_sensor_vl53l0x {
         i2c_addr: I2cAddress,
         notify: hw_notify_cb,
         on_data: hw_sensor_vl53l0x_data_cb,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, rep_tx) = LaserSensorWorker::new(on_err);
+        let (worker, rx, rep_tx) = LaserSensorWorker::new(on_msg);
 
         worker.spawn(rep_tx.clone(), notify, move || -> Result<(), String> {
             let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &rep_tx, notify)?;

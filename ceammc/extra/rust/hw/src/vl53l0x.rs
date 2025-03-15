@@ -35,7 +35,7 @@ pub enum Reply {
 pub struct hw_sensor_vl53l0x_data_cb {
     // nullable
     user: *mut c_void,
-    // no null
+    // not null!
     cb: extern "C" fn(*mut c_void, data: u16),
 }
 
