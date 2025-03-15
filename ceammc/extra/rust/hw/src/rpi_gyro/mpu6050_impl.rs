@@ -69,16 +69,24 @@ impl hw_mpu6050 {
                                 }
                                 Request::Calibrate => {
                                     info!("Calibrating Sensor ...");
-                                    
-                                    mpu6050_dmp::calibration_blocking::collect_mean_values(
-                                        &mut mpu,
-                                        &mut delay,
-                                        mpu6050_dmp::accel::AccelFullScale::G2,
-                                        mpu6050_dmp::calibration::ReferenceGravity::ZN,
-                                    )
-                                    .map_err(|err| format!("{err:?}"))?;
 
-                                    info!("Sensor Calibrated");
+                                    if let Ok(_) =
+                                        mpu6050_dmp::calibration_blocking::collect_mean_values(
+                                            &mut mpu,
+                                            &mut delay,
+                                            mpu6050_dmp::accel::AccelFullScale::G2,
+                                            mpu6050_dmp::calibration::ReferenceGravity::ZN,
+                                        )
+                                        .map_err(|err| {
+                                            process_err(
+                                                format!("calibration error: {err:?}"),
+                                                &tx,
+                                                notify,
+                                            )
+                                        })
+                                    {
+                                        info!("Sensor Calibrated");
+                                    }
                                 }
                             }
                         }
