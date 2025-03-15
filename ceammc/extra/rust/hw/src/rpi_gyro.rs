@@ -50,15 +50,15 @@ pub extern "C" fn ceammc_hw_mpu6050_new(
     i2c_bus: i8,
     i2c_addr: i8,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
     on_data: hw_mpu6050_data_cb,
 ) -> *mut hw_mpu6050 {
     rpi_check!(null_mut(), {
-        match hw_mpu6050::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_err, on_data) {
+        match hw_mpu6050::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_data) {
             Ok(mpu) => return Box::into_raw(Box::new(mpu)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

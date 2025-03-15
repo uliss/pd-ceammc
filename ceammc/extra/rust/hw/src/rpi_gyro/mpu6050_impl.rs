@@ -14,33 +14,20 @@ use crate::{
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     process_err,
     rpi_gyro::Mpu6050Worker,
-    send_reply,
+    send_info, send_reply,
 };
 
 use super::{hw_mpu6050, hw_mpu6050_data_cb, Request};
 
 impl hw_mpu6050 {
-    // fn measure_ypr(mpu: &mut Mpu6050<rppal::i2c::I2c>, buffer: &mut [u8], tx: std::sync::) {
-    //     let buf = mpu.read_fifo(&mut buffer).unwrap();
-    //     let q = Quaternion::from_bytes(&buf[..16]).unwrap().normalize();
-    //     let ypr = YawPitchRoll::from(q);
-    //     debug!("{:?}", ypr);
-
-    //     send_reply(
-    //         super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll),
-    //         &tx,
-    //         notify,
-    //     );
-    // }
-
     pub fn new(
         i2c_bus: i8,
         i2c_addr: I2cAddress,
         notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
         on_data: hw_mpu6050_data_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Mpu6050Worker::new(on_err);
+        let (worker, rx, tx) = Mpu6050Worker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
@@ -81,7 +68,7 @@ impl hw_mpu6050 {
                                     poll_mode = state;
                                 }
                                 Request::Calibrate => {
-                                    info!("Calibrating Sensor ...");
+                                    send_info(&tx, notify, "Calibrating Sensor ...");
 
                                     if let Ok(_) =
                                         mpu6050_dmp::calibration_blocking::collect_mean_values(
@@ -98,7 +85,7 @@ impl hw_mpu6050 {
                                             )
                                         })
                                     {
-                                        info!("Sensor Calibrated");
+                                        send_info(&tx, notify, "Sensor Calibrated");
                                     }
                                 }
                             }
@@ -119,7 +106,6 @@ impl hw_mpu6050 {
                         Ok(fifo_count) => {
                             if fifo_count >= 256 {
                                 // FIFO is full - reset to prevent overflow
-                                info!("FIFO full - resetting");
                                 mpu.reset_fifo()
                                     .map_err(|err| format!("{err:?}"))
                                     .unwrap_or_default();
@@ -179,8 +165,6 @@ impl hw_mpu6050 {
                     (mpu.on_data.cb_ypr)(mpu.on_data.user, yaw, pitch, roll)
                 }
                 super::Reply::Temperature(t) => (mpu.on_data.cb_temp)(mpu.on_data.user, t),
-                // super::Reply::Debug(msg) => mpu.worker.on_debug(msg),
-                // super::Reply::Info(msg) => mpu.worker.on_info(msg),
             })
         }
     }
