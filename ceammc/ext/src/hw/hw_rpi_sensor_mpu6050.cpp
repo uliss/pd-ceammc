@@ -9,6 +9,7 @@ HwRpiSensorMpu6050::HwRpiSensorMpu6050(const PdArgs& args)
     createOutlet();
 
     i2c_bus_ = addI2cBusProperty();
+    i2c_addr_ = addI2cAddrProperty();
 }
 
 HwRpiSensorMpu6050::~HwRpiSensorMpu6050()
@@ -19,7 +20,7 @@ HwRpiSensorMpu6050::~HwRpiSensorMpu6050()
 void HwRpiSensorMpu6050::initDone()
 {
     mpu_ = ceammc_hw_mpu6050_new(i2c_bus_->value(),
-        ceammc_HW_I2C_DEFAULT_ADDR,
+        i2c_addr_->value(),
         on_notify(),
         on_message(),
         { this,

@@ -51,6 +51,14 @@ protected:
         this->addProperty(prop);
         return prop;
     }
+
+    IntProperty* addI2cAddrProperty() {
+        auto prop = new IntProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
+        prop->setInitOnly();
+        prop->checkClosedRange(ceammc_HW_I2C_MIN_ADDR, ceammc_HW_I2C_MAX_ADDR);
+        this->addProperty(prop);
+        return prop;
+    }
 };
 
 }

@@ -18,6 +18,8 @@ pub const HW_I2C_MAX_BUS: i8 = 15;
 
 pub const HW_I2C_DEFAULT_ADDR: i8 = -1;
 pub const HW_I2C_ALT_ADDR: i8 = -2;
+pub const HW_I2C_MIN_ADDR: i8 = HW_I2C_ALT_ADDR;
+pub const HW_I2C_MAX_ADDR: i8 = 0x77;
 
 #[derive(Debug)]
 pub enum I2cAddress {

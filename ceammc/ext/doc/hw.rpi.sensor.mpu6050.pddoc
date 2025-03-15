@@ -23,7 +23,10 @@
         </methods>
         <properties>
             <property name="@i2c_bus" type="int" default="-1" access="initonly" minvalue="-1"  maxvalue="15">I2C bus.
-            Use it if you have several I2C buses in the system. The value -1 means a default system bus.</property>
+            Use it if you have several I2C buses in the system. The value -1 means a default system bus</property>
+            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-2"  maxvalue="119">I2C address.
+            The value -1 means default device I2C address, value -2: alternative I2C address (when pin AD0 pull high). Other values
+            are not supported</property>
         </properties>
         <inlets>
             <inlet><xinfo>control input</xinfo></inlet>
