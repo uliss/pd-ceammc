@@ -9,9 +9,10 @@ use std::{
     slice::from_raw_parts,
 };
 
+use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 type Ssd1306Worker = HwThreadWorker<Request, Reply>;
 
@@ -43,15 +44,9 @@ pub enum Request {
     SetBrightness(u8),
 }
 
-#[derive(Debug)]
+#[derive(PdError, Debug)]
 pub enum Reply {
     Error(CString),
-}
-
-impl MakePdError<Reply> for Reply {
-    fn pd_err(msg: CString) -> Reply {
-        Reply::Error(msg)
-    }
 }
 
 pub struct hw_display_ssd1306 {

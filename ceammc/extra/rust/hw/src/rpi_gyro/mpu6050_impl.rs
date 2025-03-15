@@ -20,6 +20,19 @@ use crate::{
 use super::{hw_mpu6050, hw_mpu6050_data_cb, Request};
 
 impl hw_mpu6050 {
+    // fn measure_ypr(mpu: &mut Mpu6050<rppal::i2c::I2c>, buffer: &mut [u8], tx: std::sync::) {
+    //     let buf = mpu.read_fifo(&mut buffer).unwrap();
+    //     let q = Quaternion::from_bytes(&buf[..16]).unwrap().normalize();
+    //     let ypr = YawPitchRoll::from(q);
+    //     debug!("{:?}", ypr);
+
+    //     send_reply(
+    //         super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll),
+    //         &tx,
+    //         notify,
+    //     );
+    // }
+
     pub fn new(
         i2c_bus: i8,
         i2c_addr: I2cAddress,
@@ -166,6 +179,8 @@ impl hw_mpu6050 {
                     (mpu.on_data.cb_ypr)(mpu.on_data.user, yaw, pitch, roll)
                 }
                 super::Reply::Temperature(t) => (mpu.on_data.cb_temp)(mpu.on_data.user, t),
+                // super::Reply::Debug(msg) => mpu.worker.on_debug(msg),
+                // super::Reply::Info(msg) => mpu.worker.on_info(msg),
             })
         }
     }

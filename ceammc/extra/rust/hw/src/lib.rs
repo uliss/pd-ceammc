@@ -66,8 +66,10 @@ pub fn ptr_to_cstr(s: *const c_char) -> CString {
     }
 }
 
-pub trait MakePdError<Error> {
-    fn pd_err(msg: CString) -> Error;
+pub trait MakePdMessage<Message> {
+    fn pd_error(msg: CString) -> Message;
+    fn pd_debug(msg: CString) -> Message;
+    fn pd_info(msg: CString) -> Message;
 }
 
 pub trait MakePdDebug<Debug> {
@@ -86,10 +88,10 @@ fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) 
 
 fn send_error<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
 where
-    R: MakePdError<R>,
+    R: MakePdMessage<R>,
 {
     error!("{msg}");
-    send_reply(R::pd_err(CString::new(msg).unwrap_or_default()), tx, notify)
+    send_reply(R::pd_error(CString::new(msg).unwrap_or_default()), tx, notify)
 }
 
 #[allow(dead_code)]
@@ -108,7 +110,7 @@ where
 fn process_err<E, R>(err: E, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
 where
     E: std::fmt::Display,
-    R: MakePdError<R>,
+    R: MakePdMessage<R>,
 {
     let str = err.to_string();
     send_error(tx, notify, str.as_str());
@@ -160,7 +162,7 @@ pub struct HwThreadWorker<Request, Reply> {
 impl<Request, Reply> HwThreadWorker<Request, Reply>
 where
     Request: Send,
-    Reply: MakePdError<Reply>,
+    Reply: MakePdMessage<Reply>,
 {
     pub fn new(
         on_err: hw_msg_cb,

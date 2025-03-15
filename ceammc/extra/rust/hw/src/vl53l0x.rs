@@ -8,9 +8,10 @@ use std::{
     ptr::null_mut,
 };
 
+use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod vl53l0x_impl;
@@ -22,7 +23,7 @@ pub enum Request {
     SetAddress(u8),
 }
 
-#[derive(Debug)]
+#[derive(Debug, PdError)]
 pub enum Reply {
     Error(CString),
     Distance(u16),
@@ -34,12 +35,6 @@ pub struct hw_sensor_vl53l0x_data_cb {
     user: *mut c_void,
     // no null
     cb: extern "C" fn(*mut c_void, data: u16),
-}
-
-impl MakePdError<Reply> for Reply {
-    fn pd_err(msg: CString) -> Reply {
-        Reply::Error(msg)
-    }
 }
 
 type LaserSensorWorker = HwThreadWorker<Request, Reply>;

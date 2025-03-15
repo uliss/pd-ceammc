@@ -3,7 +3,7 @@ use std::ffi::CString;
 use log::{debug, error};
 use rppal::i2c::I2c;
 
-use crate::{hw_msg_cb, hw_notify_cb, process_err, MakePdError};
+use crate::{hw_msg_cb, hw_notify_cb, process_err, MakePdMessage};
 
 use super::hw_i2c;
 
@@ -14,7 +14,7 @@ pub fn create_i2c_bus<Reply>(
     notify: hw_notify_cb,
 ) -> Result<I2c, String>
 where
-    Reply: MakePdError<Reply>,
+    Reply: MakePdMessage<Reply>,
 {
     match bus {
         crate::i2c::HW_I2C_DEFAULT_BUS => {
