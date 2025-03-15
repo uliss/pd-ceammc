@@ -17,26 +17,14 @@
 #include "ceammc_factory.h"
 
 HwRpiGpio::HwRpiGpio(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
 
     gpio_ = ceammc_hw_gpio_new(
-        { this, [](void* data, const char* msg) {
-             auto obj = static_cast<HwRpiGpio*>(data);
-             if (!obj)
-                 return;
-
-             Error(obj) << msg;
-         } },
-        { this, [](void* data, const char* msg) {
-             auto obj = static_cast<HwRpiGpio*>(data);
-             if (!obj)
-                 return;
-
-             Debug(obj) << msg;
-         } },
-        { size_t(subscriberId()), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } }, //
+        on_message(),
+        on_message(),
+        on_notify(), //
         { this, on_pin_value }, //
         { this, [](void* user, const std::uint8_t* data, size_t len) {
              auto obj = static_cast<HwRpiGpio*>(user);
@@ -169,7 +157,7 @@ void HwRpiGpio::m_clear_pwm(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_clear_pwm(gpio_, lv.intAt(0, 0));
 }
 
-void HwRpiGpio::m_impulse(t_symbol *s, const AtomListView &lv)
+void HwRpiGpio::m_impulse(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PIN:b LENGTH:f[0.001,100]");
     if (!chk.check(lv, this))

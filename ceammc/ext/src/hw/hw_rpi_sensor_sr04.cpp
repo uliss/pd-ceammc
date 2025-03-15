@@ -40,7 +40,7 @@ void HwRpiSensorSr04::initDone()
     sr04_ = ceammc_hw_gpio_sr04_new(trigger_pin_->value(),
         echo_pin_->value(),
         on_notify(), //
-        on_err(),
+        on_message(),
         { this, [](void* user, float distance_cm, bool is_inf) {
              auto obj = static_cast<HwRpiSensorSr04*>(user);
              if (!obj)

@@ -41,7 +41,7 @@ void HwSpiWs2812::initDone()
         static_cast<ceammc_hw_spi_cs>(cs_->value()),
         size_->value(),
         on_notify(),
-        on_err(),
+        on_message(),
         clear_on_exit_->value());
 }
 

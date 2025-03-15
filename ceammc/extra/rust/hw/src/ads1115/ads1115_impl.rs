@@ -208,7 +208,7 @@ impl hw_i2c_ads1115 {
         } else {
             let adc = unsafe { &*adc };
             adc.worker.process_reply(&|rep| match rep {
-                Reply::Message(level, err) => adc.worker.pd_message(&err),
+                Reply::Message(level, err) => adc.worker.pd_message(level, &err),
                 Reply::Measure(chan, value) => {
                     (adc.on_data.cb_chan)(adc.on_data.user, chan, value);
                 }

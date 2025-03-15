@@ -11,7 +11,9 @@ use std::{
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, hw_msg_level};
+use crate::{
+    hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage,
+};
 
 #[cfg(target_os = "linux")]
 mod vl53l0x_impl;
@@ -50,14 +52,14 @@ pub extern "C" fn ceammc_hw_sensor_vl53l0x_new(
     i2c_addr: i8,
     notify: hw_notify_cb,
     on_data: hw_sensor_vl53l0x_data_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> *mut hw_sensor_vl53l0x {
     rpi_check!(null_mut(), {
-        match hw_sensor_vl53l0x::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_data, on_err) {
+        match hw_sensor_vl53l0x::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_data, on_msg) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

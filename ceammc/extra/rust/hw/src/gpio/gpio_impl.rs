@@ -106,7 +106,7 @@ impl hw_gpio {
                 debug!("pin [{pin}] = {level}");
             }
             Reply::Message(level, msg) => {
-                gp.worker.pd_message(&msg);
+                gp.worker.pd_message(level, &msg);
             }
             Reply::Pins(items) => {
                 gp.exec_pin_list(&items);

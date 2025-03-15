@@ -17,9 +17,10 @@
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
+#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiGpio : public DispatchedObject<BaseObject> {
+class HwRpiGpio : public RustDispatchedObject<BaseObject> {
     ceammc_hw_gpio* gpio_ { nullptr };
 
 public:

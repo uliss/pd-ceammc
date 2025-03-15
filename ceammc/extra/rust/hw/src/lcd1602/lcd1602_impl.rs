@@ -128,7 +128,7 @@ impl hw_lcd1602 {
     pub fn send(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
             error!("{err}");
-            self.on_err.exec(err.to_string().as_str());
+            self.on_err.error(err.to_string().as_str());
             false
         } else {
             true
@@ -139,7 +139,7 @@ impl hw_lcd1602 {
         while let Ok(reply) = self.rx.try_recv() {
             match reply {
                 Reply::Error(cstr) => {
-                    self.on_err.exec_raw(cstr.as_ptr());
+                    self.on_err.error_cstr(cstr);
                 }
             }
         }

@@ -4,7 +4,7 @@
 #include "fmt/core.h"
 
 HwRpiRotaryEncoder::HwRpiRotaryEncoder(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
     createOutlet();
@@ -68,7 +68,7 @@ void HwRpiRotaryEncoder::initDone()
         min_->value(),
         max_->value(),
         //
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }, //
+        on_notify(),
         { this, [](void* user, double value, std::int8_t dir) {
              auto obj = static_cast<HwRpiRotaryEncoder*>(user);
              if (!obj)
@@ -84,10 +84,7 @@ void HwRpiRotaryEncoder::initDone()
 
              obj->anyTo(1, gensym("btn"), Atom(state));
          } },
-        { this, [](void* user, const char* msg) {
-             auto obj = static_cast<HwRpiRotaryEncoder*>(user);
-             Error(obj) << msg;
-         } });
+        on_message());
 }
 
 bool HwRpiRotaryEncoder::notify(int code)

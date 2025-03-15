@@ -73,7 +73,7 @@ pub extern "C" fn ceammc_hw_gpio_sr04_new(
             Ok(sr04) => return Box::into_raw(Box::new(sr04)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

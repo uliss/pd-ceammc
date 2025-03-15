@@ -2,11 +2,11 @@
 #define HW_RPI_PWM_H
 
 #include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
+#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiPwm : public DispatchedObject<BaseObject> {
+class HwRpiPwm : public RustDispatchedObject<BaseObject> {
     ceammc_hw_rpi_pwm* pwm_ { nullptr };
     IntProperty* chan_ { nullptr };
 

@@ -3,12 +3,17 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::{c_void, CString}, ptr::null_mut};
+use std::{
+    ffi::{c_void, CString},
+    ptr::null_mut,
+};
 
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, hw_msg_level};
+use crate::{
+    hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage,
+};
 
 #[cfg(target_os = "linux")]
 mod mpu6050_impl;
@@ -53,7 +58,7 @@ pub extern "C" fn ceammc_hw_mpu6050_new(
             Ok(mpu) => return Box::into_raw(Box::new(mpu)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

@@ -180,6 +180,12 @@ enum class ceammc_hw_max7219_string_align {
     Center,
 };
 
+enum class ceammc_hw_msg_level {
+    Error,
+    Debug,
+    Info,
+};
+
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -255,7 +261,7 @@ struct ceammc_hw_msg_cb {
     /// pointer to user data (can be NULL)
     void *user;
     /// can be NULL
-    void (*cb)(void*, const char*);
+    void (*cb)(void *user, ceammc_hw_msg_level level, const char *cb);
 };
 
 struct ceammc_hw_i2c_ads1115_data_cb {
@@ -911,7 +917,7 @@ void ceammc_hw_pca9685_free(ceammc_hw_pca9685 *pwm);
 
 ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t bus,
                                          ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_err);
+                                         ceammc_hw_msg_cb on_msg);
 
 bool ceammc_hw_pca9685_proc_reply(const ceammc_hw_pca9685 *pwm);
 
@@ -963,7 +969,7 @@ void ceammc_hw_rpi_pwm_free(ceammc_hw_rpi_pwm *pwm);
 
 ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(int8_t channel,
                                          ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_err);
+                                         ceammc_hw_msg_cb on_msg);
 
 bool ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
 
@@ -986,7 +992,7 @@ ceammc_hw_sensor_vl53l0x *ceammc_hw_sensor_vl53l0x_new(int8_t i2c_bus,
                                                        int8_t i2c_addr,
                                                        ceammc_hw_notify_cb notify,
                                                        ceammc_hw_sensor_vl53l0x_data_cb on_data,
-                                                       ceammc_hw_msg_cb on_err);
+                                                       ceammc_hw_msg_cb on_msg);
 
 bool ceammc_hw_sensor_vl53l0x_poll(const ceammc_hw_sensor_vl53l0x *display, bool state);
 

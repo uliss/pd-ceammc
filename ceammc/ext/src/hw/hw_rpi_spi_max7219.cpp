@@ -47,7 +47,7 @@ void HwSpiMax7219::initDone()
         static_cast<ceammc_hw_spi_bus>(spi_->value()),
         static_cast<ceammc_hw_spi_cs>(cs_->value()),
         on_notify(),
-        on_err());
+        on_message());
 }
 
 bool HwSpiMax7219::notify(int code)

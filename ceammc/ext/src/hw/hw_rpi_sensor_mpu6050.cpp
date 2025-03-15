@@ -24,7 +24,7 @@ void HwRpiSensorMpu6050::initDone()
     mpu_ = ceammc_hw_mpu6050_new(i2c_bus_->value(),
         ceammc_HW_I2C_DEFAULT_ADDR,
         on_notify(),
-        on_err(),
+        on_message(),
         { this,
             [](void* user, float yaw, float pitch, float roll) {
                 auto obj = static_cast<HwRpiSensorMpu6050*>(user);

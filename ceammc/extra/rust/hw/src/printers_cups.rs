@@ -142,7 +142,7 @@ pub fn print_file(
     } else {
         let def = unsafe { cupsGetDefault() };
         if def.is_null() {
-            on_err.exec(format!("can't get default printer").as_str());
+            on_err.error(format!("can't get default printer").as_str());
             return crate::printers::JOB_ERROR;
         } else {
             unsafe { CStr::from_ptr(def).to_owned() }
@@ -152,7 +152,7 @@ pub fn print_file(
     // check path
     let path = Path::new(path);
     if !path.exists() {
-        on_err.exec(format!("file not found: {path:?}").as_str());
+        on_err.error(format!("file not found: {path:?}").as_str());
         return crate::printers::JOB_ERROR;
     }
 
@@ -198,18 +198,9 @@ pub fn print_file(
 
     if job_id == 0 {
         let err = unsafe { cupsLastErrorString() };
-        on_err.exec_raw(err);
+        on_err.error_raw(err);
     }
 
     job_id
 }
 
-#[cfg(test)]
-mod tests {
-    // use super::*;
-
-    // #[test]
-    // fn empty() {
-
-    // }
-}

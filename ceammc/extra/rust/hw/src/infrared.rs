@@ -54,7 +54,7 @@ pub extern "C" fn ceammc_hw_infrared_new(
             Ok(ir) => return Box::into_raw(Box::new(ir)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

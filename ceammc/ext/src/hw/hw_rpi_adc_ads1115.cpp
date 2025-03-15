@@ -89,7 +89,7 @@ void HwRpiAdcAds1115::initDone()
         break;
     }
 
-    adc_ = ceammc_hw_ads1115_new(i2c_bus_->value(), ceammc_HW_I2C_DEFAULT_ADDR, mode, on_notify(), on_err(),
+    adc_ = ceammc_hw_ads1115_new(i2c_bus_->value(), ceammc_HW_I2C_DEFAULT_ADDR, mode, on_notify(), on_message(),
         { this,
             [](void* user, std::uint8_t chan, std::int16_t value) {
                 auto obj = static_cast<HwRpiAdcAds1115*>(user);

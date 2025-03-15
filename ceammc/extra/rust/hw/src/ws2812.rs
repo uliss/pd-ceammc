@@ -5,12 +5,11 @@
 
 use std::{ffi::CString, ptr::null_mut};
 
-use log::error;
+use lib_macro::PdError;
 use rgb::RGB8;
 
 use crate::{
-    hw_msg_cb, hw_notify_cb,
-    max7219::{hw_spi_bus, hw_spi_cs},
+    hw_msg_cb, hw_msg_level, hw_notify_cb, MakePdMessage, max7219::{hw_spi_bus, hw_spi_cs}
 };
 
 mod led_fx;
@@ -49,9 +48,9 @@ pub enum Request {
     Rotate(i32),
 }
 
-#[derive(Debug)]
+#[derive(Debug, PdError)]
 pub enum Reply {
-    Error(CString),
+    Message(hw_msg_level, CString),
 }
 
 pub struct hw_spi_ws2812 {
@@ -75,8 +74,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
         match hw_spi_ws2812::new(bus, cs, size, notify, on_err, clear_on_exit) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
-                error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

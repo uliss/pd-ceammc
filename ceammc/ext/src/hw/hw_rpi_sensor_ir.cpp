@@ -53,7 +53,7 @@ void HwRpiSensorIR::startSensor()
 
     ir_ = ceammc_hw_infrared_new(pin_->value(),
         on_notify(),
-        on_err(), //
+        on_message(), //
         { this, [](void* user, const char* key, std::int64_t value) {
              auto obj = static_cast<HwRpiSensorIR*>(user);
              if (!obj)

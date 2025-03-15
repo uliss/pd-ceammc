@@ -7,12 +7,15 @@
 mod dht11_impl;
 
 use std::{
-    ffi::{c_void, CString}, ptr::null_mut, sync::{Arc, Mutex}
+    ffi::{c_void, CString},
+    ptr::null_mut,
+    sync::{Arc, Mutex},
 };
 
 use log::error;
+use lib_macro::PdError;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, MakePdMessage};
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -29,9 +32,10 @@ impl hw_dht11_cb {
     }
 }
 
+#[derive(PdError)]
 pub enum Reply {
     Measure(f64, f64),
-    Error(CString),
+    Message(hw_msg_level, CString),
 }
 
 pub enum Request {
@@ -63,7 +67,7 @@ pub extern "C" fn ceammc_hw_gpio_dht11_new(
             Ok(dht) => return Box::into_raw(Box::new(dht)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

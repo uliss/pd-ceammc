@@ -328,7 +328,7 @@ impl hw_max7219 {
 
         if let Err(err) = self.tx.send((addr, req)) {
             error!("{err}");
-            self.on_err.exec(err.to_string().as_str());
+            self.on_err.error(err.to_string().as_str());
             false
         } else {
             true

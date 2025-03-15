@@ -8,7 +8,7 @@ use ws2812_spi::Ws2812;
 use crate::{
     hw_msg_cb, hw_notify_cb,
     max7219::{hw_spi_bus, hw_spi_cs},
-    ws2812::{led_fx, Reply},
+    ws2812::{led_fx, Reply}, MakePdMessage,
 };
 
 use super::{hw_spi_ws2812, Request};
@@ -192,7 +192,7 @@ impl hw_spi_ws2812 {
     fn send_error(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
         error!("ws2812 write error: {err}");
 
-        tx.send(Reply::Error(CString::new(err).unwrap_or_default()))
+        tx.send(Reply::pd_error(CString::new(err).unwrap_or_default()))
             .map(|_| {
                 notify.notify();
             })
@@ -210,8 +210,8 @@ impl hw_spi_ws2812 {
         let ws = unsafe { &*ws };
         while let Ok(rep) = ws.rx.try_recv() {
             match rep {
-                Reply::Error(str) => {
-                    ws.on_err.exec_raw(str.as_ptr());
+                Reply::Message(level, str) => {
+                    ws.on_err.error_cstr(str);
                 }
             }
         }

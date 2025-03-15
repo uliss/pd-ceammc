@@ -12,7 +12,7 @@
     }
 
 HwRpiPwm::HwRpiPwm(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
 
@@ -30,12 +30,7 @@ HwRpiPwm::~HwRpiPwm()
 
 void HwRpiPwm::initDone()
 {
-    pwm_ = ceammc_hw_rpi_pwm_new(chan_->value(),
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
-        { this, [](void* user, const char* msg) {
-             Error err(static_cast<HwRpiPwm*>(user));
-             err << msg;
-         } });
+    pwm_ = ceammc_hw_rpi_pwm_new(chan_->value(), on_notify(), on_message());
 }
 
 bool HwRpiPwm::notify(int code)

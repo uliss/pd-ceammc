@@ -58,7 +58,7 @@ pub extern "C" fn ceammc_hw_lcd1602_new(
             Ok(lcd1602) => return Box::into_raw(Box::new(lcd1602)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

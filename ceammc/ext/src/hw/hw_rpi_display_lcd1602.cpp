@@ -31,7 +31,7 @@ void HwRpiDisplayLcd1602::initDone()
         rows_->value(),
         addr_->value(),
         on_notify(),
-        on_err());
+        on_message());
 }
 
 bool HwRpiDisplayLcd1602::notify(int code)

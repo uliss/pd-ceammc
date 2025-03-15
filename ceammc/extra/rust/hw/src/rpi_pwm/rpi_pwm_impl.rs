@@ -163,7 +163,7 @@ impl hw_rpi_pwm {
 
         let pwm = unsafe { &*pwm };
         if let Err(err) = pwm.tx.send(req) {
-            pwm.on_err.exec(format!("request error: {err}").as_str());
+            pwm.on_err.error(format!("request error: {err}").as_str());
             return false;
         }
 
@@ -179,8 +179,8 @@ impl hw_rpi_pwm {
         let pwm = unsafe { &*pwm };
         while let Ok(rep) = pwm.rx.try_recv() {
             match rep {
-                Reply::Error(cstring) => {
-                    pwm.on_err.exec_raw(cstring.as_ptr());
+                Reply::Error(msg) => {
+                    pwm.on_err.error_cstr(msg);
                 }
             }
         }

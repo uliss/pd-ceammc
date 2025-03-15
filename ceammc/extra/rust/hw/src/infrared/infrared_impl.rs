@@ -125,7 +125,7 @@ impl hw_infrared {
         } else {
             let ir = unsafe { &*ir };
             ir.worker.process_reply(&|rep| match rep {
-                Reply::Message(level, err) => ir.worker.pd_message(&err),
+                Reply::Message(level, err) => ir.worker.pd_message(level, &err),
                 Reply::Key(key, value) => (ir.on_key.cb)(ir.on_key.user, key.as_ptr(), value),
             })
         }

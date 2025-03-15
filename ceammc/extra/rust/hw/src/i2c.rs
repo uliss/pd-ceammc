@@ -56,7 +56,7 @@ pub extern "C" fn ceammc_hw_i2c_new(
             Ok(i2c) => return Box::into_raw(Box::new(i2c)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

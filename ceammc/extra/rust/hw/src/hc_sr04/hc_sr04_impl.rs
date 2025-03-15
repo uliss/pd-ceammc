@@ -214,7 +214,7 @@ impl hw_gpio_sr04 {
     pub fn send(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
             error!("{err}");
-            self.on_err.exec(err.to_string().as_str());
+            self.on_err.error(err.to_string().as_str());
             false
         } else {
             true
@@ -244,7 +244,7 @@ impl hw_gpio_sr04 {
                 }
             },
             Err(err) => {
-                self.on_err.exec(err.to_string().as_str());
+                self.on_err.error(err.to_string().as_str());
             }
         }
     }

@@ -116,7 +116,7 @@ pub extern "C" fn ceammc_hw_max7219_new(
             Ok(max2719) => return Box::into_raw(Box::new(max2719)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

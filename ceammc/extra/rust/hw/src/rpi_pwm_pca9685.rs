@@ -47,14 +47,14 @@ pub struct hw_pca9685 {
 pub extern "C" fn ceammc_hw_pca9685_new(
     bus: i8,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> *mut hw_pca9685 {
     rpi_check!(null_mut(), {
-        match hw_pca9685::new(bus, notify, on_err) {
+        match hw_pca9685::new(bus, notify, on_msg) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

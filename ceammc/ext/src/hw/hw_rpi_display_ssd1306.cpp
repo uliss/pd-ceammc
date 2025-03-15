@@ -60,7 +60,7 @@ void HwRpiDisplaySsd1306::initDone()
         display_ = ceammc_hw_display_ssd1306_new_i2c(
             bus, addr, w, h,
             on_notify(),
-            on_err());
+            on_message());
     } break;
     case hash_spi: {
         static const args::ArgChecker chk("DC:b RS:b CS:b? SPI_BUS:b? FREQ:i?");
@@ -85,7 +85,7 @@ void HwRpiDisplaySsd1306::initDone()
             freq,
             w, h,
             on_notify(),
-            on_err());
+            on_message());
     } break;
     default:
         OBJ_ERR << "not implemented";

@@ -28,7 +28,7 @@ void HwRpiSensorVl53l0x::initDone()
              if (obj)
                  obj->floatTo(0, mm);
          } },
-        on_err());
+        on_message());
 }
 
 bool HwRpiSensorVl53l0x::notify(int code)

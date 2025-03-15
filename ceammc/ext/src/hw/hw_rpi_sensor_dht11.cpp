@@ -24,7 +24,7 @@ void HwRpiSensorDht11::initDone()
 {
     dht_ = ceammc_hw_gpio_dht11_new(pin_->value(),
         on_notify(), //
-        on_err(),
+        on_message(),
         { this, [](void* user, double temp, double hum) {
              auto obj = static_cast<HwRpiSensorDht11*>(user);
              if (!obj)

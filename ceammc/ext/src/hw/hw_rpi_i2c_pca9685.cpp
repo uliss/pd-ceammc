@@ -17,7 +17,7 @@ void HwI2cPca8695::initDone()
 {
     pwm_ = ceammc_hw_pca9685_new(1, //
         on_notify(),
-        on_err());
+        on_message());
 }
 
 bool HwI2cPca8695::notify(int code)

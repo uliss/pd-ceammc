@@ -175,7 +175,7 @@ impl hw_gpio_rotenc {
         let enc = unsafe { &*enc };
         while let Ok(rep) = enc.rx.try_recv() {
             match rep {
-                Reply::Error(str) => enc.on_err.exec_raw(str.as_ptr()),
+                Reply::Error(str) => enc.on_err.error_cstr(str),
                 Reply::Click(state) => {
                     (enc.on_click.cb)(enc.on_click.user, state);
                 }
@@ -198,7 +198,7 @@ impl hw_gpio_rotenc {
         if let Err(err) = enc.tx.send(req) {
             let msg = format!("request send error: {err}");
             error!("{msg}");
-            enc.on_err.exec(msg.as_str());
+            enc.on_err.error(msg.as_str());
             return false;
         }
 

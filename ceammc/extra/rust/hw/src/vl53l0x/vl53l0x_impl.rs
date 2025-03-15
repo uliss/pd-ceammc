@@ -148,7 +148,7 @@ impl hw_sensor_vl53l0x {
 
             vc.worker.process_reply(&|rep| match rep {
                 super::Reply::Message(level, msg) => {
-                    vc.worker.pd_message(&msg);
+                    vc.worker.pd_message(level, &msg);
                 }
                 super::Reply::Distance(mm) => {
                     (vc.on_data.cb)(vc.on_data.user, mm);

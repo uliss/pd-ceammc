@@ -9,7 +9,7 @@ use log::{debug, error};
 
 use crate::{
     dht11::{Reply, Request},
-    hw_msg_cb, hw_notify_cb,
+    hw_msg_cb, hw_notify_cb, MakePdMessage,
 };
 
 use super::{hw_dht11_cb, hw_gpio_dht11};
@@ -32,7 +32,7 @@ impl hw_gpio_dht11 {
             let dht11 = DHT11Controller::new(pin);
             if let Err(err) = &dht11 {
                 if let Err(err) = result2.lock().and_then(|mut x| {
-                    Ok(x.replace(Reply::Error(
+                    Ok(x.replace(Reply::pd_error(
                         CString::new(err.to_string()).unwrap_or_default(),
                     )))
                 }) {
@@ -81,7 +81,7 @@ impl hw_gpio_dht11 {
     pub fn send(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
             error!("{err}");
-            self.on_err.exec(err.to_string().as_str());
+            self.on_err.error(err.to_string().as_str());
             false
         } else {
             true
@@ -99,7 +99,7 @@ impl hw_gpio_dht11 {
                 debug!("measure done t={}°C h={}", res.temperature, res.humidity);
                 Reply::Measure(res.temperature, res.humidity)
             })
-            .unwrap_or_else(|err| Reply::Error(CString::new(err.to_string()).unwrap_or_default()));
+            .unwrap_or_else(|err| Reply::pd_error(CString::new(err.to_string()).unwrap_or_default()));
 
         result
             .lock()
@@ -120,12 +120,12 @@ impl hw_gpio_dht11 {
                     Reply::Measure(temp, hum) => {
                         self.on_data.exec(*temp, *hum);
                     }
-                    Reply::Error(msg) => self.on_err.exec_raw(msg.as_ptr()),
+                    Reply::Message(level, msg) => self.on_err.exec_raw(*level, msg.as_ptr()),
                 },
-                None => self.on_err.exec("None"),
+                None => self.on_err.error("None"),
             },
             Err(err) => {
-                self.on_err.exec(err.to_string().as_str());
+                self.on_err.error(err.to_string().as_str());
             }
         }
     }

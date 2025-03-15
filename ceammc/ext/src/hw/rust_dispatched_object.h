@@ -25,13 +25,23 @@ protected:
         };
     }
 
-    ceammc_hw_msg_cb on_err()
+    ceammc_hw_msg_cb on_message()
     {
-        return { static_cast<void*>(this), [](void* user, const char* msg) {
-                    auto obj = static_cast<typeof(this)>(user);
-                    Error err(obj);
-                    err << msg;
-                } };
+        return { static_cast<void*>(this),
+            [](void* user, ceammc_hw_msg_level level, const char* msg) {
+                auto obj = static_cast<typeof(this)>(user);
+                switch (level) {
+                case ceammc_hw_msg_level::Debug:
+                    Debug(obj) << msg;
+                    break;
+                case ceammc_hw_msg_level::Info:
+                    Post(obj) << msg;
+                    break;
+                default:
+                    Error(obj) << msg;
+                    break;
+                }
+            } };
     }
 };
 

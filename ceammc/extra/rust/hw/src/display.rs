@@ -99,14 +99,14 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
                 let msg = format!(
                     "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
                 );
-                on_err.exec(msg.as_str());
+                on_err.error(msg.as_str());
                 return null_mut();
             }
         } {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }
@@ -150,14 +150,14 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
                 let msg = format!(
                     "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
                 );
-                on_err.exec(msg.as_str());
+                on_err.error(msg.as_str());
                 return null_mut();
             }
         } {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.exec_raw(err.as_ptr());
+                on_err.error_cstr(err);
                 return null_mut();
             }
         }

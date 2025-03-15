@@ -227,8 +227,8 @@ impl hw_pca9685 {
             let pwm = unsafe { &*pwm };
             while let Ok(rep) = pwm.rx.try_recv() {
                 match rep {
-                    super::Reply::Error(cstring) => {
-                        pwm.on_err.exec_raw(cstring.as_ptr());
+                    super::Reply::Error(msg) => {
+                        pwm.on_err.error_cstr(msg);
                     }
                 }
             }
@@ -246,7 +246,7 @@ impl hw_pca9685 {
 
             if let Err(err) = pwm.tx.send(req) {
                 error!("send error: {err}");
-                pwm.on_err.exec(err.to_string().as_str());
+                pwm.on_err.error(err.to_string().as_str());
                 false
             } else {
                 true
