@@ -7,11 +7,8 @@ HwRpiSensorVl53l0x::HwRpiSensorVl53l0x(const PdArgs& args)
 {
     createOutlet();
 
-    i2c_addr_ = new IntProperty("@addr", ceammc_HW_I2C_DEFAULT_ADDR);
-    addProperty(i2c_addr_);
-
-    i2c_bus_ = new IntProperty("@bus", ceammc_HW_I2C_DEFAULT_BUS);
-    addProperty(i2c_bus_);
+    i2c_addr_ = addI2cAddrProperty();
+    i2c_bus_ = addI2cBusProperty();
 }
 
 HwRpiSensorVl53l0x::~HwRpiSensorVl53l0x()
@@ -22,7 +19,8 @@ HwRpiSensorVl53l0x::~HwRpiSensorVl53l0x()
 void HwRpiSensorVl53l0x::initDone()
 {
     vc_ = ceammc_hw_sensor_vl53l0x_new(i2c_bus_->value(), //
-        i2c_addr_->value(), on_notify(), //
+        i2c_addr_->value(),
+        on_notify(), //
         { this, [](void* user, std::uint16_t mm) {
              auto obj = static_cast<HwRpiSensorVl53l0x*>(user);
              if (obj)

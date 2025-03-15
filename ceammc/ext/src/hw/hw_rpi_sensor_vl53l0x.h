@@ -2,7 +2,6 @@
 #define HW_RPI_SENSOR_VL53L0X_H
 
 #include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
 #include "rust_dispatched_object.h"
 using namespace ceammc;
 
