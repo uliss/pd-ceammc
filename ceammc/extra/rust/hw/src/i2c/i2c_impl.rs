@@ -20,7 +20,7 @@ where
         crate::i2c::HW_I2C_DEFAULT_BUS => {
             Ok(I2c::new().map_err(|err| process_err(err, tx, notify))?)
         }
-        bus if bus >= 0 && bus < 16 => {
+        bus if bus >= 0 && bus < crate::i2c::HW_I2C_MAX_BUS => {
             Ok(I2c::with_bus(bus as u8).map_err(|err| process_err(err, tx, notify))?)
         }
         _ => {

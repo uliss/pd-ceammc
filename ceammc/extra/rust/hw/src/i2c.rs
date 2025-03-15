@@ -13,6 +13,9 @@ use crate::{hw_msg_cb, hw_notify_cb};
 pub mod i2c_impl;
 
 pub const HW_I2C_DEFAULT_BUS: i8 = -1;
+pub const HW_I2C_MIN_BUS: i8 = -1;
+pub const HW_I2C_MAX_BUS: i8 = 15;
+
 pub const HW_I2C_DEFAULT_ADDR: i8 = -1;
 pub const HW_I2C_ALT_ADDR: i8 = -2;
 

@@ -14,30 +14,22 @@
             <since>0.9.9</since>
         </meta>
         <info>
-            <par>The MPU-6050 is a 6-axis(combines 3-axis Gyroscope, 3-axis Accelerometer) motion tracking device.</par>
+            <par>The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis Accelerometer) motion tracking device.</par>
         </info>
         <methods>
             <method name="poll">start/stop sensor polling
             <param name="VALUE" type="bool" required="true">state</param></method>
+            <method name="calibrate">calibrate the sensor. Place it still so that the Z axis is pointing down.</method>
         </methods>
-        <arguments>
-            <argument name="PIN" type="int">GPIO connection pin. See @pin</argument>
-        </arguments>
         <properties>
-            <property name="@pin" type="int" default="0" access="initonly">connection GPIO
-            pin</property>
-            <property name="@tolerance_usec" type="int" default="200" minvalue="0" maxvalue="1000">
-            absolute error tolerance in microsecons</property>
-            <property name="@proto" type="symbol" default="NEC">protocol name. You should switch off/on pollling to take effect
-            after chaning this property</property>
-            <property name="@tolerance_perc" type="int" default="30" units="percent" minvalue="0"
-            maxvalue="100">relative error tolerance</property>
+            <property name="@i2c_bus" type="int" default="-1" access="initonly" minvalue="-1"  maxvalue="15">I2C bus.
+            Use it if you have several I2C buses in the system. The value -1 means a default system bus.</property>
         </properties>
         <inlets>
             <inlet><xinfo>control input</xinfo></inlet>
         </inlets>
         <outlets>
-            <outlet>pressed infrared remote keys accoring to protocol</outlet>
+            <outlet>messages: [ypr YAW PITCH ROLL(, [time CELSIUS(, [gyro X Y Z( and [accel X Y Z(</outlet>
         </outlets>
         <example>
             <pdascii>

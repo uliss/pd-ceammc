@@ -43,6 +43,14 @@ protected:
                 }
             } };
     }
+
+    IntProperty* addI2cBusProperty() {
+        auto prop = new IntProperty("@i2c_bus", ceammc_HW_I2C_DEFAULT_BUS);
+        prop->setInitOnly();
+        prop->checkClosedRange(ceammc_HW_I2C_MIN_BUS, ceammc_HW_I2C_MAX_BUS);
+        this->addProperty(prop);
+        return prop;
+    }
 };
 
 }

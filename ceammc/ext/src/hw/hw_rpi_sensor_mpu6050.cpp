@@ -8,10 +8,7 @@ HwRpiSensorMpu6050::HwRpiSensorMpu6050(const PdArgs& args)
 {
     createOutlet();
 
-    i2c_bus_ = new IntProperty("@bus", ceammc_HW_I2C_DEFAULT_BUS);
-    i2c_bus_->setInitOnly();
-    i2c_bus_->checkClosedRange(-1, 16);
-    addProperty(i2c_bus_);
+    i2c_bus_ = addI2cBusProperty();
 }
 
 HwRpiSensorMpu6050::~HwRpiSensorMpu6050()
