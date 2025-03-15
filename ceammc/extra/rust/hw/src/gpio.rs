@@ -4,7 +4,7 @@
 #![allow(non_camel_case_types)]
 
 use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdMessage, hw_msg_level};
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 use log::error;
 use std::{
     ffi::{c_int, c_void, CString},
@@ -15,7 +15,7 @@ use std::{
 pub const HW_GPIO_IMPULSE_LENGTH_MIN_MSEC: f64 = 0.001;
 pub const HW_GPIO_IMPULSE_LENGTH_MAX_MSEC: f64 = 100.0;
 
-#[derive(PdError)]
+#[derive(PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
     PinLevel(u8, bool),

@@ -5,7 +5,7 @@
 
 use std::{ffi::CString, ptr::null_mut};
 
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 use rgb::RGB8;
 
 use crate::{
@@ -48,7 +48,7 @@ pub enum Request {
     Rotate(i32),
 }
 
-#[derive(Debug, PdError)]
+#[derive(Debug, PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
 }

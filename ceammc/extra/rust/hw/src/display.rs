@@ -9,7 +9,7 @@ use std::{
     slice::from_raw_parts,
 };
 
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage, hw_msg_level};
@@ -44,7 +44,7 @@ pub enum Request {
     SetBrightness(u8),
 }
 
-#[derive(PdError, Debug)]
+#[derive(PdMessage, Debug)]
 pub enum Reply {
     Message(hw_msg_level, CString),
 }

@@ -8,7 +8,7 @@ use std::{
     ptr::null_mut,
 };
 
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 use log::error;
 
 use crate::{
@@ -25,7 +25,7 @@ pub enum Request {
     SetAddress(u8),
 }
 
-#[derive(Debug, PdError)]
+#[derive(Debug, PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
     Distance(u16),

@@ -13,7 +13,7 @@ use std::{
 };
 
 use log::error;
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 
 use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, MakePdMessage};
 
@@ -32,7 +32,7 @@ impl hw_dht11_cb {
     }
 }
 
-#[derive(PdError)]
+#[derive(PdMessage)]
 pub enum Reply {
     Measure(f64, f64),
     Message(hw_msg_level, CString),

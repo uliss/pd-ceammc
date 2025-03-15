@@ -2,8 +2,8 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, DeriveInput};
 
-#[proc_macro_derive(PdError)]
-pub fn impl_make_error_macro(input: TokenStream) -> TokenStream {
+#[proc_macro_derive(PdMessage)]
+pub fn impl_make_message_macro(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = input.ident;
     let gen = quote! {

@@ -8,7 +8,7 @@ use std::{
     ptr::null_mut,
 };
 
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage, hw_msg_level};
@@ -23,7 +23,7 @@ pub enum Request {
     SetProtocol(CString),
 }
 
-#[derive(PdError, Debug)]
+#[derive(PdMessage, Debug)]
 pub enum Reply {
     Message(hw_msg_level, CString),
     Key(CString, i64),

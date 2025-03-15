@@ -8,7 +8,7 @@ use std::{
     ptr::null_mut,
 };
 
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 use log::error;
 
 use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, hw_msg_level};
@@ -62,7 +62,7 @@ pub enum Request {
     SetMeasureMode(hw_i2c_ads1115_measure_mode),
 }
 
-#[derive(PdError)]
+#[derive(PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
     Measure(u8, i16),

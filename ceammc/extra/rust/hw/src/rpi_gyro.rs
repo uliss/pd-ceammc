@@ -8,7 +8,7 @@ use std::{
     ptr::null_mut,
 };
 
-use lib_macro::PdError;
+use lib_macro::PdMessage;
 use log::error;
 
 use crate::{
@@ -38,7 +38,7 @@ pub enum Request {
     Calibrate,
 }
 
-#[derive(PdError)]
+#[derive(PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
     YawPitchRoll(f32, f32, f32),
