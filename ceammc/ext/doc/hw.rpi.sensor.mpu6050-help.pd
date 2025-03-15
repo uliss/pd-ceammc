@@ -29,9 +29,9 @@ ceammc://img/conn_mpu6050.png;
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 558 @i2c_addr;
 #X text 245 558 (initonly) Get/Set I2C address. The value -1 means
-default device I2C address \, value -2: alternative I2C address (when
-pin AD0 pull high). Other values are not supported. Type: int. Default
-value: -1\. Range: -2\...119\.;
+default device I2C address (0x68) \, value -2: alternative I2C address
+(0x69 \, when pin AD0 pull high). Type: int. Default value: -1\. Range:
+-2\...119\.;
 #X msg 110 630 @i2c_bus;
 #X text 245 630 (initonly) Get/Set I2C bus. Use it if you have several
 I2C buses in the system. The value -1 means a default system bus. Type:
