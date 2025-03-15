@@ -201,7 +201,7 @@ macro_rules! return_not_rpi {
     ($x:expr) => {
         #[cfg(not(target_os = "linux"))]
         {
-            error!("OS != \"linux\" is not supported");
+            log::error!("OS != \"linux\" is not supported");
             return $x;
         }
     };
