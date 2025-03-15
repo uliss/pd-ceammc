@@ -5,6 +5,8 @@
 #include "ceammc_poll_dispatcher.h"
 #include "hw_rust.hpp"
 
+#define CEAMMC_OBJECT_ADD_METHOD(obj, cls, method) obj.addMethod(#method, &cls::m_##method);
+
 namespace ceammc {
 
 template <class T>

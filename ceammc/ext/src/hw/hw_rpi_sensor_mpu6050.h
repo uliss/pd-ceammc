@@ -29,7 +29,8 @@ public:
     void initDone() final;
     bool notify(int code) final;
 
-    //    void m_poll(t_symbol* s, const AtomListView& lv);
+    void m_calibrate(t_symbol* s, const AtomListView& lv);
+    void m_poll(t_symbol* s, const AtomListView& lv);
     //    void m_measure(t_symbol* s, const AtomListView& lv);
 
 private:
