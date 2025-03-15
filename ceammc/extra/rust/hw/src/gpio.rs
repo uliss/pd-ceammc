@@ -3,7 +3,7 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdMessage, PdMessageLevel};
+use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdMessage, hw_msg_level};
 use lib_macro::PdError;
 use log::error;
 use std::{
@@ -17,7 +17,7 @@ pub const HW_GPIO_IMPULSE_LENGTH_MAX_MSEC: f64 = 100.0;
 
 #[derive(PdError)]
 pub enum Reply {
-    Error(PdMessageLevel, CString),
+    Message(hw_msg_level, CString),
     PinLevel(u8, bool),
     Pins(Vec<u8>),
 }

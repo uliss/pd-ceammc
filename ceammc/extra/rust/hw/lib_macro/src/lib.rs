@@ -9,15 +9,15 @@ pub fn impl_make_error_macro(input: TokenStream) -> TokenStream {
     let gen = quote! {
         impl MakePdMessage<#name> for #name {
             fn pd_error(msg: CString) -> #name {
-                #name::Error(PdMessageLevel::Error, msg)
+                #name::Message(hw_msg_level::Error, msg)
             }
 
             fn pd_debug(msg: CString) -> #name {
-                #name::Error(PdMessageLevel::Debug, msg)
+                #name::Message(hw_msg_level::Debug, msg)
             }
 
             fn pd_info(msg: CString) -> #name {
-                #name::Error(PdMessageLevel::Info, msg)
+                #name::Message(hw_msg_level::Info, msg)
             }
         }
     };

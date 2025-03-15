@@ -73,7 +73,8 @@ pub trait MakePdMessage<Message> {
 }
 
 #[derive(Debug)]
-pub enum PdMessageLevel {
+#[repr(C)]
+pub enum hw_msg_level {
     Error,
     Debug,
     Info,
@@ -244,13 +245,7 @@ where
     }
 
     // should be called only in the main caller thread!
-    pub fn caller_error(&self, msg: &CString) {
-        self.on_err.exec_raw(msg.as_ptr());
-    }
-
-    // should be called only in the main caller thread!
-    pub fn pd_message(&self, level: PdMessageLevel, msg: &CString) {
-        // match level {}
+    pub fn pd_message(&self, msg: &CString) {
         self.on_err.exec_raw(msg.as_ptr());
     }
 

@@ -8,7 +8,7 @@ use std::{ffi::{c_void, CString}, ptr::null_mut};
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, PdMessageLevel};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, hw_msg_level};
 
 #[cfg(target_os = "linux")]
 mod mpu6050_impl;
@@ -35,7 +35,7 @@ pub enum Request {
 
 #[derive(PdError)]
 pub enum Reply {
-    Error(PdMessageLevel, CString),
+    Message(hw_msg_level, CString),
     YawPitchRoll(f32, f32, f32),
     Temperature(f32),
 }

@@ -147,8 +147,8 @@ impl hw_sensor_vl53l0x {
             let vc = unsafe { &*vc };
 
             vc.worker.process_reply(&|rep| match rep {
-                super::Reply::Error(level, msg) => {
-                    vc.worker.caller_error(&msg);
+                super::Reply::Message(level, msg) => {
+                    vc.worker.pd_message(&msg);
                 }
                 super::Reply::Distance(mm) => {
                     (vc.on_data.cb)(vc.on_data.user, mm);

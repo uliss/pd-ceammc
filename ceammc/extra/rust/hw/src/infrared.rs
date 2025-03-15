@@ -11,7 +11,7 @@ use std::{
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage, PdMessageLevel};
+use crate::{hw_msg_cb, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage, hw_msg_level};
 
 #[cfg(target_os = "linux")]
 mod infrared_impl;
@@ -25,7 +25,7 @@ pub enum Request {
 
 #[derive(PdError, Debug)]
 pub enum Reply {
-    Error(PdMessageLevel, CString),
+    Message(hw_msg_level, CString),
     Key(CString, i64),
 }
 
