@@ -387,7 +387,8 @@ struct ceammc_hw_infrared_key_cb {
 
 struct ceammc_hw_mpu6050_data_cb {
     void *user;
-    void (*cb)(void *user, float yaw, float pitch, float roll, float temp);
+    void (*cb_ypr)(void *user, float yaw, float pitch, float roll);
+    void (*cb_temp)(void *user, float temp);
 };
 
 struct ceammc_hw_print_options {

@@ -24,13 +24,21 @@ void HwRpiSensorMpu6050::initDone()
         ceammc_HW_I2C_DEFAULT_ADDR,
         on_notify(),
         on_err(),
-        { this, [](void* user, float yaw, float pitch, float roll, float temp) {
-             auto obj = static_cast<HwRpiSensorMpu6050*>(user);
-             if (!obj)
-                 return;
+        { this,
+            [](void* user, float yaw, float pitch, float roll) {
+                auto obj = static_cast<HwRpiSensorMpu6050*>(user);
+                if (!obj)
+                    return;
 
-             obj->outputData(yaw, pitch, roll, temp);
-         } });
+                obj->outputData(yaw, pitch, roll);
+            },
+            [](void* user, float temp) {
+                auto obj = static_cast<HwRpiSensorMpu6050*>(user);
+                if (!obj)
+                    return;
+
+                obj->anyTo(0, gensym("temp"), temp);
+            } });
 }
 
 bool HwRpiSensorMpu6050::notify(int code)
@@ -38,12 +46,10 @@ bool HwRpiSensorMpu6050::notify(int code)
     return ceammc_hw_mpu6050_process_reply(mpu_);
 }
 
-void HwRpiSensorMpu6050::outputData(float yaw, float pitch, float roll, float temp)
+void HwRpiSensorMpu6050::outputData(float yaw, float pitch, float roll)
 {
     AtomArray<3> ypr { yaw, pitch, roll };
     anyTo(0, gensym("ypr"), ypr.view());
-
-    anyTo(0, gensym("temp"), temp);
 }
 
 void setup_hw_rpi_sensor_mpu6050()

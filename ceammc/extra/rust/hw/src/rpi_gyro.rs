@@ -21,7 +21,8 @@ type Mpu6050Worker = HwThreadWorker<Request, Reply>;
 #[repr(C)]
 pub struct hw_mpu6050_data_cb {
     user: *mut c_void,
-    cb: extern "C" fn(user: *mut c_void, yaw: f32, pitch: f32, roll: f32, temp: f32),
+    cb_ypr: extern "C" fn(user: *mut c_void, yaw: f32, pitch: f32, roll: f32),
+    cb_temp: extern "C" fn(user: *mut c_void, temp: f32),
 }
 
 pub struct hw_mpu6050 {
@@ -34,13 +35,11 @@ pub enum Request {
     MeasureChan(u8),
 }
 
-pub struct Temp(f32);
-pub struct YawPitchRoll(f32, f32, f32);
-
 #[derive(PdError)]
 pub enum Reply {
     Error(CString),
-    Data(YawPitchRoll, Temp),
+    YawPitchRoll(f32, f32, f32),
+    Temperature(f32),
 }
 
 #[no_mangle]

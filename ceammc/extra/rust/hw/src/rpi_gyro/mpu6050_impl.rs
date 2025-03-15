@@ -5,7 +5,7 @@ use std::{
 
 use log::{debug, error, info};
 use mpu6050_dmp::{
-    address::Address, calibration::CalibrationParameters, quaternion::Quaternion, sensor::Mpu6050,
+    address::Address, quaternion::Quaternion, sensor::Mpu6050, temperature::Temperature,
     yaw_pitch_roll::YawPitchRoll,
 };
 
@@ -17,7 +17,7 @@ use crate::{
     send_reply,
 };
 
-use super::{hw_mpu6050, hw_mpu6050_data_cb, Temp};
+use super::{hw_mpu6050, hw_mpu6050_data_cb};
 
 impl hw_mpu6050 {
     pub fn new(
@@ -63,9 +63,9 @@ impl hw_mpu6050 {
             info!("FIFO enabled");
 
             // Main loop demonstrating FIFO usage
-            let mut buffer = [0u8; 1024]; // Buffer for FI
+            let mut buffer = [0u8; 256]; // Buffer for FI
 
-            let poll_time = Duration::from_millis(10);
+            let poll_time = Duration::from_millis(20);
             let poll_mode = true;
 
             'outer: loop {
@@ -86,33 +86,40 @@ impl hw_mpu6050 {
                 if poll_mode {
                     let now = Instant::now();
 
-                    // Get FIFO count
-                    let fifo_count = mpu.get_fifo_count().map_err(|err| format!("{err:?}"))?;
-                    info!("FIFO Count: {} bytes", fifo_count);
+                    match mpu.get_fifo_count() {
+                        Ok(fifo_count) => {
+                            if fifo_count >= 256 {
+                                // FIFO is full - reset to prevent overflow
+                                info!("FIFO full - resetting");
+                                mpu.reset_fifo()
+                                    .map_err(|err| format!("{err:?}"))
+                                    .unwrap_or_default();
+                            } else {
+                                if fifo_count >= 28 {
+                                    let buf = mpu.read_fifo(&mut buffer).unwrap();
+                                    let q = Quaternion::from_bytes(&buf[..16]).unwrap().normalize();
+                                    let ypr = YawPitchRoll::from(q);
+                                    debug!("{:?}", ypr);
 
-                    if fifo_count >= 1024 {
-                        // FIFO is full - reset to prevent overflow
-                        info!("FIFO full - resetting");
-                        mpu.reset_fifo().map_err(|err| format!("{err:?}"))?;
-                        continue;
-                    }
+                                    send_reply(
+                                        super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll),
+                                        &tx,
+                                        notify,
+                                    );
+                                }
+                            }
 
-                    if fifo_count >= 28 {
-                        let buf = mpu.read_fifo(&mut buffer).unwrap();
-                        let q = Quaternion::from_bytes(&buf[..16]).unwrap().normalize();
-                        let ypr = YawPitchRoll::from(q);
-                        debug!("{:?}", ypr);
+                            let temp = mpu
+                                .temperature()
+                                .map_err(|err| format!("{err:?}"))
+                                .unwrap_or(Temperature::new(0))
+                                .celsius();
 
-                        let temp = mpu.temperature().map_err(|err| format!("{err:?}"))?;
-
-                        send_reply(
-                            super::Reply::Data(
-                                super::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll),
-                                Temp(temp.celsius()),
-                            ),
-                            &tx,
-                            notify,
-                        );
+                            send_reply(super::Reply::Temperature(temp), &tx, notify);
+                        }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
                     }
 
                     let elapsed = now - Instant::now();
@@ -139,9 +146,10 @@ impl hw_mpu6050 {
             let mpu = unsafe { &*mpu };
             mpu.worker.process_reply(&|rep| match rep {
                 super::Reply::Error(msg) => mpu.worker.on_err.exec_raw(msg.as_ptr()),
-                super::Reply::Data(super::YawPitchRoll(y, p, r), Temp(temp)) => {
-                    (mpu.on_data.cb)(mpu.on_data.user, y, p, r, temp);
+                super::Reply::YawPitchRoll(yaw, pitch, roll) => {
+                    (mpu.on_data.cb_ypr)(mpu.on_data.user, yaw, pitch, roll)
                 }
+                super::Reply::Temperature(t) => (mpu.on_data.cb_temp)(mpu.on_data.user, t),
             })
         }
     }
