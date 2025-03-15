@@ -17,7 +17,7 @@ use crate::{
     send_reply,
 };
 
-use super::{hw_mpu6050, hw_mpu6050_data_cb};
+use super::{hw_mpu6050, hw_mpu6050_data_cb, Request};
 
 impl hw_mpu6050 {
     pub fn new(
@@ -47,17 +47,6 @@ impl hw_mpu6050 {
             mpu.initialize_dmp(&mut delay)
                 .map_err(|err| process_err(format!("MPU6050 DMP init: {err:?}"), &tx, notify))?;
 
-            info!("Calibrating Sensor ...");
-            mpu6050_dmp::calibration_blocking::collect_mean_values(
-                &mut mpu,
-                &mut delay,
-                mpu6050_dmp::accel::AccelFullScale::G2,
-                mpu6050_dmp::calibration::ReferenceGravity::ZN,
-            )
-            .map_err(|err| format!("{err:?}"))?;
-
-            info!("Sensor Calibrated");
-
             // Configure FIFO
             mpu.enable_fifo().map_err(|err| format!("{err:?}"))?;
             info!("FIFO enabled");
@@ -66,13 +55,32 @@ impl hw_mpu6050 {
             let mut buffer = [0u8; 256]; // Buffer for FI
 
             let poll_time = Duration::from_millis(20);
-            let poll_mode = true;
+            let mut poll_mode = false;
 
             'outer: loop {
                 'request_loop: loop {
                     match rx.try_recv() {
                         Ok(req) => {
                             debug!("{req:?}");
+
+                            match req {
+                                Request::Poll(state) => {
+                                    poll_mode = state;
+                                }
+                                Request::Calibrate => {
+                                    info!("Calibrating Sensor ...");
+                                    
+                                    mpu6050_dmp::calibration_blocking::collect_mean_values(
+                                        &mut mpu,
+                                        &mut delay,
+                                        mpu6050_dmp::accel::AccelFullScale::G2,
+                                        mpu6050_dmp::calibration::ReferenceGravity::ZN,
+                                    )
+                                    .map_err(|err| format!("{err:?}"))?;
+
+                                    info!("Sensor Calibrated");
+                                }
+                            }
                         }
                         Err(err) => match err {
                             std::sync::mpsc::TryRecvError::Empty => break 'request_loop, // just no request
@@ -138,7 +146,7 @@ impl hw_mpu6050 {
         Ok(Self { worker, on_data })
     }
 
-    pub fn process_reply_ptr(mpu: *mut Self) -> bool {
+    pub fn process_reply_ptr(mpu: *const Self) -> bool {
         if mpu.is_null() {
             error!("NULL mpu pointer");
             false
@@ -151,6 +159,16 @@ impl hw_mpu6050 {
                 }
                 super::Reply::Temperature(t) => (mpu.on_data.cb_temp)(mpu.on_data.user, t),
             })
+        }
+    }
+
+    pub fn send_request_ptr(mpu: *const Self, req: Request) -> bool {
+        if mpu.is_null() {
+            error!("NULL mpu pointer");
+            false
+        } else {
+            let mpu = unsafe { &*mpu };
+            mpu.worker.send_request(req)
         }
     }
 }

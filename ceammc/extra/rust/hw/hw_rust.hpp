@@ -891,6 +891,8 @@ bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
                                  ceammc_hw_max7219_string_align align,
                                  uint8_t dots);
 
+bool ceammc_hw_mpu6050_calibrate(ceammc_hw_mpu6050 *mpu);
+
 void ceammc_hw_mpu6050_free(ceammc_hw_mpu6050 *mpu);
 
 ceammc_hw_mpu6050 *ceammc_hw_mpu6050_new(int8_t i2c_bus,
@@ -898,6 +900,8 @@ ceammc_hw_mpu6050 *ceammc_hw_mpu6050_new(int8_t i2c_bus,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_err,
                                          ceammc_hw_mpu6050_data_cb on_data);
+
+bool ceammc_hw_mpu6050_poll(ceammc_hw_mpu6050 *mpu, bool state);
 
 bool ceammc_hw_mpu6050_process_reply(ceammc_hw_mpu6050 *mpu);
 

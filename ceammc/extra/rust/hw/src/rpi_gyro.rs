@@ -32,7 +32,8 @@ pub struct hw_mpu6050 {
 
 #[derive(Debug)]
 pub enum Request {
-    MeasureChan(u8),
+    Poll(bool),
+    Calibrate,
 }
 
 #[derive(PdError)]
@@ -74,4 +75,14 @@ pub extern "C" fn ceammc_hw_mpu6050_free(mpu: *mut hw_mpu6050) {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_mpu6050_process_reply(mpu: *mut hw_mpu6050) -> bool {
     rpi_check!({ hw_mpu6050::process_reply_ptr(mpu) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_mpu6050_poll(mpu: *mut hw_mpu6050, state: bool) -> bool {
+    rpi_check!({ hw_mpu6050::send_request_ptr(mpu, Request::Poll(state)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_mpu6050_calibrate(mpu: *mut hw_mpu6050) -> bool {
+    rpi_check!({ hw_mpu6050::send_request_ptr(mpu, Request::Calibrate) });
 }
