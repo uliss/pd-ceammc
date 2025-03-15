@@ -385,6 +385,11 @@ struct ceammc_hw_infrared_key_cb {
     void (*cb)(void *user, const char *key, int64_t value);
 };
 
+struct ceammc_hw_mpu6050_data_cb {
+    void *user;
+    void (*cb)(void *user, float yaw, float pitch, float roll, float temp);
+};
+
 struct ceammc_hw_print_options {
     bool landscape;
 };
@@ -890,7 +895,10 @@ void ceammc_hw_mpu6050_free(ceammc_hw_mpu6050 *mpu);
 ceammc_hw_mpu6050 *ceammc_hw_mpu6050_new(int8_t i2c_bus,
                                          int8_t i2c_addr,
                                          ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_err);
+                                         ceammc_hw_msg_cb on_err,
+                                         ceammc_hw_mpu6050_data_cb on_data);
+
+bool ceammc_hw_mpu6050_process_reply(ceammc_hw_mpu6050 *mpu);
 
 bool ceammc_hw_pca9685_enable(const ceammc_hw_pca9685 *pwm, bool state);
 

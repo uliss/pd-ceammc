@@ -3,7 +3,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use log::{debug, info};
+use log::{debug, error, info};
 use mpu6050_dmp::{
     address::Address, calibration::CalibrationParameters, quaternion::Quaternion, sensor::Mpu6050,
     yaw_pitch_roll::YawPitchRoll,
@@ -14,9 +14,10 @@ use crate::{
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     process_err,
     rpi_gyro::Mpu6050Worker,
+    send_reply,
 };
 
-use super::hw_mpu6050;
+use super::{hw_mpu6050, hw_mpu6050_data_cb, Temp};
 
 impl hw_mpu6050 {
     pub fn new(
@@ -24,6 +25,7 @@ impl hw_mpu6050 {
         i2c_addr: I2cAddress,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
+        on_data: hw_mpu6050_data_cb,
     ) -> Result<Self, CString> {
         let (worker, rx, tx) = Mpu6050Worker::new(on_err);
 
@@ -45,18 +47,18 @@ impl hw_mpu6050 {
             mpu.initialize_dmp(&mut delay)
                 .map_err(|err| process_err(format!("MPU6050 DMP init: {err:?}"), &tx, notify))?;
 
-            // // Configure calibration parameters
-            // let calibration_params = CalibrationParameters::new(
-            //     mpu6050_dmp::accel::AccelFullScale::G2,
-            //     mpu6050_dmp::gyro::GyroFullScale::Deg2000,
-            //     mpu6050_dmp::calibration::ReferenceGravity::ZN,
-            // );
+            // Configure calibration parameters
+            let calibration_params = CalibrationParameters::new(
+                mpu6050_dmp::accel::AccelFullScale::G2,
+                mpu6050_dmp::gyro::GyroFullScale::Deg2000,
+                mpu6050_dmp::calibration::ReferenceGravity::ZN,
+            );
 
-            // info!("Calibrating Sensor");
-            // mpu.calibrate(&mut delay, &calibration_params)
-            //     .map_err(|err| format!("{err:?}"))?;
+            info!("Calibrating Sensor");
+            mpu6050_dmp::calibration_blocking::calibrate(&mut mpu, &mut delay, &calibration_params)
+                .map_err(|err| format!("{err:?}"))?;
 
-            // info!("Sensor Calibrated");
+            info!("Sensor Calibrated");
 
             // Configure FIFO
             mpu.enable_fifo().map_err(|err| format!("{err:?}"))?;
@@ -102,28 +104,20 @@ impl hw_mpu6050 {
                         let q = Quaternion::from_bytes(&buf[..16]).unwrap().normalize();
                         let ypr = YawPitchRoll::from(q);
                         debug!("{:?}", ypr);
+
+                        let temp = mpu.temperature().map_err(|err| format!("{err:?}"))?;
+
+                        send_reply(
+                            super::Reply::Data(
+                                super::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll),
+                                Temp(temp.celsius()),
+                            ),
+                            &tx,
+                            notify,
+                        );
                     }
 
-                    // // get roll and pitch estimate
-                    // let angles = mpu.get_acc_angles().map_err(|err| format!("{err:?}"))?;
-
-                    // // get sensor temp
-                    // let temp = mpu.get_temp().map_err(|err| format!("{err:?}"))?;
-
-                    // // get gyro data, scaled with sensitivity
-                    // let gyro = mpu.get_gyro().map_err(|err| format!("{err:?}"))?;
-
-                    // // get accelerometer data, scaled with sensitivity
-                    // let acc = mpu.get_acc().map_err(|err| format!("{err:?}"))?;
-
-                    let temp = mpu.temperature().map_err(|err| format!("{err:?}"))?;
-                    println!("Temperature: {}°C", temp.celsius());
-
-                    // debug!("angles: {angles}, gyro: {gyro}, acc: {acc}");
-
                     let elapsed = now - Instant::now();
-
-                    debug!("elapsed: {}us", elapsed.as_micros());
 
                     if elapsed < poll_time {
                         std::thread::sleep(poll_time - elapsed);
@@ -136,6 +130,21 @@ impl hw_mpu6050 {
             Ok(())
         });
 
-        Ok(Self { worker })
+        Ok(Self { worker, on_data })
+    }
+
+    pub fn process_reply_ptr(mpu: *mut Self) -> bool {
+        if mpu.is_null() {
+            error!("NULL mpu pointer");
+            false
+        } else {
+            let mpu = unsafe { &*mpu };
+            mpu.worker.process_reply(&|rep| match rep {
+                super::Reply::Error(msg) => mpu.worker.on_err.exec_raw(msg.as_ptr()),
+                super::Reply::Data(super::YawPitchRoll(y, p, r), Temp(temp)) => {
+                    (mpu.on_data.cb)(mpu.on_data.user, y, p, r, temp);
+                }
+            })
+        }
     }
 }

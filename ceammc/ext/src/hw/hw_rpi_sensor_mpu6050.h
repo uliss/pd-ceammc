@@ -32,7 +32,8 @@ public:
     //    void m_poll(t_symbol* s, const AtomListView& lv);
     //    void m_measure(t_symbol* s, const AtomListView& lv);
 
-    // private:
+private:
+    void outputData(float yaw, float pitch, float roll, float temp);
     //     t_float normalizeValue(int16_t value) const;
     //     void outputValue(std::uint8_t ch, std::int16_t value);
 };
