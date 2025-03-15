@@ -3,7 +3,7 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdMessage, PdMessageLevel};
 use lib_macro::PdError;
 use log::error;
 use std::{
@@ -15,12 +15,10 @@ use std::{
 pub const HW_GPIO_IMPULSE_LENGTH_MIN_MSEC: f64 = 0.001;
 pub const HW_GPIO_IMPULSE_LENGTH_MAX_MSEC: f64 = 100.0;
 
-
-#[derive(PdError, Clone)]
+#[derive(PdError)]
 pub enum Reply {
+    Error(PdMessageLevel, CString),
     PinLevel(u8, bool),
-    Error(CString),
-    Debug(CString),
     Pins(Vec<u8>),
 }
 

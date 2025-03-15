@@ -1,6 +1,7 @@
 use crate::gpio::HW_GPIO_IMPULSE_LENGTH_MIN_MSEC;
 use crate::hw_msg_cb;
 use crate::hw_notify_cb;
+use crate::MakePdMessage;
 use log::{debug, error};
 use rppal::system::DeviceInfo;
 
@@ -104,11 +105,8 @@ impl hw_gpio {
                 gp.exec_pin(pin, level);
                 debug!("pin [{pin}] = {level}");
             }
-            Reply::Error(msg) => {
+            Reply::Error(level, msg) => {
                 gp.worker.caller_error(&msg);
-            }
-            Reply::Debug(msg) => {
-                gp.on_dbg.exec_raw(msg.as_ptr());
             }
             Reply::Pins(items) => {
                 gp.exec_pin_list(&items);
@@ -318,7 +316,7 @@ fn reply(msg: Reply, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<R
 
 fn reply_error(msg: String, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<Reply>) {
     reply(
-        Reply::Error(CString::new(msg).unwrap_or_default()),
+        Reply::pd_error(CString::new(msg).unwrap_or_default()),
         notify,
         reply_tx,
     )
@@ -326,7 +324,7 @@ fn reply_error(msg: String, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::S
 
 fn reply_debug(msg: String, notify: &hw_notify_cb, reply_tx: &std::sync::mpsc::Sender<Reply>) {
     reply(
-        Reply::Debug(CString::new(msg).unwrap_or_default()),
+        Reply::pd_debug(CString::new(msg).unwrap_or_default()),
         notify,
         reply_tx,
     )

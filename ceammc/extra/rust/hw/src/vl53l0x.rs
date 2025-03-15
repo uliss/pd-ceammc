@@ -11,7 +11,7 @@ use std::{
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, PdMessageLevel};
 
 #[cfg(target_os = "linux")]
 mod vl53l0x_impl;
@@ -25,7 +25,7 @@ pub enum Request {
 
 #[derive(Debug, PdError)]
 pub enum Reply {
-    Error(CString),
+    Error(PdMessageLevel, CString),
     Distance(u16),
 }
 

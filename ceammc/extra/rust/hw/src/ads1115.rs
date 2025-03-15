@@ -11,7 +11,7 @@ use std::{
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, PdMessageLevel};
 
 #[cfg(target_os = "linux")]
 mod ads1115_impl;
@@ -64,7 +64,7 @@ pub enum Request {
 
 #[derive(PdError)]
 pub enum Reply {
-    Error(CString),
+    Error(PdMessageLevel, CString),
     Measure(u8, i16),
     MeasureAll((i16, i16, i16, i16)),
 }

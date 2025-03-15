@@ -3,7 +3,7 @@ use std::{
     os::raw::{c_char, c_void},
 };
 
-use log::{debug, error};
+use log::{debug, error, info};
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -72,6 +72,13 @@ pub trait MakePdMessage<Message> {
     fn pd_info(msg: CString) -> Message;
 }
 
+#[derive(Debug)]
+pub enum PdMessageLevel {
+    Error,
+    Debug,
+    Info,
+}
+
 fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> bool {
     if let Err(err) = tx.send(rep) {
         error!("reply send error: {err}");
@@ -87,7 +94,11 @@ where
     R: MakePdMessage<R>,
 {
     error!("{msg}");
-    send_reply(R::pd_error(CString::new(msg).unwrap_or_default()), tx, notify)
+    send_reply(
+        R::pd_error(CString::new(msg).unwrap_or_default()),
+        tx,
+        notify,
+    )
 }
 
 #[allow(dead_code)]
@@ -108,7 +119,7 @@ fn send_info<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str
 where
     R: MakePdMessage<R>,
 {
-    debug!("{msg}");
+    info!("{msg}");
     send_reply(
         R::pd_info(CString::new(msg).unwrap_or_default()),
         tx,
@@ -232,7 +243,14 @@ where
         });
     }
 
+    // should be called only in the main caller thread!
     pub fn caller_error(&self, msg: &CString) {
+        self.on_err.exec_raw(msg.as_ptr());
+    }
+
+    // should be called only in the main caller thread!
+    pub fn pd_message(&self, level: PdMessageLevel, msg: &CString) {
+        // match level {}
         self.on_err.exec_raw(msg.as_ptr());
     }
 
@@ -294,9 +312,9 @@ pub mod infrared;
 pub mod lcd1602;
 pub mod max7219;
 pub mod rotenc;
+pub mod rpi_gyro;
 pub mod rpi_pwm;
 pub mod rpi_pwm_pca9685;
 pub mod spi;
 pub mod vl53l0x;
 pub mod ws2812;
-pub mod rpi_gyro;

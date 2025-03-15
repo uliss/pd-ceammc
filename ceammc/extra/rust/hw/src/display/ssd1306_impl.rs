@@ -289,7 +289,7 @@ impl hw_display_ssd1306 {
             let display = unsafe { &*display };
 
             display.worker.process_reply(&|rep| match rep {
-                super::Reply::Error(cstr) => display.worker.caller_error(&cstr),
+                super::Reply::Error(level, cstr) => display.worker.caller_error(&cstr),
             })
         }
     }

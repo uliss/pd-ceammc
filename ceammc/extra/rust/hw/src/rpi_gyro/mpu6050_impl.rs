@@ -174,7 +174,7 @@ impl hw_mpu6050 {
         } else {
             let mpu = unsafe { &*mpu };
             mpu.worker.process_reply(&|rep| match rep {
-                super::Reply::Error(msg) => mpu.worker.on_err.exec_raw(msg.as_ptr()),
+                super::Reply::Error(level, msg) => mpu.worker.caller_error(&msg),
                 super::Reply::YawPitchRoll(yaw, pitch, roll) => {
                     (mpu.on_data.cb_ypr)(mpu.on_data.user, yaw, pitch, roll)
                 }

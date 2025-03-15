@@ -12,7 +12,7 @@ use std::{
 use lib_macro::PdError;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage, PdMessageLevel};
 
 type Ssd1306Worker = HwThreadWorker<Request, Reply>;
 
@@ -46,7 +46,7 @@ pub enum Request {
 
 #[derive(PdError, Debug)]
 pub enum Reply {
-    Error(CString),
+    Error(PdMessageLevel, CString),
 }
 
 pub struct hw_display_ssd1306 {
