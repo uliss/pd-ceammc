@@ -35,7 +35,7 @@ void HwRpiSensorMpu6050::initDone()
 
 bool HwRpiSensorMpu6050::notify(int code)
 {
-    return true;
+    return ceammc_hw_mpu6050_process_reply(mpu_);
 }
 
 void HwRpiSensorMpu6050::outputData(float yaw, float pitch, float roll, float temp)
