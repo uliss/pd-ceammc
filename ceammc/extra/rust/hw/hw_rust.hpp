@@ -577,14 +577,12 @@ bool ceammc_hw_gpio_impulse(ceammc_hw_gpio *gp, uint8_t pin, double length);
 bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp);
 
 /// create new gpio
-/// @param on_err - on error callback for output error messages
-/// @param on_dbg - on error callback for output error messages
+/// @param on_msg - callback for output messages
 /// @param notify - notification update callback
 /// @param on_pin - called on pin value output
 /// @param on_pin_list - called on pin list reply
 /// @param on_pin_poll - called on pin poll event
-ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_msg_cb on_err,
-                                   ceammc_hw_msg_cb on_dbg,
+ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_msg_cb on_msg,
                                    ceammc_hw_notify_cb notify,
                                    ceammc_hw_gpio_pin_cb on_pin,
                                    ceammc_hw_gpio_pin_list_cb on_pin_list,
@@ -1021,7 +1019,7 @@ ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_spi_cs cs,
                                                size_t size,
                                                ceammc_hw_notify_cb notify,
-                                               ceammc_hw_msg_cb on_err,
+                                               ceammc_hw_msg_cb on_msg,
                                                bool clear_on_exit);
 
 /// process events

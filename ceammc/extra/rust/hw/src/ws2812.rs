@@ -56,7 +56,7 @@ pub enum Reply {
 pub struct hw_spi_ws2812 {
     tx: std::sync::mpsc::Sender<Request>,
     rx: std::sync::mpsc::Receiver<Reply>,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
     notify: hw_notify_cb,
     clear_on_exit: bool,
 }
@@ -67,14 +67,14 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
     cs: hw_spi_cs,
     size: usize,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
     clear_on_exit: bool,
 ) -> *mut hw_spi_ws2812 {
     rpi_check!(null_mut(), {
-        match hw_spi_ws2812::new(bus, cs, size, notify, on_err, clear_on_exit) {
+        match hw_spi_ws2812::new(bus, cs, size, notify, on_msg, clear_on_exit) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

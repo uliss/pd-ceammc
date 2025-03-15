@@ -8,7 +8,8 @@ use ws2812_spi::Ws2812;
 use crate::{
     hw_msg_cb, hw_notify_cb,
     max7219::{hw_spi_bus, hw_spi_cs},
-    ws2812::{led_fx, Reply}, MakePdMessage,
+    ws2812::{led_fx, Reply},
+    MakePdMessage,
 };
 
 use super::{hw_spi_ws2812, Request};
@@ -32,7 +33,7 @@ impl hw_spi_ws2812 {
         cs: hw_spi_cs,
         size: usize,
         notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
         clear_on_exit: bool,
     ) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel();
@@ -163,7 +164,7 @@ impl hw_spi_ws2812 {
         Ok(hw_spi_ws2812 {
             tx,
             rx: rep_rx,
-            on_err,
+            on_msg,
             notify,
             clear_on_exit,
         })
@@ -211,7 +212,7 @@ impl hw_spi_ws2812 {
         while let Ok(rep) = ws.rx.try_recv() {
             match rep {
                 Reply::Message(level, str) => {
-                    ws.on_err.error_cstr(str);
+                    ws.on_msg.exec(level, str.to_str().unwrap());
                 }
             }
         }

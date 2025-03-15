@@ -44,7 +44,6 @@ type GpioThreadWorker = HwThreadWorker<Request, Reply>;
 /// gpio opaque type
 pub struct hw_gpio {
     worker: GpioThreadWorker,
-    pub on_dbg: hw_msg_cb,
     on_pin: hw_gpio_pin_cb,
     on_pin_list: hw_gpio_pin_list_cb,
 }
@@ -99,23 +98,21 @@ pub enum hw_gpio_trigger {
 mod gpio_impl;
 
 /// create new gpio
-/// @param on_err - on error callback for output error messages
-/// @param on_dbg - on error callback for output error messages
+/// @param on_msg - callback for output messages
 /// @param notify - notification update callback
 /// @param on_pin - called on pin value output
 /// @param on_pin_list - called on pin list reply
 /// @param on_pin_poll - called on pin poll event
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_new(
-    on_err: hw_msg_cb,
-    on_dbg: hw_msg_cb,
+    on_msg: hw_msg_cb,
     notify: hw_notify_cb,
     on_pin: hw_gpio_pin_cb,
     on_pin_list: hw_gpio_pin_list_cb,
     on_pin_poll: hw_gpio_poll_cb,
 ) -> *mut hw_gpio {
     rpi_check!(null_mut(), {
-        match hw_gpio::new(on_err, on_dbg, notify, on_pin, on_pin_list, on_pin_poll) {
+        match hw_gpio::new(on_msg, notify, on_pin, on_pin_list, on_pin_poll) {
             Ok(gpio) => return Box::into_raw(Box::new(gpio)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
