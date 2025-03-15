@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.sensor.mpu6050">
+        <title>hw.rpi.sensor.mpu6050</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>MPU-6050 gyroscope and accelerometer Raspberry Pi support</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>raspberry imu mpu6050 gyro accelerometer</keywords>
+            <since>0.9.9</since>
+        </meta>
+        <info>
+            <par>The MPU-6050 is a 6-axis(combines 3-axis Gyroscope, 3-axis Accelerometer) motion tracking device.</par>
+        </info>
+        <methods>
+            <method name="poll">start/stop sensor polling
+            <param name="VALUE" type="bool" required="true">state</param></method>
+        </methods>
+        <arguments>
+            <argument name="PIN" type="int">GPIO connection pin. See @pin</argument>
+        </arguments>
+        <properties>
+            <property name="@pin" type="int" default="0" access="initonly">connection GPIO
+            pin</property>
+            <property name="@tolerance_usec" type="int" default="200" minvalue="0" maxvalue="1000">
+            absolute error tolerance in microsecons</property>
+            <property name="@proto" type="symbol" default="NEC">protocol name. You should switch off/on pollling to take effect
+            after chaning this property</property>
+            <property name="@tolerance_perc" type="int" default="30" units="percent" minvalue="0"
+            maxvalue="100">relative error tolerance</property>
+        </properties>
+        <inlets>
+            <inlet><xinfo>control input</xinfo></inlet>
+        </inlets>
+        <outlets>
+            <outlet>pressed infrared remote keys accoring to protocol</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[poll $1(
+|
+|
+[hw.rpi.sensor.mpu6050]
+|
+[route ypr gyro accel temp {w=30} #r]
+|
+|
+|
+|      [ui.dt #g]    [ui.dt #a]    [ui.dt #t]
+|
+| [unpack f f f {w=45} #u]
+|
+| [F label=yaw #y] [F label=pitch #p] [F label=roll #x]
+|
+|
+[print YPR]
+
+
+[ui.link @url=ceammc://img/conn_mpu6050.png @title=Connection_Scheme]
+
+[X r:3->t] [X r->u] [X u->y] [X u:1->p] [X u:2->x] [X r:1->g] [X r:2->a]
+#g @label Gyro
+#a @label Accel
+#t @label tº
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

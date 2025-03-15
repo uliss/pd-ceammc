@@ -1051,6 +1051,9 @@
     <entry name="hw.rpi.sensor.ir" descr="Infrared sensor support for Raspberry Pi" ref_view="object">
       <xi:include href="hw.rpi.sensor.ir.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.rpi.sensor.mpu6050" descr="MPU-6050 gyroscope and accelerometer Raspberry Pi support" ref_view="object">
+      <xi:include href="hw.rpi.sensor.mpu6050.pddoc" parse="xml"/>
+    </entry>
     <entry name="hw.rpi.sr04" descr="HC-SR04 ulatrasonic ranging module for Raspberry Pi" ref_view="object">
       <xi:include href="hw.rpi.sr04.pddoc" parse="xml"/>
     </entry>

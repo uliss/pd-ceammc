@@ -328,6 +328,7 @@ set(DOC_FILES
     hw.rpi.pwm
     hw.rpi.rotenc
     hw.rpi.sensor.ir
+    hw.rpi.sensor.mpu6050
     hw.rpi.sr04
     hw.serial
     hw.spi.max7219
