@@ -5,9 +5,10 @@
 
 use std::{ffi::CString, ptr::null_mut};
 
+use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
 
 pub const HW_RPI_PWM_MIN_CHAN: i8 = 0x0;
 pub const HW_RPI_PWM_MAX_CHAN: i8 = 0x3;
@@ -27,15 +28,15 @@ pub enum Request {
     SetPwm(f64, f64),
 }
 
-#[derive(Debug)]
+#[derive(Debug, PdMessage)]
 pub enum Reply {
-    Error(CString),
+    Message(hw_msg_level, CString),
 }
 
+type PwmWorker = HwThreadWorker<Request, Reply>;
+
 pub struct hw_rpi_pwm {
-    tx: std::sync::mpsc::Sender<Request>,
-    rx: std::sync::mpsc::Receiver<Reply>,
-    on_err: hw_msg_cb,
+    worker: PwmWorker
 }
 
 #[derive(Debug)]
