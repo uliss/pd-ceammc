@@ -36,6 +36,7 @@ lib_macro = { path = "lib_macro" }
 xml = "0.8.20"
 lazy_static = "1.5.0"
 
+
 [target.'cfg(target_os="linux")'.dependencies]
 rppal = { version = "0.22.1", features = ["hal", "nb"] }
 dht11_gpio = "0.1.0"                                     # temperature sensor
@@ -50,7 +51,7 @@ ssd1306 = "0.8.4"                                        # OLED display
 vl53l0x = "1.0.1"                                        # laser distance sensor
 ads1x1x = "0.3.0"                                        # I2C ADC 16-channel
 irp = "0.3.3"                                            # infrared protocol support
-mpu6050 = "0.1.6"                                        # gyro+accelerometer
+mpu6050-dmp = "0.6.0"                                    # gyro+accelerometer
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }
