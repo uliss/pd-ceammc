@@ -61,33 +61,8 @@
 [F]       [B]
 
 
-[hw.rpi.sr04-more]
+[ui.link @url=ceammc://img/hc_sr04.png @title='Scheme']
 [X a->x]
-]]>
-            </pdascii>
-            <pdascii id="more">
-<![CDATA[
-[loadbang]
-|
-[clear, image 10 10 img/hc_sr04.png 0.35, update #a(
-|
-[ui.canvas @size 500 350 #z]
-
-
-
-
-
-
-
-[X a->z]
-
-
-
-
-
-
-
-/* comment */
 ]]>
             </pdascii>
         </example>

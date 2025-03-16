@@ -17,63 +17,63 @@ power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
 #X floatatom 50 328 5 0 0 0 - - -;
 #X obj 146 328 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 371 hw.rpi.sr04-more;
-#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 371 ui.link @title 'Scheme' @url ceammc://img/hc_sr04.png;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 433 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 429 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 461 1\.;
-#X text 150 461 int;
-#X obj 246 462 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 461 TRIG_PIN: a trigger pin GPIO number. Type: int. Range:
+#X text 110 468 1\.;
+#X text 150 468 int;
+#X obj 246 469 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 468 TRIG_PIN: a trigger pin GPIO number. Type: int. Range:
 0\...255;
-#X text 110 496 2\.;
-#X text 150 496 int;
-#X obj 246 497 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 496 ECHO_PIN: an echo pin GPIO number. Type: int. Range:
+#X text 110 503 2\.;
+#X text 150 503 int;
+#X obj 246 504 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 503 ECHO_PIN: an echo pin GPIO number. Type: int. Range:
 0\...255;
-#X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 531 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 538 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 534 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 541 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 566 @echo_pin;
-#X text 245 566 (initonly) Get/Set an echo pin GPIO number. Type: int.
+#X msg 110 573 @echo_pin;
+#X text 245 573 (initonly) Get/Set an echo pin GPIO number. Type: int.
 Default value: 27\. Range: 0\...255\.;
-#X msg 110 608 @trig_pin;
-#X text 245 608 (initonly) Get/Set a trigger pin GPIO number. Type:
+#X msg 110 615 @trig_pin;
+#X text 245 615 (initonly) Get/Set a trigger pin GPIO number. Type:
 int. Default value: 17\. Range: 0\...255\.;
-#X msg 110 650 @poll_interval;
-#X text 245 650 Get/Set poll interval. Type: int. Units: 'ms'. Default
+#X msg 110 657 @poll_interval;
+#X text 245 657 Get/Set poll interval. Type: int. Units: 'ms'. Default
 value: 20\. Range: 10\...1000\.;
-#X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 707 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 714 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 742 poll;
-#X text 245 742 turn the sensor polling on/off. Arguments are:;
-#X obj 255 765 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 765 STATE: poll state. Type: bool.;
-#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 805 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 749 poll;
+#X text 245 749 turn the sensor polling on/off. Arguments are:;
+#X obj 255 772 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 772 STATE: poll state. Type: bool.;
+#X obj 20 807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 812 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 806 1\.;
-#X text 245 806 control input.;
-#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 841 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 813 1\.;
+#X text 245 813 control input.;
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 842 1\.;
-#X text 245 842 float: distance in cm.;
-#X text 110 862 2\.;
-#X text 245 862 bang: if distance can not be measured.;
+#X text 110 849 1\.;
+#X text 245 849 float: distance in cm.;
+#X text 110 869 2\.;
+#X text 245 869 bang: if distance can not be measured.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 912 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 915 library: ceammc v0.9.7;
-#N canvas 10 934 400 290 info 0;
+#X obj 1 919 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 922 library: ceammc v0.9.7;
+#N canvas 10 941 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 934 pd info;
+#X restore 10 941 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;

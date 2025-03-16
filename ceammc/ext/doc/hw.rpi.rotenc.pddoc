@@ -49,6 +49,9 @@
 |                         [route btn dir ]
 |                         |             ^|
 [F digit=4]               [T]          [F]
+
+
+[ui.link @url=ceammc://img/conn_rotenc.png @title='Scheme']
 [X a->x]
 ]]>
             </pdascii>
