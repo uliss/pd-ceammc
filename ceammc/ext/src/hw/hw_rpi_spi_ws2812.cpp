@@ -10,15 +10,8 @@ HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
 {
     createOutlet();
 
-    spi_ = new IntProperty("@spi", static_cast<int>(ceammc_hw_spi_bus::SPI0));
-    spi_->setInitOnly();
-    spi_->checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::SPI0), static_cast<int>(ceammc_hw_spi_bus::SPI6));
-    addProperty(spi_);
-
-    cs_ = new IntProperty("@cs", static_cast<int>(ceammc_hw_spi_cs::CS0));
-    cs_->setInitOnly();
-    cs_->checkClosedRange(static_cast<int>(ceammc_hw_spi_cs::CS0), static_cast<int>(ceammc_hw_spi_cs::CS3));
-    addProperty(cs_);
+    spi_ = addSpiBusProperty();
+    cs_ = addSpiCsProperty();
 
     size_ = new IntProperty("@size", 16);
     size_->setInitOnly();

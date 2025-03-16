@@ -70,6 +70,24 @@ protected:
         this->addProperty(prop);
         return prop;
     }
+
+    IntProperty* addSpiBusProperty()
+    {
+        auto prop = new IntProperty("@spi_bus", static_cast<int>(ceammc_hw_spi_bus::SPI0));
+        prop->setInitOnly();
+        prop->checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::SPI0), static_cast<int>(ceammc_hw_spi_bus::SPI6));
+        this->addProperty(prop);
+        return prop;
+    }
+
+    IntProperty* addSpiCsProperty()
+    {
+        auto prop = new IntProperty("@spi_cs", static_cast<int>(ceammc_hw_spi_cs::CS0));
+        prop->setInitOnly();
+        prop->checkClosedRange(static_cast<int>(ceammc_hw_spi_cs::CS0), static_cast<int>(ceammc_hw_spi_cs::CS3));
+        this->addProperty(prop);
+        return prop;
+    }
 };
 
 }
