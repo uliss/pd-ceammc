@@ -82,7 +82,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[T] /*should be called after setting PWM!*/
+[T]
 |
 [enable $1 #a(
 
@@ -93,9 +93,20 @@
 
 
 [hw.rpi.pwm @ch 0 #x]
-[X a->x] [X c->x] [X e->x]
+
+
+[T]                  [ui.hsl #f]
+|                    |
+[enable $1 #a(       [pwm 20 $1 #g(
+|
+|
+[hw.rpi.pwm @ch 1 #y]
+
+[ui.link @url=ceammc://img/conn_pwm.png @title='Scheme']
+[X a->x] [X c->x] [X e->x] [X g->y]
 #b @show_value 1 @min 50 @max 500
 #d @show_value 1 @min 0 @max 20
+#f @show_value 1 @min 1 @max 2
 ]]>
             </pdascii>
         </example>

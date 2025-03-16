@@ -31,92 +31,97 @@ and configure these.;
 PWM can also be configured for use with other peripherals. Be careful
 not to enable two peripherals on the same pin at the same time.;
 #X obj 50 653 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X text 88 653 should be called after setting PWM!;
 #X msg 50 682 enable \$1;
 #X obj 69 725 ui.hsl @show_value 1 @min 50 @max 500;
 #X obj 251 725 ui.hsl @show_value 1 @min 0 @max 20;
 #X msg 69 754 freq \$1 0.5;
 #X msg 251 754 pwm 20 \$1;
 #X obj 50 797 hw.rpi.pwm @ch 0;
-#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 852 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 840 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 251 840 ui.hsl @show_value 1 @min 1 @max 2;
+#X msg 50 869 enable \$1;
+#X msg 251 869 pwm 20 \$1;
+#X obj 50 913 hw.rpi.pwm @ch 1;
+#X obj 50 941 ui.link @title 'Scheme' @url ceammc://img/conn_pwm.png;
+#X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1003 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 855 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 1006 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 887 1\.;
-#X text 150 887 int;
-#X obj 246 888 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 887 CH: PWM channel. See @ch. Type: int. Range: -1\...3;
-#X obj 20 917 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 922 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 1038 1\.;
+#X text 150 1038 int;
+#X obj 246 1039 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1038 CH: PWM channel. See @ch. Type: int. Range: -1\...3;
+#X obj 20 1068 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1073 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 925 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 1076 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 957 @ch;
-#X text 245 957 (initonly) Get/Set PWM channel. Valid values are: 0-3\.
-If equals -1: no PWM channel selected. Type: int. Default value: -1\.
-Range: -1\...3\.;
-#X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1029 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 110 1108 @ch;
+#X text 245 1108 (initonly) Get/Set PWM channel. Valid values are:
+0-3\. If equals -1: no PWM channel selected. Type: int. Default value:
+-1\. Range: -1\...3\.;
+#X obj 20 1175 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1180 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1064 duty;
-#X text 245 1064 set duty cycle. Arguments are:;
-#X obj 255 1087 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1087 DUTY: duty cycle. Type: float. Range: 0\...1\.;
-#X msg 110 1112 enable;
-#X text 245 1112 enable PWM. By default it is disabled. Arguments are:;
-#X obj 255 1135 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1135 ENABLE: value. Type: bool.;
-#X msg 110 1160 freq;
-#X text 245 1160 set frequency. Arguments are:;
-#X obj 255 1183 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1183 FREQ: frequency. Type: float. Min value: 0\. Units:
+#X msg 110 1215 duty;
+#X text 245 1215 set duty cycle. Arguments are:;
+#X obj 255 1238 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1238 DUTY: duty cycle. Type: float. Range: 0\...1\.;
+#X msg 110 1263 enable;
+#X text 245 1263 enable PWM. By default it is disabled. Arguments are:;
+#X obj 255 1286 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1286 ENABLE: value. Type: bool.;
+#X msg 110 1311 freq;
+#X text 245 1311 set frequency. Arguments are:;
+#X obj 255 1334 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1334 FREQ: frequency. Type: float. Min value: 0\. Units:
 'Hz'.;
-#X obj 255 1206 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1206 DUTY: duty cycle. Type: float. Range: 0\...1\.;
-#X msg 110 1231 period;
-#X text 245 1231 set period. Expected width<=pulse. Arguments are:;
-#X obj 255 1254 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1254 PERIOD: the whole cycle period. Type: float. Min value:
+#X obj 255 1357 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1357 DUTY: duty cycle. Type: float. Range: 0\...1\.;
+#X msg 110 1382 period;
+#X text 245 1382 set period. Expected width<=pulse. Arguments are:;
+#X obj 255 1405 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1405 PERIOD: the whole cycle period. Type: float. Min value:
 0\. Units: 'ms'.;
-#X msg 110 1294 polarity;
-#X text 245 1294 set output polarity. Arguments are:;
-#X obj 255 1317 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1317 INVERTED: new value. If true: polarity is inverted.
+#X msg 110 1445 polarity;
+#X text 245 1445 set output polarity. Arguments are:;
+#X obj 255 1468 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1468 INVERTED: new value. If true: polarity is inverted.
 Type: bool.;
-#X msg 110 1357 pwm;
-#X text 245 1357 set period and pulse width. Expected width<=pulse.
+#X msg 110 1508 pwm;
+#X text 245 1508 set period and pulse width. Expected width<=pulse.
 Arguments are:;
-#X obj 255 1395 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1395 PERIOD: the whole cycle period. Type: float. Min value:
+#X obj 255 1546 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1546 PERIOD: the whole cycle period. Type: float. Min value:
 0\. Units: 'ms'.;
-#X obj 255 1433 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1433 WIDTH: pulse width. Type: float. Min value: 0\. Units:
+#X obj 255 1584 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1584 WIDTH: pulse width. Type: float. Min value: 0\. Units:
 'ms'.;
-#X msg 110 1458 width;
-#X text 245 1458 set pulse width. Expected width<=pulse. Arguments
+#X msg 110 1609 width;
+#X text 245 1609 set pulse width. Expected width<=pulse. Arguments
 are:;
-#X obj 255 1481 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1481 WIDTH: pulse width. Type: float. Min value: 0\. Units:
+#X obj 255 1632 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1632 WIDTH: pulse width. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 20 1516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1521 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1667 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1672 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1522 1\.;
-#X text 245 1522 input messages.;
-#X obj 20 1552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1557 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1673 1\.;
+#X text 245 1673 input messages.;
+#X obj 20 1703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1708 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1558 1\.;
-#X text 245 1558 no output.;
+#X text 110 1709 1\.;
+#X text 245 1709 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1608 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1611 library: ceammc v0.9.7;
-#N canvas 10 1630 400 290 info 0;
+#X obj 1 1759 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1762 library: ceammc v0.9.7;
+#N canvas 10 1781 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -140,10 +145,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1630 pd info;
-#X connect 21 0 23 0;
+#X restore 10 1781 pd info;
+#X connect 21 0 22 0;
+#X connect 23 0 25 0;
 #X connect 24 0 26 0;
+#X connect 28 0 30 0;
+#X connect 29 0 31 0;
+#X connect 30 0 32 0;
+#X connect 22 0 27 0;
 #X connect 25 0 27 0;
-#X connect 23 0 28 0;
-#X connect 26 0 28 0;
-#X connect 27 0 28 0;
+#X connect 26 0 27 0;
+#X connect 31 0 32 0;
