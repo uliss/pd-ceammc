@@ -52,8 +52,9 @@
             <param name="PIN" type="int" required="true">pin number</param></method>
             <method name="list_pins">method</method>
             <!-- impulse -->
-            <method name="impulse">send impulse of specified length
-            <param name="LENGTH" type="int" required="true" minvalue="0.001" maxvalue="100" units="millisecond">impulse length</param></method>
+            <method name="impulse">send impulse of specified length 
+            <param name="LENGTH" type="int" required="true" minvalue="0.001" maxvalue="100"
+            units="millisecond">impulse length</param></method>
         </methods>
         <inlets>
             <inlet>

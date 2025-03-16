@@ -644,10 +644,17 @@ hw.i2c.lcd1602
 hw.kbd_light
 hw.motu.avb
 hw.printer
+hw.rpi.adc.ads1115
 hw.rpi.dht11
+hw.rpi.display.ssd1306
 hw.rpi.gpio
+hw.rpi.i2c.pca9685
 hw.rpi.pwm
+hw.rpi.pwm.pca9685
 hw.rpi.rotenc
+hw.rpi.sensor.ir
+hw.rpi.sensor.mpu6050
+hw.rpi.sensor.vl53l0x
 hw.rpi.sr04
 hw.serial
 hw.spi.max7219
