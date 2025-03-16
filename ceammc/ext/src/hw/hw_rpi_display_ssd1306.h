@@ -2,7 +2,6 @@
 #define HW_RPI_DISPLAY_SSD1306_H
 
 #include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
 #include "ceammc_property_enum.h"
 #include "hw_rust.hpp"
 #include "rust_dispatched_object.h"
@@ -11,12 +10,13 @@ using namespace ceammc;
 class HwRpiDisplaySsd1306 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_display_ssd1306* display_ { nullptr };
     SymbolEnumProperty* mode_ = { nullptr };
-    ListProperty* i2c_ = { nullptr };
     ListProperty* spi_ = { nullptr };
     ListProperty* size_ = { nullptr };
+    IntProperty* i2c_bus_ { nullptr };
+    IntProperty* i2c_addr_ { nullptr };
 
 public:
-    HwRpiDisplaySsd1306(const PdArgs& args);
+    explicit HwRpiDisplaySsd1306(const PdArgs& args);
     ~HwRpiDisplaySsd1306();
 
     void initDone() final;

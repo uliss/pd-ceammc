@@ -23,9 +23,8 @@ HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
     spi_->setInitOnly();
     addProperty(spi_);
 
-    i2c_ = new ListProperty("@i2c");
-    i2c_->setInitOnly();
-    addProperty(i2c_);
+    i2c_bus_ = addI2cBusProperty();
+    i2c_addr_ = addI2cAddrProperty();
 
     size_ = new ListProperty("@size", { 128, 64 });
     size_->setInitOnly();
@@ -45,20 +44,15 @@ HwRpiDisplaySsd1306::~HwRpiDisplaySsd1306()
 
 void HwRpiDisplaySsd1306::initDone()
 {
+    auto w = size_->value().intAt(0, 0);
+    auto h = size_->value().intAt(1, 0);
+
     switch (crc32_hash(mode_->value())) {
     case hash_i2c: {
-        static const args::ArgChecker chk("BUS:i>=0? ADDR:i?");
-        if (!chk.check(i2c_->value(), this))
-            return chk.usage(this);
-
-        auto& args = i2c_->value();
-        auto bus = args.intAt(0, ceammc_HW_I2C_DEFAULT_BUS);
-        auto addr = args.intAt(1, ceammc_HW_I2C_DEFAULT_ADDR);
-        auto w = size_->value().intAt(0, 0);
-        auto h = size_->value().intAt(1, 0);
-
         display_ = ceammc_hw_display_ssd1306_new_i2c(
-            bus, addr, w, h,
+            i2c_bus_->value(),
+            i2c_addr_->value(),
+            w, h,
             on_notify(),
             on_message());
     } break;
@@ -74,8 +68,6 @@ void HwRpiDisplaySsd1306::initDone()
         auto cs = args.intAt(2, 0);
         auto bus = args.intAt(3, 0);
         auto freq = args.intAt(4, 1000000);
-        auto w = size_->value().intAt(0, 0);
-        auto h = size_->value().intAt(1, 0);
 
         display_ = ceammc_hw_display_ssd1306_new_spi(
             bus,
