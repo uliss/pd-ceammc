@@ -9,11 +9,9 @@ HwRpiDisplayLcd1602::HwRpiDisplayLcd1602(const PdArgs& args)
 
     // for i2c PCF8574 using NXP chip: most likely 0x3F
     // for i2c PCF8574 using TI (Texas Instruments): most likely: 0x27
-    addr_ = new IntProperty("@i2c_addr", 0x27);
-    addr_->checkClosedRange(0x0, 0x77);
-    addr_->setInitOnly();
-    addr_->setArgIndex(0);
-    addProperty(addr_);
+
+    i2c_bus_ = addI2cBusProperty();
+    i2c_addr_ = addI2cAddrProperty();
 
     rows_ = new IntEnumProperty("@rows", { 2, 4 });
     rows_->setInitOnly();
@@ -29,7 +27,7 @@ void HwRpiDisplayLcd1602::initDone()
 {
     lcd_ = ceammc_hw_lcd1602_new(
         rows_->value(),
-        addr_->value(),
+        i2c_addr_->value(),
         on_notify(),
         on_message());
 }
@@ -82,6 +80,7 @@ void HwRpiDisplayLcd1602::m_display_move(t_symbol* s, const AtomListView& lv)
 void setup_hw_rpi_display_lcd1602()
 {
     ObjectFactory<HwRpiDisplayLcd1602> obj("hw.i2c.lcd1602");
+
     obj.addMethod("clear", &HwRpiDisplayLcd1602::m_clear);
     obj.addMethod("backlight", &HwRpiDisplayLcd1602::m_backlight);
     obj.addMethod("write", &HwRpiDisplayLcd1602::m_write);
