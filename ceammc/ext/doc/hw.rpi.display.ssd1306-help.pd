@@ -39,66 +39,75 @@ int. Default value: -1\. Range: -1\...15\.;
 #X msg 110 555 @mode;
 #X text 245 555 (initonly) Get/Set display connection. Type: symbol.
 Default value: i2c. Allowed values: i2c \, spi.;
-#X msg 110 597 @spi;
-#X text 245 597 (initonly) Get/Set SPI connection arguments: DC RS
-CS? SPI? FREQ?. DC: GPIO pin \, RS: GPIO pin \, CS: chip select pin
-(logical numbering \, not GPIO! \, default: 0 (GPIO8)) \, SPI: spi
-bus (default 1) \, FREQ: SPI clock frequency in hertz (default: 10_000_000).
-Type: list.;
-#X msg 110 684 @size;
-#X text 245 684 (initonly) Get/Set display size. Type: list. Default
+#X msg 110 597 @spi_bus;
+#X text 245 597 (initonly) Get/Set SPI bus. Type: int. Default value:
+0\. Range: 0\...6\.;
+#X msg 110 639 @spi_cs;
+#X text 245 639 (initonly) Get/Set CS (chip select) GPIO pin. Type:
+int. Default value: -1\. Range: -1\...255\.;
+#X msg 110 681 @spi_dc;
+#X text 245 681 (initonly) Get/Set DC (data/command) GPIO pin. Type:
+int. Default value: -1\. Range: -1\...255\.;
+#X msg 110 723 @spi_freq;
+#X text 245 723 (initonly) Get/Set SPI frequency. Type: int. Units:
+'Hz'. Default value: 1000000\. Range: 100000\...10000000\.;
+#X msg 110 765 @spi_rs;
+#X text 245 765 (initonly) Get/Set RS (reset) GPIO pin. Type: int.
+Default value: -1\. Range: -1\...255\.;
+#X msg 110 807 @size;
+#X text 245 807 (initonly) Get/Set display size. Type: list. Default
 value: 128 64\.;
-#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 741 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 864 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 776 brightness;
-#X text 245 776 set display brightness. Arguments are:;
-#X obj 255 799 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 799 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
+#X msg 110 899 brightness;
+#X text 245 899 set display brightness. Arguments are:;
+#X obj 255 922 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 922 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
 Normal level is 2\. Type: int. Allowed values: 0 \, 1 \, 2 \, 3 \,
 4\.;
-#X msg 110 854 clear;
-#X text 245 854 method.;
-#X msg 110 882 flush;
-#X text 245 882 flush internal buffer to device.;
-#X msg 110 910 font;
-#X text 245 910 set.;
-#X msg 110 938 invert;
-#X text 245 938 invert display. Arguments are:;
-#X obj 255 961 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 961 VALUE: value. Type: bool.;
-#X msg 110 986 mirror;
-#X text 245 986 mirror display. Arguments are:;
-#X obj 255 1009 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1009 VALUE: value. Type: bool.;
-#X msg 110 1034 pixel;
-#X text 245 1034 method.;
-#X msg 110 1062 rotation;
-#X text 245 1062 method.;
-#X msg 110 1090 switch_on;
-#X text 245 1090 method.;
-#X msg 110 1118 text;
-#X text 245 1118 method.;
-#X msg 110 1146 write;
-#X text 245 1146 method.;
-#X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1189 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 977 clear;
+#X text 245 977 method.;
+#X msg 110 1005 flush;
+#X text 245 1005 flush internal buffer to device.;
+#X msg 110 1033 font;
+#X text 245 1033 set.;
+#X msg 110 1061 invert;
+#X text 245 1061 invert display. Arguments are:;
+#X obj 255 1084 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1084 VALUE: value. Type: bool.;
+#X msg 110 1109 mirror;
+#X text 245 1109 mirror display. Arguments are:;
+#X obj 255 1132 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1132 VALUE: value. Type: bool.;
+#X msg 110 1157 pixel;
+#X text 245 1157 method.;
+#X msg 110 1185 rotation;
+#X text 245 1185 method.;
+#X msg 110 1213 switch_on;
+#X text 245 1213 method.;
+#X msg 110 1241 text;
+#X text 245 1241 method.;
+#X msg 110 1269 write;
+#X text 245 1269 method.;
+#X obj 20 1307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1312 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1190 1\.;
-#X text 245 1190 control input.;
-#X obj 20 1220 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1225 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1313 1\.;
+#X text 245 1313 control input.;
+#X obj 20 1343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1348 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1226 1\.;
-#X text 245 1226;
+#X text 110 1349 1\.;
+#X text 245 1349;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1276 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1279 library: ceammc v0.9.7;
-#N canvas 10 1298 400 290 info 0;
+#X obj 1 1399 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1402 library: ceammc v0.9.7;
+#N canvas 10 1421 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -122,5 +131,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1298 pd info;
+#X restore 10 1421 pd info;
 #X connect 6 0 7 0;

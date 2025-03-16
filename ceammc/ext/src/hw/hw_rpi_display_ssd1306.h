@@ -10,10 +10,14 @@ using namespace ceammc;
 class HwRpiDisplaySsd1306 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_display_ssd1306* display_ { nullptr };
     SymbolEnumProperty* mode_ = { nullptr };
-    ListProperty* spi_ = { nullptr };
     ListProperty* size_ = { nullptr };
     IntProperty* i2c_bus_ { nullptr };
     IntProperty* i2c_addr_ { nullptr };
+    IntProperty* spi_bus_ { nullptr };
+    IntProperty* spi_freq_ { nullptr };
+    IntProperty* spi_gpio_dc_pin_ { nullptr };
+    IntProperty* spi_gpio_rs_pin_ { nullptr };
+    IntProperty* spi_gpio_cs_pin_ { nullptr };
 
 public:
     explicit HwRpiDisplaySsd1306(const PdArgs& args);

@@ -19,12 +19,15 @@ HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
     mode_->setArgIndex(0);
     addProperty(mode_);
 
-    spi_ = new ListProperty("@spi");
-    spi_->setInitOnly();
-    addProperty(spi_);
+    spi_bus_ = addSpiBusProperty();
+    spi_freq_ = addSpiFreqProperty();
 
     i2c_bus_ = addI2cBusProperty();
     i2c_addr_ = addI2cAddrProperty();
+
+    spi_gpio_dc_pin_ = addGpioPinProperty("@spi_dc");
+    spi_gpio_rs_pin_ = addGpioPinProperty("@spi_rs");
+    spi_gpio_cs_pin_ = addGpioPinProperty("@spi_cs");
 
     size_ = new ListProperty("@size", { 128, 64 });
     size_->setInitOnly();
@@ -57,24 +60,27 @@ void HwRpiDisplaySsd1306::initDone()
             on_message());
     } break;
     case hash_spi: {
-        static const args::ArgChecker chk("DC:b RS:b CS:b? SPI_BUS:b? FREQ:i?");
-        if (!chk.check(spi_->value(), this))
-            return chk.usage(this);
+        if (spi_gpio_dc_pin_->value() < 0) {
+            OBJ_ERR << "DC pin should be specified";
+            return;
+        }
 
-        auto& args = spi_->value();
+        if (spi_gpio_rs_pin_->value() < 0) {
+            OBJ_ERR << "RS (reset) should be specified";
+            return;
+        }
 
-        auto dc = args.intAt(0, 0);
-        auto rs = args.intAt(1, 0);
-        auto cs = args.intAt(2, 0);
-        auto bus = args.intAt(3, 0);
-        auto freq = args.intAt(4, 1000000);
+        if (spi_gpio_cs_pin_->value() < 0) {
+            OBJ_ERR << "CS (chip select) should be specified";
+            return;
+        }
 
         display_ = ceammc_hw_display_ssd1306_new_spi(
-            bus,
-            dc,
-            cs,
-            rs,
-            freq,
+            spi_bus_->value(),
+            spi_gpio_dc_pin_->value(),
+            spi_gpio_cs_pin_->value(),
+            spi_gpio_rs_pin_->value(),
+            spi_freq_->value(),
             w, h,
             on_notify(),
             on_message());

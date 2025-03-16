@@ -40,10 +40,6 @@
         <properties>
             <property name="@mode" type="symbol" default="i2c" enum="i2c spi" access="initonly">
             display connection</property>
-            <property name="@spi" type="list" default="" access="initonly">SPI connection
-            arguments: DC RS CS? SPI? FREQ?. DC: GPIO pin, RS: GPIO pin, CS: chip select pin
-            (logical numbering, not GPIO!, default: 0 (GPIO8)), SPI: spi bus (default 1), FREQ: SPI
-            clock frequency in hertz (default: 10_000_000)</property>
             <property name="@size" type="list" default="128 64" access="initonly">display
             size</property>
             <property name="@i2c_bus" type="int" default="-1" access="initonly" minvalue="-1"
@@ -52,6 +48,16 @@
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-2"
             maxvalue="119">I2C address. The value -1 means default device I2C address
             (0x3C)</property>
+            <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
+            maxvalue="10000000" access="initonly">SPI frequency</property>
+            <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="255"
+            access="initonly">CS (chip select) GPIO pin</property>
+            <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="255"
+            access="initonly">DC (data/command) GPIO pin</property>
+            <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="255"
+            access="initonly">RS (reset) GPIO pin</property>
+            <property name="@spi_bus" type="int" default="0" minvalue="0" maxvalue="6"
+            access="initonly">SPI bus</property>
         </properties>
         <inlets>
             <inlet>

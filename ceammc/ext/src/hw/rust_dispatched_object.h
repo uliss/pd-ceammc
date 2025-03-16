@@ -88,6 +88,25 @@ protected:
         this->addProperty(prop);
         return prop;
     }
+
+    IntProperty* addSpiFreqProperty()
+    {
+        auto prop = new IntProperty("@spi_freq", 1000000);
+        prop->setUnitsHz();
+        prop->setInitOnly();
+        prop->checkClosedRange(100000, 10000000);
+        this->addProperty(prop);
+        return prop;
+    }
+
+    IntProperty* addGpioPinProperty(const char* name)
+    {
+        auto prop = new IntProperty(name, -1);
+        prop->setInitOnly();
+        prop->checkClosedRange(-1, 255);
+        this->addProperty(prop);
+        return prop;
+    }
 };
 
 }
