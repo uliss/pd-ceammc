@@ -40,10 +40,10 @@ power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 566 @echo_pin;
 #X text 245 566 (initonly) Get/Set an echo pin GPIO number. Type: int.
-Default value: 6\. Range: 0\...255\.;
+Default value: 27\. Range: 0\...255\.;
 #X msg 110 608 @trig_pin;
 #X text 245 608 (initonly) Get/Set a trigger pin GPIO number. Type:
-int. Default value: 5\. Range: 0\...255\.;
+int. Default value: 17\. Range: 0\...255\.;
 #X msg 110 650 @poll_interval;
 #X text 245 650 Get/Set poll interval. Type: int. Units: 'ms'. Default
 value: 20\. Range: 10\...1000\.;

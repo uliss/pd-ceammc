@@ -20,11 +20,11 @@
             <method name="reset">reset current value to @init</method>
         </methods>
         <properties>
-            <property name="@init" type="float" default="0">init encoder value</property>
-            <property name="@dt" type="int" default="0">DT GPIO pin</property>
+            <property name="@init" type="float" default="0" access="initonly">init encoder value</property>
+            <property name="@dt" type="int" default="0" access="initonly" minvalue="0" maxvalue="30">DT GPIO pin</property>
             <property name="@min" type="float" default="-100">min encoder value</property>
-            <property name="@clk" type="int" default="0">CLK GPIO pin</property>
-            <property name="@btn" type="int" default="0">BTN GPIO pin</property>
+            <property name="@clk" type="int" default="0" access="initonly" minvalue="0" maxvalue="30">CLK GPIO pin</property>
+            <property name="@btn" type="int" default="0" access="initonly" minvalue="0" maxvalue="30">BTN GPIO pin</property>
             <property name="@step" type="float" default="1">encoder step</property>
             <property name="@max" type="float" default="100">max encoder value</property>
         </properties>
