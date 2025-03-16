@@ -30,10 +30,7 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     mode_->setInitOnly();
     addProperty(mode_);
 
-    i2c_bus_ = new IntProperty("@bus", ceammc_HW_I2C_DEFAULT_BUS);
-    i2c_bus_->setInitOnly();
-    i2c_bus_->checkClosedRange(-1, 16);
-    addProperty(i2c_bus_);
+    i2c_bus_ = addI2cBusProperty();
 
     fsr_ = new SymbolFloatEnumProperty("@fsr", {
                                                    { sym_6144mv(), mv6144 },
@@ -108,7 +105,7 @@ void HwRpiAdcAds1115::initDone()
 
     ceammc_hw_i2c_ads1115_range range;
 
-    switch (int(fsr_->valuePair())) {
+    switch (static_cast<int>(fsr_->valuePair())) {
     case int_mv256:
         range = ceammc_hw_i2c_ads1115_range::Within_0_256V;
         break;
