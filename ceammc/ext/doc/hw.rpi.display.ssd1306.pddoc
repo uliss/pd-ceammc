@@ -14,7 +14,7 @@
             <since>0.9.9</since>
         </meta>
         <info>
-            <par>Both I2c and SPI connections are supported</par>
+            <par>Both I2C and SPI connections are supported</par>
         </info>
         <methods>
             <method name="rotation">method</method>
@@ -46,9 +46,10 @@
             clock frequency in hertz (default: 10_000_000)</property>
             <property name="@size" type="list" default="128 64" access="initonly">display
             size</property>
-            <property name="@i2c" type="list" default="" access="initonly">I2c connection
-            arguments: I2C? ADDR?. I2C: i2c bus index (if none - using default i2c bus), ADDR:
-            device i2c address (if none - using default address)</property>
+            <property name="@i2c_bus" type="int" default="-1" access="initonly" minvalue="-1"  maxvalue="15">I2C bus.
+            Use it if you have several I2C buses in the system. The value -1 means a default system bus</property>
+            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-2"  maxvalue="119">I2C address.
+            The value -1 means default device I2C address (0x3C)</property>
         </properties>
         <inlets>
             <inlet>
