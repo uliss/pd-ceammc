@@ -63,11 +63,11 @@
             cycle</param></method>
         </methods>
         <arguments>
-            <argument name="CH" type="int" minvalue="-1" maxvalue="3">PWM channel. See
+            <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">PWM channel. See
             @ch</argument>
         </arguments>
         <properties>
-            <property name="@ch" type="int" default="-1" minvalue="-1" maxvalue="3"
+            <property name="@pwm_ch" type="int" default="-1" minvalue="-1" maxvalue="3"
             access="initonly">PWM channel. Valid values are: 0-3. If equals -1: no PWM channel
             selected.</property>
         </properties>

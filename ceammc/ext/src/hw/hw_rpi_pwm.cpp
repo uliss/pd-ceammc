@@ -16,11 +16,8 @@ HwRpiPwm::HwRpiPwm(const PdArgs& args)
 {
     createOutlet();
 
-    chan_ = new IntProperty("@ch", ceammc_HW_RPI_PWM_NONE_CHAN);
-    chan_->setInitOnly();
-    chan_->checkClosedRange(ceammc_HW_RPI_PWM_NONE_CHAN, ceammc_HW_RPI_PWM_MAX_CHAN);
+    chan_ = addPwmChanProperty();
     chan_->setArgIndex(0);
-    addProperty(chan_);
 }
 
 HwRpiPwm::~HwRpiPwm()

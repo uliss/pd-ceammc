@@ -50,14 +50,14 @@ not to enable two peripherals on the same pin at the same time.;
 @title [?] @url ceammc.args-info.pd;
 #X text 110 1038 1\.;
 #X text 150 1038 int;
-#X obj 246 1039 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1038 CH: PWM channel. See @ch. Type: int. Range: -1\...3;
+#X obj 246 1039 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1038 PWM_CH: PWM channel. See @ch. Type: int. Range: -1\...3;
 #X obj 20 1068 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1073 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 1076 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 1108 @ch;
+#X msg 110 1108 @pwm_ch;
 #X text 245 1108 (initonly) Get/Set PWM channel. Valid values are:
 0-3\. If equals -1: no PWM channel selected. Type: int. Default value:
 -1\. Range: -1\...3\.;

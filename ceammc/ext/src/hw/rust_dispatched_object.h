@@ -44,7 +44,8 @@ protected:
             } };
     }
 
-    IntProperty* addI2cBusProperty() {
+    IntProperty* addI2cBusProperty()
+    {
         auto prop = new IntProperty("@i2c_bus", ceammc_HW_I2C_DEFAULT_BUS);
         prop->setInitOnly();
         prop->checkClosedRange(ceammc_HW_I2C_MIN_BUS, ceammc_HW_I2C_MAX_BUS);
@@ -52,10 +53,20 @@ protected:
         return prop;
     }
 
-    IntProperty* addI2cAddrProperty() {
+    IntProperty* addI2cAddrProperty()
+    {
         auto prop = new IntProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
         prop->setInitOnly();
         prop->checkClosedRange(ceammc_HW_I2C_MIN_ADDR, ceammc_HW_I2C_MAX_ADDR);
+        this->addProperty(prop);
+        return prop;
+    }
+
+    IntProperty* addPwmChanProperty()
+    {
+        auto prop = new IntProperty("@pwm_ch", ceammc_HW_RPI_PWM_NONE_CHAN);
+        prop->setInitOnly();
+        prop->checkClosedRange(ceammc_HW_RPI_PWM_NONE_CHAN, ceammc_HW_RPI_PWM_MAX_CHAN);
         this->addProperty(prop);
         return prop;
     }
