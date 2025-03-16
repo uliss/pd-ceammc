@@ -29,90 +29,95 @@
 #X text 245 496 clear PWM settings for pin. Arguments are:;
 #X obj 255 519 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 519 PIN: pin number. Type: int.;
-#X msg 110 544 input;
-#X text 245 544 config pin into input mode. Arguments are:;
-#X obj 255 567 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 567 PIN: pin number. Type: int.;
-#X msg 110 592 list_pins;
-#X text 245 592 method.;
-#X msg 110 620 output;
-#X text 245 620 config pin into output mode. Arguments are:;
-#X obj 255 643 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 643 PIN: pin number. Type: int.;
-#X msg 110 668 poll;
-#X text 245 668 start/stop pin value polling. Arguments are:;
-#X obj 255 691 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 691 PIN: pin number. Type: int.;
-#X obj 255 714 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 714 STATE: poll state. Type: bool.;
-#X obj 255 737 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 737 [DEBOUNCE=10]: debounce time. Type: float. Min value:
-0\. Units: 'ms'.;
-#X msg 110 777 pull_down;
-#X text 245 777 pull internal pin resistors to low level. Arguments
-are:;
-#X obj 255 800 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 800 PIN: pin number. Type: int.;
-#X msg 110 825 pull_up;
-#X text 245 825 pull internal pin resistors to high level. Arguments
-are:;
-#X obj 255 848 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 848 PIN: pin number. Type: int.;
-#X msg 110 873 read;
-#X text 245 873 read current pin value. Arguments are:;
-#X obj 255 896 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 896 PIN: pin number. Type: int.;
-#X msg 110 921 reset;
-#X text 245 921 reset current pin to initial state. Arguments are:;
-#X obj 255 944 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 944 PIN: pin number. Type: int.;
-#X msg 110 969 soft_pwm;
-#X text 245 969 set software PWM for pin. Arguments are:;
-#X obj 255 992 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 992 PIN: pin number. Type: int.;
-#X obj 255 1015 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1015 PERIOD: period length. Type: float. Min value: 0\.
+#X msg 110 544 impulse;
+#X text 245 544 send impulse of specified length. Arguments are:;
+#X obj 255 567 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 567 LENGTH: impulse length. Type: int. Range: 0.001\...100\.
 Units: 'ms'.;
-#X obj 255 1053 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1053 DUTY: duty length. Type: float. Min value: 0\. Units:
+#X msg 110 607 input;
+#X text 245 607 config pin into input mode. Arguments are:;
+#X obj 255 630 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 630 PIN: pin number. Type: int.;
+#X msg 110 655 list_pins;
+#X text 245 655 method.;
+#X msg 110 683 output;
+#X text 245 683 config pin into output mode. Arguments are:;
+#X obj 255 706 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 706 PIN: pin number. Type: int.;
+#X msg 110 731 poll;
+#X text 245 731 start/stop pin value polling. Arguments are:;
+#X obj 255 754 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 754 PIN: pin number. Type: int.;
+#X obj 255 777 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 777 STATE: poll state. Type: bool.;
+#X obj 255 800 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 800 [DEBOUNCE=10]: debounce time. Type: float. Min value:
+0\. Units: 'ms'.;
+#X msg 110 840 pull_down;
+#X text 245 840 pull internal pin resistors to low level. Arguments
+are:;
+#X obj 255 863 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 863 PIN: pin number. Type: int.;
+#X msg 110 888 pull_up;
+#X text 245 888 pull internal pin resistors to high level. Arguments
+are:;
+#X obj 255 911 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 911 PIN: pin number. Type: int.;
+#X msg 110 936 read;
+#X text 245 936 read current pin value. Arguments are:;
+#X obj 255 959 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 959 PIN: pin number. Type: int.;
+#X msg 110 984 reset;
+#X text 245 984 reset current pin to initial state. Arguments are:;
+#X obj 255 1007 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1007 PIN: pin number. Type: int.;
+#X msg 110 1032 soft_pwm;
+#X text 245 1032 set software PWM for pin. Arguments are:;
+#X obj 255 1055 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1055 PIN: pin number. Type: int.;
+#X obj 255 1078 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1078 PERIOD: period length. Type: float. Min value: 0\.
+Units: 'ms'.;
+#X obj 255 1116 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1116 DUTY: duty length. Type: float. Min value: 0\. Units:
 'ms'.;
-#X msg 110 1078 soft_pwm_freq;
-#X text 245 1078 set software PWM frequency for pin. Arguments are:;
-#X obj 255 1101 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1101 PIN: pin number. Type: int.;
-#X obj 255 1124 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1124 FREQ: pwm freq. Type: float. Min value: 0\. Units:
+#X msg 110 1141 soft_pwm_freq;
+#X text 245 1141 set software PWM frequency for pin. Arguments are:;
+#X obj 255 1164 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1164 PIN: pin number. Type: int.;
+#X obj 255 1187 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1187 FREQ: pwm freq. Type: float. Min value: 0\. Units:
 'Hz'.;
-#X obj 255 1147 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1147 DUTY: duty cycle length. Type: float. Range: 0\...1\.;
-#X msg 110 1172 toggle;
-#X text 245 1172 toggle output pin current value. Arguments are:;
-#X obj 255 1195 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1195 PIN: pin number. Type: int.;
-#X msg 110 1220 write;
-#X text 245 1220 write value to the pin. Arguments are:;
-#X obj 255 1243 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1243 PIN: pin number. Type: int.;
-#X obj 255 1266 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1266 VALUE: value. Type: bool.;
-#X obj 20 1301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1306 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 255 1210 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1210 DUTY: duty cycle length. Type: float. Range: 0\...1\.;
+#X msg 110 1235 toggle;
+#X text 245 1235 toggle output pin current value. Arguments are:;
+#X obj 255 1258 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1258 PIN: pin number. Type: int.;
+#X msg 110 1283 write;
+#X text 245 1283 write value to the pin. Arguments are:;
+#X obj 255 1306 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1306 PIN: pin number. Type: int.;
+#X obj 255 1329 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1329 VALUE: value. Type: bool.;
+#X obj 20 1364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1369 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1307 1\.;
-#X text 245 1307 control input.;
-#X obj 20 1337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1342 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1370 1\.;
+#X text 245 1370 control input.;
+#X obj 20 1400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1405 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1343 1\.;
-#X text 245 1343 pins state output.;
+#X text 110 1406 1\.;
+#X text 245 1406 pins state output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1393 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1396 library: ceammc v0.9.7;
-#N canvas 10 1415 400 290 info 0;
+#X obj 1 1456 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1459 library: ceammc v0.9.7;
+#N canvas 10 1478 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -136,7 +141,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1415 pd info;
+#X restore 10 1478 pd info;
 #X connect 4 0 5 0;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;
