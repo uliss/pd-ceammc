@@ -25,13 +25,15 @@
             pin</property>
             <property name="@tolerance_usec" type="int" default="200" minvalue="0" maxvalue="1000">
             absolute error tolerance in microsecons</property>
-            <property name="@proto" type="symbol" default="NEC">protocol name. You should switch off/on pollling to take effect
-            after chaning this property</property>
+            <property name="@proto" type="symbol" default="NEC">protocol name. You should switch
+            off/on pollling to take effect after chaning this property</property>
             <property name="@tolerance_perc" type="int" default="30" units="percent" minvalue="0"
             maxvalue="100">relative error tolerance</property>
         </properties>
         <inlets>
-            <inlet><xinfo>control input</xinfo></inlet>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>pressed infrared remote keys accoring to protocol</outlet>
