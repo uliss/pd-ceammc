@@ -11,7 +11,7 @@ class HwRpiPwm : public RustDispatchedObject<BaseObject> {
     IntProperty* chan_ { nullptr };
 
 public:
-    HwRpiPwm(const PdArgs& args);
+    explicit HwRpiPwm(const PdArgs& args);
     ~HwRpiPwm();
 
     void initDone() final;

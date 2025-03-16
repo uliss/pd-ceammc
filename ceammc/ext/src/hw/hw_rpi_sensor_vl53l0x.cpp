@@ -1,5 +1,5 @@
 #include "hw_rpi_sensor_vl53l0x.h"
-#include "ceammc_args.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 
 HwRpiSensorVl53l0x::HwRpiSensorVl53l0x(const PdArgs& args)
