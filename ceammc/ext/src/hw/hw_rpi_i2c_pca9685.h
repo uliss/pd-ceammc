@@ -9,6 +9,7 @@ using namespace ceammc;
 class HwI2cPca8695 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_pca9685* pwm_ { nullptr };
     IntProperty* chan_ { nullptr };
+    IntProperty* i2c_bus_ { nullptr };
 
 public:
     explicit HwI2cPca8695(const PdArgs& args);

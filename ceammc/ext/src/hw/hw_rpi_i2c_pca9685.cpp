@@ -6,6 +6,8 @@ HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
+
+    i2c_bus_ = addI2cBusProperty();
 }
 
 HwI2cPca8695::~HwI2cPca8695()
@@ -15,7 +17,7 @@ HwI2cPca8695::~HwI2cPca8695()
 
 void HwI2cPca8695::initDone()
 {
-    pwm_ = ceammc_hw_pca9685_new(1, //
+    pwm_ = ceammc_hw_pca9685_new(i2c_bus_->value(), //
         on_notify(),
         on_message());
 }
