@@ -54,14 +54,14 @@ pub struct hw_i2c {
 pub extern "C" fn ceammc_hw_i2c_new(
     addr: u8,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> *mut hw_i2c {
     rpi_check!(null_mut(), {
-        match hw_i2c::new(addr, notify, on_err) {
+        match hw_i2c::new(addr, notify, on_msg) {
             Ok(i2c) => return Box::into_raw(Box::new(i2c)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

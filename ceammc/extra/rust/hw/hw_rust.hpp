@@ -722,7 +722,7 @@ bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
 /// @param i2c - pointer to i2c struct
 void ceammc_hw_i2c_free(ceammc_hw_i2c *i2c);
 
-ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t addr, ceammc_hw_notify_cb notify, ceammc_hw_msg_cb on_err);
+ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t addr, ceammc_hw_notify_cb notify, ceammc_hw_msg_cb on_msg);
 
 void ceammc_hw_infrared_free(ceammc_hw_infrared *ir);
 
@@ -730,7 +730,7 @@ bool ceammc_hw_infrared_free_process_reply(const ceammc_hw_infrared *ir);
 
 ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
                                            ceammc_hw_notify_cb notify,
-                                           ceammc_hw_msg_cb on_err,
+                                           ceammc_hw_msg_cb on_msg,
                                            ceammc_hw_infrared_key_cb on_key);
 
 bool ceammc_hw_infrared_set_protocol(const ceammc_hw_infrared *ir, const char *proto);

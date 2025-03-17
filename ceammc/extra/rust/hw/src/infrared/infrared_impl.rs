@@ -11,10 +11,10 @@ impl hw_infrared {
     pub fn new(
         pin: u8,
         notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
         on_key: hw_infrared_key_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = InfraredWorker::new(on_err);
+        let (worker, rx, tx) = InfraredWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let gpio = Gpio::new().map_err(|err| format!("GPIO init error: {err}"))?;

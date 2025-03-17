@@ -34,7 +34,7 @@ where
 }
 
 impl hw_i2c {
-    pub fn new(addr: u8, _notify: hw_notify_cb, on_err: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(addr: u8, _notify: hw_notify_cb, on_msg: hw_msg_cb) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || -> Result<(), String> {
@@ -65,7 +65,7 @@ impl hw_i2c {
 
         Ok(hw_i2c {
             _tx: tx,
-            _on_err: on_err,
+            _on_err: on_msg,
         })
     }
 
