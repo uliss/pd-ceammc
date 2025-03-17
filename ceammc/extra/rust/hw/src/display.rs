@@ -117,7 +117,7 @@ pub struct DisplayI2cArgs {
     i2c_bus: i8,
     i2c_addr: I2cAddress,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 }
 
 #[no_mangle]
@@ -127,7 +127,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
     width: u16,
     height: u16,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
         use ssd1306::size::*;
@@ -136,7 +136,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
             i2c_bus,
             i2c_addr: I2cAddress::new(i2c_addr),
             notify,
-            on_err,
+            on_msg,
         };
 
         match match (width, height) {
@@ -150,14 +150,14 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
                 let msg = format!(
                     "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
                 );
-                on_err.error(msg.as_str());
+                on_msg.error(msg.as_str());
                 return null_mut();
             }
         } {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

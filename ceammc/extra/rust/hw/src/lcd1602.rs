@@ -4,7 +4,7 @@
 #![allow(non_camel_case_types)]
 
 use std::{
-    ffi::{c_char, CStr, CString},
+    ffi::{c_char, CString},
     ptr::null_mut,
 };
 

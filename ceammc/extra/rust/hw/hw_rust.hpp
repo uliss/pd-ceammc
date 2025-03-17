@@ -454,7 +454,7 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(int8_t i2c_bus,
                                                              uint16_t width,
                                                              uint16_t height,
                                                              ceammc_hw_notify_cb notify,
-                                                             ceammc_hw_msg_cb on_err);
+                                                             ceammc_hw_msg_cb on_msg);
 
 ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
                                                              uint8_t dc_pin,

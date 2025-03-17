@@ -182,7 +182,7 @@ impl hw_display_ssd1306 {
         args: DisplayI2cArgs,
         size: SIZE,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Ssd1306Worker::new(args.on_err);
+        let (worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
 
         worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
             let i2c = create_i2c_bus(args.i2c_bus, &tx, args.notify)?;
