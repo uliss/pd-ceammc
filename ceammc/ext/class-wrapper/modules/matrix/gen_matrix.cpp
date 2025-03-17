@@ -13,400 +13,400 @@ void matrix_setup() {
     WRAP_LIBRARY(matrix, "0.1", "matrix");
 
     // class: Matrix
-    WRAP_CLASS(Matrix, "matrix.new");
+    WRAP_CLASS(MatrixTilde, "matrix.new");
 
     // method: &Matrix::size
-    WRAP_METHOD(Matrix, "matrix.size", m_id_matrix_size,
-        SINGLE_ARG(std::vector<int>(Matrix::*)() const), SINGLE_ARG(&Matrix::size));
+    WRAP_METHOD(MatrixTilde, "matrix.size", m_id_matrix_size,
+        SINGLE_ARG(std::vector<int>(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::size));
 
     // method: &Matrix::nrows
-    WRAP_METHOD(Matrix, "matrix.nrows", m_id_matrix_nrows,
-        SINGLE_ARG(int(Matrix::*)() const), SINGLE_ARG(&Matrix::nrows));
+    WRAP_METHOD(MatrixTilde, "matrix.nrows", m_id_matrix_nrows,
+        SINGLE_ARG(int(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::nrows));
 
     // method: &Matrix::ncols
-    WRAP_METHOD(Matrix, "matrix.ncols", m_id_matrix_ncols,
-        SINGLE_ARG(int(Matrix::*)() const), SINGLE_ARG(&Matrix::ncols));
+    WRAP_METHOD(MatrixTilde, "matrix.ncols", m_id_matrix_ncols,
+        SINGLE_ARG(int(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::ncols));
 
     // method: &Matrix::diag
-    WRAP_METHOD(Matrix, "matrix.diag", m_id_matrix_diag,
-        SINGLE_ARG(Matrix(Matrix::*)(int) const), SINGLE_ARG(&Matrix::diag));
+    WRAP_METHOD(MatrixTilde, "matrix.diag", m_id_matrix_diag,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(int) const), SINGLE_ARG(&MatrixTilde::diag));
 
     // static method
-    using mtype_matrix_zeros = Matrix(*)(unsigned int, unsigned int);
-    WRAP_STATIC_METHOD(Matrix, "matrix.zeros", m_id_matrix_zeros, mtype_matrix_zeros, &Matrix::zeros);
+    using mtype_matrix_zeros = MatrixTilde(*)(unsigned int, unsigned int);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.zeros", m_id_matrix_zeros, mtype_matrix_zeros, &MatrixTilde::zeros);
 
     // method: &Matrix::zeros_like
-    WRAP_METHOD(Matrix, "matrix.zeros_like", m_id_matrix_zeros_like,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::zeros_like));
+    WRAP_METHOD(MatrixTilde, "matrix.zeros_like", m_id_matrix_zeros_like,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::zeros_like));
 
     // static method
-    using mtype_matrix_ones = Matrix(*)(unsigned int, unsigned int);
-    WRAP_STATIC_METHOD(Matrix, "matrix.ones", m_id_matrix_ones, mtype_matrix_ones, &Matrix::ones);
+    using mtype_matrix_ones = MatrixTilde(*)(unsigned int, unsigned int);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.ones", m_id_matrix_ones, mtype_matrix_ones, &MatrixTilde::ones);
 
     // method: &Matrix::ones_like
-    WRAP_METHOD(Matrix, "matrix.ones_like", m_id_matrix_ones_like,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::ones_like));
+    WRAP_METHOD(MatrixTilde, "matrix.ones_like", m_id_matrix_ones_like,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::ones_like));
 
     // static method
-    using mtype_matrix_identity = Matrix(*)(unsigned int);
-    WRAP_STATIC_METHOD(Matrix, "matrix.identity", m_id_matrix_identity, mtype_matrix_identity, &Matrix::identity);
+    using mtype_matrix_identity = MatrixTilde(*)(unsigned int);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.identity", m_id_matrix_identity, mtype_matrix_identity, &MatrixTilde::identity);
     WRAP_METHOD_ALIAS(m_id_matrix_identity, "matrix.id");
 
     // static method
-    using mtype_matrix_full = Matrix(*)(unsigned int, unsigned int, t_float);
-    WRAP_STATIC_METHOD(Matrix, "matrix.full", m_id_matrix_full, mtype_matrix_full, &Matrix::full);
+    using mtype_matrix_full = MatrixTilde(*)(unsigned int, unsigned int, t_float);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.full", m_id_matrix_full, mtype_matrix_full, &MatrixTilde::full);
 
     // method: &Matrix::fill
-    WRAP_METHOD(Matrix, "matrix.fill", m_id_matrix_fill,
-        SINGLE_ARG(Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::fill));
+    WRAP_METHOD(MatrixTilde, "matrix.fill", m_id_matrix_fill,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::fill));
 
     // static method
-    using mtype_matrix_randu = Matrix(*)(unsigned int, unsigned int);
-    WRAP_STATIC_METHOD(Matrix, "matrix.randu", m_id_matrix_randu, mtype_matrix_randu, &Matrix::randu);
+    using mtype_matrix_randu = MatrixTilde(*)(unsigned int, unsigned int);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.randu", m_id_matrix_randu, mtype_matrix_randu, &MatrixTilde::randu);
 
     // static method
-    using mtype_matrix_randn = Matrix(*)(unsigned int, unsigned int);
-    WRAP_STATIC_METHOD(Matrix, "matrix.randn", m_id_matrix_randn, mtype_matrix_randn, &Matrix::randn);
+    using mtype_matrix_randn = MatrixTilde(*)(unsigned int, unsigned int);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.randn", m_id_matrix_randn, mtype_matrix_randn, &MatrixTilde::randn);
 
     // method: &Matrix::replace
-    WRAP_METHOD(Matrix, "matrix.replace", m_id_matrix_replace,
-        SINGLE_ARG(Matrix(Matrix::*)(t_float, t_float) const), SINGLE_ARG(&Matrix::replace));
+    WRAP_METHOD(MatrixTilde, "matrix.replace", m_id_matrix_replace,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(t_float, t_float) const), SINGLE_ARG(&MatrixTilde::replace));
 
     // method: &Matrix::reshape
-    WRAP_METHOD(Matrix, "matrix.reshape", m_id_matrix_reshape,
-        SINGLE_ARG(Matrix(Matrix::*)(int, int) const), SINGLE_ARG(&Matrix::reshape));
+    WRAP_METHOD(MatrixTilde, "matrix.reshape", m_id_matrix_reshape,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(int, int) const), SINGLE_ARG(&MatrixTilde::reshape));
 
     // method: &Matrix::resize
-    WRAP_METHOD(Matrix, "matrix.resize", m_id_matrix_resize,
-        SINGLE_ARG(Matrix(Matrix::*)(int, int) const), SINGLE_ARG(&Matrix::resize));
+    WRAP_METHOD(MatrixTilde, "matrix.resize", m_id_matrix_resize,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(int, int) const), SINGLE_ARG(&MatrixTilde::resize));
 
     // method: &Matrix::col_at
-    WRAP_METHOD(Matrix, "matrix.col_at", m_id_matrix_col_at,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int) const), SINGLE_ARG(&Matrix::col_at));
+    WRAP_METHOD(MatrixTilde, "matrix.col_at", m_id_matrix_col_at,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int) const), SINGLE_ARG(&MatrixTilde::col_at));
 
     // method: &Matrix::row_at
-    WRAP_METHOD(Matrix, "matrix.row_at", m_id_matrix_row_at,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int) const), SINGLE_ARG(&Matrix::row_at));
+    WRAP_METHOD(MatrixTilde, "matrix.row_at", m_id_matrix_row_at,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int) const), SINGLE_ARG(&MatrixTilde::row_at));
 
     // method: &Matrix::insert_row
-    WRAP_METHOD(Matrix, "matrix.insert_row", m_id_matrix_insert_row,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int, const Matrix &) const), SINGLE_ARG(&Matrix::insert_row));
+    WRAP_METHOD(MatrixTilde, "matrix.insert_row", m_id_matrix_insert_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int, const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::insert_row));
 
     // method: &Matrix::insert_col
-    WRAP_METHOD(Matrix, "matrix.insert_col", m_id_matrix_insert_col,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int, const Matrix &) const), SINGLE_ARG(&Matrix::insert_col));
+    WRAP_METHOD(MatrixTilde, "matrix.insert_col", m_id_matrix_insert_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int, const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::insert_col));
 
     // method: &Matrix::remove_row
-    WRAP_METHOD(Matrix, "matrix.remove_row", m_id_matrix_remove_row,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int) const), SINGLE_ARG(&Matrix::remove_row));
+    WRAP_METHOD(MatrixTilde, "matrix.remove_row", m_id_matrix_remove_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int) const), SINGLE_ARG(&MatrixTilde::remove_row));
 
     // method: &Matrix::remove_col
-    WRAP_METHOD(Matrix, "matrix.remove_col", m_id_matrix_remove_col,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int) const), SINGLE_ARG(&Matrix::remove_col));
+    WRAP_METHOD(MatrixTilde, "matrix.remove_col", m_id_matrix_remove_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int) const), SINGLE_ARG(&MatrixTilde::remove_col));
 
     // method: &Matrix::swap_cols
-    WRAP_METHOD(Matrix, "matrix.swap_cols", m_id_matrix_swap_cols,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int, unsigned int) const), SINGLE_ARG(&Matrix::swap_cols));
+    WRAP_METHOD(MatrixTilde, "matrix.swap_cols", m_id_matrix_swap_cols,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int, unsigned int) const), SINGLE_ARG(&MatrixTilde::swap_cols));
 
     // method: &Matrix::swap_rows
-    WRAP_METHOD(Matrix, "matrix.swap_rows", m_id_matrix_swap_rows,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int, unsigned int) const), SINGLE_ARG(&Matrix::swap_rows));
+    WRAP_METHOD(MatrixTilde, "matrix.swap_rows", m_id_matrix_swap_rows,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int, unsigned int) const), SINGLE_ARG(&MatrixTilde::swap_rows));
 
     // method: &Matrix::min
-    WRAP_METHOD(Matrix, "matrix.min", m_id_matrix_min,
-        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::min));
+    WRAP_METHOD(MatrixTilde, "matrix.min", m_id_matrix_min,
+        SINGLE_ARG(t_float(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::min));
 
     // method: &Matrix::max
-    WRAP_METHOD(Matrix, "matrix.max", m_id_matrix_max,
-        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::max));
+    WRAP_METHOD(MatrixTilde, "matrix.max", m_id_matrix_max,
+        SINGLE_ARG(t_float(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::max));
 
     // method: &Matrix::transpose
-    WRAP_METHOD(Matrix, "matrix.transpose", m_id_matrix_transpose,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::transpose));
+    WRAP_METHOD(MatrixTilde, "matrix.transpose", m_id_matrix_transpose,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::transpose));
     WRAP_METHOD_ALIAS(m_id_matrix_transpose, "matrix.t");
 
     // method: &Matrix::inverse
-    WRAP_METHOD(Matrix, "matrix.inverse", m_id_matrix_inverse,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::inverse));
+    WRAP_METHOD(MatrixTilde, "matrix.inverse", m_id_matrix_inverse,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::inverse));
     WRAP_METHOD_ALIAS(m_id_matrix_inverse, "matrix.-1");
 
     // method: &Matrix::rank
-    WRAP_METHOD(Matrix, "matrix.rank", m_id_matrix_rank,
-        SINGLE_ARG(int(Matrix::*)() const), SINGLE_ARG(&Matrix::rank));
+    WRAP_METHOD(MatrixTilde, "matrix.rank", m_id_matrix_rank,
+        SINGLE_ARG(int(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::rank));
 
     // method: &Matrix::add
-    WRAP_METHOD(Matrix, "matrix.add", m_id_matrix_add,
-        SINGLE_ARG(Matrix(Matrix::*)(t_float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::add, &Matrix::add));
+    WRAP_METHOD(MatrixTilde, "matrix.add", m_id_matrix_add,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(t_float) const, MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::add, &MatrixTilde::add));
     WRAP_METHOD_ALIAS(m_id_matrix_add, "matrix.+");
 
     // method: &Matrix::sub
-    WRAP_METHOD(Matrix, "matrix.sub", m_id_matrix_sub,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::sub, &Matrix::sub));
+    WRAP_METHOD(MatrixTilde, "matrix.sub", m_id_matrix_sub,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const, MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::sub, &MatrixTilde::sub));
     WRAP_METHOD_ALIAS(m_id_matrix_sub, "matrix.-");
 
     // method: &Matrix::mul
-    WRAP_METHOD(Matrix, "matrix.mul", m_id_matrix_mul,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::mul, &Matrix::mul));
+    WRAP_METHOD(MatrixTilde, "matrix.mul", m_id_matrix_mul,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const, MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::mul, &MatrixTilde::mul));
     WRAP_METHOD_ALIAS(m_id_matrix_mul, "matrix.*");
 
     // method: &Matrix::div
-    WRAP_METHOD(Matrix, "matrix.div", m_id_matrix_div,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::div, &Matrix::div));
+    WRAP_METHOD(MatrixTilde, "matrix.div", m_id_matrix_div,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const, MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::div, &MatrixTilde::div));
     WRAP_METHOD_ALIAS(m_id_matrix_div, "matrix./");
 
     // method: &Matrix::matmul
-    WRAP_METHOD(Matrix, "matrix.matmul", m_id_matrix_matmul,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::matmul));
+    WRAP_METHOD(MatrixTilde, "matrix.matmul", m_id_matrix_matmul,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::matmul));
     WRAP_METHOD_ALIAS(m_id_matrix_matmul, "matrix.dot");
 
     // method: &Matrix::shift_col
-    WRAP_METHOD(Matrix, "matrix.shift_col", m_id_matrix_shift_col,
-        SINGLE_ARG(Matrix(Matrix::*)(int) const), SINGLE_ARG(&Matrix::shift_col));
+    WRAP_METHOD(MatrixTilde, "matrix.shift_col", m_id_matrix_shift_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(int) const), SINGLE_ARG(&MatrixTilde::shift_col));
 
     // method: &Matrix::shift_row
-    WRAP_METHOD(Matrix, "matrix.shift_row", m_id_matrix_shift_row,
-        SINGLE_ARG(Matrix(Matrix::*)(int) const), SINGLE_ARG(&Matrix::shift_row));
+    WRAP_METHOD(MatrixTilde, "matrix.shift_row", m_id_matrix_shift_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(int) const), SINGLE_ARG(&MatrixTilde::shift_row));
     WRAP_METHOD_ALIAS(m_id_matrix_shift_row, "matrix.>>");
 
     // method: &Matrix::toList
-    WRAP_METHOD(Matrix, "matrix.to_list", m_id_matrix_tolist,
-        SINGLE_ARG(std::tuple<std::vector<t_float>, std::vector<t_float> >(Matrix::*)() const), SINGLE_ARG(&Matrix::toList));
+    WRAP_METHOD(MatrixTilde, "matrix.to_list", m_id_matrix_tolist,
+        SINGLE_ARG(std::tuple<std::vector<t_float>, std::vector<t_float> >(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::toList));
     WRAP_METHOD_ALIAS(m_id_matrix_tolist, "matrix->list");
 
     // method: &Matrix::solve
-    WRAP_METHOD(Matrix, "matrix.solve", m_id_matrix_solve,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::solve));
+    WRAP_METHOD(MatrixTilde, "matrix.solve", m_id_matrix_solve,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::solve));
 
     // method: &Matrix::conv2
-    WRAP_METHOD(Matrix, "matrix.conv2", m_id_matrix_conv2,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::conv2));
+    WRAP_METHOD(MatrixTilde, "matrix.conv2", m_id_matrix_conv2,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::conv2));
 
     // method: &Matrix::gt
-    WRAP_METHOD(Matrix, "matrix.gt", m_id_matrix_gt,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::gt, &Matrix::gt));
+    WRAP_METHOD(MatrixTilde, "matrix.gt", m_id_matrix_gt,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const, MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::gt, &MatrixTilde::gt));
     WRAP_METHOD_ALIAS(m_id_matrix_gt, "matrix.>");
 
     // method: &Matrix::ge
-    WRAP_METHOD(Matrix, "matrix.ge", m_id_matrix_ge,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::ge, &Matrix::ge));
+    WRAP_METHOD(MatrixTilde, "matrix.ge", m_id_matrix_ge,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const, MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::ge, &MatrixTilde::ge));
     WRAP_METHOD_ALIAS(m_id_matrix_ge, "matrix.>=");
 
     // method: &Matrix::le
-    WRAP_METHOD(Matrix, "matrix.le", m_id_matrix_le,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::le, &Matrix::le));
+    WRAP_METHOD(MatrixTilde, "matrix.le", m_id_matrix_le,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const, MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::le, &MatrixTilde::le));
     WRAP_METHOD_ALIAS(m_id_matrix_le, "matrix.<=");
 
     // method: &Matrix::lt
-    WRAP_METHOD(Matrix, "matrix.lt", m_id_matrix_lt,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::lt, &Matrix::lt));
+    WRAP_METHOD(MatrixTilde, "matrix.lt", m_id_matrix_lt,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const, MatrixTilde(MatrixTilde::*)(t_float) const), SINGLE_ARG(&MatrixTilde::lt, &MatrixTilde::lt));
     WRAP_METHOD_ALIAS(m_id_matrix_lt, "matrix.<");
 
     // method: &Matrix::eq
-    WRAP_METHOD(Matrix, "matrix.eq", m_id_matrix_eq,
-        SINGLE_ARG(Matrix(Matrix::*)(t_float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::eq, &Matrix::eq));
+    WRAP_METHOD(MatrixTilde, "matrix.eq", m_id_matrix_eq,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(t_float) const, MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::eq, &MatrixTilde::eq));
     WRAP_METHOD_ALIAS(m_id_matrix_eq, "matrix.==");
 
     // method: &Matrix::ne
-    WRAP_METHOD(Matrix, "matrix.ne", m_id_matrix_ne,
-        SINGLE_ARG(Matrix(Matrix::*)(t_float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::ne, &Matrix::ne));
+    WRAP_METHOD(MatrixTilde, "matrix.ne", m_id_matrix_ne,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(t_float) const, MatrixTilde(MatrixTilde::*)(const MatrixTilde &) const), SINGLE_ARG(&MatrixTilde::ne, &MatrixTilde::ne));
     WRAP_METHOD_ALIAS(m_id_matrix_ne, "matrix.!=");
 
     // static method
-    using mtype_matrix_load = Matrix(*)(const std::string &);
-    WRAP_STATIC_METHOD(Matrix, "matrix.load", m_id_matrix_load, mtype_matrix_load, &Matrix::load);
+    using mtype_matrix_load = MatrixTilde(*)(const std::string &);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.load", m_id_matrix_load, mtype_matrix_load, &MatrixTilde::load);
 
     // method: &Matrix::save
-    WRAP_METHOD(Matrix, "matrix.save", m_id_matrix_save,
-        SINGLE_ARG(Matrix(Matrix::*)(const std::string &) const), SINGLE_ARG(&Matrix::save));
+    WRAP_METHOD(MatrixTilde, "matrix.save", m_id_matrix_save,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(const std::string &) const), SINGLE_ARG(&MatrixTilde::save));
 
     // static method
-    using mtype_matrix_fromlist = Matrix(*)(const std::vector<t_float> &);
-    WRAP_STATIC_METHOD(Matrix, "matrix.from_list", m_id_matrix_fromlist, mtype_matrix_fromlist, &Matrix::fromList);
+    using mtype_matrix_fromlist = MatrixTilde(*)(const std::vector<t_float> &);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.from_list", m_id_matrix_fromlist, mtype_matrix_fromlist, &MatrixTilde::fromList);
     WRAP_METHOD_ALIAS(m_id_matrix_fromlist, "list->matrix");
 
     // static method
-    using mtype_matrix_col = Matrix(*)(const std::vector<t_float> &);
-    WRAP_STATIC_METHOD(Matrix, "matrix.col", m_id_matrix_col, mtype_matrix_col, &Matrix::col);
+    using mtype_matrix_col = MatrixTilde(*)(const std::vector<t_float> &);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.col", m_id_matrix_col, mtype_matrix_col, &MatrixTilde::col);
 
     // static method
-    using mtype_matrix_row = Matrix(*)(const std::vector<t_float> &);
-    WRAP_STATIC_METHOD(Matrix, "matrix.row", m_id_matrix_row, mtype_matrix_row, &Matrix::row);
+    using mtype_matrix_row = MatrixTilde(*)(const std::vector<t_float> &);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.row", m_id_matrix_row, mtype_matrix_row, &MatrixTilde::row);
 
     // static method
-    using mtype_matrix_linspace = Matrix(*)(t_float, t_float, unsigned int);
-    WRAP_STATIC_METHOD(Matrix, "matrix.linspace", m_id_matrix_linspace, mtype_matrix_linspace, &Matrix::linspace);
+    using mtype_matrix_linspace = MatrixTilde(*)(t_float, t_float, unsigned int);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.linspace", m_id_matrix_linspace, mtype_matrix_linspace, &MatrixTilde::linspace);
 
     // static method
-    using mtype_matrix_logspace = Matrix(*)(t_float, t_float, unsigned int);
-    WRAP_STATIC_METHOD(Matrix, "matrix.logspace", m_id_matrix_logspace, mtype_matrix_logspace, &Matrix::logspace);
+    using mtype_matrix_logspace = MatrixTilde(*)(t_float, t_float, unsigned int);
+    WRAP_STATIC_METHOD(MatrixTilde, "matrix.logspace", m_id_matrix_logspace, mtype_matrix_logspace, &MatrixTilde::logspace);
 
     // method: &Matrix::abs
-    WRAP_METHOD(Matrix, "matrix.abs", m_id_matrix_abs,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::abs));
+    WRAP_METHOD(MatrixTilde, "matrix.abs", m_id_matrix_abs,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::abs));
 
     // method: &Matrix::accu
-    WRAP_METHOD(Matrix, "matrix.accu", m_id_matrix_accu,
-        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::accu));
+    WRAP_METHOD(MatrixTilde, "matrix.accu", m_id_matrix_accu,
+        SINGLE_ARG(t_float(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::accu));
 
     // method: &Matrix::all
-    WRAP_METHOD(Matrix, "matrix.all", m_id_matrix_all,
-        SINGLE_ARG(bool(Matrix::*)() const), SINGLE_ARG(&Matrix::all));
+    WRAP_METHOD(MatrixTilde, "matrix.all", m_id_matrix_all,
+        SINGLE_ARG(bool(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::all));
 
     // method: &Matrix::all_col
-    WRAP_METHOD(Matrix, "matrix.all_col", m_id_matrix_all_col,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::all_col));
+    WRAP_METHOD(MatrixTilde, "matrix.all_col", m_id_matrix_all_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::all_col));
 
     // method: &Matrix::all_row
-    WRAP_METHOD(Matrix, "matrix.all_row", m_id_matrix_all_row,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::all_row));
+    WRAP_METHOD(MatrixTilde, "matrix.all_row", m_id_matrix_all_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::all_row));
 
     // method: &Matrix::any
-    WRAP_METHOD(Matrix, "matrix.any", m_id_matrix_any,
-        SINGLE_ARG(bool(Matrix::*)() const), SINGLE_ARG(&Matrix::any));
+    WRAP_METHOD(MatrixTilde, "matrix.any", m_id_matrix_any,
+        SINGLE_ARG(bool(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::any));
 
     // method: &Matrix::any_col
-    WRAP_METHOD(Matrix, "matrix.any_col", m_id_matrix_any_col,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::any_col));
+    WRAP_METHOD(MatrixTilde, "matrix.any_col", m_id_matrix_any_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::any_col));
 
     // method: &Matrix::any_row
-    WRAP_METHOD(Matrix, "matrix.any_row", m_id_matrix_any_row,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::any_row));
+    WRAP_METHOD(MatrixTilde, "matrix.any_row", m_id_matrix_any_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::any_row));
 
     // method: &Matrix::clip
-    WRAP_METHOD(Matrix, "matrix.clip", m_id_matrix_clip,
-        SINGLE_ARG(Matrix(Matrix::*)(t_float, t_float) const), SINGLE_ARG(&Matrix::clip));
+    WRAP_METHOD(MatrixTilde, "matrix.clip", m_id_matrix_clip,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(t_float, t_float) const), SINGLE_ARG(&MatrixTilde::clip));
 
     // method: &Matrix::det
-    WRAP_METHOD(Matrix, "matrix.det", m_id_matrix_det,
-        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::det));
+    WRAP_METHOD(MatrixTilde, "matrix.det", m_id_matrix_det,
+        SINGLE_ARG(t_float(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::det));
 
     // method: &Matrix::mean
-    WRAP_METHOD(Matrix, "matrix.mean", m_id_matrix_mean,
-        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::mean));
+    WRAP_METHOD(MatrixTilde, "matrix.mean", m_id_matrix_mean,
+        SINGLE_ARG(t_float(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::mean));
 
     // method: &Matrix::mean_col
-    WRAP_METHOD(Matrix, "matrix.mean_col", m_id_matrix_mean_col,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::mean_col));
+    WRAP_METHOD(MatrixTilde, "matrix.mean_col", m_id_matrix_mean_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::mean_col));
 
     // method: &Matrix::mean_row
-    WRAP_METHOD(Matrix, "matrix.mean_row", m_id_matrix_mean_row,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::mean_row));
+    WRAP_METHOD(MatrixTilde, "matrix.mean_row", m_id_matrix_mean_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::mean_row));
 
     // method: &Matrix::median
-    WRAP_METHOD(Matrix, "matrix.median", m_id_matrix_median,
-        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::median));
+    WRAP_METHOD(MatrixTilde, "matrix.median", m_id_matrix_median,
+        SINGLE_ARG(t_float(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::median));
 
     // method: &Matrix::median_col
-    WRAP_METHOD(Matrix, "matrix.median_col", m_id_matrix_median_col,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::median_col));
+    WRAP_METHOD(MatrixTilde, "matrix.median_col", m_id_matrix_median_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::median_col));
 
     // method: &Matrix::median_row
-    WRAP_METHOD(Matrix, "matrix.median_row", m_id_matrix_median_row,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::median_row));
+    WRAP_METHOD(MatrixTilde, "matrix.median_row", m_id_matrix_median_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::median_row));
 
     // method: &Matrix::stddev
-    WRAP_METHOD(Matrix, "matrix.stddev", m_id_matrix_stddev,
-        SINGLE_ARG(t_float(Matrix::*)(bool) const), SINGLE_ARG(&Matrix::stddev));
+    WRAP_METHOD(MatrixTilde, "matrix.stddev", m_id_matrix_stddev,
+        SINGLE_ARG(t_float(MatrixTilde::*)(bool) const), SINGLE_ARG(&MatrixTilde::stddev));
 
     // method: &Matrix::stddev_col
-    WRAP_METHOD(Matrix, "matrix.stddev_col", m_id_matrix_stddev_col,
-        SINGLE_ARG(Matrix(Matrix::*)(bool) const), SINGLE_ARG(&Matrix::stddev_col));
+    WRAP_METHOD(MatrixTilde, "matrix.stddev_col", m_id_matrix_stddev_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(bool) const), SINGLE_ARG(&MatrixTilde::stddev_col));
 
     // method: &Matrix::stddev_row
-    WRAP_METHOD(Matrix, "matrix.stddev_row", m_id_matrix_stddev_row,
-        SINGLE_ARG(Matrix(Matrix::*)(bool) const), SINGLE_ARG(&Matrix::stddev_row));
+    WRAP_METHOD(MatrixTilde, "matrix.stddev_row", m_id_matrix_stddev_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(bool) const), SINGLE_ARG(&MatrixTilde::stddev_row));
 
     // method: &Matrix::range
-    WRAP_METHOD(Matrix, "matrix.range", m_id_matrix_range,
-        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::range));
+    WRAP_METHOD(MatrixTilde, "matrix.range", m_id_matrix_range,
+        SINGLE_ARG(t_float(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::range));
 
     // method: &Matrix::range_col
-    WRAP_METHOD(Matrix, "matrix.range_col", m_id_matrix_range_col,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::range_col));
+    WRAP_METHOD(MatrixTilde, "matrix.range_col", m_id_matrix_range_col,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::range_col));
 
     // method: &Matrix::range_row
-    WRAP_METHOD(Matrix, "matrix.range_row", m_id_matrix_range_row,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::range_row));
+    WRAP_METHOD(MatrixTilde, "matrix.range_row", m_id_matrix_range_row,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::range_row));
 
     // method: &Matrix::hist
-    WRAP_METHOD(Matrix, "matrix.hist", m_id_matrix_hist,
-        SINGLE_ARG(Matrix(Matrix::*)(unsigned int) const), SINGLE_ARG(&Matrix::hist));
+    WRAP_METHOD(MatrixTilde, "matrix.hist", m_id_matrix_hist,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(unsigned int) const), SINGLE_ARG(&MatrixTilde::hist));
 
     // method: &Matrix::exp
-    WRAP_METHOD(Matrix, "matrix.exp", m_id_matrix_exp,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::exp));
+    WRAP_METHOD(MatrixTilde, "matrix.exp", m_id_matrix_exp,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::exp));
 
     // method: &Matrix::exp2
-    WRAP_METHOD(Matrix, "matrix.exp2", m_id_matrix_exp2,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::exp2));
+    WRAP_METHOD(MatrixTilde, "matrix.exp2", m_id_matrix_exp2,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::exp2));
 
     // method: &Matrix::exp10
-    WRAP_METHOD(Matrix, "matrix.exp10", m_id_matrix_exp10,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::exp10));
+    WRAP_METHOD(MatrixTilde, "matrix.exp10", m_id_matrix_exp10,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::exp10));
 
     // method: &Matrix::trunc_exp
-    WRAP_METHOD(Matrix, "matrix.trunc_exp", m_id_matrix_trunc_exp,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::trunc_exp));
+    WRAP_METHOD(MatrixTilde, "matrix.trunc_exp", m_id_matrix_trunc_exp,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::trunc_exp));
 
     // method: &Matrix::sign
-    WRAP_METHOD(Matrix, "matrix.sign", m_id_matrix_sign,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::sign));
+    WRAP_METHOD(MatrixTilde, "matrix.sign", m_id_matrix_sign,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::sign));
 
     // method: &Matrix::sin
-    WRAP_METHOD(Matrix, "matrix.sin", m_id_matrix_sin,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::sin));
+    WRAP_METHOD(MatrixTilde, "matrix.sin", m_id_matrix_sin,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::sin));
 
     // method: &Matrix::asin
-    WRAP_METHOD(Matrix, "matrix.asin", m_id_matrix_asin,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::asin));
+    WRAP_METHOD(MatrixTilde, "matrix.asin", m_id_matrix_asin,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::asin));
 
     // method: &Matrix::sinh
-    WRAP_METHOD(Matrix, "matrix.sinh", m_id_matrix_sinh,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::sinh));
+    WRAP_METHOD(MatrixTilde, "matrix.sinh", m_id_matrix_sinh,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::sinh));
 
     // method: &Matrix::asinh
-    WRAP_METHOD(Matrix, "matrix.asinh", m_id_matrix_asinh,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::asinh));
+    WRAP_METHOD(MatrixTilde, "matrix.asinh", m_id_matrix_asinh,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::asinh));
 
     // method: &Matrix::cos
-    WRAP_METHOD(Matrix, "matrix.cos", m_id_matrix_cos,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::cos));
+    WRAP_METHOD(MatrixTilde, "matrix.cos", m_id_matrix_cos,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::cos));
 
     // method: &Matrix::acos
-    WRAP_METHOD(Matrix, "matrix.acos", m_id_matrix_acos,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::acos));
+    WRAP_METHOD(MatrixTilde, "matrix.acos", m_id_matrix_acos,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::acos));
 
     // method: &Matrix::cosh
-    WRAP_METHOD(Matrix, "matrix.cosh", m_id_matrix_cosh,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::cosh));
+    WRAP_METHOD(MatrixTilde, "matrix.cosh", m_id_matrix_cosh,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::cosh));
 
     // method: &Matrix::acosh
-    WRAP_METHOD(Matrix, "matrix.acosh", m_id_matrix_acosh,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::acosh));
+    WRAP_METHOD(MatrixTilde, "matrix.acosh", m_id_matrix_acosh,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::acosh));
 
     // method: &Matrix::tan
-    WRAP_METHOD(Matrix, "matrix.tan", m_id_matrix_tan,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::tan));
+    WRAP_METHOD(MatrixTilde, "matrix.tan", m_id_matrix_tan,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::tan));
 
     // method: &Matrix::atan
-    WRAP_METHOD(Matrix, "matrix.atan", m_id_matrix_atan,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::atan));
+    WRAP_METHOD(MatrixTilde, "matrix.atan", m_id_matrix_atan,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::atan));
 
     // method: &Matrix::tanh
-    WRAP_METHOD(Matrix, "matrix.tanh", m_id_matrix_tanh,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::tanh));
+    WRAP_METHOD(MatrixTilde, "matrix.tanh", m_id_matrix_tanh,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::tanh));
 
     // method: &Matrix::atanh
-    WRAP_METHOD(Matrix, "matrix.atanh", m_id_matrix_atanh,
-        SINGLE_ARG(Matrix(Matrix::*)() const), SINGLE_ARG(&Matrix::atanh));
+    WRAP_METHOD(MatrixTilde, "matrix.atanh", m_id_matrix_atanh,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)() const), SINGLE_ARG(&MatrixTilde::atanh));
 
     // method: &Matrix::vectorise
-    WRAP_METHOD(Matrix, "matrix.vectorise", m_id_matrix_vectorise,
-        SINGLE_ARG(Matrix(Matrix::*)(bool) const), SINGLE_ARG(&Matrix::vectorise));
+    WRAP_METHOD(MatrixTilde, "matrix.vectorise", m_id_matrix_vectorise,
+        SINGLE_ARG(MatrixTilde(MatrixTilde::*)(bool) const), SINGLE_ARG(&MatrixTilde::vectorise));
 
     // method: &Matrix::at
-    WRAP_METHOD(Matrix, "matrix.at", m_id_matrix_at,
-        SINGLE_ARG(t_float(Matrix::*)(unsigned int, unsigned int) const), SINGLE_ARG(&Matrix::at));
+    WRAP_METHOD(MatrixTilde, "matrix.at", m_id_matrix_at,
+        SINGLE_ARG(t_float(MatrixTilde::*)(unsigned int, unsigned int) const), SINGLE_ARG(&MatrixTilde::at));
 
 }
 }

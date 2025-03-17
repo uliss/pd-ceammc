@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef MATRIX_TILDE_H
+#define MATRIX_TILDE_H
 
 #include "ceammc_signal.h"
 #include "ceammc_sound_external.h"
@@ -25,13 +25,13 @@ using SmoothLin = SmoothLinT<t_float>;
 using SmoothMatrix = boost::multi_array<SmoothLin, 2>;
 using DSPBlock = std::vector<t_sample>;
 
-class Matrix : public SoundExternal {
+class MatrixTilde : public SoundExternal {
     IntProperty *nouts_ { nullptr }, *nins_ { nullptr };
     SmoothMatrix matrix_;
     std::vector<DSPBlock> blocks_;
 
 public:
-    Matrix(const PdArgs& args);
+    MatrixTilde(const PdArgs& args);
     void initDone() final;
 
     void processBlock(const t_sample** in, t_sample** out) override;
@@ -40,6 +40,6 @@ public:
     void m_cell(t_symbol* s, const AtomListView& lv);
 };
 
-void setup_base_matrix();
+void setup_base_matrix_tilde();
 
-#endif // MATRIX_H
+#endif // MATRIX_TILDE_H

@@ -73,7 +73,8 @@ list(APPEND BASE_SOURCES
     base_split_tilde.cpp
     base_z_tilde.cpp
     gain.cpp
-    matrix.cpp
+    matrix_tilde.h
+    matrix_tilde.cpp
     mix.cpp
     nsig_tilde.cpp
     snd_play_tilde.cpp
@@ -90,7 +91,8 @@ if(RAGEL_FOUND)
 endif()
 
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES}
-    base_bitmap.h base_bitmap.cpp)
+    base_bitmap.h base_bitmap.cpp
+)
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
 target_include_directories(ceammc_base

@@ -101,7 +101,7 @@ void ceammc_base_setup()
     setup_base_function();
     setup_base_gate_tilde();
     setup_base_log();
-    setup_base_matrix();
+    setup_base_matrix_tilde();
     setup_base_merge_tilde();
     setup_base_mix();
     setup_base_msg();

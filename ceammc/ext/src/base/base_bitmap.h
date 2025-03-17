@@ -59,7 +59,7 @@ public:
     void m_set(t_symbol* s, const AtomListView& lv);
 
 private:
-    std::vector<std::uint8_t> listToBytes(const AtomListView& data);
+    static std::vector<std::uint8_t> listToBytes(const AtomListView& data);
 
     void outputSubmatrix(t_symbol* s, const AtomListView& lv);
     void setList(const AtomListView& lv);

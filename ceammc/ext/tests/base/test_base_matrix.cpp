@@ -15,7 +15,7 @@
 #include "test_external.h"
 #include "test_sound.h"
 
-PD_COMPLETE_SND_TEST_SETUP(Matrix, base, matrix)
+PD_COMPLETE_SND_TEST_SETUP(MatrixTilde, base, matrix)
 
 TEST_CASE("matrix~", "[externals]")
 {

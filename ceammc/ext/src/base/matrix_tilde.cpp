@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "matrix.h"
+#include "matrix_tilde.h"
 #include "ceammc_factory.h"
 
 constexpr size_t DEFAULT_INS = 2;
@@ -21,7 +21,7 @@ constexpr size_t DEFAULT_OUTS = DEFAULT_INS;
 constexpr size_t MIN_OUTS = MIN_INS;
 constexpr size_t MAX_OUTS = MAX_INS;
 
-Matrix::Matrix(const PdArgs& args)
+MatrixTilde::MatrixTilde(const PdArgs& args)
     : SoundExternal(args)
 {
     nins_ = new IntProperty("@inputs", DEFAULT_INS, PropValueAccess::INITONLY);
@@ -36,7 +36,7 @@ Matrix::Matrix(const PdArgs& args)
     addProperty(nouts_);
 }
 
-void Matrix::initDone()
+void MatrixTilde::initDone()
 {
     auto NIN = nins_->value();
     auto NOUT = nouts_->value();
@@ -51,7 +51,7 @@ void Matrix::initDone()
     blocks_.assign(NOUT, DSPBlock(64, 0));
 }
 
-void Matrix::processBlock(const t_sample** in, t_sample** out)
+void MatrixTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t NIN = nins_->value();
     const size_t NOUT = nouts_->value();
@@ -79,7 +79,7 @@ void Matrix::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void Matrix::setupDSP(t_signal** in)
+void MatrixTilde::setupDSP(t_signal** in)
 {
     SoundExternal::setupDSP(in);
     const size_t BS = blockSize();
@@ -88,7 +88,7 @@ void Matrix::setupDSP(t_signal** in)
         b.resize(BS, 0);
 }
 
-void Matrix::m_cell(t_symbol* s, const AtomListView& lv)
+void MatrixTilde::m_cell(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_NATURAL, ARG_NATURAL, ARG_NATURAL, s))
         return;
@@ -118,10 +118,10 @@ void Matrix::m_cell(t_symbol* s, const AtomListView& lv)
     matrix_[cell_row][cell_col].setTargetValue(cell_val ? 1 : 0);
 }
 
-void setup_base_matrix()
+void setup_base_matrix_tilde()
 {
-    SoundExternalFactory<Matrix> obj("matrix~");
-    obj.addMethod("cell", &Matrix::m_cell);
+    SoundExternalFactory<MatrixTilde> obj("matrix~");
+    obj.addMethod("cell", &MatrixTilde::m_cell);
 
     obj.setDescription("signal routing matrix");
     obj.addAuthor("Serge Poltavsky");
