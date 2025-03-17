@@ -922,7 +922,8 @@ bool ceammc_hw_pca9685_enable(const ceammc_hw_pca9685 *pwm, bool state);
 
 void ceammc_hw_pca9685_free(ceammc_hw_pca9685 *pwm);
 
-ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t bus,
+ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_msg);
 

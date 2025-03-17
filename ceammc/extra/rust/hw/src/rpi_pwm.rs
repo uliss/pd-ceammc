@@ -36,7 +36,7 @@ pub enum Reply {
 type PwmWorker = HwThreadWorker<Request, Reply>;
 
 pub struct hw_rpi_pwm {
-    worker: PwmWorker
+    worker: PwmWorker,
 }
 
 #[derive(Debug)]

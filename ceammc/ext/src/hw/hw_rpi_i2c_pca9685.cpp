@@ -18,7 +18,8 @@ HwI2cPca8695::~HwI2cPca8695()
 
 void HwI2cPca8695::initDone()
 {
-    pwm_ = ceammc_hw_pca9685_new(i2c_bus_->value(), //
+    pwm_ = ceammc_hw_pca9685_new(i2c_bus_->value(),
+        i2c_addr_->value(),
         on_notify(),
         on_message());
 }
