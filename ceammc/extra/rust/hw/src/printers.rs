@@ -136,7 +136,7 @@ pub extern "C" fn ceammc_hw_print_file(
     printer: *const c_char,
     path: *const c_char,
     opts: *const hw_print_options,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
     on_debug: hw_msg_cb,
 ) -> i32 {
     let path = unsafe { CStr::from_ptr(path).to_str().unwrap_or_default() };
@@ -148,12 +148,12 @@ pub extern "C" fn ceammc_hw_print_file(
 
     #[cfg(feature = "cups")]
     {
-        return crate::printers_cups::print_file(printer, path, &opts, on_err, on_debug);
+        return crate::printers_cups::print_file(printer, path, &opts, on_msg, on_debug);
     }
 
     #[cfg(target_os = "windows")]
     {
-        return crate::printers_win::print_file(printer, path, &opts, on_err, on_debug);
+        return crate::printers_win::print_file(printer, path, &opts, on_msg, on_debug);
     }
 
     #[allow(unreachable_code)]
