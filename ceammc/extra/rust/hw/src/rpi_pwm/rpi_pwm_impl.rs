@@ -126,7 +126,7 @@ impl hw_rpi_pwm {
         Ok(Self { worker })
     }
 
-    pub fn send_ptr(pwm: *const Self, req: Request) -> bool {
+    pub fn send_request_ptr(pwm: *const Self, req: Request) -> bool {
         if pwm.is_null() {
             error!("NULL pwm pointer");
             return false;
@@ -136,7 +136,7 @@ impl hw_rpi_pwm {
         pwm.worker.send_request(req)
     }
 
-    pub fn process_reply(pwm: *const Self) -> bool {
+    pub fn process_reply_ptr(pwm: *const Self) -> bool {
         if pwm.is_null() {
             error!("NULL pwm pointer");
             return false;
