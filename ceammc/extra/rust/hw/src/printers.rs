@@ -148,7 +148,7 @@ pub extern "C" fn ceammc_hw_print_file(
 
     #[cfg(feature = "cups")]
     {
-        return crate::printers_cups::print_file(printer, path, &opts, on_msg, on_debug);
+        return crate::printers_cups::print_file(printer, path, &opts, on_msg);
     }
 
     #[cfg(target_os = "windows")]
