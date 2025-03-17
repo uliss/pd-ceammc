@@ -555,11 +555,11 @@ bool ceammc_hw_gpio_dht11_measure(const ceammc_hw_gpio_dht11 *dht);
 /// create new DHT11 sensor struct
 /// @param pin - connected GPIO pin
 /// @param notify - data check callback
-/// @param on_err - error message callback
+/// @param on_msg - message callback
 /// @param on_data - data callback
 ceammc_hw_gpio_dht11 *ceammc_hw_gpio_dht11_new(uint8_t pin,
                                                ceammc_hw_notify_cb notify,
-                                               ceammc_hw_msg_cb on_err,
+                                               ceammc_hw_msg_cb on_msg,
                                                ceammc_hw_dht11_cb on_data);
 
 /// poll request
@@ -685,12 +685,12 @@ bool ceammc_hw_gpio_sr04_measure(const ceammc_hw_gpio_sr04 *sr04);
 /// @param trigger_pin - connected GPIO pin
 /// @param trigger_pin - connected GPIO pin
 /// @param notify - data check callback
-/// @param on_err - error message callback
+/// @param on_msg - error message callback
 /// @param on_data - data callback
 ceammc_hw_gpio_sr04 *ceammc_hw_gpio_sr04_new(uint8_t trigger_pin,
                                              uint8_t echo_pin,
                                              ceammc_hw_notify_cb notify,
-                                             ceammc_hw_msg_cb on_err,
+                                             ceammc_hw_msg_cb on_msg,
                                              ceammc_hw_sr04_cb on_data);
 
 /// set polling in cycle
@@ -808,7 +808,7 @@ bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, int32_t addr, uint8_t in
 /// @param spi - RPi SPI bus
 /// @param cs - RPi chip select
 /// @param notify - notify callback
-/// @param on_err - error callback
+/// @param on_msg - message callback
 /// @return pointer to max7219 on NULL on error
 ///
 /// @note The Raspberry Pi’s GPIO header exposes several SPI buses.
@@ -820,12 +820,14 @@ ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t num_displays,
                                          ceammc_hw_spi_bus spi,
                                          ceammc_hw_spi_cs cs,
                                          ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_err);
+                                         ceammc_hw_msg_cb on_msg);
 
 /// set max7219 power on/off
 /// @param max7219 - pointer to max7219 struct
 /// @param state
 bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
+
+bool ceammc_hw_max7219_process_reply(ceammc_hw_max7219 *mx);
 
 /// test max7219 display
 /// @param max7219 - pointer to max7219 struct

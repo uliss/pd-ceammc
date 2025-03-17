@@ -25,8 +25,8 @@ HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
     displays_->setArgIndex(0);
     addProperty(displays_);
 
-    spi_ = addSpiBusProperty();
-    cs_ = addSpiCsProperty();
+    spi_bus_ = addSpiBusProperty();
+    spi_cs_ = addSpiCsProperty();
 }
 
 HwSpiMax7219::~HwSpiMax7219()
@@ -37,15 +37,15 @@ HwSpiMax7219::~HwSpiMax7219()
 void HwSpiMax7219::initDone()
 {
     mx_ = ceammc_hw_max7219_new(displays_->value(),
-        static_cast<ceammc_hw_spi_bus>(spi_->value()),
-        static_cast<ceammc_hw_spi_cs>(cs_->value()),
+        static_cast<ceammc_hw_spi_bus>(spi_bus_->value()),
+        static_cast<ceammc_hw_spi_cs>(spi_cs_->value()),
         on_notify(),
         on_message());
 }
 
 bool HwSpiMax7219::notify(int code)
 {
-    return true;
+    return ceammc_hw_max7219_process_reply(mx_);
 }
 
 void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)

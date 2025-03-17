@@ -92,7 +92,7 @@ impl hw_gpio {
         gp.worker.send_request(req)
     }
 
-    pub fn process_ptr(gp: *mut hw_gpio) -> bool {
+    pub fn process_reply_ptr(gp: *mut hw_gpio) -> bool {
         if gp.is_null() {
             log::error!("NULL gpio pointer");
             return false;

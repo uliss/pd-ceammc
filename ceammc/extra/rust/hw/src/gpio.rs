@@ -137,7 +137,7 @@ pub extern "C" fn ceammc_hw_gpio_free(gpio: *mut hw_gpio) {
 /// @param gp - pointer to gpio struct
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_process_events(gp: *mut hw_gpio) {
-    rpi_check!((), { hw_gpio::process_ptr(gp) });
+    rpi_check!((), { hw_gpio::process_reply_ptr(gp) });
 }
 
 /// write pin value

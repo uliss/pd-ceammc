@@ -18,7 +18,7 @@ impl hw_gpio_dht11 {
     pub fn new(
         pin: u8,
         notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
         on_data: hw_dht11_cb,
     ) -> Result<Self, CString> {
         let result = Arc::new(Mutex::new(None));
@@ -73,7 +73,7 @@ impl hw_gpio_dht11 {
         Ok(hw_gpio_dht11 {
             result,
             tx,
-            on_err,
+            on_err: on_msg,
             on_data,
         })
     }

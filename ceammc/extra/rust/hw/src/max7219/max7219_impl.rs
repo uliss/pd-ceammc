@@ -4,9 +4,11 @@ use log::{debug, error};
 use max7219::{connectors::SpiConnector, DataError};
 use rppal::spi::Spi;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb, send_error};
 
-use super::{hw_max7219, hw_max7219_string_align, hw_spi_bus, hw_spi_cs, Address, Request};
+use super::{
+    hw_max7219, hw_max7219_string_align, hw_spi_bus, hw_spi_cs, Address, Max2719Worker, Request,
+};
 
 #[derive(Debug, PartialEq)]
 struct float_fmt {
@@ -86,8 +88,8 @@ fn encode_string(str: &String, dots: u8) -> [u8; 8] {
     buf
 }
 
-fn pad_string(str: &String, align: hw_max7219_string_align) -> String {
-    let mut str = str.clone();
+fn pad_string(str: &str, align: hw_max7219_string_align) -> String {
+    let mut str = str.to_owned();
     str.truncate(8);
     if str.len() < 8 {
         let pad_len = 8 - str.len();
@@ -201,9 +203,10 @@ impl LedDisplay {
             Request::WriteRegister(register, data) => {
                 self.display.write_raw_byte(addr, *register, *data)?
             }
-            Request::WriteString(str, align, dots) => self
-                .display
-                .write_raw(addr, &encode_string(&pad_string(str, *align), *dots))?,
+            Request::WriteString(str, align, dots) => self.display.write_raw(
+                addr,
+                &encode_string(&pad_string(str.to_string_lossy().as_ref(), *align), *dots),
+            )?,
             Request::Test(state) => self.display.test(addr, *state)?,
             Request::WriteRaw(buf) => self.display.write_raw(addr, buf)?,
             Request::WriteMatrix(array) => {
@@ -285,64 +288,56 @@ impl hw_max7219 {
         displays: u8,
         bus: hw_spi_bus,
         cs: hw_spi_cs,
-        _notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+        notify: hw_notify_cb,
+        on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (tx, rx) = std::sync::mpsc::channel::<(Address, Request)>();
+        let (worker, rx, tx) = Max2719Worker::new(on_msg);
 
-        std::thread::spawn(move || -> Result<(), String> {
-            debug!("worker thread start");
-
-            let mut led_display = LedDisplay::new(displays, bus, cs).map_err(|err| {
-                error!("{err}");
-                err
-            })?;
+        worker.spawn(tx.clone(), notify, move || {
+            let mut led_display = LedDisplay::new(displays, bus, cs)?;
 
             led_display.write(Address::All, Request::PowerOn(true))?;
 
             while let Ok((addr, req)) = rx.recv() {
                 debug!("{addr:?} {req:?}");
-                led_display
-                    .write(addr, req)
-                    .unwrap_or_else(|err| error!("{err}"));
+                led_display.write(addr, req).unwrap_or_else(|err| {
+                    send_error(&tx, notify, err.as_str());
+                });
             }
-
-            debug!("worker thread done");
 
             Ok(())
         });
 
-        Ok(hw_max7219 {
-            displays,
-            tx,
-            on_err,
-        })
+        Ok(Self { displays, worker })
     }
 
-    pub fn send(&self, addr: i32, req: Request) -> bool {
-        let addr = if addr < 0 {
-            Address::All
-        } else {
-            Address::Single((addr as u8).clamp(0, self.displays))
-        };
-
-        if let Err(err) = self.tx.send((addr, req)) {
-            error!("{err}");
-            self.on_err.error(err.to_string().as_str());
-            false
-        } else {
-            true
-        }
-    }
-
-    pub fn send_raw(mx: *mut hw_max7219, addr: i32, req: Request) -> bool {
+    pub fn send_request_ptr(mx: *mut hw_max7219, addr: i32, req: Request) -> bool {
         if mx.is_null() {
             error!("NULL max7219 pointer");
             return false;
         }
 
         let mx = unsafe { &*mx };
-        mx.send(addr, req)
+
+        let addr = if addr < 0 {
+            Address::All
+        } else {
+            Address::Single((addr as u8).clamp(0, mx.displays))
+        };
+
+        mx.worker.send_request((addr, req))
+    }
+
+    pub fn process_reply_ptr(mx: *mut hw_max7219) -> bool {
+        if mx.is_null() {
+            error!("NULL max7219 pointer");
+            return false;
+        }
+
+        let mx = unsafe { &*mx };
+        mx.worker.process_reply(&|rep| match rep {
+            super::Reply::Message(level, msg) => mx.worker.pd_message(level, &msg),
+        })
     }
 }
 

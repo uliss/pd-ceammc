@@ -58,22 +58,22 @@ pub struct hw_gpio_sr04 {
 /// @param trigger_pin - connected GPIO pin
 /// @param trigger_pin - connected GPIO pin
 /// @param notify - data check callback
-/// @param on_err - error message callback
+/// @param on_msg - error message callback
 /// @param on_data - data callback
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_sr04_new(
     trigger_pin: u8,
     echo_pin: u8,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
     on_data: hw_sr04_cb,
 ) -> *mut hw_gpio_sr04 {
     rpi_check!(null_mut(), {
-        match hw_gpio_sr04::new(trigger_pin, echo_pin, notify, on_err, on_data) {
+        match hw_gpio_sr04::new(trigger_pin, echo_pin, notify, on_msg, on_data) {
             Ok(sr04) => return Box::into_raw(Box::new(sr04)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

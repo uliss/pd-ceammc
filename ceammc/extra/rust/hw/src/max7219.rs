@@ -4,15 +4,16 @@
 #![allow(non_camel_case_types)]
 
 use std::{
-    ffi::{c_char, CStr},
+    ffi::{c_char, CString},
     ptr::null_mut,
     slice::from_raw_parts,
 };
 
+use lib_macro::PdMessage;
 use log::error;
 use ndarray::{Array1, Array2};
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 pub const HW_MAX7219_REG_DIGIT_0: u8 = 0x1;
 pub const HW_MAX7219_REG_DIGIT_1: u8 = 0x2;
@@ -71,11 +72,16 @@ pub enum Request {
     WriteFloat(f32, u8),
     WriteRegister(u8, u8),
     WriteRaw([u8; 8]),
-    WriteString(String, hw_max7219_string_align, u8),
+    WriteString(CString, hw_max7219_string_align, u8),
     WriteMatrix(Array2<u8>),
     PowerOn(bool),
     Clear,
     Test(bool),
+}
+
+#[derive(Debug, PdMessage)]
+pub enum Reply {
+    Message(hw_msg_level, CString),
 }
 
 #[derive(Debug)]
@@ -84,10 +90,11 @@ pub enum Address {
     Single(u8),
 }
 
+type Max2719Worker = HwThreadWorker<(Address, Request), Reply>;
+
 pub struct hw_max7219 {
     displays: u8,
-    tx: std::sync::mpsc::Sender<(Address, Request)>,
-    on_err: hw_msg_cb,
+    worker: Max2719Worker,
 }
 
 /// create new max7219
@@ -95,7 +102,7 @@ pub struct hw_max7219 {
 /// @param spi - RPi SPI bus
 /// @param cs - RPi chip select
 /// @param notify - notify callback
-/// @param on_err - error callback
+/// @param on_msg - message callback
 /// @return pointer to max7219 on NULL on error
 ///
 /// @note The Raspberry Pi’s GPIO header exposes several SPI buses.
@@ -109,14 +116,14 @@ pub extern "C" fn ceammc_hw_max7219_new(
     spi: hw_spi_bus,
     cs: hw_spi_cs,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> *mut hw_max7219 {
     rpi_check!(null_mut(), {
-        match hw_max7219::new(num_displays, spi, cs, notify, on_err) {
+        match hw_max7219::new(num_displays, spi, cs, notify, on_msg) {
             Ok(max2719) => return Box::into_raw(Box::new(max2719)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }
@@ -134,12 +141,17 @@ pub extern "C" fn ceammc_hw_max7219_free(mx: *mut hw_max7219) {
     });
 }
 
+#[no_mangle]
+pub extern "C" fn ceammc_hw_max7219_process_reply(mx: *mut hw_max7219) -> bool {
+    rpi_check!({ hw_max7219::process_reply_ptr(mx) });
+}
+
 /// set max7219 intensity
 /// @param max7219 - pointer to max7219 struct
 /// @param intensity in 0..0xF range
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, addr: i32, intens: u8) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::Intensity(intens)) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::Intensity(intens)) });
 }
 
 /// set max7219 power on/off
@@ -147,7 +159,7 @@ pub extern "C" fn ceammc_hw_max7219_intensity(mx: *mut hw_max7219, addr: i32, in
 /// @param state
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, 0, Request::PowerOn(state)) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, 0, Request::PowerOn(state)) });
 }
 
 /// clear max7219 display
@@ -155,7 +167,7 @@ pub extern "C" fn ceammc_hw_max7219_power(mx: *mut hw_max7219, state: bool) -> b
 /// @param addr - lcd address in chain, if <0 clear all connected addresses
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i32) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::Clear) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::Clear) });
 }
 
 /// write max7219 int value to 7 segment display
@@ -164,7 +176,7 @@ pub extern "C" fn ceammc_hw_max7219_clear(mx: *mut hw_max7219, addr: i32) -> boo
 /// @param val - signed int value to display
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, addr: i32, val: i32) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteInt(val)) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::WriteInt(val)) });
 }
 
 /// write max7219 unsigned hex value to 7 segment display
@@ -173,7 +185,7 @@ pub extern "C" fn ceammc_hw_max7219_write_int(mx: *mut hw_max7219, addr: i32, va
 /// @param val - unsigned int value to display
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, addr: i32, val: u32) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteHex(val)) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::WriteHex(val)) });
 }
 
 /// write raw data to max7219 register
@@ -189,7 +201,7 @@ pub extern "C" fn ceammc_hw_max7219_write_reg(
     reg: u8,
     data: u8,
 ) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteRegister(reg, data)) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::WriteRegister(reg, data)) });
 }
 
 /// write float to max7219 7 segment display
@@ -204,7 +216,7 @@ pub extern "C" fn ceammc_hw_max7219_write_float(
     value: f32,
     precision: u8,
 ) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::WriteFloat(value, precision)) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::WriteFloat(value, precision)) });
 }
 
 /// write string to max7219 7 segment display
@@ -221,8 +233,11 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
     dots: u8,
 ) -> bool {
     rpi_check!({
-        let str = unsafe { CStr::from_ptr(str) }.to_string_lossy().to_string();
-        hw_max7219::send_raw(mx, addr, Request::WriteString(str, align, dots))
+        hw_max7219::send_request_ptr(
+            mx,
+            addr,
+            Request::WriteString(ptr_to_cstr(str), align, dots),
+        )
     });
 }
 
@@ -232,7 +247,7 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
 /// @param state
 #[no_mangle]
 pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: i32, state: bool) -> bool {
-    rpi_check!({ hw_max7219::send_raw(mx, addr, Request::Test(state)) });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::Test(state)) });
 }
 
 /// write data to max7219
@@ -259,7 +274,7 @@ pub extern "C" fn ceammc_hw_max7219_write_bytes(
             *a = *b;
         }
 
-        hw_max7219::send_raw(mx, addr, Request::WriteRaw(buf))
+        hw_max7219::send_request_ptr(mx, addr, Request::WriteRaw(buf))
     });
 }
 
@@ -294,7 +309,7 @@ pub extern "C" fn ceammc_hw_max7219_write_bits(
             }
         }
 
-        hw_max7219::send_raw(mx, addr, Request::WriteRaw(buf))
+        hw_max7219::send_request_ptr(mx, addr, Request::WriteRaw(buf))
     });
 }
 
@@ -322,6 +337,6 @@ pub extern "C" fn ceammc_hw_max7219_write_matrix(
             .into_shape_with_order((nrows as usize, ncols as usize))
             .unwrap();
 
-        hw_max7219::send_raw(mx, 0, Request::WriteMatrix(arr))
+        hw_max7219::send_request_ptr(mx, 0, Request::WriteMatrix(arr))
     });
 }

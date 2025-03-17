@@ -22,7 +22,7 @@ impl hw_gpio_sr04 {
         trigger_pin: u8,
         echo_pin: u8,
         notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
         on_data: hw_sr04_cb,
     ) -> Result<Self, CString> {
         let result = Arc::new((Mutex::new(None), Condvar::new()));
@@ -164,7 +164,7 @@ impl hw_gpio_sr04 {
         Ok(hw_gpio_sr04 {
             result,
             tx,
-            on_err,
+            on_err: on_msg,
             on_data,
         })
     }
