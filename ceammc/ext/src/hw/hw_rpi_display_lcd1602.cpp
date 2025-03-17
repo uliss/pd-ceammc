@@ -26,8 +26,9 @@ HwRpiDisplayLcd1602::~HwRpiDisplayLcd1602()
 void HwRpiDisplayLcd1602::initDone()
 {
     lcd_ = ceammc_hw_lcd1602_new(
-        rows_->value(),
+        i2c_bus_->value(),
         i2c_addr_->value(),
+        rows_->value(),
         on_notify(),
         on_message());
 }

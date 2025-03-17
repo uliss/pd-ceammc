@@ -736,57 +736,58 @@ ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
 bool ceammc_hw_infrared_set_protocol(const ceammc_hw_infrared *ir, const char *proto);
 
 /// turn on/off lcd1602 backlight
-/// @param lcd1602 - pointer to LCD1602 struct
+/// @param lcd - pointer to LCD1602 struct
 /// @param state - on/off state
-bool ceammc_hw_lcd1602_backlight(ceammc_hw_lcd1602 *lcd1602, bool state);
+bool ceammc_hw_lcd1602_backlight(ceammc_hw_lcd1602 *lcd, bool state);
 
 /// clear lcd1602 display
-/// @param lcd1602 - pointer to LCD1602 struct
-bool ceammc_hw_lcd1602_clear(ceammc_hw_lcd1602 *lcd1602);
+/// @param lcd - pointer to LCD1602 struct
+bool ceammc_hw_lcd1602_clear(ceammc_hw_lcd1602 *lcd);
 
 /// turn on/off lcd1602 cursor
-/// @param lcd1602 - pointer to LCD1602 struct
+/// @param lcd - pointer to LCD1602 struct
 /// @param state - on/off state
-bool ceammc_hw_lcd1602_cursor_blink(ceammc_hw_lcd1602 *lcd1602, bool state);
+bool ceammc_hw_lcd1602_cursor_blink(ceammc_hw_lcd1602 *lcd, bool state);
 
 /// turn on/off lcd1602 cursor
-/// @param lcd1602 - pointer to LCD1602 struct
+/// @param lcd - pointer to LCD1602 struct
 /// @param state - on/off state
-bool ceammc_hw_lcd1602_cursor_on(ceammc_hw_lcd1602 *lcd1602, bool state);
+bool ceammc_hw_lcd1602_cursor_on(ceammc_hw_lcd1602 *lcd, bool state);
 
 /// set lcd1602 cursor position
-/// @param lcd1602 - pointer to LCD1602 struct
+/// @param lcd - pointer to LCD1602 struct
 /// @param row - cursor row
 /// @param col - cursor column
-bool ceammc_hw_lcd1602_cursor_pos(ceammc_hw_lcd1602 *lcd1602, uint8_t row, uint8_t col);
+bool ceammc_hw_lcd1602_cursor_pos(ceammc_hw_lcd1602 *lcd, uint8_t row, uint8_t col);
 
 /// free lcd1602 display
-/// @param lcd1602 - pointer to LCD1602 struct
+///  @param lcd - pointer to LCD1602 struct
 void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);
 
 /// move lcd1602 cursor right/left
-/// @param lcd1602 - pointer to LCD1602 struct
+/// @param lcd - pointer to LCD1602 struct
 /// @param dir - <0 left, 0>right
-bool ceammc_hw_lcd1602_move_cursor(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
+bool ceammc_hw_lcd1602_move_cursor(ceammc_hw_lcd1602 *lcd, int8_t dir);
 
-ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(uint8_t rows,
-                                         uint8_t i2c_addr,
+ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         uint8_t rows,
                                          ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_err);
+                                         ceammc_hw_msg_cb on_msg);
 
 /// process lcd1602 events
-/// @param lcd1602 - pointer to LCD1602 struct
-bool ceammc_hw_lcd1602_process(ceammc_hw_lcd1602 *lcd1602);
+/// @param lcd - pointer to LCD1602 struct
+bool ceammc_hw_lcd1602_process(ceammc_hw_lcd1602 *lcd);
 
 /// scroll lcd1602 text right/left
-/// @param lcd1602 - pointer to LCD1602 struct
+/// @param lcd - pointer to LCD1602 struct
 /// @param dir - <0 left, 0>right
-bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd1602, int8_t dir);
+bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd, int8_t dir);
 
 /// write text to lcd1602
-/// @param lcd1602 - pointer to LCD1602 struct
+/// @param lcd - pointer to LCD1602 struct
 /// @param txt - text
-bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd1602, const char *txt);
+bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd, const char *txt);
 
 /// clear max7219 display
 /// @param max7219 - pointer to max7219 struct
