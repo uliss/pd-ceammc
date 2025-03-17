@@ -38,7 +38,7 @@ impl hw_i2c_ads1115 {
 
     pub fn new(
         i2c_bus: i8,
-        _i2c_addr: I2cAddress,
+        i2c_addr: I2cAddress,
         mode: hw_i2c_ads1115_measure_mode,
         notify: hw_notify_cb,
         on_err: hw_msg_cb,
@@ -50,7 +50,17 @@ impl hw_i2c_ads1115 {
             let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("I2C init: {i2c:?}");
 
-            let mut adc = Ads1x1x::new_ads1115(i2c, TargetAddr::default());
+            let addr = match i2c_addr {
+                I2cAddress::Default | I2cAddress::Addr(0x48) => TargetAddr::default(),
+                I2cAddress::Alt | I2cAddress::Addr(0x49) => TargetAddr::Vdd,
+                I2cAddress::Addr(0x4A) => TargetAddr::Sda,
+                I2cAddress::Addr(0x4B) => TargetAddr::Scl,
+                _ => return Err(format!("invalid i2c address: {i2c_addr:?}")),
+            };
+
+            debug!("using I2C address {i2c_addr:?}");
+
+            let mut adc = Ads1x1x::new_ads1115(i2c, addr);
 
             let mut poll_mode = false;
             let mut poll_time =

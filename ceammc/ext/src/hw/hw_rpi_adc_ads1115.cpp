@@ -31,6 +31,7 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     addProperty(mode_);
 
     i2c_bus_ = addI2cBusProperty();
+    i2c_addr_ = addI2cAddrProperty();
 
     fsr_ = new SymbolFloatEnumProperty("@fsr", {
                                                    { sym_6144mv(), mv6144 },
@@ -86,7 +87,11 @@ void HwRpiAdcAds1115::initDone()
         break;
     }
 
-    adc_ = ceammc_hw_ads1115_new(i2c_bus_->value(), ceammc_HW_I2C_DEFAULT_ADDR, mode, on_notify(), on_message(),
+    adc_ = ceammc_hw_ads1115_new(i2c_bus_->value(),
+        i2c_addr_->value(),
+        mode,
+        on_notify(),
+        on_message(),
         { this,
             [](void* user, std::uint8_t chan, std::int16_t value) {
                 auto obj = static_cast<HwRpiAdcAds1115*>(user);
