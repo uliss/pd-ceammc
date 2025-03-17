@@ -8,9 +8,10 @@ use std::{
     ptr::null_mut,
 };
 
+use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod rotenc_impl;
@@ -25,19 +26,19 @@ pub enum Request {
     GetValue,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PdMessage)]
 pub enum Reply {
-    Error(CString),
+    Message(hw_msg_level, CString),
     Click(bool),
     Data(f64, i8),
 }
 
+type RotEncoderWorker = HwThreadWorker<Request, Reply>;
+
 pub struct hw_gpio_rotenc {
-    tx: std::sync::mpsc::Sender<Request>,
-    rx: std::sync::mpsc::Receiver<Reply>,
+    worker: RotEncoderWorker,
     on_data: hw_gpio_rotenc_data,
     on_click: hw_gpio_rotenc_click,
-    on_err: hw_msg_cb,
 }
 
 #[repr(C)]
@@ -68,16 +69,16 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_new(
     notify: hw_notify_cb,
     on_data: hw_gpio_rotenc_data,
     on_click: hw_gpio_rotenc_click,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> *mut hw_gpio_rotenc {
     rpi_check!(null_mut(), {
         match hw_gpio_rotenc::new(
-            dt, clk, btn, init, step, min_value, max_value, notify, on_data, on_click, on_err,
+            dt, clk, btn, init, step, min_value, max_value, notify, on_data, on_click, on_msg,
         ) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }
@@ -95,35 +96,35 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_free(enc: *mut hw_gpio_rotenc) {
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_process_events(enc: *mut hw_gpio_rotenc) {
-    rpi_check!((), { hw_gpio_rotenc::process_ptr(enc) });
+    rpi_check!((), { hw_gpio_rotenc::process_reply_ptr(enc) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_reset(enc: *mut hw_gpio_rotenc) -> bool {
-    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::ResetValue) });
+    rpi_check!({ hw_gpio_rotenc::send_request_ptr(enc, Request::ResetValue) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_get_value(enc: *mut hw_gpio_rotenc) -> bool {
-    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::GetValue) });
+    rpi_check!({ hw_gpio_rotenc::send_request_ptr(enc, Request::GetValue) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_set_value(enc: *mut hw_gpio_rotenc, value: f64) -> bool {
-    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetValue(value)) });
+    rpi_check!({ hw_gpio_rotenc::send_request_ptr(enc, Request::SetValue(value)) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_set_step(enc: *mut hw_gpio_rotenc, step: f64) -> bool {
-    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetStep(step)) });
+    rpi_check!({ hw_gpio_rotenc::send_request_ptr(enc, Request::SetStep(step)) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_set_min(enc: *mut hw_gpio_rotenc, val: f64) -> bool {
-    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetMin(val)) });
+    rpi_check!({ hw_gpio_rotenc::send_request_ptr(enc, Request::SetMin(val)) });
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_set_max(enc: *mut hw_gpio_rotenc, val: f64) -> bool {
-    rpi_check!({ hw_gpio_rotenc::send_ptr(enc, Request::SetMax(val)) });
+    rpi_check!({ hw_gpio_rotenc::send_request_ptr(enc, Request::SetMax(val)) });
 }

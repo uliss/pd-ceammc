@@ -75,7 +75,7 @@ pub extern "C" fn ceammc_hw_ads1115_new(
     i2c_addr: i8,
     mode: hw_i2c_ads1115_measure_mode,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
     on_data: hw_i2c_ads1115_data_cb,
 ) -> *mut hw_i2c_ads1115 {
     rpi_check!(null_mut(), {
@@ -84,13 +84,13 @@ pub extern "C" fn ceammc_hw_ads1115_new(
             I2cAddress::new(i2c_addr),
             mode,
             notify,
-            on_err,
+            on_msg,
             on_data,
         ) {
             Ok(adc) => return Box::into_raw(Box::new(adc)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }

@@ -219,7 +219,7 @@ impl hw_display_ssd1306 {
         args: DisplaySpiArgs,
         size: SIZE,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Ssd1306Worker::new(args.on_err);
+        let (worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
 
         worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
             let gpio = Gpio::new().map_err(|err| process_err(err, &tx, args.notify))?;

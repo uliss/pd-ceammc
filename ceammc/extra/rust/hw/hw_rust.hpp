@@ -427,7 +427,7 @@ ceammc_hw_i2c_ads1115 *ceammc_hw_ads1115_new(int8_t i2c_bus,
                                              int8_t i2c_addr,
                                              ceammc_hw_i2c_ads1115_measure_mode mode,
                                              ceammc_hw_notify_cb notify,
-                                             ceammc_hw_msg_cb on_err,
+                                             ceammc_hw_msg_cb on_msg,
                                              ceammc_hw_i2c_ads1115_data_cb on_data);
 
 bool ceammc_hw_ads1115_poll(ceammc_hw_i2c_ads1115 *adc, bool state);
@@ -464,7 +464,7 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
                                                              uint16_t width,
                                                              uint16_t height,
                                                              ceammc_hw_notify_cb notify,
-                                                             ceammc_hw_msg_cb on_err);
+                                                             ceammc_hw_msg_cb on_msg);
 
 bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
 
@@ -624,7 +624,7 @@ ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
                                                  ceammc_hw_notify_cb notify,
                                                  ceammc_hw_gpio_rotenc_data on_data,
                                                  ceammc_hw_gpio_rotenc_click on_click,
-                                                 ceammc_hw_msg_cb on_err);
+                                                 ceammc_hw_msg_cb on_msg);
 
 void ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
 

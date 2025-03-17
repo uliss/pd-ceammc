@@ -41,10 +41,10 @@ impl hw_i2c_ads1115 {
         i2c_addr: I2cAddress,
         mode: hw_i2c_ads1115_measure_mode,
         notify: hw_notify_cb,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
         on_data: hw_i2c_ads1115_data_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Ads1115Worker::new(on_err);
+        let (worker, rx, tx) = Ads1115Worker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;

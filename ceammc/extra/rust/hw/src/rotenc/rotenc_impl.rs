@@ -6,7 +6,9 @@ use rppal::gpio::{Gpio, Trigger};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
-use super::{hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request};
+use super::{
+    hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request, RotEncoderWorker,
+};
 
 impl hw_gpio_rotenc {
     pub fn new(
@@ -20,13 +22,11 @@ impl hw_gpio_rotenc {
         notify: hw_notify_cb,
         on_data: hw_gpio_rotenc_data,
         on_click: hw_gpio_rotenc_click,
-        on_err: hw_msg_cb,
+        on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (req_tx, req_rx) = std::sync::mpsc::channel();
-        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+        let (worker, rx, tx) = RotEncoderWorker::new(on_msg);
 
-        std::thread::spawn(move || -> Result<(), String> {
-            debug!("thread start");
+        worker.spawn(tx.clone(), notify, move || {
 
             debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn} and init value={init}");
 
@@ -35,10 +35,9 @@ impl hw_gpio_rotenc {
                 return Ok(());
             }
 
-            let gpio = Gpio::new().map_err(|err| {
-                error!("{err}");
+            let gpio = Gpio::new().map_err(|err| 
                 err.to_string()
-            })?;
+            )?;
 
             // Configure DT and CLK pins, typically pullup input
             let dt_pin = gpio
@@ -67,17 +66,17 @@ impl hw_gpio_rotenc {
                     })?
                     .into_input_pullup();
 
-                let rep_rx2 = rep_tx.clone();
+                let rx2 = tx.clone();
 
                 pin.set_async_interrupt(
                     rppal::gpio::Trigger::Both,
                     Some(Duration::from_millis(10)),
                     move |ev| match ev.trigger {
                         Trigger::RisingEdge => {
-                            Self::send_reply(&rep_rx2, notify, Reply::Click(false));
+                            Self::send_reply(&rx2, notify, Reply::Click(false));
                         }
                         Trigger::FallingEdge => {
-                            Self::send_reply(&rep_rx2, notify, Reply::Click(true));
+                            Self::send_reply(&rx2, notify, Reply::Click(true));
                         }
                         _ => {}
                     },
@@ -110,17 +109,17 @@ impl hw_gpio_rotenc {
                     rotary_encoder_embedded::Direction::Clockwise => {
                         enc_value += enc_step;
                         enc_value = enc_value.clamp(enc_min, enc_max);
-                        Self::send_reply(&rep_tx, notify, Reply::Data(enc_value, DIR_INC));
+                        Self::send_reply(&tx, notify, Reply::Data(enc_value, DIR_INC));
                     }
                     rotary_encoder_embedded::Direction::Anticlockwise => {
                         enc_value -= enc_step;
                         enc_value = enc_value.clamp(enc_min, enc_max);
-                        Self::send_reply(&rep_tx, notify, Reply::Data(enc_value, DIR_DEC));
+                        Self::send_reply(&tx, notify, Reply::Data(enc_value, DIR_DEC));
                     }
                     _ => {}
                 }
 
-                match req_rx.try_recv() {
+                match rx.try_recv() {
                     Ok(req) => {
                         debug!("{req:?}");
 
@@ -129,7 +128,7 @@ impl hw_gpio_rotenc {
                             Request::ResetValue => enc_value = init,
                             Request::SetStep(val) => enc_step = val,
                             Request::GetValue => {
-                                Self::send_reply(&rep_tx, notify, Reply::Data(enc_value, DIR_NONE));
+                                Self::send_reply(&tx, notify, Reply::Data(enc_value, DIR_NONE));
                             }
                             Request::SetMin(min) => enc_min = min,
                             Request::SetMax(max) => enc_max = max,
@@ -143,17 +142,15 @@ impl hw_gpio_rotenc {
                     },
                 }
             }
-
-            debug!("thread done");
+            //
             Ok(())
         });
 
-        Ok(hw_gpio_rotenc {
-            tx: req_tx,
-            rx: rep_rx,
+        Ok(Self {
+            worker,
             on_data,
             on_click,
-            on_err,
+ 
         })
     }
 
@@ -167,41 +164,31 @@ impl hw_gpio_rotenc {
         true
     }
 
-    pub fn process_ptr(enc: *mut Self) -> bool {
-        if enc.is_null() {
-            return false;
-        }
-
-        let enc = unsafe { &*enc };
-        while let Ok(rep) = enc.rx.try_recv() {
-            match rep {
-                Reply::Error(str) => enc.on_err.error_cstr(str),
-                Reply::Click(state) => {
-                    (enc.on_click.cb)(enc.on_click.user, state);
-                }
-                Reply::Data(value, dir) => {
-                    (enc.on_data.cb)(enc.on_data.user, value, dir);
-                }
-            }
-        }
-
-        true
-    }
-
-    pub fn send_ptr(enc: *const Self, req: Request) -> bool {
+    pub fn process_reply_ptr(enc: *mut Self) -> bool {
         if enc.is_null() {
             error!("NULL encoder pointer");
             return false;
         }
 
         let enc = unsafe { &*enc };
-        if let Err(err) = enc.tx.send(req) {
-            let msg = format!("request send error: {err}");
-            error!("{msg}");
-            enc.on_err.error(msg.as_str());
+        enc.worker.process_reply(&|rep|match rep {
+            Reply::Message(level, msg) => enc.worker.pd_message(level, &msg),
+            Reply::Click(state) => {
+                (enc.on_click.cb)(enc.on_click.user, state);
+            }
+            Reply::Data(value, dir) => {
+                (enc.on_data.cb)(enc.on_data.user, value, dir);
+            }
+        })
+    }
+
+    pub fn send_request_ptr(enc: *const Self, req: Request) -> bool {
+        if enc.is_null() {
+            error!("NULL encoder pointer");
             return false;
         }
 
-        true
+        let enc = unsafe { &*enc };
+        enc.worker.send_request(req)
     }
 }

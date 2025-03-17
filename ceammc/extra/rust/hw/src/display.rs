@@ -60,7 +60,7 @@ pub struct DisplaySpiArgs {
     rs_pin: u8,
     freq: u32,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 }
 
 #[no_mangle]
@@ -73,7 +73,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
     width: u16,
     height: u16,
     notify: hw_notify_cb,
-    on_err: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
         use ssd1306::size::*;
@@ -85,7 +85,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
             rs_pin,
             freq,
             notify,
-            on_err,
+            on_msg,
         };
 
         match match (width, height) {
@@ -99,14 +99,14 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
                 let msg = format!(
                     "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
                 );
-                on_err.error(msg.as_str());
+                on_msg.error(msg.as_str());
                 return null_mut();
             }
         } {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
-                on_err.error_cstr(err);
+                on_msg.error_cstr(err);
                 return null_mut();
             }
         }
