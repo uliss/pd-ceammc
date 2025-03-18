@@ -70,7 +70,7 @@
             <param name="V" type="int" default="0">value</param></method>
             <!-- fill_color -->
             <method name="fill_color">set fill color 
-            <param name="COLOR" type="int">fill color (0 or 1)</param></method>
+            <param name="COLOR" type="int">fill color (0, 1 or -1 if no color)</param></method>
             <method name="font">set font 
             <param name="NAME" type="symbol" required="true"
             enum="FONT_4X6 FONT_5X7 FONT_5X8 FONT_6X10 FONT_6X9">font name</param></method>
@@ -150,6 +150,11 @@
             <param name="X" type="int" required="true">left x-coord</param>
             <param name="Y" type="int" required="true">bottom y-coord</param>
             <param name="TXT" type="symbol" required="true">text</param></method>
+            <!-- text color -->
+            <method name="text_color">set text color 
+            <param name="COLOR" type="int">fill color (0, 1 or -1 if no color)</param></method>
+            <method name="save">save bitmap to PNG file 
+            <param name="PATH" type="symbol">file name, absolute or relative</param></method>
             <!-- triangle -->
             <method name="triangle">draw triangle 
             <param name="X0" type="int" required="true">x0 coord</param>
