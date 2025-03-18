@@ -15,6 +15,7 @@
 #include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_platform.h"
 
 using namespace ceammc;
 
@@ -156,6 +157,16 @@ void BaseBitmap::m_text(t_symbol* s, const AtomListView& lv)
     auto x = lv.intAt(0, 0);
     auto y = lv.intAt(1, 0);
     ceammc_bitmap_draw_text(bm_, lv.symbolAt(2, &s_)->s_name, x, y);
+}
+
+void BaseBitmap::m_text_color(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("COLOR:i?");
+    if (!chk.check(lv, this)) {
+        return chk.usage(this, s);
+    }
+
+    ceammc_bitmap_set_text_color(bm_, lv.intAt(0, -1));
 }
 
 void BaseBitmap::m_triangle(t_symbol* s, const AtomListView& lv)
@@ -305,6 +316,16 @@ void BaseBitmap::m_set(t_symbol* s, const AtomListView& lv)
         chk.usage(this, s);
         break;
     }
+}
+
+void BaseBitmap::m_save(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FILE:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto path = platform::make_abs_filepath_with_canvas(canvas(CanvasType::TOPLEVEL), lv.symbolAt(0, &s_)->s_name);
+    ceammc_bitmap_save_to_png(bm_, path.c_str());
 }
 
 std::vector<std::uint8_t> ceammc::BaseBitmap::listToBytes(const AtomListView& data)
@@ -473,9 +494,11 @@ void setup_base_bitmap()
     obj.addMethod("stroke_color", &BaseBitmap::m_stroke_color);
     obj.addMethod("stroke_width", &BaseBitmap::m_stroke_width);
     obj.addMethod("text", &BaseBitmap::m_text);
+    obj.addMethod("text_color", &BaseBitmap::m_text_color);
     obj.addMethod("triangle", &BaseBitmap::m_triangle);
     obj.addMethod("vshift", &BaseBitmap::m_vshift);
 
     obj.addMethod("get", &BaseBitmap::m_get);
     obj.addMethod("set", &BaseBitmap::m_set);
+    obj.addMethod("save", &BaseBitmap::m_save);
 }

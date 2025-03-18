@@ -1,6 +1,9 @@
 #![allow(non_camel_case_types)]
 use std::collections::HashMap;
 use std::ffi::{c_char, c_void};
+use std::fs::File;
+use std::io::BufWriter;
+use std::path::Path;
 use std::{ffi::CString, ptr::null_mut};
 
 use embedded_graphics::mono_font::iso_8859_5::{FONT_4X6, FONT_5X7, FONT_5X8, FONT_6X10, FONT_6X9};
@@ -44,12 +47,14 @@ pub enum Request {
     SetStrokeWidth(u8),
     SetStrokeColor(Option<bool>),
     SetFillColor(Option<bool>),
+    SetTextColor(Option<bool>),
     GetData,
     GetMatrix,
     GetSubMatrix(u16, u16, u16, u16),
     SetData(Vec<u8>),
     SetMatrix(Vec<u8>, u16, u16, u16, u16),
     InvertAxis(core_bitmap_axis),
+    Save(String),
 }
 
 #[derive(Debug)]
@@ -557,6 +562,58 @@ impl core_async_bitmap {
                             core_bitmap_axis::Y => 1,
                         }));
                     }
+                    Request::Save(filename) => {
+                        let path = Path::new(&filename);
+                        let file = match File::create(path) {
+                            Ok(file) => file,
+                            Err(err) => {
+                                display.send_error(
+                                    &rep_tx,
+                                    format!("Error creating file '{filename}': {err}").as_str(),
+                                    notify,
+                                );
+                                continue;
+                            }
+                        };
+                        let ref mut w = BufWriter::new(file);
+
+                        let mut encoder =
+                            png::Encoder::new(w, display.size().width, display.size().height);
+                        encoder.set_color(png::ColorType::Grayscale);
+                        encoder.set_depth(png::BitDepth::Eight);
+                        let mut writer = match encoder.write_header() {
+                            Ok(w) => w,
+                            Err(err) => {
+                                display.send_error(
+                                    &rep_tx,
+                                    format!("Encoder error: {err}").as_str(),
+                                    notify,
+                                );
+                                continue;
+                            }
+                        };
+
+                        let data = display
+                            .buf
+                            .flatten()
+                            .map(|x| match x {
+                                0 => 0,
+                                _ => 0xff,
+                            })
+                            .to_vec();
+                        writer
+                            .write_image_data(data.as_slice())
+                            .unwrap_or_else(|err| {
+                                display.send_error(
+                                    &rep_tx,
+                                    format!("Write error: {err}").as_str(),
+                                    notify,
+                                );
+                            });
+                    }
+                    Request::SetTextColor(color) => {
+                        text_style.text_color = color.map(|c| to_color(c))
+                    }
                 }
             }
 
@@ -884,6 +941,19 @@ pub extern "C" fn ceammc_bitmap_font(bitmap: *mut core_async_bitmap, font: *cons
 #[no_mangle]
 pub extern "C" fn ceammc_bitmap_set_fill_color(bitmap: *mut core_async_bitmap, color: i8) -> bool {
     core_async_bitmap::send_request(bitmap, Request::SetFillColor(i2_into_color(color)))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_save_to_png(
+    bitmap: *mut core_async_bitmap,
+    path: *const c_char,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::Save(cstr_to_string(path)))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_set_text_color(bitmap: *mut core_async_bitmap, color: i8) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::SetTextColor(i2_into_color(color)))
 }
 
 #[no_mangle]

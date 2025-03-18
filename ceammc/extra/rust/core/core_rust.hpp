@@ -362,6 +362,8 @@ ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
  */
 void ceammc_bitmap_process(ceammc_core_async_bitmap *bitmap);
 
+bool ceammc_bitmap_save_to_png(ceammc_core_async_bitmap *bitmap, const char *path);
+
 bool ceammc_bitmap_set_data(ceammc_core_async_bitmap *bitmap, const uint8_t *data, size_t len);
 
 bool ceammc_bitmap_set_fill_color(ceammc_core_async_bitmap *bitmap, int8_t color);
@@ -377,6 +379,8 @@ bool ceammc_bitmap_set_matrix(ceammc_core_async_bitmap *bitmap,
 bool ceammc_bitmap_set_stroke_color(ceammc_core_async_bitmap *bitmap, int8_t color);
 
 bool ceammc_bitmap_set_stroke_width(ceammc_core_async_bitmap *bitmap, uint8_t width);
+
+bool ceammc_bitmap_set_text_color(ceammc_core_async_bitmap *bitmap, int8_t color);
 
 bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
 

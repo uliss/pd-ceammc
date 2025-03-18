@@ -10,7 +10,7 @@
 #include "function.h"
 #include "function_call.h"
 #include "gain.h"
-#include "matrix.h"
+#include "matrix_tilde.h".h"
 #include "metro_pattern.h"
 #include "metro_random.h"
 #include "metro_seq.h"

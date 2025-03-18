@@ -14,9 +14,9 @@
 #ifndef BASE_BITMAP_H
 #define BASE_BITMAP_H
 
-#include "core_rust.hpp"
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
+#include "core_rust.hpp"
 
 namespace ceammc {
 
@@ -52,11 +52,13 @@ public:
     void m_stroke_color(t_symbol* s, const AtomListView& lv);
     void m_stroke_width(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
+    void m_text_color(t_symbol* s, const AtomListView& lv);
     void m_triangle(t_symbol* s, const AtomListView& lv);
     void m_vshift(t_symbol* s, const AtomListView& lv);
 
     void m_get(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
+    void m_save(t_symbol* s, const AtomListView& lv);
 
 private:
     static std::vector<std::uint8_t> listToBytes(const AtomListView& data);
