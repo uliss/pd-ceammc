@@ -635,6 +635,12 @@ impl core_async_bitmap {
                                     notify,
                                 );
                             });
+
+                        display.send_debug(
+                            &rep_tx,
+                            format!("image saved: \"{filename}\"").as_str(),
+                            notify,
+                        );
                     }
                     Request::SetTextColor(color) => {
                         text_style.text_color = color.map(|c| to_color(c))
@@ -699,7 +705,7 @@ impl core_async_bitmap {
 
                         display.send_debug(
                             &rep_tx,
-                            format!("image loaded: {filename} ({w}x{h})").as_str(),
+                            format!("image loaded: \"{filename}\" ({w}x{h})").as_str(),
                             notify,
                         );
                     }
