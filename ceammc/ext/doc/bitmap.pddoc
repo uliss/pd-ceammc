@@ -19,6 +19,9 @@
                 <alias>ceammc/bitmap</alias>
             </aliases>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false" keys="Shift">open bitmap viewer window</event>
+        </mouse>
         <arguments>
             <argument name="W" type="int" minvalue="1" maxvalue="256">bitmap width in pixels, see
             @w</argument>
@@ -153,6 +156,7 @@
             <!-- text color -->
             <method name="text_color">set text color 
             <param name="COLOR" type="int">fill color (0, 1 or -1 if no color)</param></method>
+            <!-- save -->
             <method name="save">save bitmap to PNG file 
             <param name="PATH" type="symbol">file name, absolute or relative</param></method>
             <!-- triangle -->
@@ -173,6 +177,13 @@
             <method name="mirror">mirror bitmap 
             <param name="AXIS" type="symbol" enum="x y" required="true">mirror
             axis</param></method>
+            <!-- load -->
+            <method name="load">load image to bitmap
+            <param name="FILE" type="symbol" required="true">image path, relative or absolute</param>
+            <param name="SCALE" type="float" minvalue="0" default="1">image scale</param>
+            </method>
+            <!-- view -->
+            <method name="view">opens bitmap view window</method>
         </methods>
         <inlets>
             <inlet>
