@@ -97,13 +97,23 @@ void BaseBitmap::initDone()
                 sys_vgui("%s %p\n", "::ceammc::img::show", user);
             },
         },
-        { // on error
-            this, [](void* user, const char* msg) {
+        { // on message
+            this, [](void* user, ceammc_core_log_level level, const char* msg) {
                 auto obj = static_cast<BaseBitmap*>(user);
-                if (!obj)
-                    return;
+                switch(level) {
+                case ceammc_core_log_level::DEBUG:
+                    Debug(obj) << msg;
+                    break;
+                case ceammc_core_log_level::INFO:
+                    break;
+                    Post(obj) << msg;
+                case ceammc_core_log_level::ERROR:
+                default:
+                    Error(obj) << msg;
+                    break;
+                }
 
-                Error(obj) << msg;
+
             } });
 }
 

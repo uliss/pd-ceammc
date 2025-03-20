@@ -17,6 +17,12 @@ enum class ceammc_core_bitmap_output_format {
     MATRIX,
 };
 
+enum class ceammc_core_log_level {
+    DEBUG,
+    INFO,
+    ERROR,
+};
+
 enum class ceammc_mdns_iface {
     ANY,
     V4,
@@ -70,9 +76,14 @@ struct ceammc_core_bitmap_on_data {
     void (*cb)(void *user, uint16_t rows, uint16_t cols, ceammc_core_bitmap_output_format format, const uint8_t *data, size_t len);
 };
 
+struct ceammc_core_bitmap_on_view {
+    void *user;
+    void (*cb)(void *user, const char *base64_str);
+};
+
 struct ceammc_core_on_msg {
     void *user;
-    void (*cb)(void *user, const char *msg);
+    void (*cb)(void *user, ceammc_core_log_level level, const char *msg);
 };
 
 struct ceammc_mdns_cb_err {
@@ -356,8 +367,8 @@ ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
                                             uint16_t h,
                                             ceammc_core_notify notify,
                                             ceammc_core_bitmap_on_data on_data,
-                                            ceammc_core_on_msg on_open,
-                                            ceammc_core_on_msg on_err);
+                                            ceammc_core_bitmap_on_view on_view,
+                                            ceammc_core_on_msg on_msg);
 
 /**
  * process ready bitmap data

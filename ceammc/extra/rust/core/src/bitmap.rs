@@ -22,10 +22,10 @@ use embedded_graphics::{
     Pixel,
 };
 use image::ImageReader;
-use log::{debug, error, info};
+use log::{debug, error};
 use ndarray::{arr2, Array2, Axis};
 
-use crate::{core_notify, core_on_msg, cstr_to_string, data_to_vec};
+use crate::{core_log_level, core_notify, core_on_msg, cstr_to_string, data_to_vec};
 
 #[derive(Debug)]
 pub enum Request {
@@ -65,15 +65,15 @@ pub enum Request {
 pub enum Reply {
     Data(core_bitmap_output_format, u16, u16, Vec<u8>),
     ViewData(CString),
-    Error(CString),
+    Message(core_log_level, CString),
 }
 
 pub struct core_async_bitmap {
     tx: std::sync::mpsc::Sender<Request>,
     rx: std::sync::mpsc::Receiver<Reply>,
     on_data: core_bitmap_on_data,
-    on_err: core_on_msg,
-    on_view: core_on_msg,
+    on_view: core_bitmap_on_view,
+    on_msg: core_on_msg,
 }
 
 #[derive(Debug)]
@@ -131,6 +131,14 @@ impl core_bitmap_on_data {
     ) {
         (self.cb)(self.user, rows, cols, format, data, len);
     }
+}
+
+#[repr(C)]
+pub struct core_bitmap_on_view {
+    // nullable
+    user: *mut c_void,
+    // not NULL
+    cb: extern "C" fn(user: *mut c_void, base64_str: *const c_char),
 }
 
 fn i2_into_color(x: i8) -> Option<bool> {
@@ -285,7 +293,17 @@ impl BitmapDisplay {
 
         self.send_reply(
             tx,
-            Reply::Error(CString::new(msg).unwrap_or_default()),
+            Reply::Message(core_log_level::Error, CString::new(msg).unwrap_or_default()),
+            notify,
+        )
+    }
+
+    fn send_debug(&self, tx: &std::sync::mpsc::Sender<Reply>, msg: &str, notify: core_notify) {
+        debug!("{msg}");
+
+        self.send_reply(
+            tx,
+            Reply::Message(core_log_level::Debug, CString::new(msg).unwrap_or_default()),
             notify,
         )
     }
@@ -323,8 +341,8 @@ impl core_async_bitmap {
         h: u16,
         notify: core_notify,
         on_data: core_bitmap_on_data,
-        on_open: core_on_msg,
-        on_err: core_on_msg,
+        on_view: core_bitmap_on_view,
+        on_msg: core_on_msg,
     ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
@@ -679,7 +697,11 @@ impl core_async_bitmap {
                             *a = if *b > 127 { 1 } else { 0 };
                         }
 
-                        info!("read done: {filename} ({w}x{h})");
+                        display.send_debug(
+                            &rep_tx,
+                            format!("image loaded: {filename} ({w}x{h})").as_str(),
+                            notify,
+                        );
                     }
                     Request::View => {
                         let mut bytes: Vec<u8> = Vec::new();
@@ -718,8 +740,8 @@ impl core_async_bitmap {
             tx: req_tx,
             rx: rep_rx,
             on_data,
-            on_err,
-            on_view: on_open,
+            on_view,
+            on_msg,
         })
     }
 }
@@ -737,13 +759,13 @@ pub extern "C" fn ceammc_bitmap_new(
     h: u16,
     notify: core_notify,
     on_data: core_bitmap_on_data,
-    on_open: core_on_msg,
-    on_err: core_on_msg,
+    on_view: core_bitmap_on_view,
+    on_msg: core_on_msg,
 ) -> *mut core_async_bitmap {
-    match core_async_bitmap::new(w, h, notify, on_data, on_open, on_err.clone()) {
+    match core_async_bitmap::new(w, h, notify, on_data, on_view, on_msg.clone()) {
         Ok(dht) => return Box::into_raw(Box::new(dht)),
         Err(err) => {
-            on_err.exec_raw(&err);
+            on_msg.error_cstr(&err);
             return null_mut();
         }
     }
@@ -771,11 +793,11 @@ pub extern "C" fn ceammc_bitmap_process(bitmap: *mut core_async_bitmap) {
                         .on_data
                         .exec(rows, cols, format, data.as_ptr(), data.len());
                 }
-                Reply::Error(str) => {
-                    bitmap.on_err.exec_raw(&str);
+                Reply::Message(level, str) => {
+                    bitmap.on_msg.exec_raw(level, &str);
                 }
                 Reply::ViewData(cstr) => {
-                    bitmap.on_view.exec_raw(&cstr);
+                    (bitmap.on_view.cb)(bitmap.on_view.user, cstr.as_ptr());
                 }
             }
         }
