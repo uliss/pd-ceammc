@@ -370,7 +370,7 @@ void BaseBitmap::m_save(t_symbol* s, const AtomListView& lv)
     ceammc_bitmap_save_to_png(bm_, path.c_str());
 }
 
-void BaseBitmap::m_open(t_symbol* s, const AtomListView& lv)
+void BaseBitmap::m_view(t_symbol* s, const AtomListView& lv)
 {
     ceammc_bitmap_view(bm_);
 }
@@ -553,5 +553,5 @@ void setup_base_bitmap()
 
     obj.addMethod("load", &BaseBitmap::m_load);
     obj.addMethod("save", &BaseBitmap::m_save);
-    obj.addMethod("open", &BaseBitmap::m_open);
+    obj.addMethod("view", &BaseBitmap::m_view);
 }

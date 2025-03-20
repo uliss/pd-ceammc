@@ -62,7 +62,7 @@ public:
 
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_save(t_symbol* s, const AtomListView& lv);
-    void m_open(t_symbol* s, const AtomListView& lv);
+    void m_view(t_symbol* s, const AtomListView& lv);
 
 private:
     static std::vector<std::uint8_t> listToBytes(const AtomListView& data);
