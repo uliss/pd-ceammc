@@ -32,6 +32,7 @@ public:
     void initDone() final;
     bool notify(int code) final;
     void onBang() final;
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) final;
 
     void m_arc(t_symbol* s, const AtomListView& lv);
     void m_circle(t_symbol* s, const AtomListView& lv);
@@ -58,7 +59,10 @@ public:
 
     void m_get(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
+
+    void m_load(t_symbol* s, const AtomListView& lv);
     void m_save(t_symbol* s, const AtomListView& lv);
+    void m_open(t_symbol* s, const AtomListView& lv);
 
 private:
     static std::vector<std::uint8_t> listToBytes(const AtomListView& data);

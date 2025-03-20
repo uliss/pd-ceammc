@@ -92,6 +92,8 @@ endif()
 
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES}
     base_bitmap.h base_bitmap.cpp
+    # matrix_bitmap_ops.h matrix_bitmap_ops.cpp
+    base_bitmap.tcl
 )
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
@@ -102,10 +104,13 @@ target_include_directories(ceammc_base
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
         ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
         ${CMAKE_BINARY_DIR} # for config.h
-
+        ${CMAKE_CURRENT_BINARY_DIR} # for base_bitmap.tcl.h
 )
 
 target_link_libraries(ceammc_base PRIVATE fftconv core_rust)
+
+include(tcl_autogen)
+tcl_autogen_header(base_bitmap.tcl TARGET ceammc_base SOURCES ceammc_base)
 
 find_package(RubberBand REQUIRED)
 if(RUBBERBAND_FOUND)

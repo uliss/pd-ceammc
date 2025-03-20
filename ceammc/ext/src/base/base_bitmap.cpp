@@ -16,6 +16,9 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
+#include "fmt/core.h"
+
+#include "base_bitmap.tcl.h"
 
 using namespace ceammc;
 
@@ -82,13 +85,26 @@ void BaseBitmap::initDone()
                  break;
              }
          } },
-        { this, [](void* user, const char* msg) {
-             auto obj = static_cast<BaseBitmap*>(user);
-             if (!obj)
-                 return;
+        {
+            // on open
+            this,
+            [](void* user, const char* msg) {
+                auto obj = static_cast<BaseBitmap*>(user);
+                if (!obj)
+                    return;
 
-             Error(obj) << msg;
-         } });
+                sys_vgui("%s %p %s\n", "::ceammc::img::create", user, msg);
+                sys_vgui("%s %p\n", "::ceammc::img::show", user);
+            },
+        },
+        { // on error
+            this, [](void* user, const char* msg) {
+                auto obj = static_cast<BaseBitmap*>(user);
+                if (!obj)
+                    return;
+
+                Error(obj) << msg;
+            } });
 }
 
 bool BaseBitmap::notify(int code)
@@ -100,6 +116,15 @@ bool BaseBitmap::notify(int code)
 void BaseBitmap::onBang()
 {
     ceammc_bitmap_get_data(bm_);
+}
+
+void BaseBitmap::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+{
+    if (shift) {
+        ceammc_bitmap_view(bm_);
+    } else {
+        OBJ_POST << "Shift+Click opens bitmap image";
+    }
 }
 
 void BaseBitmap::m_arc(t_symbol* s, const AtomListView& lv)
@@ -318,6 +343,23 @@ void BaseBitmap::m_set(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void BaseBitmap::m_load(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FILE:s SCALE:f>0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto file = lv.symbolAt(0, &s_)->s_name;
+    auto path = findInStdPaths(file);
+    if (path.empty()) {
+        METHOD_ERR(s) << fmt::format("file not found: \"{}\"", file);
+        return;
+    }
+
+    OBJ_DBG << fmt::format("loading: \"{}\"", path);
+    ceammc_bitmap_load(bm_, path.c_str(), lv.floatAt(1, 1.0));
+}
+
 void BaseBitmap::m_save(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("FILE:s");
@@ -326,6 +368,11 @@ void BaseBitmap::m_save(t_symbol* s, const AtomListView& lv)
 
     auto path = platform::make_abs_filepath_with_canvas(canvas(CanvasType::TOPLEVEL), lv.symbolAt(0, &s_)->s_name);
     ceammc_bitmap_save_to_png(bm_, path.c_str());
+}
+
+void BaseBitmap::m_open(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_bitmap_view(bm_);
 }
 
 std::vector<std::uint8_t> ceammc::BaseBitmap::listToBytes(const AtomListView& data)
@@ -474,6 +521,9 @@ void BaseBitmap::m_stroke_width(t_symbol* s, const AtomListView& lv)
 void setup_base_bitmap()
 {
     ObjectFactory<BaseBitmap> obj("bitmap");
+    obj.useClick();
+
+    base_bitmap_tcl_output();
 
     obj.addMethod("arc", &BaseBitmap::m_arc);
     obj.addMethod("circle", &BaseBitmap::m_circle);
@@ -500,5 +550,8 @@ void setup_base_bitmap()
 
     obj.addMethod("get", &BaseBitmap::m_get);
     obj.addMethod("set", &BaseBitmap::m_set);
+
+    obj.addMethod("load", &BaseBitmap::m_load);
     obj.addMethod("save", &BaseBitmap::m_save);
+    obj.addMethod("open", &BaseBitmap::m_open);
 }
