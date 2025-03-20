@@ -341,6 +341,8 @@ bool ceammc_bitmap_invert(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_invert_axis(ceammc_core_async_bitmap *bitmap, ceammc_core_bitmap_axis axis);
 
+bool ceammc_bitmap_load(ceammc_core_async_bitmap *bitmap, const char *path, float scale);
+
 /**
  * create bitmap struct and starts separate worker thread(!)
  * @param w - bitmap width in pixels
@@ -354,6 +356,7 @@ ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
                                             uint16_t h,
                                             ceammc_core_notify notify,
                                             ceammc_core_bitmap_on_data on_data,
+                                            ceammc_core_on_msg on_open,
                                             ceammc_core_on_msg on_err);
 
 /**
@@ -381,6 +384,8 @@ bool ceammc_bitmap_set_stroke_color(ceammc_core_async_bitmap *bitmap, int8_t col
 bool ceammc_bitmap_set_stroke_width(ceammc_core_async_bitmap *bitmap, uint8_t width);
 
 bool ceammc_bitmap_set_text_color(ceammc_core_async_bitmap *bitmap, int8_t color);
+
+bool ceammc_bitmap_view(ceammc_core_async_bitmap *bitmap);
 
 bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
 

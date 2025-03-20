@@ -6,6 +6,7 @@ use std::io::BufWriter;
 use std::path::Path;
 use std::{ffi::CString, ptr::null_mut};
 
+use base64::Engine;
 use embedded_graphics::mono_font::iso_8859_5::{FONT_4X6, FONT_5X7, FONT_5X8, FONT_6X10, FONT_6X9};
 use embedded_graphics::mono_font::MonoTextStyle;
 use embedded_graphics::prelude::Angle;
@@ -20,7 +21,8 @@ use embedded_graphics::{
     prelude::{DrawTarget, OriginDimensions, Point, Size},
     Pixel,
 };
-use log::{debug, error};
+use image::ImageReader;
+use log::{debug, error, info};
 use ndarray::{arr2, Array2, Axis};
 
 use crate::{core_notify, core_on_msg, cstr_to_string, data_to_vec};
@@ -55,11 +57,14 @@ pub enum Request {
     SetMatrix(Vec<u8>, u16, u16, u16, u16),
     InvertAxis(core_bitmap_axis),
     Save(String),
+    Load(String, f32),
+    View,
 }
 
 #[derive(Debug)]
 pub enum Reply {
     Data(core_bitmap_output_format, u16, u16, Vec<u8>),
+    ViewData(CString),
     Error(CString),
 }
 
@@ -68,6 +73,7 @@ pub struct core_async_bitmap {
     rx: std::sync::mpsc::Receiver<Reply>,
     on_data: core_bitmap_on_data,
     on_err: core_on_msg,
+    on_view: core_on_msg,
 }
 
 #[derive(Debug)]
@@ -317,6 +323,7 @@ impl core_async_bitmap {
         h: u16,
         notify: core_notify,
         on_data: core_bitmap_on_data,
+        on_open: core_on_msg,
         on_err: core_on_msg,
     ) -> Result<Self, CString> {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
@@ -614,6 +621,92 @@ impl core_async_bitmap {
                     Request::SetTextColor(color) => {
                         text_style.text_color = color.map(|c| to_color(c))
                     }
+                    Request::Load(filename, scale) => {
+                        let reader = match ImageReader::open(filename.as_str()) {
+                            Ok(reader) => reader,
+                            Err(err) => {
+                                display.send_error(
+                                    &rep_tx,
+                                    format!("load error for \"{filename}\": {err}").as_str(),
+                                    notify,
+                                );
+                                continue;
+                            }
+                        };
+
+                        let img = match reader.decode() {
+                            Ok(img) => {
+                                let w = (img.width() as f32 * scale).round() as u32;
+                                let h = (img.height() as f32 * scale).round() as u32;
+                                img.resize(w, h, image::imageops::FilterType::Lanczos3)
+                                    .into_luma8()
+                            }
+                            Err(err) => {
+                                display.send_error(
+                                    &rep_tx,
+                                    format!("image decode error: {err}").as_str(),
+                                    notify,
+                                );
+                                continue;
+                            }
+                        };
+
+                        let w = if img.width() > std::u16::MAX.into() {
+                            display.send_error(
+                                &rep_tx,
+                                format!("image width is too big: {}", img.width()).as_str(),
+                                notify,
+                            );
+                            continue;
+                        } else {
+                            img.width() as u16
+                        };
+
+                        let h = if img.height() > std::u16::MAX.into() {
+                            display.send_error(
+                                &rep_tx,
+                                format!("image height is too big: {}", img.height()).as_str(),
+                                notify,
+                            );
+                            continue;
+                        } else {
+                            img.height() as u16
+                        };
+
+                        display = BitmapDisplay::new(w, h);
+
+                        for (a, b) in &mut display.buf.iter_mut().zip(img.iter()) {
+                            *a = if *b > 127 { 1 } else { 0 };
+                        }
+
+                        info!("read done: {filename} ({w}x{h})");
+                    }
+                    Request::View => {
+                        let mut bytes: Vec<u8> = Vec::new();
+                        let mut img =
+                            image::GrayImage::new(display.size().width, display.size().height);
+
+                        for (a, b) in img.iter_mut().zip(display.buf.iter()) {
+                            *a = if *b > 0 { 255 } else { 0 };
+                        }
+
+                        if let Err(err) = img.write_to(
+                            &mut std::io::Cursor::new(&mut bytes),
+                            image::ImageFormat::Png,
+                        ) {
+                            display.send_error(
+                                &rep_tx,
+                                format!("image write error: {err}").as_str(),
+                                notify,
+                            );
+                            continue;
+                        }
+
+                        let data = CString::new(base64::prelude::BASE64_STANDARD.encode(bytes))
+                            .unwrap_or_default();
+
+                        display.send_reply(&rep_tx, Reply::ViewData(data), notify);
+                    }
                 }
             }
 
@@ -626,6 +719,7 @@ impl core_async_bitmap {
             rx: rep_rx,
             on_data,
             on_err,
+            on_view: on_open,
         })
     }
 }
@@ -643,9 +737,10 @@ pub extern "C" fn ceammc_bitmap_new(
     h: u16,
     notify: core_notify,
     on_data: core_bitmap_on_data,
+    on_open: core_on_msg,
     on_err: core_on_msg,
 ) -> *mut core_async_bitmap {
-    match core_async_bitmap::new(w, h, notify, on_data, on_err.clone()) {
+    match core_async_bitmap::new(w, h, notify, on_data, on_open, on_err.clone()) {
         Ok(dht) => return Box::into_raw(Box::new(dht)),
         Err(err) => {
             on_err.exec_raw(&err);
@@ -678,6 +773,9 @@ pub extern "C" fn ceammc_bitmap_process(bitmap: *mut core_async_bitmap) {
                 }
                 Reply::Error(str) => {
                     bitmap.on_err.exec_raw(&str);
+                }
+                Reply::ViewData(cstr) => {
+                    bitmap.on_view.exec_raw(&cstr);
                 }
             }
         }
@@ -949,6 +1047,20 @@ pub extern "C" fn ceammc_bitmap_save_to_png(
     path: *const c_char,
 ) -> bool {
     core_async_bitmap::send_request(bitmap, Request::Save(cstr_to_string(path)))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_load(
+    bitmap: *mut core_async_bitmap,
+    path: *const c_char,
+    scale: f32,
+) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::Load(cstr_to_string(path), scale))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_bitmap_view(bitmap: *mut core_async_bitmap) -> bool {
+    core_async_bitmap::send_request(bitmap, Request::View)
 }
 
 #[no_mangle]
