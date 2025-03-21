@@ -85,5 +85,33 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
             == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
                            "    $w.f.x0 configure -to 99\n",
                 gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::CLOSED_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -100\n"
+                           "    $w.f.x0 configure -to 100\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::OPEN_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -99\n"
+                           "    $w.f.x0 configure -to 99\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::OPEN_CLOSED_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -99\n"
+                           "    $w.f.x0 configure -to 100\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::CLOSED_OPEN_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -100\n"
+                           "    $w.f.x0 configure -to 99\n",
+                gen.propVarName(0)));
     }
 }

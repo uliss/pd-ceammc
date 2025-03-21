@@ -195,8 +195,20 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info) c
             }
 
             res += fmt::format("{0}{1} configure -from {2}\n", IND, widgetId(row), v);
-        } else if (info.isFloat())
-            res += fmt::format("{0}{1} configure -from {2}\n", IND, widgetId(row), info.minFloat());
+        } else if (info.isFloat()) {
+            auto v = info.minFloat();
+            switch (info.constraints()) {
+            case PropValueConstraints::OPEN_CLOSED_RANGE: // fallthru
+            case PropValueConstraints::GREATER_THEN:
+            case PropValueConstraints::OPEN_RANGE:
+                v += 0.001;
+                break;
+            default:
+                break;
+            }
+
+            res += fmt::format("{0}{1} configure -from {2}\n", IND, widgetId(row), v);
+        }
     }
 
     if (info.hasConstraintsMax()) {
