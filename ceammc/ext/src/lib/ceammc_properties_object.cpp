@@ -21,7 +21,58 @@ inline std::string space(int s = 4)
 {
     return std::string(s, ' ');
 }
+
+inline const char* unit2ui_suffix(ceammc::PropValueUnits unit)
+{
+    switch (unit) {
+    case ceammc::PropValueUnits::NONE:
+        return nullptr;
+    case ceammc::PropValueUnits::MSEC:
+        return "ms";
+    case ceammc::PropValueUnits::SEC:
+        return "s";
+    case ceammc::PropValueUnits::SAMP:
+        return "samp";
+    case ceammc::PropValueUnits::DB:
+        return "db";
+    case ceammc::PropValueUnits::DEG:
+        return "deg";
+    case ceammc::PropValueUnits::RAD:
+        return "rad";
+    case ceammc::PropValueUnits::HZ:
+        return "Hz";
+    case ceammc::PropValueUnits::PERCENT:
+        return "%";
+    case ceammc::PropValueUnits::CENT:
+        return "cent";
+    case ceammc::PropValueUnits::SEMITONE:
+        return "semitone";
+    case ceammc::PropValueUnits::TONE:
+        return "tone";
+    case ceammc::PropValueUnits::BPM:
+        return "bpm";
+    // case ceammc::PropValueUnits::SMPTE:
+    case ceammc::PropValueUnits::PIXEL:
+        return "px";
+    case ceammc::PropValueUnits::MICROSEC:
+        return "usec";
+    case ceammc::PropValueUnits::NANOSEC:
+        return "nsec";
+    case ceammc::PropValueUnits::CENTIMETER:
+        return "cm";
+    case ceammc::PropValueUnits::MILLIMETER:
+        return "mm";
+    case ceammc::PropValueUnits::MINUTE:
+        return "min";
+    case ceammc::PropValueUnits::HOUR:
+        return "hour";
+    case ceammc::PropValueUnits::DAY:
+        return "day";
+    default:
+        return nullptr;
+    }
 }
+} // namespace
 
 namespace ceammc {
 
@@ -85,7 +136,7 @@ std::string TclPropDialogGenerator::procBody() const
             break;
         }
 
-        res += grid(row, 0, label(row, p->name()->s_name), "w");
+        res += grid(row, 0, propLabel(row, p->name()->s_name), "w");
 
         switch (p->type()) {
         case PropValueType::BOOLEAN: {
@@ -119,6 +170,10 @@ std::string TclPropDialogGenerator::procBody() const
 
         res += grid(row, 1, widgetId(row), "news");
 
+        auto unit_label = unitsLabel(row, p->infoT());
+        if (!unit_label.empty())
+            res += grid(row, 2, unit_label, "w");
+
         row++;
     }
 
@@ -127,14 +182,14 @@ std::string TclPropDialogGenerator::procBody() const
     return res;
 }
 
-std::string TclPropDialogGenerator::entryInt(int row, t_int value, const PropertyInfo& info) const
+std::string TclPropDialogGenerator::entryInt(int row, t_int value, const PropertyInfo& info)
 {
     auto res = spinbox(row, info);
     res += widgetState(row, info.access());
     return res;
 }
 
-std::string TclPropDialogGenerator::entryFloat(int row, t_float value, const PropertyInfo& info) const
+std::string TclPropDialogGenerator::entryFloat(int row, t_float value, const PropertyInfo& info)
 {
     auto res = spinbox(row, info);
     res += widgetState(row, info.access());
@@ -172,7 +227,7 @@ std::string TclPropDialogGenerator::checkbox(int row) const
         propVarName(row));
 }
 
-std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info) const
+std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
 {
     constexpr double MIN_VALUE = -9999999999;
     constexpr double MAX_VALUE = +9999999999;
@@ -252,12 +307,21 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info) c
         }
     }
 
+    if (!info.equalUnit(PropValueUnits::NONE)) {
+        int unit_count = 0;
+        const char* unit = nullptr;
+        info.unitsIterate([&unit_count, &unit](PropValueUnits u) {
+            unit_count++;
+            unit = unit2ui_suffix(u);
+        });
+    }
+
     res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, id);
 
     return res;
 }
 
-std::string TclPropDialogGenerator::label(int row, const std::string& text)
+std::string TclPropDialogGenerator::propLabel(int row, const std::string& text)
 {
     return fmt::format(R"([ttk::label $w.f.l{0} -text "{1}"])", row, text);
 }
@@ -288,6 +352,24 @@ std::string TclPropDialogGenerator::grid(int row, int col, const std::string& wi
         row,
         col,
         sticky);
+}
+
+std::string TclPropDialogGenerator::unitsLabel(int row, const PropertyInfo& info)
+{
+    int unit_count = 0;
+    std::string units;
+    info.unitsIterate([&unit_count, &units](PropValueUnits u) { //
+        if (unit_count > 0)
+            units += ' ';
+
+        units += unit2ui_suffix(u);
+        unit_count++;
+    });
+
+    if (unit_count == 1)
+        return propLabel(1000 + row, units);
+    else
+        return {};
 }
 
 std::string TclPropDialogGenerator::procBodyInit() const

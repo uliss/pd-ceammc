@@ -33,16 +33,17 @@ public:
     std::string callProc() const;
     std::string buttons(int row) const;
 
-    std::string entryInt(int row, t_int value, const PropertyInfo& info) const;
-    std::string entryFloat(int row, t_float value, const PropertyInfo& info) const;
+    static std::string entryInt(int row, t_int value, const PropertyInfo& info);
+    static std::string entryFloat(int row, t_float value, const PropertyInfo& info);
     std::string entryBool(int row, bool value, const PropertyInfo& info) const;
     std::string propVar(int row, t_symbol* name) const;
     std::string checkbox(int row) const;
-    std::string spinbox(int row, const PropertyInfo& info) const;
-    static std::string label(int row, const std::string& text);
+    static std::string spinbox(int row, const PropertyInfo& info);
+    static std::string propLabel(int row, const std::string& text);
     static std::string widgetId(int row);
     static std::string widgetState(int row, PropValueAccess state);
     static std::string grid(int row, int col, const std::string& widget, const char* sticky);
+    static std::string unitsLabel(int row, const PropertyInfo& info);
 
 private:
     std::string propVarName(int row) const;
