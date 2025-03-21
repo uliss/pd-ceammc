@@ -26,7 +26,6 @@
 #include <initializer_list>
 #include <memory>
 #include <string>
-#include <vector>
 
 namespace ceammc {
 
@@ -63,7 +62,8 @@ enum class PropValueView : uint8_t {
     TOGGLE,
     MENU,
     ENTRY,
-    COLOR
+    COLOR,
+    FILEPATH,
 };
 
 // on order change/adding new type

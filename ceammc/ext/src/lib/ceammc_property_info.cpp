@@ -70,7 +70,8 @@ const char* to_str(PropValueView v)
         "toggle",
         "menu",
         "entry",
-        "color"
+        "color",
+        "path",
     };
 
     auto idx = static_cast<size_t>(v);
