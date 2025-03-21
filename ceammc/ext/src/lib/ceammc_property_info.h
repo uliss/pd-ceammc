@@ -90,6 +90,9 @@ enum class PropValueUnits : PropValueUnitsBase {
     METER = 1 << 16, // meter
     CENTIMETER = 1 << 17, // centimeter
     MILLIMETER = 1 << 18, // millimeter
+    MINUTE = 1 << 19, // minute
+    HOUR = 1 << 20, // hour
+    DAY = 1 << 21, // day
 };
 
 // on order change/adding new type

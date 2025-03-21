@@ -104,6 +104,9 @@ const char* to_str(PropValueUnits u)
         "meter",
         "centimeter",
         "millimeter",
+        "minute",
+        "hour",
+        "day",
     };
 
     size_t idx = 0;
