@@ -97,7 +97,13 @@ const char* to_str(PropValueUnits u)
         "semitone",
         "tone",
         "bpm",
-        "smpte"
+        "smpte",
+        "pixel",
+        "microsecond",
+        "nanosecond",
+        "meter",
+        "centimeter",
+        "millimeter",
     };
 
     size_t idx = 0;

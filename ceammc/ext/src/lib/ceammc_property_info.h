@@ -68,7 +68,7 @@ enum class PropValueView : uint8_t {
 
 // on order change/adding new type
 // change also in to_string(PropValueType)
-using PropValueUnitsBase = std::uint16_t;
+using PropValueUnitsBase = std::uint32_t;
 enum class PropValueUnits : PropValueUnitsBase {
     NONE = 0,
     MSEC = 1, // milliseconds
@@ -84,6 +84,12 @@ enum class PropValueUnits : PropValueUnitsBase {
     TONE = 1 << 10, // tone
     BPM = 1 << 11, // bpm
     SMPTE = 1 << 12, // smpte
+    PIXEL = 1 << 13, // pixels
+    MICROSEC = 1 << 14, // microseconds
+    NANOSEC = 1 << 15, // nanoseconds
+    METER = 1 << 16, // meter
+    CENTIMETER = 1 << 17, // centimeter
+    MILLIMETER = 1 << 18, // millimeter
 };
 
 // on order change/adding new type
