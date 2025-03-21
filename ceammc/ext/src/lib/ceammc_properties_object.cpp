@@ -67,7 +67,7 @@ std::string TclPropDialogGenerator::procBody() const
 
     res += R"(
 
-    frame $w.f
+    frame $w.f -padx 10 -pady 10
     pack $w.f -expand yes -fill both -padx 1 -pady 1
     grid rowconfig    $w.f 0 -weight 1 -minsize 0
     grid columnconfig $w.f 0 -weight 1 -minsize 0
@@ -122,21 +122,21 @@ std::string TclPropDialogGenerator::procBody() const
         row++;
     }
 
+    res += buttons(row);
+
     return res;
 }
 
 std::string TclPropDialogGenerator::entryInt(int row, t_int value, const PropertyInfo& info) const
 {
-    auto res = propVar(row, info.name());
-    res += spinbox(row, info);
+    auto res = spinbox(row, info);
     res += widgetState(row, info.access());
     return res;
 }
 
 std::string TclPropDialogGenerator::entryFloat(int row, t_float value, const PropertyInfo& info) const
 {
-    auto res = propVar(row, info.name());
-    res += spinbox(row, info);
+    auto res = spinbox(row, info);
     res += widgetState(row, info.access());
     return res;
 }
@@ -174,80 +174,85 @@ std::string TclPropDialogGenerator::checkbox(int row) const
 
 std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info) const
 {
-    const auto IND = space(4);
+    constexpr double MIN_VALUE = -9999999999;
+    constexpr double MAX_VALUE = +9999999999;
 
-    auto res = fmt::format("{0}ttk::spinbox {1} -textvariable {2}\n",
-        IND,
-        widgetId(row),
-        propVarName(row));
+    const auto indent = space(4);
+    const auto id = widgetId(row);
 
-    if (info.hasConstraintsMin()) {
-        if (info.isInt()) {
-            auto v = info.minInt();
-            switch (info.constraints()) {
-            case PropValueConstraints::OPEN_CLOSED_RANGE: // fallthru
-            case PropValueConstraints::GREATER_THEN:
-            case PropValueConstraints::OPEN_RANGE:
-                v++;
-                break;
-            default:
-                break;
-            }
+    auto res = fmt::format("{0}ttk::spinbox {1}\n",
+        indent,
+        id);
 
-            res += fmt::format("{0}{1} configure -from {2}\n", IND, widgetId(row), v);
-        } else if (info.isFloat()) {
-            auto v = info.minFloat();
-            switch (info.constraints()) {
-            case PropValueConstraints::OPEN_CLOSED_RANGE: // fallthru
-            case PropValueConstraints::GREATER_THEN:
-            case PropValueConstraints::OPEN_RANGE:
-                v += 0.001;
-                break;
-            default:
-                break;
-            }
-
-            res += fmt::format("{0}{1} configure -from {2}\n", IND, widgetId(row), v);
-        }
-    }
-
-    if (info.hasConstraintsMax()) {
-        if (info.isInt()) {
-            auto v = info.maxInt();
-            switch (info.constraints()) {
-            case PropValueConstraints::CLOSED_OPEN_RANGE: // fallthru
-            case PropValueConstraints::LESS_THEN:
-            case PropValueConstraints::OPEN_RANGE:
-                v--;
-                break;
-            default:
-                break;
-            }
-
-            res += fmt::format("{0}{1} configure -to {2}\n", IND, widgetId(row), v);
-        } else if (info.isFloat()) {
-            auto v = info.maxFloat();
-            switch (info.constraints()) {
-            case PropValueConstraints::CLOSED_OPEN_RANGE: // fallthru
-            case PropValueConstraints::LESS_THEN:
-            case PropValueConstraints::OPEN_RANGE:
-                v -= 0.001;
-                break;
-            default:
-                break;
-            }
-
-            res += fmt::format("{0}{1} configure -to {2}\n", IND, widgetId(row), v);
-        }
-    }
+    res += fmt::format("{0}{1} set [dict get $props {{{2}}}]\n", indent, id, info.name()->s_name);
 
     if (info.hasEnumLimit()) {
-        res += fmt::format("{0}{1} configure -values {2}\n", IND, widgetId(row), to_string(info.enumValues()));
+        res += fmt::format("{0}{1} configure -values {2}\n", indent, id, to_string(info.enumValues()));
+    } else {
+        double vmin = MIN_VALUE;
+        double vmax = MAX_VALUE;
+
+        if (info.hasConstraintsMin()) {
+            if (info.isInt()) {
+                vmin = info.minInt();
+                switch (info.constraints()) {
+                case PropValueConstraints::OPEN_CLOSED_RANGE: // fallthru
+                case PropValueConstraints::GREATER_THEN:
+                case PropValueConstraints::OPEN_RANGE:
+                    vmin++;
+                    break;
+                default:
+                    break;
+                }
+            } else if (info.isFloat()) {
+                vmin = info.minFloat();
+                switch (info.constraints()) {
+                case PropValueConstraints::OPEN_CLOSED_RANGE: // fallthru
+                case PropValueConstraints::GREATER_THEN:
+                case PropValueConstraints::OPEN_RANGE:
+                    vmin += 0.001;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        if (info.hasConstraintsMax()) {
+            if (info.isInt()) {
+                vmax = info.maxInt();
+                switch (info.constraints()) {
+                case PropValueConstraints::CLOSED_OPEN_RANGE: // fallthru
+                case PropValueConstraints::LESS_THEN:
+                case PropValueConstraints::OPEN_RANGE:
+                    vmax--;
+                    break;
+                default:
+                    break;
+                }
+            } else if (info.isFloat()) {
+                vmax = info.maxFloat();
+                switch (info.constraints()) {
+                case PropValueConstraints::CLOSED_OPEN_RANGE: // fallthru
+                case PropValueConstraints::LESS_THEN:
+                case PropValueConstraints::OPEN_RANGE:
+                    vmax -= 0.001;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        res += fmt::format("{0}{1} configure -from {2} -to {3}\n",
+            indent, id, vmin, vmax);
+
+        if (info.step() > 0 && info.step() != 1) {
+            res += fmt::format("{0}{1} configure -increment {2}\n", indent, id, info.step());
+        }
     }
 
-    if (info.step() > 0 && info.step() != 1) {
-        res += fmt::format("{0}{1} configure -increment {2}\n", IND, widgetId(row), info.step());
-    }
+    res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, id);
 
     return res;
 }
@@ -320,6 +325,33 @@ std::string TclPropDialogGenerator::callProc() const
 
     res += ']';
     res += '\n';
+    return res;
+}
+
+std::string TclPropDialogGenerator::buttons(int row) const
+{
+    const auto indent = space();
+
+    std::string res;
+
+    res += fmt::format("{0}ttk::button $w.f.btn_cancel -text [_ \"Cancel\"]\n", indent);
+    res += fmt::format("{0}ttk::button $w.f.btn_apply -text [_ \"Apply\"]\n", indent);
+    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"]\n", indent);
+
+    res += fmt::format("{0}grid $w.f.btn_cancel -in $w.f"
+                       " -padx 1 -pady 1 "
+                       "-row {1} -column 0 -columnspan 2 -sticky w\n",
+        indent, row);
+    res += fmt::format("{0}grid $w.f.btn_apply -in $w.f"
+                       " -padx 1 -pady 1 "
+                       "-row {1} -column 0 -columnspan 2 -sticky n\n",
+        indent, row);
+
+    res += fmt::format("{0}grid $w.f.btn_ok -in $w.f"
+                       " -padx 1 -pady 1 "
+                       "-row {1} -column 0 -columnspan 2 -sticky e\n",
+        indent, row);
+
     return res;
 }
 
