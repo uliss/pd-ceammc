@@ -1,4 +1,5 @@
-add_executable(test_cells test_property.h)
+add_executable(test_cells test_property.h
+    test_tcl_prop_dialog_generator.cpp)
 
 find_program(SOX_EXEC sox)
 if(SOX_EXEC)
@@ -99,4 +100,6 @@ add_cell_test(score)
 add_cell_test(string)
 add_cell_test(transport)
 add_cell_test(units)
+
+add_cell_test(tcl_prop_dialog_generator)
 
