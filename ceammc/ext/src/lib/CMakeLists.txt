@@ -1,6 +1,7 @@
 # main shared library
 add_library(ceammc_core SHARED ceammc.cpp
-    ceammc_properties_object.h ceammc_properties_object.cpp)
+    ceammc_properties_object.h ceammc_properties_object.cpp
+    ceammc_property_types.h ceammc_property_types.cpp)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
 target_include_directories(ceammc_core PRIVATE
     ${PROJECT_SOURCE_DIR}/src # m_pd.h
