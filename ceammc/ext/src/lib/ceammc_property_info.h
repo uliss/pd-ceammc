@@ -165,7 +165,7 @@ private:
 public:
     PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
     PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
-    PropertyInfo(const PropertyInfo& getTree);
+    PropertyInfo(const PropertyInfo& info);
     PropertyInfo(PropertyInfo&& info);
     ~PropertyInfo();
 
