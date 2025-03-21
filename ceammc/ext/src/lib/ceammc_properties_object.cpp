@@ -225,12 +225,28 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info) c
             }
 
             res += fmt::format("{0}{1} configure -to {2}\n", IND, widgetId(row), v);
-        } else if (info.isFloat())
-            res += fmt::format("{0}{1} configure -to {2}\n", IND, widgetId(row), info.maxFloat());
+        } else if (info.isFloat()) {
+            auto v = info.maxFloat();
+            switch (info.constraints()) {
+            case PropValueConstraints::CLOSED_OPEN_RANGE: // fallthru
+            case PropValueConstraints::LESS_THEN:
+            case PropValueConstraints::OPEN_RANGE:
+                v -= 0.001;
+                break;
+            default:
+                break;
+            }
+
+            res += fmt::format("{0}{1} configure -to {2}\n", IND, widgetId(row), v);
+        }
     }
 
     if (info.hasEnumLimit()) {
         res += fmt::format("{0}{1} configure -values {2}\n", IND, widgetId(row), to_string(info.enumValues()));
+    }
+
+    if (info.step() > 0 && info.step() != 1) {
+        res += fmt::format("{0}{1} configure -increment {2}\n", IND, widgetId(row), info.step());
     }
 
     return res;

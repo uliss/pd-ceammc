@@ -113,5 +113,87 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
                            "    $w.f.x0 configure -from -100\n"
                            "    $w.f.x0 configure -to 99\n",
                 gen.propVarName(0)));
+
+        REQUIRE(pi.setStep(10));
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -100\n"
+                           "    $w.f.x0 configure -to 99\n"
+                           "    $w.f.x0 configure -increment 10\n",
+                gen.propVarName(0)));
+
+        REQUIRE(pi.setStep(0));
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -100\n"
+                           "    $w.f.x0 configure -to 99\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::ENUM);
+        REQUIRE(pi.addEnums({ 1, 2, 4, 8, 16 }));
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -values 1 2 4 8 16\n",
+                gen.propVarName(0)));
+
+        pi = PropertyInfo("name", PropValueType::FLOAT);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n", gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::GREATER_EQUAL);
+        REQUIRE(pi.setMinFloat(-100));
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -100\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::GREATER_THEN);
+        REQUIRE(pi.setMinFloat(-100));
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -99.999\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::LESS_EQUAL);
+        REQUIRE(pi.setMaxFloat(100));
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -to 100\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::LESS_THEN);
+        REQUIRE(pi.setMaxFloat(100));
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -to 99.999\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::CLOSED_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -100\n"
+                           "    $w.f.x0 configure -to 100\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::OPEN_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -99.999\n"
+                           "    $w.f.x0 configure -to 99.999\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::CLOSED_OPEN_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -100\n"
+                           "    $w.f.x0 configure -to 99.999\n",
+                gen.propVarName(0)));
+
+        pi.setConstraints(PropValueConstraints::OPEN_CLOSED_RANGE);
+        REQUIRE(gen.spinbox(0, pi)
+            == fmt::format("    ttk::spinbox $w.f.x0 -textvariable {}\n"
+                           "    $w.f.x0 configure -from -99.999\n"
+                           "    $w.f.x0 configure -to 100\n",
+                gen.propVarName(0)));
     }
 }
