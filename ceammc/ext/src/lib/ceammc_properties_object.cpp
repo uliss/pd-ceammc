@@ -307,6 +307,20 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
         }
     }
 
+    if (info.isInt()) {
+        res += fmt::format("{0}{1} configure"
+                           " -validate key"
+                           " -validatecommand {{string is int %P}}"
+                           " -invalidcommand {{%W set %s}}\n", indent, id);
+    }
+
+    if (info.isFloat()) {
+        res += fmt::format("{0}{1} configure"
+                           " -validate key"
+                           " -validatecommand {{string is double %P}}"
+                           " -invalidcommand {{%W set %s}}\n", indent, id);
+    }
+
     if (!info.equalUnit(PropValueUnits::NONE)) {
         int unit_count = 0;
         const char* unit = nullptr;
