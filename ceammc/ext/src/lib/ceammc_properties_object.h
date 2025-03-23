@@ -27,26 +27,28 @@ public:
 
     std::string generate() const;
     std::string procName() const;
-    std::string procArgs() const;
     std::string procBody() const;
     std::string procBodyInit() const;
     std::string callProc() const;
     std::string buttons(int row) const;
+    std::string okProcName() const;
 
-    static std::string entryInt(int row, t_int value, const PropertyInfo& info);
-    static std::string entryFloat(int row, t_float value, const PropertyInfo& info);
-    std::string entryBool(int row, bool value, const PropertyInfo& info) const;
-    std::string propVar(int row, t_symbol* name) const;
-    std::string checkbox(int row) const;
-    static std::string spinbox(int row, const PropertyInfo& info);
+    void foreachProperty(const std::function<void(const char* name, int row, const Property* p)>& cb) const;
+
+    static std::string entryInt(int row, t_int value, const PropertyInfo& info) ;
+    static std::string entryFloat(int row, t_float value, const PropertyInfo& info) ;
+    static std::string entryBool(int row, bool value, const PropertyInfo& info) ;
+    static std::string checkbox(int row) ;
+    static std::string dialogDataVar() ;
+    static std::string getDialogValue(const char* prop) ;
+    static std::string setDialogValue(const char* prop, const char* val) ;
+
+    static std::string spinbox(int row, const PropertyInfo& info) ;
     static std::string propLabel(int row, const std::string& text);
     static std::string widgetId(int row);
     static std::string widgetState(int row, PropValueAccess state);
     static std::string grid(int row, int col, const std::string& widget, const char* sticky);
     static std::string unitsLabel(int row, const PropertyInfo& info);
-
-private:
-    std::string propVarName(int row) const;
 };
 
 template <typename T>

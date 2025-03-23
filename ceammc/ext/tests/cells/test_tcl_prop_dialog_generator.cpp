@@ -36,7 +36,6 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
 
         TclPropDialogGenerator gen(&obj);
         REQUIRE(gen.procName() == "ceammc_dialog_test_object");
-        REQUIRE(gen.procArgs() == "{f}");
         REQUIRE(gen.procBodyInit() == R"(
     set w $id
     catch {destroy $w}

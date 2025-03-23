@@ -83,10 +83,12 @@ TclPropDialogGenerator::TclPropDialogGenerator(const BaseObject* obj)
 
 std::string TclPropDialogGenerator::generate() const
 {
-    return fmt::format("proc {0} {{id props}} {{\n"
-                       "{1}"
+    return fmt::format("proc {0} {{id props}} {{puts $props\n"
+                       "}}\n"
+                       "proc {1} {{id props}} {{\n"
+                       "{2}"
                        "}}\n",
-        procName(), procBody());
+        okProcName(), procName(), procBody());
 }
 
 std::string TclPropDialogGenerator::procName() const
@@ -95,21 +97,23 @@ std::string TclPropDialogGenerator::procName() const
     return fmt::format("ceammc_dialog_{0}", name);
 }
 
-std::string TclPropDialogGenerator::procArgs() const
+void TclPropDialogGenerator::foreachProperty(const std::function<void(const char*, int, const Property*)>& cb) const
 {
-    std::string res;
+    int prop_idx = 0;
 
     for (auto& p : obj_->getProperties()) {
-        res += '{';
-        res += p->name()->s_name[1];
-        res += '}';
-        res += ' ';
+        switch (p->visibility()) {
+        case PropValueVis::HIDDEN:
+        case PropValueVis::INTERNAL:
+            // ignore hidden properties
+            continue;
+            break;
+        default:
+            if (p != nullptr)
+                cb(p->name()->s_name, prop_idx++, p);
+            break;
+        }
     }
-
-    if (!res.empty() && res.back() == ' ')
-        res.pop_back();
-
-    return res;
 }
 
 std::string TclPropDialogGenerator::procBody() const
@@ -124,37 +128,27 @@ std::string TclPropDialogGenerator::procBody() const
     grid columnconfig $w.f 0 -weight 1 -minsize 0
 )";
 
-    int row = 0;
-    for (auto& p : obj_->getProperties()) {
-        switch (p->visibility()) {
-        case PropValueVis::HIDDEN:
-        case PropValueVis::INTERNAL:
-            // ignore hidden properties
-            continue;
-            break;
-        default:
-            break;
-        }
-
-        res += grid(row, 0, propLabel(row, p->name()->s_name), "w");
+    int last_row = 0;
+    foreachProperty([&res, this, &last_row](const char* name, int row, const Property* p) {
+        res += grid(row, 0, propLabel(row, name), "w");
 
         switch (p->type()) {
         case PropValueType::BOOLEAN: {
             bool v = false;
             if (p->getBool(v)) {
-                res += entryBool(row, v, p->infoT());
+                res += entryBool(row, v, p->info());
             }
         } break;
         case PropValueType::INTEGER: {
             t_int v = 0;
             if (p->getInt(v)) {
-                res += entryInt(row, v, p->infoT());
+                res += entryInt(row, v, p->info());
             }
         } break;
         case PropValueType::FLOAT: {
             t_float v = 0;
             if (p->getFloat(v)) {
-                res += entryFloat(row, v, p->infoT());
+                res += entryFloat(row, v, p->info());
             }
 
         } break;
@@ -170,14 +164,17 @@ std::string TclPropDialogGenerator::procBody() const
 
         res += grid(row, 1, widgetId(row), "news");
 
-        auto unit_label = unitsLabel(row, p->infoT());
+        auto unit_label = unitsLabel(row, p->info());
         if (!unit_label.empty())
             res += grid(row, 2, unit_label, "w");
 
-        row++;
-    }
+        res += grid(row, 3, fmt::format("[button $w.f.btn_reset{0} -text Reset]", row), "e");
+        res += fmt::format("{0}::ceammc_tooltip $w.f.btn_reset{1} [_ {{Reset to default}}]\n", space(), row);
 
-    res += buttons(row);
+        last_row = row;
+    });
+
+    res += buttons(last_row + 1);
 
     return res;
 }
@@ -196,35 +193,33 @@ std::string TclPropDialogGenerator::entryFloat(int row, t_float value, const Pro
     return res;
 }
 
-std::string TclPropDialogGenerator::entryBool(int row, bool value, const PropertyInfo& info) const
+std::string TclPropDialogGenerator::entryBool(int row, bool value, const PropertyInfo& info)
 {
-    auto res = propVar(row, info.name());
-    res += checkbox(row);
+    auto res = checkbox(row);
     res += widgetState(row, info.access());
     return res;
 }
 
-std::string TclPropDialogGenerator::propVar(int row, t_symbol* name) const
+std::string TclPropDialogGenerator::checkbox(int row)
 {
-    return fmt::format("{0}set {1} [dict get $props \"{2}\"]\n",
+    return fmt::format("{0}ttk::checkbutton {1}\n",
         space(),
-        propVarName(row),
-        name->s_name);
+        widgetId(row));
 }
 
-std::string TclPropDialogGenerator::propVarName(int row) const
+std::string TclPropDialogGenerator::dialogDataVar()
 {
-    return fmt::format("::ceammc::dialog_vars(v{0}_{1})",
-        static_cast<const void*>(this),
-        row);
+    return fmt::format("::ceammc::dialog_data(v$id)");
 }
 
-std::string TclPropDialogGenerator::checkbox(int row) const
+std::string TclPropDialogGenerator::getDialogValue(const char* prop)
 {
-    return fmt::format("{0}ttk::checkbutton {1} -variable {2}\n",
-        space(),
-        widgetId(row),
-        propVarName(row));
+    return fmt::format("dict get ${0} {1}", dialogDataVar(), prop);
+}
+
+std::string TclPropDialogGenerator::setDialogValue(const char* prop, const char* val)
+{
+    return fmt::format("dict set ${0} {1} {2}; puts {2};", dialogDataVar(), prop, val);
 }
 
 std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
@@ -240,6 +235,7 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
         id);
 
     res += fmt::format("{0}{1} set [dict get $props {{{2}}}]\n", indent, id, info.name()->s_name);
+    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\[{1} get\\]\"\n", indent, id, dialogDataVar(), info.name()->s_name);
 
     if (info.hasEnumLimit()) {
         res += fmt::format("{0}{1} configure -values {2}\n", indent, id, to_string(info.enumValues()));
@@ -310,15 +306,21 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
     if (info.isInt()) {
         res += fmt::format("{0}{1} configure"
                            " -validate key"
-                           " -validatecommand {{string is int %P}}"
-                           " -invalidcommand {{%W set %s}}\n", indent, id);
+                           " -validatecommand {{string is int %P}}\n",
+            indent, id, setDialogValue(info.name()->s_name, "%P"));
+
+        res += fmt::format("{0}{1} configure -invalidcommand {{%W set %s}}\n",
+            indent, id);
     }
 
     if (info.isFloat()) {
         res += fmt::format("{0}{1} configure"
                            " -validate key"
-                           " -validatecommand {{string is double %P}}"
-                           " -invalidcommand {{%W set %s}}\n", indent, id);
+                           " -validatecommand {{string is double %P}}",
+            indent, id);
+
+        res += fmt::format("{0}{1} configure -invalidcommand {{%W set %s}}\n",
+            indent, id);
     }
 
     if (!info.equalUnit(PropValueUnits::NONE)) {
@@ -331,6 +333,7 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
     }
 
     res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, id);
+    res += fmt::format("{0}bind {1} <Return> \"dict set {2} {3} \\[%W get\\]\"\n", indent, id, dialogDataVar(), info.name()->s_name);
 
     return res;
 }
@@ -398,8 +401,12 @@ std::string TclPropDialogGenerator::procBodyInit() const
     wm iconname $w "form"
     bind $w <Key-Escape> "destroy $w; break"
     raise [winfo toplevel $w]
+
+    set {1} $props
 )",
-        obj_->className()->s_name);
+        obj_->className()->s_name, dialogDataVar());
+
+    // image create photo icon_reset -data iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABhklEQVRIS+2VzytFQRTH383KwkKSkJQfC1lIiighxeaFJVn5H7D2D/BXWLCRDfIjPSlF8ewoEVG8srBQNorPV3Pyuu51p1d3I1OfZppz5nzPnDszN8ik3IKU42f+vkA5JVyAaaj3LGcBvx2Yh6ffSlSJwxb0eAYOu60yMRknUItxF9qVBYzDiafQAH45eIbqKIEWDPvQAJcwAveewc3tww2CsEA3hk2ochmP0r+YM/0B6LtkQbVWq4ENeIVBNxcpoEzXXQB9pAl4K8pcyZxCJ1xDv7Md0jfDGXTFCSgjBS+DZZiB96LgNlS2R9AEd26ykf4G+sB29WMHtxjluASzYA4RGl8lOXb+sktIJ82Cay5WYBHjXBoCYwRdS7NE2pbPR87j1wFXoPOuppPVCuegAxBZIqt10jHVZauAIXh0i3Qpc6DjbLc+9h5oTaoXzXZSx2AP2uDBle/CjAn9sFsb+1TYej12uqG9noHDbitMTCX9cEp9rrcJrue6kCRQYvLfy/4FEkv4Ccw8XBl0/I8MAAAAAElFTkSuQmCC
 
     return res;
 }
@@ -430,25 +437,30 @@ std::string TclPropDialogGenerator::buttons(int row) const
 
     std::string res;
 
-    res += fmt::format("{0}ttk::button $w.f.btn_cancel -text [_ \"Cancel\"]\n", indent);
+    res += fmt::format("{0}ttk::button $w.f.btn_cancel -text [_ \"Cancel\"] -command \"destroy $w\"\n", indent);
     res += fmt::format("{0}ttk::button $w.f.btn_apply -text [_ \"Apply\"]\n", indent);
-    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"]\n", indent);
+    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"] -command \"{1} $w \\${2}\"\n", indent, okProcName(), dialogDataVar());
 
     res += fmt::format("{0}grid $w.f.btn_cancel -in $w.f"
-                       " -padx 1 -pady 1 "
-                       "-row {1} -column 0 -columnspan 2 -sticky w\n",
+                       " -padx 1 -pady 1"
+                       " -row {1} -column 0 -sticky w\n",
         indent, row);
     res += fmt::format("{0}grid $w.f.btn_apply -in $w.f"
-                       " -padx 1 -pady 1 "
-                       "-row {1} -column 0 -columnspan 2 -sticky n\n",
+                       " -padx 1 -pady 1"
+                       " -row {1} -column 1 -sticky w\n",
         indent, row);
 
     res += fmt::format("{0}grid $w.f.btn_ok -in $w.f"
-                       " -padx 1 -pady 1 "
-                       "-row {1} -column 0 -columnspan 2 -sticky e\n",
+                       " -padx 1 -pady 1"
+                       " -row {1} -column 2 -columnspan 2 -sticky e\n",
         indent, row);
 
     return res;
+}
+
+std::string TclPropDialogGenerator::okProcName() const
+{
+    return procName() + "_ok";
 }
 
 } // namespace ceammc
