@@ -83,12 +83,19 @@ TclPropDialogGenerator::TclPropDialogGenerator(const BaseObject* obj)
 
 std::string TclPropDialogGenerator::generate() const
 {
-    return fmt::format("proc {0} {{id props}} {{puts $props\n"
+    return fmt::format("proc {0} {{id props}} {{\n"
+                       "    set args [list $id .prop_set]\n"
+                       "    dict for {{k v}} $props {{\n"
+                       "        lappend args $k $v\n"
+                       "    }}\n"
+                       "    pdsend $args\n"
                        "}}\n"
-                       "proc {1} {{id props}} {{\n"
-                       "{2}"
+                       "proc {1} {{id wid var prop value}} {{pdsend [list $id .prop_validate $var $wid $prop $value]\n"
+                       "}}\n"
+                       "proc {2} {{id props}} {{\n"
+                       "{3}"
                        "}}\n",
-        okProcName(), procName(), procBody());
+        okProcName(), validatePropName(), procName(), procBody());
 }
 
 std::string TclPropDialogGenerator::procName() const
@@ -333,7 +340,8 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
     }
 
     res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, id);
-    res += fmt::format("{0}bind {1} <Return> \"dict set {2} {3} \\[%W get\\]\"\n", indent, id, dialogDataVar(), info.name()->s_name);
+    res += fmt::format("{0}bind {1} <Return> \"ceammc_dialog_bitmap_validate $id %W {2} {3} \\[%W get\\]\"\n",
+        indent, id, dialogDataVar(), info.name()->s_name);
 
     return res;
 }
@@ -439,12 +447,13 @@ std::string TclPropDialogGenerator::buttons(int row) const
 
     res += fmt::format("{0}ttk::button $w.f.btn_cancel -text [_ \"Cancel\"] -command \"destroy $w\"\n", indent);
     res += fmt::format("{0}ttk::button $w.f.btn_apply -text [_ \"Apply\"]\n", indent);
-    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"] -command \"{1} $w \\${2}\"\n", indent, okProcName(), dialogDataVar());
+    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"] -command \"{1} $id \\${2}\"\n", indent, okProcName(), dialogDataVar());
 
     res += fmt::format("{0}grid $w.f.btn_cancel -in $w.f"
                        " -padx 1 -pady 1"
                        " -row {1} -column 0 -sticky w\n",
         indent, row);
+
     res += fmt::format("{0}grid $w.f.btn_apply -in $w.f"
                        " -padx 1 -pady 1"
                        " -row {1} -column 1 -sticky w\n",
@@ -461,6 +470,11 @@ std::string TclPropDialogGenerator::buttons(int row) const
 std::string TclPropDialogGenerator::okProcName() const
 {
     return procName() + "_ok";
+}
+
+std::string TclPropDialogGenerator::validatePropName() const
+{
+    return procName() + "_validate";
 }
 
 } // namespace ceammc
