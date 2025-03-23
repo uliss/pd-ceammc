@@ -14,6 +14,7 @@
 #ifndef CEAMMC_PROPERTIES_OBJECT_H
 #define CEAMMC_PROPERTIES_OBJECT_H
 
+#include "ceammc_fn_list.h"
 #include "ceammc_object.h"
 #include "m_pd.h"
 
@@ -88,7 +89,14 @@ public:
 
     void m_prop_set(t_symbol* s, const AtomListView& lv)
     {
-        OBJ_DBG << lv.size() << ' ' << lv;
+        list::foreachProperty(lv, [this, s](t_symbol* key, const AtomListView& lv) {
+            Property* prop = this->property(key);
+            if (!prop) {
+                METHOD_ERR(s) << "property not found: " << key;
+            } else {
+                prop->setList(lv);
+            }
+        });
     }
 
     void m_prop_validate(t_symbol* s, const AtomListView& lv)
