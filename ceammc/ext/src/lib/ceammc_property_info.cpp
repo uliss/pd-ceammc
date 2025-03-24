@@ -543,6 +543,7 @@ bool PropertyInfo::setView(PropValueView v)
         switch (v) {
         case PropValueView::ENTRY:
         case PropValueView::MENU:
+        case PropValueView::FILEPATH:
             view_ = v;
             return true;
         default:

@@ -76,6 +76,13 @@ inline const char* unit2ui_suffix(ceammc::PropValueUnits unit)
 
 namespace ceammc {
 
+constexpr auto COL_PROP_NAME = 0;
+constexpr auto COL_WIDGET = 1;
+constexpr auto COL_WIDGET2 = 2;
+constexpr auto COL_PROP_TYPE = 3;
+constexpr auto COL_PROP_RESET = 4;
+constexpr auto COL_PROP_DEFAULT = 5;
+
 TclPropDialogGenerator::TclPropDialogGenerator(const BaseObject* obj)
     : obj_(obj)
 {
@@ -139,7 +146,7 @@ std::string TclPropDialogGenerator::procBody() const
 
     int last_row = 0;
     foreachProperty([&res, this, &last_row](const char* name, int row, const Property* p) {
-        res += grid(row, 0, propLabel(row, name), "w");
+        res += grid(row, COL_PROP_NAME, propLabel(row, name), "w");
 
         switch (p->type()) {
         case PropValueType::BOOLEAN: {
@@ -162,15 +169,15 @@ std::string TclPropDialogGenerator::procBody() const
             break;
         }
 
-        res += grid(row, 1, widgetId(row), "news");
+        res += grid(row, COL_WIDGET, widgetId(row), "news");
 
         auto unit_label = unitsLabel(row, p->info());
         if (!unit_label.empty())
-            res += grid(row, 2, unit_label, "w");
+            res += grid(row, COL_PROP_TYPE, unit_label, "w");
 
-        res += grid(row, 3, fmt::format("[button $w.f.btn_reset{0} -text [_ Reset]]", row), "e");
+        res += grid(row, COL_PROP_RESET, fmt::format("[button $w.f.btn_reset{0} -text [_ Reset]]", row), "e");
         res += fmt::format("{0}::ceammc_tooltip $w.f.btn_reset{1} [_ {{Reset to default}}]\n", space(), row);
-        res += grid(row, 4, fmt::format("[button $w.f.btn_default{0} -text [_ Default]]", row), "e");
+        res += grid(row, COL_PROP_DEFAULT, fmt::format("[button $w.f.btn_default{0} -text [_ Default]]", row), "e");
 
         last_row = row;
     });
@@ -193,6 +200,8 @@ std::string TclPropDialogGenerator::entrySymbol(int row, const PropertyInfo& inf
 
     if (info.hasEnumLimit()) {
         res += combobox(row, info);
+    } else if (info.view() == PropValueView::FILEPATH) {
+        res += pathentry(row, info);
     } else {
         res += textentry(row, info);
     }
@@ -242,6 +251,30 @@ std::string TclPropDialogGenerator::textentry(int propIdx, const PropertyInfo& i
     res += fmt::format("{0}{1} insert end [dict get $props {{{2}}}]\n", indent, wid, prop_name);
     res += fmt::format("{0}{1} configure -validatecommand \"dict set {2} {3} %P; return 1;\"\n",
         indent, wid, propsDictVar(), prop_name);
+
+    return res;
+}
+
+std::string TclPropDialogGenerator::pathentry(int propIdx, const PropertyInfo& info)
+{
+    const auto indent = space(4);
+    const auto wid = widgetId(propIdx);
+    const auto prop_name = info.name()->s_name;
+
+    std::string res;
+
+    res += fmt::format("{0}set {1} [dict get $props {{{2}}}]\n", indent, propVarName(propIdx), prop_name);
+    res += fmt::format("{0}ttk::entry {1} -validate key -textvariable {2}\n", indent, wid, propVarName(propIdx));
+    res += fmt::format("{0}{1} insert end [dict get $props {{{2}}}]\n", indent, wid, prop_name);
+    res += fmt::format("{0}{1} configure -validatecommand \"dict set {2} {3} %P; return 1;\"\n",
+        indent, wid, propsDictVar(), prop_name);
+
+    res += fmt::format("{0}ttk::button {1}_btn"
+                       " -text [_ Choose]"
+                       " -command \"::ceammc::dialog::open_file [dict get $props {{{2}}}] {1}\"\n",
+        indent, wid, prop_name);
+
+    res += grid(propIdx, COL_WIDGET2, fmt::format("{}_btn", wid), "n");
 
     return res;
 }

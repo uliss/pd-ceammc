@@ -5,6 +5,13 @@ namespace eval dialog {
     proc escape2pd {str} {
         return [string map {";" "\\;" "\$" "\\\$" " " "\\ "} $str]
     }
+
+    proc open_file {path entry} {
+#        set types {{ {{Image Files}} {{.gif .png .jpg .jpeg}} }}
+        set new_path [tk_getOpenFile -initialfile $path]
+        $entry delete 0 end
+        $entry insert 0 $new_path
+    }
 }
 
 namespace eval patheditor {

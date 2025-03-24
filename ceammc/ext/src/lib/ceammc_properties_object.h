@@ -50,6 +50,7 @@ public:
     static std::string combobox(int propIdx, const PropertyInfo& info);
     static std::string spinbox(int propIdx, const PropertyInfo& info);
     static std::string textentry(int propIdx, const PropertyInfo& info);
+    static std::string pathentry(int propIdx, const PropertyInfo& info);
 
     static std::string propsDictVar();
     static std::string setDialogValue(const char* prop, const char* val);
