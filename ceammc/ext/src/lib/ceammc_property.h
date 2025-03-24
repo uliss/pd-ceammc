@@ -136,12 +136,12 @@ public:
     inline bool isAtom() const { return info_.isVariant(); }
     inline bool isList() const { return info_.isList(); }
 
-    bool setFloatCheckFn(PropFloatCheckFn fn, const std::string& err = std::string());
-    bool setIntCheckFn(PropIntCheckFn fn, const std::string& err = std::string());
-    bool setSymbolCheckFn(PropSymbolCheckFn fn, const std::string& err = std::string());
-    bool setAtomCheckFn(PropAtomCheckFn fn, const std::string& err = std::string());
-    bool setListCheckFn(PropListCheckFn fn, const std::string& err = std::string());
-    bool setSuccessFn(PropSuccessFn fn);
+    bool setFloatCheckFn(const PropFloatCheckFn& fn, const std::string& err = std::string());
+    bool setIntCheckFn(const PropIntCheckFn& fn, const std::string& err = std::string());
+    bool setSymbolCheckFn(const PropSymbolCheckFn& fn, const std::string& err = std::string());
+    bool setAtomCheckFn(const PropAtomCheckFn& fn, const std::string& err = std::string());
+    bool setListCheckFn(const PropListCheckFn& fn, const std::string& err = std::string());
+    bool setSuccessFn(const PropSuccessFn& fn);
 
     bool setFloatCheck(PropValueConstraints type, t_float a = 0, t_float b = 0);
     bool setIntCheck(PropValueConstraints type, t_int a = 0, t_int b = 0);

@@ -22,11 +22,10 @@
 #include "fmt/core.h"
 #pragma clang diagnostic pop
 
-#include <algorithm>
-#include <cctype>
 #include <cmath>
 #include <ctime>
 #include <random>
+#include <utility>
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 #define PROP_CHECK_ERR(v)                                                \
@@ -159,7 +158,7 @@ bool Property::reset()
     }
 }
 
-bool Property::setFloatCheckFn(Property::PropFloatCheckFn fn, const std::string& err)
+bool Property::setFloatCheckFn(const Property::PropFloatCheckFn& fn, const std::string& err)
 {
     if (!isFloat() && !isList()) {
         PROP_ERR() << "not float or list property";
@@ -178,7 +177,7 @@ bool Property::setFloatCheckFn(Property::PropFloatCheckFn fn, const std::string&
     return true;
 }
 
-bool Property::setIntCheckFn(Property::PropIntCheckFn fn, const std::string& err)
+bool Property::setIntCheckFn(const Property::PropIntCheckFn& fn, const std::string& err)
 {
     if (!isInt() && !isList()) {
         PROP_ERR() << "not int or list property";
@@ -205,7 +204,7 @@ bool Property::setIntCheckFn(Property::PropIntCheckFn fn, const std::string& err
     return true;
 }
 
-bool Property::setSymbolCheckFn(Property::PropSymbolCheckFn fn, const std::string& err)
+bool Property::setSymbolCheckFn(const Property::PropSymbolCheckFn& fn, const std::string& err)
 {
     if (!isSymbol() && !isList()) {
         PROP_ERR() << "not symbol or list property";
@@ -224,7 +223,7 @@ bool Property::setSymbolCheckFn(Property::PropSymbolCheckFn fn, const std::strin
     return true;
 }
 
-bool Property::setAtomCheckFn(Property::PropAtomCheckFn fn, const std::string& err)
+bool Property::setAtomCheckFn(const Property::PropAtomCheckFn& fn, const std::string& err)
 {
     if (!isAtom() && !isList()) {
         PROP_ERR() << "not atom or list property";
@@ -243,7 +242,7 @@ bool Property::setAtomCheckFn(Property::PropAtomCheckFn fn, const std::string& e
     return true;
 }
 
-bool Property::setListCheckFn(Property::PropListCheckFn fn, const std::string& err)
+bool Property::setListCheckFn(const Property::PropListCheckFn& fn, const std::string& err)
 {
     if (!isList()) {
         PROP_ERR() << "not list property";
@@ -262,7 +261,7 @@ bool Property::setListCheckFn(Property::PropListCheckFn fn, const std::string& e
     return true;
 }
 
-bool Property::setSuccessFn(PropSuccessFn fn)
+bool Property::setSuccessFn(const PropSuccessFn& fn)
 {
     if (isReadOnly()) {
         PROP_ERR() << "can't set success fn for readonly property";
@@ -622,7 +621,7 @@ bool Property::checkFloat(t_float v) const
     }
 
     const auto ft = std::fpclassify(v);
-    if (!(ft == FP_NORMAL || ft == FP_ZERO)) {
+    if (ft != FP_NORMAL && ft != FP_ZERO) {
         PROP_ERR() << "ignore denormal value: " << v;
         return false;
     }
@@ -1003,12 +1002,12 @@ void ListProperty::truncateFloats()
 
 void ListProperty::setFilterAtomFn(Property::PropAtomCheckFn fn)
 {
-    filter_ = fn;
+    filter_ = std::move(fn);
 }
 
 void ListProperty::setMapAtomFn(AtomMapFunction fn)
 {
-    map_ = fn;
+    map_ = std::move(fn);
 }
 
 AtomList ListProperty::get() const
@@ -1224,7 +1223,7 @@ bool IntProperty::setValue(t_int v)
 
 AtomList IntProperty::get() const
 {
-    return { t_float(v_) };
+    return { static_cast<t_float>(v_) };
 }
 
 bool IntProperty::setValue(t_float f)
@@ -1377,4 +1376,4 @@ bool CombinedProperty::getList(AtomList& l) const
     l = get();
     return true;
 }
-}
+}  // namespace ceammc
