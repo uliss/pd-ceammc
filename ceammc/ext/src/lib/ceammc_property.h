@@ -73,6 +73,7 @@ public:
     /// virtual
     virtual bool set(const AtomListView& lv);
     virtual bool setInit(const AtomListView& lv);
+    virtual bool checkArgs(const AtomListView& lv) const;
 
     inline t_symbol* name() const { return info_.name(); }
 
@@ -119,6 +120,9 @@ public:
 
     template <typename T>
     inline void setDefault(T v) { info_.setDefault(v); }
+
+    template <typename T>
+    inline void setInitial(const T& v) { info_.setInitial(v); }
 
     // reset to default value
     bool resetToDefault();

@@ -74,6 +74,11 @@ bool Property::setInit(const AtomListView& lv)
     return res;
 }
 
+bool Property::checkArgs(const AtomListView &lv) const
+{
+    return false;
+}
+
 bool Property::setArgIndex(int8_t idx)
 {
     if (isReadOnly()) {
