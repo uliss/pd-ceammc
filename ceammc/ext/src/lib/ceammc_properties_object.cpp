@@ -168,9 +168,9 @@ std::string TclPropDialogGenerator::procBody() const
         if (!unit_label.empty())
             res += grid(row, 2, unit_label, "w");
 
-        res += grid(row, 3, fmt::format("[button $w.f.btn_reset{0} -text Reset]", row), "e");
+        res += grid(row, 3, fmt::format("[button $w.f.btn_reset{0} -text [_ Reset]]", row), "e");
         res += fmt::format("{0}::ceammc_tooltip $w.f.btn_reset{1} [_ {{Reset to default}}]\n", space(), row);
-         res += grid(row, 4, fmt::format("[button $w.f.btn_default{0} -text Default]", row), "e");
+         res += grid(row, 4, fmt::format("[button $w.f.btn_default{0} -text [_ Default]]", row), "e");
 
         last_row = row;
     });
@@ -595,7 +595,7 @@ std::string TclPropDialogGenerator::buttons(int row) const
 
     res += fmt::format("{0}grid $w.f.btn_ok -in $w.f"
                        " -padx 1 -pady 1"
-                       " -row {1} -column 2 -columnspan 2 -sticky e\n",
+                       " -row {1} -column 3 -columnspan 2 -sticky e\n",
         indent, row);
 
     return res;
