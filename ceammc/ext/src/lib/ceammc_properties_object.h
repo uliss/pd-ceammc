@@ -27,20 +27,24 @@ public:
     explicit TclPropDialogGenerator(const BaseObject* obj);
 
     std::string generate() const;
-    std::string procName() const;
+    std::string callProc() const;
     std::string procBody() const;
     std::string procBodyInit() const;
-    std::string callProc() const;
     std::string buttons(int row) const;
-    std::string okProcName() const;
-    std::string validatePropName() const;
+
+    std::string makeClassName() const;
+
+    static std::string procName(const char* className);
+    static std::string okProcName(const char* className);
+    static std::string validateProcName(const char* className);
+    static std::string propVarName(int propIdx);
 
     void foreachProperty(const std::function<void(const char* name, int row, const Property* p)>& cb) const;
 
     static std::string entryInt(int row, t_int value, const PropertyInfo& info);
     static std::string entryFloat(int row, t_float value, const PropertyInfo& info);
     static std::string entryBool(int row, bool value, const PropertyInfo& info);
-    static std::string checkbox(int row);
+    static std::string checkbox(int propIdx, const PropertyInfo& info);
     static std::string dialogDataVar();
     static std::string getDialogValue(const char* prop);
     static std::string setDialogValue(const char* prop, const char* val);

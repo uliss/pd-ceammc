@@ -28,6 +28,32 @@ public:
     }
 };
 
+inline std::string spinbox_int(int64_t from = -9999999999, int64_t to = 9999999999)
+{
+    return fmt::format("    ttk::spinbox $w.f.x0\n"
+                       "    $w.f.x0 set [dict get $props {{name}}]\n"
+                       "    $w.f.x0 configure -command \"dict set ::ceammc::dialog_data(v$id) name \\[$w.f.x0 get\\]\"\n"
+                       "    $w.f.x0 configure -from {0} -to {1}\n"
+                       "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}}\n"
+                       "    $w.f.x0 configure -invalidcommand {{%W set %s}}\n"
+                       "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"
+                       "    bind $w.f.x0 <Return> \"ceammc_dialog_bitmap_validate $id %W ::ceammc::dialog_data(v$id) name \\[%W get\\]\"\n",
+        from, to);
+}
+
+inline std::string spinbox_float(double from = -9999999999, double to = 9999999999)
+{
+    return fmt::format("    ttk::spinbox $w.f.x0\n"
+                       "    $w.f.x0 set [dict get $props {{name}}]\n"
+                       "    $w.f.x0 configure -command \"dict set ::ceammc::dialog_data(v$id) name \\[$w.f.x0 get\\]\"\n"
+                       "    $w.f.x0 configure -from {0} -to {1}\n"
+                       "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}}\n"
+                       "    $w.f.x0 configure -invalidcommand {{%W set %s}}\n"
+                       "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"
+                       "    bind $w.f.x0 <Return> \"ceammc_dialog_bitmap_validate $id %W ::ceammc::dialog_data(v$id) name \\[%W get\\]\"\n",
+        from, to);
+}
+
 TEST_CASE("tcl_prop_dialog_generator", "[core]")
 {
     SECTION("procName")
@@ -35,7 +61,7 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
         PropObject obj("test.object");
 
         TclPropDialogGenerator gen(&obj);
-        REQUIRE(gen.procName() == "ceammc_dialog_test_object");
+        REQUIRE(gen.procName("test_object") == "ceammc_dialog_test_object");
         REQUIRE(gen.procBodyInit() == R"(
     set w $id
     catch {destroy $w}
@@ -44,6 +70,8 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
     wm iconname $w "form"
     bind $w <Key-Escape> "destroy $w; break"
     raise [winfo toplevel $w]
+
+    set ::ceammc::dialog_data(v$id) $props
 )");
         REQUIRE(gen.callProc() == "ceammc_dialog_test_object %s [dict create @f 1]\n");
     }
@@ -55,180 +83,91 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
         TclPropDialogGenerator gen(&obj);
         PropertyInfo pi("name", PropValueType::INTEGER);
 
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -9999999999 -to 9999999999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int());
 
         pi.setConstraints(PropValueConstraints::GREATER_EQUAL);
         REQUIRE(pi.setMinInt(-100));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -100 -to 9999999999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-100));
 
         pi.setConstraints(PropValueConstraints::GREATER_THEN);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -99 -to 9999999999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
-
-        pi.setConstraints(PropValueConstraints::LESS_EQUAL);
-        REQUIRE(pi.setMaxInt(100));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -9999999999 -to 100\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-99));
 
         pi.setConstraints(PropValueConstraints::LESS_THEN);
         REQUIRE(pi.setMaxInt(100));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -9999999999 -to 99\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-9999999999, 99));
+
+        pi.setConstraints(PropValueConstraints::LESS_EQUAL);
+        REQUIRE(pi.setMaxInt(100));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-9999999999, 100));
 
         pi.setConstraints(PropValueConstraints::CLOSED_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -100 -to 100\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-100, 100));
 
         pi.setConstraints(PropValueConstraints::OPEN_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -99 -to 99\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-99, 99));
 
         pi.setConstraints(PropValueConstraints::OPEN_CLOSED_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -99 -to 100\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-99, 100));
 
         pi.setConstraints(PropValueConstraints::CLOSED_OPEN_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -100 -to 99\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-100, 99));
 
         REQUIRE(pi.setStep(10));
         REQUIRE(gen.spinbox(0, pi)
             == fmt::format("    ttk::spinbox $w.f.x0\n"
                            "    $w.f.x0 set [dict get $props {{name}}]\n"
+                           "    $w.f.x0 configure -command \"dict set ::ceammc::dialog_data(v$id) name \\[$w.f.x0 get\\]\"\n"
                            "    $w.f.x0 configure -from -100 -to 99\n"
                            "    $w.f.x0 configure -increment 10\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}}\n"
+                           "    $w.f.x0 configure -invalidcommand {{%W set %s}}\n"
+                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"
+                           "    bind $w.f.x0 <Return> \"ceammc_dialog_bitmap_validate $id %W ::ceammc::dialog_data(v$id) name \\[%W get\\]\"\n"));
 
         REQUIRE(pi.setStep(0));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -100 -to 99\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_int(-100, 99));
 
         pi.setConstraints(PropValueConstraints::ENUM);
         REQUIRE(pi.addEnums({ 1, 2, 4, 8, 16 }));
         REQUIRE(gen.spinbox(0, pi)
             == fmt::format("    ttk::spinbox $w.f.x0\n"
                            "    $w.f.x0 set [dict get $props {{name}}]\n"
+                           "    $w.f.x0 configure -command \"dict set ::ceammc::dialog_data(v$id) name \\[$w.f.x0 get\\]\"\n"
                            "    $w.f.x0 configure -values 1 2 4 8 16\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+                           "    $w.f.x0 configure -validate key -validatecommand {{string is int %P}}\n"
+                           "    $w.f.x0 configure -invalidcommand {{%W set %s}}\n"
+                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"
+                           "    bind $w.f.x0 <Return> \"ceammc_dialog_bitmap_validate $id %W ::ceammc::dialog_data(v$id) name \\[%W get\\]\"\n"));
 
         pi = PropertyInfo("name", PropValueType::FLOAT);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -9999999999 -to 9999999999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-9999999999, 9999999999));
 
         pi.setConstraints(PropValueConstraints::GREATER_EQUAL);
         REQUIRE(pi.setMinFloat(-100));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -100 -to 9999999999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-100, 9999999999));
 
         pi.setConstraints(PropValueConstraints::GREATER_THEN);
         REQUIRE(pi.setMinFloat(-100));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -99.999 -to 9999999999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-99.999, 9999999999));
 
         pi.setConstraints(PropValueConstraints::LESS_EQUAL);
         REQUIRE(pi.setMaxFloat(100));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -9999999999 -to 100\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-9999999999, 100));
 
         pi.setConstraints(PropValueConstraints::LESS_THEN);
         REQUIRE(pi.setMaxFloat(100));
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -9999999999 -to 99.999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-9999999999, 99.999));
 
         pi.setConstraints(PropValueConstraints::CLOSED_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -100 -to 100\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-100, 100));
 
         pi.setConstraints(PropValueConstraints::OPEN_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -99.999 -to 99.999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-99.999, 99.999));
 
         pi.setConstraints(PropValueConstraints::CLOSED_OPEN_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -100 -to 99.999\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-100, 99.999));
 
         pi.setConstraints(PropValueConstraints::OPEN_CLOSED_RANGE);
-        REQUIRE(gen.spinbox(0, pi)
-            == fmt::format("    ttk::spinbox $w.f.x0\n"
-                           "    $w.f.x0 set [dict get $props {{name}}]\n"
-                           "    $w.f.x0 configure -from -99.999 -to 100\n"
-                           "    $w.f.x0 configure -validate key -validatecommand {{string is double %P}} -invalidcommand {{%W set %s}}\n"
-                           "    ::ceammc::ui::bindMouseWheel $w.f.x0 {{::ceammc::ui::spinboxScroll %W}}\n"));
+        REQUIRE(gen.spinbox(0, pi) == spinbox_float(-99.999, 100));
     }
 }

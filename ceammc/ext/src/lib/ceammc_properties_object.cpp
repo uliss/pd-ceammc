@@ -83,11 +83,11 @@ TclPropDialogGenerator::TclPropDialogGenerator(const BaseObject* obj)
 
 std::string TclPropDialogGenerator::generate() const
 {
+    auto class_name = makeClassName();
+
     return fmt::format("proc {0} {{id props}} {{\n"
                        "    set args [list $id .prop_set]\n"
-                       "    dict for {{k v}} $props {{\n"
-                       "        lappend args $k $v\n"
-                       "    }}\n"
+                       "    dict for {{k v}} $props {{lappend args $k $v}}\n"
                        "    pdsend $args\n"
                        "}}\n"
                        "proc {1} {{id wid var prop value}} {{pdsend [list $id .prop_validate $var $wid $prop $value]\n"
@@ -95,13 +95,15 @@ std::string TclPropDialogGenerator::generate() const
                        "proc {2} {{id props}} {{\n"
                        "{3}"
                        "}}\n",
-        okProcName(), validatePropName(), procName(), procBody());
+        okProcName(class_name.c_str()),
+        validateProcName(class_name.c_str()),
+        procName(class_name.c_str()),
+        procBody());
 }
 
-std::string TclPropDialogGenerator::procName() const
+std::string TclPropDialogGenerator::procName(const char* className)
 {
-    std::string name = string::replace_all(obj_->className()->s_name, ".", "_");
-    return fmt::format("ceammc_dialog_{0}", name);
+    return fmt::format("ceammc_dialog_{0}", className);
 }
 
 void TclPropDialogGenerator::foreachProperty(const std::function<void(const char*, int, const Property*)>& cb) const
@@ -202,16 +204,24 @@ std::string TclPropDialogGenerator::entryFloat(int row, t_float value, const Pro
 
 std::string TclPropDialogGenerator::entryBool(int row, bool value, const PropertyInfo& info)
 {
-    auto res = checkbox(row);
+    auto res = checkbox(row, info);
     res += widgetState(row, info.access());
     return res;
 }
 
-std::string TclPropDialogGenerator::checkbox(int row)
+std::string TclPropDialogGenerator::checkbox(int propIdx, const PropertyInfo& info)
 {
-    return fmt::format("{0}ttk::checkbutton {1}\n",
-        space(),
-        widgetId(row));
+    const auto indent = space(4);
+    const auto wid = widgetId(propIdx);
+    const auto prop_name = info.name()->s_name;
+
+    std::string res;
+
+    res += fmt::format("{0}set {1} [dict get $props {{{2}}}]\n", indent, propVarName(propIdx), prop_name);
+    res += fmt::format("{0}ttk::checkbutton {1} -variable {2}\n", indent, wid, propVarName(propIdx));
+    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\${4}\"\n", indent, wid, dialogDataVar(), prop_name, propVarName(propIdx));
+
+    return res;
 }
 
 std::string TclPropDialogGenerator::dialogDataVar()
@@ -323,7 +333,7 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
     if (info.isFloat()) {
         res += fmt::format("{0}{1} configure"
                            " -validate key"
-                           " -validatecommand {{string is double %P}}",
+                           " -validatecommand {{string is double %P}}\n",
             indent, id);
 
         res += fmt::format("{0}{1} configure -invalidcommand {{%W set %s}}\n",
@@ -419,9 +429,14 @@ std::string TclPropDialogGenerator::procBodyInit() const
     return res;
 }
 
+std::string TclPropDialogGenerator::propVarName(int propIdx)
+{
+    return fmt::format("::ceammc_prop_vars(obj${{id}}_prop{})", propIdx);
+}
+
 std::string TclPropDialogGenerator::callProc() const
 {
-    std::string res = fmt::format("{0} %s ", procName());
+    std::string res = fmt::format("{0} %s ", procName(makeClassName().c_str()));
     res += "[dict create ";
 
     for (auto& p : obj_->getProperties()) {
@@ -447,7 +462,10 @@ std::string TclPropDialogGenerator::buttons(int row) const
 
     res += fmt::format("{0}ttk::button $w.f.btn_cancel -text [_ \"Cancel\"] -command \"destroy $w\"\n", indent);
     res += fmt::format("{0}ttk::button $w.f.btn_apply -text [_ \"Apply\"]\n", indent);
-    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"] -command \"{1} $id \\${2}; destroy $w\"\n", indent, okProcName(), dialogDataVar());
+    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"] -command \"{1} $id \\${2}; destroy $w\"\n",
+        indent,
+        okProcName(makeClassName().c_str()),
+        dialogDataVar());
 
     res += fmt::format("{0}grid $w.f.btn_cancel -in $w.f"
                        " -padx 1 -pady 1"
@@ -467,14 +485,19 @@ std::string TclPropDialogGenerator::buttons(int row) const
     return res;
 }
 
-std::string TclPropDialogGenerator::okProcName() const
+std::string TclPropDialogGenerator::makeClassName() const
 {
-    return procName() + "_ok";
+    return string::replace_all(obj_->className()->s_name, ".", "_");
 }
 
-std::string TclPropDialogGenerator::validatePropName() const
+std::string TclPropDialogGenerator::okProcName(const char* className)
 {
-    return procName() + "_validate";
+    return procName(className) + "_ok";
+}
+
+std::string TclPropDialogGenerator::validateProcName(const char* className)
+{
+    return procName(className) + "_validate";
 }
 
 } // namespace ceammc
