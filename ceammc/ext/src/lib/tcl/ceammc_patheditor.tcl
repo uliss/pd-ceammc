@@ -1,6 +1,12 @@
 package provide ceammc_patheditor 0.1
 
 namespace eval ::ceammc {
+namespace eval dialog {
+    proc escape2pd {str} {
+        return [string map {";" "\\;" "\$" "\\\$"} $str]
+    }
+}
+
 namespace eval patheditor {
 
     proc open {name title geometry path} {
