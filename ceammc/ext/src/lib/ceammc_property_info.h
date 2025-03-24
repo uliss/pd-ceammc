@@ -241,7 +241,6 @@ public:
     inline bool setInitial(const T& v)
     {
         if (isA<T>()) {
-            boost::get<T>(init_) = v;
             init_ = v;
             return true;
         } else {
