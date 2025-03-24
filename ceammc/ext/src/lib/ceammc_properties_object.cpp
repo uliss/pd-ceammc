@@ -170,6 +170,7 @@ std::string TclPropDialogGenerator::procBody() const
 
         res += grid(row, 3, fmt::format("[button $w.f.btn_reset{0} -text Reset]", row), "e");
         res += fmt::format("{0}::ceammc_tooltip $w.f.btn_reset{1} [_ {{Reset to default}}]\n", space(), row);
+         res += grid(row, 4, fmt::format("[button $w.f.btn_default{0} -text Default]", row), "e");
 
         last_row = row;
     });
