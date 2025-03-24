@@ -101,7 +101,7 @@ public:
     bool setArgIndexNext(Property* p);
 
     inline void setType(PropValueType t) { info_.setType(t); }
-    inline void setView(PropValueView v) { info_.setView(v); }
+    inline bool setView(PropValueView v) { info_.setView(v); }
     inline void setVisibility(PropValueVis v) { info_.setVisibility(v); }
 
     bool getDefault(bool& b) const;
