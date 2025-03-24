@@ -41,20 +41,28 @@ public:
 
     void foreachProperty(const std::function<void(const char* name, int row, const Property* p)>& cb) const;
 
-    static std::string entryInt(int row, t_int value, const PropertyInfo& info);
-    static std::string entryFloat(int row, t_float value, const PropertyInfo& info);
-    static std::string entryBool(int row, bool value, const PropertyInfo& info);
-    static std::string checkbox(int propIdx, const PropertyInfo& info);
-    static std::string dialogDataVar();
-    static std::string getDialogValue(const char* prop);
-    static std::string setDialogValue(const char* prop, const char* val);
+    static std::string entryBool(int row, const PropertyInfo& info);
+    static std::string entryFloat(int row, const PropertyInfo& info);
+    static std::string entryInt(int row, const PropertyInfo& info);
+    static std::string entrySymbol(int row, const PropertyInfo& info);
 
+    static std::string checkbox(int propIdx, const PropertyInfo& info);
+    static std::string textentry(int propIdx, const PropertyInfo& info);
     static std::string spinbox(int row, const PropertyInfo& info);
-    static std::string propLabel(int row, const std::string& text);
+
+    static std::string propsDictVar();
+    static std::string setDialogValue(const char* prop, const char* val);
     static std::string widgetId(int row);
     static std::string widgetState(int row, PropValueAccess state);
     static std::string grid(int row, int col, const std::string& widget, const char* sticky);
+
+    static std::string propLabel(int row, const std::string& text);
     static std::string unitsLabel(int row, const PropertyInfo& info);
+
+    static std::string list2tcl(const AtomListView& lv);
+    static std::string atom2tcl(const Atom& a);
+
+    static bool setList(Property* p, const AtomListView& lv);
 };
 
 template <typename T>
@@ -98,7 +106,7 @@ public:
             if (!prop) {
                 METHOD_ERR(s) << "property not found: " << key;
             } else {
-                prop->setList(lv);
+                dialog_gen_.setList(prop, lv);
             }
         });
     }

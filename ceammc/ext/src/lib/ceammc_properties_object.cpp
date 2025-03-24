@@ -87,7 +87,7 @@ std::string TclPropDialogGenerator::generate() const
 
     return fmt::format("proc {0} {{id props}} {{\n"
                        "    set args [list $id .prop_set]\n"
-                       "    dict for {{k v}} $props {{lappend args $k $v}}\n"
+                       "    dict for {{k v}} $props {{lappend args $k [::ceammc::dialog::escape2pd $v]}}\n"
                        "    pdsend $args\n"
                        "}}\n"
                        "proc {1} {{id wid var prop value}} {{pdsend [list $id .prop_validate $var $wid $prop $value]\n"
@@ -143,26 +143,17 @@ std::string TclPropDialogGenerator::procBody() const
 
         switch (p->type()) {
         case PropValueType::BOOLEAN: {
-            bool v = false;
-            if (p->getBool(v)) {
-                res += entryBool(row, v, p->info());
-            }
+            res += entryBool(row, p->info());
         } break;
         case PropValueType::INTEGER: {
-            t_int v = 0;
-            if (p->getInt(v)) {
-                res += entryInt(row, v, p->info());
-            }
+            res += entryInt(row, p->info());
         } break;
         case PropValueType::FLOAT: {
-            t_float v = 0;
-            if (p->getFloat(v)) {
-                res += entryFloat(row, v, p->info());
-            }
-
+            res += entryFloat(row, p->info());
         } break;
-        case PropValueType::SYMBOL:
-            break;
+        case PropValueType::SYMBOL: {
+            res += entrySymbol(row, p->info());
+        } break;
         case PropValueType::ATOM:
             break;
         case PropValueType::LIST:
@@ -188,21 +179,35 @@ std::string TclPropDialogGenerator::procBody() const
     return res;
 }
 
-std::string TclPropDialogGenerator::entryInt(int row, t_int value, const PropertyInfo& info)
+std::string TclPropDialogGenerator::entryInt(int row, const PropertyInfo& info)
 {
     auto res = spinbox(row, info);
     res += widgetState(row, info.access());
     return res;
 }
 
-std::string TclPropDialogGenerator::entryFloat(int row, t_float value, const PropertyInfo& info)
+std::string TclPropDialogGenerator::entrySymbol(int row, const PropertyInfo& info)
+{
+    std::string res;
+
+    if (info.hasEnumLimit()) {
+
+    } else {
+        res += textentry(row, info);
+    }
+
+    res += widgetState(row, info.access());
+    return res;
+}
+
+std::string TclPropDialogGenerator::entryFloat(int row, const PropertyInfo& info)
 {
     auto res = spinbox(row, info);
     res += widgetState(row, info.access());
     return res;
 }
 
-std::string TclPropDialogGenerator::entryBool(int row, bool value, const PropertyInfo& info)
+std::string TclPropDialogGenerator::entryBool(int row, const PropertyInfo& info)
 {
     auto res = checkbox(row, info);
     res += widgetState(row, info.access());
@@ -219,24 +224,35 @@ std::string TclPropDialogGenerator::checkbox(int propIdx, const PropertyInfo& in
 
     res += fmt::format("{0}set {1} [dict get $props {{{2}}}]\n", indent, propVarName(propIdx), prop_name);
     res += fmt::format("{0}ttk::checkbutton {1} -variable {2}\n", indent, wid, propVarName(propIdx));
-    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\${4}\"\n", indent, wid, dialogDataVar(), prop_name, propVarName(propIdx));
+    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\${4}\"\n", indent, wid, propsDictVar(), prop_name, propVarName(propIdx));
 
     return res;
 }
 
-std::string TclPropDialogGenerator::dialogDataVar()
+std::string TclPropDialogGenerator::textentry(int propIdx, const PropertyInfo& info)
+{
+    const auto indent = space(4);
+    const auto wid = widgetId(propIdx);
+    const auto prop_name = info.name()->s_name;
+
+    std::string res;
+
+    res += fmt::format("{0}ttk::entry {1} -validate key\n", indent, wid);
+    res += fmt::format("{0}{1} insert end [dict get $props {{{2}}}]\n", indent, wid, prop_name);
+    res += fmt::format("{0}{1} configure -validatecommand \"dict set {2} {3} %P; return 1;\"\n",
+        indent, wid, propsDictVar(), prop_name);
+
+    return res;
+}
+
+std::string TclPropDialogGenerator::propsDictVar()
 {
     return fmt::format("::ceammc::dialog_data(v$id)");
 }
 
-std::string TclPropDialogGenerator::getDialogValue(const char* prop)
-{
-    return fmt::format("dict get ${0} {1}", dialogDataVar(), prop);
-}
-
 std::string TclPropDialogGenerator::setDialogValue(const char* prop, const char* val)
 {
-    return fmt::format("dict set ${0} {1} {2}; puts {2};", dialogDataVar(), prop, val);
+    return fmt::format("dict set ${0} {1} {2}; puts {2};", propsDictVar(), prop, val);
 }
 
 std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
@@ -246,13 +262,14 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
 
     const auto indent = space(4);
     const auto id = widgetId(row);
+    const auto prop_name = info.name()->s_name;
 
     auto res = fmt::format("{0}ttk::spinbox {1}\n",
         indent,
         id);
 
-    res += fmt::format("{0}{1} set [dict get $props {{{2}}}]\n", indent, id, info.name()->s_name);
-    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\[{1} get\\]\"\n", indent, id, dialogDataVar(), info.name()->s_name);
+    res += fmt::format("{0}{1} set [dict get $props {{{2}}}]\n", indent, id, prop_name);
+    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\[{1} get\\]\"\n", indent, id, propsDictVar(), prop_name);
 
     if (info.hasEnumLimit()) {
         res += fmt::format("{0}{1} configure -values {2}\n", indent, id, to_string(info.enumValues()));
@@ -324,7 +341,7 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
         res += fmt::format("{0}{1} configure"
                            " -validate key"
                            " -validatecommand {{string is int %P}}\n",
-            indent, id, setDialogValue(info.name()->s_name, "%P"));
+            indent, id);
 
         res += fmt::format("{0}{1} configure -invalidcommand {{%W set %s}}\n",
             indent, id);
@@ -351,7 +368,7 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
 
     res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, id);
     res += fmt::format("{0}bind {1} <Return> \"ceammc_dialog_bitmap_validate $id %W {2} {3} \\[%W get\\]\"\n",
-        indent, id, dialogDataVar(), info.name()->s_name);
+        indent, id, propsDictVar(), prop_name);
 
     return res;
 }
@@ -407,6 +424,97 @@ std::string TclPropDialogGenerator::unitsLabel(int row, const PropertyInfo& info
         return {};
 }
 
+std::string TclPropDialogGenerator::list2tcl(const AtomListView& lv)
+{
+    if (lv.size() == 1)
+        return atom2tcl(lv[0]);
+    else {
+        std::string res = "[list";
+        for (auto& a : lv) {
+            res += ' ';
+            res += atom2tcl(a);
+        }
+
+        res += ']';
+        return res;
+    }
+}
+
+std::string TclPropDialogGenerator::atom2tcl(const Atom& a)
+{
+    switch (a.type()) {
+    case Atom::NONE:
+        return "#null";
+    case Atom::FLOAT:
+        return fmt::format("{}", a.asT<t_float>());
+    case Atom::PROPERTY: // fallthru
+    case Atom::SYMBOL: {
+
+        auto str = a.asT<t_symbol*>()->s_name;
+        auto len = strlen(str);
+
+        std::string res = "{";
+        for (size_t i = 0; i < len; i++) {
+            auto c = str[i];
+            switch (c) {
+            case '{':
+                res += "\\{";
+                break;
+            case '}':
+                res += "\\}";
+                break;
+            // case '$':
+            //     res += "\\$";
+                break;
+            default:
+                res += c;
+                break;
+            }
+        }
+
+        res += '}';
+        return res;
+
+    } break;
+    // fallthru
+    case Atom::DATA:
+    case Atom::POINTER:
+    case Atom::SEMICOLON:
+    case Atom::COMMA:
+    case Atom::DOLLAR:
+    case Atom::DOLLAR_SYMBOL:
+    default:
+        return "?";
+    }
+}
+
+bool TclPropDialogGenerator::setList(Property* p, const AtomListView& lv)
+{
+    switch (p->type()) {
+    case PropValueType::BOOLEAN:
+    case PropValueType::INTEGER:
+    case PropValueType::FLOAT:
+        return p->setList(lv);
+        break;
+
+    case PropValueType::SYMBOL: {
+        auto str = to_string(lv);
+        if (!str.empty() && str.front() == '{' && str.back() == '}') {
+            str.pop_back();
+            str = str.substr(1);
+        }
+
+        LIB_DBG << str;
+        p->setList(Atom(gensym(str.c_str())));
+    } break;
+    case PropValueType::ATOM:
+    case PropValueType::LIST:
+        break;
+    }
+
+    return false;
+}
+
 std::string TclPropDialogGenerator::procBodyInit() const
 {
     std::string res;
@@ -422,7 +530,7 @@ std::string TclPropDialogGenerator::procBodyInit() const
 
     set {1} $props
 )",
-        obj_->className()->s_name, dialogDataVar());
+        obj_->className()->s_name, propsDictVar());
 
     // image create photo icon_reset -data iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABhklEQVRIS+2VzytFQRTH383KwkKSkJQfC1lIiighxeaFJVn5H7D2D/BXWLCRDfIjPSlF8ewoEVG8srBQNorPV3Pyuu51p1d3I1OfZppz5nzPnDszN8ik3IKU42f+vkA5JVyAaaj3LGcBvx2Yh6ffSlSJwxb0eAYOu60yMRknUItxF9qVBYzDiafQAH45eIbqKIEWDPvQAJcwAveewc3tww2CsEA3hk2ochmP0r+YM/0B6LtkQbVWq4ENeIVBNxcpoEzXXQB9pAl4K8pcyZxCJ1xDv7Md0jfDGXTFCSgjBS+DZZiB96LgNlS2R9AEd26ykf4G+sB29WMHtxjluASzYA4RGl8lOXb+sktIJ82Cay5WYBHjXBoCYwRdS7NE2pbPR87j1wFXoPOuppPVCuegAxBZIqt10jHVZauAIXh0i3Qpc6DjbLc+9h5oTaoXzXZSx2AP2uDBle/CjAn9sFsb+1TYej12uqG9noHDbitMTCX9cEp9rrcJrue6kCRQYvLfy/4FEkv4Ccw8XBl0/I8MAAAAAElFTkSuQmCC
 
@@ -439,10 +547,17 @@ std::string TclPropDialogGenerator::callProc() const
     std::string res = fmt::format("{0} %s ", procName(makeClassName().c_str()));
     res += "[dict create ";
 
+    string::StaticString out;
+
     for (auto& p : obj_->getProperties()) {
         res += p->name()->s_name;
         res += ' ';
-        res += to_string(p->get());
+        if (p->isNumeric())
+            res += to_string(p->get());
+        else {
+            res += list2tcl(p->get());
+        }
+
         res += ' ';
     }
 
@@ -465,7 +580,7 @@ std::string TclPropDialogGenerator::buttons(int row) const
     res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"] -command \"{1} $id \\${2}; destroy $w\"\n",
         indent,
         okProcName(makeClassName().c_str()),
-        dialogDataVar());
+        propsDictVar());
 
     res += fmt::format("{0}grid $w.f.btn_cancel -in $w.f"
                        " -padx 1 -pady 1"
