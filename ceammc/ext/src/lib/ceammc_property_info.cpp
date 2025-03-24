@@ -544,6 +544,7 @@ bool PropertyInfo::setView(PropValueView v)
         case PropValueView::ENTRY:
         case PropValueView::MENU:
         case PropValueView::FILEPATH:
+        case PropValueView::COLOR:
             view_ = v;
             return true;
         default:
