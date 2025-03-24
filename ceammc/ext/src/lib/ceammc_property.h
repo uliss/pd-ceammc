@@ -101,7 +101,7 @@ public:
     bool setArgIndexNext(Property* p);
 
     inline void setType(PropValueType t) { info_.setType(t); }
-    inline bool setView(PropValueView v) { info_.setView(v); }
+    inline bool setView(PropValueView v) { return info_.setView(v); }
     inline void setVisibility(PropValueVis v) { info_.setVisibility(v); }
 
     bool getDefault(bool& b) const;
@@ -119,8 +119,10 @@ public:
     template <typename T>
     inline void setDefault(T v) { info_.setDefault(v); }
 
-    // set to default value
-    bool reset();
+    // reset to default value
+    bool resetToDefault();
+    // reset to initial value
+    bool resetToInitial();
 
     inline bool isPublic() const { return info_.isPublic(); }
     inline bool isInternal() const { return info_.isInternal(); }

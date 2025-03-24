@@ -128,7 +128,7 @@ void Property::updateDefault()
     // empty call
 }
 
-bool Property::reset()
+bool Property::resetToDefault()
 {
     if (!isReadWrite()) {
         PROP_ERR() << "can't reset readonly property";
@@ -153,6 +153,36 @@ bool Property::reset()
         return setAtom(info().defaultAtom());
     case PropValueType::LIST:
         return setList(info().defaultList());
+    default:
+        return false;
+    }
+}
+
+bool Property::resetToInitial()
+{
+    if (!isReadWrite()) {
+        PROP_ERR() << "can't reset readonly property";
+        return false;
+    }
+
+    if (info_.noInitial()) {
+        PROP_ERR() << "initial value is not set. Can't reset";
+        return false;
+    }
+
+    switch (type()) {
+    case PropValueType::BOOLEAN:
+        return setBool(info().initialT(false));
+    case PropValueType::FLOAT:
+        return setFloat(info().initialT<t_float>());
+    case PropValueType::INTEGER:
+        return setInt(info().initialT<t_int>());
+    case PropValueType::SYMBOL:
+        return setSymbol(info().initialT(&s_));
+    case PropValueType::ATOM:
+        return setAtom(info().initialT<Atom>());
+    case PropValueType::LIST:
+        return setList(info().initialT<AtomList>());
     default:
         return false;
     }
@@ -1376,4 +1406,4 @@ bool CombinedProperty::getList(AtomList& l) const
     l = get();
     return true;
 }
-}  // namespace ceammc
+} // namespace ceammc
