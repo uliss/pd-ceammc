@@ -19,7 +19,7 @@
 
 namespace ceammc {
 
-StringProperty::StringProperty(const std::string& name, const std::string& def)
+StringProperty::StringProperty(const char* name, const std::string& def)
     : Property(PropertyInfo(name, PropValueType::SYMBOL))
     , str_(def)
 {

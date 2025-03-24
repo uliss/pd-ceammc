@@ -24,7 +24,7 @@ class DurationProperty : public SymbolProperty {
     mutable bool dirty_ { false };
 
 public:
-    DurationProperty(const std::string& name,
+    DurationProperty(const char* name,
         const music::Duration& dur = { 1, 4 },
         PropValueAccess access = PropValueAccess::READWRITE);
 

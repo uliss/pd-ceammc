@@ -20,7 +20,7 @@ constexpr const char* USAGE_STR = "example values: 120|8bpm, 96|5/8bpm, 60 4, 14
 
 namespace ceammc {
 
-BpmProperty::BpmProperty(const std::string& name, const music::Tempo& tempo, PropValueAccess access)
+BpmProperty::BpmProperty(const char* name, const music::Tempo& tempo, PropValueAccess access)
     : AtomProperty(name, gensym(tempo.toString().c_str()), access)
     , tempo_(tempo)
     , dirty_(false)

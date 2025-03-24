@@ -15,7 +15,7 @@ namespace net {
         osc::OscProto proto_;
 
     public:
-        OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro = PropValueAccess::READWRITE);
+        OscUrlProperty(const char* name, const Atom& def, PropValueAccess ro = PropValueAccess::READWRITE);
 
         t_symbol* host() const { return host_; }
         osc::OscProto proto() const { return proto_; }

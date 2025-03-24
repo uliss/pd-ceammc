@@ -55,15 +55,15 @@ class PropertyInfo {
 private:
     t_symbol* name_;
     // name
-    PropertyValue default_;
+    PropertyValue default_, init_;
     // constraints
     AtomListPtr enum_;
     NumericUnion min_, max_;
     t_float step_;
     int8_t arg_index_;
     // info
-    PropValueType type_;
     PropValueUnitsBase units_;
+    PropValueType type_;
     PropValueView view_;
     PropValueAccess access_;
     PropValueVis vis_;
@@ -71,7 +71,8 @@ private:
 
 public:
     PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
-    PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
+    PropertyInfo(const char* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
+
     PropertyInfo(const PropertyInfo& info);
     PropertyInfo(PropertyInfo&& info);
     ~PropertyInfo();
@@ -189,6 +190,7 @@ public:
     bool setFixedElementCount(size_t n) CEAMMC_WARN_UNUSED;
     bool setRangeElementCount(size_t min, size_t max) CEAMMC_WARN_UNUSED;
 
+    // default
     void setDefault(bool v);
     void setDefault(int v);
     void setDefault(long v);
@@ -216,6 +218,36 @@ public:
     t_symbol* defaultSymbol(t_symbol* def = &s_) const;
     Atom defaultAtom(const Atom& def = Atom()) const;
     const AtomList& defaultList() const;
+
+    // initial
+    bool noInitial() const;
+    template <typename T>
+    inline bool getInitial(T& v) const
+    {
+        return getT<T>(init_, v);
+    }
+
+    template <typename T>
+    inline const T& initialT(const T& def = {}) const
+    {
+        T res {};
+        if (isA<T>())
+            return boost::get<T>(init_);
+        else
+            return def;
+    }
+
+    template <typename T>
+    inline bool setInitial(const T& v)
+    {
+        if (isA<T>()) {
+            boost::get<T>(init_) = v;
+            init_ = v;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     template <typename T>
     static PropValueType toType();

@@ -45,19 +45,37 @@ AtomList HopSizeProperty::get() const
 
 OnsetMethodProperty::OnsetMethodProperty()
     : SymbolEnumProperty("@method",
-        { DEFAULT_METHOD, "energy", "hfc", "specdiff", "complexdomain", "complex", "phase", "wphase", "kl", "specflux", "centroid", "spread", "skewness", "kurtosis", "slope", "decrease", "rolloff" })
+          {
+              DEFAULT_METHOD,
+              "energy",
+              "hfc",
+              "specdiff",
+              "complexdomain",
+              "complex",
+              "phase",
+              "wphase",
+              "kl",
+              "specflux",
+              "centroid",
+              "spread",
+              "skewness",
+              "kurtosis",
+              "slope",
+              "decrease",
+              "rolloff",
+          })
 {
 }
 
-OnsetFloatProperty::OnsetFloatProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter)
+OnsetFloatProperty::OnsetFloatProperty(const char* name, PropertyFloatGetter getter, PropertyFloatSetter setter)
     : CallbackProperty(
-        name,
-        getter,
-        [this, setter](t_float f) -> bool {
-            save();
-            setter_was_called_ = true;
-            return setter(f);
-        })
+          name,
+          getter,
+          [this, setter](t_float f) -> bool {
+              save();
+              setter_was_called_ = true;
+              return setter(f);
+          })
     , fget_(getter)
     , fset_(setter)
     , setter_was_called_(false)

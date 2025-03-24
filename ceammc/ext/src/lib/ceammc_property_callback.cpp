@@ -15,8 +15,6 @@
 #include "ceammc_log.h"
 #include "lex/parser_props.h"
 
-#include <cmath>
-
 #define PROP_ERR LIB_ERR << '[' << name()->s_name << "] "
 #define PROP_CHECK_ERR(v)                                              \
     {                                                                  \
@@ -25,42 +23,42 @@
     }
 
 namespace ceammc {
-CallbackProperty::CallbackProperty(const std::string& name, PropertyBoolGetter getter, PropertyBoolSetter setter, tag<bool>)
+CallbackProperty::CallbackProperty(const char* name, PropertyBoolGetter getter, PropertyBoolSetter setter, tag<bool>)
     : Property(PropertyInfo(name, PropValueType::BOOLEAN), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
 {
 }
 
-CallbackProperty::CallbackProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter, tag<t_float>)
+CallbackProperty::CallbackProperty(const char* name, PropertyFloatGetter getter, PropertyFloatSetter setter, tag<t_float>)
     : Property(PropertyInfo(name, PropValueType::FLOAT), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
 {
 }
 
-CallbackProperty::CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<t_int>)
+CallbackProperty::CallbackProperty(const char* name, PropertyIntGetter getter, PropertyIntSetter setter, tag<t_int>)
     : Property(PropertyInfo(name, PropValueType::INTEGER), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
 {
 }
 
-CallbackProperty::CallbackProperty(const std::string& name, PropertySymbolGetter getter, PropertySymbolSetter setter, tag<t_symbol*>)
+CallbackProperty::CallbackProperty(const char* name, PropertySymbolGetter getter, PropertySymbolSetter setter, tag<t_symbol*>)
     : Property(PropertyInfo(name, PropValueType::SYMBOL), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
 {
 }
 
-CallbackProperty::CallbackProperty(const std::string& name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>)
+CallbackProperty::CallbackProperty(const char* name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>)
     : Property(PropertyInfo(name, PropValueType::ATOM), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
 {
 }
 
-CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter getter, PropertyListSetter setter, tag<AtomList>)
+CallbackProperty::CallbackProperty(const char* name, PropertyListGetter getter, PropertyListSetter setter, tag<AtomList>)
     : Property(PropertyInfo(name, PropValueType::LIST), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
@@ -672,4 +670,4 @@ CallbackProperty::FnGetterUnion::~FnGetterUnion()
         break;
     }
 }
-}
+} // namespace ceammc

@@ -927,7 +927,7 @@ void FxLooper::doApplyFades(size_t N)
     }
 }
 
-XFadeProperty::XFadeProperty(const std::string& name, float ms)
+XFadeProperty::XFadeProperty(const char* name, float ms)
     : FloatProperty(name, ms)
     , length_(0)
     , phase_(0)
@@ -964,7 +964,7 @@ bool XFadeProperty::set(const AtomListView& lv)
     return rc;
 }
 
-LinFadeoutProperty::LinFadeoutProperty(const std::string& name, float ms)
+LinFadeoutProperty::LinFadeoutProperty(const char* name, float ms)
     : XFadeProperty(name, ms)
 {
 }
@@ -974,7 +974,7 @@ t_float LinFadeoutProperty::amp() const
     return double(length_ - phase_) / double(length_);
 }
 
-LinFadeinProperty::LinFadeinProperty(const std::string& name, float ms)
+LinFadeinProperty::LinFadeinProperty(const char* name, float ms)
     : XFadeProperty(name, ms)
 {
 }
@@ -984,7 +984,7 @@ t_float LinFadeinProperty::amp() const
     return double(phase_) / double(length_);
 }
 
-PowXFadeProperty::PowXFadeProperty(const std::string& name, float ms)
+PowXFadeProperty::PowXFadeProperty(const char* name, float ms)
     : XFadeProperty(name, ms)
 {
 }

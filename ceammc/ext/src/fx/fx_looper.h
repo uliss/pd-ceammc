@@ -3,7 +3,6 @@
 
 #include "ceammc_array.h"
 #include "ceammc_clock.h"
-#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
 #include <array>
@@ -37,7 +36,7 @@ protected:
     size_t bs_;
 
 public:
-    XFadeProperty(const std::string& name, float ms = 0);
+    XFadeProperty(const char* name, float ms = 0);
     void calc(size_t sr, size_t bs);
     bool isRunning() const { return phase_ < length_; }
     void reset();
@@ -51,19 +50,19 @@ public:
 
 class LinFadeoutProperty : public XFadeProperty {
 public:
-    LinFadeoutProperty(const std::string& name, float ms = 0);
+    LinFadeoutProperty(const char* name, float ms = 0);
     t_float amp() const override;
 };
 
 class LinFadeinProperty : public XFadeProperty {
 public:
-    LinFadeinProperty(const std::string& name, float ms = 0);
+    LinFadeinProperty(const char* name, float ms = 0);
     t_float amp() const override;
 };
 
 class PowXFadeProperty : public XFadeProperty {
 public:
-    PowXFadeProperty(const std::string& name, float ms = 0);
+    PowXFadeProperty(const char* name, float ms = 0);
     t_float amp() const override;
     t_float fadeinAmp() const;
     t_float fadeoutAmp() const;

@@ -27,7 +27,7 @@ class LengthProperty : public FloatProperty {
     t_symbol* percent_value_;
 
 public:
-    LengthProperty(const std::string& name, t_float def);
+    LengthProperty(const char* name, t_float def);
     t_float calcValue(t_float v) const;
     bool setList(const AtomListView& lv) override;
     AtomList get() const override;

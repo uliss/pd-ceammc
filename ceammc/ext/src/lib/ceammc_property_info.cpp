@@ -84,8 +84,8 @@ PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess a
         clearRangeFloat();
 }
 
-PropertyInfo::PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access)
-    : PropertyInfo(gensym(name.c_str()), type, access)
+PropertyInfo::PropertyInfo(const char* name, PropValueType type, PropValueAccess access)
+    : PropertyInfo(gensym(name), type, access)
 {
 }
 
@@ -544,6 +544,7 @@ bool PropertyInfo::setView(PropValueView v)
         case PropValueView::ENTRY:
         case PropValueView::MENU:
         case PropValueView::FILEPATH:
+        case PropValueView::DIRPATH:
         case PropValueView::COLOR:
             view_ = v;
             return true;
@@ -928,6 +929,11 @@ const AtomList& PropertyInfo::defaultList() const
         return def;
 
     return boost::get<AtomList>(default_);
+}
+
+bool PropertyInfo::noInitial() const
+{
+    return init_.type() == typeid(boost::blank);
 }
 
 bool PropertyInfo::validate() const

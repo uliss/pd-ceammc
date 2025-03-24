@@ -74,7 +74,7 @@ private:
     FluidSynthPtr& synth_;
 
 public:
-    FluidSynthProperty(const std::string& name, FluidSynthPtr& synth, FluidFnGetter getter, FluidFnSetter setter)
+    FluidSynthProperty(const char* name, FluidSynthPtr& synth, FluidFnGetter getter, FluidFnSetter setter)
         : Property(PropertyInfo(name, PropValueType::FLOAT))
         , getter_(getter)
         , setter_(setter)

@@ -43,7 +43,8 @@ const char* to_string(PropValueView v)
         "menu",
         "entry",
         "color",
-        "path",
+        "file",
+        "dir",
     };
 
     auto idx = static_cast<size_t>(v);

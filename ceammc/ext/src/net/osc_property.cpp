@@ -58,7 +58,7 @@ namespace net {
         return true;
     }
 
-    OscUrlProperty::OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro)
+    OscUrlProperty::OscUrlProperty(const char* name, const Atom& def, PropValueAccess ro)
         : AtomProperty(name, def, ro)
         , host_(&s_)
         , proto_(OSC_PROTO_UDP)

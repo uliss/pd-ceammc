@@ -66,7 +66,7 @@ class OnsetFloatProperty : public CallbackProperty {
     bool setter_was_called_;
 
 public:
-    OnsetFloatProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter);
+    OnsetFloatProperty(const char* name, PropertyFloatGetter getter, PropertyFloatSetter setter);
 
     void save() { v_ = fget_(); }
     void restore() { fset_(v_); }

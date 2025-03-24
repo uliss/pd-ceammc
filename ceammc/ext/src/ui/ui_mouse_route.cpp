@@ -17,7 +17,7 @@
 #include <algorithm>
 #include <array>
 
-using PropArray = std::array<std::string, 6>;
+using PropArray = std::array<const char*, 6>;
 const PropArray ALL_PROPS { "@up", "@down", "@drag", "@move", "@enter", "@leave" };
 const PropArray ALL_FULL_PROPS { "@mouse_up", "@mouse_down", "@mouse_drag", "@mouse_move", "@mouse_enter", "@mouse_leave" };
 
@@ -27,7 +27,7 @@ static t_symbol* checkProp(t_symbol* s)
     if (it != ALL_PROPS.end()) {
         auto idx = std::distance(ALL_PROPS.begin(), it);
         auto& str = ALL_FULL_PROPS[idx];
-        return gensym(str.c_str());
+        return gensym(str);
     } else
         return nullptr;
 }

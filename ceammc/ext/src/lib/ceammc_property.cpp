@@ -750,7 +750,7 @@ std::string Property::errorPrefix() const
     return std::string(buf);
 }
 
-AtomProperty::AtomProperty(const std::string& name, const Atom& def, PropValueAccess access)
+AtomProperty::AtomProperty(const char* name, const Atom& def, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::ATOM), access)
     , v_(def)
 {
@@ -820,7 +820,7 @@ Atom AtomProperty::defaultValue() const
     return info().defaultAtom();
 }
 
-ListProperty::ListProperty(const std::string& name, const AtomList& init, PropValueAccess access)
+ListProperty::ListProperty(const char* name, const AtomList& init, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::LIST), access)
     , lst_(init)
 {
@@ -1016,7 +1016,7 @@ AtomList ListProperty::get() const
     return lst_;
 }
 
-FloatProperty::FloatProperty(const std::string& name, t_float init, PropValueAccess access)
+FloatProperty::FloatProperty(const char* name, t_float init, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::FLOAT), access)
     , v_(init)
 {
@@ -1101,7 +1101,7 @@ t_float FloatProperty::defaultValue() const
     return info().defaultFloat(v_);
 }
 
-BoolProperty::BoolProperty(const std::string& name, bool init, PropValueAccess access)
+BoolProperty::BoolProperty(const char* name, bool init, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::BOOLEAN), access)
     , v_(init)
 {
@@ -1165,7 +1165,7 @@ bool BoolProperty::defaultValue() const
     return info().defaultBool();
 }
 
-IntProperty::IntProperty(const std::string& name, t_int init, PropValueAccess access)
+IntProperty::IntProperty(const char* name, t_int init, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::INTEGER), access)
     , v_(init)
 {
@@ -1254,7 +1254,7 @@ t_int IntProperty::defaultValue() const
     return info().defaultInt(v_);
 }
 
-FlagProperty::FlagProperty(const std::string& name)
+FlagProperty::FlagProperty(const char* name)
     : Property(PropertyInfo(name, PropValueType::BOOLEAN), PropValueAccess::INITONLY)
     , v_(false)
 {
@@ -1287,7 +1287,7 @@ bool FlagProperty::setList(const AtomListView&)
     return true;
 }
 
-SymbolProperty::SymbolProperty(const std::string& name, t_symbol* init, PropValueAccess access)
+SymbolProperty::SymbolProperty(const char* name, t_symbol* init, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::SYMBOL), access)
     , value_(init)
 {
@@ -1347,7 +1347,7 @@ t_symbol* SymbolProperty::defaultValue() const
     return info().defaultSymbol(&s_);
 }
 
-CombinedProperty::CombinedProperty(const std::string& name, std::initializer_list<Property*> props)
+CombinedProperty::CombinedProperty(const char* name, std::initializer_list<Property*> props)
     : Property(PropertyInfo(name, PropValueType::LIST), PropValueAccess::READONLY)
     , props_(props)
 {

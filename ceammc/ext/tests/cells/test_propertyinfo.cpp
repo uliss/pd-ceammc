@@ -109,7 +109,7 @@ TEST_CASE("PropertyInfo", "[core]")
 
         SECTION("float")
         {
-            PropertyInfo pi("@float", PropertyInfo::toType<t_float>());
+            PropertyInfo pi(SYM("@float"), PropertyInfo::toType<t_float>());
             REQUIRE(pi.name() == gensym("@float"));
             REQUIRE(pi.type() == PropValueType::FLOAT);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
@@ -256,7 +256,7 @@ TEST_CASE("PropertyInfo", "[core]")
 
         SECTION("int")
         {
-            PropertyInfo pi("@int", PropertyInfo::toType<int>());
+            PropertyInfo pi(SYM("@int"), PropertyInfo::toType<int>());
             REQUIRE(pi.name() == gensym("@int"));
             REQUIRE(pi.type() == PropValueType::INTEGER);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
@@ -400,7 +400,7 @@ TEST_CASE("PropertyInfo", "[core]")
 
         SECTION("symbol")
         {
-            PropertyInfo pi("@symbol", PropertyInfo::toType<t_symbol*>());
+            PropertyInfo pi(SYM("@symbol"), PropertyInfo::toType<t_symbol*>());
             REQUIRE(pi.name() == gensym("@symbol"));
             REQUIRE(pi.type() == PropValueType::SYMBOL);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
@@ -453,7 +453,9 @@ TEST_CASE("PropertyInfo", "[core]")
             // set view
             REQUIRE(pi.setView(PropValueView::ENTRY));
             REQUIRE(pi.setView(PropValueView::MENU));
-            REQUIRE_FALSE(pi.setView(PropValueView::COLOR));
+            REQUIRE(pi.setView(PropValueView::COLOR));
+            REQUIRE(pi.setView(PropValueView::FILEPATH));
+            REQUIRE(pi.setView(PropValueView::DIRPATH));
             REQUIRE_FALSE(pi.setView(PropValueView::KNOB));
             REQUIRE_FALSE(pi.setView(PropValueView::NUMBOX));
             REQUIRE_FALSE(pi.setView(PropValueView::SLIDER));
@@ -477,7 +479,7 @@ TEST_CASE("PropertyInfo", "[core]")
     {
         SECTION("float")
         {
-            PropertyInfo pi("@float", PropertyInfo::toType<t_float>());
+            PropertyInfo pi(SYM("@float"), PropertyInfo::toType<t_float>());
 
             DataTypeDict d;
             REQUIRE(pi.getDict(d));

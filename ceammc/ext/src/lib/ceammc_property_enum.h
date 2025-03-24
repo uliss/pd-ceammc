@@ -24,7 +24,7 @@ namespace ceammc {
 template <typename T>
 class EnumProperty : public Property {
 public:
-    EnumProperty(const std::string& name, T def, PropValueAccess access = PropValueAccess::READWRITE)
+    EnumProperty(const char* name, T def, PropValueAccess access = PropValueAccess::READWRITE)
         : Property(PropertyInfo(name, PropertyInfo::toType<T>()), access)
         , current_idx_(0)
     {
@@ -42,7 +42,7 @@ public:
         setView(PropValueView::MENU);
     }
 
-    EnumProperty(const std::string& name, std::initializer_list<T> values, PropValueAccess access = PropValueAccess::READWRITE)
+    EnumProperty(const char* name, std::initializer_list<T> values, PropValueAccess access = PropValueAccess::READWRITE)
         : Property(PropertyInfo(name, PropertyInfo::toType<T>()), access)
         , current_idx_(0)
     {
@@ -173,9 +173,9 @@ using IntEnumProperty = EnumProperty<t_int>;
  */
 class SymbolEnumProperty : public EnumProperty<t_symbol*> {
 public:
-    SymbolEnumProperty(const std::string& name, t_symbol* def, PropValueAccess access = PropValueAccess::READWRITE);
-    SymbolEnumProperty(const std::string& name, std::initializer_list<t_symbol*> values, PropValueAccess access = PropValueAccess::READWRITE);
-    SymbolEnumProperty(const std::string& name, std::initializer_list<const char*> values, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolEnumProperty(const char* name, t_symbol* def, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolEnumProperty(const char* name, std::initializer_list<t_symbol*> values, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolEnumProperty(const char* name, std::initializer_list<const char*> values, PropValueAccess access = PropValueAccess::READWRITE);
 
     bool setList(const AtomListView& lv) override;
     bool setSymbol(t_symbol* s) override;
@@ -187,11 +187,11 @@ public:
 
 class SymbolFloatEnumProperty : public SymbolEnumProperty {
 public:
-    SymbolFloatEnumProperty(const std::string& name,
+    SymbolFloatEnumProperty(const char* name,
         std::initializer_list<std::pair<t_symbol*, t_float>> values,
         PropValueAccess access = PropValueAccess::READWRITE);
 
-    SymbolFloatEnumProperty(const std::string& name,
+    SymbolFloatEnumProperty(const char* name,
         std::initializer_list<std::pair<const char*, t_float>> values,
         PropValueAccess access = PropValueAccess::READWRITE);
 

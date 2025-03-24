@@ -27,7 +27,7 @@ class DataPropertyT : public Property {
 
 public:
     DataPropertyT(
-        const std::string& name,
+        const char* name,
         const T& def,
         bool parse = true,
         PropValueAccess access = PropValueAccess::READWRITE)
@@ -99,7 +99,7 @@ class DataPropertyListT : public Property {
 
 public:
     DataPropertyListT(
-        const std::string& name,
+        const char* name,
         const std::vector<T>& def,
         bool parse = true,
         PropValueAccess access = PropValueAccess::READWRITE)

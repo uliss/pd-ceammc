@@ -46,7 +46,7 @@ bool ArrayMod::shouldRedraw() const
     return redraw_->value();
 }
 
-ArrayPositionProperty::ArrayPositionProperty(Array* arr, const std::string& name, t_float value, PropValueAccess access)
+ArrayPositionProperty::ArrayPositionProperty(Array* arr, const char* name, t_float value, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::FLOAT), access)
     , v_(value)
     , array_(arr)

@@ -253,7 +253,7 @@ class AtomProperty : public Property {
     Atom v_;
 
 public:
-    AtomProperty(const std::string& name, const Atom& def, PropValueAccess access = PropValueAccess::READWRITE);
+    AtomProperty(const char* name, const Atom& def, PropValueAccess access = PropValueAccess::READWRITE);
 
     bool setList(const AtomListView& lv) override;
     AtomList get() const override;
@@ -281,7 +281,7 @@ class FloatProperty : public Property {
     t_float v_;
 
 public:
-    FloatProperty(const std::string& name, t_float init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+    FloatProperty(const char* name, t_float init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -317,7 +317,7 @@ class IntProperty : public Property {
     t_int v_;
 
 public:
-    IntProperty(const std::string& name, t_int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+    IntProperty(const char* name, t_int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -353,7 +353,7 @@ class SymbolProperty : public Property {
     mutable t_symbol* value_;
 
 public:
-    SymbolProperty(const std::string& name, t_symbol* init, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolProperty(const char* name, t_symbol* init, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -380,7 +380,7 @@ class ListProperty : public Property {
     AtomMapFunction map_;
 
 public:
-    ListProperty(const std::string& name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
+    ListProperty(const char* name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -432,7 +432,7 @@ class CombinedProperty : public Property {
     std::vector<Property*> props_;
 
 public:
-    CombinedProperty(const std::string& name, std::initializer_list<Property*> props);
+    CombinedProperty(const char* name, std::initializer_list<Property*> props);
 
     /**
      * always return true
@@ -455,7 +455,7 @@ class FlagProperty : public Property {
     bool v_;
 
 public:
-    FlagProperty(const std::string& name);
+    FlagProperty(const char* name);
 
     AtomList get() const override;
     bool getBool(bool& b) const override;
@@ -481,7 +481,7 @@ private:
     value_type val_;
 
 public:
-    AliasProperty(const std::string& name, T* prop, typename T::value_type v)
+    AliasProperty(const char* name, T* prop, typename T::value_type v)
         : Property(PropertyInfo(name, prop->type()), prop->access())
         , ptr_(prop)
         , val_(v)
@@ -519,7 +519,7 @@ class BoolProperty : public Property {
     bool v_;
 
 public:
-    BoolProperty(const std::string& name, bool init, PropValueAccess access = PropValueAccess::READWRITE);
+    BoolProperty(const char* name, bool init, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -543,7 +543,7 @@ class PointerProperty : public Property {
     T* vptr_;
 
 public:
-    PointerProperty(const std::string& name, T* value, PropValueAccess access = PropValueAccess::READONLY)
+    PointerProperty(const char* name, T* value, PropValueAccess access = PropValueAccess::READONLY)
         : Property(PropertyInfo(name, PropertyInfo::toType<T>()), access)
         , vptr_(value)
     {

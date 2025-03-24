@@ -763,7 +763,8 @@ static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
     CEAMMC_DEFINE_CRC32(rad);
     CEAMMC_DEFINE_CRC32(hz);
 
-    PropertyInfo res(std::string("@") + a->name->s_name, PropValueType::ATOM);
+    auto name = std::string("@") + a->name->s_name;
+    PropertyInfo res(name.c_str(), PropValueType::ATOM);
 
     const auto attr_style = crc32_hash(a->style);
 

@@ -17,17 +17,17 @@
 
 namespace ceammc {
 
-SymbolEnumProperty::SymbolEnumProperty(const std::string& name, t_symbol* def, PropValueAccess access)
+SymbolEnumProperty::SymbolEnumProperty(const char* name, t_symbol* def, PropValueAccess access)
     : EnumProperty<t_symbol*>(name, def, access)
 {
 }
 
-SymbolEnumProperty::SymbolEnumProperty(const std::string& name, std::initializer_list<t_symbol*> values, PropValueAccess access)
+SymbolEnumProperty::SymbolEnumProperty(const char* name, std::initializer_list<t_symbol*> values, PropValueAccess access)
     : EnumProperty(name, values, access)
 {
 }
 
-SymbolEnumProperty::SymbolEnumProperty(const std::string& name, std::initializer_list<const char*> values, PropValueAccess access)
+SymbolEnumProperty::SymbolEnumProperty(const char* name, std::initializer_list<const char*> values, PropValueAccess access)
     : EnumProperty(name, (values.size() == 0) ? gensym("???") : gensym(*values.begin()), access)
 {
     for (size_t i = 1; i < values.size(); i++)
@@ -54,7 +54,7 @@ bool SymbolEnumProperty::setSymbol(t_symbol* s)
     return setValue(s);
 }
 
-SymbolFloatEnumProperty::SymbolFloatEnumProperty(const std::string& name,
+SymbolFloatEnumProperty::SymbolFloatEnumProperty(const char* name,
     std::initializer_list<std::pair<t_symbol*, t_float>> values,
     PropValueAccess access)
     : SymbolEnumProperty(name, values.begin()->first, access)
@@ -68,7 +68,7 @@ SymbolFloatEnumProperty::SymbolFloatEnumProperty(const std::string& name,
     }
 }
 
-SymbolFloatEnumProperty::SymbolFloatEnumProperty(const std::string& name,
+SymbolFloatEnumProperty::SymbolFloatEnumProperty(const char* name,
     std::initializer_list<std::pair<const char*, t_float>> values,
     PropValueAccess access)
     : SymbolEnumProperty(name, gensym(values.begin()->first), access)

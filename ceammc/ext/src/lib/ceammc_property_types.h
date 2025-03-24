@@ -51,6 +51,7 @@ enum class PropValueView : uint8_t {
     ENTRY,
     COLOR,
     FILEPATH,
+    DIRPATH,
 };
 
 // on order change/adding new type

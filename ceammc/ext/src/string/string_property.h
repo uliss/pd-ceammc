@@ -24,7 +24,7 @@ class StringProperty : public Property {
     StringAtom str_;
 
 public:
-    StringProperty(const std::string& name, const std::string& def = "");
+    StringProperty(const char* name, const std::string& def = "");
 
     const DataTypeString& value() const { return *str_; }
     bool setValue(const std::string& str);

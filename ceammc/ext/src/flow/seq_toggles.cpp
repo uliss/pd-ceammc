@@ -17,7 +17,6 @@
 #include "ceammc_factory.h"
 #include "lex/parser_units.h"
 
-#include <algorithm>
 #include <cstdio>
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
@@ -28,7 +27,7 @@ CEAMMC_DEFINE_SYM_HASH(i)
 
 constexpr int MIN_NOTE_LEN = 1;
 
-LengthProperty::LengthProperty(const std::string& name, t_float def)
+LengthProperty::LengthProperty(const char* name, t_float def)
     : FloatProperty(name, def)
     , percent_value_(&s_)
 {
