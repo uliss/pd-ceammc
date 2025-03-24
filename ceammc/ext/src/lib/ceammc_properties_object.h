@@ -58,6 +58,7 @@ public:
 
     static std::string propLabel(int row, const std::string& text);
     static std::string unitsLabel(int row, const PropertyInfo& info);
+    static std::string propType(const PropertyInfo& info);
 
     static std::string list2tcl(const AtomListView& lv);
     static std::string atom2tcl(const Atom& a);

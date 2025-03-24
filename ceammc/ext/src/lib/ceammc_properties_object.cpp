@@ -170,7 +170,7 @@ std::string TclPropDialogGenerator::procBody() const
 
         res += grid(row, 3, fmt::format("[button $w.f.btn_reset{0} -text [_ Reset]]", row), "e");
         res += fmt::format("{0}::ceammc_tooltip $w.f.btn_reset{1} [_ {{Reset to default}}]\n", space(), row);
-         res += grid(row, 4, fmt::format("[button $w.f.btn_default{0} -text [_ Default]]", row), "e");
+        res += grid(row, 4, fmt::format("[button $w.f.btn_default{0} -text [_ Default]]", row), "e");
 
         last_row = row;
     });
@@ -420,9 +420,30 @@ std::string TclPropDialogGenerator::unitsLabel(int row, const PropertyInfo& info
     });
 
     if (unit_count == 1)
-        return propLabel(1000 + row, units);
+        return propLabel(1000 + row, fmt::format("{1} ({0})", units, propType(info)));
     else
-        return {};
+        return propLabel(1000 + row, fmt::format("{}", propType(info)));
+}
+
+std::string TclPropDialogGenerator::propType(const PropertyInfo& info)
+{
+    switch (info.type()) {
+    case PropValueType::BOOLEAN:
+        return "bool";
+    case PropValueType::INTEGER:
+        return "int";
+    case PropValueType::FLOAT:
+        return "float";
+    case PropValueType::SYMBOL:
+        return "symbol";
+    case PropValueType::ATOM:
+        return "atom";
+    case PropValueType::LIST:
+        return "list";
+        break;
+    default:
+        return "?";
+    }
 }
 
 std::string TclPropDialogGenerator::list2tcl(const AtomListView& lv)
@@ -464,8 +485,8 @@ std::string TclPropDialogGenerator::atom2tcl(const Atom& a)
             case '}':
                 res += "\\}";
                 break;
-            // case '$':
-            //     res += "\\$";
+                // case '$':
+                //     res += "\\$";
                 break;
             default:
                 res += c;
