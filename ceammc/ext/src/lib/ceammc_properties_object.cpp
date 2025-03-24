@@ -192,7 +192,7 @@ std::string TclPropDialogGenerator::entrySymbol(int row, const PropertyInfo& inf
     std::string res;
 
     if (info.hasEnumLimit()) {
-
+        res += combobox(row, info);
     } else {
         res += textentry(row, info);
     }
@@ -256,13 +256,13 @@ std::string TclPropDialogGenerator::setDialogValue(const char* prop, const char*
     return fmt::format("dict set ${0} {1} {2}; puts {2};", propsDictVar(), prop, val);
 }
 
-std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
+std::string TclPropDialogGenerator::spinbox(int propIdx, const PropertyInfo& info)
 {
     constexpr double MIN_VALUE = -9999999999;
     constexpr double MAX_VALUE = +9999999999;
 
     const auto indent = space(4);
-    const auto id = widgetId(row);
+    const auto id = widgetId(propIdx);
     const auto prop_name = info.name()->s_name;
 
     auto res = fmt::format("{0}ttk::spinbox {1}\n",
@@ -370,6 +370,26 @@ std::string TclPropDialogGenerator::spinbox(int row, const PropertyInfo& info)
     res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, id);
     res += fmt::format("{0}bind {1} <Return> \"ceammc_dialog_bitmap_validate $id %W {2} {3} \\[%W get\\]\"\n",
         indent, id, propsDictVar(), prop_name);
+
+    return res;
+}
+
+std::string TclPropDialogGenerator::combobox(int propIdx, const PropertyInfo& info)
+{
+    const auto indent = space(4);
+    const auto wid = widgetId(propIdx);
+    const auto prop_name = info.name()->s_name;
+
+    std::string res;
+
+    res += fmt::format("{0}ttk::combobox {1} -state readonly\n", indent, wid);
+    res += fmt::format("{0}{1} set [dict get $props {{{2}}}]\n", indent, wid, prop_name);
+    res += fmt::format("{0}bind {1} <<ComboboxSelected>> \"dict set {2} {{{3}}} \\[%W get\\]\"\n",
+        indent, wid, propsDictVar(), prop_name);
+
+    if (info.hasEnumLimit()) {
+        res += fmt::format("{0}{1} configure -values {2}\n", indent, wid, list2tcl(info.enumValues()));
+    }
 
     return res;
 }

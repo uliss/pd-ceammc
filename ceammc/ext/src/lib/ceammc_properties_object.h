@@ -47,8 +47,9 @@ public:
     static std::string entrySymbol(int row, const PropertyInfo& info);
 
     static std::string checkbox(int propIdx, const PropertyInfo& info);
+    static std::string combobox(int propIdx, const PropertyInfo& info);
+    static std::string spinbox(int propIdx, const PropertyInfo& info);
     static std::string textentry(int propIdx, const PropertyInfo& info);
-    static std::string spinbox(int row, const PropertyInfo& info);
 
     static std::string propsDictVar();
     static std::string setDialogValue(const char* prop, const char* val);
