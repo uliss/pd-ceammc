@@ -77,6 +77,7 @@ public:
     inline t_symbol* name() const { return info_.name(); }
 
     inline const PropertyInfo& info() const { return info_; }
+    inline PropertyInfo& info() { return info_; }
 
     inline PropValueAccess access() const { return info_.access(); }
     inline PropValueType type() const { return info_.type(); }
@@ -192,10 +193,7 @@ public:
     void setOwner(void* p) { owner_ = p; }
     const void* owner() const { return owner_; }
 
-    PropertyInfo& infoT() { return info_; }
-
 protected:
-    PropertyInfo& info() { return info_; }
     bool checkAtom(const Atom& a) const;
     bool checkFloat(t_float v) const;
     bool checkInt(t_int v) const;

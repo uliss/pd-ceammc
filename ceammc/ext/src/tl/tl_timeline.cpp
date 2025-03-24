@@ -89,8 +89,8 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
             return true;
         });
 
-    res->infoT().setConstraints(PropValueConstraints::ENUM);
-    if (!res->infoT().addEnums({ SYM_INF, SYM_FIXED }))
+    res->info().setConstraints(PropValueConstraints::ENUM);
+    if (!res->info().addEnums({ SYM_INF, SYM_FIXED }))
         OBJ_ERR << "can't set enums";
 }
 

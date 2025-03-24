@@ -111,7 +111,7 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
             continue;
 
         p->get();
-        res.push_back(p->infoT());
+        res.push_back(p->info());
     }
 
     return res;
@@ -231,7 +231,7 @@ PropertySetState ceammc_base_property_set_cc(t_object* x, t_symbol* key, t_float
     if (!prop)
         return PPS::ERROR_PROP_NOT_FOUND;
 
-    auto& info = prop->infoT();
+    auto& info = prop->info();
     // check rw
     if (!info.isReadWrite())
         return PPS::ERROR_ACCESS;

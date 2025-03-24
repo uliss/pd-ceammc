@@ -37,8 +37,8 @@ MidiTrack::MidiTrack(const PdArgs& args)
     // play state property
     {
         auto p = createCbIntProperty("@state", [this]() -> int { return play_state_; });
-        p->infoT().setConstraints(PropValueConstraints::ENUM);
-        const auto ok = p->infoT().addEnums({ PLAY_STATE_STOPPED, PLAY_STATE_PLAYING, PLAY_STATE_PAUSED });
+        p->info().setConstraints(PropValueConstraints::ENUM);
+        const auto ok = p->info().addEnums({ PLAY_STATE_STOPPED, PLAY_STATE_PLAYING, PLAY_STATE_PAUSED });
     }
 
     createOutlet();

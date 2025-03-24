@@ -181,9 +181,9 @@ FxLooper::FxLooper(const PdArgs& args)
         Property* p = createCbSymbolProperty("@state",
             [this]() -> t_symbol* { return gensym(STATE_NAMES[state_]); });
 
-        if (!p->infoT().setConstraints(PropValueConstraints::ENUM))
+        if (!p->info().setConstraints(PropValueConstraints::ENUM))
             OBJ_ERR << "can't set @state contraints";
-        else if (!p->infoT().addEnums({ "init", "stop", "record", "play", "overdub" }))
+        else if (!p->info().addEnums({ "init", "stop", "record", "play", "overdub" }))
             OBJ_ERR << "can't set @state enum values";
     }
 

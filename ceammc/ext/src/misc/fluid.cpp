@@ -224,8 +224,8 @@ Fluid::Fluid(const PdArgs& args)
             return true;
         });
 
-    if (gain->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
-        (void)gain->infoT().setRangeFloat(0, 10);
+    if (gain->info().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)gain->info().setRangeFloat(0, 10);
 
     addProperty(gain);
 
@@ -249,8 +249,8 @@ Fluid::Fluid(const PdArgs& args)
             return fluid_synth_set_polyphony(synth.get(), v) == FLUID_OK;
         });
 
-    if (polyphony->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE)) {
-        if (!polyphony->infoT().setRangeFloat(1, 1024))
+    if (polyphony->info().setConstraints(PropValueConstraints::CLOSED_RANGE)) {
+        if (!polyphony->info().setRangeFloat(1, 1024))
             LIB_ERR << __FUNCTION__ << " can't set property range";
     }
 

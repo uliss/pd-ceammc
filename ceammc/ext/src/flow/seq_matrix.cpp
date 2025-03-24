@@ -58,7 +58,7 @@ SeqMatrixBase::SeqMatrixBase(const PdArgs& args)
     {
         auto p = property(gensym("@r"));
         if (p) {
-            p->infoT().setDefault(-1);
+            p->info().setDefault(-1);
             p->set({ -1 });
         }
     }

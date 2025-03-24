@@ -174,19 +174,19 @@ TEST_CASE("BpmProperty", "[core]")
     SECTION("json")
     {
         std::string json;
-        REQUIRE(p.infoT().getJSON(json));
+        REQUIRE(p.info().getJSON(json));
         REQUIRE(json == R"({"access":"readwrite","default":"120|4bpm","name":"@bpm","type":"atom","units":["bpm"],"view":"entry","visibility":"public"})");
     }
 
     SECTION("dict")
     {
         DataTypeDict d;
-        REQUIRE(p.infoT().getDict(d));
+        REQUIRE(p.info().getDict(d));
         REQUIRE(d.contains("units"));
         REQUIRE(d.at("units") == LA("bpm"));
 
-        p.infoT().addUnit(PropValueUnits::HZ);
-        REQUIRE(p.infoT().getDict(d));
+        p.info().addUnit(PropValueUnits::HZ);
+        REQUIRE(p.info().getDict(d));
         REQUIRE(d.contains("units"));
         REQUIRE(d.at("units").size() == 2);
         REQUIRE(d.at("units")[0] == A("hertz"));

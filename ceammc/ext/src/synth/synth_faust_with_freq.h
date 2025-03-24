@@ -84,8 +84,8 @@ public:
 
         const auto note = lv.floatAt(0, -1);
         const auto vel = lv.floatAt(1, -1);
-        const auto nmin = pitch_->infoT().minFloat();
-        const auto nmax = pitch_->infoT().maxFloat();
+        const auto nmin = pitch_->info().minFloat();
+        const auto nmax = pitch_->info().maxFloat();
 
         if (note < nmin || note > nmax) {
             METHOD_ERR(s) << "note value is out of [" << nmin << ".." << nmax << "] range: " << note;
