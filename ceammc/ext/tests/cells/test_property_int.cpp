@@ -266,4 +266,28 @@ TEST_CASE("IntProperty", "[core]")
         REQUIRE(p.setList(AtomList::parseString("def")));
         REQUIRE(p.value() == 120);
     }
+
+    SECTION("initial")
+    {
+        REQUIRE(p.setInit(A(-123)));
+        REQUIRE(p.value() == -123);
+        REQUIRE(p.resetToDefault());
+        REQUIRE(p.value() == 120);
+        REQUIRE(p.resetToInitial());
+        REQUIRE(p.value() == -123);
+
+        REQUIRE(p.setValue(t_int(1000)));
+        REQUIRE(p.value() == 1000);
+        REQUIRE(p.resetToInitial());
+        REQUIRE(p.value() == -123);
+
+        REQUIRE(p.setList(AtomList::parseString("default")));
+        REQUIRE(p.value() == 120);
+        REQUIRE(p.setList(AtomList::parseString("initial")));
+        REQUIRE(p.value() == -123);
+        REQUIRE(p.setList(AtomList::parseString("def")));
+        REQUIRE(p.value() == 120);
+        REQUIRE(p.setList(AtomList::parseString("init")));
+        REQUIRE(p.value() == -123);
+    }
 }

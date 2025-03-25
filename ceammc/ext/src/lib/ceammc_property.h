@@ -72,10 +72,10 @@ public:
     virtual bool setList(const AtomListView& lv) = 0;
     /// virtual
     virtual bool set(const AtomListView& lv);
-    virtual bool setInit(const AtomListView& lv);
     virtual bool checkArgs(const AtomListView& lv) const;
 
     inline t_symbol* name() const { return info_.name(); }
+    bool setInit(const AtomListView& lv);
 
     inline const PropertyInfo& info() const { return info_; }
     inline PropertyInfo& info() { return info_; }
@@ -118,11 +118,14 @@ public:
     // when object is still constructing - we can update default info later with this call
     virtual void updateDefault();
 
+    // you should redefine it in subclasses to set init value
+    virtual bool updateInitial();
+
     template <typename T>
     inline void setDefault(T v) { info_.setDefault(v); }
 
     template <typename T>
-    inline void setInitial(const T& v) { info_.setInitial(v); }
+    inline bool setInitial(const T& v) { return info_.setInitial(v); }
 
     // reset to default value
     bool resetToDefault();
@@ -273,6 +276,8 @@ public:
     inline const Atom& value() const { return v_; }
     bool setValue(const Atom& v);
     Atom defaultValue() const;
+    Atom initialValue() const;
+    bool updateInitial() final;
 
 public:
     using value_type = Atom;
@@ -285,7 +290,7 @@ class FloatProperty : public Property {
     t_float v_;
 
 public:
-    FloatProperty(const char* name, t_float init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+    FloatProperty(const char* name, t_float def = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -297,6 +302,8 @@ public:
     bool setValue(t_float v);
     bool setValue(const Atom& a);
     t_float defaultValue() const;
+    t_float initialValue() const;
+    bool updateInitial() final;
 
     bool checkMin(t_float v) { return setFloatCheck(PropValueConstraints::GREATER_THEN, v); }
     bool checkMinEq(t_float v) { return setFloatCheck(PropValueConstraints::GREATER_EQUAL, v); }
@@ -321,7 +328,7 @@ class IntProperty : public Property {
     t_int v_;
 
 public:
-    IntProperty(const char* name, t_int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+    IntProperty(const char* name, t_int def = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -333,6 +340,8 @@ public:
     bool setValue(t_float f);
     bool setValue(const Atom& a);
     t_int defaultValue() const;
+    t_int initialValue() const;
+    bool updateInitial() final;
 
     bool checkMin(t_int v) { return setIntCheck(PropValueConstraints::GREATER_THEN, v); }
     bool checkMinEq(t_int v) { return setIntCheck(PropValueConstraints::GREATER_EQUAL, v); }
@@ -357,7 +366,7 @@ class SymbolProperty : public Property {
     mutable t_symbol* value_;
 
 public:
-    SymbolProperty(const char* name, t_symbol* init, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolProperty(const char* name, t_symbol* def, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -368,8 +377,11 @@ public:
     bool setValue(t_symbol* s);
     bool setValue(const Atom& a);
     t_symbol* defaultValue() const;
+    t_symbol* initialValue() const;
+    bool updateInitial() final;
 
     std::string str() const { return value_->s_name; }
+    const char* cstr() const { return value_->s_name; }
 
 public:
     using value_type = t_symbol*;
@@ -384,7 +396,7 @@ class ListProperty : public Property {
     AtomMapFunction map_;
 
 public:
-    ListProperty(const char* name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
+    ListProperty(const char* name, const AtomList& def = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -394,6 +406,8 @@ public:
     inline AtomList& value() { return lst_; }
     bool setValue(const AtomList& l);
     const AtomList& defaultValue() const;
+    AtomList initialValue() const;
+    bool updateInitial() final;
 
     bool checkNonNegative() override;
     bool checkPositive() override;
@@ -513,6 +527,11 @@ public:
     }
 
     AtomList get() const override { return listFrom(bool(ptr_->value() == val_)); }
+
+    bool updateInitial() final
+    {
+        return this->info().setInitial(val_);
+    }
 };
 
 /**
@@ -523,7 +542,7 @@ class BoolProperty : public Property {
     bool v_;
 
 public:
-    BoolProperty(const char* name, bool init, PropValueAccess access = PropValueAccess::READWRITE);
+    BoolProperty(const char* name, bool def, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -534,6 +553,8 @@ public:
     bool setValue(bool v);
     bool setValue(const Atom& a);
     bool defaultValue() const;
+    bool initialValue() const;
+    bool updateInitial() final;
 
 public:
     using value_type = bool;

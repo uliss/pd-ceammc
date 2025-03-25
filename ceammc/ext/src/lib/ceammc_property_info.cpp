@@ -35,7 +35,7 @@ inline PropValueUnits int2unit(PropValueUnitsBase i)
 {
     return static_cast<PropValueUnits>(i);
 }
-}
+} // namespace
 
 namespace ceammc {
 

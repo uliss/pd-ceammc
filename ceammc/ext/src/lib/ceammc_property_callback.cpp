@@ -320,6 +320,26 @@ void CallbackProperty::updateDefault()
         PROP_ERR << "can't update default info in callback property";
 }
 
+bool CallbackProperty::updateInitial()
+{
+    if (isBool() && getter_.fn_bool)
+        return setInitial(getter_.fn_bool());
+    else if (isFloat() && getter_.fn_float)
+        return setInitial(getter_.fn_float());
+    else if (isInt() && getter_.fn_int)
+        return setInitial(getter_.fn_int());
+    else if (isSymbol() && getter_.fn_symbol)
+        return setInitial(getter_.fn_symbol());
+    else if (isAtom() && getter_.fn_atom)
+        return setInitial(getter_.fn_atom());
+    else if (isList() && getter_.fn_list)
+        return setInitial(getter_.fn_list());
+    else {
+        PROP_ERR << "can't update initial info in callback property";
+        return false;
+    }
+}
+
 bool CallbackProperty::hasBoolCb(CallbackType t) const
 {
     if (!isBool()) {

@@ -104,7 +104,7 @@ public:
     template <class G, class S>
     CallbackProperty(const char* name, G getter, S setter = nullptr, const std::string& setterErrMsg = std::string())
         : CallbackProperty(name, getter, setter,
-            tag<typename function_traits<decltype(getter)>::result_type>())
+              tag<typename function_traits<decltype(getter)>::result_type>())
     {
         cb_err_msg_ = setterErrMsg;
     }
@@ -138,6 +138,7 @@ public:
     bool checkNonZero();
 
     void updateDefault() override;
+    bool updateInitial() override;
 
 private:
     enum CallbackType {

@@ -78,6 +78,11 @@ public:
         }
     }
 
+    T initialValue() const
+    {
+        return this->info().template initialT<T>();
+    }
+
     AtomList get() const override
     {
         return listFrom(value());
@@ -154,6 +159,11 @@ public:
             LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "value already exists in enum: " << v;
             return false;
         }
+    }
+
+    bool updateInitial() final
+    {
+        return this->info().setInitial(value());
     }
 
 public:

@@ -228,10 +228,10 @@ public:
     }
 
     template <typename T>
-    inline const T& initialT(const T& def = {}) const
+    inline T initialT(const T& def = {}) const
     {
         T res {};
-        if (isA<T>())
+        if (isA<T>() && init_.type() == typeid(T))
             return boost::get<T>(init_);
         else
             return def;

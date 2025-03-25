@@ -68,13 +68,17 @@ bool Property::setInit(const AtomListView& lv)
         return false;
 
     auto res = setList(lv);
-    if (res && ok_fn_ptr_ && *ok_fn_ptr_)
-        (*ok_fn_ptr_)(this);
+    if (res) {
+        updateInitial();
+
+        if (ok_fn_ptr_ && *ok_fn_ptr_)
+            (*ok_fn_ptr_)(this);
+    }
 
     return res;
 }
 
-bool Property::checkArgs(const AtomListView &lv) const
+bool Property::checkArgs(const AtomListView& lv) const
 {
     return false;
 }
@@ -131,6 +135,11 @@ bool Property::getDefault(AtomList& lv) const
 void Property::updateDefault()
 {
     // empty call
+}
+
+bool Property::updateInitial()
+{
+    return false;
 }
 
 bool Property::resetToDefault()
@@ -815,6 +824,11 @@ bool AtomProperty::getAtom(Atom& a) const
     return true;
 }
 
+bool AtomProperty::updateInitial()
+{
+    return info().setInitial(v_);
+}
+
 bool AtomProperty::setBool(bool b)
 {
     return setValue(Atom(b ? 1 : 0));
@@ -854,11 +868,16 @@ Atom AtomProperty::defaultValue() const
     return info().defaultAtom();
 }
 
-ListProperty::ListProperty(const char* name, const AtomList& init, PropValueAccess access)
-    : Property(PropertyInfo(name, PropValueType::LIST), access)
-    , lst_(init)
+Atom AtomProperty::initialValue() const
 {
-    info().setDefault(init);
+    return info().initialT<Atom>();
+}
+
+ListProperty::ListProperty(const char* name, const AtomList& def, PropValueAccess access)
+    : Property(PropertyInfo(name, PropValueType::LIST), access)
+    , lst_(def)
+{
+    info().setDefault(def);
 }
 
 bool ListProperty::setList(const AtomListView& lv)
@@ -911,6 +930,16 @@ bool ListProperty::setValue(const AtomList& l)
 const AtomList& ListProperty::defaultValue() const
 {
     return info().defaultList();
+}
+
+AtomList ListProperty::initialValue() const
+{
+    return info().initialT<AtomList>();
+}
+
+bool ListProperty::updateInitial()
+{
+    return info().setInitial(lst_);
 }
 
 bool ListProperty::checkNonNegative()
@@ -1050,11 +1079,11 @@ AtomList ListProperty::get() const
     return lst_;
 }
 
-FloatProperty::FloatProperty(const char* name, t_float init, PropValueAccess access)
+FloatProperty::FloatProperty(const char* name, t_float def, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::FLOAT), access)
-    , v_(init)
+    , v_(def)
 {
-    info().setDefault(init);
+    info().setDefault(def);
 }
 
 AtomList FloatProperty::get() const
@@ -1135,11 +1164,21 @@ t_float FloatProperty::defaultValue() const
     return info().defaultFloat(v_);
 }
 
-BoolProperty::BoolProperty(const char* name, bool init, PropValueAccess access)
-    : Property(PropertyInfo(name, PropValueType::BOOLEAN), access)
-    , v_(init)
+t_float FloatProperty::initialValue() const
 {
-    info().setDefault(init);
+    return info().initialT<t_float>();
+}
+
+bool FloatProperty::updateInitial()
+{
+    return info().setInitial(v_);
+}
+
+BoolProperty::BoolProperty(const char* name, bool def, PropValueAccess access)
+    : Property(PropertyInfo(name, PropValueType::BOOLEAN), access)
+    , v_(def)
+{
+    info().setDefault(def);
 }
 
 AtomList BoolProperty::get() const
@@ -1199,11 +1238,21 @@ bool BoolProperty::defaultValue() const
     return info().defaultBool();
 }
 
-IntProperty::IntProperty(const char* name, t_int init, PropValueAccess access)
-    : Property(PropertyInfo(name, PropValueType::INTEGER), access)
-    , v_(init)
+bool BoolProperty::initialValue() const
 {
-    info().setDefault(init);
+    return info().initialT<bool>();
+}
+
+bool BoolProperty::updateInitial()
+{
+    return info().setInitial(v_);
+}
+
+IntProperty::IntProperty(const char* name, t_int def, PropValueAccess access)
+    : Property(PropertyInfo(name, PropValueType::INTEGER), access)
+    , v_(def)
+{
+    info().setDefault(def);
 }
 
 bool IntProperty::setList(const AtomListView& lv)
@@ -1288,6 +1337,16 @@ t_int IntProperty::defaultValue() const
     return info().defaultInt(v_);
 }
 
+t_int IntProperty::initialValue() const
+{
+    return info().initialT<t_int>();
+}
+
+bool IntProperty::updateInitial()
+{
+    return info().setInitial(v_);
+}
+
 FlagProperty::FlagProperty(const char* name)
     : Property(PropertyInfo(name, PropValueType::BOOLEAN), PropValueAccess::INITONLY)
     , v_(false)
@@ -1321,11 +1380,11 @@ bool FlagProperty::setList(const AtomListView&)
     return true;
 }
 
-SymbolProperty::SymbolProperty(const char* name, t_symbol* init, PropValueAccess access)
+SymbolProperty::SymbolProperty(const char* name, t_symbol* def, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::SYMBOL), access)
-    , value_(init)
+    , value_(def)
 {
-    info().setDefault(init);
+    info().setDefault(def);
 }
 
 AtomList SymbolProperty::get() const
@@ -1379,6 +1438,16 @@ bool SymbolProperty::setValue(const Atom& a)
 t_symbol* SymbolProperty::defaultValue() const
 {
     return info().defaultSymbol(&s_);
+}
+
+t_symbol* SymbolProperty::initialValue() const
+{
+    return info().initialT(&s_);
+}
+
+bool SymbolProperty::updateInitial()
+{
+    return info().setInitial(value_);
 }
 
 CombinedProperty::CombinedProperty(const char* name, std::initializer_list<Property*> props)

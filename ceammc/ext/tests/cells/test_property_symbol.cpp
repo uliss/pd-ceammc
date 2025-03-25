@@ -27,6 +27,7 @@ TEST_CASE("SymbolProperty", "[core]")
         REQUIRE(p.isPublic());
         REQUIRE_FALSE(p.isHidden());
         REQUIRE_FALSE(p.isInternal());
+        REQUIRE(p.initialValue() == &s_);
 
         REQUIRE(p.name() == SYM("@sym"));
         REQUIRE(!p.isFloat());
@@ -155,5 +156,18 @@ TEST_CASE("SymbolProperty", "[core]")
 
         REQUIRE(p.setSymbol(SYM("b")));
         REQUIRE(p.value() == SYM("b"));
+    }
+
+    SECTION("initial")
+    {
+        SymbolProperty p("@s", SYM("B"));
+        REQUIRE(p.setInit(A("C")));
+        REQUIRE(p.value() == SYM("C"));
+
+        p.resetToDefault();
+        REQUIRE(p.value() == SYM("B"));
+
+        REQUIRE(p.resetToInitial());
+        REQUIRE(p.value() == SYM("C"));
     }
 }
