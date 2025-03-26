@@ -14,7 +14,7 @@
             <also>
                 <see view="link">ui.matrix</see>
             </also>
-            <since>0.9.9</since>
+            <since>0.9.8</since>
             <aliases>
                 <alias>ceammc/bitmap</alias>
             </aliases>
