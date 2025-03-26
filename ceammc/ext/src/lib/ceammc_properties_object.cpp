@@ -202,6 +202,8 @@ std::string TclPropDialogGenerator::entrySymbol(int row, const PropertyInfo& inf
         res += combobox(row, info);
     } else if (info.view() == PropValueView::FILEPATH) {
         res += pathentry(row, info);
+    } else if (info.view() == PropValueView::COLOR) {
+        res += colorentry(row, info);
     } else {
         res += textentry(row, info);
     }
@@ -235,6 +237,27 @@ std::string TclPropDialogGenerator::checkbox(int propIdx, const PropertyInfo& in
     res += fmt::format("{0}set {1} [dict get $props {{{2}}}]\n", indent, propVarName(propIdx), prop_name);
     res += fmt::format("{0}ttk::checkbutton {1} -variable {2}\n", indent, wid, propVarName(propIdx));
     res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\${4}\"\n", indent, wid, propsDictVar(), prop_name, propVarName(propIdx));
+
+    return res;
+}
+
+std::string TclPropDialogGenerator::colorentry(int propIdx, const PropertyInfo& info)
+{
+    const auto indent = space(4);
+    const auto wid = widgetId(propIdx);
+    const auto prop_name = info.name()->s_name;
+
+    std::string res;
+    res += fmt::format("{0}entry {1} -width 10 -readonlybackground [dict get $props {{{2}}}] -state readonly\n",
+        indent, wid, prop_name);
+
+    res += fmt::format("{0}ttk::button {1}_btn"
+                       " -text [_ Choose]"
+                       " -command \"::ceammc::dialog::choose_color_hex \\[{1} cget -readonlybackground\\] {1};"
+                       " dict set {2} {3} \\[{1} cget -readonlybackground\\]\"\n",
+        indent, wid, propsDictVar(), prop_name);
+
+    res += grid(propIdx, COL_WIDGET2, fmt::format("{}_btn", wid), "n");
 
     return res;
 }

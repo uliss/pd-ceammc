@@ -47,6 +47,7 @@ public:
     static std::string entrySymbol(int row, const PropertyInfo& info);
 
     static std::string checkbox(int propIdx, const PropertyInfo& info);
+    static std::string colorentry(int propIdx, const PropertyInfo& info);
     static std::string combobox(int propIdx, const PropertyInfo& info);
     static std::string spinbox(int propIdx, const PropertyInfo& info);
     static std::string textentry(int propIdx, const PropertyInfo& info);
