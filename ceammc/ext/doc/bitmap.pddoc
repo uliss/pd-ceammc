@@ -20,7 +20,8 @@
             </aliases>
         </meta>
         <mouse>
-            <event type="left-click" editmode="false" keys="Shift">open bitmap viewer window</event>
+            <event type="left-click" editmode="false" keys="Shift">open bitmap viewer
+            window</event>
         </mouse>
         <arguments>
             <argument name="W" type="int" minvalue="1" maxvalue="256">bitmap width in pixels, see
@@ -178,10 +179,10 @@
             <param name="AXIS" type="symbol" enum="x y" required="true">mirror
             axis</param></method>
             <!-- load -->
-            <method name="load">load image to bitmap
-            <param name="FILE" type="symbol" required="true">image path, relative or absolute</param>
-            <param name="SCALE" type="float" minvalue="0" default="1">image scale</param>
-            </method>
+            <method name="load">load image to bitmap 
+            <param name="FILE" type="symbol" required="true">image path, relative or
+            absolute</param>
+            <param name="SCALE" type="float" minvalue="0" default="1">image scale</param></method>
             <!-- view -->
             <method name="view">opens bitmap view window</method>
         </methods>
