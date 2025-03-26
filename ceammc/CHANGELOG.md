@@ -1,26 +1,35 @@
 # CEAMMC external library changelog
 
-## [Unrelease]
-### Added:
-- new objects:
-  - hw.rpi.gpio - Raspberry Pi GPIO support
-  - hw.rpi.pwm - Raspberry Pi PWM support
-  - hw.rpi.rotenc - rotary encoder for Raspberry Pi
-  - hw.rpi.sr04 - ultrasonic sensor HC-SR04 for Raspberry Pi
-  - hw.rpi.dht11 - temperature sensor for Raspberry Pi
-  - bitmap - bitmap image
-- new methods:
-  - [set matrix( set method added to ui.matrix
-
 ## [0.9.8]
 ### Added:
 - new objects:
+  - bitmap - bitmap image
+  - conv.guido2note (guido->note)
+  - data.path
   - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
   - hw.gamepad - gamepad support
-  - hw.printer - simple printing support (only PDF files)
+  - hw.i2c.lcd1602
+  - hw.printer - simple printing support (only PDF files)  
+  - hw.rpi.adc.ads1115
+  - hw.rpi.dht11 - temperature sensor for Raspberry Pi
+  - hw.rpi.display.ssd1306
+  - hw.rpi.gpio - Raspberry Pi GPIO support
+  - hw.rpi.i2c.pca9685
+  - hw.rpi.pwm - Raspberry Pi PWM support
+  - hw.rpi.pwm.pca9685
+  - hw.rpi.rotenc - rotary encoder for Raspberry Pi
+  - hw.rpi.sensor.ir
+  - hw.rpi.sensor.mpu6050
+  - hw.rpi.sensor.vl53l0x
+  - hw.rpi.sr04 - ultrasonic sensor HC-SR04 for Raspberry Pi
+  - hw.spi.max7219
+  - hw.spi.ws2812
   - msg.unpack - unpack message to selector and arguments
+  - net.http.client (http.client)
+  - net.freesound
   - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
-  - net.mqtt.client - MQTT client 
+  - net.mqtt.client (mqtt.client) - MQTT client 
+  - net.telegram.bot
   - net.ws.client - WebSocket client
   - net.ws.server - WebSocket client 
   - proto.obs - OBS studio client
@@ -32,6 +41,7 @@
   - snd.play~ @on_err property added to specify sending errors address
 - new methods:
   - open method added to snd.play~ for readsf~ compatibility
+  - [set matrix( set method added to ui.matrix
 - new aliases:
   - list.hist alias added for list.histogram
   - array.histogram alias added for array.hist
