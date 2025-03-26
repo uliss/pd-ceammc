@@ -44,9 +44,6 @@ proc show {img_id} {
             -width $imgw \
             -height $imgh
 
-#    pack $w.hscroll -side bottom -fill x -padx 1 -pady 1
-#    pack $w.vscroll -side right  -fill y -padx 1 -pady 1
-#    pack $c -side left -expand 0 -fill none -padx 1 -pady 1
     pack $w.grid -expand yes -fill both -padx 1 -pady 1
     grid rowconfig    $w.grid 0 -weight 1 -minsize 0
     grid columnconfig $w.grid 0 -weight 1 -minsize 0
