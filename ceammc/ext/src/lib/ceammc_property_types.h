@@ -52,6 +52,13 @@ enum class PropValueView : uint8_t {
     COLOR,
     FILEPATH,
     DIRPATH,
+    IPV4,
+    IPV6,
+    DATE,
+    TIME,
+    DATETIME,
+    CALENDAR,
+    TEXT
 };
 
 // on order change/adding new type

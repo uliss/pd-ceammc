@@ -45,6 +45,13 @@ const char* to_string(PropValueView v)
         "color",
         "file",
         "dir",
+        "ipv4",
+        "ipv6",
+        "date",
+        "time",
+        "datetime",
+        "calendar",
+        "text",
     };
 
     auto idx = static_cast<size_t>(v);
