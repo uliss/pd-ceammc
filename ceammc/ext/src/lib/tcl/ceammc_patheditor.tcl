@@ -12,6 +12,12 @@ namespace eval dialog {
         $entry delete 0 end
         $entry insert 0 $new_path
     }
+
+    proc choose_color_hex {color entry} {
+        set color [tk_chooseColor -initialcolor $color]
+        $entry configure -readonlybackground $color
+    }
+
 }
 
 namespace eval patheditor {
