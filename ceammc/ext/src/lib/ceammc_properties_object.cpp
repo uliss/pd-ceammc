@@ -103,7 +103,7 @@ std::string TclPropDialogGenerator::generate() const
                        "proc {1} {{id wid var prop value}} {{\n"
                        "    pdsend [list $id .prop_validate $var $wid $prop $value]\n"
                        "}}\n"
-                       "proc {2} {{id props}} {{\n"
+                       "proc {2} {{id props defprops}} {{\n"
                        "{3}"
                        "}}\n",
         okProcName(class_name.c_str()),
@@ -745,14 +745,14 @@ std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyIn
 
 std::string TclPropDialogGenerator::propResetCall(int id, const char* propName, const char* className)
 {
-    return fmt::format("{0} $id {1} [string map {{ {{$}} {{\\$}} }} [dict get $props {3}]]",
+    return fmt::format("{0} $id {1} \\\"[string map {{ {{$}} {{\\$}} }} [dict get $props {3}]]\\\"",
         propSetProcName(propName, className), widgetId(id), propsDictVar(), propName);
 }
 
 std::string TclPropDialogGenerator::propDefaultCall(int id, const char* propName, const char* className)
 {
-    return {};
-    // return fmt::format("{0} $id {1} [dict get $defprops {1}]", propSetProcName(propName, className), widgetId(id), propName);
+    return fmt::format("{0} $id {1} \\\"[string map {{ {{$}} {{\\$}} }} [dict get $defprops {3}]]\\\"",
+        propSetProcName(propName, className), widgetId(id), propsDictVar(), propName);
 }
 
 std::string TclPropDialogGenerator::actionButtonId(int id)
@@ -775,7 +775,7 @@ std::string TclPropDialogGenerator::resetButtonId(int id)
 
 std::string TclPropDialogGenerator::defaultButton(int id, const char* propName, const char* className)
 {
-    return fmt::format("{0}ttk::button {1} -text [_ Default] -command [concat {2}]\n",
+    return fmt::format("{0}ttk::button {1} -text [_ Default] -command \"{2}\"\n",
         space(),
         defaultButtonId(id),
         propDefaultCall(id, propName, className));
@@ -801,14 +801,12 @@ std::string TclPropDialogGenerator::callProc() const
     std::string res = fmt::format("{0} %s ", procName(makeClassName().c_str()));
     res += "[dict create ";
 
-    string::StaticString out;
-
     for (auto& p : obj_->getProperties()) {
         res += p->name()->s_name;
         res += ' ';
-        if (p->isNumeric())
+        if (p->isNumeric()) {
             res += to_string(p->get());
-        else {
+        } else {
             res += list2tcl(p->get());
         }
 
@@ -818,8 +816,42 @@ std::string TclPropDialogGenerator::callProc() const
     if (res.back() == ' ')
         res.pop_back();
 
-    res += ']';
-    res += '\n';
+    res += "] ";
+
+    res += "[dict create ";
+
+    for (auto& p : obj_->getProperties()) {
+        res += p->name()->s_name;
+        res += ' ';
+
+        switch (p->type()) {
+        case PropValueType::BOOLEAN:
+            res += fmt::format("{}", p->info().defaultBool(0));
+            break;
+        case PropValueType::INTEGER:
+            res += fmt::format("{}", p->info().defaultInt(0));
+            break;
+        case PropValueType::FLOAT:
+            res += fmt::format("{}", p->info().defaultFloat(0));
+            break;
+        case PropValueType::SYMBOL:
+            res += atom2tcl(p->info().defaultSymbol(&s_));
+            break;
+        case PropValueType::ATOM:
+            res += atom2tcl(p->info().defaultAtom(&s_));
+            break;
+        case PropValueType::LIST:
+            res += list2tcl(p->info().defaultList());
+            break;
+        }
+
+        res += ' ';
+    }
+
+    if (res.back() == ' ')
+        res.pop_back();
+
+    res += "]\n";
     return res;
 }
 
