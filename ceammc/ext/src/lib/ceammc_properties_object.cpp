@@ -692,25 +692,51 @@ std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyIn
 
     std::string res;
 
-    res += fmt::format("{0}puts \"setting {1} to $value ...\"\n", indent, info.name()->s_name);
+    res += fmt::format("{0}puts \"$wid: setting {1} to $value ...\"\n", indent, info.name()->s_name);
 
     switch (info.type()) {
     case PropValueType::BOOLEAN:
         res += fmt::format("{0}set {1} $value\n", indent, propVarName(propId));
         break;
-    case PropValueType::INTEGER:
+    case PropValueType::INTEGER: {
+        switch (info.view()) {
+        case PropValueView::SLIDER:
+        case PropValueView::KNOB:
+        case PropValueView::NUMBOX:
+        case PropValueView::SPINBOX: {
+            res += fmt::format("{0}$wid set $value\n", indent);
+        } break;
+        case PropValueView::MENU: {
+        } break;
+        default:
+            break;
+        }
+    } break;
     case PropValueType::FLOAT:
-    case PropValueType::SYMBOL:
-        res += fmt::format("{0}$wid delete 0 end\n"
-                           "{0}$wid insert 0 $value",
-            indent);
         break;
+    case PropValueType::SYMBOL: {
+        switch (info.view()) {
+        case PropValueView::ENTRY:
+        case PropValueView::FILEPATH:
+        case PropValueView::DIRPATH:
+            res += fmt::format("{0}$wid delete 0 end\n"
+                               "{0}$wid insert 0 $value\n",
+                indent);
+            break;
+        case PropValueView::MENU:
+            res += fmt::format("{0}$wid set $value\n", indent);
+            break;
+        default:
+            break;
+        }
+    } break;
     case PropValueType::ATOM:
         res += fmt::format("{0}$wid delete 0 end\n"
-                           "{0}$wid insert 0 $value",
+                           "{0}$wid insert 0 $value\n",
             indent);
         break;
     case PropValueType::LIST:
+    default:
         break;
     }
 
@@ -719,8 +745,8 @@ std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyIn
 
 std::string TclPropDialogGenerator::propResetCall(int id, const char* propName, const char* className)
 {
-    return fmt::format("{0} $id {1} [dict get $props {2}]",
-        propSetProcName(propName, className), widgetId(id), propName);
+    return fmt::format("{0} $id {1} [string map {{ {{$}} {{\\$}} }} [dict get $props {3}]]",
+        propSetProcName(propName, className), widgetId(id), propsDictVar(), propName);
 }
 
 std::string TclPropDialogGenerator::propDefaultCall(int id, const char* propName, const char* className)
