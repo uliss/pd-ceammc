@@ -557,6 +557,9 @@ bool PropertyInfo::setView(PropValueView v)
         case PropValueView::ENTRY:
             view_ = v;
             return true;
+        case PropValueView::FILEPATH:
+            view_ = v;
+            return true;
         default:
             return false;
         }
