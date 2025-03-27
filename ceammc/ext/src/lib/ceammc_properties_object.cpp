@@ -745,13 +745,13 @@ std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyIn
 
 std::string TclPropDialogGenerator::propResetCall(int id, const char* propName, const char* className)
 {
-    return fmt::format("{0} $id {1} \\\"[string map {{ {{$}} {{\\$}} }} [dict get $props {3}]]\\\"",
+    return fmt::format("{0} $id {1} [::ceammc::dialog::escape2pd [dict get $props {3}]]",
         propSetProcName(propName, className), widgetId(id), propsDictVar(), propName);
 }
 
 std::string TclPropDialogGenerator::propDefaultCall(int id, const char* propName, const char* className)
 {
-    return fmt::format("{0} $id {1} \\\"[string map {{ {{$}} {{\\$}} }} [dict get $defprops {3}]]\\\"",
+    return fmt::format("{0} $id {1} [::ceammc::dialog::escape2pd [dict get $defprops {3}]]",
         propSetProcName(propName, className), widgetId(id), propsDictVar(), propName);
 }
 

@@ -7,7 +7,6 @@ namespace eval dialog {
     }
 
     proc choose_file {path wid} {
-#        set types {{ {{Image Files}} {{.gif .png .jpg .jpeg}} }}
         set new_path [tk_getOpenFile -initialfile $path]
         $wid delete 0 end
         $wid insert 0 $new_path
