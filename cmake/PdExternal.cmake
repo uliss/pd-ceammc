@@ -83,6 +83,7 @@ function(pd_add_external)
         message(STATUS "adding Pd external: [${_PD_EXT_NAME}]")
         add_library(${TARGET_NAME} SHARED ${_PD_EXT_FILES})
         set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${_PD_EXT_NAME})
+        set_target_properties(${TARGET_NAME} PROPERTIES VERSION ${CEAMMC_LIB_VERSION} SOVERSION ${CEAMMC_LIB_VERSION_MAJOR})
 
         foreach(_src_file ${_PD_EXT_FILES})
             set_source_files_properties(${_src_file} COMPILE_FLAGS "")
