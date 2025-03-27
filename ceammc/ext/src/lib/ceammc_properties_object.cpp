@@ -286,8 +286,7 @@ std::string TclPropDialogGenerator::colorentry(int id, const PropertyInfo& info)
 
     res += fmt::format("{0}ttk::button {1}_btn"
                        " -text [_ Choose]"
-                       " -command \"::ceammc::dialog::choose_color_hex \\[{1} cget -readonlybackground\\] {1};"
-                       " dict set {2} {3} \\[{1} cget -readonlybackground\\]\"\n",
+                       " -command \"dict set {2} {3} \\[::ceammc::dialog::choose_color_hex {1}\\]\"\n",
         indent, wid, propsDictVar(), prop_name);
 
     res += grid(id, COL_ACTION, fmt::format("{}_btn", wid), "n");
@@ -726,6 +725,9 @@ std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyIn
         case PropValueView::MENU:
             res += fmt::format("{0}$wid set $value\n", indent);
             break;
+        case PropValueView::COLOR:
+            res += fmt::format("{0}$wid configure -readonlybackground $value\n", indent);
+            break;
         default:
             break;
         }
@@ -739,6 +741,8 @@ std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyIn
     default:
         break;
     }
+
+    res += fmt::format("{0}dict set {1} {{{2}}} $value\n", indent, propsDictVar(), info.name()->s_name);
 
     return res;
 }

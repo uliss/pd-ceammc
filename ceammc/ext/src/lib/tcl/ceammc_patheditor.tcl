@@ -14,14 +14,15 @@ namespace eval dialog {
     }
 
     proc choose_dir {path wid} {
-        puts "Not impletented!";
+        puts "Not implemented!";
     }
 
-    proc choose_color_hex {color wid} {
-        set color [tk_chooseColor -initialcolor $color]
+    proc choose_color_hex {wid} {
+        set color [tk_chooseColor -initialcolor [$wid cget -readonlybackground]]
         $wid configure -readonlybackground $color
+        focus $wid
+        return $color
     }
-
 }
 
 namespace eval patheditor {
