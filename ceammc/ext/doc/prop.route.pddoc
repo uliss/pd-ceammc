@@ -17,6 +17,7 @@
                 <alias>@-&gt;</alias>
                 <alias>ceammc/prop-&gt;</alias>
                 <alias>ceammc/@-&gt;</alias>
+                <alias deprecated="true">prop.split</alias>
             </aliases>
             <also>
                 <see>prop&lt;-</see>

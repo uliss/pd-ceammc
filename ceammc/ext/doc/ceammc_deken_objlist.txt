@@ -1082,11 +1082,13 @@ prop->	separate properties from dataflow
 @->	separate properties from dataflow
 ceammc/prop->	separate properties from dataflow
 ceammc/@->	separate properties from dataflow
+prop.split	separate properties from dataflow
 prop.route~	Property extractor from audio streams
 prop~>	Property extractor from audio streams
 @~>	Property extractor from audio streams
 ceammc/prop~>	Property extractor from audio streams
 ceammc/@~>	Property extractor from audio streams
+prop.get~	Property extractor from audio streams
 prop.set	set property for connected object/subpatch/abstraction
 p.set	set property for connected object/subpatch/abstraction
 proto.arturia.minilab	simple SysEx control for Arturia MiniLab

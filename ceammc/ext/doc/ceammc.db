@@ -654,8 +654,8 @@ prop.declare		-		-
 prop.get,p.get		.		?
 prop.join,prop<-		?		.
 prop.random		?		..
-prop.route,prop->,@->,ceammc/prop->,ceammc/@->		.		?
-prop.route~,prop~>,@~>,ceammc/prop~>,ceammc/@~>		~		?
+prop.route,prop->,@->,ceammc/prop->,ceammc/@->,prop.split		.		?
+prop.route~,prop~>,@~>,ceammc/prop~>,ceammc/@~>,prop.get~		~		?
 prop.set,p.set		?		.
 proto.arturia.minilab		.		..
 proto.feelworld		.		.
