@@ -33,6 +33,12 @@ public:
         SetProcName,
     };
 
+    enum class VarType {
+        Current,
+        Init,
+        Default,
+    };
+
 public:
     explicit TclPropDialogGenerator(const BaseObject* obj);
 
@@ -52,6 +58,9 @@ public:
     static std::string okProcName(const char* className);
     static std::string validateProcName(const char* className);
     static std::string propVarName(int propIdx);
+
+    static std::string propGetValue(const char* propName, VarType vtype);
+    static std::string propSetValue(const char* propName, const char* value, VarType vtype);
 
     static std::string normPropName(const char* propName);
     static std::string propSetProcName(const char* propName, const char* className);
@@ -81,8 +90,7 @@ public:
     static std::string textentry(int id, const PropertyInfo& info);
     static std::string pathentry(int id, const PropertyInfo& info);
 
-    static std::string propsDictVar();
-    static std::string setDialogValue(const char* prop, const char* val);
+    static std::string propsDictVar(VarType vt);
     static std::string widgetId(int row);
     static std::string widgetState(int row, PropValueAccess state);
     static std::string grid(int row, int col, const std::string& widget, const char* sticky);
