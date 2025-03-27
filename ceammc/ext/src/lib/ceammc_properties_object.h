@@ -24,34 +24,62 @@ class TclPropDialogGenerator {
     const BaseObject* obj_ { nullptr };
 
 public:
+    enum EntryType {
+        Widget,
+        Button,
+        Reset,
+        Default,
+        SetProc,
+        SetProcName,
+    };
+
+public:
     explicit TclPropDialogGenerator(const BaseObject* obj);
+
+    void prepare() const;
 
     std::string generate() const;
     std::string callProc() const;
     std::string procBody() const;
     std::string procBodyInit() const;
     std::string buttons(int row) const;
+    std::string setPropProcs() const;
 
     std::string makeClassName() const;
+    void foreachProperty(const std::function<void(const char* name, int row, const Property* p)>& cb) const;
 
     static std::string procName(const char* className);
     static std::string okProcName(const char* className);
     static std::string validateProcName(const char* className);
     static std::string propVarName(int propIdx);
 
-    void foreachProperty(const std::function<void(const char* name, int row, const Property* p)>& cb) const;
+    static std::string normPropName(const char* propName);
+    static std::string propSetProcName(const char* propName, const char* className);
+    static std::string propSetProcBody(int propId, const PropertyInfo& info);
+    static std::string propResetCall(int id, const char* propName, const char* className);
+    static std::string propDefaultCall(int id, const char* propName, const char* className);
+
+    static std::string actionButtonId(int id);
+    static std::string resetButton(int id, const char* propName, const char* className);
+    static std::string resetButtonId(int id);
+    static std::string defaultButton(int id, const char* propName, const char* className);
+    static std::string defaultButtonId(int id);
+
+    static bool hasResetButton(const PropertyInfo& info);
+    static bool hasDefaultButton(const PropertyInfo& info);
 
     static std::string entryBool(int row, const PropertyInfo& info);
     static std::string entryFloat(int row, const PropertyInfo& info);
     static std::string entryInt(int row, const PropertyInfo& info);
     static std::string entrySymbol(int row, const PropertyInfo& info);
+    static std::string entryAtom(int row, const PropertyInfo& info);
 
-    static std::string checkbox(int propIdx, const PropertyInfo& info);
-    static std::string colorentry(int propIdx, const PropertyInfo& info);
-    static std::string combobox(int propIdx, const PropertyInfo& info);
-    static std::string spinbox(int propIdx, const PropertyInfo& info);
-    static std::string textentry(int propIdx, const PropertyInfo& info);
-    static std::string pathentry(int propIdx, const PropertyInfo& info);
+    static std::string checkbox(int id, const PropertyInfo& info);
+    static std::string colorentry(int id, const PropertyInfo& info);
+    static std::string combobox(int id, const PropertyInfo& info);
+    static std::string spinbox(int id, const PropertyInfo& info);
+    static std::string textentry(int id, const PropertyInfo& info);
+    static std::string pathentry(int id, const PropertyInfo& info);
 
     static std::string propsDictVar();
     static std::string setDialogValue(const char* prop, const char* val);

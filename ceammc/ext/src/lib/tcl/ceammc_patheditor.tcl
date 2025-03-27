@@ -6,16 +6,21 @@ namespace eval dialog {
         return [string map {";" "\\;" "\$" "\\\$" " " "\\ "} $str]
     }
 
-    proc open_file {path entry} {
+    proc choose_file {path wid} {
 #        set types {{ {{Image Files}} {{.gif .png .jpg .jpeg}} }}
         set new_path [tk_getOpenFile -initialfile $path]
-        $entry delete 0 end
-        $entry insert 0 $new_path
+        $wid delete 0 end
+        $wid insert 0 $new_path
+        focus $wid
     }
 
-    proc choose_color_hex {color entry} {
+    proc choose_dir {path wid} {
+        puts "Not impletented!";
+    }
+
+    proc choose_color_hex {color wid} {
         set color [tk_chooseColor -initialcolor $color]
-        $entry configure -readonlybackground $color
+        $wid configure -readonlybackground $color
     }
 
 }

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_path.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -54,6 +55,11 @@ namespace path {
     DataTypeId DataTypePath::staticType()
     {
         CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& args) -> Atom { return new path::DataTypePath(args); }, {});
+    }
+
+    const char* DataTypePath::staticTypeName()
+    {
+        return TYPE_NAME;
     }
 
     DataTypePath::DataTypePath()

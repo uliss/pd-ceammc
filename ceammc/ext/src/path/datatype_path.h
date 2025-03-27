@@ -119,6 +119,7 @@ namespace path {
 
     public:
         static DataTypeId staticType();
+        static const char* staticTypeName();
     };
 
 }

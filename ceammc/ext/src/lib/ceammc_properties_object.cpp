@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_properties_object.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"
 #include "fmt/core.h"
@@ -78,7 +79,7 @@ namespace ceammc {
 
 constexpr auto COL_PROP_NAME = 0;
 constexpr auto COL_WIDGET = 1;
-constexpr auto COL_WIDGET2 = 2;
+constexpr auto COL_ACTION = 2;
 constexpr auto COL_PROP_TYPE = 3;
 constexpr auto COL_PROP_RESET = 4;
 constexpr auto COL_PROP_DEFAULT = 5;
@@ -90,14 +91,17 @@ TclPropDialogGenerator::TclPropDialogGenerator(const BaseObject* obj)
 
 std::string TclPropDialogGenerator::generate() const
 {
+
     auto class_name = makeClassName();
 
-    return fmt::format("proc {0} {{id props}} {{\n"
+    return fmt::format("{4}"
+                       "proc {0} {{id props}} {{\n"
                        "    set args [list $id .prop_set]\n"
                        "    dict for {{k v}} $props {{lappend args $k [::ceammc::dialog::escape2pd $v]}}\n"
                        "    pdsend $args\n"
                        "}}\n"
-                       "proc {1} {{id wid var prop value}} {{pdsend [list $id .prop_validate $var $wid $prop $value]\n"
+                       "proc {1} {{id wid var prop value}} {{\n"
+                       "    pdsend [list $id .prop_validate $var $wid $prop $value]\n"
                        "}}\n"
                        "proc {2} {{id props}} {{\n"
                        "{3}"
@@ -105,7 +109,8 @@ std::string TclPropDialogGenerator::generate() const
         okProcName(class_name.c_str()),
         validateProcName(class_name.c_str()),
         procName(class_name.c_str()),
-        procBody());
+        procBody(),
+        setPropProcs());
 }
 
 std::string TclPropDialogGenerator::procName(const char* className)
@@ -134,6 +139,7 @@ void TclPropDialogGenerator::foreachProperty(const std::function<void(const char
 
 std::string TclPropDialogGenerator::procBody() const
 {
+    auto class_name = makeClassName();
     std::string res = procBodyInit();
 
     res += R"(
@@ -145,41 +151,50 @@ std::string TclPropDialogGenerator::procBody() const
 )";
 
     int last_row = 0;
-    foreachProperty([&res, this, &last_row](const char* name, int row, const Property* p) {
-        res += grid(row, COL_PROP_NAME, propLabel(row, name), "w");
+    foreachProperty([&res, this, &last_row, &class_name](const char* name, int propId, const Property* p) {
+        res += fmt::format("    # {}\n", name);
+
+        res += grid(propId, COL_PROP_NAME, propLabel(propId, name), "w");
 
         switch (p->type()) {
         case PropValueType::BOOLEAN: {
-            res += entryBool(row, p->info());
+            res += entryBool(propId, p->info());
         } break;
         case PropValueType::INTEGER: {
-            res += entryInt(row, p->info());
+            res += entryInt(propId, p->info());
         } break;
         case PropValueType::FLOAT: {
-            res += entryFloat(row, p->info());
+            res += entryFloat(propId, p->info());
         } break;
         case PropValueType::SYMBOL: {
-            res += entrySymbol(row, p->info());
+            res += entrySymbol(propId, p->info());
         } break;
-        case PropValueType::ATOM:
-            break;
+        case PropValueType::ATOM: {
+            res += entryAtom(propId, p->info());
+        } break;
         case PropValueType::LIST:
             break;
         default:
             break;
         }
 
-        res += grid(row, COL_WIDGET, widgetId(row), "news");
+        res += grid(propId, COL_WIDGET, widgetId(propId), "news");
 
-        auto unit_label = unitsLabel(row, p->info());
+        auto unit_label = unitsLabel(propId, p->info());
         if (!unit_label.empty())
-            res += grid(row, COL_PROP_TYPE, unit_label, "w");
+            res += grid(propId, COL_PROP_TYPE, unit_label, "w");
 
-        res += grid(row, COL_PROP_RESET, fmt::format("[button $w.f.btn_reset{0} -text [_ Reset]]", row), "e");
-        res += fmt::format("{0}::ceammc_tooltip $w.f.btn_reset{1} [_ {{Reset to default}}]\n", space(), row);
-        res += grid(row, COL_PROP_DEFAULT, fmt::format("[button $w.f.btn_default{0} -text [_ Default]]", row), "e");
+        if (hasResetButton(p->info())) {
+            res += resetButton(propId, name, class_name.c_str());
+            res += grid(propId, COL_PROP_RESET, resetButtonId(propId), "e");
+        }
 
-        last_row = row;
+        if (hasDefaultButton(p->info())) {
+            res += defaultButton(propId, name, class_name.c_str());
+            res += grid(propId, COL_PROP_DEFAULT, defaultButtonId(propId), "e");
+        }
+
+        last_row = propId;
     });
 
     res += buttons(last_row + 1);
@@ -212,6 +227,24 @@ std::string TclPropDialogGenerator::entrySymbol(int row, const PropertyInfo& inf
     return res;
 }
 
+std::string TclPropDialogGenerator::entryAtom(int row, const PropertyInfo& info)
+{
+    std::string res;
+
+    if (info.hasEnumLimit()) {
+        res += combobox(row, info);
+    } else if (info.view() == PropValueView::FILEPATH) {
+        res += pathentry(row, info);
+    } else if (info.view() == PropValueView::COLOR) {
+        res += colorentry(row, info);
+    } else {
+        res += textentry(row, info);
+    }
+
+    res += widgetState(row, info.access());
+    return res;
+}
+
 std::string TclPropDialogGenerator::entryFloat(int row, const PropertyInfo& info)
 {
     auto res = spinbox(row, info);
@@ -226,25 +259,25 @@ std::string TclPropDialogGenerator::entryBool(int row, const PropertyInfo& info)
     return res;
 }
 
-std::string TclPropDialogGenerator::checkbox(int propIdx, const PropertyInfo& info)
+std::string TclPropDialogGenerator::checkbox(int id, const PropertyInfo& info)
 {
     const auto indent = space(4);
-    const auto wid = widgetId(propIdx);
+    const auto wid = widgetId(id);
     const auto prop_name = info.name()->s_name;
 
     std::string res;
 
-    res += fmt::format("{0}set {1} [dict get $props {{{2}}}]\n", indent, propVarName(propIdx), prop_name);
-    res += fmt::format("{0}ttk::checkbutton {1} -variable {2}\n", indent, wid, propVarName(propIdx));
-    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\${4}\"\n", indent, wid, propsDictVar(), prop_name, propVarName(propIdx));
+    res += fmt::format("{0}set {1} [dict get $props {{{2}}}]\n", indent, propVarName(id), prop_name);
+    res += fmt::format("{0}ttk::checkbutton {1} -variable {2}\n", indent, wid, propVarName(id));
+    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\${4}\"\n", indent, wid, propsDictVar(), prop_name, propVarName(id));
 
     return res;
 }
 
-std::string TclPropDialogGenerator::colorentry(int propIdx, const PropertyInfo& info)
+std::string TclPropDialogGenerator::colorentry(int id, const PropertyInfo& info)
 {
     const auto indent = space(4);
-    const auto wid = widgetId(propIdx);
+    const auto wid = widgetId(id);
     const auto prop_name = info.name()->s_name;
 
     std::string res;
@@ -257,15 +290,15 @@ std::string TclPropDialogGenerator::colorentry(int propIdx, const PropertyInfo& 
                        " dict set {2} {3} \\[{1} cget -readonlybackground\\]\"\n",
         indent, wid, propsDictVar(), prop_name);
 
-    res += grid(propIdx, COL_WIDGET2, fmt::format("{}_btn", wid), "n");
+    res += grid(id, COL_ACTION, fmt::format("{}_btn", wid), "n");
 
     return res;
 }
 
-std::string TclPropDialogGenerator::textentry(int propIdx, const PropertyInfo& info)
+std::string TclPropDialogGenerator::textentry(int id, const PropertyInfo& info)
 {
     const auto indent = space(4);
-    const auto wid = widgetId(propIdx);
+    const auto wid = widgetId(id);
     const auto prop_name = info.name()->s_name;
 
     std::string res;
@@ -278,26 +311,25 @@ std::string TclPropDialogGenerator::textentry(int propIdx, const PropertyInfo& i
     return res;
 }
 
-std::string TclPropDialogGenerator::pathentry(int propIdx, const PropertyInfo& info)
+std::string TclPropDialogGenerator::pathentry(int id, const PropertyInfo& info)
 {
     const auto indent = space(4);
-    const auto wid = widgetId(propIdx);
+    const auto wid = widgetId(id);
     const auto prop_name = info.name()->s_name;
 
     std::string res;
 
-    res += fmt::format("{0}set {1} [dict get $props {{{2}}}]\n", indent, propVarName(propIdx), prop_name);
-    res += fmt::format("{0}ttk::entry {1} -validate key -textvariable {2}\n", indent, wid, propVarName(propIdx));
+    res += fmt::format("{0}ttk::entry {1} -validate key\n", indent, wid);
     res += fmt::format("{0}{1} insert end [dict get $props {{{2}}}]\n", indent, wid, prop_name);
     res += fmt::format("{0}{1} configure -validatecommand \"dict set {2} {3} %P; return 1;\"\n",
         indent, wid, propsDictVar(), prop_name);
 
-    res += fmt::format("{0}ttk::button {1}_btn"
+    res += fmt::format("{0}ttk::button {1}"
                        " -text [_ Choose]"
-                       " -command \"::ceammc::dialog::open_file [dict get $props {{{2}}}] {1}\"\n",
-        indent, wid, prop_name);
+                       " -command \"::ceammc::dialog::choose_file \\[dict get \\${2} {{{3}}}\\] {4}\"\n",
+        indent, actionButtonId(id), propsDictVar(), prop_name, wid);
 
-    res += grid(propIdx, COL_WIDGET2, fmt::format("{}_btn", wid), "n");
+    res += grid(id, COL_ACTION, actionButtonId(id), "n");
 
     return res;
 }
@@ -312,24 +344,24 @@ std::string TclPropDialogGenerator::setDialogValue(const char* prop, const char*
     return fmt::format("dict set ${0} {1} {2}; puts {2};", propsDictVar(), prop, val);
 }
 
-std::string TclPropDialogGenerator::spinbox(int propIdx, const PropertyInfo& info)
+std::string TclPropDialogGenerator::spinbox(int id, const PropertyInfo& info)
 {
     constexpr double MIN_VALUE = -9999999999;
     constexpr double MAX_VALUE = +9999999999;
 
     const auto indent = space(4);
-    const auto id = widgetId(propIdx);
+    const auto wid = widgetId(id);
     const auto prop_name = info.name()->s_name;
 
     auto res = fmt::format("{0}ttk::spinbox {1}\n",
         indent,
-        id);
+        wid);
 
-    res += fmt::format("{0}{1} set [dict get $props {{{2}}}]\n", indent, id, prop_name);
-    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\[{1} get\\]\"\n", indent, id, propsDictVar(), prop_name);
+    res += fmt::format("{0}{1} set [dict get $props {{{2}}}]\n", indent, wid, prop_name);
+    res += fmt::format("{0}{1} configure -command \"dict set {2} {3} \\[{1} get\\]\"\n", indent, wid, propsDictVar(), prop_name);
 
     if (info.hasEnumLimit()) {
-        res += fmt::format("{0}{1} configure -values {2}\n", indent, id, to_string(info.enumValues()));
+        res += fmt::format("{0}{1} configure -values {2}\n", indent, wid, to_string(info.enumValues()));
     } else {
         double vmin = MIN_VALUE;
         double vmax = MAX_VALUE;
@@ -387,10 +419,10 @@ std::string TclPropDialogGenerator::spinbox(int propIdx, const PropertyInfo& inf
         }
 
         res += fmt::format("{0}{1} configure -from {2} -to {3}\n",
-            indent, id, vmin, vmax);
+            indent, wid, vmin, vmax);
 
         if (info.step() > 0 && info.step() != 1) {
-            res += fmt::format("{0}{1} configure -increment {2}\n", indent, id, info.step());
+            res += fmt::format("{0}{1} configure -increment {2}\n", indent, wid, info.step());
         }
     }
 
@@ -398,20 +430,20 @@ std::string TclPropDialogGenerator::spinbox(int propIdx, const PropertyInfo& inf
         res += fmt::format("{0}{1} configure"
                            " -validate key"
                            " -validatecommand {{string is int %P}}\n",
-            indent, id);
+            indent, wid);
 
         res += fmt::format("{0}{1} configure -invalidcommand {{%W set %s}}\n",
-            indent, id);
+            indent, wid);
     }
 
     if (info.isFloat()) {
         res += fmt::format("{0}{1} configure"
                            " -validate key"
                            " -validatecommand {{string is double %P}}\n",
-            indent, id);
+            indent, wid);
 
         res += fmt::format("{0}{1} configure -invalidcommand {{%W set %s}}\n",
-            indent, id);
+            indent, wid);
     }
 
     if (!info.equalUnit(PropValueUnits::NONE)) {
@@ -423,17 +455,17 @@ std::string TclPropDialogGenerator::spinbox(int propIdx, const PropertyInfo& inf
         });
     }
 
-    res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, id);
+    res += fmt::format("{0}::ceammc::ui::bindMouseWheel {1} {{::ceammc::ui::spinboxScroll %W}}\n", indent, wid);
     res += fmt::format("{0}bind {1} <Return> \"ceammc_dialog_bitmap_validate $id %W {2} {3} \\[%W get\\]\"\n",
-        indent, id, propsDictVar(), prop_name);
+        indent, wid, propsDictVar(), prop_name);
 
     return res;
 }
 
-std::string TclPropDialogGenerator::combobox(int propIdx, const PropertyInfo& info)
+std::string TclPropDialogGenerator::combobox(int id, const PropertyInfo& info)
 {
     const auto indent = space(4);
-    const auto wid = widgetId(propIdx);
+    const auto wid = widgetId(id);
     const auto prop_name = info.name()->s_name;
 
     std::string res;
@@ -516,7 +548,6 @@ std::string TclPropDialogGenerator::propType(const PropertyInfo& info)
         return "atom";
     case PropValueType::LIST:
         return "list";
-        break;
     default:
         return "?";
     }
@@ -575,7 +606,10 @@ std::string TclPropDialogGenerator::atom2tcl(const Atom& a)
 
     } break;
     // fallthru
-    case Atom::DATA:
+    case Atom::DATA: {
+        auto str = a.asData()->toListStringContent();
+        return str.empty() ? "{}" : str;
+    }
     case Atom::POINTER:
     case Atom::SEMICOLON:
     case Atom::COMMA:
@@ -593,7 +627,6 @@ bool TclPropDialogGenerator::setList(Property* p, const AtomListView& lv)
     case PropValueType::INTEGER:
     case PropValueType::FLOAT:
         return p->setList(lv);
-        break;
 
     case PropValueType::SYMBOL: {
         auto str = to_string(lv);
@@ -602,10 +635,13 @@ bool TclPropDialogGenerator::setList(Property* p, const AtomListView& lv)
             str = str.substr(1);
         }
 
-        LIB_DBG << str;
-        p->setList(Atom(gensym(str.c_str())));
+        return p->setSymbol(gensym(str.c_str()));
     } break;
-    case PropValueType::ATOM:
+    case PropValueType::ATOM: {
+        if (lv.size() > 0)
+            return p->setAtom(lv[0]);
+
+    } break;
     case PropValueType::LIST:
         break;
     }
@@ -638,6 +674,100 @@ std::string TclPropDialogGenerator::procBodyInit() const
 std::string TclPropDialogGenerator::propVarName(int propIdx)
 {
     return fmt::format("::ceammc_prop_vars(obj${{id}}_prop{})", propIdx);
+}
+
+std::string TclPropDialogGenerator::normPropName(const char* propName)
+{
+    return string::replace_all(propName, ".", "_");
+}
+
+std::string TclPropDialogGenerator::propSetProcName(const char* propName, const char* className)
+{
+    return fmt::format("{0}_set_{1}", procName(className), normPropName(propName));
+}
+
+std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyInfo& info)
+{
+    auto indent = space();
+
+    std::string res;
+
+    res += fmt::format("{0}puts \"setting {1} to $value ...\"\n", indent, info.name()->s_name);
+
+    switch (info.type()) {
+    case PropValueType::BOOLEAN:
+        res += fmt::format("{0}set {1} $value\n", indent, propVarName(propId));
+        break;
+    case PropValueType::INTEGER:
+    case PropValueType::FLOAT:
+    case PropValueType::SYMBOL:
+        res += fmt::format("{0}$wid delete 0 end\n"
+                           "{0}$wid insert 0 $value",
+            indent);
+        break;
+    case PropValueType::ATOM:
+        res += fmt::format("{0}$wid delete 0 end\n"
+                           "{0}$wid insert 0 $value",
+            indent);
+        break;
+    case PropValueType::LIST:
+        break;
+    }
+
+    return res;
+}
+
+std::string TclPropDialogGenerator::propResetCall(int id, const char* propName, const char* className)
+{
+    return fmt::format("{0} $id {1} [dict get $props {2}]",
+        propSetProcName(propName, className), widgetId(id), propName);
+}
+
+std::string TclPropDialogGenerator::propDefaultCall(int id, const char* propName, const char* className)
+{
+    return {};
+    // return fmt::format("{0} $id {1} [dict get $defprops {1}]", propSetProcName(propName, className), widgetId(id), propName);
+}
+
+std::string TclPropDialogGenerator::actionButtonId(int id)
+{
+    return fmt::format("$w.f.btn_action{0}", id);
+}
+
+std::string TclPropDialogGenerator::resetButton(int id, const char* propName, const char* className)
+{
+    return fmt::format("{0}ttk::button {1} -text [_ Reset] -command \"{2}\"\n",
+        space(),
+        resetButtonId(id),
+        propResetCall(id, propName, className));
+}
+
+std::string TclPropDialogGenerator::resetButtonId(int id)
+{
+    return fmt::format("$w.f.btn_reset{0}", id);
+}
+
+std::string TclPropDialogGenerator::defaultButton(int id, const char* propName, const char* className)
+{
+    return fmt::format("{0}ttk::button {1} -text [_ Default] -command [concat {2}]\n",
+        space(),
+        defaultButtonId(id),
+        propDefaultCall(id, propName, className));
+}
+
+std::string TclPropDialogGenerator::defaultButtonId(int id)
+{
+    return fmt::format("$w.f.btn_default{0}", id);
+}
+
+bool TclPropDialogGenerator::hasResetButton(const PropertyInfo& info)
+{
+    return info.isReadWrite();
+}
+
+bool TclPropDialogGenerator::hasDefaultButton(const PropertyInfo& info)
+{
+    return info.isReadWrite();
 }
 
 std::string TclPropDialogGenerator::callProc() const
@@ -694,6 +824,21 @@ std::string TclPropDialogGenerator::buttons(int row) const
                        " -padx 1 -pady 1"
                        " -row {1} -column 3 -columnspan 2 -sticky e\n",
         indent, row);
+
+    return res;
+}
+
+std::string TclPropDialogGenerator::setPropProcs() const
+{
+    std::string res;
+
+    const auto class_name = makeClassName();
+
+    foreachProperty([&res, &class_name](const char* propName, int id, const Property* p) {
+        res += fmt::format("proc {0} {{id wid {{value \"\"}}}} {{\n{1}\n}}\n",
+            propSetProcName(propName, class_name.c_str()),
+            propSetProcBody(id, p->info()));
+    });
 
     return res;
 }

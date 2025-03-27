@@ -16,11 +16,42 @@
 #include "datatype_dict.h"
 #include "fmt/core.h"
 
-DataPath::DataPath(const PdArgs& args)
-    : BaseTclObject<DataPathBase>(args, gensym("::ceammc::patheditor::open"))
+namespace {
+
+bool looksLikeSymbolPath(const Atom& a)
 {
-    path_ = new PathProperty("@path", {});
+    if (!a.isSymbol())
+        return false;
+
+    auto str = a.asT<t_symbol*>()->s_name;
+    bool is_data = string::starts_with(str, ceammc::path::DataTypePath::staticTypeName())
+        && (string::ends_with(str, ")") || (string::ends_with(str, "]")));
+
+    return !is_data;
+}
+
+} // namespace
+
+PathProperty::PathProperty(const char* name)
+    : DataPropertyT<path::DataTypePath>(name, {}, true)
+{
+}
+
+bool PathProperty::setAtom(const Atom& a)
+{
+    if (looksLikeSymbolPath(a)) {
+        value() = ceammc::path::DataTypePath(a.asT<t_symbol*>()->s_name);
+        return true;
+    } else
+        return DataPropertyT<path::DataTypePath>::setAtom(a);
+}
+
+DataPath::DataPath(const PdArgs& args)
+    : PropertiesObject<DataPathBase>(args)
+{
+    path_ = new PathProperty("@path");
     path_->setArgIndex(0);
+    path_->setView(PropValueView::FILEPATH);
     addProperty(path_);
 
     norm_ = new BoolProperty("@norm", true);
@@ -48,16 +79,6 @@ void DataPath::initDone()
 void DataPath::onBang()
 {
     atomTo(0, path_->asDataAtom());
-}
-
-void DataPath::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
-{
-    char buf[MAXPDSTRING];
-    auto pbuf = fmt::format_to(buf, "data.path {}x{}+{}+{} {}",
-        400, 200, (int)xpos, (int)ypos,
-        path_->value().toListStringContent());
-    *pbuf = '\0';
-    tclCallRaw(buf);
 }
 
 void DataPath::appendRequest(DataPathOpCode op)
@@ -136,12 +157,6 @@ void DataPath::processRequest(const DataPathRequest& req, ResultCallback cb)
     default:
         return workerThreadError("unknown opcode");
     }
-}
-
-void DataPath::onTclResponse(t_symbol* s, const AtomListView& lv)
-{
-    OBJ_DBG << lv;
-    path_->value() = path::DataTypePath(lv);
 }
 
 void DataPath::resultAllInfo(const DataPathResult& data)
@@ -275,14 +290,13 @@ DataPathResult DataPath::info(const path::DataTypePath& path)
 void setup_data_path()
 {
     ObjectFactory<DataPath> obj("data.path");
+    DataPath::factoryPropertiesObjectInit(obj);
+
     obj.addMethod("exists", &DataPath::m_exists);
     obj.addMethod("size", &DataPath::m_filesize);
     obj.addMethod("type", &DataPath::m_filetype);
     obj.addMethod("permissions", &DataPath::m_permissions);
     obj.addMethod("info", &DataPath::m_info);
-
-    obj.useClick();
-    DataPath::initTclMethods(obj);
 
     LIB_LOG << fmt::format("Path datatype id: {:d}", path::DataTypePath::staticType());
 }
