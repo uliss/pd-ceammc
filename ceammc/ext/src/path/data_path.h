@@ -59,6 +59,7 @@ public:
     PathProperty(const char* name);
 
     bool setAtom(const Atom& a) override;
+    bool setSymbol(t_symbol* s) override;
 };
 
 class DataPath : public PropertiesObject<DataPathBase> {
@@ -71,6 +72,9 @@ public:
     void initDone() final;
 
     void onBang() final;
+    void onSymbol(t_symbol* s) final;
+    void onInlet(size_t in, const AtomListView& lv) final;
+    void onDataT(const DataAtom<path::DataTypePath>& data);
 
     void m_exists(t_symbol* s, const AtomListView& lv);
     void m_extension(t_symbol* s, const AtomListView& lv);

@@ -425,6 +425,9 @@
     <entry name="data.mlist" descr="multidimensional list container" ref_view="object">
       <xi:include href="data.mlist.pddoc" parse="xml"/>
     </entry>
+    <entry name="data.path" descr="filesystem path datatype" ref_view="object">
+      <xi:include href="data.path.pddoc" parse="xml"/>
+    </entry>
     <entry name="data.set" descr="container that store unique elements" ref_view="object">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
@@ -1060,7 +1063,7 @@
     <entry name="hw.serial" descr="serial port device" ref_view="object">
       <xi:include href="hw.serial.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.spi.max7219" descr="LED display driver based on max7219 chip" ref_view="object">
+    <entry name="hw.spi.max7219" descr="LED display driver based on max7219 chip for Raspberry Pi" ref_view="object">
       <xi:include href="hw.spi.max7219.pddoc" parse="xml"/>
     </entry>
   </category>

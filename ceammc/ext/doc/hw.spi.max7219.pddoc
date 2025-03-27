@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>LED display driver based on max7219 chip</description>
+            <description>LED display driver based on max7219 chip for Raspberry Pi</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>hw</category>

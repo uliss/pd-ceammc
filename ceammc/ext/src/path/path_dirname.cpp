@@ -8,7 +8,7 @@ using namespace ceammc;
 
 class PathDirname : public BaseObject {
 public:
-    PathDirname(const PdArgs& a)
+    explicit PathDirname(const PdArgs& a)
         : BaseObject(a)
     {
         createOutlet();

@@ -113,6 +113,7 @@ set(DOC_FILES
     data.int
     data.list
     data.mlist
+    data.path
     data.set
     data.set2list
     dict.contains

@@ -5,7 +5,7 @@
 - new objects:
   - bitmap - bitmap image
   - conv.guido2note (guido->note)
-  - data.path
+  - data.path - new Path datatype
   - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
   - hw.gamepad - gamepad support
   - hw.i2c.lcd1602
@@ -18,11 +18,11 @@
   - hw.rpi.pwm.pca9685
   - hw.rpi.rotenc - rotary encoder for Raspberry Pi
   - hw.rpi.sensor.dht11 - temperature sensor for Raspberry Pi
-  - hw.rpi.sensor.ir
-  - hw.rpi.sensor.mpu6050
+  - hw.rpi.sensor.ir - infrared sensor support
+  - hw.rpi.sensor.mpu6050 - MPU-6050 gyroscope and accelerometer
   - hw.rpi.sensor.vl53l0x
   - hw.rpi.sensor.sr04 - ultrasonic sensor HC-SR04 for Raspberry Pi
-  - hw.spi.max7219
+  - hw.spi.max7219 - LED display driver based on max7219 chip for Raspberry Pi
   - hw.spi.ws2812
   - msg.unpack - unpack message to selector and arguments
   - net.http.client (http.client)

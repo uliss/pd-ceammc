@@ -112,6 +112,7 @@ data.float,.float,.f		..		.
 data.int,.int,.i		..		.
 data.list		..		.
 data.mlist,ceammc/mlist,mlist,ceammc/ml,ml		.		.
+data.path		..		.
 data.set		.		.
 data.set2list,ceammc/set->list,set->list		.		.
 dict.contains		..		.

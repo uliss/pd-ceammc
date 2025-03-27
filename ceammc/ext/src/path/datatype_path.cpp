@@ -153,7 +153,10 @@ namespace path {
 
     std::string DataTypePath::toJsonString() const
     {
-        return fmt::format("\"{}\"", string::escape_for_json(path_->string()));
+        if (path_)
+            return fmt::format("\"{}\"", string::escape_for_json(path_->string()));
+        else
+            return "\"\"";
     }
 
     bool DataTypePath::isEqual(const AbstractData* d) const noexcept
@@ -337,5 +340,5 @@ namespace path {
 
         return {};
     }
-}
-}
+} // namespace path
+} // namespace ceammc
