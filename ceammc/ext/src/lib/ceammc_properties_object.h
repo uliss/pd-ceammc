@@ -57,7 +57,7 @@ public:
     static std::string procName(const char* className);
     static std::string okProcName(const char* className);
     static std::string validateProcName(const char* className);
-    static std::string propVarName(int propIdx);
+    static std::string propVarName(int propId);
 
     static std::string propGetValue(const char* propName, VarType vtype);
     static std::string propSetValue(const char* propName, const char* value, VarType vtype);
@@ -65,38 +65,38 @@ public:
     static std::string normPropName(const char* propName);
     static std::string propSetProcName(const char* propName, const char* className);
     static std::string propSetProcBody(int propId, const PropertyInfo& info);
-    static std::string propResetCall(int id, const char* propName, const char* className);
-    static std::string propDefaultCall(int id, const char* propName, const char* className);
+    static std::string propResetCall(int propId, const char* propName, const char* className);
+    static std::string propDefaultCall(int propId, const char* propName, const char* className);
 
-    static std::string actionButtonId(int id);
-    static std::string resetButton(int id, const char* propName, const char* className);
-    static std::string resetButtonId(int id);
-    static std::string defaultButton(int id, const char* propName, const char* className);
-    static std::string defaultButtonId(int id);
+    static std::string actionButtonId(int propId);
+    static std::string resetButton(int propId, const char* propName, const char* className);
+    static std::string resetButtonId(int propId);
+    static std::string defaultButton(int propId, const char* propName, const char* className);
+    static std::string defaultButtonId(int propId);
 
     static bool hasResetButton(const PropertyInfo& info);
     static bool hasDefaultButton(const PropertyInfo& info);
 
-    static std::string entryBool(int row, const PropertyInfo& info);
-    static std::string entryFloat(int row, const PropertyInfo& info);
-    static std::string entryInt(int row, const PropertyInfo& info);
-    static std::string entrySymbol(int row, const PropertyInfo& info);
-    static std::string entryAtom(int row, const PropertyInfo& info);
+    static std::string entryBool(int propId, const PropertyInfo& info);
+    static std::string entryFloat(int propId, const PropertyInfo& info);
+    static std::string entryInt(int propId, const PropertyInfo& info);
+    static std::string entrySymbol(int propId, const PropertyInfo& info);
+    static std::string entryAtom(int propId, const PropertyInfo& info);
 
-    static std::string checkbox(int id, const PropertyInfo& info);
-    static std::string colorentry(int id, const PropertyInfo& info);
-    static std::string combobox(int id, const PropertyInfo& info);
-    static std::string spinbox(int id, const PropertyInfo& info);
-    static std::string textentry(int id, const PropertyInfo& info);
-    static std::string pathentry(int id, const PropertyInfo& info);
+    static std::string checkbox(int propId, const PropertyInfo& info);
+    static std::string colorentry(int propId, const PropertyInfo& info);
+    static std::string combobox(int propId, const PropertyInfo& info);
+    static std::string spinbox(int propId, const PropertyInfo& info);
+    static std::string textentry(int propId, const PropertyInfo& info);
+    static std::string pathentry(int propId, const PropertyInfo& info);
 
     static std::string propsDictVar(VarType vt);
-    static std::string widgetId(int row);
-    static std::string widgetState(int row, PropValueAccess state);
+    static std::string widgetId(int propId);
+    static std::string widgetState(int propId, PropValueAccess state);
     static std::string grid(int row, int col, const std::string& widget, const char* sticky);
 
-    static std::string propLabel(int row, const std::string& text);
-    static std::string unitsLabel(int row, const PropertyInfo& info);
+    static std::string propLabel(int propId, const std::string& text);
+    static std::string unitsLabel(int propId, const PropertyInfo& info);
     static std::string propType(const PropertyInfo& info);
 
     static std::string list2tcl(const AtomListView& lv);
