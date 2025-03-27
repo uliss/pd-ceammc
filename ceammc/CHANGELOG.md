@@ -21,7 +21,7 @@
   - hw.rpi.sensor.ir
   - hw.rpi.sensor.mpu6050
   - hw.rpi.sensor.vl53l0x
-  - hw.rpi.sr04 - ultrasonic sensor HC-SR04 for Raspberry Pi
+  - hw.rpi.sensor.sr04 - ultrasonic sensor HC-SR04 for Raspberry Pi
   - hw.spi.max7219
   - hw.spi.ws2812
   - msg.unpack - unpack message to selector and arguments
