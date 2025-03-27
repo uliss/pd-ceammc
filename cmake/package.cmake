@@ -51,7 +51,7 @@ if(DPKG_FOUND AND NOT WIN32)
     set(CPACK_PACKAGE_FILE_NAME "pd-ceammc-${CPACK_PACKAGE_VERSION}_${LSB_CODENAME}_${LSB_PROCESSOR_ARCH}")
     set(CPACK_DEBIAN_PACKAGE_NAME "pd-ceammc")
     set(CPACK_DEBIAN_PACKAGE_VERSION ${CEAMMC_DISTRIB_VERSION})
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS "tk, tcl, tcllib, tklib, xdg-utils")
+    #set(CPACK_DEBIAN_PACKAGE_DEPENDS "tk, tcl, tcllib, tklib, xdg-utils")
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Serge Poltavski <serge.poltavski@gmail.com>")
     set(CPACK_DEBIAN_PACKAGE_SECTION "sound")
     set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/uliss/pure-data")
@@ -59,7 +59,7 @@ if(DPKG_FOUND AND NOT WIN32)
 #note : linebreak and single space indent !
     set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Visual audio programming language
   ${CPACK_PACKAGE_DESCRIPTION}")
-#set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
     set(CPACK_SET_DESTDIR TRUE)
     set(CPACK_DEBIAN_PACKAGE_GENERATE_SHLIBS ON)
 
