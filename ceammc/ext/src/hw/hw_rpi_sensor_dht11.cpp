@@ -58,6 +58,6 @@ bool HwRpiSensorDht11::notify(int /*code*/)
 
 void setup_hw_rpi_sensor_dht11()
 {
-    ObjectFactory<HwRpiSensorDht11> obj("hw.rpi.dht11");
+    ObjectFactory<HwRpiSensorDht11> obj("hw.rpi.sensor.dht11");
     obj.addMethod("poll", &HwRpiSensorDht11::m_poll);
 }

@@ -11,13 +11,13 @@
   - hw.i2c.lcd1602
   - hw.printer - simple printing support (only PDF files)  
   - hw.rpi.adc.ads1115
-  - hw.rpi.dht11 - temperature sensor for Raspberry Pi
   - hw.rpi.display.ssd1306
   - hw.rpi.gpio - Raspberry Pi GPIO support
   - hw.rpi.i2c.pca9685
   - hw.rpi.pwm - Raspberry Pi PWM support
   - hw.rpi.pwm.pca9685
   - hw.rpi.rotenc - rotary encoder for Raspberry Pi
+  - hw.rpi.sensor.dht11 - temperature sensor for Raspberry Pi
   - hw.rpi.sensor.ir
   - hw.rpi.sensor.mpu6050
   - hw.rpi.sensor.vl53l0x
