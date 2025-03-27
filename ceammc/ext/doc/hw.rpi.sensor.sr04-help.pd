@@ -2,9 +2,9 @@
 #X declare -lib ceammc;
 #X obj 368 50 cnv 1 397 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 368 50 HC-SR04 ulatrasonic ranging module for Raspberry Pi;
-#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sr04 20 20 0 20 -104026
--4096 0;
-#X obj 660 11 hw.rpi.sr04;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.sr04 20 20 0 20
+-104026 -4096 0;
+#X obj 609 11 hw.rpi.sensor.sr04;
 #X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 **Note:** The HC-SR04 ultrasonic sensor requires a 5V
 power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
@@ -13,7 +13,7 @@ power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
 #X obj 50 198 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 227 poll \$1;
 #X msg 155 227 bang;
-#X obj 50 299 hw.rpi.sr04 23 24;
+#X obj 50 299 hw.rpi.sensor.sr04 23 24;
 #X floatatom 50 328 5 0 0 0 - - -;
 #X obj 146 328 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -80,7 +80,7 @@ value: 20\. Range: 10\...1000\.;
 #X text 10 32 version:;
 #X text 120 32 0.9.8;
 #X text 10 54 object:;
-#X text 120 54 hw.rpi.sr04;
+#X text 120 54 hw.rpi.sensor.sr04;
 #X text 10 76 category:;
 #X text 120 76 hw;
 #X text 10 98 since:;

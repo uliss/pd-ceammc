@@ -74,6 +74,6 @@ void HwRpiSensorSr04::m_poll(t_symbol* s, const AtomListView& lv)
 
 void setup_hw_rpi_sensor_sr04()
 {
-    ObjectFactory<HwRpiSensorSr04> obj("hw.rpi.sr04");
+    ObjectFactory<HwRpiSensorSr04> obj("hw.rpi.sensor.sr04");
     obj.addMethod("poll", &HwRpiSensorSr04::m_poll);
 }

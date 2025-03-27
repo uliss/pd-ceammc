@@ -739,7 +739,7 @@ signal is analyzed using a 32-band filter bank;
 #X obj 30 10502 hw.rpi.sensor.mpu6050;
 #X text 200 10502 MPU-6050 gyroscope and accelerometer Raspberry Pi
 support;
-#X obj 30 10530 hw.rpi.sr04;
+#X obj 30 10530 hw.rpi.sensor.sr04;
 #X text 200 10530 HC-SR04 ulatrasonic ranging module for Raspberry
 Pi;
 #X obj 30 10558 hw.serial;

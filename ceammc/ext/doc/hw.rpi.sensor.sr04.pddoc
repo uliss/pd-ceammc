@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="hw.rpi.sr04">
-        <title>hw.rpi.sr04</title>
+    <object name="hw.rpi.sensor.sr04">
+        <title>hw.rpi.sensor.sr04</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -56,7 +56,7 @@
 |
 |
 |
-[hw.rpi.sr04 23 24 #x]
+[hw.rpi.sensor.sr04 23 24 #x]
 |         ^|
 [F]       [B]
 
