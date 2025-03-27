@@ -305,8 +305,8 @@ std::string TclPropDialogGenerator::textentry(int id, const PropertyInfo& info)
 
     res += fmt::format("{0}ttk::entry {1} -validate key\n", indent, wid);
     res += fmt::format("{0}{1} insert end [{2}]\n", indent, wid, propGetValue(prop_name, VarType::Init));
-    res += fmt::format("{0}{1} configure -validatecommand \"dict set {2} {3} %P; return 1;\"\n",
-        indent, wid, propsDictVar(VarType::Current), prop_name);
+    res += fmt::format("{0}{1} configure -validatecommand \"{2}; return 1;\"\n",
+        indent, wid, propSetValue(prop_name, "[::ceammc::dialog::escape2pd {%P}]", VarType::Current));
 
     return res;
 }
@@ -321,8 +321,8 @@ std::string TclPropDialogGenerator::pathentry(int id, const PropertyInfo& info)
 
     res += fmt::format("{0}ttk::entry {1} -validate key\n", indent, wid);
     res += fmt::format("{0}{1} insert end [{2}]\n", indent, wid, propGetValue(prop_name, VarType::Init));
-    res += fmt::format("{0}{1} configure -validatecommand \"dict set {2} {3} %P; return 1;\"\n",
-        indent, wid, propsDictVar(VarType::Current), prop_name);
+    res += fmt::format("{0}{1} configure -validatecommand \"{2}; return 1;\"\n",
+        indent, wid, propSetValue(prop_name, "[::ceammc::dialog::escape2pd {%P}]", VarType::Current));
 
     res += fmt::format("{0}ttk::button {1}"
                        " -text [_ Choose]"
@@ -686,7 +686,7 @@ std::string TclPropDialogGenerator::propGetValue(const char* propName, VarType v
 
 std::string TclPropDialogGenerator::propSetValue(const char* propName, const char* value, VarType vtype)
 {
-    return fmt::format("dict set {0} {{{1}}} {2}", propsDictVar(vtype), propName);
+    return fmt::format("dict set {0} {{{1}}} {2}", propsDictVar(vtype), propName, value);
 }
 
 std::string TclPropDialogGenerator::normPropName(const char* propName)
