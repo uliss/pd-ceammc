@@ -10,77 +10,78 @@
 #X msg 232 118 type;
 #X msg 328 118 permissions;
 #X msg 491 118 size;
-#X msg 78 147 symbol ./data.path-help.pd;
-#X obj 107 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 78 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 219 data.path Path(.);
-#X obj 50 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 78 176 openpanel;
+#X obj 107 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 234 data.path Path(.);
+#X obj 50 277 ui.dt;
+#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 332 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 335 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 352 1\.;
-#X text 150 352 atom;
-#X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 PATH: See @path. Type: atom.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 367 1\.;
+#X text 150 367 atom;
+#X obj 246 368 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 367 PATH: See @path. Type: atom.;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 422 @async;
-#X text 245 422 Get/Set use async operations. Type: bool. Default value:
+#X msg 110 437 @async;
+#X text 245 437 Get/Set use async operations. Type: bool. Default value:
 1\.;
-#X msg 110 452 @norm;
-#X text 245 452 Get/Set normalize path. Type: bool. Default value:
+#X msg 110 467 @norm;
+#X text 245 467 Get/Set normalize path. Type: bool. Default value:
 1\.;
-#X msg 110 482 @path;
-#X text 245 482 Get/Set current path value. Type: atom.;
-#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 527 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 110 497 @path;
+#X text 245 497 Get/Set current path value. Type: atom.;
+#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 542 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 562 exists;
-#X text 245 562 checks if path exists. Output [exists VALUE( message.;
-#X msg 110 590 info;
-#X text 245 590 request path information. Output [info DICT(.;
-#X msg 110 618 permissions;
-#X text 245 618 request path permissions. Output [premissions USER
-GROUP OTHERS(.;
-#X msg 110 658 size;
-#X text 245 658 request file size in bytes. Output [size BYTES(.;
-#X msg 110 686 type;
-#X text 245 686 request path type. Output [type TYPE( message \, where
+#X msg 110 577 exists;
+#X text 245 577 checks if path exists. Output [exists VALUE( message.;
+#X msg 110 605 info;
+#X text 245 605 request path information. Output [info DICT(.;
+#X msg 110 633 permissions;
+#X text 245 633 request path permissions. Output [permissions VALUE(.;
+#X msg 110 661 size;
+#X text 245 661 request file size in bytes. Output [size BYTES(.;
+#X msg 110 689 type;
+#X text 245 689 request path type. Output [type TYPE( message \, where
 type is one of: regular \, dir \, symlink \, char \, block \, fifo
 \, socket.;
-#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 741 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 744 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 742 1\.;
-#X text 150 742 *bang*;
-#X text 245 742 output current path.;
-#X text 150 762 *symbol*;
-#X text 245 762 set current path and output.;
-#X text 150 782 *data*;
-#X text 245 782 set current path and output.;
-#X text 110 802 2\.;
-#X text 150 802 *symbol*;
-#X text 245 802 set current path and without output.;
-#X text 150 822 *data*;
-#X text 245 822 set current path and without output.;
-#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 857 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 745 1\.;
+#X text 150 745 *bang*;
+#X text 245 745 output current path.;
+#X text 150 765 *symbol*;
+#X text 245 765 set current path and output.;
+#X text 150 785 *data*;
+#X text 245 785 set current path and output.;
+#X text 110 805 2\.;
+#X text 150 805 *symbol*;
+#X text 245 805 set current path and without output.;
+#X text 150 825 *data*;
+#X text 245 825 set current path and without output.;
+#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 860 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 858 1\.;
-#X text 245 858 data output.;
+#X text 110 861 1\.;
+#X text 245 861 data output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 908 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 911 library: ceammc v0.9.8;
-#N canvas 10 930 400 290 info 0;
+#X obj 1 911 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 914 library: ceammc v0.9.8;
+#N canvas 10 933 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,12 +105,13 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 930 pd info;
-#X connect 4 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
+#X restore 10 933 pd info;
+#X connect 9 0 10 0;
+#X connect 4 0 12 0;
+#X connect 10 0 12 0;
 #X connect 11 0 12 0;
-#X connect 5 0 11 0;
-#X connect 6 0 11 0;
-#X connect 7 0 11 0;
-#X connect 8 0 11 0;
+#X connect 12 0 13 0;
+#X connect 5 0 12 0;
+#X connect 6 0 12 0;
+#X connect 7 0 12 0;
+#X connect 8 0 12 0;

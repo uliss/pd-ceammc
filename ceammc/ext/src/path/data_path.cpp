@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_path.h"
-#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
 #include "fmt/core.h"
@@ -221,11 +220,7 @@ void DataPath::resultExists(const DataPathResult& data)
 void DataPath::resultPermissions(const DataPathResult& data)
 {
     if (data.res_code == DATA_PATH_RC_OK) {
-        DictAtom a;
-        a->insert("owner", ((data.permissions & 0x700) >> 8));
-        a->insert("group", ((data.permissions & 0x070) >> 4));
-        a->insert("other", (data.permissions & 0x007));
-        anyTo(0, gensym("permissions"), a);
+        anyTo(0, gensym("permissions"), data.permissions);
     } else
         resultError(data);
 }

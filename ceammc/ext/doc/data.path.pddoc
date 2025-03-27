@@ -26,7 +26,7 @@
             <method name="type">request path type. Output [type TYPE( message, where type is one of: regular, dir, symlink, char, block, fifo, socket</method>
             <method name="info">request path information. Output [info DICT(</method>
             <method name="size">request file size in bytes. Output [size BYTES(</method>
-            <method name="permissions">request path permissions. Output [premissions USER GROUP OTHERS(</method>
+            <method name="permissions">request path permissions. Output [permissions VALUE(</method>
         </methods>
         <inlets>
             <inlet>
@@ -47,10 +47,11 @@
 <![CDATA[
 [exists( [info #a( [type #b( [permissions #c( [size #d(
 |
-|  [symbol ./data.path-help.pd(
+|  [B]
+|  |
+|  [openpanel]
 |  |
 |  |  [B]
-|  |  |
 |  |  |
 [data.path Path(.) #x]
 |
