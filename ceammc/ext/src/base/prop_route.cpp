@@ -6,7 +6,6 @@
 #include "ceammc_output.h"
 #include "ceammc_symbols.h"
 
-
 #define MSG_PREFIX "[prop->] "
 constexpr const char* OBJ_NAME = "prop.route";
 constexpr const char* OBJ_OBSOLETE = "prop.split";
