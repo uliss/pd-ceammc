@@ -425,6 +425,9 @@
     <entry name="data.mlist" descr="multidimensional list container" ref_view="object">
       <xi:include href="data.mlist.pddoc" parse="xml"/>
     </entry>
+    <entry name="data.path" descr="filesystem path datatype" ref_view="object">
+      <xi:include href="data.path.pddoc" parse="xml"/>
+    </entry>
     <entry name="data.set" descr="container that store unique elements" ref_view="object">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>

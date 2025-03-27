@@ -5,7 +5,7 @@
 - new objects:
   - bitmap - bitmap image
   - conv.guido2note (guido->note)
-  - data.path
+  - data.path - new Path datatype
   - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
   - hw.gamepad - gamepad support
   - hw.i2c.lcd1602

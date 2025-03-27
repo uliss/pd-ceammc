@@ -310,6 +310,7 @@ ceammc/mlist	multidimensional list container
 mlist	multidimensional list container
 ceammc/ml	multidimensional list container
 ml	multidimensional list container
+data.path	filesystem path datatype
 data.set	container that store unique elements
 data.set2list	converts set to list
 ceammc/set->list	converts set to list
@@ -615,7 +616,7 @@ hw.rpi.sensor.ir	Infrared sensor support for Raspberry Pi
 hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer Raspberry Pi support
 hw.rpi.sensor.sr04	HC-SR04 ulatrasonic ranging module for Raspberry Pi
 hw.serial	serial port device
-hw.spi.max7219	LED display driver based on max7219 chip
+hw.spi.max7219	LED display driver based on max7219 chip for Raspberry Pi
 lang.faust~	faust realtime compilation
 lang.lua	Lua JIT language bindings
 ui.faust~	faust compiled ui object
