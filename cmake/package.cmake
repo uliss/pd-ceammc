@@ -4,7 +4,7 @@ if (APPLE)
 endif()
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "realtime graphical computer music system")
-set(CPACK_PACKAGE_DESCRIPTION "PureData distribution used in CEAM (Center of Electroacoustic Music, Moscow Conservatory, Russia")
+set(CPACK_PACKAGE_DESCRIPTION "PureData distribution used in CEAM (Center of Electroacoustic Music, Moscow Conservatory, Russia)")
 set(CPACK_PACKAGE_VENDOR "http://ceammc.com")
 set(CPACK_PACKAGE_CONTACT "http://ceammc.com")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.txt")
