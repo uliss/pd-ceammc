@@ -18,7 +18,7 @@
 #include "fmt/core.h"
 
 namespace {
-inline std::string space(int s = 4)
+inline std::string space(int s)
 {
     return std::string(s, ' ');
 }
@@ -496,7 +496,7 @@ std::string TclPropDialogGenerator::widgetState(int row, PropValueAccess state)
     switch (state) {
     case PropValueAccess::READONLY: // fallthru
     case PropValueAccess::INITONLY:
-        return fmt::format("{0}{1} configure -state readonly\n", space(), widgetId(row));
+        return fmt::format("{0}{1} configure -state readonly\n", space(4), widgetId(row));
         break;
     case PropValueAccess::READWRITE:
     default:
@@ -507,7 +507,7 @@ std::string TclPropDialogGenerator::widgetState(int row, PropValueAccess state)
 std::string TclPropDialogGenerator::grid(int row, int col, const std::string& widget, const char* sticky)
 {
     return fmt::format("{0}grid {1} -in $w.f -padx 1 -pady 1 -row {2} -column {3} -sticky {4}\n",
-        space(),
+        space(4),
         widget,
         row,
         col,
@@ -687,7 +687,7 @@ std::string TclPropDialogGenerator::propSetProcName(const char* propName, const 
 
 std::string TclPropDialogGenerator::propSetProcBody(int propId, const PropertyInfo& info)
 {
-    auto indent = space();
+    auto indent = space(4);
 
     std::string res;
 
@@ -767,7 +767,7 @@ std::string TclPropDialogGenerator::actionButtonId(int id)
 std::string TclPropDialogGenerator::resetButton(int id, const char* propName, const char* className)
 {
     return fmt::format("{0}ttk::button {1} -text [_ Reset] -command \"{2}\"\n",
-        space(),
+        space(4),
         resetButtonId(id),
         propResetCall(id, propName, className));
 }
@@ -780,7 +780,7 @@ std::string TclPropDialogGenerator::resetButtonId(int id)
 std::string TclPropDialogGenerator::defaultButton(int id, const char* propName, const char* className)
 {
     return fmt::format("{0}ttk::button {1} -text [_ Default] -command \"{2}\"\n",
-        space(),
+        space(4),
         defaultButtonId(id),
         propDefaultCall(id, propName, className));
 }
@@ -861,7 +861,7 @@ std::string TclPropDialogGenerator::callProc() const
 
 std::string TclPropDialogGenerator::buttons(int row) const
 {
-    const auto indent = space();
+    const auto indent = space(4);
     auto class_name = makeClassName();
 
     std::string res;
