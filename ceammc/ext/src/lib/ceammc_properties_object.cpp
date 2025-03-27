@@ -800,30 +800,26 @@ std::string TclPropDialogGenerator::callProc() const
 std::string TclPropDialogGenerator::buttons(int row) const
 {
     const auto indent = space();
+    auto class_name = makeClassName();
 
     std::string res;
 
-    res += fmt::format("{0}ttk::button $w.f.btn_cancel -text [_ \"Cancel\"] -command \"destroy $w\"\n", indent);
-    res += fmt::format("{0}ttk::button $w.f.btn_apply -text [_ \"Apply\"]\n", indent);
-    res += fmt::format("{0}ttk::button $w.f.btn_ok -text [_ \"Ok\"] -command \"{1} $id \\${2}; destroy $w\"\n",
+    res += fmt::format("{0}ttk::button $w.f.btn_cancel -text [_ \"Cancel\"] -command \"destroy $w\"\n",
+        indent);
+    res += fmt::format("{0}ttk::button $w.f.btn_ok     -text [_ \"Ok\"]     -command \"{1} $id \\${2}; destroy $w\"\n",
         indent,
-        okProcName(makeClassName().c_str()),
+        okProcName(class_name.c_str()),
         propsDictVar());
 
     res += fmt::format("{0}grid $w.f.btn_cancel -in $w.f"
                        " -padx 1 -pady 1"
-                       " -row {1} -column 0 -sticky w\n",
-        indent, row);
-
-    res += fmt::format("{0}grid $w.f.btn_apply -in $w.f"
-                       " -padx 1 -pady 1"
-                       " -row {1} -column 1 -sticky w\n",
-        indent, row);
+                       " -row {1} -column {2} -sticky w\n",
+        indent, row, COL_PROP_NAME);
 
     res += fmt::format("{0}grid $w.f.btn_ok -in $w.f"
                        " -padx 1 -pady 1"
-                       " -row {1} -column 3 -columnspan 2 -sticky e\n",
-        indent, row);
+                       " -row {1} -column {2} -sticky e\n",
+        indent, row, COL_PROP_DEFAULT);
 
     return res;
 }
@@ -835,7 +831,7 @@ std::string TclPropDialogGenerator::setPropProcs() const
     const auto class_name = makeClassName();
 
     foreachProperty([&res, &class_name](const char* propName, int id, const Property* p) {
-        res += fmt::format("proc {0} {{id wid {{value \"\"}}}} {{\n{1}\n}}\n",
+        res += fmt::format("proc {0} {{id wid {{value \"\"}}}} {{\n{1}}}\n",
             propSetProcName(propName, class_name.c_str()),
             propSetProcBody(id, p->info()));
     });
