@@ -39,7 +39,7 @@ public:
     }
 
     AtomList get() const final { return v_; }
-    bool setList(const AtomListView& lv) final
+    bool setList(const AtomListView& lv) override
     {
         if (!lv.isAtom())
             return false;
@@ -53,7 +53,7 @@ public:
         return true;
     }
 
-    bool setAtom(const Atom& a) final
+    bool setAtom(const Atom& a) override
     {
         if (!a.isA<T>()) {
             if (parse_messages_) {
