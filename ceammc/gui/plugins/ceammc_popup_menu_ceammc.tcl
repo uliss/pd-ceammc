@@ -37,7 +37,7 @@
     }}
     {data {
         color.mix color.scale data.bimap data.color data.copy data.dict
-        data.fifo data.float data.int data.list data.mlist data.set
+        data.fifo data.float data.int data.list data.mlist data.path data.set
         data.set2list dict.contains dict.each dict.from_list dict.get
         dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
         global.bimap local.bimap mlist.flatten rtree.to_list set.contains
