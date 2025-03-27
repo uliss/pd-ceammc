@@ -340,5 +340,5 @@ namespace path {
 
         return {};
     }
-}
-}
+} // namespace path
+} // namespace ceammc

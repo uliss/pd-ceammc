@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_path.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
 #include "fmt/core.h"
@@ -44,6 +45,15 @@ bool PathProperty::setAtom(const Atom& a)
         return true;
     } else
         return DataPropertyT<path::DataTypePath>::setAtom(a);
+}
+
+bool PathProperty::setSymbol(t_symbol* s)
+{
+    if (looksLikeSymbolPath(Atom(s))) {
+        value() = ceammc::path::DataTypePath(s->s_name);
+        return true;
+    } else
+        return DataPropertyT<path::DataTypePath>::setAtom(Atom(s));
 }
 
 DataPath::DataPath(const PdArgs& args)
@@ -79,6 +89,26 @@ void DataPath::initDone()
 void DataPath::onBang()
 {
     atomTo(0, path_->asDataAtom());
+}
+
+void DataPath::onSymbol(t_symbol* s)
+{
+    if (path_->setSymbol(s))
+        onBang();
+}
+
+void DataPath::onInlet(size_t in, const AtomListView& lv)
+{
+    if (lv.size() == 1)
+        path_->setAtom(lv[0]);
+    else
+        OBJ_ERR << "invalid args: " << lv;
+}
+
+void DataPath::onDataT(const DataAtom<path::DataTypePath>& data)
+{
+    if (path_->setValue(*data))
+        onBang();
 }
 
 void DataPath::appendRequest(DataPathOpCode op)
@@ -161,11 +191,14 @@ void DataPath::processRequest(const DataPathRequest& req, ResultCallback cb)
 
 void DataPath::resultAllInfo(const DataPathResult& data)
 {
-    DictAtom a;
-    a->insert("type", gensym(to_string(data.type)));
-    a->insert("size", data.filesize);
-    a->insert("permissions", data.permissions);
-    anyTo(0, gensym("info"), a);
+    if (data.res_code == DATA_PATH_RC_OK) {
+        DictAtom a;
+        a->insert("type", gensym(to_string(data.type)));
+        a->insert("size", data.filesize);
+        a->insert("permissions", data.permissions);
+        anyTo(0, gensym("info"), a);
+    } else
+        resultError(data);
 }
 
 void DataPath::resultSize(const DataPathResult& data)
@@ -187,9 +220,13 @@ void DataPath::resultExists(const DataPathResult& data)
 
 void DataPath::resultPermissions(const DataPathResult& data)
 {
-    if (data.res_code == DATA_PATH_RC_OK)
-        anyTo(0, gensym("permissions"), data.permissions);
-    else
+    if (data.res_code == DATA_PATH_RC_OK) {
+        DictAtom a;
+        a->insert("owner", ((data.permissions & 0x700) >> 8));
+        a->insert("group", ((data.permissions & 0x070) >> 4));
+        a->insert("other", (data.permissions & 0x007));
+        anyTo(0, gensym("permissions"), a);
+    } else
         resultError(data);
 }
 
@@ -280,10 +317,17 @@ DataPathResult DataPath::info(const path::DataTypePath& path)
 {
     DataPathResult res;
     res.op_code = DATA_PATH_OP_ALL_INFO;
-    res.res_code = path.exists() ? DATA_PATH_RC_OK : DATA_PATH_RC_NOT_FOUND;
-    res.permissions = path.permissions();
-    res.type = path.file_type();
-    res.filesize = path.file_size();
+    if (path.exists()) {
+        res.res_code = DATA_PATH_RC_OK;
+        res.permissions = path.permissions();
+        res.type = path.file_type();
+        res.filesize = path.file_size();
+    } else {
+        res.res_code = DATA_PATH_RC_NOT_FOUND;
+        res.permissions = 0;
+        res.type = path::FILE_TYPE_NONE;
+        res.filesize = 0;
+    }
     return res;
 }
 
@@ -291,6 +335,7 @@ void setup_data_path()
 {
     ObjectFactory<DataPath> obj("data.path");
     DataPath::factoryPropertiesObjectInit(obj);
+    obj.processData<path::DataTypePath>();
 
     obj.addMethod("exists", &DataPath::m_exists);
     obj.addMethod("size", &DataPath::m_filesize);
