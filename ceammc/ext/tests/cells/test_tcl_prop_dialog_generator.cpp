@@ -16,6 +16,7 @@
 #include "test_macro.h"
 
 #include "catch.hpp"
+#include "test_wrappers.h"
 
 using namespace ceammc;
 
@@ -59,6 +60,7 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
     SECTION("procName")
     {
         PropObject obj("test.object");
+        obj.setProperty("@f", A(2));
 
         TclPropDialogGenerator gen(&obj);
         REQUIRE(gen.procName("test_object") == "ceammc_dialog_test_object");
@@ -73,7 +75,7 @@ TEST_CASE("tcl_prop_dialog_generator", "[core]")
 
     set ::ceammc::dialog_data(v$id) $props
 )");
-        REQUIRE(gen.callProc() == "ceammc_dialog_test_object %s [dict create @f 1]\n");
+        REQUIRE(gen.callProc() == "ceammc_dialog_test_object %s [dict create @f 2] [dict create @f 1]\n");
     }
 
     SECTION("spinbox")
