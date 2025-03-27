@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="data.path">
+        <title>data.path</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>filesystem path datatype</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data map container path file</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <arguments>
+            <argument name="PATH" type="atom">See @path</argument>
+        </arguments>
+        <properties>
+            <property name="@norm" type="bool" default="1">normalize path</property>
+            <property name="@path" type="atom" default="">current path value</property>
+            <property name="@async" type="bool" default="1">use async operations</property>
+        </properties>
+        <methods>
+            <method name="exists">checks if path exists. Output [exists VALUE( message</method>
+            <method name="type">request path type. Output [type TYPE( message, where type is one of: regular, dir, symlink, char, block, fifo, socket</method>
+            <method name="info">request path information. Output [info DICT(</method>
+            <method name="size">request file size in bytes. Output [size BYTES(</method>
+            <method name="permissions">request path permissions. Output [premissions USER GROUP OTHERS(</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current path</xinfo>
+                <xinfo on="symbol">set current path and output</xinfo>
+                <xinfo on="data">set current path and output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set current path and without output</xinfo>
+                <xinfo on="data">set current path and without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>data output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[exists( [info #a( [type #b( [permissions #c( [size #d(
+|
+|  [symbol ./data.path-help.pd(
+|  |
+|  |  [B]
+|  |  |
+|  |  |
+[data.path Path(.) #x]
+|
+|
+[ui.dt]
+
+[X a->x] [X b->x] [X c->x] [X d->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
