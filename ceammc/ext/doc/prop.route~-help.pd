@@ -9,7 +9,6 @@
 #X obj 30 78 @~>;
 #X obj 30 116 ceammc/prop~>;
 #X obj 30 154 ceammc/@~>;
-#X obj 30 192 prop.get~;
 #X restore 562 11 pd aliases;
 #X obj 659 11 prop.route~;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
