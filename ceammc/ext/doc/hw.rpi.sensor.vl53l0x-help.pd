@@ -39,8 +39,8 @@ int. Default value: -1\. Range: -1\...15\.;
 #X msg 110 639 address;
 #X text 245 639 set sensor i2c address. Note that the address resets
 when the device is powered off. Arguments are:;
-#X obj 255 677 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 677 [ADDR]: new i2c address. Type: int. Range: 8\...119\.;
+#X obj 255 677 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 677 ADDR: new i2c address. Type: int. Range: 8\...119\.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

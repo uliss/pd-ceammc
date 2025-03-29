@@ -20,7 +20,7 @@
         </info>
         <methods>
             <method name="address">set sensor i2c address. Note that the address resets when the device is powered off
-            <param name="ADDR" type="int" minvalue="8" maxvalue="119">new i2c address</param></method>
+            <param name="ADDR" type="int" minvalue="8" maxvalue="119" required="true">new i2c address</param></method>
         </methods>
         <properties>
             <property name="@i2c_bus" type="int" default="-1" access="initonly" minvalue="-1"
