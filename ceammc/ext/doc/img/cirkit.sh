@@ -2,12 +2,17 @@
 
 ZOOM=1.5
 BG='#fff'
-CROP=150
+BOTTOM=150
 RIGHT=150
 LEFT=150
 TOP=500
 IN=$(basename $1)
 OUT=${IN%.svg}.png
+
+BOTTOM=550
+RIGHT=150
+LEFT=150
+TOP=100
 
 if [ $# -ne 1 ]
 then
@@ -16,5 +21,5 @@ then
 fi
 
 resvg --background $BG -z $ZOOM $1 $OUT
-convert $OUT -crop +$LEFT+$TOP -crop -$RIGHT-$CROP tmp
+convert $OUT -crop +$LEFT+$TOP -crop -$RIGHT-$BOTTOM tmp
 mv tmp $OUT

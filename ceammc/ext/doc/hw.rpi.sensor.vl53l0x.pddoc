@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.sensor.vl53l0x">
+        <title>hw.rpi.sensor.vl53l0x</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>The VL53L0X Time-of-Flight (ToF) laser-ranging sensor Raspberry Pi support</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>raspberry tof sensor laser</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <info>
+            <par>It can measure absolute distances up to 2 m, setting a new benchmark in ranging performance levels, opening the door to various new applications.
+            The VL53L0X integrates a leading-edge SPAD array (single photon avalanche diodes) and embeds ST's second generation FlightSense patented technology.
+            </par>
+        </info>
+        <methods>
+            <method name="address">set sensor i2c address. Note that the address resets when the device is powered off
+            <param name="ADDR" type="int" minvalue="8" maxvalue="119">new i2c address</param></method>
+        </methods>
+        <properties>
+            <property name="@i2c_bus" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="15">I2C bus. Use it if you have several I2C buses in the system. The value -1
+            means a default system bus</property>
+            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-2"
+            maxvalue="119">I2C address. The value -1 means default device I2C address (0x29)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: distance in mm</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[poll $1(
+|
+|  [B]
+|  |
+[hw.rpi.sensor.vl53l0x]
+|
+[print]
+
+
+[ui.link @url=ceammc://img/conn_vl53l0x.png @title=Connection_Scheme]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
