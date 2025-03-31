@@ -14,9 +14,7 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>It can measure absolute distances up to 2 m, setting a new benchmark in ranging performance levels, opening the door to various new applications.
-            The VL53L0X integrates a leading-edge SPAD array (single photon avalanche diodes) and embeds ST's second generation FlightSense patented technology.
-            </par>
+            <par>It can measure absolute distances up to 2m</par>
         </info>
         <methods>
             <method name="address">set sensor i2c address. Note that the address resets when the device is powered off
