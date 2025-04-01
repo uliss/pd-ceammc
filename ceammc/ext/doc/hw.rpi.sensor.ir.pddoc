@@ -18,10 +18,10 @@
             <param name="VALUE" type="bool" required="true">state</param></method>
         </methods>
         <arguments>
-            <argument name="PIN" type="int">GPIO connection pin. See @pin</argument>
+            <argument name="PIN" type="int" minvalue="-1" maxvalue="255">GPIO connection pin. See @pin</argument>
         </arguments>
         <properties>
-            <property name="@pin" type="int" default="0" access="initonly">connection GPIO
+            <property name="@pin" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="255">connection GPIO
             pin</property>
             <property name="@proto" type="symbol" default="NEC">protocol name. You should switch
             off/on pollling to take effect after chaning this property</property>

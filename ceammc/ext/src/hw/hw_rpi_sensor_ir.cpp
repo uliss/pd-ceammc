@@ -1,20 +1,13 @@
 #include "hw_rpi_sensor_ir.h"
 #include "args/argcheck.h"
-#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-
-CEAMMC_DEFINE_HASH(us)
-CEAMMC_DEFINE_HASH(usec)
-CEAMMC_DEFINE_HASH(perc)
 
 HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
-    pin_ = new IntProperty("@pin", 0);
-    pin_->setInitOnly();
+    pin_ = addGpioPinProperty("@pin");
     pin_->setArgIndex(0);
-    addProperty(pin_);
 
     proto_ = new SymbolProperty("@proto", gensym("NEC"));
     addProperty(proto_);
@@ -46,6 +39,11 @@ void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
 
 void HwRpiSensorIR::startSensor()
 {
+    if (pin_->value() < 0) {
+        OBJ_ERR << "GPIO pin is not specified";
+        return;
+    }
+
     if (ir_) {
         ceammc_hw_infrared_free(ir_);
         ir_ = nullptr;
