@@ -23,10 +23,12 @@
         </properties>
         <methods>
             <method name="exists">checks if path exists. Output [exists VALUE( message</method>
-            <method name="type">request path type. Output [type TYPE( message, where type is one of: regular, dir, symlink, char, block, fifo, socket</method>
+            <method name="type">request path type. Output [type TYPE( message, where type is one
+            of: regular, dir, symlink, char, block, fifo, socket</method>
             <method name="info">request path information. Output [info DICT(</method>
             <method name="size">request file size in bytes. Output [size BYTES(</method>
-            <method name="permissions">request path permissions. Output [permissions VALUE(</method>
+            <method name="permissions">request path permissions. Output [permissions
+            VALUE(</method>
         </methods>
         <inlets>
             <inlet>

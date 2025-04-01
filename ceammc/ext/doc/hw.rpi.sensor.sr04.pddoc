@@ -39,7 +39,7 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>control input</xinfo>
+                <xinfo on="bang">single distance measure</xinfo>
             </inlet>
         </inlets>
         <outlets>
