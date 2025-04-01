@@ -36,7 +36,7 @@ HwRpiGpio::HwRpiGpio(const PdArgs& args)
 
              obj->anyTo(0, gensym("pins"), atoms);
          } }, //
-        { size_t(subscriberId()), [](size_t id, int data) { Dispatcher::instance().send(NotifyMessage { id, data }); } });
+        { subscriberId(), [](size_t id, int data) { Dispatcher::instance().send(NotifyMessage { id, data }); } });
 }
 
 HwRpiGpio::~HwRpiGpio()
@@ -54,10 +54,10 @@ bool HwRpiGpio::notify(int code)
 
         switch (event) {
         case ceammc_hw_gpio_trigger::RisingEdge:
-            atoms[1] = t_float(1);
+            atoms[1] = 1;
             break;
         default:
-            atoms[1] = t_float(0);
+            atoms[1] = 0.0;
             break;
         }
 
