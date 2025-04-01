@@ -16,7 +16,7 @@ the sensor power supply shortage \, caused by measurement error;
 #X msg 50 267 poll \$1;
 #X obj 78 296 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 325 hw.rpi.sensor.dht11 @pin 4;
+#X obj 50 325 hw.rpi.sensor.dht11 @pin 17;
 #X obj 50 354 print;
 #X obj 50 397 ui.link @title Connection_Scheme @url
 ceammc://img/conn_dht11.png;

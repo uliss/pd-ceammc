@@ -47,7 +47,7 @@
 |
 |  [B]
 |  |
-[hw.rpi.sensor.dht11 @pin 4]
+[hw.rpi.sensor.dht11 @pin 17]
 |
 [print]
 
