@@ -8,6 +8,7 @@ HwRpiSensorDht11::HwRpiSensorDht11(const PdArgs& args)
     , pin_(nullptr)
 {
     pin_ = addGpioPinProperty("@pin");
+    pin_->setArgIndex(0);
 
     createOutlet();
 }

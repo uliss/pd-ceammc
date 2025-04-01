@@ -329,6 +329,7 @@ set(DOC_FILES
     hw.rpi.pwm
     hw.rpi.rotenc
     hw.rpi.sensor.ir
+    hw.rpi.sensor.dht11
     hw.rpi.sensor.mpu6050
     hw.rpi.sensor.sr04
     hw.rpi.sensor.vl53l0x

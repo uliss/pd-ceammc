@@ -1051,6 +1051,9 @@
     <entry name="hw.rpi.rotenc" descr="Rotary encoder for Raspberry GPIO" ref_view="object">
       <xi:include href="hw.rpi.rotenc.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.rpi.sensor.dht11" descr="DHT11 Humidity and Temperature Digital Sensor for Raspberry Pi support" ref_view="object">
+      <xi:include href="hw.rpi.sensor.dht11.pddoc" parse="xml"/>
+    </entry>
     <entry name="hw.rpi.sensor.ir" descr="Infrared sensor support for Raspberry Pi" ref_view="object">
       <xi:include href="hw.rpi.sensor.ir.pddoc" parse="xml"/>
     </entry>

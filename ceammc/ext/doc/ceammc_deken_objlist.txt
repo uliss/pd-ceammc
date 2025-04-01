@@ -612,6 +612,7 @@ hw.rpi.display.ssd1306	OLED ssd1306 display for Raspberry Pi
 hw.rpi.gpio	Raspberry Pi GPIO support
 hw.rpi.pwm	Hardware PWM output for RaspberryPi
 hw.rpi.rotenc	Rotary encoder for Raspberry GPIO
+hw.rpi.sensor.dht11	DHT11 Humidity and Temperature Digital Sensor for Raspberry Pi support
 hw.rpi.sensor.ir	Infrared sensor support for Raspberry Pi
 hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer Raspberry Pi support
 hw.rpi.sensor.sr04	HC-SR04 ulatrasonic ranging module for Raspberry Pi
