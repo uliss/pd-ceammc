@@ -7,10 +7,7 @@ HwRpiSensorDht11::HwRpiSensorDht11(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
     , pin_(nullptr)
 {
-    pin_ = new IntProperty("@pin", 4, PropValueAccess::INITONLY);
-    pin_->checkClosedRange(0, 255);
-    pin_->setArgIndex(0);
-    addProperty(pin_);
+    pin_ = addGpioPinProperty("@pin");
 
     createOutlet();
 }
@@ -22,6 +19,9 @@ HwRpiSensorDht11::~HwRpiSensorDht11()
 
 void HwRpiSensorDht11::initDone()
 {
+    if (pin_->value() < 0)
+        return;
+
     dht_ = ceammc_hw_gpio_dht11_new(pin_->value(),
         on_notify(), //
         on_message(),
