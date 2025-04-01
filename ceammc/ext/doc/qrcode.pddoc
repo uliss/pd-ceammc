@@ -48,10 +48,10 @@
 [qrcode #x]                            [ui.lcd @receive qrcode @size 125 125 @nosave 1]
 |      ^|
 |     [@cols $1, @rows $1, @size 125 125(
-|           |
-[msg set]   |
-|           |
-[s    qrcode]
+|                |
+[msg set list]   |
+|                |
+[s         qrcode]
 
 [X a->x]
 ]]>
