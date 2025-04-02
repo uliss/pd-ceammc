@@ -6,11 +6,9 @@ namespace eval display {
 }
 
 switch -- $::windowingsystem {
-    "aqua" { }
-    "x11"  { }
-    "win32" {
-        set display::font_size 7
-    }
+    "aqua"  { }
+    "x11"   { set display::font_size 10 }
+    "win32" { set display::font_size 7 }
 }
 
 proc display_type_font { zoom } { return "$display::font_family [expr $zoom * $display::font_size] normal roman" }
