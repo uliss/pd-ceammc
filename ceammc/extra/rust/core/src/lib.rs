@@ -58,6 +58,10 @@ impl core_on_msg {
     fn info_cstr(&self, msg: &CString) {
         self.exec_raw(core_log_level::Info, msg);
     }
+
+    fn error_str(&self, msg: &str) {
+        self.exec_raw(core_log_level::Error, &CString::new(msg).unwrap_or_default());
+    }
 }
 
 #[allow(non_camel_case_types)]

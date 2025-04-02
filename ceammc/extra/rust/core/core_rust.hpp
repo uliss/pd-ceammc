@@ -189,11 +189,6 @@ struct ceammc_mdns_service_info_register {
     ceammc_mdns_iface iface;
 };
 
-struct ceammc_net_err_cb {
-    void *user;
-    void (*cb)(void *user, const char *msg);
-};
-
 extern "C" {
 
 bool ceammc_bitmap_clear(ceammc_core_async_bitmap *bitmap);
@@ -637,11 +632,11 @@ bool ceammc_net_is_ifa_v6(const ceammc_net_iface_addr *va);
 /**
  * return pointer to network interface list
  * you should free it with ceammc_net_free_interfaces
- * @param err_cb - error callbacks (can be NULL)
+ * @param msg_cb - message callbacks (can be NULL)
  * @return pointer to interface list or NULL on error
  */
 __attribute__((warn_unused_result))
-ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_net_err_cb err_cb);
+ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
 
 /**
  * init rust env_logger

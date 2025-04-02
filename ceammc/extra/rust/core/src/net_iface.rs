@@ -6,21 +6,9 @@ use std::{
     ptr::{null, null_mut},
 };
 
+use crate::core_on_msg;
+
 pub type N = u16;
-
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct net_err_cb {
-    user: *mut c_void,
-    cb: Option<extern "C" fn(user: *mut c_void, msg: *const c_char)>,
-}
-
-impl net_err_cb {
-    fn exec(&self, msg: &str) {
-        let msg = CString::new(msg).unwrap_or_default();
-        self.cb.map(|f| f(self.user, msg.as_ptr()));
-    }
-}
 
 #[allow(non_camel_case_types)]
 pub struct net_addr4 {
@@ -75,13 +63,13 @@ pub struct net_ifaces {
 #[must_use]
 /// return pointer to network interface list
 /// you should free it with ceammc_net_free_interfaces
-/// @param err_cb - error callbacks (can be NULL)
+/// @param msg_cb - message callbacks (can be NULL)
 /// @return pointer to interface list or NULL on error
-pub extern "C" fn ceammc_net_list_interfaces(err_cb: net_err_cb) -> *mut net_ifaces {
+pub extern "C" fn ceammc_net_list_interfaces(msg_cb: core_on_msg) -> *mut net_ifaces {
     match NetworkInterface::show() {
         Ok(ifa) => Box::into_raw(Box::new(net_ifaces { ifa })),
         Err(err) => {
-            err_cb.exec(format!("{err:?}").as_str());
+            msg_cb.error_str(format!("{err:?}").as_str());
             null_mut()
         }
     }
