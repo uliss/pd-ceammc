@@ -15,7 +15,7 @@ namespace net {
     };
 
     template <size_t>
-    struct BitFields {};
+    struct BitFields { };
 
     template <>
     struct BitFields<IP_V4> {
@@ -142,7 +142,7 @@ namespace net {
         : str(ceammc_net_addr4_str(addr))
         , bits(addr)
     {
-        memcpy(octets, ceammc_net_addr4_octets(addr), IP_V4);
+        ceammc_net_addr4_octets(addr, octets);
     }
 
     template <>
@@ -151,7 +151,7 @@ namespace net {
         : str(ceammc_net_addr6_str(addr))
         , bits(addr)
     {
-        memcpy(octets, ceammc_net_addr6_octets(addr), IP_V6);
+        ceammc_net_addr6_octets(addr, octets);
     }
 
     template <>

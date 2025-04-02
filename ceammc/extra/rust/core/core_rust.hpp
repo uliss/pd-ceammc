@@ -525,8 +525,9 @@ bool ceammc_net_addr4_is_unspec(const ceammc_net_addr4 *x);
 
 /**
  * @param x - non NULL!
+ * @param octets - pointer to ipv4 octets memory, should hold 4 bytes
  */
-const uint8_t *ceammc_net_addr4_octets(const ceammc_net_addr4 *x);
+void ceammc_net_addr4_octets(const ceammc_net_addr4 *x, uint8_t *octets);
 
 /**
  * @param x - non NULL!
@@ -550,8 +551,9 @@ bool ceammc_net_addr6_is_unspec(const ceammc_net_addr6 *x);
 
 /**
  * @param x - non NULL!
+ * @param - pointer to octets memory, should hold at least 16 bytes
  */
-const uint8_t *ceammc_net_addr6_octets(const ceammc_net_addr6 *x);
+void ceammc_net_addr6_octets(const ceammc_net_addr6 *x, uint8_t *octets);
 
 /**
  * @param x - non NULL!

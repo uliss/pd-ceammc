@@ -215,8 +215,12 @@ pub extern "C" fn ceammc_net_addr4_str(x: &net_addr4) -> *const c_char {
 
 #[no_mangle]
 /// @param x - non NULL!
-pub extern "C" fn ceammc_net_addr4_octets(x: &net_addr4) -> *const u8 {
-    x.addr.octets().as_ptr()
+/// @param octets - pointer to ipv4 octets memory, should hold 4 bytes
+pub extern "C" fn ceammc_net_addr4_octets(x: &net_addr4, octets: *mut u8) {
+    let oct = x.addr.octets();
+    unsafe {
+        std::ptr::copy_nonoverlapping(oct.as_ptr(), octets, oct.len());
+    }
 }
 
 #[no_mangle]
@@ -269,8 +273,12 @@ pub extern "C" fn ceammc_net_addr6_str(x: &net_addr6) -> *const c_char {
 
 #[no_mangle]
 /// @param x - non NULL!
-pub extern "C" fn ceammc_net_addr6_octets(x: &net_addr6) -> *const u8 {
-    x.addr.octets().as_ptr()
+/// @param - pointer to octets memory, should hold at least 16 bytes
+pub extern "C" fn ceammc_net_addr6_octets(x: &net_addr6, octets: *mut u8) {
+    let oct = x.addr.octets();
+    unsafe {
+        std::ptr::copy_nonoverlapping(oct.as_ptr(), octets, oct.len());
+    }
 }
 
 #[no_mangle]
