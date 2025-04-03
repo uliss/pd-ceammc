@@ -17,21 +17,19 @@
 #include "ceammc_ui.h"
 #include "cicm/Sources/egraphics.h"
 
-#include <iomanip>
 #include <iostream>
 #include <sstream>
 
+static int font_size_corr(float h)
+{
 #ifdef __WIN32
-static int font_size_corr(float h)
-{
     return std::floor(0.6 * h);
-}
+#elif __linux__
+    return std::floor(0.6 * h);
 #else
-static int font_size_corr(float h)
-{
     return 0.875 * h;
-}
 #endif
+}
 
 constexpr const char* DEFAULT_FONT_FAMILY = "Helvetica";
 constexpr int DEFAULT_FONT_SIZE = 13;
