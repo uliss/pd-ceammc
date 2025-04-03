@@ -52,7 +52,7 @@
 |                           |
 |   [ui.hsl @show_value 1]  |
 |   |                       |
-|   [@dev $1(               |
+|   [prop.set @dev]         |
 |   |                       |.
 [flow.space 110            #b]
 |

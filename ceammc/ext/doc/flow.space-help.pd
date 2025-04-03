@@ -11,7 +11,7 @@ time;
 #X msg 50 143 7 \, 2 \, 1 \, 2 \, 0 \, 2 \, 1 \, 2;
 #X msg 318 143 reset;
 #X obj 88 172 ui.hsl @show_value 1;
-#X msg 88 201 @dev \$1;
+#X obj 88 201 prop.set @dev;
 #X obj 50 230 flow.space 110;
 #X obj 50 259 degree->key minor;
 #X obj 50 287 + 60;
