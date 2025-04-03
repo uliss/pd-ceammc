@@ -107,7 +107,7 @@ void UINumber::drawValue()
         return;
 
 #ifdef __linux__
-    constexpr float k = 0.1;
+    constexpr float k = 0.2;
 #else
     constexpr float k = 0;
 #endif
