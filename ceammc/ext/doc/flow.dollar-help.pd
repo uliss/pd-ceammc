@@ -9,7 +9,7 @@
 #X msg 50 118 load file to \\\$0-array @resize;
 #X obj 50 147 flow.dollar;
 #X obj 50 176 ui.dt;
-#X obj 50 205 flow.dollar.args A B;
+#X obj 50 205 flow.dollar-args A B;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

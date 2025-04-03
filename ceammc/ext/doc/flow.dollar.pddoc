@@ -33,7 +33,7 @@
 |
 [ui.dt]
 
-[flow.dollar.args A B]
+[flow.dollar-args A B]
 ]]>
             </pdascii>
             <pdascii id="args">
