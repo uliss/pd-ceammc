@@ -106,7 +106,13 @@ void UINumber::drawValue()
     if (!p)
         return;
 
-    const float y_off = r.h * 0.5;
+#ifdef __linux__
+    constexpr float k = 0.1;
+#else
+    constexpr float k = 0;
+#endif
+    const float y_off = r.h * 0.5 + font_.size() * k;
+
     const float x_off = std::max<float>(y_off, 5) + 2;
 
     switch (edit_mode_) {
