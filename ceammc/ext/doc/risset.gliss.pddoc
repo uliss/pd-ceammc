@@ -49,7 +49,7 @@
 |          ^|
 [msg \#:0] [msg \#:0]
 |.         |..
-[hoa.process~ 5 risset.gliss.osc~ planewaves {i:3,o:5}]
+[hoa.process~ 5 risset.gliss-osc~ planewaves {i:3,o:5}]
 | ^| ^^| ^^^| ^^^^|
 |  |   |    |     |
 [ui.hgain~        ]             [ui.dsp~]

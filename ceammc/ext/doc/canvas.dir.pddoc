@@ -54,7 +54,7 @@
 <![CDATA[
 [B]
 |
-[canvas.dir.sp0 #a {i=1,o=2}]
+[canvas.dir-sp0 #a {i=1,o=2}]
 |
 [ui.dt @auto_size 0 @size 400 45]
 

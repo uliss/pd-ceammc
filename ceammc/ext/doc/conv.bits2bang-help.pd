@@ -29,7 +29,7 @@ to single outlet;
 #X text 50 429 Poly version;
 #X obj 50 458 ui.hrd* 4;
 #X obj 50 486 bits->bang @poly;
-#X obj 50 515 clone conv.bits2bang.osc~ 4 400 800 1200 1600;
+#X obj 50 515 clone conv.bits2bang-osc~ 4 400 800 1200 1600;
 #X obj 50 544 ui.hgain~;
 #X obj 50 573 dac~;
 #X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

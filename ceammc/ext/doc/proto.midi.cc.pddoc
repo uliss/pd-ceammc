@@ -225,9 +225,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[proto.midi.cc.pan]
+[proto.midi.cc-pan]
 
-[proto.midi.cc.vol]
+[proto.midi.cc-vol]
 ]]>
             </pdascii>
             <pdascii id="pan">

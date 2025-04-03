@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty proto.midi.cc 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 proto.midi.cc;
-#X obj 50 118 proto.midi.cc.pan;
-#X obj 50 147 proto.midi.cc.vol;
+#X obj 50 118 proto.midi.cc-pan;
+#X obj 50 147 proto.midi.cc-vol;
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 202 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

@@ -64,7 +64,7 @@
 |
 [bits->bang @poly]
 |
-[clone conv.bits2bang.osc~ 4 400 800 1200 1600 {i=1,o=1}]
+[clone conv.bits2bang-osc~ 4 400 800 1200 1600 {i=1,o=1}]
 |
 [ui.hgain~]
 |\

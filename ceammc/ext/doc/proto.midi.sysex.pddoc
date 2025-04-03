@@ -51,13 +51,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[proto.midi.sysex.mvol]
+[proto.midi.sysex-mvol]
 
-[proto.midi.sysex.mbal]
+[proto.midi.sysex-mbal]
 
-[proto.midi.sysex.mtune]
+[proto.midi.sysex-mtune]
 
-[proto.midi.sysex.idreq]
+[proto.midi.sysex-idreq]
 ]]>
             </pdascii>
             <pdascii id="mvol">

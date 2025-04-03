@@ -14,7 +14,7 @@
 #X obj 50 205 risset.gliss 60;
 #X obj 50 234 msg \#:0;
 #X obj 155 234 msg \#:0;
-#X obj 50 262 hoa.process~ 5 risset.gliss.osc~ planewaves;
+#X obj 50 262 hoa.process~ 5 risset.gliss-osc~ planewaves;
 #X obj 50 305 ui.hgain~;
 #X obj 357 305 ui.dsp~;
 #X obj 50 334 dac~ 1 2;

@@ -55,9 +55,9 @@
 |\
 [dac~]
 
-[prop.random.1]   [prop.random.2]
+[prop.random-1]   [prop.random-2]
 
-[prop.random.3]
+[prop.random-3]
 ]]>
             </pdascii>
             <pdascii id="1">
@@ -113,7 +113,7 @@
 |             ^|
 |             [F]
 |
-[prop.random.abs]
+[prop.random-abs]
 |
 [ui.hgain~]
 |\

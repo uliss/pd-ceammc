@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty proto.midi.sysex 20 20 0 20
 -104026 -4096 0;
 #X obj 623 11 proto.midi.sysex;
-#X obj 50 118 proto.midi.sysex.mvol;
-#X obj 50 147 proto.midi.sysex.mbal;
-#X obj 50 176 proto.midi.sysex.mtune;
-#X obj 50 205 proto.midi.sysex.idreq;
+#X obj 50 118 proto.midi.sysex-mvol;
+#X obj 50 147 proto.midi.sysex-mbal;
+#X obj 50 176 proto.midi.sysex-mtune;
+#X obj 50 205 proto.midi.sysex-idreq;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

@@ -29,7 +29,7 @@ props \, but using internal pd method calls;
 #X floatatom 50 483 5 0 0 0 - - -;
 #X text 88 483 abstraction property;
 #X obj 50 512 prop.set @p1;
-#X obj 50 541 prop.set.patch;
+#X obj 50 541 prop.set-patch;
 #X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 596 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

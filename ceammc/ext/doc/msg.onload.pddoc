@@ -45,7 +45,7 @@
 |   |       |
 [B] [print] [ui.dt @auto_size 0]
 
-[msg.onload.type]
+[msg.onload-type]
 ]]>
             </pdascii>
             <pdascii id="type">

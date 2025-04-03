@@ -24,8 +24,8 @@ midi signals.;
 #X obj 242 327 makenote 100 90;
 #X obj 50 356 midiout;
 #X obj 242 356 noteout;
-#X obj 50 385 proto.midi.casio.rev;
-#X obj 50 414 proto.midi.casio.chorus;
+#X obj 50 385 proto.midi.casio-rev;
+#X obj 50 414 proto.midi.casio-chorus;
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 469 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
