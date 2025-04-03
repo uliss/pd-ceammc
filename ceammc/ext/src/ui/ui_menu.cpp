@@ -59,6 +59,8 @@ void UIMenu::okSize(t_rect* newrect)
 
 #ifdef __WIN32
     newrect->h += 4;
+#elif __linux__
+    newrect->h += 4;
 #endif
 
     item_height_ = newrect->h;
