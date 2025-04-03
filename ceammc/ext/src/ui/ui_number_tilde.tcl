@@ -7,10 +7,8 @@ namespace eval number_tilde {
 
 switch -- $::windowingsystem {
     "aqua" { }
-    "x11"  { }
-    "win32" {
-        set number_tilde::font_size 8
-    }
+    "x11"   { set number_tilde::font_size 9 }
+    "win32" { set number_tilde::font_size 8 }
 }
 
 proc number_font { zoom } {
