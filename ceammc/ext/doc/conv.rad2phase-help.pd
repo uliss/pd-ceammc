@@ -7,7 +7,7 @@
 #X obj 392 11 ceammc/rad->phase;
 #X obj 541 11 rad->phase;
 #X obj 638 11 conv.rad2phase;
-#X obj 50 118 ui.hsl @min 0 @max 7;
+#X obj 50 118 ui.hsl @min 0 @max 7 @show_value 1;
 #X obj 50 147 rad->phase;
 #X obj 50 176 ui.knob;
 #X obj 50 234 phase->rad;
