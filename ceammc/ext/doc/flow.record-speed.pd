@@ -5,7 +5,7 @@
 #X obj 48 178 prop.set @speed;
 #X msg 221 178 clear;
 #X obj 20 207 flow.record @auto 1 @max 8 @r -1;
-#X msg 39 235 notesoff;
+#X msg 39 235 notes_off;
 #X obj 20 264 fluid~;
 #X obj 192 264 ui.dsp~;
 #X obj 20 293 ui.hgain2~;

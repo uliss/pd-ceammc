@@ -12,7 +12,7 @@
 #X msg 242 190 clear;
 #X obj 50 219 flow.record @auto 1;
 #X obj 50 248 msg note;
-#X msg 69 277 notesoff;
+#X msg 69 277 notes_off;
 #X obj 50 305 fluid~;
 #X obj 222 305 ui.dsp~;
 #X obj 50 334 ui.hgain2~;

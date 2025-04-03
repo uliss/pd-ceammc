@@ -62,7 +62,7 @@
 |
 [msg note]
 |
-| [notesoff(
+| [notes_off(
 | |
 [fluid~]          [ui.dsp~]
 *|*
@@ -90,7 +90,7 @@
 |  |                 |.
 [flow.record @auto 1 @max 8 @r -1]
 |
-| [notesoff(
+| [notes_off(
 | |
 [fluid~]          [ui.dsp~]
 *|*
