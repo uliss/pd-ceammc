@@ -80,7 +80,7 @@ void UIMenu::paint()
         return;
 
 #ifdef __linux__
-    constexpr float TXT_YOFF = 4;
+    constexpr float TXT_YOFF = 6;
 #else
     constexpr float TXT_YOFF = 3;
 #endif
