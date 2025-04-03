@@ -89,7 +89,7 @@
 [osc~ 440   ] [scale 0.5( [scale 1( [scale 2(
 |             |           |         |
 |             |           |         |
-[ui.scope~             @size=450x200]
+[ui.scope~   @size=450x200 @nosave=1]
 ]]>
             </pdascii>
         </example>
