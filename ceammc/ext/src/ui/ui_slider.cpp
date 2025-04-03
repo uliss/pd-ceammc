@@ -39,6 +39,12 @@ void UISlider::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UISlider::paint()
 {
+#ifdef __linux__
+    constexpr float kyoff = 0.15;
+#else
+    constexpr float kyoff = 0;
+#endif
+
     const t_rect r = rect();
     UIPainter kp = knob_layer_.painter(r);
     if (kp) {
@@ -62,19 +68,21 @@ void UISlider::paint()
                 char buf[16];
                 snprintf(buf, sizeof(buf), fmt, value());
 
+                const auto YOFF = height() * (0.5 + kyoff);
+
                 txt_value_.setColor(prop_text_color);
                 if (prop_value_pos == gensym("left")) {
                     txt_value_.setAnchor(ETEXT_LEFT);
                     txt_value_.setJustify(ETEXT_JLEFT);
-                    txt_value_.set(buf, 2, height() / 2, width() / 2, height());
+                    txt_value_.set(buf, 2, YOFF, width() / 2, height());
                 } else if (prop_value_pos == gensym("center")) {
                     txt_value_.setAnchor(ETEXT_CENTER);
                     txt_value_.setJustify(ETEXT_JCENTER);
-                    txt_value_.set(buf, width() / 2, height() / 2, width() / 2, height());
+                    txt_value_.set(buf, width() / 2, YOFF, width() / 2, height());
                 } else if (prop_value_pos == gensym("right")) {
                     txt_value_.setAnchor(ETEXT_RIGHT);
                     txt_value_.setJustify(ETEXT_JRIGHT);
-                    txt_value_.set(buf, width() - 2, height() / 2, width() / 2, height());
+                    txt_value_.set(buf, width() - 2, YOFF, width() / 2, height());
                 }
 
                 kp.drawText(txt_value_);
