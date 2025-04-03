@@ -43,7 +43,7 @@ static t_symbol* checkPropAlias(const char* s)
         return nullptr;
 }
 
-}
+} // namespace
 
 UIMouseRoute::UIMouseRoute(const PdArgs& args)
     : BaseObject(args)
