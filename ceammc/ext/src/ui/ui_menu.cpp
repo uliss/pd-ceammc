@@ -60,7 +60,7 @@ void UIMenu::okSize(t_rect* newrect)
 #ifdef __WIN32
     newrect->h += 4;
 #elif __linux__
-    newrect->h += 4;
+    newrect->h += 3;
 #endif
 
     item_height_ = newrect->h;
@@ -78,6 +78,12 @@ void UIMenu::paint()
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;
+
+#ifdef __linux__
+    constexpr float TXT_YOFF = 4;
+#else
+    constexpr float TXT_YOFF = 3;
+#endif
 
     if (is_open_) {
         p.setColor(prop_color_border);
@@ -101,7 +107,7 @@ void UIMenu::paint()
 
             const std::string& lbl = labels_[i];
             TextPtr& ptxt = layouts_[i];
-            ptxt->set(lbl.c_str(), 3, itemHeightZoomed() * (i + 1.5), 0, 0);
+            ptxt->set(lbl.c_str(), TXT_YOFF, itemHeightZoomed() * (i + 1.5), 0, 0);
 
             p.drawText(*ptxt);
         }
@@ -127,7 +133,7 @@ void UIMenu::paint()
             const std::string& lbl = labels_[current_idx_];
 
             TextPtr& ptxt = layouts_[current_idx_];
-            ptxt->set(lbl.c_str(), 3, r.h / 2, 0, 0);
+            ptxt->set(lbl.c_str(), TXT_YOFF, r.h / 2, 0, 0);
 
             ptxt->setColor(prop_color_text);
             p.drawText(*ptxt);
