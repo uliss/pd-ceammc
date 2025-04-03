@@ -711,7 +711,7 @@ extern t_class *glob_pdobject;
 
 // ceammc
 #ifdef CEAMMC_MIDI
-static int in_array(int* a, int n, int b)
+static int in_array(const int* a, int n, int b)
 {
     for(int i = 0; i < n; i++) {
         if(a[i] == b)
