@@ -7,9 +7,9 @@
 #X obj 435 11 ceammc/rgb->hex;
 #X obj 569 11 rgb->hex;
 #X obj 652 11 conv.rgb2hex;
-#X obj 50 118 ui.hsl;
-#X obj 126 147 ui.hsl;
-#X obj 194 176 ui.hsl;
+#X obj 50 118 ui.hsl @show_value 1;
+#X obj 126 147 ui.hsl @show_value 1;
+#X obj 194 176 ui.hsl @show_value 1;
 #X obj 50 205 rgb->hex @sync @float;
 #X msg 50 234 color \$1 0 -1;
 #X obj 50 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
