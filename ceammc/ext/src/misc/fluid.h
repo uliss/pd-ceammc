@@ -38,7 +38,7 @@ class FluidSynthProperty;
 class Fluid : public SoundExternal {
     FluidSettingsPtr settings_;
     FluidSynthPtr synth_;
-    t_symbol* sound_font_;
+    SymbolProperty* prop_sf_;
     midi::MidiParser midi_parser_;
     ClockLambdaFunction nvoices_cb_;
     int nvoices_;
@@ -55,7 +55,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
     void samplerateChanged(size_t sr) final;
 
-    bool propSetSoundFont(t_symbol* s);
+    bool loadSoundFont(const char* s);
     AtomList propVersion() const;
     AtomList propSoundFonts() const;
 
@@ -186,6 +186,8 @@ private:
     };
 
     MidiChanValue2 midiByteValue2(t_symbol* method, const char* valueName, const AtomListView& lv, int maxValue = 127) const;
+
+    bool resetSynthSettings(double sr);
 };
 
 void setup_misc_fluid();
