@@ -19,7 +19,6 @@
 #include "proto/proto_midi_parser.h"
 
 #include <memory>
-#include <tuple>
 
 using namespace ceammc;
 
