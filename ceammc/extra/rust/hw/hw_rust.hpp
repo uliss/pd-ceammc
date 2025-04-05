@@ -67,7 +67,7 @@ constexpr static const uint8_t ceammc_HW_MAX7219_REG_DISPLAY_TEST = 15;
 
 constexpr static const int32_t ceammc_HW_MAX7219_ADDRESS_ALL = -1;
 
-constexpr static const int8_t ceammc_HW_RPI_PWM_MIN_CHAN = 0;
+constexpr static const int8_t ceammc_HW_RPI_PWM_MIN_CHAN = -1;
 
 constexpr static const int8_t ceammc_HW_RPI_PWM_MAX_CHAN = 3;
 

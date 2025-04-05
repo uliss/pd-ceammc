@@ -10,8 +10,8 @@ use log::error;
 
 use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
 
-pub const HW_RPI_PWM_MIN_CHAN: i8 = 0x0;
-pub const HW_RPI_PWM_MAX_CHAN: i8 = 0x3;
+pub const HW_RPI_PWM_MIN_CHAN: i8 = -1;
+pub const HW_RPI_PWM_MAX_CHAN: i8 = 3;
 pub const HW_RPI_PWM_NONE_CHAN: i8 = -1;
 
 #[cfg(target_os = "linux")]
@@ -53,6 +53,10 @@ pub extern "C" fn ceammc_hw_rpi_pwm_new(
     on_msg: hw_msg_cb,
 ) -> *mut hw_rpi_pwm {
     rpi_check!(null_mut(), {
+        if channel == HW_RPI_PWM_NONE_CHAN {
+            return null_mut();
+        }
+
         match hw_rpi_pwm::new(channel, notify, on_msg) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
