@@ -16,6 +16,10 @@
                 <alias>ceammc/sfizz~</alias>
             </aliases>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false" keys="Shift">all sounds off</event>
+            <event type="left-click" editmode="false" keys="Alt">all notes off</event>
+        </mouse>
         <arguments>
             <argument name="SF" type="symbol">soundfont path or builtin waveform name: #sine, #tri,
             #saw, #square, #noise</argument>
