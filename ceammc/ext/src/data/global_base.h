@@ -26,7 +26,7 @@ constexpr const char* DEFAULT_ID = "default";
 template <typename T, typename Base = BaseObject>
 class GlobalBase : public Base {
     GlobalData<T> data_;
-    mutable bool on_init_ { true };
+    mutable std::uint8_t call_count_ { 0 };
     GlobalBase(const GlobalBase&) = delete;
     void operator=(const GlobalBase&) = delete;
 
@@ -59,9 +59,7 @@ public:
 
     T& ref()
     {
-        if (on_init_) {
-            on_init_ = false;
-        } else if (std::strcmp(data_.name()->s_name, DEFAULT_ID) == 0) {
+        if (call_count_++ == 1 && std::strcmp(data_.name()->s_name, DEFAULT_ID) == 0) {
             OBJ_DBG << "global object ID is required! Using global object with default id";
         }
 
@@ -70,9 +68,7 @@ public:
 
     const T& ref() const
     {
-        if (on_init_) {
-            on_init_ = false;
-        } else if (std::strcmp(data_.name()->s_name, DEFAULT_ID) == 0) {
+        if (call_count_++ == 1 && std::strcmp(data_.name()->s_name, DEFAULT_ID) == 0) {
             OBJ_DBG << "global object ID is required! Using global object with default id";
         }
 
