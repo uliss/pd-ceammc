@@ -17,7 +17,7 @@
 #include "test_external.h"
 #include "test_sound.h"
 
-PD_COMPLETE_SND_TEST_SETUP(Fluid, misc, fluid_tilde)
+PD_COMPLETE_SND_TEST_SETUP(FluidTilde, misc, fluid_tilde)
 
 #define SF_DIR PROJECT_SOURCE_DIR "/ceammc/extra/fluidsynth/fluidsynth/sf2"
 #define SF_NAME "VintageDreamsWaves-v2.sf2"
@@ -29,7 +29,7 @@ TEST_CASE("misc.fluid~", "[externals]")
 
     SECTION("main")
     {
-        TestExtFluid t("fluid~");
+        TExt t("fluid~");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t.numOutputChannels() == 2);
@@ -50,7 +50,7 @@ TEST_CASE("misc.fluid~", "[externals]")
 
     SECTION("load")
     {
-        TestExtFluid t("fluid~", LA("@sf", "\"" SF_FILE "\""));
+        TExt t("fluid~", LA("@sf", "\"" SF_FILE "\""));
         REQUIRE_PROPERTY(t, @sf, SF_FILE);
     }
 

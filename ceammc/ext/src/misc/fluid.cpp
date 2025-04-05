@@ -127,7 +127,7 @@ public:
     }
 };
 
-Fluid::Fluid(const PdArgs& args)
+FluidTilde::FluidTilde(const PdArgs& args)
     : SoundExternal(args)
     , settings_(nullptr, [](fluid_settings_t* s) { delete_fluid_settings(s); })
     , synth_(nullptr, [](fluid_synth_t* synth) { delete_fluid_synth(synth); })
@@ -153,8 +153,8 @@ Fluid::Fluid(const PdArgs& args)
     createCbSymbolProperty("@version",
         []() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
 
-    createCbProperty("@soundfonts", &Fluid::propSoundFonts);
-    createCbProperty("@presets", &Fluid::propSoundFontPresets);
+    createCbProperty("@soundfonts", &FluidTilde::propSoundFonts);
+    createCbProperty("@presets", &FluidTilde::propSoundFontPresets);
 
     auto reverb_room = new FluidSynthProperty(
         "@reverb_room", synth_,
@@ -294,9 +294,9 @@ Fluid::Fluid(const PdArgs& args)
     bindMidiParser();
 }
 
-Fluid::~Fluid() = default;
+FluidTilde::~FluidTilde() = default;
 
-void Fluid::initDone()
+void FluidTilde::initDone()
 {
     SoundExternal::initDone();
 
@@ -305,18 +305,18 @@ void Fluid::initDone()
         loadSoundFont(DEFAULT_SF_FILE);
 }
 
-void Fluid::onList(const AtomListView& lv)
+void FluidTilde::onList(const AtomListView& lv)
 {
     m_note(&s_, lv);
 }
 
-void Fluid::setupDSP(t_signal** sp)
+void FluidTilde::setupDSP(t_signal** sp)
 {
     nvoices_ = 0;
     SoundExternal::setupDSP(sp);
 }
 
-bool Fluid::loadSoundFont(const char* file)
+bool FluidTilde::loadSoundFont(const char* file)
 {
     if (!synth_) {
         OBJ_ERR << "NULL synth";
@@ -364,7 +364,7 @@ bool Fluid::loadSoundFont(const char* file)
     return true;
 }
 
-AtomList Fluid::propSoundFonts() const
+AtomList FluidTilde::propSoundFonts() const
 {
     AtomList res;
     const int N = fluid_synth_sfcount(synth_.get());
@@ -378,7 +378,7 @@ AtomList Fluid::propSoundFonts() const
     return res;
 }
 
-AtomList Fluid::propSoundFontPresets() const
+AtomList FluidTilde::propSoundFontPresets() const
 {
     AtomList res;
 
@@ -395,7 +395,7 @@ AtomList Fluid::propSoundFontPresets() const
     return res;
 }
 
-void Fluid::m_note(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_note(t_symbol* s, const AtomListView& lv)
 {
     if (!synth_ || !pd_getdspstate())
         return;
@@ -418,7 +418,7 @@ void Fluid::m_note(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, res.chan, fn, res.value, "note", lv);
 }
 
-void Fluid::m_cc(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_cc(t_symbol* s, const AtomListView& lv)
 {
     const auto res = midiByteValue3(s, "CC", "VAL", lv);
     if (!res.ok)
@@ -430,7 +430,7 @@ void Fluid::m_cc(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, res.chan, fn, res.value, "cc", lv);
 }
 
-void Fluid::m_prog(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_prog(t_symbol* s, const AtomListView& lv)
 {
     const auto res = midiByteValue2(s, "PROG", lv, 0x1fff);
     if (!res.ok)
@@ -442,7 +442,7 @@ void Fluid::m_prog(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, res.chan, fn, res.value, "program", lv);
 }
 
-void Fluid::m_bank(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_bank(t_symbol* s, const AtomListView& lv)
 {
     const auto res = midiByteValue2(s, "BANK", lv, 0x1fff);
     if (!res.ok)
@@ -454,7 +454,7 @@ void Fluid::m_bank(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, res.chan, fn, res.value, "bank", lv);
 }
 
-void Fluid::setBend(t_symbol* method, int chan, int value, const AtomListView& args)
+void FluidTilde::setBend(t_symbol* method, int chan, int value, const AtomListView& args)
 {
     auto fn = [](FluidSynthPtr& synth, int chan, int value) -> bool {
         return fluid_synth_pitch_bend(synth.get(), chan, value) == FLUID_OK;
@@ -463,7 +463,7 @@ void Fluid::setBend(t_symbol* method, int chan, int value, const AtomListView& a
     callFluidChannelFn(method, chan, fn, value, BEND_VALUE_NAME, args);
 }
 
-void Fluid::setPan(t_symbol* method, int chan, float fluid_pan_value, const AtomListView& args)
+void FluidTilde::setPan(t_symbol* method, int chan, float fluid_pan_value, const AtomListView& args)
 {
     auto fn = [](FluidSynthPtr& synth, int chan, int value) -> bool {
         return fluid_synth_set_gen(synth.get(), chan, GEN_PAN, value) == FLUID_OK;
@@ -472,12 +472,12 @@ void Fluid::setPan(t_symbol* method, int chan, float fluid_pan_value, const Atom
     callFluidChannelFn(method, chan, fn, fluid_pan_value, PAN_VALUE_NAME, args);
 }
 
-int Fluid::countMidiChannels() const
+int FluidTilde::countMidiChannels() const
 {
     return synth_ ? fluid_synth_count_midi_channels(synth_.get()) : 0;
 }
 
-Fluid::MidiChanValue3 Fluid::midiByteValue3(t_symbol* method,
+FluidTilde::MidiChanValue3 FluidTilde::midiByteValue3(t_symbol* method,
     const char* nName,
     const char* vName,
     const AtomListView& lv) const
@@ -519,7 +519,7 @@ Fluid::MidiChanValue3 Fluid::midiByteValue3(t_symbol* method,
     return { chan - 1, uint8_t(n), uint16_t(v), true };
 }
 
-Fluid::MidiChanValue2 Fluid::midiByteValue2(t_symbol* method,
+FluidTilde::MidiChanValue2 FluidTilde::midiByteValue2(t_symbol* method,
     const char* valueName,
     const AtomListView& lv,
     int maxValue) const
@@ -552,7 +552,7 @@ Fluid::MidiChanValue2 Fluid::midiByteValue2(t_symbol* method,
     return { chan - 1, uint16_t(val), true };
 }
 
-bool Fluid::resetSynthSettings(double sr)
+bool FluidTilde::resetSynthSettings(double sr)
 {
     auto settings = new_fluid_settings();
     if (settings == nullptr) {
@@ -579,7 +579,7 @@ bool Fluid::resetSynthSettings(double sr)
         return true;
 }
 
-void Fluid::m_bend(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_bend(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -593,7 +593,7 @@ void Fluid::m_bend(t_symbol* s, const AtomListView& lv)
     setBend(s, ch.chan, ch.value, lv);
 }
 
-void Fluid::m_bend_int(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_bend_int(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -607,7 +607,7 @@ void Fluid::m_bend_int(t_symbol* s, const AtomListView& lv)
     setBend(s, ch.chan, ch.value + 0x2000, lv);
 }
 
-void Fluid::m_bend_float(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_bend_float(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_float>(lv);
     if (!ch.ok) {
@@ -621,7 +621,7 @@ void Fluid::m_bend_float(t_symbol* s, const AtomListView& lv)
     setBend(s, ch.chan, float_to_uint14(ch.value), lv);
 }
 
-void Fluid::m_gen(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_gen(t_symbol* s, const AtomListView& lv)
 {
     if (synth_ == nullptr)
         return;
@@ -641,13 +641,13 @@ void Fluid::m_gen(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void Fluid::m_panic(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_panic(t_symbol* s, const AtomListView& lv)
 {
     if (synth_)
         fluid_synth_system_reset(synth_.get());
 }
 
-void Fluid::m_reset(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_reset(t_symbol* s, const AtomListView& lv)
 {
     if (!synth_)
         return;
@@ -664,7 +664,7 @@ void Fluid::m_reset(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, chan - 1, fn, 0, "reset", lv);
 }
 
-void Fluid::m_notesOff(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_notesOff(t_symbol* s, const AtomListView& lv)
 {
     if (!synth_)
         return;
@@ -681,7 +681,7 @@ void Fluid::m_notesOff(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, chan - 1, fn, 0, "notes_off", lv);
 }
 
-void Fluid::m_soundOff(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_soundOff(t_symbol* s, const AtomListView& lv)
 {
     if (!synth_)
         return;
@@ -698,7 +698,7 @@ void Fluid::m_soundOff(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, chan - 1, fn, 0, "sounds_off", lv);
 }
 
-void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_sysex(t_symbol* s, const AtomListView& lv)
 {
     if (!synth_)
         return;
@@ -745,7 +745,7 @@ void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "sysex message not handled: " << lv;
 }
 
-void Fluid::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -762,7 +762,7 @@ void Fluid::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, BEND_SENS_VALUE_NAME, lv);
 }
 
-void Fluid::m_tune_cent(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_tune_cent(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_float>(lv);
     if (!ch.ok) {
@@ -779,7 +779,7 @@ void Fluid::m_tune_cent(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, TUNE_CENTS_VALUE_NAME, lv);
 }
 
-void Fluid::m_tune_semi(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_tune_semi(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_float>(lv);
     if (!ch.ok) {
@@ -800,7 +800,7 @@ void Fluid::m_tune_semi(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, TUNE_CENTS_VALUE_NAME, lv);
 }
 
-void Fluid::m_tune_octave(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_tune_octave(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("BANK:i PROG:i f f f f f f f f f f f f");
 
@@ -826,7 +826,7 @@ void Fluid::m_tune_octave(t_symbol* s, const AtomListView& lv)
     selectTune(tune_bank, tune_prog);
 }
 
-void Fluid::m_tune_select(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_tune_select(t_symbol* s, const AtomListView& lv)
 {
     int bank = lv.intAt(0, 0);
     int prog = lv.intAt(1, 0);
@@ -834,7 +834,7 @@ void Fluid::m_tune_select(t_symbol* s, const AtomListView& lv)
     selectTune(bank, prog);
 }
 
-void Fluid::m_pan(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_pan(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -848,7 +848,7 @@ void Fluid::m_pan(t_symbol* s, const AtomListView& lv)
     setPan(s, ch.chan, pan_to_fluid<0, 0x2000, 0x3fff>(ch.value), lv);
 }
 
-void Fluid::m_pan_float(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_pan_float(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_float>(lv);
     if (!ch.ok) {
@@ -862,7 +862,7 @@ void Fluid::m_pan_float(t_symbol* s, const AtomListView& lv)
     setPan(s, ch.chan, pan_to_fluid<-1, 0, 1>(ch.value), lv);
 }
 
-void Fluid::m_pan_int(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_pan_int(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -876,7 +876,7 @@ void Fluid::m_pan_int(t_symbol* s, const AtomListView& lv)
     setPan(s, ch.chan, pan_to_fluid<-0x2000, 0, 0x1fff>(ch.value), lv);
 }
 
-void Fluid::m_hold_pedal(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_hold_pedal(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -893,7 +893,7 @@ void Fluid::m_hold_pedal(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, HOLD_VALUE_NAME, lv);
 }
 
-void Fluid::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -910,7 +910,7 @@ void Fluid::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, SOSTENUTO_VALUE_NAME, lv);
 }
 
-void Fluid::m_soft_pedal(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_soft_pedal(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -927,7 +927,7 @@ void Fluid::m_soft_pedal(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, SOFT_VALUE_NAME, lv);
 }
 
-void Fluid::m_legato_pedal(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_legato_pedal(t_symbol* s, const AtomListView& lv)
 {
     const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
@@ -944,7 +944,7 @@ void Fluid::m_legato_pedal(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, LEGATO_VALUE_NAME, lv);
 }
 
-void Fluid::m_set_channel_preset(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_set_channel_preset(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("CHAN:i[1,16] PRESET:a SFONT:i>=0?");
     if (!chk.check(lv, this, s)) {
@@ -987,7 +987,7 @@ void Fluid::m_set_channel_preset(t_symbol* s, const AtomListView& lv)
     METHOD_ERR(s) << "preset not found: " << PRESET;
 }
 
-void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_midi(t_symbol* s, const AtomListView& lv)
 {
     for (auto& byte : lv) {
         if (byte.isFloat()) {
@@ -998,7 +998,7 @@ void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void Fluid::m_aftertouch(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_aftertouch(t_symbol* s, const AtomListView& lv)
 {
     auto res = midiByteValue2(s, "VEL", lv);
     if (!res.ok)
@@ -1014,7 +1014,7 @@ void Fluid::m_aftertouch(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, res.chan, fn, res.value, "aftertouch", lv);
 }
 
-void Fluid::m_polytouch(t_symbol* s, const AtomListView& lv)
+void FluidTilde::m_polytouch(t_symbol* s, const AtomListView& lv)
 {
     auto res = midiByteValue3(s, "NOTE", "VEL", lv);
     if (!res.ok)
@@ -1030,7 +1030,7 @@ void Fluid::m_polytouch(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, res.chan, fn, res.value, "polytouch", lv);
 }
 
-void Fluid::dump() const
+void FluidTilde::dump() const
 {
     SoundExternal::dump();
 
@@ -1085,7 +1085,7 @@ void Fluid::dump() const
     OBJ_DBG << "settings: \n";
 
     fluid_settings_foreach(settings_.get(), (void*)this, [](void* data, const char* name, int type) {
-        auto obj = static_cast<const Fluid*>(data);
+        auto obj = static_cast<const FluidTilde*>(data);
         if (!obj)
             return;
 
@@ -1128,7 +1128,7 @@ void Fluid::dump() const
     OBJ_DBG << "gain: " << fluid_synth_get_gain(synth_.get());
 }
 
-void Fluid::selectTune(int bank, int prog)
+void FluidTilde::selectTune(int bank, int prog)
 {
     if (!synth_)
         return;
@@ -1137,7 +1137,7 @@ void Fluid::selectTune(int bank, int prog)
         OBJ_ERR << "can't select tuning: " << bank << ':' << prog;
 }
 
-void Fluid::bindMidiParser()
+void FluidTilde::bindMidiParser()
 {
     midi_parser_.setNoteOnFn([this](int chan, int note, int vel) {
         if (synth_)
@@ -1178,7 +1178,7 @@ void Fluid::bindMidiParser()
     });
 }
 
-void Fluid::processBlock(const t_sample** in, t_sample** out)
+void FluidTilde::processBlock(const t_sample** in, t_sample** out)
 {
     if (synth_ == nullptr)
         return;
@@ -1209,13 +1209,13 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void Fluid::samplerateChanged(size_t sr)
+void FluidTilde::samplerateChanged(size_t sr)
 {
     resetSynthSettings(sr);
     loadSoundFont(prop_sf_->cstr());
 }
 
-void Fluid::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+void FluidTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
 {
     if (shift && alt) {
         m_panic(gensym(M_PANIC), {});
@@ -1241,44 +1241,44 @@ void setup_misc_fluid_tilde()
     fluid_set_log_function(FLUID_INFO, [](int level, const char* message, void* data) { LIB_POST << "[fluid~ INFO] " << message; }, nullptr);
     fluid_set_log_function(FLUID_DBG, [](int level, const char* message, void* data) { LIB_DBG << "[fluid~] " << message; }, nullptr);
 
-    SoundExternalFactory<Fluid> obj("fluid~", OBJECT_FACTORY_DEFAULT);
+    SoundExternalFactory<FluidTilde> obj("fluid~", OBJECT_FACTORY_DEFAULT);
 
-    obj.addMethod("note", &Fluid::m_note);
-    obj.addMethod("cc", &Fluid::m_cc);
-    obj.addMethod("prog", &Fluid::m_prog);
-    obj.addMethod("bank", &Fluid::m_bank);
-    obj.addMethod(M_AFTER_TOUCH, &Fluid::m_aftertouch);
-    obj.addMethod(M_POLY_TOUCH, &Fluid::m_polytouch);
+    obj.addMethod("note", &FluidTilde::m_note);
+    obj.addMethod("cc", &FluidTilde::m_cc);
+    obj.addMethod("prog", &FluidTilde::m_prog);
+    obj.addMethod("bank", &FluidTilde::m_bank);
+    obj.addMethod(M_AFTER_TOUCH, &FluidTilde::m_aftertouch);
+    obj.addMethod(M_POLY_TOUCH, &FluidTilde::m_polytouch);
 
-    obj.addMethod("bend", &Fluid::m_bend);
-    obj.addMethod("bend:i", &Fluid::m_bend_int);
-    obj.addMethod("bend:f", &Fluid::m_bend_float);
-    obj.addMethod(M_BEND_SENSIVITY, &Fluid::m_set_bend_sens);
+    obj.addMethod("bend", &FluidTilde::m_bend);
+    obj.addMethod("bend:i", &FluidTilde::m_bend_int);
+    obj.addMethod("bend:f", &FluidTilde::m_bend_float);
+    obj.addMethod(M_BEND_SENSIVITY, &FluidTilde::m_set_bend_sens);
 
-    obj.addMethod("gen", &Fluid::m_gen);
-    obj.addMethod(M_PANIC, &Fluid::m_panic);
-    obj.addMethod("reset", &Fluid::m_reset);
-    obj.addMethod(M_ALL_NOTES_OFF, &Fluid::m_notesOff);
-    obj.addMethod(M_ALL_SOUND_OFF, &Fluid::m_soundOff);
-    obj.addMethod("sysex", &Fluid::m_sysex);
-    obj.addMethod("midi", &Fluid::m_midi);
+    obj.addMethod("gen", &FluidTilde::m_gen);
+    obj.addMethod(M_PANIC, &FluidTilde::m_panic);
+    obj.addMethod("reset", &FluidTilde::m_reset);
+    obj.addMethod(M_ALL_NOTES_OFF, &FluidTilde::m_notesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &FluidTilde::m_soundOff);
+    obj.addMethod("sysex", &FluidTilde::m_sysex);
+    obj.addMethod("midi", &FluidTilde::m_midi);
 
-    obj.addMethod(M_TUNE_SELECT, &Fluid::m_tune_select);
-    obj.addMethod(M_TUNE_FINE, &Fluid::m_tune_cent);
-    obj.addMethod(M_TUNE_CENTS, &Fluid::m_tune_cent);
-    obj.addMethod(M_TUNE_SEMITONES, &Fluid::m_tune_semi);
-    obj.addMethod(M_TUNE_OCTAVE, &Fluid::m_tune_octave);
+    obj.addMethod(M_TUNE_SELECT, &FluidTilde::m_tune_select);
+    obj.addMethod(M_TUNE_FINE, &FluidTilde::m_tune_cent);
+    obj.addMethod(M_TUNE_CENTS, &FluidTilde::m_tune_cent);
+    obj.addMethod(M_TUNE_SEMITONES, &FluidTilde::m_tune_semi);
+    obj.addMethod(M_TUNE_OCTAVE, &FluidTilde::m_tune_octave);
 
-    obj.addMethod("pan", &Fluid::m_pan);
-    obj.addMethod(M_PAN_POSITION_FLOAT, &Fluid::m_pan_float);
-    obj.addMethod(M_PAN_POSITION_INT, &Fluid::m_pan_int);
+    obj.addMethod("pan", &FluidTilde::m_pan);
+    obj.addMethod(M_PAN_POSITION_FLOAT, &FluidTilde::m_pan_float);
+    obj.addMethod(M_PAN_POSITION_INT, &FluidTilde::m_pan_int);
 
-    obj.addMethod(M_HOLD_PEDAL, &Fluid::m_hold_pedal);
-    obj.addMethod(M_SOSTENUTO_PEDAL, &Fluid::m_sostenuto_pedal);
-    obj.addMethod(M_SOFT_PEDAL, &Fluid::m_soft_pedal);
-    obj.addMethod("legato", &Fluid::m_legato_pedal);
+    obj.addMethod(M_HOLD_PEDAL, &FluidTilde::m_hold_pedal);
+    obj.addMethod(M_SOSTENUTO_PEDAL, &FluidTilde::m_sostenuto_pedal);
+    obj.addMethod(M_SOFT_PEDAL, &FluidTilde::m_soft_pedal);
+    obj.addMethod("legato", &FluidTilde::m_legato_pedal);
 
-    obj.addMethod("set_preset", &Fluid::m_set_channel_preset);
+    obj.addMethod("set_preset", &FluidTilde::m_set_channel_preset);
 
     obj.useClick();
 }

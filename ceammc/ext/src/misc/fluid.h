@@ -35,7 +35,7 @@ class FluidSynthProperty;
 /**
  * @note MIDI channels are 1-based in PureData
  */
-class Fluid : public SoundExternal {
+class FluidTilde : public SoundExternal {
     FluidSettingsPtr settings_;
     FluidSynthPtr synth_;
     SymbolProperty* prop_sf_;
@@ -44,8 +44,8 @@ class Fluid : public SoundExternal {
     int nvoices_;
 
 public:
-    Fluid(const PdArgs& args);
-    ~Fluid() override;
+    FluidTilde(const PdArgs& args);
+    ~FluidTilde() override;
 
     void initDone() override;
 
