@@ -83,18 +83,29 @@
 
       [unsubscribe \#http #e(        [unregister \#osc CEAM #g(
 
+        [resolve \#osc CEAM #j(
+
+
       [T]                          [net.mdns #y]
       |
       [@fullname $1(
       |
 [net.mdns #x]
+| |
+| [print]
 |
-[print]
+[route resolve]
+|
+[msg.unpack 5 #z]
+
+     [F #k]    [S digits=16 #l]
+
 
 [net.mdns-ifaces]
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
-[X f->y] [X g->y] [X h->x] [X i->x]
+[X f->y] [X g->y] [X h->x] [X i->x] [X j->x]
+[X z:3->k] [X z:4->l]
 ]]>
             </pdascii>
             <pdascii id="ifaces">
