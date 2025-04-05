@@ -24,8 +24,8 @@ StringSubstr::StringSubstr(const PdArgs& a)
 
     from_ = new IntProperty("@from", 0);
     from_->setArgIndex(0);
-    len_ = new IntProperty("@len", size_t(-1));
-    len_->checkMinEq(0);
+    len_ = new IntProperty("@len", -1);
+    len_->checkMinEq(-1);
     len_->setArgIndexNext(from_);
 
     addProperty(from_);
@@ -34,7 +34,10 @@ StringSubstr::StringSubstr(const PdArgs& a)
 
 void StringSubstr::onDataT(const StringAtom& str)
 {
-    atomTo(0, StringAtom(str->substr(from_->value(), len_->value())));
+    if (len_->value() < 0)
+        atomTo(0, StringAtom(str->substr(from_->value(), std::numeric_limits<size_t>::max())));
+    else
+        atomTo(0, StringAtom(str->substr(from_->value(), len_->value())));
 }
 
 void StringSubstr::onSymbol(t_symbol* s)
@@ -58,5 +61,5 @@ void setup_string_substr()
 
     obj.setDescription("extract substring from input string");
     obj.setCategory("string");
-    obj.setKeywords({"substring"});
+    obj.setKeywords({ "substring" });
 }
