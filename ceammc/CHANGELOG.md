@@ -39,9 +39,11 @@
 - new properties:
   - dict->list @props flag added to output as list of properties
   - snd.play~ @on_err property added to specify sending errors address
+  - fluid~ @presets property added
 - new methods:
   - open method added to snd.play~ for readsf~ compatibility
   - [set matrix( set method added to ui.matrix
+  - [set_preset( method added to fluid~ to set soundfont preset for midi channel
 - new aliases:
   - list.hist alias added for list.histogram
   - array.histogram alias added for array.hist
