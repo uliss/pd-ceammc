@@ -90,6 +90,7 @@ const VOICES: [&'static str; 48] = [
 ];
 
 fn default_download_directory() -> String {
+    #[allow(unused_mut)]
     let mut home = match homedir::get_my_home() {
         Ok(dir) => match dir {
             Some(path) => path,
