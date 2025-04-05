@@ -1237,7 +1237,7 @@ void setup_misc_fluid_tilde()
 
     fluid_set_log_function(FLUID_PANIC, [](int level, const char* message, void* data) { LIB_ERR << "[fluid~ PANIC!!!] " << message; }, nullptr);
     fluid_set_log_function(FLUID_ERR, [](int level, const char* message, void* data) { LIB_ERR << "[fluid~] " << message; }, nullptr);
-    fluid_set_log_function(FLUID_WARN, [](int level, const char* message, void* data) { LIB_POST << "[fluid~ WARN] " << message; }, nullptr);
+    fluid_set_log_function(FLUID_WARN, [](int level, const char* message, void* data) { LIB_DBG << "[fluid~ WARN] " << message; }, nullptr);
     fluid_set_log_function(FLUID_INFO, [](int level, const char* message, void* data) { LIB_POST << "[fluid~ INFO] " << message; }, nullptr);
     fluid_set_log_function(FLUID_DBG, [](int level, const char* message, void* data) { LIB_DBG << "[fluid~] " << message; }, nullptr);
 
