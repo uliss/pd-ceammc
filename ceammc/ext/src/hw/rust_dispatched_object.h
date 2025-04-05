@@ -66,7 +66,7 @@ protected:
     {
         auto prop = new IntProperty("@pwm_ch", ceammc_HW_RPI_PWM_NONE_CHAN);
         prop->setInitOnly();
-        prop->checkClosedRange(ceammc_HW_RPI_PWM_NONE_CHAN, ceammc_HW_RPI_PWM_MAX_CHAN);
+        prop->checkClosedRange(ceammc_HW_RPI_PWM_MIN_CHAN, ceammc_HW_RPI_PWM_MAX_CHAN);
         this->addProperty(prop);
         return prop;
     }
