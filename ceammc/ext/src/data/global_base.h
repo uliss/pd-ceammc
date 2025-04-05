@@ -17,6 +17,8 @@
 #include "ceammc_globaldata.h"
 #include "ceammc_object.h"
 
+#include <cstring>
+
 namespace ceammc {
 
 constexpr const char* DEFAULT_ID = "default";
@@ -24,6 +26,7 @@ constexpr const char* DEFAULT_ID = "default";
 template <typename T, typename Base = BaseObject>
 class GlobalBase : public Base {
     GlobalData<T> data_;
+    mutable bool on_init_ { true };
     GlobalBase(const GlobalBase&) = delete;
     void operator=(const GlobalBase&) = delete;
 
@@ -36,9 +39,6 @@ public:
         id->setInitOnly();
         id->setArgIndex(0);
         this->addProperty(id);
-
-        if (data_.name() == gensym(DEFAULT_ID))
-            OBJ_DBG << "global object ID required! Using default id: " << data_.name();
     }
 
     void dump() const override
@@ -57,8 +57,27 @@ public:
         }
     }
 
-    T& ref() { return data_.ref(); }
-    const T& ref() const { return data_.ref(); }
+    T& ref()
+    {
+        if (on_init_) {
+            on_init_ = false;
+        } else if (std::strcmp(data_.name()->s_name, DEFAULT_ID) == 0) {
+            OBJ_DBG << "global object ID is required! Using global object with default id";
+        }
+
+        return data_.ref();
+    }
+
+    const T& ref() const
+    {
+        if (on_init_) {
+            on_init_ = false;
+        } else if (std::strcmp(data_.name()->s_name, DEFAULT_ID) == 0) {
+            OBJ_DBG << "global object ID is required! Using global object with default id";
+        }
+
+        return data_.ref();
+    }
 
     t_symbol* id() const { return data_.name(); }
 

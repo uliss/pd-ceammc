@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "global_set.h"
-#include "ceammc_factory.h"
 
 GlobalSet::GlobalSet(const PdArgs& a)
     : GlobalSetBase(a)
