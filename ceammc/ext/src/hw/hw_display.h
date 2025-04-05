@@ -33,7 +33,7 @@ class HwDisplay : public BaseObject {
     x11_display::X11Display display_;
 #endif
 public:
-    HwDisplay(const PdArgs& args);
+    explicit HwDisplay(const PdArgs& args);
 
     t_float propBrightness() const;
     bool setPropBrightness(t_float v);
