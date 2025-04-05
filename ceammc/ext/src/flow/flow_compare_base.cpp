@@ -91,8 +91,8 @@ const char* FlowCompareBase::annotateOutlet(size_t n) const
 void FlowCompareBase::usage(bool err)
 {
     if (err) {
-        OBJ_ERR << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
+        OBJ_ERR << "Object is not initialized. Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
     } else {
-        OBJ_DBG << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
+        OBJ_DBG << "Object is not initialized. Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
     }
 }
