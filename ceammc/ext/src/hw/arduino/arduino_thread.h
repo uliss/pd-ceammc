@@ -32,13 +32,13 @@ namespace hw {
         static serial::PortInfo findDeviceBySerialNo(const PortList& lst, const std::string& serialNo);
         static serial::PortInfo findFreeArduino(const PortList& lst);
 
-        static serial::PortInfo waitForArduinoPort(Arduino *arduino, const std::string& port);
+        static serial::PortInfo waitForArduinoPort(Arduino* arduino, const std::string& port);
         static serial::PortInfo waitForArduinoUsbSerial(Arduino* arduino, const std::string& id);
-        static serial::PortInfo waitForArduinoVendorId(Arduino *arduino, int id);
+        static serial::PortInfo waitForArduinoVendorId(Arduino* arduino, int id);
         static serial::PortInfo waitForArduinoId(Arduino* arduino, int vendorId, int productId);
-        static serial::PortInfo waitForFreeArduino(Arduino *arduino);
+        static serial::PortInfo waitForFreeArduino(Arduino* arduino);
 
-        static serial::PortInfo waitForArduino(Arduino *arduino);
+        static serial::PortInfo waitForArduino(Arduino* arduino);
 
         static bool parseArduinoId(const std::string& str, int& vid, int& pid, std::string& serialNo);
     };
@@ -47,14 +47,14 @@ namespace hw {
         std::string name_;
 
     public:
-        ArduinoConnected(const std::string& name);
+        explicit ArduinoConnected(const std::string& name);
         ~ArduinoConnected();
 
     public:
         static bool connect(const std::string& name);
         static bool disconnect(const std::string& name);
     };
-}
-}
+} // namespace hw
+} // namespace ceammc
 
 #endif // ARDUINO_THREAD_H
