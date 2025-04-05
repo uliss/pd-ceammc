@@ -56,8 +56,8 @@ public:
     void samplerateChanged(size_t sr) final;
 
     bool loadSoundFont(const char* s);
-    AtomList propVersion() const;
     AtomList propSoundFonts() const;
+    AtomList propSoundFontPresets() const;
 
     void m_note(t_symbol* s, const AtomListView& lv);
     void m_cc(t_symbol* s, const AtomListView& lv);
@@ -86,6 +86,8 @@ public:
     void m_sostenuto_pedal(t_symbol* s, const AtomListView& lv);
     void m_soft_pedal(t_symbol* s, const AtomListView& lv);
     void m_legato_pedal(t_symbol* s, const AtomListView& lv);
+
+    void m_set_channel_preset(t_symbol* s, const AtomListView& lv);
 
     void dump() const override;
 

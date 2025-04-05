@@ -12,23 +12,23 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fluid.h"
-
 #include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 #include "fmt/core.h"
+#include "midi/midi_names.h"
 #include "proto/proto_midi_cc.h"
-#include <utility>
 
 #include "fluidsynth.h"
-#include "midi/midi_names.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
+CEAMMC_DEFINE_SYM_HASH(default)
+
 constexpr const char* DEFAULT_SF_FILE = "sf2/WaveSine.sf2";
-constexpr const char* DEFAULT_SF_NAME = "default";
 constexpr const char* PAN_VALUE_NAME = "pan position";
 constexpr const char* BEND_VALUE_NAME = "pitchbend";
 constexpr const char* BEND_SENS_VALUE_NAME = "pitchbend sensivity";
@@ -140,10 +140,7 @@ Fluid::Fluid(const PdArgs& args)
 
     resetSynthSettings(sys_getsr());
 
-    if (!synth_)
-        OBJ_ERR << "couldn't create synth";
-
-    prop_sf_ = new SymbolProperty("@sf", &s_);
+    prop_sf_ = new SymbolProperty("@sf", sym_default());
     prop_sf_->setArgIndex(0);
     prop_sf_->setSymbolCheckFn([this](t_symbol* s) {
         if (s)
@@ -157,6 +154,7 @@ Fluid::Fluid(const PdArgs& args)
         []() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
+    createCbProperty("@presets", &Fluid::propSoundFontPresets);
 
     auto reverb_room = new FluidSynthProperty(
         "@reverb_room", synth_,
@@ -300,7 +298,7 @@ void Fluid::initDone()
     SoundExternal::initDone();
 
     // load default soundfont
-    if (prop_sf_->value() == &s_)
+    if (prop_sf_->value() == &s_ || prop_sf_->value() == sym_default())
         loadSoundFont(DEFAULT_SF_FILE);
 }
 
@@ -322,9 +320,7 @@ bool Fluid::loadSoundFont(const char* file)
         return false;
     }
 
-    std::string filename = findInStdPaths(std::strcmp(file, "default") == 0
-            ? DEFAULT_SF_FILE
-            : file);
+    std::string filename = findInStdPaths(std::strcmp(file, str_default) == 0 ? DEFAULT_SF_FILE : file);
 
     if (filename.empty()) {
         filename = platform::find_in_exernal_dir(owner(), file);
@@ -335,9 +331,27 @@ bool Fluid::loadSoundFont(const char* file)
         }
     }
 
-    if (fluid_synth_sfload(synth_.get(), filename.c_str(), 0) != FLUID_FAILED) {
-        OBJ_DBG << "loaded soundfont: " << filename;
-        fluid_synth_program_reset(synth_.get());
+    constexpr bool RESET_PRESETS = true;
+    auto sf_id = fluid_synth_sfload(synth_.get(), filename.c_str(), RESET_PRESETS);
+    if (sf_id != FLUID_FAILED) {
+        OBJ_DBG << "loaded soundfont: " << filename << ", id: " << sf_id;
+
+        auto sf = fluid_synth_get_sfont_by_id(synth_.get(), sf_id);
+        if (sf) {
+            const auto NCH = fluid_synth_count_midi_channels(synth_.get());
+            int midi_ch = 0;
+            fluid_preset_t* preset = nullptr;
+            fluid_sfont_iteration_start(sf);
+            while ((preset = fluid_sfont_iteration_next(sf))) {
+                if (midi_ch >= NCH)
+                    break;
+
+                auto bank = fluid_preset_get_banknum(preset);
+                auto num = fluid_preset_get_num(preset);
+
+                fluid_synth_program_select(synth_.get(), midi_ch++, sf_id, bank, num);
+            }
+        }
 
     } else {
         OBJ_ERR << "can't load soundfont: " << file;
@@ -356,6 +370,23 @@ AtomList Fluid::propSoundFonts() const
         auto sf = fluid_synth_get_sfont(synth_.get(), i);
         const char* name = fluid_sfont_get_name(sf);
         res.append(Atom(gensym(name)));
+    }
+
+    return res;
+}
+
+AtomList Fluid::propSoundFontPresets() const
+{
+    AtomList res;
+
+    if (synth_.get()) {
+        auto sf = fluid_synth_get_sfont(synth_.get(), 0);
+        if (sf) {
+            fluid_preset_t* preset = nullptr;
+            fluid_sfont_iteration_start(sf);
+            while ((preset = fluid_sfont_iteration_next(sf)))
+                res.append(gensym(fluid_preset_get_name(preset)));
+        }
     }
 
     return res;
@@ -526,17 +557,19 @@ bool Fluid::resetSynthSettings(double sr)
         return false;
     }
 
+    synth_.reset();
+    settings_.reset(settings);
+
     if (fluid_settings_setnum(settings, "synth.sample-rate", sr) != FLUID_OK) {
         OBJ_ERR << "can't set synth sample rate";
-        delete_fluid_settings(settings);
+        settings_.reset();
         return false;
     }
 
     // fluid_settings_setnum(settings, "synth.midi-channels", 16);
-
     synth_.reset(new_fluid_synth(settings));
 
-    if (synth_) {
+    if (!synth_) {
         OBJ_ERR << "couldn't create synth";
         return false;
     } else
@@ -908,6 +941,46 @@ void Fluid::m_legato_pedal(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, LEGATO_VALUE_NAME, lv);
 }
 
+void Fluid::m_set_channel_preset(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[1,16] PRESET:a SFONT:i>=0?");
+    if (!chk.check(lv, this, s)) {
+        return chk.usage(this, s);
+    }
+
+    const auto MIDI_CHAN = lv.intAt(0, 0);
+    const auto PRESET = lv.atomAt(1, Atom(0.0));
+    const auto SF_IDX = lv.intAt(2, 0);
+    auto sf = fluid_synth_get_sfont(synth_.get(), SF_IDX);
+    if (!sf) {
+        METHOD_ERR(s) << fmt::format("soundfont with index {} was not found", SF_IDX);
+        return;
+    }
+
+    fluid_preset_t* preset = nullptr;
+    fluid_sfont_iteration_start(sf);
+    int pidx = 0;
+    while ((preset = fluid_sfont_iteration_next(sf))) {
+        auto num = fluid_preset_get_num(preset);
+        auto name = fluid_preset_get_name(preset);
+
+        if ((PRESET.isInteger()
+                && PRESET.asInt() == pidx)
+            || (PRESET.isSymbol()
+                && (std::strcmp(PRESET.asSymbol()->s_name, name) == 0))) {
+            auto sf_id = fluid_sfont_get_id(sf);
+            auto bank = fluid_preset_get_banknum(preset);
+            fluid_synth_program_select(synth_.get(), MIDI_CHAN - 1, sf_id, bank, num);
+            METHOD_DBG(s) << fmt::format("set preset '{}' of '{}' to  MIDI channel: {}", name, fluid_sfont_get_name(sf), MIDI_CHAN);
+            return;
+        }
+
+        pidx++;
+    }
+
+    METHOD_ERR(s) << "preset not found: " << PRESET;
+}
+
 void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
 {
     for (auto& byte : lv) {
@@ -981,24 +1054,24 @@ void Fluid::dump() const
         }
     }
 
-    int NMIDI = fluid_synth_count_midi_channels(synth_.get());
+    const auto NMIDI = fluid_synth_count_midi_channels(synth_.get());
     OBJ_DBG << " channels:";
 
     for (int i = 0; i < NMIDI; i++) {
-        fluid_preset_t* preset = fluid_synth_get_channel_preset(synth_.get(), i);
+        auto preset = fluid_synth_get_channel_preset(synth_.get(), i);
 
         if (preset != nullptr) {
             const char* preset_name = fluid_preset_get_name(preset);
             int sf_id;
             int bank_num;
             int prog_num;
-            fluid_sfont_t* sf;
 
-            fluid_synth_get_program(synth_.get(), i, &sf_id, &bank_num, &prog_num);
-            sf = fluid_synth_get_sfont_by_id(synth_.get(), sf_id);
+            if (fluid_synth_get_program(synth_.get(), i, &sf_id, &bank_num, &prog_num) == FLUID_OK) {
+                auto sf = fluid_synth_get_sfont_by_id(synth_.get(), sf_id);
 
-            post("  %d: soundfont '%s', bank %d, program %d: '%s'",
-                i + 1, fluid_sfont_get_name(sf), bank_num, prog_num, preset_name);
+                post("  %d: soundfont '%s', bank %d, program %d: '%s'",
+                    i + 1, fluid_sfont_get_name(sf), bank_num, prog_num, preset_name);
+            }
         } else
             post("  channel %d: no preset", i + 1);
     }
@@ -1021,12 +1094,6 @@ void Fluid::dump() const
             if (fluid_settings_getnum(settings, name, &val) == FLUID_OK) {
                 if (has_range && has_default)
                     post("  %s: %g [min=%g max=%g def=%g]", name, val, dmin, dmax, ddef);
-                else if (has_range)
-                    post("  %s: %g [min=%g max=%g]", name, val, dmin, dmax);
-                else if (has_default)
-                    post("  %s: %g [def=%g]", name, ddef);
-                else
-                    post("  %s: %g", name);
             }
 
         } break;
@@ -1146,6 +1213,12 @@ void setup_misc_fluid()
 {
     LIB_DBG << fmt::format("fluidsynth version: {}", fluid_version_str());
 
+    fluid_set_log_function(FLUID_PANIC, [](int level, const char* message, void* data) { LIB_ERR << "[fluid~ PANIC!!!] " << message; }, nullptr);
+    fluid_set_log_function(FLUID_ERR, [](int level, const char* message, void* data) { LIB_ERR << "[fluid~] " << message; }, nullptr);
+    fluid_set_log_function(FLUID_WARN, [](int level, const char* message, void* data) { LIB_POST << "[fluid~ WARN] " << message; }, nullptr);
+    fluid_set_log_function(FLUID_INFO, [](int level, const char* message, void* data) { LIB_POST << "[fluid~ INFO] " << message; }, nullptr);
+    fluid_set_log_function(FLUID_DBG, [](int level, const char* message, void* data) { LIB_DBG << "[fluid~] " << message; }, nullptr);
+
     SoundExternalFactory<Fluid> obj("fluid~", OBJECT_FACTORY_DEFAULT);
 
     obj.addMethod("note", &Fluid::m_note);
@@ -1182,4 +1255,6 @@ void setup_misc_fluid()
     obj.addMethod(M_SOSTENUTO_PEDAL, &Fluid::m_sostenuto_pedal);
     obj.addMethod(M_SOFT_PEDAL, &Fluid::m_soft_pedal);
     obj.addMethod("legato", &Fluid::m_legato_pedal);
+
+    obj.addMethod("set_preset", &Fluid::m_set_channel_preset);
 }

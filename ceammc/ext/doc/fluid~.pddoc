@@ -232,28 +232,43 @@
 |
 |
 |
-|            [hradio]
-|            |
-[msg note 1] [prog 1 $1(
-|            |
-| [dump(     |
-| |          | [@sf sf2/VintageDreamsWaves-v2.sf2(
-| |          | |
-[fluid~        ]
+|         [ui.hrd @nitems 4]            /*program change on MIDI chan 1*/
+|         |.
+[flow.demux 4 #a]                       [hradio]
+                                        |
+                                        |
+[msg #n1] [msg #n2] [msg #n3] [msg #n4] [prog 1 $1 #b(
+
+
+ [dump #e([@sf sf2/VintageDreamsWaves-v2.sf2 #c(
+
+          [@sf sf2/waves.sf2 #d(
+
+[fluid~      #z]
 *|*
 [ui.hgain2~]   [ui.dsp~]
 *|*
 [dac~]
 
-[fluid~-bend]   [fluid~-tune]    [fluid~-pan]  [fluid~-bank]
+[fluid~-bend]   [fluid~-tune]     [fluid~-pan]  [fluid~-bank]
 
-[fluid~-midi]   [fluid~-tune-12] [fluid~-prog] [fluid~-notesoff]
+[fluid~-midi]   [fluid~-tune-12]  [fluid~-prog] [fluid~-notesoff]
 
-[fluid~-pedals] [fluid~-soundoff]
+[fluid~-pedals] [fluid~-soundoff] [fluid~-presets]
+
+#n1 note 1
+#n2 note 2
+#n3 note 3
+#n4 note 4
+[X a:0->n1] [X a:1->n2] [X a:2->n3] [X a:3->n4] [X b->z]
+[X n1->z]   [X n2->z]   [X n3->z]   [X n4->z]
+[X c->z]    [X d->z]    [X e->z]
 ]]>
             </pdascii>
             <pdascii id="bend">
 <![CDATA[
+/*Shift+Click to hold note*/
+
 [ui.keyboard 25 48]
 |
 |                   [loadmsg 1]
@@ -452,6 +467,47 @@
 *|*
 [dac~]
 [X a->z]
+]]>
+            </pdascii>
+            <pdascii id="presets">
+<![CDATA[
+[ui.keyboard 25 48]                [ui.dsp~]
+|
+|
+|
+|
+|
+|   [ui.hrd 4]
+|   |
+|   [+ 1]
+|   |.
+[msg 1]       [loadbang]
+|             |
+[msg note #c] [del 100]
+              |
+              [set_preset 1 tri, set_preset 2 square_mod, set_preset 3 saw, set_preset 4 sine_mod #a(
+
+
+
+              [B]
+              |
+              [prop.get @presets #b]
+              ^|
+              [msg @items]
+              |
+              [ui.menu @nosave 1]
+              |
+              [set_preset 1 $2 #d(
+
+
+
+[fluid~ sf2/waves.sf2 #z]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+
+[X a->z] [X b->z] [X c->z] [X d->z]
 ]]>
             </pdascii>
         </example>
