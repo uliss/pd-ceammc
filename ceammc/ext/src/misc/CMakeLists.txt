@@ -23,7 +23,7 @@ target_link_libraries(ceammc_misc PRIVATE qrcode)
 
 if(WITH_FLUIDSYNTH)
     target_link_libraries(ceammc_misc PUBLIC fluidsynth ceammc_proto)
-    target_sources(ceammc_misc PRIVATE fluid.cpp)
+    target_sources(ceammc_misc PRIVATE fluid_tilde.h fluid_tilde.cpp)
     target_compile_definitions(ceammc_misc PRIVATE -DWITH_FLUIDSYNTH=1)
 endif()
 

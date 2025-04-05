@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
-#include "fluid.h"
+#include "fluid_tilde.h"
 #include "test_base.h"
 #include "test_external.h"
 #include "test_sound.h"
