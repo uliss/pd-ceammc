@@ -1,12 +1,13 @@
 #include "list_resize.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 static const size_t MAX_SIZE = 1024;
 
-static t_symbol* SYM_PAD;
-static t_symbol* SYM_CLIP;
-static t_symbol* SYM_WRAP;
-static t_symbol* SYM_FOLD;
+CEAMMC_DEFINE_SYM(pad);
+CEAMMC_DEFINE_SYM(clip);
+CEAMMC_DEFINE_SYM(wrap);
+CEAMMC_DEFINE_SYM(fold);
 
 ListResize::ListResize(const PdArgs& a)
     : BaseObject(a)
@@ -38,13 +39,13 @@ void ListResize::onList(const AtomListView& lv)
         return;
     }
 
-    if (m == SYM_PAD) {
+    if (m == sym_pad()) {
         tmp.resizePad(n, pad_);
-    } else if (m == SYM_CLIP) {
+    } else if (m == sym_clip()) {
         tmp.resizeClip(n);
-    } else if (m == SYM_WRAP) {
+    } else if (m == sym_wrap()) {
         tmp.resizeWrap(n);
-    } else if (m == SYM_FOLD) {
+    } else if (m == sym_fold()) {
         tmp.resizeFold(n);
     }
 
@@ -64,34 +65,28 @@ void ListResize::initProperties()
     // @pad - pad with specified value (@pad_value property)
     // @wrap - pad with wrapped values
     // @fold - pad with fold values
-    method_ = new SymbolEnumProperty("@method", { SYM_PAD, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    method_ = new SymbolEnumProperty("@method", { sym_pad(), sym_clip(), sym_wrap(), sym_fold() });
     addProperty(method_);
 
     // adding aliases
-    addProperty(new SymbolEnumAlias("@pad", method_, SYM_PAD));
-    addProperty(new SymbolEnumAlias("@clip", method_, SYM_CLIP));
-    addProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
-    addProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@clip", method_, sym_clip()));
+    addProperty(new SymbolEnumAlias("@wrap", method_, sym_wrap()));
+    addProperty(new SymbolEnumAlias("@fold", method_, sym_fold()));
 
     createCbAtomProperty(
         "@pad",
         [this]() -> Atom { return pad_; },
         [this](const Atom& a) -> bool {
             pad_ = a;
-            method_->setValue(SYM_PAD);
+            method_->setValue(sym_pad());
             return true; });
 }
 
 void setup_list_resize()
 {
-    SYM_PAD = gensym("pad");
-    SYM_CLIP = gensym("clip");
-    SYM_WRAP = gensym("wrap");
-    SYM_FOLD = gensym("fold");
-
     ObjectFactory<ListResize> obj("list.resize");
 
     obj.setDescription("changes list size");
     obj.setCategory("list");
-    obj.setKeywords({"list", "size", "resize"});
+    obj.setKeywords({ "list", "size", "resize" });
 }
