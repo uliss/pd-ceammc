@@ -44,7 +44,7 @@ class FluidTilde : public SoundExternal {
     int nvoices_;
 
 public:
-    FluidTilde(const PdArgs& args);
+    explicit FluidTilde(const PdArgs& args);
     ~FluidTilde() override;
 
     void initDone() override;
