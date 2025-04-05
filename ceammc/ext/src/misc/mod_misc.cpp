@@ -36,7 +36,7 @@ void ceammc_misc_setup()
 #endif
 
 #ifdef WITH_FLUIDSYNTH
-    setup_misc_fluid();
+    setup_misc_fluid_tilde();
 #endif
 
 #ifdef WITH_SFIZZ

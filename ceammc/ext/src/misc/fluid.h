@@ -55,6 +55,8 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
     void samplerateChanged(size_t sr) final;
 
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) final;
+
     bool loadSoundFont(const char* s);
     AtomList propSoundFonts() const;
     AtomList propSoundFontPresets() const;
@@ -192,6 +194,6 @@ private:
     bool resetSynthSettings(double sr);
 };
 
-void setup_misc_fluid();
+void setup_misc_fluid_tilde();
 
 #endif // FLUID_H

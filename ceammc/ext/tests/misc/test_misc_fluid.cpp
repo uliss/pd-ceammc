@@ -17,7 +17,7 @@
 #include "test_external.h"
 #include "test_sound.h"
 
-PD_COMPLETE_SND_TEST_SETUP(Fluid, misc, fluid)
+PD_COMPLETE_SND_TEST_SETUP(Fluid, misc, fluid_tilde)
 
 #define SF_DIR PROJECT_SOURCE_DIR "/ceammc/extra/fluidsynth/fluidsynth/sf2"
 #define SF_NAME "VintageDreamsWaves-v2.sf2"
@@ -33,7 +33,7 @@ TEST_CASE("misc.fluid~", "[externals]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t.numOutputChannels() == 2);
-        REQUIRE_PROPERTY(t, @sf, "");
+        REQUIRE_PROPERTY(t, @sf, "default");
         REQUIRE_PROPERTY_LIST(t, @soundfonts, L());
         REQUIRE_PROPERTY_FLOAT(t, @reverb_room, 0.2);
         REQUIRE_PROPERTY_FLOAT(t, @reverb_damp, 0.);

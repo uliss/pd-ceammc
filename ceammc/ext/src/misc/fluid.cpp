@@ -233,6 +233,9 @@ Fluid::Fluid(const PdArgs& args)
             return true;
         });
     volume->setUnits(PropValueUnits::DB);
+    if (volume->info().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)volume->info().setRangeFloat(-60, 20);
+
     addProperty(volume);
 
     auto polyphony = new FluidSynthProperty(
@@ -948,6 +951,9 @@ void Fluid::m_set_channel_preset(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
+    if (!synth_)
+        return;
+
     const auto MIDI_CHAN = lv.intAt(0, 0);
     const auto PRESET = lv.atomAt(1, Atom(0.0));
     const auto SF_IDX = lv.intAt(2, 0);
@@ -1209,7 +1215,23 @@ void Fluid::samplerateChanged(size_t sr)
     loadSoundFont(prop_sf_->cstr());
 }
 
-void setup_misc_fluid()
+void Fluid::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+{
+    if (shift && alt) {
+        m_panic(gensym(M_PANIC), {});
+        OBJ_POST << M_PANIC;
+    } else if (shift) {
+        m_soundOff(gensym(M_ALL_SOUND_OFF), {});
+        OBJ_POST << M_ALL_SOUND_OFF;
+    } else if (alt) {
+        m_notesOff(gensym(M_ALL_NOTES_OFF), {});
+        OBJ_POST << M_ALL_NOTES_OFF;
+    } else {
+        OBJ_POST << fmt::format("Alt+Shift+CliK: {}, Shift+Click: {}, Alt+Click: {}", M_PANIC, M_ALL_SOUND_OFF, M_ALL_NOTES_OFF);
+    }
+}
+
+void setup_misc_fluid_tilde()
 {
     LIB_DBG << fmt::format("fluidsynth version: {}", fluid_version_str());
 
@@ -1257,4 +1279,6 @@ void setup_misc_fluid()
     obj.addMethod("legato", &Fluid::m_legato_pedal);
 
     obj.addMethod("set_preset", &Fluid::m_set_channel_preset);
+
+    obj.useClick();
 }
