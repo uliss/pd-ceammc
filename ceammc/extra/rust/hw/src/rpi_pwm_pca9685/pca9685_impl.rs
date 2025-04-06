@@ -4,7 +4,7 @@ use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     rpi_pwm_pca9685::{HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MIN_FREQ_HZ, HW_PCA9685_OSC_VALUE},
-    send_error,
+    send_debug, send_error,
 };
 use log::{debug, error};
 use pwm_pca9685::{Address, Channel, Pca9685};
@@ -90,7 +90,7 @@ impl hw_pca9685 {
 
         worker.spawn(tx.clone(), notify, move || {
             let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
-            debug!("I2c init: {i2c:?}");
+            debug!("I2C init: {i2c:?}");
 
             let address = match i2c_addr {
                 I2cAddress::Default => Address::default(),
@@ -98,7 +98,13 @@ impl hw_pca9685 {
                 I2cAddress::Invalid(x) => return Err(format!("invalid I2c address: {x}")),
                 I2cAddress::Addr(addr) => Address::from(addr),
             };
-            debug!("using addr: {address:?}");
+            debug!("using I2C addr: {address:?}");
+
+            send_debug(
+                &tx,
+                notify,
+                format!("connected to bus:{} addr:{:?}", i2c.bus(), address).as_str(),
+            );
 
             let mut pwm = Pca9685::new(i2c, address).map_err(|err| err.to_string())?;
             let mut pwm_freq = FreqData::new(50.0);
