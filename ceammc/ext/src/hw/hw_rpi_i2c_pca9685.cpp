@@ -2,6 +2,23 @@
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
+namespace {
+
+ceammc_hw_pca8695_prog_address to_prog_address(const Atom& type)
+{
+    if (type == 1)
+        return ceammc_hw_pca8695_prog_address::Subaddress1;
+    else if (type == 2)
+        return ceammc_hw_pca8695_prog_address::Subaddress2;
+    else if (type == 3)
+        return ceammc_hw_pca8695_prog_address::Subaddress3;
+    else if (type == "all")
+        return ceammc_hw_pca8695_prog_address::AllCall;
+    else
+        return ceammc_hw_pca8695_prog_address::Subaddress1;
+}
+} // namespace
+
 HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
@@ -87,6 +104,39 @@ void HwI2cPca8695::m_pulse_width(t_symbol* s, const AtomListView& lv)
     ceammc_hw_pca9685_set_pulse_width(pwm_, chan, width_ms, phase);
 }
 
+void HwI2cPca8695::m_use_prog_addr(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("TYPE:a=1|2|3|all ADDR:b");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_pca8695_prog_address addr_type;
+    auto type = lv.atomAt(0, 1);
+    auto i2c_addr = lv.intAt(1, 41);
+    ceammc_hw_pca9685_use_prog_addr(pwm_, to_prog_address(type), i2c_addr);
+}
+
+void HwI2cPca8695::m_disable_prog_addr(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("TYPE:a=1|2|3|all");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    ceammc_hw_pca8695_prog_address addr_type;
+    auto type = lv.atomAt(0, 1);
+    ceammc_hw_pca9685_disable_prog_addr(pwm_, to_prog_address(type));
+}
+
+void HwI2cPca8695::m_restart(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_pca9685_restart(pwm_);
+}
+
+void HwI2cPca8695::m_enable_restart_and_disable(t_symbol* s, const AtomListView& lv)
+{
+    ceammc_hw_pca9685_enable_restart_and_disable(pwm_);
+}
+
 void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("PERIOD:f[0.5,40]");
@@ -102,7 +152,7 @@ void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_pca9685i_set_polarity(pwm_,
+    ceammc_hw_pca9685_set_polarity(pwm_,
         lv.boolAt(0, true)
             ? ceammc_hw_rpi_pwm_polarity::INVERSE
             : ceammc_hw_rpi_pwm_polarity::NORMAL);
@@ -140,4 +190,9 @@ void setup_hw_rpi_i2c_pca9685()
     obj.addMethod("polarity", &HwI2cPca8695::m_polarity);
     obj.addMethod("pw", &HwI2cPca8695::m_pulse_width);
     obj.addMethod("set_raw", &HwI2cPca8695::m_set_raw);
+
+    obj.addMethod("use_prog_addr", &HwI2cPca8695::m_use_prog_addr);
+    obj.addMethod("disable_prog_addr", &HwI2cPca8695::m_disable_prog_addr);
+    obj.addMethod("restart", &HwI2cPca8695::m_restart);
+    obj.addMethod("enable_restart_and_disable", &HwI2cPca8695::m_enable_restart_and_disable);
 }
