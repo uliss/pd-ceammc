@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>hw</category>
             <keywords>display gpio raspberry</keywords>
-            <since>0.9.9</since>
+            <since>0.9.8</since>
         </meta>
         <methods>
             <method name="input">config pin into input mode 

@@ -326,10 +326,11 @@ set(DOC_FILES
     hw.printer
     hw.rpi.display.ssd1306
     hw.rpi.gpio
+    hw.rpi.i2c.pca9685
     hw.rpi.pwm
     hw.rpi.rotenc
-    hw.rpi.sensor.ir
     hw.rpi.sensor.dht11
+    hw.rpi.sensor.ir
     hw.rpi.sensor.mpu6050
     hw.rpi.sensor.sr04
     hw.rpi.sensor.vl53l0x

@@ -1045,6 +1045,9 @@
     <entry name="hw.rpi.gpio" descr="Raspberry Pi GPIO support" ref_view="object">
       <xi:include href="hw.rpi.gpio.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.rpi.i2c.pca9685" descr="PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry Pi" ref_view="object">
+      <xi:include href="hw.rpi.i2c.pca9685.pddoc" parse="xml"/>
+    </entry>
     <entry name="hw.rpi.pwm" descr="Hardware PWM output for RaspberryPi" ref_view="object">
       <xi:include href="hw.rpi.pwm.pddoc" parse="xml"/>
     </entry>
