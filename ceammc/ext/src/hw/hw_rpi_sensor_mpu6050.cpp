@@ -19,7 +19,11 @@ HwRpiSensorMpu6050::~HwRpiSensorMpu6050()
 
 void HwRpiSensorMpu6050::initDone()
 {
-    mpu_ = ceammc_hw_mpu6050_new(i2c_bus_->value(),
+    std::int8_t bus = 0;
+    if (!i2c_bus_->getBus(bus))
+        return;
+
+    mpu_ = ceammc_hw_mpu6050_new(bus,
         i2c_addr_->value(),
         on_notify(),
         on_message(),

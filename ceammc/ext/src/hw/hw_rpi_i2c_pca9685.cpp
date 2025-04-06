@@ -18,7 +18,11 @@ HwI2cPca8695::~HwI2cPca8695()
 
 void HwI2cPca8695::initDone()
 {
-    pwm_ = ceammc_hw_pca9685_new(i2c_bus_->value(),
+    std::int8_t bus = 0;
+    if (!i2c_bus_->getBus(bus))
+        return;
+
+    pwm_ = ceammc_hw_pca9685_new(bus,
         i2c_addr_->value(),
         on_notify(),
         on_message());
@@ -123,8 +127,8 @@ void HwI2cPca8695::m_freq(t_symbol* s, const AtomListView& lv)
 
 void setup_hw_rpi_i2c_pca9685()
 {
-    ObjectFactory<HwI2cPca8695> obj("hw.rpi.pwm.pca9685");
-    obj.addAlias("hw.rpi.i2c.pca9685");
+    ObjectFactory<HwI2cPca8695> obj("hw.rpi.i2c.pca9685");
+    obj.addAlias("hw.rpi.pwm.pca9685");
 
     obj.addMethod("const", &HwI2cPca8695::m_const);
     obj.addMethod("duty", &HwI2cPca8695::m_duty);

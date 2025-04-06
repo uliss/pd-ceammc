@@ -52,12 +52,15 @@ void HwRpiDisplaySsd1306::initDone()
 
     switch (crc32_hash(mode_->value())) {
     case hash_i2c: {
-        display_ = ceammc_hw_display_ssd1306_new_i2c(
-            i2c_bus_->value(),
-            i2c_addr_->value(),
-            w, h,
-            on_notify(),
-            on_message());
+        std::int8_t bus = 0;
+        if (i2c_bus_->getBus(bus)) {
+            display_ = ceammc_hw_display_ssd1306_new_i2c(
+                bus,
+                i2c_addr_->value(),
+                w, h,
+                on_notify(),
+                on_message());
+        }
     } break;
     case hash_spi: {
         if (spi_gpio_dc_pin_->value() < 0) {

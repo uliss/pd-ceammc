@@ -8,7 +8,7 @@ using namespace ceammc;
 
 class HwRpiSensorMpu6050 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_mpu6050* mpu_ { nullptr };
-    IntProperty* i2c_bus_ { nullptr };
+    I2cBusProperty* i2c_bus_ { nullptr };
     IntProperty* i2c_addr_ { nullptr };
 
 public:

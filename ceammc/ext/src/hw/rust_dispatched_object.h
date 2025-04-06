@@ -3,11 +3,36 @@
 
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
+#include "ceammc_property_enum.h"
 #include "hw_rust.hpp"
 
 #define CEAMMC_OBJECT_ADD_METHOD(obj, cls, method) obj.addMethod(#method, &cls::m_##method);
 
 namespace ceammc {
+
+class I2cBusProperty : public EnumProperty<Atom> {
+public:
+    I2cBusProperty(const char* name)
+        : EnumProperty<Atom>(name, { Atom(gensym("none")), 1, 2, 3, 4, 5, 6, gensym("default") })
+    {
+    }
+
+    bool isNone() const { return value() == "none"; }
+    bool isValid() const { return !isNone(); }
+
+    bool getBus(std::int8_t& bus) const
+    {
+        if (isNone()) {
+            return false;
+        } else if (value() == "default") {
+            bus = ceammc_HW_I2C_DEFAULT_BUS;
+            return true;
+        } else {
+            bus = value().asT<t_int>();
+            return true;
+        }
+    }
+};
 
 template <class T>
 class RustDispatchedObject : public DispatchedObject<T> {
@@ -44,11 +69,10 @@ protected:
             } };
     }
 
-    IntProperty* addI2cBusProperty()
+    I2cBusProperty* addI2cBusProperty()
     {
-        auto prop = new IntProperty("@i2c_bus", ceammc_HW_I2C_DEFAULT_BUS);
+        auto prop = new I2cBusProperty("@i2c_bus");
         prop->setInitOnly();
-        prop->checkClosedRange(ceammc_HW_I2C_MIN_BUS, ceammc_HW_I2C_MAX_BUS);
         this->addProperty(prop);
         return prop;
     }

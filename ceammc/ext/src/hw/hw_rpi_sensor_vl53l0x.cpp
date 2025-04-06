@@ -18,7 +18,11 @@ HwRpiSensorVl53l0x::~HwRpiSensorVl53l0x()
 
 void HwRpiSensorVl53l0x::initDone()
 {
-    vc_ = ceammc_hw_sensor_vl53l0x_new(i2c_bus_->value(), //
+    std::int8_t bus = 0;
+    if (!i2c_bus_->getBus(bus))
+        return;
+
+    vc_ = ceammc_hw_sensor_vl53l0x_new(bus,
         i2c_addr_->value(),
         on_notify(), //
         { this, [](void* user, std::uint16_t mm) {

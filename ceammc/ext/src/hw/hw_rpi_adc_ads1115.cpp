@@ -76,6 +76,10 @@ HwRpiAdcAds1115::~HwRpiAdcAds1115()
 
 void HwRpiAdcAds1115::initDone()
 {
+    std::int8_t bus = 0;
+    if (!i2c_bus_->getBus(bus))
+        return;
+
     ceammc_hw_i2c_ads1115_measure_mode mode {};
     switch (crc32_hash(mode_->value())) {
     case hash_diff:
@@ -87,7 +91,7 @@ void HwRpiAdcAds1115::initDone()
         break;
     }
 
-    adc_ = ceammc_hw_ads1115_new(i2c_bus_->value(),
+    adc_ = ceammc_hw_ads1115_new(bus,
         i2c_addr_->value(),
         mode,
         on_notify(),
