@@ -7,7 +7,7 @@ use crate::{
     send_debug, send_error,
 };
 use log::{debug, error};
-use pwm_pca9685::{Address, Channel, Pca9685};
+use pwm_pca9685::{Address, Channel, Pca9685, ProgrammableAddress};
 
 use super::{hw_pca9685, Pca9685Worker, Reply, Request, HW_PCA9685_ALL_CHAN};
 
@@ -33,6 +33,20 @@ fn to_channel(ch: u8) -> Channel {
         15 => Channel::C15,
         HW_PCA9685_ALL_CHAN => Channel::All,
         _ => Channel::All,
+    }
+}
+
+impl Into<ProgrammableAddress> for crate::rpi_pwm_pca9685::hw_pca8695_prog_address {
+    fn into(self) -> ProgrammableAddress {
+        use crate::rpi_pwm_pca9685::hw_pca8695_prog_address;
+        use pwm_pca9685::ProgrammableAddress::*;
+
+        match self {
+            hw_pca8695_prog_address::Subaddress1 => Subaddress1,
+            hw_pca8695_prog_address::Subaddress2 => Subaddress2,
+            hw_pca8695_prog_address::Subaddress3 => Subaddress3,
+            hw_pca8695_prog_address::AllCall => AllCall,
+        }
     }
 }
 
@@ -207,6 +221,21 @@ impl hw_pca9685 {
                         .unwrap_or_else(|err| {
                             send_error(&tx, notify, err.to_string().as_str());
                         });
+                    }
+                    Request::UseProgAddress(sub_addr, i2c_addr) => {
+                        let sub_addr = sub_addr.into();
+                        pwm.set_programmable_address(sub_addr, i2c_addr)
+                            .and_then(|_| pwm.enable_programmable_address(sub_addr))
+                            .and_then(|_| pwm.set_address(Address::from(i2c_addr)))
+                            .unwrap_or_else(|err| {
+                                send_error(&tx, notify, err.to_string().as_str());
+                            });
+                    }
+                    Request::DisableProgAddress(addr) => {
+                        pwm.disable_programmable_address(addr.into())
+                            .unwrap_or_else(|err| {
+                                send_error(&tx, notify, err.to_string().as_str());
+                            });
                     }
                 }
             }

@@ -194,6 +194,13 @@ enum class ceammc_hw_msg_level {
     Info,
 };
 
+enum class ceammc_hw_pca8695_prog_address {
+    Subaddress1,
+    Subaddress2,
+    Subaddress3,
+    AllCall,
+};
+
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -962,8 +969,15 @@ bool ceammc_hw_pca9685_set_pulse_width(const ceammc_hw_pca9685 *pwm,
                                        float width_ms,
                                        float phase);
 
+bool ceammc_hw_pca9685i_disable_prog_addr(const ceammc_hw_pca9685 *pwm,
+                                          ceammc_hw_pca8695_prog_address addr_type);
+
 bool ceammc_hw_pca9685i_set_polarity(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_rpi_pwm_polarity polarity);
+
+bool ceammc_hw_pca9685i_use_prog_addr(const ceammc_hw_pca9685 *pwm,
+                                      ceammc_hw_pca8695_prog_address addr_type,
+                                      uint8_t i2c_addr);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,

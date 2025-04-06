@@ -25,6 +25,15 @@ pub const HW_PCA9685_MAX_PERIOD_MS: f32 = 1000.0 / HW_PCA9685_MIN_FREQ_HZ as f32
 pub const HW_PCA9685_ALL_CHAN: u8 = 16;
 
 #[derive(Debug)]
+#[repr(C)]
+pub enum hw_pca8695_prog_address {
+    Subaddress1,
+    Subaddress2,
+    Subaddress3,
+    AllCall,
+}
+
+#[derive(Debug)]
 pub enum Request {
     Enable(bool),
     SetChanOnOff(u8, u16, u16),
@@ -34,6 +43,8 @@ pub enum Request {
     SetChanPulseWidth(u8, f32, f32),
     SetChanDutyCycle(u8, f32, Option<f32>),
     SetChanConst(u8, bool, f32),
+    UseProgAddress(hw_pca8695_prog_address, u8),
+    DisableProgAddress(hw_pca8695_prog_address),
 }
 
 #[derive(Debug, PdMessage)]
@@ -163,4 +174,21 @@ pub extern "C" fn ceammc_hw_pca9685i_set_polarity(
     polarity: hw_rpi_pwm_polarity,
 ) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::SetPolarity(polarity)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pca9685i_use_prog_addr(
+    pwm: *const hw_pca9685,
+    addr_type: hw_pca8695_prog_address,
+    i2c_addr: u8,
+) -> bool {
+    rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::UseProgAddress(addr_type, i2c_addr)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pca9685i_disable_prog_addr(
+    pwm: *const hw_pca9685,
+    addr_type: hw_pca8695_prog_address,
+) -> bool {
+    rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::DisableProgAddress(addr_type)) });
 }
