@@ -8,6 +8,8 @@ HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
     createOutlet();
 
     i2c_bus_ = addI2cBusProperty();
+    i2c_bus_->setArgIndex(0);
+
     i2c_addr_ = addI2cAddrProperty();
 }
 
