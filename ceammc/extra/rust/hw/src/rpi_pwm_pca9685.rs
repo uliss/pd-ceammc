@@ -45,6 +45,7 @@ pub enum Request {
     SetChanConst(u8, bool, f32),
     UseProgAddress(hw_pca8695_prog_address, u8),
     DisableProgAddress(hw_pca8695_prog_address),
+    Restart,
 }
 
 #[derive(Debug, PdMessage)]
@@ -191,4 +192,9 @@ pub extern "C" fn ceammc_hw_pca9685i_disable_prog_addr(
     addr_type: hw_pca8695_prog_address,
 ) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::DisableProgAddress(addr_type)) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pca9685i_restart(pwm: *const hw_pca9685) -> bool {
+    rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::Restart) });
 }

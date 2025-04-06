@@ -972,6 +972,8 @@ bool ceammc_hw_pca9685_set_pulse_width(const ceammc_hw_pca9685 *pwm,
 bool ceammc_hw_pca9685i_disable_prog_addr(const ceammc_hw_pca9685 *pwm,
                                           ceammc_hw_pca8695_prog_address addr_type);
 
+bool ceammc_hw_pca9685i_restart(const ceammc_hw_pca9685 *pwm);
+
 bool ceammc_hw_pca9685i_set_polarity(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_rpi_pwm_polarity polarity);
 
