@@ -102,6 +102,8 @@
 | |
 | |
 [hw.rpi.pwm.pca9685 default]
+
+[ui.link @url=ceammc://img/conn_pca9685.png @title='Connection']
 ]]>
             </pdascii>
         </example>
