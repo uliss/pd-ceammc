@@ -29,7 +29,7 @@ constexpr static const int8_t ceammc_HW_I2C_DEFAULT_BUS = -1;
 
 constexpr static const int8_t ceammc_HW_I2C_MIN_BUS = -1;
 
-constexpr static const int8_t ceammc_HW_I2C_MAX_BUS = 15;
+constexpr static const int8_t ceammc_HW_I2C_MAX_BUS = 6;
 
 constexpr static const int8_t ceammc_HW_I2C_DEFAULT_ADDR = -1;
 
