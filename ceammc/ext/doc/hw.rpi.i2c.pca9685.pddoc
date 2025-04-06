@@ -42,7 +42,8 @@
             <param name="PHASE" type="float" required="false" minvalue="-1" maxvalue="1">phase
             offset</param></method>
             <!-- enable -->
-            <method name="enable">enable/disable the device 
+            <method name="enable">enable/disable the device. The disabled state is equal to sleep, the device
+            is keeping all current PWM setting, but just not responds to the new settings.
             <param name="STATE" type="bool" default="1">new state</param></method>
             <!-- freq -->
             <method name="freq">set PWM frequency 
@@ -64,8 +65,8 @@
             time value</param>
             <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
             time value</param></method>
-            <!-- pwidth -->
-            <method name="pwidth">set channel PWM pulse width 
+            <!-- pw -->
+            <method name="pw">set channel PWM pulse width
             <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
             channel. If equals to 16 means all channels</param>
             <param name="WIDTH" type="float" required="true" minvalue="0.5" maxvalue="40"
@@ -84,8 +85,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[loadbang]
+[T]
 |
+[enable $1(
+|
+| [ui.hsl]
+| |
+| [l->l 0 1 0.5 2.5]
+| |
+| [clip 0.5 2.5]
+| |
+| [pw 0 $1(
+| |
+| |
 [hw.rpi.pwm.pca9685 default]
 ]]>
             </pdascii>
