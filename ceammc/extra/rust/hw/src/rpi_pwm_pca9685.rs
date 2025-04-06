@@ -171,7 +171,7 @@ pub extern "C" fn ceammc_hw_pca9685_set_duty_cycle(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685i_set_polarity(
+pub extern "C" fn ceammc_hw_pca9685_set_polarity(
     pwm: *const hw_pca9685,
     polarity: hw_rpi_pwm_polarity,
 ) -> bool {
@@ -179,7 +179,7 @@ pub extern "C" fn ceammc_hw_pca9685i_set_polarity(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685i_use_prog_addr(
+pub extern "C" fn ceammc_hw_pca9685_use_prog_addr(
     pwm: *const hw_pca9685,
     addr_type: hw_pca8695_prog_address,
     i2c_addr: u8,
@@ -188,7 +188,7 @@ pub extern "C" fn ceammc_hw_pca9685i_use_prog_addr(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685i_disable_prog_addr(
+pub extern "C" fn ceammc_hw_pca9685_disable_prog_addr(
     pwm: *const hw_pca9685,
     addr_type: hw_pca8695_prog_address,
 ) -> bool {
@@ -196,11 +196,11 @@ pub extern "C" fn ceammc_hw_pca9685i_disable_prog_addr(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685i_restart(pwm: *const hw_pca9685) -> bool {
+pub extern "C" fn ceammc_hw_pca9685_restart(pwm: *const hw_pca9685) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::Restart) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685i_enable_restart_and_disable(pwm: *const hw_pca9685) -> bool {
+pub extern "C" fn ceammc_hw_pca9685_enable_restart_and_disable(pwm: *const hw_pca9685) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::EnableRestartAndDisable) });
 }
