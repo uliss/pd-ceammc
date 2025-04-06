@@ -17,14 +17,17 @@
         <info>
             <par>Temperature range: 0..+50°C ±2°C</par>
             <par>Humidity range: 20-90%RH ±5%RH</par>
-            <par>When using a 3.5V voltage supply cable length shall not be greater than 20cm. Otherwise, the line
-            voltage drop will cause the sensor power supply shortage, caused by measurement error</par>
+            <par>When using a 3.5V voltage supply cable length shall not be greater than 20cm.
+            Otherwise, the line voltage drop will cause the sensor power supply shortage, caused by
+            measurement error</par>
         </info>
         <arguments>
-            <argument name="PIN" type="int" minvalue="-1" maxvalue="255">GPIO pin to connect. See @pin</argument>
+            <argument name="PIN" type="int" minvalue="-1" maxvalue="255">GPIO pin to connect. See
+            @pin</argument>
         </arguments>
         <properties>
-            <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="255" access="initonly">GPIO connection pin</property>
+            <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="255"
+            access="initonly">GPIO connection pin</property>
         </properties>
         <methods>
             <method name="poll">turn the sensor polling on/off 

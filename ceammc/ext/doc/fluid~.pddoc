@@ -29,8 +29,8 @@
             <argument name="SF" type="symbol">soundfont path</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol" default="default">soundfont path, you can use **default** value to
-            load default soundfont</property>
+            <property name="@sf" type="symbol" default="default">soundfont path, you can use
+            **default** value to load default soundfont</property>
             <property name="@version" type="symbol" access="readonly" default="2.3.2">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" access="readonly" default="">list of found
@@ -55,7 +55,8 @@
             load</property>
             <property name="@bufsize" type="float" units="sample" default="0" access="readonly">
             internal buffer size</property>
-            <property name="@presets" type="list" default="" access="readonly">presets name for current soundfont</property>
+            <property name="@presets" type="list" default="" access="readonly">presets name for
+            current soundfont</property>
         </properties>
         <methods>
             <!-- aftertouch -->
@@ -220,11 +221,12 @@
             <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">tuning
             preset (not related to MIDI instrument program)</param></method>
             <!-- set preset -->
-            <method name="set_preset">set soundfont preset for midi channel
-            <param name="CHAN" type="int" minvalue="1" maxvalue="16" required="true">MIDI channel</param>
+            <method name="set_preset">set soundfont preset for midi channel 
+            <param name="CHAN" type="int" minvalue="1" maxvalue="16" required="true">MIDI
+            channel</param>
             <param name="PRESET" type="atom" required="true">preset name or index</param>
-            <param name="SFONT" type="int" minvalue="1" required="false">soundfont index. See @soundfonts property.</param>
-            </method>
+            <param name="SFONT" type="int" minvalue="1" required="false">soundfont index. See
+            @soundfonts property.</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -26,7 +26,8 @@
             <param name="STATE" type="bool" required="true">poll state</param></method>
         </methods>
         <properties>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none" access="initonly">I²C bus</property>
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-2"
             maxvalue="119">I2C address. The value -1 means default device I2C address
             (0x29)</property>

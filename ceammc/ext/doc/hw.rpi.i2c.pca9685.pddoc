@@ -20,8 +20,10 @@
             <argument name="I2C_BUS" type="atom">See @i2c_bus property</argument>
         </arguments>
         <properties>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none" access="initonly">I²C bus</property>
-            <property name="@i2c_addr" type="int" default="-1" minvalue="-2" maxvalue="119" access="initonly">I²C address. If equal -1, use first</property>
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
+            <property name="@i2c_addr" type="int" default="-1" minvalue="-2" maxvalue="119"
+            access="initonly">I²C address. If equal -1, use first</property>
         </properties>
         <methods>
             <method name="period">method</method>
