@@ -33,7 +33,8 @@
             direction.</par>
         </info>
         <arguments>
-            <argument name="I2C_BUS" type="atom">See @i2c_bus property</argument>
+            <argument name="I2C_BUS" type="atom" enum="1 2 3 4 5 6 default none">See @i2c_bus
+            property</argument>
         </arguments>
         <properties>
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -71,7 +72,7 @@
             <param name="PERIOD" type="float" units="millisecond" required="true" minvalue="0.5"
             maxvalue="40">new frequency</param></method>
             <!-- polarity -->
-            <method name="polarity">set PWM inversed polarity. Applicable when OE = 0.
+            <method name="polarity">set PWM inversed polarity. Applicable when OE = 0. 
             <param name="POLARITY" type="bool" required="true">polarity value: 0 - direct, 1 -
             inversed</param></method>
             <!-- set raw -->
@@ -90,6 +91,22 @@
             units="millisecond">pulse width</param>
             <param name="PHASE" type="float" required="false" minvalue="0" maxvalue="1">phase
             offset</param></method>
+            <!-- use_prog_addr -->
+            <method name="use_prog_addr">set and use programmable address 
+            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
+            type</param>
+            <param name="I2C_ADDR" type="int" required="true" minvalue="7" maxvalue="119">new I²C
+            address</param></method>
+            <!-- disable_prog_addr -->
+            <method name="disable_prog_addr">disable of using programmable address 
+            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
+            type</param></method>
+            <!-- restart -->
+            <method name="restart">re-enable the controller after a sleep with restart enabled so
+            that previously active PWM channels are restarted</method>
+            <!-- enable_restart_and_disable -->
+            <method name="enable_restart_and_disable">put the controller to sleep while keeping the
+            PWM register contents in preparation for a future restart</method>
         </methods>
         <inlets>
             <inlet>
