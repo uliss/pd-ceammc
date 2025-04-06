@@ -71,7 +71,7 @@
             <param name="PERIOD" type="float" units="millisecond" required="true" minvalue="0.5"
             maxvalue="40">new frequency</param></method>
             <!-- polarity -->
-            <method name="polarity">set PWM inversed polarity 
+            <method name="polarity">set PWM inversed polarity. Applicable when OE = 0.
             <param name="POLARITY" type="bool" required="true">polarity value: 0 - direct, 1 -
             inversed</param></method>
             <!-- set raw -->
