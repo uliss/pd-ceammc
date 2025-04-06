@@ -26,14 +26,52 @@
             access="initonly">I²C address. If equal -1, use first</property>
         </properties>
         <methods>
-            <method name="period">method</method>
-            <method name="set_raw">method</method>
-            <method name="freq">method</method>
-            <method name="const">method</method>
-            <method name="duty">method</method>
-            <method name="width">method</method>
-            <method name="enable">method</method>
-            <method name="polarity">method</method>
+            <!-- const -->
+            <method name="const">set channel constant value 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="VALUE" type="bool" required="true">value</param>
+            <param name="DELAY" type="float" required="false" minvalue="0" maxvalue="1">the setting
+            is delayed by the given phase value.</param></method>
+            <!-- duty -->
+            <method name="duty">set channel PWM duty cycle 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="DUTY" type="float" required="true" minvalue="-1" maxvalue="1">duty cycle
+            value</param>
+            <param name="PHASE" type="float" required="false" minvalue="-1" maxvalue="1">phase
+            offset</param></method>
+            <!-- enable -->
+            <method name="enable">enable/disable the device 
+            <param name="STATE" type="bool" default="1">new state</param></method>
+            <!-- freq -->
+            <method name="freq">set PWM frequency 
+            <param name="FREQ" type="float" units="hertz" required="true" minvalue="24"
+            maxvalue="2048">new frequency</param></method>
+            <!-- period -->
+            <method name="period">set PWM period 
+            <param name="PERIOD" type="float" units="millisecond" required="true" minvalue="0.5"
+            maxvalue="40">new frequency</param></method>
+            <!-- polarity -->
+            <method name="polarity">set PWM inversed polarity 
+            <param name="POLARITY" type="bool" required="true">polarity value: 0 - direct, 1 -
+            inversed</param></method>
+            <!-- set raw -->
+            <method name="set_raw">set channel raw PWM frequency 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="ON" type="int" minvalue="0" maxvalue="4095" required="true">ON counter
+            time value</param>
+            <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
+            time value</param></method>
+            <!-- pwidth -->
+            <method name="pwidth">set channel PWM pulse width 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="WIDTH" type="float" required="true" minvalue="0.5" maxvalue="40"
+            units="millisecond">pulse width</param>
+            <param name="PHASE" type="float" required="false" minvalue="0" maxvalue="1">phase
+            offset</param></method>
         </methods>
         <inlets>
             <inlet>
