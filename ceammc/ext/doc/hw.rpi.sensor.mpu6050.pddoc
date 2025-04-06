@@ -24,9 +24,7 @@
             pointing down.</method>
         </methods>
         <properties>
-            <property name="@i2c_bus" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="15">I2C bus. Use it if you have several I2C buses in the system. The value -1
-            means a default system bus</property>
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none" access="initonly">I²C bus</property>
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-2"
             maxvalue="119">I2C address. The value -1 means default device I2C address (0x68), value
             -2: alternative I2C address (0x69, when pin AD0 pull high).</property>
@@ -48,7 +46,7 @@
 [poll $1(
 |
 |
-[hw.rpi.sensor.mpu6050]
+[hw.rpi.sensor.mpu6050 @i2c_bus default]
 |
 [route ypr gyro accel temp {w=30} #r]
 |
