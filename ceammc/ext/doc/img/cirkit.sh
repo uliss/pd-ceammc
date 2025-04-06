@@ -12,7 +12,7 @@ OUT=${IN%.svg}.png
 BOTTOM=550
 RIGHT=150
 LEFT=150
-TOP=100
+TOP=130
 
 if [ $# -ne 1 ]
 then
