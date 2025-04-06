@@ -243,6 +243,11 @@ impl hw_pca9685 {
                                 send_error(&tx, notify, err.to_string().as_str());
                             });
                     }
+                    Request::EnableRestartAndDisable => {
+                        pwm.enable_restart_and_disable().unwrap_or_else(|err| {
+                            send_error(&tx, notify, err.to_string().as_str());
+                        });
+                    }
                 }
             }
 

@@ -46,6 +46,7 @@ pub enum Request {
     UseProgAddress(hw_pca8695_prog_address, u8),
     DisableProgAddress(hw_pca8695_prog_address),
     Restart,
+    EnableRestartAndDisable,
 }
 
 #[derive(Debug, PdMessage)]
@@ -197,4 +198,9 @@ pub extern "C" fn ceammc_hw_pca9685i_disable_prog_addr(
 #[no_mangle]
 pub extern "C" fn ceammc_hw_pca9685i_restart(pwm: *const hw_pca9685) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::Restart) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pca9685i_enable_restart_and_disable(pwm: *const hw_pca9685) -> bool {
+    rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::EnableRestartAndDisable) });
 }
