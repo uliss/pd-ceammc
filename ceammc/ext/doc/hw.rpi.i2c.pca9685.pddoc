@@ -18,6 +18,19 @@
         </meta>
         <info>
             <par>default PWM freq is equal to 50Hz</par>
+            <par>*Servo Control*</par>
+            <par>Many digital servos run on a 20ms pulse width (50Hz update frequency) based duty
+            cycle, and do not utilize the entire pulse width for their control</par>
+            <par>Typically, 2.5% of the 20ms pulse width (0.5ms) represents -90° offset, and 12.5%
+            of the 20ms pulse width (2.5ms) represents +90° offset</par>
+            <par>Be aware that driving some 180° servos too far past their -90°/+90° operational
+            range can cause a little plastic limiter pin to break off and get stuck inside of the
+            servo's gearing, which could potentially cause the servo to become jammed and no longer
+            function</par>
+            <par>Continuous servos operate in much the same fashion as 180° servos, but instead of
+            the 2.5%/12.5% pulse width controlling a -90°/+90° offset it controls a -1x/+1x speed
+            multiplier, with 0x being parked/no-movement and -1x/+1x being maximum speed in either
+            direction.</par>
         </info>
         <arguments>
             <argument name="I2C_BUS" type="atom">See @i2c_bus property</argument>
@@ -45,8 +58,9 @@
             <param name="PHASE" type="float" required="false" minvalue="-1" maxvalue="1">phase
             offset</param></method>
             <!-- enable -->
-            <method name="enable">enable/disable the device. The disabled state is equal to sleep, the device
-            is keeping all current PWM setting, but just not responds to the new settings.
+            <method name="enable">enable/disable the device. The disabled state is equal to sleep,
+            the device is keeping all current PWM setting, but just not responds to the new
+            settings. 
             <param name="STATE" type="bool" default="1">new state</param></method>
             <!-- freq -->
             <method name="freq">set PWM frequency 
@@ -69,7 +83,7 @@
             <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
             time value</param></method>
             <!-- pw -->
-            <method name="pw">set channel PWM pulse width
+            <method name="pw">set channel PWM pulse width 
             <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
             channel. If equals to 16 means all channels</param>
             <param name="WIDTH" type="float" required="true" minvalue="0.5" maxvalue="40"
@@ -88,6 +102,8 @@
         <example>
             <pdascii>
 <![CDATA[
+/*180° servo example*/
+
 [T]
 |
 [enable $1(
