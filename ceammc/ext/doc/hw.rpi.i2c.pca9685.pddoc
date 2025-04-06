@@ -16,6 +16,9 @@
                 <alias>hw.rpi.pwm.pca9685</alias>
             </aliases>
         </meta>
+        <info>
+            <par>default PWM freq is equal to 50Hz</par>
+        </info>
         <arguments>
             <argument name="I2C_BUS" type="atom">See @i2c_bus property</argument>
         </arguments>
