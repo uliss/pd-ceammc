@@ -22,11 +22,11 @@
             measurement error</par>
         </info>
         <arguments>
-            <argument name="PIN" type="int" minvalue="-1" maxvalue="255">GPIO pin to connect. See
+            <argument name="PIN" type="int" minvalue="-1" maxvalue="127">GPIO pin to connect. See
             @pin</argument>
         </arguments>
         <properties>
-            <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="255"
+            <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">GPIO connection pin</property>
         </properties>
         <methods>

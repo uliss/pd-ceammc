@@ -37,7 +37,7 @@ ceammc://img/conn_dht11.png;
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 579 @pin;
 #X text 245 579 (initonly) Get/Set GPIO connection pin. Type: int.
-Default value: -1\. Range: -1\...255\.;
+Default value: -1\. Range: -1\...127\.;
 #X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 636 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
