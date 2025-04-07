@@ -125,9 +125,9 @@ protected:
 
     IntProperty* addGpioPinProperty(const char* name)
     {
-        auto prop = new IntProperty(name, -1);
+        auto prop = new IntProperty(name, ceammc_HW_GPIO_DEF_PIN);
         prop->setInitOnly();
-        prop->checkClosedRange(-1, 127);
+        prop->checkClosedRange(ceammc_HW_GPIO_MIN_PIN, ceammc_HW_GPIO_MAX_PIN);
         this->addProperty(prop);
         return prop;
     }
