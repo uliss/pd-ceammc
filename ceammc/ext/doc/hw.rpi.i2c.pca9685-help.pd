@@ -8,7 +8,7 @@ Pi;
 #X obj 455 11 hw.rpi.pwm.pca9685;
 #X obj 610 11 hw.rpi.i2c.pca9685;
 #X obj 210 80 cnv 1 555 340 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 default PWM freq is equal to 50Hz;
+#X text 215 80 Note: default PWM freq is 50Hz;
 #X text 215 105 *Servo Control*;
 #X text 215 130 Many digital servos run on a 20ms pulse width (50Hz
 update frequency) based duty cycle \, and do not utilize the entire

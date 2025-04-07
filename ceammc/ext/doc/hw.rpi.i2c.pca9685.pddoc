@@ -17,7 +17,7 @@
             </aliases>
         </meta>
         <info>
-            <par>default PWM freq is equal to 50Hz</par>
+            <par>Note: default PWM freq is 50Hz</par>
             <par>*Servo Control*</par>
             <par>Many digital servos run on a 20ms pulse width (50Hz update frequency) based duty
             cycle, and do not utilize the entire pulse width for their control</par>
