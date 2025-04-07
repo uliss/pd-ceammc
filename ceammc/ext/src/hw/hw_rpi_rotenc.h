@@ -24,6 +24,8 @@ public:
     bool notify(int code) final;
 
     void onBang() final;
+    void onFloat(t_float f) final;
+    void onInlet(size_t idx, const AtomListView& lv) final;
 
     void m_get(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);

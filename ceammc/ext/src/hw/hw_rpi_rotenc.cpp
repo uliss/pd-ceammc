@@ -6,23 +6,13 @@
 HwRpiRotaryEncoder::HwRpiRotaryEncoder(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
+    createInlet();
     createOutlet();
     createOutlet();
 
-    dt_pin_ = new IntProperty("@dt", 0);
-    dt_pin_->checkClosedRange(0, 30);
-    dt_pin_->setInitOnly();
-    addProperty(dt_pin_);
-
-    clk_pin_ = new IntProperty("@clk", 0);
-    clk_pin_->checkClosedRange(0, 30);
-    clk_pin_->setInitOnly();
-    addProperty(clk_pin_);
-
-    btn_pin_ = new IntProperty("@btn", 0);
-    btn_pin_->checkClosedRange(0, 30);
-    btn_pin_->setInitOnly();
-    addProperty(btn_pin_);
+    dt_pin_ = addGpioPinProperty("@dt");
+    clk_pin_ = addGpioPinProperty("@clk");
+    btn_pin_ = addGpioPinProperty("@btn");
 
     init_ = new FloatProperty("@init", 0);
     init_->setInitOnly();
@@ -96,6 +86,20 @@ bool HwRpiRotaryEncoder::notify(int code)
 void HwRpiRotaryEncoder::onBang()
 {
     ceammc_hw_gpio_rotenc_get_value(enc_);
+}
+
+void HwRpiRotaryEncoder::onFloat(t_float f)
+{
+    if (ceammc_hw_gpio_rotenc_set_value(enc_, f))
+        floatTo(0, f);
+}
+
+void HwRpiRotaryEncoder::onInlet(size_t idx, const AtomListView& lv)
+{
+    if (idx == 1 && lv.isFloat())
+        ceammc_hw_gpio_rotenc_set_value(enc_, lv.asFloat());
+    else if (idx == 1 && lv.empty())
+        ceammc_hw_gpio_rotenc_reset(enc_);
 }
 
 void HwRpiRotaryEncoder::m_get(t_symbol* s, const AtomListView& lv)

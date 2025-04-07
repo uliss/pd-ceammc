@@ -127,7 +127,7 @@ protected:
     {
         auto prop = new IntProperty(name, -1);
         prop->setInitOnly();
-        prop->checkClosedRange(-1, 255);
+        prop->checkClosedRange(-1, 127);
         this->addProperty(prop);
         return prop;
     }

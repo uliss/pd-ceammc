@@ -15,26 +15,31 @@
         </meta>
         <methods>
             <method name="get">request current value output</method>
-            <method name="set">set current value 
+            <method name="set">set current value without output
             <param name="VAL" type="float" required="true">new value</param></method>
             <method name="reset">reset current value to @init</method>
         </methods>
         <properties>
             <property name="@init" type="float" default="0" access="initonly">init encoder
             value</property>
-            <property name="@dt" type="int" default="0" access="initonly" minvalue="0"
-            maxvalue="30">DT GPIO pin</property>
+            <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">DT GPIO pin</property>
             <property name="@min" type="float" default="-100">min encoder value</property>
-            <property name="@clk" type="int" default="0" access="initonly" minvalue="0"
-            maxvalue="30">CLK GPIO pin</property>
-            <property name="@btn" type="int" default="0" access="initonly" minvalue="0"
-            maxvalue="30">BTN GPIO pin</property>
+            <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">CLK GPIO pin</property>
+            <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">BTN GPIO pin</property>
             <property name="@step" type="float" default="1">encoder step</property>
             <property name="@max" type="float" default="100">max encoder value</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">output current value</xinfo>
+                <xinfo on="float">set current value and output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset value to @init</xinfo>
+                <xinfo on="float">set current value without output</xinfo>
             </inlet>
         </inlets>
         <outlets>
