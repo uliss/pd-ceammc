@@ -3,12 +3,12 @@
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
-#define CHECK_PWM_CHAN()                                                                                \
-    {                                                                                                   \
-        if (chan_->value() == ceammc_HW_RPI_PWM_NONE_CHAN) {                                            \
-            METHOD_ERR(s) << "PWM channel is not configured, valid channel values are: "                \
-                          << (int)ceammc_HW_RPI_PWM_MIN_CHAN << "-" << (int)ceammc_HW_RPI_PWM_MAX_CHAN; \
-        }                                                                                               \
+#define CHECK_PWM_CHAN()                                                                                  \
+    {                                                                                                     \
+        if (chan_->value() == ceammc_HW_RPI_PWM_NONE_CHAN) {                                              \
+            METHOD_ERR(s) << "PWM channel is not configured, valid channel values are: "                  \
+                          << (int)ceammc_HW_RPI_PWM_MIN_CHAN << "..." << (int)ceammc_HW_RPI_PWM_MAX_CHAN; \
+        }                                                                                                 \
     }
 
 HwRpiPwm::HwRpiPwm(const PdArgs& args)
