@@ -138,7 +138,7 @@
 
 [ui.link @url=ceammc://img/conn_pca9685.png @title='Connection']
 
-[ui.link @url=ceammc://img/info_pca9685.png @title='Address']
+[ui.link @url=ceammc://img/info_pca9685.jpg @title='Address']
 ]]>
             </pdascii>
         </example>
