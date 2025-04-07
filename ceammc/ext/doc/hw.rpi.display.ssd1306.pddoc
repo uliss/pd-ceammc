@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>hw</category>
             <keywords>display ssd1306 spi i2c rpi</keywords>
-            <since>0.9.9</since>
+            <since>0.9.8</since>
         </meta>
         <info>
             <par>Both I2C and SPI connections are supported</par>

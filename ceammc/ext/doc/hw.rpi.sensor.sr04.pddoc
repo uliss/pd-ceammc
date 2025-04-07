@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>hw</category>
             <keywords>sensor ultrasonic range rpi arduino</keywords>
-            <since>0.9.9</since>
+            <since>0.9.8</since>
         </meta>
         <info>
             <par>**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the

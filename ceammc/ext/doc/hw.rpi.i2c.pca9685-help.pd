@@ -31,7 +31,7 @@ direction.;
 #X obj 69 535 ui.hsl;
 #X obj 69 564 l->l 0 1 0.5 2.5;
 #X obj 69 592 clip 0.5 2.5;
-#X msg 69 621 pw 0 \$1;
+#X msg 69 621 pwidth 0 \$1;
 #X obj 50 664 hw.rpi.pwm.pca9685 default;
 #X obj 50 693 ui.link @title 'Connection' @url
 ceammc://img/conn_pca9685.png;
@@ -110,7 +110,7 @@ Arguments are:;
 #X obj 255 1616 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1616 POLARITY: polarity value: 0 - direct \, 1 - inversed.
 Type: bool.;
-#X msg 110 1656 pw;
+#X msg 110 1656 pwidth;
 #X text 245 1656 set channel PWM pulse width. Arguments are:;
 #X obj 255 1679 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1679 CHAN: device PWM channel. If equals to 16 means all

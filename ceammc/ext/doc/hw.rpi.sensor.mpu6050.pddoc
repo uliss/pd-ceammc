@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>hw</category>
             <keywords>raspberry imu mpu6050 gyro accelerometer</keywords>
-            <since>0.9.9</since>
+            <since>0.9.8</since>
         </meta>
         <info>
             <par>The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis Accelerometer) motion

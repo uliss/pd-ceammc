@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>hw</category>
             <keywords>led display max7219 spi rpi arduino</keywords>
-            <since>0.9.9</since>
+            <since>0.9.8</since>
         </meta>
         <info>
             <par>Only Raspberry Pi support</par>
