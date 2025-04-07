@@ -148,7 +148,7 @@ void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
 
 void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("STATE:B");
+    static const args::ArgChecker chk("POLARITY:B");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
