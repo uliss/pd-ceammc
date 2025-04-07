@@ -49,11 +49,11 @@
             (0x3C)</property>
             <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
             maxvalue="10000000" access="initonly">SPI frequency</property>
-            <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="255"
+            <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">CS (chip select) GPIO pin</property>
-            <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="255"
+            <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">DC (data/command) GPIO pin</property>
-            <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="255"
+            <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">RS (reset) GPIO pin</property>
             <property name="@spi_bus" type="int" default="0" minvalue="0" maxvalue="6"
             access="initonly">SPI bus</property>
