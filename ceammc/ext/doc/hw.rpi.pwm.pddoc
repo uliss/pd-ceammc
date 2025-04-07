@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>hw</category>
             <keywords>pwm hawdware rpi raspberry</keywords>
-            <since>0.9.9</since>
+            <since>0.9.8</since>
         </meta>
         <info>
             <par>|| Versions &lt;5.0</par>
@@ -92,7 +92,7 @@
   [freq $1 0.5 #c(   [pwm 20 $1 #e(
 
 
-[hw.rpi.pwm @ch 0 #x]
+[hw.rpi.pwm @pwm_ch 0 #x]
 
 
 [T]                  [ui.hsl #f]
@@ -100,7 +100,7 @@
 [enable $1 #a(       [pwm 20 $1 #g(
 |
 |
-[hw.rpi.pwm @ch 1 #y]
+[hw.rpi.pwm @pwm_ch 1 #y]
 
 [ui.link @url=ceammc://img/conn_pwm.png @title='Scheme']
 [X a->x] [X c->x] [X e->x] [X g->y]
