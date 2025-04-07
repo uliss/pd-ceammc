@@ -12,6 +12,10 @@ use std::{
     time::Duration,
 };
 
+pub const HW_GPIO_PIN_NONE: i8 = -1;
+pub const HW_GPIO_MIN_PIN: i8 = HW_GPIO_PIN_NONE;
+pub const HW_GPIO_DEF_PIN: i8 = HW_GPIO_PIN_NONE;
+pub const HW_GPIO_MAX_PIN: i8 = 127;
 pub const HW_GPIO_IMPULSE_LENGTH_MIN_MSEC: f64 = 0.001;
 pub const HW_GPIO_IMPULSE_LENGTH_MAX_MSEC: f64 = 100.0;
 

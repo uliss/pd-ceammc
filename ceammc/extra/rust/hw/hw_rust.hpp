@@ -15,6 +15,14 @@ constexpr static const uint16_t ceammc_HW_ADC_ADS1115_MAX_POLL_TIME_MSEC = 250;
 
 constexpr static const uint16_t ceammc_HW_ADC_ADS1115_DEF_POLL_TIME_MSEC = 20;
 
+constexpr static const int8_t ceammc_HW_GPIO_PIN_NONE = -1;
+
+constexpr static const int8_t ceammc_HW_GPIO_MIN_PIN = ceammc_HW_GPIO_PIN_NONE;
+
+constexpr static const int8_t ceammc_HW_GPIO_DEF_PIN = ceammc_HW_GPIO_PIN_NONE;
+
+constexpr static const int8_t ceammc_HW_GPIO_MAX_PIN = 127;
+
 constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MIN_MSEC = 0.001;
 
 constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MAX_MSEC = 100.0;
