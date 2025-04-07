@@ -188,7 +188,7 @@ void setup_hw_rpi_i2c_pca9685()
     obj.addMethod("freq", &HwI2cPca8695::m_freq);
     obj.addMethod("period", &HwI2cPca8695::m_period);
     obj.addMethod("polarity", &HwI2cPca8695::m_polarity);
-    obj.addMethod("pw", &HwI2cPca8695::m_pulse_width);
+    obj.addMethod("pwidth", &HwI2cPca8695::m_pulse_width);
     obj.addMethod("set_raw", &HwI2cPca8695::m_set_raw);
 
     obj.addMethod("use_prog_addr", &HwI2cPca8695::m_use_prog_addr);
