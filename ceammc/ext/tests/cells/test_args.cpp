@@ -48,6 +48,21 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("a{2}", LF(1, 2)));
         REQUIRE_FALSE(args::check_args("a{2}", LF(1)));
         REQUIRE_FALSE(args::check_args("a{2}", LF(1, 2, 3)));
+        REQUIRE_FALSE(args::check_args("a=A", A("D")));
+        REQUIRE(args::check_args("a=A", A("A")));
+        REQUIRE_FALSE(args::check_args("a=1", A("1")));
+        REQUIRE(args::check_args("a=1", A(1)));
+        REQUIRE(args::check_args("a=-25", A(-25)));
+        REQUIRE_FALSE(args::check_args("a=1", A(2)));
+        REQUIRE(args::check_args("a=1.0", A(1)));
+        REQUIRE_FALSE(args::check_args("a=1.0", A(1.25)));
+        REQUIRE_FALSE(args::check_args("a=1", A("1")));
+        REQUIRE_FALSE(args::check_args("a=A|B|C", A("D")));
+        REQUIRE(args::check_args("a=A|B|C", A("A")));
+        REQUIRE(args::check_args("a=A|B|C", A("B")));
+        REQUIRE(args::check_args("a=A|B|C", A("C")));
+        REQUIRE(args::check_args("a=+1|B|C", A(1)));
+        REQUIRE_FALSE(args::check_args("a=1|2|C", A(5)));
     }
 
     SECTION("bool")
@@ -332,7 +347,7 @@ TEST_CASE("args2", "[core]")
     {                                                       \
         args::ArgMatchList ml;                              \
         AtomList largs = lst;                               \
-        args::check_args(fmt, largs, nullptr, &s_, &ml);         \
+        args::check_args(fmt, largs, nullptr, &s_, &ml);    \
         REQUIRE(ml.size() == n);                            \
         REQUIRE(ml == args::ArgMatchList({ __VA_ARGS__ })); \
     }

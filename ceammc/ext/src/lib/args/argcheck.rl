@@ -6,10 +6,8 @@
 # include "ceammc_datatypes.h"
 
 # include <cstdint>
-# include <iostream>
 # include <limits>
 # include <cmath>
-# include <algorithm>
 # include <boost/container/static_vector.hpp>
 # include <boost/variant.hpp>
 
@@ -159,6 +157,27 @@ struct Check {
     {
         auto str_ptr = boost::get<ArgString>(&v);
         return (str_ptr && str_ptr->second == hash);
+    }
+
+    inline static bool isEqual(const ArgValue& v, const ceammc::Atom& a)
+    {
+        auto fval = boost::get<double>(&v);
+        if (fval && a == *fval)
+            return true;
+
+        auto sval = boost::get<ArgString>(&v);
+        if (sval && a.isSymbol()) {
+            if (std::strncmp(a.asT<t_symbol*>()->s_name, sval->first.data(), sval->second) == 0) {
+                return true;
+            }
+        }
+
+        auto ival = boost::get<int64_t>(&v);
+        if (ival && a == *ival)
+            return true;
+
+
+        return false;
     }
 
     inline std::string argName() const {
@@ -313,6 +332,51 @@ action append_opt_sym {
     }
 }
 
+action append_opt_atom {
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = fpc - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+
 #####################
 # repeats: {INT}, {INT,} or {INT,INT}
 #####################
@@ -326,6 +390,7 @@ num_sign = '+' @{ rl_sign = 1; }
 
 num_num  = [0-9]+ >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); };
 num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0'); rl_den_cnt *= 10; };
+
 
 #####################
 # int: (+-)?INT
@@ -420,7 +485,22 @@ float_check = (cmp_op num_real %append_opt_real)
             | cmp_range_float
             ;
 
-atom  = 'a' @{ rl_chk.type = CHECK_ATOM; };
+#####################
+# atom equal: =1|A|B...
+#####################
+
+atom_opt_simple  = [a-zA-Z_\-0-9@#:\.+]+;
+atom_opt = (atom_opt_simple | sym_opt_squoted | sym_opt_dquoted) >{ rl_sym_start = fpc; };
+
+cmp_eq_atom = ('=' atom_opt  %append_opt_atom
+              ('|' atom_opt  %append_opt_atom)*
+              ) >{ rl_chk.cmp = CMP_EQUAL; }
+              ;
+
+atom_check = cmp_eq_atom
+           ;
+
+atom  = 'a' @{ rl_chk.type = CHECK_ATOM; } atom_check?;
 bool  = 'B' @{ rl_chk.type = CHECK_BOOL; };
 byte  = 'b' @{ rl_chk.type = CHECK_BYTE; };
 int   = 'i' @{ rl_chk.type = CHECK_INT; } int_check?;
@@ -461,9 +541,38 @@ namespace {
 
 bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
     switch (c.type) {
-    case CHECK_ATOM:
+    case CHECK_ATOM: {
         debug("atom", "Ok");
-    break;
+
+        switch (c.cmp) {
+        case CMP_EQUAL:
+            if (c.values.size() == 1) {
+                if (!c.isEqual(c.values[0], a)) {
+                    if (pErr) {
+                        pdError(x, fmt::format("{} at [{}] expected to be = {}, got: {}",
+                                 c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+                    }
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                bool found = false;
+                for (auto& v: c.values) {
+                    if (c.isEqual(v, a)) { found = true; break; }
+                }
+                if (!found) {
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                    return false;
+                }
+            }
+        break;
+        default:
+            return true;
+        }
+    } break;
     case CHECK_BOOL:
         if (a.isBool()) {
             debug("book", "Ok");

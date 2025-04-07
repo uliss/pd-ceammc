@@ -8,10 +8,8 @@
 # include "ceammc_datatypes.h"
 
 # include <cstdint>
-# include <iostream>
 # include <limits>
 # include <cmath>
-# include <algorithm>
 # include <boost/container/static_vector.hpp>
 # include <boost/variant.hpp>
 
@@ -163,6 +161,27 @@ struct Check {
         return (str_ptr && str_ptr->second == hash);
     }
 
+    inline static bool isEqual(const ArgValue& v, const ceammc::Atom& a)
+    {
+        auto fval = boost::get<double>(&v);
+        if (fval && a == *fval)
+            return true;
+
+        auto sval = boost::get<ArgString>(&v);
+        if (sval && a.isSymbol()) {
+            if (std::strncmp(a.asT<t_symbol*>()->s_name, sval->first.data(), sval->second) == 0) {
+                return true;
+            }
+        }
+
+        auto ival = boost::get<int64_t>(&v);
+        if (ival && a == *ival)
+            return true;
+
+
+        return false;
+    }
+
     inline std::string argName() const {
         if (name.empty())
             return typeNames[type];
@@ -223,7 +242,7 @@ struct Check {
 };
 
 
-#line 227 "args/argcheck.cpp"
+#line 246 "args/argcheck.cpp"
 static const int time_check_start = 1;
 static const int time_check_first_final = 13;
 static const int time_check_error = 0;
@@ -231,7 +250,7 @@ static const int time_check_error = 0;
 static const int time_check_en_main = 1;
 
 
-#line 232 "args/argcheck.rl"
+#line 251 "args/argcheck.rl"
 
 
 namespace {
@@ -244,14 +263,14 @@ bool check_time_unit(t_symbol* sym)
     const char* p = sym->s_name;
 
     
-#line 248 "args/argcheck.cpp"
+#line 267 "args/argcheck.cpp"
 	{
 	cs = time_check_start;
 	}
 
-#line 244 "args/argcheck.rl"
+#line 263 "args/argcheck.rl"
     
-#line 255 "args/argcheck.cpp"
+#line 274 "args/argcheck.cpp"
 	{
 	switch ( cs )
 	{
@@ -314,13 +333,13 @@ case 7:
 	}
 	goto st0;
 tr8:
-#line 229 "args/argcheck.rl"
+#line 248 "args/argcheck.rl"
 	{ {p++; cs = 13; goto _out;} }
 	goto st13;
 st13:
 	p += 1;
 case 13:
-#line 324 "args/argcheck.cpp"
+#line 343 "args/argcheck.cpp"
 	goto st0;
 st8:
 	p += 1;
@@ -360,7 +379,7 @@ case 12:
 	_out: {}
 	}
 
-#line 245 "args/argcheck.rl"
+#line 264 "args/argcheck.rl"
 
     return (cs >= 13);
 }
@@ -368,15 +387,15 @@ case 12:
 }
 
 
-#line 372 "args/argcheck.cpp"
+#line 391 "args/argcheck.cpp"
 static const int arg_check2_start = 1;
-static const int arg_check2_first_final = 74;
+static const int arg_check2_first_final = 82;
 static const int arg_check2_error = 0;
 
 static const int arg_check2_en_main = 1;
 
 
-#line 455 "args/argcheck.rl"
+#line 535 "args/argcheck.rl"
 
 
 namespace ceammc {
@@ -386,9 +405,38 @@ namespace {
 
 bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
     switch (c.type) {
-    case CHECK_ATOM:
+    case CHECK_ATOM: {
         debug("atom", "Ok");
-    break;
+
+        switch (c.cmp) {
+        case CMP_EQUAL:
+            if (c.values.size() == 1) {
+                if (!c.isEqual(c.values[0], a)) {
+                    if (pErr) {
+                        pdError(x, fmt::format("{} at [{}] expected to be = {}, got: {}",
+                                 c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+                    }
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                bool found = false;
+                for (auto& v: c.values) {
+                    if (c.isEqual(v, a)) { found = true; break; }
+                }
+                if (!found) {
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                    return false;
+                }
+            }
+        break;
+        default:
+            return true;
+        }
+    } break;
     case CHECK_BOOL:
         if (a.isBool()) {
             debug("book", "Ok");
@@ -846,19 +894,19 @@ ArgChecker::ArgChecker(const char* str)
     const char* rl_sym_start = 0;
 
     
-#line 850 "args/argcheck.cpp"
+#line 898 "args/argcheck.cpp"
 	{
 	cs = arg_check2_start;
 	}
 
-#line 855 "args/argcheck.cpp"
+#line 903 "args/argcheck.cpp"
 	{
 	switch ( cs )
 	{
 tr19:
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -871,7 +919,7 @@ tr19:
 }
 	goto st1;
 tr25:
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -883,8 +931,68 @@ tr25:
     rl_chk = {};
 }
 	goto st1;
-tr47:
-#line 269 "args/argcheck.rl"
+tr42:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+#line 526 "args/argcheck.rl"
+	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
+#line 273 "args/argcheck.rl"
+	{
+    if (chk_)
+        chk_->push_back(rl_chk);
+
+    rl_num = 0;
+    rl_den = 0;
+    rl_sign = 0;
+    rl_den_cnt = 0;
+    rl_chk = {};
+}
+	goto st1;
+tr63:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -897,9 +1005,9 @@ tr47:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -911,14 +1019,14 @@ tr47:
     rl_chk = {};
 }
 	goto st1;
-tr99:
-#line 265 "args/argcheck.rl"
+tr115:
+#line 284 "args/argcheck.rl"
 	{
     rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -930,12 +1038,12 @@ tr99:
     rl_chk = {};
 }
 	goto st1;
-tr129:
-#line 345 "args/argcheck.rl"
+tr145:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -947,12 +1055,12 @@ tr129:
     rl_chk = {};
 }
 	goto st1;
-tr135:
-#line 345 "args/argcheck.rl"
+tr151:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_CLOSED; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -964,8 +1072,8 @@ tr135:
     rl_chk = {};
 }
 	goto st1;
-tr148:
-#line 282 "args/argcheck.rl"
+tr164:
+#line 301 "args/argcheck.rl"
 	{
     try {
         ArgString str{ {}, 0 };
@@ -999,9 +1107,9 @@ tr148:
         LIB_ERR << "exception: " << e.what();
     }
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1016,7 +1124,7 @@ tr148:
 st1:
 	p += 1;
 case 1:
-#line 1020 "args/argcheck.cpp"
+#line 1128 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 66: goto tr2;
 		case 95: goto tr0;
@@ -1037,15 +1145,15 @@ st0:
 cs = 0;
 	goto _out;
 tr0:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.clear(); }
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st2;
 st2:
 	p += 1;
 case 2:
-#line 1049 "args/argcheck.cpp"
+#line 1157 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr9;
@@ -1057,13 +1165,13 @@ case 2:
 		goto tr9;
 	goto st0;
 tr9:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st3;
 st3:
 	p += 1;
 case 3:
-#line 1067 "args/argcheck.cpp"
+#line 1175 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr11;
@@ -1075,13 +1183,13 @@ case 3:
 		goto tr11;
 	goto st0;
 tr11:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st4;
 st4:
 	p += 1;
 case 4:
-#line 1085 "args/argcheck.cpp"
+#line 1193 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr12;
@@ -1093,13 +1201,13 @@ case 4:
 		goto tr12;
 	goto st0;
 tr12:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st5;
 st5:
 	p += 1;
 case 5:
-#line 1103 "args/argcheck.cpp"
+#line 1211 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr13;
@@ -1111,13 +1219,13 @@ case 5:
 		goto tr13;
 	goto st0;
 tr13:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st6;
 st6:
 	p += 1;
 case 6:
-#line 1121 "args/argcheck.cpp"
+#line 1229 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr14;
@@ -1129,13 +1237,13 @@ case 6:
 		goto tr14;
 	goto st0;
 tr14:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st7;
 st7:
 	p += 1;
 case 7:
-#line 1139 "args/argcheck.cpp"
+#line 1247 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr15;
@@ -1147,13 +1255,13 @@ case 7:
 		goto tr15;
 	goto st0;
 tr15:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st8;
 st8:
 	p += 1;
 case 8:
-#line 1157 "args/argcheck.cpp"
+#line 1265 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 58: goto st10;
 		case 95: goto tr16;
@@ -1165,13 +1273,13 @@ case 8:
 		goto tr16;
 	goto st0;
 tr16:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
 	goto st9;
 st9:
 	p += 1;
 case 9:
-#line 1175 "args/argcheck.cpp"
+#line 1283 "args/argcheck.cpp"
 	if ( (*p) == 58 )
 		goto st10;
 	goto st0;
@@ -1188,24 +1296,20 @@ case 10:
 		case 116: goto tr8;
 	}
 	goto st0;
-tr3:
-#line 423 "args/argcheck.rl"
-	{ rl_chk.type = CHECK_ATOM; }
-	goto st11;
 tr4:
-#line 425 "args/argcheck.rl"
+#line 505 "args/argcheck.rl"
 	{ rl_chk.type = CHECK_BYTE; }
 	goto st11;
 tr8:
-#line 429 "args/argcheck.rl"
+#line 509 "args/argcheck.rl"
 	{ rl_chk.type = CHECK_TIME; }
 	goto st11;
 tr17:
-#line 424 "args/argcheck.rl"
+#line 504 "args/argcheck.rl"
 	{ rl_chk.type = CHECK_BOOL; }
 	goto st11;
-tr78:
-#line 269 "args/argcheck.rl"
+tr94:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -1218,11 +1322,11 @@ tr78:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 398 "args/argcheck.rl"
+#line 463 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
 	goto st11;
-tr81:
-#line 269 "args/argcheck.rl"
+tr97:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -1235,17 +1339,17 @@ tr81:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 398 "args/argcheck.rl"
+#line 463 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_CLOSED; }
 	goto st11;
-tr140:
-#line 370 "args/argcheck.rl"
+tr156:
+#line 435 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_POWER2; }
 	goto st11;
 st11:
 	p += 1;
 case 11:
-#line 1249 "args/argcheck.cpp"
+#line 1353 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
@@ -1256,9 +1360,9 @@ case 11:
 	}
 	goto st0;
 tr18:
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1269,11 +1373,11 @@ tr18:
     rl_den_cnt = 0;
     rl_chk = {};
 }
-#line 451 "args/argcheck.rl"
-	{ {p++; cs = 74; goto _out;} }
-	goto st74;
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
 tr24:
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1284,11 +1388,73 @@ tr24:
     rl_den_cnt = 0;
     rl_chk = {};
 }
-#line 451 "args/argcheck.rl"
-	{ {p++; cs = 74; goto _out;} }
-	goto st74;
-tr46:
-#line 269 "args/argcheck.rl"
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
+tr41:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+#line 526 "args/argcheck.rl"
+	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
+#line 273 "args/argcheck.rl"
+	{
+    if (chk_)
+        chk_->push_back(rl_chk);
+
+    rl_num = 0;
+    rl_den = 0;
+    rl_sign = 0;
+    rl_den_cnt = 0;
+    rl_chk = {};
+}
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
+tr62:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -1301,9 +1467,9 @@ tr46:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1314,17 +1480,17 @@ tr46:
     rl_den_cnt = 0;
     rl_chk = {};
 }
-#line 451 "args/argcheck.rl"
-	{ {p++; cs = 74; goto _out;} }
-	goto st74;
-tr98:
-#line 265 "args/argcheck.rl"
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
+tr114:
+#line 284 "args/argcheck.rl"
 	{
     rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1335,15 +1501,15 @@ tr98:
     rl_den_cnt = 0;
     rl_chk = {};
 }
-#line 451 "args/argcheck.rl"
-	{ {p++; cs = 74; goto _out;} }
-	goto st74;
-tr128:
-#line 345 "args/argcheck.rl"
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
+tr144:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1354,15 +1520,15 @@ tr128:
     rl_den_cnt = 0;
     rl_chk = {};
 }
-#line 451 "args/argcheck.rl"
-	{ {p++; cs = 74; goto _out;} }
-	goto st74;
-tr134:
-#line 345 "args/argcheck.rl"
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
+tr150:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_CLOSED; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1373,11 +1539,11 @@ tr134:
     rl_den_cnt = 0;
     rl_chk = {};
 }
-#line 451 "args/argcheck.rl"
-	{ {p++; cs = 74; goto _out;} }
-	goto st74;
-tr147:
-#line 282 "args/argcheck.rl"
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
+tr163:
+#line 301 "args/argcheck.rl"
 	{
     try {
         ArgString str{ {}, 0 };
@@ -1411,9 +1577,9 @@ tr147:
         LIB_ERR << "exception: " << e.what();
     }
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 254 "args/argcheck.rl"
+#line 273 "args/argcheck.rl"
 	{
     if (chk_)
         chk_->push_back(rl_chk);
@@ -1424,38 +1590,191 @@ tr147:
     rl_den_cnt = 0;
     rl_chk = {};
 }
-#line 451 "args/argcheck.rl"
-	{ {p++; cs = 74; goto _out;} }
-	goto st74;
-st74:
+#line 531 "args/argcheck.rl"
+	{ {p++; cs = 82; goto _out;} }
+	goto st82;
+st82:
 	p += 1;
-case 74:
-#line 1434 "args/argcheck.cpp"
+case 82:
+#line 1600 "args/argcheck.cpp"
 	goto st0;
 tr20:
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 432 "args/argcheck.rl"
+#line 512 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, REPEAT_INF); }
 	goto st12;
 tr21:
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 431 "args/argcheck.rl"
+#line 511 "args/argcheck.rl"
 	{ rl_chk.setRepeats(1, REPEAT_INF); }
 	goto st12;
 tr22:
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 430 "args/argcheck.rl"
+#line 510 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, 1); }
 	goto st12;
 tr29:
-#line 321 "args/argcheck.rl"
+#line 385 "args/argcheck.rl"
 	{ rl_chk.rmax = rl_chk.rmin; }
 	goto st12;
-tr48:
-#line 269 "args/argcheck.rl"
+tr43:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+#line 526 "args/argcheck.rl"
+	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
+#line 512 "args/argcheck.rl"
+	{ rl_chk.setRepeats(0, REPEAT_INF); }
+	goto st12;
+tr44:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+#line 526 "args/argcheck.rl"
+	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
+#line 511 "args/argcheck.rl"
+	{ rl_chk.setRepeats(1, REPEAT_INF); }
+	goto st12;
+tr45:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+#line 526 "args/argcheck.rl"
+	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
+#line 510 "args/argcheck.rl"
+	{ rl_chk.setRepeats(0, 1); }
+	goto st12;
+tr64:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -1468,13 +1787,13 @@ tr48:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 432 "args/argcheck.rl"
+#line 512 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, REPEAT_INF); }
 	goto st12;
-tr49:
-#line 269 "args/argcheck.rl"
+tr65:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -1487,13 +1806,13 @@ tr49:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 431 "args/argcheck.rl"
+#line 511 "args/argcheck.rl"
 	{ rl_chk.setRepeats(1, REPEAT_INF); }
 	goto st12;
-tr52:
-#line 269 "args/argcheck.rl"
+tr68:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -1506,91 +1825,91 @@ tr52:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 430 "args/argcheck.rl"
+#line 510 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, 1); }
 	goto st12;
-tr100:
-#line 265 "args/argcheck.rl"
+tr116:
+#line 284 "args/argcheck.rl"
 	{
     rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 432 "args/argcheck.rl"
+#line 512 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, REPEAT_INF); }
 	goto st12;
-tr101:
-#line 265 "args/argcheck.rl"
+tr117:
+#line 284 "args/argcheck.rl"
 	{
     rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 431 "args/argcheck.rl"
+#line 511 "args/argcheck.rl"
 	{ rl_chk.setRepeats(1, REPEAT_INF); }
 	goto st12;
-tr103:
-#line 265 "args/argcheck.rl"
+tr119:
+#line 284 "args/argcheck.rl"
 	{
     rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 430 "args/argcheck.rl"
+#line 510 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, 1); }
 	goto st12;
-tr130:
-#line 345 "args/argcheck.rl"
+tr146:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 432 "args/argcheck.rl"
+#line 512 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, REPEAT_INF); }
 	goto st12;
-tr131:
-#line 345 "args/argcheck.rl"
+tr147:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 431 "args/argcheck.rl"
+#line 511 "args/argcheck.rl"
 	{ rl_chk.setRepeats(1, REPEAT_INF); }
 	goto st12;
-tr132:
-#line 345 "args/argcheck.rl"
+tr148:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 430 "args/argcheck.rl"
+#line 510 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, 1); }
 	goto st12;
-tr136:
-#line 345 "args/argcheck.rl"
+tr152:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_CLOSED; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 432 "args/argcheck.rl"
+#line 512 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, REPEAT_INF); }
 	goto st12;
-tr137:
-#line 345 "args/argcheck.rl"
+tr153:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_CLOSED; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 431 "args/argcheck.rl"
+#line 511 "args/argcheck.rl"
 	{ rl_chk.setRepeats(1, REPEAT_INF); }
 	goto st12;
-tr138:
-#line 345 "args/argcheck.rl"
+tr154:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_CLOSED; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 430 "args/argcheck.rl"
+#line 510 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, 1); }
 	goto st12;
-tr149:
-#line 282 "args/argcheck.rl"
+tr165:
+#line 301 "args/argcheck.rl"
 	{
     try {
         ArgString str{ {}, 0 };
@@ -1624,13 +1943,13 @@ tr149:
         LIB_ERR << "exception: " << e.what();
     }
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 432 "args/argcheck.rl"
+#line 512 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, REPEAT_INF); }
 	goto st12;
-tr150:
-#line 282 "args/argcheck.rl"
+tr166:
+#line 301 "args/argcheck.rl"
 	{
     try {
         ArgString str{ {}, 0 };
@@ -1664,13 +1983,13 @@ tr150:
         LIB_ERR << "exception: " << e.what();
     }
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 431 "args/argcheck.rl"
+#line 511 "args/argcheck.rl"
 	{ rl_chk.setRepeats(1, REPEAT_INF); }
 	goto st12;
-tr151:
-#line 282 "args/argcheck.rl"
+tr167:
+#line 301 "args/argcheck.rl"
 	{
     try {
         ArgString str{ {}, 0 };
@@ -1704,28 +2023,79 @@ tr151:
         LIB_ERR << "exception: " << e.what();
     }
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 430 "args/argcheck.rl"
+#line 510 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, 1); }
 	goto st12;
 st12:
 	p += 1;
 case 12:
-#line 1716 "args/argcheck.cpp"
+#line 2035 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr24;
 		case 32: goto tr25;
 	}
 	goto st0;
 tr23:
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 322 "args/argcheck.rl"
+#line 386 "args/argcheck.rl"
 	{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 	goto st13;
-tr53:
-#line 269 "args/argcheck.rl"
+tr46:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+#line 526 "args/argcheck.rl"
+	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
+#line 386 "args/argcheck.rl"
+	{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
+	goto st13;
+tr69:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -1738,39 +2108,39 @@ tr53:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 322 "args/argcheck.rl"
+#line 386 "args/argcheck.rl"
 	{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 	goto st13;
-tr104:
-#line 265 "args/argcheck.rl"
+tr120:
+#line 284 "args/argcheck.rl"
 	{
     rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 322 "args/argcheck.rl"
+#line 386 "args/argcheck.rl"
 	{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 	goto st13;
-tr133:
-#line 345 "args/argcheck.rl"
+tr149:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 322 "args/argcheck.rl"
+#line 386 "args/argcheck.rl"
 	{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 	goto st13;
-tr139:
-#line 345 "args/argcheck.rl"
+tr155:
+#line 410 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_RANGE_CLOSED; }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 322 "args/argcheck.rl"
+#line 386 "args/argcheck.rl"
 	{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 	goto st13;
-tr152:
-#line 282 "args/argcheck.rl"
+tr168:
+#line 301 "args/argcheck.rl"
 	{
     try {
         ArgString str{ {}, 0 };
@@ -1804,28 +2174,28 @@ tr152:
         LIB_ERR << "exception: " << e.what();
     }
 }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 322 "args/argcheck.rl"
+#line 386 "args/argcheck.rl"
 	{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 	goto st13;
 st13:
 	p += 1;
 case 13:
-#line 1816 "args/argcheck.cpp"
+#line 2186 "args/argcheck.cpp"
 	if ( (*p) == 48 )
 		goto tr26;
 	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr27;
 	goto st0;
 tr26:
-#line 319 "args/argcheck.rl"
+#line 383 "args/argcheck.rl"
 	{ rl_chk.rmin = 0; }
 	goto st14;
 st14:
 	p += 1;
 case 14:
-#line 1829 "args/argcheck.cpp"
+#line 2199 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 44: goto st15;
 		case 125: goto tr29;
@@ -1842,45 +2212,45 @@ case 15:
 		goto tr31;
 	goto st0;
 tr30:
-#line 320 "args/argcheck.rl"
+#line 384 "args/argcheck.rl"
 	{ rl_chk.rmax = 0; }
 	goto st16;
 st16:
 	p += 1;
 case 16:
-#line 1852 "args/argcheck.cpp"
+#line 2222 "args/argcheck.cpp"
 	if ( (*p) == 125 )
 		goto st12;
 	goto st0;
 tr31:
-#line 320 "args/argcheck.rl"
+#line 384 "args/argcheck.rl"
 	{ rl_chk.rmax = (*p)-'0'; }
 	goto st17;
 tr33:
-#line 320 "args/argcheck.rl"
+#line 384 "args/argcheck.rl"
 	{ (rl_chk.rmax *= 10) += ((*p) - '0'); }
 	goto st17;
 st17:
 	p += 1;
 case 17:
-#line 1867 "args/argcheck.cpp"
+#line 2237 "args/argcheck.cpp"
 	if ( (*p) == 125 )
 		goto st12;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr33;
 	goto st0;
 tr27:
-#line 319 "args/argcheck.rl"
+#line 383 "args/argcheck.rl"
 	{ rl_chk.rmin = (*p)-'0'; }
 	goto st18;
 tr34:
-#line 319 "args/argcheck.rl"
+#line 383 "args/argcheck.rl"
 	{ (rl_chk.rmin *= 10) += ((*p) - '0'); }
 	goto st18;
 st18:
 	p += 1;
 case 18:
-#line 1884 "args/argcheck.cpp"
+#line 2254 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 44: goto st15;
 		case 125: goto tr29;
@@ -1888,354 +2258,389 @@ case 18:
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr34;
 	goto st0;
-tr5:
-#line 428 "args/argcheck.rl"
-	{ rl_chk.type = CHECK_FLOAT; }
+tr3:
+#line 503 "args/argcheck.rl"
+	{ rl_chk.type = CHECK_ATOM; }
 	goto st19;
 st19:
 	p += 1;
 case 19:
-#line 1899 "args/argcheck.cpp"
+#line 2269 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
-		case 33: goto st20;
 		case 42: goto tr20;
 		case 43: goto tr21;
-		case 60: goto tr36;
-		case 61: goto tr37;
-		case 62: goto tr38;
+		case 61: goto tr35;
 		case 63: goto tr22;
-		case 91: goto st33;
 		case 123: goto tr23;
-		case 126: goto tr40;
 	}
 	goto st0;
+tr35:
+#line 497 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_EQUAL; }
+	goto st20;
+tr47:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+	goto st20;
 st20:
 	p += 1;
 case 20:
-	if ( (*p) == 61 )
-		goto tr41;
+#line 2334 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 34: goto tr36;
+		case 35: goto tr37;
+		case 39: goto tr38;
+		case 43: goto tr37;
+		case 95: goto tr37;
+	}
+	if ( (*p) < 48 ) {
+		if ( 45 <= (*p) && (*p) <= 46 )
+			goto tr37;
+	} else if ( (*p) > 58 ) {
+		if ( (*p) > 90 ) {
+			if ( 97 <= (*p) && (*p) <= 122 )
+				goto tr37;
+		} else if ( (*p) >= 64 )
+			goto tr37;
+	} else
+		goto tr37;
 	goto st0;
-tr41:
-#line 358 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_NOT_EQUAL; }
-	goto st21;
-tr56:
-#line 357 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_LESS_EQ; }
-	goto st21;
-tr66:
-#line 356 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_GREATER_EQ; }
+tr36:
+#line 493 "args/argcheck.rl"
+	{ rl_sym_start = p; }
 	goto st21;
 st21:
 	p += 1;
 case 21:
-#line 1936 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 43: goto tr42;
-		case 45: goto tr43;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr44;
-	goto st0;
-tr42:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
-	goto st22;
-tr43:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
+#line 2361 "args/argcheck.cpp"
+	if ( (*p) == 34 )
+		goto st0;
 	goto st22;
 st22:
 	p += 1;
 case 22:
-#line 1959 "args/argcheck.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr45;
-	goto st0;
-tr44:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st23;
-tr45:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st23;
-tr51:
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st23;
+	if ( (*p) == 34 )
+		goto st23;
+	goto st22;
 st23:
 	p += 1;
 case 23:
-#line 1984 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr46;
-		case 32: goto tr47;
-		case 42: goto tr48;
-		case 43: goto tr49;
-		case 46: goto st24;
-		case 63: goto tr52;
-		case 123: goto tr53;
+		case 0: goto tr41;
+		case 32: goto tr42;
+		case 42: goto tr43;
+		case 43: goto tr44;
+		case 63: goto tr45;
+		case 123: goto tr46;
+		case 124: goto tr47;
 	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr51;
 	goto st0;
+tr37:
+#line 493 "args/argcheck.rl"
+	{ rl_sym_start = p; }
+	goto st24;
+tr49:
+#line 335 "args/argcheck.rl"
+	{
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = p - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+#line 526 "args/argcheck.rl"
+	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
+#line 511 "args/argcheck.rl"
+	{ rl_chk.setRepeats(1, REPEAT_INF); }
+	goto st24;
 st24:
 	p += 1;
 case 24:
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr54;
+#line 2442 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 0: goto tr41;
+		case 32: goto tr42;
+		case 35: goto st24;
+		case 42: goto tr43;
+		case 43: goto tr49;
+		case 63: goto tr45;
+		case 95: goto st24;
+		case 123: goto tr46;
+		case 124: goto tr47;
+	}
+	if ( (*p) < 48 ) {
+		if ( 45 <= (*p) && (*p) <= 46 )
+			goto st24;
+	} else if ( (*p) > 58 ) {
+		if ( (*p) > 90 ) {
+			if ( 97 <= (*p) && (*p) <= 122 )
+				goto st24;
+		} else if ( (*p) >= 64 )
+			goto st24;
+	} else
+		goto st24;
 	goto st0;
-tr54:
-#line 328 "args/argcheck.rl"
-	{ rl_den = 0; rl_den_cnt = 1; }
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
-	goto st25;
-tr55:
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+tr38:
+#line 493 "args/argcheck.rl"
+	{ rl_sym_start = p; }
 	goto st25;
 st25:
 	p += 1;
 case 25:
-#line 2016 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 0: goto tr46;
-		case 32: goto tr47;
-		case 42: goto tr48;
-		case 43: goto tr49;
-		case 63: goto tr52;
-		case 123: goto tr53;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr55;
-	goto st0;
-tr36:
-#line 357 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_LESS; }
+#line 2473 "args/argcheck.cpp"
+	if ( (*p) == 39 )
+		goto st0;
 	goto st26;
 st26:
 	p += 1;
 case 26:
-#line 2035 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 43: goto tr42;
-		case 45: goto tr43;
-		case 61: goto tr56;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr44;
-	goto st0;
-tr37:
-#line 406 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_EQUAL; }
-	goto st27;
-tr40:
-#line 414 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_APPROX; }
-	goto st27;
-tr63:
-#line 269 "args/argcheck.rl"
-	{
-    double real = rl_num;
-    if (rl_den_cnt)
-        real += rl_den / double(rl_den_cnt);
-
-    rl_chk.values.push_back(rl_sign * real);
-
-    // cleanup
-    rl_den = 0;
-    rl_den_cnt = 0;
-    rl_sign = 1;
-}
+	if ( (*p) == 39 )
+		goto st23;
+	goto st26;
+tr5:
+#line 508 "args/argcheck.rl"
+	{ rl_chk.type = CHECK_FLOAT; }
 	goto st27;
 st27:
 	p += 1;
 case 27:
-#line 2070 "args/argcheck.cpp"
+#line 2490 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 43: goto tr57;
-		case 45: goto tr58;
+		case 0: goto tr18;
+		case 32: goto tr19;
+		case 33: goto st28;
+		case 42: goto tr20;
+		case 43: goto tr21;
+		case 60: goto tr52;
+		case 61: goto tr53;
+		case 62: goto tr54;
+		case 63: goto tr22;
+		case 91: goto st41;
+		case 123: goto tr23;
+		case 126: goto tr56;
 	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr59;
 	goto st0;
-tr57:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
-	goto st28;
-tr58:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
-	goto st28;
 st28:
 	p += 1;
 case 28:
-#line 2093 "args/argcheck.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr60;
+	if ( (*p) == 61 )
+		goto tr57;
 	goto st0;
-tr59:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
+tr57:
+#line 423 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_NOT_EQUAL; }
 	goto st29;
-tr60:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
+tr72:
+#line 422 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_LESS_EQ; }
 	goto st29;
-tr62:
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
+tr82:
+#line 421 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_GREATER_EQ; }
 	goto st29;
 st29:
 	p += 1;
 case 29:
-#line 2118 "args/argcheck.cpp"
+#line 2527 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr46;
-		case 32: goto tr47;
-		case 42: goto tr48;
-		case 43: goto tr49;
-		case 46: goto st30;
-		case 63: goto tr52;
-		case 123: goto tr53;
-		case 124: goto tr63;
+		case 43: goto tr58;
+		case 45: goto tr59;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr62;
+		goto tr60;
 	goto st0;
+tr58:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
+	goto st30;
+tr59:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
+	goto st30;
 st30:
 	p += 1;
 case 30:
+#line 2550 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr64;
+		goto tr61;
 	goto st0;
-tr64:
-#line 328 "args/argcheck.rl"
-	{ rl_den = 0; rl_den_cnt = 1; }
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+tr60:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st31;
-tr65:
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+tr61:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st31;
+tr67:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st31;
 st31:
 	p += 1;
 case 31:
-#line 2151 "args/argcheck.cpp"
+#line 2575 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr46;
-		case 32: goto tr47;
-		case 42: goto tr48;
-		case 43: goto tr49;
-		case 63: goto tr52;
-		case 123: goto tr53;
-		case 124: goto tr63;
+		case 0: goto tr62;
+		case 32: goto tr63;
+		case 42: goto tr64;
+		case 43: goto tr65;
+		case 46: goto st32;
+		case 63: goto tr68;
+		case 123: goto tr69;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr65;
+		goto tr67;
 	goto st0;
-tr38:
-#line 356 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_GREATER; }
-	goto st32;
 st32:
 	p += 1;
 case 32:
-#line 2171 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 43: goto tr42;
-		case 45: goto tr43;
-		case 61: goto tr66;
-	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr44;
+		goto tr70;
 	goto st0;
+tr70:
+#line 392 "args/argcheck.rl"
+	{ rl_den = 0; rl_den_cnt = 1; }
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+	goto st33;
+tr71:
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+	goto st33;
 st33:
 	p += 1;
 case 33:
+#line 2607 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 43: goto tr67;
-		case 45: goto tr68;
+		case 0: goto tr62;
+		case 32: goto tr63;
+		case 42: goto tr64;
+		case 43: goto tr65;
+		case 63: goto tr68;
+		case 123: goto tr69;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr69;
+		goto tr71;
 	goto st0;
-tr67:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
-	goto st34;
-tr68:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
+tr52:
+#line 422 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_LESS; }
 	goto st34;
 st34:
 	p += 1;
 case 34:
-#line 2205 "args/argcheck.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr70;
-	goto st0;
-tr69:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st35;
-tr70:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st35;
-tr73:
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st35;
-st35:
-	p += 1;
-case 35:
-#line 2230 "args/argcheck.cpp"
+#line 2626 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 44: goto tr71;
-		case 46: goto st41;
+		case 43: goto tr58;
+		case 45: goto tr59;
+		case 61: goto tr72;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr73;
+		goto tr60;
 	goto st0;
-tr71:
-#line 269 "args/argcheck.rl"
+tr53:
+#line 471 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_EQUAL; }
+	goto st35;
+tr56:
+#line 479 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_APPROX; }
+	goto st35;
+tr79:
+#line 288 "args/argcheck.rl"
 	{
     double real = rl_num;
     if (rl_den_cnt)
@@ -2248,555 +2653,741 @@ tr71:
     rl_den_cnt = 0;
     rl_sign = 1;
 }
+	goto st35;
+st35:
+	p += 1;
+case 35:
+#line 2661 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 43: goto tr73;
+		case 45: goto tr74;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr75;
+	goto st0;
+tr73:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
+	goto st36;
+tr74:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
 	goto st36;
 st36:
 	p += 1;
 case 36:
-#line 2256 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 43: goto tr74;
-		case 45: goto tr75;
-	}
+#line 2684 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr76;
 	goto st0;
-tr74:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
-	goto st37;
 tr75:
-#line 333 "args/argcheck.rl"
+#line 398 "args/argcheck.rl"
 	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st37;
+tr76:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st37;
+tr78:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st37;
 st37:
 	p += 1;
 case 37:
-#line 2279 "args/argcheck.cpp"
+#line 2709 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 0: goto tr62;
+		case 32: goto tr63;
+		case 42: goto tr64;
+		case 43: goto tr65;
+		case 46: goto st38;
+		case 63: goto tr68;
+		case 123: goto tr69;
+		case 124: goto tr79;
+	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr77;
+		goto tr78;
 	goto st0;
-tr76:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st38;
-tr77:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st38;
-tr80:
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st38;
 st38:
 	p += 1;
 case 38:
-#line 2304 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 41: goto tr78;
-		case 46: goto st39;
-		case 93: goto tr81;
-	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr80;
 	goto st0;
+tr80:
+#line 392 "args/argcheck.rl"
+	{ rl_den = 0; rl_den_cnt = 1; }
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+	goto st39;
+tr81:
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+	goto st39;
 st39:
 	p += 1;
 case 39:
+#line 2742 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 0: goto tr62;
+		case 32: goto tr63;
+		case 42: goto tr64;
+		case 43: goto tr65;
+		case 63: goto tr68;
+		case 123: goto tr69;
+		case 124: goto tr79;
+	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr82;
+		goto tr81;
 	goto st0;
-tr82:
-#line 328 "args/argcheck.rl"
-	{ rl_den = 0; rl_den_cnt = 1; }
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
-	goto st40;
-tr83:
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+tr54:
+#line 421 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_GREATER; }
 	goto st40;
 st40:
 	p += 1;
 case 40:
-#line 2332 "args/argcheck.cpp"
+#line 2762 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 41: goto tr78;
-		case 93: goto tr81;
+		case 43: goto tr58;
+		case 45: goto tr59;
+		case 61: goto tr82;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr83;
+		goto tr60;
 	goto st0;
 st41:
 	p += 1;
 case 41:
+	switch( (*p) ) {
+		case 43: goto tr83;
+		case 45: goto tr84;
+	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr84;
+		goto tr85;
 	goto st0;
-tr84:
-#line 328 "args/argcheck.rl"
-	{ rl_den = 0; rl_den_cnt = 1; }
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+tr83:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
 	goto st42;
-tr85:
-#line 328 "args/argcheck.rl"
-	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+tr84:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
 	goto st42;
 st42:
 	p += 1;
 case 42:
-#line 2359 "args/argcheck.cpp"
-	if ( (*p) == 44 )
-		goto tr71;
+#line 2796 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr85;
+		goto tr86;
 	goto st0;
-tr6:
-#line 426 "args/argcheck.rl"
-	{ rl_chk.type = CHECK_INT; }
+tr85:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st43;
+tr86:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st43;
+tr89:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st43;
 st43:
 	p += 1;
 case 43:
-#line 2372 "args/argcheck.cpp"
+#line 2821 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr18;
-		case 32: goto tr19;
-		case 33: goto st44;
-		case 37: goto tr87;
-		case 42: goto tr20;
-		case 43: goto tr21;
-		case 60: goto tr88;
-		case 61: goto tr89;
-		case 62: goto tr90;
-		case 63: goto tr22;
-		case 91: goto st55;
-		case 94: goto st63;
-		case 123: goto tr23;
+		case 44: goto tr87;
+		case 46: goto st49;
 	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr89;
 	goto st0;
+tr87:
+#line 288 "args/argcheck.rl"
+	{
+    double real = rl_num;
+    if (rl_den_cnt)
+        real += rl_den / double(rl_den_cnt);
+
+    rl_chk.values.push_back(rl_sign * real);
+
+    // cleanup
+    rl_den = 0;
+    rl_den_cnt = 0;
+    rl_sign = 1;
+}
+	goto st44;
 st44:
 	p += 1;
 case 44:
-	if ( (*p) == 61 )
-		goto tr93;
+#line 2847 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 43: goto tr90;
+		case 45: goto tr91;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr92;
 	goto st0;
-tr93:
-#line 358 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_NOT_EQUAL; }
+tr90:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
 	goto st45;
-tr107:
-#line 357 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_LESS_EQ; }
-	goto st45;
-tr114:
-#line 356 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_GREATER_EQ; }
+tr91:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
 	goto st45;
 st45:
 	p += 1;
 case 45:
-#line 2410 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 43: goto tr94;
-		case 45: goto tr95;
-	}
+#line 2870 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr96;
+		goto tr93;
 	goto st0;
-tr94:
-#line 333 "args/argcheck.rl"
+tr92:
+#line 398 "args/argcheck.rl"
 	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st46;
-tr95:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
+tr93:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st46;
+tr96:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st46;
 st46:
 	p += 1;
 case 46:
-#line 2433 "args/argcheck.cpp"
+#line 2895 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 41: goto tr94;
+		case 46: goto st47;
+		case 93: goto tr97;
+	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr97;
+		goto tr96;
 	goto st0;
-tr96:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st47;
-tr97:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st47;
-tr102:
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st47;
 st47:
 	p += 1;
 case 47:
-#line 2458 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 0: goto tr98;
-		case 32: goto tr99;
-		case 42: goto tr100;
-		case 43: goto tr101;
-		case 63: goto tr103;
-		case 123: goto tr104;
-	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr102;
+		goto tr98;
 	goto st0;
-tr87:
-#line 363 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_MODULE; }
+tr98:
+#line 392 "args/argcheck.rl"
+	{ rl_den = 0; rl_den_cnt = 1; }
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+	goto st48;
+tr99:
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
 	goto st48;
 st48:
 	p += 1;
 case 48:
-#line 2477 "args/argcheck.cpp"
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr105;
+#line 2923 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 41: goto tr94;
+		case 93: goto tr97;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr99;
 	goto st0;
-tr105:
-#line 364 "args/argcheck.rl"
-	{ rl_sign = 1; rl_num = 0; }
-#line 364 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st49;
-tr106:
-#line 364 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st49;
 st49:
 	p += 1;
 case 49:
-#line 2494 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 0: goto tr98;
-		case 32: goto tr99;
-		case 42: goto tr100;
-		case 43: goto tr101;
-		case 63: goto tr103;
-		case 123: goto tr104;
-	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr106;
+		goto tr100;
 	goto st0;
-tr88:
-#line 357 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_LESS; }
+tr100:
+#line 392 "args/argcheck.rl"
+	{ rl_den = 0; rl_den_cnt = 1; }
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
+	goto st50;
+tr101:
+#line 392 "args/argcheck.rl"
+	{ (rl_den *= 10) += ((*p) - '0'); rl_den_cnt *= 10; }
 	goto st50;
 st50:
 	p += 1;
 case 50:
-#line 2513 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 43: goto tr94;
-		case 45: goto tr95;
-		case 61: goto tr107;
-	}
+#line 2950 "args/argcheck.cpp"
+	if ( (*p) == 44 )
+		goto tr87;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr96;
+		goto tr101;
 	goto st0;
-tr89:
-#line 353 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_EQUAL; }
-	goto st51;
-tr113:
-#line 265 "args/argcheck.rl"
-	{
-    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-}
+tr6:
+#line 506 "args/argcheck.rl"
+	{ rl_chk.type = CHECK_INT; }
 	goto st51;
 st51:
 	p += 1;
 case 51:
-#line 2535 "args/argcheck.cpp"
+#line 2963 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 43: goto tr108;
-		case 45: goto tr109;
+		case 0: goto tr18;
+		case 32: goto tr19;
+		case 33: goto st52;
+		case 37: goto tr103;
+		case 42: goto tr20;
+		case 43: goto tr21;
+		case 60: goto tr104;
+		case 61: goto tr105;
+		case 62: goto tr106;
+		case 63: goto tr22;
+		case 91: goto st63;
+		case 94: goto st71;
+		case 123: goto tr23;
 	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr110;
 	goto st0;
-tr108:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
-	goto st52;
-tr109:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
-	goto st52;
 st52:
 	p += 1;
 case 52:
-#line 2558 "args/argcheck.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr111;
+	if ( (*p) == 61 )
+		goto tr109;
 	goto st0;
-tr110:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
+tr109:
+#line 423 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_NOT_EQUAL; }
 	goto st53;
-tr111:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
+tr123:
+#line 422 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_LESS_EQ; }
 	goto st53;
-tr112:
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
+tr130:
+#line 421 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_GREATER_EQ; }
 	goto st53;
 st53:
 	p += 1;
 case 53:
-#line 2583 "args/argcheck.cpp"
+#line 3001 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr98;
-		case 32: goto tr99;
-		case 42: goto tr100;
-		case 43: goto tr101;
-		case 63: goto tr103;
-		case 123: goto tr104;
-		case 124: goto tr113;
+		case 43: goto tr110;
+		case 45: goto tr111;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr112;
 	goto st0;
-tr90:
-#line 356 "args/argcheck.rl"
-	{ rl_chk.cmp = CMP_GREATER; }
+tr110:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
+	goto st54;
+tr111:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
 	goto st54;
 st54:
 	p += 1;
 case 54:
-#line 2603 "args/argcheck.cpp"
-	switch( (*p) ) {
-		case 43: goto tr94;
-		case 45: goto tr95;
-		case 61: goto tr114;
-	}
+#line 3024 "args/argcheck.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr96;
+		goto tr113;
 	goto st0;
+tr112:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st55;
+tr113:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st55;
+tr118:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st55;
 st55:
 	p += 1;
 case 55:
+#line 3049 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 43: goto tr115;
-		case 45: goto tr116;
+		case 0: goto tr114;
+		case 32: goto tr115;
+		case 42: goto tr116;
+		case 43: goto tr117;
+		case 63: goto tr119;
+		case 123: goto tr120;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr117;
+		goto tr118;
 	goto st0;
-tr115:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
-	goto st56;
-tr116:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
+tr103:
+#line 428 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_MODULE; }
 	goto st56;
 st56:
 	p += 1;
 case 56:
-#line 2637 "args/argcheck.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr118;
+#line 3068 "args/argcheck.cpp"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr121;
 	goto st0;
-tr117:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
+tr121:
+#line 429 "args/argcheck.rl"
+	{ rl_sign = 1; rl_num = 0; }
+#line 429 "args/argcheck.rl"
 	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st57;
-tr118:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st57;
-tr120:
-#line 327 "args/argcheck.rl"
+tr122:
+#line 429 "args/argcheck.rl"
 	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st57;
 st57:
 	p += 1;
 case 57:
-#line 2662 "args/argcheck.cpp"
-	if ( (*p) == 44 )
-		goto tr119;
+#line 3085 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 0: goto tr114;
+		case 32: goto tr115;
+		case 42: goto tr116;
+		case 43: goto tr117;
+		case 63: goto tr119;
+		case 123: goto tr120;
+	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr120;
+		goto tr122;
 	goto st0;
-tr119:
-#line 265 "args/argcheck.rl"
-	{
-    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-}
+tr104:
+#line 422 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_LESS; }
 	goto st58;
 st58:
 	p += 1;
 case 58:
-#line 2677 "args/argcheck.cpp"
+#line 3104 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 43: goto tr121;
-		case 45: goto tr122;
+		case 43: goto tr110;
+		case 45: goto tr111;
+		case 61: goto tr123;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr123;
+		goto tr112;
 	goto st0;
-tr121:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 324 "args/argcheck.rl"
-	{ rl_sign = 1; }
+tr105:
+#line 418 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_EQUAL; }
 	goto st59;
-tr122:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 325 "args/argcheck.rl"
-	{ rl_sign = -1; }
+tr129:
+#line 284 "args/argcheck.rl"
+	{
+    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+}
 	goto st59;
 st59:
 	p += 1;
 case 59:
-#line 2700 "args/argcheck.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr124;
-	goto st0;
-tr123:
-#line 333 "args/argcheck.rl"
-	{ rl_sign = 1; }
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st60;
-tr124:
-#line 327 "args/argcheck.rl"
-	{ rl_num = 0; }
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st60;
-tr126:
-#line 327 "args/argcheck.rl"
-	{ (rl_num *= 10) += ((*p) - '0'); }
-	goto st60;
-st60:
-	p += 1;
-case 60:
-#line 2725 "args/argcheck.cpp"
+#line 3126 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 41: goto tr125;
-		case 93: goto tr127;
+		case 43: goto tr124;
+		case 45: goto tr125;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr126;
 	goto st0;
+tr124:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
+	goto st60;
 tr125:
-#line 265 "args/argcheck.rl"
-	{
-    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-}
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
+	goto st60;
+st60:
+	p += 1;
+case 60:
+#line 3149 "args/argcheck.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr127;
+	goto st0;
+tr126:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st61;
+tr127:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st61;
+tr128:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
 	goto st61;
 st61:
 	p += 1;
 case 61:
-#line 2742 "args/argcheck.cpp"
+#line 3174 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr128;
-		case 32: goto tr129;
-		case 42: goto tr130;
-		case 43: goto tr131;
-		case 63: goto tr132;
-		case 123: goto tr133;
+		case 0: goto tr114;
+		case 32: goto tr115;
+		case 42: goto tr116;
+		case 43: goto tr117;
+		case 63: goto tr119;
+		case 123: goto tr120;
+		case 124: goto tr129;
 	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr128;
 	goto st0;
-tr127:
-#line 265 "args/argcheck.rl"
-	{
-    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-}
+tr106:
+#line 421 "args/argcheck.rl"
+	{ rl_chk.cmp = CMP_GREATER; }
 	goto st62;
 st62:
 	p += 1;
 case 62:
-#line 2761 "args/argcheck.cpp"
+#line 3194 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr134;
-		case 32: goto tr135;
-		case 42: goto tr136;
-		case 43: goto tr137;
-		case 63: goto tr138;
-		case 123: goto tr139;
+		case 43: goto tr110;
+		case 45: goto tr111;
+		case 61: goto tr130;
 	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr112;
 	goto st0;
 st63:
 	p += 1;
 case 63:
-	if ( (*p) == 50 )
-		goto tr140;
+	switch( (*p) ) {
+		case 43: goto tr131;
+		case 45: goto tr132;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr133;
 	goto st0;
-tr7:
-#line 427 "args/argcheck.rl"
-	{ rl_chk.type = CHECK_SYMBOL; }
+tr131:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
+	goto st64;
+tr132:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
 	goto st64;
 st64:
 	p += 1;
 case 64:
-#line 2784 "args/argcheck.cpp"
+#line 3228 "args/argcheck.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr134;
+	goto st0;
+tr133:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st65;
+tr134:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st65;
+tr136:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st65;
+st65:
+	p += 1;
+case 65:
+#line 3253 "args/argcheck.cpp"
+	if ( (*p) == 44 )
+		goto tr135;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr136;
+	goto st0;
+tr135:
+#line 284 "args/argcheck.rl"
+	{
+    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+}
+	goto st66;
+st66:
+	p += 1;
+case 66:
+#line 3268 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 43: goto tr137;
+		case 45: goto tr138;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr139;
+	goto st0;
+tr137:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 388 "args/argcheck.rl"
+	{ rl_sign = 1; }
+	goto st67;
+tr138:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 389 "args/argcheck.rl"
+	{ rl_sign = -1; }
+	goto st67;
+st67:
+	p += 1;
+case 67:
+#line 3291 "args/argcheck.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr140;
+	goto st0;
+tr139:
+#line 398 "args/argcheck.rl"
+	{ rl_sign = 1; }
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st68;
+tr140:
+#line 391 "args/argcheck.rl"
+	{ rl_num = 0; }
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st68;
+tr142:
+#line 391 "args/argcheck.rl"
+	{ (rl_num *= 10) += ((*p) - '0'); }
+	goto st68;
+st68:
+	p += 1;
+case 68:
+#line 3316 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 41: goto tr141;
+		case 93: goto tr143;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr142;
+	goto st0;
+tr141:
+#line 284 "args/argcheck.rl"
+	{
+    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+}
+	goto st69;
+st69:
+	p += 1;
+case 69:
+#line 3333 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 0: goto tr144;
+		case 32: goto tr145;
+		case 42: goto tr146;
+		case 43: goto tr147;
+		case 63: goto tr148;
+		case 123: goto tr149;
+	}
+	goto st0;
+tr143:
+#line 284 "args/argcheck.rl"
+	{
+    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+}
+	goto st70;
+st70:
+	p += 1;
+case 70:
+#line 3352 "args/argcheck.cpp"
+	switch( (*p) ) {
+		case 0: goto tr150;
+		case 32: goto tr151;
+		case 42: goto tr152;
+		case 43: goto tr153;
+		case 63: goto tr154;
+		case 123: goto tr155;
+	}
+	goto st0;
+st71:
+	p += 1;
+case 71:
+	if ( (*p) == 50 )
+		goto tr156;
+	goto st0;
+tr7:
+#line 507 "args/argcheck.rl"
+	{ rl_chk.type = CHECK_SYMBOL; }
+	goto st72;
+st72:
+	p += 1;
+case 72:
+#line 3375 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
 		case 42: goto tr20;
 		case 43: goto tr21;
-		case 61: goto tr141;
+		case 61: goto tr157;
 		case 63: goto tr22;
 		case 123: goto tr23;
 	}
 	goto st0;
-tr141:
-#line 389 "args/argcheck.rl"
+tr157:
+#line 454 "args/argcheck.rl"
 	{ rl_chk.cmp = CMP_EQUAL; }
-	goto st65;
-tr153:
-#line 282 "args/argcheck.rl"
+	goto st73;
+tr169:
+#line 301 "args/argcheck.rl"
 	{
     try {
         ArgString str{ {}, 0 };
@@ -2830,122 +3421,122 @@ tr153:
         LIB_ERR << "exception: " << e.what();
     }
 }
-	goto st65;
-st65:
+	goto st73;
+st73:
 	p += 1;
-case 65:
-#line 2838 "args/argcheck.cpp"
+case 73:
+#line 3429 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 34: goto tr142;
-		case 35: goto tr143;
-		case 39: goto tr144;
-		case 45: goto tr143;
-		case 95: goto tr143;
+		case 34: goto tr158;
+		case 35: goto tr159;
+		case 39: goto tr160;
+		case 45: goto tr159;
+		case 95: goto tr159;
 	}
 	if ( (*p) < 64 ) {
 		if ( 48 <= (*p) && (*p) <= 58 )
-			goto tr143;
+			goto tr159;
 	} else if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr143;
+			goto tr159;
 	} else
-		goto tr143;
+		goto tr159;
 	goto st0;
-tr142:
-#line 382 "args/argcheck.rl"
+tr158:
+#line 447 "args/argcheck.rl"
 	{ rl_sym_start = p; }
-	goto st66;
-st66:
+	goto st74;
+st74:
 	p += 1;
-case 66:
-#line 2862 "args/argcheck.cpp"
+case 74:
+#line 3453 "args/argcheck.cpp"
 	if ( (*p) == 34 )
 		goto st0;
-	goto st67;
-st67:
+	goto st75;
+st75:
 	p += 1;
-case 67:
+case 75:
 	if ( (*p) == 34 )
-		goto st68;
-	goto st67;
-st68:
+		goto st76;
+	goto st75;
+st76:
 	p += 1;
-case 68:
+case 76:
 	switch( (*p) ) {
-		case 0: goto tr147;
-		case 32: goto tr148;
-		case 42: goto tr149;
-		case 43: goto tr150;
-		case 63: goto tr151;
-		case 123: goto tr152;
-		case 124: goto tr153;
+		case 0: goto tr163;
+		case 32: goto tr164;
+		case 42: goto tr165;
+		case 43: goto tr166;
+		case 63: goto tr167;
+		case 123: goto tr168;
+		case 124: goto tr169;
 	}
 	goto st0;
-tr143:
-#line 382 "args/argcheck.rl"
+tr159:
+#line 447 "args/argcheck.rl"
 	{ rl_sym_start = p; }
-	goto st69;
-st69:
+	goto st77;
+st77:
 	p += 1;
-case 69:
-#line 2892 "args/argcheck.cpp"
+case 77:
+#line 3483 "args/argcheck.cpp"
 	switch( (*p) ) {
-		case 0: goto tr147;
-		case 32: goto tr148;
-		case 35: goto st69;
-		case 42: goto tr149;
-		case 43: goto tr150;
-		case 45: goto st69;
-		case 63: goto tr151;
-		case 95: goto st69;
-		case 123: goto tr152;
-		case 124: goto tr153;
+		case 0: goto tr163;
+		case 32: goto tr164;
+		case 35: goto st77;
+		case 42: goto tr165;
+		case 43: goto tr166;
+		case 45: goto st77;
+		case 63: goto tr167;
+		case 95: goto st77;
+		case 123: goto tr168;
+		case 124: goto tr169;
 	}
 	if ( (*p) < 64 ) {
 		if ( 48 <= (*p) && (*p) <= 58 )
-			goto st69;
+			goto st77;
 	} else if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto st69;
+			goto st77;
 	} else
-		goto st69;
+		goto st77;
 	goto st0;
-tr144:
-#line 382 "args/argcheck.rl"
+tr160:
+#line 447 "args/argcheck.rl"
 	{ rl_sym_start = p; }
-	goto st70;
-st70:
+	goto st78;
+st78:
 	p += 1;
-case 70:
-#line 2921 "args/argcheck.cpp"
+case 78:
+#line 3512 "args/argcheck.cpp"
 	if ( (*p) == 39 )
 		goto st0;
-	goto st71;
-st71:
+	goto st79;
+st79:
 	p += 1;
-case 71:
+case 79:
 	if ( (*p) == 39 )
-		goto st68;
-	goto st71;
+		goto st76;
+	goto st79;
 tr2:
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.clear(); }
-#line 436 "args/argcheck.rl"
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
-#line 424 "args/argcheck.rl"
+#line 504 "args/argcheck.rl"
 	{ rl_chk.type = CHECK_BOOL; }
-	goto st72;
-st72:
+	goto st80;
+st80:
 	p += 1;
-case 72:
-#line 2942 "args/argcheck.cpp"
+case 80:
+#line 3533 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr18;
 		case 32: goto tr19;
 		case 42: goto tr20;
 		case 43: goto tr21;
 		case 58: goto st10;
-		case 63: goto tr156;
+		case 63: goto tr172;
 		case 95: goto tr9;
 		case 123: goto tr23;
 	}
@@ -2955,18 +3546,18 @@ case 72:
 	} else if ( (*p) >= 48 )
 		goto tr9;
 	goto st0;
-tr156:
-#line 436 "args/argcheck.rl"
+tr172:
+#line 516 "args/argcheck.rl"
 	{ rl_chk.name.push_back((*p)); }
-#line 446 "args/argcheck.rl"
+#line 526 "args/argcheck.rl"
 	{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
-#line 430 "args/argcheck.rl"
+#line 510 "args/argcheck.rl"
 	{ rl_chk.setRepeats(0, 1); }
-	goto st73;
-st73:
+	goto st81;
+st81:
 	p += 1;
-case 73:
-#line 2970 "args/argcheck.cpp"
+case 81:
+#line 3561 "args/argcheck.cpp"
 	switch( (*p) ) {
 		case 0: goto tr24;
 		case 32: goto tr25;
@@ -2984,10 +3575,10 @@ case 73:
 	_out: {}
 	}
 
-#line 926 "args/argcheck.rl"
+#line 1035 "args/argcheck.rl"
 
 
-    if (cs < 74) {
+    if (cs < 82) {
         LIB_ERR << fmt::format("invalid format string: '{}'", str);
         chk_.reset();
     }
