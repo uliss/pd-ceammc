@@ -12,10 +12,7 @@ use std::{
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{
-    hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker,
-    MakePdMessage,
-};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 type Ssd1306Worker = HwThreadWorker<Request, Reply>;
 
@@ -143,12 +140,12 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
         };
 
         match match (width, height) {
-            (128, 64) => hw_display_ssd1306::new_i2c(args, DisplaySize128x32),
-            (128, 32) => hw_display_ssd1306::new_i2c(args, DisplaySize128x32),
-            (96, 63) => hw_display_ssd1306::new_i2c(args, DisplaySize96x16),
-            (72, 40) => hw_display_ssd1306::new_i2c(args, DisplaySize72x40),
-            (64, 48) => hw_display_ssd1306::new_i2c(args, DisplaySize64x48),
-            (64, 32) => hw_display_ssd1306::new_i2c(args, DisplaySize64x32),
+            (128, 64) => hw_display_ssd1306::new_i2c(args, DisplaySize128x32, notify),
+            (128, 32) => hw_display_ssd1306::new_i2c(args, DisplaySize128x32, notify),
+            (96, 63) => hw_display_ssd1306::new_i2c(args, DisplaySize96x16, notify),
+            (72, 40) => hw_display_ssd1306::new_i2c(args, DisplaySize72x40, notify),
+            (64, 48) => hw_display_ssd1306::new_i2c(args, DisplaySize64x48, notify),
+            (64, 32) => hw_display_ssd1306::new_i2c(args, DisplaySize64x32, notify),
             _ => {
                 let msg = format!(
                     "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
@@ -201,34 +198,22 @@ pub extern "C" fn ceammc_hw_display_ssd1306_flush(display: *const hw_display_ssd
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_clear(
-    display: *const hw_display_ssd1306,
-    flush: bool,
-) -> bool {
+pub extern "C" fn ceammc_hw_display_ssd1306_clear(display: *const hw_display_ssd1306, flush: bool) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::Clear(flush)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_set_font(
-    display: *const hw_display_ssd1306,
-    font: *const c_char,
-) -> bool {
+pub extern "C" fn ceammc_hw_display_ssd1306_set_font(display: *const hw_display_ssd1306, font: *const c_char) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::SetFont(ptr_to_cstr(font))) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_invert(
-    display: *const hw_display_ssd1306,
-    state: bool,
-) -> bool {
+pub extern "C" fn ceammc_hw_display_ssd1306_invert(display: *const hw_display_ssd1306, state: bool) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::Invert(state)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_mirror(
-    display: *const hw_display_ssd1306,
-    state: bool,
-) -> bool {
+pub extern "C" fn ceammc_hw_display_ssd1306_mirror(display: *const hw_display_ssd1306, state: bool) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::Mirror(state)) });
 }
 
@@ -241,10 +226,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_set_rotation(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_switch_on(
-    display: *const hw_display_ssd1306,
-    state: bool,
-) -> bool {
+pub extern "C" fn ceammc_hw_display_ssd1306_switch_on(display: *const hw_display_ssd1306, state: bool) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::SwitchOn(state)) });
 }
 
@@ -262,10 +244,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_set_pixel(
 /// @param display - pointer to hw_display_ssd1306 struct
 /// @param level - value in 0..4 range from dimmest to brightest
 #[no_mangle]
-pub extern "C" fn ceammc_hw_display_ssd1306_set_brightness(
-    display: *const hw_display_ssd1306,
-    level: u8,
-) -> bool {
+pub extern "C" fn ceammc_hw_display_ssd1306_set_brightness(display: *const hw_display_ssd1306, level: u8) -> bool {
     rpi_check!({ hw_display_ssd1306::send_request(display, Request::SetBrightness(level)) });
 }
 

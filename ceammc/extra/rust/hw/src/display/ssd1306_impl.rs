@@ -22,10 +22,7 @@ use ssd1306::{
 };
 
 use crate::{
-    hw_notify_cb,
-    i2c::{i2c_impl::create_i2c_bus, I2cAddress},
-    process_err, send_error,
-    spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus},
+    hw_notify_cb, i2c::{i2c_impl::create_i2c_bus, I2cAddress}, process_err, send_debug, send_error, spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus}
 };
 
 use super::{hw_display_ssd1306, DisplayI2cArgs, DisplaySpiArgs, Reply, Request, Ssd1306Worker};
@@ -181,6 +178,7 @@ impl hw_display_ssd1306 {
     pub fn new_i2c<SIZE: DisplaySize + Send + 'static>(
         args: DisplayI2cArgs,
         size: SIZE,
+        notify: hw_notify_cb,
     ) -> Result<Self, CString> {
         let (worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
 
@@ -204,7 +202,10 @@ impl hw_display_ssd1306 {
 
             display
                 .init()
-                .map_err(|err| process_err(format!("{err:?}"), &tx, args.notify))?;
+                .map_err(|err| format!("{err:?}"))?;
+            
+            send_debug(&tx, notify, format!("i2c display init with: bus={} addr={:?}", args.i2c_bus, args.i2c_addr).as_str());
+
             display.clear_buffer();
             display.flush().unwrap_or_default();
 
