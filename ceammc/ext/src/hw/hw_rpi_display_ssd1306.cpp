@@ -194,6 +194,10 @@ void HwRpiDisplaySsd1306::m_switch_on(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("TXT:s X:i Y:i");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
     auto txt = lv.symbolAt(0, &s_);
     auto x = lv.intAt(1, 0);
     auto y = lv.intAt(2, 0);
