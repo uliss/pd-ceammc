@@ -33,7 +33,7 @@ direction.;
 #X obj 69 592 clip 0.5 2.5;
 #X msg 69 621 pwidth 0 \$1;
 #X obj 50 664 hw.rpi.pwm.pca9685 default;
-#X obj 50 693 ui.link @title 'Connection' @url
+#X obj 50 693 ui.link @title 'Connection_scheme' @url
 ceammc://img/conn_pca9685.png;
 #X obj 50 722 ui.link @title 'Address' @url
 ceammc://img/info_pca9685.jpg;

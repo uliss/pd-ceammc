@@ -42,7 +42,8 @@ not to enable two peripherals on the same pin at the same time.;
 #X msg 50 869 enable \$1;
 #X msg 251 869 pwm 20 \$1;
 #X obj 50 913 hw.rpi.pwm @pwm_ch 1;
-#X obj 50 941 ui.link @title 'Scheme' @url ceammc://img/conn_pwm.png;
+#X obj 50 941 ui.link @title 'Connection_scheme' @url
+ceammc://img/conn_pwm.png;
 #X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1003 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

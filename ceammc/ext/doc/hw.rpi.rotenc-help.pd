@@ -15,7 +15,7 @@
 #X floatatom 50 234 5 0 0 0 - - -;
 #X obj 299 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 424 234 5 0 0 0 - - -;
-#X obj 50 277 ui.link @title 'Scheme' @url
+#X obj 50 277 ui.link @title 'Connection_scheme' @url
 ceammc://img/conn_rotenc.png;
 #X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144

@@ -136,7 +136,7 @@
 | |
 [hw.rpi.pwm.pca9685 default]
 
-[ui.link @url=ceammc://img/conn_pca9685.png @title='Connection']
+[ui.link @url=ceammc://img/conn_pca9685.png @title='Connection_scheme']
 
 [ui.link @url=ceammc://img/info_pca9685.jpg @title='Address']
 ]]>

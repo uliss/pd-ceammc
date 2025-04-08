@@ -102,7 +102,7 @@
 |
 [hw.rpi.pwm @pwm_ch 1 #y]
 
-[ui.link @url=ceammc://img/conn_pwm.png @title='Scheme']
+[ui.link @url=ceammc://img/conn_pwm.png @title='Connection_scheme']
 [X a->x] [X c->x] [X e->x] [X g->y]
 #b @show_value 1 @min 50 @max 500
 #d @show_value 1 @min 0 @max 20

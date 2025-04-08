@@ -17,7 +17,8 @@ power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
 #X floatatom 50 328 5 0 0 0 - - -;
 #X obj 146 328 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 371 ui.link @title 'Scheme' @url ceammc://img/hc_sr04.png;
+#X obj 50 371 ui.link @title 'Connection_scheme' @url
+ceammc://img/hc_sr04.png;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
