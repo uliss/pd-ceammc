@@ -39,7 +39,7 @@
             <method name="write bitmap">write bitmap to the display buffer
             <param name="X" type="int" required="true">bitmap X coordinate</param>
             <param name="Y" type="int" required="true">bitmap Y coordinate</param>
-            <param name="WIDTH" type="int" required="true">bitmap width in pixels</param>
+            <param name="WIDTH" type="int" minvalue="1" required="true">bitmap width in pixels</param>
             <param name="BYTES" type="list" required="true">list of bitmap bytes (integers in 0..255 range)</param>
             </method>
             <!-- clear -->

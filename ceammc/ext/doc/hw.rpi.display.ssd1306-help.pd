@@ -132,7 +132,8 @@ are:;
 #X obj 255 1841 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1841 Y: bitmap Y coordinate. Type: int.;
 #X obj 255 1864 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1864 WIDTH: bitmap width in pixels. Type: int.;
+#X text 255 1864 WIDTH: bitmap width in pixels. Type: int. Min value:
+1\.;
 #X obj 255 1887 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1887 BYTES: list of bitmap bytes (integers in 0\..255 range).
 Type: list.;
