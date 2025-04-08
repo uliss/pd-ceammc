@@ -6,9 +6,7 @@ use rppal::gpio::{Gpio, Trigger};
 
 use crate::{hw_msg_cb, hw_notify_cb};
 
-use super::{
-    hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request, RotEncoderWorker,
-};
+use super::{hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request, RotEncoderWorker};
 
 impl hw_gpio_rotenc {
     pub fn new(
@@ -27,7 +25,6 @@ impl hw_gpio_rotenc {
         let (worker, rx, tx) = RotEncoderWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
-
             debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}");
 
             if dt == 0 || clk == 0 {
@@ -35,9 +32,7 @@ impl hw_gpio_rotenc {
                 return Ok(());
             }
 
-            let gpio = Gpio::new().map_err(|err| 
-                err.to_string()
-            )?;
+            let gpio = Gpio::new().map_err(|err| err.to_string())?;
 
             // Configure DT and CLK pins, typically pullup input
             let dt_pin = gpio
@@ -150,7 +145,6 @@ impl hw_gpio_rotenc {
             worker,
             on_data,
             on_click,
- 
         })
     }
 
@@ -171,7 +165,7 @@ impl hw_gpio_rotenc {
         }
 
         let enc = unsafe { &*enc };
-        enc.worker.process_reply(&|rep|match rep {
+        enc.worker.process_reply(&|rep| match rep {
             Reply::Message(level, msg) => enc.worker.pd_message(level, &msg),
             Reply::Click(state) => {
                 (enc.on_click.cb)(enc.on_click.user, state);

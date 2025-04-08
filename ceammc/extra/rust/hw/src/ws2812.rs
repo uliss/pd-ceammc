@@ -9,7 +9,9 @@ use lib_macro::PdMessage;
 use rgb::RGB8;
 
 use crate::{
-    hw_msg_cb, hw_msg_level, hw_notify_cb, MakePdMessage, max7219::{hw_spi_bus, hw_spi_cs}
+    hw_msg_cb, hw_msg_level, hw_notify_cb,
+    max7219::{hw_spi_bus, hw_spi_cs},
+    MakePdMessage,
 };
 
 mod led_fx;

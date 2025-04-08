@@ -3,7 +3,7 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_notify_cb, HwThreadWorker, MakePdMessage, hw_msg_level};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
 use lib_macro::PdMessage;
 use log::error;
 use std::{

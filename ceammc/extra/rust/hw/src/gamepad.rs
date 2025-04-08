@@ -17,7 +17,6 @@ pub enum hw_gamepad_rc {
     InvalidHandle,
 }
 
-
 #[derive(Default, Debug)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -428,7 +427,7 @@ pub extern "C" fn ceammc_hw_gamepad_new(
                         Ok(mut gp) => {
                             log::debug!("[worker thread] starting runloop ...");
                             loop {
-                                if let Ok(req) =  req_rx.try_recv() {
+                                if let Ok(req) = req_rx.try_recv() {
                                     match req {
                                         GamepadRequest::ListDevices => {
                                             log::debug!("[worker thread] list devices");

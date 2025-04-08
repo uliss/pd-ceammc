@@ -11,7 +11,7 @@ use std::{
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage, hw_msg_level};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod infrared_impl;

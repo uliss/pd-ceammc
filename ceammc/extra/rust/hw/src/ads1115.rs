@@ -11,7 +11,9 @@ use std::{
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage, hw_msg_level};
+use crate::{
+    hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage,
+};
 
 #[cfg(target_os = "linux")]
 mod ads1115_impl;
@@ -132,6 +134,9 @@ pub extern "C" fn ceammc_hw_ads1115_process_reply(adc: *mut hw_i2c_ads1115) -> b
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_ads1115_set_input_range(adc: *mut hw_i2c_ads1115, range: hw_i2c_ads1115_range) -> bool {
+pub extern "C" fn ceammc_hw_ads1115_set_input_range(
+    adc: *mut hw_i2c_ads1115,
+    range: hw_i2c_ads1115_range,
+) -> bool {
     rpi_check!({ hw_i2c_ads1115::send_request_ptr(adc, Request::SetFullScaleRange(range)) });
 }

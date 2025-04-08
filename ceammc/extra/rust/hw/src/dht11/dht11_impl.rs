@@ -99,7 +99,9 @@ impl hw_gpio_dht11 {
                 debug!("measure done t={}°C h={}", res.temperature, res.humidity);
                 Reply::Measure(res.temperature, res.humidity)
             })
-            .unwrap_or_else(|err| Reply::pd_error(CString::new(err.to_string()).unwrap_or_default()));
+            .unwrap_or_else(|err| {
+                Reply::pd_error(CString::new(err.to_string()).unwrap_or_default())
+            });
 
         result
             .lock()

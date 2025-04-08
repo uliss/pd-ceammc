@@ -12,8 +12,8 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use log::error;
 use lib_macro::PdMessage;
+use log::error;
 
 use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, MakePdMessage};
 

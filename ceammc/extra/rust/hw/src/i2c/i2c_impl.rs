@@ -24,11 +24,7 @@ where
             Ok(I2c::with_bus(bus as u8).map_err(|err| process_err(err, tx, notify))?)
         }
         _ => {
-            return Err(process_err(
-                format!("invalid I2C bus: {bus}"),
-                tx,
-                notify,
-            ));
+            return Err(process_err(format!("invalid I2C bus: {bus}"), tx, notify));
         }
     }
 }

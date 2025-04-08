@@ -12,7 +12,10 @@ use std::{
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage, hw_msg_level};
+use crate::{
+    hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker,
+    MakePdMessage,
+};
 
 type Ssd1306Worker = HwThreadWorker<Request, Reply>;
 
