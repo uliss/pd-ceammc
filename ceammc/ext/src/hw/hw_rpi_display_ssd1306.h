@@ -15,9 +15,9 @@ class HwRpiDisplaySsd1306 : public RustDispatchedObject<BaseObject> {
     IntProperty* i2c_addr_ { nullptr };
     IntProperty* spi_bus_ { nullptr };
     IntProperty* spi_freq_ { nullptr };
-    IntProperty* spi_gpio_dc_pin_ { nullptr };
-    IntProperty* spi_gpio_rs_pin_ { nullptr };
-    IntProperty* spi_gpio_cs_pin_ { nullptr };
+    GpioPinProperty* spi_gpio_dc_pin_ { nullptr };
+    GpioPinProperty* spi_gpio_rs_pin_ { nullptr };
+    GpioPinProperty* spi_gpio_cs_pin_ { nullptr };
 
 public:
     explicit HwRpiDisplaySsd1306(const PdArgs& args);

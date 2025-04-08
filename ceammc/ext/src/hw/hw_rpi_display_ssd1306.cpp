@@ -63,17 +63,17 @@ void HwRpiDisplaySsd1306::initDone()
         }
     } break;
     case hash_spi: {
-        if (spi_gpio_dc_pin_->value() < 0) {
+        if (spi_gpio_dc_pin_->isNone()) {
             OBJ_ERR << "DC pin should be specified";
             return;
         }
 
-        if (spi_gpio_rs_pin_->value() < 0) {
+        if (spi_gpio_rs_pin_->isNone()) {
             OBJ_ERR << "RS (reset) should be specified";
             return;
         }
 
-        if (spi_gpio_cs_pin_->value() < 0) {
+        if (spi_gpio_cs_pin_->isNone()) {
             OBJ_ERR << "CS (chip select) should be specified";
             return;
         }
