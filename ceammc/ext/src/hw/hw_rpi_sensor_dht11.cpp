@@ -20,7 +20,7 @@ HwRpiSensorDht11::~HwRpiSensorDht11()
 
 void HwRpiSensorDht11::initDone()
 {
-    if (pin_->value() == ceammc_HW_GPIO_PIN_NONE)
+    if (!pin_->isNone())
         return;
 
     dht_ = ceammc_hw_gpio_dht11_new(pin_->value(),

@@ -34,6 +34,28 @@ public:
     }
 };
 
+class GpioPinProperty : public IntProperty {
+public:
+    GpioPinProperty(const char* name)
+        : IntProperty(name, ceammc_HW_GPIO_DEF_PIN)
+    {
+        setInitOnly();
+        checkClosedRange(ceammc_HW_GPIO_MIN_PIN, ceammc_HW_GPIO_MAX_PIN);
+    }
+
+    bool isNone() const { return value() == ceammc_HW_GPIO_PIN_NONE; }
+    bool isValid() const { return !isNone(); }
+
+    bool checkPin(BaseObject* obj) const
+    {
+        if (isNone()) {
+            Error(obj) << "GPIO pin is not specified: " << name()->s_name;
+            return false;
+        } else
+            return true;
+    }
+};
+
 template <class T>
 class RustDispatchedObject : public DispatchedObject<T> {
 public:
@@ -123,11 +145,9 @@ protected:
         return prop;
     }
 
-    IntProperty* addGpioPinProperty(const char* name)
+    GpioPinProperty* addGpioPinProperty(const char* name)
     {
-        auto prop = new IntProperty(name, ceammc_HW_GPIO_DEF_PIN);
-        prop->setInitOnly();
-        prop->checkClosedRange(ceammc_HW_GPIO_MIN_PIN, ceammc_HW_GPIO_MAX_PIN);
+        auto prop = new GpioPinProperty(name);
         this->addProperty(prop);
         return prop;
     }
