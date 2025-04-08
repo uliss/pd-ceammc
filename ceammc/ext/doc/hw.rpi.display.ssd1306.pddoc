@@ -14,8 +14,8 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Both I2C and SPI connections are supported</par>
-            <par>Note! you should send [flush( message to transfer internal pixel buffer to the
+            <par>Both I²C and SPI connections are supported. I²C connection is not fast.</par>
+            <par>Note: you should send [flush( message to transfer internal pixel buffer to the
             device</par>
         </info>
         <methods>
@@ -31,7 +31,17 @@
             <!-- font -->
             <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font name</param></method>
-            <method name="write">method</method>
+            <!-- -->
+            <method name="write bytes">write raw byte list to the display buffer and move internal cursor position
+            <param name="BYTES" type="list" required="true">list of bytes (integers in 0..255 range).
+            Each byte describes a single column of 8 pixels in height</param></method>
+            <method name="write matrix">method</method>
+            <method name="write bitmap">write bitmap to the display buffer
+            <param name="X" type="int" required="true">bitmap X coordinate</param>
+            <param name="Y" type="int" required="true">bitmap Y coordinate</param>
+            <param name="WIDTH" type="int" required="true">bitmap width in pixels</param>
+            <param name="BYTES" type="list" required="true">list of bitmap bytes (integers in 0..255 range)</param>
+            </method>
             <!-- clear -->
             <method name="clear">clear display and optionally flush internal buffer 
             <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to
@@ -47,9 +57,9 @@
             <method name="flush">flush internal buffer to the device</method>
             <!-- text -->
             <method name="text">draw text on the display 
-            <param name="FONT" type="symbol" required="true">font name</param>
-            <param name="X" type="int" required="true">X coordinate</param>
-            <param name="Y" type="int" required="true">Y coordinate</param></method>
+            <param name="TXT" type="symbol" required="true">text</param>
+            <param name="X" type="int" required="true">left text X coordinate</param>
+            <param name="Y" type="int" required="true">top text Y coordinate</param></method>
             <!-- pixel -->
             <method name="pixel">draw pixel 
             <param name="X" type="int" minvalue="0" required="true">X coord (from the left)</param>
@@ -92,19 +102,28 @@
         <example>
             <pdascii>
 <![CDATA[
-[flush #a( [T]  [text HELLO\ CEAM 2 32 #d(
-           |
-[clear #b( [invert $1 #c(
+[ui.hrd #k]        /*click several times*/
+|
+[brightness #f(    [write bytes #g(
 
+ [flush #a( [T]    [text HELLO! 2 10, flush #d(
+            |
+ [clear #b( [invert $1 #c(
 
-
+            [T]
+            |
+            [mirror $1 #e(
 
 
 
 
 [hw.rpi.display.ssd1306 @mode i2c @i2c_bus default #x]
 
-[X a->x] [X b->x] [X c->x] [X d->x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x]
+#b 1
+#f $1
+#g 255 255 255 255 255 255 255 255, flush
+#k @nitems 4
 
 [ui.link @url=ceammc://img/conn_spi_ssd1306.png @title='SPI_connection']
 
