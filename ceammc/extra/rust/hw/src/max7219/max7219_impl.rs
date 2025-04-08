@@ -6,15 +6,7 @@ use rppal::spi::Spi;
 
 use crate::{hw_msg_cb, hw_notify_cb, send_error};
 
-use super::{
-    hw_max7219, hw_max7219_string_align, hw_spi_bus, hw_spi_cs, Address, Max2719Worker, Request,
-};
-
-#[derive(Debug, PartialEq)]
-struct float_fmt {
-    dot_pos: u8,
-    leading_zero: bool,
-}
+use super::{hw_max7219, hw_max7219_string_align, hw_spi_bus, hw_spi_cs, Address, Max2719Worker, Request};
 
 fn map_char(c: char) -> u8 {
     match c as char {
@@ -200,9 +192,7 @@ impl LedDisplay {
                 Some((digits, dots)) => self.display.write_str(addr, &digits, dots)?,
                 None => {}
             },
-            Request::WriteRegister(register, data) => {
-                self.display.write_raw_byte(addr, *register, *data)?
-            }
+            Request::WriteRegister(register, data) => self.display.write_raw_byte(addr, *register, *data)?,
             Request::WriteString(str, align, dots) => self.display.write_raw(
                 addr,
                 &encode_string(&pad_string(str.to_string_lossy().as_ref(), *align), *dots),
@@ -267,15 +257,14 @@ impl LedDisplay {
             spi.clock_speed().unwrap_or_default()
         );
 
-        let display =
-            max7219::MAX7219::from_spi(count.clamp(1, 8) as usize, spi).map_err(|err| {
-                let err = match err {
-                    max7219::DataError::Spi => "SPI init error",
-                    max7219::DataError::Pin => "Pin init error",
-                };
-                error!("{err}");
-                err
-            })?;
+        let display = max7219::MAX7219::from_spi(count.clamp(1, 8) as usize, spi).map_err(|err| {
+            let err = match err {
+                max7219::DataError::Spi => "SPI init error",
+                max7219::DataError::Pin => "Pin init error",
+            };
+            error!("{err}");
+            err
+        })?;
 
         debug!("max7219 init: displays={count}");
 
