@@ -15,13 +15,13 @@
         </meta>
         <info>
             <par>Both I2C and SPI connections are supported</par>
-            <par>Note! you should send [flush( message to transfer internal pixel buffer to the device</par>
+            <par>Note! you should send [flush( message to transfer internal pixel buffer to the
+            device</par>
         </info>
         <methods>
             <!-- rotation -->
-            <method name="rotation">set display rotation
-            <param name="ANGLE" type="int" enum="0 90 180 270">rotation angle</param>
-            </method>
+            <method name="rotation">set display rotation 
+            <param name="ANGLE" type="int" enum="0 90 180 270">rotation angle</param></method>
             <!-- invert -->
             <method name="invert">invert display 
             <param name="VALUE" type="bool" required="true">value</param></method>
@@ -29,30 +29,32 @@
             <method name="mirror">mirror display 
             <param name="VALUE" type="bool" required="true">value</param></method>
             <!-- font -->
-            <method name="font">set current font
+            <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font name</param></method>
             <method name="write">method</method>
             <!-- clear -->
-            <method name="clear">clear display and optionally flush internal buffer
-            <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to the device</param></method>
+            <method name="clear">clear display and optionally flush internal buffer 
+            <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to
+            the device</param></method>
             <!-- brightness -->
             <method name="brightness">set display brightness 
             <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">brightness level from 0
             (lowest) to 4 (brightest). Normal level is 2.</param></method>
-            <method name="switch_on">method</method>
+            <!-- switch_on -->
+            <method name="switch_on">switch on display (needed for SPI connection) 
+            <param name="VALUE" type="bool" required="true">value</param></method>
             <!-- flush -->
             <method name="flush">flush internal buffer to the device</method>
             <!-- text -->
-            <method name="text">draw text on the display
+            <method name="text">draw text on the display 
             <param name="FONT" type="symbol" required="true">font name</param>
             <param name="X" type="int" required="true">X coordinate</param>
             <param name="Y" type="int" required="true">Y coordinate</param></method>
             <!-- pixel -->
-            <method name="pixel">draw pixel
+            <method name="pixel">draw pixel 
             <param name="X" type="int" minvalue="0" required="true">X coord (from the left)</param>
             <param name="Y" type="int" minvalue="0" required="true">Y coord (from the top)</param>
-            <param name="VALUE" type="bool" required="true">pixel value</param>
-            </method>
+            <param name="VALUE" type="bool" required="true">pixel value</param></method>
         </methods>
         <arguments>
             <argument name="MODE" type="symbol" enum="i2c spi">display connection. See

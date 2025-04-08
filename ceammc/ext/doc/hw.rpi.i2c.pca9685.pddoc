@@ -84,7 +84,7 @@
             <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
             time value</param></method>
             <!-- pwidth -->
-            <method name="pwidth">set channel PWM pulse width
+            <method name="pwidth">set channel PWM pulse width 
             <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
             channel. If equals to 16 means all channels</param>
             <param name="WIDTH" type="float" required="true" minvalue="0.5" maxvalue="40"

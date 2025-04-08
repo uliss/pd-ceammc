@@ -15,7 +15,7 @@
         </meta>
         <methods>
             <method name="get">request current value output</method>
-            <method name="set">set current value without output
+            <method name="set">set current value without output 
             <param name="VAL" type="float" required="true">new value</param></method>
             <method name="reset">reset current value to @init</method>
         </methods>
