@@ -629,9 +629,9 @@ void ceammc_hw_gpio_rotenc_free(ceammc_hw_gpio_rotenc *enc);
 
 bool ceammc_hw_gpio_rotenc_get_value(ceammc_hw_gpio_rotenc *enc);
 
-ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
-                                                 uint8_t clk,
-                                                 uint8_t btn,
+ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(int8_t dt,
+                                                 int8_t clk,
+                                                 int8_t btn,
                                                  double init,
                                                  double step,
                                                  double min_value,
@@ -641,7 +641,7 @@ ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(uint8_t dt,
                                                  ceammc_hw_gpio_rotenc_click on_click,
                                                  ceammc_hw_msg_cb on_msg);
 
-void ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
+bool ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
 
 bool ceammc_hw_gpio_rotenc_reset(ceammc_hw_gpio_rotenc *enc);
 

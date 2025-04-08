@@ -14,7 +14,7 @@ impl hw_gpio_rotenc {
     pub fn new(
         dt: u8,
         clk: u8,
-        btn: u8,
+        btn: Option<u8>,
         init: f64,
         step: f64,
         min_value: f64,
@@ -28,7 +28,7 @@ impl hw_gpio_rotenc {
 
         worker.spawn(tx.clone(), notify, move || {
 
-            debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn} and init value={init}");
+            debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}");
 
             if dt == 0 || clk == 0 {
                 debug!("invalid pins");
@@ -57,7 +57,7 @@ impl hw_gpio_rotenc {
                 .into_input_pullup();
 
             let mut btn_pin = None;
-            if btn > 0 {
+            if let Some(btn) = btn {
                 let mut pin = gpio
                     .get(btn)
                     .map_err(|err| {

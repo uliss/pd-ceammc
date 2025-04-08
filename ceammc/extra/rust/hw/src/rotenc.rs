@@ -11,7 +11,9 @@ use std::{
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
+use crate::{
+    gpio::HW_GPIO_PIN_NONE, hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage,
+};
 
 #[cfg(target_os = "linux")]
 mod rotenc_impl;
@@ -59,9 +61,9 @@ pub struct hw_gpio_rotenc_click {
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_rotenc_new(
-    dt: u8,
-    clk: u8,
-    btn: u8,
+    dt: i8,
+    clk: i8,
+    btn: i8,
     init: f64,
     step: f64,
     min_value: f64,
@@ -72,8 +74,19 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_new(
     on_msg: hw_msg_cb,
 ) -> *mut hw_gpio_rotenc {
     rpi_check!(null_mut(), {
+        if dt == HW_GPIO_PIN_NONE || clk == HW_GPIO_PIN_NONE {
+            return null_mut();
+        }
+
+        let btn = if btn == HW_GPIO_PIN_NONE {
+            None
+        } else {
+            Some(btn as u8)
+        };
+
         match hw_gpio_rotenc::new(
-            dt, clk, btn, init, step, min_value, max_value, notify, on_data, on_click, on_msg,
+            dt as u8, clk as u8, btn, init, step, min_value, max_value, notify, on_data, on_click,
+            on_msg,
         ) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
@@ -95,8 +108,8 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_free(enc: *mut hw_gpio_rotenc) {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_rotenc_process_events(enc: *mut hw_gpio_rotenc) {
-    rpi_check!((), { hw_gpio_rotenc::process_reply_ptr(enc) });
+pub extern "C" fn ceammc_hw_gpio_rotenc_process_events(enc: *mut hw_gpio_rotenc) -> bool {
+    rpi_check!({ hw_gpio_rotenc::process_reply_ptr(enc) });
 }
 
 #[no_mangle]

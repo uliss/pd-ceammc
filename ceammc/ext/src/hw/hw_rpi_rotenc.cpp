@@ -3,6 +3,15 @@
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
+#define CHECK_GPIO_PINS()                                              \
+    {                                                                  \
+        auto has_dt = (dt_pin_->value() != ceammc_HW_GPIO_PIN_NONE);   \
+        auto has_clk = (clk_pin_->value() != ceammc_HW_GPIO_PIN_NONE); \
+        if (!enc_ || !has_dt || !has_clk) {                            \
+            OBJ_ERR << "pins are not set";                             \
+        }                                                              \
+    }
+
 HwRpiRotaryEncoder::HwRpiRotaryEncoder(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
@@ -79,23 +88,28 @@ void HwRpiRotaryEncoder::initDone()
 
 bool HwRpiRotaryEncoder::notify(int code)
 {
-    ceammc_hw_gpio_rotenc_process_events(enc_);
-    return true;
+    return ceammc_hw_gpio_rotenc_process_events(enc_);
 }
 
 void HwRpiRotaryEncoder::onBang()
 {
+    CHECK_GPIO_PINS();
+
     ceammc_hw_gpio_rotenc_get_value(enc_);
 }
 
 void HwRpiRotaryEncoder::onFloat(t_float f)
 {
+    CHECK_GPIO_PINS();
+
     if (ceammc_hw_gpio_rotenc_set_value(enc_, f))
         floatTo(0, f);
 }
 
 void HwRpiRotaryEncoder::onInlet(size_t idx, const AtomListView& lv)
 {
+    CHECK_GPIO_PINS();
+
     if (idx == 1 && lv.isFloat())
         ceammc_hw_gpio_rotenc_set_value(enc_, lv.asFloat());
     else if (idx == 1 && lv.empty())
@@ -109,6 +123,8 @@ void HwRpiRotaryEncoder::m_get(t_symbol* s, const AtomListView& lv)
 
 void HwRpiRotaryEncoder::m_reset(t_symbol* s, const AtomListView& lv)
 {
+    CHECK_GPIO_PINS();
+
     ceammc_hw_gpio_rotenc_reset(enc_);
 }
 
@@ -117,6 +133,8 @@ void HwRpiRotaryEncoder::m_set(t_symbol* s, const AtomListView& lv)
     static const args::ArgChecker chk("VALUE:f");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
+
+    CHECK_GPIO_PINS();
 
     ceammc_hw_gpio_rotenc_set_value(enc_, lv.floatAt(0, 0));
 }
