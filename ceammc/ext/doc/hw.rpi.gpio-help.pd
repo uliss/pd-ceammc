@@ -22,7 +22,7 @@
 #X obj 50 349 hw.rpi.gpio;
 #X obj 50 378 route pin;
 #X obj 50 406 ui.dt;
-#X obj 50 435 ui.link @title 'Scheme' @url
+#X obj 50 435 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_gpio1.png;
 #X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 497 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144

@@ -89,7 +89,7 @@
 |
 [ui.dt]
 
-[ui.link @url=ceammc://img/conn_gpio1.png @title='Scheme']
+[ui.link @url=ceammc://img/conn_gpio1.png @title='Connection_Scheme']
 
 [X a->x] [X b->x] [X c->x] [X d->x]
 [X e->x] [X f->x] [X g->x] [X h->x]
