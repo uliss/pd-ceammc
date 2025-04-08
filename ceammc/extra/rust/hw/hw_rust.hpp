@@ -1088,6 +1088,6 @@ bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *ws,
                                     uint8_t g,
                                     uint8_t b);
 
-} // extern "C"
+}  // extern "C"
 
-#endif // ceammc_rust_hw_h
+#endif  // ceammc_rust_hw_h
