@@ -15,21 +15,27 @@
         </meta>
         <info>
             <par>Both I2C and SPI connections are supported</par>
+            <par>Note: you should send [flush( message to transfer internal pixel buffer to the device</par>
         </info>
         <methods>
             <method name="rotation">method</method>
+            <!-- invert -->
             <method name="invert">invert display 
             <param name="VALUE" type="bool" required="true">value</param></method>
             <method name="mirror">mirror display 
             <param name="VALUE" type="bool" required="true">value</param></method>
             <method name="font">set</method>
             <method name="write">method</method>
-            <method name="clear">method</method>
+            <!-- clear -->
+            <method name="clear">clear display and optionally flush internal buffer
+            <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to the device</param></method>
+            <!-- brightness -->
             <method name="brightness">set display brightness 
             <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">brightness level from 0
             (lowest) to 4 (brightest). Normal level is 2.</param></method>
             <method name="switch_on">method</method>
-            <method name="flush">flush internal buffer to device</method>
+            <!-- flush -->
+            <method name="flush">flush internal buffer to the device</method>
             <method name="text">method</method>
             <method name="pixel">method</method>
         </methods>
@@ -69,11 +75,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[clear(
-|
-|
-|
-[hw.rpi.display.ssd1306 #x]
+[flush #a( [T]  [text HELLO\ CEAM 2 32 #d(
+           |
+[clear #b( [invert $1 #c(
+
+
+
+
+
+
+
+[hw.rpi.display.ssd1306 @mode i2c @i2c_bus default #x]
+
+[X a->x] [X b->x] [X c->x] [X d->x]
 
 [ui.link @url=ceammc://img/conn_spi_ssd1306.png @title='SPI_connection']
 
