@@ -39,10 +39,8 @@ void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
 
 void HwRpiSensorIR::startSensor()
 {
-    if (pin_->value() < 0) {
-        OBJ_ERR << "GPIO pin is not specified";
+    if (!pin_->checkPin(this))
         return;
-    }
 
     if (ir_) {
         ceammc_hw_infrared_free(ir_);

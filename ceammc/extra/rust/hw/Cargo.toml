@@ -58,5 +58,5 @@ winprint = { version = "0.2.0" }
 printers = { version = "2.0.0", default-features = false, features = [] }
 
 [build-dependencies]
-cbindgen = "0.22.0"
+cbindgen = "0.28.0"
 walkdir = "2.5.0"

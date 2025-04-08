@@ -8,7 +8,7 @@ using namespace ceammc;
 
 class HwRpiSensorDht11 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_gpio_dht11* dht_ { nullptr };
-    IntProperty* pin_ { nullptr };
+    GpioPinProperty* pin_ { nullptr };
 
 public:
     explicit HwRpiSensorDht11(const PdArgs& args);

@@ -8,9 +8,9 @@ using namespace ceammc;
 
 class HwRpiRotaryEncoder : public RustDispatchedObject<BaseObject> {
     ceammc_hw_gpio_rotenc* enc_ { nullptr };
-    IntProperty* dt_pin_ { nullptr };
-    IntProperty* clk_pin_ { nullptr };
-    IntProperty* btn_pin_ { nullptr };
+    GpioPinProperty* dt_pin_ { nullptr };
+    GpioPinProperty* clk_pin_ { nullptr };
+    GpioPinProperty* btn_pin_ { nullptr };
     FloatProperty* init_ { nullptr };
     FloatProperty* step_ { nullptr };
     FloatProperty* min_ { nullptr };

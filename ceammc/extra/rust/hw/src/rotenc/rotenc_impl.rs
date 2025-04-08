@@ -4,7 +4,7 @@ use log::{debug, error};
 use rotary_encoder_embedded::RotaryEncoder;
 use rppal::gpio::{Gpio, Trigger};
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb, hw_notify_cb, send_debug};
 
 use super::{hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request, RotEncoderWorker};
 
@@ -25,7 +25,7 @@ impl hw_gpio_rotenc {
         let (worker, rx, tx) = RotEncoderWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
-            debug!("init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}");
+            debug!("try to init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}");
 
             if dt == 0 || clk == 0 {
                 debug!("invalid pins");
@@ -94,6 +94,13 @@ impl hw_gpio_rotenc {
             const DIR_NONE: i8 = 0;
             const DIR_INC: i8 = 1;
             const DIR_DEC: i8 = -1;
+
+            send_debug(
+                &tx,
+                notify,
+                format!("Rotary Encoder init done with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}")
+                    .as_str(),
+            );
 
             // ...timer initialize at 900Hz to poll the rotary encoder
             loop {
