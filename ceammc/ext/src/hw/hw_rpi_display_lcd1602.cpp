@@ -91,11 +91,17 @@ void HwRpiDisplayLcd1602::m_cursor_pos(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplayLcd1602::m_font(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FONT:i=8|11");
+    static const args::ArgChecker chk("FONT:i=8|10");
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    // ceammc_hw_lcd1602_set_font(lcd_, lv.intAt(0, 0), lv.intAt(1, 0));
+    switch (lv.intAt(0, 0)) {
+    case 10:
+        ceammc_hw_lcd1602_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x10);
+        break;
+    default:
+        ceammc_hw_lcd1602_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x8);
+    }
 }
 
 void HwRpiDisplayLcd1602::m_cursor_move(t_symbol* s, const AtomListView& lv)
