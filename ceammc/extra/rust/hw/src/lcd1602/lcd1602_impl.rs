@@ -54,18 +54,20 @@ impl hw_lcd1602 {
             while let Ok(req) = rx.recv() {
                 debug!("{:?}", &req);
 
+                use crate::lcd1602::Request;
+
                 match &req {
-                    crate::lcd1602::Request::WriteText(msg) => {
+                    Request::WriteText(msg) => {
                         lcd.write_str(msg.to_string_lossy().as_ref()).unwrap_or_else(|e| {
                             send_error(&tx, notify, e.to_string().as_str());
                         });
                     }
-                    crate::lcd1602::Request::Clear => {
+                    Request::Clear => {
                         lcd.clear().unwrap_or_else(|e| {
                             send_error(&tx, notify, e.to_string().as_str());
                         });
                     }
-                    crate::lcd1602::Request::Backlight(state) => {
+                    Request::Backlight(state) => {
                         lcd.backlight(match state {
                             true => lcd_lcm1602_i2c::Backlight::On,
                             false => lcd_lcm1602_i2c::Backlight::Off,
@@ -107,6 +109,16 @@ impl hw_lcd1602 {
                         }
                         .unwrap_or_else(|e| {
                             send_error(&tx, notify, e.as_str());
+                        });
+                    }
+                    Request::SetFont(font) => {
+                        use crate::lcd1602::hw_hd44780_font;
+                        lcd.font_mode(match font {
+                            hw_hd44780_font::FONT_5x8 => lcd_lcm1602_i2c::Font::Font5x8,
+                            hw_hd44780_font::FONT_5x10 => lcd_lcm1602_i2c::Font::Font5x10,
+                        })
+                        .unwrap_or_else(|e| {
+                            send_error(&tx, notify, e.to_string().as_str());
                         });
                     }
                 }

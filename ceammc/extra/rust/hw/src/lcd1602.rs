@@ -11,13 +11,17 @@ use std::{
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{
-    hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker,
-    MakePdMessage,
-};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod lcd1602_impl;
+
+#[repr(C)]
+#[derive(Debug)]
+pub enum hw_hd44780_font {
+    FONT_5x8,
+    FONT_5x10,
+}
 
 #[derive(Debug)]
 pub enum Request {
@@ -29,6 +33,7 @@ pub enum Request {
     CursorPos(u8, u8),
     CursorMove(i8),
     TextScroll(i8),
+    SetFont(hw_hd44780_font),
 }
 
 #[derive(PdMessage)]
@@ -135,6 +140,14 @@ pub extern "C" fn ceammc_hw_lcd1602_move_cursor(lcd: *mut hw_lcd1602, dir: i8) -
 #[no_mangle]
 pub extern "C" fn ceammc_hw_lcd1602_scroll_text(lcd: *mut hw_lcd1602, dir: i8) -> bool {
     rpi_check!({ hw_lcd1602::send_request_ptr(lcd, Request::TextScroll(dir)) });
+}
+
+/// set lcd1602 text font
+/// @param lcd - pointer to LCD1602 struct
+/// @param font
+#[no_mangle]
+pub extern "C" fn ceammc_hw_lcd1602_set_font(lcd: *mut hw_lcd1602, font: hw_hd44780_font) -> bool {
+    rpi_check!({ hw_lcd1602::send_request_ptr(lcd, Request::SetFont(font)) });
 }
 
 /// process lcd1602 events

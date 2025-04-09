@@ -172,6 +172,11 @@ enum class ceammc_hw_gpio_trigger {
     Both,
 };
 
+enum class ceammc_hw_hd44780_font {
+    FONT_5x8,
+    FONT_5x10,
+};
+
 enum class ceammc_hw_i2c_ads1115_measure_mode {
     Single,
     Diff,
@@ -798,6 +803,11 @@ bool ceammc_hw_lcd1602_process(ceammc_hw_lcd1602 *lcd);
 /// @param lcd - pointer to LCD1602 struct
 /// @param dir - <0 left, 0>right
 bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd, int8_t dir);
+
+/// set lcd1602 text font
+/// @param lcd - pointer to LCD1602 struct
+/// @param font
+bool ceammc_hw_lcd1602_set_font(ceammc_hw_lcd1602 *lcd, ceammc_hw_hd44780_font font);
 
 /// write text to lcd1602
 /// @param lcd - pointer to LCD1602 struct
