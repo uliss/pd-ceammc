@@ -36,6 +36,12 @@ impl hw_lcd1602 {
             let bus = i2c.bus();
             debug!("try LCD init with: bus={bus}, addr={addr}");
 
+            let rows = match rows {
+                2 => 2,
+                4 => 4,
+                _ => 0,
+            };
+
             let mut delay = rppal::hal::Delay::new();
             let mut lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
                 .with_address(addr)
@@ -48,7 +54,7 @@ impl hw_lcd1602 {
             send_debug(
                 &tx,
                 notify,
-                format!("connected to display: bus={bus} addr={addr}").as_str(),
+                format!("connected to display: bus={bus} addr={addr} rows={rows}").as_str(),
             );
 
             while let Ok(req) = rx.recv() {
