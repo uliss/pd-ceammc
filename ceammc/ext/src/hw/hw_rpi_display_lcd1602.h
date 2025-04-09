@@ -28,6 +28,8 @@ public:
     void m_cursor_blink(t_symbol* s, const AtomListView& lv);
     void m_cursor_pos(t_symbol* s, const AtomListView& lv);
 
+    void m_font(t_symbol* s, const AtomListView& lv);
+
     void m_cursor_move(t_symbol* s, const AtomListView& lv);
     void m_display_move(t_symbol* s, const AtomListView& lv);
 };

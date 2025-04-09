@@ -1,4 +1,5 @@
 #include "hw_rpi_display_lcd1602.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 
@@ -13,7 +14,7 @@ HwRpiDisplayLcd1602::HwRpiDisplayLcd1602(const PdArgs& args)
     i2c_bus_ = addI2cBusProperty();
     i2c_addr_ = addI2cAddrProperty();
 
-    rows_ = new IntEnumProperty("@rows", { 2, 4 });
+    rows_ = new IntEnumProperty("@rows", { 1, 2, 4 });
     rows_->setInitOnly();
     addProperty(rows_);
 }
@@ -49,6 +50,10 @@ void HwRpiDisplayLcd1602::m_clear(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplayLcd1602::m_backlight(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("STATE:B");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     ceammc_hw_lcd1602_backlight(lcd_, lv.boolAt(0, false));
 }
 
@@ -59,26 +64,55 @@ void HwRpiDisplayLcd1602::m_write(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplayLcd1602::m_cursor_on(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("STATE:B");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     ceammc_hw_lcd1602_cursor_on(lcd_, lv.boolAt(0, false));
 }
 
 void HwRpiDisplayLcd1602::m_cursor_blink(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("STATE:B");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     ceammc_hw_lcd1602_cursor_blink(lcd_, lv.boolAt(0, false));
 }
 
 void HwRpiDisplayLcd1602::m_cursor_pos(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("LINE:i[0,3] COL:i[0,20]");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     ceammc_hw_lcd1602_cursor_pos(lcd_, lv.intAt(0, 0), lv.intAt(1, 0));
+}
+
+void HwRpiDisplayLcd1602::m_font(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FONT:i=8|11");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
+    // ceammc_hw_lcd1602_set_font(lcd_, lv.intAt(0, 0), lv.intAt(1, 0));
 }
 
 void HwRpiDisplayLcd1602::m_cursor_move(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("SHIFT:i?");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     ceammc_hw_lcd1602_move_cursor(lcd_, lv.intAt(0, 1));
 }
 
 void HwRpiDisplayLcd1602::m_display_move(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("SHIFT:i?");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     ceammc_hw_lcd1602_scroll_text(lcd_, lv.intAt(0, 1));
 }
 
@@ -96,4 +130,6 @@ void setup_hw_rpi_display_lcd1602()
 
     obj.addMethod("move_cursor", &HwRpiDisplayLcd1602::m_cursor_move);
     obj.addMethod("move_display", &HwRpiDisplayLcd1602::m_display_move);
+
+    obj.addMethod("font", &HwRpiDisplayLcd1602::m_font);
 }
