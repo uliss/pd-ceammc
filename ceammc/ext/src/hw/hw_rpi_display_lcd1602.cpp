@@ -2,6 +2,7 @@
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "fmt/core.h"
 
 HwRpiDisplayLcd1602::HwRpiDisplayLcd1602(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
@@ -86,7 +87,15 @@ void HwRpiDisplayLcd1602::m_cursor_pos(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_cursor_pos(lcd_, lv.intAt(0, 0), lv.intAt(1, 0));
+    auto line = lv.intAt(0, 0);
+    auto col = lv.intAt(1, 0);
+
+    if (line >= rows_->value()) {
+        METHOD_ERR(s) << fmt::format("line number expected to be <{}, got: {}", rows_->value(), line);
+        return;
+    }
+
+    ceammc_hw_lcd1602_cursor_pos(lcd_, line, col);
 }
 
 void HwRpiDisplayLcd1602::m_font(t_symbol* s, const AtomListView& lv)

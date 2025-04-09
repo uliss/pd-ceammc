@@ -93,7 +93,13 @@ impl hw_lcd1602 {
                         });
                     }
                     Request::CursorPos(row, col) => {
-                        lcd.set_cursor(*row, *col).unwrap_or_else(|e| {
+                        let shift = match rows {
+                            2 => *row * 0x40 + *col,
+                            4 => *row * 0x20 + *col,
+                            _ => *col,
+                        };
+
+                        lcd.set_cursor(0, shift).unwrap_or_else(|e| {
                             send_error(&tx, notify, e.to_string().as_str());
                         });
                     }
