@@ -6,7 +6,7 @@ use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     lcd1602::Reply,
-    send_error,
+    send_debug, send_error,
 };
 
 use super::{hw_lcd1602, Lcd1602Worker, Request};
@@ -33,7 +33,8 @@ impl hw_lcd1602 {
                 I2cAddress::Addr(addr) => addr,
             };
 
-            debug!("LCD init");
+            let bus = i2c.bus();
+            debug!("try LCD init with: bus={bus}, addr={addr}");
 
             let mut delay = rppal::hal::Delay::new();
             let mut lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
@@ -44,15 +45,20 @@ impl hw_lcd1602 {
                 .init()
                 .map_err(|err| format!("LCD init error: {err}"))?;
 
+            send_debug(
+                &tx,
+                notify,
+                format!("connected to display: bus={bus} addr={addr}").as_str(),
+            );
+
             while let Ok(req) = rx.recv() {
                 debug!("{:?}", &req);
 
                 match &req {
                     crate::lcd1602::Request::WriteText(msg) => {
-                        lcd.write_str(msg.to_string_lossy().as_ref())
-                            .unwrap_or_else(|e| {
-                                send_error(&tx, notify, e.to_string().as_str());
-                            });
+                        lcd.write_str(msg.to_string_lossy().as_ref()).unwrap_or_else(|e| {
+                            send_error(&tx, notify, e.to_string().as_str());
+                        });
                     }
                     crate::lcd1602::Request::Clear => {
                         lcd.clear().unwrap_or_else(|e| {
