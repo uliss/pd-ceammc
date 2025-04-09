@@ -60,7 +60,22 @@ void HwRpiDisplayLcd1602::m_backlight(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplayLcd1602::m_write(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("TXT:a+");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     ceammc_hw_lcd1602_write_text(lcd_, to_string(lv).c_str());
+}
+
+void HwRpiDisplayLcd1602::m_char(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAR:i[0,255]");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
+    char txt[2] = { 0, 0 };
+    txt[0] = lv.intAt(0, 0);
+    ceammc_hw_lcd1602_write_text(lcd_, txt);
 }
 
 void HwRpiDisplayLcd1602::m_cursor_on(t_symbol* s, const AtomListView& lv)
@@ -138,6 +153,7 @@ void setup_hw_rpi_display_lcd1602()
     obj.addMethod("clear", &HwRpiDisplayLcd1602::m_clear);
     obj.addMethod("backlight", &HwRpiDisplayLcd1602::m_backlight);
     obj.addMethod("write", &HwRpiDisplayLcd1602::m_write);
+    obj.addMethod("char", &HwRpiDisplayLcd1602::m_char);
 
     obj.addMethod("cursor_on", &HwRpiDisplayLcd1602::m_cursor_on);
     obj.addMethod("cursor_blink", &HwRpiDisplayLcd1602::m_cursor_blink);
