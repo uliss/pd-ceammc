@@ -6,7 +6,6 @@
 CEAMMC_DEFINE_SYM_HASH(bitmap)
 CEAMMC_DEFINE_SYM_HASH(bytes)
 CEAMMC_DEFINE_SYM_HASH(i2c)
-CEAMMC_DEFINE_SYM_HASH(matrix)
 CEAMMC_DEFINE_SYM_HASH(spi)
 
 HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
@@ -206,7 +205,7 @@ void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplaySsd1306::m_write(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("s=bytes|matrix|bitmap DATA:a+");
+    static const args::ArgChecker chk("s=bytes|bitmap DATA:a+");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -216,8 +215,6 @@ void HwRpiDisplaySsd1306::m_write(t_symbol* s, const AtomListView& lv)
         return writeBytes(sel, lv.subView(1));
     case hash_bitmap:
         return writeBitmap(sel, lv.subView(1));
-    case hash_matrix:
-        //        return writeMatrix(sel, lv.subView(1));
     default:
         chk.usage(this, s);
     }
@@ -241,7 +238,7 @@ void HwRpiDisplaySsd1306::writeBytes(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplaySsd1306::writeBitmap(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:i Y:i WIDTH:i>0 BYTES:b+");
+    static const args::ArgChecker chk("X:i Y:i WIDTH:i>0 PIXELS:b+");
     if (!chk.check(lv, this)) {
         return chk.usage(this, s);
     }
