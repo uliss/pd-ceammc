@@ -11,158 +11,164 @@ is not fast.;
 #X text 215 120 Note: you should send [flush( message to transfer internal
 pixel buffer to the device;
 #X obj 50 198 ui.hrd @nitems 4;
-#X text 232 198 click several times;
+#X text 203 198 click several times;
+#X msg 520 198 bang;
+#X msg 587 198 clear \, line 0 0 127 31;
 #X msg 50 227 brightness \$1;
-#X msg 232 227 write bytes 255 255 255 255 255 255 255 255 \, flush;
+#X msg 203 227 write bytes 63 63 63 63 63 63 63 63 \, flush;
+#X msg 539 227 load img/test_image_128x32.png;
 #X msg 59 256 flush;
 #X obj 165 256 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 232 256 text HELLO! 2 10 \, flush;
+#X msg 203 256 text HELLO! 2 10 \, flush;
+#X obj 520 256 bitmap 128 32;
 #X msg 59 285 clear 1;
 #X msg 165 285 invert \$1;
+#X obj 520 285 msg write bitmap 0 0 128;
 #X obj 165 314 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X text 520 314 not forget to call flush!;
 #X msg 165 342 mirror \$1;
 #X obj 50 414 hw.rpi.display.ssd1306 @mode i2c @i2c_bus default;
-#X obj 50 529 ui.link @title 'SPI_connection' @url
+#X obj 50 458 ui.link @title 'SPI_connection' @url
 ceammc://img/conn_spi_ssd1306.png;
-#X obj 50 558 ui.link @title 'I2C_connection' @url
+#X obj 50 486 ui.link @title 'I2C_connection' @url
 ceammc://img/conn_i2c_ssd1306.png;
-#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 620 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 548 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 623 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 551 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 655 1\.;
-#X text 150 655 symbol;
-#X obj 246 656 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 655 MODE: display connection. See @mode. Allowed values:
+#X text 110 583 1\.;
+#X text 150 583 symbol;
+#X obj 246 584 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 583 MODE: display connection. See @mode. Allowed values:
 i2c \, spi. Type: symbol.;
-#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 705 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 633 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 708 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 636 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 740 @i2c_addr;
-#X text 245 740 (initonly) Get/Set I2C address. The value -1 means
+#X msg 110 668 @i2c_addr;
+#X text 245 668 (initonly) Get/Set I2C address. The value -1 means
 default device I2C address (0x3C). Type: int. Default value: -1\. Range:
 -2\...119\.;
-#X msg 110 797 @i2c_bus;
-#X text 245 797 (initonly) Get/Set I²C bus. Type: atom. Default value:
+#X msg 110 725 @i2c_bus;
+#X text 245 725 (initonly) Get/Set I²C bus. Type: atom. Default value:
 none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X msg 110 839 @mode;
-#X text 245 839 (initonly) Get/Set display connection. Type: symbol.
+#X msg 110 767 @mode;
+#X text 245 767 (initonly) Get/Set display connection. Type: symbol.
 Default value: i2c. Allowed values: i2c \, spi.;
-#X msg 110 881 @spi_bus;
-#X text 245 881 (initonly) Get/Set SPI bus. Type: int. Default value:
+#X msg 110 809 @spi_bus;
+#X text 245 809 (initonly) Get/Set SPI bus. Type: int. Default value:
 0\. Range: 0\...6\.;
-#X msg 110 923 @spi_cs;
-#X text 245 923 (initonly) Get/Set CS (chip select) GPIO pin. Type:
+#X msg 110 851 @spi_cs;
+#X text 245 851 (initonly) Get/Set CS (chip select) GPIO pin. Type:
 int. Default value: -1\. Range: -1\...127\.;
-#X msg 110 965 @spi_dc;
-#X text 245 965 (initonly) Get/Set DC (data/command) GPIO pin. Type:
+#X msg 110 893 @spi_dc;
+#X text 245 893 (initonly) Get/Set DC (data/command) GPIO pin. Type:
 int. Default value: -1\. Range: -1\...127\.;
-#X msg 110 1007 @spi_freq;
-#X text 245 1007 (initonly) Get/Set SPI frequency. Type: int. Units:
+#X msg 110 935 @spi_freq;
+#X text 245 935 (initonly) Get/Set SPI frequency. Type: int. Units:
 'Hz'. Default value: 1000000\. Range: 100000\...10000000\.;
-#X msg 110 1049 @spi_rs;
-#X text 245 1049 (initonly) Get/Set RS (reset) GPIO pin. Type: int.
+#X msg 110 977 @spi_rs;
+#X text 245 977 (initonly) Get/Set RS (reset) GPIO pin. Type: int.
 Default value: -1\. Range: -1\...127\.;
-#X msg 110 1091 @size;
-#X text 245 1091 (initonly) Get/Set display size. Type: list. Default
+#X msg 110 1019 @size;
+#X text 245 1019 (initonly) Get/Set display size. Type: list. Default
 value: 128 64\.;
-#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1148 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1076 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1183 brightness;
-#X text 245 1183 set display brightness. Arguments are:;
-#X obj 255 1206 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1206 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
+#X msg 110 1111 brightness;
+#X text 245 1111 set display brightness. Arguments are:;
+#X obj 255 1134 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1134 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
 Normal level is 2\. Type: int. Allowed values: 0 \, 1 \, 2 \, 3 \,
 4\.;
-#X msg 110 1261 clear;
-#X text 245 1261 clear display and optionally flush internal buffer.
+#X msg 110 1189 clear;
+#X text 245 1189 clear display and optionally flush internal buffer.
 Arguments are:;
-#X obj 255 1299 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1299 [FLUSH=0]: flush internal buffer to the device. Type:
+#X obj 255 1227 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1227 [FLUSH=0]: flush internal buffer to the device. Type:
 bool.;
-#X msg 110 1324 flush;
-#X text 245 1324 flush internal buffer to the device.;
-#X msg 110 1352 font;
-#X text 245 1352 set current font. Arguments are:;
-#X obj 255 1375 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1375 FONT: font name. Type: symbol.;
-#X msg 110 1400 invert;
-#X text 245 1400 invert display. Arguments are:;
-#X obj 255 1423 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1423 VALUE: value. Type: bool.;
-#X msg 110 1448 mirror;
-#X text 245 1448 mirror display. Arguments are:;
-#X obj 255 1471 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1471 VALUE: value. Type: bool.;
-#X msg 110 1496 pixel;
-#X text 245 1496 draw pixel. Arguments are:;
-#X obj 255 1519 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1519 X: X coord (from the left). Type: int. Min value:
+#X msg 110 1252 flush;
+#X text 245 1252 flush internal buffer to the device.;
+#X msg 110 1280 font;
+#X text 245 1280 set current font. Arguments are:;
+#X obj 255 1303 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1303 FONT: font name. Type: symbol.;
+#X msg 110 1328 invert;
+#X text 245 1328 invert display. Arguments are:;
+#X obj 255 1351 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1351 VALUE: value. Type: bool.;
+#X msg 110 1376 mirror;
+#X text 245 1376 mirror display. Arguments are:;
+#X obj 255 1399 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1399 VALUE: value. Type: bool.;
+#X msg 110 1424 pixel;
+#X text 245 1424 draw pixel. Arguments are:;
+#X obj 255 1447 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1447 X: X coord (from the left). Type: int. Min value:
 0\.;
-#X obj 255 1542 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1542 Y: Y coord (from the top). Type: int. Min value: 0\.;
-#X obj 255 1565 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1565 VALUE: pixel value. Type: bool.;
-#X msg 110 1590 rotation;
-#X text 245 1590 set display rotation. Arguments are:;
-#X obj 255 1613 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1613 [ANGLE]: rotation angle. Type: int. Allowed values:
+#X obj 255 1470 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1470 Y: Y coord (from the top). Type: int. Min value: 0\.;
+#X obj 255 1493 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1493 VALUE: pixel value. Type: bool.;
+#X msg 110 1518 rotation;
+#X text 245 1518 set display rotation. Arguments are:;
+#X obj 255 1541 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1541 [ANGLE]: rotation angle. Type: int. Allowed values:
 0 \, 90 \, 180 \, 270\.;
-#X msg 110 1653 switch_on;
-#X text 245 1653 switch on display (needed for SPI connection). Arguments
+#X msg 110 1581 switch_on;
+#X text 245 1581 switch on display (needed for SPI connection). Arguments
 are:;
-#X obj 255 1676 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1676 VALUE: value. Type: bool.;
-#X msg 110 1701 text;
-#X text 245 1701 draw text on the display. Arguments are:;
-#X obj 255 1724 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1724 TXT: text. Type: symbol.;
-#X obj 255 1747 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1747 X: left text X coordinate. Type: int.;
-#X obj 255 1770 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1770 Y: top text Y coordinate. Type: int.;
-#X msg 110 1795 write bitmap;
-#X text 245 1795 write bitmap to the display buffer. Arguments are:;
-#X obj 255 1818 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1818 X: bitmap X coordinate. Type: int.;
-#X obj 255 1841 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1841 Y: bitmap Y coordinate. Type: int.;
-#X obj 255 1864 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1864 WIDTH: bitmap width in pixels. Type: int. Min value:
+#X obj 255 1604 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1604 VALUE: value. Type: bool.;
+#X msg 110 1629 text;
+#X text 245 1629 draw text on the display. Arguments are:;
+#X obj 255 1652 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1652 TXT: text. Type: symbol.;
+#X obj 255 1675 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1675 X: left text X coordinate. Type: int.;
+#X obj 255 1698 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1698 Y: top text Y coordinate. Type: int.;
+#X msg 110 1723 write bitmap;
+#X text 245 1723 write bitmap to the display buffer. Arguments are:;
+#X obj 255 1746 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1746 X: bitmap X coordinate. Type: int.;
+#X obj 255 1769 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1769 Y: bitmap Y coordinate. Type: int.;
+#X obj 255 1792 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1792 WIDTH: bitmap width in pixels. Type: int. Min value:
 1\.;
-#X obj 255 1887 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1887 BYTES: list of bitmap bytes (integers in 0\..255 range).
+#X obj 255 1815 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1815 BYTES: list of bitmap bytes (integers in 0\..255 range).
 Type: list.;
-#X msg 110 1927 write bytes;
-#X text 245 1927 write raw byte list to the display buffer and move
+#X msg 110 1855 write bytes;
+#X text 245 1855 write raw byte list to the display buffer and move
 internal cursor position. Arguments are:;
-#X obj 255 1965 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1965 BYTES: list of bytes (integers in 0\..255 range).
+#X obj 255 1893 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1893 BYTES: list of bytes (integers in 0\..255 range).
 Each byte describes a single column of 8 pixels in height. Type: list.;
-#X msg 110 2005 write matrix;
-#X text 245 2005 method.;
-#X obj 20 2043 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2048 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1933 write matrix;
+#X text 245 1933 method.;
+#X obj 20 1971 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1976 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2049 1\.;
-#X text 245 2049 control input.;
-#X obj 20 2079 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2084 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1977 1\.;
+#X text 245 1977 control input.;
+#X obj 20 2007 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2012 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2085 1\.;
-#X text 245 2085;
+#X text 110 2013 1\.;
+#X text 245 2013 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2135 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2138 library: ceammc v0.9.8;
-#N canvas 10 2157 400 290 info 0;
+#X obj 1 2063 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2066 library: ceammc v0.9.8;
+#N canvas 10 2085 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -186,14 +192,19 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2157 pd info;
-#X connect 7 0 9 0;
-#X connect 12 0 15 0;
-#X connect 16 0 17 0;
-#X connect 11 0 18 0;
-#X connect 14 0 18 0;
-#X connect 15 0 18 0;
-#X connect 13 0 18 0;
-#X connect 17 0 18 0;
-#X connect 9 0 18 0;
-#X connect 10 0 18 0;
+#X restore 10 2085 pd info;
+#X connect 7 0 11 0;
+#X connect 9 0 17 0;
+#X connect 13 0 17 0;
+#X connect 15 0 19 0;
+#X connect 17 0 20 0;
+#X connect 21 0 23 0;
+#X connect 14 0 24 0;
+#X connect 18 0 24 0;
+#X connect 19 0 24 0;
+#X connect 16 0 24 0;
+#X connect 23 0 24 0;
+#X connect 11 0 24 0;
+#X connect 12 0 24 0;
+#X connect 20 0 24 0;
+#X connect 10 0 17 0;

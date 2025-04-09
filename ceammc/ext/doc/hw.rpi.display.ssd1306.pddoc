@@ -97,20 +97,20 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet></outlet>
+            <outlet>no output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.hrd #k]        /*click several times*/
-|
-[brightness #f(    [write bytes #g(
+[ui.hrd #k]     /*click several times*/          [bang( [clear, line 0 0 127 31 #j(
+|                                                |
+[brightness #f( [write bytes #g(                 | [load img/test_image_128x32.png(
+                                                 | |
+ [flush #a( [T] [text HELLO! 2 10, flush #d(     [bitmap 128 32 #y]
+            |                                    |
+ [clear #b( [invert $1 #c(                       [msg write bitmap 0 0 128 #h]
 
- [flush #a( [T]    [text HELLO! 2 10, flush #d(
-            |
- [clear #b( [invert $1 #c(
-
-            [T]
+            [T]                                  /*not forget to call flush!*/
             |
             [mirror $1 #e(
 
@@ -119,15 +119,15 @@
 
 [hw.rpi.display.ssd1306 @mode i2c @i2c_bus default #x]
 
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x]
-#b 1
-#f $1
-#g 255 255 255 255 255 255 255 255, flush
-#k @nitems 4
-
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x] [X j->y]
 [ui.link @url=ceammc://img/conn_spi_ssd1306.png @title='SPI_connection']
 
 [ui.link @url=ceammc://img/conn_i2c_ssd1306.png @title='I2C_connection']
+#b 1
+#f $1
+#g 63 63 63 63 63 63 63 63, flush
+#k @nitems 4
+
 ]]>
             </pdascii>
         </example>
