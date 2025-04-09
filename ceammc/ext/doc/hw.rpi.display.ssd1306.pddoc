@@ -102,20 +102,21 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.hrd #k]     /*click several times*/          [bang( [clear, line 0 0 127 31 #j(
-|                                                |
-[brightness #f( [write bytes #g(                 | [load img/test_image_128x32.png(
-                                                 | |
- [flush #a( [T] [text HELLO! 2 10, flush #d(     [bitmap 128 32 #y]
-            |                                    |
- [clear #b( [invert $1 #c(                       [msg write bitmap 0 0 128 #h]
+[ui.hrd #k]     /*click several times!*/
+|
+[brightness #f( [write bytes #g(
 
-            [T]                                  /*not forget to call flush!*/
+ [flush #a( [T] [text HELLO! 2 10, flush #d(
             |
-            [mirror $1 #e(
+ [clear #b( [invert $1 #c(    [clear, line 0 0 127 31, bang #j(
 
+            [T]                [load img/test_image_128x32.png, bang(
+            |                  |
+            [mirror $1 #e(    [bitmap 128 32 #y]
+                              |
+                              [msg write bitmap 0 0 128 #h]
 
-
+                              /*call flush!*/
 
 [hw.rpi.display.ssd1306 @mode i2c @i2c_bus default #x]
 
@@ -125,7 +126,7 @@
 [ui.link @url=ceammc://img/conn_i2c_ssd1306.png @title='I2C_connection']
 #b 1
 #f $1
-#g 63 63 63 63 63 63 63 63, flush
+#g 255 127 63 31 15 7 3 1, flush
 #k @nitems 4
 
 ]]>
