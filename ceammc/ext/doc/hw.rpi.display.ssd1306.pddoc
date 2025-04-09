@@ -31,17 +31,19 @@
             <!-- font -->
             <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font name</param></method>
-            <!-- -->
-            <method name="write bytes">write raw byte list to the display buffer and move internal cursor position
-            <param name="BYTES" type="list" required="true">list of bytes (integers in 0..255 range).
-            Each byte describes a single column of 8 pixels in height</param></method>
-            <method name="write matrix">method</method>
-            <method name="write bitmap">write bitmap to the display buffer
+            <!-- write bytes -->
+            <method name="write bytes">write raw byte list to the display buffer and move internal
+            cursor position 
+            <param name="BYTES" type="list" required="true">list of bytes (integers in 0..255
+            range). Each byte describes a single column of 8 pixels in height</param></method>
+            <!-- write bitmap -->
+            <method name="write bitmap">write bitmap to the display buffer 
             <param name="X" type="int" required="true">bitmap X coordinate</param>
             <param name="Y" type="int" required="true">bitmap Y coordinate</param>
-            <param name="WIDTH" type="int" minvalue="1" required="true">bitmap width in pixels</param>
-            <param name="BYTES" type="list" required="true">list of bitmap bytes (integers in 0..255 range)</param>
-            </method>
+            <param name="WIDTH" type="int" minvalue="1" required="true">bitmap width in
+            pixels</param>
+            <param name="PIXELS" type="list" required="true">list of pixels (0 or
+            1)</param></method>
             <!-- clear -->
             <method name="clear">clear display and optionally flush internal buffer 
             <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to
@@ -102,11 +104,13 @@
         <example>
             <pdascii>
 <![CDATA[
+/*I²C connection example:*/
+
 [ui.hrd #k]     /*click several times!*/
 |
 [brightness #f( [write bytes #g(
 
- [flush #a( [T] [text HELLO! 2 10, flush #d(
+ [flush #a( [T] [text HELLO\ ЦЭАМ! 3 10, flush #d(
             |
  [clear #b( [invert $1 #c(    [clear, line 0 0 127 31, bang #j(
 
@@ -121,9 +125,9 @@
 [hw.rpi.display.ssd1306 @mode i2c @i2c_bus default #x]
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x] [X j->y]
-[ui.link @url=ceammc://img/conn_spi_ssd1306.png @title='SPI_connection']
-
 [ui.link @url=ceammc://img/conn_i2c_ssd1306.png @title='I2C_connection']
+
+[ui.link @url=ceammc://img/conn_spi_ssd1306.png @title='SPI_connection']
 #b 1
 #f $1
 #g 255 127 63 31 15 7 3 1, flush
