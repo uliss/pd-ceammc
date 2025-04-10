@@ -1,0 +1,810 @@
+#N canvas 0 0 800 500 12;
+#X obj 200 10 ui.label Raspberry Pi GPIO;
+#X obj 600 30 ui.b @label "Reset\ All" @background_color 1 0 0 @size
+40 40;
+#X msg 600 80 0;
+#X obj 600 105 s \$0-all-menu;
+#X obj 350 500 loadmsg 0;
+#X obj 350 525 s \$0-all-menu;
+#X obj 350 550 r \$0-gpio;
+#X obj 350 575 print GPIO;
+#X obj 350 600 hw.rpi.gpio;
+#X obj 350 625 route pin;
+#X obj 350 650 list.prepend \$0;
+#X msg 350 675 \; \$1-rgpio\$2 set \$3;
+#X obj 360 70 ui.t @size 20 20 @background_color 1.0 0.0 0.0
+@active_color 1.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+3.3V @label_side left @label_align right @label_valign center;
+#X obj 410 70 ui.t @size 20 20 @background_color 1.0 0.0 0.0
+@active_color 1.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label 5V
+@label_side right @label_align left @label_valign center;
+#X obj 360 90 ui.t @size 20 20 @background_color 0.0 1.0 1.0
+@active_color 0 0 0 @send "#0-sgpio2" @receive "#0-rgpio2" @label
+Pin\[03\] @label_side left @label_align right @label_valign center;
+#X obj 120 90 ui.tab @items None In Out PWM @send "#0-smode2" @label
+"GPIO02" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 90 ui.slider @show_value 1 @send "#0-sgpio2" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode2;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 2 \; \$1-rgpio2 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio2;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 2 \$1;
+#X msg 590 675 soft_pwm_freq 2 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 90 ui.t @size 20 20 @background_color 1.0 0.0 0.0
+@active_color 1.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label 5V
+@label_side right @label_align left @label_valign center;
+#X obj 360 110 ui.t @size 20 20 @background_color 0.0 1.0 1.0
+@active_color 0 0 0 @send "#0-sgpio3" @receive "#0-rgpio3" @label
+Pin\[05\] @label_side left @label_align right @label_valign center;
+#X obj 120 110 ui.tab @items None In Out PWM @send "#0-smode3" @label
+"GPIO03" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 110 ui.slider @show_value 1 @send "#0-sgpio3" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode3;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 3 \; \$1-rgpio3 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio3;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 3 \$1;
+#X msg 590 675 soft_pwm_freq 3 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 110 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side right @label_align left @label_valign center;
+#X obj 360 130 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio4" @receive "#0-rgpio4" @label
+Pin\[07\] @label_side left @label_align right @label_valign center;
+#X obj 120 130 ui.tab @items None In Out PWM @send "#0-smode4" @label
+"GPIO04" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 130 ui.slider @show_value 1 @send "#0-sgpio4" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode4;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 4 \; \$1-rgpio4 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio4;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 4 \$1;
+#X msg 590 675 soft_pwm_freq 4 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 130 ui.t @size 20 20 @background_color 1.0
+0.6666666666666666 0.0 @active_color 0 0 0 @send "#0-sgpio14" @receive
+"#0-rgpio14" @label Pin\[08\] @label_side right @label_align left
+@label_valign center;
+#X obj 530 130 ui.tab @items None In Out PWM @send "#0-smode14" @label
+"GPIO14" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 130 ui.slider @show_value 1 @send "#0-sgpio14" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode14;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 14 \; \$1-rgpio14 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio14;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 14 \$1;
+#X msg 590 675 soft_pwm_freq 14 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 150 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side left @label_align right @label_valign center;
+#X obj 410 150 ui.t @size 20 20 @background_color 1.0
+0.6666666666666666 0.0 @active_color 0 0 0 @send "#0-sgpio15" @receive
+"#0-rgpio15" @label Pin\[10\] @label_side right @label_align left
+@label_valign center;
+#X obj 530 150 ui.tab @items None In Out PWM @send "#0-smode15" @label
+"GPIO15" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 150 ui.slider @show_value 1 @send "#0-sgpio15" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode15;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 15 \; \$1-rgpio15 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio15;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 15 \$1;
+#X msg 590 675 soft_pwm_freq 15 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 170 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio17" @receive "#0-rgpio17" @label
+Pin\[11\] @label_side left @label_align right @label_valign center;
+#X obj 120 170 ui.tab @items None In Out PWM @send "#0-smode17" @label
+"GPIO17" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 170 ui.slider @show_value 1 @send "#0-sgpio17" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode17;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 17 \; \$1-rgpio17 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio17;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 17 \$1;
+#X msg 590 675 soft_pwm_freq 17 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 170 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio18" @receive "#0-rgpio18" @label
+Pin\[12\] @label_side right @label_align left @label_valign center;
+#X obj 530 170 ui.tab @items None In Out PWM @send "#0-smode18" @label
+"GPIO18" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 170 ui.slider @show_value 1 @send "#0-sgpio18" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode18;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 18 \; \$1-rgpio18 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio18;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 18 \$1;
+#X msg 590 675 soft_pwm_freq 18 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 190 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio27" @receive "#0-rgpio27" @label
+Pin\[13\] @label_side left @label_align right @label_valign center;
+#X obj 120 190 ui.tab @items None In Out PWM @send "#0-smode27" @label
+"GPIO27" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 190 ui.slider @show_value 1 @send "#0-sgpio27" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode27;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 27 \; \$1-rgpio27 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio27;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 27 \$1;
+#X msg 590 675 soft_pwm_freq 27 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 190 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side right @label_align left @label_valign center;
+#X obj 360 210 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio22" @receive "#0-rgpio22" @label
+Pin\[15\] @label_side left @label_align right @label_valign center;
+#X obj 120 210 ui.tab @items None In Out PWM @send "#0-smode22" @label
+"GPIO22" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 210 ui.slider @show_value 1 @send "#0-sgpio22" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode22;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 22 \; \$1-rgpio22 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio22;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 22 \$1;
+#X msg 590 675 soft_pwm_freq 22 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 210 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio23" @receive "#0-rgpio23" @label
+Pin\[16\] @label_side right @label_align left @label_valign center;
+#X obj 530 210 ui.tab @items None In Out PWM @send "#0-smode23" @label
+"GPIO23" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 210 ui.slider @show_value 1 @send "#0-sgpio23" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode23;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 23 \; \$1-rgpio23 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio23;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 23 \$1;
+#X msg 590 675 soft_pwm_freq 23 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 230 ui.t @size 20 20 @background_color 1.0 0.0 0.0
+@active_color 1.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Pin\[17\] @label_side left @label_align right @label_valign center;
+#X obj 410 230 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio24" @receive "#0-rgpio24" @label
+Pin\[18\] @label_side right @label_align left @label_valign center;
+#X obj 530 230 ui.tab @items None In Out PWM @send "#0-smode24" @label
+"GPIO24" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 230 ui.slider @show_value 1 @send "#0-sgpio24" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode24;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 24 \; \$1-rgpio24 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio24;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 24 \$1;
+#X msg 590 675 soft_pwm_freq 24 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 250 ui.t @size 20 20 @background_color 1.0 0.0 1.0
+@active_color 0 0 0 @send "#0-sgpio10" @receive "#0-rgpio10" @label
+Pin\[19\] @label_side left @label_align right @label_valign center;
+#X obj 120 250 ui.tab @items None In Out PWM @send "#0-smode10" @label
+"GPIO10" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 250 ui.slider @show_value 1 @send "#0-sgpio10" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode10;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 10 \; \$1-rgpio10 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio10;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 10 \$1;
+#X msg 590 675 soft_pwm_freq 10 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 250 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side right @label_align left @label_valign center;
+#X obj 360 270 ui.t @size 20 20 @background_color 1.0 0.0 1.0
+@active_color 0 0 0 @send "#0-sgpio9" @receive "#0-rgpio9" @label
+Pin\[21\] @label_side left @label_align right @label_valign center;
+#X obj 120 270 ui.tab @items None In Out PWM @send "#0-smode9" @label
+"GPIO09" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 270 ui.slider @show_value 1 @send "#0-sgpio9" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode9;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 9 \; \$1-rgpio9 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio9;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 9 \$1;
+#X msg 590 675 soft_pwm_freq 9 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 270 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio25" @receive "#0-rgpio25" @label
+Pin\[22\] @label_side right @label_align left @label_valign center;
+#X obj 530 270 ui.tab @items None In Out PWM @send "#0-smode25" @label
+"GPIO25" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 270 ui.slider @show_value 1 @send "#0-sgpio25" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode25;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 25 \; \$1-rgpio25 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio25;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 25 \$1;
+#X msg 590 675 soft_pwm_freq 25 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 290 ui.t @size 20 20 @background_color 1.0 0.0 1.0
+@active_color 0 0 0 @send "#0-sgpio11" @receive "#0-rgpio11" @label
+Pin\[23\] @label_side left @label_align right @label_valign center;
+#X obj 120 290 ui.tab @items None In Out PWM @send "#0-smode11" @label
+"GPIO11" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 290 ui.slider @show_value 1 @send "#0-sgpio11" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode11;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 11 \; \$1-rgpio11 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio11;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 11 \$1;
+#X msg 590 675 soft_pwm_freq 11 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 290 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio8" @receive "#0-rgpio8" @label
+Pin\[24\] @label_side right @label_align left @label_valign center;
+#X obj 530 290 ui.tab @items None In Out PWM @send "#0-smode8" @label
+"GPIO08" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 290 ui.slider @show_value 1 @send "#0-sgpio8" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode8;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 8 \; \$1-rgpio8 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio8;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 8 \$1;
+#X msg 590 675 soft_pwm_freq 8 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 310 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side left @label_align right @label_valign center;
+#X obj 410 310 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio7" @receive "#0-rgpio7" @label
+Pin\[26\] @label_side right @label_align left @label_valign center;
+#X obj 530 310 ui.tab @items None In Out PWM @send "#0-smode7" @label
+"GPIO07" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 310 ui.slider @show_value 1 @send "#0-sgpio7" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode7;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 7 \; \$1-rgpio7 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio7;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 7 \$1;
+#X msg 590 675 soft_pwm_freq 7 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 330 ui.t @size 20 20 @background_color 0.4 0.4 0.4
+@active_color 0.4 0.4 0.4 @send "#0_send" @receive "#0_send" @label
+Pin\[27\] @label_side left @label_align right @label_valign center;
+#X obj 410 330 ui.t @size 20 20 @background_color 0.4 0.4 0.4
+@active_color 0.4 0.4 0.4 @send "#0_send" @receive "#0_send" @label
+Pin\[28\] @label_side right @label_align left @label_valign center;
+#X obj 360 350 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio5" @receive "#0-rgpio5" @label
+Pin\[29\] @label_side left @label_align right @label_valign center;
+#X obj 120 350 ui.tab @items None In Out PWM @send "#0-smode5" @label
+"GPIO05" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 350 ui.slider @show_value 1 @send "#0-sgpio5" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode5;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 5 \; \$1-rgpio5 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio5;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 5 \$1;
+#X msg 590 675 soft_pwm_freq 5 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 350 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side right @label_align left @label_valign center;
+#X obj 360 370 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio6" @receive "#0-rgpio6" @label
+Pin\[31\] @label_side left @label_align right @label_valign center;
+#X obj 120 370 ui.tab @items None In Out PWM @send "#0-smode6" @label
+"GPIO06" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 370 ui.slider @show_value 1 @send "#0-sgpio6" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode6;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 6 \; \$1-rgpio6 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio6;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 6 \$1;
+#X msg 590 675 soft_pwm_freq 6 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 370 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio12" @receive "#0-rgpio12" @label
+Pin\[32\] @label_side right @label_align left @label_valign center;
+#X obj 530 370 ui.tab @items None In Out PWM @send "#0-smode12" @label
+"GPIO12" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 370 ui.slider @show_value 1 @send "#0-sgpio12" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode12;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 12 \; \$1-rgpio12 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio12;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 12 \$1;
+#X msg 590 675 soft_pwm_freq 12 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 390 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio13" @receive "#0-rgpio13" @label
+Pin\[33\] @label_side left @label_align right @label_valign center;
+#X obj 120 390 ui.tab @items None In Out PWM @send "#0-smode13" @label
+"GPIO13" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 390 ui.slider @show_value 1 @send "#0-sgpio13" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode13;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 13 \; \$1-rgpio13 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio13;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 13 \$1;
+#X msg 590 675 soft_pwm_freq 13 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 390 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side right @label_align left @label_valign center;
+#X obj 360 410 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio19" @receive "#0-rgpio19" @label
+Pin\[35\] @label_side left @label_align right @label_valign center;
+#X obj 120 410 ui.tab @items None In Out PWM @send "#0-smode19" @label
+"GPIO19" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 410 ui.slider @show_value 1 @send "#0-sgpio19" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode19;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 19 \; \$1-rgpio19 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio19;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 19 \$1;
+#X msg 590 675 soft_pwm_freq 19 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 410 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio16" @receive "#0-rgpio16" @label
+Pin\[36\] @label_side right @label_align left @label_valign center;
+#X obj 530 410 ui.tab @items None In Out PWM @send "#0-smode16" @label
+"GPIO16" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 410 ui.slider @show_value 1 @send "#0-sgpio16" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode16;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 16 \; \$1-rgpio16 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio16;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 16 \$1;
+#X msg 590 675 soft_pwm_freq 16 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 430 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio26" @receive "#0-rgpio26" @label
+Pin\[37\] @label_side left @label_align right @label_valign center;
+#X obj 120 430 ui.tab @items None In Out PWM @send "#0-smode26" @label
+"GPIO26" @label_margins 5 0 @label_side right @label_valign center
+@label_align left @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 20 430 ui.slider @show_value 1 @send "#0-sgpio26" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode26;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 26 \; \$1-rgpio26 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio26;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 26 \$1;
+#X msg 590 675 soft_pwm_freq 26 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 410 430 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio20" @receive "#0-rgpio20" @label
+Pin\[38\] @label_side right @label_align left @label_valign center;
+#X obj 530 430 ui.tab @items None In Out PWM @send "#0-smode20" @label
+"GPIO20" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 430 ui.slider @show_value 1 @send "#0-sgpio20" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode20;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 20 \; \$1-rgpio20 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio20;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 20 \$1;
+#X msg 590 675 soft_pwm_freq 20 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 360 450 ui.t @size 20 20 @background_color 0.0 0.0 0.0
+@active_color 0.0 0.0 0.0 @send "#0_send" @receive "#0_send" @label
+Ground @label_side left @label_align right @label_valign center;
+#X obj 410 450 ui.t @size 20 20 @background_color 0 0.8 0
+@active_color 0 0 0 @send "#0-sgpio21" @receive "#0-rgpio21" @label
+Pin\[40\] @label_side right @label_align left @label_valign center;
+#X obj 530 450 ui.tab @items None In Out PWM @send "#0-smode21" @label
+"GPIO21" @label_margins 5 0 @label_side left @label_valign center
+@label_align right @fontsize 12 @fontweight normal @receive
+"#0-all-menu" @size 140 20;
+#X obj 670 450 ui.slider @show_value 1 @send "#0-sgpio21" @receive
+"#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
+duty:;
+#X obj 490 500 global.float \$0-smode21;
+#X obj 490 525 list.prepend \$0;
+#X msg 490 550 \$2 21 \; \$1-rgpio21 set 0;
+#X obj 490 600 s \$0-spin;
+#X obj 490 625 global.float \$0-sgpio21;
+#X obj 490 650 flow.demux 4;
+#X msg 490 675 write 21 \$1;
+#X msg 590 675 soft_pwm_freq 21 100 \$1;
+#X obj 490 700 s \$0-gpio;
+#X obj 20 500 r \$0-spin;
+#X obj 20 525 route 0 1 2 3;
+#X msg 20 550 reset \$1;
+#X msg 40 575 input \$1 \, poll \$1 1;
+#X msg 60 600 output \$1 \, clear_pwm \$1;
+#X msg 80 625 output \$1 \, soft_pwm_freq \$1 100 0;
+#X obj 20 650 s \$0-gpio;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 6 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 21 0 22 0;
+#X connect 22 2 23 0;
+#X connect 22 3 24 0;
+#X connect 24 0 25 0;
+#X connect 23 0 25 0;
+#X connect 17 0 22 1;
+#X connect 30 0 31 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
+#X connect 34 0 35 0;
+#X connect 35 2 36 0;
+#X connect 35 3 37 0;
+#X connect 37 0 38 0;
+#X connect 36 0 38 0;
+#X connect 30 0 35 1;
+#X connect 43 0 44 0;
+#X connect 44 0 45 0;
+#X connect 45 0 46 0;
+#X connect 47 0 48 0;
+#X connect 48 2 49 0;
+#X connect 48 3 50 0;
+#X connect 50 0 51 0;
+#X connect 49 0 51 0;
+#X connect 43 0 48 1;
+#X connect 55 0 56 0;
+#X connect 56 0 57 0;
+#X connect 57 0 58 0;
+#X connect 59 0 60 0;
+#X connect 60 2 61 0;
+#X connect 60 3 62 0;
+#X connect 62 0 63 0;
+#X connect 61 0 63 0;
+#X connect 55 0 60 1;
+#X connect 68 0 69 0;
+#X connect 69 0 70 0;
+#X connect 70 0 71 0;
+#X connect 72 0 73 0;
+#X connect 73 2 74 0;
+#X connect 73 3 75 0;
+#X connect 75 0 76 0;
+#X connect 74 0 76 0;
+#X connect 68 0 73 1;
+#X connect 80 0 81 0;
+#X connect 81 0 82 0;
+#X connect 82 0 83 0;
+#X connect 84 0 85 0;
+#X connect 85 2 86 0;
+#X connect 85 3 87 0;
+#X connect 87 0 88 0;
+#X connect 86 0 88 0;
+#X connect 80 0 85 1;
+#X connect 92 0 93 0;
+#X connect 93 0 94 0;
+#X connect 94 0 95 0;
+#X connect 96 0 97 0;
+#X connect 97 2 98 0;
+#X connect 97 3 99 0;
+#X connect 99 0 100 0;
+#X connect 98 0 100 0;
+#X connect 92 0 97 1;
+#X connect 104 0 105 0;
+#X connect 105 0 106 0;
+#X connect 106 0 107 0;
+#X connect 108 0 109 0;
+#X connect 109 2 110 0;
+#X connect 109 3 111 0;
+#X connect 111 0 112 0;
+#X connect 110 0 112 0;
+#X connect 104 0 109 1;
+#X connect 117 0 118 0;
+#X connect 118 0 119 0;
+#X connect 119 0 120 0;
+#X connect 121 0 122 0;
+#X connect 122 2 123 0;
+#X connect 122 3 124 0;
+#X connect 124 0 125 0;
+#X connect 123 0 125 0;
+#X connect 117 0 122 1;
+#X connect 129 0 130 0;
+#X connect 130 0 131 0;
+#X connect 131 0 132 0;
+#X connect 133 0 134 0;
+#X connect 134 2 135 0;
+#X connect 134 3 136 0;
+#X connect 136 0 137 0;
+#X connect 135 0 137 0;
+#X connect 129 0 134 1;
+#X connect 142 0 143 0;
+#X connect 143 0 144 0;
+#X connect 144 0 145 0;
+#X connect 146 0 147 0;
+#X connect 147 2 148 0;
+#X connect 147 3 149 0;
+#X connect 149 0 150 0;
+#X connect 148 0 150 0;
+#X connect 142 0 147 1;
+#X connect 154 0 155 0;
+#X connect 155 0 156 0;
+#X connect 156 0 157 0;
+#X connect 158 0 159 0;
+#X connect 159 2 160 0;
+#X connect 159 3 161 0;
+#X connect 161 0 162 0;
+#X connect 160 0 162 0;
+#X connect 154 0 159 1;
+#X connect 167 0 168 0;
+#X connect 168 0 169 0;
+#X connect 169 0 170 0;
+#X connect 171 0 172 0;
+#X connect 172 2 173 0;
+#X connect 172 3 174 0;
+#X connect 174 0 175 0;
+#X connect 173 0 175 0;
+#X connect 167 0 172 1;
+#X connect 179 0 180 0;
+#X connect 180 0 181 0;
+#X connect 181 0 182 0;
+#X connect 183 0 184 0;
+#X connect 184 2 185 0;
+#X connect 184 3 186 0;
+#X connect 186 0 187 0;
+#X connect 185 0 187 0;
+#X connect 179 0 184 1;
+#X connect 191 0 192 0;
+#X connect 192 0 193 0;
+#X connect 193 0 194 0;
+#X connect 195 0 196 0;
+#X connect 196 2 197 0;
+#X connect 196 3 198 0;
+#X connect 198 0 199 0;
+#X connect 197 0 199 0;
+#X connect 191 0 196 1;
+#X connect 203 0 204 0;
+#X connect 204 0 205 0;
+#X connect 205 0 206 0;
+#X connect 207 0 208 0;
+#X connect 208 2 209 0;
+#X connect 208 3 210 0;
+#X connect 210 0 211 0;
+#X connect 209 0 211 0;
+#X connect 203 0 208 1;
+#X connect 216 0 217 0;
+#X connect 217 0 218 0;
+#X connect 218 0 219 0;
+#X connect 220 0 221 0;
+#X connect 221 2 222 0;
+#X connect 221 3 223 0;
+#X connect 223 0 224 0;
+#X connect 222 0 224 0;
+#X connect 216 0 221 1;
+#X connect 230 0 231 0;
+#X connect 231 0 232 0;
+#X connect 232 0 233 0;
+#X connect 234 0 235 0;
+#X connect 235 2 236 0;
+#X connect 235 3 237 0;
+#X connect 237 0 238 0;
+#X connect 236 0 238 0;
+#X connect 230 0 235 1;
+#X connect 243 0 244 0;
+#X connect 244 0 245 0;
+#X connect 245 0 246 0;
+#X connect 247 0 248 0;
+#X connect 248 2 249 0;
+#X connect 248 3 250 0;
+#X connect 250 0 251 0;
+#X connect 249 0 251 0;
+#X connect 243 0 248 1;
+#X connect 255 0 256 0;
+#X connect 256 0 257 0;
+#X connect 257 0 258 0;
+#X connect 259 0 260 0;
+#X connect 260 2 261 0;
+#X connect 260 3 262 0;
+#X connect 262 0 263 0;
+#X connect 261 0 263 0;
+#X connect 255 0 260 1;
+#X connect 267 0 268 0;
+#X connect 268 0 269 0;
+#X connect 269 0 270 0;
+#X connect 271 0 272 0;
+#X connect 272 2 273 0;
+#X connect 272 3 274 0;
+#X connect 274 0 275 0;
+#X connect 273 0 275 0;
+#X connect 267 0 272 1;
+#X connect 280 0 281 0;
+#X connect 281 0 282 0;
+#X connect 282 0 283 0;
+#X connect 284 0 285 0;
+#X connect 285 2 286 0;
+#X connect 285 3 287 0;
+#X connect 287 0 288 0;
+#X connect 286 0 288 0;
+#X connect 280 0 285 1;
+#X connect 292 0 293 0;
+#X connect 293 0 294 0;
+#X connect 294 0 295 0;
+#X connect 296 0 297 0;
+#X connect 297 2 298 0;
+#X connect 297 3 299 0;
+#X connect 299 0 300 0;
+#X connect 298 0 300 0;
+#X connect 292 0 297 1;
+#X connect 304 0 305 0;
+#X connect 305 0 306 0;
+#X connect 306 0 307 0;
+#X connect 308 0 309 0;
+#X connect 309 2 310 0;
+#X connect 309 3 311 0;
+#X connect 311 0 312 0;
+#X connect 310 0 312 0;
+#X connect 304 0 309 1;
+#X connect 316 0 317 0;
+#X connect 317 0 318 0;
+#X connect 318 0 319 0;
+#X connect 320 0 321 0;
+#X connect 321 2 322 0;
+#X connect 321 3 323 0;
+#X connect 323 0 324 0;
+#X connect 322 0 324 0;
+#X connect 316 0 321 1;
+#X connect 329 0 330 0;
+#X connect 330 0 331 0;
+#X connect 331 0 332 0;
+#X connect 333 0 334 0;
+#X connect 334 2 335 0;
+#X connect 334 3 336 0;
+#X connect 336 0 337 0;
+#X connect 335 0 337 0;
+#X connect 329 0 334 1;
+#X connect 338 0 339 0;
+#X connect 339 0 340 0;
+#X connect 339 1 341 0;
+#X connect 339 2 342 0;
+#X connect 339 3 343 0;
+#X connect 340 0 344 0;
+#X connect 341 0 344 0;
+#X connect 342 0 344 0;
+#X connect 343 0 344 0;
