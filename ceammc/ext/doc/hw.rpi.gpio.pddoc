@@ -50,7 +50,7 @@
             length</param></method>
             <method name="clear_pwm">clear PWM settings for pin 
             <param name="PIN" type="int" required="true">pin number</param></method>
-            <method name="list_pins">method</method>
+            <method name="used_pins">list used GPIO pins. Outputs [pins PIN...( message</method>
             <!-- impulse -->
             <method name="impulse">send impulse of specified length 
             <param name="LENGTH" type="int" required="true" minvalue="0.001" maxvalue="100"
@@ -62,7 +62,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>pins state output</outlet>
+            <outlet>messages: [pin PIN STATE(, [pins PIN PIN...(</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -90,6 +90,8 @@
 [ui.dt]
 
 [ui.link @url=ceammc://img/conn_gpio1.png @title='Connection_Scheme']
+
+[ui.link @url=ceammc://hw.rpi.gpio-example.pd @title='GPIO_control']
 
 [X a->x] [X b->x] [X c->x] [X d->x]
 [X e->x] [X f->x] [X g->x] [X h->x]
