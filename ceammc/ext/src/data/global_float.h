@@ -26,6 +26,8 @@ public:
     GlobalFloat(const PdArgs& a);
     t_float& value() { return ref(); }
     const t_float& value() const { return ref(); }
+
+    void outputRef(const t_float& f) final;
 };
 
 void setup_global_float();
