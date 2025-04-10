@@ -174,7 +174,7 @@ void HwRpiGpio::m_input(t_symbol* s, const AtomListView& lv)
     ceammc_hw_gpio_set_mode(gpio_, lv.intAt(0, 0), ceammc_hw_gpio_mode::Input);
 }
 
-void HwRpiGpio::m_list_pins(t_symbol* s, const AtomListView& lv)
+void HwRpiGpio::m_used_pins(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_gpio_list_pins(gpio_);
 }
@@ -222,7 +222,7 @@ void setup_hw_rpi_gpio()
     obj.addMethod("output", &HwRpiGpio::m_output);
     obj.addMethod("reset", &HwRpiGpio::m_reset);
 
-    obj.addMethod("list_pins", &HwRpiGpio::m_list_pins);
+    obj.addMethod("used_pins", &HwRpiGpio::m_used_pins);
 
     obj.addMethod("pull_up", &HwRpiGpio::m_pull_up);
     obj.addMethod("pull_down", &HwRpiGpio::m_pull_down);
