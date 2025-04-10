@@ -39,6 +39,7 @@ public:
         id->setInitOnly();
         id->setArgIndex(0);
         this->addProperty(id);
+        this->bindReceive(this->parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)));
     }
 
     void dump() const override
