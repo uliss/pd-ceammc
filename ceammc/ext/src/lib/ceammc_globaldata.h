@@ -152,8 +152,8 @@ public:
     }
 
     /**
-      * Retrieve all dict keys
-      */
+     * Retrieve all dict keys
+     */
     void keys(std::vector<t_symbol*>& res) const
     {
         res.reserve(map_.size());
@@ -177,18 +177,15 @@ private:
 private:
     T* ptr_;
     t_symbol* name_;
-    std::string descr_;
 
 public:
     /**
      * @brief creates GlobalData<T> with given name. T should have default contstructor.
      * @param name - data name
-     * @param descr - data description
      */
-    GlobalData(t_symbol* name, const std::string& desc = "")
+    explicit GlobalData(t_symbol* name)
         : ptr_(0)
         , name_(name)
-        , descr_(desc)
     {
         ptr_ = data().acquire(name);
         if (ptr_ == 0) { // if not found
@@ -214,27 +211,32 @@ public:
     t_symbol* name() const { return name_; }
 
     /**
-     * Returns data description
-     */
-    std::string description() const { return descr_; }
-
-    /**
      * Returns reference to data
      */
     T& ref() { return *ptr_; }
     const T& ref() const { return *ptr_; }
 
     /**
-      * Returns number of references to global data
-      */
+     * Returns number of references to global data
+     */
     size_t refCount() const { return data().refCount(name_); }
 
     /**
-      * Retrieve all dict keys
-      */
+     * Retrieve all dict keys
+     */
     static void keys(std::vector<t_symbol*>& res)
     {
         data().keys(res);
+    }
+
+    /**
+     * Check is global data contains key
+     * @param key
+     * @return true if contains, otherwise false
+     */
+    static bool contains(t_symbol* key)
+    {
+        return data().contains(key);
     }
 };
 }
