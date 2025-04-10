@@ -10,7 +10,6 @@
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_log.h"
 
 Lin2Lin::Lin2Lin(const PdArgs& a)
     : BaseRangeConverter(a, 0, 127, 0, 1)
