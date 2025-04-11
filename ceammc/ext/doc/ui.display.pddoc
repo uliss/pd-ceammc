@@ -100,6 +100,21 @@
 |            |   |          |         |
 |            |   |          |         |
 [ui.dt                                ]
+
+[ui.display-spec]
+]]>
+            </pdascii>
+            <pdascii id="spec">
+<![CDATA[
+/* special characters for Pd */
+
+[92( [123( [125(  [92( [123( [125(
+|    |     |      |    |     |
+[list tosymbol]   [list tosymbol]
+|                 |
+|                 [list trim]
+|                 |
+[ui.dt]           [ui.dt]
 ]]>
             </pdascii>
         </example>
