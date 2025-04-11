@@ -115,17 +115,56 @@ void UIDisplay::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UIDisplay::paint(const char* txt)
 {
+    std::string msg_type_esc;
+    std::string msg_esc;
+
+    auto has_esc1 = strchr(msg_type_->s_name, '\\');
+    auto has_esc2 = strchr(txt, '\\');
+
+    if (has_esc1) {
+        auto c = msg_type_->s_name;
+        while (*c) {
+            switch (*c) {
+            case '\\':
+                msg_type_esc += '\\';
+                msg_type_esc += '\\';
+                break;
+            default:
+                msg_type_esc += *c;
+                break;
+            }
+            c++;
+        }
+    }
+
+    if (has_esc2) {
+        auto c = txt;
+        while (*c) {
+            switch (*c) {
+            case '\\':
+                msg_esc += '\\';
+                msg_esc += '\\';
+                break;
+            default:
+                msg_esc += *c;
+                break;
+            }
+            c++;
+        }
+    }
+
     sys_vgui("ui::display_update %s %lx %s %d %d %d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x "
-             "%d {%s} [subst -nocommands -novariables {%s}]\n",
+             "%d [subst -nocommands -novariables {%s}] [subst -nocommands -novariables {%s}]\n",
         asEBox()->b_canvas_id->s_name, asEBox(), rid_->s_name,
         (int)width(), (int)height(), (int)zoom(), (int)auto_,
         rgba_to_hex_int(prop_color_border),
         rgba_to_hex_int(on_bang_ ? prop_active_color : prop_color_background),
         rgba_to_hex_int(prop_text_color),
         rgba_to_hex_int(msg_color(type_)),
-        prop_display_type, msg_type_->s_name,
-        txt);
+        prop_display_type,
+        has_esc1 ? msg_type_esc.c_str() : msg_type_->s_name,
+        has_esc2 ? msg_esc.c_str() : txt);
 }
 
 void UIDisplay::paint()
