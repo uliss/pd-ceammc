@@ -273,9 +273,7 @@ fn process_request(
             pins.insert(pin, GpioPin::Input(in_pin));
         }
         Request::ResetPin(pin) => {
-            if !pins.contains_key(&pin) {
-                return Err(format!("pin [{pin}] not configured"));
-            } else {
+            if pins.contains_key(&pin) {
                 pins.remove(&pin);
             }
         }
