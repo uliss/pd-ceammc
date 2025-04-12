@@ -37,15 +37,16 @@
             <!-- - -->
             <method name="-">subtract from float, no output</method>
             <!-- / -->
-            <method name="/">divide by, no output
+            <method name="/">divide by, no output 
             <param name="DIV" type="float">divider value</param></method>
             <!-- get -->
-            <method name="get">get the value of global float variable (not only for connected object)
-            <param name="NAME" type="symbol" required="false">requested variable name.
-            If ommitted: request the value from the current connected object, if specified: output value from found global variable</param>
-            </method>
+            <method name="get">get the value of global float variable (not only for connected
+            object) 
+            <param name="NAME" type="symbol" required="false">requested variable name. If ommitted:
+            request the value from the current connected object, if specified: output value from
+            found global variable</param></method>
             <!-- set -->
-            <method name="set">sets new value without output
+            <method name="set">sets new value without output 
             <param name="VALUE" type="float" required="true">new value</param></method>
         </methods>
         <inlets>
