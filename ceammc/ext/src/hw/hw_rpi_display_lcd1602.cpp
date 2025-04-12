@@ -9,9 +9,6 @@ HwRpiDisplayLcd1602::HwRpiDisplayLcd1602(const PdArgs& args)
 {
     createOutlet();
 
-    // for i2c PCF8574 using NXP chip: most likely 0x3F
-    // for i2c PCF8574 using TI (Texas Instruments): most likely: 0x27
-
     i2c_bus_ = addI2cBusProperty();
     i2c_addr_ = addI2cAddrProperty();
 
