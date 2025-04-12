@@ -95,7 +95,7 @@ impl hw_lcd1602 {
                     Request::CursorPos(row, col) => {
                         let shift = match rows {
                             2 => *row * 0x40 + *col,
-                            4 => (*row * 0x20) + ((*row & 0x1) * 0x28) + *col,
+                            4 => ((0x1 & *row) * 0x40) + ((*row > 1) as u8 * 0x14) + *col,
                             _ => *col,
                         };
 
