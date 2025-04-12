@@ -24,7 +24,7 @@ impl hw_lcd1602 {
         let (worker, rx, tx) = Lcd1602Worker::new(on_msg);
         worker.spawn(tx.clone(), notify, move || {
             let mut i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
-            debug!("I2C init: {i2c:?}");
+            debug!("I2C init");
 
             let addr = match i2c_addr {
                 I2cAddress::Default => 0x27,
