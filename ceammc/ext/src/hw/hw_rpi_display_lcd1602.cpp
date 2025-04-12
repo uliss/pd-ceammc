@@ -4,6 +4,9 @@
 #include "ceammc_format.h"
 #include "fmt/core.h"
 
+CEAMMC_DEFINE_SYMBOL2(lcd1602_alias, "hw.rpi.display.lcd1602");
+CEAMMC_DEFINE_SYMBOL2(lcd2004_alias, "hw.rpi.display.lcd2004");
+
 HwRpiDisplayLcdHd44780::HwRpiDisplayLcdHd44780(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
@@ -24,6 +27,11 @@ HwRpiDisplayLcdHd44780::~HwRpiDisplayLcdHd44780()
 
 void HwRpiDisplayLcdHd44780::initDone()
 {
+    if (pdArgs().creationName == sym_lcd1602_alias())
+        rows_->setValue(2);
+    else if (pdArgs().creationName == sym_lcd2004_alias())
+        rows_->setValue(4);
+
     std::int8_t bus = 0;
     if (!i2c_bus_->getBus(bus))
         return;
@@ -146,8 +154,8 @@ void HwRpiDisplayLcdHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
 void setup_hw_rpi_display_lcd1602()
 {
     ObjectFactory<HwRpiDisplayLcdHd44780> obj("hw.rpi.display.hd44780");
-    obj.addAlias("hw.rpi.display.lcd1602");
-    obj.addAlias("hw.rpi.display.lcd2004");
+    obj.addAlias(sym_lcd1602_alias()->s_name);
+    obj.addAlias(sym_lcd2004_alias()->s_name);
 
     obj.addMethod("clear", &HwRpiDisplayLcdHd44780::m_clear);
     obj.addMethod("backlight", &HwRpiDisplayLcdHd44780::m_backlight);
