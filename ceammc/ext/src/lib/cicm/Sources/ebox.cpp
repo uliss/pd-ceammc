@@ -246,13 +246,14 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 {
     const int MIN_MARGIN = 2;
 
+#ifdef __linux__
+    constexpr int ycorr = 1;
+#else
+    constexpr int ycorr = 0;
+#endif
+
     switch (pos) {
     case LABEL_POSITION_INNER: {
-#ifdef __linux__
-        constexpr int ycorr = 2;
-#else
-        constexpr int ycorr = 0;
-#endif
 
         const auto w = int(x->b_rect.w * x->b_zoom);
         const auto h = int(x->b_rect.h * x->b_zoom);
@@ -305,7 +306,7 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
         int x1 = int(x0 + x->b_rect.w * x->b_zoom);
         int y1 = int(y0 + x->b_rect.h * x->b_zoom);
         int xc = int(x0 + x->b_rect.w * x->b_zoom * 0.5);
-        int yc = int(y0 + x->b_rect.h * x->b_zoom * 0.5);
+        int yc = int(y0 + x->b_rect.h * x->b_zoom * 0.5) + ycorr;
 
         switch (side) {
         case LABEL_SIDE_LEFT: {
