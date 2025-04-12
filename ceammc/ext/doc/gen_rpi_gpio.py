@@ -65,9 +65,9 @@ def gpio_label(idx):
     x = gpio(idx)
     if x >= 0:
         if idx & 1 == 1:
-            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side right @label_valign center @label_align left @fontsize 12 @fontweight normal"
+            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side right @label_valign center @label_align left @fontsize 10 @fontweight normal"
         else:
-            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side left @label_valign center @label_align right @fontsize 12 @fontweight normal"
+            return f"@label \"GPIO{x:02}\" @label_margins 5 0 @label_side left @label_valign center @label_align right @fontsize 10 @fontweight normal"
     else:
         return ""
 
@@ -102,7 +102,7 @@ def make_menu(idx, h, x, y):
     send = obj_send(f"mode{gp}")
     recv = "@receive \"#0-all-menu\""
     lb = gpio_label(idx)
-    print(f"[ui.tab @items None In Out PWM {send} {lb} {recv} @size {w} {h} @fontsize 10 {{ax={x},ay={y}}}]")
+    print(f"[ui.tab @items None In Out PWM {send} {lb} {recv} @size {w} {h} {{ax={x},ay={y}}}]")
 
     recv = "@receive \"#0-all-pwm\""
     send = obj_send(f"gpio{gp}")
