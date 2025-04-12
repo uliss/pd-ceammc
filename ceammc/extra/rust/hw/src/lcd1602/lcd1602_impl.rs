@@ -1,6 +1,7 @@
 use std::ffi::CString;
 
 use log::{debug, error};
+use rppal::gpio::Gpio;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
@@ -35,6 +36,22 @@ impl hw_lcd1602 {
 
             let bus = i2c.bus();
             debug!("try LCD init with: bus={bus}, addr={addr}");
+
+            if bus == 1 {
+                let m2 = Gpio::new()
+                    .map_err(|e| e.to_string())?
+                    .get(2)
+                    .map_err(|e| e.to_string())?
+                    .mode();
+
+                let m3 = Gpio::new()
+                    .map_err(|e| e.to_string())?
+                    .get(2)
+                    .map_err(|e| e.to_string())?
+                    .mode();
+
+                debug!("mode: {m2} {m3}");
+            }
 
             let rows = match rows {
                 2 => 2,
