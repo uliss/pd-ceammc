@@ -78,7 +78,7 @@ next position. Arguments are:;
 #X text 255 1063 SHIFT: relative cursor shift. Negative values move
 the cursor leftwards \, positive values - rightwards. Type: int.;
 #X msg 110 1103 move_display;
-#X text 245 1103 Arguments are:;
+#X text 245 1103 move display content horizontally. Arguments are:;
 #X obj 255 1126 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1126 SHIFT: relative display move \, not altering the display
 content. Type: int.;
