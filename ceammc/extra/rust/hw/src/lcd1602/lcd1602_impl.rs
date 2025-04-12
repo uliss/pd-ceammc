@@ -38,19 +38,18 @@ impl hw_lcd1602 {
             debug!("try LCD init with: bus={bus}, addr={addr}");
 
             if bus == 1 {
-                let m2 = Gpio::new()
+                Gpio::new()
                     .map_err(|e| e.to_string())?
                     .get(2)
                     .map_err(|e| e.to_string())?
-                    .mode();
+                    .into_io(rppal::gpio::Mode::Alt0).set_reset_on_drop(false);
 
-                let m3 = Gpio::new()
+                Gpio::new()
                     .map_err(|e| e.to_string())?
-                    .get(2)
+                    .get(3)
                     .map_err(|e| e.to_string())?
-                    .mode();
-
-                debug!("mode: {m2} {m3}");
+                    .into_io(rppal::gpio::Mode::Alt0)
+                    .set_reset_on_drop(false);
             }
 
             let rows = match rows {
