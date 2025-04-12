@@ -1,7 +1,6 @@
 use std::ffi::CString;
 
 use log::{debug, error};
-use rppal::gpio::Gpio;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
