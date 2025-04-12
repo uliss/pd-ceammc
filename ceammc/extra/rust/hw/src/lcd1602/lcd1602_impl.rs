@@ -37,21 +37,6 @@ impl hw_lcd1602 {
             let bus = i2c.bus();
             debug!("try LCD init with: bus={bus}, addr={addr}");
 
-            if bus == 1 {
-                Gpio::new()
-                    .map_err(|e| e.to_string())?
-                    .get(2)
-                    .map_err(|e| e.to_string())?
-                    .into_io(rppal::gpio::Mode::Alt3).set_reset_on_drop(false);
-
-                Gpio::new()
-                    .map_err(|e| e.to_string())?
-                    .get(3)
-                    .map_err(|e| e.to_string())?
-                    .into_io(rppal::gpio::Mode::Alt3)
-                    .set_reset_on_drop(false);
-            }
-
             let rows = match rows {
                 2 => 2,
                 4 => 4,
