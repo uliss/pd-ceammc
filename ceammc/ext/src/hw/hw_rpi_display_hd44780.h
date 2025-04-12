@@ -10,7 +10,7 @@ using namespace ceammc;
 class HwRpiDisplayHd44780 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_lcd1602* lcd_ { nullptr };
     I2cBusProperty* i2c_bus_ { nullptr };
-    IntProperty* i2c_addr_ { nullptr };
+    I2cAddressProperty* i2c_addr_ { nullptr };
     IntEnumProperty* rows_ { nullptr };
 
 public:

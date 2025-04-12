@@ -43,7 +43,11 @@ constexpr static const int8_t ceammc_HW_I2C_DEFAULT_ADDR = -1;
 
 constexpr static const int8_t ceammc_HW_I2C_ALT_ADDR = -2;
 
-constexpr static const int8_t ceammc_HW_I2C_MIN_ADDR = ceammc_HW_I2C_ALT_ADDR;
+constexpr static const int8_t ceammc_HW_I2C_AUTO_ADDR = -3;
+
+constexpr static const int8_t ceammc_HW_I2C_NO_ADDR = -4;
+
+constexpr static const int8_t ceammc_HW_I2C_MIN_ADDR = ceammc_HW_I2C_NO_ADDR;
 
 constexpr static const int8_t ceammc_HW_I2C_MAX_ADDR = 119;
 
