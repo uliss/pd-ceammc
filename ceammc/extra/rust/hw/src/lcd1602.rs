@@ -26,6 +26,7 @@ pub enum hw_hd44780_font {
 #[derive(Debug)]
 pub enum Request {
     WriteText(CString),
+    WriteChar(u32),
     Clear,
     Backlight(bool),
     CursorOn(bool),
@@ -124,6 +125,14 @@ pub extern "C" fn ceammc_hw_lcd1602_cursor_pos(lcd: *mut hw_lcd1602, row: u8, co
 #[no_mangle]
 pub extern "C" fn ceammc_hw_lcd1602_write_text(lcd: *mut hw_lcd1602, txt: *const c_char) -> bool {
     rpi_check!({ hw_lcd1602::send_request_ptr(lcd, Request::WriteText(ptr_to_cstr(txt))) });
+}
+
+/// write char to lcd1602
+/// @param lcd - pointer to LCD1602 struct
+/// @param c - char
+#[no_mangle]
+pub extern "C" fn ceammc_hw_lcd1602_write_char(lcd: *mut hw_lcd1602, c: u8) -> bool {
+    rpi_check!({ hw_lcd1602::send_request_ptr(lcd, Request::WriteChar(c.into())) });
 }
 
 /// move lcd1602 cursor right/left

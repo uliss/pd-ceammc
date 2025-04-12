@@ -73,9 +73,7 @@ void HwRpiDisplayLcd1602::m_char(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    char txt[2] = { 0, 0 };
-    txt[0] = lv.intAt(0, 0);
-    ceammc_hw_lcd1602_write_text(lcd_, txt);
+    ceammc_hw_lcd1602_write_char(lcd_, lv.intAt(0, 0));
 }
 
 void HwRpiDisplayLcd1602::m_cursor_on(t_symbol* s, const AtomListView& lv)
