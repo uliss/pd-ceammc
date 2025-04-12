@@ -35,7 +35,8 @@
             <param name="LINE" type="int" required="true" minvalue="0">cursor line</param>
             <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">cursor line
             character position</param></method>
-            <method name="move_display">method</method>
+            <method name="move_display">
+            <param name="SHIFT" type="int" required="true">relative display move, not altering the display content</param></method>
             <method name="move_cursor">move cursor horizontally 
             <param name="SHIFT" type="int" required="true">relative cursor shift. Negative values
             move the cursor leftwards, positive values - rightwards</param></method>
