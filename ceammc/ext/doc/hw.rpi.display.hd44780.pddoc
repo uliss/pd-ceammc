@@ -40,9 +40,14 @@
             <method name="move_cursor">move cursor horizontally 
             <param name="SHIFT" type="int" required="true">relative cursor shift. Negative values
             move the cursor leftwards, positive values - rightwards</param></method>
-            <method name="char">method</method>
-            <method name="write">method</method>
-            <method name="font">method</method>
+            <method name="char">write character to the display and move cursor to the next position
+            <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">char code</param>
+            </method>
+            <method name="write">write the message at the current cursor position and
+            then move the cursor to the next position after last written character
+            <param name="MSG" type="list" required="true">value list</param>
+            </method>
+            <method name="font">choose font</method>
         </methods>
         <info>
             <par>Note: display can be configured in single line mode.</par>
