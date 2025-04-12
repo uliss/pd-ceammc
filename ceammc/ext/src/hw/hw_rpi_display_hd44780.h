@@ -1,5 +1,5 @@
-#ifndef HW_RPI_DISPLAY_LCD1602_H
-#define HW_RPI_DISPLAY_LCD1602_H
+#ifndef HW_RPI_DISPLAY_HD44780_H
+#define HW_RPI_DISPLAY_HD44780_H
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
@@ -37,4 +37,4 @@ public:
 
 void setup_hw_rpi_display_hd44780();
 
-#endif // HW_RPI_DISPLAY_LCD1602_H
+#endif // HW_RPI_DISPLAY_HD44780_H

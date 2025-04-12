@@ -1,4 +1,4 @@
-#include "hw_rpi_display_lcd1602.h"
+#include "hw_rpi_display_hd44780.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
