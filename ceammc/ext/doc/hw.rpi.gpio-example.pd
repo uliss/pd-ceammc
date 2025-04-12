@@ -27,7 +27,7 @@ center;
 #X obj 120 90 ui.tab @items None In Out PWM @send "#0-smode2" @label
 "GPIO02" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 90 ui.slider @show_value 1 @send "#0-sgpio2" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -51,7 +51,7 @@ center;
 #X obj 120 110 ui.tab @items None In Out PWM @send "#0-smode3" @label
 "GPIO03" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 110 ui.slider @show_value 1 @send "#0-sgpio3" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -75,7 +75,7 @@ duty: @fontsize 10;
 #X obj 120 130 ui.tab @items None In Out PWM @send "#0-smode4" @label
 "GPIO04" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 130 ui.slider @show_value 1 @send "#0-sgpio4" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -95,7 +95,7 @@ duty: @fontsize 10;
 #X obj 530 130 ui.tab @items None In Out PWM @send "#0-smode14" @label
 "GPIO14" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 130 ui.slider @show_value 1 @send "#0-sgpio14" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -119,7 +119,7 @@ duty: @fontsize 10;
 #X obj 530 150 ui.tab @items None In Out PWM @send "#0-smode15" @label
 "GPIO15" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 150 ui.slider @show_value 1 @send "#0-sgpio15" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -139,7 +139,7 @@ duty: @fontsize 10;
 #X obj 120 170 ui.tab @items None In Out PWM @send "#0-smode17" @label
 "GPIO17" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 170 ui.slider @show_value 1 @send "#0-sgpio17" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -159,7 +159,7 @@ duty: @fontsize 10;
 #X obj 530 170 ui.tab @items None In Out PWM @send "#0-smode18" @label
 "GPIO18" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 170 ui.slider @show_value 1 @send "#0-sgpio18" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -179,7 +179,7 @@ duty: @fontsize 10;
 #X obj 120 190 ui.tab @items None In Out PWM @send "#0-smode27" @label
 "GPIO27" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 190 ui.slider @show_value 1 @send "#0-sgpio27" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -203,7 +203,7 @@ duty: @fontsize 10;
 #X obj 120 210 ui.tab @items None In Out PWM @send "#0-smode22" @label
 "GPIO22" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 210 ui.slider @show_value 1 @send "#0-sgpio22" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -223,7 +223,7 @@ duty: @fontsize 10;
 #X obj 530 210 ui.tab @items None In Out PWM @send "#0-smode23" @label
 "GPIO23" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 210 ui.slider @show_value 1 @send "#0-sgpio23" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -247,7 +247,7 @@ duty: @fontsize 10;
 #X obj 530 230 ui.tab @items None In Out PWM @send "#0-smode24" @label
 "GPIO24" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 230 ui.slider @show_value 1 @send "#0-sgpio24" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -267,7 +267,7 @@ duty: @fontsize 10;
 #X obj 120 250 ui.tab @items None In Out PWM @send "#0-smode10" @label
 "GPIO10" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 250 ui.slider @show_value 1 @send "#0-sgpio10" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -291,7 +291,7 @@ duty: @fontsize 10;
 #X obj 120 270 ui.tab @items None In Out PWM @send "#0-smode9" @label
 "GPIO09" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 270 ui.slider @show_value 1 @send "#0-sgpio9" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -311,7 +311,7 @@ duty: @fontsize 10;
 #X obj 530 270 ui.tab @items None In Out PWM @send "#0-smode25" @label
 "GPIO25" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 270 ui.slider @show_value 1 @send "#0-sgpio25" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -331,7 +331,7 @@ duty: @fontsize 10;
 #X obj 120 290 ui.tab @items None In Out PWM @send "#0-smode11" @label
 "GPIO11" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 290 ui.slider @show_value 1 @send "#0-sgpio11" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -351,7 +351,7 @@ duty: @fontsize 10;
 #X obj 530 290 ui.tab @items None In Out PWM @send "#0-smode8" @label
 "GPIO08" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 290 ui.slider @show_value 1 @send "#0-sgpio8" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -375,7 +375,7 @@ duty: @fontsize 10;
 #X obj 530 310 ui.tab @items None In Out PWM @send "#0-smode7" @label
 "GPIO07" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 310 ui.slider @show_value 1 @send "#0-sgpio7" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -403,7 +403,7 @@ duty: @fontsize 10;
 #X obj 120 350 ui.tab @items None In Out PWM @send "#0-smode5" @label
 "GPIO05" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 350 ui.slider @show_value 1 @send "#0-sgpio5" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -427,7 +427,7 @@ duty: @fontsize 10;
 #X obj 120 370 ui.tab @items None In Out PWM @send "#0-smode6" @label
 "GPIO06" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 370 ui.slider @show_value 1 @send "#0-sgpio6" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -447,7 +447,7 @@ duty: @fontsize 10;
 #X obj 530 370 ui.tab @items None In Out PWM @send "#0-smode12" @label
 "GPIO12" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 370 ui.slider @show_value 1 @send "#0-sgpio12" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -467,7 +467,7 @@ duty: @fontsize 10;
 #X obj 120 390 ui.tab @items None In Out PWM @send "#0-smode13" @label
 "GPIO13" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 390 ui.slider @show_value 1 @send "#0-sgpio13" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -491,7 +491,7 @@ duty: @fontsize 10;
 #X obj 120 410 ui.tab @items None In Out PWM @send "#0-smode19" @label
 "GPIO19" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 410 ui.slider @show_value 1 @send "#0-sgpio19" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -511,7 +511,7 @@ duty: @fontsize 10;
 #X obj 530 410 ui.tab @items None In Out PWM @send "#0-smode16" @label
 "GPIO16" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 410 ui.slider @show_value 1 @send "#0-sgpio16" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -531,7 +531,7 @@ duty: @fontsize 10;
 #X obj 120 430 ui.tab @items None In Out PWM @send "#0-smode26" @label
 "GPIO26" @label_margins 5 0 @label_side right @label_valign center
 @label_align left @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 20 430 ui.slider @show_value 1 @send "#0-sgpio26" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -551,7 +551,7 @@ duty: @fontsize 10;
 #X obj 530 430 ui.tab @items None In Out PWM @send "#0-smode20" @label
 "GPIO20" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 430 ui.slider @show_value 1 @send "#0-sgpio20" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;
@@ -575,7 +575,7 @@ duty: @fontsize 10;
 #X obj 530 450 ui.tab @items None In Out PWM @send "#0-smode21" @label
 "GPIO21" @label_margins 5 0 @label_side left @label_valign center
 @label_align right @fontsize 12 @fontweight normal @receive
-"#0-all-menu" @size 140 20;
+"#0-all-menu" @size 140 20 @fontsize 10;
 #X obj 670 450 ui.slider @show_value 1 @send "#0-sgpio21" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
 duty: @fontsize 10;

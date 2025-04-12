@@ -102,7 +102,7 @@ def make_menu(idx, h, x, y):
     send = obj_send(f"mode{gp}")
     recv = "@receive \"#0-all-menu\""
     lb = gpio_label(idx)
-    print(f"[ui.tab @items None In Out PWM {send} {lb} {recv} @size {w} {h} {{ax={x},ay={y}}}]")
+    print(f"[ui.tab @items None In Out PWM {send} {lb} {recv} @size {w} {h} @fontsize 10 {{ax={x},ay={y}}}]")
 
     recv = "@receive \"#0-all-pwm\""
     send = obj_send(f"gpio{gp}")
