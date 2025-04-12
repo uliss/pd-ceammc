@@ -23,3 +23,4 @@ fi
 resvg --background $BG -z $ZOOM $1 $OUT
 convert $OUT -crop +$LEFT+$TOP -crop -$RIGHT-$BOTTOM tmp
 mv tmp $OUT
+
