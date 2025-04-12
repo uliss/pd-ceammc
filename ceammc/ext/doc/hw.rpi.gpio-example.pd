@@ -29,7 +29,7 @@ left @label_align right @label_valign center;
 "#0-all-menu" @size 140 20;
 #X obj 20 90 ui.slider @show_value 1 @send "#0-sgpio2" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode2;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 2 \; \$1-rgpio2 set 0;
@@ -52,7 +52,7 @@ left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 110 ui.slider @show_value 1 @send "#0-sgpio3" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode3;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 3 \; \$1-rgpio3 set 0;
@@ -75,7 +75,7 @@ left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 130 ui.slider @show_value 1 @send "#0-sgpio4" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode4;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 4 \; \$1-rgpio4 set 0;
@@ -95,7 +95,7 @@ left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 130 ui.slider @show_value 1 @send "#0-sgpio14" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode14;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 14 \; \$1-rgpio14 set 0;
@@ -119,7 +119,7 @@ left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 150 ui.slider @show_value 1 @send "#0-sgpio15" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode15;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 15 \; \$1-rgpio15 set 0;
@@ -138,7 +138,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 170 ui.slider @show_value 1 @send "#0-sgpio17" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode17;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 17 \; \$1-rgpio17 set 0;
@@ -157,7 +157,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 170 ui.slider @show_value 1 @send "#0-sgpio18" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode18;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 18 \; \$1-rgpio18 set 0;
@@ -176,7 +176,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 190 ui.slider @show_value 1 @send "#0-sgpio27" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode27;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 27 \; \$1-rgpio27 set 0;
@@ -199,7 +199,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 210 ui.slider @show_value 1 @send "#0-sgpio22" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode22;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 22 \; \$1-rgpio22 set 0;
@@ -218,7 +218,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 210 ui.slider @show_value 1 @send "#0-sgpio23" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode23;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 23 \; \$1-rgpio23 set 0;
@@ -241,7 +241,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 230 ui.slider @show_value 1 @send "#0-sgpio24" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode24;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 24 \; \$1-rgpio24 set 0;
@@ -260,7 +260,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 250 ui.slider @show_value 1 @send "#0-sgpio10" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode10;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 10 \; \$1-rgpio10 set 0;
@@ -283,7 +283,7 @@ left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 270 ui.slider @show_value 1 @send "#0-sgpio9" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode9;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 9 \; \$1-rgpio9 set 0;
@@ -302,7 +302,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 270 ui.slider @show_value 1 @send "#0-sgpio25" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode25;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 25 \; \$1-rgpio25 set 0;
@@ -321,7 +321,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 290 ui.slider @show_value 1 @send "#0-sgpio11" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode11;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 11 \; \$1-rgpio11 set 0;
@@ -340,7 +340,7 @@ right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 290 ui.slider @show_value 1 @send "#0-sgpio8" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode8;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 8 \; \$1-rgpio8 set 0;
@@ -363,7 +363,7 @@ right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 310 ui.slider @show_value 1 @send "#0-sgpio7" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode7;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 7 \; \$1-rgpio7 set 0;
@@ -390,7 +390,7 @@ left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 350 ui.slider @show_value 1 @send "#0-sgpio5" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode5;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 5 \; \$1-rgpio5 set 0;
@@ -413,7 +413,7 @@ left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 370 ui.slider @show_value 1 @send "#0-sgpio6" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode6;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 6 \; \$1-rgpio6 set 0;
@@ -432,7 +432,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 370 ui.slider @show_value 1 @send "#0-sgpio12" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode12;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 12 \; \$1-rgpio12 set 0;
@@ -451,7 +451,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 390 ui.slider @show_value 1 @send "#0-sgpio13" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode13;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 13 \; \$1-rgpio13 set 0;
@@ -474,7 +474,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 410 ui.slider @show_value 1 @send "#0-sgpio19" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode19;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 19 \; \$1-rgpio19 set 0;
@@ -493,7 +493,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 410 ui.slider @show_value 1 @send "#0-sgpio16" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode16;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 16 \; \$1-rgpio16 set 0;
@@ -512,7 +512,7 @@ normal @label_side left @label_align right @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 20 430 ui.slider @show_value 1 @send "#0-sgpio26" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode26;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 26 \; \$1-rgpio26 set 0;
@@ -531,7 +531,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 430 ui.slider @show_value 1 @send "#0-sgpio20" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode20;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 20 \; \$1-rgpio20 set 0;
@@ -554,7 +554,7 @@ normal @label_side right @label_align left @label_valign center;
 @receive "#0-all-menu" @size 140 20;
 #X obj 670 450 ui.slider @show_value 1 @send "#0-sgpio21" @receive
 "#0-all-pwm" @size 100 20 @label_inner 1 @label_valign center @label
-duty: @fontsize 10;
+duty: @fontsize 8;
 #X obj 490 500 global.float \$0-smode21;
 #X obj 490 525 list.prepend \$0;
 #X msg 490 550 \$2 21 \; \$1-rgpio21 set 0;

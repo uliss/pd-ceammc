@@ -108,7 +108,7 @@ def make_menu(idx, h, x, y):
     else:
         x += w
 
-    print(f"[ui.slider @show_value 1 {send} {recv} @size 100 {h} @label_inner 1 @label_valign center @label duty: @fontsize 10 {{ax={x},ay={y}}}]")
+    print(f"[ui.slider @show_value 1 {send} {recv} @size 100 {h} @label_inner 1 @label_valign center @label duty: @fontsize 8 {{ax={x},ay={y}}}]")
 
 
 def obj_send(name):
