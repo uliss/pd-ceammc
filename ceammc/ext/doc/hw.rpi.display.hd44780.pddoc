@@ -72,9 +72,9 @@
 
  [T]               [cursor_pos 1 0 #f(
  |
- [cursor_on $1 #b(
+ [cursor_on $1 #b( [move_cursor 1 #g(
 
- [T]
+ [T]               [move_cursor -1 #h(
  |
  [cursor_blink $1 #c(
 
@@ -84,7 +84,7 @@
 
 
 [ui.link @url=ceammc://img/conn_i2c_ssd1306.png @title='I2C_connection']
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
 ]]>
             </pdascii>
         </example>
