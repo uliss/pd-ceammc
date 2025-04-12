@@ -57,12 +57,8 @@ public:
 
     t_efont* font();
 
-    int size() const { return font_->c_sizereal; }
-    void setSize(int sz)
-    {
-        font_->c_sizereal = sz;
-        font_->c_size = sz;
-    }
+    int size() const;
+    void setSize(int sz);
 };
 
 class UITextLayout {
@@ -185,20 +181,20 @@ private:
     std::string name_;
 
 public:
-    PopupMenuCallbacks(const std::string& name, std::initializer_list<Entry> args = {});
+    explicit PopupMenuCallbacks(const std::string& name, std::initializer_list<Entry> args = {});
     MenuItems& items() { return items_; }
     const MenuItems& items() const { return items_; }
     const std::string& name() const { return name_; }
 
     void addSeparator();
-    void addItem(const std::string& name, MenuEntryFn fn);
+    void addItem(const std::string& name, const MenuEntryFn& fn);
 
     bool process(t_symbol* name, size_t idx, const t_pt& pt);
 
 public:
     static Entry sep()
     {
-        return std::make_tuple(std::string(), MenuEntryFn([](const t_pt&) {}));
+        return std::make_tuple(std::string(), MenuEntryFn([](const t_pt&) { }));
     }
 };
 
@@ -223,6 +219,6 @@ public:
     void setFontSize(int sz);
 };
 
-}
+} // namespace ceammc
 
 #endif // CEAMMC_CICM_H

@@ -61,7 +61,21 @@ UIFont::~UIFont() noexcept
     efont_destroy(font_);
 }
 
-t_efont* UIFont::font() { return font_; }
+t_efont* UIFont::font()
+{
+    return font_;
+}
+
+int UIFont::size() const
+{
+    return font_->c_sizereal;
+}
+
+void UIFont::setSize(int sz)
+{
+    font_->c_sizereal = sz;
+    font_->c_size = sz;
+}
 
 UITextLayout::UITextLayout(t_efont* font,
     const ColorRGBA& c,
@@ -502,7 +516,7 @@ void PopupMenuCallbacks::addSeparator()
     items_.emplace_back("", MenuEntryFn());
 }
 
-void PopupMenuCallbacks::addItem(const std::string& name, PopupMenuCallbacks::MenuEntryFn fn)
+void PopupMenuCallbacks::addItem(const std::string& name, const PopupMenuCallbacks::MenuEntryFn& fn)
 {
     items_.emplace_back(name, fn);
 }
@@ -523,4 +537,4 @@ bool PopupMenuCallbacks::process(t_symbol* name, size_t idx, const t_pt& pt)
     return true;
 }
 
-}
+} // namespace ceammc
