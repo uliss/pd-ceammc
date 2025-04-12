@@ -9,9 +9,9 @@ use crate::{
     send_debug, send_error,
 };
 
-use super::{hw_lcd1602, Lcd1602Worker, Request};
+use super::{hw_hd44780, Hd44780Worker, Request};
 
-impl hw_lcd1602 {
+impl hw_hd44780 {
     pub fn new(
         i2c_bus: i8,
         i2c_addr: I2cAddress,
@@ -21,7 +21,7 @@ impl hw_lcd1602 {
     ) -> Result<Self, CString> {
         // const LCD_ADDRESS: u8 = 0x27; // Address depends on hardware, see link below
 
-        let (worker, rx, tx) = Lcd1602Worker::new(on_msg);
+        let (worker, rx, tx) = Hd44780Worker::new(on_msg);
         worker.spawn(tx.clone(), notify, move || {
             let mut i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("I2C init");

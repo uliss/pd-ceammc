@@ -22,7 +22,7 @@ HwRpiDisplayHd44780::HwRpiDisplayHd44780(const PdArgs& args)
 
 HwRpiDisplayHd44780::~HwRpiDisplayHd44780()
 {
-    ceammc_hw_lcd1602_free(lcd_);
+    ceammc_hw_hd44780_free(lcd_);
 }
 
 void HwRpiDisplayHd44780::initDone()
@@ -36,7 +36,7 @@ void HwRpiDisplayHd44780::initDone()
     if (!i2c_bus_->getBus(bus))
         return;
 
-    lcd_ = ceammc_hw_lcd1602_new(
+    lcd_ = ceammc_hw_hd44780_new(
         bus,
         i2c_addr_->value(),
         rows_->value(),
@@ -46,12 +46,12 @@ void HwRpiDisplayHd44780::initDone()
 
 bool HwRpiDisplayHd44780::notify(int code)
 {
-    return ceammc_hw_lcd1602_process(lcd_);
+    return ceammc_hw_hd44780_process(lcd_);
 }
 
 void HwRpiDisplayHd44780::m_clear(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_lcd1602_clear(lcd_);
+    ceammc_hw_hd44780_clear(lcd_);
 }
 
 void HwRpiDisplayHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
@@ -60,7 +60,7 @@ void HwRpiDisplayHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_backlight(lcd_, lv.boolAt(0, false));
+    ceammc_hw_hd44780_backlight(lcd_, lv.boolAt(0, false));
 }
 
 void HwRpiDisplayHd44780::m_write(t_symbol* s, const AtomListView& lv)
@@ -69,7 +69,7 @@ void HwRpiDisplayHd44780::m_write(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_write_text(lcd_, to_string(lv).c_str());
+    ceammc_hw_hd44780_write_text(lcd_, to_string(lv).c_str());
 }
 
 void HwRpiDisplayHd44780::m_char(t_symbol* s, const AtomListView& lv)
@@ -78,7 +78,7 @@ void HwRpiDisplayHd44780::m_char(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_write_char(lcd_, lv.intAt(0, 0));
+    ceammc_hw_hd44780_write_char(lcd_, lv.intAt(0, 0));
 }
 
 void HwRpiDisplayHd44780::m_cursor_on(t_symbol* s, const AtomListView& lv)
@@ -87,7 +87,7 @@ void HwRpiDisplayHd44780::m_cursor_on(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_cursor_on(lcd_, lv.boolAt(0, false));
+    ceammc_hw_hd44780_cursor_on(lcd_, lv.boolAt(0, false));
 }
 
 void HwRpiDisplayHd44780::m_cursor_blink(t_symbol* s, const AtomListView& lv)
@@ -96,7 +96,7 @@ void HwRpiDisplayHd44780::m_cursor_blink(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_cursor_blink(lcd_, lv.boolAt(0, false));
+    ceammc_hw_hd44780_cursor_blink(lcd_, lv.boolAt(0, false));
 }
 
 void HwRpiDisplayHd44780::m_cursor_pos(t_symbol* s, const AtomListView& lv)
@@ -113,7 +113,7 @@ void HwRpiDisplayHd44780::m_cursor_pos(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    ceammc_hw_lcd1602_cursor_pos(lcd_, line, col);
+    ceammc_hw_hd44780_cursor_pos(lcd_, line, col);
 }
 
 void HwRpiDisplayHd44780::m_font(t_symbol* s, const AtomListView& lv)
@@ -124,10 +124,10 @@ void HwRpiDisplayHd44780::m_font(t_symbol* s, const AtomListView& lv)
 
     switch (lv.intAt(0, 0)) {
     case 10:
-        ceammc_hw_lcd1602_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x10);
+        ceammc_hw_hd44780_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x10);
         break;
     default:
-        ceammc_hw_lcd1602_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x8);
+        ceammc_hw_hd44780_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x8);
     }
 }
 
@@ -137,7 +137,7 @@ void HwRpiDisplayHd44780::m_cursor_move(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_move_cursor(lcd_, lv.intAt(0, 1));
+    ceammc_hw_hd44780_move_cursor(lcd_, lv.intAt(0, 1));
 }
 
 void HwRpiDisplayHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
@@ -146,7 +146,7 @@ void HwRpiDisplayHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_lcd1602_scroll_text(lcd_, lv.intAt(0, 1));
+    ceammc_hw_hd44780_scroll_text(lcd_, lv.intAt(0, 1));
 }
 
 void setup_hw_rpi_display_hd44780()

@@ -257,13 +257,13 @@ struct ceammc_hw_gpio_rotenc;
 
 struct ceammc_hw_gpio_sr04;
 
+struct ceammc_hw_hd44780;
+
 struct ceammc_hw_i2c;
 
 struct ceammc_hw_i2c_ads1115;
 
 struct ceammc_hw_infrared;
-
-struct ceammc_hw_lcd1602;
 
 struct ceammc_hw_max7219;
 
@@ -738,6 +738,70 @@ bool ceammc_hw_gpio_toggle_pin(ceammc_hw_gpio *gp, uint8_t pin);
 /// @param level - pin level (=0: low, >0: high)
 bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
 
+/// turn on/off hd44780 backlight
+/// @param lcd - pointer to HD44780 struct
+/// @param state - on/off state
+bool ceammc_hw_hd44780_backlight(ceammc_hw_hd44780 *lcd, bool state);
+
+/// clear hd44780 display
+/// @param lcd - pointer to HD44780 struct
+bool ceammc_hw_hd44780_clear(ceammc_hw_hd44780 *lcd);
+
+/// turn on/off hd44780 cursor
+/// @param lcd - pointer to HD44780 struct
+/// @param state - on/off state
+bool ceammc_hw_hd44780_cursor_blink(ceammc_hw_hd44780 *lcd, bool state);
+
+/// turn on/off hd44780 cursor
+/// @param lcd - pointer to HD44780 struct
+/// @param state - on/off state
+bool ceammc_hw_hd44780_cursor_on(ceammc_hw_hd44780 *lcd, bool state);
+
+/// set hd44780 cursor position
+/// @param lcd - pointer to HD44780 struct
+/// @param row - cursor row
+/// @param col - cursor column
+bool ceammc_hw_hd44780_cursor_pos(ceammc_hw_hd44780 *lcd, uint8_t row, uint8_t col);
+
+/// free hd44780 display
+///  @param lcd - pointer to HD44780 struct
+void ceammc_hw_hd44780_free(ceammc_hw_hd44780 *lcd);
+
+/// move hd44780 cursor right/left
+/// @param lcd - pointer to HD44780 struct
+/// @param dir - <0 left, 0>right
+bool ceammc_hw_hd44780_move_cursor(ceammc_hw_hd44780 *lcd, int8_t dir);
+
+ceammc_hw_hd44780 *ceammc_hw_hd44780_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         uint8_t rows,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_msg);
+
+/// process hd44780 events
+/// @param lcd - pointer to HD44780 struct
+bool ceammc_hw_hd44780_process(ceammc_hw_hd44780 *lcd);
+
+/// scroll hd44780 text right/left
+/// @param lcd - pointer to HD44780 struct
+/// @param dir - <0 left, 0>right
+bool ceammc_hw_hd44780_scroll_text(ceammc_hw_hd44780 *lcd, int8_t dir);
+
+/// set hd44780 text font
+/// @param lcd - pointer to HD44780 struct
+/// @param font
+bool ceammc_hw_hd44780_set_font(ceammc_hw_hd44780 *lcd, ceammc_hw_hd44780_font font);
+
+/// write char to hd44780
+/// @param lcd - pointer to HD44780 struct
+/// @param c - char
+bool ceammc_hw_hd44780_write_char(ceammc_hw_hd44780 *lcd, uint8_t c);
+
+/// write text to hd44780
+/// @param lcd - pointer to HD44780 struct
+/// @param txt - text
+bool ceammc_hw_hd44780_write_text(ceammc_hw_hd44780 *lcd, const char *txt);
+
 /// free i2c struct
 /// @param i2c - pointer to i2c struct
 void ceammc_hw_i2c_free(ceammc_hw_i2c *i2c);
@@ -754,70 +818,6 @@ ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
                                            ceammc_hw_infrared_key_cb on_key);
 
 bool ceammc_hw_infrared_set_protocol(const ceammc_hw_infrared *ir, const char *proto);
-
-/// turn on/off lcd1602 backlight
-/// @param lcd - pointer to LCD1602 struct
-/// @param state - on/off state
-bool ceammc_hw_lcd1602_backlight(ceammc_hw_lcd1602 *lcd, bool state);
-
-/// clear lcd1602 display
-/// @param lcd - pointer to LCD1602 struct
-bool ceammc_hw_lcd1602_clear(ceammc_hw_lcd1602 *lcd);
-
-/// turn on/off lcd1602 cursor
-/// @param lcd - pointer to LCD1602 struct
-/// @param state - on/off state
-bool ceammc_hw_lcd1602_cursor_blink(ceammc_hw_lcd1602 *lcd, bool state);
-
-/// turn on/off lcd1602 cursor
-/// @param lcd - pointer to LCD1602 struct
-/// @param state - on/off state
-bool ceammc_hw_lcd1602_cursor_on(ceammc_hw_lcd1602 *lcd, bool state);
-
-/// set lcd1602 cursor position
-/// @param lcd - pointer to LCD1602 struct
-/// @param row - cursor row
-/// @param col - cursor column
-bool ceammc_hw_lcd1602_cursor_pos(ceammc_hw_lcd1602 *lcd, uint8_t row, uint8_t col);
-
-/// free lcd1602 display
-///  @param lcd - pointer to LCD1602 struct
-void ceammc_hw_lcd1602_free(ceammc_hw_lcd1602 *lcd1602);
-
-/// move lcd1602 cursor right/left
-/// @param lcd - pointer to LCD1602 struct
-/// @param dir - <0 left, 0>right
-bool ceammc_hw_lcd1602_move_cursor(ceammc_hw_lcd1602 *lcd, int8_t dir);
-
-ceammc_hw_lcd1602 *ceammc_hw_lcd1602_new(int8_t i2c_bus,
-                                         int8_t i2c_addr,
-                                         uint8_t rows,
-                                         ceammc_hw_notify_cb notify,
-                                         ceammc_hw_msg_cb on_msg);
-
-/// process lcd1602 events
-/// @param lcd - pointer to LCD1602 struct
-bool ceammc_hw_lcd1602_process(ceammc_hw_lcd1602 *lcd);
-
-/// scroll lcd1602 text right/left
-/// @param lcd - pointer to LCD1602 struct
-/// @param dir - <0 left, 0>right
-bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd, int8_t dir);
-
-/// set lcd1602 text font
-/// @param lcd - pointer to LCD1602 struct
-/// @param font
-bool ceammc_hw_lcd1602_set_font(ceammc_hw_lcd1602 *lcd, ceammc_hw_hd44780_font font);
-
-/// write char to lcd1602
-/// @param lcd - pointer to LCD1602 struct
-/// @param c - char
-bool ceammc_hw_lcd1602_write_char(ceammc_hw_lcd1602 *lcd, uint8_t c);
-
-/// write text to lcd1602
-/// @param lcd - pointer to LCD1602 struct
-/// @param txt - text
-bool ceammc_hw_lcd1602_write_text(ceammc_hw_lcd1602 *lcd, const char *txt);
 
 /// clear max7219 display
 /// @param max7219 - pointer to max7219 struct
