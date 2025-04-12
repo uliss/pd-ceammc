@@ -94,7 +94,7 @@
 [hw.rpi.display.hd44780 @i2c_bus default @i2c_addr -1 @rows 2 #x]
 
 
-[ui.link @url=ceammc://img/conn_i2c_ssd1306.png @title='I2C_connection']
+[ui.link @url=ceammc://img/conn_lcd1602.png @title='I2C_connection']
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
 [X i->x]
 ]]>
