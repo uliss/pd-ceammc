@@ -45,6 +45,7 @@ impl DylibFixes {
     }
 }
 
+#[derive(Debug)]
 struct DylibMap {
     map: HashMap<String, DylibFixes>,
 }
@@ -54,6 +55,10 @@ impl DylibMap {
         DylibMap {
             map: HashMap::new(),
         }
+    }
+
+    fn append(&mut self, path: &str) {
+        self.get_or_create(path);
     }
 
     fn contains(&self, path: &str) -> bool {
@@ -132,6 +137,8 @@ fn process_dylib(args: &Cli, path: &str, map: &mut DylibMap) -> Result<(), Box<d
     let mut rpaths = Vec::<PathBuf>::new();
     let mut rpath_deps = Vec::<String>::new();
 
+    map.append(path);
+
     match OFile::parse(&mut cur)? {
         OFile::MachFile {
             header: _,
@@ -143,6 +150,7 @@ fn process_dylib(args: &Cli, path: &str, map: &mut DylibMap) -> Result<(), Box<d
                     LoadCommand::IdDyLib(dylib) => {
                         // replace dylib id with @loader_path/DYLIB.dylib
                         if !dylib.name.starts_with("@loader_path") {
+                            debug!("fix dll id: {}", dylib.name);
                             let new_id = make_rpath(dylib.name.as_str());
                             map.fix_id(path, new_id.as_str());
                         }
@@ -336,7 +344,7 @@ fn binary_mode(args: &Cli, action_map: &DylibMap) -> Result<(), Box<dyn Error>> 
             .to_string_lossy()
             .to_string();
         if *dylib != dylib_copy {
-            println!("\tcopy to {dylib_copy}");
+            println!("\tcopy '{dylib}' to '{dylib_copy}'");
             std::fs::copy(dylib, &dylib_copy)?;
         }
 
