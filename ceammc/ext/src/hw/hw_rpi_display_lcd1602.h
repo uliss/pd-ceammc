@@ -35,6 +35,6 @@ public:
     void m_display_move(t_symbol* s, const AtomListView& lv);
 };
 
-void setup_hw_rpi_display_lcd1602();
+void setup_hw_rpi_display_hd44780();
 
 #endif // HW_RPI_DISPLAY_LCD1602_H

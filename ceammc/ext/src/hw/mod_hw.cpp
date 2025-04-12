@@ -18,7 +18,7 @@ void setup_hw_gamepad();
 void setup_hw_motu_avb();
 void setup_hw_printer();
 void setup_hw_rpi_adc_ads1115();
-void setup_hw_rpi_display_lcd1602();
+void setup_hw_rpi_display_hd44780();
 void setup_hw_rpi_display_ssd1306();
 void setup_hw_rpi_gpio();
 void setup_hw_rpi_i2c_pca9685();
@@ -45,7 +45,7 @@ void ceammc_hw_setup()
     setup_hw_motu_avb();
     setup_hw_printer();
     setup_hw_rpi_adc_ads1115();
-    setup_hw_rpi_display_lcd1602();
+    setup_hw_rpi_display_hd44780();
     setup_hw_rpi_display_ssd1306();
     setup_hw_rpi_gpio();
     setup_hw_rpi_i2c_pca9685();

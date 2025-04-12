@@ -149,7 +149,7 @@ void HwRpiDisplayHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_scroll_text(lcd_, lv.intAt(0, 1));
 }
 
-void setup_hw_rpi_display_lcd1602()
+void setup_hw_rpi_display_hd44780()
 {
     ObjectFactory<HwRpiDisplayHd44780> obj("hw.rpi.display.hd44780");
     obj.addAlias(sym_lcd1602_alias()->s_name);
