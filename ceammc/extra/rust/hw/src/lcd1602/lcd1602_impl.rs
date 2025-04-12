@@ -133,6 +133,12 @@ impl hw_lcd1602 {
                             send_error(&tx, notify, e.to_string().as_str());
                         });
                     }
+                    Request::WriteChar(ch) => {
+                        let ch = unsafe { char::from_u32_unchecked(*ch) };
+                        lcd.write_str(ch.to_string().as_str()).unwrap_or_else(|e| {
+                            send_error(&tx, notify, e.to_string().as_str());
+                        });
+                    }
                 }
             }
 

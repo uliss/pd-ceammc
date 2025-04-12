@@ -809,6 +809,11 @@ bool ceammc_hw_lcd1602_scroll_text(ceammc_hw_lcd1602 *lcd, int8_t dir);
 /// @param font
 bool ceammc_hw_lcd1602_set_font(ceammc_hw_lcd1602 *lcd, ceammc_hw_hd44780_font font);
 
+/// write char to lcd1602
+/// @param lcd - pointer to LCD1602 struct
+/// @param c - char
+bool ceammc_hw_lcd1602_write_char(ceammc_hw_lcd1602 *lcd, uint8_t c);
+
 /// write text to lcd1602
 /// @param lcd - pointer to LCD1602 struct
 /// @param txt - text
