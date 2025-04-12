@@ -34,7 +34,7 @@ impl hw_lcd1602 {
             };
 
             let bus = i2c.bus();
-            debug!("try LCD init with: bus={bus}, addr={addr}");
+            debug!("try LCD init with: bus={bus}, addr=0x{addr:02x}");
 
             let rows = match rows {
                 2 => 2,
@@ -54,7 +54,7 @@ impl hw_lcd1602 {
             send_debug(
                 &tx,
                 notify,
-                format!("connected to display: bus={bus} addr={addr} rows={rows}").as_str(),
+                format!("connected to display: bus={bus} addr=0x{addr:02x} rows={rows}").as_str(),
             );
 
             while let Ok(req) = rx.recv() {
