@@ -42,13 +42,13 @@ impl hw_lcd1602 {
                     .map_err(|e| e.to_string())?
                     .get(2)
                     .map_err(|e| e.to_string())?
-                    .into_io(rppal::gpio::Mode::Alt0).set_reset_on_drop(false);
+                    .into_io(rppal::gpio::Mode::Alt3).set_reset_on_drop(false);
 
                 Gpio::new()
                     .map_err(|e| e.to_string())?
                     .get(3)
                     .map_err(|e| e.to_string())?
-                    .into_io(rppal::gpio::Mode::Alt0)
+                    .into_io(rppal::gpio::Mode::Alt3)
                     .set_reset_on_drop(false);
             }
 
