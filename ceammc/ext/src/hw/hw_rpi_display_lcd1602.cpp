@@ -98,7 +98,7 @@ void HwRpiDisplayLcd1602::m_cursor_blink(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplayLcd1602::m_cursor_pos(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("LINE:i[0,3] COL:i[0,20]");
+    static const args::ArgChecker chk("LINE:i[0,3] COL:i[0,20)");
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
