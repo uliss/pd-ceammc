@@ -23,12 +23,12 @@
 #include <algorithm>
 #include <array>
 #include <boost/algorithm/string.hpp>
+#include <cinttypes>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <inttypes.h>
 #include <string>
 #include <tuple>
 
@@ -2240,8 +2240,8 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                          "-anchor %s -justify %s -font {{%s} %d %s %s} "
                          "-fill #%6.6x -width %d -tags { %s %s }\n",
                     x->b_drawing_id->s_name,
-                    (int)(gobj.e_points[0].x + x_p),
-                    (int)(gobj.e_points[0].y + y_p),
+                    static_cast<int>(std::round(gobj.e_points[0].x + x_p)),
+                    static_cast<int>(std::round(gobj.e_points[0].y + y_p)),
                     gobj.e_text,
                     anchor_to_symbol(gobj.e_anchor),
                     justify_to_symbol(gobj.e_justify),
@@ -2250,7 +2250,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     gobj.e_font.c_weight->s_name,
                     gobj.e_font.c_slant->s_name,
                     gobj.e_color,
-                    (int)(gobj.e_points[1].x - gobj.e_points[0].x),
+                    static_cast<int>(std::round(gobj.e_points[1].x - gobj.e_points[0].x)),
                     g->e_id->s_name,
                     x->b_all_id->s_name);
 
