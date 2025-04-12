@@ -6,7 +6,8 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>LCD display driver for Raspberry Pi, mostly known as 1602 or 2004 module</description>
+            <description>LCD display driver for Raspberry Pi, mostly known as 1602 or 2004
+            module</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>hw</category>
@@ -19,34 +20,40 @@
         </meta>
         <methods>
             <!-- backlight -->
-            <method name="backlight">turn on/off the display backlight
+            <method name="backlight">turn on/off the display backlight 
             <param name="STATE" type="bool" required="true">new state</param></method>
             <!-- clear -->
             <method name="clear">clear all display data and set cursor position to 0, 0</method>
             <!-- cursor_blink -->
-            <method name="cursor_blink">turn on/off cursor blinking
+            <method name="cursor_blink">turn on/off cursor blinking 
             <param name="STATE" type="bool" required="true">new state</param></method>
             <!-- cursor_on -->
-            <method name="cursor_on">turn on/off display cursor
+            <method name="cursor_on">turn on/off display cursor 
             <param name="STATE" type="bool" required="true">new state</param></method>
             <!-- cursor_on -->
-            <method name="cursor_pos">set cursor potision
+            <method name="cursor_pos">set cursor potision 
             <param name="LINE" type="int" required="true" minvalue="0">cursor line</param>
-            <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">cursor line character position</param>
-            </method>
+            <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">cursor line
+            character position</param></method>
             <method name="move_display">method</method>
-            <method name="move_cursor">method</method>
+            <method name="move_cursor">move cursor horizontally 
+            <param name="SHIFT" type="int" required="true">relative cursor shift. Negative values
+            move the cursor leftwards, positive values - rightwards</param></method>
             <method name="char">method</method>
             <method name="write">method</method>
             <method name="font">method</method>
         </methods>
+        <info>
+            <par>Note: display can be configured in single line mode.</par>
+        </info>
         <properties>
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">I²C bus</property>
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-2"
-            maxvalue="119">I²C address. The value -1 means default device I²C address
-            (0x3C), value -2 means alternative device address (0x27)</property>
-            <property name="@rows" type="int" default="1" enum="1 2 4" access="initonly">number of display rows</property>
+            maxvalue="119">I²C address. The value -1 means default device I²C address (0x3C), value
+            -2 means alternative device address (0x27)</property>
+            <property name="@rows" type="int" default="1" enum="1 2 4" access="initonly">number of
+            display rows</property>
         </properties>
         <inlets>
             <inlet>
@@ -61,9 +68,9 @@
 <![CDATA[
 [T]                [clear #d(
 |
-[backlight $1 #a(  [cursor_pos 1 0 #e(
+[backlight $1 #a(  [cursor_pos 0 0 #e(
 
- [T]               [cursor_pos 0 0 #f(
+ [T]               [cursor_pos 1 0 #f(
  |
  [cursor_on $1 #b(
 
