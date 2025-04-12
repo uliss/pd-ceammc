@@ -1039,6 +1039,9 @@
     <entry name="hw.printer" descr="Basic printing support" ref_view="object">
       <xi:include href="hw.printer.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.rpi.display.hd44780" descr="LCD display driver for Raspberry Pi, mostly known as 1602 or 2004 module" ref_view="object">
+      <xi:include href="hw.rpi.display.hd44780.pddoc" parse="xml"/>
+    </entry>
     <entry name="hw.rpi.display.ssd1306" descr="OLED ssd1306 display for Raspberry Pi" ref_view="object">
       <xi:include href="hw.rpi.display.ssd1306.pddoc" parse="xml"/>
     </entry>

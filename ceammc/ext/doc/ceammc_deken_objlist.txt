@@ -608,6 +608,9 @@ hw.gamepad	gamepad controller
 hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
 hw.printer	Basic printing support
+hw.rpi.display.hd44780	LCD display driver for Raspberry Pi, mostly known as 1602 or 2004 module
+hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi, mostly known as 1602 or 2004 module
+hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi, mostly known as 1602 or 2004 module
 hw.rpi.display.ssd1306	OLED ssd1306 display for Raspberry Pi
 hw.rpi.gpio	Raspberry Pi GPIO support
 hw.rpi.i2c.pca9685	PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry Pi
