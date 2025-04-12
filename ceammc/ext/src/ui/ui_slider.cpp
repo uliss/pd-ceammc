@@ -40,7 +40,7 @@ void UISlider::init(t_symbol* name, const AtomListView& args, bool usePresets)
 void UISlider::paint()
 {
 #ifdef __linux__
-    constexpr float kyoff = 0.15;
+    constexpr float kyoff = 1;
 #else
     constexpr float kyoff = 0;
 #endif
@@ -68,7 +68,7 @@ void UISlider::paint()
                 char buf[16];
                 snprintf(buf, sizeof(buf), fmt, value());
 
-                const auto YOFF = height() * (0.5 + kyoff);
+                const auto YOFF = (height() * 0.5) + kyoff;
 
                 txt_value_.setColor(prop_text_color);
                 if (prop_value_pos == gensym("left")) {
