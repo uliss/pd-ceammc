@@ -4,7 +4,7 @@
 #include "ceammc_format.h"
 #include "fmt/core.h"
 
-HwRpiDisplayLcd1602::HwRpiDisplayLcd1602(const PdArgs& args)
+HwRpiDisplayLcdHd44780::HwRpiDisplayLcdHd44780(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
     createOutlet();
@@ -17,12 +17,12 @@ HwRpiDisplayLcd1602::HwRpiDisplayLcd1602(const PdArgs& args)
     addProperty(rows_);
 }
 
-HwRpiDisplayLcd1602::~HwRpiDisplayLcd1602()
+HwRpiDisplayLcdHd44780::~HwRpiDisplayLcdHd44780()
 {
     ceammc_hw_lcd1602_free(lcd_);
 }
 
-void HwRpiDisplayLcd1602::initDone()
+void HwRpiDisplayLcdHd44780::initDone()
 {
     std::int8_t bus = 0;
     if (!i2c_bus_->getBus(bus))
@@ -36,17 +36,17 @@ void HwRpiDisplayLcd1602::initDone()
         on_message());
 }
 
-bool HwRpiDisplayLcd1602::notify(int code)
+bool HwRpiDisplayLcdHd44780::notify(int code)
 {
     return ceammc_hw_lcd1602_process(lcd_);
 }
 
-void HwRpiDisplayLcd1602::m_clear(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_clear(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_lcd1602_clear(lcd_);
 }
 
-void HwRpiDisplayLcd1602::m_backlight(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B");
     if (!chk.check(lv, this, s))
@@ -55,7 +55,7 @@ void HwRpiDisplayLcd1602::m_backlight(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_backlight(lcd_, lv.boolAt(0, false));
 }
 
-void HwRpiDisplayLcd1602::m_write(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_write(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("TXT:a+");
     if (!chk.check(lv, this, s))
@@ -64,7 +64,7 @@ void HwRpiDisplayLcd1602::m_write(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_write_text(lcd_, to_string(lv).c_str());
 }
 
-void HwRpiDisplayLcd1602::m_char(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_char(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("CHAR:i[0,255]");
     if (!chk.check(lv, this, s))
@@ -75,7 +75,7 @@ void HwRpiDisplayLcd1602::m_char(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_write_text(lcd_, txt);
 }
 
-void HwRpiDisplayLcd1602::m_cursor_on(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_cursor_on(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B");
     if (!chk.check(lv, this, s))
@@ -84,7 +84,7 @@ void HwRpiDisplayLcd1602::m_cursor_on(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_cursor_on(lcd_, lv.boolAt(0, false));
 }
 
-void HwRpiDisplayLcd1602::m_cursor_blink(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_cursor_blink(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B");
     if (!chk.check(lv, this, s))
@@ -93,7 +93,7 @@ void HwRpiDisplayLcd1602::m_cursor_blink(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_cursor_blink(lcd_, lv.boolAt(0, false));
 }
 
-void HwRpiDisplayLcd1602::m_cursor_pos(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_cursor_pos(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("LINE:i[0,3] COL:i[0,20)");
     if (!chk.check(lv, this, s))
@@ -110,7 +110,7 @@ void HwRpiDisplayLcd1602::m_cursor_pos(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_cursor_pos(lcd_, line, col);
 }
 
-void HwRpiDisplayLcd1602::m_font(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_font(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("FONT:i=8|10");
     if (!chk.check(lv, this, s))
@@ -125,7 +125,7 @@ void HwRpiDisplayLcd1602::m_font(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void HwRpiDisplayLcd1602::m_cursor_move(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_cursor_move(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("SHIFT:i?");
     if (!chk.check(lv, this, s))
@@ -134,7 +134,7 @@ void HwRpiDisplayLcd1602::m_cursor_move(t_symbol* s, const AtomListView& lv)
     ceammc_hw_lcd1602_move_cursor(lcd_, lv.intAt(0, 1));
 }
 
-void HwRpiDisplayLcd1602::m_display_move(t_symbol* s, const AtomListView& lv)
+void HwRpiDisplayLcdHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("SHIFT:i?");
     if (!chk.check(lv, this, s))
@@ -145,19 +145,21 @@ void HwRpiDisplayLcd1602::m_display_move(t_symbol* s, const AtomListView& lv)
 
 void setup_hw_rpi_display_lcd1602()
 {
-    ObjectFactory<HwRpiDisplayLcd1602> obj("hw.i2c.lcd1602");
+    ObjectFactory<HwRpiDisplayLcdHd44780> obj("hw.rpi.display.hd44780");
+    obj.addAlias("hw.rpi.display.lcd1602");
+    obj.addAlias("hw.rpi.display.lcd2004");
 
-    obj.addMethod("clear", &HwRpiDisplayLcd1602::m_clear);
-    obj.addMethod("backlight", &HwRpiDisplayLcd1602::m_backlight);
-    obj.addMethod("write", &HwRpiDisplayLcd1602::m_write);
-    obj.addMethod("char", &HwRpiDisplayLcd1602::m_char);
+    obj.addMethod("clear", &HwRpiDisplayLcdHd44780::m_clear);
+    obj.addMethod("backlight", &HwRpiDisplayLcdHd44780::m_backlight);
+    obj.addMethod("write", &HwRpiDisplayLcdHd44780::m_write);
+    obj.addMethod("char", &HwRpiDisplayLcdHd44780::m_char);
 
-    obj.addMethod("cursor_on", &HwRpiDisplayLcd1602::m_cursor_on);
-    obj.addMethod("cursor_blink", &HwRpiDisplayLcd1602::m_cursor_blink);
-    obj.addMethod("cursor_pos", &HwRpiDisplayLcd1602::m_cursor_pos);
+    obj.addMethod("cursor_on", &HwRpiDisplayLcdHd44780::m_cursor_on);
+    obj.addMethod("cursor_blink", &HwRpiDisplayLcdHd44780::m_cursor_blink);
+    obj.addMethod("cursor_pos", &HwRpiDisplayLcdHd44780::m_cursor_pos);
 
-    obj.addMethod("move_cursor", &HwRpiDisplayLcd1602::m_cursor_move);
-    obj.addMethod("move_display", &HwRpiDisplayLcd1602::m_display_move);
+    obj.addMethod("move_cursor", &HwRpiDisplayLcdHd44780::m_cursor_move);
+    obj.addMethod("move_display", &HwRpiDisplayLcdHd44780::m_display_move);
 
-    obj.addMethod("font", &HwRpiDisplayLcd1602::m_font);
+    obj.addMethod("font", &HwRpiDisplayLcdHd44780::m_font);
 }
