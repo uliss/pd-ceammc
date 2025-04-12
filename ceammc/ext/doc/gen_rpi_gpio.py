@@ -63,9 +63,9 @@ def pin_label(idx):
             return f"@label \"Pin\\[{idx:02}\\]\" @label_margins 2 0"
 
         if idx & 1 == 0:
-            return f"@label \"Pin\\[{idx:02}\\]\\ GPIO{x:02}\" @label_margins 10 0 @label_side right @label_valign center @label_align left @fontsize 10 @fontweight normal"
+            return f"@label \"Pin\\[{idx:02}\\]\\ GPIO{x:02}\" @label_margins 10 0 @label_side right @label_valign center @label_align left @fontsize 9 @fontweight normal"
         else:
-            return f"@label \"GPIO{x:02}\\ Pin\\[{idx:02}\\]\" @label_margins 10 0 @label_side left @label_valign center @label_align right @fontsize 10 @fontweight normal"
+            return f"@label \"GPIO{x:02}\\ Pin\\[{idx:02}\\]\" @label_margins 10 0 @label_side left @label_valign center @label_align right @fontsize 9 @fontweight normal"
 
 
 def bgcolor(idx):
@@ -183,7 +183,7 @@ idx = 0
 
 if __name__ == '__main__':
     # print(f"[cnv 16 100 400 _ _ _ 0 0 {{ax=100,ay={YOFF}}}]")
-    print("[ui.label Raspberry Pi GPIO {ax=200,ay=10}]")
+    print("[ui.label Raspberry Pi GPIO @size 350 50 {ax=200,ay=10}]")
 
     print("[ui.b @label \"Reset\\ All\" #reset0 {o=1,ax=600,ay=30} @background_color 1 0 0 @size 40 40]")
     print("[0 #reset1 {ax=600,ay=80}(")
