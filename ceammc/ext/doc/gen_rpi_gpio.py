@@ -63,9 +63,9 @@ def pin_label(idx):
             return f"@label \"Pin\\[{idx:02}\\]\" @label_margins 2 0"
 
         if idx & 1 == 0:
-            return f"@label \"Pin\\[{idx:02}\\]\\ GPIO{x:02}\" @label_margins 10 0 @label_side right @label_valign center @label_align left @fontsize 9 @fontweight normal"
+            return f"@label \"Pin\\[{idx:02}\\]\\ GPIO{x:02}\" @label_margins 10 0 @label_side right @label_valign center @label_align left @fontweight normal"
         else:
-            return f"@label \"GPIO{x:02}\\ Pin\\[{idx:02}\\]\" @label_margins 10 0 @label_side left @label_valign center @label_align right @fontsize 9 @fontweight normal"
+            return f"@label \"GPIO{x:02}\\ Pin\\[{idx:02}\\]\" @label_margins 10 0 @label_side left @label_valign center @label_align right @fontweight normal"
 
 
 def bgcolor(idx):
@@ -146,7 +146,7 @@ def make_tgl(idx, w, x, y):
 
     lbl = pin_label(idx)
     # vals = tgl_values(idx)
-    print(f"[ui.t @size {w} {w} {bg} @fontsize 10 {send} {recv} {lbl} {lp} {{ax={x},ay={y}}}]")
+    print(f"[ui.t @size {w} {w} {bg} @fontsize 9 {send} {recv} {lbl} {lp} {{ax={x},ay={y}}}]")
 
 
 def make_act():
