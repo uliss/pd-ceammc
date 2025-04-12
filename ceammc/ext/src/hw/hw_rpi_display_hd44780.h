@@ -21,6 +21,7 @@ public:
     bool notify(int code) final;
 
     void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_clear_line(t_symbol* s, const AtomListView& lv);
     void m_backlight(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
     void m_char(t_symbol* s, const AtomListView& lv);
