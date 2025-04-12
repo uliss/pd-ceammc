@@ -146,11 +146,11 @@ def make_tgl(idx, w, x, y):
 
     if idx in NOMENU:
         send = '@send "#0_send"'
-        recv = '@receive "#0_send"'
+        recv = '@receive "#0_recv"'
 
     lbl = pin_label(idx)
     # vals = tgl_values(idx)
-    print(f"[ui.t @size {w} {w} {bg} {send} {recv} {lbl} {lp} {{ax={x},ay={y}}}]")
+    print(f"[ui.t @size {w} {w} {bg} @fontsize 10 {send} {recv} {lbl} {lp} {{ax={x},ay={y}}}]")
 
 
 def make_act():

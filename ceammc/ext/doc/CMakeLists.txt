@@ -218,7 +218,18 @@ endif()
 
 file(GLOB _PDDOC_FILES "*.pddoc")
 file(GLOB _PDDOC_XML_FILES "*.xml")
-add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES} ${_PDDOC_XML_FILES} ceammc.db ls_missing_doc.py)
+add_custom_target(pddoc_files SOURCES
+    ${_PDDOC_FILES}
+    ${_PDDOC_XML_FILES}
+    ceammc.db
+    ls_missing_doc.py
+)
+add_custom_target(dev_gen_rpi_doc
+    SOURCES gen_rpi_gpio.py gen_rpi_gpio.sh
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_rpi_gpio.sh
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    USES_TERMINAL
+)
 file(GLOB _PDDOC_PD_FILES "*.pd")
 add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
 file(GLOB _PDDOC_FAUST_FILES "faust/*")
