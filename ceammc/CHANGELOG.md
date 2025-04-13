@@ -8,25 +8,24 @@
   - data.path - new Path datatype
   - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
   - hw.gamepad - gamepad support
-  - hw.i2c.lcd1602
   - hw.printer - simple printing support (only PDF files)  
   - hw.rpi.adc.ads1115
-  - hw.rpi.display.ssd1306
+  - hw.rpi.display.hd44780 (with hw.rpi.display.lcd1602 alias) - for lcd displays 1602 and 2004  
+  - hw.rpi.display.ssd1306 - small OLED 128x64 display
   - hw.rpi.gpio - Raspberry Pi GPIO support
-  - hw.rpi.i2c.pca9685
+  - hw.rpi.i2c.pca9685 (with hw.rpi.pwm.pca9685 alias) - 16 channel I2C PWM board
   - hw.rpi.pwm - Raspberry Pi PWM support
-  - hw.rpi.pwm.pca9685
   - hw.rpi.rotenc - rotary encoder for Raspberry Pi
   - hw.rpi.sensor.dht11 - temperature sensor for Raspberry Pi
   - hw.rpi.sensor.ir - infrared sensor support
   - hw.rpi.sensor.mpu6050 - MPU-6050 gyroscope and accelerometer
-  - hw.rpi.sensor.vl53l0x
+  - hw.rpi.sensor.vl53l0x - laser ToT (time of flight) range sensor
   - hw.rpi.sensor.sr04 - ultrasonic sensor HC-SR04 for Raspberry Pi
   - hw.spi.max7219 - LED display driver based on max7219 chip for Raspberry Pi
-  - hw.spi.ws2812
+  - hw.spi.ws2812 - Neopixel LED strip
   - msg.unpack - unpack message to selector and arguments
   - net.http.client (http.client)
-  - net.freesound
+  - net.freesound - Freesound client for downloading files
   - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
   - net.mqtt.client (mqtt.client) - MQTT client 
   - net.telegram.bot
