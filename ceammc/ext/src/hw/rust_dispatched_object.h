@@ -34,9 +34,9 @@ public:
     }
 };
 
-class I2cAddressProperty : public IntProperty {
+class I2cAddrProperty : public IntProperty {
 public:
-    explicit I2cAddressProperty(const char* name, t_int def = ceammc_HW_I2C_NO_ADDR)
+    explicit I2cAddrProperty(const char* name, t_int def = ceammc_HW_I2C_NO_ADDR)
         : IntProperty(name, def)
     {
         checkClosedRange(ceammc_HW_I2C_MIN_ADDR, ceammc_HW_I2C_MAX_ADDR);
@@ -129,9 +129,9 @@ protected:
         return prop;
     }
 
-    I2cAddressProperty* addI2cAddrProperty()
+    I2cAddrProperty* addI2cAddrProperty()
     {
-        auto prop = new I2cAddressProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
+        auto prop = new I2cAddrProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
         prop->setInitOnly();
         this->addProperty(prop);
         return prop;

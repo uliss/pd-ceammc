@@ -10,7 +10,7 @@ class HwI2cPca8695 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_pca9685* pwm_ { nullptr };
     IntProperty* chan_ { nullptr };
     I2cBusProperty* i2c_bus_ { nullptr };
-    IntProperty* i2c_addr_ { nullptr };
+    I2cAddrProperty* i2c_addr_ { nullptr };
 
 public:
     explicit HwI2cPca8695(const PdArgs& args);
