@@ -47,16 +47,16 @@ public:
         if (!emptyCheck(lv))
             return false;
 
-        if (lv == "default")
-            return setInt(ceammc_HW_I2C_DEFAULT_ADDR);
-        else if (lv == "alt")
-            return setInt(ceammc_HW_I2C_ALT_ADDR);
-        else if (lv == "auto")
-            return setInt(ceammc_HW_I2C_AUTO_ADDR);
-        else if (lv == "none")
-            return setInt(ceammc_HW_I2C_NO_ADDR);
-        else if (lv.isInteger())
+        if (lv.isInteger())
             return setInt(lv.asInt());
+        else if (lv == gensym("default"))
+            return setInt(ceammc_HW_I2C_DEFAULT_ADDR);
+        else if (lv == gensym("alt"))
+            return setInt(ceammc_HW_I2C_ALT_ADDR);
+        else if (lv == gensym("auto"))
+            return setInt(ceammc_HW_I2C_AUTO_ADDR);
+        else if (lv == gensym("none"))
+            return setInt(ceammc_HW_I2C_NO_ADDR);
         else {
             LIB_ERR << '[' << name()->s_name << "] invalid property value: " << lv;
             return false;
