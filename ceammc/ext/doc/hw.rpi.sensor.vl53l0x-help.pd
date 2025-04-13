@@ -22,9 +22,9 @@ ceammc://img/conn_vl53l0x.png;
 #X obj 735 367 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 399 @i2c_addr;
-#X text 245 399 (initonly) Get/Set I2C address. The value -1 means
-default device I2C address (0x29). Type: int. Default value: -1\. Range:
--2\...119\.;
+#X text 245 399 (initonly) Get/Set I²C address. The value 'default'
+means default device I²C address (0x29). Type: int. Default value:
+-1\. Range: -4\...119\.;
 #X msg 110 456 @i2c_bus;
 #X text 245 456 (initonly) Get/Set I²C bus. Type: atom. Default value:
 none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
