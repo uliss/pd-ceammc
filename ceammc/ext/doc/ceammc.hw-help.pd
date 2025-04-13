@@ -20,7 +20,7 @@
 #X text 200 313 Basic printing support;
 #X obj 30 341 hw.rpi.display.hd44780;
 #X text 200 341 LCD display driver for Raspberry Pi \, mostly known
-as 1602 or 2004 module;
+as 1602 module;
 #X obj 30 381 hw.rpi.display.ssd1306;
 #X text 200 381 OLED ssd1306 display for Raspberry Pi;
 #X obj 30 409 hw.rpi.gpio;

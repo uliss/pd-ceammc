@@ -1,8 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 299 50 cnv 1 466 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 299 50 LCD display driver for Raspberry Pi \, mostly known
-as 1602 or 2004 module;
+#X obj 324 50 cnv 1 441 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 324 50 LCD display driver for Raspberry Pi (1602 or 2004 module);
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.display.hd44780 20 20 0 20
 -104026 -4096 0;
 #X obj 211 11 hw.rpi.display.lcd1602;
@@ -23,8 +22,8 @@ as 1602 or 2004 module;
 #X msg 59 287 cursor_blink \$1;
 #X listbox 270 287 20 0 0 0 - - -;
 #X obj 270 316 msg write;
-#X obj 50 345 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr -1
-@rows 2;
+#X obj 50 345 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr
+default @rows 2;
 #X obj 50 388 ui.link @title 'I2C_connection' @url
 ceammc://img/conn_lcd1602.png;
 #X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

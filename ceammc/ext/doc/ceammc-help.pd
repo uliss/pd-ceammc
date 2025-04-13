@@ -730,7 +730,7 @@ signal is analyzed using a 32-band filter bank;
 #X text 200 10362 Basic printing support;
 #X obj 30 10390 hw.rpi.display.hd44780;
 #X text 200 10390 LCD display driver for Raspberry Pi \, mostly known
-as 1602 or 2004 module;
+as 1602 module;
 #X obj 30 10430 hw.rpi.display.ssd1306;
 #X text 200 10430 OLED ssd1306 display for Raspberry Pi;
 #X obj 30 10458 hw.rpi.gpio;
