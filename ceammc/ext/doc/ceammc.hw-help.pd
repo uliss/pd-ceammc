@@ -19,37 +19,36 @@
 #X obj 30 313 hw.printer;
 #X text 200 313 Basic printing support;
 #X obj 30 341 hw.rpi.display.hd44780;
-#X text 200 341 LCD display driver for Raspberry Pi \, mostly known
-as 1602 module;
-#X obj 30 381 hw.rpi.display.ssd1306;
-#X text 200 381 OLED ssd1306 display for Raspberry Pi;
-#X obj 30 409 hw.rpi.gpio;
-#X text 200 409 Raspberry Pi GPIO support;
-#X obj 30 437 hw.rpi.i2c.pca9685;
-#X text 200 437 PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry
+#X text 200 341 LCD display driver for Raspberry Pi (1602 or 2004 module);
+#X obj 30 369 hw.rpi.display.ssd1306;
+#X text 200 369 OLED ssd1306 display for Raspberry Pi;
+#X obj 30 397 hw.rpi.gpio;
+#X text 200 397 Raspberry Pi GPIO support;
+#X obj 30 425 hw.rpi.i2c.pca9685;
+#X text 200 425 PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry
 Pi;
-#X obj 30 465 hw.rpi.pwm;
-#X text 200 465 Hardware PWM output for RaspberryPi;
-#X obj 30 493 hw.rpi.rotenc;
-#X text 200 493 Rotary encoder for Raspberry GPIO;
-#X obj 30 521 hw.rpi.sensor.dht11;
-#X text 200 521 DHT11 Humidity and Temperature Digital Sensor for Raspberry
+#X obj 30 453 hw.rpi.pwm;
+#X text 200 453 Hardware PWM output for RaspberryPi;
+#X obj 30 481 hw.rpi.rotenc;
+#X text 200 481 Rotary encoder for Raspberry GPIO;
+#X obj 30 509 hw.rpi.sensor.dht11;
+#X text 200 509 DHT11 Humidity and Temperature Digital Sensor for Raspberry
 Pi support;
-#X obj 30 561 hw.rpi.sensor.ir;
-#X text 200 561 Infrared sensor support for Raspberry Pi;
-#X obj 30 589 hw.rpi.sensor.mpu6050;
-#X text 200 589 MPU-6050 gyroscope and accelerometer Raspberry Pi support;
-#X obj 30 617 hw.rpi.sensor.sr04;
-#X text 200 617 HC-SR04 ulatrasonic ranging module for Raspberry Pi;
-#X obj 30 645 hw.rpi.sensor.vl53l0x;
-#X text 200 645 The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
+#X obj 30 549 hw.rpi.sensor.ir;
+#X text 200 549 Infrared sensor support for Raspberry Pi;
+#X obj 30 577 hw.rpi.sensor.mpu6050;
+#X text 200 577 MPU-6050 gyroscope and accelerometer Raspberry Pi support;
+#X obj 30 605 hw.rpi.sensor.sr04;
+#X text 200 605 HC-SR04 ulatrasonic ranging module for Raspberry Pi;
+#X obj 30 633 hw.rpi.sensor.vl53l0x;
+#X text 200 633 The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
 Raspberry Pi support;
-#X obj 30 685 hw.serial;
-#X text 200 685 serial port device;
-#X obj 30 713 hw.spi.max7219;
-#X text 200 713 LED display driver based on max7219 chip for Raspberry
+#X obj 30 673 hw.serial;
+#X text 200 673 serial port device;
+#X obj 30 701 hw.spi.max7219;
+#X text 200 701 LED display driver based on max7219 chip for Raspberry
 Pi;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
-#X obj 1 741 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 751 library: ceammc;
+#X obj 1 729 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 739 library: ceammc;
