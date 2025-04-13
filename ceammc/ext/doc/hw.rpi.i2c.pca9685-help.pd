@@ -54,7 +54,7 @@ ceammc://img/info_pca9685.jpg;
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 904 @i2c_addr;
 #X text 245 904 (initonly) Get/Set I²C address. If equal -1 \, use
-first. Type: int. Default value: -1\. Range: -2\...119\.;
+first. Type: int. Default value: -1\. Range: -4\...119\.;
 #X msg 110 946 @i2c_bus;
 #X text 245 946 (initonly) Get/Set I²C bus. Type: atom. Default value:
 none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
