@@ -68,7 +68,8 @@
             <property name="@spi_bus" type="int" minvalue="0" maxvalue="6" default="0"
             access="initonly">spi bus number</property>
             <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
-            access="initonly">spi CS (chip select/enable)</property>
+            access="initonly">spi CS (chip select/enable). In most cases you don't need to set this property,
+            because LED strips are not using CS pin.</property>
             <property name="@clear" type="bool" default="1">turn off all pixels when the object is
             deleted</property>
             <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
@@ -89,15 +90,20 @@
 |
 [system.colorpanel @i] [set_slice 1 15 3 0 127 255, bang #c(
 |
-[msg fill #a]          [fx rainbow 0.5, bang #d(
+[msg fill]             [fx rainbow 0.5, bang #d(
+|
+[msg.after 0 bang #a]  [F]
+                       |
+ [brightness 8 #e(     [set $1 0 0 255, bang #f(
+
 
  [clear(
  |
-[hw.rpi.spi.ws2812 #x]
+[hw.rpi.spi.ws2812 @size 16 #x]
 
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
-[X a->x] [X b->x] [X c->x] [X d->x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
 ]]>
             </pdascii>
         </example>
