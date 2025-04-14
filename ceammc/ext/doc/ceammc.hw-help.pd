@@ -43,13 +43,13 @@ Pi support;
 #X obj 30 633 hw.rpi.sensor.vl53l0x;
 #X text 200 633 The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
 Raspberry Pi support;
-#X obj 30 673 hw.rpi.spi.ws2812;
-#X text 200 673 WS21812 Led strip driver for Raspberry Pi;
-#X obj 30 701 hw.serial;
-#X text 200 701 serial port device;
-#X obj 30 729 hw.spi.max7219;
-#X text 200 729 LED display driver based on max7219 chip for Raspberry
+#X obj 30 673 hw.rpi.spi.max7219;
+#X text 200 673 LED display driver based on max7219 chip for Raspberry
 Pi;
+#X obj 30 701 hw.rpi.spi.ws2812;
+#X text 200 701 WS21812 Led strip driver for Raspberry Pi;
+#X obj 30 729 hw.serial;
+#X text 200 729 serial port device;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
 #X obj 1 757 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
