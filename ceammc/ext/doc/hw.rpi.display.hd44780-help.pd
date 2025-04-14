@@ -26,8 +26,8 @@
 #X obj 270 316 msg write;
 #X obj 50 345 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr
 default @rows 2;
-#X obj 50 388 ui.link @title 'I2C_connection' @url
-ceammc://img/conn_lcd1602.png;
+#X obj 50 388 ui.link @title 'Connection_Scheme' @url
+ceammc://img/conn_ws2812.png;
 #X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 450 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
