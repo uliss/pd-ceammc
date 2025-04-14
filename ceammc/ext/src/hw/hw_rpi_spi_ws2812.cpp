@@ -144,7 +144,7 @@ void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
 
 void setup_hw_rpi_spi_ws2812()
 {
-    ObjectFactory<HwSpiWs2812> obj("hw.spi.ws2812");
+    ObjectFactory<HwSpiWs2812> obj("hw.rpi.spi.ws2812");
     obj.addMethod("brightness", &HwSpiWs2812::m_brightness);
     obj.addMethod("clear", &HwSpiWs2812::m_clear);
     obj.addMethod("fill", &HwSpiWs2812::m_fill);
