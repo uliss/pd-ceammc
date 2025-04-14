@@ -5,8 +5,7 @@ use std::{
 
 use log::{debug, error, info};
 use mpu6050_dmp::{
-    address::Address, quaternion::Quaternion, sensor::Mpu6050, temperature::Temperature,
-    yaw_pitch_roll::YawPitchRoll,
+    address::Address, quaternion::Quaternion, sensor::Mpu6050, temperature::Temperature, yaw_pitch_roll::YawPitchRoll,
 };
 
 use crate::{
@@ -36,6 +35,9 @@ impl hw_mpu6050 {
             let mut mpu = match i2c_addr {
                 I2cAddress::Default => Mpu6050::new(i2c, Address::default()),
                 I2cAddress::Alt => Mpu6050::new(i2c, Address(0x69)),
+                I2cAddress::Auto => {
+                    return Err(format!("i2c auto address is not supported"));
+                }
                 I2cAddress::Invalid(addr) => {
                     return Err(format!("invalid i2c address: {addr}"));
                 }
@@ -70,20 +72,13 @@ impl hw_mpu6050 {
                                 Request::Calibrate => {
                                     send_info(&tx, notify, "Calibrating Sensor ...");
 
-                                    if let Ok(_) =
-                                        mpu6050_dmp::calibration_blocking::collect_mean_values(
-                                            &mut mpu,
-                                            &mut delay,
-                                            mpu6050_dmp::accel::AccelFullScale::G2,
-                                            mpu6050_dmp::calibration::ReferenceGravity::ZN,
-                                        )
-                                        .map_err(|err| {
-                                            process_err(
-                                                format!("calibration error: {err:?}"),
-                                                &tx,
-                                                notify,
-                                            )
-                                        })
+                                    if let Ok(_) = mpu6050_dmp::calibration_blocking::collect_mean_values(
+                                        &mut mpu,
+                                        &mut delay,
+                                        mpu6050_dmp::accel::AccelFullScale::G2,
+                                        mpu6050_dmp::calibration::ReferenceGravity::ZN,
+                                    )
+                                    .map_err(|err| process_err(format!("calibration error: {err:?}"), &tx, notify))
                                     {
                                         send_info(&tx, notify, "Sensor Calibrated");
                                     }
@@ -106,9 +101,7 @@ impl hw_mpu6050 {
                         Ok(fifo_count) => {
                             if fifo_count >= 256 {
                                 // FIFO is full - reset to prevent overflow
-                                mpu.reset_fifo()
-                                    .map_err(|err| format!("{err:?}"))
-                                    .unwrap_or_default();
+                                mpu.reset_fifo().map_err(|err| format!("{err:?}")).unwrap_or_default();
                             } else {
                                 if fifo_count >= 28 {
                                     let buf = mpu.read_fifo(&mut buffer).unwrap();
@@ -116,11 +109,7 @@ impl hw_mpu6050 {
                                     let ypr = YawPitchRoll::from(q);
                                     debug!("{:?}", ypr);
 
-                                    send_reply(
-                                        super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll),
-                                        &tx,
-                                        notify,
-                                    );
+                                    send_reply(super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll), &tx, notify);
                                 }
                             }
 

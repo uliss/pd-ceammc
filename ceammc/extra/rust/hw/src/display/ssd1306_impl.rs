@@ -22,7 +22,10 @@ use ssd1306::{
 };
 
 use crate::{
-    hw_notify_cb, i2c::{i2c_impl::create_i2c_bus, I2cAddress}, process_err, send_debug, send_error, spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus}
+    hw_notify_cb,
+    i2c::{i2c_impl::create_i2c_bus, I2cAddress},
+    process_err, send_debug, send_error,
+    spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus},
 };
 
 use super::{hw_display_ssd1306, DisplayI2cArgs, DisplaySpiArgs, Reply, Request, Ssd1306Worker};
@@ -86,17 +89,12 @@ impl hw_display_ssd1306 {
                             text_style.font = *ft;
                         }
                         None => {
-                            let keys = font_map
-                                .keys()
-                                .map(|k| k.to_string())
-                                .collect::<Vec<_>>()
-                                .join(", ");
+                            let keys = font_map.keys().map(|k| k.to_string()).collect::<Vec<_>>().join(", ");
 
                             send_error(
                                 tx,
                                 notify,
-                                format!("font not found: {font:?}. supported fonts are: {keys}")
-                                    .as_str(),
+                                format!("font not found: {font:?}. supported fonts are: {keys}").as_str(),
                             );
                         }
                     }
@@ -140,18 +138,10 @@ impl hw_display_ssd1306 {
                 Request::SetRotation(rotate) => {
                     display
                         .set_rotation(match rotate {
-                            crate::display::hw_display_rotation::ROTATE_0 => {
-                                DisplayRotation::Rotate0
-                            }
-                            crate::display::hw_display_rotation::ROTATE_90 => {
-                                DisplayRotation::Rotate90
-                            }
-                            crate::display::hw_display_rotation::ROTATE_180 => {
-                                DisplayRotation::Rotate180
-                            }
-                            crate::display::hw_display_rotation::ROTATE_270 => {
-                                DisplayRotation::Rotate270
-                            }
+                            crate::display::hw_display_rotation::ROTATE_0 => DisplayRotation::Rotate0,
+                            crate::display::hw_display_rotation::ROTATE_90 => DisplayRotation::Rotate90,
+                            crate::display::hw_display_rotation::ROTATE_180 => DisplayRotation::Rotate180,
+                            crate::display::hw_display_rotation::ROTATE_270 => DisplayRotation::Rotate270,
                         })
                         .unwrap_or_else(|err| {
                             process_err(format!("{err:?}"), tx, notify);
@@ -189,22 +179,24 @@ impl hw_display_ssd1306 {
             let i2c_iface = match args.i2c_addr {
                 I2cAddress::Default => ssd1306::I2CDisplayInterface::new(i2c),
                 I2cAddress::Alt => ssd1306::I2CDisplayInterface::new_alternate_address(i2c),
+                I2cAddress::Addr(addr) => ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr),
+                I2cAddress::Auto => {
+                    return Err(format!("i2c auto address is not supported"));
+                }
                 I2cAddress::Invalid(addr) => {
                     return Err(format!("invalid i2c address: {addr}"));
                 }
-                I2cAddress::Addr(addr) => {
-                    ssd1306::I2CDisplayInterface::new_custom_address(i2c, addr)
-                }
             };
 
-            let mut display = Ssd1306::new(i2c_iface, size, DisplayRotation::Rotate0)
-                .into_buffered_graphics_mode();
+            let mut display = Ssd1306::new(i2c_iface, size, DisplayRotation::Rotate0).into_buffered_graphics_mode();
 
-            display
-                .init()
-                .map_err(|err| format!("{err:?}"))?;
-            
-            send_debug(&tx, notify, format!("i2c display init with: bus={} addr={:?}", args.i2c_bus, args.i2c_addr).as_str());
+            display.init().map_err(|err| format!("{err:?}"))?;
+
+            send_debug(
+                &tx,
+                notify,
+                format!("i2c display init with: bus={} addr={:?}", args.i2c_bus, args.i2c_addr).as_str(),
+            );
 
             display.clear_buffer();
             display.flush().unwrap_or_default();
@@ -216,10 +208,7 @@ impl hw_display_ssd1306 {
         Ok(Self { worker })
     }
 
-    pub fn new_spi<SIZE: DisplaySize + Send + 'static>(
-        args: DisplaySpiArgs,
-        size: SIZE,
-    ) -> Result<Self, CString> {
+    pub fn new_spi<SIZE: DisplaySize + Send + 'static>(args: DisplaySpiArgs, size: SIZE) -> Result<Self, CString> {
         let (worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
 
         worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
@@ -241,10 +230,7 @@ impl hw_display_ssd1306 {
 
             let spi = Spi::new(bus, cs, args.freq, rppal::spi::Mode::Mode0).map_err(|err| {
                 process_err(
-                    format!(
-                        "SPI init error: {err}, bus={bus}, cs={cs}, freq={}",
-                        args.freq
-                    ),
+                    format!("SPI init error: {err}, bus={bus}, cs={cs}, freq={}", args.freq),
                     &tx,
                     args.notify,
                 )
@@ -254,8 +240,7 @@ impl hw_display_ssd1306 {
 
             let spi_iface = SPIInterfaceNoCS::new(spi, dc);
 
-            let mut display = Ssd1306::new(spi_iface, size, DisplayRotation::Rotate0)
-                .into_buffered_graphics_mode();
+            let mut display = Ssd1306::new(spi_iface, size, DisplayRotation::Rotate0).into_buffered_graphics_mode();
 
             debug!(
                 "display init: DC=GPIO_{:02} RST=GPIO_{:02} size={:?}",

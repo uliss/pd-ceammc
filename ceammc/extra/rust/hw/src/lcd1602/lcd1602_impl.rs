@@ -1,6 +1,6 @@
 use std::ffi::CString;
 
-use log::{debug, error};
+use log::{debug, error, warn};
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
@@ -8,6 +8,84 @@ use crate::{
     lcd1602::Reply,
     send_debug, send_error,
 };
+
+fn to_greek(ch: char) -> Option<char> {
+    match ch {
+        '\u{03B1}' => Some('\u{E0}'),
+        '\u{03B2}' => Some('\u{E2}'),
+        '\u{03B5}' => Some('\u{E3}'),
+        '\u{03BC}' => Some('\u{E4}'),
+        '\u{03C3}' => Some('\u{E5}'),
+        '\u{03C1}' => Some('\u{E6}'),
+        '\u{03F3}' => Some('\u{EA}'),
+        '\u{03B8}' => Some('\u{F2}'),
+        '\u{03A9}' => Some('\u{F4}'),
+        '\u{03A3}' => Some('\u{F6}'),
+        '\u{03C0}' => Some('\u{F7}'),
+        _ => None,
+    }
+}
+
+fn to_ascii(ch: char) -> Option<char> {
+    match ch {
+        '0'..='9'
+        | 'a'..='z'
+        | 'A'..='Z'
+        | '!'
+        | '"'
+        | '#'
+        | '$'
+        | '%'
+        | '&'
+        | '\''
+        | '('
+        | ')'
+        | '*'
+        | '+'
+        | ','
+        | '-'
+        | '.'
+        | '/'
+        | ':'
+        | ';'
+        | '<'
+        | '='
+        | '>'
+        | '?'
+        | '@'
+        | '['
+        | ']'
+        | '^'
+        | '_'
+        | '`'
+        | '{'
+        | '|'
+        | '}' => Some(ch),
+        _ => None,
+    }
+}
+
+fn encode_str(str: &CString) -> Vec<char> {
+    let str = str.to_string_lossy().to_string();
+    let mut res = vec![];
+    for ch in str.chars() {
+        match ch {
+            '¥' => res.push('\u{5C}'),
+            '→' | '￫' => res.push('\u{7E}'),
+            '←' | '￩' => res.push('\u{7F}'),
+            'ä' => res.push('\u{E1}'),
+            '\u{221E}' => res.push('\u{F3}'),
+            _ => match to_ascii(ch).or_else(|| to_greek(ch)) {
+                Some(ch) => res.push(ch),
+                None => match to_greek(ch) {
+                    Some(ch) => res.push(ch),
+                    None => warn!("character is not supported: {ch}"),
+                },
+            },
+        }
+    }
+    res
+}
 
 use super::{hw_hd44780, Hd44780Worker, Request};
 
@@ -26,16 +104,15 @@ impl hw_hd44780 {
             let mut i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("I2C init");
 
-            let addr = match i2c_addr {
-                I2cAddress::Default => 0x27,
-                I2cAddress::Alt => 0x3f,
+            let addrs: Vec<u8> = match i2c_addr {
+                I2cAddress::Default => vec![0x27],
+                I2cAddress::Alt => vec![0x3f],
+                I2cAddress::Auto => vec![0x27, 0x37],
+                I2cAddress::Addr(addr) => vec![addr],
                 I2cAddress::Invalid(x) => return Err(format!("invalid i2c address: {x}")),
-                I2cAddress::Addr(addr) => addr,
             };
 
             let bus = i2c.bus();
-            debug!("try LCD init with: bus={bus}, addr=0x{addr:02x}");
-
             let rows = match rows {
                 2 => 2,
                 4 => 4,
@@ -43,19 +120,35 @@ impl hw_hd44780 {
             };
 
             let mut delay = rppal::hal::Delay::new();
-            let mut lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
-                .with_address(addr)
-                .with_rows(rows)
-                .with_cursor_on(false)
-                .with_cursor_blink(false)
-                .init()
-                .map_err(|err| format!("LCD init error: {err}"))?;
+            let mut lcd = None;
 
-            send_debug(
-                &tx,
-                notify,
-                format!("connected to display: bus={bus} addr=0x{addr:02x} rows={rows}").as_str(),
-            );
+            for addr in &addrs {
+                debug!("try LCD init with: bus={bus}, addr=0x{addr:02x}");
+
+                lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
+                    .with_address(*addr)
+                    .with_rows(rows)
+                    .with_cursor_on(false)
+                    .with_cursor_blink(false)
+                    .init()
+                    .ok();
+
+                if lcd.is_some() {
+                    send_debug(
+                        &tx,
+                        notify,
+                        format!("connected to display: bus={bus} addr=0x{addr:02x} rows={rows}").as_str(),
+                    );
+                    break;
+                }
+            }
+
+            if lcd.is_none() {
+                let addr_lst = addrs.iter().map(|x| format!("0x{x:02}")).collect::<Vec<_>>().join(" ");
+                return Err(format!("can't connect to addresses: [{addr_lst}]"));
+            }
+
+            let mut lcd = lcd.unwrap();
 
             while let Ok(req) = rx.recv() {
                 debug!("{:?}", &req);
@@ -64,7 +157,8 @@ impl hw_hd44780 {
 
                 match &req {
                     Request::WriteText(msg) => {
-                        lcd.write_str(msg.to_string_lossy().as_ref()).unwrap_or_else(|e| {
+                        let bytes: String = encode_str(msg).into_iter().collect();
+                        lcd.write_str(bytes.as_ref()).unwrap_or_else(|e| {
                             send_error(&tx, notify, e.to_string().as_str());
                         });
                     }
