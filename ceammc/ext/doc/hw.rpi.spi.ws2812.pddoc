@@ -14,6 +14,7 @@
             <since>0.9.8</since>
         </meta>
         <methods>
+            <method name="clear">turn off all pixels</method>
             <method name="set">set single pixel color 
             <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
             component</param>
@@ -21,9 +22,16 @@
             component</param>
             <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
             component</param></method>
-            <method name="fx">method</method>
+            <method name="fx">apply color generator function
+            <param name="NAME" type="symbol" enum="rainbow" required="true">function name</param>
+            <param name="ARG" type="float" minvalue="0" maxvalue="1">function param</param>
+            <param name="BEGIN" type="int">range start</param>
+            <param name="LENGTH" type="int" minvalue="0">range length</param>
+            </method>
             <method name="flush">flush all pixels to the strip</method>
-            <method name="brightness">method</method>
+            <method name="brightness">set led strip brightness
+            <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">brightness level</param>
+            </method>
             <method name="fill">fill all pixels with the RGB color 
             <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
             component</param>
@@ -31,9 +39,30 @@
             component</param>
             <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
             component</param></method>
-            <method name="rotate">method</method>
-            <method name="set_slice">method</method>
-            <method name="set_range">method</method>
+            <method name="rotate">shift all pixel by specified amount
+            <param name="SHIFT" type="int" required="true">shift amount</param>
+            </method>
+            <method name="set_slice">set pixel slice to the specified color
+            <param name="BEGIN" type="int" minvalue="0" required="true">range start</param>
+            <param name="END" type="int" minvalue="0" required="true">range end</param>
+            <param name="STEP" type="int" minvalue="1" required="true">slice step</param>
+            <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
+            component</param>
+            <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color
+            component</param>
+            <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
+            component</param>
+            </method>
+            <method name="set_range">set pixel range to the specified color
+            <param name="BEGIN" type="int" minvalue="0" required="true">range start</param>
+            <param name="LENGTH" type="int" minvalue="1" required="true">range length</param>
+            <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
+            component</param>
+            <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color
+            component</param>
+            <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
+            component</param>
+            </method>
         </methods>
         <properties>
             <property name="@spi_bus" type="int" minvalue="0" maxvalue="6" default="0"
@@ -47,7 +76,7 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>control input</xinfo>
+                <xinfo on="bang">flush pixels to the strip</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -56,18 +85,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[system.colorpanel]
+[B]                    [set_range 4 4 255 0 0, bang #b(
 |
-[color->rgb]
+[system.colorpanel @i] [set_slice 1 15 3 0 127 255, bang #c(
 |
-[msg fill #a]
+[msg fill #a]          [fx rainbow 0.5, bang #d(
 
+ [clear(
+ |
 [hw.rpi.spi.ws2812 #x]
 
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
-[X i->x]
+[X a->x] [X b->x] [X c->x] [X d->x]
 ]]>
             </pdascii>
         </example>

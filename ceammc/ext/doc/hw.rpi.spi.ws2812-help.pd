@@ -5,78 +5,123 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.spi.ws2812 20 20 0 20
 -104026 -4096 0;
 #X obj 617 11 hw.rpi.spi.ws2812;
-#X obj 50 118 system.colorpanel;
-#X obj 50 147 color->rgb;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 270 118 set_range 4 4 255 0 0 \, bang;
+#X obj 50 147 system.colorpanel @i;
+#X msg 270 147 set_slice 1 15 3 0 127 255 \, bang;
 #X obj 50 176 msg fill;
-#X obj 50 205 hw.rpi.spi.ws2812;
-#X obj 50 248 ui.link @title 'Connection_Scheme' @url
+#X msg 270 176 fx rainbow 0.5 \, bang;
+#X msg 59 205 clear;
+#X obj 50 234 hw.rpi.spi.ws2812;
+#X obj 50 277 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
-#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 310 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 313 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 345 @spi_bus;
-#X text 245 345 (initonly) Get/Set spi bus number. Type: int. Default
+#X msg 110 374 @spi_bus;
+#X text 245 374 (initonly) Get/Set spi bus number. Type: int. Default
 value: 0\. Range: 0\...6\.;
-#X msg 110 387 @spi_cs;
-#X text 245 387 (initonly) Get/Set spi CS (chip select/enable). Type:
+#X msg 110 416 @spi_cs;
+#X text 245 416 (initonly) Get/Set spi CS (chip select/enable). Type:
 int. Default value: 0\. Range: 0\...3\.;
-#X msg 110 429 @size;
-#X text 245 429 (initonly) Get/Set number of leds in the strip. Type:
+#X msg 110 458 @size;
+#X text 245 458 (initonly) Get/Set number of leds in the strip. Type:
 int. Default value: 16\. Range: 1\...4096\.;
-#X msg 110 471 @clear;
-#X text 245 471 Get/Set turn off all pixels when the object is deleted.
+#X msg 110 500 @clear;
+#X text 245 500 Get/Set turn off all pixels when the object is deleted.
 Type: bool. Default value: 1\.;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 528 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 557 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 563 brightness;
-#X text 245 563 method.;
-#X msg 110 591 fill;
-#X text 245 591 fill all pixels with the RGB color. Arguments are:;
-#X obj 255 614 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 614 R: red color component. Type: int. Range: 0\...255\.;
-#X obj 255 637 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 637 G: greed color component. Type: int. Range: 0\...255\.;
-#X obj 255 660 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 660 B: blue color component. Type: int. Range: 0\...255\.;
-#X msg 110 685 flush;
-#X text 245 685 flush all pixels to the strip.;
-#X msg 110 713 fx;
-#X text 245 713 method.;
-#X msg 110 741 rotate;
-#X text 245 741 method.;
-#X msg 110 769 set;
-#X text 245 769 set single pixel color. Arguments are:;
-#X obj 255 792 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 792 R: red color component. Type: int. Range: 0\...255\.;
-#X obj 255 815 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 815 G: greed color component. Type: int. Range: 0\...255\.;
-#X obj 255 838 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 838 B: blue color component. Type: int. Range: 0\...255\.;
-#X msg 110 863 set_range;
-#X text 245 863 method.;
-#X msg 110 891 set_slice;
-#X text 245 891 method.;
-#X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 934 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 110 935 1\.;
-#X text 245 935 control input.;
-#X obj 20 965 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 970 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 110 592 brightness;
+#X text 245 592 set led strip brightness. Arguments are:;
+#X obj 255 615 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 615 LEVEL: brightness level. Type: int. Range: 0\...255\.;
+#X msg 110 640 clear;
+#X text 245 640 turn off all pixels.;
+#X msg 110 668 fill;
+#X text 245 668 fill all pixels with the RGB color. Arguments are:;
+#X obj 255 691 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 691 R: red color component. Type: int. Range: 0\...255\.;
+#X obj 255 714 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 714 G: greed color component. Type: int. Range: 0\...255\.;
+#X obj 255 737 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 737 B: blue color component. Type: int. Range: 0\...255\.;
+#X msg 110 762 flush;
+#X text 245 762 flush all pixels to the strip.;
+#X msg 110 790 fx;
+#X text 245 790 apply color generator function. Arguments are:;
+#X obj 255 813 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 813 NAME: function name. Type: symbol. Allowed values:
+rainbow.;
+#X obj 255 836 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 836 [ARG]: function param. Type: float. Range: 0\...1\.;
+#X obj 255 859 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 859 [BEGIN]: range start. Type: int.;
+#X obj 255 882 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 882 [LENGTH]: range length. Type: int. Min value: 0\.;
+#X msg 110 907 rotate;
+#X text 245 907 shift all pixel by specified amount. Arguments are:;
+#X obj 255 930 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 930 SHIFT: shift amount. Type: int.;
+#X msg 110 955 set;
+#X text 245 955 set single pixel color. Arguments are:;
+#X obj 255 978 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 978 R: red color component. Type: int. Range: 0\...255\.;
+#X obj 255 1001 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1001 G: greed color component. Type: int. Range: 0\...255\.;
+#X obj 255 1024 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1024 B: blue color component. Type: int. Range: 0\...255\.;
+#X msg 110 1049 set_range;
+#X text 245 1049 set pixel range to the specified color. Arguments
+are:;
+#X obj 255 1072 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1072 BEGIN: range start. Type: int. Min value: 0\.;
+#X obj 255 1095 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1095 LENGTH: range length. Type: int. Min value: 1\.;
+#X obj 255 1118 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1118 R: red color component. Type: int. Range: 0\...255\.;
+#X obj 255 1141 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1141 G: greed color component. Type: int. Range: 0\...255\.;
+#X obj 255 1164 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1164 B: blue color component. Type: int. Range: 0\...255\.;
+#X msg 110 1189 set_slice;
+#X text 245 1189 set pixel slice to the specified color. Arguments
+are:;
+#X obj 255 1212 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1212 BEGIN: range start. Type: int. Min value: 0\.;
+#X obj 255 1235 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1235 END: range end. Type: int. Min value: 0\.;
+#X obj 255 1258 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1258 STEP: slice step. Type: int. Min value: 1\.;
+#X obj 255 1281 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1281 R: red color component. Type: int. Range: 0\...255\.;
+#X obj 255 1304 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1304 G: greed color component. Type: int. Range: 0\...255\.;
+#X obj 255 1327 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1327 B: blue color component. Type: int. Range: 0\...255\.;
+#X obj 20 1362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1367 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 971 1\.;
-#X text 245 971 no output.;
+#X text 110 1368 1\.;
+#X text 150 1368 *bang*;
+#X text 245 1368 flush pixels to the strip.;
+#X obj 20 1398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1403 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1404 1\.;
+#X text 245 1404 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1021 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1024 library: ceammc v0.9.8;
-#N canvas 10 1043 400 290 info 0;
+#X obj 1 1454 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1457 library: ceammc v0.9.8;
+#N canvas 10 1476 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,5 +145,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1043 pd info;
-#X connect 6 0 7 0;
+#X restore 10 1476 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 8 0;
+#X connect 10 0 11 0;
+#X connect 8 0 11 0;
+#X connect 5 0 11 0;
+#X connect 7 0 11 0;
+#X connect 9 0 11 0;
