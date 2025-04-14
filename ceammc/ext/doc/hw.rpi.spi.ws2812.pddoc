@@ -14,7 +14,8 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Note: you should **flush** (with bang or [flush( message) after almost all pixel/color operations</par>
+            <par>Note: you should **flush** (with bang or [flush( message) after almost all
+            pixel/color operations</par>
         </info>
         <methods>
             <method name="clear">turn off all pixels</method>
@@ -25,16 +26,15 @@
             component</param>
             <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
             component</param></method>
-            <method name="fx">apply color generator function
+            <method name="fx">apply color generator function 
             <param name="NAME" type="symbol" enum="rainbow" required="true">function name</param>
             <param name="ARG" type="float" minvalue="0" maxvalue="1">function param</param>
             <param name="BEGIN" type="int">range start</param>
-            <param name="LENGTH" type="int" minvalue="0">range length</param>
-            </method>
+            <param name="LENGTH" type="int" minvalue="0">range length</param></method>
             <method name="flush">flush all pixels to the strip</method>
-            <method name="brightness">set pixel brightness
-            <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">brightness level</param>
-            </method>
+            <method name="brightness">set pixel brightness 
+            <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">brightness
+            level</param></method>
             <method name="fill">fill all pixels with the RGB color 
             <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
             component</param>
@@ -42,10 +42,9 @@
             component</param>
             <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
             component</param></method>
-            <method name="rotate">shift all pixel by specified amount
-            <param name="SHIFT" type="int" required="true">shift amount</param>
-            </method>
-            <method name="set_slice">set pixel slice to the specified color
+            <method name="rotate">shift all pixel by specified amount 
+            <param name="SHIFT" type="int" required="true">shift amount</param></method>
+            <method name="set_slice">set pixel slice to the specified color 
             <param name="BEGIN" type="int" minvalue="0" required="true">range start</param>
             <param name="END" type="int" minvalue="0" required="true">range end</param>
             <param name="STEP" type="int" minvalue="1" required="true">slice step</param>
@@ -54,9 +53,8 @@
             <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color
             component</param>
             <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
-            component</param>
-            </method>
-            <method name="set_range">set pixel range to the specified color
+            component</param></method>
+            <method name="set_range">set pixel range to the specified color 
             <param name="BEGIN" type="int" minvalue="0" required="true">range start</param>
             <param name="LENGTH" type="int" minvalue="1" required="true">range length</param>
             <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
@@ -64,15 +62,14 @@
             <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color
             component</param>
             <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
-            component</param>
-            </method>
+            component</param></method>
         </methods>
         <properties>
             <property name="@spi_bus" type="int" minvalue="0" maxvalue="6" default="0"
             access="initonly">spi bus number</property>
             <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
-            access="initonly">spi CS (chip select/enable). In most cases you don't need to set this property,
-            because LED strips are not using CS pin.</property>
+            access="initonly">spi CS (chip select/enable). In most cases you don't need to set this
+            property, because LED strips are not using CS pin.</property>
             <property name="@clear" type="bool" default="1">turn off all pixels when the object is
             deleted</property>
             <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
