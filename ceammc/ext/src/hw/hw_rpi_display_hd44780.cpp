@@ -69,9 +69,9 @@ void HwRpiDisplayHd44780::m_clear_line(t_symbol* s, const AtomListView& lv)
 
     constexpr const char* SPACES_20 = "                    ";
 
-    ceammc_hw_lcd1602_cursor_pos(lcd_, line, 0);
-    ceammc_hw_lcd1602_write_text(lcd_, SPACES_20);
-    ceammc_hw_lcd1602_cursor_pos(lcd_, line, 0);
+    ceammc_hw_hd44780_cursor_pos(lcd_, line, 0);
+    ceammc_hw_hd44780_write_text(lcd_, SPACES_20);
+    ceammc_hw_hd44780_cursor_pos(lcd_, line, 0);
 }
 
 void HwRpiDisplayHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
