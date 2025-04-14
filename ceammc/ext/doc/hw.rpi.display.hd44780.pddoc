@@ -91,7 +91,7 @@
                        |
                        [msg write #i]
 
-[hw.rpi.display.hd44780 @i2c_bus default @i2c_addr default @rows 2 #x]
+[hw.rpi.display.hd44780 @i2c_bus default @i2c_addr auto @rows 2 #x]
 
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']

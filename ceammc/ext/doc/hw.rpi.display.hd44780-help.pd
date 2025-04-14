@@ -24,8 +24,8 @@
 #X msg 59 287 cursor_blink \$1;
 #X listbox 270 287 20 0 0 0 - - -;
 #X obj 270 316 msg write;
-#X obj 50 345 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr
-default @rows 2;
+#X obj 50 345 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr auto
+@rows 2;
 #X obj 50 388 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
 #X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
