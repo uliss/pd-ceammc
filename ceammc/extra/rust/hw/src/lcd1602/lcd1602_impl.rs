@@ -107,7 +107,7 @@ impl hw_hd44780 {
             let addrs: Vec<u8> = match i2c_addr {
                 I2cAddress::Default => vec![0x27],
                 I2cAddress::Alt => vec![0x3f],
-                I2cAddress::Auto => vec![0x27, 0x37],
+                I2cAddress::Auto => vec![0x27, 0x3f],
                 I2cAddress::Addr(addr) => vec![addr],
                 I2cAddress::Invalid(x) => return Err(format!("invalid i2c address: {x}")),
             };
