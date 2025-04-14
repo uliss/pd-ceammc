@@ -13,6 +13,15 @@
             <keywords>display rpi ads1115 adc</keywords>
             <since>0.9.8</since>
         </meta>
+        <info>
+            <par>Fullscale range settings:</par>
+            <par>- @fsr 6144mv, range +-6.144V, 1-bit: 0.1875mV</par>
+            <par>- @fsr 4096mv, range +-4.096V, 1-bit: 0.125mV</par>
+            <par>- @fsr 2048mv, range +-2.048V, 1-bit: 0.0625mV</par>
+            <par>- @fsr 1024mv, range +-1.024V, 1-bit: 0.03125mV</par>
+            <par>- @fsr 512mv,  range +-0.512V, 1-bit: 0.015625mV</par>
+            <par>- @fsr 256mv,  range +-0.256V, 1-bit: 0.0078125mV</par>
+        </info>
         <arguments>
             <argument name="MODE" type="symbol" enum="diff single">See @mode</argument>
         </arguments>
@@ -65,25 +74,22 @@
 |
 | [measure 0(
 | |
-| |
-[hw.rpi.adc.ads1115 @i2c_bus default @i2c_addr default @mode single #x]
+| | [measure(
+| | |
+[hw.rpi.adc.ads1115 #x]
+|
+|
 |
 [route ch]
 |
-[route 0 1 2 3 #a]
+[route 0 1 2 3 {w=30} #a]
 |
-[ui.dt]
-
-     [ui.dt #b]
-
-          [ui.dt #c]
+[F]  [F #b] [F #c] [F #d]
 
 
-               [ui.dt #d]
-
-
-[ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
+[ui.link @url=ceammc://img/conn_ads1115.png @title='Connection_Scheme']
 [X a:1->b] [X a:2->c] [X a:3->d]
+#x @i2c_bus default @i2c_addr default @mode single @fsr 4096mv @norm 1 @in_min 0 @in_max 3300 @out_min 0 @out_max 1
 ]]>
             </pdascii>
         </example>
