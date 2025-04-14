@@ -31,6 +31,7 @@ fn to_ascii(ch: char) -> Option<char> {
         '0'..='9'
         | 'a'..='z'
         | 'A'..='Z'
+        | ' '
         | '!'
         | '"'
         | '#'
