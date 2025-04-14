@@ -14,28 +14,36 @@
             <since>0.9.8</since>
         </meta>
         <methods>
-            <method name="set">set single pixel color
-            <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color component</param>
-            <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color component</param>
-            <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color component</param>
-            </method>
+            <method name="set">set single pixel color 
+            <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
+            component</param>
+            <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color
+            component</param>
+            <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
+            component</param></method>
             <method name="fx">method</method>
             <method name="flush">flush all pixels to the strip</method>
             <method name="brightness">method</method>
-            <method name="fill">fill all pixels with the RGB color
-            <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color component</param>
-            <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color component</param>
-            <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color component</param>
-            </method>
+            <method name="fill">fill all pixels with the RGB color 
+            <param name="R" type="int" minvalue="0" maxvalue="255" required="true">red color
+            component</param>
+            <param name="G" type="int" minvalue="0" maxvalue="255" required="true">greed color
+            component</param>
+            <param name="B" type="int" minvalue="0" maxvalue="255" required="true">blue color
+            component</param></method>
             <method name="rotate">method</method>
             <method name="set_slice">method</method>
             <method name="set_range">method</method>
         </methods>
         <properties>
-            <property name="@spi_bus" type="int" minvalue="0" maxvalue="6" default="0" access="initonly">spi bus number</property>
-            <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">spi CS (chip select/enable)</property>
-            <property name="@clear" type="bool" default="1">turn off all pixels when the object is deleted</property>
-            <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16" access="initonly">number of leds in the strip</property>
+            <property name="@spi_bus" type="int" minvalue="0" maxvalue="6" default="0"
+            access="initonly">spi bus number</property>
+            <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
+            access="initonly">spi CS (chip select/enable)</property>
+            <property name="@clear" type="bool" default="1">turn off all pixels when the object is
+            deleted</property>
+            <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
+            access="initonly">number of leds in the strip</property>
         </properties>
         <inlets>
             <inlet>

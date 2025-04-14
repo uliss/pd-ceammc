@@ -80,7 +80,8 @@
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">I²C bus</property>
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
-            maxvalue="119">I²C address. Also 'default' value is accepted (for addr 0x3c) and 'alt' (for addr 0x3d)</property>
+            maxvalue="119">I²C address. Also 'default' value is accepted (for addr 0x3c) and 'alt'
+            (for addr 0x3d)</property>
             <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
             maxvalue="10000000" access="initonly">SPI frequency</property>
             <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"

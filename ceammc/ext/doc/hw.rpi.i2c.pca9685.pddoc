@@ -40,7 +40,8 @@
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">I²C bus</property>
             <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
-            access="initonly">I²C address. Also 'default' value is accepted (for addr 0x40)</property>
+            access="initonly">I²C address. Also 'default' value is accepted (for addr
+            0x40)</property>
         </properties>
         <methods>
             <!-- const -->
