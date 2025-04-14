@@ -144,7 +144,7 @@ impl hw_hd44780 {
             }
 
             if lcd.is_none() {
-                let addr_lst = addrs.iter().map(|x| format!("0x{x:02}")).collect::<Vec<_>>().join(" ");
+                let addr_lst = addrs.iter().map(|x| format!("0x{x:02x}")).collect::<Vec<_>>().join(" ");
                 return Err(format!("can't connect to addresses: [{addr_lst}]"));
             }
 
