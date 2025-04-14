@@ -96,7 +96,7 @@
         hw.rpi.display.ssd1306 hw.rpi.gpio hw.rpi.i2c.pca9685 hw.rpi.pwm
         hw.rpi.rotenc hw.rpi.sensor.dht11 hw.rpi.sensor.ir
         hw.rpi.sensor.mpu6050 hw.rpi.sensor.sr04 hw.rpi.sensor.vl53l0x
-        hw.serial hw.spi.max7219
+        hw.rpi.spi.ws2812 hw.serial hw.spi.max7219
     }}
     {lang {
         lang.faust~ lang.lua ui.faust~
