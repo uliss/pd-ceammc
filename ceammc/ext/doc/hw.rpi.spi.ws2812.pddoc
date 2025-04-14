@@ -14,7 +14,7 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Note: you should call [flush( almost after all pixel/color operations</par>
+            <par>Note: you should **flush** (with bang or [flush( message) after almost all pixel/color operations</par>
         </info>
         <methods>
             <method name="clear">turn off all pixels</method>
@@ -97,7 +97,7 @@
 |
 [msg.after 0 bang #a]  [F]
                        |
- [brightness #e(     [set $1 0 0 255, bang #f(
+ [brightness #e(       [set $1 0 0 255, bang #f(
 
 
  [clear(

@@ -6,8 +6,8 @@
 -104026 -4096 0;
 #X obj 617 11 hw.rpi.spi.ws2812;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Note: you should call [flush( almost after all pixel/color
-operations;
+#X text 215 80 Note: you should **flush** (with bang or [flush( message)
+after almost all pixel/color operations;
 #X obj 50 158 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 270 158 set_range 4 4 255 0 0 \, bang;
@@ -18,7 +18,7 @@ operations;
 #X obj 50 245 msg.after 0 bang;
 #X floatatom 270 245 5 0 0 0 - - -;
 #X msg 59 274 brightness 8 \, bang;
-#X msg 251 274 set \$1 0 0 255 \, bang;
+#X msg 270 274 set \$1 0 0 255 \, bang;
 #X msg 59 317 clear;
 #X obj 50 345 hw.rpi.spi.ws2812 @size 16;
 #X obj 50 389 ui.link @title 'Connection_Scheme' @url
