@@ -37,6 +37,7 @@ impl I2cAddress {
         match addr {
             HW_I2C_DEFAULT_ADDR => I2cAddress::Default,
             HW_I2C_ALT_ADDR => I2cAddress::Alt,
+            HW_I2C_AUTO_ADDR => I2cAddress::Auto,
             addr if addr > 0x7 && addr < 0x78 => I2cAddress::Addr(addr as u8),
             _ => I2cAddress::Invalid(addr),
         }
