@@ -80,7 +80,7 @@ fn encode_str(str: &CString) -> Vec<char> {
                 Some(ch) => res.push(ch),
                 None => match to_greek(ch) {
                     Some(ch) => res.push(ch),
-                    None => warn!("character is not supported: {ch}"),
+                    None => warn!("character is not supported: '{ch}'"),
                 },
             },
         }
