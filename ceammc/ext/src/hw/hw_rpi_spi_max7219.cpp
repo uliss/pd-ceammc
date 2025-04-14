@@ -253,7 +253,7 @@ void HwSpiMax7219::m_write(t_symbol* s, const AtomListView& lv)
 
 void setup_hw_rpi_spi_max7219()
 {
-    ObjectFactory<HwSpiMax7219> obj("hw.spi.max7219");
+    ObjectFactory<HwSpiMax7219> obj("hw.rpi.spi.max7219");
     obj.addMethod("intensity", &HwSpiMax7219::m_intensity);
     obj.addMethod("power", &HwSpiMax7219::m_power);
     obj.addMethod("write", &HwSpiMax7219::m_write);
