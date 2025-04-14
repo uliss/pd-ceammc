@@ -13,6 +13,9 @@
             <keywords>display neopixel rpi ws2812 led</keywords>
             <since>0.9.8</since>
         </meta>
+        <info>
+            <par>Note: you should call [flush( almost after all pixel/color operations</par>
+        </info>
         <methods>
             <method name="clear">turn off all pixels</method>
             <method name="set">set single pixel color 
@@ -29,7 +32,7 @@
             <param name="LENGTH" type="int" minvalue="0">range length</param>
             </method>
             <method name="flush">flush all pixels to the strip</method>
-            <method name="brightness">set led strip brightness
+            <method name="brightness">set pixel brightness
             <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">brightness level</param>
             </method>
             <method name="fill">fill all pixels with the RGB color 
