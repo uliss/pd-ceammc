@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="hw.spi.max7219">
-        <title>hw.spi.max7219</title>
+    <object name="hw.rpi.spi.max7219">
+        <title>hw.rpi.spi.max7219</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>

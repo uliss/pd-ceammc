@@ -335,9 +335,9 @@ set(DOC_FILES
     hw.rpi.sensor.mpu6050
     hw.rpi.sensor.sr04
     hw.rpi.sensor.vl53l0x
+    hw.rpi.spi.max7219
     hw.rpi.spi.ws2812
     hw.serial
-    hw.spi.max7219
     is_any
     is_bang
     is_data
