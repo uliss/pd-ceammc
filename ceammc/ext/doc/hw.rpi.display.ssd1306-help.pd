@@ -48,9 +48,9 @@ i2c \, spi. Type: symbol.;
 #X obj 735 679 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 711 @i2c_addr;
-#X text 245 711 (initonly) Get/Set I2C address. The value -1 means
-default device I2C address (0x3C). Type: int. Default value: -1\. Range:
--2\...119\.;
+#X text 245 711 (initonly) Get/Set I²C address. Also 'default' value
+is accepted (for addr 0x3c) and 'alt' (for addr 0x3d). Type: int. Default
+value: -1\. Range: -4\...119\.;
 #X msg 110 768 @i2c_bus;
 #X text 245 768 (initonly) Get/Set I²C bus. Type: atom. Default value:
 none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;

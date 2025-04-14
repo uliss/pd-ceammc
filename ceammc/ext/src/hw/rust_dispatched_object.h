@@ -12,7 +12,7 @@ namespace ceammc {
 
 class I2cBusProperty : public EnumProperty<Atom> {
 public:
-    I2cBusProperty(const char* name)
+    explicit I2cBusProperty(const char* name)
         : EnumProperty<Atom>(name, { Atom(gensym("none")), 1, 2, 3, 4, 5, 6, gensym("default") })
     {
     }
@@ -30,6 +30,36 @@ public:
         } else {
             bus = value().asT<t_int>();
             return true;
+        }
+    }
+};
+
+class I2cAddrProperty : public IntProperty {
+public:
+    explicit I2cAddrProperty(const char* name, t_int def = ceammc_HW_I2C_NO_ADDR)
+        : IntProperty(name, def)
+    {
+        checkClosedRange(ceammc_HW_I2C_MIN_ADDR, ceammc_HW_I2C_MAX_ADDR);
+    }
+
+    bool setList(const AtomListView& lv) final
+    {
+        if (!emptyCheck(lv))
+            return false;
+
+        if (lv.isInteger())
+            return setInt(lv.asInt());
+        else if (lv == gensym("default"))
+            return setInt(ceammc_HW_I2C_DEFAULT_ADDR);
+        else if (lv == gensym("alt"))
+            return setInt(ceammc_HW_I2C_ALT_ADDR);
+        else if (lv == gensym("auto"))
+            return setInt(ceammc_HW_I2C_AUTO_ADDR);
+        else if (lv == gensym("none"))
+            return setInt(ceammc_HW_I2C_NO_ADDR);
+        else {
+            LIB_ERR << '[' << name()->s_name << "] invalid property value: " << lv;
+            return false;
         }
     }
 };
@@ -99,11 +129,10 @@ protected:
         return prop;
     }
 
-    IntProperty* addI2cAddrProperty()
+    I2cAddrProperty* addI2cAddrProperty()
     {
-        auto prop = new IntProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
+        auto prop = new I2cAddrProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
         prop->setInitOnly();
-        prop->checkClosedRange(ceammc_HW_I2C_MIN_ADDR, ceammc_HW_I2C_MAX_ADDR);
         this->addProperty(prop);
         return prop;
     }

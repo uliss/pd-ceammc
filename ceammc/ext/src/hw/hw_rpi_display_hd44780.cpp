@@ -54,6 +54,26 @@ void HwRpiDisplayHd44780::m_clear(t_symbol* s, const AtomListView& lv)
     ceammc_hw_hd44780_clear(lcd_);
 }
 
+void HwRpiDisplayHd44780::m_clear_line(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("LINE:i[0,3]");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
+    auto line = lv.intAt(0, 0);
+
+    if (line >= rows_->value()) {
+        METHOD_ERR(s) << fmt::format("line number expected to be <{}, got: {}", rows_->value(), line);
+        return;
+    }
+
+    constexpr const char* SPACES_20 = "                    ";
+
+    ceammc_hw_lcd1602_cursor_pos(lcd_, line, 0);
+    ceammc_hw_lcd1602_write_text(lcd_, SPACES_20);
+    ceammc_hw_lcd1602_cursor_pos(lcd_, line, 0);
+}
+
 void HwRpiDisplayHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("STATE:B");
@@ -156,6 +176,7 @@ void setup_hw_rpi_display_hd44780()
     obj.addAlias(sym_lcd2004_alias()->s_name);
 
     obj.addMethod("clear", &HwRpiDisplayHd44780::m_clear);
+    obj.addMethod("clear_line", &HwRpiDisplayHd44780::m_clear_line);
     obj.addMethod("backlight", &HwRpiDisplayHd44780::m_backlight);
     obj.addMethod("write", &HwRpiDisplayHd44780::m_write);
     obj.addMethod("char", &HwRpiDisplayHd44780::m_char);
