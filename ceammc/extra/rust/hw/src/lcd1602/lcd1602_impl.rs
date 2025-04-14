@@ -1,6 +1,6 @@
 use std::ffi::CString;
 
-use log::{debug, error};
+use log::{debug, error, warn};
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
@@ -8,6 +8,84 @@ use crate::{
     lcd1602::Reply,
     send_debug, send_error,
 };
+
+fn to_greek(ch: char) -> Option<char> {
+    match ch {
+        '\u{03B1}' => Some('\u{E0}'),
+        '\u{03B2}' => Some('\u{E2}'),
+        '\u{03B5}' => Some('\u{E3}'),
+        '\u{03BC}' => Some('\u{E4}'),
+        '\u{03C3}' => Some('\u{E5}'),
+        '\u{03C1}' => Some('\u{E6}'),
+        '\u{03F3}' => Some('\u{EA}'),
+        '\u{03B8}' => Some('\u{F2}'),
+        '\u{03A9}' => Some('\u{F4}'),
+        '\u{03A3}' => Some('\u{F6}'),
+        '\u{03C0}' => Some('\u{F7}'),
+        _ => None,
+    }
+}
+
+fn to_ascii(ch: char) -> Option<char> {
+    match ch {
+        '0'..='9'
+        | 'a'..='z'
+        | 'A'..='Z'
+        | '!'
+        | '"'
+        | '#'
+        | '$'
+        | '%'
+        | '&'
+        | '\''
+        | '('
+        | ')'
+        | '*'
+        | '+'
+        | ','
+        | '-'
+        | '.'
+        | '/'
+        | ':'
+        | ';'
+        | '<'
+        | '='
+        | '>'
+        | '?'
+        | '@'
+        | '['
+        | ']'
+        | '^'
+        | '_'
+        | '`'
+        | '{'
+        | '|'
+        | '}' => Some(ch),
+        _ => None,
+    }
+}
+
+fn encode_str(str: &CString) -> Vec<char> {
+    let str = str.to_string_lossy().to_string();
+    let mut res = vec![];
+    for ch in str.chars() {
+        match ch {
+            '¥' => res.push('\u{5C}'),
+            '→' | '￫' => res.push('\u{7E}'),
+            '←' | '￩' => res.push('\u{7F}'),
+            'ä' => res.push('\u{E1}'),
+            '\u{221E}' => res.push('\u{F3}'),
+            _ => match to_ascii(ch).or_else(|| to_greek(ch)) {
+                Some(ch) => res.push(ch),
+                None => match to_greek(ch) {
+                    Some(ch) => res.push(ch),
+                    None => warn!("character is not supported: {ch}"),
+                },
+            },
+        }
+    }
+    res
+}
 
 use super::{hw_hd44780, Hd44780Worker, Request};
 
@@ -64,7 +142,8 @@ impl hw_hd44780 {
 
                 match &req {
                     Request::WriteText(msg) => {
-                        lcd.write_str(msg.to_string_lossy().as_ref()).unwrap_or_else(|e| {
+                        let bytes: String = encode_str(msg).into_iter().collect();
+                        lcd.write_str(bytes.as_ref()).unwrap_or_else(|e| {
                             send_error(&tx, notify, e.to_string().as_str());
                         });
                     }
