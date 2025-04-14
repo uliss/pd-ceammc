@@ -104,16 +104,15 @@ impl hw_hd44780 {
             let mut i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("I2C init");
 
-            let addr = match i2c_addr {
-                I2cAddress::Default => 0x27,
-                I2cAddress::Alt => 0x3f,
+            let addrs: Vec<u8> = match i2c_addr {
+                I2cAddress::Default => vec![0x27],
+                I2cAddress::Alt => vec![0x3f],
+                I2cAddress::Auto => vec![0x27, 0x37],
+                I2cAddress::Addr(addr) => vec![addr],
                 I2cAddress::Invalid(x) => return Err(format!("invalid i2c address: {x}")),
-                I2cAddress::Addr(addr) => addr,
             };
 
             let bus = i2c.bus();
-            debug!("try LCD init with: bus={bus}, addr=0x{addr:02x}");
-
             let rows = match rows {
                 2 => 2,
                 4 => 4,
@@ -121,19 +120,35 @@ impl hw_hd44780 {
             };
 
             let mut delay = rppal::hal::Delay::new();
-            let mut lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
-                .with_address(addr)
-                .with_rows(rows)
-                .with_cursor_on(false)
-                .with_cursor_blink(false)
-                .init()
-                .map_err(|err| format!("LCD init error: {err}"))?;
+            let mut lcd = None;
 
-            send_debug(
-                &tx,
-                notify,
-                format!("connected to display: bus={bus} addr=0x{addr:02x} rows={rows}").as_str(),
-            );
+            for addr in &addrs {
+                debug!("try LCD init with: bus={bus}, addr=0x{addr:02x}");
+
+                lcd = lcd_lcm1602_i2c::sync_lcd::Lcd::new(&mut i2c, &mut delay)
+                    .with_address(*addr)
+                    .with_rows(rows)
+                    .with_cursor_on(false)
+                    .with_cursor_blink(false)
+                    .init()
+                    .ok();
+
+                if lcd.is_some() {
+                    send_debug(
+                        &tx,
+                        notify,
+                        format!("connected to display: bus={bus} addr=0x{addr:02x} rows={rows}").as_str(),
+                    );
+                    break;
+                }
+            }
+
+            if lcd.is_none() {
+                let addr_lst = addrs.iter().map(|x| format!("0x{x:02}")).collect::<Vec<_>>().join(" ");
+                return Err(format!("can't connect to addresses: [{addr_lst}]"));
+            }
+
+            let mut lcd = lcd.unwrap();
 
             while let Ok(req) = rx.recv() {
                 debug!("{:?}", &req);

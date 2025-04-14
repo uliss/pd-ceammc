@@ -27,6 +27,7 @@ pub const HW_I2C_MAX_ADDR: i8 = 0x77;
 pub enum I2cAddress {
     Default,
     Alt,
+    Auto,
     Invalid(i8),
     Addr(u8),
 }

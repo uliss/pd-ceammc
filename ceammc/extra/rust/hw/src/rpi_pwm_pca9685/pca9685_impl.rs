@@ -51,8 +51,7 @@ impl Into<ProgrammableAddress> for crate::rpi_pwm_pca9685::hw_pca8695_prog_addre
 }
 
 fn phase_to_raw_pwm_wrapped(x: f32) -> u16 {
-    (((((x * PWM_MAX as f32).round() as i64) % PWM_MAX as i64) + PWM_MAX as i64) % PWM_MAX as i64)
-        as u16
+    (((((x * PWM_MAX as f32).round() as i64) % PWM_MAX as i64) + PWM_MAX as i64) % PWM_MAX as i64) as u16
 }
 
 fn phase_to_raw_pwm_clipped(x: f32) -> u16 {
@@ -78,9 +77,7 @@ impl FreqData {
     }
 
     fn prescale(&self) -> u8 {
-        (HW_PCA9685_OSC_VALUE as f32 / self.freq)
-            .round()
-            .clamp(0.0, 255.0) as u8
+        (HW_PCA9685_OSC_VALUE as f32 / self.freq).round().clamp(0.0, 255.0) as u8
     }
 
     fn calc_width(&self, width_ms: f32) -> u16 {
@@ -94,12 +91,7 @@ impl FreqData {
 }
 
 impl hw_pca9685 {
-    pub fn new(
-        i2c_bus: i8,
-        i2c_addr: I2cAddress,
-        notify: hw_notify_cb,
-        on_msg: hw_msg_cb,
-    ) -> Result<Self, CString> {
+    pub fn new(i2c_bus: i8, i2c_addr: I2cAddress, notify: hw_notify_cb, on_msg: hw_msg_cb) -> Result<Self, CString> {
         let (worker, rx, tx) = Pca9685Worker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
@@ -108,6 +100,7 @@ impl hw_pca9685 {
 
             let address = match i2c_addr {
                 I2cAddress::Default => Address::default(),
+                I2cAddress::Auto => Address::default(),
                 I2cAddress::Alt => return Err(format!("no alternative address")),
                 I2cAddress::Invalid(x) => return Err(format!("invalid I2c address: {x}")),
                 I2cAddress::Addr(addr) => Address::from(addr),
@@ -123,25 +116,21 @@ impl hw_pca9685 {
             let mut pwm = Pca9685::new(i2c, address).map_err(|err| err.to_string())?;
             let mut pwm_freq = FreqData::new(50.0);
 
-            pwm.set_prescale(pwm_freq.prescale())
-                .map_err(|err| err.to_string())?;
+            pwm.set_prescale(pwm_freq.prescale()).map_err(|err| err.to_string())?;
 
             while let Ok(req) = rx.recv() {
                 debug!("{req:?}");
 
                 match req {
                     Request::Enable(state) => {
-                        let _ = if state { pwm.enable() } else { pwm.disable() }.unwrap_or_else(
-                            |err| {
-                                send_error(&tx, notify, err.to_string().as_str());
-                            },
-                        );
+                        let _ = if state { pwm.enable() } else { pwm.disable() }.unwrap_or_else(|err| {
+                            send_error(&tx, notify, err.to_string().as_str());
+                        });
                     }
                     Request::SetChanOnOff(chan, on, off) => {
-                        pwm.set_channel_on_off(to_channel(chan), on, off)
-                            .unwrap_or_else(|err| {
-                                send_error(&tx, notify, err.to_string().as_str());
-                            });
+                        pwm.set_channel_on_off(to_channel(chan), on, off).unwrap_or_else(|err| {
+                            send_error(&tx, notify, err.to_string().as_str());
+                        });
                     }
                     Request::SetFreq(freq_hz) => {
                         pwm_freq.set_freq(freq_hz);
@@ -151,12 +140,8 @@ impl hw_pca9685 {
                     }
                     Request::SetPolarity(polarity) => {
                         pwm.set_output_logic_state(match polarity {
-                            crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => {
-                                pwm_pca9685::OutputLogicState::Direct
-                            }
-                            crate::rpi_pwm::hw_rpi_pwm_polarity::INVERSE => {
-                                pwm_pca9685::OutputLogicState::Inverted
-                            }
+                            crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => pwm_pca9685::OutputLogicState::Direct,
+                            crate::rpi_pwm::hw_rpi_pwm_polarity::INVERSE => pwm_pca9685::OutputLogicState::Inverted,
                         })
                         .unwrap_or_else(|err| {
                             send_error(&tx, notify, err.to_string().as_str());
@@ -232,16 +217,14 @@ impl hw_pca9685 {
                             });
                     }
                     Request::DisableProgAddress(addr) => {
-                        pwm.disable_programmable_address(addr.into())
-                            .unwrap_or_else(|err| {
-                                send_error(&tx, notify, err.to_string().as_str());
-                            });
+                        pwm.disable_programmable_address(addr.into()).unwrap_or_else(|err| {
+                            send_error(&tx, notify, err.to_string().as_str());
+                        });
                     }
                     Request::Restart => {
-                        pwm.restart(&mut rppal::hal::Delay::new())
-                            .unwrap_or_else(|err| {
-                                send_error(&tx, notify, err.to_string().as_str());
-                            });
+                        pwm.restart(&mut rppal::hal::Delay::new()).unwrap_or_else(|err| {
+                            send_error(&tx, notify, err.to_string().as_str());
+                        });
                     }
                     Request::EnableRestartAndDisable => {
                         pwm.enable_restart_and_disable().unwrap_or_else(|err| {
@@ -283,9 +266,7 @@ impl hw_pca9685 {
 
 #[cfg(test)]
 mod tests {
-    use crate::rpi_pwm_pca9685::pca9685_impl::{
-        phase_to_raw_pwm_clipped, phase_to_raw_pwm_wrapped,
-    };
+    use crate::rpi_pwm_pca9685::pca9685_impl::{phase_to_raw_pwm_clipped, phase_to_raw_pwm_wrapped};
 
     use super::FreqData;
 
