@@ -94,7 +94,7 @@
 |
 [msg.after 0 bang #a]  [F]
                        |
- [brightness 8 #e(     [set $1 0 0 255, bang #f(
+ [brightness #e(     [set $1 0 0 255, bang #f(
 
 
  [clear(
@@ -104,6 +104,7 @@
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
+#e 8, bang
 ]]>
             </pdascii>
         </example>

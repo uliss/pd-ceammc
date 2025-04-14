@@ -14,8 +14,8 @@
 #X msg 270 176 fx rainbow 0.5 \, bang;
 #X obj 50 205 msg.after 0 bang;
 #X floatatom 270 205 5 0 0 0 - - -;
-#X msg 59 234 brightness 8;
-#X msg 270 234 set \$1 0 0 255 \, bang;
+#X msg 59 234 brightness 8 \, bang;
+#X msg 251 234 set \$1 0 0 255 \, bang;
 #X msg 59 277 clear;
 #X obj 50 305 hw.rpi.spi.ws2812 @size 16;
 #X obj 50 349 ui.link @title 'Connection_Scheme' @url
