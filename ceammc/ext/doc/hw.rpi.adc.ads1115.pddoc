@@ -18,7 +18,7 @@
         </arguments>
         <methods>
             <method name="measure">single measure request
-            <param name="CHAN" type="int" minvalue="0" maxvalue="3">channel to measure. If ommited: perform measure on all channels</param>
+            <param name="CHAN" type="int" minvalue="0" maxvalue="3">the channel to measure. If ommited: perform measure on all channels</param>
             </method>
             <method name="poll">set polling turn on/off
             <param name="STATE" type="bool" required="true">poll state</param>
@@ -33,7 +33,7 @@
             maxvalue="119">I²C address. Also 'default' value is accepted (for addr ???) and 'alt'
             (for addr ???)</property>
             <property name="@in_max" type="float" minvalue="0.0" maxvalue="6144.0" default="5000.0"
-            access="readwrite">input maxomum value in millivolts</property>
+            access="readwrite">input maximum value in millivolts</property>
             <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0"
             access="readwrite">input minimal value in millivolts</property>
             <property name="@mode" type="symbol" default="single" enum="diff single"
@@ -59,11 +59,31 @@
         <example>
             <pdascii>
 <![CDATA[
+[T]
+|
+[poll $1(
+|
+| [measure 0(
+| |
+| |
+[hw.rpi.adc.ads1115 @i2c_bus default @i2c_addr default @mode single #x]
+|
+[route ch]
+|
+[route 0 1 2 3 #a]
+|
+[ui.dt]
 
-[hw.rpi.adc.ads1115 #x]
+     [ui.dt #b]
+
+          [ui.dt #c]
+
+
+               [ui.dt #d]
 
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
+[X a:1->b] [X a:2->c] [X a:3->d]
 ]]>
             </pdascii>
         </example>
