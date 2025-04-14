@@ -10,10 +10,7 @@ use pwm_pca9685::nb::block;
 use crate::{
     ads1115::{
         Reply, Request, HW_ADC_ADS1115_MAX_POLL_TIME_MSEC, HW_ADC_ADS1115_MIN_POLL_TIME_MSEC,
-    },
-    hw_msg_cb, hw_notify_cb,
-    i2c::{i2c_impl::create_i2c_bus, I2cAddress},
-    send_error, send_reply,
+    }, hw_msg_cb, hw_notify_cb, i2c::{i2c_impl::create_i2c_bus, I2cAddress}, send_debug, send_error, send_reply
 };
 
 use super::{
@@ -55,12 +52,14 @@ impl hw_i2c_ads1115 {
                 I2cAddress::Alt | I2cAddress::Addr(0x49) => TargetAddr::Vdd,
                 I2cAddress::Addr(0x4A) => TargetAddr::Sda,
                 I2cAddress::Addr(0x4B) => TargetAddr::Scl,
+                I2cAddress::Auto => TargetAddr::default(),
                 _ => return Err(format!("invalid i2c address: {i2c_addr:?}")),
             };
 
-            debug!("using I2C address {i2c_addr:?}");
-
+            let i2c_bus = i2c.bus();
             let mut adc = Ads1x1x::new_ads1115(i2c, addr);
+
+            send_debug(&tx, notify, format!("connected to ADS1115 with bus={i2c_bus}, addr={i2c_addr:?}").as_str());
 
             let mut poll_mode = false;
             let mut poll_time =
