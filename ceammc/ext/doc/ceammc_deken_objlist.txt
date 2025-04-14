@@ -608,6 +608,7 @@ hw.gamepad	gamepad controller
 hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
 hw.printer	Basic printing support
+hw.rpi.adc.ads1115	ASD1115 ADC driver for Raspberry Pi
 hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module)
 hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module)
 hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module)

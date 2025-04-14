@@ -324,6 +324,7 @@ set(DOC_FILES
     hw.kbd_light
     hw.motu.avb
     hw.printer
+    hw.rpi.adc.ads1115
     hw.rpi.display.hd44780
     hw.rpi.display.ssd1306
     hw.rpi.gpio
