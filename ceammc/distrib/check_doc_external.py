@@ -103,9 +103,31 @@ def print_arg_template(arg):
     if "property" in arg:
         name = f'See {arg["property"]}'
 
-
     str = str.strip()
     cprint(f'<{str}>{name}</argument>', 'white')
+
+
+def print_prop_template(arg):
+    str = "property "
+    name = ""
+
+    if "name" in arg:
+        str += f'name="{arg["name"]}" '
+    if "type" in arg:
+        str += f'type="{arg["type"]}" '
+    if "min" in arg:
+        str += f'minvalue="{arg["min"]}" '
+    if "max" in arg:
+        str += f'maxvalue="{arg["max"]}" '
+    if "default" in arg:
+        str += f'default="{arg["default"]}" '
+    if "units" in arg:
+        str += f'units="{arg["units"]}" '
+    if "access" in arg:
+        str += f'access="{arg["access"]}" '
+
+    str = str.strip()
+    cprint(f'<{str}>{name}</property>', 'white')
 
 
 # methods starting with @ - properties in UI objects
@@ -573,7 +595,8 @@ def check_props(name, doc, ext):
         cprint(f"[{ext_name}] undocumented properties: {undoc_props}", 'magenta')
         cprint('<properties>', 'white')
         for p in undoc_props:
-            cprint(f'<property name="{p}" type="" default=""></property>', 'white')
+            print_prop_template(ext.get(p))
+            # cprint(f'<property name="{p}" type="" default=""></property>', 'white')
 
         cprint('</properties>', 'white')
 
