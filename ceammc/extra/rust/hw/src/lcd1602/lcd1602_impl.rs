@@ -31,6 +31,7 @@ fn to_ascii(ch: char) -> Option<char> {
         '0'..='9'
         | 'a'..='z'
         | 'A'..='Z'
+        | ' '
         | '!'
         | '"'
         | '#'
@@ -79,7 +80,7 @@ fn encode_str(str: &CString) -> Vec<char> {
                 Some(ch) => res.push(ch),
                 None => match to_greek(ch) {
                     Some(ch) => res.push(ch),
-                    None => warn!("character is not supported: {ch}"),
+                    None => warn!("character is not supported: '{ch}'"),
                 },
             },
         }
@@ -107,7 +108,7 @@ impl hw_hd44780 {
             let addrs: Vec<u8> = match i2c_addr {
                 I2cAddress::Default => vec![0x27],
                 I2cAddress::Alt => vec![0x3f],
-                I2cAddress::Auto => vec![0x27, 0x37],
+                I2cAddress::Auto => vec![0x27, 0x3f],
                 I2cAddress::Addr(addr) => vec![addr],
                 I2cAddress::Invalid(x) => return Err(format!("invalid i2c address: {x}")),
             };
@@ -144,7 +145,7 @@ impl hw_hd44780 {
             }
 
             if lcd.is_none() {
-                let addr_lst = addrs.iter().map(|x| format!("0x{x:02}")).collect::<Vec<_>>().join(" ");
+                let addr_lst = addrs.iter().map(|x| format!("0x{x:02x}")).collect::<Vec<_>>().join(" ");
                 return Err(format!("can't connect to addresses: [{addr_lst}]"));
             }
 
