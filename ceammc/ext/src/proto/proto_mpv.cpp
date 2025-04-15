@@ -18,7 +18,6 @@
 #include "datatype_dict.h"
 
 #include <cstdio>
-#include <stdexcept>
 
 ProtoMpv::ProtoMpv(const PdArgs& args)
     : BaseObject(args)
