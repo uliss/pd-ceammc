@@ -84,12 +84,21 @@
 |
 [route 0 1 2 3 {w=30} #a]
 |
-[F]  [F #b] [F #c] [F #d]
+[ui.hsl #a1]
 
+    [ui.hsl #b]
+
+        [ui.hsl #c]
+
+            [ui.hsl #d]
 
 [ui.link @url=ceammc://img/conn_ads1115.png @title='Connection_Scheme']
 [X a:1->b] [X a:2->c] [X a:3->d]
 #x @i2c_bus default @i2c_addr default @mode single @fsr 4096mv @norm 1 @in_min 0 @in_max 3300 @out_min 0 @out_max 1
+#a1 @show_value 1
+#b @show_value 1
+#c @show_value 1
+#d @show_value 1
 ]]>
             </pdascii>
         </example>
