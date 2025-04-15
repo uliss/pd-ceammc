@@ -1,5 +1,9 @@
 # CEAMMC Pd distribution changelog
 
+## [2025.04]
+### Updated:
+- **CEAMMC** external library v0.9.8 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+
 ## [2023.01]
 ### Updated:
 - drag and drop plugin added for MacOS
