@@ -36,7 +36,7 @@ if(DPKG_FOUND AND NOT WIN32)
         endif()
 
         message(STATUS "Deb package revision: ${_DEB_PACKAGE_REVISION}")
-        set(DEB_PACKAGE_REVISION "-${_DEB_PACKAGE_REVISION}")
+        set(DEB_PACKAGE_REVISION ".r${_DEB_PACKAGE_REVISION}")
     endif()
 
     set(DESKTOP_SRC_FILE "pd-ceammc.desktop")
