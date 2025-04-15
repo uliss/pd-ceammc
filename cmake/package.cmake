@@ -24,21 +24,6 @@ find_program(XDG-DESKTOP-MENU_EXECUTABLE xdg-desktop-menu)
 #Debian package
 include(DpkgBuild)
 if(DPKG_FOUND AND NOT WIN32)
-    set(DEB_PACKAGE_REVISION "")
-    if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-        find_program(_GIT git)
-        if(_GIT)
-            execute_process(
-                COMMAND ${_GIT} describe --tags | cut -d- -f2
-                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-                OUTPUT_VARIABLE _DEB_PACKAGE_REVISION
-                OUTPUT_STRIP_TRAILING_WHITESPACE)
-        endif()
-
-        message(STATUS "Deb package revision: ${_DEB_PACKAGE_REVISION}")
-        set(DEB_PACKAGE_REVISION ".r${_DEB_PACKAGE_REVISION}")
-    endif()
-
     set(DESKTOP_SRC_FILE "pd-ceammc.desktop")
     set(DESKTOP_DEST_FILE "${CMAKE_CURRENT_BINARY_DIR}/space.ceam.pd.desktop")
     set(MIME_FILE    "pd-ceammc.xml")
@@ -62,10 +47,10 @@ if(DPKG_FOUND AND NOT WIN32)
     install(FILES ${DESKTOP_DEST_FILE} DESTINATION ${PD_DESKTOP_DIR})
 
     set(CPACK_GENERATOR "DEB")
-    set(CPACK_PACKAGE_VERSION "${CEAMMC_DISTRIB_VERSION}${DEB_PACKAGE_REVISION}-${PD_TEXT_VERSION_SHORT}")
-    set(CPACK_PACKAGE_FILE_NAME "pd-ceammc-${CPACK_PACKAGE_VERSION}_${LSB_CODENAME}_${LSB_PROCESSOR_ARCH}")
+    set(CPACK_PACKAGE_VERSION "${CEAMMC_DISTRIB_VERSION}${LINUX_DEBIAN_PACKAGE_REVISION}-${PD_TEXT_VERSION_SHORT}")
+    set(CPACK_PACKAGE_FILE_NAME ${LINUX_DEBIAN_PACKAGE_FILE_NAME})
     set(CPACK_DEBIAN_PACKAGE_NAME "pd-ceammc")
-    set(CPACK_DEBIAN_PACKAGE_VERSION "${CEAMMC_DISTRIB_VERSION}${DEB_PACKAGE_REVISION}")
+    set(CPACK_DEBIAN_PACKAGE_VERSION "${CEAMMC_DISTRIB_VERSION}${LINUX_DEBIAN_PACKAGE_REVISION}")
     #set(CPACK_DEBIAN_PACKAGE_DEPENDS "tk, tcl, tcllib, tklib, xdg-utils")
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Serge Poltavski <serge.poltavski@gmail.com>")
     set(CPACK_DEBIAN_PACKAGE_SECTION "sound")
