@@ -17,7 +17,6 @@
 #include "ceammc_log.h"
 #include "ceammc_output.h"
 
-#include <cassert>
 #include <cstring>
 
 namespace ceammc {
