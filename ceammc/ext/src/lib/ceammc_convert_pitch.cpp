@@ -22,7 +22,7 @@ private:
     uint8_t note_;
     int8_t alt_;
     uint8_t oct_;
-    char err_[64];
+    char err_[64] = { 0 };
     static const int defOct = 4;
 
 public:
@@ -145,13 +145,11 @@ public:
     }
 };
 
-static SPN spn;
-
 int ceammc::convert::spn2midi(const char* p)
 {
     const char* pch = p;
-    spn.reset();
     int guard = 0;
+    SPN spn;
 
     while (true) {
         switch (spn.put(*pch)) {
