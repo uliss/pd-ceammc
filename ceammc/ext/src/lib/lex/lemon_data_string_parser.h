@@ -4,7 +4,6 @@
 #include <boost/pool/object_pool.hpp>
 #include <cstddef>
 
-#include "ceammc_atomlist.h"
 #include "ceammc_containers.h"
 #include "ragel_common.h"
 
@@ -33,7 +32,7 @@ namespace parser {
         /**
          * Returns error string if it occured while parsing
          */
-        const std::string errorString() const { return error_; }
+        const std::string& errorString() const { return error_; }
 
         /**
          * Return parsing result
@@ -71,7 +70,7 @@ namespace parser {
         std::string error_;
     };
 
-}
-}
+} // namespace parser
+} // namespace ceammc
 
 #endif // LEMON_DATA_STRING_PARSER_H

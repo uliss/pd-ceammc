@@ -1,16 +1,19 @@
 
 #line 1 "lex/lemon_data_string_parser.rl"
 # include "lemon_data_string_parser.h"
-# include "ceammc_log.h"
 # include "lemon_data_string.h"
 # include "parser_numeric.h"
 # include "parser_color.h"
-# include "fmt/format.h"
+# include "fmt/core.h"
 # include "ceammc_datatypes.h"
 
 # include <cstdint>
 
 # include "lemon_data_parser_impl.h"
+
+# ifndef NDEBUG
+# include "ceammc_log.h"
+# endif
 
 namespace {
 
@@ -31,7 +34,7 @@ struct ColorRagelData {
 }
 
 
-#line 243 "lex/lemon_data_string_parser.rl"
+#line 246 "lex/lemon_data_string_parser.rl"
 
 
 # include <cstring>
@@ -40,7 +43,7 @@ namespace ceammc {
 namespace parser {
 
 
-#line 44 "lex/lemon_data_string_parser.cpp"
+#line 47 "lex/lemon_data_string_parser.cpp"
 static const int lemon_data_string_lexer_start = 36;
 static const int lemon_data_string_lexer_first_final = 36;
 static const int lemon_data_string_lexer_error = 0;
@@ -52,7 +55,7 @@ static const int lemon_data_string_lexer_en_scan_token = 107;
 static const int lemon_data_string_lexer_en_main = 36;
 
 
-#line 251 "lex/lemon_data_string_parser.rl"
+#line 254 "lex/lemon_data_string_parser.rl"
 
 LemonDataStringParser::LemonDataStringParser()
     : res_(nullptr)
@@ -147,7 +150,7 @@ bool LemonDataStringParser::parse(const char* data) noexcept
     try {
 
     
-#line 151 "lex/lemon_data_string_parser.cpp"
+#line 154 "lex/lemon_data_string_parser.cpp"
 	{
 	cs = lemon_data_string_lexer_start;
 	top = 0;
@@ -156,9 +159,9 @@ bool LemonDataStringParser::parse(const char* data) noexcept
 	act = 0;
 	}
 
-#line 345 "lex/lemon_data_string_parser.rl"
+#line 348 "lex/lemon_data_string_parser.rl"
     
-#line 162 "lex/lemon_data_string_parser.cpp"
+#line 165 "lex/lemon_data_string_parser.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -334,7 +337,7 @@ _resume:
 	switch ( cs )
 	{
 tr47:
-#line 242 "lex/lemon_data_string_parser.rl"
+#line 245 "lex/lemon_data_string_parser.rl"
 	{ p--; {stack[top++] = 36;goto st107;} }
 	goto st36;
 st36:
@@ -343,14 +346,14 @@ st36:
 	if ( ++p == pe )
 		goto _test_eof36;
 case 36:
-#line 347 "lex/lemon_data_string_parser.cpp"
+#line 350 "lex/lemon_data_string_parser.cpp"
 	goto tr47;
 tr0:
-#line 166 "lex/lemon_data_string_parser.rl"
+#line 169 "lex/lemon_data_string_parser.rl"
 	{{p = ((te))-1;}{ ragel_string += (*p);  }}
 	goto st37;
 tr1:
-#line 81 "lex/lemon_data_string_parser.rl"
+#line 84 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{
         constexpr int BS = sizeof(parser_buf_) - 1;
         const auto N = std::min<int>(BS, (te - ts) - 2);
@@ -378,31 +381,31 @@ tr1:
     }}
 	goto st37;
 tr17:
-#line 167 "lex/lemon_data_string_parser.rl"
+#line 170 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ ragel_string += '"'; }}
 	goto st37;
 tr19:
-#line 169 "lex/lemon_data_string_parser.rl"
+#line 172 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ ragel_string += '{'; }}
 	goto st37;
 tr20:
-#line 170 "lex/lemon_data_string_parser.rl"
+#line 173 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ ragel_string += '}'; }}
 	goto st37;
 tr21:
-#line 168 "lex/lemon_data_string_parser.rl"
+#line 171 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ ragel_string += '`'; }}
 	goto st37;
 tr48:
-#line 166 "lex/lemon_data_string_parser.rl"
+#line 169 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ ragel_string += (*p);  }}
 	goto st37;
 tr49:
-#line 163 "lex/lemon_data_string_parser.rl"
+#line 166 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); {cs = stack[--top];goto _again;} }}
 	goto st37;
 tr52:
-#line 166 "lex/lemon_data_string_parser.rl"
+#line 169 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ ragel_string += (*p);  }}
 	goto st37;
 st37:
@@ -413,7 +416,7 @@ st37:
 case 37:
 #line 1 "NONE"
 	{ts = p;}
-#line 417 "lex/lemon_data_string_parser.cpp"
+#line 420 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 34: goto tr49;
 		case 37: goto tr50;
@@ -428,7 +431,7 @@ st38:
 	if ( ++p == pe )
 		goto _test_eof38;
 case 38:
-#line 432 "lex/lemon_data_string_parser.cpp"
+#line 435 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) == 95 )
 		goto st1;
 	if ( (*p) > 57 ) {
@@ -669,7 +672,7 @@ st0:
 cs = 0;
 	goto _out;
 tr24:
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{{p = ((te))-1;}{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -678,19 +681,19 @@ tr24:
     }}
 	goto st39;
 tr56:
-#line 44 "lex/lemon_data_string_parser.rl"
+#line 47 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushToken(TK_LIST_CLOSE); }}
 	goto st39;
 tr60:
-#line 187 "lex/lemon_data_string_parser.rl"
+#line 190 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushToken(TK_MATRIX_CLOSE); {cs = stack[--top];goto _again;} }}
 	goto st39;
 tr61:
-#line 186 "lex/lemon_data_string_parser.rl"
+#line 189 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_SPACE); }}
 	goto st39;
 tr62:
-#line 43 "lex/lemon_data_string_parser.rl"
+#line 46 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_LIST_OPEN); }}
 	goto st39;
 tr63:
@@ -700,7 +703,7 @@ tr63:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -716,7 +719,7 @@ tr66:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -731,7 +734,7 @@ tr67:
         ragel_type = TYPE_RATIO;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -745,7 +748,7 @@ tr70:
         ragel_type = TYPE_BIN;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -759,7 +762,7 @@ tr71:
         ragel_type = TYPE_HEX;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -775,7 +778,7 @@ st39:
 case 39:
 #line 1 "NONE"
 	{ts = p;}
-#line 779 "lex/lemon_data_string_parser.cpp"
+#line 782 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto st40;
 		case 40: goto st41;
@@ -813,7 +816,7 @@ case 41:
 		goto st41;
 	goto tr62;
 tr57:
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
@@ -822,7 +825,7 @@ st18:
 	if ( ++p == pe )
 		goto _test_eof18;
 case 18:
-#line 826 "lex/lemon_data_string_parser.cpp"
+#line 829 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) == 48 )
 		goto tr22;
 	if ( 49 <= (*p) && (*p) <= 57 )
@@ -840,7 +843,7 @@ st42:
 	if ( ++p == pe )
 		goto _test_eof42;
 case 42:
-#line 844 "lex/lemon_data_string_parser.cpp"
+#line 847 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 46: goto tr64;
 		case 47: goto st20;
@@ -863,7 +866,7 @@ st19:
 	if ( ++p == pe )
 		goto _test_eof19;
 case 19:
-#line 867 "lex/lemon_data_string_parser.cpp"
+#line 870 "lex/lemon_data_string_parser.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr25;
 	goto tr24;
@@ -878,7 +881,7 @@ st43:
 	if ( ++p == pe )
 		goto _test_eof43;
 case 43:
-#line 882 "lex/lemon_data_string_parser.cpp"
+#line 885 "lex/lemon_data_string_parser.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr25;
 	goto tr66;
@@ -899,7 +902,7 @@ st44:
 	if ( ++p == pe )
 		goto _test_eof44;
 case 44:
-#line 903 "lex/lemon_data_string_parser.cpp"
+#line 906 "lex/lemon_data_string_parser.cpp"
 	goto tr67;
 tr27:
 #line 43 "lex/ragel_numeric.rl"
@@ -909,7 +912,7 @@ st45:
 	if ( ++p == pe )
 		goto _test_eof45;
 case 45:
-#line 913 "lex/lemon_data_string_parser.cpp"
+#line 916 "lex/lemon_data_string_parser.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr27;
 	goto tr67;
@@ -924,7 +927,7 @@ tr23:
 tr59:
 #line 1 "NONE"
 	{te = p+1;}
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -935,7 +938,7 @@ st46:
 	if ( ++p == pe )
 		goto _test_eof46;
 case 46:
-#line 939 "lex/lemon_data_string_parser.cpp"
+#line 942 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 46: goto tr64;
 		case 47: goto st20;
@@ -946,7 +949,7 @@ case 46:
 tr58:
 #line 1 "NONE"
 	{te = p+1;}
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -957,7 +960,7 @@ st47:
 	if ( ++p == pe )
 		goto _test_eof47;
 case 47:
-#line 961 "lex/lemon_data_string_parser.cpp"
+#line 964 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 46: goto tr64;
 		case 47: goto st20;
@@ -980,7 +983,7 @@ st48:
 	if ( ++p == pe )
 		goto _test_eof48;
 case 48:
-#line 984 "lex/lemon_data_string_parser.cpp"
+#line 987 "lex/lemon_data_string_parser.cpp"
 	if ( 48 <= (*p) && (*p) <= 49 )
 		goto tr28;
 	goto tr70;
@@ -1005,7 +1008,7 @@ st49:
 	if ( ++p == pe )
 		goto _test_eof49;
 case 49:
-#line 1009 "lex/lemon_data_string_parser.cpp"
+#line 1012 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr29;
@@ -1016,7 +1019,7 @@ case 49:
 		goto tr29;
 	goto tr71;
 tr30:
-#line 213 "lex/lemon_data_string_parser.rl"
+#line 216 "lex/lemon_data_string_parser.rl"
 	{{p = ((te))-1;}{ pushToken(TK_SPACE); }}
 	goto st50;
 tr32:
@@ -1044,7 +1047,7 @@ tr32:
 	}
 	goto st50;
 tr37:
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{{p = ((te))-1;}{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -1058,11 +1061,11 @@ tr37:
     }}
 	goto st50;
 tr40:
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{{p = ((te))-1;}{ pushSymbolToken(TK_SYMBOL, ts, te); }}
 	goto st50;
 tr43:
-#line 175 "lex/lemon_data_string_parser.rl"
+#line 178 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{
         pushToken(TK_MATRIX);
         pushFloat(ragel_mtx_rows);
@@ -1071,23 +1074,23 @@ tr43:
     }}
 	goto st50;
 tr78:
-#line 44 "lex/lemon_data_string_parser.rl"
+#line 47 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushToken(TK_LIST_CLOSE); }}
 	goto st50;
 tr86:
-#line 217 "lex/lemon_data_string_parser.rl"
+#line 220 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushToken(TK_DICT_CLOSE); {cs = stack[--top];goto _again;} }}
 	goto st50;
 tr88:
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushSymbolToken(TK_SYMBOL, ts, te); }}
 	goto st50;
 tr98:
-#line 213 "lex/lemon_data_string_parser.rl"
+#line 216 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_SPACE); }}
 	goto st50;
 tr101:
-#line 72 "lex/lemon_data_string_parser.rl"
+#line 75 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         // skip starting whitespaces
         auto ts0 = ts;
@@ -1099,7 +1102,7 @@ tr101:
     }}
 	goto st50;
 tr102:
-#line 51 "lex/lemon_data_string_parser.rl"
+#line 54 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ ragel_string.clear(); {stack[top++] = 50;goto st37;} }}
 	goto st50;
 tr110:
@@ -1107,7 +1110,7 @@ tr110:
 	{color.b = color.x;}
 #line 67 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -1125,7 +1128,7 @@ tr112:
 	{color.a = color.x;}
 #line 67 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -1143,7 +1146,7 @@ tr114:
 	{color.b = color.x;}
 #line 50 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -1161,7 +1164,7 @@ tr116:
 	{color.a = color.x;}
 #line 50 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -1175,7 +1178,7 @@ tr116:
     }}
 	goto st50;
 tr131:
-#line 43 "lex/lemon_data_string_parser.rl"
+#line 46 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_LIST_OPEN); }}
 	goto st50;
 tr134:
@@ -1185,7 +1188,7 @@ tr134:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -1201,7 +1204,7 @@ tr142:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -1216,7 +1219,7 @@ tr149:
         ragel_type = TYPE_RATIO;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -1230,7 +1233,7 @@ tr159:
         ragel_type = TYPE_BIN;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -1244,7 +1247,7 @@ tr166:
         ragel_type = TYPE_HEX;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -1253,7 +1256,7 @@ tr166:
     }}
 	goto st50;
 tr174:
-#line 66 "lex/lemon_data_string_parser.rl"
+#line 69 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{
         pushSymbolToken(TK_DATA_NAME, ts, te-1);
         pushToken(TK_DICT_OPEN);
@@ -1261,7 +1264,7 @@ tr174:
     }}
 	goto st50;
 tr175:
-#line 59 "lex/lemon_data_string_parser.rl"
+#line 62 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         // skip trailing whitespaces
         auto te0 = te;
@@ -1271,15 +1274,15 @@ tr175:
     }}
 	goto st50;
 tr176:
-#line 107 "lex/lemon_data_string_parser.rl"
+#line 110 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushToken(TK_STRING); ragel_string.clear(); {stack[top++] = 50;goto st37;} }}
 	goto st50;
 tr177:
-#line 71 "lex/lemon_data_string_parser.rl"
+#line 74 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_DICT_OPEN); {stack[top++] = 50;goto st50;} }}
 	goto st50;
 tr179:
-#line 52 "lex/lemon_data_string_parser.rl"
+#line 55 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         // skip trailing whitespaces
         auto te0 = te;
@@ -1296,7 +1299,7 @@ st50:
 case 50:
 #line 1 "NONE"
 	{ts = p;}
-#line 1300 "lex/lemon_data_string_parser.cpp"
+#line 1303 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr73;
 		case 34: goto tr74;
@@ -1370,7 +1373,7 @@ st51:
 	if ( ++p == pe )
 		goto _test_eof51;
 case 51:
-#line 1374 "lex/lemon_data_string_parser.cpp"
+#line 1377 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -1438,7 +1441,7 @@ st52:
 	if ( ++p == pe )
 		goto _test_eof52;
 case 52:
-#line 1442 "lex/lemon_data_string_parser.cpp"
+#line 1445 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -1516,7 +1519,7 @@ st53:
 	if ( ++p == pe )
 		goto _test_eof53;
 case 53:
-#line 1520 "lex/lemon_data_string_parser.cpp"
+#line 1523 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -1605,25 +1608,25 @@ case 55:
 tr91:
 #line 1 "NONE"
 	{te = p+1;}
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 29;}
 	goto st56;
 tr122:
 #line 1 "NONE"
 	{te = p+1;}
-#line 40 "lex/lemon_data_string_parser.rl"
+#line 43 "lex/lemon_data_string_parser.rl"
 	{act = 14;}
 	goto st56;
 tr125:
 #line 1 "NONE"
 	{te = p+1;}
-#line 41 "lex/lemon_data_string_parser.rl"
+#line 44 "lex/lemon_data_string_parser.rl"
 	{act = 15;}
 	goto st56;
 tr128:
 #line 1 "NONE"
 	{te = p+1;}
-#line 39 "lex/lemon_data_string_parser.rl"
+#line 42 "lex/lemon_data_string_parser.rl"
 	{act = 13;}
 	goto st56;
 tr140:
@@ -1635,7 +1638,7 @@ tr140:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 29;}
 	goto st56;
 tr146:
@@ -1648,7 +1651,7 @@ tr146:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 29;}
 	goto st56;
 tr153:
@@ -1660,14 +1663,14 @@ tr153:
         ragel_type = TYPE_RATIO;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 29;}
 	goto st56;
 st56:
 	if ( ++p == pe )
 		goto _test_eof56;
 case 56:
-#line 1671 "lex/lemon_data_string_parser.cpp"
+#line 1674 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr32;
 		case 34: goto tr32;
@@ -1705,7 +1708,7 @@ st57:
 	if ( ++p == pe )
 		goto _test_eof57;
 case 57:
-#line 1709 "lex/lemon_data_string_parser.cpp"
+#line 1712 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -1749,7 +1752,7 @@ tr96:
 	{ color.x = xchar2digit((*p)); }
 	goto st58;
 tr97:
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ (ragel_mtx_rows *= 10) += ((*p) - '0'); }
 #line 39 "lex/ragel_color.rl"
 	{ (color.x *= 16) += xchar2digit((*p)); }
@@ -1762,7 +1765,7 @@ st58:
 	if ( ++p == pe )
 		goto _test_eof58;
 case 58:
-#line 1766 "lex/lemon_data_string_parser.cpp"
+#line 1769 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -1797,7 +1800,7 @@ case 58:
 		goto tr91;
 	goto st51;
 tr93:
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ ragel_mtx_rows = (*p) - '0'; }
 #line 38 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
@@ -1810,7 +1813,7 @@ st59:
 	if ( ++p == pe )
 		goto _test_eof59;
 case 59:
-#line 1814 "lex/lemon_data_string_parser.cpp"
+#line 1817 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -1848,14 +1851,14 @@ case 59:
 tr73:
 #line 1 "NONE"
 	{te = p+1;}
-#line 213 "lex/lemon_data_string_parser.rl"
+#line 216 "lex/lemon_data_string_parser.rl"
 	{act = 28;}
 	goto st60;
 st60:
 	if ( ++p == pe )
 		goto _test_eof60;
 case 60:
-#line 1859 "lex/lemon_data_string_parser.cpp"
+#line 1862 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr73;
 		case 34: goto st23;
@@ -1938,7 +1941,7 @@ st61:
 	if ( ++p == pe )
 		goto _test_eof61;
 case 61:
-#line 1942 "lex/lemon_data_string_parser.cpp"
+#line 1945 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) == 32 )
 		goto st61;
 	if ( 9 <= (*p) && (*p) <= 13 )
@@ -1993,14 +1996,14 @@ case 28:
 tr74:
 #line 1 "NONE"
 	{te = p+1;}
-#line 51 "lex/lemon_data_string_parser.rl"
+#line 54 "lex/lemon_data_string_parser.rl"
 	{act = 19;}
 	goto st62;
 st62:
 	if ( ++p == pe )
 		goto _test_eof62;
 case 62:
-#line 2004 "lex/lemon_data_string_parser.cpp"
+#line 2007 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 63: goto st24;
 		case 95: goto st24;
@@ -2064,7 +2067,7 @@ st64:
 	if ( ++p == pe )
 		goto _test_eof64;
 case 64:
-#line 2068 "lex/lemon_data_string_parser.cpp"
+#line 2071 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2111,7 +2114,7 @@ st65:
 	if ( ++p == pe )
 		goto _test_eof65;
 case 65:
-#line 2115 "lex/lemon_data_string_parser.cpp"
+#line 2118 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2162,7 +2165,7 @@ st66:
 	if ( ++p == pe )
 		goto _test_eof66;
 case 66:
-#line 2166 "lex/lemon_data_string_parser.cpp"
+#line 2169 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr111;
@@ -2186,7 +2189,7 @@ st67:
 	if ( ++p == pe )
 		goto _test_eof67;
 case 67:
-#line 2190 "lex/lemon_data_string_parser.cpp"
+#line 2193 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr113;
@@ -2208,7 +2211,7 @@ st29:
 	if ( ++p == pe )
 		goto _test_eof29;
 case 29:
-#line 2212 "lex/lemon_data_string_parser.cpp"
+#line 2215 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr38;
@@ -2228,7 +2231,7 @@ st68:
 	if ( ++p == pe )
 		goto _test_eof68;
 case 68:
-#line 2232 "lex/lemon_data_string_parser.cpp"
+#line 2235 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr115;
@@ -2250,7 +2253,7 @@ st30:
 	if ( ++p == pe )
 		goto _test_eof30;
 case 30:
-#line 2254 "lex/lemon_data_string_parser.cpp"
+#line 2257 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr39;
@@ -2268,12 +2271,12 @@ st69:
 	if ( ++p == pe )
 		goto _test_eof69;
 case 69:
-#line 2272 "lex/lemon_data_string_parser.cpp"
+#line 2275 "lex/lemon_data_string_parser.cpp"
 	goto tr116;
 tr104:
 #line 1 "NONE"
 	{te = p+1;}
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ ragel_mtx_rows = (*p) - '0'; }
 #line 38 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
@@ -2286,7 +2289,7 @@ st70:
 	if ( ++p == pe )
 		goto _test_eof70;
 case 70:
-#line 2290 "lex/lemon_data_string_parser.cpp"
+#line 2293 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2324,7 +2327,7 @@ case 70:
 tr117:
 #line 1 "NONE"
 	{te = p+1;}
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ (ragel_mtx_rows *= 10) += ((*p) - '0'); }
 #line 39 "lex/ragel_color.rl"
 	{ (color.x *= 16) += xchar2digit((*p)); }
@@ -2337,7 +2340,7 @@ st71:
 	if ( ++p == pe )
 		goto _test_eof71;
 case 71:
-#line 2341 "lex/lemon_data_string_parser.cpp"
+#line 2344 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2380,28 +2383,28 @@ case 31:
 		goto tr41;
 	goto tr40;
 tr41:
-#line 138 "lex/lemon_data_string_parser.rl"
+#line 141 "lex/lemon_data_string_parser.rl"
 	{ ragel_mtx_cols = (*p) - '0'; }
 	goto st32;
 st32:
 	if ( ++p == pe )
 		goto _test_eof32;
 case 32:
-#line 2391 "lex/lemon_data_string_parser.cpp"
+#line 2394 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) == 91 )
 		goto tr43;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr42;
 	goto tr40;
 tr42:
-#line 138 "lex/lemon_data_string_parser.rl"
+#line 141 "lex/lemon_data_string_parser.rl"
 	{ (ragel_mtx_cols *= 10) += ((*p) - '0'); }
 	goto st33;
 st33:
 	if ( ++p == pe )
 		goto _test_eof33;
 case 33:
-#line 2405 "lex/lemon_data_string_parser.cpp"
+#line 2408 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) == 91 )
 		goto tr43;
 	goto tr40;
@@ -2417,7 +2420,7 @@ st72:
 	if ( ++p == pe )
 		goto _test_eof72;
 case 72:
-#line 2421 "lex/lemon_data_string_parser.cpp"
+#line 2424 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2465,7 +2468,7 @@ st73:
 	if ( ++p == pe )
 		goto _test_eof73;
 case 73:
-#line 2469 "lex/lemon_data_string_parser.cpp"
+#line 2472 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2840,7 +2843,7 @@ case 85:
 		goto st85;
 	goto tr131;
 tr79:
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
@@ -2849,7 +2852,7 @@ st86:
 	if ( ++p == pe )
 		goto _test_eof86;
 case 86:
-#line 2853 "lex/lemon_data_string_parser.cpp"
+#line 2856 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2885,7 +2888,7 @@ st87:
 	if ( ++p == pe )
 		goto _test_eof87;
 case 87:
-#line 2889 "lex/lemon_data_string_parser.cpp"
+#line 2892 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr134;
 		case 34: goto tr134;
@@ -2930,7 +2933,7 @@ st88:
 	if ( ++p == pe )
 		goto _test_eof88;
 case 88:
-#line 2934 "lex/lemon_data_string_parser.cpp"
+#line 2937 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -2966,7 +2969,7 @@ st89:
 	if ( ++p == pe )
 		goto _test_eof89;
 case 89:
-#line 2970 "lex/lemon_data_string_parser.cpp"
+#line 2973 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr142;
 		case 34: goto tr142;
@@ -3029,7 +3032,7 @@ st91:
 	if ( ++p == pe )
 		goto _test_eof91;
 case 91:
-#line 3033 "lex/lemon_data_string_parser.cpp"
+#line 3036 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr149;
 		case 34: goto tr149;
@@ -3063,7 +3066,7 @@ st92:
 	if ( ++p == pe )
 		goto _test_eof92;
 case 92:
-#line 3067 "lex/lemon_data_string_parser.cpp"
+#line 3070 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr149;
 		case 34: goto tr149;
@@ -3099,7 +3102,7 @@ st93:
 	if ( ++p == pe )
 		goto _test_eof93;
 case 93:
-#line 3103 "lex/lemon_data_string_parser.cpp"
+#line 3106 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr134;
 		case 34: goto tr134;
@@ -3128,7 +3131,7 @@ case 93:
 		goto tr133;
 	goto tr135;
 tr80:
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -3139,7 +3142,7 @@ st94:
 	if ( ++p == pe )
 		goto _test_eof94;
 case 94:
-#line 3143 "lex/lemon_data_string_parser.cpp"
+#line 3146 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr134;
 		case 34: goto tr134;
@@ -3195,7 +3198,7 @@ st95:
 	if ( ++p == pe )
 		goto _test_eof95;
 case 95:
-#line 3199 "lex/lemon_data_string_parser.cpp"
+#line 3202 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr88;
 		case 34: goto tr88;
@@ -3261,7 +3264,7 @@ st97:
 	if ( ++p == pe )
 		goto _test_eof97;
 case 97:
-#line 3265 "lex/lemon_data_string_parser.cpp"
+#line 3268 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr159;
 		case 34: goto tr159;
@@ -3336,7 +3339,7 @@ st99:
 	if ( ++p == pe )
 		goto _test_eof99;
 case 99:
-#line 3340 "lex/lemon_data_string_parser.cpp"
+#line 3343 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr166;
 		case 34: goto tr166;
@@ -3372,7 +3375,7 @@ case 99:
 		goto tr171;
 	goto tr167;
 tr81:
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -3389,7 +3392,7 @@ st100:
 	if ( ++p == pe )
 		goto _test_eof100;
 case 100:
-#line 3393 "lex/lemon_data_string_parser.cpp"
+#line 3396 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr134;
 		case 34: goto tr134;
@@ -3535,7 +3538,7 @@ case 106:
 		goto st106;
 	goto tr179;
 tr44:
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{{p = ((te))-1;}{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -3549,11 +3552,11 @@ tr44:
     }}
 	goto st107;
 tr182:
-#line 51 "lex/lemon_data_string_parser.rl"
+#line 54 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ ragel_string.clear(); {stack[top++] = 107;goto st37;} }}
 	goto st107;
 tr185:
-#line 44 "lex/lemon_data_string_parser.rl"
+#line 47 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushToken(TK_LIST_CLOSE); }}
 	goto st107;
 tr193:
@@ -3575,15 +3578,15 @@ tr193:
 	}
 	goto st107;
 tr195:
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushSymbolToken(TK_SYMBOL, ts, te); }}
 	goto st107;
 tr203:
-#line 239 "lex/lemon_data_string_parser.rl"
+#line 242 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_SPACE); {cs = stack[--top];goto _again;} }}
 	goto st107;
 tr206:
-#line 175 "lex/lemon_data_string_parser.rl"
+#line 178 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{
         pushToken(TK_MATRIX);
         pushFloat(ragel_mtx_rows);
@@ -3596,7 +3599,7 @@ tr212:
 	{color.b = color.x;}
 #line 67 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -3614,7 +3617,7 @@ tr214:
 	{color.a = color.x;}
 #line 67 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -3632,7 +3635,7 @@ tr216:
 	{color.b = color.x;}
 #line 50 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -3650,7 +3653,7 @@ tr218:
 	{color.a = color.x;}
 #line 50 "lex/ragel_color.rl"
 	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 112 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         RgbaHexFullMatch p;
         if (p.parse(ts, te - ts)) {
@@ -3664,7 +3667,7 @@ tr218:
     }}
 	goto st107;
 tr233:
-#line 43 "lex/lemon_data_string_parser.rl"
+#line 46 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_LIST_OPEN); }}
 	goto st107;
 tr236:
@@ -3674,7 +3677,7 @@ tr236:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -3690,7 +3693,7 @@ tr242:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -3705,7 +3708,7 @@ tr247:
         ragel_type = TYPE_RATIO;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -3719,7 +3722,7 @@ tr253:
         ragel_type = TYPE_BIN;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -3733,7 +3736,7 @@ tr257:
         ragel_type = TYPE_HEX;
         ragel_cat  = CAT_NUMBER;
     }
-#line 45 "lex/lemon_data_string_parser.rl"
+#line 48 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         onFloat(ragel_cat, ragel_type, ragel_num);
         ragel_num = {};
@@ -3742,7 +3745,7 @@ tr257:
     }}
 	goto st107;
 tr261:
-#line 66 "lex/lemon_data_string_parser.rl"
+#line 69 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{
         pushSymbolToken(TK_DATA_NAME, ts, te-1);
         pushToken(TK_DICT_OPEN);
@@ -3750,7 +3753,7 @@ tr261:
     }}
 	goto st107;
 tr262:
-#line 59 "lex/lemon_data_string_parser.rl"
+#line 62 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         // skip trailing whitespaces
         auto te0 = te;
@@ -3760,15 +3763,15 @@ tr262:
     }}
 	goto st107;
 tr263:
-#line 107 "lex/lemon_data_string_parser.rl"
+#line 110 "lex/lemon_data_string_parser.rl"
 	{te = p+1;{ pushToken(TK_STRING); ragel_string.clear(); {stack[top++] = 107;goto st37;} }}
 	goto st107;
 tr264:
-#line 226 "lex/lemon_data_string_parser.rl"
+#line 229 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{ pushToken(TK_DICT_OPEN); {stack[top++] = 107;goto st50;} }}
 	goto st107;
 tr266:
-#line 52 "lex/lemon_data_string_parser.rl"
+#line 55 "lex/lemon_data_string_parser.rl"
 	{te = p;p--;{
         // skip trailing whitespaces
         auto te0 = te;
@@ -3785,7 +3788,7 @@ st107:
 case 107:
 #line 1 "NONE"
 	{ts = p;}
-#line 3789 "lex/lemon_data_string_parser.cpp"
+#line 3792 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto st116;
 		case 34: goto tr182;
@@ -3813,33 +3816,33 @@ case 107:
 tr180:
 #line 1 "NONE"
 	{te = p+1;}
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 45;}
 	goto st108;
 tr202:
 #line 1 "NONE"
 	{te = p+1;}
-#line 138 "lex/lemon_data_string_parser.rl"
+#line 141 "lex/lemon_data_string_parser.rl"
 	{ (ragel_mtx_cols *= 10) += ((*p) - '0'); }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 45;}
 	goto st108;
 tr226:
 #line 1 "NONE"
 	{te = p+1;}
-#line 40 "lex/lemon_data_string_parser.rl"
+#line 43 "lex/lemon_data_string_parser.rl"
 	{act = 32;}
 	goto st108;
 tr229:
 #line 1 "NONE"
 	{te = p+1;}
-#line 41 "lex/lemon_data_string_parser.rl"
+#line 44 "lex/lemon_data_string_parser.rl"
 	{act = 33;}
 	goto st108;
 tr232:
 #line 1 "NONE"
 	{te = p+1;}
-#line 39 "lex/lemon_data_string_parser.rl"
+#line 42 "lex/lemon_data_string_parser.rl"
 	{act = 31;}
 	goto st108;
 tr237:
@@ -3851,7 +3854,7 @@ tr237:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 45;}
 	goto st108;
 tr243:
@@ -3864,7 +3867,7 @@ tr243:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 45;}
 	goto st108;
 tr248:
@@ -3876,7 +3879,7 @@ tr248:
         ragel_type = TYPE_RATIO;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 45;}
 	goto st108;
 tr254:
@@ -3887,7 +3890,7 @@ tr254:
         ragel_type = TYPE_BIN;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 45;}
 	goto st108;
 tr258:
@@ -3898,14 +3901,14 @@ tr258:
         ragel_type = TYPE_HEX;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/lemon_data_string_parser.rl"
+#line 124 "lex/lemon_data_string_parser.rl"
 	{act = 45;}
 	goto st108;
 st108:
 	if ( ++p == pe )
 		goto _test_eof108;
 case 108:
-#line 3909 "lex/lemon_data_string_parser.cpp"
+#line 3912 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr193;
 		case 34: goto tr193;
@@ -3961,7 +3964,7 @@ st109:
 	if ( ++p == pe )
 		goto _test_eof109;
 case 109:
-#line 3965 "lex/lemon_data_string_parser.cpp"
+#line 3968 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -3996,7 +3999,7 @@ st110:
 	if ( ++p == pe )
 		goto _test_eof110;
 case 110:
-#line 4000 "lex/lemon_data_string_parser.cpp"
+#line 4003 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4030,7 +4033,7 @@ st111:
 	if ( ++p == pe )
 		goto _test_eof111;
 case 111:
-#line 4034 "lex/lemon_data_string_parser.cpp"
+#line 4037 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4053,7 +4056,7 @@ case 111:
 		goto tr195;
 	goto tr180;
 tr197:
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ ragel_mtx_rows = (*p) - '0'; }
 #line 38 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
@@ -4066,7 +4069,7 @@ st112:
 	if ( ++p == pe )
 		goto _test_eof112;
 case 112:
-#line 4070 "lex/lemon_data_string_parser.cpp"
+#line 4073 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4090,7 +4093,7 @@ case 112:
 		goto tr199;
 	goto tr180;
 tr199:
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ (ragel_mtx_rows *= 10) += ((*p) - '0'); }
 #line 39 "lex/ragel_color.rl"
 	{ (color.x *= 16) += xchar2digit((*p)); }
@@ -4103,7 +4106,7 @@ st113:
 	if ( ++p == pe )
 		goto _test_eof113;
 case 113:
-#line 4107 "lex/lemon_data_string_parser.cpp"
+#line 4110 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4146,14 +4149,14 @@ case 114:
 		goto tr195;
 	goto tr180;
 tr201:
-#line 138 "lex/lemon_data_string_parser.rl"
+#line 141 "lex/lemon_data_string_parser.rl"
 	{ ragel_mtx_cols = (*p) - '0'; }
 	goto st115;
 st115:
 	if ( ++p == pe )
 		goto _test_eof115;
 case 115:
-#line 4157 "lex/lemon_data_string_parser.cpp"
+#line 4160 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4221,7 +4224,7 @@ st118:
 	if ( ++p == pe )
 		goto _test_eof118;
 case 118:
-#line 4225 "lex/lemon_data_string_parser.cpp"
+#line 4228 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4255,7 +4258,7 @@ st119:
 	if ( ++p == pe )
 		goto _test_eof119;
 case 119:
-#line 4259 "lex/lemon_data_string_parser.cpp"
+#line 4262 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4293,7 +4296,7 @@ st120:
 	if ( ++p == pe )
 		goto _test_eof120;
 case 120:
-#line 4297 "lex/lemon_data_string_parser.cpp"
+#line 4300 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr213;
@@ -4317,7 +4320,7 @@ st121:
 	if ( ++p == pe )
 		goto _test_eof121;
 case 121:
-#line 4321 "lex/lemon_data_string_parser.cpp"
+#line 4324 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr215;
@@ -4339,7 +4342,7 @@ st34:
 	if ( ++p == pe )
 		goto _test_eof34;
 case 34:
-#line 4343 "lex/lemon_data_string_parser.cpp"
+#line 4346 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr45;
@@ -4359,7 +4362,7 @@ st122:
 	if ( ++p == pe )
 		goto _test_eof122;
 case 122:
-#line 4363 "lex/lemon_data_string_parser.cpp"
+#line 4366 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr217;
@@ -4381,7 +4384,7 @@ st35:
 	if ( ++p == pe )
 		goto _test_eof35;
 case 35:
-#line 4385 "lex/lemon_data_string_parser.cpp"
+#line 4388 "lex/lemon_data_string_parser.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr46;
@@ -4399,10 +4402,10 @@ st123:
 	if ( ++p == pe )
 		goto _test_eof123;
 case 123:
-#line 4403 "lex/lemon_data_string_parser.cpp"
+#line 4406 "lex/lemon_data_string_parser.cpp"
 	goto tr218;
 tr205:
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ ragel_mtx_rows = (*p) - '0'; }
 #line 38 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
@@ -4415,7 +4418,7 @@ st124:
 	if ( ++p == pe )
 		goto _test_eof124;
 case 124:
-#line 4419 "lex/lemon_data_string_parser.cpp"
+#line 4422 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4439,7 +4442,7 @@ case 124:
 		goto tr219;
 	goto tr180;
 tr219:
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 142 "lex/lemon_data_string_parser.rl"
 	{ (ragel_mtx_rows *= 10) += ((*p) - '0'); }
 #line 39 "lex/ragel_color.rl"
 	{ (color.x *= 16) += xchar2digit((*p)); }
@@ -4452,7 +4455,7 @@ st125:
 	if ( ++p == pe )
 		goto _test_eof125;
 case 125:
-#line 4456 "lex/lemon_data_string_parser.cpp"
+#line 4459 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4495,14 +4498,14 @@ case 126:
 		goto tr195;
 	goto tr180;
 tr221:
-#line 138 "lex/lemon_data_string_parser.rl"
+#line 141 "lex/lemon_data_string_parser.rl"
 	{ ragel_mtx_cols = (*p) - '0'; }
 	goto st127;
 st127:
 	if ( ++p == pe )
 		goto _test_eof127;
 case 127:
-#line 4506 "lex/lemon_data_string_parser.cpp"
+#line 4509 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4519,14 +4522,14 @@ case 127:
 		goto tr195;
 	goto tr180;
 tr222:
-#line 138 "lex/lemon_data_string_parser.rl"
+#line 141 "lex/lemon_data_string_parser.rl"
 	{ (ragel_mtx_cols *= 10) += ((*p) - '0'); }
 	goto st128;
 st128:
 	if ( ++p == pe )
 		goto _test_eof128;
 case 128:
-#line 4530 "lex/lemon_data_string_parser.cpp"
+#line 4533 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4551,7 +4554,7 @@ st129:
 	if ( ++p == pe )
 		goto _test_eof129;
 case 129:
-#line 4555 "lex/lemon_data_string_parser.cpp"
+#line 4558 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4586,7 +4589,7 @@ st130:
 	if ( ++p == pe )
 		goto _test_eof130;
 case 130:
-#line 4590 "lex/lemon_data_string_parser.cpp"
+#line 4593 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4755,7 +4758,7 @@ case 139:
 		goto st139;
 	goto tr233;
 tr186:
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
@@ -4764,7 +4767,7 @@ st140:
 	if ( ++p == pe )
 		goto _test_eof140;
 case 140:
-#line 4768 "lex/lemon_data_string_parser.cpp"
+#line 4771 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4791,7 +4794,7 @@ st141:
 	if ( ++p == pe )
 		goto _test_eof141;
 case 141:
-#line 4795 "lex/lemon_data_string_parser.cpp"
+#line 4798 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr236;
 		case 34: goto tr236;
@@ -4823,7 +4826,7 @@ st142:
 	if ( ++p == pe )
 		goto _test_eof142;
 case 142:
-#line 4827 "lex/lemon_data_string_parser.cpp"
+#line 4830 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr195;
 		case 34: goto tr195;
@@ -4850,7 +4853,7 @@ st143:
 	if ( ++p == pe )
 		goto _test_eof143;
 case 143:
-#line 4854 "lex/lemon_data_string_parser.cpp"
+#line 4857 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr242;
 		case 34: goto tr242;
@@ -4894,7 +4897,7 @@ st145:
 	if ( ++p == pe )
 		goto _test_eof145;
 case 145:
-#line 4898 "lex/lemon_data_string_parser.cpp"
+#line 4901 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr247;
 		case 34: goto tr247;
@@ -4915,7 +4918,7 @@ st146:
 	if ( ++p == pe )
 		goto _test_eof146;
 case 146:
-#line 4919 "lex/lemon_data_string_parser.cpp"
+#line 4922 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr247;
 		case 34: goto tr247;
@@ -4932,7 +4935,7 @@ case 146:
 		goto tr247;
 	goto tr248;
 tr188:
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -4949,7 +4952,7 @@ st147:
 	if ( ++p == pe )
 		goto _test_eof147;
 case 147:
-#line 4953 "lex/lemon_data_string_parser.cpp"
+#line 4956 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr236;
 		case 34: goto tr236;
@@ -4968,7 +4971,7 @@ case 147:
 		goto tr236;
 	goto tr237;
 tr187:
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 146 "lex/lemon_data_string_parser.rl"
 	{ ragel_num = {}; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -4979,7 +4982,7 @@ st148:
 	if ( ++p == pe )
 		goto _test_eof148;
 case 148:
-#line 4983 "lex/lemon_data_string_parser.cpp"
+#line 4986 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr236;
 		case 34: goto tr236;
@@ -5023,7 +5026,7 @@ st150:
 	if ( ++p == pe )
 		goto _test_eof150;
 case 150:
-#line 5027 "lex/lemon_data_string_parser.cpp"
+#line 5030 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr253;
 		case 34: goto tr253;
@@ -5072,7 +5075,7 @@ st152:
 	if ( ++p == pe )
 		goto _test_eof152;
 case 152:
-#line 5076 "lex/lemon_data_string_parser.cpp"
+#line 5079 "lex/lemon_data_string_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto tr257;
 		case 34: goto tr257;
@@ -5506,7 +5509,7 @@ case 158:
 	_out: {}
 	}
 
-#line 346 "lex/lemon_data_string_parser.rl"
+#line 349 "lex/lemon_data_string_parser.rl"
 
     } catch(std::exception& e) {
         // can be thrown on static buffer overflows etc.
