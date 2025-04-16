@@ -32,5 +32,5 @@ namespace dsp {
     }
 
     DelayIface::~DelayIface() { }
-}
-}
+} // namespace dsp
+} // namespace ceammc
