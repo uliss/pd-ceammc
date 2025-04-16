@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <boost/range.hpp>
-#include <unordered_map>
 
 constexpr const char* TYPE_NAME = "Env";
 
@@ -885,7 +884,7 @@ bool DataTypeEnv::setExponential(const AtomListView& lv)
     const size_t N = lv.size();
 
     // check args
-    if (!(N > 3 && (N % 3 == 1))) {
+    if (N <= 3 || (N % 3 != 1)) {
         LIB_ERR << "Usage: exp VAL_0 LEN_0 CURVE_0 VAL_1 [LEN_1 CURVE VAL_2] ...";
         return false;
     }
@@ -951,7 +950,7 @@ bool DataTypeEnv::setSigmoid(const AtomListView& lv)
     const size_t N = lv.size();
 
     // check args
-    if (!(N > 3 && (N % 3 == 1))) {
+    if (N <= 3 || (N % 3 != 1)) {
         LIB_ERR << "Usage: sigmoid VAL_0 LEN_0 CURVE_0 VAL_1 [LEN_1 CURVE VAL_2] ...";
         return false;
     }
@@ -1109,8 +1108,8 @@ bool DataTypeEnv::isAR(bool checkVal) const
     if (points_.size() != 3)
         return false;
 
-    if (!(points_[0].type == CURVE_LINE
-            && points_[1].type == CURVE_LINE))
+    if (points_[0].type != CURVE_LINE
+            || points_[1].type != CURVE_LINE)
         return false;
 
     if (checkVal) {
@@ -1128,9 +1127,9 @@ bool DataTypeEnv::isADSR(bool checkVal) const
     if (points_.size() != 4)
         return false;
 
-    if (!(points_[0].type == CURVE_LINE
-            && points_[1].type == CURVE_LINE
-            && points_[2].type == CURVE_LINE))
+    if (points_[0].type != CURVE_LINE
+            || points_[1].type != CURVE_LINE
+            || points_[2].type != CURVE_LINE)
         return false;
 
     if (checkVal) {
