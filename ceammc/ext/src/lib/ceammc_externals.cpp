@@ -33,13 +33,10 @@ void register_flext_external(t_class* c)
 
 bool is_ceammc(t_object* x)
 {
-    if (is_ceammc_base(x)
+    return is_ceammc_base(x)
         || is_ceammc_ui(x)
         || is_ceammc_flext(x)
-        || is_ceammc_abstraction(x))
-        return true;
-
-    return false;
+        || is_ceammc_abstraction(x);
 }
 
 bool is_ceammc_base(t_object* x)
