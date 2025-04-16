@@ -1,11 +1,8 @@
 #include "ceammc_thread.h"
 #include "ceammc_pollfd.h"
 
-#include <cerrno>
 #include <chrono>
-#include <cstring>
 #include <future>
-#include <thread>
 
 using namespace ceammc;
 
@@ -36,7 +33,7 @@ void ThreadExternalBase::processCommand(int code)
     }
     default:
         if (!onThreadCommand(code))
-            OBJ_ERR << "unknown thread code: " << int(code);
+            OBJ_ERR << "unknown thread code: " << code;
         break;
     }
 }
@@ -149,10 +146,7 @@ void thread::Task::setPipeDebug(thread::Pipe* p)
 
 bool thread::Task::stopRequested()
 {
-    if (stopped_.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
-        return false;
-
-    return true;
+    return stopped_.wait_for(std::chrono::milliseconds(0)) != std::future_status::timeout;
 }
 
 void thread::Task::stop()
