@@ -50,7 +50,7 @@ Rational dur2ratio(const Duration& dur)
 
     return res;
 }
-}
+} // namespace
 
 Duration::Duration() noexcept
     : num_ { 1 }

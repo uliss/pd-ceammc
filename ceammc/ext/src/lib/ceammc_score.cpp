@@ -13,8 +13,6 @@
  *****************************************************************************/
 #include "ceammc_score.h"
 
-#include <limits>
-
 namespace ceammc {
 
 Bar::Bar(const TimeSignature& sig, float tempo)
@@ -91,4 +89,4 @@ std::ostream& operator<<(std::ostream& os, const TimeSignature& ts)
     return os;
 }
 
-}
+} // namespace ceammc

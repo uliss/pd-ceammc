@@ -13,8 +13,6 @@
  *****************************************************************************/
 #include "ceammc_sound_external.h"
 
-#include <algorithm>
-
 namespace ceammc {
 SoundExternal::SoundExternal(const PdArgs& a)
     : BaseObject(a)
@@ -130,4 +128,4 @@ bool SoundExternal::popOutlet()
         return false;
 }
 
-}
+} // namespace ceammc

@@ -1,7 +1,6 @@
 #include "ceammc_music_theory_names.h"
 #include "ceammc_music_theory.h"
 
-#include <algorithm>
 #include <cassert>
 #include <cstring>
 

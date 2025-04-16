@@ -17,17 +17,16 @@
 #include <cstring>
 
 #include <arpa/inet.h>
-#include <errno.h>
+#include <cerrno>
+#include <cstdio>
 #include <fcntl.h>
 #include <fnmatch.h>
 #include <ifaddrs.h>
 #include <iostream>
 #include <libgen.h>
-#include <limits.h>
 #include <net/if.h>
 #include <netdb.h>
 #include <pwd.h>
-#include <stdio.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -264,5 +263,5 @@ namespace platform {
 
         return false;
     }
-}
-}
+} // namespace platform
+} // namespace ceammc

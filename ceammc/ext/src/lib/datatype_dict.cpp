@@ -362,4 +362,4 @@ std::ostream& operator<<(std::ostream& os, const DataTypeDict& dict)
     os << dict.toString();
     return os;
 }
-}
+} // namespace ceammc
