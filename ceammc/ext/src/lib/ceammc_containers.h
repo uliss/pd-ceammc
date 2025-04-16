@@ -16,7 +16,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cstdint>
 #include <initializer_list>
 
 #include <boost/container/small_vector.hpp>
