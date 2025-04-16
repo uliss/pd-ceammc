@@ -21,9 +21,6 @@
 #include "fmt/core.h"
 #include "lex/parser_strings.h"
 
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
 #include <sstream>
 
 namespace ceammc {
