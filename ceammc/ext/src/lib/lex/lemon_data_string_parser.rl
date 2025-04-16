@@ -3,15 +3,14 @@
 # include "parser_numeric.h"
 # include "parser_color.h"
 # include "fmt/core.h"
-# include "ceammc_datatypes.h"
-
-# include <cstdint>
-
+# include "ceammc_string_types.h"
 # include "lemon_data_parser_impl.h"
 
 # ifndef NDEBUG
 # include "ceammc_log.h"
 # endif
+
+# include <cstdint>
 
 namespace {
 
