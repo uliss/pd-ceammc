@@ -16,7 +16,6 @@
 #include "ceammc_convert.h"
 #include "ceammc_numeric.h"
 
-#include <cmath>
 #include <functional>
 
 namespace ceammc {
