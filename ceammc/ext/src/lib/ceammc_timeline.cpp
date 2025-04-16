@@ -120,7 +120,7 @@ namespace tl {
 
     struct ObjPred {
         t_object* o_;
-        ObjPred(t_object* o)
+        explicit ObjPred(t_object* o)
             : o_(o)
         {
         }
