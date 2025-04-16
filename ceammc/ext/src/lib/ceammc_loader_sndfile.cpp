@@ -17,7 +17,6 @@
 #include "soxr.h"
 
 #include <cmath>
-#include <iostream>
 
 namespace ceammc {
 
@@ -200,7 +199,7 @@ namespace sound {
 
     std::int64_t LibSndFile::readFrames(float* dest, size_t sz, std::int64_t offset)
     {
-        if (!(isOpened() && openMode() == READ)) {
+        if (!isOpened() || openMode() != READ) {
             error(fmt::format("[sndfile] not opened for reading"));
             return -1;
         }
