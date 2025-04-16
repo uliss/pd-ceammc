@@ -7,7 +7,7 @@ use std::{
 use log::{debug, error};
 use vl53l0x::VL53L0x;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, process_err, send_reply, vl53l0x::Reply};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, process_err, send_debug, send_reply, vl53l0x::Reply};
 
 use super::{hw_sensor_vl53l0x, hw_sensor_vl53l0x_data_cb, LaserSensorWorker, Request};
 
@@ -19,59 +19,59 @@ impl hw_sensor_vl53l0x {
         on_data: hw_sensor_vl53l0x_data_cb,
         on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, rep_tx) = LaserSensorWorker::new(on_msg);
+        let (worker, rx, tx) = LaserSensorWorker::new(on_msg);
 
-        worker.spawn(rep_tx.clone(), notify, move || -> Result<(), String> {
-            let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &rep_tx, notify)?;
+        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
+            let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("i2c init: {i2c:?}");
 
+            let bus = i2c.bus();
             let sensor = Arc::new(std::sync::Mutex::new(
                 match i2c_addr {
-                    I2cAddress::Invalid(addr) => {
-                        return Err(format!("invalid i2c address: {addr}"));
-                    }
                     I2cAddress::Addr(addr) => VL53L0x::with_address(i2c, addr),
-                    _ => VL53L0x::new(i2c),
+                    I2cAddress::Default => VL53L0x::new(i2c),
+                    I2cAddress::Auto => VL53L0x::new(i2c),
+                    I2cAddress::Alt => return Err(format!("no alternative device address")),
+                    I2cAddress::Invalid(addr) => return Err(format!("invalid i2c address: {addr}")),
                 }
-                .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))?,
+                .map_err(|err| process_err(format!("{err:?}"), &tx, notify))?,
             ));
-            debug!("vk53l0x init");
+
+            send_debug(
+                &tx,
+                notify,
+                format!("vk53l0x init with bus={bus} and addr={i2c_addr:?}").as_str(),
+            );
 
             let poll_mode = Arc::new(AtomicBool::new(false));
 
             while let Ok(req) = rx.recv() {
                 match req {
-                    Request::ReadMM => {
-                        match sensor
-                            .lock()
-                            .unwrap()
-                            .read_range_single_millimeters_blocking()
-                        {
-                            Ok(res) => {
-                                debug!("distance: {res}mm");
-                                send_reply(Reply::Distance(res), &rep_tx, notify);
-                            }
-                            Err(err) => {
-                                process_err(format!("{err:?}"), &rep_tx, notify);
-                            }
+                    Request::ReadMM => match sensor.lock().unwrap().read_range_single_millimeters_blocking() {
+                        Ok(res) => {
+                            debug!("distance: {res}mm");
+                            send_reply(Reply::Distance(res), &tx, notify);
                         }
-                    }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    },
                     Request::Poll(state) => {
                         if state {
                             if poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
-                                process_err(format!("already polling"), &rep_tx, notify);
+                                process_err(format!("already polling"), &tx, notify);
                             } else {
                                 poll_mode.store(true, std::sync::atomic::Ordering::SeqCst);
 
                                 let sensor = sensor.clone();
-                                let tx = rep_tx.clone();
+                                let tx = tx.clone();
                                 let poll_mode = poll_mode.clone();
 
                                 sensor
                                     .lock()
                                     .unwrap()
                                     .start_continuous(0)
-                                    .map_err(|err| process_err(err, &rep_tx, notify))
+                                    .map_err(|err| process_err(err, &tx, notify))
                                     .unwrap_or_default();
 
                                 std::thread::spawn(move || {
@@ -110,11 +110,11 @@ impl hw_sensor_vl53l0x {
                                 .lock()
                                 .unwrap()
                                 .stop_continuous()
-                                .map_err(|err| process_err(err, &rep_tx, notify))
+                                .map_err(|err| process_err(err, &tx, notify))
                                 .unwrap_or_default();
 
                             if !poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
-                                process_err(format!("not polling"), &rep_tx, notify);
+                                process_err(format!("not polling"), &tx, notify);
                             } else {
                                 poll_mode.store(false, std::sync::atomic::Ordering::SeqCst);
                             }
@@ -125,7 +125,7 @@ impl hw_sensor_vl53l0x {
                             .lock()
                             .unwrap()
                             .set_address(addr)
-                            .map_err(|err| process_err(format!("{err:?}"), &rep_tx, notify))
+                            .map_err(|err| process_err(format!("{err:?}"), &tx, notify))
                             .unwrap_or_default();
                     }
                 }
