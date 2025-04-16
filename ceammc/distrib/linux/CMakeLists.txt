@@ -18,6 +18,19 @@ if(UNIX AND NOT APPLE)
             COMMAND sudo dpkg --install ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
             USES_TERMINAL)
 
+        add_custom_target(dev_run
+            COMMAND sudo cp $<TARGET_FILE:ceammc> ${CMAKE_INSTALL_PREFIX}/lib/pd_ceammc/extra/ceammc/
+            COMMAND pd-ceammc
+            DEPENDS ceammc
+            USES_TERMINAL)
+
+        add_custom_target(dev_open
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target package
+            COMMAND sudo dpkg --remove ${LINUX_DEBIAN_PACKAGE_NAME}
+            COMMAND sudo dpkg --install ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
+            COMMAND pd-ceammc
+            USES_TERMINAL)
+
         add_custom_target(dev_copyright
             COMMAND decopy
                 --root ${PROJECT_SOURCE_DIR}

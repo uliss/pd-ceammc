@@ -5,4 +5,7 @@ dev targets:
   * dev_tcl           - copy tcl files to install tcl directory
   * dev_pd            - copy pd executable to install bin directory
   * dev_copyright     - update debian copyright file with decopy utility
+  * dev_run           - build ceammc external, copy it to the install directory, then run pd-ceammc
+  * dev_open          - build ceammc package, install it, then run pd-ceammc
+
 
