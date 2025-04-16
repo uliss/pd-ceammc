@@ -81,4 +81,4 @@ std::string MimeTypeChecker::mimeType(const char* file)
     return {};
 }
 
-}
+} // namespace ceammc
