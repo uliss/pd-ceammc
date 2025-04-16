@@ -44,7 +44,7 @@ size_t hash_value(const Atom& a) noexcept
     return res;
 }
 
-}
+} // namespace
 
 namespace ceammc {
 
@@ -291,4 +291,4 @@ std::ostream& operator<<(std::ostream& os, const DataTypeSet& set)
     return os;
 }
 
-}
+} // namespace ceammc

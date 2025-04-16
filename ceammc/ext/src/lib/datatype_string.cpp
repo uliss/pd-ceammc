@@ -20,7 +20,6 @@
 #include "fmt/core.h"
 #include "lex/parser_strings.h"
 
-#include <algorithm>
 #include <iostream>
 
 constexpr const char* TYPE_NAME = "String";
@@ -313,7 +312,7 @@ void DataTypeString::splitEveryChar(string::StringSplitResult& res) const
 
 void DataTypeString::splitBySep(string::StringSplitResult& res, const char* sep) const
 {
-    string::split_by_sep(res, string::StringView(str_.c_str()), sep);
+    string::split_by_sep(res, string::StringView(str_), sep);
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d)
@@ -322,4 +321,4 @@ std::ostream& operator<<(std::ostream& os, const DataTypeString& d)
     return os;
 }
 
-}
+} // namespace ceammc

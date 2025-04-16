@@ -139,5 +139,5 @@ namespace parser {
         return dist(rnd);
     }
 
-}
-}
+} // namespace parser
+} // namespace ceammc
