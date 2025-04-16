@@ -22,8 +22,6 @@
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <cmath>
-#include <ctime>
-#include <random>
 
 namespace {
 inline bool approx_eq(float a, float b)
@@ -50,7 +48,7 @@ void fromRGB(float* data, const colorm::Srgb& c)
     data[3] = clip01<float>(c.alpha());
 }
 
-}
+} // namespace
 
 namespace ceammc {
 
@@ -270,8 +268,7 @@ t_symbol* DataTypeColor::hex() const
     char buf[24] = {};
     if (data_[3] == 1) {
         fmt::format_to(buf, "#{:02X}{:02X}{:02X}", (int)red8(), (int)green8(), (int)blue8());
-    }
-    else
+    } else
         fmt::format_to(buf, "#{:02X}{:02X}{:02X}{:02X}", (int)red8(), (int)green8(), (int)blue8(), (int)alpha8());
 
     return gensym(buf);
@@ -352,4 +349,4 @@ std::ostream& operator<<(std::ostream& os, const DataTypeColor& color)
     return os;
 }
 
-}
+} // namespace ceammc
