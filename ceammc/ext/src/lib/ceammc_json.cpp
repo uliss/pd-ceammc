@@ -105,5 +105,5 @@ namespace json {
     {
         return to_json_struct(dict, opt).dump(opt.indent);
     }
-}
-}
+} // namespace json
+} // namespace ceammc
