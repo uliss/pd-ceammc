@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="math.or">
         <title>math.or</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>operation OR for multiple arguments</description>
+            <description>
+                <tr lang="en">operation OR for multiple arguments</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>math</category>

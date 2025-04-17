@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="dyn.comp_up~">
         <title>dyn.comp_up~</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>mono upward compressor</description>
+            <description>
+                <tr lang="en">mono upward compressor</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>dyn</category>

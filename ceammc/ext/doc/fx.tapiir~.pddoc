@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.tapiir~">
         <title>fx.tapiir~</title>
@@ -7,7 +7,9 @@
                 <author>Viacheslav Lotsmanov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>multi-tap delay</description>
+            <description>
+                <tr lang="en">multi-tap delay</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>fx</category>

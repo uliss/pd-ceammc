@@ -1,1385 +1,1385 @@
-an.onset	onset detector for arrays
-an.onset~	onset detector
-an.pitchtrack~	pitch tracker
-ceammc/helmholtz~	pitch tracker
-helmholtz~	pitch tracker
-an.rms~	root mean square with moving-average algorithm.
-an.tempo~	tempo detector
-an.zero~	zero crossing count/rate/freq calculator
-array.bpm	BPM calculator
-array.circular	array read/write as circular buffer
-array.circular~	circular buffer for arrays
-array.convolve	array FFT convolution
-array.copy	copy samples from one array to another
-array.do	iterate and modify array content via side-chain
-array.each	process each array elements via side-chain
-array.fill	fill array with single value, pattern or function
-array.grainer~	array granulator
-array.hist	calculates array histogram
-array.histogram	calculates array histogram
-array.ltcplay~	array player controlled by LTC
-array.mean	calculates array arithmetic mean value
-array.minmax	find array min and max element value
-array.play~	array player with variable speed and amplitude
-array.p~	array player with variable speed and amplitude
-array.plot	array data plotter
-array.plot~	plot signal on specified array
-array.readwrite~	array reader/writer
-array.rw~	array reader/writer
-array.resample	array resampler
-array.r	array resampler
-array.rms	calculates root mean square value for array
-array.set	set array content from list
-ceammc/list->array	set array content from list
-list->array	set array content from list
-array.stddev	calculates standard deviation for array values
-array.stretch	array time-stretch, pitch-shift or rate-change
-array.sum	calculates sum of array elements
-array.sum2	calculates sum of squares of array elements
-array.tramp~	triggered ramp generator for array
-array.variance	calculates variance of array values
-array.vplay	simple array player for using with vline~
-array.window	fill array with window
-plot.geomspace~	outputs numbers spaced evenly on a log scale (a geometric progression)
-plot.hist~	calculate and output signal histogram
-ceammc/hist~	calculate and output signal histogram
-hist~	calculate and output signal histogram
-plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
-plot.logspace~	outputs numbers spaced evenly on a log scale
-plot.response~	output amp/phase freq response to impulse
-bitmap	bitmap (2D bit matrix)
-ceammc/bitmap	bitmap (2D bit matrix)
-ceammc.search	ceammc library search object
-chrono.datetime	output current date and time info
-ceammc/datetime	output current date and time info
-datetime	output current date and time info
-convolve~	realtime FFT convolution
-ceammc/convolve~	realtime FFT convolution
-function	named function
-func	named function
-ceammc/func	named function
-ceammc/function	named function
-function.call	call named function
-func.call	call named function
-gain~	multislot signal gain
-ceammc/gain~	multislot signal gain
-gate~	multislot signal gate
-ceammc/gate~	multislot signal gate
-logger	advanced data logger
-ceammc/logger	advanced data logger
-log.error	advanced data logger
-log.post	advanced data logger
-log.debug	advanced data logger
-log.verbose	advanced data logger
-log.stdout	advanced data logger
-log.stderr	advanced data logger
-matrix~	signal routing matrix
-ceammc/matrix~	signal routing matrix
-merge~	parametrized signal merge
-ceammc/merge~	parametrized signal merge
-metro.choice	metro with random choice from timeset
-metro.pattern	metro with rhythmic patterns
-metro.random	metro random bang with specified range
-metro.seq	metro sequencer
-metro.wchoice	metro with weighted random choice from timeset
-mix~	multislot signal mixer
-ceammc/mix~	multislot signal mixer
-nsig~	Mulitchannel converter from control to audio rate
-ceammc/nsig~	Mulitchannel converter from control to audio rate
-obj.props	property extractor
-radio	float index to outlet values as radio switch
-ceammc/radio	float index to outlet values as radio switch
-split~	parametrized signal splitter
-ceammc/split~	parametrized signal splitter
-spring	float value "spring"
-ceammc/spring	float value "spring"
-sync	value synchronization
-ceammc/sync	value synchronization
-window	returns window value by given window position
-ceammc/window	returns window value by given window position
-ceammc/win	returns window value by given window position
-win	returns window value by given window position
-xdac~	dac~ with channel ranges
-ceammc/xdac~	dac~ with channel ranges
-xfade2~	multi stereo-signal crossfade
-ceammc/xfade2~	multi stereo-signal crossfade
-xfade~	multi signal crossfade
-ceammc/xfade~	multi signal crossfade
-z~	sample delay
-ceammc/z~	sample delay
-chaos.gbman0	Gingerbreadman map chaotic generator
-chaos.gbman0~	Gingerbreadman map chaotic generator
-chaos.jong	Peter de Jong attractor
-noise.jong	Peter de Jong attractor
-chaos.logistic	Logistic map chaotic generator
-noise.logistic	Logistic map chaotic generator
-chaos.std0	Standard map chaotic generator
-chaos.std0~	Standard map chaotic generator
-array.p2s	convert array phase [0..1] to sample position
-array.p->s	convert array phase [0..1] to sample position
-array.phase->sample	convert array phase [0..1] to sample position
-array.s2p	convert sample position to phase range [0..1]
-array.s->p	convert sample position to phase range [0..1]
-array.sample->phase	convert sample position to phase range [0..1]
-conv.amp2dbfs	convert from amplitude to decibel full scale
-ceammc/amp->dbfs	convert from amplitude to decibel full scale
-amp->dbfs	convert from amplitude to decibel full scale
-conv.amp2dbfs~	convert from amplitude to decibel full scale
-ceammc/amp->dbfs~	convert from amplitude to decibel full scale
-amp->dbfs~	convert from amplitude to decibel full scale
-conv.bar2ms	calculate bar and beat duration
-ceammc/bar->ms	calculate bar and beat duration
-bar->ms	calculate bar and beat duration
-conv.bits2bang	convert list of bits to bang events
-ceammc/bits->bang	convert list of bits to bang events
-bits->bang	convert list of bits to bang events
-conv.bits2int	convert list of bits to integer
-ceammc/bits->int	convert list of bits to integer
-bits->int	convert list of bits to integer
-conv.bits2note	convert list of bits to note events
-ceammc/bits->note	convert list of bits to note events
-bits->note	convert list of bits to note events
-conv.bits2pos	convert list of bits to list of bit position
-ceammc/bits->pos	convert list of bits to list of bit position
-bits->pos	convert list of bits to list of bit position
-conv.bpm2hz	converts BPM to frequency in hertz
-ceammc/bpm->hz	converts BPM to frequency in hertz
-bpm->hz	converts BPM to frequency in hertz
-conv.bpm2ms	convert frequency in BPM to period in milliseconds
-ceammc/bpm->ms	convert frequency in BPM to period in milliseconds
-bpm->ms	convert frequency in BPM to period in milliseconds
-conv.bpm2sec	convert frequency in BPM to period in seconds
-ceammc/bpm->sec	convert frequency in BPM to period in seconds
-bpm->sec	convert frequency in BPM to period in seconds
-conv.car2pol	convert cartesian coords to polar
-ceammc/car->pol	convert cartesian coords to polar
-car->pol	convert cartesian coords to polar
-conv.cc2amp	convert from MIDI Control Change range
-ceammc/cc->amp	convert from MIDI Control Change range
-cc->amp	convert from MIDI Control Change range
-conv.char2morse	convert character to morse code
-ceammc/char->morse	convert character to morse code
-char->morse	convert character to morse code
-conv.color2rgba	convert named or hex color to separate RGBA values
-ceammc/color->rgba	convert named or hex color to separate RGBA values
-color->rgba	convert named or hex color to separate RGBA values
-conv.dbfs2amp	convert decibel full scale to amplitude
-ceammc/dbfs->amp	convert decibel full scale to amplitude
-dbfs->amp	convert decibel full scale to amplitude
-conv.dbfs2amp~	convert decibel full scale to amplitude
-ceammc/dbfs->amp~	convert decibel full scale to amplitude
-dbfs->amp~	convert decibel full scale to amplitude
-conv.degree2key	convert scale degree to key
-ceammc/degree->key	convert scale degree to key
-degree->key	convert scale degree to key
-conv.edge2bang	edge detector for numeric stream
-ceammc/edge->bang	edge detector for numeric stream
-edge->bang	edge detector for numeric stream
-conv.guido2note	convert Guido notation into MIDI and duration
-ceammc/guido->note	convert Guido notation into MIDI and duration
-guido->note	convert Guido notation into MIDI and duration
-conv.hex2int	hex symbol to int value
-ceammc/hex->int	hex symbol to int value
-hex->int	hex symbol to int value
-conv.hsl2rgb	convert HSL color values to RGB
-ceammc/hsl->rgb	convert HSL color values to RGB
-hsl->rgb	convert HSL color values to RGB
-conv.int2bits	convert integer to list of bits
-ceammc/int->bits	convert integer to list of bits
-int->bits	convert integer to list of bits
-conv.lab2rgb	convert LAB color values to RGB
-ceammc/lab->rgb	convert LAB color values to RGB
-lab->rgb	convert LAB color values to RGB
-conv.lin2curve	map linear to exponential range with 0 allowed.
-ceammc/lin->curve	map linear to exponential range with 0 allowed.
-lin->curve	map linear to exponential range with 0 allowed.
-conv.lin2exp	maps linear range to exponential range
-ceammc/lin->exp	maps linear range to exponential range
-lin->exp	maps linear range to exponential range
-conv.lin2lin	convert from one linear range to another
-ceammc/lin->lin	convert from one linear range to another
-lin->lin	convert from one linear range to another
-ceammc/l->l	convert from one linear range to another
-l->l	convert from one linear range to another
-conv.lin2lin~	convert from one linear range to another for signals
-ceammc/lin->lin~	convert from one linear range to another for signals
-lin->lin~	convert from one linear range to another for signals
-ceammc/l->l~	convert from one linear range to another for signals
-l->l~	convert from one linear range to another for signals
-conv.list2props	converts list to series of property messages
-ceammc/list->props	converts list to series of property messages
-list->props	converts list to series of property messages
-ceammc/any->props	converts list to series of property messages
-any->props	converts list to series of property messages
-conv.midi2freq	convert from midi pitch to frequency in hz (with various base A and temperament)
-ceammc/midi->freq	convert from midi pitch to frequency in hz (with various base A and temperament)
-midi->freq	convert from midi pitch to frequency in hz (with various base A and temperament)
-ceammc/m->f	convert from midi pitch to frequency in hz (with various base A and temperament)
-m->f	convert from midi pitch to frequency in hz (with various base A and temperament)
-conv.ms2bpm	convert period in milliseconds to frequency in BPM
-ceammc/ms->bpm	convert period in milliseconds to frequency in BPM
-ms->bpm	convert period in milliseconds to frequency in BPM
-conv.ms2samp	convert time in milliseconds to number of samples according to current samplerate
-ceammc/ms->samp	convert time in milliseconds to number of samples according to current samplerate
-ms->samp	convert time in milliseconds to number of samples according to current samplerate
-conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate
-ceammc/ms->samp~	convert time in milliseconds to number of samples according to current samplerate
-ms->samp~	convert time in milliseconds to number of samples according to current samplerate
-conv.ms2str	converts float time in milliseconds to formated symbol (or string)
-ceammc/ms->str	converts float time in milliseconds to formated symbol (or string)
-ms->str	converts float time in milliseconds to formated symbol (or string)
-conv.note2guido	convert MIDI note to Guido notation
-ceammc/note->guido	convert MIDI note to Guido notation
-note->guido	convert MIDI note to Guido notation
-conv.phase2rad	convert phase value [0-1] to radians [0-2π]
-ceammc/phase->rad	convert phase value [0-1] to radians [0-2π]
-phase->rad	convert phase value [0-1] to radians [0-2π]
-conv.phase2rad~	convert phase value [0-1] to radians [0-2π]
-ceammc/phase->rad~	convert phase value [0-1] to radians [0-2π]
-phase->rad~	convert phase value [0-1] to radians [0-2π]
-conv.pitch2midi	converts symbol pitch name to MIDI note number
-ceammc/pitch->midi	converts symbol pitch name to MIDI note number
-pitch->midi	converts symbol pitch name to MIDI note number
-conv.pol2car	convert from polar coordinates to cartesian
-ceammc/pol->car	convert from polar coordinates to cartesian
-pol->car	convert from polar coordinates to cartesian
-conv.rad2phase	convert radians value to phase
-ceammc/rad->phase	convert radians value to phase
-rad->phase	convert radians value to phase
-conv.rad2phase~	convert radians value to phase
-ceammc/rad->phase~	convert radians value to phase
-rad->phase~	convert radians value to phase
-conv.rgb2hex	convert separate RGB values to hex color
-ceammc/rgb->hex	convert separate RGB values to hex color
-rgb->hex	convert separate RGB values to hex color
-conv.samp2ms	convert samples to time according to samplerate
-ceammc/samp->ms	convert samples to time according to samplerate
-samp->ms	convert samples to time according to samplerate
-conv.samp2ms~	convert samples to milliseconds according to samplerate
-ceammc/samp->ms~	convert samples to milliseconds according to samplerate
-samp->ms~	convert samples to milliseconds according to samplerate
-conv.samp2sec	convert samples to time according to samplerate
-ceammc/samp->sec	convert samples to time according to samplerate
-samp->sec	convert samples to time according to samplerate
-conv.sec2bpm	convert period in seconds to frequency in BPM
-ceammc/sec->bpm	convert period in seconds to frequency in BPM
-sec->bpm	convert period in seconds to frequency in BPM
-conv.sec2samp	convert time in seconds to number of samples according to current samplerate
-ceammc/sec->samp	convert time in seconds to number of samples according to current samplerate
-sec->samp	convert time in seconds to number of samples according to current samplerate
-conv.sec2str	converts float time in seconds to formated symbol (or string)
-ceammc/sec->str	converts float time in seconds to formated symbol (or string)
-sec->str	converts float time in seconds to formated symbol (or string)
-conv.semi2ratio	convert interval in semitones to frequency ratio in 12-ET
-ceammc/semi->ratio	convert interval in semitones to frequency ratio in 12-ET
-semi->ratio	convert interval in semitones to frequency ratio in 12-ET
-conv.sig2float~	convert signal to floats
-ceammc/sig->float~	convert signal to floats
-sig->float~	convert signal to floats
-ceammc/s->f~	convert signal to floats
-s->f~	convert signal to floats
-conv.str2sec	converts formatted time to float value in seconds
-ceammc/str->sec	converts formatted time to float value in seconds
-str->sec	converts formatted time to float value in seconds
-music.dur2time	convert duration list to time
-music.d->t	convert duration list to time
-music.voice2midi	convert voice music list of midi pitches
-music.v->m	convert voice music list of midi pitches
-color.mix	color mixer
-color.scale	create color scales
-data.bimap	bidirectional map container
-ceammc/bimap	bidirectional map container
-bimap	bidirectional map container
-data.color	Color datatype
-color	Color datatype
-ceammc/color	Color datatype
-data.copy	make copy for any data types: MList, Set etc...
-data.dict	dictionary container: store values by key
-ceammc/dict	dictionary container: store values by key
-dict	dictionary container: store values by key
-data.fifo	First-In-First-Out (FIFO) queue data container
-data.float	robust float object
-.float	robust float object
-.f	robust float object
-data.int	robust int object
-.int	robust int object
-.i	robust int object
-data.list	list container
-data.mlist	multidimensional list container
-ceammc/mlist	multidimensional list container
-mlist	multidimensional list container
-ceammc/ml	multidimensional list container
-ml	multidimensional list container
-data.path	filesystem path datatype
-data.set	container that store unique elements
-data.set2list	converts set to list
-ceammc/set->list	converts set to list
-set->list	converts set to list
-dict.contains	predicate to check if dict contains a keys
-dict.each	map each value in dict
-dict.from_list	creates dictionary from list
-ceammc/list->dict	creates dictionary from list
-list->dict	creates dictionary from list
-dict.get	output dict values
-dict.keys	get list of dict keys
-dict.pass	passes specified keys in dict
-dict.reject	rejects specified keys from dict
-dict.size	dictionary size
-dict.to_list	converts dictionary to plain list
-ceammc/dict->list	converts dictionary to plain list
-dict->list	converts dictionary to plain list
-dict.values	dictionary values as mlist
-global.bimap	Global visibility bidirectional map container
-local.bimap	local to patch bidirectional map container
-mlist.flatten	flatten nested mlist
-rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions
-ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions
-rtree->list	convert OpenMusic-like rhythm tree to list of fractions
-set.contains	check if specified element is in set
-set.diff	difference between two sets
-set.equal	checks if two sets are equal (contains same elements)
-set.intersect	output intersection of given sets
-set.size	get number of elements in set
-set.symdiff	symmetric difference between two sets
-set.union	output union of given sets
-dyn.comp2~	stereo dynamic range compressor
-dyn.comp_peak2~	stereo peak feed forward compressor with channel linking
-comp.peak2~	stereo peak feed forward compressor with channel linking
-dyn.comp_peak~	mono dynamic range peak feed forward compressor
-comp.peak~	mono dynamic range peak feed forward compressor
-dyn.comp_up2~	stereo upward compressor with channel linking
-comp.up2~	stereo upward compressor with channel linking
-dyn.comp_up~	mono upward compressor
-comp.up~	mono upward compressor
-dyn.comp~	mono dynamic range compressors
-dyn.expand2~	stereo dynamic range expander with channel linking
-dyn.expand~	mono dynamic range expander
-dyn.gate2~	stereo signal gate
-dyn.gate~	mono signal gate
-dyn.limit2~	stereo 1176LN Peak Limiter
-dyn.limit~	mono 1176LN Peak Limiter
-dyn.softclip~	soft signal clip
-env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator
-env.ar~	Attack/Release envelope generator
-env.asr2~	stereo Attack/Sustain/Release envelope generator
-env.asr~	Attack/Sustain/Release envelope generator
-env.concat	Envelope concatenation
-env.follow~	Envelope follower with independent attack and release times
-env.mix	Mix between two envelopes. Envelopes should contain equal number of segments
-env.smooth~	An envelope with an exponential attack and release
-env.tscale	Envelope time-scale
-env.tshift	Envelope time-shift (horizontal)
-env.vscale	Envelope value-scale
-env2array	Renders envelope to specified array
-ceammc/env2array	Renders envelope to specified array
-ceammc/env->array	Renders envelope to specified array
-env->array	Renders envelope to specified array
-env2vline	Converts envelope to bunch of vline messages
-ceammc/env2vline	Converts envelope to bunch of vline messages
-ceammc/env->vline	Converts envelope to bunch of vline messages
-env->vline	Converts envelope to bunch of vline messages
-envelope	Envelope data type
-ceammc/envelope	Envelope data type
-ceammc/env	Envelope data type
-env	Envelope data type
-vline2env	Converts vline messages to env
-ceammc/vline2env	Converts vline messages to env
-ceammc/vline->env	Converts vline messages to env
-vline->env	Converts vline messages to env
-expand_env	Substitute environment variables in data stream
-ceammc/expand_env	Substitute environment variables in data stream
-flow.append	append message to flow stream
-flow.change	rejects redundant input values
-flow.count	control flow event counter
-flow.delay	enhanced version on vanilla delay object
-flow.del	enhanced version on vanilla delay object
-flow.demultiplex	control flow demultiplexer
-flow.demux	control flow demultiplexer
-flow.demultiplex2~	audio stream stereo demultiplexer
-flow.demux2~	audio stream stereo demultiplexer
-ceammc/demux2~	audio stream stereo demultiplexer
-demux2~	audio stream stereo demultiplexer
-flow.demultiplex~	audio stream demultiplexer
-flow.demux~	audio stream demultiplexer
-ceammc/demux~	audio stream demultiplexer
-demux~	audio stream demultiplexer
-flow.dollar	data flow dollar converter
-flow.$$	data flow dollar converter
-flow.dup	message duplicator
-flow.float	pass floats
-flow.f	pass floats
-flow.gate	control flow gate. [spigot] analog
-ceammc/gate	control flow gate. [spigot] analog
-gate	control flow gate. [spigot] analog
-flow.greater	numeric stream router
-flow.>	numeric stream router
-flow.greater_eq	numeric stream router
-flow.>=	numeric stream router
-flow.group	group input atoms in list of specified size
-ceammc/group	group input atoms in list of specified size
-group	group input atoms in list of specified size
-flow.histogram	control flow histogram
-flow.hist	control flow histogram
-flow.interval	measure time between flow events
-flow.less	numeric stream router, like many [moses]
-flow.<	numeric stream router, like many [moses]
-flow.less_eq	numeric stream router, like many [moses]
-flow.<=	numeric stream router, like many [moses]
-flow.list2many	routes list element with message selectors
-ceammc/list->many	routes list element with message selectors
-list->many	routes list element with message selectors
-flow.match	route data flow by regexp match
-flow.mem	store data flow in memory
-flow.multiplex	control flow multiplexer
-flow.mux	control flow multiplexer
-flow.multiplex2~	audio stream stereo multiplexer
-flow.mux2~	audio stream stereo multiplexer
-ceammc/mux2~	audio stream stereo multiplexer
-mux2~	audio stream stereo multiplexer
-flow.multiplex~	audio stream multiplexer
-flow.mux~	audio stream multiplexer
-ceammc/mux~	audio stream multiplexer
-mux~	audio stream multiplexer
-flow.once	one message pass thru
-ceammc/once	one message pass thru
-once	one message pass thru
-flow.pack	flow pack
-flow.pass	pass specified values
-ceammc/pass	pass specified values
-pass	pass specified values
-flow.pass_if	pass values that accepted by predicate object
-ceammc/pass_if	pass values that accepted by predicate object
-pass_if	pass values that accepted by predicate object
-flow.pipe	enhanced version on vanilla pipe object
-flow.prepend	prepend message before received one
-flow.queue	multi-channel control flow sync queue (or FIFO)
-flow.record	flow stream recorder/player
-flow.rec	flow stream recorder/player
-flow.reject	reject specified values
-ceammc/reject	reject specified values
-reject	reject specified values
-flow.!	reject specified values
-flow.reject_if	reject values by predicate
-ceammc/reject_if	reject values by predicate
-reject_if	reject values by predicate
-flow.ring	dataflow ring buffer
-flow.>>	dataflow ring buffer
-flow.route	advanced message router
-flow.select	vanilla flow on steroids
-flow.sel	vanilla flow on steroids
-flow.seqdelay	sequential delay/router for input flow
-flow.seqdel	sequential delay/router for input flow
-flow.space	space in time messages received at the same logical time
-flow.speedlim	control stream speed limiter
-ceammc/speedlim	control stream speed limiter
-speedlim	control stream speed limiter
-flow.split	split data flow by external side-chain predicate
-ceammc/split	split data flow by external side-chain predicate
-split	split data flow by external side-chain predicate
-flow.stack	any message stack
-flow.sync	bus with only hot inlets
-flow.'	bus with only hot inlets
-flow.sync_pack	flow pack with all hot inlets
-flow.pack'	flow pack with all hot inlets
-flow.tee~	separate audio and control streams
-ceammc/tee~	separate audio and control streams
-tee~	separate audio and control streams
-ceammc/~->	separate audio and control streams
-~->	separate audio and control streams
-replace	Replace atoms in data stream
-ceammc/replace	Replace atoms in data stream
-route.any	separate any messages from bangs, floats, symbols and lists
-route.bang	separate bang messages from other types
-route.b	separate bang messages from other types
-route.cycle	cyclic message router
-route.data	separate any messages from bangs, floats, symbols and lists
-route.d	separate any messages from bangs, floats, symbols and lists
-route.float	separate float messages from other types
-route.f	separate float messages from other types
-route.list	separate list messages from other types
-route.l	separate list messages from other types
-route.prop	separate property messages from other types
-route.random	routes input flow to random outlet
-route.r	routes input flow to random outlet
-route.symbol	separate symbol messages from other types
-route.s	separate symbol messages from other types
-flt.a-weight	convert frequency to A-weight value
-flt.biquad~	second order IIR filter.
-flt.bpf12~	Two pole band-pass butterworth filter
-flt.bpf24~	Four pole band-pass butterworth filter
-flt.bpf36e~	elliptic band-pass filter with -36db rolloff
-flt.bpf72e~	elliptic band-pass filter with -72db rolloff
-flt.c_apf	Allpass filter coefficient calculator for biquad
-ceammc/apf->biquad	Allpass filter coefficient calculator for biquad
-apf->biquad	Allpass filter coefficient calculator for biquad
-flt.c_bpf~	BPF coefficient calculator for biquad filter
-flt.c_highshelf~	Highshelf filter coefficient calculator for biquad
-flt.c_hpf	HPF coefficient calculator for biquad filter
-ceammc/hpf->biquad	HPF coefficient calculator for biquad filter
-hpf->biquad	HPF coefficient calculator for biquad filter
-flt.c_hpf~	HPF coefficient calculator for biquad filter
-flt.c_lowshelf~	Lowshelf filter coefficient calculator for biquad
-flt.c_lpf	LPF coefficient calculator for biquad filter
-ceammc/lpf->biquad	LPF coefficient calculator for biquad filter
-lpf->biquad	LPF coefficient calculator for biquad filter
-flt.c_lpf~	LPF coefficient calculator for biquad filter
-flt.c_notch	Notch filter coefficient calculator for biquad
-ceammc/notch->biquad	Notch filter coefficient calculator for biquad
-notch->biquad	Notch filter coefficient calculator for biquad
-flt.c_notch~	Band-reject coefficient calculator for biquad filter
-flt.c_peak~	Peaking equalizer calculator for biquad
-flt.c_pole	One-pole coefficient calculator for biquad filter
-ceammc/pole->biquad	One-pole coefficient calculator for biquad filter
-pole->biquad	One-pole coefficient calculator for biquad filter
-flt.dcblock2~	stereo DC blocker
-flt.dcblock~	mono DC blocker
-flt.eq10~	graphic 10 band equalizer
-flt.eq_peak_cq~	constant-Q second order peaking equalizer section
-flt.eq_peak~	second order "peaking equalizer" section (gain boost or cut near some frequency). Also called a "parametric equalizer" section.
-flt.fb_comb~	feedback comb filter
-flt.fbank5x1~	5 band one octave butterworth filterbank
-flt.ff_comb~	feed forward comb filter
-flt.freqz	compute the frequency response of a digital filter
-flt.freqz~	compute the frequency response of a digital filter
-flt.highshelf~	gain boost|cut above some frequency
-flt.hpf12~	High-pass second order Butterworth filter
-flt.hpf24~	High-pass fourth order Butterworth filter
-flt.lowshelf~	gain boost|cut below some frequency
-flt.lpf12~	Low-pass second order Butterworth filter
-flt.lpf24~	Low-pass fourth order Butterworth filter
-flt.median	Median control flow filter
-flt.moog_vcf~	Moog Voltage Controlled Filter
-flt.notch~	band-rejection filter
-flt.resonbp~	Simple resonant bandpass filter
-flt.resonhp~	Simple resonant highpass filter
-flt.resonlp~	Simple resonant lowpass filter
-flt.speaker~	speaker emulation band-pass filter
-fx.bitdown~	bit downer and downsampler effect
-fx.chorus~	Chorus effect
-fx.dattorro~	dattorro reverb
-fx.delay~	smooth delay with a feedback control
-fx.sdelay~	smooth delay with a feedback control
-fx.distortion1~	distortion #1 from Guitarix effects set
-fx.distortion2~	distortion #2 from Guitarix effects set
-fx.distortion3~	simple distortion #3 from Guitarix effects set
-fx.distortion~	cubic nonlinearity distortion
-fx.drive~	Guitarix drive effect
-fx.drone_box~	mono sympathetic resonance generator
-fx.echo2~	stereo echo effect
-fx.echo~	enhanced echo effect
-fx.secho~	enhanced echo effect
-fx.flanger~	mono flanging effect
-fx.freeverb2~	freeverb2 - stereo version of freeverb
-fx.freeverb~	freeverb - common used open-source reverb
-fx.freqshift~	frequency shifter or single-sideband ring modulation
-fx.granulator~	simple input stream granulator
-fx.greyhole~	A complex echo-like effect
-fx.infrev~	port of Infinity VST plugin from airwindows
-fx.jcrev~	Schroeder quad reverberator from 1972
-fx.looper~	One track looper
-fx.overdrive~	overdrive effect
-fx.pitchshift_s~	signal version of fx.pitchshift~
-fx.pitchshift~	simple pitch shifter based on 2 delay lines
-fx.rb_pitchshift~	rubber band pitchshift
-fx.recho~	reversed echo effect
-fx.ringmod~	ring modulator effect
-fx.room~	Gardners room emulation algorithms
-fx.satrev~	Schroeder reverberator from 1971
-fx.scramble~	scramble delayed sound fragments
-fx.shimmer~	shimmer reverb effect effect
-fx.stutter~	stutter effect
-fx.tapiir~	multi-tap delay
-fx.tremolo~	tremolo effect from guitarix project
-fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
-fx.wahwah~	digitized CryBaby wah pedal
-fx.zita_rev1~	Zita stereo reverb
-global.dict	global named dict object
-global.json	global named dict object
-global.float	global named float object
-global.int	global named integer object
-global.list	global named list object
-global.mlist	global named mlist object
-global.set	global named set object
-hw.apple_smc	query the system management control in Apples
-hw.apple_sms	query the sudden motion sensor in Apples
-hw.arduino	Arduino device
-hw.display	get/set display properties
-hw.gamepad	gamepad controller
-hw.kbd_light	Get/set keyboard light on some devices
-hw.motu.avb	controls Motu AVB devices over http requests
-hw.printer	Basic printing support
-hw.rpi.adc.ads1115	ASD1115 ADC driver for Raspberry Pi
-hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module)
-hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module)
-hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module)
-hw.rpi.display.ssd1306	OLED ssd1306 display for Raspberry Pi
-hw.rpi.gpio	Raspberry Pi GPIO support
-hw.rpi.i2c.pca9685	PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry Pi
-hw.rpi.pwm.pca9685	PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry Pi
-hw.rpi.pwm	Hardware PWM output for RaspberryPi
-hw.rpi.rotenc	Rotary encoder for Raspberry GPIO
-hw.rpi.sensor.dht11	DHT11 Humidity and Temperature Digital Sensor for Raspberry Pi support
-hw.rpi.sensor.ir	Infrared sensor support for Raspberry Pi
-hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer Raspberry Pi support
-hw.rpi.sensor.sr04	HC-SR04 ulatrasonic ranging module for Raspberry Pi
-hw.rpi.sensor.vl53l0x	The VL53L0X Time-of-Flight (ToF) laser-ranging sensor Raspberry Pi support
-hw.rpi.spi.max7219	LED display driver based on max7219 chip for Raspberry Pi
-hw.rpi.spi.ws2812	WS21812 Led strip driver for Raspberry Pi
-hw.serial	serial port device
-lang.faust~	faust realtime compilation
-lang.lua	Lua JIT language bindings
-ui.faust~	faust compiled ui object
-lfo.+pulse~	Unit-amplitude nonnegative low frequency pulse train
-lfo.+saw~	Positive unit-amplitude low frequency saw wave
-lfo.+square~	Positive low frequency square wave
-lfo.+tri~	Positive unit-amplitude low frequency triangle wave
-lfo.impulse~	Unit-amplitude low-frequency impulse train
-lfo.mosc~	multi-oscillator with various waveforms
-lfo.pulse~	Full-range unit-amplitude low frequency pulse train
-lfo.saw~	Full-range unit-amplitude low frequency saw
-lfo.square~	Zero-mean unit-amplitude low frequency square wave
-lfo.tri~	Zero-mean unit-amplitude low frequency triangle wave
-list.^at	on input index(es) outputs list element(s)
-list.^contains	checks if input atom is found in the list
-list.^search	on input atom returns it index in list
-list.all_of	checks if all list atoms accepted by predicate
-list.any_of	checks if at least one list element is accepted by predicate
-list.append	append atom or list to the end of input list
-list.apply_to	modifies list value at specified position, filtering it via external object
-list.at	outputs list element(s) at specified index(es)
-list.choice	outputs random element from list
-list.contains	checks if input list contains specified atoms
-list.convolve	convolution for lists
-list.conv	convolution for lists
-list.correlate	list cross-correlation
-list.count	output the number of items that equal to specified value
-list.count_if	output the number of items that satisfy to external predicate
-list.delta	returns the difference between the current list of floats and the previous one.
-list.distribution	list value distribution
-list.do	iterate and modify list contents via side-chain
-list.each	maps each list value via external side-chain
-list.enumerate	enumerates input list
-list.equal	checks if given lists are equal
-list.first	returns first list element
-list.gen	generates list of specified length via external generator
-list.histogram	outputs distribution histogram
-list.hist	outputs distribution histogram
-list.insert	insert atom or list to the specified position of input list
-list.integrator	returns the sum of the previously stored list and the current one then stores this sum
-list.last	output last list element
-list.length	output the number of atoms in the list
-list.size	output the number of atoms in the list
-list.map	map list values by specified dictionary
-list.max	output largest element in the list
-list.mean	calculates average of list of floats
-list.average	calculates average of list of floats
-list.min	returns smallest element in the list
-list.none_of	checks if none of list atoms is accepted by predicate
-list.normalize	normalizes float list values to get their sum = 1.0
-list.pass	leave in list only specified elements
-list.pass_if	leave only elements accepted by predicate
-list.filter	leave only elements accepted by predicate
-list.prepend	prepend atom or list before input list
-list.product	calculates product of floats in list
-list.range	output list smallest and largest value
-list.minmax	output list smallest and largest value
-list.reduce	apply function of two arguments cumulatively to the list
-list.foldl	apply function of two arguments cumulatively to the list
-list.reject	remove specified element from list
-list.remove	remove list element(s) at specified positions
-list.remove_if	remove elements by predicate
-list.repack	repack list to specified size
-list.repeat	output new list by repeating input list specified times
-list.resample	resample list with specified ratio
-list.r	resample list with specified ratio
-list.resize	changes list size
-list.reverse	reverses the order of the elements in the list
-list.rldecode	Run-length list decoder (RLE)
-list.unwrap	Run-length list decoder (RLE)
-list.rlencode	RLE (run-length encoding) for lists
-list.wrap	RLE (run-length encoding) for lists
-list.rotate	rotates list
-list.<<	rotates list
-list.>>	rotates list
-list.route	acts like [route] but for lists
-list.rundiff	running difference
-list.runsum	running sum
-list.search	search specified items in input list
-list.separate	sends list elements one by one separately
-list.sep	sends list elements one by one separately
-list.seq	numeric sequence list generator
-list.set	set list value at specified position
-list.shift	shifts the contents of the list with linear interpolation
-list.shuffle	randomly rearranges elements in list
-list.slice	extract sublist
-list.sort	sorts list values by ascending order
-list.sort_with	sort list with user defined side-chain
-list.split	splits list into two parts, the length of first list is specified by the argument
-list.stretch	stretches list - changes its size with linear interpolation
-list.sum	calculates sum of floats in list
-list.unique	removes duplicates from input list
-list.unpack	unpack list elements to separate outlets
-list.unzip	splits list to N lists, each to separate output
-list.deinterleave	splits list to N lists, each to separate output
-list.walk	Walks thru the list
-list.zip	takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).
-list.interleave	takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).
-live.capture~	record up to 32s of sound and playback the recorded sound in loop
-local.dict	local named dict object
-local.json	local named dict object
-local.float	canvas-scoped named float variable
-local.int	canvas-scoped named integer variable
-local.list	local named list object
-local.mlist	local named mlist object
-local.set	local named set object
-math.abs	absolute value function
-math.abs~	absolute value function for signals
-math.acos	arc cosine function
-math.acosh	inverse hyperbolic cosine function
-math.acosh~	hyperbolic arc cosine for signals
-math.acos~	arc cosine function for signals
-math.and	operation AND for multiple arguments
-ceammc/and	operation AND for multiple arguments
-and	operation AND for multiple arguments
-math.approx	check if input value approximately equal to pattern
-ceammc/approx	check if input value approximately equal to pattern
-approx	check if input value approximately equal to pattern
-math.asin	arc sine function
-math.asinh	inverse hyperbolic sine function
-math.asinh~	hyperbolic arc sine for signals
-math.asin~	arc sine for signals
-math.atan	arc tangent function
-math.atanh	inverse hyperbolic tangent function
-math.atanh~	hyperbolic arc tangent for signals
-math.atan~	arc tangent for signals
-math.binomial	binomial coefficient calculator
-math.nck	binomial coefficient calculator
-math.cabs~	magnitude of a complex signals
-ceammc/cabs~	magnitude of a complex signals
-cabs~	magnitude of a complex signals
-math.carg~	phase angle of a complex signals
-ceammc/carg~	phase angle of a complex signals
-carg~	phase angle of a complex signals
-math.cbrt	cube root function
-math.cbrt~	cube root function for signals
-math.cdiv~	division of complex signals
-ceammc/cdiv~	division of complex signals
-cdiv~	division of complex signals
-math.ceil	round to smallest integral value not less than input value
-math.ceil~	round to smallest integral value not less than input value
-math.cexp~	exponent of a complex signals
-ceammc/cexp~	exponent of a complex signals
-cexp~	exponent of a complex signals
-math.cmul~	multiplication of complex signals
-ceammc/cmul~	multiplication of complex signals
-cmul~	multiplication of complex signals
-math.cos	cosine function
-math.cosh	hyperbolic cosine function
-math.cosh~	hyperbolic cosine for signals
-math.cos~	cosine function
-math.div	division (on lists too)
-math./	division (on lists too)
-math.e	mathematical constant, base of the natural logarithm
-math.erf	error function
-math.erf~	error function for signals
-math.exp	exponential functions
-math.exp2	exponential functions
-math.exp2~	base-2 exponential for signal
-math.expr	dynamic [expr]
-math.exp~	base-e exponential for signal
-math.floor	round to largest integral value not greater than x
-math.floor~	round to largest integral value not greater than x
-math.gamma	gamma function
-math.gamma~	gamma function for floating point signals
-math.gcd	calculate greatest common divisor
-math.inf	infinity value that cannot be represented accurately
-math.inf~	inifinity signal generator
-math.lcm	calculate least common multiple
-math.lgamma	natural logarithm of the absolute value of the gamma function
-math.lgamma~	natural logarithm of the absolute value of the gamma function for signals
-math.log	natural logarithm
-math.log10	logarithm functions
-math.log10~	natural logarithm
-math.log2	logarithm functions
-math.log2~	base-2 logarithm
-math.log~	natural logarithm
-math.mul	multiplication (on lists too)
-math.*	multiplication (on lists too)
-math.nan	Not a Number, unrepresentable value
-math.nan~	signal NaN
-math.neg	negate function
-ceammc/-x	negate function
--x	negate function
-math.or	operation OR for multiple arguments
-ceammc/or	operation OR for multiple arguments
-or	operation OR for multiple arguments
-math.pi	mathematical constant
-ceammc/pi	mathematical constant
-pi	mathematical constant
-math.pi~	mathematical constant
-ceammc/pi~	mathematical constant
-pi~	mathematical constant
-math.polyeval	evaluates the polynomial described by the coefficients list
-math.reciprocal	calculate reciprocal number
-ceammc/1/x	calculate reciprocal number
-1/x	calculate reciprocal number
-math.reciprocal~	calculate reciprocal number for signals
-ceammc/1/x~	calculate reciprocal number for signals
-1/x~	calculate reciprocal number for signals
-math.round	round to integral value, regardless of rounding direction
-round	round to integral value, regardless of rounding direction
-ceammc/round	round to integral value, regardless of rounding direction
-math.round~	signal round
-round~	signal round
-ceammc/round~	signal round
-math.sign	sign function
-math.sin	sine function
-math.sinh	hyperbolic sine function
-math.sinh~	hyperbolic sine for signals
-math.sin~	sine function
-math.sqrt	square root function
-math.sqrt~	square root for signal
-math.squared	value square
-math.^2	value square
-ceammc/^2	value square
-^2	value square
-math.squared~	signal value square
-math.^2~	signal value square
-ceammc/^2~	signal value square
-^2~	signal value square
-math.sync_add	sync addition
-math.+'	sync addition
-ceammc/+'	sync addition
-+'	sync addition
-math.sync_and	sync logical AND operation
-math.&&'	sync logical AND operation
-ceammc/&&'	sync logical AND operation
-&&'	sync logical AND operation
-math.sync_div	sync division
-math./'	sync division
-ceammc//'	sync division
-/'	sync division
-math.sync_eq	sync equal numbers check
-math.=='	sync equal numbers check
-ceammc/=='	sync equal numbers check
-=='	sync equal numbers check
-math.sync_ge	sync greater equal numbers compare
-math.>='	sync greater equal numbers compare
-ceammc/>='	sync greater equal numbers compare
->='	sync greater equal numbers compare
-math.sync_gt	sync greater then numbers compare
-math.>'	sync greater then numbers compare
-ceammc/>'	sync greater then numbers compare
->'	sync greater then numbers compare
-math.sync_le	sync less equal numbers compare
-math.<='	sync less equal numbers compare
-ceammc/<='	sync less equal numbers compare
-<='	sync less equal numbers compare
-math.sync_lshift	sync signed bit left shift
-math.<<'	sync signed bit left shift
-ceammc/<<'	sync signed bit left shift
-<<'	sync signed bit left shift
-math.sync_lt	sync less then numbers compare
-math.<'	sync less then numbers compare
-ceammc/<'	sync less then numbers compare
-<'	sync less then numbers compare
-math.sync_mod	sync remainder of modulo division (float or integer)
-math.%'	sync remainder of modulo division (float or integer)
-ceammc/%'	sync remainder of modulo division (float or integer)
-%'	sync remainder of modulo division (float or integer)
-math.sync_mul	sync multiplication
-math.*'	sync multiplication
-ceammc/*'	sync multiplication
-*'	sync multiplication
-math.sync_ne	sync numbers for not equality
-math.!='	sync numbers for not equality
-ceammc/!='	sync numbers for not equality
-!='	sync numbers for not equality
-math.sync_or	sync logical OR operation
-math.||'	sync logical OR operation
-ceammc/||'	sync logical OR operation
-||'	sync logical OR operation
-math.sync_rshift	sync signed bit right shift
-math.>>'	sync signed bit right shift
-ceammc/>>'	sync signed bit right shift
->>'	sync signed bit right shift
-math.sync_sub	sync subtraction
-math.-'	sync subtraction
-ceammc/-'	sync subtraction
--'	sync subtraction
-math.sync_xor	sync logical XOR operation
-math.^'	sync logical XOR operation
-ceammc/^'	sync logical XOR operation
-^'	sync logical XOR operation
-math.tan	tangent function
-math.tanh	hyperbolic tangent function
-math.tanh~	hyperbolic tangent for signals
-math.tan~	tangent function
-math.trunc	truncate to integer value
-math.trunc~	truncate to integer value
-midi.arp	MIDI arpeggiator
-midi.cc	enhanced version of vanilla ctlin
-midi.clock	midi clock toolbox
-midi.ctl2str	convert Standard MIDI Controllers number to name
-midi.ctl->str	convert Standard MIDI Controllers number to name
-midi.event2ctl	convert MidiEvent message to controller channel/value pair
-midi.ev->ctl	convert MidiEvent message to controller channel/value pair
-midi.event2note	convert MidiEvent message to midi note/velocity pair
-midi.ev->note	convert MidiEvent message to midi note/velocity pair
-midi.event2prg	convert MidiEvent message to midi program change value
-midi.ev->prg	convert MidiEvent message to midi program change value
-midi.file	standard midi file SMF reader and writer
-midi.kbd	computer keyboard midi
-midi.key2str	convert key number to SPN name according to tonality
-midi.key->str	convert key number to SPN name according to tonality
-midi.modus	snap/skip midi pitches according modus
-midi.note.pass	midi note pass by expression
-note.pass	midi note pass by expression
-midi.oct	midi octave transpose
-midi.prg2str	convert GM Instrument number to name (string or symbol)
-midi.prg->str	convert GM Instrument number to name (string or symbol)
-midi.split	midi note splitter
-midi.sustain	sustain pedal emulation
-midi.sysex	sysex input messages as list
-midi.track	extract track from MidiFile
-midi.tuning	apply tuning to midi messages
-midi.vramp	apply crescendo or diminuendo for midi message flow
-midi.vrand	midi velocity randomizer
-click~	Output single impulse on bang
-ceammc/click~	Output single impulse on bang
-fluid~	FluidSynth SoundFont 2 player
-ceammc/fluid~	FluidSynth SoundFont 2 player
-modplug~	MOD file player (using libmodplug)
-ceammc/modplug~	MOD file player (using libmodplug)
-qrcode	QR code generator
-ceammc/qrcode	QR code generator
-risset.gliss	Sheppard/Risset glissando calculator
-sfizz~	SFZ format sample player
-ceammc/sfizz~	SFZ format sample player
-speech.flite	render speech to array
-speech.flite~	render speech to array
-speech.rhvoice~	RHVoice text to speech synthesis
-ceammc/rhvoice~	RHVoice text to speech synthesis
-rhvoice~	RHVoice text to speech synthesis
-loadexpr	send message when patch loads
-ceammc/loadexpr	send message when patch loads
-msg	message constructor
-ceammc/msg	message constructor
-ceammc/m	message constructor
-m	message constructor
-ceammc/prepend	message constructor
-prepend	message constructor
-msg.after	send specified message after incoming message
-msg.onclose	send message when patch closes
-msg.onload	send message when patch loads
-ceammc/loadmsg	send message when patch loads
-loadmsg	send message when patch loads
-msg.pack	message pack
-msg.sched	message scheduler
-msg.unpack	message unpack
-rhythm.euclid	euclid pattern generator
-rhythm.hexbeat	hexbeat pattern generator
-rhythm.lsystem	L-system pattern generator
-net.artnet.send	ArtNet DMX message sender
-artnet.send	ArtNet DMX message sender
-net.freesound	Freesound API v2 client
-net.host2ip	returns IP address by DNS name
-net.host->ip	returns IP address by DNS name
-net.http.client	HTTP client
-http.client	HTTP client
-net.http.send	HTTP request sender
-http.send	HTTP request sender
-net.mdns	MDNS service discovery
-net.mqtt.client	MQTT client
-mqtt.client	MQTT client
-net.osc.receive	OSC message listener
-net.osc.r	OSC message listener
-net.osc.send	OSC message sender
-net.osc.s	OSC message sender
-net.osc.server	OSC server control
-net.osc	OSC server control
-net.ws.client	Websocket client
-net.ws.server	Websocket server
-noise.baker	Part of a-chaos library
-noise.clifford	clifford attractor
-noise.collatz	collatz conjecture output
-noise.colored~	colored noise generator with an arbitrary spectral roll
-noise.crackle~	sparse noise generator
-noise.duffing	duffing attractor
-noise.ginger	Gingerbreadman map chaotic generator
-noise.henon	henon attractor
-noise.henon_heilles	Hénon–Heiles_system
-noise.henon_phase	henon phase Ddagrams
-noise.henonf	Henon phase
-noise.ikeda	Ikeda attractor
-noise.lfreq0~	sampled/held noise (piecewise constant)
-noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
-noise.lorenz	Lorenz chaos
-noise.lyapunov	lyapunov random attractor
-noise.navier_stokes	navier-stokes diff equations
-noise.pink~	Pink noise generator
-noise.rossler	Rössler attractor
-noise.stein	Stein distribution
-noise.torus	torus attractor
-noise.verhulst	verhulst distribution
-noise.white~	White noise generator
-osc.blit~	Bandlimited impulse train oscillator
-osc.impulse~	Bandlimited impulse train generator
-osc.pulse~	Bandlimited pulse train oscillator
-osc.saw4~	Bandlimited sawtooth wave
-osc.saw~	Alias-free sawtooth wave
-osc.sinfb~	Sine oscilator with feedback
-osc.sin~	Sine wave oscillator
-osc.square~	Bandlimited square wave oscillator
-osc.tri~	Bandlimited triangle wave oscillator
-canvas.active	checks if canvas window is on top and active
-ceammc/canvas.active	checks if canvas window is on top and active
-canvas.current	verbose information about current canvas
-canvas.dir	current canvas directory and nesting level
-canvas.name	current canvas name
-canvas.path	current canvas fullpath
-canvas.top	verbose information about top-level canvas
-patch.args	Get patch or subpatch arguments
-patch.deps	patch dependencies: used objects and abstractions
-patch.tree	patch tree
-file.size	output file size
-path.basename	outputs filename portion of pathname
-path.dirname	outputs directory portion of pathname
-path.exists	checks if given path exists
-path.file	file input/output
-path.is_dir	check if path is directory
-path.lsdir	list directory contents
-path.ls	list directory contents
-path.monitor	filesystem event monitor
-path.normalize	normalize file paths
-path.norm	normalize file paths
-path.pattern	pattern filename generator
-path.search	file search
-path.split	file path split
-is_any	checks if input data has *any* type
-is_bang	checks if input data has *bang* type
-is_data	checks if input data has *data* type
-ceammc/is_data	checks if input data has *data* type
-is_dict	checks if input data has *dict* type
-ceammc/is_dict	checks if input data has *dict* type
-is_even	checks if input number is even
-is_file	checks if file exists and accessible
-ceammc/is_file	checks if file exists and accessible
-is_float	checks if input data has *float* type
-is_list	checks if input data has *list* type
-is_odd	checks if input number is odd
-is_pointer	checks if input data has *pointer* type
-is_prop	checks if input message is *property* message
-is_symbol	checks if input data has *symbol* type
-preset.float	load/store float preset
-preset.f	load/store float preset
-preset.list	load/store symbol preset
-preset.l	load/store symbol preset
-preset.storage	preset storage control
-preset.symbol	load/store symbol preset
-preset.s	load/store symbol preset
-patch.props	patch properties manager
-prop	get/set named property value for subpatch or abstraction
-ceammc/prop	get/set named property value for subpatch or abstraction
-prop.declare	declare named property for subpatch or abstraction
-prop.get	get property from connected object/subpatch/abstraction
-p.get	get property from connected object/subpatch/abstraction
-prop.join	join property to main data flow
-prop<-	join property to main data flow
-prop.random	property randomizer
-prop.route	separate properties from dataflow
-prop->	separate properties from dataflow
-@->	separate properties from dataflow
-ceammc/prop->	separate properties from dataflow
-ceammc/@->	separate properties from dataflow
-prop.split	separate properties from dataflow
-prop.route~	Property extractor from audio streams
-prop~>	Property extractor from audio streams
-@~>	Property extractor from audio streams
-ceammc/prop~>	Property extractor from audio streams
-ceammc/@~>	Property extractor from audio streams
-prop.get~	Property extractor from audio streams
-prop.set	set property for connected object/subpatch/abstraction
-p.set	set property for connected object/subpatch/abstraction
-proto.arturia.minilab	simple SysEx control for Arturia MiniLab
-proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
-proto.firmata	Firmata Arduino protocol support
-proto.inscore	INScore message creator
-proto.ltc.in~	LTC decoder
-ltc.in~	LTC decoder
-proto.ltc.out~	LTC encoder
-ltc.out~	LTC encoder
-proto.midi	raw midi encoder/parser
-proto.midi.casio	Casio Privia MIDI control
-proto.midi.cc	raw midi CC encoder/parser
-proto.midi.sysex	raw midi SYSex encoder/parser
-proto.moppy	protocol for Musical flOPPY controller
-proto.morse	Morse encoder
-proto.mpv	mpv video player control
-proto.obs	OBS studio Web-Socket client
-proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
-proto.vlc	VLC video player control over HTTP
-proto.whammy	Control for Digitech Whammy pedal
-proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
-random.atom	weighted atom generation from specified list
-random.a	weighted atom generation from specified list
-random.discrete	random weighted integers on interval [0, n)
-random.float	uniform random float generator in specified range
-random.f	uniform random float generator in specified range
-random.gauss	gaussian random distribution
-random.int	uniform random integer generator in specified range
-random.i	uniform random integer generator in specified range
-random.linear	random linear distribution
-random.pw_const	piecewise constant random distribution
-random.pw_lin	piecewise linear random distribution
-samp.time~	sample counter
-samp.t~	sample counter
-seq.arp	sequence arpeggiator
-seq.bangs	bang sequencer
-seq.b	bang sequencer
-seq.counter	sequencer counter
-seq.life	Conway game of life sequencer
-seq.matrix	sequencer control for ui.matrix
-seq.nbangs	output specified number of bang with time intervals
-seq.nb	output specified number of bang with time intervals
-seq.phasor	control rate phasor (saw) generator
-seq.toggles	toggle sequencer
-seq.t	toggle sequencer
-sequencer	basic sequence player
-ceammc/sequencer	basic sequence player
-ceammc/seq	basic sequence player
-seq	basic sequence player
-snd.file	Sound file loader on steroids
-snd.play~	Sound file player on steriods
-hoa.2d.decoder~	hoa 2d decoder
-hoa.decoder~	hoa 2d decoder
-hoa.2d.encoder~	hoa 2d encoder
-hoa.encoder~	hoa 2d encoder
-hoa.2d.exchanger~	renumbers and normalizes the channels
-hoa.exchanger~	renumbers and normalizes the channels
-hoa.2d.map~	a 2d ambisonic multisource spatializer
-hoa.map~	a 2d ambisonic multisource spatializer
-hoa.2d.optim~	a 2D ambisonic optimization tool
-hoa.optim~	a 2D ambisonic optimization tool
-hoa.2d.projector~	a plane waves decomposer from circular harmonics domain
-hoa.projector~	a plane waves decomposer from circular harmonics domain
-hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics
-hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics
-hoa.2d.rotate~	a 2D ambisonic sound field rotation
-hoa.rotate~	a 2D ambisonic sound field rotation
-hoa.2d.space	planewaves amp control
-hoa.space	planewaves amp control
-hoa.2d.wider~	a 2d fractional ambisonic order simulator
-hoa.wider~	a 2d fractional ambisonic order simulator
-hoa.3d.decoder~	hoa 3d decoder
-hoa.3d.encoder~	hoa 3d encoder
-hoa.3d.exchanger~	renumbers and normalizes the channels
-hoa.3d.map~	a 3d ambisonic multisource spatializer
-hoa.3d.meter~	multi spherical meter with sound field descriptor
-hoa.3d.optim~	a 3D ambisonic optimization tool
-hoa.3d.scope~	a 3d ambisonic harmonic scope
-hoa.3d.wider~	a 3d fractional ambisonic order simulator
-hoa.@process	process properties manager for hoa.process~
-hoa.in	message inlet for a patcher loaded by hoa.process~
-hoa.in~	signal inlet for a patcher loaded by hoa.process~
-hoa.map.ui	a GUI to spatialize sources on a map
-hoa.out	message outlet for a patcher loaded by hoa.process~
-hoa.out~	signal inlet for a patcher loaded by hoa.process~
-hoa.process~	patcher loader for multichannel processing
-hoa.2d.process~	patcher loader for multichannel processing
-hoa.3d.process~	patcher loader for multichannel processing
-hoa.scope~	a 2d ambisonic harmonic scope
-hoa.2d.scope~	a 2d ambisonic harmonic scope
-pan.cos~	two channel equal power sine/cosine panner
-pan.linsig~	two channel linear panner with signal control
-pan.lin~	two channel linear panner
-ceammc/pan~	two channel linear panner
-pan~	two channel linear panner
-pan.spread~	spreads input channels across the stereo field
-pan.sqrt~	two channel equal power square root panner
-spat.pan4~	GMEM SPAT: 4-outputs spatializer
-ceammc/pan4~	GMEM SPAT: 4-outputs spatializer
-pan4~	GMEM SPAT: 4-outputs spatializer
-spat.pan8~	GMEM SPAT: 8-outputs spatializer
-ceammc/pan8~	GMEM SPAT: 8-outputs spatializer
-pan8~	GMEM SPAT: 8-outputs spatializer
-spat.zita6x8~	spat with 6 inputs sources to 8 channel output
-spat.zita8~	8 channel reverb spatializer
-string	string constructor
-ceammc/string	string constructor
-ceammc/str	string constructor
-str	string constructor
-string.contains	checks if string contains specified substring
-str.contains	checks if string contains specified substring
-string.ends_with	checks if string ends with specified substring
-str.ends_with	checks if string ends with specified substring
-string.equal	check strings or symbols for equality
-str.equal	check strings or symbols for equality
-string.format	formats string like printf.
-str.format	formats string like printf.
-string.join	joins (concatenates) list to string with separator
-str.join	joins (concatenates) list to string with separator
-string.length	number of characters in string (unicode supported)
-str.length	number of characters in string (unicode supported)
-string.match	check if string match regular expression
-str.match	check if string match regular expression
-string.remove	remove substring from input string
-str.remove	remove substring from input string
-string.replace	replace from one substring to another in input string
-str.replace	replace from one substring to another in input string
-string.split	split string or symbol by separator
-str.split	split string or symbol by separator
-symbol.split	split string or symbol by separator
-string.starts_with	checks if string starts with specified substring
-str.starts_with	checks if string starts with specified substring
-string.substr	extract substring from input string
-str.substr	extract substring from input string
-string2symbol	converts string to symbol
-ceammc/string2symbol	converts string to symbol
-ceammc/str->sym	converts string to symbol
-str->sym	converts string to symbol
-symbol.equal	check symbols for equality
-symbol.length	number of characters in symbol (unicode supported)
-symbol.num_compare	numeric symbol compare
-symbol2any	converts symbol or string to message
-ceammc/symbol2any	converts symbol or string to message
-ceammc/sym->any	converts symbol or string to message
-ceammc/str->any	converts symbol or string to message
-ceammc/string2any	converts symbol or string to message
-sym->any	converts symbol or string to message
-str->any	converts symbol or string to message
-string2any	converts symbol or string to message
-symbol2intlist	converts symbol to list of character codes
-ceammc/symbol2intlist	converts symbol to list of character codes
-ceammc/sym->ilist	converts symbol to list of character codes
-sym->ilist	converts symbol to list of character codes
-noise.chua~	Chua's diode circuit
-synth.bee3~	Hammond-oid organ FM synthesis instrument
-synth.birds~	bird singing generator
-synth.church_bell~	generic church bell modal model
-synth.clap~	clap synth from faust libraries
-synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
-synth.dx7~	FAUST dx7 implementation
-synth.eguitar~	simple electric guitar model with steel strings
-synth.english_bell~	english church bell modal model
-synth.fgrain~	file granulator from STK
-synth.french_bell~	french church bell modal model
-synth.german_bell~	german church bell modal model
-synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
-synth.glitch~	Glitch synthesizer by naivesound
-synth.harpsichord~	waveguide commuted harpsichord
-synth.hat~	hi-hat synth from faust librariest
-synth.kick2~	low-kick synth from faust librariest
-synth.kick~	low-kick synth from Guitarix project
-synth.ks~	Karplus-Strong string
-synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
-synth.metro~	ready to use metronome synth
-synth.piano~	waveguide commuted piano
-synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
-synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
-synth.risset_bell~	Jean Claude Risset's bell synth
-synth.risset_tone~	Jean Claude Risset's endless glissando
-synth.russian_bell~	russian church bell modal model
-synth.shakers~	various percussion sounds from STK library
-synth.sitar~	STK sitar
-synth.snare~	Snare drum synth from Guitarix project
-synth.standard_bell~	german church bell modal model
-synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
-synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
-synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
-synth.wurley~	Wurlitzer electric piano FM synthesis instrument
-system.colorpanel	System color panel dialog popup
-system.command	run commands with pipes on Unix and Windows
-system.cmd	run commands with pipes on Unix and Windows
-system.cursor	Output cursor motion, mousewheel and button clicks
-system.exec	run external command in separate process
-system.exit	quit PureData
-system.getenv	Get system environment variables
-system.hostname	outputs system hostname
-system.info	retrieve system information
-system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
-system.memused	returns the process physical memory use - current and peak
-system.screen_size	returns current screen size in pixels
-tl.bang	Timeline bang (with possible delay)
-tl.b	Timeline bang (with possible delay)
-tl.cue	Timeline section
-tl.timeline	Timeline - event scheduler
-ceammc/timeline	Timeline - event scheduler
-timeline	Timeline - event scheduler
-tl.toggle	Timeline bang
-tl.t	Timeline bang
-tl.transport	Timeline transport control
-ui.aview	array view with cursor and selection
-ui.bang	A bang... that's all
-ui.b	A bang... that's all
-ui.button	button widget
-ui.btn	button widget
-ui.canvas	UI canvas for drawing
-ui.cnv	UI canvas for drawing
-ui.cmeter~	Multichannel circular peak and rms signal meter
-ui.cm~	Multichannel circular peak and rms signal meter
-hoa.2d.meter~	Multichannel circular peak and rms signal meter
-ui.colorpanel	colorchooser widget
-ui.display	Display GUI object
-ui.d	Display GUI object
-ui.dt	Display GUI object
-ui.dsp~	GUI for turning DSP on/off
-ui.env	envelope editor widget
-ui.filter	UI filter object calculator for biquad filter
-ui.filter~	UI filter object based on biquad filter
-ui.gain2~	UI stereo gain control
-ui.hgain2~	UI stereo gain control
-ui.vgain2~	UI stereo gain control
-ui.gain~	UI gain control
-ui.hgain~	UI gain control
-ui.vgain~	UI gain control
-ui.icon	simple icon with button capabilities
-ui.incdec	value increment/decrement
-ui.keyboard	keyboard widget
-ui.hk	keyboard widget
-ui.vkeyboard	keyboard widget
-ui.vk	keyboard widget
-ui.knob	knob widget
-ui.k	knob widget
-ui.label	simple label widget
-ui.lcd	black and white bitmap display
-ui.link	Hyperlink widget
-ui.matrix	The matrix of toggles has you.
-ui.menu	Dropdown menu
-ui.meter~	Shows peak and rms signal level
-ui.m~	Shows peak and rms signal level
-ui.hm~	Shows peak and rms signal level
-ui.vm~	Shows peak and rms signal level
-ui.midi	incoming MIDI message viewport
-ui.mouse_filter	filter mouse events from ui objects
-ui.mf	filter mouse events from ui objects
-ui.mouse_route	routes mouse events from ui objects
-ui.mr	routes mouse events from ui objects
-ui.number	counterpart of the vanilla [nbx]
-ui.n	counterpart of the vanilla [nbx]
-ui.number~	counterpart of the vanilla [nbx] for signal
-ui.n~	counterpart of the vanilla [nbx] for signal
-ui.plot~	signal plotter
-ui.polar	2D slider in polar coordinates
-ui.preset	Preset manager
-ui.radio	counterpart of the vanilla radio toggle
-ui.radio*	counterpart of the vanilla radio toggle
-ui.hrd	counterpart of the vanilla radio toggle
-ui.hrd*	counterpart of the vanilla radio toggle
-ui.vrd	counterpart of the vanilla radio toggle
-ui.vrd*	counterpart of the vanilla radio toggle
-ui.rslider	range slider
-ui.rsl	range slider
-ui.scope~	Scope GUI object
-ui.slider	counterpart of the vanilla slider
-ui.hsl	counterpart of the vanilla slider
-ui.vsl	counterpart of the vanilla slider
-ui.slider2d	2D slider widget
-ui.s2d	2D slider widget
-ui.sliders	Multiple slider widget
-ui.vsliders	Multiple slider widget
-ui.spectroscope~	Spectroscope GUI object
-ui.ssc~	Spectroscope GUI object
-ui.tab	displays a list of text buttons or text toggles
-ui.toggle	modern toggle widget
-ui.t	modern toggle widget
+an.onset	
+an.onset~	
+an.pitchtrack~	
+ceammc/helmholtz~	
+helmholtz~	
+an.rms~	
+an.tempo~	
+an.zero~	
+array.bpm	
+array.circular	
+array.circular~	
+array.convolve	
+array.copy	
+array.do	
+array.each	
+array.fill	
+array.grainer~	
+array.hist	
+array.histogram	
+array.ltcplay~	
+array.mean	
+array.minmax	
+array.play~	
+array.p~	
+array.plot	
+array.plot~	
+array.readwrite~	
+array.rw~	
+array.resample	
+array.r	
+array.rms	
+array.set	
+ceammc/list->array	
+list->array	
+array.stddev	
+array.stretch	
+array.sum	
+array.sum2	
+array.tramp~	
+array.variance	
+array.vplay	
+array.window	
+plot.geomspace~	
+plot.hist~	
+ceammc/hist~	
+hist~	
+plot.linspace~	
+plot.logspace~	
+plot.response~	
+bitmap	
+ceammc/bitmap	
+ceammc.search	
+chrono.datetime	
+ceammc/datetime	
+datetime	
+convolve~	
+ceammc/convolve~	
+function	
+func	
+ceammc/func	
+ceammc/function	
+function.call	
+func.call	
+gain~	
+ceammc/gain~	
+gate~	
+ceammc/gate~	
+logger	
+ceammc/logger	
+log.error	
+log.post	
+log.debug	
+log.verbose	
+log.stdout	
+log.stderr	
+matrix~	
+ceammc/matrix~	
+merge~	
+ceammc/merge~	
+metro.choice	
+metro.pattern	
+metro.random	
+metro.seq	
+metro.wchoice	
+mix~	
+ceammc/mix~	
+nsig~	
+ceammc/nsig~	
+obj.props	
+radio	
+ceammc/radio	
+split~	
+ceammc/split~	
+spring	
+ceammc/spring	
+sync	
+ceammc/sync	
+window	
+ceammc/window	
+ceammc/win	
+win	
+xdac~	
+ceammc/xdac~	
+xfade2~	
+ceammc/xfade2~	
+xfade~	
+ceammc/xfade~	
+z~	
+ceammc/z~	
+chaos.gbman0	
+chaos.gbman0~	
+chaos.jong	
+noise.jong	
+chaos.logistic	
+noise.logistic	
+chaos.std0	
+chaos.std0~	
+array.p2s	
+array.p->s	
+array.phase->sample	
+array.s2p	
+array.s->p	
+array.sample->phase	
+conv.amp2dbfs	
+ceammc/amp->dbfs	
+amp->dbfs	
+conv.amp2dbfs~	
+ceammc/amp->dbfs~	
+amp->dbfs~	
+conv.bar2ms	
+ceammc/bar->ms	
+bar->ms	
+conv.bits2bang	
+ceammc/bits->bang	
+bits->bang	
+conv.bits2int	
+ceammc/bits->int	
+bits->int	
+conv.bits2note	
+ceammc/bits->note	
+bits->note	
+conv.bits2pos	
+ceammc/bits->pos	
+bits->pos	
+conv.bpm2hz	
+ceammc/bpm->hz	
+bpm->hz	
+conv.bpm2ms	
+ceammc/bpm->ms	
+bpm->ms	
+conv.bpm2sec	
+ceammc/bpm->sec	
+bpm->sec	
+conv.car2pol	
+ceammc/car->pol	
+car->pol	
+conv.cc2amp	
+ceammc/cc->amp	
+cc->amp	
+conv.char2morse	
+ceammc/char->morse	
+char->morse	
+conv.color2rgba	
+ceammc/color->rgba	
+color->rgba	
+conv.dbfs2amp	
+ceammc/dbfs->amp	
+dbfs->amp	
+conv.dbfs2amp~	
+ceammc/dbfs->amp~	
+dbfs->amp~	
+conv.degree2key	
+ceammc/degree->key	
+degree->key	
+conv.edge2bang	
+ceammc/edge->bang	
+edge->bang	
+conv.guido2note	
+ceammc/guido->note	
+guido->note	
+conv.hex2int	
+ceammc/hex->int	
+hex->int	
+conv.hsl2rgb	
+ceammc/hsl->rgb	
+hsl->rgb	
+conv.int2bits	
+ceammc/int->bits	
+int->bits	
+conv.lab2rgb	
+ceammc/lab->rgb	
+lab->rgb	
+conv.lin2curve	
+ceammc/lin->curve	
+lin->curve	
+conv.lin2exp	
+ceammc/lin->exp	
+lin->exp	
+conv.lin2lin	
+ceammc/lin->lin	
+lin->lin	
+ceammc/l->l	
+l->l	
+conv.lin2lin~	
+ceammc/lin->lin~	
+lin->lin~	
+ceammc/l->l~	
+l->l~	
+conv.list2props	
+ceammc/list->props	
+list->props	
+ceammc/any->props	
+any->props	
+conv.midi2freq	
+ceammc/midi->freq	
+midi->freq	
+ceammc/m->f	
+m->f	
+conv.ms2bpm	
+ceammc/ms->bpm	
+ms->bpm	
+conv.ms2samp	
+ceammc/ms->samp	
+ms->samp	
+conv.ms2samp~	
+ceammc/ms->samp~	
+ms->samp~	
+conv.ms2str	
+ceammc/ms->str	
+ms->str	
+conv.note2guido	
+ceammc/note->guido	
+note->guido	
+conv.phase2rad	
+ceammc/phase->rad	
+phase->rad	
+conv.phase2rad~	
+ceammc/phase->rad~	
+phase->rad~	
+conv.pitch2midi	
+ceammc/pitch->midi	
+pitch->midi	
+conv.pol2car	
+ceammc/pol->car	
+pol->car	
+conv.rad2phase	
+ceammc/rad->phase	
+rad->phase	
+conv.rad2phase~	
+ceammc/rad->phase~	
+rad->phase~	
+conv.rgb2hex	
+ceammc/rgb->hex	
+rgb->hex	
+conv.samp2ms	
+ceammc/samp->ms	
+samp->ms	
+conv.samp2ms~	
+ceammc/samp->ms~	
+samp->ms~	
+conv.samp2sec	
+ceammc/samp->sec	
+samp->sec	
+conv.sec2bpm	
+ceammc/sec->bpm	
+sec->bpm	
+conv.sec2samp	
+ceammc/sec->samp	
+sec->samp	
+conv.sec2str	
+ceammc/sec->str	
+sec->str	
+conv.semi2ratio	
+ceammc/semi->ratio	
+semi->ratio	
+conv.sig2float~	
+ceammc/sig->float~	
+sig->float~	
+ceammc/s->f~	
+s->f~	
+conv.str2sec	
+ceammc/str->sec	
+str->sec	
+music.dur2time	
+music.d->t	
+music.voice2midi	
+music.v->m	
+color.mix	
+color.scale	
+data.bimap	
+ceammc/bimap	
+bimap	
+data.color	
+color	
+ceammc/color	
+data.copy	
+data.dict	
+ceammc/dict	
+dict	
+data.fifo	
+data.float	
+.float	
+.f	
+data.int	
+.int	
+.i	
+data.list	
+data.mlist	
+ceammc/mlist	
+mlist	
+ceammc/ml	
+ml	
+data.path	
+data.set	
+data.set2list	
+ceammc/set->list	
+set->list	
+dict.contains	
+dict.each	
+dict.from_list	
+ceammc/list->dict	
+list->dict	
+dict.get	
+dict.keys	
+dict.pass	
+dict.reject	
+dict.size	
+dict.to_list	
+ceammc/dict->list	
+dict->list	
+dict.values	
+global.bimap	
+local.bimap	
+mlist.flatten	
+rtree.to_list	
+ceammc/rtree->list	
+rtree->list	
+set.contains	
+set.diff	
+set.equal	
+set.intersect	
+set.size	
+set.symdiff	
+set.union	
+dyn.comp2~	
+dyn.comp_peak2~	
+comp.peak2~	
+dyn.comp_peak~	
+comp.peak~	
+dyn.comp_up2~	
+comp.up2~	
+dyn.comp_up~	
+comp.up~	
+dyn.comp~	
+dyn.expand2~	
+dyn.expand~	
+dyn.gate2~	
+dyn.gate~	
+dyn.limit2~	
+dyn.limit~	
+dyn.softclip~	
+env.adsr~	
+env.ar~	
+env.asr2~	
+env.asr~	
+env.concat	
+env.follow~	
+env.mix	
+env.smooth~	
+env.tscale	
+env.tshift	
+env.vscale	
+env2array	
+ceammc/env2array	
+ceammc/env->array	
+env->array	
+env2vline	
+ceammc/env2vline	
+ceammc/env->vline	
+env->vline	
+envelope	
+ceammc/envelope	
+ceammc/env	
+env	
+vline2env	
+ceammc/vline2env	
+ceammc/vline->env	
+vline->env	
+expand_env	
+ceammc/expand_env	
+flow.append	
+flow.change	
+flow.count	
+flow.delay	
+flow.del	
+flow.demultiplex	
+flow.demux	
+flow.demultiplex2~	
+flow.demux2~	
+ceammc/demux2~	
+demux2~	
+flow.demultiplex~	
+flow.demux~	
+ceammc/demux~	
+demux~	
+flow.dollar	
+flow.$$	
+flow.dup	
+flow.float	
+flow.f	
+flow.gate	
+ceammc/gate	
+gate	
+flow.greater	
+flow.>	
+flow.greater_eq	
+flow.>=	
+flow.group	
+ceammc/group	
+group	
+flow.histogram	
+flow.hist	
+flow.interval	
+flow.less	
+flow.<	
+flow.less_eq	
+flow.<=	
+flow.list2many	
+ceammc/list->many	
+list->many	
+flow.match	
+flow.mem	
+flow.multiplex	
+flow.mux	
+flow.multiplex2~	
+flow.mux2~	
+ceammc/mux2~	
+mux2~	
+flow.multiplex~	
+flow.mux~	
+ceammc/mux~	
+mux~	
+flow.once	
+ceammc/once	
+once	
+flow.pack	
+flow.pass	
+ceammc/pass	
+pass	
+flow.pass_if	
+ceammc/pass_if	
+pass_if	
+flow.pipe	
+flow.prepend	
+flow.queue	
+flow.record	
+flow.rec	
+flow.reject	
+ceammc/reject	
+reject	
+flow.!	
+flow.reject_if	
+ceammc/reject_if	
+reject_if	
+flow.ring	
+flow.>>	
+flow.route	
+flow.select	
+flow.sel	
+flow.seqdelay	
+flow.seqdel	
+flow.space	
+flow.speedlim	
+ceammc/speedlim	
+speedlim	
+flow.split	
+ceammc/split	
+split	
+flow.stack	
+flow.sync	
+flow.'	
+flow.sync_pack	
+flow.pack'	
+flow.tee~	
+ceammc/tee~	
+tee~	
+ceammc/~->	
+~->	
+replace	
+ceammc/replace	
+route.any	
+route.bang	
+route.b	
+route.cycle	
+route.data	
+route.d	
+route.float	
+route.f	
+route.list	
+route.l	
+route.prop	
+route.random	
+route.r	
+route.symbol	
+route.s	
+flt.a-weight	
+flt.biquad~	
+flt.bpf12~	
+flt.bpf24~	
+flt.bpf36e~	
+flt.bpf72e~	
+flt.c_apf	
+ceammc/apf->biquad	
+apf->biquad	
+flt.c_bpf~	
+flt.c_highshelf~	
+flt.c_hpf	
+ceammc/hpf->biquad	
+hpf->biquad	
+flt.c_hpf~	
+flt.c_lowshelf~	
+flt.c_lpf	
+ceammc/lpf->biquad	
+lpf->biquad	
+flt.c_lpf~	
+flt.c_notch	
+ceammc/notch->biquad	
+notch->biquad	
+flt.c_notch~	
+flt.c_peak~	
+flt.c_pole	
+ceammc/pole->biquad	
+pole->biquad	
+flt.dcblock2~	
+flt.dcblock~	
+flt.eq10~	
+flt.eq_peak_cq~	
+flt.eq_peak~	
+flt.fb_comb~	
+flt.fbank5x1~	
+flt.ff_comb~	
+flt.freqz	
+flt.freqz~	
+flt.highshelf~	
+flt.hpf12~	
+flt.hpf24~	
+flt.lowshelf~	
+flt.lpf12~	
+flt.lpf24~	
+flt.median	
+flt.moog_vcf~	
+flt.notch~	
+flt.resonbp~	
+flt.resonhp~	
+flt.resonlp~	
+flt.speaker~	
+fx.bitdown~	
+fx.chorus~	
+fx.dattorro~	
+fx.delay~	
+fx.sdelay~	
+fx.distortion1~	
+fx.distortion2~	
+fx.distortion3~	
+fx.distortion~	
+fx.drive~	
+fx.drone_box~	
+fx.echo2~	
+fx.echo~	
+fx.secho~	
+fx.flanger~	
+fx.freeverb2~	
+fx.freeverb~	
+fx.freqshift~	
+fx.granulator~	
+fx.greyhole~	
+fx.infrev~	
+fx.jcrev~	
+fx.looper~	
+fx.overdrive~	
+fx.pitchshift_s~	
+fx.pitchshift~	
+fx.rb_pitchshift~	
+fx.recho~	
+fx.ringmod~	
+fx.room~	
+fx.satrev~	
+fx.scramble~	
+fx.shimmer~	
+fx.stutter~	
+fx.tapiir~	
+fx.tremolo~	
+fx.vocoder~	
+fx.wahwah~	
+fx.zita_rev1~	
+global.dict	
+global.json	
+global.float	
+global.int	
+global.list	
+global.mlist	
+global.set	
+hw.apple_smc	
+hw.apple_sms	
+hw.arduino	
+hw.display	
+hw.gamepad	
+hw.kbd_light	
+hw.motu.avb	
+hw.printer	
+hw.rpi.adc.ads1115	
+hw.rpi.display.hd44780	
+hw.rpi.display.lcd1602	
+hw.rpi.display.lcd2004	
+hw.rpi.display.ssd1306	
+hw.rpi.gpio	
+hw.rpi.i2c.pca9685	
+hw.rpi.pwm.pca9685	
+hw.rpi.pwm	
+hw.rpi.rotenc	
+hw.rpi.sensor.dht11	
+hw.rpi.sensor.ir	
+hw.rpi.sensor.mpu6050	
+hw.rpi.sensor.sr04	
+hw.rpi.sensor.vl53l0x	
+hw.rpi.spi.max7219	
+hw.rpi.spi.ws2812	
+hw.serial	
+lang.faust~	
+lang.lua	
+ui.faust~	
+lfo.+pulse~	
+lfo.+saw~	
+lfo.+square~	
+lfo.+tri~	
+lfo.impulse~	
+lfo.mosc~	
+lfo.pulse~	
+lfo.saw~	
+lfo.square~	
+lfo.tri~	
+list.^at	
+list.^contains	
+list.^search	
+list.all_of	
+list.any_of	
+list.append	
+list.apply_to	
+list.at	
+list.choice	
+list.contains	
+list.convolve	
+list.conv	
+list.correlate	
+list.count	
+list.count_if	
+list.delta	
+list.distribution	
+list.do	
+list.each	
+list.enumerate	
+list.equal	
+list.first	
+list.gen	
+list.histogram	
+list.hist	
+list.insert	
+list.integrator	
+list.last	
+list.length	
+list.size	
+list.map	
+list.max	
+list.mean	
+list.average	
+list.min	
+list.none_of	
+list.normalize	
+list.pass	
+list.pass_if	
+list.filter	
+list.prepend	
+list.product	
+list.range	
+list.minmax	
+list.reduce	
+list.foldl	
+list.reject	
+list.remove	
+list.remove_if	
+list.repack	
+list.repeat	
+list.resample	
+list.r	
+list.resize	
+list.reverse	
+list.rldecode	
+list.unwrap	
+list.rlencode	
+list.wrap	
+list.rotate	
+list.<<	
+list.>>	
+list.route	
+list.rundiff	
+list.runsum	
+list.search	
+list.separate	
+list.sep	
+list.seq	
+list.set	
+list.shift	
+list.shuffle	
+list.slice	
+list.sort	
+list.sort_with	
+list.split	
+list.stretch	
+list.sum	
+list.unique	
+list.unpack	
+list.unzip	
+list.deinterleave	
+list.walk	
+list.zip	
+list.interleave	
+live.capture~	
+local.dict	
+local.json	
+local.float	
+local.int	
+local.list	
+local.mlist	
+local.set	
+math.abs	
+math.abs~	
+math.acos	
+math.acosh	
+math.acosh~	
+math.acos~	
+math.and	
+ceammc/and	
+and	
+math.approx	
+ceammc/approx	
+approx	
+math.asin	
+math.asinh	
+math.asinh~	
+math.asin~	
+math.atan	
+math.atanh	
+math.atanh~	
+math.atan~	
+math.binomial	
+math.nck	
+math.cabs~	
+ceammc/cabs~	
+cabs~	
+math.carg~	
+ceammc/carg~	
+carg~	
+math.cbrt	
+math.cbrt~	
+math.cdiv~	
+ceammc/cdiv~	
+cdiv~	
+math.ceil	
+math.ceil~	
+math.cexp~	
+ceammc/cexp~	
+cexp~	
+math.cmul~	
+ceammc/cmul~	
+cmul~	
+math.cos	
+math.cosh	
+math.cosh~	
+math.cos~	
+math.div	
+math./	
+math.e	
+math.erf	
+math.erf~	
+math.exp	
+math.exp2	
+math.exp2~	
+math.expr	
+math.exp~	
+math.floor	
+math.floor~	
+math.gamma	
+math.gamma~	
+math.gcd	
+math.inf	
+math.inf~	
+math.lcm	
+math.lgamma	
+math.lgamma~	
+math.log	
+math.log10	
+math.log10~	
+math.log2	
+math.log2~	
+math.log~	
+math.mul	
+math.*	
+math.nan	
+math.nan~	
+math.neg	
+ceammc/-x	
+-x	
+math.or	
+ceammc/or	
+or	
+math.pi	
+ceammc/pi	
+pi	
+math.pi~	
+ceammc/pi~	
+pi~	
+math.polyeval	
+math.reciprocal	
+ceammc/1/x	
+1/x	
+math.reciprocal~	
+ceammc/1/x~	
+1/x~	
+math.round	
+round	
+ceammc/round	
+math.round~	
+round~	
+ceammc/round~	
+math.sign	
+math.sin	
+math.sinh	
+math.sinh~	
+math.sin~	
+math.sqrt	
+math.sqrt~	
+math.squared	
+math.^2	
+ceammc/^2	
+^2	
+math.squared~	
+math.^2~	
+ceammc/^2~	
+^2~	
+math.sync_add	
+math.+'	
+ceammc/+'	
++'	
+math.sync_and	
+math.&&'	
+ceammc/&&'	
+&&'	
+math.sync_div	
+math./'	
+ceammc//'	
+/'	
+math.sync_eq	
+math.=='	
+ceammc/=='	
+=='	
+math.sync_ge	
+math.>='	
+ceammc/>='	
+>='	
+math.sync_gt	
+math.>'	
+ceammc/>'	
+>'	
+math.sync_le	
+math.<='	
+ceammc/<='	
+<='	
+math.sync_lshift	
+math.<<'	
+ceammc/<<'	
+<<'	
+math.sync_lt	
+math.<'	
+ceammc/<'	
+<'	
+math.sync_mod	
+math.%'	
+ceammc/%'	
+%'	
+math.sync_mul	
+math.*'	
+ceammc/*'	
+*'	
+math.sync_ne	
+math.!='	
+ceammc/!='	
+!='	
+math.sync_or	
+math.||'	
+ceammc/||'	
+||'	
+math.sync_rshift	
+math.>>'	
+ceammc/>>'	
+>>'	
+math.sync_sub	
+math.-'	
+ceammc/-'	
+-'	
+math.sync_xor	
+math.^'	
+ceammc/^'	
+^'	
+math.tan	
+math.tanh	
+math.tanh~	
+math.tan~	
+math.trunc	
+math.trunc~	
+midi.arp	
+midi.cc	
+midi.clock	
+midi.ctl2str	
+midi.ctl->str	
+midi.event2ctl	
+midi.ev->ctl	
+midi.event2note	
+midi.ev->note	
+midi.event2prg	
+midi.ev->prg	
+midi.file	
+midi.kbd	
+midi.key2str	
+midi.key->str	
+midi.modus	
+midi.note.pass	
+note.pass	
+midi.oct	
+midi.prg2str	
+midi.prg->str	
+midi.split	
+midi.sustain	
+midi.sysex	
+midi.track	
+midi.tuning	
+midi.vramp	
+midi.vrand	
+click~	
+ceammc/click~	
+fluid~	
+ceammc/fluid~	
+modplug~	
+ceammc/modplug~	
+qrcode	
+ceammc/qrcode	
+risset.gliss	
+sfizz~	
+ceammc/sfizz~	
+speech.flite	
+speech.flite~	
+speech.rhvoice~	
+ceammc/rhvoice~	
+rhvoice~	
+loadexpr	
+ceammc/loadexpr	
+msg	
+ceammc/msg	
+ceammc/m	
+m	
+ceammc/prepend	
+prepend	
+msg.after	
+msg.onclose	
+msg.onload	
+ceammc/loadmsg	
+loadmsg	
+msg.pack	
+msg.sched	
+msg.unpack	
+rhythm.euclid	
+rhythm.hexbeat	
+rhythm.lsystem	
+net.artnet.send	
+artnet.send	
+net.freesound	
+net.host2ip	
+net.host->ip	
+net.http.client	
+http.client	
+net.http.send	
+http.send	
+net.mdns	
+net.mqtt.client	
+mqtt.client	
+net.osc.receive	
+net.osc.r	
+net.osc.send	
+net.osc.s	
+net.osc.server	
+net.osc	
+net.ws.client	
+net.ws.server	
+noise.baker	
+noise.clifford	
+noise.collatz	
+noise.colored~	
+noise.crackle~	
+noise.duffing	
+noise.ginger	
+noise.henon	
+noise.henon_heilles	
+noise.henon_phase	
+noise.henonf	
+noise.ikeda	
+noise.lfreq0~	
+noise.lfreq~	
+noise.lorenz	
+noise.lyapunov	
+noise.navier_stokes	
+noise.pink~	
+noise.rossler	
+noise.stein	
+noise.torus	
+noise.verhulst	
+noise.white~	
+osc.blit~	
+osc.impulse~	
+osc.pulse~	
+osc.saw4~	
+osc.saw~	
+osc.sinfb~	
+osc.sin~	
+osc.square~	
+osc.tri~	
+canvas.active	
+ceammc/canvas.active	
+canvas.current	
+canvas.dir	
+canvas.name	
+canvas.path	
+canvas.top	
+patch.args	
+patch.deps	
+patch.tree	
+file.size	
+path.basename	
+path.dirname	
+path.exists	
+path.file	
+path.is_dir	
+path.lsdir	
+path.ls	
+path.monitor	
+path.normalize	
+path.norm	
+path.pattern	
+path.search	
+path.split	
+is_any	
+is_bang	
+is_data	
+ceammc/is_data	
+is_dict	
+ceammc/is_dict	
+is_even	
+is_file	
+ceammc/is_file	
+is_float	
+is_list	
+is_odd	
+is_pointer	
+is_prop	
+is_symbol	
+preset.float	
+preset.f	
+preset.list	
+preset.l	
+preset.storage	
+preset.symbol	
+preset.s	
+patch.props	
+prop	
+ceammc/prop	
+prop.declare	
+prop.get	
+p.get	
+prop.join	
+prop<-	
+prop.random	
+prop.route	
+prop->	
+@->	
+ceammc/prop->	
+ceammc/@->	
+prop.split	
+prop.route~	
+prop~>	
+@~>	
+ceammc/prop~>	
+ceammc/@~>	
+prop.get~	
+prop.set	
+p.set	
+proto.arturia.minilab	
+proto.feelworld	
+proto.firmata	
+proto.inscore	
+proto.ltc.in~	
+ltc.in~	
+proto.ltc.out~	
+ltc.out~	
+proto.midi	
+proto.midi.casio	
+proto.midi.cc	
+proto.midi.sysex	
+proto.moppy	
+proto.morse	
+proto.mpv	
+proto.obs	
+proto.sp.alpaca	
+proto.vlc	
+proto.whammy	
+proto.xtouch_ext	
+random.atom	
+random.a	
+random.discrete	
+random.float	
+random.f	
+random.gauss	
+random.int	
+random.i	
+random.linear	
+random.pw_const	
+random.pw_lin	
+samp.time~	
+samp.t~	
+seq.arp	
+seq.bangs	
+seq.b	
+seq.counter	
+seq.life	
+seq.matrix	
+seq.nbangs	
+seq.nb	
+seq.phasor	
+seq.toggles	
+seq.t	
+sequencer	
+ceammc/sequencer	
+ceammc/seq	
+seq	
+snd.file	
+snd.play~	
+hoa.2d.decoder~	
+hoa.decoder~	
+hoa.2d.encoder~	
+hoa.encoder~	
+hoa.2d.exchanger~	
+hoa.exchanger~	
+hoa.2d.map~	
+hoa.map~	
+hoa.2d.optim~	
+hoa.optim~	
+hoa.2d.projector~	
+hoa.projector~	
+hoa.2d.recomposer~	
+hoa.recomposer~	
+hoa.2d.rotate~	
+hoa.rotate~	
+hoa.2d.space	
+hoa.space	
+hoa.2d.wider~	
+hoa.wider~	
+hoa.3d.decoder~	
+hoa.3d.encoder~	
+hoa.3d.exchanger~	
+hoa.3d.map~	
+hoa.3d.meter~	
+hoa.3d.optim~	
+hoa.3d.scope~	
+hoa.3d.wider~	
+hoa.@process	
+hoa.in	
+hoa.in~	
+hoa.map.ui	
+hoa.out	
+hoa.out~	
+hoa.process~	
+hoa.2d.process~	
+hoa.3d.process~	
+hoa.scope~	
+hoa.2d.scope~	
+pan.cos~	
+pan.linsig~	
+pan.lin~	
+ceammc/pan~	
+pan~	
+pan.spread~	
+pan.sqrt~	
+spat.pan4~	
+ceammc/pan4~	
+pan4~	
+spat.pan8~	
+ceammc/pan8~	
+pan8~	
+spat.zita6x8~	
+spat.zita8~	
+string	
+ceammc/string	
+ceammc/str	
+str	
+string.contains	
+str.contains	
+string.ends_with	
+str.ends_with	
+string.equal	
+str.equal	
+string.format	
+str.format	
+string.join	
+str.join	
+string.length	
+str.length	
+string.match	
+str.match	
+string.remove	
+str.remove	
+string.replace	
+str.replace	
+string.split	
+str.split	
+symbol.split	
+string.starts_with	
+str.starts_with	
+string.substr	
+str.substr	
+string2symbol	
+ceammc/string2symbol	
+ceammc/str->sym	
+str->sym	
+symbol.equal	
+symbol.length	
+symbol.num_compare	
+symbol2any	
+ceammc/symbol2any	
+ceammc/sym->any	
+ceammc/str->any	
+ceammc/string2any	
+sym->any	
+str->any	
+string2any	
+symbol2intlist	
+ceammc/symbol2intlist	
+ceammc/sym->ilist	
+sym->ilist	
+noise.chua~	
+synth.bee3~	
+synth.birds~	
+synth.church_bell~	
+synth.clap~	
+synth.dubdub~	
+synth.dx7~	
+synth.eguitar~	
+synth.english_bell~	
+synth.fgrain~	
+synth.french_bell~	
+synth.german_bell~	
+synth.glass_harm~	
+synth.glitch~	
+synth.harpsichord~	
+synth.hat~	
+synth.kick2~	
+synth.kick~	
+synth.ks~	
+synth.marimba~	
+synth.metro~	
+synth.piano~	
+synth.rhodey~	
+synth.risset_arp~	
+synth.risset_bell~	
+synth.risset_tone~	
+synth.russian_bell~	
+synth.shakers~	
+synth.sitar~	
+synth.snare~	
+synth.standard_bell~	
+synth.tube_bell~	
+synth.voice_fofc~	
+synth.voice_fofs~	
+synth.wurley~	
+system.colorpanel	
+system.command	
+system.cmd	
+system.cursor	
+system.exec	
+system.exit	
+system.getenv	
+system.hostname	
+system.info	
+system.memsize	
+system.memused	
+system.screen_size	
+tl.bang	
+tl.b	
+tl.cue	
+tl.timeline	
+ceammc/timeline	
+timeline	
+tl.toggle	
+tl.t	
+tl.transport	
+ui.aview	
+ui.bang	
+ui.b	
+ui.button	
+ui.btn	
+ui.canvas	
+ui.cnv	
+ui.cmeter~	
+ui.cm~	
+hoa.2d.meter~	
+ui.colorpanel	
+ui.display	
+ui.d	
+ui.dt	
+ui.dsp~	
+ui.env	
+ui.filter	
+ui.filter~	
+ui.gain2~	
+ui.hgain2~	
+ui.vgain2~	
+ui.gain~	
+ui.hgain~	
+ui.vgain~	
+ui.icon	
+ui.incdec	
+ui.keyboard	
+ui.hk	
+ui.vkeyboard	
+ui.vk	
+ui.knob	
+ui.k	
+ui.label	
+ui.lcd	
+ui.link	
+ui.matrix	
+ui.menu	
+ui.meter~	
+ui.m~	
+ui.hm~	
+ui.vm~	
+ui.midi	
+ui.mouse_filter	
+ui.mf	
+ui.mouse_route	
+ui.mr	
+ui.number	
+ui.n	
+ui.number~	
+ui.n~	
+ui.plot~	
+ui.polar	
+ui.preset	
+ui.radio	
+ui.radio*	
+ui.hrd	
+ui.hrd*	
+ui.vrd	
+ui.vrd*	
+ui.rslider	
+ui.rsl	
+ui.scope~	
+ui.slider	
+ui.hsl	
+ui.vsl	
+ui.slider2d	
+ui.s2d	
+ui.sliders	
+ui.vsliders	
+ui.spectroscope~	
+ui.ssc~	
+ui.tab	
+ui.toggle	
+ui.t	

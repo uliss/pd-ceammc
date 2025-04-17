@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hw.rpi.sensor.vl53l0x">
         <title>hw.rpi.sensor.vl53l0x</title>
@@ -6,8 +6,10 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>The VL53L0X Time-of-Flight (ToF) laser-ranging sensor Raspberry Pi
-            support</description>
+            <description>
+                <tr lang="en">The VL53L0X Time-of-Flight (ToF) laser-ranging sensor Raspberry Pi
+                support</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>hw</category>

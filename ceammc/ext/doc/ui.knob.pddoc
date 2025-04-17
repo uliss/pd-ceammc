@@ -7,7 +7,9 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>knob widget</description>
+            <description>
+                <tr lang="en">knob widget</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>

@@ -6,7 +6,9 @@
             <authors>
                 <author>Pierre Guillot</author>
             </authors>
-            <description>counterpart of the vanilla slider</description>
+            <description>
+                <tr lang="en">counterpart of the vanilla slider</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>

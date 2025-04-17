@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hw.rpi.adc.ads1115">
         <title>hw.rpi.adc.ads1115</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>ASD1115 ADC driver for Raspberry Pi</description>
+            <description>
+                <tr lang="en">ASD1115 ADC driver for Raspberry Pi</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>hw</category>
@@ -19,19 +21,18 @@
             <par>- @fsr 4096mv, range +-4.096V, 1-bit: 0.125mV</par>
             <par>- @fsr 2048mv, range +-2.048V, 1-bit: 0.0625mV</par>
             <par>- @fsr 1024mv, range +-1.024V, 1-bit: 0.03125mV</par>
-            <par>- @fsr 512mv,  range +-0.512V, 1-bit: 0.015625mV</par>
-            <par>- @fsr 256mv,  range +-0.256V, 1-bit: 0.0078125mV</par>
+            <par>- @fsr 512mv, range +-0.512V, 1-bit: 0.015625mV</par>
+            <par>- @fsr 256mv, range +-0.256V, 1-bit: 0.0078125mV</par>
         </info>
         <arguments>
             <argument name="MODE" type="symbol" enum="diff single">See @mode</argument>
         </arguments>
         <methods>
-            <method name="measure">single measure request
-            <param name="CHAN" type="int" minvalue="0" maxvalue="3">the channel to measure. If ommited: perform measure on all channels</param>
-            </method>
-            <method name="poll">set polling turn on/off
-            <param name="STATE" type="bool" required="true">poll state</param>
-            </method>
+            <method name="measure">single measure request 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="3">the channel to measure. If
+            ommited: perform measure on all channels</param></method>
+            <method name="poll">set polling turn on/off 
+            <param name="STATE" type="bool" required="true">poll state</param></method>
         </methods>
         <properties>
             <property name="@fsr" type="symbol" default="6144mv" access="initonly"
@@ -46,20 +47,21 @@
             <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0"
             access="readwrite">input minimal value in millivolts</property>
             <property name="@mode" type="symbol" default="single" enum="diff single"
-            access="initonly">measure mode. If 'single' - measure level between A0, A1, A2, A3 and GND.
-            If 'diff' - diff measure between A0 and A1, A0 and A3, A1 and A3, A2 and A3.</property>
+            access="initonly">measure mode. If 'single' - measure level between A0, A1, A2, A3 and
+            GND. If 'diff' - diff measure between A0 and A1, A0 and A3, A1 and A3, A2 and
+            A3.</property>
             <property name="@norm" type="bool" default="0" access="readwrite">normalization. If 1:
             normalize output into specified by @out_min @out_max range.</property>
             <property name="@out_max" type="float" default="1.0" access="readwrite">output max
             value</property>
             <property name="@out_min" type="float" default="0.0" access="readwrite">output min
             value</property>
-            <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0" units="millisecond"
-            access="initonly">polling measure time</property>
+            <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0"
+            units="millisecond" access="initonly">polling measure time</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang"></xinfo>
+                <xinfo on="bang" />
             </inlet>
         </inlets>
         <outlets>

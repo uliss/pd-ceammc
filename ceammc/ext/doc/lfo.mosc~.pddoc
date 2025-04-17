@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="lfo.mosc~">
         <title>lfo.mosc~</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>multi-oscillator with various waveforms</description>
+            <description>
+                <tr lang="en">multi-oscillator with various waveforms</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>lfo</category>

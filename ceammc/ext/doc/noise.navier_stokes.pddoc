@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.navier_stokes">
         <title>noise.navier_stokes</title>
@@ -7,7 +7,9 @@
                 <author>Richard Dudas</author>
                 <author>André Sier</author>
             </authors>
-            <description>navier-stokes diff equations</description>
+            <description>
+                <tr lang="en">navier-stokes diff equations</tr>
+            </description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="path.is_dir">
         <title>path.is_dir</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>check if path is directory</description>
+            <description>
+                <tr lang="en">check if path is directory</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>path</category>

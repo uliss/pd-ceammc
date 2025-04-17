@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.meter~" type="gui">
         <title>ui.meter~</title>
@@ -7,7 +7,9 @@
                 <author>Pierre Guillot</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Shows peak and rms signal level</description>
+            <description>
+                <tr lang="en">Shows peak and rms signal level</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>

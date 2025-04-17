@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hw.rpi.spi.max7219">
         <title>hw.rpi.spi.max7219</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>LED display driver based on max7219 chip for Raspberry Pi</description>
+            <description>
+                <tr lang="en">LED display driver based on max7219 chip for Raspberry Pi</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>hw</category>
