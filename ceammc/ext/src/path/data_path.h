@@ -16,8 +16,8 @@
 
 #include "ceammc_object.h"
 #include "ceammc_pollthread_spsc.h"
+#include "ceammc_properties_object.h"
 #include "ceammc_property_data.h"
-#include "ceammc_tcl.h"
 #include "datatype_path.h"
 
 #include <cstdint>
@@ -53,9 +53,16 @@ struct DataPathRequest {
 };
 
 using DataPathBase = FixedSPSCObject<DataPathRequest, DataPathResult>;
-using PathProperty = DataPropertyT<path::DataTypePath>;
 
-class DataPath : public BaseTclObject<DataPathBase> {
+class PathProperty : public DataPropertyT<path::DataTypePath> {
+public:
+    PathProperty(const char* name);
+
+    bool setAtom(const Atom& a) override;
+    bool setSymbol(t_symbol* s) override;
+};
+
+class DataPath : public PropertiesObject<DataPathBase> {
     PathProperty* path_ { nullptr };
     BoolProperty* norm_ { nullptr };
     BoolProperty* async_ { nullptr };
@@ -65,7 +72,9 @@ public:
     void initDone() final;
 
     void onBang() final;
-    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) final;
+    void onSymbol(t_symbol* s) final;
+    void onInlet(size_t in, const AtomListView& lv) final;
+    void onDataT(const DataAtom<path::DataTypePath>& data);
 
     void m_exists(t_symbol* s, const AtomListView& lv);
     void m_extension(t_symbol* s, const AtomListView& lv);
@@ -78,8 +87,6 @@ public:
 
     void processResult(const DataPathResult& data) final;
     void processRequest(const DataPathRequest& req, ResultCallback cb) final;
-
-    void onTclResponse(t_symbol* s, const AtomListView& lv) final;
 
 private:
     void resultAllInfo(const DataPathResult& data);

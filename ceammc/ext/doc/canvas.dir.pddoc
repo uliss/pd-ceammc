@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="canvas.dir">
         <title>canvas.dir</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>current canvas directory and nesting level</description>
+            <description>
+                <tr lang="en">current canvas directory and nesting level</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>patch</category>
@@ -54,7 +56,7 @@
 <![CDATA[
 [B]
 |
-[canvas.dir.sp0 #a {i=1,o=2}]
+[canvas.dir-sp0 #a {i=1,o=2}]
 |
 [ui.dt @auto_size 0 @size 400 45]
 

@@ -14,7 +14,6 @@
 
 #include "ceammc.h"
 #include "ceammc_config.h"
-#include "ceammc_impl.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "mod_init.h"
@@ -37,7 +36,7 @@ inline int int_version(int maj, int min, int fix)
 void ceammc_info_message()
 {
     post("\nCEAMMC library\n"
-         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2023\n"
+         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2025\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       arch: %d-bit\n"
          "       precision: %s\n"
@@ -142,7 +141,7 @@ void ceammc_tcl_path_init()
     if (extern_dir)
         sys_vgui("lappend ::auto_path {%s/tcl}\n", extern_dir);
 }
-}
+}  // namespace
 
 extern "C" CEAMMC_EXTERN int ceammc_init_done()
 {

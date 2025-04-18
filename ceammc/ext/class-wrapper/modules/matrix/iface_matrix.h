@@ -21,12 +21,12 @@ static void wrapper_init()
 }
 
 /**
- * @brief Matrix data type
+ * @brief MatrixTilde data type
  * @keywords algebra linear matrix
  * @since 0.1
  * @constructor NROWS NCOLS ...
  */
-class Matrix : public DataIFace {
+class MatrixTilde : public DataIFace {
     using ValueType = t_float;
     using MatT = Mat<ValueType>;
     enum {
@@ -36,14 +36,14 @@ class Matrix : public DataIFace {
 
     MatT m_;
 
-    Matrix(const MatT& m)
+    MatrixTilde(const MatT& m)
         : m_(m)
     {
     }
 
 public:
     /**
-     * @brief Matrix data type
+     * @brief MatrixTilde data type
      * @param m - number of rows
      * @param n - number of columns
      * @since 0.1
@@ -61,11 +61,11 @@ public:
      * |  |
      * [ui.display @display_type 1]
      */
-    Matrix(unsigned int m = 1, unsigned int n = 1);
-    bool operator==(const Matrix& m) const;
+    MatrixTilde(unsigned int m = 1, unsigned int n = 1);
+    bool operator==(const MatrixTilde& m) const;
 
     /**
-     * @brief return Matrix size (rows, columns)
+     * @brief return MatrixTilde size (rows, columns)
      * @return list (rows, columns)
      * @since 0.1
      * @see matrix.nrows matrix.ncols
@@ -82,7 +82,7 @@ public:
     std::vector<int> size() const;
 
     /**
-     * @brief return number of rows in Matrix
+     * @brief return number of rows in MatrixTilde
      * @return number of rows
      * @since 0.1
      * @see matrix.ncols matrix.size
@@ -99,7 +99,7 @@ public:
     int nrows() const;
 
     /**
-     * @brief return number of columns in Matrix
+     * @brief return number of columns in MatrixTilde
      * @return number of columns
      * @since 0.1
      * @see matrix.nrows matrix.size
@@ -130,10 +130,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix diag(int n) const;
+    MatrixTilde diag(int n) const;
 
     /**
-     * @brief create Matrix with zeros
+     * @brief create MatrixTilde with zeros
      * @param m - number of rows
      * @param n - number of columns
      * @since 0.1
@@ -147,10 +147,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix zeros(unsigned int m, unsigned int n);
+    static MatrixTilde zeros(unsigned int m, unsigned int n);
 
     /**
-     * @brief create Matrix filled with zeros with the same shape as input
+     * @brief create MatrixTilde filled with zeros with the same shape as input
      * @since 0.1
      * @keywords fill zeros
      * @see matrix.zeros
@@ -164,10 +164,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix zeros_like() const;
+    MatrixTilde zeros_like() const;
 
     /**
-     * @brief create Matrix with ones
+     * @brief create MatrixTilde with ones
      * @since 0.1
      * @param m - number of rows
      * @param n - number of columns
@@ -181,10 +181,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix ones(unsigned int m, unsigned int n);
+    static MatrixTilde ones(unsigned int m, unsigned int n);
 
     /**
-     * @brief create Matrix filled with ones with the same shape as input
+     * @brief create MatrixTilde filled with ones with the same shape as input
      * @since 0.1
      * @keywords fill ones
      * @see matrix.ones
@@ -198,10 +198,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix ones_like() const;
+    MatrixTilde ones_like() const;
 
     /**
-     * @brief create identity Matrix
+     * @brief create identity MatrixTilde
      * @since 0.1
      * @param n - number of rows and columns
      * @keywords fill indentity
@@ -215,10 +215,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix identity(unsigned int n);
+    static MatrixTilde identity(unsigned int n);
 
     /**
-     * @brief create Matrix filled with specified value
+     * @brief create MatrixTilde filled with specified value
      * @since 0.1
      * @param m - number of rows
      * @param n - number of columns
@@ -233,10 +233,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix full(unsigned int m, unsigned int n, t_float v);
+    static MatrixTilde full(unsigned int m, unsigned int n, t_float v);
 
     /**
-     * @brief fill input Matrix with value
+     * @brief fill input MatrixTilde with value
      * @param v - fill value
      * @since 0.1
      * @keywords fill
@@ -251,10 +251,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix fill(t_float v) const;
+    MatrixTilde fill(t_float v) const;
 
     /**
-     * @brief generates Matrix with uniform distribution [0-1]
+     * @brief generates MatrixTilde with uniform distribution [0-1]
      * @return new matrix
      * @since 0.1
      * @param m - number of rows
@@ -268,10 +268,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix randu(unsigned int m, unsigned int n);
+    static MatrixTilde randu(unsigned int m, unsigned int n);
 
     /**
-     * @brief generates Matrix using Gaussian distribution with zero mean and unit variance
+     * @brief generates MatrixTilde using Gaussian distribution with zero mean and unit variance
      * @return new matrix
      * @param m - number of rows
      * @param n - number of columns
@@ -285,7 +285,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix randn(unsigned int m, unsigned int n);
+    static MatrixTilde randn(unsigned int m, unsigned int n);
 
     /**
      * @brief replace specific elements with a new value
@@ -303,7 +303,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix replace(t_float old_value, t_float new_value) const;
+    MatrixTilde replace(t_float old_value, t_float new_value) const;
 
     /**
      * @brief change size while keeping elements
@@ -321,7 +321,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix reshape(int nrows, int ncols) const;
+    MatrixTilde reshape(int nrows, int ncols) const;
 
     /**
      * @brief change size while keeping elements and preserving layout
@@ -340,7 +340,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix resize(int nrows, int ncols) const;
+    MatrixTilde resize(int nrows, int ncols) const;
 
     /**
      * @brief get specified column
@@ -356,7 +356,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix col_at(unsigned int n) const;
+    MatrixTilde col_at(unsigned int n) const;
 
     /**
      * @brief get specified row
@@ -372,7 +372,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix row_at(unsigned int n) const;
+    MatrixTilde row_at(unsigned int n) const;
 
     /**
      * @brief insert vector at specified matrix row
@@ -391,7 +391,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix insert_row(unsigned int n, const Matrix& r) const;
+    MatrixTilde insert_row(unsigned int n, const MatrixTilde& r) const;
 
     /**
      * @brief insert vector at specified matrix column
@@ -410,7 +410,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix insert_col(unsigned int n, const Matrix& r) const;
+    MatrixTilde insert_col(unsigned int n, const MatrixTilde& r) const;
 
     /**
      * @brief remove specified matrix row
@@ -426,7 +426,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix remove_row(unsigned int n) const;
+    MatrixTilde remove_row(unsigned int n) const;
 
     /**
      * @brief remove specified matrix column
@@ -442,7 +442,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix remove_col(unsigned int n) const;
+    MatrixTilde remove_col(unsigned int n) const;
 
     /**
      * @brief swaps specified columns in matrix
@@ -459,7 +459,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix swap_cols(unsigned int a, unsigned int b) const;
+    MatrixTilde swap_cols(unsigned int a, unsigned int b) const;
 
     /**
      * @brief swaps specified rows in matrix
@@ -476,10 +476,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix swap_rows(unsigned int a, unsigned int b) const;
+    MatrixTilde swap_rows(unsigned int a, unsigned int b) const;
 
     /**
-     * @brief returns minimum value in Matrix
+     * @brief returns minimum value in MatrixTilde
      * @return minimum element
      * @since 0.1
      * @see matrix.max
@@ -495,7 +495,7 @@ public:
     t_float min() const;
 
     /**
-     * @brief returns maximum in Matrix
+     * @brief returns maximum in MatrixTilde
      * @return maximum element
      * @since 0.1
      * @see matrix.min
@@ -511,7 +511,7 @@ public:
     t_float max() const;
 
     /**
-     * @brief transpose Matrix
+     * @brief transpose MatrixTilde
      * @pd_alias matrix.t
      * @keywords transpose
      * @since 0.1
@@ -523,7 +523,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix transpose() const;
+    MatrixTilde transpose() const;
 
     /**
      * @brief inverse square matrix
@@ -542,7 +542,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix inverse() const;
+    MatrixTilde inverse() const;
 
     /**
      * @brief rank of the matrix
@@ -564,7 +564,7 @@ public:
     /**
      * @brief element-wise matrix addition
      * @param v - float to add
-     * @return result Matrix
+     * @return result MatrixTilde
      * @see matrix.sub
      * @since 0.1
      * @pd_alias matrix.+
@@ -577,16 +577,16 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix add(t_float v) const;
+    MatrixTilde add(t_float v) const;
     /**
      * @param m - matrix to add
      */
-    Matrix add(const Matrix& m) const;
+    MatrixTilde add(const MatrixTilde& m) const;
 
     /**
      * @brief element-wise matrix subtraction
      * @param m - subtrahend matrix
-     * @return result Matrix
+     * @return result MatrixTilde
      * @see matrix.add
      * @since 0.1
      * @pd_alias matrix.-
@@ -599,11 +599,11 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix sub(const Matrix& m) const;
+    MatrixTilde sub(const MatrixTilde& m) const;
     /**
      * @param v - float to add to all matrix elements
      */
-    Matrix sub(t_float v) const;
+    MatrixTilde sub(t_float v) const;
 
     /**
      * @brief element-wise matrix multiplication
@@ -618,16 +618,16 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix mul(const Matrix& b) const;
+    MatrixTilde mul(const MatrixTilde& b) const;
     /**
      * @param v - float to multiply all elements
      */
-    Matrix mul(t_float v) const;
+    MatrixTilde mul(t_float v) const;
 
     /**
      * @brief element-wise matrix division
      * @param m - divisor matrix
-     * @return result Matrix
+     * @return result MatrixTilde
      * @see matrix.mul
      * @since 0.1
      * @pd_alias matrix./
@@ -640,16 +640,16 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix div(const Matrix& m) const;
+    MatrixTilde div(const MatrixTilde& m) const;
     /**
      * @param v - float to divide all elements
      */
-    Matrix div(t_float v) const;
+    MatrixTilde div(t_float v) const;
 
     /**
      * @brief matrix product
-     * @param m - Matrix to multiply
-     * @return result Matrix
+     * @param m - MatrixTilde to multiply
+     * @return result MatrixTilde
      * @pd_alias matrix.dot
      * @since 0.1
      * @see matrix.mul
@@ -658,14 +658,14 @@ public:
      * |                  |
      * [matrix.fill 2]    [matrix.randu] [2 3 1 2 3 4 5 6(
      * |                  |.             |.
-     * [matrix.dot Matrix       2 2 1 0 0 1]
+     * [matrix.dot MatrixTilde       2 2 1 0 0 1]
      * |
      * [ui.display @display_type 1]
      */
-    Matrix matmul(const Matrix& m) const;
+    MatrixTilde matmul(const MatrixTilde& m) const;
 
     /**
-     * @brief shift Matrix elements by N positions in each column
+     * @brief shift MatrixTilde elements by N positions in each column
      * @param n - shift value (can be negative)
      * @return new matrix
      * @since 0.1
@@ -680,10 +680,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix shift_col(int n) const;
+    MatrixTilde shift_col(int n) const;
 
     /**
-     * @brief shift Matrix elements by N positions in each row
+     * @brief shift MatrixTilde elements by N positions in each row
      * @param n - shift value (can be negative)
      * @return new matrix
      * @since 0.1
@@ -699,10 +699,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix shift_row(int n) const;
+    MatrixTilde shift_row(int n) const;
 
     /**
-     * @brief convert Matrix to list
+     * @brief convert MatrixTilde to list
      * @return elements list
      * @return matrix size
      * @since 0.1
@@ -732,7 +732,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix solve(const Matrix& b) const;
+    MatrixTilde solve(const MatrixTilde& b) const;
 
     /**
      * @brief 2D matrix convolution
@@ -781,7 +781,7 @@ public:
      * [X b->a]
      * [X c->d]
      */
-    Matrix conv2(const Matrix& b) const;
+    MatrixTilde conv2(const MatrixTilde& b) const;
 
     /**
      * @brief element-wise greater then comparasion
@@ -793,15 +793,15 @@ public:
      * @example
      * [2 2 1 2 3 4(             [F]
      * |                         |.
-     * [matrix.> Matrix 2 2 4 3 2 1]
+     * [matrix.> MatrixTilde 2 2 4 3 2 1]
      * |
      * [ui.display @display_type 1]
      */
-    Matrix gt(const Matrix& b) const;
+    MatrixTilde gt(const MatrixTilde& b) const;
     /**
      * @param v - float to compare
      */
-    Matrix gt(t_float v) const;
+    MatrixTilde gt(t_float v) const;
 
     /**
      * @brief element-wise greater equal comparasion
@@ -813,15 +813,15 @@ public:
      * @example
      * [2 2 1 2 3 4(             [F]
      * |                         |.
-     * [matrix.>= Matrix 2 2 4 3 2 1]
+     * [matrix.>= MatrixTilde 2 2 4 3 2 1]
      * |
      * [ui.display @display_type 1]
      */
-    Matrix ge(const Matrix& b) const;
+    MatrixTilde ge(const MatrixTilde& b) const;
     /**
      * @param v - float to compare
      */
-    Matrix ge(t_float v) const;
+    MatrixTilde ge(t_float v) const;
 
     /**
      * @brief element-wise less equal comparasion
@@ -833,15 +833,15 @@ public:
      * @example
      * [2 2 1 2 3 4(              [F]
      * |                          |.
-     * [matrix.<= Matrix 2 2 4 3 2 1]
+     * [matrix.<= MatrixTilde 2 2 4 3 2 1]
      * |
      * [ui.display @display_type 1]
      */
-    Matrix le(const Matrix& b) const;
+    MatrixTilde le(const MatrixTilde& b) const;
     /**
      * @param v - float to compare
      */
-    Matrix le(t_float v) const;
+    MatrixTilde le(t_float v) const;
 
     /**
      * @brief element-wise less then comparasion
@@ -853,15 +853,15 @@ public:
      * @example
      * [2 2 1 2 3 4(         [F]
      * |                     |.
-     * [matrix.< Matrix 2 2 4 3 2 1]
+     * [matrix.< MatrixTilde 2 2 4 3 2 1]
      * |
      * [ui.display @display_type 1]
      */
-    Matrix lt(const Matrix& b) const;
+    MatrixTilde lt(const MatrixTilde& b) const;
     /**
      * @param v - float to compare
      */
-    Matrix lt(t_float v) const;
+    MatrixTilde lt(t_float v) const;
 
     /**
      * @brief element-wise matrix equal comparasion
@@ -873,15 +873,15 @@ public:
      * @example
      * [2 2 1 2 3 4(        [F]   [2 2 1 4 3 6(
      * |                    |.    |.
-     * [matrix.== Matrix 2 2 1 2 3 4]
+     * [matrix.== MatrixTilde 2 2 1 2 3 4]
      * |
      * [ui.display @display_type 1]
      */
-    Matrix eq(t_float v) const;
+    MatrixTilde eq(t_float v) const;
     /**
      * @param b - matrix to compare
      */
-    Matrix eq(const Matrix& b) const;
+    MatrixTilde eq(const MatrixTilde& b) const;
 
     /**
      * @brief element-wise matrix not equal comparasion
@@ -893,15 +893,15 @@ public:
      * @example
      * [2 2 1 2 3 4(         [F]   [2 2 1 4 3 6(
      * |                     |.    |.
-     * [matrix.!= Matrix 2 2 1 2 3 4]
+     * [matrix.!= MatrixTilde 2 2 1 2 3 4]
      * |
      * [ui.display @display_type 1]
      */
-    Matrix ne(t_float v) const;
+    MatrixTilde ne(t_float v) const;
     /**
      * @param b - matrix to compare
      */
-    Matrix ne(const Matrix& b) const;
+    MatrixTilde ne(const MatrixTilde& b) const;
 
     /**
      * @brief load matrix from CSV format
@@ -930,7 +930,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix load(const std::string& fname);
+    static MatrixTilde load(const std::string& fname);
 
     /**
      * @brief save matrix in CSV format
@@ -960,10 +960,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix save(const std::string& fname) const;
+    MatrixTilde save(const std::string& fname) const;
 
     /**
-     * @brief create Matrix from list values
+     * @brief create MatrixTilde from list values
      * @param v - element values
      * @return new matrix
      * @since 0.1
@@ -977,10 +977,10 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix fromList(const std::vector<t_float>& v);
+    static MatrixTilde fromList(const std::vector<t_float>& v);
 
     /**
-     * @brief create Matrix column with specified values
+     * @brief create MatrixTilde column with specified values
      * @param v - column values
      * @return column
      * @since 0.1
@@ -992,10 +992,10 @@ public:
      * |       |
      * [print] [ui.display @display_type 1]
      */
-    static Matrix col(const std::vector<t_float> &v);
+    static MatrixTilde col(const std::vector<t_float> &v);
 
     /**
-     * @brief create Matrix row with specified values
+     * @brief create MatrixTilde row with specified values
      * @param v - row values
      * @return row
      * @see matrix.col
@@ -1007,7 +1007,7 @@ public:
      * |       |
      * [print] [ui.display @display_type 1]
      */
-    static Matrix row(const std::vector<t_float>& v);
+    static MatrixTilde row(const std::vector<t_float>& v);
 
     /**
      * @brief generate row with linearly spaced N elements
@@ -1025,7 +1025,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix linspace(t_float start, t_float end, unsigned int N);
+    static MatrixTilde linspace(t_float start, t_float end, unsigned int N);
 
     /**
      * @brief generate row with N elements spaced logarithmically
@@ -1043,7 +1043,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    static Matrix logspace(t_float A, t_float B, unsigned int N);
+    static MatrixTilde logspace(t_float A, t_float B, unsigned int N);
 
     /**
      * @brief calc abs value for each matrix element
@@ -1057,7 +1057,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix abs() const;
+    MatrixTilde abs() const;
 
     /**
      * @brief accumulate (sum) all elements of matrix
@@ -1108,7 +1108,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix all_col() const;
+    MatrixTilde all_col() const;
 
     /**
      * @brief column with each element (0 or 1) indicating whether the corresponding row has all non-zero elements
@@ -1124,7 +1124,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix all_row() const;
+    MatrixTilde all_row() const;
 
     /**
      * @brief check if any elements of the matrix are non-zero
@@ -1158,7 +1158,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix any_col() const;
+    MatrixTilde any_col() const;
 
     /**
      * @brief column with each element (0 or 1) indicating whether the corresponding row has any non-zero elements
@@ -1174,7 +1174,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix any_row() const;
+    MatrixTilde any_row() const;
 
     /**
      * @brief clip matrix value to range [min, max]
@@ -1193,7 +1193,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix clip(t_float min, t_float max) const;
+    MatrixTilde clip(t_float min, t_float max) const;
 
     /**
      * @brief determinant of square matrix
@@ -1240,7 +1240,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix mean_col() const;
+    MatrixTilde mean_col() const;
 
     /**
      * @brief mean value for each matrix row
@@ -1256,7 +1256,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix mean_row() const;
+    MatrixTilde mean_row() const;
 
     /**
      * @brief median matrix value
@@ -1284,7 +1284,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix median_col() const;
+    MatrixTilde median_col() const;
 
     /**
      * @brief median matrix value for each row
@@ -1298,7 +1298,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix median_row() const;
+    MatrixTilde median_row() const;
 
     /**
      * @brief standart deviation for matrix values
@@ -1330,7 +1330,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix stddev_col(bool norm_type) const;
+    MatrixTilde stddev_col(bool norm_type) const;
 
     /**
      * @brief standart deviation matrix value for each row
@@ -1345,7 +1345,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix stddev_row(bool norm_type) const;
+    MatrixTilde stddev_row(bool norm_type) const;
 
     /**
      * @brief matrix range (difference between max and min)
@@ -1373,7 +1373,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix range_col() const;
+    MatrixTilde range_col() const;
 
     /**
      * @brief matrix row range (difference between max and min)
@@ -1387,7 +1387,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix range_row() const;
+    MatrixTilde range_row() const;
 
     /**
      * @brief produce a matrix containing column histogram counts
@@ -1410,7 +1410,7 @@ public:
      * |
      * [array.set A_HIST0 @normalize]
      */
-    Matrix hist(unsigned int n_bins) const;
+    MatrixTilde hist(unsigned int n_bins) const;
 
     /**
      * @brief element-wise base-e exponent: e^x
@@ -1424,7 +1424,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix exp() const;
+    MatrixTilde exp() const;
 
     /**
      * @brief element-wise base-2 exponent: 2^x
@@ -1438,7 +1438,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix exp2() const;
+    MatrixTilde exp2() const;
 
     /**
      * @brief element-wise base-10 exponent: 10^x
@@ -1452,7 +1452,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix exp10() const;
+    MatrixTilde exp10() const;
 
     /**
      * @brief element-wise base-e exponent, truncated to avoid infinity
@@ -1466,7 +1466,7 @@ public:
      * |                        |
      * [ui.display @display_type 1]
      */
-    Matrix trunc_exp() const;
+    MatrixTilde trunc_exp() const;
 
     /**
      * @brief element-wise signum function
@@ -1482,7 +1482,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix sign() const;
+    MatrixTilde sign() const;
 
     /**
      * @brief element-wise sine
@@ -1501,7 +1501,7 @@ public:
      * |
      * [array.set ARR_SIN]
      */
-    Matrix sin() const;
+    MatrixTilde sin() const;
 
     /**
      * @brief element-wise acrsine
@@ -1520,7 +1520,7 @@ public:
      * |
      * [array.set ARR_ASIN]
      */
-    Matrix asin() const;
+    MatrixTilde asin() const;
 
     /**
      * @brief element-wise hyperbolic sine
@@ -1539,7 +1539,7 @@ public:
      * |
      * [array.set ARR_SINH]
      */
-    Matrix sinh() const;
+    MatrixTilde sinh() const;
 
     /**
      * @brief element-wise hyperbolic acrsine
@@ -1558,7 +1558,7 @@ public:
      * |
      * [array.set ARR_ASINH]
      */
-    Matrix asinh() const;
+    MatrixTilde asinh() const;
 
     /**
      * @brief element-wise cosine
@@ -1577,7 +1577,7 @@ public:
      * |
      * [array.set ARR_COS]
      */
-    Matrix cos() const;
+    MatrixTilde cos() const;
 
     /**
      * @brief element-wise acrcosine
@@ -1596,7 +1596,7 @@ public:
      * |
      * [array.set ARR_ACOS]
      */
-    Matrix acos() const;
+    MatrixTilde acos() const;
 
     /**
      * @brief element-wise hyperbolic cosine
@@ -1615,7 +1615,7 @@ public:
      * |
      * [array.set ARR_COSH]
      */
-    Matrix cosh() const;
+    MatrixTilde cosh() const;
 
     /**
      * @brief element-wise hyperbolic acrcosine
@@ -1634,7 +1634,7 @@ public:
      * |
      * [array.set ARR_ACOSH]
      */
-    Matrix acosh() const;
+    MatrixTilde acosh() const;
 
     /**
      * @brief element-wise tangent
@@ -1653,7 +1653,7 @@ public:
      * |
      * [array.set ARR_TAN]
      */
-    Matrix tan() const;
+    MatrixTilde tan() const;
 
     /**
      * @brief element-wise arctangent
@@ -1672,7 +1672,7 @@ public:
      * |
      * [array.set ARR_ATAN]
      */
-    Matrix atan() const;
+    MatrixTilde atan() const;
 
     /**
      * @brief element-wise hyperbolic tangent
@@ -1691,7 +1691,7 @@ public:
      * |
      * [array.set ARR_TANH]
      */
-    Matrix tanh() const;
+    MatrixTilde tanh() const;
 
     /**
      * @brief element-wise hyperbolic acrtangent
@@ -1710,7 +1710,7 @@ public:
      * |
      * [array.set ARR_TANH]
      */
-    Matrix atanh() const;
+    MatrixTilde atanh() const;
 
     /**
      * @brief generate a column vector or row vector from matrix
@@ -1724,7 +1724,7 @@ public:
      * |
      * [ui.display @display_type 1]
      */
-    Matrix vectorise(bool dim) const;
+    MatrixTilde vectorise(bool dim) const;
 
     /**
      * @brief select matrix element at specified position
@@ -1777,80 +1777,80 @@ public:
 
 #endif
 
-Matrix::Matrix(unsigned int m, unsigned int n)
+MatrixTilde::MatrixTilde(unsigned int m, unsigned int n)
     : m_(m, n, fill::zeros)
 {
 }
 
-bool Matrix::operator==(const Matrix& m) const
+bool MatrixTilde::operator==(const MatrixTilde& m) const
 {
     return approx_equal(m_, m.m_, "absdiff", 0.00001);
 }
 
-Matrix Matrix::zeros(unsigned int m, unsigned int n)
+MatrixTilde MatrixTilde::zeros(unsigned int m, unsigned int n)
 {
-    return Matrix(MatT(m, n, fill::zeros));
+    return MatrixTilde(MatT(m, n, fill::zeros));
 }
 
-Matrix Matrix::zeros_like() const
+MatrixTilde MatrixTilde::zeros_like() const
 {
-    return Matrix(MatT(m_.n_rows, m_.n_rows, fill::zeros));
+    return MatrixTilde(MatT(m_.n_rows, m_.n_rows, fill::zeros));
 }
 
-Matrix Matrix::ones(unsigned int m, unsigned int n)
+MatrixTilde MatrixTilde::ones(unsigned int m, unsigned int n)
 {
-    return Matrix(MatT(m, n, fill::ones));
+    return MatrixTilde(MatT(m, n, fill::ones));
 }
 
-Matrix Matrix::ones_like() const
+MatrixTilde MatrixTilde::ones_like() const
 {
-    return Matrix(MatT(m_.n_rows, m_.n_rows, fill::ones));
+    return MatrixTilde(MatT(m_.n_rows, m_.n_rows, fill::ones));
 }
 
-Matrix Matrix::identity(unsigned int n)
+MatrixTilde MatrixTilde::identity(unsigned int n)
 {
-    return Matrix(MatT(n, n, fill::eye));
+    return MatrixTilde(MatT(n, n, fill::eye));
 }
 
-Matrix Matrix::full(unsigned int m, unsigned int n, t_float v)
+MatrixTilde MatrixTilde::full(unsigned int m, unsigned int n, t_float v)
 {
     MatT mtx(m, n);
-    return Matrix(mtx.fill(v));
+    return MatrixTilde(mtx.fill(v));
 }
 
-Matrix Matrix::fill(t_float v) const
+MatrixTilde MatrixTilde::fill(t_float v) const
 {
     MatT m(m_);
-    return Matrix(m.fill(v));
+    return MatrixTilde(m.fill(v));
 }
 
-Matrix Matrix::randu(unsigned int m, unsigned int n)
+MatrixTilde MatrixTilde::randu(unsigned int m, unsigned int n)
 {
-    return Matrix(MatT(m, n, fill::randu));
+    return MatrixTilde(MatT(m, n, fill::randu));
 }
 
-Matrix Matrix::randn(unsigned int m, unsigned int n)
+MatrixTilde MatrixTilde::randn(unsigned int m, unsigned int n)
 {
-    return Matrix(MatT(m, n, fill::randn));
+    return MatrixTilde(MatT(m, n, fill::randn));
 }
 
-Matrix Matrix::replace(t_float old_value, t_float new_value) const
+MatrixTilde MatrixTilde::replace(t_float old_value, t_float new_value) const
 {
     MatT m(m_);
-    return Matrix(m.replace(old_value, new_value));
+    return MatrixTilde(m.replace(old_value, new_value));
 }
 
-Matrix Matrix::reshape(int nrows, int ncols) const
+MatrixTilde MatrixTilde::reshape(int nrows, int ncols) const
 {
     if (nrows < 1 || ncols < 1)
         throw std::runtime_error("invalid matrix size");
 
     MatT m(m_);
     m.reshape(nrows, ncols);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::resize(int nrows, int ncols) const
+MatrixTilde MatrixTilde::resize(int nrows, int ncols) const
 {
     if (nrows < 1 || ncols < 1) {
         std::ostringstream s;
@@ -1860,10 +1860,10 @@ Matrix Matrix::resize(int nrows, int ncols) const
 
     MatT m(m_);
     m.resize(nrows, ncols);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::col_at(unsigned int n) const
+MatrixTilde MatrixTilde::col_at(unsigned int n) const
 {
     if (n >= m_.n_cols) {
         std::ostringstream s;
@@ -1871,10 +1871,10 @@ Matrix Matrix::col_at(unsigned int n) const
         throw std::runtime_error(s.str());
     }
 
-    return Matrix(m_.col(n));
+    return MatrixTilde(m_.col(n));
 }
 
-Matrix Matrix::row_at(unsigned int n) const
+MatrixTilde MatrixTilde::row_at(unsigned int n) const
 {
     if (n >= m_.n_rows) {
         std::ostringstream s;
@@ -1882,10 +1882,10 @@ Matrix Matrix::row_at(unsigned int n) const
         throw std::runtime_error(s.str());
     }
 
-    return Matrix(m_.row(n));
+    return MatrixTilde(m_.row(n));
 }
 
-Matrix Matrix::insert_row(unsigned int n, const Matrix& row) const
+MatrixTilde MatrixTilde::insert_row(unsigned int n, const MatrixTilde& row) const
 {
     if (n > m_.n_rows) {
         std::ostringstream s;
@@ -1898,10 +1898,10 @@ Matrix Matrix::insert_row(unsigned int n, const Matrix& row) const
 
     MatT m(m_);
     m.insert_rows(n, row.m_);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::insert_col(unsigned int n, const Matrix& col) const
+MatrixTilde MatrixTilde::insert_col(unsigned int n, const MatrixTilde& col) const
 {
     if (n > m_.n_cols) {
         std::ostringstream s;
@@ -1914,10 +1914,10 @@ Matrix Matrix::insert_col(unsigned int n, const Matrix& col) const
 
     MatT m(m_);
     m.insert_cols(n, col.m_);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::remove_row(unsigned int n) const
+MatrixTilde MatrixTilde::remove_row(unsigned int n) const
 {
     if (n >= m_.n_rows) {
         std::ostringstream s;
@@ -1927,10 +1927,10 @@ Matrix Matrix::remove_row(unsigned int n) const
 
     MatT m(m_);
     m.shed_row(n);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::remove_col(unsigned int n) const
+MatrixTilde MatrixTilde::remove_col(unsigned int n) const
 {
     if (n >= m_.n_cols) {
         std::ostringstream s;
@@ -1940,10 +1940,10 @@ Matrix Matrix::remove_col(unsigned int n) const
 
     MatT m(m_);
     m.shed_col(n);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::swap_cols(unsigned int a, unsigned int b) const
+MatrixTilde MatrixTilde::swap_cols(unsigned int a, unsigned int b) const
 {
     if (a >= m_.n_cols) {
         std::ostringstream s;
@@ -1962,10 +1962,10 @@ Matrix Matrix::swap_cols(unsigned int a, unsigned int b) const
 
     MatT m(m_);
     m.swap_cols(a, b);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::swap_rows(unsigned int a, unsigned int b) const
+MatrixTilde MatrixTilde::swap_rows(unsigned int a, unsigned int b) const
 {
     if (a >= m_.n_rows) {
         std::ostringstream s;
@@ -1984,85 +1984,85 @@ Matrix Matrix::swap_rows(unsigned int a, unsigned int b) const
 
     MatT m(m_);
     m.swap_rows(a, b);
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-t_float Matrix::min() const
+t_float MatrixTilde::min() const
 {
     return m_.min();
 }
 
-t_float Matrix::max() const
+t_float MatrixTilde::max() const
 {
     return m_.max();
 }
 
-std::vector<int> Matrix::size() const
+std::vector<int> MatrixTilde::size() const
 {
     return { int(m_.n_rows), int(m_.n_cols) };
 }
 
-int Matrix::nrows() const
+int MatrixTilde::nrows() const
 {
     return m_.n_rows;
 }
 
-int Matrix::ncols() const
+int MatrixTilde::ncols() const
 {
     return m_.n_cols;
 }
 
-Matrix Matrix::diag(int n) const
+MatrixTilde MatrixTilde::diag(int n) const
 {
-    return Matrix(m_.diag(n));
+    return MatrixTilde(m_.diag(n));
 }
 
-Matrix Matrix::transpose() const
+MatrixTilde MatrixTilde::transpose() const
 {
-    return Matrix(trans(m_));
+    return MatrixTilde(trans(m_));
 }
 
-Matrix Matrix::inverse() const
+MatrixTilde MatrixTilde::inverse() const
 {
-    return Matrix(m_.i());
+    return MatrixTilde(m_.i());
 }
 
-int Matrix::rank() const
+int MatrixTilde::rank() const
 {
     return arma::rank(m_);
 }
 
-Matrix Matrix::add(const Matrix& m) const
+MatrixTilde MatrixTilde::add(const MatrixTilde& m) const
 {
-    return Matrix(m_ + m.m_);
+    return MatrixTilde(m_ + m.m_);
 }
 
-Matrix Matrix::add(t_float v) const
+MatrixTilde MatrixTilde::add(t_float v) const
 {
-    return Matrix(m_ + v);
+    return MatrixTilde(m_ + v);
 }
 
-Matrix Matrix::sub(const Matrix& m) const
+MatrixTilde MatrixTilde::sub(const MatrixTilde& m) const
 {
-    return Matrix(m_ - m.m_);
+    return MatrixTilde(m_ - m.m_);
 }
 
-Matrix Matrix::sub(t_float v) const
+MatrixTilde MatrixTilde::sub(t_float v) const
 {
-    return Matrix(m_ - v);
+    return MatrixTilde(m_ - v);
 }
 
-Matrix Matrix::matmul(const Matrix& m) const
+MatrixTilde MatrixTilde::matmul(const MatrixTilde& m) const
 {
-    return Matrix(m_ * m.m_);
+    return MatrixTilde(m_ * m.m_);
 }
 
-Matrix Matrix::mul(t_float v) const
+MatrixTilde MatrixTilde::mul(t_float v) const
 {
-    return Matrix(m_ * v);
+    return MatrixTilde(m_ * v);
 }
 
-Matrix Matrix::load(const std::string& fname)
+MatrixTilde MatrixTilde::load(const std::string& fname)
 {
     MatT m;
 
@@ -2072,10 +2072,10 @@ Matrix Matrix::load(const std::string& fname)
         throw std::runtime_error(ss.str());
     }
 
-    return Matrix(m);
+    return MatrixTilde(m);
 }
 
-Matrix Matrix::save(const std::string& fname) const
+MatrixTilde MatrixTilde::save(const std::string& fname) const
 {
     std::string fname2 = DataIFace::makeNewFileName(fname);
     if (!m_.save(fname2, arma::csv_ascii)) {
@@ -2087,27 +2087,27 @@ Matrix Matrix::save(const std::string& fname) const
     return *this;
 }
 
-Matrix Matrix::div(const Matrix& m) const
+MatrixTilde MatrixTilde::div(const MatrixTilde& m) const
 {
-    return Matrix(m_ / m.m_);
+    return MatrixTilde(m_ / m.m_);
 }
 
-Matrix Matrix::div(t_float v) const
+MatrixTilde MatrixTilde::div(t_float v) const
 {
-    return Matrix(m_ / v);
+    return MatrixTilde(m_ / v);
 }
 
-Matrix Matrix::shift_col(int n) const
+MatrixTilde MatrixTilde::shift_col(int n) const
 {
-    return Matrix(shift(m_, n, 0));
+    return MatrixTilde(shift(m_, n, 0));
 }
 
-Matrix Matrix::shift_row(int n) const
+MatrixTilde MatrixTilde::shift_row(int n) const
 {
-    return Matrix(shift(m_, n, 1));
+    return MatrixTilde(shift(m_, n, 1));
 }
 
-std::tuple<std::vector<t_float>, std::vector<t_float>> Matrix::toList() const
+std::tuple<std::vector<t_float>, std::vector<t_float>> MatrixTilde::toList() const
 {
     std::tuple<std::vector<t_float>, std::vector<t_float>> res;
 
@@ -2121,82 +2121,82 @@ std::tuple<std::vector<t_float>, std::vector<t_float>> Matrix::toList() const
     return res;
 }
 
-Matrix Matrix::solve(const Matrix& b) const
+MatrixTilde MatrixTilde::solve(const MatrixTilde& b) const
 {
-    return Matrix(arma::solve(m_, b.m_));
+    return MatrixTilde(arma::solve(m_, b.m_));
 }
 
-Matrix Matrix::conv2(const Matrix& b) const
+MatrixTilde MatrixTilde::conv2(const MatrixTilde& b) const
 {
-    return Matrix(arma::conv2(m_, b.m_, "same"));
+    return MatrixTilde(arma::conv2(m_, b.m_, "same"));
 }
 
-Matrix Matrix::gt(const Matrix& b) const
+MatrixTilde MatrixTilde::gt(const MatrixTilde& b) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ > b.m_));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ > b.m_));
 }
 
-Matrix Matrix::gt(t_float v) const
+MatrixTilde MatrixTilde::gt(t_float v) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ > MatT(arma::size(m_)).fill(v)));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ > MatT(arma::size(m_)).fill(v)));
 }
 
-Matrix Matrix::ge(const Matrix& b) const
+MatrixTilde MatrixTilde::ge(const MatrixTilde& b) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ >= b.m_));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ >= b.m_));
 }
 
-Matrix Matrix::ge(t_float v) const
+MatrixTilde MatrixTilde::ge(t_float v) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ >= MatT(arma::size(m_)).fill(v)));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ >= MatT(arma::size(m_)).fill(v)));
 }
 
-Matrix Matrix::le(const Matrix& b) const
+MatrixTilde MatrixTilde::le(const MatrixTilde& b) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ <= b.m_));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ <= b.m_));
 }
 
-Matrix Matrix::le(t_float v) const
+MatrixTilde MatrixTilde::le(t_float v) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ <= MatT(arma::size(m_)).fill(v)));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ <= MatT(arma::size(m_)).fill(v)));
 }
 
-Matrix Matrix::lt(t_float v) const
+MatrixTilde MatrixTilde::lt(t_float v) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ < MatT(arma::size(m_)).fill(v)));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ < MatT(arma::size(m_)).fill(v)));
 }
 
-Matrix Matrix::lt(const Matrix& b) const
+MatrixTilde MatrixTilde::lt(const MatrixTilde& b) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ < b.m_));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ < b.m_));
 }
 
-Matrix Matrix::eq(const Matrix& b) const
+MatrixTilde MatrixTilde::eq(const MatrixTilde& b) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ == b.m_));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ == b.m_));
 }
 
-Matrix Matrix::ne(t_float v) const
+MatrixTilde MatrixTilde::ne(t_float v) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ != MatT(arma::size(m_)).fill(v)));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ != MatT(arma::size(m_)).fill(v)));
 }
 
-Matrix Matrix::ne(const Matrix& b) const
+MatrixTilde MatrixTilde::ne(const MatrixTilde& b) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ != b.m_));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ != b.m_));
 }
 
-Matrix Matrix::eq(t_float v) const
+MatrixTilde MatrixTilde::eq(t_float v) const
 {
-    return Matrix(arma::conv_to<MatT>::from(m_ == MatT(arma::size(m_)).fill(v)));
+    return MatrixTilde(arma::conv_to<MatT>::from(m_ == MatT(arma::size(m_)).fill(v)));
 }
 
-Matrix Matrix::mul(const Matrix& b) const
+MatrixTilde MatrixTilde::mul(const MatrixTilde& b) const
 {
-    return Matrix(m_ % b.m_);
+    return MatrixTilde(m_ % b.m_);
 }
 
-Matrix Matrix::fromList(const std::vector<t_float> &v)
+MatrixTilde MatrixTilde::fromList(const std::vector<t_float> &v)
 {
     if (v.size() < 2)
         throw std::runtime_error("expected MROWS NCOLS [values...]");
@@ -2225,240 +2225,240 @@ Matrix Matrix::fromList(const std::vector<t_float> &v)
         }
     }
 
-    return Matrix(res);
+    return MatrixTilde(res);
 }
 
-Matrix Matrix::col(const std::vector<t_float>& v)
+MatrixTilde MatrixTilde::col(const std::vector<t_float>& v)
 {
-    return Matrix(Col<ValueType>(v));
+    return MatrixTilde(Col<ValueType>(v));
 }
 
-Matrix Matrix::row(const std::vector<t_float> &v)
+MatrixTilde MatrixTilde::row(const std::vector<t_float> &v)
 {
-    return Matrix(Row<ValueType>(v));
+    return MatrixTilde(Row<ValueType>(v));
 }
 
-Matrix Matrix::linspace(t_float start, t_float end, unsigned int N)
+MatrixTilde MatrixTilde::linspace(t_float start, t_float end, unsigned int N)
 {
-    return Matrix(arma::linspace<Row<ValueType>>(start, end, (N == 0) ? 100 : N));
+    return MatrixTilde(arma::linspace<Row<ValueType>>(start, end, (N == 0) ? 100 : N));
 }
 
-Matrix Matrix::logspace(t_float A, t_float B, unsigned int N)
+MatrixTilde MatrixTilde::logspace(t_float A, t_float B, unsigned int N)
 {
-    return Matrix(arma::logspace<Row<ValueType>>(A, B, (N == 0) ? 50 : N));
+    return MatrixTilde(arma::logspace<Row<ValueType>>(A, B, (N == 0) ? 50 : N));
 }
 
-Matrix Matrix::abs() const
+MatrixTilde MatrixTilde::abs() const
 {
-    return Matrix(arma::abs(m_));
+    return MatrixTilde(arma::abs(m_));
 }
 
-t_float Matrix::accu() const
+t_float MatrixTilde::accu() const
 {
     return arma::accu(m_);
 }
 
-bool Matrix::all() const
+bool MatrixTilde::all() const
 {
     return arma::all(arma::vectorise(m_));
 }
 
-Matrix Matrix::all_col() const
+MatrixTilde MatrixTilde::all_col() const
 {
-    return Matrix(arma::conv_to<MatT>::from(arma::all(m_, 0)));
+    return MatrixTilde(arma::conv_to<MatT>::from(arma::all(m_, 0)));
 }
 
-Matrix Matrix::all_row() const
+MatrixTilde MatrixTilde::all_row() const
 {
-    return Matrix(arma::conv_to<MatT>::from(arma::all(m_, 1)));
+    return MatrixTilde(arma::conv_to<MatT>::from(arma::all(m_, 1)));
 }
 
-bool Matrix::any() const
+bool MatrixTilde::any() const
 {
     return arma::any(arma::vectorise(m_));
 }
 
-Matrix Matrix::any_col() const
+MatrixTilde MatrixTilde::any_col() const
 {
-    return Matrix(arma::conv_to<MatT>::from(arma::any(m_, 0)));
+    return MatrixTilde(arma::conv_to<MatT>::from(arma::any(m_, 0)));
 }
 
-Matrix Matrix::any_row() const
+MatrixTilde MatrixTilde::any_row() const
 {
-    return Matrix(arma::conv_to<MatT>::from(arma::any(m_, 1)));
+    return MatrixTilde(arma::conv_to<MatT>::from(arma::any(m_, 1)));
 }
 
-Matrix Matrix::clip(t_float min, t_float max) const
+MatrixTilde MatrixTilde::clip(t_float min, t_float max) const
 {
-    return Matrix(arma::clamp(m_, min, max));
+    return MatrixTilde(arma::clamp(m_, min, max));
 }
 
-t_float Matrix::det() const
+t_float MatrixTilde::det() const
 {
     return arma::det(m_);
 }
 
-t_float Matrix::mean() const
+t_float MatrixTilde::mean() const
 {
     return arma::mean(arma::mean(m_));
 }
 
-Matrix Matrix::mean_col() const
+MatrixTilde MatrixTilde::mean_col() const
 {
-    return Matrix(arma::mean(m_, DIR_COL));
+    return MatrixTilde(arma::mean(m_, DIR_COL));
 }
 
-Matrix Matrix::mean_row() const
+MatrixTilde MatrixTilde::mean_row() const
 {
-    return Matrix(arma::mean(m_, DIR_ROW));
+    return MatrixTilde(arma::mean(m_, DIR_ROW));
 }
 
-t_float Matrix::median() const
+t_float MatrixTilde::median() const
 {
     return arma::median(arma::vectorise(m_));
 }
 
-Matrix Matrix::median_col() const
+MatrixTilde MatrixTilde::median_col() const
 {
-    return Matrix(arma::median(m_, DIR_COL));
+    return MatrixTilde(arma::median(m_, DIR_COL));
 }
 
-Matrix Matrix::median_row() const
+MatrixTilde MatrixTilde::median_row() const
 {
-    return Matrix(arma::median(m_, DIR_ROW));
+    return MatrixTilde(arma::median(m_, DIR_ROW));
 }
 
-t_float Matrix::stddev(bool norm_type) const
+t_float MatrixTilde::stddev(bool norm_type) const
 {
     return arma::stddev(arma::vectorise(m_), norm_type ? 1 : 0);
 }
 
-Matrix Matrix::stddev_col(bool norm_type) const
+MatrixTilde MatrixTilde::stddev_col(bool norm_type) const
 {
-    return Matrix(arma::stddev(m_, norm_type ? 1 : 0, DIR_COL));
+    return MatrixTilde(arma::stddev(m_, norm_type ? 1 : 0, DIR_COL));
 }
 
-Matrix Matrix::stddev_row(bool norm_type) const
+MatrixTilde MatrixTilde::stddev_row(bool norm_type) const
 {
-    return Matrix(arma::stddev(m_, norm_type ? 1 : 0, DIR_ROW));
+    return MatrixTilde(arma::stddev(m_, norm_type ? 1 : 0, DIR_ROW));
 }
 
-t_float Matrix::range() const
+t_float MatrixTilde::range() const
 {
     return arma::range(arma::vectorise(m_));
 }
 
-Matrix Matrix::range_col() const
+MatrixTilde MatrixTilde::range_col() const
 {
-    return Matrix(arma::range(m_, DIR_COL));
+    return MatrixTilde(arma::range(m_, DIR_COL));
 }
 
-Matrix Matrix::range_row() const
+MatrixTilde MatrixTilde::range_row() const
 {
-    return Matrix(arma::range(m_, DIR_ROW));
+    return MatrixTilde(arma::range(m_, DIR_ROW));
 }
 
-Matrix Matrix::hist(unsigned int n_bins) const
+MatrixTilde MatrixTilde::hist(unsigned int n_bins) const
 {
     if (m_.is_colvec())
-        return Matrix(arma::conv_to<MatT>::from(arma::hist(arma::conv_to<fcolvec>::from(m_), n_bins)));
+        return MatrixTilde(arma::conv_to<MatT>::from(arma::hist(arma::conv_to<fcolvec>::from(m_), n_bins)));
     else if (m_.is_rowvec())
-        return Matrix(arma::conv_to<MatT>::from(arma::hist(arma::conv_to<frowvec>::from(m_), n_bins)));
+        return MatrixTilde(arma::conv_to<MatT>::from(arma::hist(arma::conv_to<frowvec>::from(m_), n_bins)));
     else
         throw std::runtime_error("not a vector given");
 }
 
-Matrix Matrix::exp() const
+MatrixTilde MatrixTilde::exp() const
 {
-    return Matrix(arma::exp(m_));
+    return MatrixTilde(arma::exp(m_));
 }
 
-Matrix Matrix::exp2() const
+MatrixTilde MatrixTilde::exp2() const
 {
-    return Matrix(arma::exp2(m_));
+    return MatrixTilde(arma::exp2(m_));
 }
 
-Matrix Matrix::exp10() const
+MatrixTilde MatrixTilde::exp10() const
 {
-    return Matrix(arma::exp10(m_));
+    return MatrixTilde(arma::exp10(m_));
 }
 
-Matrix Matrix::trunc_exp() const
+MatrixTilde MatrixTilde::trunc_exp() const
 {
-    return Matrix(arma::trunc_exp(m_));
+    return MatrixTilde(arma::trunc_exp(m_));
 }
 
-Matrix Matrix::sign() const
+MatrixTilde MatrixTilde::sign() const
 {
-    return Matrix(arma::sign(m_));
+    return MatrixTilde(arma::sign(m_));
 }
 
-Matrix Matrix::sin() const
+MatrixTilde MatrixTilde::sin() const
 {
-    return Matrix(arma::sin(m_));
+    return MatrixTilde(arma::sin(m_));
 }
 
-Matrix Matrix::asin() const
+MatrixTilde MatrixTilde::asin() const
 {
-    return Matrix(arma::asin(m_));
+    return MatrixTilde(arma::asin(m_));
 }
 
-Matrix Matrix::sinh() const
+MatrixTilde MatrixTilde::sinh() const
 {
-    return Matrix(arma::sinh(m_));
+    return MatrixTilde(arma::sinh(m_));
 }
 
-Matrix Matrix::asinh() const
+MatrixTilde MatrixTilde::asinh() const
 {
-    return Matrix(arma::asinh(m_));
+    return MatrixTilde(arma::asinh(m_));
 }
 
-Matrix Matrix::cos() const
+MatrixTilde MatrixTilde::cos() const
 {
-    return Matrix(arma::cos(m_));
+    return MatrixTilde(arma::cos(m_));
 }
 
-Matrix Matrix::acos() const
+MatrixTilde MatrixTilde::acos() const
 {
-    return Matrix(arma::acos(m_));
+    return MatrixTilde(arma::acos(m_));
 }
 
-Matrix Matrix::cosh() const
+MatrixTilde MatrixTilde::cosh() const
 {
-    return Matrix(arma::cosh(m_));
+    return MatrixTilde(arma::cosh(m_));
 }
 
-Matrix Matrix::acosh() const
+MatrixTilde MatrixTilde::acosh() const
 {
-    return Matrix(arma::acosh(m_));
+    return MatrixTilde(arma::acosh(m_));
 }
 
-Matrix Matrix::tan() const
+MatrixTilde MatrixTilde::tan() const
 {
-    return Matrix(arma::tan(m_));
+    return MatrixTilde(arma::tan(m_));
 }
 
-Matrix Matrix::atan() const
+MatrixTilde MatrixTilde::atan() const
 {
-    return Matrix(arma::atan(m_));
+    return MatrixTilde(arma::atan(m_));
 }
 
-Matrix Matrix::tanh() const
+MatrixTilde MatrixTilde::tanh() const
 {
-    return Matrix(arma::tanh(m_));
+    return MatrixTilde(arma::tanh(m_));
 }
 
-Matrix Matrix::atanh() const
+MatrixTilde MatrixTilde::atanh() const
 {
-    return Matrix(arma::atanh(m_));
+    return MatrixTilde(arma::atanh(m_));
 }
 
-Matrix Matrix::vectorise(bool dim) const
+MatrixTilde MatrixTilde::vectorise(bool dim) const
 {
-    return Matrix(arma::vectorise(m_, dim ? DIR_ROW : DIR_COL));
+    return MatrixTilde(arma::vectorise(m_, dim ? DIR_ROW : DIR_COL));
 }
 
-t_float Matrix::at(unsigned int m, unsigned int n) const
+t_float MatrixTilde::at(unsigned int m, unsigned int n) const
 {
     return m_(m, n);
 }

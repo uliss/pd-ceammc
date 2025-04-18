@@ -20,7 +20,8 @@ namespace hw {
     enum MessageType {
         MSG_ERROR = 2,
         MSG_DEBUG = 1,
-        MSG_CONNECT = 3
+        MSG_CONNECT = 3,
+        MSG_INFO = 4,
     };
 
     typedef std::deque<uint8_t> ArduinoQueue;
@@ -45,7 +46,7 @@ namespace hw {
         Messages messages_;
 
     public:
-        Arduino(const std::string& port = "",
+        explicit Arduino(const std::string& port = "",
             int baudRate = 57600,
             const std::string& usbSerial = "",
             int vendorId = 0,

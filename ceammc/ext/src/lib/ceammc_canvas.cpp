@@ -85,13 +85,11 @@ using namespace ceammc;
 
 static bool is_pd048()
 {
+    static_assert(PD_MINOR_VERSION <= 53, "update for minor version");
+
     int major, minor, bugfix;
     sys_getversion(&major, &minor, &bugfix);
-    static_assert(PD_MINOR_VERSION <= 53, "update for minor version");
-    if (major == PD_MAJOR_VERSION && minor == PD_MINOR_VERSION)
-        return false;
-
-    return true;
+    return major != PD_MAJOR_VERSION || minor != PD_MINOR_VERSION;
 }
 
 t_canvasenvironment* canvas_get_current_env(const t_canvas* c)

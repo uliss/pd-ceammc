@@ -7,11 +7,28 @@ if(UNIX AND NOT APPLE)
                ${PROJECT_BINARY_DIR}/snap/snapcraft.yaml @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/snapcraft.yaml.in
                ${PROJECT_SOURCE_DIR}/snap/snapcraft.yaml @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_faust.sh
+               ${PROJECT_BINARY_DIR}/scripts/build_faust.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_verovio.sh
+               ${PROJECT_BINARY_DIR}/scripts/build_verovio.sh @ONLY)
 
     if(LINUX_DEBIAN_PACKAGE_FILE_NAME)
         add_custom_target(dev_dpkg
             COMMAND sudo dpkg --remove ${LINUX_DEBIAN_PACKAGE_NAME}
-            COMMAND sudo dpkg --install ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}
+            COMMAND sudo dpkg --install ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
+            USES_TERMINAL)
+
+        add_custom_target(dev_run
+            COMMAND sudo cp $<TARGET_FILE:ceammc> ${CMAKE_INSTALL_PREFIX}/lib/pd_ceammc/extra/ceammc/
+            COMMAND pd-ceammc
+            DEPENDS ceammc
+            USES_TERMINAL)
+
+        add_custom_target(dev_open
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target package
+            COMMAND sudo dpkg --remove ${LINUX_DEBIAN_PACKAGE_NAME}
+            COMMAND sudo dpkg --install ${PROJECT_BINARY_DIR}/${LINUX_DEBIAN_PACKAGE_FILE_NAME}.deb
+            COMMAND pd-ceammc
             USES_TERMINAL)
 
         add_custom_target(dev_copyright

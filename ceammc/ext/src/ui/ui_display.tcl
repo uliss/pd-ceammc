@@ -3,14 +3,16 @@ namespace eval ::ui {
 namespace eval display {
     variable font_size 11
     variable font_family "Helvetica"
+    variable txt_yoff 0
 }
 
 switch -- $::windowingsystem {
-    "aqua" { }
-    "x11"  { }
-    "win32" {
-        set display::font_size 7
+    "aqua"  { }
+    "x11"   { 
+        set display::font_size 9
+        set display::txt_yoff 2
     }
+    "win32" { set display::font_size 7 }
 }
 
 proc display_type_font { zoom } { return "$display::font_family [expr $zoom * $display::font_size] normal roman" }
@@ -48,7 +50,7 @@ proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolo
     ::ceammc::ui::widget_bg $cnv $id $bgcolor
 
     set txpad [expr $zoom*2+1]
-    set typad [expr $zoom*2+1]
+    set typad [expr $zoom*2+1+$::ui::display::txt_yoff]
     set tx $txpad
     set ty $typad
     set ft [display_type_font $zoom]

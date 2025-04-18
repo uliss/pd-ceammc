@@ -1,0 +1,76 @@
+#N canvas 0 0 600 600 12;
+#X obj 20 20 ui.label CEAMMC версия: v0.9.8 @size 450 50;
+#X obj 40 120 bitmap;
+#X text 230 120 – бинарное изображение (битовая 2D-матрица), f 46;
+#X obj 40 155 conv.guido2note;
+#X text 230 155 – конвертер из Guido-нотации в MIDI ноту и длительность, f 46;
+#X obj 40 205 data.path;
+#X text 230 205 – тип данных: путь в файловой системе, f 46;
+#X obj 40 240 flow.histogram;
+#X text 230 240 – гисторамма для числового потока управления, f 46;
+#X obj 40 275 hw.gamepad;
+#X text 230 275 – геймпад контроллеры, f 46;
+#X obj 40 310 hw.printer;
+#X text 230 310 – базовая поддержка печати документов, f 46;
+#X obj 40 345 hw.rpi.adc.ads1115;
+#X text 230 345 – драйвер для 16-битного АЦП на чипе ads1115 для Raspberry
+Pi, f 46;
+#X obj 40 395 hw.rpi.display.hd44780;
+#X text 230 395 – драйвер для ЖКИ дисплея (1602 или 2004 модуль) для
+Raspberry Pi, f 46;
+#X obj 40 445 hw.rpi.display.ssd1306;
+#X text 230 445 – драйвер для OLED дисплея на чипе ssd1306 для Raspberry
+Pi, f 46;
+#X obj 40 495 hw.rpi.gpio;
+#X text 230 495 – управление GPIO на Raspberry Pi, f 46;
+#X obj 40 530 hw.rpi.i2c.pca9685;
+#X text 230 530 – драйвер для 16-канального 12-битного ШИМ модуля на
+чипе PCA9685 для Raspberry Pi, f 46;
+#X obj 40 580 hw.rpi.pwm;
+#X text 230 580 – аппаратный ШИМ (PWM) для RaspberryPi, f 46;
+#X obj 40 615 hw.rpi.rotenc;
+#X text 230 615 – поворотный энкодер для Raspberry Pi, f 46;
+#X obj 40 650 hw.rpi.sensor.dht11;
+#X text 230 650 – цифровой датчик влажности и температуры (DHT11) для
+Raspberry Pi, f 46;
+#X obj 40 700 hw.rpi.sensor.ir;
+#X text 230 700 – ИК (инфракрасные) датчики и протоколы для Raspberry
+Pi, f 46;
+#X obj 40 750 hw.rpi.sensor.mpu6050;
+#X text 230 750 – MPU-6050 гироскоп и датчик ускорения для Raspberry
+Pi, f 46;
+#X obj 40 800 hw.rpi.sensor.sr04;
+#X text 230 800 – HC-SR04 ультразвуковой датчик расстояния для Raspberry
+Pi, f 46;
+#X obj 40 850 hw.rpi.sensor.vl53l0x;
+#X text 230 850 – лазерный дальномер на чипе VL53L0X для Raspberry
+Pi, f 46;
+#X obj 40 900 hw.rpi.spi.max7219;
+#X text 230 900 – драйвер для LED матрицы на чипе max7219 для Raspberry
+Pi, f 46;
+#X obj 40 950 hw.rpi.spi.ws2812;
+#X text 230 950 – драйвер для светодиодной ленты ws2812 для Raspberry
+Pi, f 46;
+#X obj 40 1000 msg.unpack;
+#X text 230 1000 – распаковка сообщения на селектор и аргументы, f 46;
+#X obj 40 1035 net.freesound;
+#X text 230 1035 – клиент для Freesound API v2, f 46;
+#X obj 40 1070 net.http.client;
+#X text 230 1070 – HTTP клиент, f 46;
+#X obj 40 1105 net.mdns;
+#X text 230 1105 – обнаружение служб MDNS, f 46;
+#X obj 40 1140 net.mqtt.client;
+#X text 230 1140 – MQTT клиент, f 46;
+#X obj 40 1175 net.ws.client;
+#X text 230 1175 – WebSocket клиент, f 46;
+#X obj 40 1210 net.ws.server;
+#X text 230 1210 – WebSocket сервер, f 46;
+#X obj 40 1245 proto.obs;
+#X text 230 1245 – WebSocket клиент для управления OBS studio, f 46;
+#X obj 40 1280 system.command;
+#X text 230 1280 – запуск цепочек команд с перенаправлением вывода
+в Unix и Windows, f 46;
+#X obj 40 1330 system.info;
+#X text 230 1330 – получение информации о системе: ЦПУ и температура, f 46;
+#X text 40 80 Новые объекты (30):;
+#X text 40 1380 Дата: 2025-04-18, f 46;

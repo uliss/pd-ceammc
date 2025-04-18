@@ -1,8 +1,6 @@
 #ifndef LEMON_DATA_PARSER_IMPL_H
 #define LEMON_DATA_PARSER_IMPL_H
 
-#include <cstdio>
-
 namespace ceammc {
 namespace parser {
     class LemonDataStringParser;
@@ -17,6 +15,7 @@ void lemon_data_string_parser_token(void* parser, int token, ceammc::parser::Lem
 
 
 #ifndef NDEBUG
+#include <cstdio>
 void lemon_data_string_parserTrace(FILE*, char* prefix);
 #endif
 

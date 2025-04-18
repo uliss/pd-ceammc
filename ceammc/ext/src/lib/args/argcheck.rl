@@ -6,10 +6,8 @@
 # include "ceammc_datatypes.h"
 
 # include <cstdint>
-# include <iostream>
 # include <limits>
 # include <cmath>
-# include <algorithm>
 # include <boost/container/static_vector.hpp>
 # include <boost/variant.hpp>
 
@@ -130,8 +128,8 @@ struct Check {
     ArgName name;
     CheckType type { CHECK_NONE };
     CompareType cmp { CMP_NONE };
-    int8_t rmin { 0 };
-    int8_t rmax { 0 };
+    int16_t rmin { 0 };
+    int16_t rmax { 0 };
 
     inline int repeatMin() const { return rmin; }
     inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }
@@ -161,6 +159,27 @@ struct Check {
         return (str_ptr && str_ptr->second == hash);
     }
 
+    inline static bool isEqual(const ArgValue& v, const ceammc::Atom& a)
+    {
+        auto fval = boost::get<double>(&v);
+        if (fval && a == *fval)
+            return true;
+
+        auto sval = boost::get<ArgString>(&v);
+        if (sval && a.isSymbol()) {
+            if (std::strncmp(a.asT<t_symbol*>()->s_name, sval->first.data(), sval->second) == 0) {
+                return true;
+            }
+        }
+
+        auto ival = boost::get<int64_t>(&v);
+        if (ival && a == *ival)
+            return true;
+
+
+        return false;
+    }
+
     inline std::string argName() const {
         if (name.empty())
             return typeNames[type];
@@ -171,29 +190,29 @@ struct Check {
     inline std::string checkInfo() const {
         switch (cmp) {
         case CMP_MODULE:
-            return fmt::format("check: %{}==0", arg_to_string(values));
+            return fmt::format(", check: %{}==0", arg_to_string(values));
         case CMP_LESS:
-            return fmt::format("check: <{}", arg_to_string(values));
+            return fmt::format(", check: <{}", arg_to_string(values));
         case CMP_LESS_EQ:
-            return fmt::format("check: <={}", arg_to_string(values));
+            return fmt::format(", check: <={}", arg_to_string(values));
         case CMP_GREATER:
-            return fmt::format("check: >{}", arg_to_string(values));
+            return fmt::format(", check: >{}", arg_to_string(values));
         case CMP_GREATER_EQ:
-            return fmt::format("check: >={}", arg_to_string(values));
+            return fmt::format(", check: >={}", arg_to_string(values));
         case CMP_RANGE_CLOSED:
-            return fmt::format("range: [{}]", arg_to_string(values, ","));
+            return fmt::format(", range: [{}]", arg_to_string(values, ","));
         case CMP_RANGE_SEMIOPEN:
-            return fmt::format("range: [{})", arg_to_string(values, ","));
+            return fmt::format(", range: [{})", arg_to_string(values, ","));
         case CMP_EQUAL:
             if (values.size() == 1)
-                return fmt::format("check: ={}", arg_to_string(values));
+                return fmt::format(", check: ={}", arg_to_string(values));
             else
-                return fmt::format("enum: {}", arg_to_string(values, "|"));
+                return fmt::format(", enum: {}", arg_to_string(values, "|"));
         case CMP_APPROX:
             if (values.size() == 1)
-                return fmt::format("check: ~{}", arg_to_string(values));
+                return fmt::format(", check: ~{}", arg_to_string(values));
             else
-                return fmt::format("enum: ~{}", arg_to_string(values, "|"));
+                return fmt::format(", enum: ~{}", arg_to_string(values, "|"));
         default:
             return {};
         }
@@ -201,9 +220,9 @@ struct Check {
 
     inline std::string argInfo() const {
         if (name.empty())
-            return fmt::format("{:10s} [{}]{}", typeNames[type], checkInfo(), helpRepeats());
+            return fmt::format("{:10s} ({}){}", typeNames[type], checkInfo(), helpRepeats());
         else
-            return fmt::format("{:10s} [type: {} {}]{}", name.data(), typeNames[type], checkInfo(), helpRepeats());
+            return fmt::format("{:10s} (type: {}{}){}", name.data(), typeNames[type], checkInfo(), helpRepeats());
     }
 
     inline std::string helpRepeats() const {
@@ -272,6 +291,11 @@ action append_opt_real {
         real += rl_den / double(rl_den_cnt);
 
     rl_chk.values.push_back(rl_sign * real);
+
+    // cleanup
+    rl_den = 0;
+    rl_den_cnt = 0;
+    rl_sign = 1;
 }
 
 action append_opt_sym {
@@ -308,6 +332,51 @@ action append_opt_sym {
     }
 }
 
+action append_opt_atom {
+    try {
+        ArgString str{ {}, 0 };
+        const auto LEN = fpc - rl_sym_start;
+        const auto MAXLEN = str.first.capacity();
+        char guard = 0;
+
+        if (*rl_sym_start == '"')
+            guard = '"';
+        else if (*rl_sym_start == '\'')
+            guard = '\'';
+
+        for (int i = 0; i < LEN; i++) {
+            auto c = rl_sym_start[i];
+            if (c == guard) continue;
+            if (str.first.size() == MAXLEN) {
+                LIB_ERR << fmt::format(
+                    "[devel] ArgChecker max symbol length exceeded for '{}'"
+                    ", max length is: {}, using trimmed symbol: '{}'",
+                    std::string(rl_sym_start, LEN),
+                    MAXLEN,
+                    str.first.data());
+                break;
+            } else
+                str.first.push_back(c);
+        }
+
+        if (str.first.capacity() > 0) {
+            str.first.push_back('\0');
+            char* p;
+            auto converted = strtod(str.first.data(), &p);
+            if (*p) {
+                // conversion failed because the input wasn't a number
+                str.first.pop_back();
+                str.second = crc32_hash(str.first.data());
+                rl_chk.values.push_back(str);
+            } else {
+                rl_chk.values.push_back(converted);
+            }
+        }
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+
 #####################
 # repeats: {INT}, {INT,} or {INT,INT}
 #####################
@@ -321,6 +390,7 @@ num_sign = '+' @{ rl_sign = 1; }
 
 num_num  = [0-9]+ >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); };
 num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0'); rl_den_cnt *= 10; };
+
 
 #####################
 # int: (+-)?INT
@@ -415,7 +485,22 @@ float_check = (cmp_op num_real %append_opt_real)
             | cmp_range_float
             ;
 
-atom  = 'a' @{ rl_chk.type = CHECK_ATOM; };
+#####################
+# atom equal: =1|A|B...
+#####################
+
+atom_opt_simple  = [a-zA-Z_\-0-9@#:\.+]+;
+atom_opt = (atom_opt_simple | sym_opt_squoted | sym_opt_dquoted) >{ rl_sym_start = fpc; };
+
+cmp_eq_atom = ('=' atom_opt  %append_opt_atom
+              ('|' atom_opt  %append_opt_atom)*
+              ) >{ rl_chk.cmp = CMP_EQUAL; }
+              ;
+
+atom_check = cmp_eq_atom
+           ;
+
+atom  = 'a' @{ rl_chk.type = CHECK_ATOM; } atom_check?;
 bool  = 'B' @{ rl_chk.type = CHECK_BOOL; };
 byte  = 'b' @{ rl_chk.type = CHECK_BYTE; };
 int   = 'i' @{ rl_chk.type = CHECK_INT; } int_check?;
@@ -456,9 +541,38 @@ namespace {
 
 bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
     switch (c.type) {
-    case CHECK_ATOM:
+    case CHECK_ATOM: {
         debug("atom", "Ok");
-    break;
+
+        switch (c.cmp) {
+        case CMP_EQUAL:
+            if (c.values.size() == 1) {
+                if (!c.isEqual(c.values[0], a)) {
+                    if (pErr) {
+                        pdError(x, fmt::format("{} at [{}] expected to be = {}, got: {}",
+                                 c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+                    }
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                bool found = false;
+                for (auto& v: c.values) {
+                    if (c.isEqual(v, a)) { found = true; break; }
+                }
+                if (!found) {
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                    return false;
+                }
+            }
+        break;
+        default:
+            return true;
+        }
+    } break;
     case CHECK_BOOL:
         if (a.isBool()) {
             debug("book", "Ok");
@@ -795,16 +909,34 @@ public:
         return { str.data(), str.size() };
     }
 
-    std::string help() const {
+    std::string help(const char* method) const {
         string::MediumString str;
         auto bs = std::back_inserter(str);
-        fmt::format_to(bs, "usage: ");
-        for (auto& c: *this)
-            fmt::format_to(bs, "{}{} ", c.argName(), c.helpRepeats());
 
-        str.push_back('\n');
-        for (auto& c: *this) {
-            fmt::format_to(bs, " - {}\n", c.argInfo());
+        if (method) {
+            fmt::format_to(bs, "'{}' method usage:\n[{}", method, method);
+
+            for (auto& c: *this)
+                fmt::format_to(bs, " {}{}", c.argName(), c.helpRepeats());
+
+            fmt::format_to(bs, "(");
+
+            *bs = '\n';
+
+            for (auto& c: *this) {
+                fmt::format_to(bs, "  - {}\n", c.argInfo());
+            }
+        } else {
+            fmt::format_to(bs, "usage:");
+
+            for (auto& c: *this)
+                fmt::format_to(bs, " {}{}", c.argName(), c.helpRepeats());
+
+            *bs = '\n';
+
+            for (auto& c: *this) {
+                fmt::format_to(bs, "  - {}\n", c.argInfo());
+            }
         }
 
         if (str.size() > 0 && str.back() == '\n')
@@ -816,13 +948,12 @@ public:
 
 ArgChecker::~ArgChecker()  = default;
 
-bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches, bool printErr) const
+bool ArgChecker::check_pd_obj(const AtomListView& lv, t_object* x, t_symbol* method, ArgMatchList* matches, bool printErr) const
 {
     if (!chk_)
         return false;
 
     ArgMatchList m;
-    const void* x = obj ? obj->owner() : nullptr;
 
     const int N = lv.size();
     int atom_idx = 0;
@@ -855,8 +986,21 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* ma
     }
 
     if (atom_idx < N) {
-        if (printErr)
-            pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
+        if (printErr) {
+            auto method_name = (method && method != &s_) ? method->s_name : nullptr;
+            if (method_name)
+                pdError(x, fmt::format("[{}( exceeded max argument count ({}), got {} extra arguments: {}",
+                        method_name,
+                        chk_->size(),
+                        N - atom_idx,
+                        list_to_string(lv.subView(atom_idx))
+                        ));
+            else
+                pdError(x, fmt::format("exceeded max argument count ({}), got {} extra arguments: {}",
+                        chk_->size(),
+                        N - atom_idx,
+                        list_to_string(lv.subView(atom_idx))));
+        }
 
         return false;
     }
@@ -865,6 +1009,11 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* ma
         *matches = m;
 
     return true;
+}
+
+bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, t_symbol* method, ArgMatchList* matches, bool printErr) const
+{
+    return check_pd_obj(lv, obj ? obj->owner() : nullptr, method, matches, printErr);
 }
 
 ArgChecker::ArgChecker(const char* str)
@@ -893,20 +1042,29 @@ ArgChecker::ArgChecker(const char* str)
 
 void ArgChecker::usage(BaseObject* obj, t_symbol* m) const
 {
+    return usage(obj ? obj->owner() : nullptr, m);
+}
+
+void ArgChecker::usage(t_object* obj, t_symbol* m) const
+{
     if (!chk_)
         return;
 
-    Error err(obj);
-    if (m)
-        err << '[' << m->s_name << "( ";
-
-    err << chk_->help();
+    pdError(obj, chk_->help(m ? m->s_name : nullptr));
 }
 
-bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj, ArgMatchList* matches)
+std::string ArgChecker::usage_str(t_symbol* m) const
+{
+    if (!chk_)
+        return {};
+    else
+        return chk_->help(m ? m->s_name : nullptr);
+}
+
+bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj, t_symbol* method, ArgMatchList* matches)
 {
     ArgChecker chk(arg_string);
-    return chk.check(lv, obj, matches);
+    return chk.check(lv, obj, method, matches);
 }
 
 }

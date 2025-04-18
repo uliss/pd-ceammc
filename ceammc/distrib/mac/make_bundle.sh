@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ##############
 # VARS
@@ -9,11 +9,15 @@ SRC_DIR="@PROJECT_SOURCE_DIR@"
 BUILD_DIR="@PROJECT_BINARY_DIR@"
 DIST_DIR="@PROJECT_BINARY_DIR@/dist"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
+DYLIBFIX="@DYLIBFIX@"
 BUNDLE="@BUNDLE@"
 WISH_APP="@WISH_APP@"
 TK_VERSION="@TK_VERSION@"
 LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
 CEAMMC_LIB_VERSION="@CEAMMC_LIB_VERSION@"
+INSTALL_DIR="@PROJECT_BINARY_DIR@/dist/pd_ceammc"
+CMAKE="@CMAKE_COMMAND@"
+LEAPMOTION_ROOT="@LEAPMOTION_ROOT@"
 
 # relative dir names
 PD_APP="$(basename $BUNDLE)"
@@ -83,22 +87,21 @@ CEAMMC_EXT_BIN_DIR="${BUILD_DIR}/ceammc/ext/src"
 # find all Pd externals in specified directory
 # usage: external_files DIR
 function external_files() {
-    find "$1" -type f | grep -e '\.d_fat' -e '\.d_amd64' -e '\.d_i386' -e '\.pd_darwin'
+    find "$1" -type f 2>/dev/null | grep -e '\.d_fat' -e '\.d_amd64' -e '\.d_i386' -e '\.pd_darwin'
 }
 
 function dylib_external_fix() {
     exec=$1
     dir=$2
 
-    echo "\t- fixing @loader_path for $(basename $exec) ..."
+    printf "\t- fixing @loader_path for $(basename $exec) ...\n"
     $DYLIBBUNDLER \
         --fix-file "${exec}" \
         --bundle-deps \
         --create-dir \
         --dest-dir "${dir}" \
         --install-path @loader_path/ \
-        --overwrite-files \
-        --ignore /usr/local/opt/llvm/lib &>"${BUILD_DIR}/bundle.log"
+        --overwrite-files &>"${BUILD_DIR}/bundle.log"
 }
 
 function copy()
@@ -111,11 +114,11 @@ function copy()
     cp -f "${file}" "${dest}"
     if [ $? -eq 0 ];
     then
-        echo "\t- copying $(basename $1) to \"${rel_dest}\""
+        printf "\t- copying $(basename $1) to \"${rel_dest}\"\n"
     fi
 }
 
-function copy_and_fix_dll()
+function copy_and_fix_exe()
 {
     file=$1
     dir=$2
@@ -124,15 +127,43 @@ function copy_and_fix_dll()
     dylib_external_fix "${dir}/$(basename $file)"  "${dir}"
 }
 
-function exists() {
-    [ -e "$1" ]
-}
-
 function section() {
     echo
     tput setaf 2
     echo $1 "..."
     tput sgr0
+}
+
+function rsync_output_decorate() {
+    tail -n +2 | gsed '/\/$/d' | gsed -E "s/^(.)/\t- copy \1/" | ghead -n -2
+}
+
+function rsync_copy() {
+    src=$1
+    dest=$2
+    if [[ -n $3 ]]
+    then
+        exclude="--exclude='$3'"
+    else
+        exclude=''
+    fi
+
+    rsync --archive \
+        --recursive \
+        --whole-file \
+        --prune-empty-dirs \
+        $include \
+        --exclude='CMake*' \
+        --exclude='Make*' \
+        --exclude='*.pddoc' \
+        --exclude='*.sh' \
+        --exclude='.*' \
+        --exclude='*.cmake' \
+        --exclude='*.yml' \
+        $exclude \
+        "${src}/" "$dest" \
+        --no-motd \
+        --verbose | rsync_output_decorate
 }
 
 ##############
@@ -148,17 +179,21 @@ cd "${DIST_DIR}"
 # TCL/TK/WISH
 ##############
 
+section "installing"
+rm -rf "${INSTALL_DIR}"
+$CMAKE --install ${BUILD_DIR} --prefix ${INSTALL_DIR}
+
 section "Copy Wish Shell to ${PD_APP}"
 cp -R "${WISH_APP}" "${BUNDLE_APP}"
 
 # tcllib: base64
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
 # tklib: tooltip
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
 # tklib: ctext
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
 # tklib: tablelist
-rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tablelist" ${BUNDLE_FRAMEWORKS}
+rsync -a -m "${SRC_DIR}/ceammc/extra/tcltk/tablelist" ${BUNDLE_FRAMEWORKS}
 
 #
 # Info.plist
@@ -183,20 +218,26 @@ mkdir -p "${BUNDLE_BIN}"
 ############
 
 section "Copying vanilla binaries"
-copy_and_fix_dll "$BUILD_DIR/src/pd" "${BUNDLE_BIN}"
-copy_and_fix_dll "$BUILD_DIR/src/pdsend" "${BUNDLE_BIN}"
-copy_and_fix_dll "$BUILD_DIR/src/pdreceive" "${BUNDLE_BIN}"
+copy_and_fix_exe "$BUILD_DIR/src/pd" "${BUNDLE_BIN}"
+copy_and_fix_exe "$BUILD_DIR/src/pdsend" "${BUNDLE_BIN}"
+copy_and_fix_exe "$BUILD_DIR/src/pdreceive" "${BUNDLE_BIN}"
 
 section "Copying vanilla tcl files"
 mkdir -p "${BUNDLE_TCL}/ceammc"
 cd "${BUNDLE_TCL}/.."
-rsync -a --exclude="CMake*" --exclude="Make*" "${SRC_TCL}" .
+rsync -a --exclude="CMake*" --exclude="Make*" -m "${SRC_TCL}" .
 # link
 ln -s tcl Scripts
 
 section "Copying vanilla docs"
 cd "${BUNDLE_RESOURCES}"
-rsync -a --exclude=.DS_Store --exclude=CMake* "${SRC_DIR}/doc" .
+rsync -a \
+    --recursive \
+    --exclude=.DS_Store \
+    --exclude=CMake* \
+    --verbose --no-motd \
+     --prune-empty-dirs \
+    "${SRC_DIR}/doc" . | rsync_output_decorate
 
 section "Copying compiled PO translations"
 mkdir -p "${BUNDLE_PO}"
@@ -239,19 +280,6 @@ copy "${SRC_DIR}/src/m_pd.h" "${BUNDLE_INCLUDE}"
 # CEAMMC
 ############
 
-section "Copying CEAMMC tcl plugins"
-mkdir -p "${BUNDLE_COMPLETIONS}"
-for tcl in ${SRC_DIR}/ceammc/gui/plugins/*.tcl
-do
-    copy ${tcl} "${BUNDLE_TCL}/ceammc"
-done
-
-section "Copying Tk Completion plugin"
-mkdir -p "${BUNDLE_TCL}/completion-plugin"
-for f in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.@(tcl|cfg|pd)
-do
-    copy ${f} "${BUNDLE_TCL}/ceammc"
-done
 
 section "Copying Tk Drag-and-Drop plugin"
 mkdir -p "${BUNDLE_TCL}/tkdnd"
@@ -262,154 +290,38 @@ done
 copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/*.dylib "${BUNDLE_TCL}/tkdnd"
 copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/library/*.tcl "${BUNDLE_TCL}/tkdnd"
 
-section "Copying CEAMMC tcl completion"
-copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_COMPLETIONS}"
-copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_COMPLETIONS}"
+section "Copying CEAMMC tcl plugins"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/tcl/ceammc/"  "${BUNDLE_TCL}/ceammc"
 
-section "Copying CEAMMC dll"
+section "Copying CEAMMC"
 mkdir -p "${BUNDLE_CEAMMC}"
-for dll in $CEAMMC_EXT_BIN_DIR/lib/libceammc*.dylib
-do
-    copy ${dll} "${BUNDLE_CEAMMC}"
-done
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/ceammc/"  "${BUNDLE_CEAMMC}"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/numeric/" "${BUNDLE_CEAMMC}"
+rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/extra/matrix/"  "${BUNDLE_CEAMMC}"
+if [[ -d "${BUILD_DIR}/dist/pd_ceammc/share/verovio" ]]
+then
+    rsync_copy "${BUILD_DIR}/dist/pd_ceammc/share/verovio/"           "${BUNDLE_CEAMMC}/music/verovio"
+fi
 
-section "Copying CEAMMC abstractions"
-for abs in $SRC_DIR/ceammc/ext/abstractions/*.pd
-do
-    copy ${abs} "${BUNDLE_CEAMMC}"
-done
+section "Copying CEAMMC dll and externals"
+$DYLIBFIX --dir "${BUNDLE_CEAMMC}" \
+    --rpaths=${BUILD_DIR}/ceammc/ext/src/lib \
+    --files $(find ${BUILD_DIR}/ceammc -name '*.dylib' -o -name '*.d_fat' -o -name '*.d_amd64' -o -name '*.d_i386' -o -name '*.pd_darwin' | grep -v tcl | tr '\n' ' ')
 
-section "Copying CEAMMC externals"
-external_files $CEAMMC_EXT_BIN_DIR | while read f
-do
-    copy_and_fix_dll ${f} "${BUNDLE_CEAMMC}"
-done
-
-section "Copying CEAMMC STK rawwaves"
-mkdir -p "${BUNDLE_CEAMMC}/stk"
-for wave in $SRC_DIR/ceammc/extra/stk/stk/rawwaves/*.raw
-do
-    copy ${wave} "${BUNDLE_CEAMMC}/stk"
-done
-
-section "Copying CEAMMC fluidsynth soundfonts"
-mkdir -p "${BUNDLE_SF2}"
-for sf in $SRC_CEAMMC/extra/fluidsynth/fluidsynth/sf2/*
-do
-    copy ${sf} "${BUNDLE_SF2}"
-done
-
-section "Copying CEAMMC sf2 soundfonts"
-for sf in $SRC_CEAMMC/ext/doc/sf2/*.sf2
-do
-    copy ${sf} "${BUNDLE_SF2}"
-done
-
-section "Copying CEAMMC sfz soundfonts"
-mkdir -p "${BUNDLE_SFZ}"
-for sf in $SRC_CEAMMC/ext/doc/sfz/*
-do
-    copy ${sf} "${BUNDLE_SFZ}"
-done
-
-section "Copying sound samples"
-mkdir -p "${BUNDLE_SAMPLES}"
-for samp in $SRC_CEAMMC/ext/doc/sound/*
-do
-    copy ${samp} "${BUNDLE_SAMPLES}"
-done
-
-section "Copying CEAMMC fonts"
-mkdir -p "${BUNDLE_FONTS}"
-for ft in $SRC_CEAMMC/distrib/fonts/*.ttf
-do
-    copy ${ft} "${BUNDLE_FONTS}"
-done
-
-section "Copying doc images"
-mkdir -p "${BUNDLE_IMAGES}"
-for img in $SRC_CEAMMC/ext/doc/img/*.@(png|svg|jpg)
-do
-    copy ${img} "${BUNDLE_IMAGES}"
-done
-
-section "Copying CEAMMC lua files"
-mkdir -p "${BUNDLE_LUA}"
-for lua in $SRC_CEAMMC/ext/doc/lua/*.@(lua)
-do
-    copy ${lua} "${BUNDLE_LUA}"
-done
-
-section "Copying RHVoice.conf"
-copy $SRC_CEAMMC/ext/src/misc/RHVoice.conf "${BUNDLE_CEAMMC}"
-
-section "Copying CEAMMC midi files"
-mkdir -p "${BUNDLE_MIDI}"
-for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
-do
-    copy ${midi} "${BUNDLE_MIDI}"
-done
-
-section "Copying CEAMMC music files"
-mkdir -p "${BUNDLE_MUSIC}"
-cp $SRC_CEAMMC/ext/doc/music/*.mxml "${BUNDLE_MUSIC}/"
-
-section "Copying CEAMMC verovio files"
-mkdir -p "${BUNDLE_MUSIC}/verovio"
-cp -R $SRC_CEAMMC/extra/verovio/verovio/data/ "${BUNDLE_MUSIC}/verovio"
-
-section "Copying Impulse Responses"
-mkdir -p "${BUNDLE_IR}"
-for ir in $SRC_CEAMMC/ext/doc/ir/*.@(md|wav|txt)
-do
-    copy ${ir} "${BUNDLE_IR}"
-done
+if [[ $? -ne 0 ]]
+then
+    exit 1
+fi
 
 section "Copying CEAMMC cmake files"
 mkdir -p "${BUNDLE_INCLUDE}"
 copy "${SRC_DIR}/cmake/PdExternal.cmake" "${BUNDLE_INCLUDE}"
-
-section "Copying CEAMMC class wrappers"
-for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    fname=$(basename $wrapper)
-    mod_name=$(echo $fname | cut -d. -f1)
-    copy_and_fix_dll ${wrapper} "${BUNDLE_CEAMMC}"
-    for pdhelp in $SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/*-help.pd
-    do
-        copy ${pdhelp} "${BUNDLE_CEAMMC}"
-    done
-done
 
 section "Copying CEAMMC class wrappers completions"
 mkdir -p "${BUNDLE_COMPLETIONS}"
 find ${SRC_CEAMMC}/ext/class-wrapper/modules -name 'completion_*.txt' | while read txt
 do
     copy $txt "${BUNDLE_COMPLETIONS}"
-done
-
-section "Copying CEAMMC help files"
-rsync --archive --include='*.pd' --exclude='*' "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
-
-section "Copying Faust libraries"
-rsync --dirs --include='*.lib' --exclude='*' "${SRC_CEAMMC}/extra/faust/faust/libraries/" "${BUNDLE_CEAMMC}/faust"
-
-section "Copying Faust examples"
-rsync --dirs "${SRC_CEAMMC}/ext/doc/faust/" "${BUNDLE_CEAMMC}/faust"
-
-section "Copying CEAMMC help additional files"
-for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav|glitch)
-do
-    copy ${f} "${BUNDLE_CEAMMC}"
-    chmod 0444 "${BUNDLE_CEAMMC}/$(basename $f)"
-done
-
-section "Copying CEAMMC HOA help files"
-mkdir -p "${BUNDLE_CEAMMC}/hoa"
-for f in $SRC_CEAMMC/ext/doc/hoa/*.@(pd|txt|svg|wav)
-do
-    copy ${f} "${BUNDLE_CEAMMC}/hoa"
-    chmod 0444 "${BUNDLE_CEAMMC}/hoa/$(basename $f)"
 done
 
 section "Change Pd help file"
@@ -425,8 +337,10 @@ done
 section "Copying CEAMMC about file"
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
    sed "s/%GIT_COMMIT%/$GIT_COMMIT/g" | \
-   sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > "${BUNDLE_CEAMMC}/about.pd"
+   sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > about.pd
+copy about.pd ${BUNDLE_CEAMMC}
 chmod 0444 "${BUNDLE_CEAMMC}/about.pd"
+rm about.pd
 
 section "Copying license"
 copy $SRC_DIR/LICENSE.txt "${BUNDLE_RESOURCES}/Scripts"
@@ -435,93 +349,63 @@ copy $SRC_DIR/LICENSE.txt "${BUNDLE_RESOURCES}/Scripts"
 # 3RD PARTY
 ##############
 
-section "Copying CEAMMC extra"
-copy_and_fix_dll ${BUILD_DIR}/ceammc/extra/comport/system.serial.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_CEAMMC}"
+# args
+# $1: name - relative project path to the external
+# $2: output_dir - relative output directory name
+copy_external() {
+    name=$(basename $1)
+    src_dir="${SRC_DIR}/$1"
+    bin_dir="${BUILD_DIR}/$1"
+    out_dir="${BUNDLE_EXTRA}/$2"
 
-# install soundtouch~ to ceammc
-section "Copying SoundTouch external"
-for ext in $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy_and_fix_dll ${ext} "${BUNDLE_CEAMMC}"
-done
+    FILES=$(external_files $bin_dir)
+    if [[ -n $FILES ]]
+    then
+        section "Copying $name to $2"
+        mkdir -p "$out_dir"
+        for ext in ${FILES}
+        do
+            copy $ext "$out_dir"
+        done
 
-for pdhelp in $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd
-do
-    copy ${pdhelp} "${BUNDLE_CEAMMC}"
-done
+        for pdhelp in $(find ${src_dir} -name '*\.pd')
+        do
+            copy ${pdhelp} "$out_dir"
+        done
 
-section "Copying zconf"
-mkdir -p "${BUNDLE_EXTRA}/zconf"
-copy ${BUILD_DIR}/ceammc/extra/flext/zconf/zconf.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/zconf"
-copy ${SRC_DIR}/ceammc/extra/flext/zconf/zconf-help.pd "${BUNDLE_EXTRA}/zconf"
+        for txt in $(find ${src_dir} -name '*\.txt' | grep -v CMake)
+        do
+            copy ${txt} "$out_dir"
+        done
+    fi
+}
 
-section "Copying libdir"
-mkdir -p "${BUNDLE_EXTRA}/libdir"
-copy $BUILD_DIR/ceammc/extra/libdir/libdir.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/libdir"
-copy $SRC_DIR/ceammc/extra/libdir/libdir/libdir-help.pd "${BUNDLE_EXTRA}/libdir"
-copy $SRC_DIR/ceammc/extra/libdir/libdir/libdir-meta.pd "${BUNDLE_EXTRA}/libdir"
-copy $SRC_DIR/ceammc/extra/libdir/libdir/LICENSE.txt "${BUNDLE_EXTRA}/libdir"
+copy_external ceammc/extra/SoundTouch ceammc
+$DYLIBFIX --dir "${BUNDLE_EXTRA}/ceammc" --files $(external_files ${BUILD_DIR}/ceammc/extra/SoundTouch)
 
-section "Copying import"
-mkdir -p "${BUNDLE_EXTRA}/import"
-copy $BUILD_DIR/ceammc/extra/import/import.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/import"
-copy $SRC_DIR/ceammc/extra/import/import-help.pd "${BUNDLE_EXTRA}/import"
-copy $SRC_DIR/ceammc/extra/import/import-meta.pd "${BUNDLE_EXTRA}/import"
-copy $SRC_DIR/ceammc/extra/import/LICENSE.txt "${BUNDLE_EXTRA}/import"
+copy_external ceammc/extra/autotune autotune~
+copy_external ceammc/extra/import import
+copy_external ceammc/extra/libdir libdir
+copy_external ceammc/extra/flext/disis_munger disis_munger~
+copy_external ceammc/extra/flext/leapmotion leapmotion
+copy_external ceammc/extra/flext/vasp vasp
+copy_external ceammc/extra/flext/zconf zconf
 
-section "Copying VASP"
-mkdir -p "${BUNDLE_EXTRA}/vasp"
-copy $BUILD_DIR/ceammc/extra/flext/vasp.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/vasp"
-cp $SRC_DIR/ceammc/extra/flext/vasp/pd/* "${BUNDLE_EXTRA}/vasp"
-cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* "${BUNDLE_EXTRA}/vasp"
-copy $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt "${BUNDLE_EXTRA}/vasp"
-copy $SRC_DIR/ceammc/extra/flext/vasp/license.txt "${BUNDLE_EXTRA}/vasp"
-
-section "Copying xsample"
-mkdir -p "${BUNDLE_EXTRA}/xsample"
-copy $BUILD_DIR/ceammc/extra/flext/xsample/xsample.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/xsample"
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* "${BUNDLE_EXTRA}/xsample"
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* "${BUNDLE_EXTRA}/xsample"
-copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsample"
-copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
-
-# LeapMotion
-if exists $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin)
+XSAMPLE_FILES=$(external_files $BUILD_DIR/ceammc/extra/flext/xsample)
+if [[ -n $XSAMPLE_FILES ]]
 then
-    section "Copying LeapMotion"
-    mkdir -p "$BUNDLE_EXTRA/leapmotion"
-    copy $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin) "$BUNDLE_EXTRA/leapmotion"
-    copy $LIB_LEAPMOTION "$BUNDLE_EXTRA/leapmotion"
-
-    for pdhelp in $SRC_DIR/ceammc/extra/flext/leapmotion/*.pd
-    do
-        copy ${pdhelp} "$BUNDLE_EXTRA/leapmotion"
-    done
+    section "Copying xsample"
+    mkdir -p "${BUNDLE_EXTRA}/xsample"
+    copy $BUILD_DIR/ceammc/extra/flext/xsample/xsample.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/xsample"
+    cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* "${BUNDLE_EXTRA}/xsample"
+    cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* "${BUNDLE_EXTRA}/xsample"
+    copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsample"
+    copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
 fi
 
-section "Copying autotune external"
-mkdir -p "$BUNDLE_EXTRA/autotune"
-for ext in $BUILD_DIR/ceammc/extra/autotune/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "$BUNDLE_EXTRA/autotune"
-done
-
-for pdhelp in $SRC_DIR/ceammc/extra/autotune/*-help.pd
-do
-    copy ${pdhelp} "$BUNDLE_EXTRA/autotune"
-done
-
-section "Copying disis_munger~ external"
-mkdir -p "$BUNDLE_EXTRA/disis_munger~"
-for ext in $BUILD_DIR/ceammc/extra/flext/disis_munger/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "$BUNDLE_EXTRA/disis_munger~"
-done
-
-for pdhelp in $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd
-do
-    copy ${pdhelp} "$BUNDLE_EXTRA/disis_munger~"
-done
+section "Copying rust apps"
+mkdir -p "${BUNDLE_CEAMMC}"
+copy $BUILD_DIR/ceammc/extra/rust/rhvoice_download "${BUNDLE_CEAMMC}"
 
 # "code signing" which also sets entitlements
 # note: "-" identity results in "ad-hoc signing" aka no signing is performed

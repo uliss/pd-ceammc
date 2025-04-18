@@ -1,7 +1,6 @@
 #include "arduino_thread.h"
 #include "arduino.h"
 #include "arduino_connection_tracker.h"
-#include "ceammc_platform.h"
 #include "serial/serial.h"
 
 #include <boost/algorithm/string/case_conv.hpp>
@@ -14,10 +13,8 @@
 #include <cstdint>
 #include <cstdio>
 #include <iostream>
-#include <stdexcept>
 #include <thread>
 
-using namespace ceammc::platform;
 using namespace boost::placeholders;
 
 #ifndef NDEBUG
@@ -39,7 +36,7 @@ namespace hw {
         Arduino* a_;
 
     public:
-        ThreadTracker(Arduino* a)
+        explicit ThreadTracker(Arduino* a)
             : a_(a)
         {
 #ifdef DEBUG
@@ -263,7 +260,7 @@ namespace hw {
             serial::PortInfo res = waitForFreeArduino(arduino);
 
             if (res.port.empty())
-                arduino->pushError("no available arduino devices");
+                arduino->pushMessage(MSG_INFO, "no available arduino devices");
 
             return res;
         }

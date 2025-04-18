@@ -18,7 +18,6 @@
 #include "ceammc_log.h"
 #include "lex/parser_props.h"
 
-#include <cstring>
 #include <limits>
 #include <sstream>
 

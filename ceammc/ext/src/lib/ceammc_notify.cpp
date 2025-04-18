@@ -41,4 +41,4 @@ NotifiedObject::~NotifiedObject()
 {
 }
 
-}
+} // namespace ceammc

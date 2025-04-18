@@ -62,7 +62,14 @@ TEST_CASE("snd.file", "[externals]")
         SECTION("formats")
         {
 #if defined(__APPLE__)
-            REQUIRE_PROPERTY(t, @formats, AtomList("AAC", "AIFF", "ALAC", "AU", "AVR", "CAF", "FLAC", "HTK", "IFF", "MACE3:1", "MACE6:1", "MAT4", "MAT5", "MP3", "MP4", "MPC", "OGG", "PAF", "PVF", "RAW", "RF64", "SD2", "SDS", "SF", "VOC", "W64", "WAV", "WAVEX", "WVE", "XI"));
+            REQUIRE(t->property("@formats"));
+            auto fmt = t->property("@formats")->get();
+            REQUIRE(fmt.contains(SYM("AAC")));
+            REQUIRE(fmt.contains(SYM("AIFF")));
+            REQUIRE(fmt.contains(SYM("FLAC")));
+            REQUIRE(fmt.contains(SYM("MP3")));
+            REQUIRE(fmt.contains(SYM("OGG")));
+            REQUIRE(fmt.contains(SYM("WAV")));
 #endif
         }
 

@@ -51,14 +51,14 @@ public:
     {
     }
 
-    const Maybe<T>& operator=(const Maybe& m) const
+    Maybe<T>& operator=(const Maybe& m)
     {
         value_ = m.value_;
         null_ = m.null_;
         return *this;
     }
 
-    const Maybe<T>& operator=(Maybe&& m) const
+    Maybe<T>& operator=(Maybe&& m)
     {
         value_ = std::move(m.value_);
         null_ = m.null_;

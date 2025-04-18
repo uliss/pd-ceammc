@@ -14,7 +14,6 @@
 #ifndef GLOBAL_LIST_H
 #define GLOBAL_LIST_H
 
-#include "datatype_mlist.h"
 #include "editor_list.h"
 #include "global_base.h"
 #include "list_iface.h"

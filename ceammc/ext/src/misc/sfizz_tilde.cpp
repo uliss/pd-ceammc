@@ -16,9 +16,11 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_callback.h"
+#include "datatype_dict.h"
 #include "midi/midi_names.h"
 #include "proto/proto_midi_cc.h"
-#include "proto/proto_midi_cc_rpn_parser.h"
+
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <array>
@@ -202,6 +204,19 @@ void SfizzTilde::processBlock(const t_sample** in, t_sample** out)
         out[1][i] = buf[1][i];
     }
 #endif
+}
+
+void SfizzTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+{
+    if (shift) {
+        sfz_.allSoundOff();
+        OBJ_POST << M_ALL_SOUND_OFF;
+    } else if (alt) {
+        m_notesOff(gensym(M_ALL_NOTES_OFF), {});
+        OBJ_POST << M_ALL_NOTES_OFF;
+    } else {
+        OBJ_POST << fmt::format("Alt+Shift+CliK: {}, Shift+Click: {}, Alt+Click: {}", M_PANIC, M_ALL_SOUND_OFF, M_ALL_NOTES_OFF);
+    }
 }
 
 void SfizzTilde::dump() const
@@ -713,6 +728,8 @@ void setup_misc_sfizz_tilde()
     obj.addMethod(M_SOSTENUTO_PEDAL, &SfizzTilde::m_sostenuto_pedal);
     obj.addMethod(M_SOFT_PEDAL, &SfizzTilde::m_soft_pedal);
     obj.addMethod("legato", &SfizzTilde::m_legato_pedal);
+
+    obj.useClick();
 
 #ifdef SFIZZ_VERSION
     LIB_DBG << "Sfizz version: " << SFIZZ_VERSION;

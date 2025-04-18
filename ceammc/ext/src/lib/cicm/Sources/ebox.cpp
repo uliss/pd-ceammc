@@ -23,12 +23,12 @@
 #include <algorithm>
 #include <array>
 #include <boost/algorithm/string.hpp>
+#include <cinttypes>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <inttypes.h>
 #include <string>
 #include <tuple>
 
@@ -246,12 +246,19 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 {
     const int MIN_MARGIN = 2;
 
+#ifdef __linux__
+    constexpr int ycorr = 1;
+#else
+    constexpr int ycorr = 0;
+#endif
+
     switch (pos) {
     case LABEL_POSITION_INNER: {
+
         const auto w = int(x->b_rect.w * x->b_zoom);
         const auto h = int(x->b_rect.h * x->b_zoom);
         const auto xc = int(w * 0.5);
-        const auto yc = int(h * 0.5);
+        const auto yc = int(h * 0.5) + ycorr;
 
         const int margin_left = int((x->label_margins[0] + MIN_MARGIN) * x->b_zoom);
         const int margin_right = int(w - (x->label_margins[0] + MIN_MARGIN) * x->b_zoom);
@@ -299,7 +306,7 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
         int x1 = int(x0 + x->b_rect.w * x->b_zoom);
         int y1 = int(y0 + x->b_rect.h * x->b_zoom);
         int xc = int(x0 + x->b_rect.w * x->b_zoom * 0.5);
-        int yc = int(y0 + x->b_rect.h * x->b_zoom * 0.5);
+        int yc = int(y0 + x->b_rect.h * x->b_zoom * 0.5) + ycorr;
 
         switch (side) {
         case LABEL_SIDE_LEFT: {
@@ -397,7 +404,7 @@ static void ebox_create_label(t_ebox* x)
              "%s %s \"%s\" %d "
              "#%6.6x {%s}\n",
         x->b_canvas_id->s_name, x,
-        pt.first, pt.second, (int)x->label_inner,
+        pt.first, pt.second, x->label_inner,
         ebox_label_anchor(std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums)),
         x->label_align->s_name,
         x->b_font.c_family->s_name,
@@ -414,7 +421,7 @@ static void ebox_update_label_pos(t_ebox* x)
 
         sys_vgui("::ceammc::ui::label_pos %s %lx %d %d %d %s %s\n",
             x->b_canvas_id->s_name,
-            x, pt.first, pt.second, (int)x->label_inner,
+            x, pt.first, pt.second, x->label_inner,
             ebox_label_anchor(std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums)),
             x->label_align->s_name);
     }
@@ -425,7 +432,7 @@ static void ebox_update_label_font(t_ebox* x)
     if (ebox_isvisible(x) && x->b_label != sym_null()) {
         sys_vgui("::ceammc::ui::label_font %s %lx %d \"%s\" %d\n",
             x->b_canvas_id->s_name, x,
-            (int)x->label_inner, x->b_font.c_family->s_name,
+            x->label_inner, x->b_font.c_family->s_name,
             int(x->b_font.c_sizereal * x->b_zoom));
     }
 }
@@ -1386,7 +1393,7 @@ bool ebox_set_label(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 
             if (ebox_isvisible(x)) {
                 sys_vgui("::ceammc::ui::label_text %s %lx %d {%s}\n",
-                    x->b_canvas_id->s_name, x, (int)x->label_inner,
+                    x->b_canvas_id->s_name, x, x->label_inner,
                     x->b_label_real->s_name);
             }
         }
@@ -1574,19 +1581,14 @@ bool ebox_set_font(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
     } else
         x->b_font.c_family = gensym(SYM_DEFAULT_FONT_FAMILY);
 
-    auto ftname = strdup(x->b_font.c_family->s_name);
-    if (!ftname)
-        return false;
+    auto ft_family = std::string(x->b_font.c_family->s_name);
+    // font family name cleanup?
+    // can't find purpose
+    ft_family = ft_family.substr(0, ft_family.find_first_of(" ',.-"));
+    if (ft_family.length() > 0)
+        ft_family[0] = static_cast<char>(toupper(ft_family[0]));
 
-    auto ftname_uc = strtok(ftname, " ',.-");
-    if (!ftname_uc) {
-        free(ftname);
-        return false;
-    }
-
-    ftname_uc[0] = (char)toupper(ftname_uc[0]);
-    x->b_font.c_family = gensym(ftname_uc);
-    free(ftname);
+    x->b_font.c_family = gensym(ft_family.c_str());
 
     ebox_update_label_font(x);
 
@@ -2238,8 +2240,8 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                          "-anchor %s -justify %s -font {{%s} %d %s %s} "
                          "-fill #%6.6x -width %d -tags { %s %s }\n",
                     x->b_drawing_id->s_name,
-                    (int)(gobj.e_points[0].x + x_p),
-                    (int)(gobj.e_points[0].y + y_p),
+                    static_cast<int>(std::round(gobj.e_points[0].x + x_p)),
+                    static_cast<int>(std::round(gobj.e_points[0].y + y_p)),
                     gobj.e_text,
                     anchor_to_symbol(gobj.e_anchor),
                     justify_to_symbol(gobj.e_justify),
@@ -2248,7 +2250,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     gobj.e_font.c_weight->s_name,
                     gobj.e_font.c_slant->s_name,
                     gobj.e_color,
-                    (int)(gobj.e_points[1].x - gobj.e_points[0].x),
+                    static_cast<int>(std::round(gobj.e_points[1].x - gobj.e_points[0].x)),
                     g->e_id->s_name,
                     x->b_all_id->s_name);
 

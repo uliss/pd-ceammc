@@ -258,7 +258,7 @@ AtomList fn_zeros(const AtomListView& args)
     return AtomList::zeroes(clip_max<t_int>(args[0].asInt(), MAX_LIST_LEN));
 }
 
-}
+} // namespace
 
 namespace ceammc {
 
@@ -379,4 +379,4 @@ bool BuiltinFunctionMap::exists(t_symbol* name) const
     return it != fn_map_.cend();
 }
 
-}
+} // namespace ceammc

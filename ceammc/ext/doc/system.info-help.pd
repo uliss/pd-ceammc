@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 554 50 cnv 1 211 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 554 50 retrieve system information;
+#X obj 392 50 cnv 1 373 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 392 50 retrieve system information: CPU and temperature;
 #X obj 1 1 cnv 5 765 40 empty empty system.info 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 system.info;
@@ -26,20 +26,20 @@ temp SENSOR_NAME VALUE.;
 #X obj 20 428 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 429 1\.;
-#X text 245 429 output process exit code.;
+#X text 245 429 output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.9.7;
+#X text 10 508 library: ceammc v0.9.8;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.7;
+#X text 120 32 0.9.8;
 #X text 10 54 object:;
 #X text 120 54 system.info;
 #X text 10 76 category:;

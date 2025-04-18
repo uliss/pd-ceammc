@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "arch_dummy"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_headers_ui.cpp -lang cpp -i -light -cn CEAMMC_FAUST_ARCH_HEADERS -scn CEAMMC_FAUST_ARCH_HEADERS_DUMMY -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_headers_ui.cpp -lang cpp -i -light -ct 1 -cn CEAMMC_FAUST_ARCH_HEADERS -scn CEAMMC_FAUST_ARCH_HEADERS_DUMMY -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __CEAMMC_FAUST_ARCH_HEADERS_H__
@@ -64,7 +64,13 @@ class CEAMMC_FAUST_ARCH_HEADERS_DUMMY {};
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.5."
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 5.
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -223,9 +229,11 @@ class CEAMMC_FAUST_ARCH_HEADERS : public CEAMMC_FAUST_ARCH_HEADERS_DUMMY {
 	int fSampleRate;
 	
  public:
+	CEAMMC_FAUST_ARCH_HEADERS() {
+	}
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_headers_ui.cpp -lang cpp -i -light -cn CEAMMC_FAUST_ARCH_HEADERS -scn CEAMMC_FAUST_ARCH_HEADERS_DUMMY -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_headers_ui.cpp -lang cpp -i -light -ct 1 -cn CEAMMC_FAUST_ARCH_HEADERS -scn CEAMMC_FAUST_ARCH_HEADERS_DUMMY -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "arch_dummy.dsp");
 		m->declare("name", "arch_dummy");
 	}
@@ -254,6 +262,7 @@ class CEAMMC_FAUST_ARCH_HEADERS : public CEAMMC_FAUST_ARCH_HEADERS_DUMMY {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();

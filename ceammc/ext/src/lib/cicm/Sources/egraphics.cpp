@@ -849,10 +849,10 @@ void etext_layout_set(t_etext* textlayout, const char* text, t_efont* font,
     }
 
     textlayout->c_font = font[0];
-    textlayout->c_rect.x = (float)x;
-    textlayout->c_rect.y = (float)y;
-    textlayout->c_rect.w = (float)width;
-    textlayout->c_rect.h = (float)height;
+    textlayout->c_rect.x = x;
+    textlayout->c_rect.y = y;
+    textlayout->c_rect.w = width;
+    textlayout->c_rect.h = height;
 
     if (wrap == ETEXT_NOWRAP) {
         textlayout->c_rect.w = 0.;

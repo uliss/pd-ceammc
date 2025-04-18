@@ -77,10 +77,15 @@ void UIMidi::paint()
     float lbl_wd = 46;
 #ifdef __APPLE__
     lbl_wd += 0;
-#endif
-
-#ifdef __WIN32__
+    constexpr float TXT_XOFF = 2;
+    constexpr float TXT_YOFF = 0;
+#elif __WIN32__
     lbl_wd += 12;
+    constexpr float TXT_XOFF = 2;
+    constexpr float TXT_YOFF = 0;
+#else
+    constexpr float TXT_XOFF = 2;
+    constexpr float TXT_YOFF = 2;
 #endif
 
     p.drawRect(-1, -1, lbl_wd, r.h + 1);
@@ -91,13 +96,13 @@ void UIMidi::paint()
     p.stroke();
 
     txt_type_.set(msg_type_,
-        2, r.h / 2,
+        TXT_XOFF, r.h / 2 + TXT_YOFF,
         r.w, r.h);
     txt_type_.setColor(prop_text_color);
     p.drawText(txt_type_);
 
     txt_body_.set(msg_body_,
-        lbl_wd + 2, r.h / 2,
+        lbl_wd + TXT_XOFF, r.h / 2 + TXT_YOFF,
         r.w, r.h);
     txt_body_.setColor(prop_text_color);
     p.drawText(txt_body_);

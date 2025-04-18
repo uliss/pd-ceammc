@@ -9,6 +9,101 @@
 
 constexpr static const int32_t ceammc_JOB_ERROR = -1;
 
+constexpr static const uint16_t ceammc_HW_ADC_ADS1115_MIN_POLL_TIME_MSEC = 5;
+
+constexpr static const uint16_t ceammc_HW_ADC_ADS1115_MAX_POLL_TIME_MSEC = 250;
+
+constexpr static const uint16_t ceammc_HW_ADC_ADS1115_DEF_POLL_TIME_MSEC = 20;
+
+constexpr static const int8_t ceammc_HW_GPIO_PIN_NONE = -1;
+
+constexpr static const int8_t ceammc_HW_GPIO_MIN_PIN = ceammc_HW_GPIO_PIN_NONE;
+
+constexpr static const int8_t ceammc_HW_GPIO_DEF_PIN = ceammc_HW_GPIO_PIN_NONE;
+
+constexpr static const int8_t ceammc_HW_GPIO_MAX_PIN = 127;
+
+constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MIN_MSEC = 0.001;
+
+constexpr static const double ceammc_HW_GPIO_IMPULSE_LENGTH_MAX_MSEC = 100.0;
+
+constexpr static const uint16_t ceammc_HW_SR04_MIN_POLL_INTERVAL = 10;
+
+constexpr static const uint16_t ceammc_HW_SR04_DEF_POLL_INTERVAL = 20;
+
+constexpr static const uint16_t ceammc_HW_SR04_MAX_POLL_INTERVAL = 1000;
+
+constexpr static const int8_t ceammc_HW_I2C_DEFAULT_BUS = -1;
+
+constexpr static const int8_t ceammc_HW_I2C_MIN_BUS = -1;
+
+constexpr static const int8_t ceammc_HW_I2C_MAX_BUS = 6;
+
+constexpr static const int8_t ceammc_HW_I2C_DEFAULT_ADDR = -1;
+
+constexpr static const int8_t ceammc_HW_I2C_ALT_ADDR = -2;
+
+constexpr static const int8_t ceammc_HW_I2C_AUTO_ADDR = -3;
+
+constexpr static const int8_t ceammc_HW_I2C_NO_ADDR = -4;
+
+constexpr static const int8_t ceammc_HW_I2C_MIN_ADDR = ceammc_HW_I2C_NO_ADDR;
+
+constexpr static const int8_t ceammc_HW_I2C_MAX_ADDR = 119;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_0 = 1;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_1 = 2;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_2 = 3;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_3 = 4;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_4 = 5;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_5 = 6;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_6 = 7;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DIGIT_7 = 8;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DECODE_MODE = 9;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_INTENSITY = 10;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_SCAN_LIMIT = 11;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_SHUTDOWN = 12;
+
+constexpr static const uint8_t ceammc_HW_MAX7219_REG_DISPLAY_TEST = 15;
+
+constexpr static const int32_t ceammc_HW_MAX7219_ADDRESS_ALL = -1;
+
+constexpr static const int8_t ceammc_HW_RPI_PWM_MIN_CHAN = -1;
+
+constexpr static const int8_t ceammc_HW_RPI_PWM_MAX_CHAN = 3;
+
+constexpr static const int8_t ceammc_HW_RPI_PWM_NONE_CHAN = -1;
+
+constexpr static const uint32_t ceammc_HW_PCA9685_OSC_VALUE = (256 * 24);
+
+constexpr static const uint32_t ceammc_HW_PCA9685_MIN_FREQ_HZ = (ceammc_HW_PCA9685_OSC_VALUE / 255);
+
+constexpr static const uint32_t ceammc_HW_PCA9685_MAX_FREQ_HZ = (ceammc_HW_PCA9685_OSC_VALUE / 3);
+
+constexpr static const float ceammc_HW_PCA9685_MIN_PERIOD_MS = (1000.0 / (float)ceammc_HW_PCA9685_MAX_FREQ_HZ);
+
+constexpr static const float ceammc_HW_PCA9685_MAX_PERIOD_MS = (1000.0 / (float)ceammc_HW_PCA9685_MIN_FREQ_HZ);
+
+constexpr static const uint8_t ceammc_HW_PCA9685_ALL_CHAN = 16;
+
+enum class ceammc_hw_display_rotation {
+    ROTATE_0,
+    ROTATE_90,
+    ROTATE_180,
+    ROTATE_270,
+};
+
 enum class ceammc_hw_gamepad_btn {
     South,
     East,
@@ -63,6 +158,66 @@ enum class ceammc_hw_gamepad_powerstate {
     Charged,
 };
 
+enum class ceammc_hw_gpio_bias {
+    None,
+    PullUp,
+    PullDown,
+};
+
+enum class ceammc_hw_gpio_mode {
+    Output,
+    Input,
+};
+
+enum class ceammc_hw_gpio_trigger {
+    None,
+    RisingEdge,
+    FallingEdge,
+    Both,
+};
+
+enum class ceammc_hw_hd44780_font {
+    FONT_5x8,
+    FONT_5x10,
+};
+
+enum class ceammc_hw_i2c_ads1115_measure_mode {
+    Single,
+    Diff,
+};
+
+enum class ceammc_hw_i2c_ads1115_range {
+    Within_0_256V,
+    Within_0_512V,
+    Within_1_024V,
+    Within_2_048V,
+    Within_4_096V,
+    Within_6_144V,
+};
+
+enum class ceammc_hw_led_fx {
+    Rainbow,
+};
+
+enum class ceammc_hw_max7219_string_align {
+    Left,
+    Right,
+    Center,
+};
+
+enum class ceammc_hw_msg_level {
+    Error,
+    Debug,
+    Info,
+};
+
+enum class ceammc_hw_pca8695_prog_address {
+    Subaddress1,
+    Subaddress2,
+    Subaddress3,
+    AllCall,
+};
+
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -70,8 +225,82 @@ enum class ceammc_hw_printer_state {
     UNKNOWN,
 };
 
+enum class ceammc_hw_rpi_pwm_polarity {
+    NORMAL,
+    INVERSE,
+};
+
+enum class ceammc_hw_spi_bus {
+    SPI0,
+    SPI1,
+    SPI2,
+    SPI3,
+    SPI4,
+    SPI5,
+    SPI6,
+};
+
+enum class ceammc_hw_spi_cs {
+    CS0,
+    CS1,
+    CS2,
+    CS3,
+};
+
+struct ceammc_hw_display_ssd1306;
+
 /// gamepad opaque type
 struct ceammc_hw_gamepad;
+
+/// gpio opaque type
+struct ceammc_hw_gpio;
+
+struct ceammc_hw_gpio_dht11;
+
+struct ceammc_hw_gpio_rotenc;
+
+struct ceammc_hw_gpio_sr04;
+
+struct ceammc_hw_hd44780;
+
+struct ceammc_hw_i2c;
+
+struct ceammc_hw_i2c_ads1115;
+
+struct ceammc_hw_infrared;
+
+struct ceammc_hw_max7219;
+
+struct ceammc_hw_mpu6050;
+
+struct ceammc_hw_pca9685;
+
+struct ceammc_hw_rpi_pwm;
+
+struct ceammc_hw_sensor_vl53l0x;
+
+struct ceammc_hw_spi_ws2812;
+
+struct ceammc_hw_notify_cb {
+    /// dispatcher ID
+    size_t id;
+    /// dispatcher callback (not NULL!)
+    void (*f)(size_t id);
+};
+
+/// error callback
+struct ceammc_hw_msg_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can be NULL
+    void (*cb)(void *user, ceammc_hw_msg_level level, const char *cb);
+};
+
+struct ceammc_hw_i2c_ads1115_data_cb {
+    void *user;
+    void (*cb_chan)(void *user, uint8_t chan, int16_t data);
+    void (*cb_all)(void *user, int16_t a0, int16_t a1, int16_t a2, int16_t a3);
+};
 
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
@@ -123,13 +352,6 @@ struct ceammc_gamepad_listdev_cb {
     void (*cb)(void *user, const ceammc_gamepad_dev_info *info);
 };
 
-struct ceammc_hw_notify_cb {
-    /// dispatcher ID
-    size_t id;
-    /// dispatcher callback (not NULL!)
-    void (*f)(size_t id);
-};
-
 struct ceammc_hw_printer_info {
     const char *name;
     const char *system_name;
@@ -146,20 +368,167 @@ struct ceammc_hw_printer_info_cb {
     void (*cb)(void *user, const ceammc_hw_printer_info *info);
 };
 
+struct ceammc_hw_dht11_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// not NULL!
+    void (*cb)(void*, double temp, double hum);
+};
+
+/// pin value callback
+struct ceammc_hw_gpio_pin_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, uint8_t, bool);
+};
+
+/// pin list callback
+struct ceammc_hw_gpio_pin_list_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, const uint8_t*, size_t);
+};
+
+struct ceammc_hw_gpio_poll_cb {
+    size_t id;
+    void (*cb)(size_t id, int data);
+};
+
+struct ceammc_hw_gpio_rotenc_data {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, double, int8_t);
+};
+
+struct ceammc_hw_gpio_rotenc_click {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// can not be NULL
+    void (*cb)(void*, bool);
+};
+
+/// error callback
+struct ceammc_hw_sr04_cb {
+    /// pointer to user data (can be NULL)
+    void *user;
+    /// not NULL!
+    void (*cb)(void*, float distance_cm, bool is_inf);
+};
+
+struct ceammc_hw_infrared_key_cb {
+    void *user;
+    void (*cb)(void *user, const char *key, int64_t value);
+};
+
+struct ceammc_hw_mpu6050_data_cb {
+    void *user;
+    void (*cb_ypr)(void *user, float yaw, float pitch, float roll);
+    void (*cb_temp)(void *user, float temp);
+};
+
 struct ceammc_hw_print_options {
     bool landscape;
 };
 
-/// error callback
-struct ceammc_hw_error_cb {
-    /// pointer to user data (can be NULL)
+struct ceammc_hw_sensor_vl53l0x_data_cb {
     void *user;
-    /// can be NULL
-    void (*cb)(void*, const char*);
+    void (*cb)(void*, uint16_t data);
 };
 
 
 extern "C" {
+
+void ceammc_hw_ads1115_free(ceammc_hw_i2c_ads1115 *adc);
+
+bool ceammc_hw_ads1115_measure_all(ceammc_hw_i2c_ads1115 *adc);
+
+bool ceammc_hw_ads1115_measure_chan(ceammc_hw_i2c_ads1115 *adc, uint8_t chan);
+
+ceammc_hw_i2c_ads1115 *ceammc_hw_ads1115_new(int8_t i2c_bus,
+                                             int8_t i2c_addr,
+                                             ceammc_hw_i2c_ads1115_measure_mode mode,
+                                             ceammc_hw_notify_cb notify,
+                                             ceammc_hw_msg_cb on_msg,
+                                             ceammc_hw_i2c_ads1115_data_cb on_data);
+
+bool ceammc_hw_ads1115_poll(ceammc_hw_i2c_ads1115 *adc, bool state);
+
+bool ceammc_hw_ads1115_process_reply(ceammc_hw_i2c_ads1115 *adc);
+
+bool ceammc_hw_ads1115_set_input_range(ceammc_hw_i2c_ads1115 *adc,
+                                       ceammc_hw_i2c_ads1115_range range);
+
+bool ceammc_hw_ads1115_set_poll_time(ceammc_hw_i2c_ads1115 *adc, uint16_t time_ms);
+
+bool ceammc_hw_display_ssd1306_clear(const ceammc_hw_display_ssd1306 *display, bool flush);
+
+bool ceammc_hw_display_ssd1306_flush(const ceammc_hw_display_ssd1306 *display);
+
+void ceammc_hw_display_ssd1306_free(ceammc_hw_display_ssd1306 *display);
+
+bool ceammc_hw_display_ssd1306_invert(const ceammc_hw_display_ssd1306 *display, bool state);
+
+bool ceammc_hw_display_ssd1306_mirror(const ceammc_hw_display_ssd1306 *display, bool state);
+
+ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(int8_t i2c_bus,
+                                                             int8_t i2c_addr,
+                                                             uint16_t width,
+                                                             uint16_t height,
+                                                             ceammc_hw_notify_cb notify,
+                                                             ceammc_hw_msg_cb on_msg);
+
+ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
+                                                             uint8_t dc_pin,
+                                                             uint8_t cs_pin,
+                                                             uint8_t rs_pin,
+                                                             uint32_t freq,
+                                                             uint16_t width,
+                                                             uint16_t height,
+                                                             ceammc_hw_notify_cb notify,
+                                                             ceammc_hw_msg_cb on_msg);
+
+bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
+
+/// set display brightness
+/// @param display - pointer to hw_display_ssd1306 struct
+/// @param level - value in 0..4 range from dimmest to brightest
+bool ceammc_hw_display_ssd1306_set_brightness(const ceammc_hw_display_ssd1306 *display,
+                                              uint8_t level);
+
+bool ceammc_hw_display_ssd1306_set_font(const ceammc_hw_display_ssd1306 *display, const char *font);
+
+bool ceammc_hw_display_ssd1306_set_pixel(const ceammc_hw_display_ssd1306 *display,
+                                         uint16_t x,
+                                         uint16_t y,
+                                         bool state);
+
+bool ceammc_hw_display_ssd1306_set_rotation(const ceammc_hw_display_ssd1306 *display,
+                                            ceammc_hw_display_rotation rotation);
+
+bool ceammc_hw_display_ssd1306_switch_on(const ceammc_hw_display_ssd1306 *display, bool state);
+
+bool ceammc_hw_display_ssd1306_text(const ceammc_hw_display_ssd1306 *display,
+                                    const char *txt,
+                                    int16_t x,
+                                    int16_t y);
+
+bool ceammc_hw_display_ssd1306_write_bitmap(const ceammc_hw_display_ssd1306 *display,
+                                            int16_t x,
+                                            int16_t y,
+                                            uint16_t width,
+                                            const uint8_t *data,
+                                            size_t len);
+
+/// writes raw data to the display
+/// @param display - pointer to hw_display_ssd1306 struct
+/// @param data - pointer to data (not NULL!)
+/// @param len - data size
+bool ceammc_hw_display_ssd1306_write_bytes(const ceammc_hw_display_ssd1306 *display,
+                                           const uint8_t *data,
+                                           size_t len);
 
 /// free gamepad
 /// @param gp - pointer to gp
@@ -189,14 +558,555 @@ void ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp);
 /// @return number of printers found
 size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 
+/// clear pin event polling
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+bool ceammc_hw_gpio_clear_poll(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// clear software pwm on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_clear_pwm(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// free dht11 sensor
+/// @param dht - pointer to DHT11 struct
+void ceammc_hw_gpio_dht11_free(ceammc_hw_gpio_dht11 *dht);
+
+/// singe measure request
+/// @param dht - pointer to DHT11 struct
+bool ceammc_hw_gpio_dht11_measure(const ceammc_hw_gpio_dht11 *dht);
+
+/// create new DHT11 sensor struct
+/// @param pin - connected GPIO pin
+/// @param notify - data check callback
+/// @param on_msg - message callback
+/// @param on_data - data callback
+ceammc_hw_gpio_dht11 *ceammc_hw_gpio_dht11_new(uint8_t pin,
+                                               ceammc_hw_notify_cb notify,
+                                               ceammc_hw_msg_cb on_msg,
+                                               ceammc_hw_dht11_cb on_data);
+
+/// poll request
+/// @param dht - pointer to DHT11 struct
+/// @param state - poll state
+bool ceammc_hw_gpio_dht11_poll(const ceammc_hw_gpio_dht11 *dht, bool state);
+
+/// check measure data
+/// @param dht - pointer to DHT11 struct
+bool ceammc_hw_gpio_dht11_process(const ceammc_hw_gpio_dht11 *dht);
+
+/// create new gpio
+/// @param gpio - pointer to gpio struct
+void ceammc_hw_gpio_free(ceammc_hw_gpio *gpio);
+
+/// send single impulse
+/// @param gpio - pointer to gpio struct
+/// @param length - impulse length in milliseconds >0 and <500
+bool ceammc_hw_gpio_impulse(ceammc_hw_gpio *gp, uint8_t pin, double length);
+
+/// list used pins
+/// @param gpio - pointer to gpio struct
+bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp);
+
+/// create new gpio
+/// @param on_msg - callback for output messages
+/// @param notify - notification update callback
+/// @param on_pin - called on pin value output
+/// @param on_pin_list - called on pin list reply
+/// @param on_pin_poll - called on pin poll event
+ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_msg_cb on_msg,
+                                   ceammc_hw_notify_cb notify,
+                                   ceammc_hw_gpio_pin_cb on_pin,
+                                   ceammc_hw_gpio_pin_list_cb on_pin_list,
+                                   ceammc_hw_gpio_poll_cb on_pin_poll);
+
+/// process events
+/// @param gp - pointer to gpio struct
+void ceammc_hw_gpio_process_events(ceammc_hw_gpio *gp);
+
+/// read pin request
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_read_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// reset pin to initial state
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_reset_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+void ceammc_hw_gpio_rotenc_free(ceammc_hw_gpio_rotenc *enc);
+
+bool ceammc_hw_gpio_rotenc_get_value(ceammc_hw_gpio_rotenc *enc);
+
+ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(int8_t dt,
+                                                 int8_t clk,
+                                                 int8_t btn,
+                                                 double init,
+                                                 double step,
+                                                 double min_value,
+                                                 double max_value,
+                                                 ceammc_hw_notify_cb notify,
+                                                 ceammc_hw_gpio_rotenc_data on_data,
+                                                 ceammc_hw_gpio_rotenc_click on_click,
+                                                 ceammc_hw_msg_cb on_msg);
+
+bool ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
+
+bool ceammc_hw_gpio_rotenc_reset(ceammc_hw_gpio_rotenc *enc);
+
+bool ceammc_hw_gpio_rotenc_set_max(ceammc_hw_gpio_rotenc *enc, double val);
+
+bool ceammc_hw_gpio_rotenc_set_min(ceammc_hw_gpio_rotenc *enc, double val);
+
+bool ceammc_hw_gpio_rotenc_set_step(ceammc_hw_gpio_rotenc *enc, double step);
+
+bool ceammc_hw_gpio_rotenc_set_value(ceammc_hw_gpio_rotenc *enc, double value);
+
+/// set pin bias
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+bool ceammc_hw_gpio_set_bias(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_bias bias);
+
+/// set pin mode
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param mode - pin mode
+bool ceammc_hw_gpio_set_mode(ceammc_hw_gpio *gp, uint8_t pin, ceammc_hw_gpio_mode mode);
+
+/// poll pin events
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin BCM number
+/// @param trigger - event trigger
+/// @param debounce_ms - debounce time in ms
+bool ceammc_hw_gpio_set_poll(ceammc_hw_gpio *gp,
+                             uint8_t pin,
+                             ceammc_hw_gpio_trigger trigger,
+                             double debounce_ms);
+
+/// set software pwm on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param period - period in msec
+/// @param width - duty_cycle width in msec
+bool ceammc_hw_gpio_set_pwm(ceammc_hw_gpio *gp, uint8_t pin, double period, double width);
+
+/// set software pwm freq on pin
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param freq - freq in Hertz
+/// @param duty_cycle - duty cycle in % [0-100] range
+bool ceammc_hw_gpio_set_pwm_freq(ceammc_hw_gpio *gp, uint8_t pin, double freq, double duty_cycle);
+
+/// free dht11 sensor
+/// @param sr04 - pointer to SR04 struct
+void ceammc_hw_gpio_sr04_free(ceammc_hw_gpio_sr04 *sr04);
+
+/// singe measure request
+/// @param sr04 - pointer to SR04 struct
+bool ceammc_hw_gpio_sr04_measure(const ceammc_hw_gpio_sr04 *sr04);
+
+/// create new SR04 sensor struct
+/// @param trigger_pin - connected GPIO pin
+/// @param trigger_pin - connected GPIO pin
+/// @param notify - data check callback
+/// @param on_msg - error message callback
+/// @param on_data - data callback
+ceammc_hw_gpio_sr04 *ceammc_hw_gpio_sr04_new(uint8_t trigger_pin,
+                                             uint8_t echo_pin,
+                                             ceammc_hw_notify_cb notify,
+                                             ceammc_hw_msg_cb on_msg,
+                                             ceammc_hw_sr04_cb on_data);
+
+/// set polling in cycle
+/// @param sr04 - pointer to SR04 struct
+/// @param state - poll state
+bool ceammc_hw_gpio_sr04_poll(const ceammc_hw_gpio_sr04 *sr04, bool state);
+
+/// check measure data
+/// @param sr04 - pointer to SR04 struct
+bool ceammc_hw_gpio_sr04_process(const ceammc_hw_gpio_sr04 *sr04);
+
+/// set polling interval
+/// @param sr04 - pointer to SR04 struct
+/// @param poll_interval - polling interval (msec)
+bool ceammc_hw_gpio_sr04_set_poll_interval(const ceammc_hw_gpio_sr04 *sr04, uint16_t poll_interval);
+
+/// toggle pin level
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+bool ceammc_hw_gpio_toggle_pin(ceammc_hw_gpio *gp, uint8_t pin);
+
+/// write pin value
+/// @param gpio - pointer to gpio struct
+/// @param pin - pin number
+/// @param level - pin level (=0: low, >0: high)
+bool ceammc_hw_gpio_write_pin(ceammc_hw_gpio *gp, uint8_t pin, bool level);
+
+/// turn on/off hd44780 backlight
+/// @param lcd - pointer to HD44780 struct
+/// @param state - on/off state
+bool ceammc_hw_hd44780_backlight(ceammc_hw_hd44780 *lcd, bool state);
+
+/// clear hd44780 display
+/// @param lcd - pointer to HD44780 struct
+bool ceammc_hw_hd44780_clear(ceammc_hw_hd44780 *lcd);
+
+/// turn on/off hd44780 cursor
+/// @param lcd - pointer to HD44780 struct
+/// @param state - on/off state
+bool ceammc_hw_hd44780_cursor_blink(ceammc_hw_hd44780 *lcd, bool state);
+
+/// turn on/off hd44780 cursor
+/// @param lcd - pointer to HD44780 struct
+/// @param state - on/off state
+bool ceammc_hw_hd44780_cursor_on(ceammc_hw_hd44780 *lcd, bool state);
+
+/// set hd44780 cursor position
+/// @param lcd - pointer to HD44780 struct
+/// @param row - cursor row
+/// @param col - cursor column
+bool ceammc_hw_hd44780_cursor_pos(ceammc_hw_hd44780 *lcd, uint8_t row, uint8_t col);
+
+/// free hd44780 display
+///  @param lcd - pointer to HD44780 struct
+void ceammc_hw_hd44780_free(ceammc_hw_hd44780 *lcd);
+
+/// move hd44780 cursor right/left
+/// @param lcd - pointer to HD44780 struct
+/// @param dir - <0 left, 0>right
+bool ceammc_hw_hd44780_move_cursor(ceammc_hw_hd44780 *lcd, int8_t dir);
+
+ceammc_hw_hd44780 *ceammc_hw_hd44780_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         uint8_t rows,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_msg);
+
+/// process hd44780 events
+/// @param lcd - pointer to HD44780 struct
+bool ceammc_hw_hd44780_process(ceammc_hw_hd44780 *lcd);
+
+/// scroll hd44780 text right/left
+/// @param lcd - pointer to HD44780 struct
+/// @param dir - <0 left, 0>right
+bool ceammc_hw_hd44780_scroll_text(ceammc_hw_hd44780 *lcd, int8_t dir);
+
+/// set hd44780 text font
+/// @param lcd - pointer to HD44780 struct
+/// @param font
+bool ceammc_hw_hd44780_set_font(ceammc_hw_hd44780 *lcd, ceammc_hw_hd44780_font font);
+
+/// write char to hd44780
+/// @param lcd - pointer to HD44780 struct
+/// @param c - char
+bool ceammc_hw_hd44780_write_char(ceammc_hw_hd44780 *lcd, uint8_t c);
+
+/// write text to hd44780
+/// @param lcd - pointer to HD44780 struct
+/// @param txt - text
+bool ceammc_hw_hd44780_write_text(ceammc_hw_hd44780 *lcd, const char *txt);
+
+/// free i2c struct
+/// @param i2c - pointer to i2c struct
+void ceammc_hw_i2c_free(ceammc_hw_i2c *i2c);
+
+ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t addr, ceammc_hw_notify_cb notify, ceammc_hw_msg_cb on_msg);
+
+void ceammc_hw_infrared_free(ceammc_hw_infrared *ir);
+
+bool ceammc_hw_infrared_free_process_reply(const ceammc_hw_infrared *ir);
+
+ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
+                                           ceammc_hw_notify_cb notify,
+                                           ceammc_hw_msg_cb on_msg,
+                                           ceammc_hw_infrared_key_cb on_key);
+
+bool ceammc_hw_infrared_set_protocol(const ceammc_hw_infrared *ir, const char *proto);
+
+/// clear max7219 display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - lcd address in chain, if <0 clear all connected addresses
+bool ceammc_hw_max7219_clear(ceammc_hw_max7219 *mx, int32_t addr);
+
+/// free max7219 struct
+/// @param max7219 - pointer to max7219 struct
+void ceammc_hw_max7219_free(ceammc_hw_max7219 *mx);
+
+/// set max7219 intensity
+/// @param max7219 - pointer to max7219 struct
+/// @param intensity in 0..0xF range
+bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, int32_t addr, uint8_t intens);
+
+/// create new max7219
+/// @param num_displays - number of connected lcd modules (1-8)
+/// @param spi - RPi SPI bus
+/// @param cs - RPi chip select
+/// @param notify - notify callback
+/// @param on_msg - message callback
+/// @return pointer to max7219 on NULL on error
+///
+/// @note The Raspberry Pi’s GPIO header exposes several SPI buses.
+/// SPI0 is available on all Raspberry Pi models.
+/// SPI1 is available on models with a 40-pin header.
+/// SPI2 is only available on the Compute and Compute 3.
+/// SPI3 through SPI6 are only available on the Raspberry Pi 4 B, 400 and 5.
+ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t num_displays,
+                                         ceammc_hw_spi_bus spi,
+                                         ceammc_hw_spi_cs cs,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_msg);
+
+/// set max7219 power on/off
+/// @param max7219 - pointer to max7219 struct
+/// @param state
+bool ceammc_hw_max7219_power(ceammc_hw_max7219 *mx, bool state);
+
+bool ceammc_hw_max7219_process_reply(ceammc_hw_max7219 *mx);
+
+/// test max7219 display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr
+/// @param state
+bool ceammc_hw_max7219_test(ceammc_hw_max7219 *mx, int32_t addr, bool state);
+
+/// write raw bits to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param data - pointer to bit array
+/// @param len - data length
+bool ceammc_hw_max7219_write_bits(ceammc_hw_max7219 *mx,
+                                  int32_t addr,
+                                  const uint8_t *bits,
+                                  size_t len);
+
+/// write data to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param data - pointer to data
+/// @param len - data length
+bool ceammc_hw_max7219_write_bytes(ceammc_hw_max7219 *mx,
+                                   int32_t addr,
+                                   const uint8_t *data,
+                                   size_t len);
+
+/// write float to max7219 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param value - float value
+/// @param precision - float precision
+bool ceammc_hw_max7219_write_float(ceammc_hw_max7219 *mx,
+                                   int32_t addr,
+                                   float value,
+                                   uint8_t precision);
+
+/// write max7219 unsigned hex value to 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param val - unsigned int value to display
+bool ceammc_hw_max7219_write_hex(ceammc_hw_max7219 *mx, int32_t addr, uint32_t val);
+
+/// write max7219 int value to 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param val - signed int value to display
+bool ceammc_hw_max7219_write_int(ceammc_hw_max7219 *mx, int32_t addr, int32_t val);
+
+/// write matrix to max7219
+/// @param max7219 - pointer to max7219 struct
+/// @param data - pointer to matrix flat data
+/// @param len - data length
+bool ceammc_hw_max7219_write_matrix(ceammc_hw_max7219 *mx,
+                                    uint32_t nrows,
+                                    uint32_t ncols,
+                                    const uint8_t *matrix,
+                                    size_t len);
+
+/// write raw data to max7219 register
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param reg - register index
+/// @param data - register data
+/// @note this is low level write function!
+bool ceammc_hw_max7219_write_reg(ceammc_hw_max7219 *mx, int32_t addr, uint8_t reg, uint8_t data);
+
+/// write string to max7219 7 segment display
+/// @param max7219 - pointer to max7219 struct
+/// @param addr - display address in chain
+/// @param str
+/// @param align - string align on display
+bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
+                                 int32_t addr,
+                                 const char *str,
+                                 ceammc_hw_max7219_string_align align,
+                                 uint8_t dots);
+
+bool ceammc_hw_mpu6050_calibrate(ceammc_hw_mpu6050 *mpu);
+
+void ceammc_hw_mpu6050_free(ceammc_hw_mpu6050 *mpu);
+
+ceammc_hw_mpu6050 *ceammc_hw_mpu6050_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_msg,
+                                         ceammc_hw_mpu6050_data_cb on_data);
+
+bool ceammc_hw_mpu6050_poll(ceammc_hw_mpu6050 *mpu, bool state);
+
+bool ceammc_hw_mpu6050_process_reply(ceammc_hw_mpu6050 *mpu);
+
+bool ceammc_hw_pca9685_disable_prog_addr(const ceammc_hw_pca9685 *pwm,
+                                         ceammc_hw_pca8695_prog_address addr_type);
+
+bool ceammc_hw_pca9685_enable(const ceammc_hw_pca9685 *pwm, bool state);
+
+bool ceammc_hw_pca9685_enable_restart_and_disable(const ceammc_hw_pca9685 *pwm);
+
+void ceammc_hw_pca9685_free(ceammc_hw_pca9685 *pwm);
+
+ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_msg);
+
+bool ceammc_hw_pca9685_proc_reply(const ceammc_hw_pca9685 *pwm);
+
+bool ceammc_hw_pca9685_restart(const ceammc_hw_pca9685 *pwm);
+
+bool ceammc_hw_pca9685_set_const(const ceammc_hw_pca9685 *pwm,
+                                 uint8_t chan,
+                                 bool value,
+                                 float delay);
+
+/// set duty cycle
+/// @param pwm - pointer to pca9685 struct (nullable)
+/// @param chan - target PWM channel
+/// @param duty_cycle in 0.0-1.0 range
+/// @param phase - pointer to phase offset (nullable)
+///
+/// @note if phase is NULL and duty_cycle = 1.0 - turns PWM always on
+bool ceammc_hw_pca9685_set_duty_cycle(const ceammc_hw_pca9685 *pwm,
+                                      uint8_t chan,
+                                      float duty_cycle,
+                                      const float *phase);
+
+bool ceammc_hw_pca9685_set_freq(const ceammc_hw_pca9685 *pwm, float freq_hz);
+
+bool ceammc_hw_pca9685_set_on_off(const ceammc_hw_pca9685 *pwm,
+                                  uint8_t chan,
+                                  uint16_t on,
+                                  uint16_t off);
+
+bool ceammc_hw_pca9685_set_period(const ceammc_hw_pca9685 *pwm, float period_ms);
+
+bool ceammc_hw_pca9685_set_polarity(const ceammc_hw_pca9685 *pwm,
+                                    ceammc_hw_rpi_pwm_polarity polarity);
+
+bool ceammc_hw_pca9685_set_pulse_width(const ceammc_hw_pca9685 *pwm,
+                                       uint8_t chan,
+                                       float width_ms,
+                                       float phase);
+
+bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
+                                     ceammc_hw_pca8695_prog_address addr_type,
+                                     uint8_t i2c_addr);
+
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
                              const ceammc_hw_print_options *opts,
-                             ceammc_hw_error_cb on_err,
-                             ceammc_hw_error_cb on_debug);
+                             ceammc_hw_msg_cb on_msg,
+                             ceammc_hw_msg_cb on_debug);
 
 bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
 
-} // extern "C"
+bool ceammc_hw_rpi_pwm_enable(const ceammc_hw_rpi_pwm *pwm, bool state);
 
-#endif // ceammc_rust_hw_h
+void ceammc_hw_rpi_pwm_free(ceammc_hw_rpi_pwm *pwm);
+
+ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(int8_t channel,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_msg);
+
+bool ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
+
+bool ceammc_hw_rpi_pwm_set_duty_cycle(const ceammc_hw_rpi_pwm *pwm, double duty_cycle);
+
+bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
+
+bool ceammc_hw_rpi_pwm_set_period(const ceammc_hw_rpi_pwm *pwm, double period_ms);
+
+bool ceammc_hw_rpi_pwm_set_polarity(const ceammc_hw_rpi_pwm *pwm,
+                                    ceammc_hw_rpi_pwm_polarity polarity);
+
+bool ceammc_hw_rpi_pwm_set_pulse_width(const ceammc_hw_rpi_pwm *pwm, double width_ms);
+
+bool ceammc_hw_rpi_pwm_set_pwm(const ceammc_hw_rpi_pwm *pwm, double period_ms, double width_ms);
+
+void ceammc_hw_sensor_vl53l0x_free(ceammc_hw_sensor_vl53l0x *vl);
+
+ceammc_hw_sensor_vl53l0x *ceammc_hw_sensor_vl53l0x_new(int8_t i2c_bus,
+                                                       int8_t i2c_addr,
+                                                       ceammc_hw_notify_cb notify,
+                                                       ceammc_hw_sensor_vl53l0x_data_cb on_data,
+                                                       ceammc_hw_msg_cb on_msg);
+
+bool ceammc_hw_sensor_vl53l0x_poll(const ceammc_hw_sensor_vl53l0x *display, bool state);
+
+bool ceammc_hw_sensor_vl53l0x_proc_reply(const ceammc_hw_sensor_vl53l0x *vl);
+
+bool ceammc_hw_sensor_vl53l0x_read_mm(const ceammc_hw_sensor_vl53l0x *display);
+
+bool ceammc_hw_sensor_vl53l0x_set_address(const ceammc_hw_sensor_vl53l0x *display, uint8_t addr);
+
+/// apply fx
+bool ceammc_hw_spi_ws2812_apply_rx(ceammc_hw_spi_ws2812 *ws,
+                                   int32_t first,
+                                   size_t length,
+                                   ceammc_hw_led_fx fx,
+                                   float arg);
+
+bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *ws);
+
+bool ceammc_hw_spi_ws2812_fill(const ceammc_hw_spi_ws2812 *ws, uint8_t r, uint8_t g, uint8_t b);
+
+bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *ws);
+
+void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *ws);
+
+ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
+                                               ceammc_hw_spi_cs cs,
+                                               size_t size,
+                                               ceammc_hw_notify_cb notify,
+                                               ceammc_hw_msg_cb on_msg,
+                                               bool clear_on_exit);
+
+/// process events
+void ceammc_hw_spi_ws2812_process_reply(ceammc_hw_spi_ws2812 *ws);
+
+bool ceammc_hw_spi_ws2812_rotate(const ceammc_hw_spi_ws2812 *ws, int32_t delta);
+
+bool ceammc_hw_spi_ws2812_set_brightness(const ceammc_hw_spi_ws2812 *ws, uint8_t b);
+
+bool ceammc_hw_spi_ws2812_set_color(const ceammc_hw_spi_ws2812 *pwm,
+                                    size_t idx,
+                                    uint8_t r,
+                                    uint8_t g,
+                                    uint8_t b);
+
+bool ceammc_hw_spi_ws2812_set_range(const ceammc_hw_spi_ws2812 *ws,
+                                    int32_t start,
+                                    size_t len,
+                                    uint8_t r,
+                                    uint8_t g,
+                                    uint8_t b);
+
+bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *ws,
+                                    int32_t first,
+                                    int32_t last,
+                                    size_t step,
+                                    uint8_t r,
+                                    uint8_t g,
+                                    uint8_t b);
+
+}  // extern "C"
+
+#endif  // ceammc_rust_hw_h

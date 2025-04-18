@@ -49,5 +49,5 @@ namespace image {
             return IMAGE_FILE_INVALID;
         }
     }
-}
-}
+} // namespace image
+} // namespace ceammc

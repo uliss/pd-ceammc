@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="sfizz~">
         <title>sfizz~</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>SFZ format sample player</description>
+            <description>
+                <tr lang="en">SFZ format sample player</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>misc</category>
@@ -16,6 +18,10 @@
                 <alias>ceammc/sfizz~</alias>
             </aliases>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false" keys="Shift">all sounds off</event>
+            <event type="left-click" editmode="false" keys="Alt">all notes off</event>
+        </mouse>
         <arguments>
             <argument name="SF" type="symbol">soundfont path or builtin waveform name: #sine, #tri,
             #saw, #square, #noise</argument>

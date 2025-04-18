@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="net.mdns">
         <title>net.mdns</title>
@@ -6,7 +6,10 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>MDNS service discovery</description>
+            <description>
+                <tr lang="en">MDNS service discovery</tr>
+                <tr lang="ru">обнаружение служб MDNS</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>net</category>
@@ -83,18 +86,29 @@
 
       [unsubscribe \#http #e(        [unregister \#osc CEAM #g(
 
+        [resolve \#osc CEAM #j(
+
+
       [T]                          [net.mdns #y]
       |
       [@fullname $1(
       |
 [net.mdns #x]
+| |
+| [print]
 |
-[print]
+[route resolve]
+|
+[msg.unpack 5 #z]
+
+     [F #k]    [S digits=16 #l]
+
 
 [net.mdns-ifaces]
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
-[X f->y] [X g->y] [X h->x] [X i->x]
+[X f->y] [X g->y] [X h->x] [X i->x] [X j->x]
+[X z:3->k] [X z:4->l]
 ]]>
             </pdascii>
             <pdascii id="ifaces">

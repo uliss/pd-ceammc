@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="string.substr">
         <title>string.substr</title>
@@ -7,7 +7,9 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>extract substring from input string</description>
+            <description>
+                <tr lang="en">extract substring from input string</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
@@ -23,13 +25,13 @@
         <arguments>
             <argument name="FROM" type="int">substring position. May be relative: -1 means one
             character from the end of stirng</argument>
-            <argument name="LEN" type="int" minvalue="0">substring length. If -1 given (by
+            <argument name="LEN" type="int" minvalue="-1">substring length. If -1 given (by
             default), means 'till string end'.</argument>
         </arguments>
         <properties>
             <property name="@from" type="int" default="0">substring position. Can be negative - to
             address string from the end</property>
-            <property name="@len" type="int" default="-1" minvalue="0">substring length. If equal
+            <property name="@len" type="int" default="-1" minvalue="-1">substring length. If equal
             to -1, substring to the end of string</property>
         </properties>
         <inlets>

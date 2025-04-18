@@ -24,7 +24,7 @@ class TimeSignatureProperty : public SymbolProperty {
     mutable bool dirty_ { false };
 
 public:
-    TimeSignatureProperty(const std::string& name,
+    TimeSignatureProperty(const char* name,
         const music::TimeSignature& sig = { 4, 4 },
         PropValueAccess access = PropValueAccess::READWRITE);
 

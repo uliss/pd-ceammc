@@ -12,10 +12,10 @@
         plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search chrono.datetime convolve~ function function.call gain~
-        gate~ logger matrix~ merge~ metro.choice metro.pattern metro.random
-        metro.seq metro.wchoice mix~ nsig~ obj.props radio split~ spring sync
-        window xdac~ xfade2~ xfade~ z~
+        bitmap ceammc.search chrono.datetime convolve~ function function.call
+        gain~ gate~ logger matrix~ merge~ metro.choice metro.pattern
+        metro.random metro.seq metro.wchoice mix~ nsig~ obj.props radio split~
+        spring sync window xdac~ xfade2~ xfade~ z~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -37,7 +37,7 @@
     }}
     {data {
         color.mix color.scale data.bimap data.color data.copy data.dict
-        data.fifo data.float data.int data.list data.mlist data.set
+        data.fifo data.float data.int data.list data.mlist data.path data.set
         data.set2list dict.contains dict.each dict.from_list dict.get
         dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
         global.bimap local.bimap mlist.flatten rtree.to_list set.contains
@@ -92,7 +92,11 @@
     }}
     {hw {
         hw.apple_smc hw.apple_sms hw.arduino hw.display hw.gamepad
-        hw.kbd_light hw.motu.avb hw.printer hw.serial
+        hw.kbd_light hw.motu.avb hw.printer hw.rpi.adc.ads1115
+        hw.rpi.display.hd44780 hw.rpi.display.ssd1306 hw.rpi.gpio
+        hw.rpi.i2c.pca9685 hw.rpi.pwm hw.rpi.rotenc hw.rpi.sensor.dht11
+        hw.rpi.sensor.ir hw.rpi.sensor.mpu6050 hw.rpi.sensor.sr04
+        hw.rpi.sensor.vl53l0x hw.rpi.spi.max7219 hw.rpi.spi.ws2812 hw.serial
     }}
     {lang {
         lang.faust~ lang.lua ui.faust~
@@ -198,8 +202,8 @@
     {proto {
         proto.arturia.minilab proto.feelworld proto.firmata proto.inscore
         proto.ltc.in~ proto.ltc.out~ proto.midi proto.midi.casio proto.midi.cc
-        proto.midi.sysex proto.moppy proto.morse proto.mpv proto.sp.alpaca
-        proto.vlc proto.whammy proto.xtouch_ext
+        proto.midi.sysex proto.moppy proto.morse proto.mpv proto.obs
+        proto.sp.alpaca proto.vlc proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int

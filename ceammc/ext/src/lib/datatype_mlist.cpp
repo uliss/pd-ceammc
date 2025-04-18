@@ -19,7 +19,6 @@
 #include "fmt/core.h"
 
 #include <algorithm>
-#include <cmath>
 #include <cstring>
 
 constexpr const char* TYPE_NAME = "MList";

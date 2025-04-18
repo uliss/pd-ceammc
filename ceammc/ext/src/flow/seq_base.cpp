@@ -25,7 +25,7 @@ CEAMMC_DEFINE_SYM_HASH(tri);
 static constexpr const int DIR_UP = 1;
 static constexpr const int DIR_DOWN = 0;
 
-RepeatProperty::RepeatProperty(const std::string& name, int defValue)
+RepeatProperty::RepeatProperty(const char* name, int defValue)
     : IntProperty(name, defValue)
 {
     checkMinEq(-1);
@@ -264,7 +264,7 @@ void SeqBase::stop()
     clockStop();
 }
 
-SeqTimeGrain::SeqTimeGrain(const std::string& name, t_float f)
+SeqTimeGrain::SeqTimeGrain(const char* name, t_float f)
     : FloatProperty(name, f)
 {
     setUnits(PropValueUnits::MSEC);

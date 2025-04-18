@@ -17,29 +17,42 @@
 #include <algorithm>
 #include <array>
 
-using PropArray = std::array<std::string, 6>;
-const PropArray ALL_PROPS { "@up", "@down", "@drag", "@move", "@enter", "@leave" };
-const PropArray ALL_FULL_PROPS { "@mouse_up", "@mouse_down", "@mouse_drag", "@mouse_move", "@mouse_enter", "@mouse_leave" };
+namespace {
 
-static t_symbol* checkProp(t_symbol* s)
+struct PropName {
+    const char* const alias;
+    const char* const fullname;
+};
+
+using PropArray = std::array<PropName, 6>;
+const PropArray ALL_PROPS {
+    PropName { "@up", "@mouse_up" },
+    PropName { "@down", "@mouse_down" },
+    PropName { "@drag", "@mouse_drag" },
+    PropName { "@move", "@mouse_move" },
+    PropName { "@enter", "@mouse_enter" },
+    PropName { "@leave", "@mouse_leave" },
+};
+
+static t_symbol* checkPropAlias(const char* s)
 {
-    auto it = std::find(ALL_PROPS.begin(), ALL_PROPS.end(), s->s_name);
+    auto it = std::find_if(ALL_PROPS.begin(), ALL_PROPS.end(), [s](const PropName& pn) { return strcmp(pn.alias, s) == 0; });
     if (it != ALL_PROPS.end()) {
-        auto idx = std::distance(ALL_PROPS.begin(), it);
-        auto& str = ALL_FULL_PROPS[idx];
-        return gensym(str.c_str());
+        return gensym(it->fullname);
     } else
         return nullptr;
 }
+
+} // namespace
 
 UIMouseRoute::UIMouseRoute(const PdArgs& args)
     : BaseObject(args)
     , index_(-1)
 {
     for (size_t i = 0; i < ALL_PROPS.size(); i++) {
-        BoolProperty* b = new BoolProperty(ALL_FULL_PROPS[i], false);
+        BoolProperty* b = new BoolProperty(ALL_PROPS[i].fullname, false);
         addProperty(b);
-        addProperty(new AliasProperty<BoolProperty>(ALL_PROPS[i], b, true));
+        addProperty(new AliasProperty<BoolProperty>(ALL_PROPS[i].alias, b, true));
     }
 
     for (const Atom& a : args.args) {
@@ -55,7 +68,7 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
             continue;
         }
 
-        auto p = checkProp(a.asSymbol());
+        auto p = checkPropAlias(a.asSymbol()->s_name);
         if (p) {
             mouse_events_.push_back(p);
             createOutlet();
@@ -65,7 +78,7 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
             Error err(this);
             err << "supported props are: ";
             for (auto& pp : ALL_PROPS)
-                err << pp << " ";
+                err << pp.alias << " ";
         }
     }
 }

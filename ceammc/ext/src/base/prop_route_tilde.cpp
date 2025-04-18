@@ -4,9 +4,7 @@
 #include "ceammc_symbols.h"
 
 #include <algorithm>
-#include <cassert>
 #include <m_pd.h>
-#include <string>
 #include <vector>
 
 #define MSG_PREFIX "[prop~>] "

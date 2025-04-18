@@ -41,4 +41,4 @@ std::string base64_encode(const unsigned char* data, size_t length)
     return tmp.append((3 - length % 3) % 3, '=');
 }
 
-}
+} // namespace ceammc

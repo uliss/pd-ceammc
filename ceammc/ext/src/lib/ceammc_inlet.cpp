@@ -95,7 +95,7 @@ namespace util {
         }
     }
 
-}
+} // namespace util
 
 InletIterator::InletIterator(const t_object* obj)
     : obj_(obj)
@@ -146,4 +146,4 @@ void InletIterator::setDestination(t_pd* dest)
     util::inlet_set_dest(inlet_, dest);
 }
 
-}
+} // namespace ceammc

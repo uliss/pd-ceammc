@@ -34,6 +34,7 @@ array.tramp~		.		~.
 array.variance		.		.
 array.vplay		.		..
 array.window		.		.
+bitmap,ceammc/bitmap		.		.
 canvas.active,ceammc/canvas.active		.		.
 canvas.current		.		.
 canvas.dir		.		..
@@ -111,6 +112,7 @@ data.float,.float,.f		..		.
 data.int,.int,.i		..		.
 data.list		..		.
 data.mlist,ceammc/mlist,mlist,ceammc/ml,ml		.		.
+data.path		..		.
 data.set		.		.
 data.set2list,ceammc/set->list,set->list		.		.
 dict.contains		..		.
@@ -321,7 +323,22 @@ hw.gamepad		.		...
 hw.kbd_light		.		.
 hw.motu.avb		.		.
 hw.printer		.		.
+hw.rpi.adc.ads1115		.		.
+hw.rpi.display.hd44780,hw.rpi.display.lcd1602,hw.rpi.display.lcd2004		.		.
+hw.rpi.display.ssd1306		.		.
+hw.rpi.gpio		.		.
+hw.rpi.i2c.pca9685,hw.rpi.pwm.pca9685		.		.
+hw.rpi.pwm		.		.
+hw.rpi.rotenc		..		..
+hw.rpi.sensor.dht11		.		.
+hw.rpi.sensor.ir		.		.
+hw.rpi.sensor.mpu6050		.		.
+hw.rpi.sensor.sr04		.		..
+hw.rpi.sensor.vl53l0x		.		.
+hw.rpi.spi.max7219		.		-
+hw.rpi.spi.ws2812		.		.
 hw.serial		.		.
+hw.spi.max7219		.		-
 is_any		.		..
 is_bang		.		..
 is_data,ceammc/is_data		.		..
@@ -645,8 +662,8 @@ prop.declare		-		-
 prop.get,p.get		.		?
 prop.join,prop<-		?		.
 prop.random		?		..
-prop.route,prop->,@->,ceammc/prop->,ceammc/@->		.		?
-prop.route~,prop~>,@~>,ceammc/prop~>,ceammc/@~>		~		?
+prop.route,prop->,@->,ceammc/prop->,ceammc/@->,prop.split		.		?
+prop.route~,prop~>,@~>,ceammc/prop~>,ceammc/@~>,prop.get~		~		?
 prop.set,p.set		?		.
 proto.arturia.minilab		.		..
 proto.feelworld		.		.
@@ -661,6 +678,7 @@ proto.midi.sysex		.		.
 proto.moppy		.		.
 proto.morse		..		.
 proto.mpv		.		.
+proto.obs		.		.
 proto.sp.alpaca		.		.
 proto.vlc		.		..
 proto.whammy		.		.

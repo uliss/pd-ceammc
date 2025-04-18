@@ -11,8 +11,12 @@ if(Rust_FOUND)
     )
 
     if(WITH_RUST_APPS)
-        corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml CRATE_TYPES bin)
-        install(FILES $<TARGET_FILE:rhvoice_download> DESTINATION ${CEAMMC_INSTALL_PATH})
+	corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml)
+        install(FILES $<TARGET_FILE:rhvoice_download>
+            DESTINATION ${CEAMMC_INSTALL_PATH}
+            PERMISSIONS OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
+        set(RUST_DYLIBFIX ${CMAKE_CURRENT_BINARY_DIR}/dylibfix CACHE STRING FORCE "set dylibfix app")
     endif()
 
     if(WITH_RUST_CORE)
@@ -34,6 +38,15 @@ if(Rust_FOUND)
                 set(_features "cups")
             endif()
             corrosion_import_crate(MANIFEST_PATH hw/Cargo.toml CRATE_TYPES staticlib FEATURES ${_features})
+        endif()
+    endif()
+
+    if(WITH_RUST_PROTO)
+        if(WIN32)
+            corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES cdylib)
+            install(FILES ${CMAKE_CURRENT_BINARY_DIR}/proto_rust.dll DESTINATION bin)
+        else()
+            corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES staticlib)
         endif()
     endif()
 

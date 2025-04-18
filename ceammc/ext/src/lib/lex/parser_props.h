@@ -16,7 +16,7 @@ namespace parser {
         FALSE,
         RANDOM,
         INVERT,
-        DEFAULT
+        DEFAULT,
     };
 
     enum class NumericPropOp {
@@ -27,7 +27,8 @@ namespace parser {
         DIV,
         MOD,
         DEFAULT,
-        RANDOM
+        RANDOM,
+        INITIAL,
     };
 
     BoolPropOp parse_bool_prop(const char*);
@@ -105,6 +106,14 @@ namespace parser {
                     return PropParseRes::UNKNOWN;
 
                 res = def;
+                return PropParseRes::OK;
+            }
+            case NumericPropOp::INITIAL: {
+                T init = 0;
+                if (!info.getInitial(init))
+                    return PropParseRes::UNKNOWN;
+
+                res = init;
                 return PropParseRes::OK;
             }
             case NumericPropOp::RANDOM: {

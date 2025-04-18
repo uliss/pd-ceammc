@@ -125,7 +125,7 @@ pub fn get_default_printer() -> Option<PrinterInfo> {
     res
 }
 
-use crate::hw_error_cb;
+use crate::hw_msg_cb;
 use crate::printers::hw_print_options;
 use std::path::Path;
 
@@ -133,8 +133,7 @@ pub fn print_file(
     printer: *const c_char,
     path: &str,
     opts: &hw_print_options,
-    on_err: hw_error_cb,
-    _on_debug: hw_error_cb,
+    on_msg: hw_msg_cb,
 ) -> i32 {
     // get printer name
     let printer = if !printer.is_null() {
@@ -142,7 +141,7 @@ pub fn print_file(
     } else {
         let def = unsafe { cupsGetDefault() };
         if def.is_null() {
-            on_err.exec(format!("can't get default printer").as_str());
+            on_msg.error(format!("can't get default printer").as_str());
             return crate::printers::JOB_ERROR;
         } else {
             unsafe { CStr::from_ptr(def).to_owned() }
@@ -152,7 +151,7 @@ pub fn print_file(
     // check path
     let path = Path::new(path);
     if !path.exists() {
-        on_err.exec(format!("file not found: {path:?}").as_str());
+        on_msg.error(format!("file not found: {path:?}").as_str());
         return crate::printers::JOB_ERROR;
     }
 
@@ -198,18 +197,8 @@ pub fn print_file(
 
     if job_id == 0 {
         let err = unsafe { cupsLastErrorString() };
-        on_err.exec_raw(err);
+        on_msg.error_raw(err);
     }
 
     job_id
-}
-
-#[cfg(test)]
-mod tests {
-    // use super::*;
-
-    // #[test]
-    // fn empty() {
-
-    // }
 }

@@ -64,6 +64,12 @@ void UITab::okSize(t_rect* newrect)
 
 void UITab::paint()
 {
+#ifdef __linux__
+    constexpr int ycorr = 1;
+#else
+    constexpr int ycorr = 0;
+#endif
+
     const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
     if (!p)
@@ -121,7 +127,10 @@ void UITab::paint()
             Layout& l = layouts_[i];
             std::string& s = labels_[i];
 
-            l->set(s.c_str(), (i + 0.5) * cell_w, r.h / 2, 0, 0);
+            auto xc = (i + 0.5f) * cell_w;
+            auto yc = std::round(r.h * 0.5f) + ycorr;
+
+            l->set(s.c_str(), xc, yc, cell_w, r.h);
             l->setColor(prop_color_text);
             p.drawText(*l.get());
         }
@@ -264,8 +273,7 @@ void UITab::propSetItems(const AtomListView& lv)
     layouts_.reserve(lv.size());
 
     for (size_t i = layouts_.size(); i < lv.size(); i++) {
-        layouts_.push_back(std::make_shared<UITextLayout>(&asEBox()->b_font, prop_color_text,
-            ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP));
+        layouts_.push_back(Layout { new UITextLayout(&asEBox()->b_font, prop_color_text, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP) });
     }
 
     syncLabels();

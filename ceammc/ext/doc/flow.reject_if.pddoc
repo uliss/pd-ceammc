@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.reject_if">
         <title>flow.reject_if</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>reject values by predicate</description>
+            <description>
+                <tr lang="en">reject values by predicate</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.dubdub~">
         <title>synth.dubdub~</title>
@@ -6,8 +6,10 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>simple synth based on a sawtooth wave filtered by a resonant
-            lowpass</description>
+            <description>
+                <tr lang="en">simple synth based on a sawtooth wave filtered by a resonant
+                lowpass</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>

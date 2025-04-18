@@ -90,7 +90,7 @@ TEST_CASE("FloatProperty", "[core]")
         REQUIRE(p.setInit(LF(1000)));
         REQUIRE(p.get() == LF(1000));
 
-        REQUIRE(p.reset());
+        REQUIRE(p.resetToDefault());
         REQUIRE(p.value() == 0.5);
     }
 

@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include <algorithm>
 #include <cctype>
 #include <cstdlib>
 #include <fstream>

@@ -191,19 +191,17 @@ void MdnsImpl::process(const ListIfaces& /*m*/)
 {
     auto ifl = ceammc_net_list_interfaces(
         { this,
-            [](void* user, const char* msg) {
-                auto this_ = static_cast<MdnsImpl*>(user);
-                if (this_ && this_->cb_err)
-                    this_->cb_err(msg);
+            [](void* user, ceammc_core_log_level level, const char* msg) {
+                auto obj = static_cast<MdnsImpl*>(user);
+                if (obj && level == ceammc_core_log_level::ERROR && obj->cb_err)
+                    obj->cb_err(msg);
             } });
 
     if (ifl) {
         ceammc_net_foreach_interfaces(ifl, this, [](void* user, const ceammc_net_iface* iface) {
-            auto this_ = static_cast<MdnsImpl*>(user);
-            if (this_ && this_->cb_err) {
-                auto& fn = this_->cb_err;
-                this_->cb_iface(net::Iface(*iface));
-            }
+            auto obj = static_cast<MdnsImpl*>(user);
+            if (obj)
+                obj->cb_iface(net::Iface(*iface));
         });
         ceammc_net_free_interfaces(ifl);
     }

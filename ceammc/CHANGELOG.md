@@ -3,22 +3,47 @@
 ## [0.9.8]
 ### Added:
 - new objects:
+  - bitmap - bitmap image
+  - conv.guido2note (guido->note) - convert midi pitch to guido notation
+  - conv.note2guido (guido->note) - convert guido notation to midi pitch
+  - data.path - new datatype: Path 
   - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
   - hw.gamepad - gamepad support
-  - hw.printer - simple printing support (only PDF files)
+  - hw.printer - simple printing support (only PDF files)  
+  - hw.rpi.adc.ads1115 - 4-channel ADC for RPi
+  - hw.rpi.display.hd44780 (with hw.rpi.display.lcd1602 alias) - for lcd displays 1602 and 2004  
+  - hw.rpi.display.ssd1306 - small OLED 128x64 display
+  - hw.rpi.gpio - Raspberry Pi GPIO support
+  - hw.rpi.i2c.pca9685 (with hw.rpi.pwm.pca9685 alias) - 16 channel I2C PWM board
+  - hw.rpi.pwm - Raspberry Pi PWM support
+  - hw.rpi.rotenc - rotary encoder for Raspberry Pi
+  - hw.rpi.sensor.dht11 - temperature and humidity sensor for Raspberry Pi
+  - hw.rpi.sensor.ir - infrared sensor support
+  - hw.rpi.sensor.mpu6050 - MPU-6050 gyroscope and accelerometer
+  - hw.rpi.sensor.vl53l0x - laser ToF (time of flight) range sensor
+  - hw.rpi.sensor.sr04 - ultrasonic distance sensor HC-SR04 for Raspberry Pi
+  - hw.rpi.spi.max7219 - LED display driver based on max7219 chip for Raspberry Pi
+  - hw.rpi.spi.ws2812 - ws2812 LED strips (Neopixel and others) for for Raspberry Pi
   - msg.unpack - unpack message to selector and arguments
+  - net.http.client (http.client) - HTTP client
+  - net.freesound - Freesound client for downloading files
   - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
-  - net.mqtt.client - MQTT client 
+  - net.mqtt.client (mqtt.client) - MQTT client 
+  - net.telegram.bot
   - net.ws.client - WebSocket client
   - net.ws.server - WebSocket client 
+  - proto.obs - OBS studio client
   - route.data (with route.d alias) - separate data from other types
   - system.command (with system.cmd alias) - run several processes like in shell with pipes
   - system.info - object to get num cpu/temperature and other system information
 - new properties:
   - dict->list @props flag added to output as list of properties
   - snd.play~ @on_err property added to specify sending errors address
+  - fluid~ @presets property added
 - new methods:
   - open method added to snd.play~ for readsf~ compatibility
+  - [set matrix( set method added to ui.matrix
+  - [set_preset( method added to fluid~ to set soundfont preset for midi channel
 - new aliases:
   - list.hist alias added for list.histogram
   - array.histogram alias added for array.hist

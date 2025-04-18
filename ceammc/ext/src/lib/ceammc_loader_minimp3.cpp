@@ -16,12 +16,11 @@
 #include "soxr.h"
 
 #include <cmath>
-#include <iostream>
 
 #define MINIMP3_IMPLEMENTATION
 #define MINIMP3_FLOAT_OUTPUT 1
-//#define MINIMP3_SEEK_IDX_LINEAR_SEARCH 1
-//#define MINIMP3_ALLOW_MONO_STEREO_TRANSITION
+// #define MINIMP3_SEEK_IDX_LINEAR_SEARCH 1
+// #define MINIMP3_ALLOW_MONO_STEREO_TRANSITION
 
 #include "minimp3.h"
 #include "minimp3_ex.h"
@@ -49,7 +48,7 @@ soxr_t ceammc_soxr_create(double ratio, unsigned ch, soxr_error_t* err)
 
 constexpr bool do_debug = false;
 
-}
+} // namespace
 
 namespace ceammc {
 
@@ -129,7 +128,7 @@ namespace sound {
 
     std::int64_t MiniMp3::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset)
     {
-        if (!(isOpened() && openMode() == READ)) {
+        if (!isOpened() || openMode() != READ) {
             error(fmt::format(MINI_PREFIX "not opened for reading"));
             return -1;
         }
@@ -173,7 +172,7 @@ namespace sound {
         if (!dest)
             return -1;
 
-        if (!(isOpened() && openMode() == READ)) {
+        if (!isOpened() || openMode() != READ) {
             error(fmt::format(MINI_PREFIX "not opened for reading"));
             return -1;
         }

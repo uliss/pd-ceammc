@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fluid~">
         <title>fluid~</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>FluidSynth SoundFont 2 player</description>
+            <description>
+                <tr lang="en">FluidSynth SoundFont 2 player</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>misc</category>
@@ -20,19 +22,24 @@
             <par>If no soundfont specified: default soundfont is loaded</par>
             <par>It is WaveSine.sf2, simple sine synth</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false" keys="Shift">all sounds off</event>
+            <event type="left-click" editmode="false" keys="Alt">all notes off</event>
+            <event type="left-click" editmode="false" keys="Shift+Alt">panic (reset synth)</event>
+        </mouse>
         <arguments>
             <argument name="SF" type="symbol">soundfont path</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol">soundfont path, you can use **default** value to
-            load default soundfont</property>
+            <property name="@sf" type="symbol" default="default">soundfont path, you can use
+            **default** value to load default soundfont</property>
             <property name="@version" type="symbol" access="readonly" default="2.3.2">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" access="readonly" default="">list of found
             soundfonts</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
-            <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="0"
+            <property name="@volume" type="float" minvalue="-60" maxvalue="20" default="0"
             units="decibel">output volume (same as @gain but in db)</property>
             <property name="@reverb_level" type="float" default="0">reverberation level</property>
             <property name="@reverb_room" type="float" default="0">reverberation room
@@ -50,6 +57,8 @@
             load</property>
             <property name="@bufsize" type="float" units="sample" default="0" access="readonly">
             internal buffer size</property>
+            <property name="@presets" type="list" default="" access="readonly">presets name for
+            current soundfont</property>
         </properties>
         <methods>
             <!-- aftertouch -->
@@ -213,6 +222,13 @@
             (not related to MIDI instrument bank)</param>
             <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">tuning
             preset (not related to MIDI instrument program)</param></method>
+            <!-- set preset -->
+            <method name="set_preset">set soundfont preset for midi channel 
+            <param name="CHAN" type="int" minvalue="1" maxvalue="16" required="true">MIDI
+            channel</param>
+            <param name="PRESET" type="atom" required="true">preset name or index</param>
+            <param name="SFONT" type="int" minvalue="1" required="false">soundfont index. See
+            @soundfonts property.</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -232,28 +248,43 @@
 |
 |
 |
-|            [hradio]
-|            |
-[msg note 1] [prog 1 $1(
-|            |
-| [dump(     |
-| |          | [@sf sf2/VintageDreamsWaves-v2.sf2(
-| |          | |
-[fluid~        ]
+|         [ui.hrd @nitems 4]            /*program change on MIDI chan 1*/
+|         |.
+[flow.demux 4 #a]                       [hradio]
+                                        |
+                                        |
+[msg #n1] [msg #n2] [msg #n3] [msg #n4] [prog 1 $1 #b(
+
+
+ [dump #e([@sf sf2/VintageDreamsWaves-v2.sf2 #c(
+
+          [@sf sf2/waves.sf2 #d(
+
+[fluid~      #z]
 *|*
 [ui.hgain2~]   [ui.dsp~]
 *|*
 [dac~]
 
-[fluid~-bend]   [fluid~-tune]    [fluid~-pan]  [fluid~-bank]
+[fluid~-bend]   [fluid~-tune]     [fluid~-pan]  [fluid~-bank]
 
-[fluid~-midi]   [fluid~-tune-12] [fluid~-prog] [fluid~-notesoff]
+[fluid~-midi]   [fluid~-tune-12]  [fluid~-prog] [fluid~-notesoff]
 
-[fluid~-pedals] [fluid~-soundoff]
+[fluid~-pedals] [fluid~-soundoff] [fluid~-presets]
+
+#n1 note 1
+#n2 note 2
+#n3 note 3
+#n4 note 4
+[X a:0->n1] [X a:1->n2] [X a:2->n3] [X a:3->n4] [X b->z]
+[X n1->z]   [X n2->z]   [X n3->z]   [X n4->z]
+[X c->z]    [X d->z]    [X e->z]
 ]]>
             </pdascii>
             <pdascii id="bend">
 <![CDATA[
+/*Shift+Click to hold note*/
+
 [ui.keyboard 25 48]
 |
 |                   [loadmsg 1]
@@ -452,6 +483,47 @@
 *|*
 [dac~]
 [X a->z]
+]]>
+            </pdascii>
+            <pdascii id="presets">
+<![CDATA[
+[ui.keyboard 25 48]                [ui.dsp~]
+|
+|
+|
+|
+|
+|   [ui.hrd 4]
+|   |
+|   [+ 1]
+|   |.
+[msg 1]       [loadbang]
+|             |
+[msg note #c] [del 100]
+              |
+              [set_preset 1 tri, set_preset 2 square_mod, set_preset 3 saw, set_preset 4 sine_mod #a(
+
+
+
+              [B]
+              |
+              [prop.get @presets #b]
+              ^|
+              [msg @items]
+              |
+              [ui.menu @nosave 1]
+              |
+              [set_preset 1 $2 #d(
+
+
+
+[fluid~ sf2/waves.sf2 #z]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+
+[X a->z] [X b->z] [X c->z] [X d->z]
 ]]>
             </pdascii>
         </example>

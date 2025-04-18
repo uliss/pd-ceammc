@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="conv.ms2str">
         <title>conv.ms2str</title>
@@ -6,8 +6,10 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>converts float time in milliseconds to formated symbol (or
-            string)</description>
+            <description>
+                <tr lang="en">converts float time in milliseconds to formated symbol (or
+                string)</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.key2str">
         <title>midi.key2str</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert key number to SPN name according to tonality</description>
+            <description>
+                <tr lang="en">convert key number to SPN name according to tonality</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>midi</category>

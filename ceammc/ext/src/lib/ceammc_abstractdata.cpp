@@ -19,10 +19,6 @@
 #include "ceammc_log.h"
 #include "fmt/core.h"
 
-#include <algorithm>
-#include <cstdio>
-#include <typeinfo>
-
 namespace ceammc {
 
 AbstractData::~AbstractData() noexcept = default;
@@ -168,4 +164,4 @@ DataTypeName AbstractData::findTypeName(DataTypeId dataType)
     return DataStorage::instance().nameByType(dataType);
 }
 
-}
+} // namespace ceammc

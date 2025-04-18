@@ -34,8 +34,7 @@ if(WITH_DUMMY)
     set(WITH_DUMMY_MIDI ON CACHE BOOL "" FORCE)
 endif()
 
-
-# ALSA
+#ALSA
 if(WITH_ALSA_AUDIO OR WITH_ALSA_MIDI)
     include(FindALSA)
     if(ALSA_FOUND)
@@ -48,7 +47,7 @@ if(WITH_ALSA_AUDIO OR WITH_ALSA_MIDI)
     endif()
 endif()
 
-# JACK
+#JACK
 if(WITH_JACK)
     include(FindJack)
     if(JACK_FOUND)
@@ -59,7 +58,7 @@ if(WITH_JACK)
     endif()
 endif()
 
-# OSS
+#OSS
 if(WITH_OSS)
     check_include_files(sys/soundcard.h HAVE_SYS_SOUNDCARD_H)
     find_library(OSS_LIB ossaudio)
@@ -71,7 +70,7 @@ if(WITH_OSS)
     endif()
 endif()
 
-# PORTAUDIO
+#PORTAUDIO
 if(WITH_PORTAUDIO)
     find_package(PortAudio REQUIRED)
     if(PORTAUDIO_FOUND)
@@ -82,7 +81,7 @@ if(WITH_PORTAUDIO)
     endif()
 endif()
 
-# Dummy
+#Dummy
 if(WITH_DUMMY_AUDIO OR WITH_DUMMY_MIDI)
     add_definitions(-DUSEAPI_DUMMY)
 endif()

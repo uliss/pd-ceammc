@@ -12,8 +12,8 @@ do
     $CMD "$json"
 done
 
-rm -f abstractions.txt
+rm -f abstraction_objects.txt
 for abs in *.pd
 do
-    echo ${abs%.pd} >> abstractions.txt
+    echo ${abs%.pd} >> abstraction_objects.txt
 done

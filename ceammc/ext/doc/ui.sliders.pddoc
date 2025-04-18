@@ -7,7 +7,9 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Multiple slider widget</description>
+            <description>
+                <tr lang="en">Multiple slider widget</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>

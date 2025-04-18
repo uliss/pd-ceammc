@@ -19,11 +19,6 @@ namespace ceammc {
 
 namespace dsp {
 
-    constexpr long double operator""__2(long double v)
-    {
-        return v * v;
-    }
-
     double curves::a_weight(double f)
     {
         const auto f2 = f * f;
@@ -37,5 +32,5 @@ namespace dsp {
     }
 
     DelayIface::~DelayIface() { }
-}
-}
+} // namespace dsp
+} // namespace ceammc

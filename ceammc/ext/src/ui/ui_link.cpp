@@ -8,6 +8,7 @@
 
 #include "ui_link.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
 #include "ceammc_ui.h"
 #include "cicm/Sources/egraphics.h"
 #include "ui_link.tcl.h"
@@ -66,7 +67,16 @@ void UILink::m_resize(const AtomListView& lv)
 
 void UILink::onMouseDown(t_object* /*view*/, const t_pt& /*pt*/, const t_pt& /*abs_pt*/, long /*modifiers*/)
 {
-    sys_vgui("ui::link_open {%s} {%s}\n", prop_url->s_name, canvas_dir_->s_name);
+    constexpr const char* CEAMMC_PROTO = "ceammc://";
+
+    if (string::starts_with(prop_url->s_name, CEAMMC_PROTO)) {
+        std::string ceammc_path(class_gethelpdir(*asPd()));
+        ceammc_path += '/';
+        ceammc_path += std::string(prop_url->s_name).substr(strlen(CEAMMC_PROTO));
+        sys_vgui("ui::link_open {%s} {%s}\n", ceammc_path.c_str(), canvas_dir_->s_name);
+    } else {
+        sys_vgui("ui::link_open {%s} {%s}\n", prop_url->s_name, canvas_dir_->s_name);
+    }
 }
 
 AtomList UILink::p_title() const

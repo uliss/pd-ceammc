@@ -45,7 +45,7 @@ static Atom pitchToAtom(music::PitchClass p)
     return gensym(buf);
 }
 
-PropertyPitch::PropertyPitch(const std::string& name, const music::PitchClass& def, PropValueAccess access)
+PropertyPitch::PropertyPitch(const char* name, const music::PitchClass& def, PropValueAccess access)
     : AtomProperty(name, pitchToAtom(def), access)
     , pitch_(def)
 {

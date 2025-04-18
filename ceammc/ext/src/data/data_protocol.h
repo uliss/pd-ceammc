@@ -143,10 +143,8 @@ public:
 
     void proto_set(const AtomListView& lv) override
     {
-        static t_symbol* SYM_SET = gensym("set");
-
         if (!T::checkArgs(lv, T::ARG_FLOAT)) {
-            METHOD_ERR(SYM_SET) << "numeric argument expected: " << lv;
+            METHOD_ERR(gensym("set")) << "numeric argument expected: " << lv;
             return;
         }
 

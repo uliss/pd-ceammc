@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hoa.2d.map~">
         <title>hoa.2d.map~</title>
@@ -9,7 +9,9 @@
                 <author>Eliott Paris</author>
                 <author>Thomas Le Meur</author>
             </authors>
-            <description>a 2d ambisonic multisource spatializer</description>
+            <description>
+                <tr lang="en">a 2d ambisonic multisource spatializer</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>spat</category>

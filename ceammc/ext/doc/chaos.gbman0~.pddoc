@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="chaos.gbman0~">
         <title>chaos.gbman0~</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Gingerbreadman map chaotic generator</description>
+            <description>
+                <tr lang="en">Gingerbreadman map chaotic generator</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>chaos</category>

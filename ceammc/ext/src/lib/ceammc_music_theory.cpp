@@ -2,7 +2,6 @@
 #include "ceammc_music_theory_names.h"
 #include "ceammc_music_theory_pitch_class.h"
 
-#include <algorithm>
 #include <cstdlib>
 
 using namespace ceammc;

@@ -42,8 +42,8 @@ class UIDisplay : public UIObject {
 private:
     ClockMemberFunction<UIDisplay> timer_;
     std::string msg_txt_;
+    std::string msg_type_;
     double last_update_;
-    t_symbol* msg_type_;
     t_symbol* rid_;
     bool on_bang_;
     bool auto_;
@@ -54,7 +54,7 @@ public:
     ~UIDisplay();
 
     void paint();
-    void paint(const char* txt);
+    void paint(const char* txt, const char* type);
     void okSize(::t_rect* newrect);
     void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
@@ -87,6 +87,7 @@ private:
     void redrawAll();
     void appendFloatToText(t_float f);
     void setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv);
+    bool needEscaping() const;
 };
 
 void setup_ui_display();

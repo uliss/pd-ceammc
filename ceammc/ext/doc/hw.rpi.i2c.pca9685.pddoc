@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.i2c.pca9685">
+        <title>hw.rpi.i2c.pca9685</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry
+                Pi</tr>
+                <tr lang="ru">драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для
+                Raspberry Pi</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display pwm raspberry servo</keywords>
+            <since>0.9.8</since>
+            <aliases>
+                <alias>hw.rpi.pwm.pca9685</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Note: default PWM freq is 50Hz</par>
+            <par>*Servo Control*</par>
+            <par>Many digital servos run on a 20ms pulse width (50Hz update frequency) based duty
+            cycle, and do not utilize the entire pulse width for their control</par>
+            <par>Typically, 2.5% of the 20ms pulse width (0.5ms) represents -90° offset, and 12.5%
+            of the 20ms pulse width (2.5ms) represents +90° offset</par>
+            <par>Be aware that driving some 180° servos too far past their -90°/+90° operational
+            range can cause a little plastic limiter pin to break off and get stuck inside of the
+            servo's gearing, which could potentially cause the servo to become jammed and no longer
+            function</par>
+            <par>Continuous servos operate in much the same fashion as 180° servos, but instead of
+            the 2.5%/12.5% pulse width controlling a -90°/+90° offset it controls a -1x/+1x speed
+            multiplier, with 0x being parked/no-movement and -1x/+1x being maximum speed in either
+            direction.</par>
+        </info>
+        <arguments>
+            <argument name="I2C_BUS" type="atom" enum="1 2 3 4 5 6 default none">See @i2c_bus
+            property</argument>
+        </arguments>
+        <properties>
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
+            <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
+            access="initonly">I²C address. Also 'default' value is accepted (for addr
+            0x40)</property>
+        </properties>
+        <methods>
+            <!-- const -->
+            <method name="const">set channel constant value 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="VALUE" type="bool" required="true">value</param>
+            <param name="DELAY" type="float" required="false" minvalue="0" maxvalue="1">the setting
+            is delayed by the given phase value.</param></method>
+            <!-- duty -->
+            <method name="duty">set channel PWM duty cycle 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="DUTY" type="float" required="true" minvalue="-1" maxvalue="1">duty cycle
+            value</param>
+            <param name="PHASE" type="float" required="false" minvalue="-1" maxvalue="1">phase
+            offset</param></method>
+            <!-- enable -->
+            <method name="enable">enable/disable the device. The disabled state is equal to sleep,
+            the device is keeping all current PWM setting, but just not responds to the new
+            settings. 
+            <param name="STATE" type="bool" default="1">new state</param></method>
+            <!-- freq -->
+            <method name="freq">set PWM frequency 
+            <param name="FREQ" type="float" units="hertz" required="true" minvalue="24"
+            maxvalue="2048">new frequency</param></method>
+            <!-- period -->
+            <method name="period">set PWM period 
+            <param name="PERIOD" type="float" units="millisecond" required="true" minvalue="0.5"
+            maxvalue="40">new frequency</param></method>
+            <!-- polarity -->
+            <method name="polarity">set PWM inversed polarity. Applicable when OE = 0. 
+            <param name="POLARITY" type="bool" required="true">polarity value: 0 - direct, 1 -
+            inversed</param></method>
+            <!-- set raw -->
+            <method name="set_raw">set channel raw PWM frequency 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="ON" type="int" minvalue="0" maxvalue="4095" required="true">ON counter
+            time value</param>
+            <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
+            time value</param></method>
+            <!-- pwidth -->
+            <method name="pwidth">set channel PWM pulse width 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="WIDTH" type="float" required="true" minvalue="0.5" maxvalue="40"
+            units="millisecond">pulse width</param>
+            <param name="PHASE" type="float" required="false" minvalue="0" maxvalue="1">phase
+            offset</param></method>
+            <!-- use_prog_addr -->
+            <method name="use_prog_addr">set and use programmable address 
+            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
+            type</param>
+            <param name="I2C_ADDR" type="int" required="true" minvalue="7" maxvalue="119">new I²C
+            address</param></method>
+            <!-- disable_prog_addr -->
+            <method name="disable_prog_addr">disable of using programmable address 
+            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
+            type</param></method>
+            <!-- restart -->
+            <method name="restart">re-enable the controller after a sleep with restart enabled so
+            that previously active PWM channels are restarted</method>
+            <!-- enable_restart_and_disable -->
+            <method name="enable_restart_and_disable">put the controller to sleep while keeping the
+            PWM register contents in preparation for a future restart</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>control output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*180° servo example*/
+
+[T]
+|
+[enable $1(
+|
+| [ui.hsl]
+| |
+| [l->l 0 1 0.5 2.5]
+| |
+| [clip 0.5 2.5]
+| |
+| [pwidth 0 $1(
+| |
+| |
+[hw.rpi.pwm.pca9685 default]
+
+[ui.link @url=ceammc://img/conn_pca9685.png @title='Connection_scheme']
+
+[ui.link @url=ceammc://img/info_pca9685.jpg @title='Address']
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

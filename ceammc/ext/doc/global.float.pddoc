@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="global.float">
         <title>global.float</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>global named float object</description>
+            <description>
+                <tr lang="en">global named float object</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>global</category>
@@ -37,9 +39,17 @@
             <!-- - -->
             <method name="-">subtract from float, no output</method>
             <!-- / -->
-            <method name="/">divide by, no output</method>
+            <method name="/">divide by, no output 
+            <param name="DIV" type="float">divider value</param></method>
+            <!-- get -->
+            <method name="get">get the value of global float variable (not only for connected
+            object) 
+            <param name="NAME" type="symbol" required="false">requested variable name. If ommitted:
+            request the value from the current connected object, if specified: output value from
+            found global variable</param></method>
             <!-- set -->
-            <method name="set">sets new value without output</method>
+            <method name="set">sets new value without output 
+            <param name="VALUE" type="float" required="true">new value</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -63,6 +73,28 @@
 [global.float        f1]            [global.float f1]
 |                                   |
 [F]                                 [F]
+
+[loadmsg 12345]
+|
+[global.float f2]
+
+/*get current*/
+
+[get( /*get f1*/
+|
+|     [get f1( /*get f2*/
+|     |
+|     |        [get f2( [get f3(
+|     |        |        |
+[global.float           ] /*default anonymouse global float*/
+|
+[ui.dt]
+
+/*global dispatch name binding*/
+
+[123(
+|
+[s f1]
 ]]>
             </pdascii>
         </example>

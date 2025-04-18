@@ -18,12 +18,6 @@
 #include "lex/parser_numeric.h"
 #include "lex/parser_units.h"
 
-#include <cerrno>
-#include <climits>
-#include <cmath>
-#include <cstdlib>
-#include <sstream>
-
 using namespace ceammc;
 using namespace ceammc::units;
 
@@ -192,7 +186,7 @@ BpmValue::ParseResult BpmValue::parse(const Atom& a)
     if (!parser::parse_tempo(a, bpm))
         return UnitParseError(fmt::format("invalid bpm: '{}'", to_string(a)));
     else {
-//        LIB_ERR << bpm.beatDuration().ratio();
+        //        LIB_ERR << bpm.beatDuration().ratio();
         return BpmValue(bpm.bpm(), bpm.beatDuration().ratio());
     }
 }

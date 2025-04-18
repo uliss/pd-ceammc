@@ -35,6 +35,7 @@ set(DOC_FILES
     array.variance
     array.vplay
     array.window
+    bitmap
     canvas.active
     canvas.current
     canvas.dir
@@ -112,6 +113,7 @@ set(DOC_FILES
     data.int
     data.list
     data.mlist
+    data.path
     data.set
     data.set2list
     dict.contains
@@ -322,6 +324,20 @@ set(DOC_FILES
     hw.kbd_light
     hw.motu.avb
     hw.printer
+    hw.rpi.adc.ads1115
+    hw.rpi.display.hd44780
+    hw.rpi.display.ssd1306
+    hw.rpi.gpio
+    hw.rpi.i2c.pca9685
+    hw.rpi.pwm
+    hw.rpi.rotenc
+    hw.rpi.sensor.dht11
+    hw.rpi.sensor.ir
+    hw.rpi.sensor.mpu6050
+    hw.rpi.sensor.sr04
+    hw.rpi.sensor.vl53l0x
+    hw.rpi.spi.max7219
+    hw.rpi.spi.ws2812
     hw.serial
     is_any
     is_bang
@@ -662,6 +678,7 @@ set(DOC_FILES
     proto.moppy
     proto.morse
     proto.mpv
+    proto.obs
     proto.sp.alpaca
     proto.vlc
     proto.whammy

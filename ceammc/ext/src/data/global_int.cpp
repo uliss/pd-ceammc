@@ -1,5 +1,4 @@
 #include "global_int.h"
-#include "ceammc_factory.h"
 
 GlobalInt::GlobalInt(const PdArgs& a)
     : GlobalIntBase(a)

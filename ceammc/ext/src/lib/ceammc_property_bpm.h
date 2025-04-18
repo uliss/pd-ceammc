@@ -24,7 +24,7 @@ class BpmProperty : public AtomProperty {
     mutable bool dirty_ { false };
 
 public:
-    BpmProperty(const std::string& name,
+    BpmProperty(const char* name,
         const music::Tempo& tempo,
         PropValueAccess access = PropValueAccess::READWRITE);
 

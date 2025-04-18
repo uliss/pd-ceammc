@@ -27,10 +27,8 @@ FlowCompareBase::FlowCompareBase(const PdArgs& args, FlowCompareFn fn, CompreFnD
 
 void FlowCompareBase::initDone()
 {
-    if (prop_args_->value().empty()) {
-        usage(false);
+    if (prop_args_->value().empty())
         return;
-    }
 
     args_.reserve(prop_args_->value().size());
 
@@ -64,8 +62,10 @@ void FlowCompareBase::initDone()
 
 void FlowCompareBase::onFloat(t_float f)
 {
-    if (args_.empty())
+    if (args_.empty()) {
+        usage(true);
         return;
+    }
 
     for (size_t i = 0; i < args_.size(); i++) {
         if (cmp_(f, args_[i]))
@@ -91,8 +91,8 @@ const char* FlowCompareBase::annotateOutlet(size_t n) const
 void FlowCompareBase::usage(bool err)
 {
     if (err) {
-        OBJ_ERR << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
+        OBJ_ERR << "Object is not initialized. Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
     } else {
-        OBJ_DBG << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
+        OBJ_DBG << "Object is not initialized. Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
     }
 }

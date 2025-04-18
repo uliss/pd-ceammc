@@ -143,10 +143,7 @@ static void cleanUp()
 
 static bool runTransition(transitionFn fn, char ch)
 {
-    if (fn == 0 || (fn(ch) == false))
-        return false;
-
-    return true;
+    return fn != 0 && fn(ch);
 }
 
 static bool parserError(const std::string& str, size_t* count, std::string** vec)
@@ -216,12 +213,12 @@ std::vector<std::string> array_pattern_names(const std::string& str)
         return res;
 
     // find open bracket [
-    string::size_type open_bracket_pos = str.find_first_of('[', 0);
+    auto open_bracket_pos = str.find_first_of('[', 0);
     if (open_bracket_pos == string::npos)
         return res;
 
     // find close bracket ]
-    string::size_type close_bracket_pos = str.find_first_of(']', open_bracket_pos);
+    auto close_bracket_pos = str.find_first_of(']', open_bracket_pos);
     if (close_bracket_pos == string::npos)
         return res;
 

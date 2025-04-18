@@ -17,21 +17,19 @@
 #include "ceammc_ui.h"
 #include "cicm/Sources/egraphics.h"
 
-#include <iomanip>
 #include <iostream>
 #include <sstream>
 
+static int font_size_corr(float h)
+{
 #ifdef __WIN32
-static int font_size_corr(float h)
-{
     return std::floor(0.6 * h);
-}
+#elif __linux__
+    return std::floor(0.6 * h);
 #else
-static int font_size_corr(float h)
-{
     return 0.875 * h;
-}
 #endif
+}
 
 constexpr const char* DEFAULT_FONT_FAMILY = "Helvetica";
 constexpr int DEFAULT_FONT_SIZE = 13;
@@ -108,7 +106,13 @@ void UINumber::drawValue()
     if (!p)
         return;
 
-    const float y_off = r.h * 0.5;
+#ifdef __linux__
+    constexpr float k = 0.2;
+#else
+    constexpr float k = 0;
+#endif
+    const float y_off = r.h * 0.5 + font_.size() * k;
+
     const float x_off = std::max<float>(y_off, 5) + 2;
 
     switch (edit_mode_) {

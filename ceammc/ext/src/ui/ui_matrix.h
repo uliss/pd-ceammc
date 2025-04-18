@@ -6,7 +6,6 @@
 #include <bitset>
 #include <cstdint>
 #include <limits>
-#include <memory>
 #include <vector>
 
 using namespace ceammc;
@@ -61,6 +60,7 @@ public:
     void outputCol(const AtomListView& args);
     void outputRow(size_t row);
     void outputRow(const AtomListView& args);
+    void outputMatrix();
     void outputAllCols();
     void outputAllRows();
     void outputAllCells();
@@ -84,6 +84,7 @@ public:
     void m_random();
     void m_get(const AtomListView& lv);
     void m_set(const AtomListView& lv);
+    void setMatrix(const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

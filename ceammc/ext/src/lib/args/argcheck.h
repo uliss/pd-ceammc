@@ -16,7 +16,6 @@
 
 #include "ceammc_atomlist_view.h"
 
-#include <iosfwd>
 #include <memory>
 
 #include <boost/container/small_vector.hpp>
@@ -35,24 +34,45 @@ namespace args {
         std::unique_ptr<ArgCheckImp> chk_;
 
     public:
-        ArgChecker(const char* str);
+        explicit ArgChecker(const char* str);
         ~ArgChecker();
 
         /**
          * Check specified list
          * @param lv - argument list
          * @param obj - pointer to parent object (can be nullptr)
+         * @param method - method name (optional)
          * @param matches - pointer to write matched items
          * @param printErr - if true, print errors
          * @return true on success, false on error
          */
-        bool check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches = nullptr, bool printErr = true) const;
-        bool checkSilent(const AtomListView& lv) const { return check(lv, nullptr, nullptr, false); }
+        bool check(const AtomListView& lv, BaseObject* obj, t_symbol* method = &s_, ArgMatchList* matches = nullptr, bool printErr = true) const;
+
+        /**
+         * Check specified list
+         * @param lv - argument list
+         * @param obj - pointer to parent pd object (can be nullptr)
+         * @param method - method name (optional)
+         * @param matches - pointer to write matched items
+         * @param printErr - if true, print errors
+         * @return true on success, false on error
+         */
+        bool check_pd_obj(const AtomListView& lv, t_object* obj, t_symbol* method = &s_, ArgMatchList* matches = nullptr, bool printErr = true) const;
+
+        bool checkSilent(const AtomListView& lv) const { return check(lv, nullptr, &s_, nullptr, false); }
 
         void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr) const;
+        void usage(t_object* obj, t_symbol* m = nullptr) const;
+
+        /**
+         * return usage message as string
+         * @param m - optional method name
+         * @return usage string
+         */
+        std::string usage_str(t_symbol* m = nullptr) const;
     };
 
-    bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, ArgMatchList* matches = nullptr);
+    bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, t_symbol* method = &s_, ArgMatchList* matches = nullptr);
 
 }
 }

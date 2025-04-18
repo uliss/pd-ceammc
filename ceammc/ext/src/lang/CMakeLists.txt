@@ -45,7 +45,7 @@ if(WITH_FAUST)
                 "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
                 ${PROJECT_BINARY_DIR} # for config.h
                 ${PROJECT_SOURCE_DIR}/ceammc/extra/faust
-                ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture)
+            )
         target_sources(ceammc_lang PRIVATE lang_faust_tilde.cpp lang_faust_ui_tilde.cpp)
         target_link_libraries(ceammc_lang PUBLIC ceammc_faust ceammc_nui)
     endif()

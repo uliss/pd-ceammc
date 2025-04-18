@@ -62,7 +62,7 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
             &job.opts,
             {
                 this,
-                [](void* user, const char* msg) {
+                [](void* user, ceammc_hw_msg_level, const char* msg) {
                     auto this_ = static_cast<HwPrinter*>(user);
                     if (this_)
                         this_->workerThreadError(msg);
@@ -70,7 +70,7 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
             },
             {
                 this,
-                [](void* user, const char* msg) {
+                [](void* user, ceammc_hw_msg_level, const char* msg) {
                     auto this_ = static_cast<HwPrinter*>(user);
                     if (this_)
                         this_->workerThreadDebug(msg);

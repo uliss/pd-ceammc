@@ -16,7 +16,7 @@ void setup_speech_rhvoice_tilde();
 #endif
 
 #include "aubio_pitchshift_tilde.h"
-#include "fluid.h"
+#include "fluid_tilde.h"
 #include "risset_glissando.h"
 
 extern void setup_live_capture_tilde();
@@ -36,7 +36,7 @@ void ceammc_misc_setup()
 #endif
 
 #ifdef WITH_FLUIDSYNTH
-    setup_misc_fluid();
+    setup_misc_fluid_tilde();
 #endif
 
 #ifdef WITH_SFIZZ

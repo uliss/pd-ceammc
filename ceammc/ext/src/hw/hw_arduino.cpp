@@ -5,7 +5,6 @@
 
 #include <cmath>
 #include <cstdint>
-#include <sstream>
 
 using namespace ceammc::hw;
 
@@ -209,12 +208,22 @@ void ArduinoExternal::processMessages()
         Messages::iterator it = lst.begin();
 
         for (; it != lst.end(); ++it) {
-            if (it->first == MSG_ERROR)
+            switch (it->first) {
+            case MSG_ERROR: {
                 OBJ_ERR << it->second;
-            else if (it->first == MSG_DEBUG)
-                OBJ_DBG << it->second;
-            else if (it->first == MSG_CONNECT)
+            } break;
+            case MSG_DEBUG: {
+                OBJ_ERR << it->second;
+            } break;
+            case MSG_CONNECT: {
                 onConnect();
+            } break;
+            case MSG_INFO: {
+                OBJ_POST << it->second;
+            } break;
+            default:
+                break;
+            }
         }
     }
 }

@@ -22,11 +22,10 @@
 #include "fmt/core.h"
 #pragma clang diagnostic pop
 
-#include <algorithm>
-#include <cctype>
 #include <cmath>
 #include <ctime>
 #include <random>
+#include <utility>
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 #define PROP_CHECK_ERR(v)                                                \
@@ -69,10 +68,19 @@ bool Property::setInit(const AtomListView& lv)
         return false;
 
     auto res = setList(lv);
-    if (res && ok_fn_ptr_ && *ok_fn_ptr_)
-        (*ok_fn_ptr_)(this);
+    if (res) {
+        updateInitial();
+
+        if (ok_fn_ptr_ && *ok_fn_ptr_)
+            (*ok_fn_ptr_)(this);
+    }
 
     return res;
+}
+
+bool Property::checkArgs(const AtomListView& lv) const
+{
+    return false;
 }
 
 bool Property::setArgIndex(int8_t idx)
@@ -129,7 +137,12 @@ void Property::updateDefault()
     // empty call
 }
 
-bool Property::reset()
+bool Property::updateInitial()
+{
+    return false;
+}
+
+bool Property::resetToDefault()
 {
     if (!isReadWrite()) {
         PROP_ERR() << "can't reset readonly property";
@@ -159,7 +172,37 @@ bool Property::reset()
     }
 }
 
-bool Property::setFloatCheckFn(Property::PropFloatCheckFn fn, const std::string& err)
+bool Property::resetToInitial()
+{
+    if (!isReadWrite()) {
+        PROP_ERR() << "can't reset readonly property";
+        return false;
+    }
+
+    if (info_.noInitial()) {
+        PROP_ERR() << "initial value is not set. Can't reset";
+        return false;
+    }
+
+    switch (type()) {
+    case PropValueType::BOOLEAN:
+        return setBool(info().initialT(false));
+    case PropValueType::FLOAT:
+        return setFloat(info().initialT<t_float>());
+    case PropValueType::INTEGER:
+        return setInt(info().initialT<t_int>());
+    case PropValueType::SYMBOL:
+        return setSymbol(info().initialT(&s_));
+    case PropValueType::ATOM:
+        return setAtom(info().initialT<Atom>());
+    case PropValueType::LIST:
+        return setList(info().initialT<AtomList>());
+    default:
+        return false;
+    }
+}
+
+bool Property::setFloatCheckFn(const Property::PropFloatCheckFn& fn, const std::string& err)
 {
     if (!isFloat() && !isList()) {
         PROP_ERR() << "not float or list property";
@@ -178,7 +221,7 @@ bool Property::setFloatCheckFn(Property::PropFloatCheckFn fn, const std::string&
     return true;
 }
 
-bool Property::setIntCheckFn(Property::PropIntCheckFn fn, const std::string& err)
+bool Property::setIntCheckFn(const Property::PropIntCheckFn& fn, const std::string& err)
 {
     if (!isInt() && !isList()) {
         PROP_ERR() << "not int or list property";
@@ -205,7 +248,7 @@ bool Property::setIntCheckFn(Property::PropIntCheckFn fn, const std::string& err
     return true;
 }
 
-bool Property::setSymbolCheckFn(Property::PropSymbolCheckFn fn, const std::string& err)
+bool Property::setSymbolCheckFn(const Property::PropSymbolCheckFn& fn, const std::string& err)
 {
     if (!isSymbol() && !isList()) {
         PROP_ERR() << "not symbol or list property";
@@ -224,7 +267,7 @@ bool Property::setSymbolCheckFn(Property::PropSymbolCheckFn fn, const std::strin
     return true;
 }
 
-bool Property::setAtomCheckFn(Property::PropAtomCheckFn fn, const std::string& err)
+bool Property::setAtomCheckFn(const Property::PropAtomCheckFn& fn, const std::string& err)
 {
     if (!isAtom() && !isList()) {
         PROP_ERR() << "not atom or list property";
@@ -243,7 +286,7 @@ bool Property::setAtomCheckFn(Property::PropAtomCheckFn fn, const std::string& e
     return true;
 }
 
-bool Property::setListCheckFn(Property::PropListCheckFn fn, const std::string& err)
+bool Property::setListCheckFn(const Property::PropListCheckFn& fn, const std::string& err)
 {
     if (!isList()) {
         PROP_ERR() << "not list property";
@@ -262,7 +305,7 @@ bool Property::setListCheckFn(Property::PropListCheckFn fn, const std::string& e
     return true;
 }
 
-bool Property::setSuccessFn(PropSuccessFn fn)
+bool Property::setSuccessFn(const PropSuccessFn& fn)
 {
     if (isReadOnly()) {
         PROP_ERR() << "can't set success fn for readonly property";
@@ -622,7 +665,7 @@ bool Property::checkFloat(t_float v) const
     }
 
     const auto ft = std::fpclassify(v);
-    if (!(ft == FP_NORMAL || ft == FP_ZERO)) {
+    if (ft != FP_NORMAL && ft != FP_ZERO) {
         PROP_ERR() << "ignore denormal value: " << v;
         return false;
     }
@@ -750,7 +793,7 @@ std::string Property::errorPrefix() const
     return std::string(buf);
 }
 
-AtomProperty::AtomProperty(const std::string& name, const Atom& def, PropValueAccess access)
+AtomProperty::AtomProperty(const char* name, const Atom& def, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::ATOM), access)
     , v_(def)
 {
@@ -779,6 +822,11 @@ bool AtomProperty::getAtom(Atom& a) const
 {
     a = value();
     return true;
+}
+
+bool AtomProperty::updateInitial()
+{
+    return info().setInitial(v_);
 }
 
 bool AtomProperty::setBool(bool b)
@@ -820,11 +868,16 @@ Atom AtomProperty::defaultValue() const
     return info().defaultAtom();
 }
 
-ListProperty::ListProperty(const std::string& name, const AtomList& init, PropValueAccess access)
-    : Property(PropertyInfo(name, PropValueType::LIST), access)
-    , lst_(init)
+Atom AtomProperty::initialValue() const
 {
-    info().setDefault(init);
+    return info().initialT<Atom>();
+}
+
+ListProperty::ListProperty(const char* name, const AtomList& def, PropValueAccess access)
+    : Property(PropertyInfo(name, PropValueType::LIST), access)
+    , lst_(def)
+{
+    info().setDefault(def);
 }
 
 bool ListProperty::setList(const AtomListView& lv)
@@ -877,6 +930,16 @@ bool ListProperty::setValue(const AtomList& l)
 const AtomList& ListProperty::defaultValue() const
 {
     return info().defaultList();
+}
+
+AtomList ListProperty::initialValue() const
+{
+    return info().initialT<AtomList>();
+}
+
+bool ListProperty::updateInitial()
+{
+    return info().setInitial(lst_);
 }
 
 bool ListProperty::checkNonNegative()
@@ -1003,12 +1066,12 @@ void ListProperty::truncateFloats()
 
 void ListProperty::setFilterAtomFn(Property::PropAtomCheckFn fn)
 {
-    filter_ = fn;
+    filter_ = std::move(fn);
 }
 
 void ListProperty::setMapAtomFn(AtomMapFunction fn)
 {
-    map_ = fn;
+    map_ = std::move(fn);
 }
 
 AtomList ListProperty::get() const
@@ -1016,11 +1079,11 @@ AtomList ListProperty::get() const
     return lst_;
 }
 
-FloatProperty::FloatProperty(const std::string& name, t_float init, PropValueAccess access)
+FloatProperty::FloatProperty(const char* name, t_float def, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::FLOAT), access)
-    , v_(init)
+    , v_(def)
 {
-    info().setDefault(init);
+    info().setDefault(def);
 }
 
 AtomList FloatProperty::get() const
@@ -1101,11 +1164,21 @@ t_float FloatProperty::defaultValue() const
     return info().defaultFloat(v_);
 }
 
-BoolProperty::BoolProperty(const std::string& name, bool init, PropValueAccess access)
-    : Property(PropertyInfo(name, PropValueType::BOOLEAN), access)
-    , v_(init)
+t_float FloatProperty::initialValue() const
 {
-    info().setDefault(init);
+    return info().initialT<t_float>();
+}
+
+bool FloatProperty::updateInitial()
+{
+    return info().setInitial(v_);
+}
+
+BoolProperty::BoolProperty(const char* name, bool def, PropValueAccess access)
+    : Property(PropertyInfo(name, PropValueType::BOOLEAN), access)
+    , v_(def)
+{
+    info().setDefault(def);
 }
 
 AtomList BoolProperty::get() const
@@ -1165,11 +1238,21 @@ bool BoolProperty::defaultValue() const
     return info().defaultBool();
 }
 
-IntProperty::IntProperty(const std::string& name, t_int init, PropValueAccess access)
-    : Property(PropertyInfo(name, PropValueType::INTEGER), access)
-    , v_(init)
+bool BoolProperty::initialValue() const
 {
-    info().setDefault(init);
+    return info().initialT<bool>();
+}
+
+bool BoolProperty::updateInitial()
+{
+    return info().setInitial(v_);
+}
+
+IntProperty::IntProperty(const char* name, t_int def, PropValueAccess access)
+    : Property(PropertyInfo(name, PropValueType::INTEGER), access)
+    , v_(def)
+{
+    info().setDefault(def);
 }
 
 bool IntProperty::setList(const AtomListView& lv)
@@ -1224,7 +1307,7 @@ bool IntProperty::setValue(t_int v)
 
 AtomList IntProperty::get() const
 {
-    return { t_float(v_) };
+    return { static_cast<t_float>(v_) };
 }
 
 bool IntProperty::setValue(t_float f)
@@ -1254,7 +1337,17 @@ t_int IntProperty::defaultValue() const
     return info().defaultInt(v_);
 }
 
-FlagProperty::FlagProperty(const std::string& name)
+t_int IntProperty::initialValue() const
+{
+    return info().initialT<t_int>();
+}
+
+bool IntProperty::updateInitial()
+{
+    return info().setInitial(v_);
+}
+
+FlagProperty::FlagProperty(const char* name)
     : Property(PropertyInfo(name, PropValueType::BOOLEAN), PropValueAccess::INITONLY)
     , v_(false)
 {
@@ -1287,11 +1380,11 @@ bool FlagProperty::setList(const AtomListView&)
     return true;
 }
 
-SymbolProperty::SymbolProperty(const std::string& name, t_symbol* init, PropValueAccess access)
+SymbolProperty::SymbolProperty(const char* name, t_symbol* def, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::SYMBOL), access)
-    , value_(init)
+    , value_(def)
 {
-    info().setDefault(init);
+    info().setDefault(def);
 }
 
 AtomList SymbolProperty::get() const
@@ -1347,7 +1440,17 @@ t_symbol* SymbolProperty::defaultValue() const
     return info().defaultSymbol(&s_);
 }
 
-CombinedProperty::CombinedProperty(const std::string& name, std::initializer_list<Property*> props)
+t_symbol* SymbolProperty::initialValue() const
+{
+    return info().initialT(&s_);
+}
+
+bool SymbolProperty::updateInitial()
+{
+    return info().setInitial(value_);
+}
+
+CombinedProperty::CombinedProperty(const char* name, std::initializer_list<Property*> props)
     : Property(PropertyInfo(name, PropValueType::LIST), PropValueAccess::READONLY)
     , props_(props)
 {
@@ -1377,4 +1480,4 @@ bool CombinedProperty::getList(AtomList& l) const
     l = get();
     return true;
 }
-}
+} // namespace ceammc

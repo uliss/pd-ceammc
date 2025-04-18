@@ -27,7 +27,7 @@ class ArduinoExternal : public BaseObject {
     bool ready_;
 
 public:
-    ArduinoExternal(const PdArgs& args);
+    explicit ArduinoExternal(const PdArgs& args);
     ~ArduinoExternal();
     void onFloat(t_float f) override;
     void onList(const AtomListView& lv) override;

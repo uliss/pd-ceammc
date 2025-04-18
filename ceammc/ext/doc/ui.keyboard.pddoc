@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.keyboard" type="gui">
         <title>ui.keyboard</title>
@@ -7,7 +7,9 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>keyboard widget</description>
+            <description>
+                <tr lang="en">keyboard widget</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>

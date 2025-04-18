@@ -11,21 +11,21 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "matrix.h"
+#include "matrix_tilde.h"
 #include "test_external.h"
 #include "test_sound.h"
 
-PD_COMPLETE_SND_TEST_SETUP(Matrix, base, matrix)
+PD_COMPLETE_SND_TEST_SETUP(MatrixTilde, base, matrix_tilde)
 
 TEST_CASE("matrix~", "[externals]")
 {
-    pd_test_mod_init_base_matrix();
+    pd_test_mod_init_base_matrix_tilde();
 
     SECTION("construct")
     {
         SECTION("default")
         {
-            TestExtMatrix t("matrix~", L(), true);
+            TExt t("matrix~", L(), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numInputChannels() == 2);
@@ -37,7 +37,7 @@ TEST_CASE("matrix~", "[externals]")
 
         SECTION("args")
         {
-            TestExtMatrix t("matrix~", LF(4, 2), true);
+            TExt t("matrix~", LF(4, 2), true);
             REQUIRE(t.numInlets() == 4);
             REQUIRE(t.numInputChannels() == 4);
             REQUIRE(t.numOutlets() == 2);
@@ -48,7 +48,7 @@ TEST_CASE("matrix~", "[externals]")
 
         SECTION("limits")
         {
-            TestExtMatrix t("matrix~", LF(1, 16), true);
+            TExt t("matrix~", LF(1, 16), true);
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numInputChannels() == 2);
             REQUIRE(t.numOutlets() == 16);
@@ -59,7 +59,7 @@ TEST_CASE("matrix~", "[externals]")
 
         SECTION("limits")
         {
-            TestExtMatrix t("matrix~", LF(0.f, 17), true);
+            TExt t("matrix~", LF(0.f, 17), true);
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numInputChannels() == 2);
             REQUIRE(t.numOutlets() == 2);
@@ -71,13 +71,13 @@ TEST_CASE("matrix~", "[externals]")
 
     SECTION("process all")
     {
-        TestExtMatrix t("matrix~", LF(3, 2), true);
+        TExt t("matrix~", LF(3, 2), true);
         TestSignal<3, 2> s0;
         s0.fillInputN(0, 0.1);
         s0.fillInputN(1, 0.2);
         s0.fillInputN(2, 0.4);
 
-        MatrixDSP<3, 2> dsp(s0, t);
+        MatrixTildeDSP<3, 2> dsp(s0, t);
         dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {

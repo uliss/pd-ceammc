@@ -282,13 +282,13 @@ case 24:
 
 #line 284 "lex/parser_props.cpp"
 static const int numeric_prop_start = 1;
-static const int numeric_prop_first_final = 12;
+static const int numeric_prop_first_final = 17;
 static const int numeric_prop_error = 0;
 
 static const int numeric_prop_en_main = 1;
 
 
-#line 60 "lex/parser_props.rl"
+#line 61 "lex/parser_props.rl"
 
 
 NumericPropOp parse_numeric_prop_op(const char* str)
@@ -309,7 +309,7 @@ NumericPropOp parse_numeric_prop_op(const char* str)
 	cs = numeric_prop_start;
 	}
 
-#line 75 "lex/parser_props.rl"
+#line 76 "lex/parser_props.rl"
     
 #line 315 "lex/parser_props.cpp"
 	{
@@ -319,42 +319,43 @@ NumericPropOp parse_numeric_prop_op(const char* str)
 	{
 case 1:
 	switch( (*p) ) {
-		case 37: goto st12;
-		case 42: goto st13;
-		case 43: goto st14;
-		case 45: goto st15;
-		case 47: goto st16;
+		case 37: goto st17;
+		case 42: goto st18;
+		case 43: goto st19;
+		case 45: goto st20;
+		case 47: goto st21;
 		case 100: goto st2;
-		case 114: goto st7;
+		case 105: goto st7;
+		case 114: goto st12;
 	}
 	goto st0;
 st0:
 cs = 0;
 	goto _out;
-st12:
+st17:
 	if ( ++p == pe )
-		goto _test_eof12;
-case 12:
+		goto _test_eof17;
+case 17:
 	goto st0;
-st13:
+st18:
 	if ( ++p == pe )
-		goto _test_eof13;
-case 13:
+		goto _test_eof18;
+case 18:
 	goto st0;
-st14:
+st19:
 	if ( ++p == pe )
-		goto _test_eof14;
-case 14:
+		goto _test_eof19;
+case 19:
 	goto st0;
-st15:
+st20:
 	if ( ++p == pe )
-		goto _test_eof15;
-case 15:
+		goto _test_eof20;
+case 20:
 	goto st0;
-st16:
+st21:
 	if ( ++p == pe )
-		goto _test_eof16;
-case 16:
+		goto _test_eof21;
+case 21:
 	goto st0;
 st2:
 	if ( ++p == pe )
@@ -368,12 +369,12 @@ st3:
 		goto _test_eof3;
 case 3:
 	if ( (*p) == 102 )
-		goto st17;
+		goto st22;
 	goto st0;
-st17:
+st22:
 	if ( ++p == pe )
-		goto _test_eof17;
-case 17:
+		goto _test_eof22;
+case 22:
 	if ( (*p) == 97 )
 		goto st4;
 	goto st0;
@@ -396,116 +397,175 @@ st6:
 		goto _test_eof6;
 case 6:
 	if ( (*p) == 116 )
-		goto st18;
+		goto st23;
 	goto st0;
-st18:
+st23:
 	if ( ++p == pe )
-		goto _test_eof18;
-case 18:
+		goto _test_eof23;
+case 23:
 	goto st0;
 st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-	if ( (*p) == 97 )
+	if ( (*p) == 110 )
 		goto st8;
 	goto st0;
 st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-	if ( (*p) == 110 )
+	if ( (*p) == 105 )
 		goto st9;
 	goto st0;
 st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-	if ( (*p) == 100 )
+	if ( (*p) == 116 )
+		goto st24;
+	goto st0;
+st24:
+	if ( ++p == pe )
+		goto _test_eof24;
+case 24:
+	if ( (*p) == 105 )
 		goto st10;
 	goto st0;
 st10:
 	if ( ++p == pe )
 		goto _test_eof10;
 case 10:
-	if ( (*p) == 111 )
+	if ( (*p) == 97 )
 		goto st11;
 	goto st0;
 st11:
 	if ( ++p == pe )
 		goto _test_eof11;
 case 11:
-	if ( (*p) == 109 )
-		goto st19;
+	if ( (*p) == 108 )
+		goto st25;
 	goto st0;
-st19:
+st25:
 	if ( ++p == pe )
-		goto _test_eof19;
-case 19:
+		goto _test_eof25;
+case 25:
+	goto st0;
+st12:
+	if ( ++p == pe )
+		goto _test_eof12;
+case 12:
+	if ( (*p) == 97 )
+		goto st13;
+	goto st0;
+st13:
+	if ( ++p == pe )
+		goto _test_eof13;
+case 13:
+	if ( (*p) == 110 )
+		goto st14;
+	goto st0;
+st14:
+	if ( ++p == pe )
+		goto _test_eof14;
+case 14:
+	if ( (*p) == 100 )
+		goto st15;
+	goto st0;
+st15:
+	if ( ++p == pe )
+		goto _test_eof15;
+case 15:
+	if ( (*p) == 111 )
+		goto st16;
+	goto st0;
+st16:
+	if ( ++p == pe )
+		goto _test_eof16;
+case 16:
+	if ( (*p) == 109 )
+		goto st26;
+	goto st0;
+st26:
+	if ( ++p == pe )
+		goto _test_eof26;
+case 26:
 	goto st0;
 	}
+	_test_eof17: cs = 17; goto _test_eof; 
+	_test_eof18: cs = 18; goto _test_eof; 
+	_test_eof19: cs = 19; goto _test_eof; 
+	_test_eof20: cs = 20; goto _test_eof; 
+	_test_eof21: cs = 21; goto _test_eof; 
+	_test_eof2: cs = 2; goto _test_eof; 
+	_test_eof3: cs = 3; goto _test_eof; 
+	_test_eof22: cs = 22; goto _test_eof; 
+	_test_eof4: cs = 4; goto _test_eof; 
+	_test_eof5: cs = 5; goto _test_eof; 
+	_test_eof6: cs = 6; goto _test_eof; 
+	_test_eof23: cs = 23; goto _test_eof; 
+	_test_eof7: cs = 7; goto _test_eof; 
+	_test_eof8: cs = 8; goto _test_eof; 
+	_test_eof9: cs = 9; goto _test_eof; 
+	_test_eof24: cs = 24; goto _test_eof; 
+	_test_eof10: cs = 10; goto _test_eof; 
+	_test_eof11: cs = 11; goto _test_eof; 
+	_test_eof25: cs = 25; goto _test_eof; 
 	_test_eof12: cs = 12; goto _test_eof; 
 	_test_eof13: cs = 13; goto _test_eof; 
 	_test_eof14: cs = 14; goto _test_eof; 
 	_test_eof15: cs = 15; goto _test_eof; 
 	_test_eof16: cs = 16; goto _test_eof; 
-	_test_eof2: cs = 2; goto _test_eof; 
-	_test_eof3: cs = 3; goto _test_eof; 
-	_test_eof17: cs = 17; goto _test_eof; 
-	_test_eof4: cs = 4; goto _test_eof; 
-	_test_eof5: cs = 5; goto _test_eof; 
-	_test_eof6: cs = 6; goto _test_eof; 
-	_test_eof18: cs = 18; goto _test_eof; 
-	_test_eof7: cs = 7; goto _test_eof; 
-	_test_eof8: cs = 8; goto _test_eof; 
-	_test_eof9: cs = 9; goto _test_eof; 
-	_test_eof10: cs = 10; goto _test_eof; 
-	_test_eof11: cs = 11; goto _test_eof; 
-	_test_eof19: cs = 19; goto _test_eof; 
+	_test_eof26: cs = 26; goto _test_eof; 
 
 	_test_eof: {}
 	if ( p == eof )
 	{
 	switch ( cs ) {
-	case 14: 
+	case 19: 
 #line 49 "lex/parser_props.rl"
 	{ type = NumericPropOp::ADD; }
 	break;
-	case 15: 
+	case 20: 
 #line 50 "lex/parser_props.rl"
 	{ type = NumericPropOp::SUB; }
 	break;
-	case 13: 
+	case 18: 
 #line 51 "lex/parser_props.rl"
 	{ type = NumericPropOp::MUL; }
 	break;
-	case 16: 
+	case 21: 
 #line 52 "lex/parser_props.rl"
 	{ type = NumericPropOp::DIV; }
 	break;
-	case 12: 
+	case 17: 
 #line 53 "lex/parser_props.rl"
 	{ type = NumericPropOp::MOD; }
 	break;
-	case 19: 
+	case 26: 
 #line 54 "lex/parser_props.rl"
 	{ type = NumericPropOp::RANDOM; }
 	break;
-	case 17: 
-	case 18: 
+	case 22: 
+	case 23: 
 #line 55 "lex/parser_props.rl"
 	{ type = NumericPropOp::DEFAULT; }
 	break;
-#line 500 "lex/parser_props.cpp"
+	case 24: 
+	case 25: 
+#line 56 "lex/parser_props.rl"
+	{ type = NumericPropOp::INITIAL; }
+	break;
+#line 560 "lex/parser_props.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 76 "lex/parser_props.rl"
+#line 77 "lex/parser_props.rl"
 
-    const bool ok = cs >= 12;
+    const bool ok = cs >= 17;
     if (ok)
         return type;
     else
@@ -513,15 +573,15 @@ case 19:
 }
 
 
-#line 517 "lex/parser_props.cpp"
+#line 577 "lex/parser_props.cpp"
 static const int property_start = 1;
-static const int property_first_final = 12;
+static const int property_first_final = 17;
 static const int property_error = 0;
 
 static const int property_en_main = 1;
 
 
-#line 98 "lex/parser_props.rl"
+#line 100 "lex/parser_props.rl"
 
 
 

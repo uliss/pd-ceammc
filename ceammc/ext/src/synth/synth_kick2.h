@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.kick2"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_kick2 -scn synth_kick2_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_kick2 -scn synth_kick2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_kick2_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.5."
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 5.
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -187,14 +194,14 @@ class FAUST_API synth_kick2_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -214,30 +221,55 @@ class FAUST_API synth_kick2_dsp {
         virtual synth_kick2_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public synth_kick2_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual synth_kick2_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -561,7 +616,7 @@ class synth_kick2SIG0 {
 	
   private:
 	
-	int iVec1[2];
+	int iVec2[2];
 	int iRec5[2];
 	
   public:
@@ -574,20 +629,20 @@ class synth_kick2SIG0 {
 	}
 	
 	void instanceInitsynth_kick2SIG0(int sample_rate) {
-		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			iVec1[l6] = 0;
-		}
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			iRec5[l7] = 0;
+			iVec2[l7] = 0;
+		}
+		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
+			iRec5[l8] = 0;
 		}
 	}
 	
 	void fillsynth_kick2SIG0(int count, float* table) {
 		for (int i1 = 0; i1 < count; i1 = i1 + 1) {
-			iVec1[0] = 1;
-			iRec5[0] = (iVec1[1] + iRec5[1]) % 65536;
+			iVec2[0] = 1;
+			iRec5[0] = (iVec2[1] + iRec5[1]) % 65536;
 			table[i1] = std::sin(9.58738e-05f * float(iRec5[0]));
-			iVec1[1] = iVec1[0];
+			iVec2[1] = iVec2[0];
 			iRec5[1] = iRec5[0];
 		}
 	}
@@ -608,9 +663,10 @@ class synth_kick2 : public synth_kick2_dsp {
 	float fConst1;
 	FAUSTFLOAT fVslider0;
 	float fConst2;
+	int iVec0[2];
 	float fRec0[2];
 	FAUSTFLOAT fCheckbox0;
-	float fVec0[2];
+	float fVec1[2];
 	float fRec1[2];
 	float fConst3;
 	FAUSTFLOAT fVslider1;
@@ -629,32 +685,35 @@ class synth_kick2 : public synth_kick2_dsp {
 	float fRec6[2];
 	
  public:
+	synth_kick2() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_kick2 -scn synth_kick2_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.17.1");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_kick2 -scn synth_kick2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("envelopes.lib/adsr:author", "Yann Orlarey and Andrey Bundin");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
 		m->declare("envelopes.lib/name", "Faust Envelope Library");
-		m->declare("envelopes.lib/version", "0.2");
+		m->declare("envelopes.lib/version", "1.3.0");
 		m->declare("filename", "synth_kick2.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "synth.kick2");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.3");
+		m->declare("oscillators.lib/version", "1.5.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("synths.lib/name", "Faust Synthesizer Library");
-		m->declare("synths.lib/version", "0.1");
+		m->declare("synths.lib/version", "1.1.0");
 	}
 
 	virtual int getNumInputs() {
@@ -694,31 +753,34 @@ class synth_kick2 : public synth_kick2_dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec0[l0] = 0.0f;
+			iVec0[l0] = 0;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fVec0[l1] = 0.0f;
+			fRec0[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec1[l2] = 0.0f;
+			fVec1[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec2[l3] = 0.0f;
+			fRec1[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec3[l4] = 0.0f;
+			fRec2[l4] = 0.0f;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			iRec4[l5] = 0;
+			fRec3[l5] = 0.0f;
 		}
-		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
-			fRec7[l8] = 0.0f;
+		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
+			iRec4[l6] = 0;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec8[l9] = 0.0f;
+			fRec7[l9] = 0.0f;
 		}
 		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
-			fRec6[l10] = 0.0f;
+			fRec8[l10] = 0.0f;
+		}
+		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
+			fRec6[l11] = 0.0f;
 		}
 	}
 	
@@ -726,6 +788,7 @@ class synth_kick2 : public synth_kick2_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -766,9 +829,10 @@ class synth_kick2 : public synth_kick2_dsp {
 		float fSlow5 = fConst1 * float(fVslider3);
 		float fSlow6 = fConst3 * float(fVslider4);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
+			iVec0[0] = 1;
 			fRec0[0] = fSlow0 + fConst2 * fRec0[1];
-			fVec0[0] = fSlow1;
-			fRec1[0] = fSlow1 + fRec1[1] * float(fVec0[1] >= fSlow1);
+			fVec1[0] = fSlow1;
+			fRec1[0] = fSlow1 + fRec1[1] * float(fVec1[1] >= fSlow1);
 			fRec2[0] = fSlow2 + fConst2 * fRec2[1];
 			float fTemp0 = std::max<float>(1.0f, fConst0 * fRec2[0]);
 			fRec3[0] = fSlow3 + fConst2 * fRec3[1];
@@ -776,11 +840,12 @@ class synth_kick2 : public synth_kick2_dsp {
 			float fTemp1 = 1.0f - fConst4 * float(iRec4[0]);
 			fRec7[0] = fSlow5 + fConst2 * fRec7[1];
 			fRec8[0] = fSlow6 + fConst2 * fRec8[1];
-			float fTemp2 = fRec6[1] + fConst5 * fRec7[0] * (4.0f * std::max<float>(0.0f, fTemp1 * std::min<float>(fConst7 * fRec1[0], std::max<float>((fConst6 - fRec1[0]) / std::max<float>(1.0f, fConst0 * fRec8[0]) + 1.0f, 0.0f))) + 1.0f);
+			float fTemp2 = ((1 - iVec0[1]) ? 0.0f : fRec6[1] + fConst5 * fRec7[0] * (4.0f * std::max<float>(0.0f, fTemp1 * std::min<float>(fConst7 * fRec1[0], std::max<float>((fConst6 - fRec1[0]) / std::max<float>(1.0f, fConst0 * fRec8[0]) + 1.0f, 0.0f))) + 1.0f));
 			fRec6[0] = fTemp2 - std::floor(fTemp2);
-			output0[i0] = FAUSTFLOAT(tanhf(fRec0[0] * std::max<float>(0.0f, std::min<float>(fRec1[0] / fTemp0, std::max<float>((fTemp0 - fRec1[0]) / std::max<float>(1.0f, fConst0 * fRec3[0]) + 1.0f, 0.0f)) * fTemp1) * ftbl0synth_kick2SIG0[int(65536.0f * fRec6[0])]));
+			output0[i0] = FAUSTFLOAT(tanhf(fRec0[0] * std::max<float>(0.0f, std::min<float>(fRec1[0] / fTemp0, std::max<float>((fTemp0 - fRec1[0]) / std::max<float>(1.0f, fConst0 * fRec3[0]) + 1.0f, 0.0f)) * fTemp1) * ftbl0synth_kick2SIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec6[0]), 65535))]));
+			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
-			fVec0[1] = fVec0[0];
+			fVec1[1] = fVec1[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];

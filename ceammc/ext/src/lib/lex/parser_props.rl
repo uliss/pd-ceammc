@@ -51,9 +51,10 @@ BoolPropOp parse_bool_prop(const char* str)
     mul = '*'  %{ type = NumericPropOp::MUL; };
     div = '/'  %{ type = NumericPropOp::DIV; };
     mod = '%'  %{ type = NumericPropOp::MOD; };
-    random = 'random'           %{ type = NumericPropOp::RANDOM; };
-    default = ('def'|'default') %{ type = NumericPropOp::DEFAULT; };
-    numeric = random | default | add | sub | mul | div | mod;
+    random = 'random'            %{ type = NumericPropOp::RANDOM; };
+    default = ('def'|'default')  %{ type = NumericPropOp::DEFAULT; };
+    initial = ('init'|'initial') %{ type = NumericPropOp::INITIAL; };
+    numeric = random | default | initial | add | sub | mul | div | mod;
 
     main := numeric;
     write data;
@@ -89,9 +90,10 @@ NumericPropOp parse_numeric_prop_op(const char* str)
     mul = '*'  %{ type = NumericPropOp::MUL; };
     div = '/'  %{ type = NumericPropOp::DIV; };
     mod = '%'  %{ type = NumericPropOp::MOD; };
-    random = 'random'           %{ type = NumericPropOp::RANDOM; };
-    default = ('def'|'default') %{ type = NumericPropOp::DEFAULT; };
-    numeric = random | default | add | sub | mul | div | mod;
+    random = 'random'            %{ type = NumericPropOp::RANDOM; };
+    default = ('def'|'default')  %{ type = NumericPropOp::DEFAULT; };
+    initial = ('init'|'initial') %{ type = NumericPropOp::INITIAL; };
+    numeric = random | default | initial | add | sub | mul | div | mod;
 
     main := numeric;
     write data;

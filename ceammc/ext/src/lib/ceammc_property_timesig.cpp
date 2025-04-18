@@ -23,7 +23,7 @@ constexpr int MAX_DIV = 1024;
 
 namespace ceammc {
 
-TimeSignatureProperty::TimeSignatureProperty(const std::string& name, const music::TimeSignature& sig, PropValueAccess access)
+TimeSignatureProperty::TimeSignatureProperty(const char* name, const music::TimeSignature& sig, PropValueAccess access)
     : SymbolProperty(name, gensym(sig.toString().c_str()), access)
     , ts_(sig)
 {

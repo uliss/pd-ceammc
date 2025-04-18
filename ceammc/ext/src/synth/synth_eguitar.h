@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.eguitar"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_eguitar -scn synth_eguitar_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_eguitar -scn synth_eguitar_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_eguitar_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.5."
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 5.
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -187,14 +194,14 @@ class FAUST_API synth_eguitar_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -214,30 +221,55 @@ class FAUST_API synth_eguitar_dsp {
         virtual synth_eguitar_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public synth_eguitar_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual synth_eguitar_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -566,6 +621,7 @@ class synth_eguitar : public synth_eguitar_dsp {
 	
 	FAUSTFLOAT fHslider0;
 	int fSampleRate;
+	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider1;
 	FAUSTFLOAT fHslider2;
@@ -596,21 +652,24 @@ class synth_eguitar : public synth_eguitar_dsp {
 	float fRec0[2];
 	
  public:
+	synth_eguitar() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_eguitar -scn synth_eguitar_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.17.1");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_eguitar -scn synth_eguitar_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("delays.lib/fdelay4:author", "Julius O. Smith III");
 		m->declare("delays.lib/fdelayltv:author", "Julius O. Smith III");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.1");
+		m->declare("delays.lib/version", "1.1.0");
 		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
 		m->declare("envelopes.lib/name", "Faust Envelope Library");
-		m->declare("envelopes.lib/version", "0.2");
+		m->declare("envelopes.lib/version", "1.3.0");
 		m->declare("filename", "synth_eguitar.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -618,7 +677,7 @@ class synth_eguitar : public synth_eguitar_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -630,23 +689,23 @@ class synth_eguitar : public synth_eguitar_dsp {
 		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "synth.eguitar");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
-		m->declare("noises.lib/version", "0.4");
+		m->declare("noises.lib/version", "1.4.1");
 		m->declare("physmodels.lib/name", "Faust Physical Models Library");
-		m->declare("physmodels.lib/version", "0.1");
+		m->declare("physmodels.lib/version", "1.1.0");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.2");
+		m->declare("routes.lib/version", "1.2.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("spn.lib/name", "Standart Pitch Notation constants");
 		m->declare("spn.lib/version", "0.2");
 	}
@@ -663,7 +722,7 @@ class synth_eguitar : public synth_eguitar_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 0.0014705883f * fConst0;
 		fConst2 = 0.00882353f * fConst0;
 		fConst3 = 6911.504f / fConst0;
@@ -743,6 +802,7 @@ class synth_eguitar : public synth_eguitar_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -776,85 +836,87 @@ class synth_eguitar : public synth_eguitar_dsp {
 		float fSlow4 = fConst1 * fSlow2 * (1.0f - fSlow3);
 		float fSlow5 = fSlow4 + -1.499995f;
 		float fSlow6 = std::floor(fSlow5);
-		float fSlow7 = fSlow4 + (-1.0f - fSlow6);
-		float fSlow8 = fSlow4 + (-2.0f - fSlow6);
-		float fSlow9 = fSlow4 + (-3.0f - fSlow6);
-		float fSlow10 = fSlow4 + (-4.0f - fSlow6);
-		float fSlow11 = (0.0f - fSlow7) * (0.0f - 0.5f * fSlow8) * (0.0f - 0.33333334f * fSlow9) * (0.0f - 0.25f * fSlow10);
+		float fSlow7 = fSlow4 + (-4.0f - fSlow6);
+		float fSlow8 = fSlow4 + (-3.0f - fSlow6);
+		float fSlow9 = fSlow4 + (-2.0f - fSlow6);
+		float fSlow10 = fSlow4 + (-1.0f - fSlow6);
+		float fSlow11 = 0.041666668f * fSlow10;
 		int iSlow12 = int(fSlow5);
 		int iSlow13 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12))));
 		int iSlow14 = iSlow13 + 1;
 		float fSlow15 = fSlow4 - fSlow6;
-		float fSlow16 = (0.0f - fSlow8) * (0.0f - 0.5f * fSlow9) * (0.0f - 0.33333334f * fSlow10);
+		float fSlow16 = 0.16666667f * fSlow15;
 		int iSlow17 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12 + 1))));
 		int iSlow18 = iSlow17 + 1;
-		float fSlow19 = 0.5f * fSlow7 * (0.0f - fSlow9) * (0.0f - 0.5f * fSlow10);
-		int iSlow20 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12 + 2))));
-		int iSlow21 = iSlow20 + 1;
-		float fSlow22 = fSlow7 * fSlow8;
-		float fSlow23 = 0.16666667f * fSlow22 * (0.0f - fSlow10);
-		int iSlow24 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12 + 3))));
-		int iSlow25 = iSlow24 + 1;
-		float fSlow26 = 0.041666668f * fSlow22 * fSlow9;
-		int iSlow27 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12 + 4))));
-		int iSlow28 = iSlow27 + 1;
-		float fSlow29 = fConst1 * fSlow3 * fSlow2;
-		float fSlow30 = fSlow29 + -1.499995f;
-		float fSlow31 = std::floor(fSlow30);
-		float fSlow32 = fSlow29 + (-1.0f - fSlow31);
-		float fSlow33 = fSlow29 + (-2.0f - fSlow31);
-		float fSlow34 = fSlow29 + (-3.0f - fSlow31);
-		float fSlow35 = fSlow29 + (-4.0f - fSlow31);
-		float fSlow36 = (0.0f - fSlow32) * (0.0f - 0.5f * fSlow33) * (0.0f - 0.33333334f * fSlow34) * (0.0f - 0.25f * fSlow35);
-		int iSlow37 = int(fSlow30);
-		int iSlow38 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow37))));
-		int iSlow39 = iSlow38 + 2;
-		float fSlow40 = fSlow29 - fSlow31;
-		float fSlow41 = (0.0f - fSlow33) * (0.0f - 0.5f * fSlow34) * (0.0f - 0.33333334f * fSlow35);
-		int iSlow42 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow37 + 1))));
-		int iSlow43 = iSlow42 + 2;
-		float fSlow44 = 0.5f * fSlow32 * (0.0f - fSlow34) * (0.0f - 0.5f * fSlow35);
-		int iSlow45 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow37 + 2))));
-		int iSlow46 = iSlow45 + 2;
-		float fSlow47 = fSlow32 * fSlow33;
-		float fSlow48 = 0.16666667f * fSlow47 * (0.0f - fSlow35);
-		int iSlow49 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow37 + 3))));
-		int iSlow50 = iSlow49 + 2;
-		float fSlow51 = 0.041666668f * fSlow47 * fSlow34;
-		int iSlow52 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow37 + 4))));
-		int iSlow53 = iSlow52 + 2;
-		float fSlow54 = std::tan(fConst3 * fSlow1);
-		float fSlow55 = 1.0f / fSlow54;
-		float fSlow56 = (fSlow55 + 1.4142135f) / fSlow54 + 1.0f;
-		float fSlow57 = float(fHslider3) / fSlow56;
-		float fSlow58 = 1.0f / fSlow56;
-		float fSlow59 = (fSlow55 + -1.4142135f) / fSlow54 + 1.0f;
-		float fSlow60 = 2.0f * (1.0f - 1.0f / synth_eguitar_faustpower2_f(fSlow54));
-		float fSlow61 = 1.0f / std::max<float>(1.0f, fConst4 * synth_eguitar_faustpower2_f(1.0f - 0.22f * fSlow1));
-		float fSlow62 = float(fButton0);
-		int iSlow63 = iSlow38 + 1;
-		int iSlow64 = iSlow42 + 1;
-		int iSlow65 = iSlow45 + 1;
-		int iSlow66 = iSlow49 + 1;
-		int iSlow67 = iSlow52 + 1;
+		float fSlow19 = fSlow15 * fSlow10;
+		float fSlow20 = 0.25f * fSlow19;
+		int iSlow21 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12 + 2))));
+		int iSlow22 = iSlow21 + 1;
+		float fSlow23 = fSlow19 * fSlow9;
+		float fSlow24 = 0.16666667f * fSlow23;
+		int iSlow25 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12 + 3))));
+		int iSlow26 = iSlow25 + 1;
+		float fSlow27 = 0.041666668f * fSlow23 * fSlow8;
+		int iSlow28 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow12 + 4))));
+		int iSlow29 = iSlow28 + 1;
+		float fSlow30 = fConst1 * fSlow3 * fSlow2;
+		float fSlow31 = fSlow30 + -1.499995f;
+		float fSlow32 = std::floor(fSlow31);
+		float fSlow33 = fSlow30 + (-4.0f - fSlow32);
+		float fSlow34 = fSlow30 + (-3.0f - fSlow32);
+		float fSlow35 = fSlow30 + (-2.0f - fSlow32);
+		float fSlow36 = fSlow30 + (-1.0f - fSlow32);
+		float fSlow37 = 0.041666668f * fSlow36;
+		int iSlow38 = int(fSlow31);
+		int iSlow39 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow38))));
+		int iSlow40 = iSlow39 + 2;
+		float fSlow41 = fSlow30 - fSlow32;
+		float fSlow42 = 0.16666667f * fSlow41;
+		int iSlow43 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow38 + 1))));
+		int iSlow44 = iSlow43 + 2;
+		float fSlow45 = fSlow41 * fSlow36;
+		float fSlow46 = 0.25f * fSlow45;
+		int iSlow47 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow38 + 2))));
+		int iSlow48 = iSlow47 + 2;
+		float fSlow49 = fSlow45 * fSlow35;
+		float fSlow50 = 0.16666667f * fSlow49;
+		int iSlow51 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow38 + 3))));
+		int iSlow52 = iSlow51 + 2;
+		float fSlow53 = 0.041666668f * fSlow49 * fSlow34;
+		int iSlow54 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow38 + 4))));
+		int iSlow55 = iSlow54 + 2;
+		float fSlow56 = std::tan(fConst3 * fSlow1);
+		float fSlow57 = 1.0f / fSlow56;
+		float fSlow58 = (fSlow57 + 1.4142135f) / fSlow56 + 1.0f;
+		float fSlow59 = float(fHslider3) / fSlow58;
+		float fSlow60 = 1.0f / fSlow58;
+		float fSlow61 = (fSlow57 + -1.4142135f) / fSlow56 + 1.0f;
+		float fSlow62 = 2.0f * (1.0f - 1.0f / synth_eguitar_faustpower2_f(fSlow56));
+		float fSlow63 = 1.0f / std::max<float>(1.0f, fConst4 * synth_eguitar_faustpower2_f(1.0f - 0.22f * fSlow1));
+		float fSlow64 = float(fButton0);
+		int iSlow65 = iSlow39 + 1;
+		int iSlow66 = iSlow43 + 1;
+		int iSlow67 = iSlow47 + 1;
+		int iSlow68 = iSlow51 + 1;
+		int iSlow69 = iSlow54 + 1;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fRec10 = -1.0f * 0.9973053f * (0.9f * fRec11[2] + 0.05f * (fRec11[1] + fRec11[3]));
-			fRec25[0] = fSlow11 * fRec2[(IOTA0 - iSlow14) & 2047] + fSlow15 * (fSlow16 * fRec2[(IOTA0 - iSlow18) & 2047] + fSlow19 * fRec2[(IOTA0 - iSlow21) & 2047] + fSlow23 * fRec2[(IOTA0 - iSlow25) & 2047] + fSlow26 * fRec2[(IOTA0 - iSlow28) & 2047]);
+			float fRec10 = -(0.9973053f * (0.9f * fRec11[2] + 0.05f * (fRec11[1] + fRec11[3])));
+			fRec25[0] = fSlow7 * (fSlow8 * (fSlow9 * (fSlow11 * fRec2[(IOTA0 - iSlow14) & 2047] - fSlow16 * fRec2[(IOTA0 - iSlow18) & 2047]) + fSlow20 * fRec2[(IOTA0 - iSlow22) & 2047]) - fSlow24 * fRec2[(IOTA0 - iSlow26) & 2047]) + fSlow27 * fRec2[(IOTA0 - iSlow29) & 2047];
 			fRec29[0] = 0.95f * fRec25[1] + 0.05f * fRec29[1];
 			float fRec26 = fRec29[0];
 			fRec31[0] = fRec0[1];
-			fRec32[IOTA0 & 2047] = -1.0f * 0.9973053f * (0.9f * fRec31[2] + 0.05f * (fRec31[1] + fRec31[3]));
-			fVec0[0] = fSlow36 * fRec32[(IOTA0 - iSlow39) & 2047] + fSlow40 * (fSlow41 * fRec32[(IOTA0 - iSlow43) & 2047] + fSlow44 * fRec32[(IOTA0 - iSlow46) & 2047] + fSlow48 * fRec32[(IOTA0 - iSlow50) & 2047] + fSlow51 * fRec32[(IOTA0 - iSlow53) & 2047]);
+			fRec32[IOTA0 & 2047] = -(0.9973053f * (0.9f * fRec31[2] + 0.05f * (fRec31[1] + fRec31[3])));
+			fVec0[0] = fSlow33 * (fSlow34 * (fSlow35 * (fSlow37 * fRec32[(IOTA0 - iSlow40) & 2047] - fSlow42 * fRec32[(IOTA0 - iSlow44) & 2047]) + fSlow46 * fRec32[(IOTA0 - iSlow48) & 2047]) - fSlow50 * fRec32[(IOTA0 - iSlow52) & 2047]) + fSlow53 * fRec32[(IOTA0 - iSlow55) & 2047];
 			iRec34[0] = 1103515245 * iRec34[1] + 12345;
-			fRec33[0] = 4.656613e-10f * float(iRec34[0]) - fSlow58 * (fSlow59 * fRec33[2] + fSlow60 * fRec33[1]);
-			fVec1[0] = fSlow62;
-			iRec35[0] = (iRec35[1] + (iRec35[1] > 0)) * (fSlow62 <= fVec1[1]) + (fSlow62 > fVec1[1]);
-			float fTemp0 = fSlow61 * float(iRec35[0]);
-			float fTemp1 = fSlow57 * (fRec33[2] + fRec33[0] + 2.0f * fRec33[1]) * std::max<float>(0.0f, std::min<float>(fTemp0, 2.0f - fTemp0));
+			fRec33[0] = 4.656613e-10f * float(iRec34[0]) - fSlow60 * (fSlow61 * fRec33[2] + fSlow62 * fRec33[1]);
+			fVec1[0] = fSlow64;
+			iRec35[0] = (iRec35[1] + (iRec35[1] > 0)) * (fSlow64 <= fVec1[1]) + (fSlow64 > fVec1[1]);
+			float fTemp0 = fSlow63 * float(iRec35[0]);
+			float fTemp1 = fSlow59 * (fRec33[2] + fRec33[0] + 2.0f * fRec33[1]) * std::max<float>(0.0f, std::min<float>(fTemp0, 2.0f - fTemp0));
 			float fTemp2 = fVec0[1] + fTemp1;
 			fVec2[0] = fTemp2;
 			fRec30[IOTA0 & 2047] = 0.95f * fVec2[2] + 0.05f * fRec30[(IOTA0 - 1) & 2047];
-			float fRec27 = fSlow11 * fRec30[(IOTA0 - iSlow13) & 2047] + fSlow15 * (fSlow16 * fRec30[(IOTA0 - iSlow17) & 2047] + fSlow19 * fRec30[(IOTA0 - iSlow20) & 2047] + fSlow23 * fRec30[(IOTA0 - iSlow24) & 2047] + fSlow26 * fRec30[(IOTA0 - iSlow27) & 2047]);
+			float fRec27 = fSlow7 * (fSlow8 * (fSlow9 * (fSlow11 * fRec30[(IOTA0 - iSlow13) & 2047] - fSlow16 * fRec30[(IOTA0 - iSlow17) & 2047]) + fSlow20 * fRec30[(IOTA0 - iSlow21) & 2047]) - fSlow24 * fRec30[(IOTA0 - iSlow25) & 2047]) + fSlow27 * fRec30[(IOTA0 - iSlow28) & 2047];
 			float fRec28 = fVec2[1] + fRec21[1];
 			fRec21[0] = fRec26;
 			float fRec22 = fRec21[1];
@@ -865,7 +927,7 @@ class synth_eguitar : public synth_eguitar_dsp {
 			float fRec19 = fRec23;
 			float fRec20 = fRec24;
 			fRec13[IOTA0 & 2047] = fRec18;
-			float fRec14 = fSlow36 * fRec13[(IOTA0 - iSlow63) & 2047] + fSlow40 * (fSlow41 * fRec13[(IOTA0 - iSlow64) & 2047] + fSlow44 * fRec13[(IOTA0 - iSlow65) & 2047] + fSlow48 * fRec13[(IOTA0 - iSlow66) & 2047] + fSlow51 * fRec13[(IOTA0 - iSlow67) & 2047]);
+			float fRec14 = fSlow33 * (fSlow34 * (fSlow35 * (fSlow37 * fRec13[(IOTA0 - iSlow65) & 2047] - fSlow42 * fRec13[(IOTA0 - iSlow66) & 2047]) + fSlow46 * fRec13[(IOTA0 - iSlow67) & 2047]) - fSlow50 * fRec13[(IOTA0 - iSlow68) & 2047]) + fSlow53 * fRec13[(IOTA0 - iSlow69) & 2047];
 			fRec15[0] = fRec19;
 			float fRec16 = fRec20;
 			fRec11[0] = fSlow0 * fRec15[1];

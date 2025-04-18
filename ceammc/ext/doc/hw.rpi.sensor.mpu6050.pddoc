@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.sensor.mpu6050">
+        <title>hw.rpi.sensor.mpu6050</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">MPU-6050 gyroscope and accelerometer for Raspberry Pi</tr>
+                <tr lang="ru">MPU-6050 гироскоп и датчик ускорения для Raspberry Pi</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>raspberry imu mpu6050 gyro accelerometer</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <info>
+            <par>The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis Accelerometer) motion
+            tracking device.</par>
+        </info>
+        <methods>
+            <method name="poll">start/stop sensor polling 
+            <param name="VALUE" type="bool" required="true">state</param></method>
+            <method name="calibrate">calibrate the sensor. Place it still so that the Z axis is
+            pointing down.</method>
+        </methods>
+        <properties>
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
+            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
+            maxvalue="119">I2C address. The value 'default' means default device I²C address
+            (0x68), value 'alt': alternative I2C address (0x69, when pin AD0 pull high).</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>messages: [ypr YAW PITCH ROLL(, [time CELSIUS(, [gyro X Y Z( and [accel X Y
+            Z(</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[poll $1(
+|
+|
+[hw.rpi.sensor.mpu6050 @i2c_bus default]
+|
+[route ypr gyro accel temp {w=30} #r]
+|
+|
+|
+|      [ui.dt #g]    [ui.dt #a]    [ui.dt #t]
+|
+| [unpack f f f {w=45} #u]
+|
+| [F label=yaw #y] [F label=pitch #p] [F label=roll #x]
+|
+|
+[print YPR]
+
+
+[ui.link @url=ceammc://img/conn_mpu6050.png @title=Connection_Scheme]
+
+[X r:3->t] [X r->u] [X u->y] [X u:1->p] [X u:2->x] [X r:1->g] [X r:2->a]
+#g @label Gyro
+#a @label Accel
+#t @label tº
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

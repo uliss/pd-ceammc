@@ -28,6 +28,10 @@
 #include "lex/parser_units.h"
 #include "ui_canvas.tcl.h"
 
+#ifdef WITH_VEROVIO
+#include <verovio/vrvdef.h>
+#endif
+
 #include <boost/integer/common_factor.hpp>
 #include <cmath>
 
@@ -379,7 +383,9 @@ void UICanvas::m_font(const AtomListView& lv)
     cmd.weight = CAIRO_FONT_WEIGHT_NORMAL;
     cmd.freetype = 0;
 
-    if (chk1.check(lv, nullptr, nullptr, false)) {
+    auto method = gensym("font");
+
+    if (chk1.check(lv, nullptr, method, nullptr, false)) {
         cmd.family = lv.symbolAt(0, &s_)->s_name;
         out_queue_.enqueue(cmd);
 
@@ -387,7 +393,7 @@ void UICanvas::m_font(const AtomListView& lv)
             sz.size = lv.floatAt(1, 16);
             out_queue_.enqueue(sz);
         }
-    } else if (chk2.check(lv, nullptr, nullptr, false)) {
+    } else if (chk2.check(lv, nullptr, method, nullptr, false)) {
         cmd.family = lv.symbolAt(0, &s_)->s_name;
         if (!set_font_options(lv.symbolAt(1, &s_), &cmd)) {
             UI_ERR << fmt::format("invalid font option: '{}', expected normal|italic|bold", to_string(lv[1]));
@@ -399,7 +405,7 @@ void UICanvas::m_font(const AtomListView& lv)
             sz.size = lv.floatAt(2, 16);
             out_queue_.enqueue(sz);
         }
-    } else if (chk3.check(lv, nullptr, nullptr, false)) {
+    } else if (chk3.check(lv, nullptr, method, nullptr, false)) {
         cmd.family = lv.symbolAt(0, &s_)->s_name;
         cmd.slant = CAIRO_FONT_SLANT_ITALIC;
         cmd.weight = CAIRO_FONT_WEIGHT_BOLD;
@@ -452,8 +458,8 @@ void UICanvas::m_line_cap(const AtomListView& lv)
 {
     static const args::ArgChecker chk("TYPE:s=butt|round|square");
 
-    if (!chk.check(lv, nullptr))
-        return chk.usage(nullptr, gensym("line_cap"));
+    if (!chk.check_pd_obj(lv, asPdObject()))
+        return chk.usage(asPdObject(), gensym("line_cap"));
 
     out_queue_.enqueue(draw::SetLineCap(sym2line_cap(lv[0].asT<t_symbol*>())));
 }
@@ -1120,7 +1126,7 @@ void UICanvas::onMouseDrag(t_object* view, const t_pt& pos, long mods)
     anyTo(0, gensym("mouse"), data.view());
 }
 
-void UICanvas::onDblClick(t_object *view, const t_pt &pos, long mods)
+void UICanvas::onDblClick(t_object* view, const t_pt& pos, long mods)
 {
     StaticAtomList<7> data {
         gensym("double"),
@@ -1294,4 +1300,8 @@ void setup_ui_canvas()
 
     UICanvas::setup();
     LIB_DBG << "cairo version: " << cairo_version_string();
+
+#ifdef WITH_VEROVIO
+    LIB_DBG << fmt::format("verovio version: {}.{}.{}", VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION);
+#endif
 }

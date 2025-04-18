@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.stein">
         <title>noise.stein</title>
@@ -6,7 +6,9 @@
             <authors>
                 <author>André Sier</author>
             </authors>
-            <description>Stein distribution</description>
+            <description>
+                <tr lang="en">Stein distribution</tr>
+            </description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>

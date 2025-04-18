@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="bitmap">
+        <title>bitmap</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">binary image (2D bit matrix)</tr>
+                <tr lang="ru">бинарное изображение (битовая 2D-матрица)</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>bitmap</keywords>
+            <also>
+                <see view="link">ui.matrix</see>
+            </also>
+            <since>0.9.8</since>
+            <aliases>
+                <alias>ceammc/bitmap</alias>
+            </aliases>
+        </meta>
+        <mouse>
+            <event type="left-click" editmode="false" keys="Shift">open bitmap viewer
+            window</event>
+        </mouse>
+        <arguments>
+            <argument name="W" type="int" minvalue="1" maxvalue="256">bitmap width in pixels, see
+            @w</argument>
+            <argument name="H" type="int" minvalue="1" maxvalue="256">bitmap height in pixels, see
+            @h</argument>
+        </arguments>
+        <properties>
+            <property name="@w" type="int" default="8" minvalue="1" maxvalue="256"
+            access="initonly">bitmap width in pixels</property>
+            <property name="@h" type="int" default="8" minvalue="1" maxvalue="256"
+            access="initonly">bitmap height in pixels</property>
+        </properties>
+        <methods>
+            <!-- arc -->
+            <method name="arc">draw arc 
+            <param name="X" type="int" required="true">x coord</param>
+            <param name="Y" type="int" required="true">y coord</param>
+            <param name="D" type="int" required="true">diameter</param>
+            <param name="START" type="int" required="true" units="degree">start angle. 0 -
+            top</param>
+            <param name="LEN" type="int" required="true" units="degree">arc length,
+            counter-clockwise</param>
+            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
+            the arc center, not the top-left corner</param></method>
+            <!-- circle -->
+            <method name="circle">draw circle 
+            <param name="X" type="int" required="true">x coord</param>
+            <param name="Y" type="int" required="true">y coord</param>
+            <param name="D" type="int" required="true">diameter</param>
+            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
+            the circle center, not the top-left corner</param></method>
+            <!-- clear -->
+            <method name="clear">clear bitmap (set all pixels to 0)</method>
+            <method name="column">draw column 
+            <param name="COL" type="int" required="true">column</param>
+            <param name="H" type="int" required="true">column height, can be negative(!), to draw
+            in opposite direction</param>
+            <param name="DY" type="int" required="true">y offset</param></method>
+            <!-- ellipse -->
+            <method name="ellipse">draw ellipse 
+            <param name="X" type="int" required="true">x coord</param>
+            <param name="Y" type="int" required="true">y coord</param>
+            <param name="W" type="int" required="true">width</param>
+            <param name="H" type="int" required="true">height</param>
+            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
+            the ellipse center, not the top-left corner</param></method>
+            <!-- fill -->
+            <method name="fill">set all pixels to value 
+            <param name="V" type="int" default="0">value</param></method>
+            <!-- fill_color -->
+            <method name="fill_color">set fill color 
+            <param name="COLOR" type="int">fill color (0, 1 or -1 if no color)</param></method>
+            <method name="font">set font 
+            <param name="NAME" type="symbol" required="true"
+            enum="FONT_4X6 FONT_5X7 FONT_5X8 FONT_6X10 FONT_6X9">font name</param></method>
+            <method name="get list">output content as list</method>
+            <method name="get matrix">output bitmap content as: [matrix NROWS NCOLS DATA...(
+            message</method>
+            <method name="get submatrix">output submatrix bitmap content as: [matrix NROWS NCOLS
+            DATA...( message 
+            <param name="NROWS" type="int" required="true">matrix number of rows</param>
+            <param name="NCOLS" type="int" required="true">matrix number of columns</param>
+            <param name="AT_ROW" type="int" required="true">row position</param>
+            <param name="AT_COL" type="int" required="true">columns position</param></method>
+            <!-- hshift -->
+            <method name="hshift">horizontal shift (rotate) 
+            <param name="V" type="int" required="true">number of pixels to shift</param></method>
+            <!-- invert -->
+            <method name="invert">invert all pixel values</method>
+            <method name="line">draw line 
+            <param name="X0" type="int" required="true">x0 coord</param>
+            <param name="Y0" type="int" required="true">y0 coord</param>
+            <param name="X1" type="int" required="true">x1 coord</param>
+            <param name="Y1" type="int" required="true">y1 coord</param></method>
+            <!-- pixel -->
+            <method name="pixel">set pixel 
+            <param name="X" type="int" required="true">x coord</param>
+            <param name="Y" type="int" required="true">y coord</param>
+            <param name="VAL" type="bool" required="false" default="1">new pixel
+            value</param></method>
+            <!-- pixel -->
+            <method name="rect">draw rect 
+            <param name="X" type="int" required="true">x coord</param>
+            <param name="Y" type="int" required="true">y coord</param>
+            <param name="W" type="int" required="true">width</param>
+            <param name="H" type="int" required="true">height</param>
+            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
+            the rect center, not the top-left corner</param></method>
+            <!-- row -->
+            <method name="row">draw draw 
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="W" type="int" required="true">row width, can be negative(!), to draw in
+            opposite right to left</param>
+            <param name="DX" type="int" required="true">x offset</param></method>
+            <!-- sector -->
+            <method name="sector">draw sector 
+            <param name="X" type="int" required="true">x coord</param>
+            <param name="Y" type="int" required="true">y coord</param>
+            <param name="D" type="int" required="true">diameter</param>
+            <param name="START" type="int" required="true" units="degree">start angle. 0 -
+            top</param>
+            <param name="LEN" type="int" required="true" units="degree">arc length,
+            counter-clockwise</param>
+            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
+            the sector center, not the top-left corner</param></method>
+            <!-- set -->
+            <method name="set list">set bitmap content from list 
+            <param name="DATA" type="list" required="true">list of 0 and 1</param></method>
+            <!-- set_matrix -->
+            <method name="set matrix">set matrix data 
+            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of
+            rows</param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of
+            columns</param>
+            <param name="DATA" type="list" required="true">data</param></method>
+            <!-- set matrix_at -->
+            <method name="set matrix_at">set matrix data at specified position 
+            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of
+            rows</param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of
+            columns</param>
+            <param name="AT_ROW" type="int" required="true">row position</param>
+            <param name="AT_COL" type="int" required="true">columns position</param>
+            <param name="DATA" type="list" required="true">data</param></method>
+            <method name="stroke_color">set stroke color 
+            <param name="COLOR" type="int">stroke color (0 or 1)</param></method>
+            <!-- text -->
+            <method name="text">draw text 
+            <param name="X" type="int" required="true">left x-coord</param>
+            <param name="Y" type="int" required="true">bottom y-coord</param>
+            <param name="TXT" type="symbol" required="true">text</param></method>
+            <!-- text color -->
+            <method name="text_color">set text color 
+            <param name="COLOR" type="int">fill color (0, 1 or -1 if no color)</param></method>
+            <!-- save -->
+            <method name="save">save bitmap to PNG file 
+            <param name="PATH" type="symbol">file name, absolute or relative</param></method>
+            <!-- triangle -->
+            <method name="triangle">draw triangle 
+            <param name="X0" type="int" required="true">x0 coord</param>
+            <param name="Y0" type="int" required="true">y0 coord</param>
+            <param name="X1" type="int" required="true">x1 coord</param>
+            <param name="Y1" type="int" required="true">y1 coord</param>
+            <param name="X2" type="int" required="true">x2 coord</param>
+            <param name="Y2" type="int" required="true">y2 coord</param></method>
+            <!-- vshift -->
+            <method name="vshift">vertical shift 
+            <param name="V" type="int" required="true">number of pixels to shift</param></method>
+            <!-- stroke_width -->
+            <method name="stroke_width">set stroke width 
+            <param name="W" type="int" minvalue="0" required="true">new width</param></method>
+            <!-- mirror -->
+            <method name="mirror">mirror bitmap 
+            <param name="AXIS" type="symbol" enum="x y" required="true">mirror
+            axis</param></method>
+            <!-- load -->
+            <method name="load">load image to bitmap 
+            <param name="FILE" type="symbol" required="true">image path, relative or
+            absolute</param>
+            <param name="SCALE" type="float" minvalue="0" default="1">image scale</param></method>
+            <!-- view -->
+            <method name="view">opens bitmap view window</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output as list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[clear #a(            [rect 1 2 10 5 #f(  [mirror x #b1(
+
+  [fill 1 #b(         [clear, ellipse 1 2 10 5 #g(
+
+  [invert #c(         [clear, text 1 6 Hi! #h(
+
+  [fill_color 1 #d(   [clear, line 0 7 15 0 #i(
+
+  [fill_color 0 #e(   [pixel 15 7 #l(
+
+  [stroke_width 1 #j( [triangle 0 0 8 0 4 7 #m(
+
+  [stroke_width 2 #k( [arc 1 1 6 0 270 #n(
+
+  [font FONT_4x6 #o(  [set list 0 1 0 1 0 1 1 #t(
+
+  [font FONT_5x7 #p(  [set matrix 3 3 1 0 1 0 1 0 1 0 1 #u(
+
+  [hshift 1 #r(       [set matrix_at 2 2 6 10 1 0 0 1 #v(
+
+  [hshift -1 #s(      [row 1 10 1 #a1(  [save ~/bitmap.png #c1(
+
+
+
+
+[msg.after bang #x]
+|
+[bitmap 16 8]
+|
+[ui.matrix 8 16]
+
+
+/* ... */
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
+[X f->x] [X g->x] [X h->x] [X i->x] [X j->x] [X k->x]
+[X l->x] [X m->x] [X n->x] [X o->x] [X p->x]
+[X r->x] [X s->x] [X t->x] [X u->x] [X v->x]
+[X a1->x] [X b1->x] [X c1->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

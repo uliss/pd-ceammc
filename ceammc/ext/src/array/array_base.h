@@ -26,7 +26,7 @@ class ArrayPositionProperty : public Property {
     Array* array_;
 
 public:
-    ArrayPositionProperty(Array* arr, const std::string& name, t_float value, PropValueAccess access = PropValueAccess::READWRITE);
+    ArrayPositionProperty(Array* arr, const char* name, t_float value, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override { return { (t_float)v_ }; }
     bool setList(const AtomListView& lv) override;

@@ -24,7 +24,7 @@ namespace ceammc {
 template <typename T>
 class EnumProperty : public Property {
 public:
-    EnumProperty(const std::string& name, T def, PropValueAccess access = PropValueAccess::READWRITE)
+    EnumProperty(const char* name, T def, PropValueAccess access = PropValueAccess::READWRITE)
         : Property(PropertyInfo(name, PropertyInfo::toType<T>()), access)
         , current_idx_(0)
     {
@@ -42,7 +42,7 @@ public:
         setView(PropValueView::MENU);
     }
 
-    EnumProperty(const std::string& name, std::initializer_list<T> values, PropValueAccess access = PropValueAccess::READWRITE)
+    EnumProperty(const char* name, std::initializer_list<T> values, PropValueAccess access = PropValueAccess::READWRITE)
         : Property(PropertyInfo(name, PropertyInfo::toType<T>()), access)
         , current_idx_(0)
     {
@@ -76,6 +76,11 @@ public:
         } else {
             return def;
         }
+    }
+
+    T initialValue() const
+    {
+        return this->info().template initialT<T>();
     }
 
     AtomList get() const override
@@ -156,6 +161,11 @@ public:
         }
     }
 
+    bool updateInitial() final
+    {
+        return this->info().setInitial(value());
+    }
+
 public:
     using value_type = T;
 
@@ -173,13 +183,32 @@ using IntEnumProperty = EnumProperty<t_int>;
  */
 class SymbolEnumProperty : public EnumProperty<t_symbol*> {
 public:
-    SymbolEnumProperty(const std::string& name, t_symbol* def, PropValueAccess access = PropValueAccess::READWRITE);
-    SymbolEnumProperty(const std::string& name, std::initializer_list<t_symbol*> values, PropValueAccess access = PropValueAccess::READWRITE);
-    SymbolEnumProperty(const std::string& name, std::initializer_list<const char*> values, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolEnumProperty(const char* name, t_symbol* def, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolEnumProperty(const char* name, std::initializer_list<t_symbol*> values, PropValueAccess access = PropValueAccess::READWRITE);
+    SymbolEnumProperty(const char* name, std::initializer_list<const char*> values, PropValueAccess access = PropValueAccess::READWRITE);
 
     bool setList(const AtomListView& lv) override;
+    bool setSymbol(t_symbol* s) override;
 
     bool isEqual(const char* str) const { return std::strcmp(value()->s_name, str) == 0; }
+    const char* str() const { return value()->s_name; }
+    t_symbol* symbol() const { return value(); }
+};
+
+class SymbolFloatEnumProperty : public SymbolEnumProperty {
+public:
+    SymbolFloatEnumProperty(const char* name,
+        std::initializer_list<std::pair<t_symbol*, t_float>> values,
+        PropValueAccess access = PropValueAccess::READWRITE);
+
+    SymbolFloatEnumProperty(const char* name,
+        std::initializer_list<std::pair<const char*, t_float>> values,
+        PropValueAccess access = PropValueAccess::READWRITE);
+
+    t_float valuePair() const;
+
+private:
+    std::vector<t_float> data_;
 };
 
 /**

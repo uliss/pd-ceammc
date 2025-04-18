@@ -11,8 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include <algorithm>
 #include <cmath>
 
 #include "ceammc_abstractdata.h"
@@ -32,6 +30,8 @@ constexpr const char* STR_PROP_SIZE = "@size";
 constexpr const char* STR_SIZE = "size";
 constexpr const char* STR_DEFAULT = "...";
 constexpr const char* STR_UI_DT = "ui.dt";
+
+constexpr auto MAX_STATIC_SIZE = (STATIC_STRING_SIZE(string::StaticString) / 2);
 
 static t_rgba COLOR_LIST_TYPE = hex_to_rgba("#00A0C0");
 static t_rgba COLOR_FLOAT_TYPE = hex_to_rgba("#E000A0");
@@ -62,6 +62,36 @@ static inline const t_rgba& msg_color(UIMessageType type)
     }
 }
 
+static const char* str_escape(const std::string& str, std::string& buf)
+{
+    buf.reserve(str.size() * 2);
+
+    for (auto ch : str) {
+        if (ch == '{' || ch == '}' || ch == '\\')
+            buf.push_back('\\');
+
+        buf.push_back(ch);
+    }
+
+    return buf.c_str();
+}
+
+static const char* static_escape(const std::string& str, string::StaticString& buf)
+{
+    try {
+        for (auto ch : str) {
+            if (ch == '{' || ch == '}' || ch == '\\')
+                buf.push_back('\\');
+
+            buf.push_back(ch);
+        }
+
+        return buf.c_str();
+    } catch (std::exception& e) {
+        return "";
+    }
+}
+
 class AutoGuard {
     bool& v_;
 
@@ -83,7 +113,7 @@ UIDisplay::UIDisplay()
     , prop_active_color(rgba_white)
     , timer_(this, &UIDisplay::onClock)
     , last_update_(clock_getlogicaltime())
-    , msg_type_(gensym(STR_DEFAULT))
+    , msg_type_(STR_DEFAULT)
     , on_bang_(false)
     , type_(MSG_TYPE_ANY)
 {
@@ -115,51 +145,31 @@ void UIDisplay::init(t_symbol* name, const AtomListView& args, bool usePresets)
         prop_display_type = 1;
 }
 
-void UIDisplay::paint(const char* txt)
+void UIDisplay::paint(const char* txt, const char* type)
 {
     sys_vgui("ui::display_update %s %lx %s %d %d %d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x "
-             "%d {%s} [subst -nocommands -novariables {%s}]\n",
+             "%d [subst -nocommands -novariables {%s}] [subst -nocommands -novariables {%s}]\n",
         asEBox()->b_canvas_id->s_name, asEBox(), rid_->s_name,
         (int)width(), (int)height(), (int)zoom(), (int)auto_,
         rgba_to_hex_int(prop_color_border),
         rgba_to_hex_int(on_bang_ ? prop_active_color : prop_color_background),
         rgba_to_hex_int(prop_text_color),
         rgba_to_hex_int(msg_color(type_)),
-        prop_display_type, msg_type_->s_name,
-        txt);
+        prop_display_type,
+        type, txt);
 }
 
 void UIDisplay::paint()
 {
-    auto escaped = msg_txt_.find_first_of("{}");
-    if (escaped == std::string::npos) {
-        paint(msg_txt_.c_str());
-    } else if (msg_txt_.size() < (STATIC_STRING_SIZE(string::StaticString) / 2)) {
-        try {
-            string::StaticString buf;
-            for (auto ch : msg_txt_) {
-                if (ch == '{' || ch == '}')
-                    buf.push_back('\\');
-
-                buf.push_back(ch);
-            }
-
-            paint(buf.c_str());
-        } catch (std::exception& e) {
-            UI_ERR << e.what();
-        }
+    if (!needEscaping()) {
+        paint(msg_txt_.c_str(), msg_type_.c_str());
+    } else if (msg_txt_.size() < MAX_STATIC_SIZE && msg_type_.size() < MAX_STATIC_SIZE) {
+        string::StaticString buf1, buf2;
+        paint(static_escape(msg_txt_, buf1), static_escape(msg_type_, buf2));
     } else {
-        std::string buf;
-        buf.reserve(msg_txt_.size() * 2);
-        for (auto ch : msg_txt_) {
-            if (ch == '{' || ch == '}')
-                buf.push_back('\\');
-
-            buf.push_back(ch);
-        }
-
-        paint(buf.c_str());
+        std::string buf1, buf2;
+        paint(str_escape(msg_txt_, buf1), str_escape(msg_type_, buf2));
     }
 }
 
@@ -176,7 +186,7 @@ void UIDisplay::onBang()
 {
     AutoGuard g(auto_);
     msg_txt_ = "";
-    msg_type_ = &s_bang;
+    msg_type_ = s_bang.s_name;
     type_ = MSG_TYPE_BANG;
 
     flash();
@@ -217,7 +227,7 @@ void UIDisplay::onFloat(t_float f)
 
     msg_txt_.clear();
     appendFloatToText(f);
-    msg_type_ = &s_float;
+    msg_type_ = s_float.s_name;
     type_ = MSG_TYPE_FLOAT;
 
     flash();
@@ -229,7 +239,7 @@ void UIDisplay::onSymbol(t_symbol* s)
     AutoGuard g(auto_);
 
     msg_txt_ = s->s_name;
-    msg_type_ = &s_symbol;
+    msg_type_ = s_symbol.s_name;
     type_ = MSG_TYPE_SYMBOL;
 
     flash();
@@ -239,7 +249,7 @@ void UIDisplay::onSymbol(t_symbol* s)
 void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv)
 {
     type_ = t;
-    msg_type_ = s;
+    msg_type_ = s->s_name;
 
     msg_txt_.clear();
 
@@ -265,6 +275,12 @@ void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv)
         } else
             msg_txt_ += to_string(a);
     }
+}
+
+bool UIDisplay::needEscaping() const
+{
+    return msg_txt_.find_first_of("{}\\") != std::string::npos
+        || msg_type_.find_first_of("{}\\") != std::string::npos;
 }
 
 void UIDisplay::onList(const AtomListView& lv)
@@ -322,7 +338,7 @@ const std::string& UIDisplay::text() const
 
 const std::string UIDisplay::type() const
 {
-    return msg_type_->s_name;
+    return msg_type_;
 }
 
 const char* UIDisplay::annotateInlet(int /*n*/) const
@@ -367,12 +383,24 @@ void UIDisplay::m_resize(const AtomListView& lv)
 
 void UIDisplay::copyToClipboard(bool whole)
 {
-    if (whole) {
-        sys_vgui("ui::display_copy {%s %s}\n", msg_type_->s_name, msg_txt_.c_str());
-        UI_DBG << "copy to the clipboard: \"" << msg_type_->s_name << ' ' << msg_txt_ << '"';
+    if (!needEscaping()) {
+        if (whole) {
+            sys_vgui("ui::display_copy {%s %s}\n", msg_type_.c_str(), msg_txt_.c_str());
+            UI_DBG << "copy to the clipboard: \"" << msg_type_ << ' ' << msg_txt_ << '"';
+        } else {
+            sys_vgui("ui::display_copy {%s}\n", msg_txt_.c_str());
+            UI_DBG << "copy to the clipboard: \"" << msg_txt_ << '"';
+        }
     } else {
-        sys_vgui("ui::display_copy {%s}\n", msg_txt_.c_str());
-        UI_DBG << "copy to the clipboard: \"" << msg_txt_ << '"';
+        if (whole) {
+            std::string buf1, buf2;
+            sys_vgui("ui::display_copy [subst -nocommands -novariables {%s %s}]\n", str_escape(msg_type_, buf1), str_escape(msg_txt_, buf2));
+            UI_DBG << "copy to the clipboard: \"" << msg_type_ << ' ' << msg_txt_ << '"';
+        } else {
+            std::string buf;
+            sys_vgui("ui::display_copy [subst -nocommands -novariables {%s}]\n", str_escape(msg_txt_, buf));
+            UI_DBG << "copy to the clipboard: \"" << msg_txt_ << '"';
+        }
     }
 }
 

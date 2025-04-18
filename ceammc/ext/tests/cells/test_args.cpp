@@ -48,6 +48,21 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("a{2}", LF(1, 2)));
         REQUIRE_FALSE(args::check_args("a{2}", LF(1)));
         REQUIRE_FALSE(args::check_args("a{2}", LF(1, 2, 3)));
+        REQUIRE_FALSE(args::check_args("a=A", A("D")));
+        REQUIRE(args::check_args("a=A", A("A")));
+        REQUIRE_FALSE(args::check_args("a=1", A("1")));
+        REQUIRE(args::check_args("a=1", A(1)));
+        REQUIRE(args::check_args("a=-25", A(-25)));
+        REQUIRE_FALSE(args::check_args("a=1", A(2)));
+        REQUIRE(args::check_args("a=1.0", A(1)));
+        REQUIRE_FALSE(args::check_args("a=1.0", A(1.25)));
+        REQUIRE_FALSE(args::check_args("a=1", A("1")));
+        REQUIRE_FALSE(args::check_args("a=A|B|C", A("D")));
+        REQUIRE(args::check_args("a=A|B|C", A("A")));
+        REQUIRE(args::check_args("a=A|B|C", A("B")));
+        REQUIRE(args::check_args("a=A|B|C", A("C")));
+        REQUIRE(args::check_args("a=+1|B|C", A(1)));
+        REQUIRE_FALSE(args::check_args("a=1|2|C", A(5)));
     }
 
     SECTION("bool")
@@ -317,10 +332,10 @@ TEST_CASE("args2", "[core]")
     SECTION("mixed")
     {
         args::ArgMatchList ml;
-        REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B"), nullptr, &ml));
+        REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B"), nullptr, &s_, &ml));
         REQUIRE(ml.size() == 4);
         REQUIRE(args::check_args("a f<0 i+ s=A|BC*", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC")));
-        REQUIRE(args::check_args("A:a f<0 i[1,5]+ NAME:s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100), nullptr, &ml));
+        REQUIRE(args::check_args("A:a f<0 i[1,5]+ NAME:s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100), nullptr, &s_, &ml));
         REQUIRE(ml.size() == 5);
     }
 
@@ -332,7 +347,7 @@ TEST_CASE("args2", "[core]")
     {                                                       \
         args::ArgMatchList ml;                              \
         AtomList largs = lst;                               \
-        args::check_args(fmt, largs, nullptr, &ml);         \
+        args::check_args(fmt, largs, nullptr, &s_, &ml);    \
         REQUIRE(ml.size() == n);                            \
         REQUIRE(ml == args::ArgMatchList({ __VA_ARGS__ })); \
     }
@@ -340,6 +355,7 @@ TEST_CASE("args2", "[core]")
         REQUIRE_MATCH("i?", LF(500), 1, LF(500));
         REQUIRE_MATCH("i?", L(), 1, L());
         REQUIRE_MATCH("i{2,3} i?", LF(1, 2), 2, LF(1, 2), L());
+        REQUIRE_MATCH("i{2,3000} i?", LF(1, 2), 2, LF(1, 2), L());
         REQUIRE_MATCH("i{2,3} i?", LF(1, 2, 3), 2, LF(1, 2, 3), L());
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3), 3, LF(1, 2, 3), L(), L());
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A"), 3, LF(1, 2, 3), L(), LA("A"));
@@ -355,5 +371,25 @@ TEST_CASE("args2", "[core]")
         REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "A1", "A2"), nullptr));
         REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "@param", "A2"), nullptr));
         REQUIRE(!ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "@param", 10), nullptr));
+    }
+
+    SECTION("usage string")
+    {
+        using namespace args;
+        REQUIRE(ArgChecker("").usage_str() == "");
+        REQUIRE(ArgChecker("X:i").usage_str() == "usage: X\n  - X          (type: int)");
+        REQUIRE(ArgChecker("X:i>0").usage_str() == "usage: X\n  - X          (type: int, check: >0)");
+        REQUIRE(ArgChecker("X:f~1").usage_str() == "usage: X\n  - X          (type: float, check: ~1)");
+        REQUIRE(ArgChecker("X:s=a|b").usage_str() == "usage: X\n  - X          (type: symbol, enum: 'a'|'b')");
+        REQUIRE(ArgChecker("X:i=0|1").usage_str() == "usage: X\n  - X          (type: int, enum: 0|1)");
+
+        REQUIRE(ArgChecker("X:i Y:B").usage_str() == "usage: X Y\n"
+                                                     "  - X          (type: int)\n"
+                                                     "  - Y          (type: bool)");
+
+        REQUIRE(ArgChecker("X:b Y:B").usage_str(gensym("test")) == "'test' method usage:\n"
+                                                                   "[test X Y(\n"
+                                                                   "  - X          (type: byte)\n"
+                                                                   "  - Y          (type: bool)");
     }
 }

@@ -33,13 +33,10 @@ void register_flext_external(t_class* c)
 
 bool is_ceammc(t_object* x)
 {
-    if (is_ceammc_base(x)
+    return is_ceammc_base(x)
         || is_ceammc_ui(x)
         || is_ceammc_flext(x)
-        || is_ceammc_abstraction(x))
-        return true;
-
-    return false;
+        || is_ceammc_abstraction(x);
 }
 
 bool is_ceammc_base(t_object* x)
@@ -111,7 +108,7 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
             continue;
 
         p->get();
-        res.push_back(p->infoT());
+        res.push_back(p->info());
     }
 
     return res;
@@ -231,7 +228,7 @@ PropertySetState ceammc_base_property_set_cc(t_object* x, t_symbol* key, t_float
     if (!prop)
         return PPS::ERROR_PROP_NOT_FOUND;
 
-    auto& info = prop->infoT();
+    auto& info = prop->info();
     // check rw
     if (!info.isReadWrite())
         return PPS::ERROR_ACCESS;

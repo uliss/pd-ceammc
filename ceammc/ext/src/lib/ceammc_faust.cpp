@@ -58,7 +58,7 @@ namespace {
         void operator()(const osc::OscMessageMidi& midi) { }
         void operator()(const osc::OscMessageBlob& blob) { }
     };
-}
+} // namespace
 
 namespace faust {
 
@@ -590,5 +590,5 @@ namespace faust {
             }
         }
     }
-}
-}
+} // namespace faust
+} // namespace ceammc

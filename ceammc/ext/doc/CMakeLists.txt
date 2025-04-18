@@ -27,6 +27,13 @@ else()
         date:   ${BUILD_DATETIME}")
 endif()
 
+add_custom_target(gen_release_info
+    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang en ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}"
+    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang ru ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}_ru"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    USES_TERMINAL)
+
+
 # generating about info page
 set(CEAMMC_OBJECT_COUNT 800)
 find_program(WC NAMES wc)
@@ -149,12 +156,17 @@ set(EXTRA_DOC_FILES prs.txt stargazing.mod)
 file(GLOB _PDDOC_WAV "*.wav")
 file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
 file(GLOB _PDDOC_INFOS "*-info.pd")
+file(GLOB _PDDOC_EXAMPLES2 "*-example.pd")
 file(GLOB _PDDOC_GLITCH "*.glitch")
 
 # install extra files
-install(FILES ${EXTRA_DOC_FILES}
+install(
+    FILES
+        ceammc_deken_objlist.txt
+        ${EXTRA_DOC_FILES}
         ${_PDDOC_WAV}
         ${_PDDOC_EXAMPLES}
+        ${_PDDOC_EXAMPLES2}
         ${_PDDOC_INFOS}
         ${_PDDOC_GLITCH}
         ui.plot~.lin1-help.pd
@@ -213,7 +225,18 @@ endif()
 
 file(GLOB _PDDOC_FILES "*.pddoc")
 file(GLOB _PDDOC_XML_FILES "*.xml")
-add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES} ${_PDDOC_XML_FILES} ceammc.db ls_missing_doc.py)
+add_custom_target(pddoc_files SOURCES
+    ${_PDDOC_FILES}
+    ${_PDDOC_XML_FILES}
+    ceammc.db
+    ls_missing_doc.py
+)
+add_custom_target(dev_gen_rpi_doc
+    SOURCES gen_rpi_gpio.py gen_rpi_gpio.sh
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/gen_rpi_gpio.sh
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    USES_TERMINAL
+)
 file(GLOB _PDDOC_PD_FILES "*.pd")
 add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
 file(GLOB _PDDOC_FAUST_FILES "faust/*")

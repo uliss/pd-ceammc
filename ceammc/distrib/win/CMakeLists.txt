@@ -60,6 +60,10 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/calc_checksums.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_mingw64_deps.sh
                    ${PROJECT_BINARY_DIR}/scripts/install_mingw64_deps.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_faust.sh
+                   ${PROJECT_BINARY_DIR}/scripts/build_faust.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_verovio.sh
+                   ${PROJECT_BINARY_DIR}/scripts/build_verovio.sh @ONLY)
 
    add_custom_target(dev_fixdll
        COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.py"
@@ -140,8 +144,6 @@ if(ISCC_PATH)
         COMMAND ${ISCC_PATH} "${PROJECT_BINARY_DIR}/dist/pd.iss"
         USES_TERMINAL)
 endif()
-
-add_subdirectory(homebrew)
 
 if(WIN32)
     install(DIRECTORY fonts DESTINATION ${CMAKE_INSTALL_PREFIX})

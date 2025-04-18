@@ -23,10 +23,9 @@ class PropertyPitch : public AtomProperty {
     music::PitchClass pitch_;
 
 public:
-    PropertyPitch(const std::string& name, const music::PitchClass& def = music::PitchClass::C, PropValueAccess access = PropValueAccess::READWRITE);
+    PropertyPitch(const char* name, const music::PitchClass& def = music::PitchClass::C, PropValueAccess access = PropValueAccess::READWRITE);
 
     const music::PitchClass& pitch() const { return pitch_; }
-
 };
 
 }

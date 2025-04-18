@@ -12,12 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "iodisplay.h"
-#include "ceammc_log.h"
 
 #include <IOKit/IOKitLib.h>
 #include <IOKit/graphics/IOGraphicsLib.h>
-
-using namespace ceammc;
 
 namespace io_display {
 

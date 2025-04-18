@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.risset_arp~">
         <title>synth.risset_arp~</title>
@@ -7,7 +7,9 @@
                 <author>Oliver Larkin</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Jean Claude Risset's harmonic arpeggio effect</description>
+            <description>
+                <tr lang="en">Jean Claude Risset's harmonic arpeggio effect</tr>
+            </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>

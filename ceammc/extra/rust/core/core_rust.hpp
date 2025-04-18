@@ -7,6 +7,22 @@
 #include <cstddef>
 
 
+enum class ceammc_core_bitmap_axis {
+    X,
+    Y,
+};
+
+enum class ceammc_core_bitmap_output_format {
+    LIST,
+    MATRIX,
+};
+
+enum class ceammc_core_log_level {
+    DEBUG,
+    INFO,
+    ERROR,
+};
+
 enum class ceammc_mdns_iface {
     ANY,
     V4,
@@ -26,6 +42,8 @@ enum class ceammc_mdns_rc {
     SERVICENOTFOUND,
 };
 
+struct ceammc_core_async_bitmap;
+
 struct ceammc_mdns;
 
 struct ceammc_net_addr4;
@@ -41,6 +59,32 @@ struct ceammc_net_iface_addr4;
 struct ceammc_net_iface_addr6;
 
 struct ceammc_net_ifaces;
+
+struct ceammc_core_notify {
+    /**
+     * dispatcher ID
+     */
+    size_t id;
+    /**
+     * dispatcher callback (not NULL!)
+     */
+    void (*f)(size_t id);
+};
+
+struct ceammc_core_bitmap_on_data {
+    void *user;
+    void (*cb)(void *user, uint16_t rows, uint16_t cols, ceammc_core_bitmap_output_format format, const uint8_t *data, size_t len);
+};
+
+struct ceammc_core_bitmap_on_view {
+    void *user;
+    void (*cb)(void *user, const char *base64_str);
+};
+
+struct ceammc_core_on_msg {
+    void *user;
+    void (*cb)(void *user, ceammc_core_log_level level, const char *msg);
+};
 
 struct ceammc_mdns_cb_err {
     void *user;
@@ -145,12 +189,211 @@ struct ceammc_mdns_service_info_register {
     ceammc_mdns_iface iface;
 };
 
-struct ceammc_net_err_cb {
-    void *user;
-    void (*cb)(void *user, const char *msg);
-};
-
 extern "C" {
+
+bool ceammc_bitmap_clear(ceammc_core_async_bitmap *bitmap);
+
+/**
+ * draw open arc
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param diam - correspoding circle diameter
+ * @param angle_start - start angle in degrees, 0º - NORD orientation
+ * @param arc_length - length in degrees, 360º - full circle
+ * @param center - use center coord as origin
+ */
+bool ceammc_bitmap_draw_arc(ceammc_core_async_bitmap *bitmap,
+                            int16_t x,
+                            int16_t y,
+                            uint16_t diam,
+                            float angle_start,
+                            float arc_length,
+                            bool center);
+
+/**
+ * draw circle
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param diam - circle diameter
+ * @param center - use center coord as origin
+ */
+bool ceammc_bitmap_draw_circle(ceammc_core_async_bitmap *bitmap,
+                               int16_t x,
+                               int16_t y,
+                               uint16_t diam,
+                               bool center);
+
+bool ceammc_bitmap_draw_column(ceammc_core_async_bitmap *bitmap,
+                               uint16_t col,
+                               int16_t height,
+                               int16_t offset);
+
+/**
+ * draw ellipse
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param w - ellipse width
+ * @param h - ellipse height
+ * @param center - use center coord as origin
+ */
+bool ceammc_bitmap_draw_ellipse(ceammc_core_async_bitmap *bitmap,
+                                int16_t x,
+                                int16_t y,
+                                uint16_t w,
+                                uint16_t h,
+                                bool center);
+
+/**
+ * draw line
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x0 - start x coord
+ * @param y0 - start y coord
+ * @param x1 - end x coord
+ * @param y1 - end y coord
+ */
+bool ceammc_bitmap_draw_line(ceammc_core_async_bitmap *bitmap,
+                             int16_t x0,
+                             int16_t y0,
+                             int16_t x1,
+                             int16_t y1);
+
+bool ceammc_bitmap_draw_pixel(ceammc_core_async_bitmap *bitmap, uint16_t x, uint16_t y, bool value);
+
+/**
+ * draw rect
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param w - rect width
+ * @param h - rect height
+ * @param center - use center coord as origin
+ */
+bool ceammc_bitmap_draw_rect(ceammc_core_async_bitmap *bitmap,
+                             int16_t x,
+                             int16_t y,
+                             uint16_t w,
+                             uint16_t h,
+                             bool center);
+
+bool ceammc_bitmap_draw_row(ceammc_core_async_bitmap *bitmap,
+                            uint16_t row,
+                            int16_t width,
+                            int16_t offset);
+
+/**
+ * draw filled sector
+ * @param bitmap - bitmap pointer (nullable)
+ * @param x - left or center x coord
+ * @param y - top or center y coord
+ * @param diam - correspoding circle diameter
+ * @param angle_start - start angle in degrees, 0º - NORD orientation
+ * @param arc_length - length in degrees, 360º - full circle
+ * @param center - use center coord as origin
+ */
+bool ceammc_bitmap_draw_sector(ceammc_core_async_bitmap *bitmap,
+                               int16_t x,
+                               int16_t y,
+                               uint16_t diam,
+                               float angle_start,
+                               float arc_length,
+                               bool center);
+
+/**
+ * draw text on bitmap
+ * @param bitmap - bitmap pointer (nullable)
+ * @param txt - text C-string
+ * @param x - start left coord
+ * @param y - start bottom coord
+ */
+bool ceammc_bitmap_draw_text(ceammc_core_async_bitmap *bitmap,
+                             const char *txt,
+                             int16_t x,
+                             int16_t y);
+
+bool ceammc_bitmap_draw_triangle(ceammc_core_async_bitmap *bitmap,
+                                 int16_t x0,
+                                 int16_t y0,
+                                 int16_t x1,
+                                 int16_t y1,
+                                 int16_t x2,
+                                 int16_t y2);
+
+bool ceammc_bitmap_fill(ceammc_core_async_bitmap *bitmap, bool value);
+
+bool ceammc_bitmap_font(ceammc_core_async_bitmap *bitmap, const char *font);
+
+/**
+ * free bitmap struct and stops worker thread
+ * @param bitmap - bitmap pointer (nullable)
+ */
+void ceammc_bitmap_free(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_get_data(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_get_matrix(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_get_submatrix(ceammc_core_async_bitmap *bitmap,
+                                 uint16_t row,
+                                 uint16_t col,
+                                 uint16_t num_rows,
+                                 uint16_t num_cols);
+
+bool ceammc_bitmap_hshift(ceammc_core_async_bitmap *bitmap, int16_t dx);
+
+bool ceammc_bitmap_invert(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_invert_axis(ceammc_core_async_bitmap *bitmap, ceammc_core_bitmap_axis axis);
+
+bool ceammc_bitmap_load(ceammc_core_async_bitmap *bitmap, const char *path, float scale);
+
+/**
+ * create bitmap struct and starts separate worker thread(!)
+ * @param w - bitmap width in pixels
+ * @param h - bitmap height in pixels
+ * @param notify - notify callback called when some processing result is ready
+ * @param on_data - data callback
+ * @param on_err - error callback
+ * @return point to bitmap or NULL on error
+ */
+ceammc_core_async_bitmap *ceammc_bitmap_new(uint16_t w,
+                                            uint16_t h,
+                                            ceammc_core_notify notify,
+                                            ceammc_core_bitmap_on_data on_data,
+                                            ceammc_core_bitmap_on_view on_view,
+                                            ceammc_core_on_msg on_msg);
+
+/**
+ * process ready bitmap data
+ * @param bitmap - bitmap pointer (nullable)
+ */
+void ceammc_bitmap_process(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_save_to_png(ceammc_core_async_bitmap *bitmap, const char *path);
+
+bool ceammc_bitmap_set_data(ceammc_core_async_bitmap *bitmap, const uint8_t *data, size_t len);
+
+bool ceammc_bitmap_set_fill_color(ceammc_core_async_bitmap *bitmap, int8_t color);
+
+bool ceammc_bitmap_set_matrix(ceammc_core_async_bitmap *bitmap,
+                              uint16_t nrows,
+                              uint16_t ncols,
+                              uint16_t at_row,
+                              uint16_t at_col,
+                              const uint8_t *data,
+                              size_t len);
+
+bool ceammc_bitmap_set_stroke_color(ceammc_core_async_bitmap *bitmap, int8_t color);
+
+bool ceammc_bitmap_set_stroke_width(ceammc_core_async_bitmap *bitmap, uint8_t width);
+
+bool ceammc_bitmap_set_text_color(ceammc_core_async_bitmap *bitmap, int8_t color);
+
+bool ceammc_bitmap_view(ceammc_core_async_bitmap *bitmap);
+
+bool ceammc_bitmap_vshift(ceammc_core_async_bitmap *bitmap, int16_t dy);
 
 /**
  * create new MDNS service handler
@@ -277,8 +520,9 @@ bool ceammc_net_addr4_is_unspec(const ceammc_net_addr4 *x);
 
 /**
  * @param x - non NULL!
+ * @param octets - pointer to ipv4 octets memory, should hold 4 bytes
  */
-const uint8_t *ceammc_net_addr4_octets(const ceammc_net_addr4 *x);
+void ceammc_net_addr4_octets(const ceammc_net_addr4 *x, uint8_t *octets);
 
 /**
  * @param x - non NULL!
@@ -302,8 +546,9 @@ bool ceammc_net_addr6_is_unspec(const ceammc_net_addr6 *x);
 
 /**
  * @param x - non NULL!
+ * @param - pointer to octets memory, should hold at least 16 bytes
  */
-const uint8_t *ceammc_net_addr6_octets(const ceammc_net_addr6 *x);
+void ceammc_net_addr6_octets(const ceammc_net_addr6 *x, uint8_t *octets);
 
 /**
  * @param x - non NULL!
@@ -387,11 +632,11 @@ bool ceammc_net_is_ifa_v6(const ceammc_net_iface_addr *va);
 /**
  * return pointer to network interface list
  * you should free it with ceammc_net_free_interfaces
- * @param err_cb - error callbacks (can be NULL)
+ * @param msg_cb - message callbacks (can be NULL)
  * @return pointer to interface list or NULL on error
  */
 __attribute__((warn_unused_result))
-ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_net_err_cb err_cb);
+ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_core_on_msg msg_cb);
 
 /**
  * init rust env_logger

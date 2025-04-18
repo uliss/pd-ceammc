@@ -1,6 +1,30 @@
 package provide ceammc_patheditor 0.1
 
 namespace eval ::ceammc {
+namespace eval dialog {
+    proc escape2pd {str} {
+        return [string map {";" "\\;" "\$" "\\\$" " " "\\ "} $str]
+    }
+
+    proc choose_file {path wid} {
+        set new_path [tk_getOpenFile -initialfile $path]
+        $wid delete 0 end
+        $wid insert 0 $new_path
+        focus $wid
+    }
+
+    proc choose_dir {path wid} {
+        puts "Not implemented!";
+    }
+
+    proc choose_color_hex {wid} {
+        set color [tk_chooseColor -initialcolor [$wid cget -readonlybackground]]
+        $wid configure -readonlybackground $color
+        focus $wid
+        return $color
+    }
+}
+
 namespace eval patheditor {
 
     proc open {name title geometry path} {

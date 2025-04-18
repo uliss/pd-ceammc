@@ -13,7 +13,7 @@ target_include_directories(test_ext_wrapper
 
 target_link_libraries(test_ext_wrapper PUBLIC
     tests_main_lib
-    wrapper_lib
+    ceammc_wrapper
     ceammc_core
     puredata-core)
 

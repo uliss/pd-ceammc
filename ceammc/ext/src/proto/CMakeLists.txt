@@ -47,6 +47,19 @@ if(WITH_LTC)
     endif()
 endif()
 
+if(WITH_OBS)
+    target_sources(ceammc_proto PRIVATE
+        proto_rust_struct.hpp
+        proto_obs_client.h
+        proto_obs_client.cpp
+    )
+    target_include_directories(ceammc_proto PRIVATE
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/proto
+    )
+    target_link_libraries(ceammc_proto PUBLIC proto_rust)
+endif()
+
 target_sources(ceammc_proto
     PRIVATE
         parser_vlc.cpp

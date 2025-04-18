@@ -51,7 +51,7 @@ t_symbol* class_get_method_name(t_class* c, int n)
 {
     return class_get_method<T>(c, n)->me_name;
 }
-}
+} // namespace
 
 namespace ceammc {
 

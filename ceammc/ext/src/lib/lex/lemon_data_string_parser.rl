@@ -1,14 +1,16 @@
 # include "lemon_data_string_parser.h"
-# include "ceammc_log.h"
 # include "lemon_data_string.h"
 # include "parser_numeric.h"
 # include "parser_color.h"
-# include "fmt/format.h"
-# include "ceammc_datatypes.h"
+# include "fmt/core.h"
+# include "ceammc_string_types.h"
+# include "lemon_data_parser_impl.h"
+
+# ifndef NDEBUG
+# include "ceammc_log.h"
+# endif
 
 # include <cstdint>
-
-# include "lemon_data_parser_impl.h"
 
 namespace {
 

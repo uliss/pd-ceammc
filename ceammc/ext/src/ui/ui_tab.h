@@ -22,7 +22,7 @@
 
 using namespace ceammc;
 
-typedef std::shared_ptr<UITextLayout> Layout;
+using Layout = std::unique_ptr<UITextLayout>;
 
 class UITab : public UIObject {
     AtomList items_;

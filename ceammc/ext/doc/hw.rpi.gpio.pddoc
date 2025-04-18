@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.gpio">
+        <title>hw.rpi.gpio</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">GPIO control for Raspberry Pi</tr>
+                <tr lang="ru">управление GPIO на Raspberry Pi</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display gpio raspberry</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <methods>
+            <method name="input">config pin into input mode 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="output">config pin into output mode 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="read">read current pin value 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="reset">reset current pin to initial state 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="write">write value to the pin 
+            <param name="PIN" type="int" required="true">pin number</param>
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <method name="toggle">toggle output pin current value 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="poll">start/stop pin value polling 
+            <param name="PIN" type="int" required="true">pin number</param>
+            <param name="STATE" type="bool" required="true">poll state</param>
+            <param name="DEBOUNCE" type="float" minvalue="0" default="10" units="millisecond">
+            debounce time</param></method>
+            <method name="pull_up">pull internal pin resistors to high level 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="pull_down">pull internal pin resistors to low level 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="soft_pwm">set software PWM for pin 
+            <param name="PIN" type="int" required="true">pin number</param>
+            <param name="PERIOD" type="float" units="msec" minvalue="0" required="true">period
+            length</param>
+            <param name="DUTY" type="float" units="msec" minvalue="0" required="true">duty
+            length</param></method>
+            <method name="soft_pwm_freq">set software PWM frequency for pin 
+            <param name="PIN" type="int" required="true">pin number</param>
+            <param name="FREQ" type="float" units="hertz" minvalue="0" required="true">pwm
+            freq</param>
+            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty cycle
+            length</param></method>
+            <method name="clear_pwm">clear PWM settings for pin 
+            <param name="PIN" type="int" required="true">pin number</param></method>
+            <method name="used_pins">list used GPIO pins. Outputs [pins PIN...( message</method>
+            <!-- impulse -->
+            <method name="impulse">send impulse of specified length 
+            <param name="LENGTH" type="int" required="true" minvalue="0.001" maxvalue="100"
+            units="millisecond">impulse length</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>messages: [pin PIN STATE(, [pins PIN PIN...(</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadbang]
+|
+[input 17, pull_up 17, output 18(
+|
+| [read 17 #a(        [T] [toggle 18 #f(
+|                     |
+| [T]                 [write 18 $1 #e(
+| |
+| [poll 17 $1 #c(     [read 18 #g(
+|
+| [reset 17 #d(       [soft_pwm 18 500 100 #j( [soft_pwm_freq 18 4 0.5 #k(
+|
+|                     [clear_pwm 18 #l(
+|
+|                     [reset 18 #h(
+|
+[hw.rpi.gpio #x]
+|
+[route pin]
+|
+[ui.dt]
+
+[ui.link @url=ceammc://img/conn_gpio1.png @title='Connection_Scheme']
+
+[ui.link @url=ceammc://hw.rpi.gpio-example.pd @title='GPIO_control']
+
+[X a->x] [X b->x] [X c->x] [X d->x]
+[X e->x] [X f->x] [X g->x] [X h->x]
+[X j->x] [X k->x] [X l->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -20,7 +20,7 @@ constexpr int MAX_DIV = 1024;
 
 namespace ceammc {
 
-DurationProperty::DurationProperty(const std::string& name, const music::Duration& dur, PropValueAccess access)
+DurationProperty::DurationProperty(const char* name, const music::Duration& dur, PropValueAccess access)
     : SymbolProperty(name, gensym(dur.toString().c_str()), access)
 {
 }

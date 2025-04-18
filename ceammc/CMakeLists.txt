@@ -26,6 +26,7 @@ find_program(PD_MAKELIB pd_makelibrary)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_LIB2DEKEN pd_lib2deken)
 find_program(PD_CAT2PD pd_cat2pd)
+find_program(PD_RELEASE_INFO pd_release_info)
 
 set(CEAMMC_INSTALL_PATH ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
 set(CEAMMC_FAUST_TARGETS "" CACHE INTERNAL "")

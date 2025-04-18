@@ -118,4 +118,4 @@ ObjectInfoStorage::Info::Info()
 {
 }
 
-}
+} // namespace ceammc

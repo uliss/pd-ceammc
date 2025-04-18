@@ -88,6 +88,13 @@ private:
     {
         setPixel(cursor_.x, cursor_.y, value);
     }
+
+    void setCol(const AtomListView& lv);
+    void setCursor(const AtomListView& lv);
+    void setList(const AtomListView& lv);
+    void setMatrix(const AtomListView& lv);
+    void setPixel(const AtomListView& lv);
+    void setRow(const AtomListView& lv);
 };
 
 }

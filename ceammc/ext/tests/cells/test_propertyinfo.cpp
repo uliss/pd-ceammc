@@ -109,7 +109,7 @@ TEST_CASE("PropertyInfo", "[core]")
 
         SECTION("float")
         {
-            PropertyInfo pi("@float", PropertyInfo::toType<t_float>());
+            PropertyInfo pi(SYM("@float"), PropertyInfo::toType<t_float>());
             REQUIRE(pi.name() == gensym("@float"));
             REQUIRE(pi.type() == PropValueType::FLOAT);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
@@ -256,7 +256,7 @@ TEST_CASE("PropertyInfo", "[core]")
 
         SECTION("int")
         {
-            PropertyInfo pi("@int", PropertyInfo::toType<int>());
+            PropertyInfo pi(SYM("@int"), PropertyInfo::toType<int>());
             REQUIRE(pi.name() == gensym("@int"));
             REQUIRE(pi.type() == PropValueType::INTEGER);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
@@ -400,7 +400,7 @@ TEST_CASE("PropertyInfo", "[core]")
 
         SECTION("symbol")
         {
-            PropertyInfo pi("@symbol", PropertyInfo::toType<t_symbol*>());
+            PropertyInfo pi(SYM("@symbol"), PropertyInfo::toType<t_symbol*>());
             REQUIRE(pi.name() == gensym("@symbol"));
             REQUIRE(pi.type() == PropValueType::SYMBOL);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
@@ -453,7 +453,9 @@ TEST_CASE("PropertyInfo", "[core]")
             // set view
             REQUIRE(pi.setView(PropValueView::ENTRY));
             REQUIRE(pi.setView(PropValueView::MENU));
-            REQUIRE_FALSE(pi.setView(PropValueView::COLOR));
+            REQUIRE(pi.setView(PropValueView::COLOR));
+            REQUIRE(pi.setView(PropValueView::FILEPATH));
+            REQUIRE(pi.setView(PropValueView::DIRPATH));
             REQUIRE_FALSE(pi.setView(PropValueView::KNOB));
             REQUIRE_FALSE(pi.setView(PropValueView::NUMBOX));
             REQUIRE_FALSE(pi.setView(PropValueView::SLIDER));
@@ -477,7 +479,7 @@ TEST_CASE("PropertyInfo", "[core]")
     {
         SECTION("float")
         {
-            PropertyInfo pi("@float", PropertyInfo::toType<t_float>());
+            PropertyInfo pi(SYM("@float"), PropertyInfo::toType<t_float>());
 
             DataTypeDict d;
             REQUIRE(pi.getDict(d));
@@ -505,6 +507,145 @@ TEST_CASE("PropertyInfo", "[core]")
             REQUIRE(pi.getDict(d));
             REQUIRE(*d.toJSON()
                 == R"({"access":"readonly","constraints":">=","default":100,"min":-10,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
+        }
+    }
+
+    SECTION("initial")
+    {
+        SECTION("bool")
+        {
+            PropertyInfo pi(SYM("@bool"), PropValueType::BOOLEAN);
+
+            REQUIRE(pi.noInitial());
+            REQUIRE(pi.setInitial(true));
+            REQUIRE_FALSE(pi.noInitial());
+            REQUIRE(pi.initialT(true) == true);
+            REQUIRE(pi.initialT(false) == true);
+
+            REQUIRE_FALSE(pi.setInitial(t_float(1)));
+            REQUIRE_FALSE(pi.setInitial(t_int(1)));
+            REQUIRE_FALSE(pi.setInitial(gensym("SYM")));
+            REQUIRE_FALSE(pi.setInitial(A(234)));
+            REQUIRE_FALSE(pi.setInitial(LF(1)));
+
+            bool val = false;
+            REQUIRE(pi.getInitial(val));
+            REQUIRE(val == true);
+        }
+
+        SECTION("t_float")
+        {
+            PropertyInfo pi(SYM("@float"), PropValueType::FLOAT);
+
+            REQUIRE(pi.noInitial());
+            REQUIRE(pi.setInitial(t_float(10.5)));
+            REQUIRE_FALSE(pi.noInitial());
+            REQUIRE(pi.initialT(true) == true);
+            REQUIRE(pi.initialT(false) == false);
+            REQUIRE(pi.initialT(t_float(10.0)) == 10.5);
+
+            REQUIRE(pi.setInitial(t_float(1.5)));
+            REQUIRE_FALSE(pi.setInitial(true));
+            REQUIRE_FALSE(pi.setInitial(t_int(1)));
+            REQUIRE_FALSE(pi.setInitial(gensym("SYM")));
+            REQUIRE_FALSE(pi.setInitial(A(234)));
+            REQUIRE_FALSE(pi.setInitial(LF(1)));
+
+            t_float val = -1;
+            REQUIRE(pi.getInitial(val));
+            REQUIRE(val == 1.5);
+        }
+
+        SECTION("t_int")
+        {
+            PropertyInfo pi(SYM("@int"), PropValueType::INTEGER);
+
+            REQUIRE(pi.noInitial());
+            REQUIRE(pi.setInitial(t_int(10)));
+            REQUIRE_FALSE(pi.noInitial());
+            REQUIRE(pi.initialT(true) == true);
+            REQUIRE(pi.initialT(false) == false);
+            REQUIRE(pi.initialT(t_float(7)) == 7);
+            REQUIRE(pi.initialT(t_int(7)) == 10);
+
+            REQUIRE(pi.setInitial(t_int(-15)));
+            REQUIRE_FALSE(pi.setInitial(true));
+            REQUIRE_FALSE(pi.setInitial(t_float(1)));
+            REQUIRE_FALSE(pi.setInitial(gensym("SYM")));
+            REQUIRE_FALSE(pi.setInitial(A(234)));
+            REQUIRE_FALSE(pi.setInitial(LF(1)));
+
+            t_int val = -1;
+            REQUIRE(pi.getInitial(val));
+            REQUIRE(val == -15);
+        }
+
+        SECTION("t_symbol")
+        {
+            PropertyInfo pi(SYM("@symbol"), PropValueType::SYMBOL);
+
+            REQUIRE(pi.noInitial());
+            REQUIRE(pi.setInitial(SYM("abc")));
+            REQUIRE_FALSE(pi.noInitial());
+            REQUIRE(pi.initialT(true) == true);
+            REQUIRE(pi.initialT(false) == false);
+            REQUIRE(pi.initialT(t_float(7)) == 7);
+            REQUIRE(pi.initialT(t_int(7)) == 7);
+
+            REQUIRE(pi.setInitial(gensym("DEF")));
+            REQUIRE_FALSE(pi.setInitial(true));
+            REQUIRE_FALSE(pi.setInitial(t_float(1)));
+            REQUIRE_FALSE(pi.setInitial(A(234)));
+            REQUIRE_FALSE(pi.setInitial(LF(1)));
+
+            t_symbol* val = &s_;
+            REQUIRE(pi.getInitial(val));
+            REQUIRE(val == gensym("DEF"));
+        }
+
+        SECTION("atom")
+        {
+            PropertyInfo pi(SYM("@atom"), PropValueType::ATOM);
+
+            REQUIRE(pi.noInitial());
+            REQUIRE(pi.setInitial(A("abc")));
+            REQUIRE_FALSE(pi.noInitial());
+            REQUIRE(pi.initialT(true) == true);
+            REQUIRE(pi.initialT(false) == false);
+            REQUIRE(pi.initialT(t_float(7)) == 7);
+            REQUIRE(pi.initialT(t_int(7)) == 7);
+
+            REQUIRE(pi.setInitial(A(115)));
+            REQUIRE_FALSE(pi.setInitial(true));
+            REQUIRE_FALSE(pi.setInitial(t_float(1)));
+            REQUIRE_FALSE(pi.setInitial(SYM("DEF")));
+            REQUIRE_FALSE(pi.setInitial(LF(1)));
+
+            Atom val;
+            REQUIRE(pi.getInitial(val));
+            REQUIRE(val == A(115));
+        }
+
+        SECTION("atomlist")
+        {
+            PropertyInfo pi(SYM("@list"), PropValueType::LIST);
+
+            REQUIRE(pi.noInitial());
+            REQUIRE(pi.setInitial(LF(1, 2, 3)));
+            REQUIRE_FALSE(pi.noInitial());
+            REQUIRE(pi.initialT(true) == true);
+            REQUIRE(pi.initialT(false) == false);
+            REQUIRE(pi.initialT(t_float(7)) == 7);
+            REQUIRE(pi.initialT(t_int(7)) == 7);
+
+            REQUIRE(pi.setInitial(LF(3, 4)));
+            REQUIRE_FALSE(pi.setInitial(true));
+            REQUIRE_FALSE(pi.setInitial(t_float(1)));
+            REQUIRE_FALSE(pi.setInitial(SYM("DEF")));
+
+            AtomList val;
+            REQUIRE(pi.getInitial(val));
+            REQUIRE(val == LF(3, 4));
         }
     }
 }

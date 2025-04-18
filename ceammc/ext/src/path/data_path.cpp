@@ -16,11 +16,51 @@
 #include "datatype_dict.h"
 #include "fmt/core.h"
 
-DataPath::DataPath(const PdArgs& args)
-    : BaseTclObject<DataPathBase>(args, gensym("::ceammc::patheditor::open"))
+namespace {
+
+bool looksLikeSymbolPath(const Atom& a)
 {
-    path_ = new PathProperty("@path", {});
+    if (!a.isSymbol())
+        return false;
+
+    auto str = a.asT<t_symbol*>()->s_name;
+    bool is_data = string::starts_with(str, ceammc::path::DataTypePath::staticTypeName())
+        && (string::ends_with(str, ")") || (string::ends_with(str, "]")));
+
+    return !is_data;
+}
+
+} // namespace
+
+PathProperty::PathProperty(const char* name)
+    : DataPropertyT<path::DataTypePath>(name, {}, true)
+{
+}
+
+bool PathProperty::setAtom(const Atom& a)
+{
+    if (looksLikeSymbolPath(a)) {
+        value() = ceammc::path::DataTypePath(a.asT<t_symbol*>()->s_name);
+        return true;
+    } else
+        return DataPropertyT<path::DataTypePath>::setAtom(a);
+}
+
+bool PathProperty::setSymbol(t_symbol* s)
+{
+    if (looksLikeSymbolPath(Atom(s))) {
+        value() = ceammc::path::DataTypePath(s->s_name);
+        return true;
+    } else
+        return DataPropertyT<path::DataTypePath>::setAtom(Atom(s));
+}
+
+DataPath::DataPath(const PdArgs& args)
+    : PropertiesObject<DataPathBase>(args)
+{
+    path_ = new PathProperty("@path");
     path_->setArgIndex(0);
+    path_->setView(PropValueView::FILEPATH);
     addProperty(path_);
 
     norm_ = new BoolProperty("@norm", true);
@@ -50,14 +90,24 @@ void DataPath::onBang()
     atomTo(0, path_->asDataAtom());
 }
 
-void DataPath::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+void DataPath::onSymbol(t_symbol* s)
 {
-    char buf[MAXPDSTRING];
-    auto pbuf = fmt::format_to(buf, "data.path {}x{}+{}+{} {}",
-        400, 200, (int)xpos, (int)ypos,
-        path_->value().toListStringContent());
-    *pbuf = '\0';
-    tclCallRaw(buf);
+    if (path_->setSymbol(s))
+        onBang();
+}
+
+void DataPath::onInlet(size_t in, const AtomListView& lv)
+{
+    if (lv.size() == 1)
+        path_->setAtom(lv[0]);
+    else
+        OBJ_ERR << "invalid args: " << lv;
+}
+
+void DataPath::onDataT(const DataAtom<path::DataTypePath>& data)
+{
+    if (path_->setValue(*data))
+        onBang();
 }
 
 void DataPath::appendRequest(DataPathOpCode op)
@@ -138,19 +188,16 @@ void DataPath::processRequest(const DataPathRequest& req, ResultCallback cb)
     }
 }
 
-void DataPath::onTclResponse(t_symbol* s, const AtomListView& lv)
-{
-    OBJ_DBG << lv;
-    path_->value() = path::DataTypePath(lv);
-}
-
 void DataPath::resultAllInfo(const DataPathResult& data)
 {
-    DictAtom a;
-    a->insert("type", gensym(to_string(data.type)));
-    a->insert("size", data.filesize);
-    a->insert("permissions", data.permissions);
-    anyTo(0, gensym("info"), a);
+    if (data.res_code == DATA_PATH_RC_OK) {
+        DictAtom a;
+        a->insert("type", gensym(to_string(data.type)));
+        a->insert("size", data.filesize);
+        a->insert("permissions", data.permissions);
+        anyTo(0, gensym("info"), a);
+    } else
+        resultError(data);
 }
 
 void DataPath::resultSize(const DataPathResult& data)
@@ -172,9 +219,9 @@ void DataPath::resultExists(const DataPathResult& data)
 
 void DataPath::resultPermissions(const DataPathResult& data)
 {
-    if (data.res_code == DATA_PATH_RC_OK)
+    if (data.res_code == DATA_PATH_RC_OK) {
         anyTo(0, gensym("permissions"), data.permissions);
-    else
+    } else
         resultError(data);
 }
 
@@ -265,24 +312,31 @@ DataPathResult DataPath::info(const path::DataTypePath& path)
 {
     DataPathResult res;
     res.op_code = DATA_PATH_OP_ALL_INFO;
-    res.res_code = path.exists() ? DATA_PATH_RC_OK : DATA_PATH_RC_NOT_FOUND;
-    res.permissions = path.permissions();
-    res.type = path.file_type();
-    res.filesize = path.file_size();
+    if (path.exists()) {
+        res.res_code = DATA_PATH_RC_OK;
+        res.permissions = path.permissions();
+        res.type = path.file_type();
+        res.filesize = path.file_size();
+    } else {
+        res.res_code = DATA_PATH_RC_NOT_FOUND;
+        res.permissions = 0;
+        res.type = path::FILE_TYPE_NONE;
+        res.filesize = 0;
+    }
     return res;
 }
 
 void setup_data_path()
 {
     ObjectFactory<DataPath> obj("data.path");
+    DataPath::factoryPropertiesObjectInit(obj);
+    obj.processData<path::DataTypePath>();
+
     obj.addMethod("exists", &DataPath::m_exists);
     obj.addMethod("size", &DataPath::m_filesize);
     obj.addMethod("type", &DataPath::m_filetype);
     obj.addMethod("permissions", &DataPath::m_permissions);
     obj.addMethod("info", &DataPath::m_info);
-
-    obj.useClick();
-    DataPath::initTclMethods(obj);
 
     LIB_LOG << fmt::format("Path datatype id: {:d}", path::DataTypePath::staticType());
 }

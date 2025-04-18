@@ -1,0 +1,79 @@
+#include "hw_rpi_sensor_sr04.h"
+#include "args/argcheck.h"
+#include "ceammc_factory.h"
+
+constexpr int DEFAULT_TRIG_GPIO_PIN = 17;
+constexpr int DEFAULT_ECHO_GPIO_PIN = 27;
+
+HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
+    : RustDispatchedObject<BaseObject>(args)
+{
+    createOutlet();
+    createOutlet();
+
+    trigger_pin_ = new IntProperty("@trig_pin", DEFAULT_TRIG_GPIO_PIN, PropValueAccess::INITONLY);
+    trigger_pin_->checkClosedRange(0, 255);
+    trigger_pin_->setArgIndex(0);
+    addProperty(trigger_pin_);
+
+    echo_pin_ = new IntProperty("@echo_pin", DEFAULT_ECHO_GPIO_PIN, PropValueAccess::INITONLY);
+    echo_pin_->checkClosedRange(0, 255);
+    echo_pin_->setArgIndex(1);
+    addProperty(echo_pin_);
+
+    poll_interval_ = new IntProperty("@poll_interval", ceammc_HW_SR04_DEF_POLL_INTERVAL);
+    poll_interval_->checkClosedRange(ceammc_HW_SR04_MIN_POLL_INTERVAL, ceammc_HW_SR04_MAX_POLL_INTERVAL);
+    poll_interval_->setUnits(PropValueUnits::MSEC);
+    poll_interval_->setSuccessFn([this](Property*) {
+        ceammc_hw_gpio_sr04_set_poll_interval(sr04_, poll_interval_->value());
+    });
+    addProperty(poll_interval_);
+}
+
+HwRpiSensorSr04::~HwRpiSensorSr04()
+{
+    ceammc_hw_gpio_sr04_free(sr04_);
+}
+
+void HwRpiSensorSr04::initDone()
+{
+    sr04_ = ceammc_hw_gpio_sr04_new(trigger_pin_->value(),
+        echo_pin_->value(),
+        on_notify(), //
+        on_message(),
+        { this, [](void* user, float distance_cm, bool is_inf) {
+             auto obj = static_cast<HwRpiSensorSr04*>(user);
+             if (!obj)
+                 return;
+
+             if (!is_inf)
+                 obj->floatTo(0, distance_cm);
+             else
+                 obj->bangTo(1);
+         } });
+}
+
+bool HwRpiSensorSr04::notify(int code)
+{
+    return ceammc_hw_gpio_sr04_process(sr04_);
+}
+
+void HwRpiSensorSr04::onBang()
+{
+    ceammc_hw_gpio_sr04_measure(sr04_);
+}
+
+void HwRpiSensorSr04::m_poll(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker args("STATE:b");
+    if (!args.check(lv, this))
+        return args.usage(this, s);
+
+    ceammc_hw_gpio_sr04_poll(sr04_, lv.boolAt(0, false));
+}
+
+void setup_hw_rpi_sensor_sr04()
+{
+    ObjectFactory<HwRpiSensorSr04> obj("hw.rpi.sensor.sr04");
+    obj.addMethod("poll", &HwRpiSensorSr04::m_poll);
+}

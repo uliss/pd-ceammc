@@ -17,7 +17,6 @@
 #include <boost/variant.hpp>
 #include <functional>
 #include <mutex>
-#include <unordered_map>
 
 #include "ceammc_pollthread_spsc.h"
 #include "ceammc_property_enum.h"

@@ -35,8 +35,8 @@ LtcInTilde::LtcInTilde(const PdArgs& args)
         auto p = createCbFloatProperty("@volume",
             [this]() -> t_float { return clip<t_float, -60, 0>(data_.volume); });
         p->setUnitsDb();
-        p->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE);
-        if (!p->infoT().setRangeFloat(-60, 0)) 
+        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
+        if (!p->info().setRangeFloat(-60, 0))
             LIB_ERR << __FUNCTION__ << ": can't set property range";
     }
 

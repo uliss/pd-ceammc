@@ -92,4 +92,4 @@ bool outletAny(t_outlet* o, const AtomListView& l)
     return true;
 }
 
-}
+} // namespace ceammc

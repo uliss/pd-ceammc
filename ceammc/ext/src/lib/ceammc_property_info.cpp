@@ -20,7 +20,7 @@
 #include <algorithm>
 #include <cstring> // for ffs
 #include <limits>
-#include <numeric>
+#include <unistd.h>
 
 #define PROP_LOG() LIB_ERR << "[" << name()->s_name << "] "
 
@@ -35,7 +35,7 @@ inline PropValueUnits int2unit(PropValueUnitsBase i)
 {
     return static_cast<PropValueUnits>(i);
 }
-}
+} // namespace
 
 namespace ceammc {
 
@@ -44,157 +44,6 @@ constexpr auto FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
 constexpr auto INT_INF_MIN = std::numeric_limits<t_int>::lowest();
 constexpr auto INT_INF_MAX = std::numeric_limits<t_int>::max();
 constexpr size_t UNITS_MAX = std::numeric_limits<PropValueUnitsBase>::digits;
-
-const char* to_str(PropValueType t)
-{
-    static const char* STR[] = {
-        "bool",
-        "int",
-        "float",
-        "symbol",
-        "atom",
-        "list"
-    };
-
-    auto idx = static_cast<size_t>(t);
-    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
-}
-
-const char* to_str(PropValueView v)
-{
-    static const char* STR[] = {
-        "slider",
-        "knob",
-        "numbox",
-        "spinbox",
-        "toggle",
-        "menu",
-        "entry",
-        "color"
-    };
-
-    auto idx = static_cast<size_t>(v);
-    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
-}
-
-#include <cstring>
-#include <unistd.h>
-
-const char* to_str(PropValueUnits u)
-{
-    static const char* STR[] = {
-        "unknown",
-        "millisecond",
-        "second",
-        "sample",
-        "decibel",
-        "degree",
-        "radian",
-        "hertz",
-        "percent",
-        "cent",
-        "semitone",
-        "tone",
-        "bpm",
-        "smpte"
-    };
-
-    size_t idx = 0;
-    auto bits = static_cast<PropValueUnitsBase>(u);
-
-#ifdef HAVE_FFS
-    idx = ffs(bits);
-#else
-
-    for (size_t i = 0; i < std::numeric_limits<PropValueUnitsBase>::digits; i++) {
-        if (bits & (1 << i)) {
-            idx = i + 1;
-            break;
-        }
-    }
-
-#endif
-
-    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
-}
-
-const char* to_str(PropValueAccess v)
-{
-    static const char* STR[] = {
-        "readonly",
-        "initonly",
-        "readwrite"
-    };
-
-    auto idx = static_cast<size_t>(v);
-    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
-}
-
-const char* to_str(PropValueVis v)
-{
-    static const char* STR[] = {
-        "public",
-        "hidden",
-        "internal"
-    };
-
-    auto idx = static_cast<size_t>(v);
-    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
-}
-
-const char* to_str(PropValueConstraints v)
-{
-    static const char* STR[] = {
-        "",
-        ">",
-        ">=",
-        "<",
-        "<=",
-        "[]",
-        "()",
-        "(]",
-        "[)",
-        "!=0",
-        "enum",
-        "min count",
-        "max count",
-        "range count",
-        "..."
-    };
-
-    auto idx = static_cast<size_t>(v);
-    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
-}
-
-t_symbol* to_symbol(PropValueType t)
-{
-    return gensym(to_str(t));
-}
-
-t_symbol* to_symbol(PropValueView v)
-{
-    return gensym(to_str(v));
-}
-
-t_symbol* to_symbol(PropValueUnits u)
-{
-    return gensym(to_str(u));
-}
-
-t_symbol* to_symbol(PropValueAccess v)
-{
-    return gensym(to_str(v));
-}
-
-t_symbol* to_symbol(PropValueVis v)
-{
-    return gensym(to_str(v));
-}
-
-t_symbol* to_symbol(PropValueConstraints v)
-{
-    return gensym(to_str(v));
-}
 
 static PropValueView defaultView(PropValueType type)
 {
@@ -235,8 +84,8 @@ PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess a
         clearRangeFloat();
 }
 
-PropertyInfo::PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access)
-    : PropertyInfo(gensym(name.c_str()), type, access)
+PropertyInfo::PropertyInfo(const char* name, PropValueType type, PropValueAccess access)
+    : PropertyInfo(gensym(name), type, access)
 {
 }
 
@@ -694,6 +543,9 @@ bool PropertyInfo::setView(PropValueView v)
         switch (v) {
         case PropValueView::ENTRY:
         case PropValueView::MENU:
+        case PropValueView::FILEPATH:
+        case PropValueView::DIRPATH:
+        case PropValueView::COLOR:
             view_ = v;
             return true;
         default:
@@ -703,6 +555,9 @@ bool PropertyInfo::setView(PropValueView v)
     case PropValueType::ATOM:
         switch (v) {
         case PropValueView::ENTRY:
+            view_ = v;
+            return true;
+        case PropValueView::FILEPATH:
             view_ = v;
             return true;
         default:
@@ -1001,7 +856,7 @@ void PropertyInfo::unitsIterate(const std::function<void(const char*)>& fn) cons
     for (size_t i = 0; i < UNITS_MAX; i++) {
         PropValueUnitsBase x = (1 << i);
         if (units_ & x)
-            fn(to_str(int2unit(x)));
+            fn(to_string(int2unit(x)));
     }
 }
 
@@ -1077,6 +932,11 @@ const AtomList& PropertyInfo::defaultList() const
         return def;
 
     return boost::get<AtomList>(default_);
+}
+
+bool PropertyInfo::noInitial() const
+{
+    return init_.type() == typeid(boost::blank);
 }
 
 bool PropertyInfo::validate() const
@@ -1205,13 +1065,13 @@ bool PropertyInfo::getJSON(std::string& str) const
     auto obj = nlohmann::json::object();
 
     obj["name"] = name()->s_name;
-    obj["type"] = to_str(type());
-    obj["access"] = to_str(access());
-    obj["visibility"] = to_str(visibility());
-    obj["view"] = to_str(view());
+    obj["type"] = to_string(type());
+    obj["access"] = to_string(access());
+    obj["visibility"] = to_string(visibility());
+    obj["view"] = to_string(view());
 
     if (constraints() != PropValueConstraints::NONE)
-        obj["constraints"] = to_str(constraints());
+        obj["constraints"] = to_string(constraints());
 
     if (units() != unit_base_cast(PropValueUnits::NONE)) {
         auto u = nlohmann::json::array();

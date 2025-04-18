@@ -1,18 +1,18 @@
 [Desktop Entry]
 Type=Application
-Name=PureData
+Name=PureData (ceammc)
 GenericName=Pd(ceammc)
-Comment=Visual dataflow programming platform for multimedia
+Categories=Audio;AudioVideo;Development;Music;Graphics
+Comment=Visual dataflow programming platform for multimedia (CEAMMC distribution)
 Comment[ca]=Plataforma de programació visual per aplicacions multimèdia
 Comment[de]=Grafische Datenflussprogrammierung für Multimedia
 Comment[es]=Plataforma de programación visual para aplicaciones multimedia
 Comment[fr]=Plateforme de programmation visuelle pour applications multimédia
 Comment[it]=Piattaforma di programmazione visuale per applicazioni multimedia
 Comment[pt]=Plataforma de programação visuais para multimedia
-Comment[ru]=Платформа визуального мультимедиа программирования
-Icon=puredata-ceammc.png
+Comment[ru]=Платформа визуального мультимедиа программирования (сборка ЦЭАМ)
+Icon=puredata-ceammc
 Exec=${CMAKE_INSTALL_PREFIX}/lib/${PDDIR}/bin/pd %F
 Terminal=false
-Categories=Video;Audio;
 MimeType=text/x-puredata;text/x-maxmsp;
 Keywords=Audio;Video;Programming;Synthesis;Analysis

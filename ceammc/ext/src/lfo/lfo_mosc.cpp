@@ -8,7 +8,7 @@ class LfoMosc : public faust_lfo_mosc_tilde {
     Property* index_;
 
 public:
-    LfoMosc(const PdArgs& args)
+    explicit LfoMosc(const PdArgs& args)
         : faust_lfo_mosc_tilde(args)
         , wave_(nullptr)
         , index_(property(gensym("@windex")))
@@ -38,7 +38,7 @@ public:
         index_->setSuccessFn([this](Property*) {
             t_int idx = 0;
             if (index_->getInt(idx)) {
-                auto& vals = wave_->infoT().enumValues();
+                auto& vals = wave_->info().enumValues();
                 if (idx >= 0 && idx < vals.size())
                     wave_->setValue(vals[idx].asSymbol());
             }

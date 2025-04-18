@@ -79,6 +79,7 @@ array.window
 artnet.send
 bar->ms
 bimap
+bitmap
 bits->bang
 bits->int
 bits->note
@@ -128,6 +129,7 @@ ceammc/apf->biquad
 ceammc/approx
 ceammc/bar->ms
 ceammc/bimap
+ceammc/bitmap
 ceammc/bits->bang
 ceammc/bits->int
 ceammc/bits->note
@@ -641,6 +643,23 @@ hw.gamepad
 hw.kbd_light
 hw.motu.avb
 hw.printer
+hw.rpi.adc.ads1115
+hw.rpi.display.hd44780
+hw.rpi.display.lcd1602
+hw.rpi.display.lcd2004
+hw.rpi.display.ssd1306
+hw.rpi.gpio
+hw.rpi.i2c.pca9685
+hw.rpi.pwm
+hw.rpi.pwm.pca9685
+hw.rpi.rotenc
+hw.rpi.sensor.dht11
+hw.rpi.sensor.ir
+hw.rpi.sensor.mpu6050
+hw.rpi.sensor.sr04
+hw.rpi.sensor.vl53l0x
+hw.rpi.spi.max7219
+hw.rpi.spi.ws2812
 hw.serial
 int->bits
 is_any
@@ -1106,6 +1125,7 @@ proto.midi.sysex
 proto.moppy
 proto.morse
 proto.mpv
+proto.obs
 proto.sp.alpaca
 proto.vlc
 proto.whammy

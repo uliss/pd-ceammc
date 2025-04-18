@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.sensor.ir">
+        <title>hw.rpi.sensor.ir</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">IR (infrared) sensors and protocols for Raspberry Pi</tr>
+                <tr lang="ru">ИК (инфракрасные) датчики и протоколы для Raspberry Pi</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display gpio raspberry ir infrared sensor</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <methods>
+            <method name="poll">start/stop IR sensor polling 
+            <param name="VALUE" type="bool" required="true">state</param></method>
+        </methods>
+        <arguments>
+            <argument name="PIN" type="int" minvalue="-1" maxvalue="127">GPIO connection pin. See
+            @pin</argument>
+        </arguments>
+        <properties>
+            <property name="@pin" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">connection GPIO pin</property>
+            <property name="@proto" type="symbol" default="NEC">protocol name. You should switch
+            off/on pollling to take effect after chaning this property</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>pressed infrared remote keys accoring to protocol</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]         [ui.menu NEC RC5 RC6 JVC Sharp]
+|           |
+[poll $1(   [@proto $2(
+|           |
+|           |
+[hw.rpi.sensor.ir @pin 23 #x]
+ |
+ [route D S F   ]
+ |     ^|     ^^|
+ [F]    [F]    [F]
+
+[print IR #a]
+
+[ui.link @url=ceammc://img/conn_infrared.png @title=Connection_Scheme]
+[X x->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

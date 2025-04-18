@@ -3,11 +3,15 @@ namespace eval ui {
 namespace eval number_tilde {
     variable font_size 11
     variable font_family "Helvetica"
+    variable txt_yoff 0
 }
 
 switch -- $::windowingsystem {
     "aqua" { }
-    "x11"  { }
+    "x11"   {
+        set number_tilde::font_size 9
+        set number_tilde::txt_yoff  2
+    }
     "win32" {
         set number_tilde::font_size 8
     }
@@ -23,12 +27,12 @@ proc number_draw_box {c tag w h zoom bdcolor acolor tcolor value} {
     $c create line $x 0 $x $h -width 1 -fill $bdcolor -tags $tag
 
     set tx [expr $x * 0.5]
-    set ty [expr $h * 0.5]
+    set ty [expr $h * 0.5 + $number_tilde::txt_yoff]
     $c create text $tx $ty -text "~" -anchor center -justify center \
         -font $ft -fill $acolor -width 0 -tags $tag
 
     set tx [expr $h * 0.9]
-    set ty [expr $h * 0.55]
+    set ty [expr $h * 0.55 + $number_tilde::txt_yoff]
 
     $c create text $tx $ty -text $value -anchor w -justify left \
         -font $ft -fill $tcolor -width 0 -tags $tag

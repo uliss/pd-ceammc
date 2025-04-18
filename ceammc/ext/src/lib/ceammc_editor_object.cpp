@@ -51,7 +51,7 @@ namespace {
             return "default";
         }
     }
-}
+} // namespace
 
 void EditorString::append(char ch)
 {

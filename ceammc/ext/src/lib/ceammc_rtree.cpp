@@ -59,6 +59,5 @@ namespace rtree {
             return res;
         }
     }
-}
-
-}
+} // namespace rtree
+} // namespace ceammc

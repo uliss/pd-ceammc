@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.sensor.sr04">
+        <title>hw.rpi.sensor.sr04</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">HC-SR04 ultrasonic ranging module for Raspberry Pi</tr>
+                <tr lang="ru">HC-SR04 ультразвуковой датчик расстояния для Raspberry Pi</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>sensor ultrasonic range rpi arduino</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <info>
+            <par>**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the
+            Raspberry Pi's GPIO inputs operate at 3.3V.</par>
+            <par>Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you
+            could damage your Raspberry Pi!</par>
+        </info>
+        <methods>
+            <method name="poll">turn the sensor polling on/off 
+            <param name="STATE" type="bool" required="true">poll state</param></method>
+        </methods>
+        <arguments>
+            <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">a trigger pin GPIO
+            number</argument>
+            <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">an echo pin GPIO
+            number</argument>
+        </arguments>
+        <properties>
+            <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
+            access="initonly">a trigger pin GPIO number</property>
+            <property name="@echo_pin" type="int" default="27" minvalue="0" maxvalue="255"
+            access="initonly">an echo pin GPIO number</property>
+            <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
+            units="msec">poll interval</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">single distance measure</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: distance in cm</outlet>
+            <outlet>bang: if distance can not be measured</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[poll $1(  [bang #a(
+|
+|
+|
+|
+[hw.rpi.sensor.sr04 23 24 #x]
+|         ^|
+[F]       [B]
+
+
+[ui.link @url=ceammc://img/hc_sr04.png @title='Connection_scheme']
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

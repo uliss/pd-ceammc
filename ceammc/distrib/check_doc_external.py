@@ -37,6 +37,7 @@ MOUSE_METHODS = [
     "mousedrag",
     "mousemove",
     "mousewheel",
+    "mouseleave",
     "rightclick",
     ]
 
@@ -57,6 +58,8 @@ def mouse_method2event(event: str) -> str:
         return "double-click"
     elif event == "mousewheel":
         return "wheel"
+    elif event == "mouseleave":
+        return None
     else:
         return event
 
@@ -83,6 +86,48 @@ def pddoc_float(value: str) -> float:
 
 
 signal.signal(signal.SIGINT, signal_handler)
+
+
+def print_arg_template(arg):
+    str = "argument "
+    name = ""
+
+    if "name" in arg:
+        str += f'name="{arg["name"]}" '
+    if "type" in arg:
+        str += f'type="{arg["type"]}" '
+    if "min" in arg:
+        str += f'minvalue="{arg["min"]}" '
+    if "max" in arg:
+        str += f'maxvalue="{arg["max"]}" '
+    if "property" in arg:
+        name = f'See {arg["property"]}'
+
+    str = str.strip()
+    cprint(f'<{str}>{name}</argument>', 'white')
+
+
+def print_prop_template(arg):
+    str = "property "
+    name = ""
+
+    if "name" in arg:
+        str += f'name="{arg["name"]}" '
+    if "type" in arg:
+        str += f'type="{arg["type"]}" '
+    if "min" in arg:
+        str += f'minvalue="{arg["min"]}" '
+    if "max" in arg:
+        str += f'maxvalue="{arg["max"]}" '
+    if "default" in arg:
+        str += f'default="{arg["default"]}" '
+    if "units" in arg:
+        str += f'units="{arg["units"]}" '
+    if "access" in arg:
+        str += f'access="{arg["access"]}" '
+
+    str = str.strip()
+    cprint(f'<{str}>{name}</property>', 'white')
 
 
 # methods starting with @ - properties in UI objects
@@ -297,7 +342,7 @@ def check_methods(name, doc, ext):
         'zoom',
     }
 
-    ignored_methods |= set(EXT_METHODS)
+    ignored_methods |= set(MOUSE_METHODS)
 
     undoc_methods_set = ext - doc - ignored_methods
     unknown_methods = doc - ext
@@ -362,6 +407,12 @@ def check_args(name, doc, ext):
     if len(undoc_args):
         cprint(f"[{ext_name}] undocumented arguments: {undoc_args}",
             'magenta')
+
+        cprint("<arguments>", 'white')
+        for arg in undoc_args:
+            print_arg_template(ext[arg])
+
+        cprint("</arguments>", 'white')
 
     if len(unknown_args):
         cprint(f"[{ext_name}] unknown arguments in doc: {unknown_args}",
@@ -544,7 +595,8 @@ def check_props(name, doc, ext):
         cprint(f"[{ext_name}] undocumented properties: {undoc_props}", 'magenta')
         cprint('<properties>', 'white')
         for p in undoc_props:
-            cprint(f'<property name="{p}" type="" default=""></property>', 'white')
+            print_prop_template(ext.get(p))
+            # cprint(f'<property name="{p}" type="" default=""></property>', 'white')
 
         cprint('</properties>', 'white')
 
@@ -713,7 +765,9 @@ if __name__ == '__main__':
 
     for m in MOUSE_METHODS:
         if m in EXT_METHODS:
-            ext_mouse.add(mouse_method2event(m))
+            ev = mouse_method2event(m);
+            if ev is not None:
+                ext_mouse.add(ev)
 
     mouse_no_doc = ext_mouse - doc_mouse
     mouse_invalid = doc_mouse - ext_mouse

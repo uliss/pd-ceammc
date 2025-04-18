@@ -13,6 +13,7 @@ add_subdirectory(date)
 
 if(WITH_EXT_AUTOTUNE)
     add_subdirectory(autotune)
+    install(FILES autotune_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_EXT_FLEXT)
@@ -21,10 +22,12 @@ endif()
 
 if(WITH_EXT_FFTEASE)
     add_subdirectory(fftease)
+    install(FILES fftease_objects.txt DESTINATION ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_EXT_LYONPOTPOURRI)
     add_subdirectory(lyonpotpourri)
+    install(FILES lyonpotpourri_objects.txt DESTINATION  ${PD_COMPLETION_PATH})
 endif()
 
 if(WITH_ARTNET)
@@ -71,6 +74,14 @@ if(WITH_EXPERIMENTAL)
     add_subdirectory(import)
     add_subdirectory(libdir)
     add_subdirectory(libusb)
+
+    install(
+        FILES
+            import_objects.txt
+            libdir_objects.txt
+        DESTINATION
+            ${PD_COMPLETION_PATH}
+    )
 endif()
 
 if(WITH_FLUIDSYNTH)
@@ -91,14 +102,22 @@ if(WITH_TTS_FLITE)
     add_subdirectory(speech)
 endif()
 
-set(EXTRA_COMPLETION "extra_objects.txt")
-add_custom_target(_ceammc_extra_misc SOURCES ${EXTRA_COMPLETION})
+add_custom_target(_ceammc_extra_misc
+    SOURCES
+        autotune_objects.txt
+        extra_objects.txt
+        fftease_objects.txt
+        import_objects.txt
+        libdir_objects.txt
+)
 
 if(WITH_SFIZZ)
     cmake_minimum_required(VERSION 3.14)
 
     include(FetchContent)
-    cmake_policy(SET CMP0135 NEW)
+    if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+        cmake_policy(SET CMP0135 NEW)
+    endif()
     set(FETCHCONTENT_QUIET FALSE)
     set(SFIZZ_AU OFF CACHE INTERNAL "")
     set(SFIZZ_LV2 OFF CACHE INTERNAL "")
@@ -135,237 +154,11 @@ if(WITH_SFIZZ)
         add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
 
         if(WIN32)
-            install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
+            install(TARGETS sfizz_shared RUNTIME DESTINATION bin)
         endif()
     endif()
 endif()
 
 if(WITH_FAUST)
-    if(APPLE OR UNIX)
-        add_subdirectory(faust)
-    else()
-        find_package(LLVM REQUIRED CONFIG)
-        message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
-        message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
-
-        find_package(Faust REQUIRED)
-
-        # ceammc binding
-        add_library(ceammc_faust STATIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/ceammc_llvm.cpp)
-        target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
-        target_include_directories(ceammc_faust PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
-            ${faust_SOURCE_DIR}/architecture
-            ${PROJECT_SOURCE_DIR}/src
-            ${Faust_INCLUDE_DIRS})
-        target_link_libraries(ceammc_faust PUBLIC ${Faust_LIBRARIES})
-        target_link_directories(ceammc_faust PUBLIC ${LLVM_LIB_DIR})
-
-        set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
-        install(DIRECTORY ${FAUST_DSP_LIBRARY_DIR}
-            DESTINATION ${DOC_INSTALL_PATH}
-            FILES_MATCHING PATTERN "*.lib"
-            PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
-
-
-        if(COMMAND llvm_map_components_to_libnames)
-            set(llvm_libs)
-            llvm_map_components_to_libnames(llvm_libs_base
-                support core irreader executionengine
-                asmprinter mcjit ipo objcarcopts)
-    #        target_link_libraries(ceammc_faust PUBLIC ${llvm_libs_base})
-            if(APPLE)
-                if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
-                    llvm_map_components_to_libnames(llvm_libs_arm64
-                        AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
-    #                target_link_libraries(ceammc_faust PUBLIC ${llvm_libs_arm64})
-                    message(STATUS "llvm-libs: ${llvm_libs_base} ${llvm_libs_arm64}")
-                else (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
-                    llvm_map_components_to_libnames(llvm_libs_x86
-                        x86asmparser x86info x86desc x86codegen)
-                    target_link_libraries(ceammc_faust PRIVATE ${llvm_libs_x86})
-                endif()
-            elseif(WIN32 OR UNIX)
-                list(APPEND llvm_libs ${llvm_libs_x86})
-                target_link_libraries(ceammc_faust PRIVATE
-                    LLVMWindowsManifest
-                    LLVMXRay
-                    LLVMLibDriver
-                    LLVMDlltoolDriver
-                    LLVMCoverage
-                    LLVMLineEditor
-                    LLVMXCoreDisassembler
-                    LLVMXCoreCodeGen
-                    LLVMXCoreDesc
-                    LLVMXCoreInfo
-                    LLVMX86TargetMCA
-                    LLVMX86Disassembler
-                    LLVMX86AsmParser
-                    LLVMX86CodeGen
-                    LLVMX86Desc
-                    LLVMX86Info
-                    LLVMWebAssemblyDisassembler
-                    LLVMWebAssemblyAsmParser
-                    LLVMWebAssemblyCodeGen
-                    LLVMWebAssemblyDesc
-                    LLVMWebAssemblyUtils
-                    LLVMWebAssemblyInfo
-                    LLVMVEDisassembler
-                    LLVMVEAsmParser
-                    LLVMVECodeGen
-                    LLVMVEDesc
-                    LLVMVEInfo
-                    LLVMSystemZDisassembler
-                    LLVMSystemZAsmParser
-                    LLVMSystemZCodeGen
-                    LLVMSystemZDesc
-                    LLVMSystemZInfo
-                    LLVMSparcDisassembler
-                    LLVMSparcAsmParser
-                    LLVMSparcCodeGen
-                    LLVMSparcDesc
-                    LLVMSparcInfo
-                    LLVMRISCVTargetMCA
-                    LLVMRISCVDisassembler
-                    LLVMRISCVAsmParser
-                    LLVMRISCVCodeGen
-                    LLVMRISCVDesc
-                    LLVMRISCVInfo
-                    LLVMPowerPCDisassembler
-                    LLVMPowerPCAsmParser
-                    LLVMPowerPCCodeGen
-                    LLVMPowerPCDesc
-                    LLVMPowerPCInfo
-                    LLVMNVPTXCodeGen
-                    LLVMNVPTXDesc
-                    LLVMNVPTXInfo
-                    LLVMMSP430Disassembler
-                    LLVMMSP430AsmParser
-                    LLVMMSP430CodeGen
-                    LLVMMSP430Desc
-                    LLVMMSP430Info
-                    LLVMMipsDisassembler
-                    LLVMMipsAsmParser
-                    LLVMMipsCodeGen
-                    LLVMMipsDesc
-                    LLVMMipsInfo
-                    LLVMLoongArchDisassembler
-                    LLVMLoongArchAsmParser
-                    LLVMLoongArchCodeGen
-                    LLVMLoongArchDesc
-                    LLVMLoongArchInfo
-                    LLVMLanaiDisassembler
-                    LLVMLanaiCodeGen
-                    LLVMLanaiAsmParser
-                    LLVMLanaiDesc
-                    LLVMLanaiInfo
-                    LLVMHexagonDisassembler
-                    LLVMHexagonCodeGen
-                    LLVMHexagonAsmParser
-                    LLVMHexagonDesc
-                    LLVMHexagonInfo
-                    LLVMBPFDisassembler
-                    LLVMBPFAsmParser
-                    LLVMBPFCodeGen
-                    LLVMBPFDesc
-                    LLVMBPFInfo
-                    LLVMAVRDisassembler
-                    LLVMAVRAsmParser
-                    LLVMAVRCodeGen
-                    LLVMAVRDesc
-                    LLVMAVRInfo
-                    LLVMARMDisassembler
-                    LLVMARMAsmParser
-                    LLVMARMCodeGen
-                    LLVMARMDesc
-                    LLVMARMUtils
-                    LLVMARMInfo
-                    LLVMAMDGPUTargetMCA
-                    LLVMAMDGPUDisassembler
-                    LLVMAMDGPUAsmParser
-                    LLVMAMDGPUCodeGen
-                    LLVMAMDGPUDesc
-                    LLVMAMDGPUUtils
-                    LLVMAMDGPUInfo
-                    LLVMAArch64Disassembler
-                    LLVMAArch64AsmParser
-                    LLVMAArch64CodeGen
-                    LLVMAArch64Desc
-                    LLVMAArch64Utils
-                    LLVMAArch64Info
-                    LLVMOrcJIT
-                    LLVMWindowsDriver
-                    LLVMMCJIT
-                    LLVMJITLink
-                    LLVMInterpreter
-                    LLVMExecutionEngine
-                    LLVMRuntimeDyld
-                    LLVMOrcTargetProcess
-                    LLVMOrcShared
-                    LLVMDWP
-                    LLVMDebugInfoLogicalView
-                    LLVMDebugInfoGSYM
-                    LLVMOption
-                    LLVMObjectYAML
-                    LLVMObjCopy
-                    LLVMMCA
-                    LLVMMCDisassembler
-                    LLVMLTO
-                    LLVMPasses
-                    LLVMCFGuard
-                    LLVMCoroutines
-                    LLVMipo
-                    LLVMVectorize
-                    LLVMLinker
-                    LLVMInstrumentation
-                    LLVMFrontendOpenMP
-                    LLVMFrontendOpenACC
-                    LLVMFrontendHLSL
-                    LLVMExtensions
-                    LLVMDWARFLinkerParallel
-                    LLVMDWARFLinker
-                    LLVMGlobalISel
-                    LLVMMIRParser
-                    LLVMAsmPrinter
-                    LLVMSelectionDAG
-                    LLVMCodeGen
-                    LLVMObjCARCOpts
-                    LLVMIRPrinter
-                    LLVMInterfaceStub
-                    LLVMFileCheck
-                    LLVMFuzzMutate
-                    LLVMTarget
-                    LLVMScalarOpts
-                    LLVMInstCombine
-                    LLVMAggressiveInstCombine
-                    LLVMTransformUtils
-                    LLVMBitWriter
-                    LLVMAnalysis
-                    LLVMProfileData
-                    LLVMSymbolize
-                    LLVMDebugInfoPDB
-                    LLVMDebugInfoMSF
-                    LLVMDebugInfoDWARF
-                    LLVMObject
-                    LLVMTextAPI
-                    LLVMMCParser
-                    LLVMIRReader
-                    LLVMAsmParser
-                    LLVMMC
-                    LLVMDebugInfoCodeView
-                    LLVMBitReader
-                    LLVMFuzzerCLI
-                    LLVMCore
-                    LLVMRemarks
-                    LLVMBitstreamReader
-                    LLVMBinaryFormat
-                    LLVMTargetParser
-                    LLVMTableGen
-                    LLVMSupport
-                    LLVMDemangle
-                    )
-            endif()
-        endif()
-    endif()
+    add_subdirectory(faust)
 endif()
-

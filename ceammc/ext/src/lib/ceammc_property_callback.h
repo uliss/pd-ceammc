@@ -93,18 +93,18 @@ private:
     FnSetterUnion setter_;
     std::string cb_err_msg_;
 
-    CallbackProperty(const std::string& name, PropertyBoolGetter getter, PropertyBoolSetter setter, tag<bool>);
-    CallbackProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter, tag<t_float>);
-    CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<t_int>);
-    CallbackProperty(const std::string& name, PropertySymbolGetter getter, PropertySymbolSetter setter, tag<t_symbol*>);
-    CallbackProperty(const std::string& name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>);
-    CallbackProperty(const std::string& name, PropertyListGetter getter, PropertyListSetter setter, tag<AtomList>);
+    CallbackProperty(const char* name, PropertyBoolGetter getter, PropertyBoolSetter setter, tag<bool>);
+    CallbackProperty(const char* name, PropertyFloatGetter getter, PropertyFloatSetter setter, tag<t_float>);
+    CallbackProperty(const char* name, PropertyIntGetter getter, PropertyIntSetter setter, tag<t_int>);
+    CallbackProperty(const char* name, PropertySymbolGetter getter, PropertySymbolSetter setter, tag<t_symbol*>);
+    CallbackProperty(const char* name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>);
+    CallbackProperty(const char* name, PropertyListGetter getter, PropertyListSetter setter, tag<AtomList>);
 
 public:
     template <class G, class S>
-    CallbackProperty(const std::string& name, G getter, S setter = nullptr, const std::string& setterErrMsg = std::string())
+    CallbackProperty(const char* name, G getter, S setter = nullptr, const std::string& setterErrMsg = std::string())
         : CallbackProperty(name, getter, setter,
-            tag<typename function_traits<decltype(getter)>::result_type>())
+              tag<typename function_traits<decltype(getter)>::result_type>())
     {
         cb_err_msg_ = setterErrMsg;
     }
@@ -138,6 +138,7 @@ public:
     bool checkNonZero();
 
     void updateDefault() override;
+    bool updateInitial() override;
 
 private:
     enum CallbackType {

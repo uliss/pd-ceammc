@@ -17,7 +17,6 @@
 #include "ceammc_data.h"
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
-#include "datatype_dict.h"
 #include "proto/proto_midi_parser.h"
 #include "sfizz.hpp"
 using namespace ceammc;
@@ -34,11 +33,12 @@ class SfizzTilde : public SoundExternal {
     SymbolEnumProperty* tuning_;
 
 public:
-    SfizzTilde(const PdArgs& args);
+    explicit SfizzTilde(const PdArgs& args);
 
     void setupDSP(t_signal** sig) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) final;
     void dump() const override;
 
     void m_note(t_symbol* s, const AtomListView& lv);

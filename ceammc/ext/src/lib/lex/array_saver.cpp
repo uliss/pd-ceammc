@@ -38,7 +38,7 @@ std::int64_t ArraySaver::saveTo(const AtomListView& args, BaseObject* owner)
         return -1;
 
     auto cnv = owner ? owner->canvas() : nullptr;
-    auto path = platform::make_abs_filepath_with_canvas(cnv, params_.filename.c_str());
+    auto path = platform::make_abs_filepath_with_canvas(cnv, params_.filename);
     if (!params_.overwrite && platform::path_exists(path.c_str())) {
         PD_ERR(owner) << fmt::format("file already exists: '{}', use @overwrite option", path);
         return -1;
@@ -188,4 +188,4 @@ ArrayDataView ArraySaver::arrayData() const
     return res;
 }
 
-}
+} // namespace ceammc

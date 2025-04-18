@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.sensor.dht11">
+        <title>hw.rpi.sensor.dht11</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">digital humidity and temperature sensor (DHT11) for Raspberry Pi</tr>
+                <tr lang="ru">цифровой датчик влажности и температуры (DHT11) для Raspberry Pi</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>raspberry sensor humidity temperature dht11</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <info>
+            <par>Temperature range: 0..+50°C ±2°C</par>
+            <par>Humidity range: 20-90%RH ±5%RH</par>
+            <par>When using a 3.5V voltage supply cable length shall not be greater than 20cm.
+            Otherwise, the line voltage drop will cause the sensor power supply shortage, caused by
+            measurement error</par>
+        </info>
+        <arguments>
+            <argument name="PIN" type="int" minvalue="-1" maxvalue="127">GPIO pin to connect. See
+            @pin</argument>
+        </arguments>
+        <properties>
+            <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127"
+            access="initonly">GPIO connection pin</property>
+        </properties>
+        <methods>
+            <method name="poll">turn the sensor polling on/off 
+            <param name="STATE" type="bool" required="true">poll state</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">single distance measure</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: TEMPERATURE(in Celsius) HUMIDITY</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[poll $1(
+|
+|  [B]
+|  |
+[hw.rpi.sensor.dht11 @pin 17]
+|
+[print]
+
+
+[ui.link @url=ceammc://img/conn_dht11.png @title=Connection_Scheme]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_property_types.h"
 #include "m_pd.h"
 
 #include <boost/blank.hpp>
@@ -26,106 +27,12 @@
 #include <initializer_list>
 #include <memory>
 #include <string>
-#include <vector>
 
 namespace ceammc {
 
 class DataTypeDict;
 
 using PropertyValue = boost::variant<boost::blank, bool, t_int, t_float, t_symbol*, Atom, AtomList>;
-
-// on order change/adding new type
-// change also in to_string(PropValueType)
-enum class PropValueType : uint8_t {
-    BOOLEAN = 0,
-    INTEGER,
-    FLOAT,
-    SYMBOL,
-    ATOM,
-    LIST
-};
-
-// on order change/adding new type
-// change also in to_string(PropValueType)
-enum class PropValueAccess : uint8_t {
-    READONLY = 0,
-    INITONLY,
-    READWRITE
-};
-
-// on order change/adding new type
-// change also in to_string(PropValueType)
-enum class PropValueView : uint8_t {
-    SLIDER = 0,
-    KNOB,
-    NUMBOX,
-    SPINBOX,
-    TOGGLE,
-    MENU,
-    ENTRY,
-    COLOR
-};
-
-// on order change/adding new type
-// change also in to_string(PropValueType)
-using PropValueUnitsBase = std::uint16_t;
-enum class PropValueUnits : PropValueUnitsBase {
-    NONE = 0,
-    MSEC = 1, // milliseconds
-    SEC = 1 << 1, // seconds
-    SAMP = 1 << 2, // samples
-    DB = 1 << 3, // decibels
-    DEG = 1 << 4, // degree
-    RAD = 1 << 5, // radians
-    HZ = 1 << 6, // herz
-    PERCENT = 1 << 7, // percents
-    CENT = 1 << 8, // cents
-    SEMITONE = 1 << 9, // semitone
-    TONE = 1 << 10, // tone
-    BPM = 1 << 11, // bpm
-    SMPTE = 1 << 12, // smpte
-};
-
-// on order change/adding new type
-// change also in to_string(PropValueType)
-enum class PropValueVis : uint8_t {
-    PUBLIC = 0, // settable and shown in UI
-    HIDDEN, // settable and hidden from UI
-    INTERNAL // settable and hidden everywhere
-};
-
-// on order change/adding new type
-// change also in to_string(PropValueType)
-enum class PropValueConstraints : uint8_t {
-    NONE = 0,
-    GREATER_THEN,
-    GREATER_EQUAL,
-    LESS_THEN,
-    LESS_EQUAL,
-    CLOSED_RANGE,
-    OPEN_RANGE,
-    OPEN_CLOSED_RANGE,
-    CLOSED_OPEN_RANGE,
-    NON_ZERO,
-    ENUM,
-    MIN_ELEMENT_COUNT,
-    MAX_ELEMENT_COUNT,
-    RANGE_ELEMENT_COUNT,
-    OTHER
-};
-
-t_symbol* to_symbol(PropValueType t);
-t_symbol* to_symbol(PropValueView v);
-t_symbol* to_symbol(PropValueUnits u);
-t_symbol* to_symbol(PropValueAccess v);
-t_symbol* to_symbol(PropValueVis v);
-t_symbol* to_symbol(PropValueConstraints v);
-inline const char* to_string(PropValueType v) { return to_symbol(v)->s_name; }
-inline const char* to_string(PropValueView v) { return to_symbol(v)->s_name; }
-inline const char* to_string(PropValueUnits v) { return to_symbol(v)->s_name; }
-inline const char* to_string(PropValueAccess v) { return to_symbol(v)->s_name; }
-inline const char* to_string(PropValueVis v) { return to_symbol(v)->s_name; }
-inline const char* to_string(PropValueConstraints v) { return to_symbol(v)->s_name; }
 
 class PropertyInfo {
     using AtomListPtr = std::unique_ptr<AtomList>;
@@ -148,15 +55,15 @@ class PropertyInfo {
 private:
     t_symbol* name_;
     // name
-    PropertyValue default_;
+    PropertyValue default_, init_;
     // constraints
     AtomListPtr enum_;
     NumericUnion min_, max_;
     t_float step_;
     int8_t arg_index_;
     // info
-    PropValueType type_;
     PropValueUnitsBase units_;
+    PropValueType type_;
     PropValueView view_;
     PropValueAccess access_;
     PropValueVis vis_;
@@ -164,8 +71,9 @@ private:
 
 public:
     PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
-    PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
-    PropertyInfo(const PropertyInfo& getTree);
+    PropertyInfo(const char* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
+
+    PropertyInfo(const PropertyInfo& info);
     PropertyInfo(PropertyInfo&& info);
     ~PropertyInfo();
 
@@ -282,6 +190,7 @@ public:
     bool setFixedElementCount(size_t n) CEAMMC_WARN_UNUSED;
     bool setRangeElementCount(size_t min, size_t max) CEAMMC_WARN_UNUSED;
 
+    // default
     void setDefault(bool v);
     void setDefault(int v);
     void setDefault(long v);
@@ -309,6 +218,35 @@ public:
     t_symbol* defaultSymbol(t_symbol* def = &s_) const;
     Atom defaultAtom(const Atom& def = Atom()) const;
     const AtomList& defaultList() const;
+
+    // initial
+    bool noInitial() const;
+    template <typename T>
+    inline bool getInitial(T& v) const
+    {
+        return getT<T>(init_, v);
+    }
+
+    template <typename T>
+    inline T initialT(const T& def = {}) const
+    {
+        T res {};
+        if (isA<T>() && init_.type() == typeid(T))
+            return boost::get<T>(init_);
+        else
+            return def;
+    }
+
+    template <typename T>
+    inline bool setInitial(const T& v)
+    {
+        if (isA<T>()) {
+            init_ = v;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     template <typename T>
     static PropValueType toType();

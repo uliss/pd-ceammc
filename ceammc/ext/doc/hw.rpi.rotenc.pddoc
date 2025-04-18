@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.rpi.rotenc">
+        <title>hw.rpi.rotenc</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>
+                <tr lang="en">rotary encoder for Raspberry Pi</tr>
+                <tr lang="ru">поворотный энкодер для Raspberry Pi</tr>
+            </description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display gpio raspberry rotary encoder</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <methods>
+            <method name="get">request current value output</method>
+            <method name="set">set current value without output 
+            <param name="VAL" type="float" required="true">new value</param></method>
+            <method name="reset">reset current value to @init</method>
+        </methods>
+        <properties>
+            <property name="@init" type="float" default="0" access="initonly">init encoder
+            value</property>
+            <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">DT GPIO pin</property>
+            <property name="@min" type="float" default="-100">min encoder value</property>
+            <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">CLK GPIO pin</property>
+            <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">BTN GPIO pin</property>
+            <property name="@step" type="float" default="1">encoder step</property>
+            <property name="@max" type="float" default="100">max encoder value</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current value</xinfo>
+                <xinfo on="float">set current value and output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset value to @init</xinfo>
+                <xinfo on="float">set current value without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: current encoder value</outlet>
+            <outlet>[dir -1|1( or [btn 1|0( messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@step 0.5 #a(
+
+  [B]  [set 50( [reset(
+  |    |        |
+[hw.rpi.rotenc @dt 22 @clk 23 @btn 27 #x]
+|                         ^|
+|                         [route btn dir ]
+|                         |             ^|
+[F digit=4]               [T]          [F]
+
+
+[ui.link @url=ceammc://img/conn_rotenc.png @title='Connection_scheme']
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

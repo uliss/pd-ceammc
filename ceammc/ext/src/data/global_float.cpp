@@ -7,9 +7,15 @@ GlobalFloat::GlobalFloat(const PdArgs& a)
     createOutlet();
 }
 
+void GlobalFloat::outputRef(const t_float& f)
+{
+    floatTo(0, f);
+}
+
 void setup_global_float()
 {
     NumericIFaceFactory<GlobalFloat> obj("global.float");
+    GlobalFloat::globalBaseFactory(obj);
 
     obj.setDescription("global named float object");
     obj.setCategory("global");

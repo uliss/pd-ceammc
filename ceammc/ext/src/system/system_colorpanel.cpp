@@ -17,8 +17,6 @@
 #include "fmt/core.h"
 #include "system_colorpanel.tcl.h"
 
-#include <cinttypes>
-
 CEAMMC_DEFINE_SYM_HASH(float)
 CEAMMC_DEFINE_SYM_HASH(int)
 CEAMMC_DEFINE_SYM_HASH(hex)

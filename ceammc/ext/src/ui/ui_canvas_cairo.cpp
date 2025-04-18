@@ -27,7 +27,6 @@
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif
-#include <cmath>
 
 #ifdef WITH_STB
 #include "stb_common.h"

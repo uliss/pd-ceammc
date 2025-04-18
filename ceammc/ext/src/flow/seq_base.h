@@ -24,7 +24,7 @@ using namespace ceammc;
 
 class RepeatProperty : public IntProperty {
 public:
-    RepeatProperty(const std::string& name, int defValue = -1);
+    RepeatProperty(const char* name, int defValue = -1);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
@@ -39,7 +39,7 @@ class SeqTimeGrain : public FloatProperty {
     static const size_t MAX_INTERVAL = 20000;
 
 public:
-    SeqTimeGrain(const std::string& name, t_float f = 10);
+    SeqTimeGrain(const char* name, t_float f = 10);
     bool setList(const AtomListView& lv) override;
     bool setBpm(t_float bpm);
 };

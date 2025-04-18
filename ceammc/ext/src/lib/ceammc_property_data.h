@@ -27,7 +27,7 @@ class DataPropertyT : public Property {
 
 public:
     DataPropertyT(
-        const std::string& name,
+        const char* name,
         const T& def,
         bool parse = true,
         PropValueAccess access = PropValueAccess::READWRITE)
@@ -39,7 +39,7 @@ public:
     }
 
     AtomList get() const final { return v_; }
-    bool setList(const AtomListView& lv) final
+    bool setList(const AtomListView& lv) override
     {
         if (!lv.isAtom())
             return false;
@@ -53,7 +53,7 @@ public:
         return true;
     }
 
-    bool setAtom(const Atom& a) final
+    bool setAtom(const Atom& a) override
     {
         if (!a.isA<T>()) {
             if (parse_messages_) {
@@ -99,7 +99,7 @@ class DataPropertyListT : public Property {
 
 public:
     DataPropertyListT(
-        const std::string& name,
+        const char* name,
         const std::vector<T>& def,
         bool parse = true,
         PropValueAccess access = PropValueAccess::READWRITE)

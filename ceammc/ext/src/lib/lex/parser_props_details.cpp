@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "parser_props.h"
 
-#include <algorithm>
 #include <cmath>
 #include <limits>
 #include <random>
@@ -140,5 +139,5 @@ namespace parser {
         return dist(rnd);
     }
 
-}
-}
+} // namespace parser
+} // namespace ceammc

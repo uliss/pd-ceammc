@@ -148,7 +148,7 @@ if(WIN32)
     add_custom_target(prepare_win_tests
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:puredata-core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
-        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:wrapper_lib>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
+        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_wrapper>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
     )
 endif()
 
@@ -207,7 +207,8 @@ if(APPLE)
         COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
-            -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
+            -P "${PROJECT_SOURCE_DIR}/cmake/bundle.cmake"
+        COMMAND sh "${PROJECT_SOURCE_DIR}/ceammc/distrib/mac/check_bundle.sh" ${BUNDLE_FULL_PATH}
         USES_TERMINAL
         )
 
@@ -236,6 +237,10 @@ endif()
 
 if(UNIX AND NOT APPLE)
     add_compile_options(-funroll-loops)
+
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        add_link_options(-fno-lto)
+    endif()
 
     if(CMAKE_BUILD_TYPE STREQUAL "Release")
         add_compile_options(-O2)

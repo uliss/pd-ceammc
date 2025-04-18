@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty proto.midi.cc 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 proto.midi.cc;
-#X obj 50 118 proto.midi.cc.pan;
-#X obj 50 147 proto.midi.cc.vol;
+#X obj 50 118 proto.midi.cc-pan;
+#X obj 50 147 proto.midi.cc-vol;
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 202 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -246,13 +246,13 @@ are:;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
 #X obj 1 2871 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2874 library: ceammc v0.9.7;
+#X text 10 2874 library: ceammc v0.9.8;
 #N canvas 10 2893 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.7;
+#X text 120 32 0.9.8;
 #X text 10 54 object:;
 #X text 120 54 proto.midi.cc;
 #X text 10 76 category:;

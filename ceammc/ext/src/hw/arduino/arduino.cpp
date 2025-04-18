@@ -1,9 +1,7 @@
 #include "arduino.h"
 #include "arduino_thread.h"
-#include "ceammc_thread.h"
 #include "serial/serial.h"
 
-#include <cerrno>
 #include <cstring>
 
 #include <algorithm>
@@ -16,8 +14,6 @@
                       << ", str: " << strerror(status) << "\n";         \
         }                                                               \
     }
-
-using namespace ceammc::thread;
 
 using Lock = std::unique_lock<std::mutex>;
 
