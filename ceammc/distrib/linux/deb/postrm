@@ -1,10 +1,10 @@
 #!/bin/sh
 
 if [ "$1" = "remove" ]; then
-	rm /usr/bin/pd-ceammc
-	rm /usr/bin/pdsend-ceammc
-	rm /usr/bin/pdreceive-ceammc
-	ldconfig
+    rm /usr/bin/pd-ceammc
+    rm /usr/bin/pdsend-ceammc
+    rm /usr/bin/pdreceive-ceammc
+    ldconfig
 elif [ "$1" = "old-postrm" ]; then
     rm /usr/bin/pd-ceammc
     rm /usr/bin/pdsend-ceammc
