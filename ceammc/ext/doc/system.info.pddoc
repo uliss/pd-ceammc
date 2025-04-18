@@ -27,7 +27,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output process exit code</outlet>
+            <outlet>output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(</outlet>
         </outlets>
         <example>
             <pdascii>

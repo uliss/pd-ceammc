@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">MPU-6050 gyroscope and accelerometer Raspberry Pi support</tr>
+                <tr lang="en">MPU-6050 gyroscope and accelerometer for Raspberry Pi</tr>
+                <tr lang="ru">MPU-6050 гироскоп и датчик ускорения для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -35,10 +35,10 @@ Raspberry Pi support, f 46;
 #X obj 40 670 hw.rpi.sensor.ir;
 #X text 230 670 – Infrared sensor support for Raspberry Pi, f 46;
 #X obj 40 705 hw.rpi.sensor.mpu6050;
-#X text 230 705 – MPU-6050 gyroscope and accelerometer Raspberry Pi
-support, f 46;
+#X text 230 705 – MPU-6050 гироскоп и датчик ускорения для Raspberry
+Pi, f 46;
 #X obj 40 755 hw.rpi.sensor.sr04;
-#X text 230 755 – HC-SR04 ulatrasonic ranging module for Raspberry
+#X text 230 755 – HC-SR04 ультразвуковой датчик расстояния для Raspberry
 Pi, f 46;
 #X obj 40 805 hw.rpi.sensor.vl53l0x;
 #X text 230 805 – The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
