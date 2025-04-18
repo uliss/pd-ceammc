@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">LED display driver based on max7219 chip for Raspberry Pi</tr>
+                <tr lang="en">LED matrix driver based on max7219 chip for Raspberry Pi</tr>
+                <tr lang="ru">драйвер для LED матрицы на чипе max7219 для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -145,7 +146,7 @@
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
 [X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p0] [X p->x] [X r->x]
 [X q->x]
-[hw.spi.max7219-spi]
+[hw.rpi.spi.max7219-spi]
 ]]>
             </pdascii>
             <pdascii id="spi">

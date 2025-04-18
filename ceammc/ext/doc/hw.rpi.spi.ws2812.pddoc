@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">WS21812 Led strip driver for Raspberry Pi</tr>
+                <tr lang="en">ws2812 LED strip driver for Raspberry Pi</tr>
+                <tr lang="ru">драйвер для светодиодной ленты ws2812 для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

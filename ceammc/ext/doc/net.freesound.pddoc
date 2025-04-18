@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Freesound API v2 client</tr>
+                <tr lang="ru">клиент для Freesound API v2</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

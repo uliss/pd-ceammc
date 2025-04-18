@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 322 50 cnv 1 443 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 322 50 LED display driver based on max7219 chip for Raspberry
+#X obj 330 50 cnv 1 435 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 330 50 LED matrix driver based on max7219 chip for Raspberry
 Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.spi.max7219 20 20 0 20
 -104026 -4096 0;
@@ -44,7 +44,7 @@ and write_reg commands will work as expected;
 #X obj 347 593 bitmap 32 8;
 #X obj 347 621 msg write;
 #X obj 50 679 hw.rpi.spi.max7219 4;
-#X obj 50 736 hw.spi.max7219-spi;
+#X obj 50 736 hw.rpi.spi.max7219-spi;
 #X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 791 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

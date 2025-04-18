@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">MDNS service discovery</tr>
+                <tr lang="ru">обнаружение служб MDNS</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

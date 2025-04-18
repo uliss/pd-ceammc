@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">HTTP client</tr>
+                <tr lang="ru">HTTP клиент</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

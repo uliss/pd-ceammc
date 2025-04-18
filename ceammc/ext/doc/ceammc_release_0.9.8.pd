@@ -44,10 +44,10 @@ Pi, f 46;
 #X text 230 805 – The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
 Raspberry Pi support, f 46;
 #X obj 40 855 hw.rpi.spi.max7219;
-#X text 230 855 – LED display driver based on max7219 chip for Raspberry
+#X text 230 855 – LED matrix driver based on max7219 chip for Raspberry
 Pi, f 46;
 #X obj 40 905 hw.rpi.spi.ws2812;
-#X text 230 905 – WS21812 Led strip driver for Raspberry Pi, f 46;
+#X text 230 905 – ws2812 LED strip driver for Raspberry Pi, f 46;
 #X obj 40 940 msg.unpack;
 #X text 230 940 – message unpack to selector and arguments, f 46;
 #X obj 40 975 net.freesound;

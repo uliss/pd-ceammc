@@ -44,29 +44,30 @@ Pi, f 46;
 #X text 230 805 – The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
 Raspberry Pi support, f 46;
 #X obj 40 855 hw.rpi.spi.max7219;
-#X text 230 855 – LED display driver based on max7219 chip for Raspberry
+#X text 230 855 – драйвер для LED матрицы на чипе max7219 для Raspberry
 Pi, f 46;
 #X obj 40 905 hw.rpi.spi.ws2812;
-#X text 230 905 – WS21812 Led strip driver for Raspberry Pi, f 46;
-#X obj 40 940 msg.unpack;
-#X text 230 940 – распаковка сообщения на селектор и аргументы, f 46;
-#X obj 40 975 net.freesound;
-#X text 230 975 – Freesound API v2 client, f 46;
-#X obj 40 1010 net.http.client;
-#X text 230 1010 – HTTP client, f 46;
-#X obj 40 1045 net.mdns;
-#X text 230 1045 – MDNS service discovery, f 46;
-#X obj 40 1080 net.mqtt.client;
-#X text 230 1080 – MQTT client, f 46;
-#X obj 40 1115 net.ws.client;
-#X text 230 1115 – WebSocket клиент, f 46;
-#X obj 40 1150 net.ws.server;
-#X text 230 1150 – WebSocket сервер, f 46;
-#X obj 40 1185 proto.obs;
-#X text 230 1185 – WebSocket клиент для управления OBS studio, f 46;
-#X obj 40 1220 system.command;
-#X text 230 1220 – запуск цепочек команд с перенаправлением вывода
+#X text 230 905 – драйвер для светодиодной ленты ws2812 для Raspberry
+Pi, f 46;
+#X obj 40 955 msg.unpack;
+#X text 230 955 – распаковка сообщения на селектор и аргументы, f 46;
+#X obj 40 990 net.freesound;
+#X text 230 990 – клиент для Freesound API v2, f 46;
+#X obj 40 1025 net.http.client;
+#X text 230 1025 – HTTP клиент, f 46;
+#X obj 40 1060 net.mdns;
+#X text 230 1060 – обнаружение служб MDNS, f 46;
+#X obj 40 1095 net.mqtt.client;
+#X text 230 1095 – MQTT клиент, f 46;
+#X obj 40 1130 net.ws.client;
+#X text 230 1130 – WebSocket клиент, f 46;
+#X obj 40 1165 net.ws.server;
+#X text 230 1165 – WebSocket сервер, f 46;
+#X obj 40 1200 proto.obs;
+#X text 230 1200 – WebSocket клиент для управления OBS studio, f 46;
+#X obj 40 1235 system.command;
+#X text 230 1235 – запуск цепочек команд с перенаправлением вывода
 в Unix и Windows, f 46;
-#X obj 40 1270 system.info;
-#X text 230 1270 – получение информации о системе: ЦПУ и температура, f 46;
-#X text 40 1320 Дата: 2025-04-18, f 46;
+#X obj 40 1285 system.info;
+#X text 230 1285 – получение информации о системе: ЦПУ и температура, f 46;
+#X text 40 1335 Дата: 2025-04-18, f 46;
