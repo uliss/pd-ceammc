@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Hardware PWM output for RaspberryPi</tr>
+                <tr lang="en">hardware PWM output for RaspberryPi</tr>
+                <tr lang="ru">аппаратный ШИМ (PWM) для RaspberryPi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

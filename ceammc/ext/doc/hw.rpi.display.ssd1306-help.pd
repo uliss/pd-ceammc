@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 475 50 cnv 1 290 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 475 50 OLED ssd1306 display for Raspberry Pi;
+#X obj 329 50 cnv 1 436 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 329 50 driver for OLED display on ssd1306 chip for Raspberry
+Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.display.ssd1306 20 20 0 20
 -104026 -4096 0;
 #X obj 580 11 hw.rpi.display.ssd1306;

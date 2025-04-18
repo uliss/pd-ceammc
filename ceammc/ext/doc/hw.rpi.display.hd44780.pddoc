@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">LCD display driver for Raspberry Pi (1602 or 2004 module)</tr>
+                <tr lang="ru">драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

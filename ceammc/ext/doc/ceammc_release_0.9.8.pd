@@ -1,71 +1,73 @@
 #N canvas 0 0 600 600 12;
 #X obj 20 20 ui.label CEAMMC release: v0.9.8 @size 450 50;
-#X text 30 80 New objects:;
 #X obj 40 120 bitmap;
-#X text 230 120 – bitmap (2D bit matrix), f 46;
+#X text 230 120 – binary image (2D bit matrix), f 46;
 #X obj 40 155 conv.guido2note;
 #X text 230 155 – convert Guido notation into MIDI and duration, f 46;
 #X obj 40 205 data.path;
 #X text 230 205 – filesystem path datatype, f 46;
 #X obj 40 240 flow.histogram;
-#X text 230 240 – control flow histogram, f 46;
+#X text 230 240 – histogram for numeric control flow, f 46;
 #X obj 40 275 hw.gamepad;
 #X text 230 275 – gamepad controller, f 46;
 #X obj 40 310 hw.printer;
 #X text 230 310 – basic document printing support, f 46;
 #X obj 40 345 hw.rpi.adc.ads1115;
-#X text 230 345 – ASD1115 ADC driver for Raspberry Pi, f 46;
-#X obj 40 380 hw.rpi.display.hd44780;
-#X text 230 380 – LCD display driver for Raspberry Pi (1602 or 2004
+#X text 230 345 – driver for 16-bit ADC on ads1115 chip for Raspberry
+Pi, f 46;
+#X obj 40 395 hw.rpi.display.hd44780;
+#X text 230 395 – LCD display driver for Raspberry Pi (1602 or 2004
 module), f 46;
-#X obj 40 430 hw.rpi.display.ssd1306;
-#X text 230 430 – OLED ssd1306 display for Raspberry Pi, f 46;
-#X obj 40 465 hw.rpi.gpio;
-#X text 230 465 – Raspberry Pi GPIO support, f 46;
-#X obj 40 500 hw.rpi.i2c.pca9685;
-#X text 230 500 – PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry
+#X obj 40 445 hw.rpi.display.ssd1306;
+#X text 230 445 – driver for OLED display on ssd1306 chip for Raspberry
 Pi, f 46;
-#X obj 40 550 hw.rpi.pwm;
-#X text 230 550 – Hardware PWM output for RaspberryPi, f 46;
-#X obj 40 585 hw.rpi.rotenc;
-#X text 230 585 – rotary encoder for Raspberry Pi, f 46;
-#X obj 40 620 hw.rpi.sensor.dht11;
-#X text 230 620 – digital humidity and temperature sensor (DHT11) for
-Raspberry Pi, f 46;
-#X obj 40 670 hw.rpi.sensor.ir;
-#X text 230 670 – IR (infrared) sensors and protocols for Raspberry
-Pi, f 46;
-#X obj 40 720 hw.rpi.sensor.mpu6050;
-#X text 230 720 – MPU-6050 gyroscope and accelerometer for Raspberry
-Pi, f 46;
-#X obj 40 770 hw.rpi.sensor.sr04;
-#X text 230 770 – HC-SR04 ultrasonic ranging module for Raspberry Pi, f 46;
-#X obj 40 820 hw.rpi.sensor.vl53l0x;
-#X text 230 820 – time-of-flight (ToF) laser-ranging sensor on VL53L0X
+#X obj 40 495 hw.rpi.gpio;
+#X text 230 495 – GPIO control for Raspberry Pi, f 46;
+#X obj 40 530 hw.rpi.i2c.pca9685;
+#X text 230 530 – driver for 16-channel 12-bit PWM module on PCA9685
 chip for Raspberry Pi, f 46;
-#X obj 40 870 hw.rpi.spi.max7219;
-#X text 230 870 – LED matrix driver based on max7219 chip for Raspberry
+#X obj 40 580 hw.rpi.pwm;
+#X text 230 580 – hardware PWM output for RaspberryPi, f 46;
+#X obj 40 615 hw.rpi.rotenc;
+#X text 230 615 – rotary encoder for Raspberry Pi, f 46;
+#X obj 40 650 hw.rpi.sensor.dht11;
+#X text 230 650 – digital humidity and temperature sensor (DHT11) for
+Raspberry Pi, f 46;
+#X obj 40 700 hw.rpi.sensor.ir;
+#X text 230 700 – IR (infrared) sensors and protocols for Raspberry
 Pi, f 46;
-#X obj 40 920 hw.rpi.spi.ws2812;
-#X text 230 920 – ws2812 LED strip driver for Raspberry Pi, f 46;
-#X obj 40 955 msg.unpack;
-#X text 230 955 – message unpack to selector and arguments, f 46;
-#X obj 40 990 net.freesound;
-#X text 230 990 – Freesound API v2 client, f 46;
-#X obj 40 1025 net.http.client;
-#X text 230 1025 – HTTP client, f 46;
-#X obj 40 1060 net.mdns;
-#X text 230 1060 – MDNS service discovery, f 46;
-#X obj 40 1095 net.mqtt.client;
-#X text 230 1095 – MQTT client, f 46;
-#X obj 40 1130 net.ws.client;
-#X text 230 1130 – WebSocket client, f 46;
-#X obj 40 1165 net.ws.server;
-#X text 230 1165 – WebSocket server, f 46;
-#X obj 40 1200 proto.obs;
-#X text 230 1200 – WebSocket client to control OBS studio, f 46;
-#X obj 40 1235 system.command;
-#X text 230 1235 – run commands with pipes on Unix and Windows, f 46;
-#X obj 40 1270 system.info;
-#X text 230 1270 – retrieve system information: CPU and temperature, f 46;
-#X text 40 1320 Date: 2025-04-18, f 46;
+#X obj 40 750 hw.rpi.sensor.mpu6050;
+#X text 230 750 – MPU-6050 gyroscope and accelerometer for Raspberry
+Pi, f 46;
+#X obj 40 800 hw.rpi.sensor.sr04;
+#X text 230 800 – HC-SR04 ultrasonic ranging module for Raspberry Pi, f 46;
+#X obj 40 850 hw.rpi.sensor.vl53l0x;
+#X text 230 850 – time-of-flight (ToF) laser-ranging sensor on VL53L0X
+chip for Raspberry Pi, f 46;
+#X obj 40 900 hw.rpi.spi.max7219;
+#X text 230 900 – LED matrix driver based on max7219 chip for Raspberry
+Pi, f 46;
+#X obj 40 950 hw.rpi.spi.ws2812;
+#X text 230 950 – ws2812 LED strip driver for Raspberry Pi, f 46;
+#X obj 40 985 msg.unpack;
+#X text 230 985 – message unpack to selector and arguments, f 46;
+#X obj 40 1020 net.freesound;
+#X text 230 1020 – Freesound API v2 client, f 46;
+#X obj 40 1055 net.http.client;
+#X text 230 1055 – HTTP client, f 46;
+#X obj 40 1090 net.mdns;
+#X text 230 1090 – MDNS service discovery, f 46;
+#X obj 40 1125 net.mqtt.client;
+#X text 230 1125 – MQTT client, f 46;
+#X obj 40 1160 net.ws.client;
+#X text 230 1160 – WebSocket client, f 46;
+#X obj 40 1195 net.ws.server;
+#X text 230 1195 – WebSocket server, f 46;
+#X obj 40 1230 proto.obs;
+#X text 230 1230 – WebSocket client to control OBS studio, f 46;
+#X obj 40 1265 system.command;
+#X text 230 1265 – run commands with pipes on Unix and Windows, f 46;
+#X obj 40 1300 system.info;
+#X text 230 1300 – retrieve system information: CPU and temperature, f 46;
+#X text 40 80 New objects (30):;
+#X text 40 1350 Date: 2025-04-18, f 46;

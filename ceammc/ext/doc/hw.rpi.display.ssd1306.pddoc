@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">OLED ssd1306 display for Raspberry Pi</tr>
+                <tr lang="en">driver for OLED display on ssd1306 chip for Raspberry Pi</tr>
+                <tr lang="ru">драйвер для OLED дисплея на чипе ssd1306 для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">filesystem path datatype</tr>
+                <tr lang="ru">тип данных: путь в файловой системе</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

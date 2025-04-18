@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">ASD1115 ADC driver for Raspberry Pi</tr>
-                <tr lang="ru">ASD1115 АЦП драйвер для Raspberry Pi</tr>
+                <tr lang="en">driver for 16-bit ADC on ads1115 chip for Raspberry Pi</tr>
+                <tr lang="ru">драйвер для 16-битного АЦП на чипе ads1115 для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
