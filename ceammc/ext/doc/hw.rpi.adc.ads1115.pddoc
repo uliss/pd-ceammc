@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">ASD1115 ADC driver for Raspberry Pi</tr>
+                <tr lang="ru">ASD1115 АЦП драйвер для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
