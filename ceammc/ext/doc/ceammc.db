@@ -338,7 +338,6 @@ hw.rpi.sensor.vl53l0x		.		.
 hw.rpi.spi.max7219		.		-
 hw.rpi.spi.ws2812		.		.
 hw.serial		.		.
-hw.spi.max7219		.		-
 is_any		.		..
 is_bang		.		..
 is_data,ceammc/is_data		.		..
