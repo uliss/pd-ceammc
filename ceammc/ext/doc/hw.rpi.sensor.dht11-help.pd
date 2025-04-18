@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 307 50 cnv 1 458 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 307 50 DHT11 Humidity and Temperature Digital Sensor for Raspberry
-Pi support;
+#X obj 291 50 cnv 1 474 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 291 50 digital humidity and temperature sensor (DHT11) for
+Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.dht11 20 20 0 20
 -104026 -4096 0;
 #X obj 602 11 hw.rpi.sensor.dht11;

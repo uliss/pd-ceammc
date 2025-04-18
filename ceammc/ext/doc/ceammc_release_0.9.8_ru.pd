@@ -1,5 +1,5 @@
 #N canvas 0 0 600 600 12;
-#X obj 20 20 ui.label CEAMMC release: 0.9.8 @size 450 50;
+#X obj 20 20 ui.label CEAMMC выпуск: v0.9.8 @size 450 50;
 #X text 30 80 Новые объекты:;
 #X obj 40 120 bitmap;
 #X text 230 120 – bitmap (2D bit matrix), f 46;
@@ -10,7 +10,7 @@
 #X obj 40 240 flow.histogram;
 #X text 230 240 – control flow histogram, f 46;
 #X obj 40 275 hw.gamepad;
-#X text 230 275 – gamepad controller, f 46;
+#X text 230 275 – геймпад контроллеры, f 46;
 #X obj 40 310 hw.printer;
 #X text 230 310 – базовая поддержка печати документов, f 46;
 #X obj 40 345 hw.rpi.adc.ads1115;
@@ -28,46 +28,47 @@ Pi, f 46;
 #X obj 40 550 hw.rpi.pwm;
 #X text 230 550 – Hardware PWM output for RaspberryPi, f 46;
 #X obj 40 585 hw.rpi.rotenc;
-#X text 230 585 – Rotary encoder for Raspberry GPIO, f 46;
+#X text 230 585 – поворотный энкодер для Raspberry Pi, f 46;
 #X obj 40 620 hw.rpi.sensor.dht11;
-#X text 230 620 – DHT11 Humidity and Temperature Digital Sensor for
-Raspberry Pi support, f 46;
+#X text 230 620 – цифровой датчик влажности и температуры (DHT11) для
+Raspberry Pi, f 46;
 #X obj 40 670 hw.rpi.sensor.ir;
-#X text 230 670 – Infrared sensor support for Raspberry Pi, f 46;
-#X obj 40 705 hw.rpi.sensor.mpu6050;
-#X text 230 705 – MPU-6050 гироскоп и датчик ускорения для Raspberry
+#X text 230 670 – ИК (инфракрасные) датчики и протоколы для Raspberry
 Pi, f 46;
-#X obj 40 755 hw.rpi.sensor.sr04;
-#X text 230 755 – HC-SR04 ультразвуковой датчик расстояния для Raspberry
+#X obj 40 720 hw.rpi.sensor.mpu6050;
+#X text 230 720 – MPU-6050 гироскоп и датчик ускорения для Raspberry
 Pi, f 46;
-#X obj 40 805 hw.rpi.sensor.vl53l0x;
-#X text 230 805 – The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
-Raspberry Pi support, f 46;
-#X obj 40 855 hw.rpi.spi.max7219;
-#X text 230 855 – драйвер для LED матрицы на чипе max7219 для Raspberry
+#X obj 40 770 hw.rpi.sensor.sr04;
+#X text 230 770 – HC-SR04 ультразвуковой датчик расстояния для Raspberry
 Pi, f 46;
-#X obj 40 905 hw.rpi.spi.ws2812;
-#X text 230 905 – драйвер для светодиодной ленты ws2812 для Raspberry
+#X obj 40 820 hw.rpi.sensor.vl53l0x;
+#X text 230 820 – лазерный дальномер на чипе VL53L0X для Raspberry
 Pi, f 46;
-#X obj 40 955 msg.unpack;
-#X text 230 955 – распаковка сообщения на селектор и аргументы, f 46;
-#X obj 40 990 net.freesound;
-#X text 230 990 – клиент для Freesound API v2, f 46;
-#X obj 40 1025 net.http.client;
-#X text 230 1025 – HTTP клиент, f 46;
-#X obj 40 1060 net.mdns;
-#X text 230 1060 – обнаружение служб MDNS, f 46;
-#X obj 40 1095 net.mqtt.client;
-#X text 230 1095 – MQTT клиент, f 46;
-#X obj 40 1130 net.ws.client;
-#X text 230 1130 – WebSocket клиент, f 46;
-#X obj 40 1165 net.ws.server;
-#X text 230 1165 – WebSocket сервер, f 46;
-#X obj 40 1200 proto.obs;
-#X text 230 1200 – WebSocket клиент для управления OBS studio, f 46;
-#X obj 40 1235 system.command;
-#X text 230 1235 – запуск цепочек команд с перенаправлением вывода
+#X obj 40 870 hw.rpi.spi.max7219;
+#X text 230 870 – драйвер для LED матрицы на чипе max7219 для Raspberry
+Pi, f 46;
+#X obj 40 920 hw.rpi.spi.ws2812;
+#X text 230 920 – драйвер для светодиодной ленты ws2812 для Raspberry
+Pi, f 46;
+#X obj 40 970 msg.unpack;
+#X text 230 970 – распаковка сообщения на селектор и аргументы, f 46;
+#X obj 40 1005 net.freesound;
+#X text 230 1005 – клиент для Freesound API v2, f 46;
+#X obj 40 1040 net.http.client;
+#X text 230 1040 – HTTP клиент, f 46;
+#X obj 40 1075 net.mdns;
+#X text 230 1075 – обнаружение служб MDNS, f 46;
+#X obj 40 1110 net.mqtt.client;
+#X text 230 1110 – MQTT клиент, f 46;
+#X obj 40 1145 net.ws.client;
+#X text 230 1145 – WebSocket клиент, f 46;
+#X obj 40 1180 net.ws.server;
+#X text 230 1180 – WebSocket сервер, f 46;
+#X obj 40 1215 proto.obs;
+#X text 230 1215 – WebSocket клиент для управления OBS studio, f 46;
+#X obj 40 1250 system.command;
+#X text 230 1250 – запуск цепочек команд с перенаправлением вывода
 в Unix и Windows, f 46;
-#X obj 40 1285 system.info;
-#X text 230 1285 – получение информации о системе: ЦПУ и температура, f 46;
-#X text 40 1335 Дата: 2025-04-18, f 46;
+#X obj 40 1300 system.info;
+#X text 230 1300 – получение информации о системе: ЦПУ и температура, f 46;
+#X text 40 1350 Дата: 2025-04-18, f 46;

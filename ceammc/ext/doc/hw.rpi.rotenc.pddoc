@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Rotary encoder for Raspberry GPIO</tr>
+                <tr lang="en">rotary encoder for Raspberry Pi</tr>
+                <tr lang="ru">поворотный энкодер для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

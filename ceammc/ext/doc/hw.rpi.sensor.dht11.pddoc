@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">DHT11 Humidity and Temperature Digital Sensor for Raspberry Pi
-                support</tr>
+                <tr lang="en">digital humidity and temperature sensor (DHT11) for Raspberry Pi</tr>
+                <tr lang="ru">цифровой датчик влажности и температуры (DHT11) для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
