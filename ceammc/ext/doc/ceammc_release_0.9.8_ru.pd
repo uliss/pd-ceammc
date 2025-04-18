@@ -59,11 +59,11 @@ Pi, f 46;
 #X obj 40 1080 net.mqtt.client;
 #X text 230 1080 – MQTT client, f 46;
 #X obj 40 1115 net.ws.client;
-#X text 230 1115 – Websocket client, f 46;
+#X text 230 1115 – WebSocket клиент, f 46;
 #X obj 40 1150 net.ws.server;
-#X text 230 1150 – Websocket server, f 46;
+#X text 230 1150 – WebSocket сервер, f 46;
 #X obj 40 1185 proto.obs;
-#X text 230 1185 – OBS studio Web-Socket client, f 46;
+#X text 230 1185 – WebSocket клиент для управления OBS studio, f 46;
 #X obj 40 1220 system.command;
 #X text 230 1220 – запуск цепочек команд с перенаправлением вывода
 в Unix и Windows, f 46;
