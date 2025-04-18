@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi</tr>
+                <tr lang="en">time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for
+                Raspberry Pi</tr>
                 <tr lang="ru">лазерный дальномер на чипе VL53L0X для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>

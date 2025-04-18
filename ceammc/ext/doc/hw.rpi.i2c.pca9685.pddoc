@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi</tr>
-                <tr lang="ru">драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi</tr>
+                <tr lang="en">driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry
+                Pi</tr>
+                <tr lang="ru">драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для
+                Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
