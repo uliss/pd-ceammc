@@ -1,0 +1,71 @@
+#N canvas 0 0 600 600 12;
+#X obj 20 20 ui.label CEAMMC release: 0.9.8 @size 450 50;
+#X text 30 80 Новые объекты:;
+#X obj 40 120 bitmap;
+#X text 230 120 – bitmap (2D bit matrix), f 46;
+#X obj 40 155 conv.guido2note;
+#X text 230 155 – convert Guido notation into MIDI and duration, f 46;
+#X obj 40 205 data.path;
+#X text 230 205 – filesystem path datatype, f 46;
+#X obj 40 240 flow.histogram;
+#X text 230 240 – control flow histogram, f 46;
+#X obj 40 275 hw.gamepad;
+#X text 230 275 – gamepad controller, f 46;
+#X obj 40 310 hw.printer;
+#X text 230 310 – базовая поддержка печати документов, f 46;
+#X obj 40 345 hw.rpi.adc.ads1115;
+#X text 230 345 – ASD1115 АЦП драйвер для Raspberry Pi, f 46;
+#X obj 40 380 hw.rpi.display.hd44780;
+#X text 230 380 – LCD display driver for Raspberry Pi (1602 or 2004
+module), f 46;
+#X obj 40 430 hw.rpi.display.ssd1306;
+#X text 230 430 – OLED ssd1306 display for Raspberry Pi, f 46;
+#X obj 40 465 hw.rpi.gpio;
+#X text 230 465 – Raspberry Pi GPIO support, f 46;
+#X obj 40 500 hw.rpi.i2c.pca9685;
+#X text 230 500 – PCA9685: 16 Channel 12 Bit PWM Servo Driver for Raspberry
+Pi, f 46;
+#X obj 40 550 hw.rpi.pwm;
+#X text 230 550 – Hardware PWM output for RaspberryPi, f 46;
+#X obj 40 585 hw.rpi.rotenc;
+#X text 230 585 – Rotary encoder for Raspberry GPIO, f 46;
+#X obj 40 620 hw.rpi.sensor.dht11;
+#X text 230 620 – DHT11 Humidity and Temperature Digital Sensor for
+Raspberry Pi support, f 46;
+#X obj 40 670 hw.rpi.sensor.ir;
+#X text 230 670 – Infrared sensor support for Raspberry Pi, f 46;
+#X obj 40 705 hw.rpi.sensor.mpu6050;
+#X text 230 705 – MPU-6050 gyroscope and accelerometer Raspberry Pi
+support, f 46;
+#X obj 40 755 hw.rpi.sensor.sr04;
+#X text 230 755 – HC-SR04 ulatrasonic ranging module for Raspberry
+Pi, f 46;
+#X obj 40 805 hw.rpi.sensor.vl53l0x;
+#X text 230 805 – The VL53L0X Time-of-Flight (ToF) laser-ranging sensor
+Raspberry Pi support, f 46;
+#X obj 40 855 hw.rpi.spi.max7219;
+#X text 230 855 – LED display driver based on max7219 chip for Raspberry
+Pi, f 46;
+#X obj 40 905 hw.rpi.spi.ws2812;
+#X text 230 905 – WS21812 Led strip driver for Raspberry Pi, f 46;
+#X obj 40 940 msg.unpack;
+#X text 230 940 – распаковка сообщения на селектор и аргументы, f 46;
+#X obj 40 975 net.freesound;
+#X text 230 975 – Freesound API v2 client, f 46;
+#X obj 40 1010 net.http.client;
+#X text 230 1010 – HTTP client, f 46;
+#X obj 40 1045 net.mdns;
+#X text 230 1045 – MDNS service discovery, f 46;
+#X obj 40 1080 net.mqtt.client;
+#X text 230 1080 – MQTT client, f 46;
+#X obj 40 1115 net.ws.client;
+#X text 230 1115 – Websocket client, f 46;
+#X obj 40 1150 net.ws.server;
+#X text 230 1150 – Websocket server, f 46;
+#X obj 40 1185 proto.obs;
+#X text 230 1185 – OBS studio Web-Socket client, f 46;
+#X obj 40 1220 system.command;
+#X text 230 1220 – run commands with pipes on Unix and Windows, f 46;
+#X obj 40 1255 system.info;
+#X text 230 1255 – retrieve system information, f 46;
+#X text 40 1290 Дата: 2025-04-18, f 46;
