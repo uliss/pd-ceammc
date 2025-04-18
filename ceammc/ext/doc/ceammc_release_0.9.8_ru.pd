@@ -67,5 +67,5 @@ Pi, f 46;
 #X obj 40 1220 system.command;
 #X text 230 1220 – run commands with pipes on Unix and Windows, f 46;
 #X obj 40 1255 system.info;
-#X text 230 1255 – retrieve system information, f 46;
-#X text 40 1290 Дата: 2025-04-18, f 46;
+#X text 230 1255 – получение информации о системе: ЦПУ и температура, f 46;
+#X text 40 1305 Дата: 2025-04-18, f 46;
