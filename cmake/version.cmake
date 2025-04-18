@@ -37,21 +37,9 @@ if(APPLE)
    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-macos-${MACOSX_VERSION}-${CMAKE_OSX_ARCHITECTURES}-pd${PD_TEXT_VERSION_SHORT}${CEAMMC_PRECISION_SUFFIX}${MT_SUFFIX}.tar.gz")
 
 elseif(UNIX)
-    set(LINUX_DEBIAN_PACKAGE_REVISION "")
-    if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-        find_program(_GIT git)
-        if(_GIT)
-            execute_process(
-                COMMAND bash -c "${_GIT} describe --tags | cut -d- -f2"
-                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-                OUTPUT_VARIABLE _DEB_PACKAGE_REVISION
-                OUTPUT_STRIP_TRAILING_WHITESPACE)
-        endif()
-
-        message(STATUS "Deb package revision: ${_DEB_PACKAGE_REVISION}")
-        set(LINUX_DEBIAN_PACKAGE_REVISION ".r${_DEB_PACKAGE_REVISION}")
-    endif()
-
+    # update manually on each deb release
+    # should be reset to r1 on every distribution release
+    set(LINUX_DEBIAN_PACKAGE_REVISION "r1710")
     set(LINUX_DEBIAN_PACKAGE_NAME "pd-ceammc")
     # Note: without .deb extension
     set(LINUX_DEBIAN_PACKAGE_FILE_NAME "${LINUX_DEBIAN_PACKAGE_NAME}-${CEAMMC_DISTRIB_VERSION}${LINUX_DEBIAN_PACKAGE_REVISION}-${PD_TEXT_VERSION_SHORT}_${LSB_CODENAME}_${LSB_PROCESSOR_ARCH}")
