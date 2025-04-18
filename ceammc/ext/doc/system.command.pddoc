@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">run commands with pipes on Unix and Windows</tr>
+                <tr lang="ru">запуск цепочек команд с перенаправлением вывода в Unix и Windows</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
