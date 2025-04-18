@@ -1,0 +1,32 @@
+CEAMMC версия: v0.9.8
+Новые объекты (30):
+[bitmap] – бинарное изображение (битовая 2D-матрица)
+[conv.guido2note] – конвертер из Guido-нотации в MIDI ноту и длительность
+[data.path] – тип данных: путь в файловой системе
+[flow.histogram] – гисторамма для числового потока управления
+[hw.gamepad] – геймпад контроллеры
+[hw.printer] – базовая поддержка печати документов
+[hw.rpi.adc.ads1115] – драйвер для 16-битного АЦП на чипе ads1115 для Raspberry Pi
+[hw.rpi.display.hd44780] – драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+[hw.rpi.display.ssd1306] – драйвер для OLED дисплея на чипе ssd1306 для Raspberry Pi
+[hw.rpi.gpio] – управление GPIO на Raspberry Pi
+[hw.rpi.i2c.pca9685] – драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
+[hw.rpi.pwm] – аппаратный ШИМ (PWM) для RaspberryPi
+[hw.rpi.rotenc] – поворотный энкодер для Raspberry Pi
+[hw.rpi.sensor.dht11] – цифровой датчик влажности и температуры (DHT11) для Raspberry Pi
+[hw.rpi.sensor.ir] – ИК (инфракрасные) датчики и протоколы для Raspberry Pi
+[hw.rpi.sensor.mpu6050] – MPU-6050 гироскоп и датчик ускорения для Raspberry Pi
+[hw.rpi.sensor.sr04] – HC-SR04 ультразвуковой датчик расстояния для Raspberry Pi
+[hw.rpi.sensor.vl53l0x] – лазерный дальномер на чипе VL53L0X для Raspberry Pi
+[hw.rpi.spi.max7219] – драйвер для LED матрицы на чипе max7219 для Raspberry Pi
+[hw.rpi.spi.ws2812] – драйвер для светодиодной ленты ws2812 для Raspberry Pi
+[msg.unpack] – распаковка сообщения на селектор и аргументы
+[net.freesound] – клиент для Freesound API v2
+[net.http.client] – HTTP клиент
+[net.mdns] – обнаружение служб MDNS
+[net.mqtt.client] – MQTT клиент
+[net.ws.client] – WebSocket клиент
+[net.ws.server] – WebSocket сервер
+[proto.obs] – WebSocket клиент для управления OBS studio
+[system.command] – запуск цепочек команд с перенаправлением вывода в Unix и Windows
+[system.info] – получение информации о системе: ЦПУ и температура

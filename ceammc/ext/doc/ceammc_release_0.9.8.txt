@@ -1,0 +1,32 @@
+CEAMMC release: v0.9.8
+New objects (30):
+[bitmap] – binary image (2D bit matrix)
+[conv.guido2note] – convert Guido notation into MIDI and duration
+[data.path] – filesystem path datatype
+[flow.histogram] – histogram for numeric control flow
+[hw.gamepad] – gamepad controller
+[hw.printer] – basic document printing support
+[hw.rpi.adc.ads1115] – driver for 16-bit ADC on ads1115 chip for Raspberry Pi
+[hw.rpi.display.hd44780] – LCD display driver for Raspberry Pi (1602 or 2004 module)
+[hw.rpi.display.ssd1306] – driver for OLED display on ssd1306 chip for Raspberry Pi
+[hw.rpi.gpio] – GPIO control for Raspberry Pi
+[hw.rpi.i2c.pca9685] – driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi
+[hw.rpi.pwm] – hardware PWM output for RaspberryPi
+[hw.rpi.rotenc] – rotary encoder for Raspberry Pi
+[hw.rpi.sensor.dht11] – digital humidity and temperature sensor (DHT11) for Raspberry Pi
+[hw.rpi.sensor.ir] – IR (infrared) sensors and protocols for Raspberry Pi
+[hw.rpi.sensor.mpu6050] – MPU-6050 gyroscope and accelerometer for Raspberry Pi
+[hw.rpi.sensor.sr04] – HC-SR04 ultrasonic ranging module for Raspberry Pi
+[hw.rpi.sensor.vl53l0x] – time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi
+[hw.rpi.spi.max7219] – LED matrix driver based on max7219 chip for Raspberry Pi
+[hw.rpi.spi.ws2812] – ws2812 LED strip driver for Raspberry Pi
+[msg.unpack] – message unpack to selector and arguments
+[net.freesound] – Freesound API v2 client
+[net.http.client] – HTTP client
+[net.mdns] – MDNS service discovery
+[net.mqtt.client] – MQTT client
+[net.ws.client] – WebSocket client
+[net.ws.server] – WebSocket server
+[proto.obs] – WebSocket client to control OBS studio
+[system.command] – run commands with pipes on Unix and Windows
+[system.info] – retrieve system information: CPU and temperature
