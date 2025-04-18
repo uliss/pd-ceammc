@@ -27,6 +27,13 @@ else()
         date:   ${BUILD_DATETIME}")
 endif()
 
+add_custom_target(gen_release_info
+    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang en ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}.pd"
+    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang ru ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}_ru.pd"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    USES_TERMINAL)
+
+
 # generating about info page
 set(CEAMMC_OBJECT_COUNT 800)
 find_program(WC NAMES wc)
