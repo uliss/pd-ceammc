@@ -208,7 +208,7 @@ if(WITH_PORTMIDI)
     target_sources(puredata-core PRIVATE s_midi_pm.c)
     target_link_libraries(puredata-core PRIVATE portmidi-static)
 
-    if(LINUX)
+    if(LINUX OR WIN32)
         target_include_directories(puredata-core
             PRIVATE
                 ${PROJECT_SOURCE_DIR}/portmidi/portmidi/pm_common

@@ -146,7 +146,7 @@ general MIDI device queries
 */
 static void pm_winmm_general_inputs()
 {
-    UINT i;
+    UINT64 i;
     WORD wRtn;
     midi_num_inputs = midiInGetNumDevs();
     midi_in_caps = (MIDIINCAPS *) pm_alloc(sizeof(MIDIINCAPS) * 
@@ -191,7 +191,7 @@ static void pm_winmm_mapper_input()
 
 static void pm_winmm_general_outputs()
 {
-    UINT i;
+    UINT64 i;
     DWORD wRtn;
     midi_num_outputs = midiOutGetNumDevs();
     midi_out_caps = pm_alloc( sizeof(MIDIOUTCAPS) * midi_num_outputs );
@@ -1043,7 +1043,7 @@ static PmError winmm_write_byte(PmInternal *midi, unsigned char byte,
         m->hdr = hdr = get_free_output_buffer(midi);
         assert(hdr);
         midi->fill_base = (unsigned char *) m->hdr->lpData;
-        midi->fill_offset_ptr = &(hdr->dwBytesRecorded);
+        midi->fill_offset_ptr = (UINT32*)&(hdr->dwBytesRecorded);
         /* when buffer fills, Pm_WriteSysEx will revert to calling
          * pmwin_write_byte, which expect to have space, so leave
          * one byte free for pmwin_write_byte. Leave another byte

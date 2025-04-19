@@ -27,13 +27,6 @@ else()
         date:   ${BUILD_DATETIME}")
 endif()
 
-add_custom_target(gen_release_info
-    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang en ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}"
-    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang ru ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}_ru"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    USES_TERMINAL)
-
-
 # generating about info page
 set(CEAMMC_OBJECT_COUNT 800)
 find_program(WC NAMES wc)
@@ -130,6 +123,19 @@ endif()
 install(FILES "about.pd"
     DESTINATION ${DOC_INSTALL_PATH}
     PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+
+# release files
+add_custom_target(gen_release_info
+    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang en ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}"
+    COMMAND ${PD_RELEASE_INFO} --force --release ${CEAMMC_LIB_VERSION} --lang ru ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib.xml "ceammc_release_${CEAMMC_LIB_VERSION}_ru"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    USES_TERMINAL)
+file(GLOB _RELEASE_FILES "ceammc_release*")
+foreach(f ${_RELEASE_FILES})
+    install(FILES ${f}
+        DESTINATION ${DOC_INSTALL_PATH}
+        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+endforeach()
 
 # install all help files
 foreach(_doc_file ${DOC_FILES})

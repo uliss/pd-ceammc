@@ -70,4 +70,4 @@ Pi, f 46;
 #X obj 40 1300 system.info;
 #X text 230 1300 – retrieve system information: CPU and temperature, f 46;
 #X text 40 80 New objects (30):;
-#X text 40 1350 Date: 2025-04-18, f 46;
+#X text 40 1350 Date: 2025-04-19, f 46;

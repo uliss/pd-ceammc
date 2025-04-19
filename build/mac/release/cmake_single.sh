@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export LLVM_DIR=/opt/local/libexec/llvm-10/lib/cmake/llvm
+#export CLANG=clang-cpp-mp-14
+export LLVM_DIR=/opt/local/libexec/llvm-14/lib/cmake/llvm
 # M1 apple check (Faust not build at this moment)
 BUILD_WITH_FAUST=ON
 if [[ $(uname -m) == 'arm64' ]]; then
@@ -9,6 +10,8 @@ if [[ $(uname -m) == 'arm64' ]]; then
 fi
 
 cmake -G Ninja \
+	-DCMAKE_C_COMPILER=clang \
+	-DCMAKE_CXX_COMPILER=clang++ \
 	-DCMAKE_CXX_FLAGS=-ffast-math\
 	-DCMAKE_C_FLAGS=-ffast-math \
 	-DCMAKE_BUILD_TYPE=Release \
@@ -24,4 +27,5 @@ cmake -G Ninja \
 	-DWITH_FAUST=${BUILD_WITH_FAUST}\
 	-DWITH_LIBSAMPLERATE=ON \
 	-DWITH_BENCHMARK=ON\
+	-DWITH_DOUBLE_PRECISION=OFF\
 	../../../..
