@@ -29,18 +29,29 @@ message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
 # find faust
-set(Faust_ROOT $ENV{HOME}/.local/faust)
+if(WIN32)
+    # faust expected to be installed with ./script/build_faust.sh
+    # into this directory
+    set(Faust_ROOT $ENV{USERPROFILE}/.local/faust)
+else()
+    # faust expected to be installed with ./script/build_faust.sh
+    # into this directory
+    set(Faust_ROOT $ENV{HOME}/.local/faust)
+endif()
+message(FATAL "Faust root is: ${Faust_ROOT}")
+
 find_package(Faust REQUIRED)
 message(STATUS "Faust libraries: ${Faust_LIBRARIES}")
-add_library(faust SHARED IMPORTED)
-set_target_properties(faust PROPERTIES
+add_library(libfaust SHARED IMPORTED)
+set_target_properties(libfaust PROPERTIES
     IMPORTED_LOCATION ${Faust_LIBRARIES}
+    IMPORTED_IMPLIB   ${Faust_LIBRARIES}
     INTERFACE_INCLUDE_DIRECTORIES ${Faust_INCLUDE_DIRS}
-)
+) 
 
 set(FAUSTLIB_INSTALL_DIR ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
 get_filename_component(_FAUST_LIBRARY_DIR ${FAUST_LIBRARY} DIRECTORY)
-if(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE) # install so-versioned files
     file(REAL_PATH ${FAUST_LIBRARY} _FAUST_LIBRARY_SO)
     install(FILES "${_FAUST_LIBRARY_SO}" DESTINATION ${FAUSTLIB_INSTALL_DIR})
     install(FILES "${FAUST_LIBRARY}" DESTINATION ${FAUSTLIB_INSTALL_DIR})
@@ -54,51 +65,23 @@ if(UNIX AND NOT APPLE)
         "${CMAKE_CURRENT_BINARY_DIR}/libfaust.so.2"
         "${CMAKE_CURRENT_BINARY_DIR}/libfaust.so.2."
         DESTINATION ${FAUSTLIB_INSTALL_DIR})
+elseif(WIN32) # install dll
+    install(FILES "${_FAUST_LIBRARY_DIR}/libfaust.dll" DESTINATION ${PDCORE_LIB_INSTALL_PATH})
 endif()
 
 add_library(ceammc_faust STATIC ceammc_llvm.cpp)
-target_link_libraries(ceammc_faust PRIVATE faust)
+target_link_libraries(ceammc_faust 
+  PRIVATE 
+    libfaust
+    ${LLVM_LIBRARIES}
+)
 target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
 target_include_directories(ceammc_faust
   PRIVATE
-#    ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
     ${LLVM_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/src
   PUBLIC
     ${Faust_INCLUDE_DIRS})
-
-if(COMMAND llvm_map_components_to_libnames)
-    set(llvm_libs)
-    if(APPLE)
-        if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
-            llvm_map_components_to_libnames(llvm_libs_arm64
-                AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
-            list(APPEND llvm_libs ${llvm_libs_arm64})
-        else (CMAKE_OSX_ARCHIDESTINATION ${FAUSTLIB_INSTALL_DIR}TECTURES STREQUAL "x86_64")
-            llvm_map_components_to_libnames(llvm_libs_x86
-                x86asmparser x86info x86desc x86codegen)
-            list(APPEND llvm_libs ${llvm_libs_x86})
-        endif()
-
-        llvm_map_components_to_libnames(llvm_libs_base
-            support core irreader executionengine
-            asmprinter mcjit ipo objcarcopts)
-        list(APPEND llvm_libs ${llvm_libs_base})
-
-        message(STATUS "llvm-libs: ${llvm_libs}")
-        target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
-    elseif(UNIX)
-        llvm_map_components_to_libnames(llvm_libs_base
-            support core irreader executionengine
-            asmprinter mcjit ipo objcarcopts)
-        list(APPEND llvm_libs ${llvm_libs_base})
-
-        message(STATUS "llvm-libs: ${llvm_libs}")
-#        target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
-        target_link_libraries(ceammc_faust PRIVATE ${LLVM_LIBRARIES})
-
-    endif()
-endif()
 
 set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 
