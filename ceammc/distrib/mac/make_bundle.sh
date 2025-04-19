@@ -334,11 +334,6 @@ do
     copy $r "${BUNDLE_CEAMMC}"
 done
 
-for r in  $SRC_DIR/ceammc/ext/doc/ceammc_release_*.pd
-do
-    copy $r "${BUNDLE_CEAMMC}"
-done
-
 section "Copying CEAMMC about file"
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
    sed "s/%GIT_COMMIT%/$GIT_COMMIT/g" | \
