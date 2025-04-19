@@ -1013,8 +1013,7 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
                              const ceammc_hw_print_options *opts,
-                             ceammc_hw_msg_cb on_msg,
-                             ceammc_hw_msg_cb on_debug);
+                             ceammc_hw_msg_cb on_msg);
 
 bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
 

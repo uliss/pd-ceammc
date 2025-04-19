@@ -137,7 +137,6 @@ pub extern "C" fn ceammc_hw_print_file(
     path: *const c_char,
     opts: *const hw_print_options,
     on_msg: hw_msg_cb,
-    on_debug: hw_msg_cb,
 ) -> i32 {
     let path = unsafe { CStr::from_ptr(path).to_str().unwrap_or_default() };
     let opts = if opts.is_null() {
