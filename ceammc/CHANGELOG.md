@@ -3,39 +3,36 @@
 ## [0.9.8]
 ### Added:
 - new objects:
-  - bitmap - bitmap image
-  - conv.guido2note (guido->note) - convert midi pitch to guido notation
-  - conv.note2guido (guido->note) - convert guido notation to midi pitch
-  - data.path - new datatype: Path 
-  - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
-  - hw.gamepad - gamepad support
-  - hw.printer - simple printing support (only PDF files)  
-  - hw.rpi.adc.ads1115 - 4-channel ADC for RPi
-  - hw.rpi.display.hd44780 (with hw.rpi.display.lcd1602 alias) - for lcd displays 1602 and 2004  
-  - hw.rpi.display.ssd1306 - small OLED 128x64 display
-  - hw.rpi.gpio - Raspberry Pi GPIO support
-  - hw.rpi.i2c.pca9685 (with hw.rpi.pwm.pca9685 alias) - 16 channel I2C PWM board
-  - hw.rpi.pwm - Raspberry Pi PWM support
-  - hw.rpi.rotenc - rotary encoder for Raspberry Pi
-  - hw.rpi.sensor.dht11 - temperature and humidity sensor for Raspberry Pi
-  - hw.rpi.sensor.ir - infrared sensor support
-  - hw.rpi.sensor.mpu6050 - MPU-6050 gyroscope and accelerometer
-  - hw.rpi.sensor.vl53l0x - laser ToF (time of flight) range sensor
-  - hw.rpi.sensor.sr04 - ultrasonic distance sensor HC-SR04 for Raspberry Pi
-  - hw.rpi.spi.max7219 - LED display driver based on max7219 chip for Raspberry Pi
-  - hw.rpi.spi.ws2812 - ws2812 LED strips (Neopixel and others) for for Raspberry Pi
-  - msg.unpack - unpack message to selector and arguments
-  - net.http.client (http.client) - HTTP client
-  - net.freesound - Freesound client for downloading files
-  - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
-  - net.mqtt.client (mqtt.client) - MQTT client 
-  - net.telegram.bot
-  - net.ws.client - WebSocket client
-  - net.ws.server - WebSocket client 
-  - proto.obs - OBS studio client
-  - route.data (with route.d alias) - separate data from other types
-  - system.command (with system.cmd alias) - run several processes like in shell with pipes
-  - system.info - object to get num cpu/temperature and other system information
+  - bitmap – binary image (2D bit matrix)
+  - conv.guido2note – convert Guido notation into MIDI and duration
+  - data.path – filesystem path datatype
+  - flow.histogram – histogram for numeric control flow
+  - hw.gamepad – gamepad controller
+  - hw.printer – basic document printing support
+  - hw.rpi.adc.ads1115 – driver for 16-bit ADC on ads1115 chip for Raspberry Pi
+  - hw.rpi.display.hd44780 – LCD display driver for Raspberry Pi (1602 or 2004 module)
+  - hw.rpi.display.ssd1306 – driver for OLED display on ssd1306 chip for Raspberry Pi
+  - hw.rpi.gpio – GPIO control for Raspberry Pi
+  - hw.rpi.i2c.pca9685 – driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi
+  - hw.rpi.pwm – hardware PWM output for RaspberryPi
+  - hw.rpi.rotenc – rotary encoder for Raspberry Pi
+  - hw.rpi.sensor.dht11 – digital humidity and temperature sensor (DHT11) for Raspberry Pi
+  - hw.rpi.sensor.ir – IR (infrared) sensors and protocols for Raspberry Pi
+  - hw.rpi.sensor.mpu6050 – MPU-6050 gyroscope and accelerometer for Raspberry Pi
+  - hw.rpi.sensor.sr04 – HC-SR04 ultrasonic ranging module for Raspberry Pi
+  - hw.rpi.sensor.vl53l0x – time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi
+  - hw.rpi.spi.max7219 – LED matrix driver based on max7219 chip for Raspberry Pi
+  - hw.rpi.spi.ws2812 – ws2812 LED strip driver for Raspberry Pi
+  - msg.unpack – message unpack to selector and arguments
+  - net.freesound – Freesound API v2 client
+  - net.http.client – HTTP client
+  - net.mdns – MDNS service discovery
+  - net.mqtt.client – MQTT client
+  - net.ws.client – WebSocket client
+  - net.ws.server – WebSocket server
+  - proto.obs – WebSocket client to control OBS studio
+  - system.command – run commands with pipes on Unix and Windows
+  - system.info – retrieve system information: CPU and temperature
 - new properties:
   - dict->list @props flag added to output as list of properties
   - snd.play~ @on_err property added to specify sending errors address
