@@ -176,15 +176,15 @@ void Firmata::processFirmataInput(int cmd)
 
     switch (cmd) {
     case PROTO_PROTOCOL_VERSION: {
-        AtomList3 res { parser_.versionMajor(), parser_.versionMinor() };
+        AtomArray<2> res { parser_.versionMajor(), parser_.versionMinor() };
         anyTo(0, gensym(F_RESPONSE_VERSION), res.view());
     } break;
     case PROTO_ANALOG_IO_MESSAGE: {
-        AtomList3 res { parser_.msg().pin, parser_.value() };
+        AtomArray<2> res { parser_.msg().pin, parser_.value() };
         anyTo(0, gensym(F_RESPONSE_ANALOG_PIN), res.view());
     } break;
     case PROTO_DIGITAL_IO_MESSAGE: {
-        AtomList3 res { parser_.msg().pin, parser_.value() };
+        AtomArray<2> res { parser_.msg().pin, parser_.value() };
         anyTo(0, gensym(F_RESPONSE_DIGITAL_PORT), res.view());
     } break;
     case PROTO_START_SYSEX: {
@@ -198,7 +198,7 @@ void Firmata::processFirmataInput(int cmd)
 
                 char buf[8];
                 snprintf(buf, sizeof(buf) - 1, "A%i", pin);
-                AtomList3 res { gensym(buf), i };
+                AtomArray<2> res { gensym(buf), i };
                 anyTo(0, gensym(F_RESPONSE_ANALOG_MAPPING), res.view());
             }
         } break;
@@ -216,11 +216,11 @@ void Firmata::processFirmataInput(int cmd)
             }
         } break;
         case PROTO_SYSEX_REPORT_FIRMWARE: {
-            AtomList3 res { gensym(parser_.str()), parser_.versionMajor(), parser_.versionMinor() };
+            AtomArray<3> res { gensym(parser_.str()), parser_.versionMajor(), parser_.versionMinor() };
             anyTo(0, gensym(F_RESPONSE_FIRMWARE), res.view());
         } break;
         case PROTO_SYSEX_PIN_STATE_RESPONSE: {
-            AtomList3 res { parser_.msg().pin, pinModeToSym(parser_.msg().pin_mode), parser_.msg().pin_state.value };
+            AtomArray<3> res { parser_.msg().pin, pinModeToSym(parser_.msg().pin_mode), parser_.msg().pin_state.value };
             anyTo(0, gensym(F_RESPONSE_PIN_STATE), res.view());
         } break;
         case PROTO_SYSEX_STRING_DATA: {
