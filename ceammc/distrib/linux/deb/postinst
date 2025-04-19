@@ -3,17 +3,17 @@
 set -e
 
 if [ "$1" = "configure" ]; then
-    rm /usr/bin/pd-ceammc
-    rm /usr/bin/pdsend-ceammc
-    rm /usr/bin/pdreceive-ceammc
+    rm -f /usr/bin/pd-ceammc
+    rm -f /usr/bin/pdsend-ceammc
+    rm -f /usr/bin/pdreceive-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pd /usr/bin/pd-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdsend  /usr/bin/pdsend-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdreceive /usr/bin/pdreceive-ceammc
     ldconfig
 elif [ "$1" = "old-postinst" ]; then
-    rm /usr/bin/pd-ceammc
-    rm /usr/bin/pdsend-ceammc
-    rm /usr/bin/pdreceive-ceammc
+    rm -f /usr/bin/pd-ceammc
+    rm -f /usr/bin/pdsend-ceammc
+    rm -f /usr/bin/pdreceive-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pd /usr/bin/pd-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdsend  /usr/bin/pdsend-ceammc
     ln -s /usr/lib/pd_ceammc/bin/pdreceive /usr/bin/pdreceive-ceammc
