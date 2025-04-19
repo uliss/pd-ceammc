@@ -153,7 +153,7 @@ pub extern "C" fn ceammc_hw_print_file(
 
     #[cfg(target_os = "windows")]
     {
-        return crate::printers_win::print_file(printer, path, &opts, on_msg, on_debug);
+        return crate::printers_win::print_file(printer, path, &opts, on_msg);
     }
 
     #[allow(unreachable_code)]

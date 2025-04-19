@@ -72,8 +72,7 @@ pub fn print_file(
     printer: *const c_char,
     path: &str,
     opts: &hw_print_options,
-    on_err: hw_msg_cb,
-    on_debug: hw_msg_cb,
+    on_msg: hw_msg_cb,
 ) -> i32 {
     let mut printer = unsafe { CStr::from_ptr(printer) }
         .to_str()
@@ -81,7 +80,7 @@ pub fn print_file(
         .to_owned();
 
     if printer.is_empty() || printer.starts_with("@") {
-        on_debug.exec(format!("searching default printer ...").as_str());
+        on_msg.debug(format!("searching default printer ...").as_str());
         for p in printers::get_printers().iter() {
             if p.is_default {
                 printer = p.name.clone();
@@ -93,7 +92,7 @@ pub fn print_file(
     // check path
     let path = Path::new(path);
     if !path.exists() {
-        on_err.exec(format!("file not found: {path:?}").as_str());
+        on_msg.error(format!("file not found: {path:?}").as_str());
         return crate::printers::JOB_ERROR;
     }
 
@@ -103,16 +102,16 @@ pub fn print_file(
         .to_str()
         .unwrap_or_default();
 
-    on_debug.exec(format!("printing file '{basename}' on the '{printer}'").as_str());
+    on_msg.debug(format!("printing file '{basename}' on the '{printer}'").as_str());
 
     match PrinterDevice::all() {
         Ok(printers) => match printers.into_iter().find(|x| x.name() == printer) {
             Some(p) => {
-                on_debug.exec(format!("found default printer: {}", p.name()).as_str());
+                on_msg.debug(format!("found default printer: {}", p.name()).as_str());
 
                 // let caps = PrintCapabilities::fetch(&p);
                 if opts.landscape {
-                    on_err.exec("landscape mode printing not yet supported on Windows");
+                    on_msg.error("landscape mode printing not yet supported on Windows");
                 }
 
                 let p = PdfiumPrinter::new(p);
@@ -121,13 +120,13 @@ pub fn print_file(
                 match p.print(path, Default::default()) {
                     Ok(_) => return 1,
                     Err(_err) => {
-                        on_err.exec(format!("print error: {_err}").as_str());
+                        on_msg.error(format!("print error: {_err}").as_str());
                         return JOB_ERROR;
                     }
                 }
             }
             None => {
-                on_err.exec(format!("printer not found: {printer}").as_str());
+                on_msg.error(format!("printer not found: {printer}").as_str());
                 return JOB_ERROR;
             }
         },
