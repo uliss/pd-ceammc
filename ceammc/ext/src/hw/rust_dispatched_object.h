@@ -148,9 +148,9 @@ protected:
 
     IntProperty* addSpiBusProperty()
     {
-        auto prop = new IntProperty("@spi_bus", static_cast<int>(ceammc_hw_spi_bus::SPI0));
+        auto prop = new IntProperty("@spi_bus", static_cast<int>(ceammc_hw_spi_bus::NONE));
         prop->setInitOnly();
-        prop->checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::SPI0), static_cast<int>(ceammc_hw_spi_bus::SPI6));
+        prop->checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::NONE), static_cast<int>(ceammc_hw_spi_bus::SPI6));
         this->addProperty(prop);
         return prop;
     }

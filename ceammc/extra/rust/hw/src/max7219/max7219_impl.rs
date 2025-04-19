@@ -230,6 +230,7 @@ impl LedDisplay {
 
         let spi = rppal::spi::Spi::new(
             match bus {
+                hw_spi_bus::NONE => return Err(String::new()),
                 hw_spi_bus::SPI0 => rppal::spi::Bus::Spi0,
                 hw_spi_bus::SPI1 => rppal::spi::Bus::Spi1,
                 hw_spi_bus::SPI2 => rppal::spi::Bus::Spi2,

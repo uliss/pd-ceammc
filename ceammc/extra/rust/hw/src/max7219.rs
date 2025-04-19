@@ -37,6 +37,7 @@ mod max7219_impl;
 #[repr(C)]
 #[derive(Debug)]
 pub enum hw_spi_bus {
+    NONE = -1,
     SPI0,
     SPI1,
     SPI2,
@@ -122,8 +123,11 @@ pub extern "C" fn ceammc_hw_max7219_new(
         match hw_max7219::new(num_displays, spi, cs, notify, on_msg) {
             Ok(max2719) => return Box::into_raw(Box::new(max2719)),
             Err(err) => {
-                error!("{}", err.to_str().unwrap_or_default());
-                on_msg.error_cstr(err);
+                if !err.is_empty() {
+                    error!("{}", err.to_str().unwrap_or_default());
+                    on_msg.error_cstr(err);
+                }
+
                 return null_mut();
             }
         }
@@ -195,12 +199,7 @@ pub extern "C" fn ceammc_hw_max7219_write_hex(mx: *mut hw_max7219, addr: i32, va
 /// @param data - register data
 /// @note this is low level write function!
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_reg(
-    mx: *mut hw_max7219,
-    addr: i32,
-    reg: u8,
-    data: u8,
-) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_reg(mx: *mut hw_max7219, addr: i32, reg: u8, data: u8) -> bool {
     rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::WriteRegister(reg, data)) });
 }
 
@@ -210,12 +209,7 @@ pub extern "C" fn ceammc_hw_max7219_write_reg(
 /// @param value - float value
 /// @param precision - float precision
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_float(
-    mx: *mut hw_max7219,
-    addr: i32,
-    value: f32,
-    precision: u8,
-) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_float(mx: *mut hw_max7219, addr: i32, value: f32, precision: u8) -> bool {
     rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::WriteFloat(value, precision)) });
 }
 
@@ -232,13 +226,7 @@ pub extern "C" fn ceammc_hw_max7219_write_str(
     align: hw_max7219_string_align,
     dots: u8,
 ) -> bool {
-    rpi_check!({
-        hw_max7219::send_request_ptr(
-            mx,
-            addr,
-            Request::WriteString(ptr_to_cstr(str), align, dots),
-        )
-    });
+    rpi_check!({ hw_max7219::send_request_ptr(mx, addr, Request::WriteString(ptr_to_cstr(str), align, dots),) });
 }
 
 /// test max7219 display
@@ -256,12 +244,7 @@ pub extern "C" fn ceammc_hw_max7219_test(mx: *mut hw_max7219, addr: i32, state: 
 /// @param data - pointer to data
 /// @param len - data length
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_bytes(
-    mx: *mut hw_max7219,
-    addr: i32,
-    data: *const u8,
-    len: usize,
-) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_bytes(mx: *mut hw_max7219, addr: i32, data: *const u8, len: usize) -> bool {
     rpi_check!({
         if data.is_null() {
             error!("NULL data pointer");
@@ -284,12 +267,7 @@ pub extern "C" fn ceammc_hw_max7219_write_bytes(
 /// @param data - pointer to bit array
 /// @param len - data length
 #[no_mangle]
-pub extern "C" fn ceammc_hw_max7219_write_bits(
-    mx: *mut hw_max7219,
-    addr: i32,
-    bits: *const u8,
-    len: usize,
-) -> bool {
+pub extern "C" fn ceammc_hw_max7219_write_bits(mx: *mut hw_max7219, addr: i32, bits: *const u8, len: usize) -> bool {
     rpi_check!({
         if bits.is_null() {
             error!("NULL data pointer");

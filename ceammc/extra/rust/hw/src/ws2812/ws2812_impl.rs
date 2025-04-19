@@ -48,6 +48,7 @@ impl hw_spi_ws2812 {
 
             let spi = rppal::spi::Spi::new(
                 match bus {
+                    hw_spi_bus::NONE => return Err(CString::from_vec_with_nul(b"\0".to_vec()).unwrap()),
                     hw_spi_bus::SPI0 => rppal::spi::Bus::Spi0,
                     hw_spi_bus::SPI1 => rppal::spi::Bus::Spi1,
                     hw_spi_bus::SPI2 => rppal::spi::Bus::Spi2,
@@ -87,19 +88,13 @@ impl hw_spi_ws2812 {
                 match req {
                     crate::ws2812::Request::SetPixelColor(idx, rgb) => match leds.get_mut(idx) {
                         Some(c) => *c = rgb,
-                        None => Self::send_error(
-                            &rep_tx,
-                            notify,
-                            format!("invalid pixel index: {idx}").as_str(),
-                        ),
+                        None => Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str()),
                     },
                     Request::SetBrightness(b) => {
                         brightness = b;
                     }
                     Request::Flush => {
-                        if let Err(err) =
-                            ws.write(smart_leds::brightness(leds.iter().cloned(), brightness))
-                        {
+                        if let Err(err) = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness)) {
                             Self::send_error(&rep_tx, notify, err.to_string().as_str());
                         }
                     }
@@ -146,10 +141,9 @@ impl hw_spi_ws2812 {
                             }
 
                             if flush {
-                                if let Err(err) = ws.write(smart_leds::brightness(
-                                    leds[a..b].iter().cloned(),
-                                    brightness,
-                                )) {
+                                if let Err(err) =
+                                    ws.write(smart_leds::brightness(leds[a..b].iter().cloned(), brightness))
+                                {
                                     Self::send_error(&rep_tx, notify, err.to_string().as_str());
                                 }
                             }

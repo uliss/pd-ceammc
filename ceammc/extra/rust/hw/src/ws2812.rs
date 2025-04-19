@@ -76,7 +76,9 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
         match hw_spi_ws2812::new(bus, cs, size, notify, on_msg, clear_on_exit) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {
-                on_msg.error_cstr(err);
+                if !err.is_empty() {
+                    on_msg.error_cstr(err);
+                }
                 return null_mut();
             }
         }
@@ -93,13 +95,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_free(ws: *mut hw_spi_ws2812) {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_set_color(
-    pwm: *const hw_spi_ws2812,
-    idx: usize,
-    r: u8,
-    g: u8,
-    b: u8,
-) -> bool {
+pub extern "C" fn ceammc_hw_spi_ws2812_set_color(pwm: *const hw_spi_ws2812, idx: usize, r: u8, g: u8, b: u8) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetPixelColor(idx, RGB8 { r, g, b })) });
 }
 
@@ -184,10 +180,5 @@ pub extern "C" fn ceammc_hw_spi_ws2812_apply_rx(
     fx: hw_led_fx,
     arg: f32,
 ) -> bool {
-    rpi_check!({
-        hw_spi_ws2812::send_ptr(
-            ws,
-            Request::ApplyEffect(Range { first, length }, fx, arg, true),
-        )
-    });
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx, arg, true),) });
 }

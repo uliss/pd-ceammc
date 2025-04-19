@@ -231,6 +231,7 @@ enum class ceammc_hw_rpi_pwm_polarity {
 };
 
 enum class ceammc_hw_spi_bus {
+    NONE = -1,
     SPI0,
     SPI1,
     SPI2,
