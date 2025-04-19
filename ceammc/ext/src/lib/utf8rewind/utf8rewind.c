@@ -567,7 +567,6 @@ UTF8_API size_t utf8envlocale()
 	{
 		return UTF8_LOCALE_DEFAULT;
 	}
-#endif
 
 	if (UTF8_LOCALE_CHECK("lt_lt", 1257, 775))
 	{
@@ -581,6 +580,7 @@ UTF8_API size_t utf8envlocale()
 	}
 
 	return UTF8_LOCALE_DEFAULT;
+#endif
 }
 
 size_t utf8toupper(const char* input, size_t inputSize, char* target, size_t targetSize, size_t locale, int32_t* errors)
