@@ -16,7 +16,7 @@ proc update {cnv id w h name data} {
     set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
-    if { $::ui::cnv::png_support } {
+    if { $::ui::cnv::canvas_support } {
         ${name} put ${data}
         $c create image 0 0 -anchor nw -image $name -tags $t
     } else {
