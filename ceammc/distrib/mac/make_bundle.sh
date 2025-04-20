@@ -291,12 +291,12 @@ copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/*.dylib "${BUNDLE_TCL}/tkdnd"
 copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/library/*.tcl "${BUNDLE_TCL}/tkdnd"
 
 section "Copying TkImg"
-mkdir -p "${BUNDLE_TCL}/tkimg"
-for dll in ${INSTALL_DIR}/lib/pd_ceammc/tcl/Img1*/*.dylib
+mkdir -p "${BUNDLE_TCL}/Img1.4.16"
+for dll in ${INSTALL_DIR}/lib/pd_ceammc/tcl/Img1.4.16/*.dylib
 do
-    copy_and_fix_exe ${dll} "${BUNDLE_TCL}/tkimg"
+    copy_and_fix_exe ${dll} "${BUNDLE_TCL}/Img1.4.16"
 done
-copy ${INSTALL_DIR}/lib/pd_ceammc/tcl/Img1*/*.tcl "${BUNDLE_TCL}/tkimg"
+copy ${INSTALL_DIR}/lib/pd_ceammc/tcl/Img1.4.16/*.tcl "${BUNDLE_TCL}/Img1.4.16"
 
 section "Copying CEAMMC tcl plugins"
 rsync_copy "${BUILD_DIR}/dist/pd_ceammc/lib/pd_ceammc/tcl/ceammc/"  "${BUNDLE_TCL}/ceammc"
