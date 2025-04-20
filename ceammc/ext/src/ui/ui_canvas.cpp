@@ -208,7 +208,7 @@ void UICanvas::okSize(t_rect* newrect)
     cmd.h = newrect->h;
     out_queue_.enqueue(cmd);
 
-    sys_vgui("::ui::cnv::create_image ui_canvas_%d %d %d\n", image_id_, newrect->w, newrect->h);
+    sys_vgui("::ui::cnv::create_image ui_canvas_%d %d %d\n", image_id_, static_cast<int>(newrect->w), static_cast<int>(newrect->h));
 }
 
 void UICanvas::paint()

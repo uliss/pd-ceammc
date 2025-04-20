@@ -1,19 +1,13 @@
 namespace eval ::ui {
 namespace eval cnv {
 
-variable png_support True
-variable do_version_report True
+variable canvas_support True
 
 proc create_image {name w h} {
-    if { !$::ui::cnv::png_support } { return }
+    if { !$::ui::cnv::canvas_support } { return }
     if { [catch { image create photo ${name} -width $w -height $h } ] } {
-        ::pdwindow::error "\[ui.canvas\] no PNG image support, can't create canvas\n"
-        set ::ui::cnv::png_support False
-    }
-
-    if { $::ui::cnv::do_version_report } {
-        catch {::pdwindow::debug "\[tkimg\] version: [package require img::png]\n"}
-        set ::ui::cnv::do_version_report False
+        ::pdwindow::error "\[ui.canvas\] can't create canvas\n"
+        set ::ui::cnv::canvas_support False
     }
 }
 
