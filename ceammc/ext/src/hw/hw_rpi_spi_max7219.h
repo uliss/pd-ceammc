@@ -9,8 +9,8 @@ using namespace ceammc;
 class HwSpiMax7219 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_max7219* mx_ { nullptr };
     IntProperty* displays_ { nullptr };
-    IntProperty* spi_bus_ { nullptr };
-    IntProperty* spi_cs_ { nullptr };
+    SpiBusProperty* spi_bus_ { nullptr };
+    SpiCsPinProperty* spi_cs_ { nullptr };
 
 public:
     explicit HwSpiMax7219(const PdArgs& args);

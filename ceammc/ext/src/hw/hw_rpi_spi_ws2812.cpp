@@ -29,9 +29,12 @@ HwSpiWs2812::~HwSpiWs2812()
 
 void HwSpiWs2812::initDone()
 {
+    if (spi_->isNone())
+        return;
+
     ws_ = ceammc_hw_spi_ws2812_new( //
-        static_cast<ceammc_hw_spi_bus>(spi_->value()),
-        static_cast<ceammc_hw_spi_cs>(cs_->value()),
+        spi_->bus(),
+        cs_->pin(),
         size_->value(),
         on_notify(),
         on_message(),

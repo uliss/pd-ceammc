@@ -36,9 +36,12 @@ HwSpiMax7219::~HwSpiMax7219()
 
 void HwSpiMax7219::initDone()
 {
+    if (spi_bus_->isNone())
+        return;
+
     mx_ = ceammc_hw_max7219_new(displays_->value(),
-        static_cast<ceammc_hw_spi_bus>(spi_bus_->value()),
-        static_cast<ceammc_hw_spi_cs>(spi_cs_->value()),
+        spi_bus_->bus(),
+        spi_cs_->pin(),
         on_notify(),
         on_message());
 }

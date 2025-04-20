@@ -8,8 +8,8 @@ using namespace ceammc;
 
 class HwSpiWs2812 : public RustDispatchedObject<BaseObject> {
     ceammc_hw_spi_ws2812* ws_ { nullptr };
-    IntProperty* spi_ { nullptr };
-    IntProperty* cs_ { nullptr };
+    SpiBusProperty* spi_ { nullptr };
+    SpiCsPinProperty* cs_ { nullptr };
     IntProperty* size_ { nullptr };
     BoolProperty* clear_on_exit_ { nullptr };
 

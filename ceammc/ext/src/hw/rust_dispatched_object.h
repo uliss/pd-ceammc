@@ -10,6 +10,39 @@
 
 namespace ceammc {
 
+class SpiBusProperty : public IntProperty {
+public:
+    explicit SpiBusProperty(const char* name, ceammc_hw_spi_bus def = ceammc_hw_spi_bus::NONE)
+        : IntProperty(name, static_cast<int>(def))
+    {
+        checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::NONE), static_cast<int>(ceammc_hw_spi_bus::SPI6));
+    }
+
+    bool isNone() const
+    {
+        return value() == static_cast<int>(ceammc_hw_spi_bus::NONE);
+    }
+
+    ceammc_hw_spi_bus bus() const
+    {
+        return static_cast<ceammc_hw_spi_bus>(value());
+    }
+};
+
+class SpiCsPinProperty : public IntProperty {
+public:
+    explicit SpiCsPinProperty(const char* name, ceammc_hw_spi_cs def = ceammc_hw_spi_cs::CS0)
+        : IntProperty(name, static_cast<int>(def))
+    {
+        checkClosedRange(static_cast<int>(ceammc_hw_spi_cs::CS0), static_cast<int>(ceammc_hw_spi_cs::CS3));
+    }
+
+    ceammc_hw_spi_cs pin() const
+    {
+        return static_cast<ceammc_hw_spi_cs>(value());
+    }
+};
+
 class I2cBusProperty : public EnumProperty<Atom> {
 public:
     explicit I2cBusProperty(const char* name)
@@ -146,20 +179,18 @@ protected:
         return prop;
     }
 
-    IntProperty* addSpiBusProperty()
+    SpiBusProperty* addSpiBusProperty()
     {
-        auto prop = new IntProperty("@spi_bus", static_cast<int>(ceammc_hw_spi_bus::NONE));
+        auto prop = new SpiBusProperty("@spi_bus", ceammc_hw_spi_bus::NONE);
         prop->setInitOnly();
-        prop->checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::NONE), static_cast<int>(ceammc_hw_spi_bus::SPI6));
         this->addProperty(prop);
         return prop;
     }
 
-    IntProperty* addSpiCsProperty()
+    SpiCsPinProperty* addSpiCsProperty()
     {
-        auto prop = new IntProperty("@spi_cs", static_cast<int>(ceammc_hw_spi_cs::CS0));
+        auto prop = new SpiCsPinProperty("@spi_cs", ceammc_hw_spi_cs::CS0);
         prop->setInitOnly();
-        prop->checkClosedRange(static_cast<int>(ceammc_hw_spi_cs::CS0), static_cast<int>(ceammc_hw_spi_cs::CS3));
         this->addProperty(prop);
         return prop;
     }

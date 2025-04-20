@@ -13,7 +13,7 @@ class HwRpiDisplaySsd1306 : public RustDispatchedObject<BaseObject> {
     ListProperty* size_ = { nullptr };
     I2cBusProperty* i2c_bus_ { nullptr };
     I2cAddrProperty* i2c_addr_ { nullptr };
-    IntProperty* spi_bus_ { nullptr };
+    SpiBusProperty* spi_bus_ { nullptr };
     IntProperty* spi_freq_ { nullptr };
     GpioPinProperty* spi_gpio_dc_pin_ { nullptr };
     GpioPinProperty* spi_gpio_rs_pin_ { nullptr };
