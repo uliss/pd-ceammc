@@ -407,6 +407,8 @@ section "Copying rust apps"
 mkdir -p "${BUNDLE_CEAMMC}"
 copy $BUILD_DIR/ceammc/extra/rust/rhvoice_download "${BUNDLE_CEAMMC}"
 
+
+section "Codesign"
 # "code signing" which also sets entitlements
 # note: "-" identity results in "ad-hoc signing" aka no signing is performed
 # for one, this allows loading un-validated external libraries on macOS 10.15+:
