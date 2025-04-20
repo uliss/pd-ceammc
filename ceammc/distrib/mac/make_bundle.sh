@@ -418,4 +418,9 @@ codesign -f --deep -s "-" --entitlements ${ENTITLEMENTS} \
     ${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/Current
 codesign --deep -s "-" --entitlements ${ENTITLEMENTS} ${BUNDLE_APP}
 
+section "Bundle check"
+codesign --verify --deep --verbose "${BUNDLE_APP}"
+
+section "Bundle created"
+
 cd "${BUILD_DIR}"
