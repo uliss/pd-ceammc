@@ -21,22 +21,3 @@ install(TARGETS tkdnd2.9.3
 if(UNIX AND NOT APPLE)
     set_target_properties(tkdnd2.9.3 PROPERTIES SOVERSION "2.9.3")
 endif()
-
-if(APPLE)
-    # tkimg macports
-    find_path(TKIMG_PATH
-        NAMES pkgIndex.tcl
-        PATH_SUFFIXES Img1.4.16
-        PATHS /opt/local/lib
-        NO_DEFAULT_PATH
-    )
-
-    if(TKIMG_PATH)
-        message(STATUS "tkimg found: ${TKIMG_PATH}")
-        install(DIRECTORY ${TKIMG_PATH}/
-            DESTINATION ${PD_GUI_PLUGINS_PATH}/Img1.4.16
-        )
-    else()
-        message(STATUS "tkimg not found")
-    endif()
-endif()
