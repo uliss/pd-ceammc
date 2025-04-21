@@ -81,7 +81,7 @@
 [ui.hgain2~    ]  [@channels 2 1(
 | ^|              |
 |  |.             |
-[xdac~ 1 2        ]
+[xdac~ 1 2   {i:2}]
 
 [X b->c]
 ]]>
