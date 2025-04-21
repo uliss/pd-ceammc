@@ -13,6 +13,7 @@ DYLIBFIX="@DYLIBFIX@"
 CMAKE="@CMAKE_COMMAND@"
 INSTALL_DIR="@PROJECT_BINARY_DIR@/dist/pd_ceammc"
 CEAMMC_DIR="${OUTDIR}/ceammc"
+PD_EXTERNAL_EXTENSION="@PD_EXTERNAL_EXTENSION@"
 
 # functions
 
@@ -24,9 +25,7 @@ function section() {
 }
 
 function find_dlls() {
-    find "$1" -name "$2\\.d_fat" \
-        -o -name "$2\\.d_amd64" \
-        -o -name "$2\\.pd_darwin" \
+    find "$1" -name "$2\\${PD_EXTERNAL_EXTENSION}" \
         -o -name "$2\\.dylib"
 }
 
@@ -115,7 +114,7 @@ copy "${INSTALL_DIR}/lib/pd_ceammc/extra/index-help.pd"     "${CEAMMC_DIR}"
 section "fix dlls"
 $DYLIBFIX --dir ${CEAMMC_DIR} \
     --files  $(find_dlls ${CEAMMC_DIR} "*" | tr '\n' ' ')  \
-    --rpaths $(otool -l ${BINDIR}/ceammc/ext/src/ceammc.pd_darwin | grep RPATH -A2 | grep path | awk '{print $2}' | tr '\n' ' ')
+    --rpaths $(otool -l ${BINDIR}/ceammc/ext/src/ceammc${PD_EXTERNAL_EXTENSION} | grep RPATH -A2 | grep path | awk '{print $2}' | tr '\n' ' ')
 
 section "fix help files index"
 find "${CEAMMC_DIR}" -name *\\.pd -maxdepth 1 | while read file
