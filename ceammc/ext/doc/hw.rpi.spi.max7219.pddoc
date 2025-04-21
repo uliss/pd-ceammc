@@ -144,7 +144,7 @@
 
 [hw.rpi.spi.max7219 4 #x]
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p0] [X p->x] [X r->x]
+[X j->x] [X k->x] [X l->x] [X m->x] [X o->p0] [X p->x]
 [X q->x]
 [hw.rpi.spi.max7219-spi]
 ]]>

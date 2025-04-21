@@ -34,13 +34,13 @@ Type: bool. Default value: 0\.;
 #X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 553 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 588 copy . .;
+#X msg 110 588 copy SRC DEST;
 #X text 245 588 copy the whole array content. Arguments are:;
 #X obj 255 611 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 611 SRC: the source array. Type: symbol.;
 #X obj 255 634 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 634 DST: the destination array. Type: symbol.;
-#X msg 110 659 copy . . .;
+#X msg 110 659 copy SRC FROM DEST;
 #X text 245 659 copy the array content from the specified position
 till the end. Arguments are:;
 #X obj 255 697 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -49,8 +49,8 @@ till the end. Arguments are:;
 #X text 255 720 FROM: source start position. Type: int.;
 #X obj 255 743 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 743 DEST: the destination array. Type: symbol.;
-#X msg 110 768 copy . . . .;
-#X text 245 768 copy the array content from the specified range. Arguments
+#X msg 110 768 copy SRC FROM TO DEST;
+#X text 275 768 copy the array content from the specified range. Arguments
 are:;
 #X obj 255 806 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 806 SRC: the source array. Type: symbol.;
@@ -60,8 +60,8 @@ are:;
 #X text 255 852 TO: the source end range. Type: int.;
 #X obj 255 875 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 875 DEST: the destination array. Type: symbol.;
-#X msg 110 900 copy . . . . .;
-#X text 245 900 copy the array content from the specified range and
+#X msg 110 900 copy SRC FROM TO DEST DEST_START;
+#X text 385 900 copy the array content from the specified range and
 to the specified destination position. Arguments are:;
 #X obj 255 938 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 938 SRC: the source array. Type: symbol.;

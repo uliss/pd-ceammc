@@ -82,7 +82,7 @@
 |            ^|
 [F]          [print]
 
-[X a->z] [X b->z]
+[X a->z]
 ]]>
             </pdascii>
         </example>

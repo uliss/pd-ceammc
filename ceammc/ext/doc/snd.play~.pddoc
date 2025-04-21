@@ -172,7 +172,6 @@
 [dac~]
 
 #c %CEAMMC%/guitar1.wav, 1
-[X a->z] [X b->z]
 ]]>
             </pdascii>
             <pdascii id="err">
