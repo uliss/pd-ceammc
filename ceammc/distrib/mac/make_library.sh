@@ -9,7 +9,6 @@ SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
 BINDIR="@PROJECT_BINARY_DIR@"
 OUTDIR="$1"
 OUTFILE="@CEAMMC_EXTERNAL_NAME@"
-DYLIBBUNDLER="@DYLIBBUNDLER@"
 DYLIBFIX="@DYLIBFIX@"
 CMAKE="@CMAKE_COMMAND@"
 INSTALL_DIR="@PROJECT_BINARY_DIR@/dist/pd_ceammc"
@@ -28,7 +27,6 @@ function find_dlls() {
     find "$1" -name "$2\\.d_fat" \
         -o -name "$2\\.d_amd64" \
         -o -name "$2\\.pd_darwin" \
-        -o -name "$2\\.d_i386" \
         -o -name "$2\\.dylib"
 }
 
@@ -43,20 +41,50 @@ function skip_ext {
     fi
 }
 
-function dylib_external_fix() {
-    exec=$1
-    dir=$2
+function copy()
+{
+    file=$1
+    dest=$2
+    rel_dest=${dest#$OUTDIR}
+    rel_dest=${rel_dest:1}
 
-    echo "\t- fixing @loader_path for $(basename $exec) ..."
+    cp -f "${file}" "${dest}"
+    if [ $? -eq 0 ];
+    then
+        printf "\t- copying $(basename $1) to \"${rel_dest}/\"\n"
+    fi
+}
 
-    $DYLIBBUNDLER \
-        --fix-file "${exec}" \
-        --bundle-deps \
-        --create-dir \
-        --dest-dir "${dir}" \
-        --install-path @loader_path/ \
-        --overwrite-files \
-        --ignore /usr/local/opt/llvm/lib &>"${BINDIR}/ceammc_lib.log"
+function rsync_output_decorate() {
+    tail -n +2 | gsed '/\/$/d' | gsed -E "s/^(.)/\t- copy \1/" | ghead -n -2
+}
+
+function rsync_copy() {
+    src=$1
+    dest=$2
+    if [[ -n $3 ]]
+    then
+        exclude="--exclude='$3'"
+    else
+        exclude=''
+    fi
+
+    rsync --archive \
+        --recursive \
+        --whole-file \
+        --prune-empty-dirs \
+        $include \
+        --exclude='CMake*' \
+        --exclude='Make*' \
+        --exclude='*.pddoc' \
+        --exclude='*.sh' \
+        --exclude='.*' \
+        --exclude='*.cmake' \
+        --exclude='*.yml' \
+        $exclude \
+        "${src}/" "$dest" \
+        --no-motd \
+        --verbose | rsync_output_decorate
 }
 
 # main
@@ -70,14 +98,19 @@ rm -rf "${OUTFILE}"
 rm -rf "${CEAMMC_DIR}"
 mkdir -p "${CEAMMC_DIR}"
 
-cp "${INSTALL_DIR}/lib/"*.dylib "${CEAMMC_DIR}"
-cp -R "${INSTALL_DIR}/lib/pd_ceammc/extra/ceammc" "${OUTDIR}"
+find "${INSTALL_DIR}/lib" -name '*.dylib' -maxdepth 1 | while read file
+do
+    copy "$file" "${CEAMMC_DIR}"
+done
 
-# modules
-cp "${INSTALL_DIR}/lib/pd_ceammc/extra/numeric"/* "${CEAMMC_DIR}"
-cp "${INSTALL_DIR}/lib/pd_ceammc/extra/matrix"/* "${CEAMMC_DIR}"
-cp "${INSTALL_DIR}/lib/pd_ceammc/extra/soundtouch~"/* "${CEAMMC_DIR}"
-cp "${INSTALL_DIR}/lib/pd_ceammc/extra/index-help.pd" "${CEAMMC_DIR}"
+rsync_copy "${INSTALL_DIR}/lib/pd_ceammc/extra/ceammc/" "${OUTDIR}/ceammc"
+
+section "copy externals"
+rsync_copy "${INSTALL_DIR}/lib/pd_ceammc/extra/numeric"     "${CEAMMC_DIR}"
+rsync_copy "${INSTALL_DIR}/lib/pd_ceammc/extra/matrix"      "${CEAMMC_DIR}"
+rsync_copy "${INSTALL_DIR}/lib/pd_ceammc/extra/soundtouch~" "${CEAMMC_DIR}"
+
+copy "${INSTALL_DIR}/lib/pd_ceammc/extra/index-help.pd"     "${CEAMMC_DIR}"
 
 section "fix dlls"
 $DYLIBFIX --dir ${CEAMMC_DIR} \
