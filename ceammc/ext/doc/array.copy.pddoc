@@ -24,24 +24,24 @@
         </properties>
         <methods>
             <!-- copy -->
-            <method name="copy SRC DEST">copy the whole array content
+            <method name="copy SRC DEST">copy the whole array content 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="DST" type="symbol" required="true">the destination array</param></method>
             <!-- copy -->
-            <method name="copy SRC FROM DEST">copy the array content from the specified position till the
-            end 
+            <method name="copy SRC FROM DEST">copy the array content from the specified position
+            till the end 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="FROM" type="int" required="true">source start position</param>
             <param name="DEST" type="symbol" required="true">the destination array</param></method>
             <!-- copy -->
-            <method name="copy SRC FROM TO DEST">copy the array content from the specified range
+            <method name="copy SRC FROM TO DEST">copy the array content from the specified range 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="FROM" type="int" required="true">the source start range</param>
             <param name="TO" type="int" required="true">the source end range</param>
             <param name="DEST" type="symbol" required="true">the destination array</param></method>
             <!-- copy -->
-            <method name="copy SRC FROM TO DEST DEST_START">copy the array content from the specified range and to
-            the specified destination position 
+            <method name="copy SRC FROM TO DEST DEST_START">copy the array content from the
+            specified range and to the specified destination position 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="FROM" type="int" required="true">the source start range</param>
             <param name="TO" type="int" required="true">the source end range</param>
