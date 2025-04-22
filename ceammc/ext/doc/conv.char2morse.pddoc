@@ -26,6 +26,7 @@
             <par>Note: cyrillic utf-8 characters are also supported.</par>
         </info>
         <properties>
+            <!-- @sym -->
             <property name="@sym" type="bool" default="0">symbol output mode. If on - output as
             list of dots and dashes, otherwise as 0 and 1.</property>
         </properties>

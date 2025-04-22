@@ -50,65 +50,98 @@
             <argument name="MAX" type="float">max value</argument>
         </arguments>
         <properties>
+            <!-- @active_scale -->
             <property name="@active_scale" type="bool" default="0">if should draw active
             scale</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
+            <!-- @knob_color -->
             <property name="@knob_color" type="list" default="0 0.75 1 1">knob color (list of red,
             green, blue values in 0-1 range)</property>
+            <!-- @label -->
             <property name="@label" type="symbol" default="(null)">label text</property>
+            <!-- @label_align -->
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
+            <!-- @label_color -->
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
             within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <!-- @label_inner -->
             <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
             outer).</property>
+            <!-- @label_margins -->
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
+            <!-- @label_side -->
             <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
             label snap side</property>
+            <!-- @label_valign -->
             <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
             label vertical align</property>
+            <!-- @max -->
             <property name="@max" type="float" default="1">maximum slider value</property>
+            <!-- @midi_channel -->
             <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">binded
             MIDI channel. 0 means listen to all channels</property>
+            <!-- @midi_control -->
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
             binded MIDI controller number. -1 means not binded to any controller.</property>
+            <!-- @midi_pickup -->
             <property name="@midi_pickup" type="bool" default="1">pickup current value. If slider
             is binded to value, first time you should pass over this value to make binding. It
             prevents from sudden value change on first control change</property>
+            <!-- @min -->
             <property name="@min" type="float" default="0">minimum slider value</property>
+            <!-- @mode -->
             <property name="@mode" type="bool" default="0">relative mode. Do not jump on click to
             value</property>
+            <!-- @mouse_events -->
             <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
             outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
+            <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
+            <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @scale -->
             <property name="@scale" type="symbol" default="linear" enum="linear log">scale mode.
             Linear or logarithmic.</property>
+            <!-- @send -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @show_value -->
             <property name="@show_value" type="bool" default="0">show value (in horizontal mode
             only)</property>
+            <!-- @size -->
             <property name="@size" type="list" default="15 120">element size (width, height
             pair)</property>
+            <!-- @text_color -->
             <property name="@text_color" type="list" default="0 0 0 1">value text color (list of
             red, green, blue values in 0-1 range)</property>
+            <!-- @value -->
             <property name="@value" type="float" default="0">current value</property>
+            <!-- @value_pos -->
             <property name="@value_pos" type="symbol" default="center" enum="left center right">
             value position</property>
+            <!-- @value_precision -->
             <property name="@value_precision" type="int" default="2" minvalue="0" maxvalue="7">
             number of digits shown after decimal point</property>
         </properties>

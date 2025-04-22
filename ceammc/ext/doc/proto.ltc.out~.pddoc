@@ -22,13 +22,18 @@
             </also>
         </meta>
         <properties>
+            <!-- @filter -->
             <property name="@filter" type="float" default="0" minvalue="0" maxvalue="500">output
             signal filtering. LTC should have a rise time of 40us+/-10 us. If you want a perfect
             square wave, set to 0</property>
+            <!-- @fps -->
             <property name="@fps" type="float" default="25">frames per second rate. Supported
             values are: 24, 25, 29.97, 30.</property>
+            <!-- @on -->
             <property name="@on" type="bool" default="0">encoder state</property>
+            <!-- @speed -->
             <property name="@speed" type="float" default="1">playing speed</property>
+            <!-- @volume -->
             <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0"
             units="decibel">output signal level</property>
         </properties>

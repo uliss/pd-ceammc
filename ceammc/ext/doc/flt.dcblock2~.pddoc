@@ -23,6 +23,7 @@
             gain near 1.0025 (due to no scaling).</par>
         </info>
         <properties>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>

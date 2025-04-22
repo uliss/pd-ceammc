@@ -34,8 +34,10 @@
             <argument name="N" type="int" minvalue="1" maxvalue="63">number of channels</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
             access="initonly">number of channels (planewaves)</property>
+            <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">the order of decomposition</property>
         </properties>

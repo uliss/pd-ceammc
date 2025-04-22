@@ -37,47 +37,70 @@
             <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
         </mouse>
         <properties>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
+            <!-- @label -->
             <property name="@label" type="symbol" default="(null)">label text</property>
+            <!-- @label_align -->
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
+            <!-- @label_color -->
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
             within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <!-- @label_inner -->
             <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
             outer).</property>
+            <!-- @label_margins -->
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
+            <!-- @label_side -->
             <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
             label snap side</property>
+            <!-- @label_valign -->
             <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
             label vertical align</property>
+            <!-- @mapname -->
             <property name="@mapname" type="symbol" default="(null)">widget name to link them
             between</property>
+            <!-- @outputmode -->
             <property name="@outputmode" type="symbol" default="polar" enum="polar cartesian">
             output mode</property>
+            <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
+            <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
+            <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @selection_color -->
             <property name="@selection_color" type="list" default="0 0.75 1 1">selection color
             (list of red, green, blue values in 0-1 range)</property>
+            <!-- @send -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
             <property name="@size" type="list" default="225 225">element size (width, height
             pair)</property>
+            <!-- @view -->
             <property name="@view" type="symbol" default="xy" enum="xy xz yz">coordinate
             view</property>
+            <!-- @zoom -->
             <property name="@zoom" type="float" default="0.35" minvalue="0.01" maxvalue="1">zoom
             factor</property>
         </properties>

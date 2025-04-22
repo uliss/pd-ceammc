@@ -23,16 +23,22 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>
+            <!-- @fade -->
             <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
             default="100">crossfade duration</property>
+            <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="-38" maxvalue="60" default="0">
             pitchshift in semitones</property>
+            <!-- @window -->
             <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
             default="200">the window size</property>
         </properties>

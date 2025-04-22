@@ -25,6 +25,7 @@
             <argument name="N" type="int" minvalue="0">number of repeats</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="0" default="2">number of repeats</property>
         </properties>
         <inlets>

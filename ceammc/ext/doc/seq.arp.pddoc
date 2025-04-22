@@ -23,6 +23,7 @@
             <argument name="CHORD" type="list">list of pitches to arpeggiate</argument>
         </arguments>
         <properties>
+            <!-- @chord -->
             <property name="@chord" type="list" default="">list of pitches to arpeggiate</property>
         </properties>
         <methods>

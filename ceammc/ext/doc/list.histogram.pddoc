@@ -29,6 +29,7 @@
             bins</argument>
         </arguments>
         <properties>
+            <!-- @bins -->
             <property name="@bins" type="int" minvalue="2" default="100" maxvalue="1024">number of
             histogram bins</property>
         </properties>

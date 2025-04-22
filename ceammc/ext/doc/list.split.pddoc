@@ -25,6 +25,7 @@
             the second output is the size of input list - this value</argument>
         </arguments>
         <properties>
+            <!-- @at -->
             <property name="@at" type="int" minvalue="0" default="0">split point</property>
         </properties>
         <inlets>

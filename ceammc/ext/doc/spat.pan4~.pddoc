@@ -31,9 +31,12 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @angle -->
             <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π"
             units="radian">panning position in radians</property>
+            <!-- @radius -->
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">distance
             from circle center</property>
         </properties>

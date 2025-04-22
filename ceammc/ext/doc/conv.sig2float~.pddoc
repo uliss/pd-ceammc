@@ -35,8 +35,10 @@
             interval</argument>
         </arguments>
         <properties>
+            <!-- @interval -->
             <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
             sampling interval</property>
+            <!-- @offset -->
             <property name="@offset" type="int" default="0" minvalue="0" maxvalue="8192"
             units="sample">sample offset inside DSP block</property>
         </properties>

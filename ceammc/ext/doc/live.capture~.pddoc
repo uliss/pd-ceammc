@@ -19,14 +19,20 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @attack -->
             <property name="@attack" type="float" units="millisecond" minvalue="0"
             maxvalue="100000" default="50">rec envelope attack time</property>
+            <!-- @gain -->
             <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
             units="decibel">playing gain</property>
+            <!-- @gate -->
             <property name="@gate" type="bool" default="0">start/stop recording</property>
+            <!-- @release -->
             <property name="@release" type="float" units="millisecond" minvalue="0"
             maxvalue="100000" default="50">rec envelope release time</property>
+            <!-- @sustain -->
             <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
             default="100">rec envelope sustain level - percent from trigger signal</property>
         </properties>

@@ -23,6 +23,7 @@
             <argument name="DIV" type="int" enum="0 4 8 16 32">@div clock subdivision</argument>
         </arguments>
         <properties>
+            <!-- @div -->
             <property name="@div" type="int" enum="0 4 8 16 32" default="0">clock subdivision. If
             0: bang each incoming midi clock message, if 4: output every quoter note, 8: every
             eight note etc.</property>

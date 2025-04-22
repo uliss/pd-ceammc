@@ -20,22 +20,32 @@
             <since>0.4</since>
         </meta>
         <properties>
+            <!-- @abs -->
             <property name="@abs" type="bool" default="1">if false: using toplevel canvas, if true:
             using abstraction canvas</property>
+            <!-- @dir -->
             <property name="@dir" type="symbol" access="readonly" default="/">canvas
             directory</property>
+            <!-- @font -->
             <property name="@font" type="int" access="readonly" default="10">window font</property>
+            <!-- @height -->
             <property name="@height" type="int" access="readonly" default="400">window
             height</property>
+            <!-- @name -->
             <property name="@name" type="symbol" access="readonly" default="test_canvas">canvas
             name</property>
+            <!-- @paths -->
             <property name="@paths" type="list" access="readonly" default="">search
             paths</property>
+            <!-- @size -->
             <property name="@size" type="list" access="readonly" default="600 400">window
             size</property>
+            <!-- @width -->
             <property name="@width" type="int" access="readonly" default="600">window
             width</property>
+            <!-- @x -->
             <property name="@x" type="int" access="readonly" default="0">window x-pos</property>
+            <!-- @y -->
             <property name="@y" type="int" access="readonly" default="0">window y-pos</property>
         </properties>
         <methods>

@@ -28,8 +28,11 @@
             <argument name="TYPES" type="symbol">expected OSC type string</argument>
         </arguments>
         <properties>
+            <!-- @path -->
             <property name="@path" type="symbol" default="">OSC listen path</property>
+            <!-- @server -->
             <property name="@server" type="symbol" default="default">OSC server name</property>
+            <!-- @types -->
             <property name="@types" type="symbol" default="none">expected OSC type
             string</property>
         </properties>

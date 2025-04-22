@@ -24,12 +24,17 @@
             port</argument>
         </arguments>
         <properties>
+            <!-- @host -->
             <property name="@host" type="symbol" default="localhost">destination host</property>
+            <!-- @pass -->
             <property name="@pass" type="atom" default="">Basic Auth password</property>
+            <!-- @port -->
             <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">
             destination port</property>
+            <!-- @timeout -->
             <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10"
             units="second">TCP connection timeout</property>
+            <!-- @user -->
             <property name="@user" type="symbol" default="">Basic Auth user name</property>
         </properties>
         <methods>

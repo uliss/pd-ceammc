@@ -27,11 +27,15 @@
             value</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @yauto -->
             <property name="@yauto" type="bool" default="0">calculate y-axis range
             automatically</property>
+            <!-- @ymax -->
             <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
             minimal y-axis value</property>
+            <!-- @ymin -->
             <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
             minimal y-axis value</property>
         </properties>

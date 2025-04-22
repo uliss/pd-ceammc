@@ -19,6 +19,7 @@
             <since>0.4</since>
         </meta>
         <properties>
+            <!-- @symbol -->
             <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
             instead of string by default</property>
         </properties>

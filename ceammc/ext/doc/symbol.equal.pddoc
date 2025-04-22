@@ -20,6 +20,7 @@
             <argument name="CMP" type="symbol">compare symbol</argument>
         </arguments>
         <properties>
+            <!-- @cmp -->
             <property name="@cmp" type="symbol" default="">symbol to compare with</property>
         </properties>
         <inlets>

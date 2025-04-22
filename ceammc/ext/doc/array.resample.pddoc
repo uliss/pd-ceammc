@@ -23,16 +23,25 @@
             <argument name="DEST" type="symbol">destination array</argument>
         </arguments>
         <properties>
+            <!-- @best -->
             <property name="@best" type="alias">alias to @quality best</property>
+            <!-- @dest -->
             <property name="@dest" type="symbol" default="">destination array</property>
+            <!-- @fast -->
             <property name="@fast" type="alias">alias to @quality fast</property>
+            <!-- @high -->
             <property name="@high" type="alias">alias to @quality high</property>
+            <!-- @low -->
             <property name="@low" type="alias">alias to @quality low</property>
+            <!-- @medium -->
             <property name="@medium" type="alias">alias to @quality medium</property>
+            <!-- @quality -->
             <property name="@quality" type="symbol" enum="high fast low medium best"
             default="high">resample quality</property>
+            <!-- @ratio -->
             <property name="@ratio" type="float" minvalue="0" default="0">resample ratio
             (src/dest)</property>
+            <!-- @src -->
             <property name="@src" type="symbol" default="">source array</property>
         </properties>
         <inlets>

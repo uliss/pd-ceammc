@@ -22,8 +22,10 @@
             <argument name="PATH" type="list">init directory value</argument>
         </arguments>
         <properties>
+            <!-- @match -->
             <property name="@match" type="symbol" default="">match mask: for example *.wav for all
             wav files</property>
+            <!-- @path -->
             <property name="@path" type="list" default="">current path</property>
         </properties>
         <inlets>

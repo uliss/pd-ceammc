@@ -23,10 +23,13 @@
             <argument name="PATTERN" type="list">list of time intervals (in ms)</argument>
         </arguments>
         <properties>
+            <!-- @current -->
             <property name="@current" type="int" minvalue="0" default="0">current pattern
             index</property>
+            <!-- @pattern -->
             <property name="@pattern" type="list" default="">time intervals (in ms) performed in a
             loop</property>
+            <!-- @sync -->
             <property name="@sync" type="bool" default="0">sync mode - change pattern after full
             cycle</property>
         </properties>

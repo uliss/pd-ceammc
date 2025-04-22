@@ -19,37 +19,52 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bow_press -->
             <property name="@bow_press" type="float" minvalue="0" maxvalue="1" default="0.2">bow
             pressure on the instrument</property>
+            <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="130.8128">
             frequency</property>
+            <!-- @gain -->
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">base
             gain</property>
+            <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
+            <!-- @integration -->
             <property name="@integration" type="float" minvalue="0" maxvalue="1" default="0">
             integration constant</property>
+            <!-- @modfreq -->
             <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220"
             units="hertz">frequency of the sine wave for the modulation of theta (works if
             @modetype=3)</property>
+            <!-- @modtype -->
             <property name="@modtype" type="int" minvalue="0" maxvalue="4" default="0">modulation
             type. 0=theta is modulated by the incoming signal. 1=theta is modulated by the averaged
             incoming signal. 2=theta is modulated by the squared incoming signal. 3=theta is
             modulated by a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave of
             frequency @freq</property>
+            <!-- @nonlin -->
             <property name="@nonlin" type="float" minvalue="0" maxvalue="1" default="0">
             nonlinearity factor</property>
+            <!-- @pan -->
             <property name="@pan" type="float" minvalue="0" maxvalue="1" default="0.6">pan
             angle</property>
+            <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="24" maxvalue="96" default="48">midi
             pitch</property>
+            <!-- @reverb_gain -->
             <property name="@reverb_gain" type="float" minvalue="0" maxvalue="1" default="0.137">
             reverb gain</property>
+            <!-- @room_size -->
             <property name="@room_size" type="float" minvalue="0.005" maxvalue="1" default="0.36">
             reverb room size</property>
+            <!-- @strike -->
             <property name="@strike" type="int" minvalue="0" maxvalue="1" default="0">strike or
             bow</property>
+            <!-- @width -->
             <property name="@width" type="float" minvalue="0" maxvalue="1" default="0.5">
             spatialization width</property>
         </properties>

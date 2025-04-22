@@ -20,6 +20,7 @@
             </also>
         </meta>
         <properties>
+            <!-- @mode -->
             <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">parsing
             mode for incoming client messages. If 'fudi' - interpret incoming websocket data as Pd
             messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -

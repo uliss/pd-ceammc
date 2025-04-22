@@ -28,6 +28,7 @@
             <argument name="VALUE" type="list">list contents</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="list" default="">list contents</property>
         </properties>
         <inlets>

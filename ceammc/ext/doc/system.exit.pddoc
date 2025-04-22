@@ -20,10 +20,13 @@
             time</argument>
         </arguments>
         <properties>
+            <!-- @auto -->
             <property name="@auto" type="bool" default="0">close automatically, without incoming
             call</property>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">exit
             PureData after specified delay time</property>
+            <!-- @rc -->
             <property name="@rc" type="int" default="0">exit code</property>
         </properties>
         <methods>

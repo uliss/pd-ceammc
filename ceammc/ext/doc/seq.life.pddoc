@@ -25,10 +25,13 @@
             columns</argument>
         </arguments>
         <properties>
+            <!-- @cols -->
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="16">number of
             columns</property>
+            <!-- @rows -->
             <property name="@rows" type="int" minvalue="1" maxvalue="64" default="16">number of
             rows</property>
+            <!-- @size -->
             <property name="@size" type="int" access="readonly" default="256">total cell
             count</property>
         </properties>

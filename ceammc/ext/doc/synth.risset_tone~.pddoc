@@ -25,11 +25,15 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @centroid -->
             <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">main
             frequency. Units: MIDI note</property>
+            <!-- @range -->
             <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
             glissando range in MIDI note units</property>
+            <!-- @rate -->
             <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso
             speed</property>
         </properties>

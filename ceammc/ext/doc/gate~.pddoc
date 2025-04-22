@@ -24,10 +24,13 @@
             <argument name="INIT" type="bool">initial open/close state for all slots</argument>
         </arguments>
         <properties>
+            <!-- @init -->
             <property name="@init" type="bool" access="initonly" default="true">init state for all
             slots. If true: all slots are open.</property>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="64"
             access="initonly">number of [in|out]puts.</property>
+            <!-- @smooth -->
             <property name="@smooth" type="float" minvalue="0" default="50" maxvalue="1000"
             units="millisecond">gain change smooth time</property>
         </properties>

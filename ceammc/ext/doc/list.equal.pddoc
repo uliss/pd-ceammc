@@ -19,6 +19,7 @@
             <argument name="PATTERN" type="list">initial value</argument>
         </arguments>
         <properties>
+            <!-- @pattern -->
             <property name="@pattern" type="list" default="">current pattern</property>
         </properties>
         <methods>

@@ -19,11 +19,15 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="0.5" maxvalue="10" default="10"
             units="second">grain total area length</property>
+            <!-- @density -->
             <property name="@density" type="int" minvalue="1" maxvalue="64" default="10">number of
             grains</property>
+            <!-- @length -->
             <property name="@length" type="float" minvalue="10" maxvalue="500" default="100"
             units="millisecond">grain length</property>
         </properties>

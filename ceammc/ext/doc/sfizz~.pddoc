@@ -27,20 +27,28 @@
             #saw, #square, #noise</argument>
         </arguments>
         <properties>
+            <!-- @avoices -->
             <property name="@avoices" type="int" default="0" access="readonly">number midi
             channels</property>
+            <!-- @cc_labels -->
             <property name="@cc_labels" type="atom" access="readonly" default="[]">dict of
             controller labels</property>
+            <!-- @freq -->
             <property name="@freq" type="float" default="440" units="hertz">A4 standard
             tuning</property>
+            <!-- @gain -->
             <property name="@gain" type="float" minvalue="0" maxvalue="16" default="0.429">output
             gain (same as @value but in amp units)</property>
+            <!-- @key_labels -->
             <property name="@key_labels" type="atom" access="readonly" default="[]">dict of control
             key labels</property>
+            <!-- @poly -->
             <property name="@poly" type="int" minvalue="1" maxvalue="256" default="64">max number
             of voices</property>
+            <!-- @sf -->
             <property name="@sf" type="symbol" default="">soundfont path or builtin waveform name:
             #sine, #tri, #saw, #square, #noise</property>
+            <!-- @volume -->
             <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35"
             units="decibel">output volume (same as @gain but in db)</property>
         </properties>

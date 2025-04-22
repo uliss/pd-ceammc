@@ -28,6 +28,7 @@
             @pin</argument>
         </arguments>
         <properties>
+            <!-- @pin -->
             <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">GPIO connection pin</property>
         </properties>

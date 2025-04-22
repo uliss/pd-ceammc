@@ -30,6 +30,7 @@
             <argument name="EXTRA" type="int" minvalue="0">shortcut for @extra property</argument>
         </arguments>
         <properties>
+            <!-- @extra -->
             <property name="@extra" type="int" minvalue="0" default="0">extra inlet. Extra inlet
             are added to the "normal" instance inlet and can be used to send signal to all
             instances</property>

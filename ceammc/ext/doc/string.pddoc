@@ -24,6 +24,7 @@
             <argument name="VALUE" type="list">initial string</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="list" default="">string value</property>
         </properties>
         <methods>

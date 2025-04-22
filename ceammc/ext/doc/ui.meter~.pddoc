@@ -37,34 +37,50 @@
             <event type="right-click" editmode="true">open Pd popup menu</event>
         </mouse>
         <properties>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
+            <!-- @cold_color -->
             <property name="@cold_color" type="list" default="0 0.6 0 1">extra low-level signal
             color &lt;-31db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
+            <!-- @hot_color -->
             <property name="@hot_color" type="list" default="1 0.6 0 1">loud level signal color
             &lt;-3db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @interval -->
             <property name="@interval" type="int" units="millisecond" minvalue="20" default="50">
             refresh interval</property>
+            <!-- @over_color -->
             <property name="@over_color" type="list" default="1 0 0 1">extra-loud level signal
             color &gt;-3db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
+            <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @send -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
             <property name="@size" type="list" default="15 120">element size (width, height
             pair)</property>
+            <!-- @tepid_color -->
             <property name="@tepid_color" type="list" default="0.6 0.73 0 1">low-level signal color
             &lt;-21db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @warm_color -->
             <property name="@warm_color" type="list" default="0.85 0.85 0 1">normal level signal
             color &lt;-9db (list of red, green, blue values in 0-1 range)</property>
         </properties>

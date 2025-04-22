@@ -29,6 +29,7 @@
             stereo-pairs</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="list" default="1 0">gain coefficients per each
             input</property>
         </properties>

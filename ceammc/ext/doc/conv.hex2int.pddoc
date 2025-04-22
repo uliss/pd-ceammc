@@ -20,6 +20,7 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @strict -->
             <property name="@strict" type="flag" access="initonly">ignore parsing error</property>
         </properties>
         <inlets>

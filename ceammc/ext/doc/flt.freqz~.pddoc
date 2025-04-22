@@ -21,10 +21,14 @@
             (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</par>
         </info>
         <properties>
+            <!-- @a -->
             <property name="@a" type="list" default="">denominator (poles) coefficients. 'a0'
             always implicitly set to 1, property value set a1...an coefficients</property>
+            <!-- @b -->
             <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
+            <!-- @db -->
             <property name="@db" type="bool" default="0">output amp response in db scale</property>
+            <!-- @sr -->
             <property name="@sr" type="bool" default="0">normalize using current
             samplerate</property>
         </properties>

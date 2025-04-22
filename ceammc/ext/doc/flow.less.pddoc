@@ -30,6 +30,7 @@
             order</argument>
         </arguments>
         <properties>
+            <!-- @values -->
             <property name="@values" type="list" access="initonly" default="">compare values: list
             of floats in ascending order</property>
         </properties>

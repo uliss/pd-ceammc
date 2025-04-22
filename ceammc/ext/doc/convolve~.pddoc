@@ -19,9 +19,12 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @maxsize -->
             <property name="@maxsize" type="int" default="50000" maxvalue="300000" units="sample"
             minvalue="0">max impulse response size</property>
+            <!-- @norm -->
             <property name="@norm" type="bool" default="1">normalize impulse response</property>
+            <!-- @offset -->
             <property name="@offset" type="int" default="0" minvalue="0" units="sample">impulse
             response (IR) offset</property>
         </properties>

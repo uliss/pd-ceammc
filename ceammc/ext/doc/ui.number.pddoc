@@ -42,37 +42,55 @@
             <event type="right-click" editmode="true">open the Pd popup menu</event>
         </mouse>
         <properties>
+            <!-- @active_color -->
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
+            <!-- @digits -->
             <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="9">number of
             digits. If -1 - no fixed digits used</property>
+            <!-- @display_only -->
             <property name="@display_only" type="bool" default="0">interaction mode. If true: react
             only to received Pd messages, but do not react to mouse/keyboard events. If false:
             react to all supported events.</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
+            <!-- @max -->
             <property name="@max" type="float" default="+inf">maximum value</property>
+            <!-- @min -->
             <property name="@min" type="float" default="-inf">minimum value</property>
+            <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
+            <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
+            <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @send -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
             <property name="@size" type="list" default="53 15">element size (width, height
             pair)</property>
+            <!-- @text_color -->
             <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
             green, blue values in 0-1 range)</property>
+            <!-- @value -->
             <property name="@value" type="float" default="0">widget value</property>
         </properties>
         <methods>

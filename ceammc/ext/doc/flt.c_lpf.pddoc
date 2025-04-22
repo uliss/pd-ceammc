@@ -31,10 +31,13 @@
             frequency</argument>
         </arguments>
         <properties>
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="20" maxvalue="22050" default="1000"
             units="hertz">center frequency</property>
+            <!-- @q -->
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.7071">
             quality factor: @freq/BANDWIDTH</property>
+            <!-- @rad -->
             <property name="@rad" type="flag" access="initonly">use angular frequency</property>
         </properties>
         <methods>

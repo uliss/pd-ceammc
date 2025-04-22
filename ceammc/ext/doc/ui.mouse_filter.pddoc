@@ -26,28 +26,40 @@
             <par>pass only specified mouse events from ui.* objects</par>
         </info>
         <properties>
+            <!-- @down -->
             <property name="@down" type="alias" default="0">alias to @mouse_down 1
             property</property>
+            <!-- @drag -->
             <property name="@drag" type="alias" default="0">alias to @mouse_drag 1
             property</property>
+            <!-- @enter -->
             <property name="@enter" type="alias" default="0">alias to @mouse_enter 1
             property</property>
+            <!-- @leave -->
             <property name="@leave" type="alias" default="0">alias to @mouse_leave 1
             property</property>
+            <!-- @mouse_down -->
             <property name="@mouse_down" type="bool" default="0">passing a @mouse_down
             events</property>
+            <!-- @mouse_drag -->
             <property name="@mouse_drag" type="bool" default="0">passing a @mouse_drag
             events</property>
+            <!-- @mouse_enter -->
             <property name="@mouse_enter" type="bool" default="0">passing a @mouse_enter
             events</property>
+            <!-- @mouse_leave -->
             <property name="@mouse_leave" type="bool" default="0">passing a @mouse_leave
             events</property>
+            <!-- @mouse_move -->
             <property name="@mouse_move" type="bool" default="0">passing a @mouse_move
             events</property>
+            <!-- @mouse_up -->
             <property name="@mouse_up" type="bool" default="0">passing a @mouse_up
             events</property>
+            <!-- @move -->
             <property name="@move" type="alias" default="0">alias to @mouse_move 1
             property</property>
+            <!-- @up -->
             <property name="@up" type="alias" default="0">alias to @mouse_up 1 property</property>
         </properties>
         <inlets>

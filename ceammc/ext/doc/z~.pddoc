@@ -23,6 +23,7 @@
             length</argument>
         </arguments>
         <properties>
+            <!-- @z -->
             <property name="@z" type="int" minvalue="0" default="1" maxvalue="512" units="sample">
             delay length</property>
         </properties>

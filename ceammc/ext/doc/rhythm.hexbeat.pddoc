@@ -19,7 +19,9 @@
             <argument name="HEX" type="symbol">init pattern value</argument>
         </arguments>
         <properties>
+            <!-- @hex -->
             <property name="@hex" type="symbol" default="">hex pattern</property>
+            <!-- @pattern -->
             <property name="@pattern" type="list" default="" access="readonly">list
             pattern</property>
         </properties>

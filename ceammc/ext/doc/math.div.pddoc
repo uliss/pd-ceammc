@@ -22,6 +22,7 @@
             <argument name="DIV" type="float">divisor</argument>
         </arguments>
         <properties>
+            <!-- @div -->
             <property name="@div" type="float" default="1">divisor</property>
         </properties>
         <inlets>

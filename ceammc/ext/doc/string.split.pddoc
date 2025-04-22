@@ -32,7 +32,9 @@
             To separate by space - use " " argument</argument>
         </arguments>
         <properties>
+            <!-- @sep -->
             <property name="@sep" type="symbol" default="">separator</property>
+            <!-- @sym -->
             <property name="@sym" type="flag" access="initonly">flag to output as list of Pd
             symbols</property>
         </properties>

@@ -22,6 +22,7 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
         </properties>
         <inlets>

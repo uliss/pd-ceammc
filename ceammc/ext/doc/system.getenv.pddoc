@@ -23,6 +23,7 @@
             <argument name="NAME" type="symbol">environment variable name</argument>
         </arguments>
         <properties>
+            <!-- @name -->
             <property name="@name" type="symbol" default="">environment variable name</property>
         </properties>
         <inlets>

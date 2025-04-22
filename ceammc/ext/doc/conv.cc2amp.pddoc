@@ -31,7 +31,9 @@
             <argument name="TO" type="float">end value of output range</argument>
         </arguments>
         <properties>
+            <!-- @from -->
             <property name="@from" type="float" default="0">start value of output range</property>
+            <!-- @to -->
             <property name="@to" type="float" default="1">end value of output range</property>
         </properties>
         <inlets>

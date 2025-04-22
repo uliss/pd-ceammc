@@ -28,16 +28,22 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="10" maxvalue="5000" units="millisecond"
             default="500">echo time</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>
+            <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
             feedback coefficient</property>
+            <!-- @stereo -->
             <property name="@stereo" type="float" minvalue="0" maxvalue="1" default="1">The stereo
             parameter controls the amount of stereo spread. For stereo=0 you get a plain delay,
             without crosstalk between the channels. For stereo=1 you get a pure ping-pong delay

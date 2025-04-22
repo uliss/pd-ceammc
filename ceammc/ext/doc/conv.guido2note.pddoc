@@ -32,6 +32,7 @@
             90|4._bpm etc.</argument>
         </arguments>
         <properties>
+            <!-- @tempo -->
             <property name="@tempo" type="atom" default="60|4bpm" units="bpm">current
             tempo</property>
         </properties>

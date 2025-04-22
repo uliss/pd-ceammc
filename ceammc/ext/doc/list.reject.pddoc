@@ -22,6 +22,7 @@
             <argument name="ARGS" type="list">list of rejected values</argument>
         </arguments>
         <properties>
+            <!-- @args -->
             <property name="@args" type="list" default="">list of rejected values</property>
         </properties>
         <inlets>

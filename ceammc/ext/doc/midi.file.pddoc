@@ -19,15 +19,21 @@
             <argument name="FILENAME" type="symbol">initial MIDI filename</argument>
         </arguments>
         <properties>
+            <!-- @filename -->
             <property name="@filename" type="symbol">current filename</property>
+            <!-- @length_beat -->
             <property name="@length_beat" type="float" access="readonly" default="0">file length in
             quarters</property>
+            <!-- @length_sec -->
             <property name="@length_sec" type="float" access="readonly" units="second" default="0">
             file length</property>
+            <!-- @length_tick -->
             <property name="@length_tick" type="int" access="readonly" default="0">file length in
             ticks</property>
+            <!-- @tempo -->
             <property name="@tempo" type="int" access="readonly" default="120">midi tempo in ticks
             per quarter</property>
+            <!-- @tracks -->
             <property name="@tracks" type="int" access="readonly" default="1">number of
             tracks</property>
         </properties>

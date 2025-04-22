@@ -27,6 +27,7 @@
             <argument name="DIV" type="float">divisor</argument>
         </arguments>
         <properties>
+            <!-- @int -->
             <property name="@int" type="flag" default="0" access="initonly">operate on integers
             only</property>
         </properties>

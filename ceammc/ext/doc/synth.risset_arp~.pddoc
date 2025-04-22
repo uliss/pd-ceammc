@@ -19,27 +19,39 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @detune -->
             <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">detune
             percent</property>
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">base
             frequency</property>
+            <!-- @harmonic1 -->
             <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">1st
             harmonic amplitude</property>
+            <!-- @harmonic2 -->
             <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">2nd
             harmonic amplitude</property>
+            <!-- @harmonic3 -->
             <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">3rd
             harmonic amplitude</property>
+            <!-- @harmonic4 -->
             <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">4th
             harmonic amplitude</property>
+            <!-- @harmonic5 -->
             <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">5th
             harmonic amplitude</property>
+            <!-- @harmonic6 -->
             <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">6th
             harmonic amplitude</property>
+            <!-- @harmonic7 -->
             <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">7th
             harmonic amplitude</property>
+            <!-- @harmonic8 -->
             <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">8th
             harmonic amplitude</property>
+            <!-- @spread -->
             <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">stereo
             spread</property>
         </properties>

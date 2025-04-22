@@ -20,13 +20,18 @@
             transposition</argument>
         </arguments>
         <properties>
+            <!-- @mode -->
             <property name="@mode" type="symbol" default="transpose" enum="transpose set">octave
             mode</property>
+            <!-- @oct -->
             <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">octave
             transposition</property>
+            <!-- @random -->
             <property name="@random" type="list" default="">random octave range. Arguments are: MIN
             MAX.</property>
+            <!-- @set -->
             <property name="@set" type="alias">alias to @mode set</property>
+            <!-- @transpose -->
             <property name="@transpose" type="alias">alias to @mode transpose</property>
         </properties>
         <inlets>

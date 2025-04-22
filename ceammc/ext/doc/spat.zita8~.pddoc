@@ -24,21 +24,29 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @angle -->
             <property name="@angle" type="float" minvalue="0" default="0" maxvalue="1">source
             panning position</property>
+            <!-- @decay_low -->
             <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3"
             units="second">time (in seconds) to decay 60dB in low-frequency band</property>
+            <!-- @decay_mid -->
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2"
             units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="20" maxvalue="100" default="60"
             units="millisecond">a delay of 20 to 100 ms operating on the 'wet' signal. Large values
             will provide the impression of a larger room</property>
+            <!-- @dump_hf -->
             <property name="@dump_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
             units="hertz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
             T60</property>
+            <!-- @freq_low -->
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="hertz">Crossover frequency (Hz) separating low and middle frequencies</property>
+            <!-- @radius -->
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">source
             distance from circle center</property>
         </properties>

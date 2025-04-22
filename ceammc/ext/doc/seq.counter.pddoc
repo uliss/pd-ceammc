@@ -21,21 +21,32 @@
             <argument name="R" type="int" minvalue="-1">number of repeats</argument>
         </arguments>
         <properties>
+            <!-- @fold -->
             <property name="@fold" type="alias">alias to @mode fold</property>
+            <!-- @from -->
             <property name="@from" type="int" default="0">start value. Setting this property resets
             @i to 0</property>
+            <!-- @i -->
             <property name="@i" type="int" default="0">current iteration</property>
+            <!-- @inf -->
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="wrap fold" default="wrap">repeat counter
             mode</property>
+            <!-- @once -->
             <property name="@once" type="alias">alias to @r 1, play once</property>
+            <!-- @r -->
             <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1:
             repeat infinitely.</property>
+            <!-- @ri -->
             <property name="@ri" type="int" access="readonly" default="0">current repeat
             iteration</property>
+            <!-- @to -->
             <property name="@to" type="int" default="0">end value (inclusive)</property>
+            <!-- @value -->
             <property name="@value" type="int" default="0" access="readonly">current
             value</property>
+            <!-- @wrap -->
             <property name="@wrap" type="alias">alias to @mode wrap</property>
         </properties>
         <methods>

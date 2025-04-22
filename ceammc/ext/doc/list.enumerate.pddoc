@@ -19,8 +19,10 @@
             <argument name="FROM" type="int">enumeration start index</argument>
         </arguments>
         <properties>
+            <!-- @append -->
             <property name="@append" type="flag" default="0" access="initonly">put element index
             after element value</property>
+            <!-- @from -->
             <property name="@from" type="int" default="0">enumeration start index</property>
         </properties>
         <inlets>

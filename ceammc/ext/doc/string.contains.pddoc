@@ -25,6 +25,7 @@
             <argument name="SUBJ" type="symbol">searched substring</argument>
         </arguments>
         <properties>
+            <!-- @subj -->
             <property name="@subj" type="symbol" default="">searched substring</property>
         </properties>
         <inlets>

@@ -24,6 +24,7 @@
             <argument name="FROM" type="int" minvalue="0">starting args index</argument>
         </arguments>
         <properties>
+            <!-- @from -->
             <property name="@from" type="int" minvalue="0" default="0">starting args
             index</property>
         </properties>

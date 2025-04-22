@@ -26,6 +26,7 @@
             <argument name="VALUE" type="atom">initial value</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="atom">current color</property>
         </properties>
         <methods>

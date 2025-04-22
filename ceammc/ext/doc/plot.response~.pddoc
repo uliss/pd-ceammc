@@ -23,10 +23,13 @@
             <argument name="N" type="int" minvalue="32" maxvalue="8192">@n property</argument>
         </arguments>
         <properties>
+            <!-- @db -->
             <property name="@db" type="bool" default="0">decibel mode. It true outputs amplitude in
             decibels</property>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="32" maxvalue="8192" default="512">number of
             processed samples</property>
+            <!-- @sr -->
             <property name="@sr" type="bool" default="0">using samplerate. If true output in
             [0..SR/2] instead of [0..pi]</property>
         </properties>

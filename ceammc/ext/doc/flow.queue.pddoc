@@ -21,8 +21,10 @@
             <argument name="N" type="int" minvalue="1" maxvalue="32">number of lines</argument>
         </arguments>
         <properties>
+            <!-- @auto_pop -->
             <property name="@auto_pop" type="bool" default="0">auto pop mode. If true automatically
             pops oldest elements when queue is full</property>
+            <!-- @max_size -->
             <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">max
             queue size</property>
         </properties>

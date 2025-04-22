@@ -24,6 +24,7 @@
             means position from end of the list. For example: '-1' means last element.</argument>
         </arguments>
         <properties>
+            <!-- @indexes -->
             <property name="@indexes" type="list" default="">applied index(es)</property>
         </properties>
         <inlets>

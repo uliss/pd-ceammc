@@ -23,16 +23,22 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @depth -->
             <property name="@depth" type="float" minvalue="0" maxvalue="1" default="1">effect
             depth</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.75">
             proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
             signal, 1 - wet</property>
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="0.1" maxvalue="50" units="hertz"
             default="5">tremolo frequency</property>
+            <!-- @src -->
             <property name="@src" type="int" minvalue="0" maxvalue="2" default="0">modulation
             source: 0 (triangle), 1 (sin) or 2 (square)</property>
         </properties>

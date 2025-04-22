@@ -25,8 +25,10 @@
             (rows)</argument>
         </arguments>
         <properties>
+            <!-- @inputs -->
             <property name="@inputs" type="int" minvalue="2" maxvalue="16" default="2"
             access="initonly">number of matrix inputs</property>
+            <!-- @outputs -->
             <property name="@outputs" type="int" minvalue="2" maxvalue="16" default="2"
             access="initonly">number of matrix outputs</property>
         </properties>

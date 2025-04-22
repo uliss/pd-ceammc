@@ -22,7 +22,9 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @period -->
             <property name="@period" type="float" minvalue="1" maxvalue="1000" default="200"
             units="millisecond">averaging frame</property>
         </properties>

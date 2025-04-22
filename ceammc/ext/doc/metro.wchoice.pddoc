@@ -24,13 +24,18 @@
             values can be floats or percent</argument>
         </arguments>
         <properties>
+            <!-- @calc_w -->
             <property name="@calc_w" type="list" default="1" access="readonly">normalized list of
             probabilities</property>
+            <!-- @init -->
             <property name="@init" type="list" default="" access="initonly">intermixed list of time
             and weights values</property>
+            <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @t -->
             <property name="@t" type="list" units="millisecond" default="">timeset
             (&gt;0)</property>
+            <!-- @w -->
             <property name="@w" type="list" default="">weight list, float or percent
             values</property>
         </properties>

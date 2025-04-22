@@ -26,9 +26,11 @@
             <argument name="MSG" type="list">init value for appended message</argument>
         </arguments>
         <properties>
+            <!-- @delay -->
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
             append delay. If &lt;0 append immediately at the same logical time, if equal zero -
             output after next DSP block.</property>
+            <!-- @msg -->
             <property name="@msg" type="list" default="">appended message</property>
         </properties>
         <inlets>

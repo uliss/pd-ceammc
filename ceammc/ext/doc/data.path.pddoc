@@ -20,8 +20,11 @@
             <argument name="PATH" type="atom">See @path</argument>
         </arguments>
         <properties>
+            <!-- @async -->
             <property name="@async" type="bool" default="1">use async operations</property>
+            <!-- @norm -->
             <property name="@norm" type="bool" default="1">normalize path</property>
+            <!-- @path -->
             <property name="@path" type="atom" default="">current path value</property>
         </properties>
         <methods>

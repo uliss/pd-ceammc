@@ -27,14 +27,19 @@
             osc.udp://localhost:12345)</argument>
         </arguments>
         <properties>
+            <!-- @host -->
             <property name="@host" type="symbol" default="" access="readonly">destination
             host</property>
+            <!-- @path -->
             <property name="@path" type="symbol" default="" access="readonly">socket filesystem
             path (if using unix proto)</property>
+            <!-- @port -->
             <property name="@port" type="int" default="0" access="readonly">destination
             port</property>
+            <!-- @proto -->
             <property name="@proto" type="symbol" default="udp" access="readonly">sending
             protocol</property>
+            <!-- @url -->
             <property name="@url" type="atom" default="">destination url</property>
         </properties>
         <methods>

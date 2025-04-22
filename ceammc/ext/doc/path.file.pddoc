@@ -16,6 +16,7 @@
             <since>0.9.5</since>
         </meta>
         <properties>
+            <!-- @path -->
             <property name="@path" type="symbol" default="">file path</property>
         </properties>
         <methods>

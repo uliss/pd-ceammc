@@ -24,6 +24,7 @@
             be stretched to the new size with linear interpolation</argument>
         </arguments>
         <properties>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="0" default="1">new size</property>
         </properties>
         <inlets>

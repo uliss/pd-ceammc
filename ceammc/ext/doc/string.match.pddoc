@@ -30,6 +30,7 @@
             <argument name="RE" type="list">regular expression</argument>
         </arguments>
         <properties>
+            <!-- @re -->
             <property name="@re" type="list" default="">regular expression</property>
         </properties>
         <inlets>

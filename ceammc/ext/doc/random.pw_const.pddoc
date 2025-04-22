@@ -32,11 +32,15 @@
             in strictly increasing order and weights should be non-negative</argument>
         </arguments>
         <properties>
+            <!-- @bounds -->
             <property name="@bounds" type="list" access="readonly" default="">list of
             boundaries</property>
+            <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @v -->
             <property name="@v" type="list" default="">interleaved interval boundaries and boundary
             propabilities.</property>
+            <!-- @weights -->
             <property name="@weights" type="list" access="readonly" default="">list of
             weights</property>
         </properties>

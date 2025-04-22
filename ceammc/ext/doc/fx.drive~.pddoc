@@ -22,9 +22,12 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @drive -->
             <property name="@drive" type="float" minvalue="1" maxvalue="10" default="1">drive
             coefficient</property>
         </properties>

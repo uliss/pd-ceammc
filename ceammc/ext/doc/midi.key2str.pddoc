@@ -22,8 +22,10 @@
             <argument name="TONALITY" type="list">initial tomality</argument>
         </arguments>
         <properties>
+            <!-- @symbol -->
             <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
             instead of string by default</property>
+            <!-- @tonality -->
             <property name="@tonality" type="list" default="C major">current tonality</property>
         </properties>
         <inlets>

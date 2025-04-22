@@ -19,11 +19,15 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @attack -->
             <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
             units="millisecond">attack time</property>
+            <!-- @bwratio -->
             <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
             coefficient to adjust the bandwidth of each band</property>
+            <!-- @release -->
             <property name="@release" type="float" minvalue="0.1" maxvalue="100" default="5"
             units="millisecond">release time</property>
         </properties>

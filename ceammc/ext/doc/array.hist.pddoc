@@ -31,10 +31,14 @@
             <argument name="MAX" type="float">maximum value</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @bins -->
             <property name="@bins" type="int" minvalue="2" maxvalue="1000" default="100">number of
             bins</property>
+            <!-- @max -->
             <property name="@max" type="float" default="1">maximum value</property>
+            <!-- @min -->
             <property name="@min" type="float" default="-1">minimal value</property>
         </properties>
         <inlets>

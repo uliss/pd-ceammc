@@ -27,20 +27,28 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @dev -->
             <property name="@dev" type="float" minvalue="0" maxvalue="1" default="0.25">scramble
             freq deviation</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
             proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
             signal, 1 - wet</property>
+            <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.25">
             feedback coefficient</property>
+            <!-- @freq1 -->
             <property name="@freq1" type="float" minvalue="0.25" maxvalue="50" units="hertz"
             default="7">left channel scramble frequency</property>
+            <!-- @freq2 -->
             <property name="@freq2" type="float" minvalue="0.25" maxvalue="50" units="hertz"
             default="5">right channel scramble frequency</property>
+            <!-- @range -->
             <property name="@range" type="float" minvalue="0" maxvalue="1" default="0.5">scramble
             delay amount</property>
         </properties>

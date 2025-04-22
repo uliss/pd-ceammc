@@ -23,6 +23,7 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @on_err -->
             <property name="@on_err" type="float" default="-1">value returned when unrecognized
             symbol given</property>
         </properties>

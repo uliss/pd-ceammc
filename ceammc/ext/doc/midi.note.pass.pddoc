@@ -36,6 +36,7 @@
             <argument name="EXPR" type="list">init expression</argument>
         </arguments>
         <properties>
+            <!-- @expr -->
             <property name="@expr" type="list" default="">expression</property>
         </properties>
         <inlets>

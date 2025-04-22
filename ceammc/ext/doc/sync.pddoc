@@ -27,6 +27,7 @@
             values</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="2" default="2" maxvalue="8" access="initonly">
             number of synced values</property>
         </properties>

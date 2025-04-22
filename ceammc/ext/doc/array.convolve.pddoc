@@ -20,8 +20,11 @@
             <argument name="IR" type="symbol">array with impulse response</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">target array</property>
+            <!-- @ir -->
             <property name="@ir" type="symbol" default="">impulse response source array</property>
+            <!-- @norm -->
             <property name="@norm" type="bool" default="0">impulse response
             normalization</property>
         </properties>

@@ -21,19 +21,26 @@
             </also>
         </meta>
         <properties>
+            <!-- @clip -->
             <property name="@clip" type="alias">alias for "@oversize min" property. Truncates lists
             to minimal common size.</property>
+            <!-- @clip -->
             <property name="@clip" type="alias">alias for "@oversize clip" property. Pad shortest
             list with last element to conform longest list</property>
+            <!-- @fold -->
             <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
             list with repeated values from the end to the beginning, then back and so
             on.</property>
+            <!-- @min -->
             <property name="@min" type="alias">alias for "@oversize min" property. Truncates lists
             to minimal common size</property>
+            <!-- @oversize -->
             <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
             behavior, if list have different sizes</property>
+            <!-- @padz -->
             <property name="@padz" type="alias">alias for "@oversize padz" property. Pad shortest
             list with zeroes.</property>
+            <!-- @wrap -->
             <property name="@wrap" type="alias">alias for "@oversize wrap" property. Pad shortest
             list with repeated values from the beginning.</property>
         </properties>

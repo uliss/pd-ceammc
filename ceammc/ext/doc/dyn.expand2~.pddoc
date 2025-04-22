@@ -36,31 +36,43 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @attack -->
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">time constant when expander is turning on</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @hold -->
             <property name="@hold" type="float" units="sample" default="128" minvalue="1"
             maxvalue="255">hold period</property>
+            <!-- @knee -->
             <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
             maxvalue="6">a gradual increase in gain reduction around the threshold: below
             thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
             gain reduction as without a knee, and in between there is a gradual increase in gain
             reduction</property>
+            <!-- @level -->
             <property name="@level" type="float" units="decibel" default="0" minvalue="0"
             maxvalue="90" access="readonly">current expander level</property>
+            <!-- @link -->
             <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">the amount of
             linkage between the channels: 0 = each channel is independent, 1 = all channels have
             the same amount of gain reduction</property>
+            <!-- @range -->
             <property name="@range" type="float" units="decibel" default="-120" minvalue="-120"
             maxvalue="0">max expand range</property>
+            <!-- @refresh -->
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">expander level output time interval. If 0 - no output</property>
+            <!-- @release -->
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">release time = time constant coming out of expanding</property>
+            <!-- @strength -->
             <property name="@strength" type="float" default="0" minvalue="0" maxvalue="10">expander
             strength (0: no expanding, 1: increase level by @range db.)</property>
+            <!-- @threshold -->
             <property name="@threshold" type="float" units="decibel" default="-48" minvalue="-60"
             maxvalue="0">level threshold above which compression kicks in (100 dB = max
             level)</property>

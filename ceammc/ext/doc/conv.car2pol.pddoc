@@ -23,6 +23,7 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @positive -->
             <property name="@positive" type="bool" default="0">output in positive range. If true
             output is in [0..2π) range, otherwise output range is [-π..+π]</property>
         </properties>

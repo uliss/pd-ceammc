@@ -28,6 +28,7 @@
             index</argument>
         </arguments>
         <properties>
+            <!-- @index -->
             <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">input index,
             can be set only with [prop.set] object or via rightmost inlet</property>
         </properties>

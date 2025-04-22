@@ -38,31 +38,45 @@
             actions</event>
         </mouse>
         <properties>
+            <!-- @active_color -->
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
+            <!-- @current -->
             <property name="@current" type="int" default="-1" access="readonly">current preset
             index</property>
+            <!-- @empty_color -->
             <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">empty cell color
             (list of red, green, blue values in 0-1 range)</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
+            <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
+            <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @size -->
             <property name="@size" type="list" default="102 42">element size (width, height
             pair)</property>
+            <!-- @stored_color -->
             <property name="@stored_color" type="list" default="0.5 0.5 0.5 1">stored cell color
             (list of red, green, blue values in 0-1 range)</property>
+            <!-- @text_color -->
             <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
             green, blue values in 0-1 range)</property>
         </properties>

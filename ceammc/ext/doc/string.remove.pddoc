@@ -22,14 +22,19 @@
             <argument name="STR" type="symbol">substring to remove</argument>
         </arguments>
         <properties>
+            <!-- @all -->
             <property name="@all" type="alias">alias to @mode all - remove all occurences in input
             string</property>
+            <!-- @first -->
             <property name="@first" type="alias">alias to @mode first - remove first occurence in
             input string</property>
+            <!-- @last -->
             <property name="@last" type="alias">alias to @mode last - remove last occurence in
             input string</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="all first last" default="all">remove
             mode</property>
+            <!-- @str -->
             <property name="@str" type="symbol" default="">removed string</property>
         </properties>
         <inlets>

@@ -16,6 +16,7 @@
             <since>0.9.5</since>
         </meta>
         <properties>
+            <!-- @db -->
             <property name="@db" type="flag" default="0" access="initonly">output in
             decibels</property>
         </properties>

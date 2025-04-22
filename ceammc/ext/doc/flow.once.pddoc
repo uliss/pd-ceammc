@@ -26,6 +26,7 @@
             <argument name="PASS" type="bool">set init state</argument>
         </arguments>
         <properties>
+            <!-- @pass -->
             <property name="@pass" type="bool" default="1">open state</property>
         </properties>
         <inlets>

@@ -31,9 +31,12 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="hertz">center frequency</property>
+            <!-- @width -->
             <property name="@width" type="float" default="50" units="hertz" minvalue="1"
             maxvalue="10000">band width (approximate)</property>
         </properties>

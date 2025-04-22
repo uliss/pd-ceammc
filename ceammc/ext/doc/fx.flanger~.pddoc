@@ -18,20 +18,28 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" maxvalue="20" units="millisecond"
             default="10">flange delay</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>
+            <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
             gain</property>
+            <!-- @invert -->
             <property name="@invert" type="bool" default="0">0 for normal, 1 to invert sign of
             flanging sum</property>
+            <!-- @offset -->
             <property name="@offset" type="float" minvalue="0" maxvalue="20" units="millisecond"
             default="1">flange delay offset</property>
+            <!-- @speed -->
             <property name="@speed" type="float" minvalue="0" maxvalue="10" default="0.5"
             units="hertz">flanger frequency</property>
         </properties>

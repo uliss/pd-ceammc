@@ -24,9 +24,12 @@
             <argument name="STEP" type="int" minvalue="0">@step property</argument>
         </arguments>
         <properties>
+            <!-- @from -->
             <property name="@from" type="int" default="0">start slice position. You can use
             negative index to address elements from the end</property>
+            <!-- @step -->
             <property name="@step" type="int" default="1" minvalue="0">slice step</property>
+            <!-- @to -->
             <property name="@to" type="int" default="-1">end slice position. You can use negative
             index to address elements from the end</property>
         </properties>

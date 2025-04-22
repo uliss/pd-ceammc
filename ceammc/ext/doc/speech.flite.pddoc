@@ -23,11 +23,15 @@
             <argument name="ARRAY" type="symbol">destination array name render to</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">destination array name</property>
+            <!-- @pitch -->
             <property name="@pitch" type="float" default="-1">voice pitch (-1 - default
             value)</property>
+            <!-- @speed -->
             <property name="@speed" type="float" minvalue="1" maxvalue="4" default="1">speaking
             speed</property>
+            <!-- @voice -->
             <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">default
             voice</property>
         </properties>

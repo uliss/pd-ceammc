@@ -32,7 +32,9 @@
             length</argument>
         </arguments>
         <properties>
+            <!-- @cue -->
             <property name="@cue" type="symbol" access="readonly" default="">related cue</property>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">bang
             delay after cue activation</property>
         </properties>

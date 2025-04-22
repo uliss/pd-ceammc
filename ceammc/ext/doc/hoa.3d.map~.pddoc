@@ -32,12 +32,16 @@
             <argument name="MODE" type="symbol" enum="car pol">coordinates mode</argument>
         </arguments>
         <properties>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="car pol" default="pol">coordinates mode in
             signal control mode (with @nsrc 1), polar or cartesian</property>
+            <!-- @nsrc -->
             <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
             input sources</property>
+            <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
             access="initonly">the order of decomposition</property>
+            <!-- @ramp -->
             <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
         </properties>
         <methods>

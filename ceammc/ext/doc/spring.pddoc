@@ -24,15 +24,22 @@
             time to reach the target value</argument>
         </arguments>
         <properties>
+            <!-- @accel -->
             <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
             acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin fast, then
             slow down, &lt;0: begin slow, then speed up</property>
+            <!-- @mouse_down -->
             <property name="@mouse_down" type="bool" default="0">internal state</property>
+            <!-- @mouse_drag -->
             <property name="@mouse_drag" type="bool" default="0">internal state</property>
+            <!-- @mouse_move -->
             <property name="@mouse_move" type="bool" default="0">internal state</property>
+            <!-- @mouse_up -->
             <property name="@mouse_up" type="bool" default="0">internal state</property>
+            <!-- @time -->
             <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500"
             units="millisecond">time to reach target value</property>
+            <!-- @value -->
             <property name="@value" type="float" default="0">target value</property>
         </properties>
         <inlets>

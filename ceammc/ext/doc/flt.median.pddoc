@@ -21,6 +21,7 @@
             <par>If window size is even: mean between center elements outputed</par>
         </info>
         <properties>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="128" default="9"
             units="sample">filter windows size</property>
         </properties>

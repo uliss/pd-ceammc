@@ -19,7 +19,9 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @fps -->
             <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">expected
             LTC stream framerate</property>
         </properties>

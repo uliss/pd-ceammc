@@ -31,6 +31,7 @@
             direction</argument>
         </arguments>
         <properties>
+            <!-- @step -->
             <property name="@step" type="int" default="1">rotate step. Negative value change
             rotation direction to opposite</property>
         </properties>

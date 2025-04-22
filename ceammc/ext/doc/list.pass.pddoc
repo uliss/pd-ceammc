@@ -22,6 +22,7 @@
             <argument name="ARGS" type="list">list of passed value</argument>
         </arguments>
         <properties>
+            <!-- @args -->
             <property name="@args" type="list" default="">list of passed value</property>
         </properties>
         <inlets>

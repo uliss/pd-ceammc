@@ -24,7 +24,9 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="6.2832" default="0">
             oscillator feedback coefficient</property>
         </properties>

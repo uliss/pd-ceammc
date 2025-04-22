@@ -20,6 +20,7 @@
             <argument name="WITH" type="symbol">symbol to compare</argument>
         </arguments>
         <properties>
+            <!-- @with -->
             <property name="@with" type="symbol" default="">symbol to compare</property>
         </properties>
         <inlets>

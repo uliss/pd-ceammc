@@ -28,8 +28,10 @@
             <argument name="PREFIX" type="list">log message prefix</argument>
         </arguments>
         <properties>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">enabled/disabled logging
             state</property>
+            <!-- @prefix -->
             <property name="@prefix" type="list" default="">log message prefix</property>
         </properties>
         <inlets>

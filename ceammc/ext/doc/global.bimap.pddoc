@@ -29,16 +29,22 @@
             <argument name="ID" type="symbol">bimap ID</argument>
         </arguments>
         <properties>
+            <!-- @empty -->
             <property name="@empty" type="bool" default="1" access="readonly">true if
             empty</property>
+            <!-- @id -->
             <property name="@id" type="symbol" access="initonly" default="default">global variable
             id</property>
+            <!-- @keys_left -->
             <property name="@keys_left" type="list" default="" access="readonly">list of left map
             keys</property>
+            <!-- @keys_right -->
             <property name="@keys_right" type="list" default="" access="readonly">list of right map
             keys</property>
+            <!-- @size -->
             <property name="@size" type="int" default="0" access="readonly">number of left-right
             pairs in map</property>
+            <!-- @value -->
             <property name="@value" type="list" default="">value, list of pairs: LEFT_KEY1
             RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</property>
         </properties>

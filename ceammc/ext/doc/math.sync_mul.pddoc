@@ -24,6 +24,7 @@
             <argument name="MUL" type="float">multiplicand</argument>
         </arguments>
         <properties>
+            <!-- @int -->
             <property name="@int" type="flag" default="0" access="initonly">operate on integers
             only</property>
         </properties>

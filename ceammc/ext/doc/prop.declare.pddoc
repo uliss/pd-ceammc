@@ -24,19 +24,29 @@
             current canvas)</argument>
         </arguments>
         <properties>
+            <!-- @b -->
             <property name="@b" type="alias">alias to @type bool</property>
+            <!-- @default -->
             <property name="@default" type="list" access="initonly" default="">default property
             value</property>
+            <!-- @enum -->
             <property name="@enum" type="list" access="initonly" default="">allowed values (without
             default value) (for symbol properties only)</property>
+            <!-- @f -->
             <property name="@f" type="alias">alias to @type float</property>
+            <!-- @i -->
             <property name="@i" type="alias">alias to @type int</property>
+            <!-- @l -->
             <property name="@l" type="alias">alias to @type list</property>
+            <!-- @max -->
             <property name="@max" type="float" default="+inf" access="initonly">maximum value (for
             float and int properties only)</property>
+            <!-- @min -->
             <property name="@min" type="float" default="-inf" access="initonly">minimal value (for
             float and int properties only)</property>
+            <!-- @s -->
             <property name="@s" type="alias">alias to @type symbol</property>
+            <!-- @type -->
             <property name="@type" type="symbol" enum="float int bool enum symbol list"
             default="float">property type</property>
         </properties>

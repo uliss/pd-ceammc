@@ -21,18 +21,25 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @drive -->
             <property name="@drive" type="float" default="1" minvalue="1" maxvalue="10">overdrive
             effect after modulator</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
             proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
             signal, 1 - wet</property>
+            <!-- @freq -->
             <property name="@freq" type="float" default="150" minvalue="0.5" maxvalue="22050"
             units="hertz">internal modulator frequency</property>
+            <!-- @offset -->
             <property name="@offset" type="float" default="0" minvalue="0" maxvalue="1">modulator
             offset</property>
+            <!-- @src -->
             <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">modulator
             source. 0: modulator from second inlet, 1: internal sinusoid oscilallator, 2: internal
             low freq noise.</property>

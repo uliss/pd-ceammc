@@ -20,6 +20,7 @@
             size</argument>
         </arguments>
         <properties>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="1024" default="1">output list
             size</property>
         </properties>

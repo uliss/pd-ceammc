@@ -28,14 +28,20 @@
             See @x property</argument>
         </arguments>
         <properties>
+            <!-- @lin -->
             <property name="@lin" type="alias">alias to @type lin</property>
+            <!-- @n -->
             <property name="@n" type="int" default="2" access="initonly" minvalue="2"
             maxvalue="16">number of xfade inputs</property>
+            <!-- @pow -->
             <property name="@pow" type="alias">alias to @type pow</property>
+            <!-- @smooth -->
             <property name="@smooth" type="float" minvalue="1" default="20" units="millisecond">
             signal change smooth time</property>
+            <!-- @type -->
             <property name="@type" type="symbol" enum="lin pow" default="pow">fade curve type:
             linear or power</property>
+            <!-- @x -->
             <property name="@x" type="float" default="0">crossfade property. Valid value in
             [0..N-1] range.</property>
         </properties>

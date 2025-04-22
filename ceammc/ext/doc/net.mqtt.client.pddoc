@@ -20,12 +20,16 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @id -->
             <property name="@id" type="symbol" default="pd_mqtt_client_0">client id</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">
             parsing mode for incoming/outcoming messages. If 'fudi' - interpret data as Pd
             messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
             convert json values to ceammc data.</property>
+            <!-- @qos -->
             <property name="@qos" type="int" default="0" enum="0 1 2">quality of service</property>
+            <!-- @retain -->
             <property name="@retain" type="bool" default="0">retain flag</property>
         </properties>
         <methods>

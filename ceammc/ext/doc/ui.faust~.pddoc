@@ -32,12 +32,17 @@
             creation</argument>
         </arguments>
         <properties>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @include -->
             <property name="@include" type="list" default="">list of faust include
             directories</property>
+            <!-- @load -->
             <property name="@load" type="symbol" default="" access="initonly">initial file to load
             after object creation</property>
+            <!-- @size -->
             <property name="@size" type="list" default="10 10">object size</property>
+            <!-- @style -->
             <property name="@style" type="int" default="0">view style</property>
         </properties>
         <methods>

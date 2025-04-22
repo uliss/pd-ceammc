@@ -20,29 +20,41 @@
             <since>0.4</since>
         </meta>
         <properties>
+            <!-- @abstraction -->
             <property name="@abstraction" type="bool" access="readonly" default="1">1 if canvas is
             abstraction</property>
+            <!-- @args -->
             <property name="@args" type="list" access="readonly" default="">canvas creation
             arguments</property>
+            <!-- @dir -->
             <property name="@dir" type="symbol" access="readonly" default="/">canvas directory
             (only if top level or abstraction)</property>
+            <!-- @font -->
             <property name="@font" type="int" access="readonly" default="10">canvas font
             size</property>
+            <!-- @height -->
             <property name="@height" type="int" access="readonly" default="400">canvas height
             (window or GOP)</property>
+            <!-- @name -->
             <property name="@name" type="symbol" access="readonly" default="test_canvas">canvas
             name</property>
+            <!-- @paths -->
             <property name="@paths" type="list" access="readonly" default="">canvas search
             paths</property>
+            <!-- @root -->
             <property name="@root" type="bool" access="readonly" default="1">1 if canvas is
             top-level (window)</property>
+            <!-- @size -->
             <property name="@size" type="list" access="readonly" default="600 400">canvas
             dimensions. If root canvas (window) return window size, if subpatch return Graph on
             Parent size</property>
+            <!-- @width -->
             <property name="@width" type="int" access="readonly" default="600">canvas width (window
             or GOP)</property>
+            <!-- @x -->
             <property name="@x" type="int" access="readonly" default="0">canvas x-pos (window or
             GOP)</property>
+            <!-- @y -->
             <property name="@y" type="int" access="readonly" default="0">canvas y-pos (window or
             GOP)</property>
         </properties>

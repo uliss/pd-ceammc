@@ -35,9 +35,12 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
             maxvalue="20000">cutoff frequency</property>
+            <!-- @q -->
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
             factor: @freq/BANDWIDTH</property>
         </properties>

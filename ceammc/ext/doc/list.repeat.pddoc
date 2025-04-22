@@ -19,6 +19,7 @@
             <argument name="N" type="int" minvalue="0" maxvalue="10000">repeat times</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" default="1" minvalue="0" maxvalue="10000">repeat
             times</property>
         </properties>

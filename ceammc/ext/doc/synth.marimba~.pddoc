@@ -19,19 +19,27 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">
             cuttoff frequency of the strike generator</property>
+            <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="130.8128">
             frequency</property>
+            <!-- @gain -->
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">strike
             gain</property>
+            <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
+            <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">midi
             pitch</property>
+            <!-- @pos -->
             <property name="@pos" type="float" minvalue="0" maxvalue="4" default="0">excitation
             position</property>
+            <!-- @sharp -->
             <property name="@sharp" type="float" minvalue="0.01" maxvalue="1" default="0.25">
             sharpness of the strike</property>
         </properties>

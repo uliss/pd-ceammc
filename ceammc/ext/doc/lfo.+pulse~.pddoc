@@ -27,11 +27,15 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @duty -->
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
             cycle</property>
+            <!-- @pause -->
             <property name="@pause" type="bool" default="0">pause oscillator at current
             value</property>
+            <!-- @phase -->
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
         </properties>

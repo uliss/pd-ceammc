@@ -25,6 +25,7 @@
             <argument name="SUBJ" type="symbol">second string initial value</argument>
         </arguments>
         <properties>
+            <!-- @subj -->
             <property name="@subj" type="symbol" default="">string to compare</property>
         </properties>
         <inlets>

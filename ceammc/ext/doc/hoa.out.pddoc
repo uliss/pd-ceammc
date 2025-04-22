@@ -31,6 +31,7 @@
             <argument name="INDEX" type="int" minvalue="1">outlet index</argument>
         </arguments>
         <properties>
+            <!-- @index -->
             <property name="@index" type="int" minvalue="1" default="1">outlet index</property>
         </properties>
         <inlets>

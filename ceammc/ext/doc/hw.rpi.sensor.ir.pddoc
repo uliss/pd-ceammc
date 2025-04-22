@@ -21,8 +21,10 @@
             @pin</argument>
         </arguments>
         <properties>
+            <!-- @pin -->
             <property name="@pin" type="int" default="-1" access="initonly" minvalue="-1"
             maxvalue="127">connection GPIO pin</property>
+            <!-- @proto -->
             <property name="@proto" type="symbol" default="NEC">protocol name. You should switch
             off/on pollling to take effect after chaning this property</property>
         </properties>

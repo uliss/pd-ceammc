@@ -23,6 +23,7 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @abs -->
             <property name="@abs" type="bool" default="0">use canvas for abstractions</property>
         </properties>
         <inlets>

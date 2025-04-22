@@ -29,10 +29,13 @@
             beat</argument>
         </arguments>
         <properties>
+            <!-- @current -->
             <property name="@current" type="int" minvalue="0" default="0">current pattern
             index</property>
+            <!-- @interval -->
             <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
             interval between beats</property>
+            <!-- @pattern -->
             <property name="@pattern" type="list" default="">list of 1 and 0. Where 1 means output
             bang on this beat</property>
         </properties>

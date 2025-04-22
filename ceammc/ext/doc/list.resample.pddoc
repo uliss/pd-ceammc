@@ -26,6 +26,7 @@
             ratio</argument>
         </arguments>
         <properties>
+            <!-- @ratio -->
             <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">resample
             ratio (src/dest)</property>
         </properties>

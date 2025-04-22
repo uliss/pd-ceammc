@@ -30,6 +30,7 @@
             <argument name="K" type="float">multiplier. default is 1</argument>
         </arguments>
         <properties>
+            <!-- @k -->
             <property name="@k" type="float" default="1" access="initonly">multiplier</property>
         </properties>
         <inlets />

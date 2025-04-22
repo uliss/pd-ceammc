@@ -30,26 +30,37 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bw -->
             <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">band-width
             filter (pre filtering)</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.0005">
             high-frequency damping. No damping = 0.0</property>
+            <!-- @ddiff1 -->
             <property name="@ddiff1" type="float" minvalue="0" maxvalue="1" default="0.5">decay
             diffusion factor 1</property>
+            <!-- @ddiff2 -->
             <property name="@ddiff2" type="float" minvalue="0" maxvalue="1" default="0.7">decay
             diffusion factor 2</property>
+            <!-- @decay -->
             <property name="@decay" type="float" minvalue="0" maxvalue="1" default="0.5">decay
             rate. Infinite decay = 1.0</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
             proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
             signal, 1 - wet</property>
+            <!-- @idiff1 -->
             <property name="@idiff1" type="float" minvalue="0" maxvalue="1" default="0.625">input
             diffusion factor 1</property>
+            <!-- @idiff2 -->
             <property name="@idiff2" type="float" minvalue="0" maxvalue="1" default="0.75">input
             diffusion factor 2</property>
+            <!-- @predelay -->
             <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
             units="millisecond">a delay operating on the 'wet' signal. Large values will provide
             the impression of a larger room</property>

@@ -18,23 +18,33 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="0.1" maxvalue="1" default="1">cutoff
             coefficent (for low pass filter)</property>
+            <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="130.8128">
             frequency</property>
+            <!-- @gain -->
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">pluck
             gain</property>
+            <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
+            <!-- @mode -->
             <property name="@mode" type="int" minvalue="0" maxvalue="2" default="1">excitation
             mode: 0 - impulse, 1 - pluck, 2 - strike</property>
+            <!-- @mute -->
             <property name="@mute" type="float" minvalue="0" maxvalue="1" default="0">mute
             coefficient (0 for no mute and 1 for instant mute)</property>
+            <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">midi
             pitch</property>
+            <!-- @pos -->
             <property name="@pos" type="float" minvalue="0" maxvalue="1" default="0.7">pluck
             position (1 is on the bridge)</property>
+            <!-- @sharp -->
             <property name="@sharp" type="float" minvalue="0.01" maxvalue="1" default="0.25">pluck
             sharpness</property>
         </properties>

@@ -26,8 +26,10 @@
             <argument name="VALUE" type="list">list content</argument>
         </arguments>
         <properties>
+            <!-- @index -->
             <property name="@index" type="int" default="0" minvalue="0">insert element
             index</property>
+            <!-- @value -->
             <property name="@value" type="list" default="">list content</property>
         </properties>
         <inlets>

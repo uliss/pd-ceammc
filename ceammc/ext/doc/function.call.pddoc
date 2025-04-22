@@ -25,6 +25,7 @@
             <argument name="NAME" type="symbol">function name</argument>
         </arguments>
         <properties>
+            <!-- @name -->
             <property name="@name" type="symbol" default="">function name</property>
         </properties>
         <inlets>

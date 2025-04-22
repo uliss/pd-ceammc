@@ -23,6 +23,7 @@
             <argument name="KEYS" type="list">checked keys</argument>
         </arguments>
         <properties>
+            <!-- @keys -->
             <property name="@keys" type="list" default="">checked keys</property>
         </properties>
         <inlets>

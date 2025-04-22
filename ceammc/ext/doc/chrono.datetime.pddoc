@@ -20,6 +20,7 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @utc -->
             <property name="@utc" type="bool" default="0">output in UTC format</property>
         </properties>
         <inlets>

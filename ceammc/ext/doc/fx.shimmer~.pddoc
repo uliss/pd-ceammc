@@ -25,33 +25,47 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @control -->
             <property name="@control" type="float" minvalue="0" maxvalue="1" default="0.5">envelope
             follower to pitch shifter influence coefficient</property>
+            <!-- @damp_hf -->
             <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
             units="hertz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
             T60</property>
+            <!-- @decay_low -->
             <property name="@decay_low" type="float" minvalue="1" maxvalue="8" default="3"
             units="second">time (in seconds) to decay 60dB in low-frequency band</property>
+            <!-- @decay_mid -->
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="8" default="2"
             units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
+            <!-- @depth -->
             <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0">pitchshift
             modulation amplitude</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
             proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
             signal, 1 - wet</property>
+            <!-- @envelope -->
             <property name="@envelope" type="float" minvalue="0.1" maxvalue="3" default="1"
             units="second">amplitude-envelope time-constant going down</property>
+            <!-- @freq_low -->
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="hertz">Crossover frequency (Hz) separating low and middle frequencies</property>
+            <!-- @mode -->
             <property name="@mode" type="int" minvalue="-3" maxvalue="3" default="0">correlation
             between pitchshift</property>
+            <!-- @ps_drywet -->
             <property name="@ps_drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
             proportion of mix between original and pitchshift signal in shimmer feedback</property>
+            <!-- @shift -->
             <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="12"
             units="semitone">frequency shifting</property>
+            <!-- @speed -->
             <property name="@speed" type="float" minvalue="0.1" maxvalue="10" default="0.1"
             units="hertz">pitchshift modulation frequency</property>
         </properties>

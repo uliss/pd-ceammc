@@ -41,11 +41,16 @@
             mode</argument>
         </arguments>
         <properties>
+            <!-- @basic -->
             <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>
+            <!-- @inphase -->
             <property name="@inphase" type="alias">alias for @mode inphase.</property>
+            <!-- @maxre -->
             <property name="@maxre" type="alias">alias for @mode maxre.</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
             optimization mode</property>
+            <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">the order of decomposition</property>
         </properties>

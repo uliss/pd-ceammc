@@ -23,6 +23,7 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @props -->
             <property name="@props" type="flag" access="initonly">output as list of properties:
             @key1 vals.. @key2 vals2...</property>
         </properties>

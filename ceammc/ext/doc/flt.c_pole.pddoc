@@ -31,12 +31,17 @@
             frequency</argument>
         </arguments>
         <properties>
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="1000"
             units="hertz">center frequency</property>
+            <!-- @hpf -->
             <property name="@hpf" type="alias">ti @mode hpf</property>
+            <!-- @lpf -->
             <property name="@lpf" type="alias">to @mode lpf</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">filter
             modey</property>
+            <!-- @rad -->
             <property name="@rad" type="flag" access="initonly">use angular frequency</property>
         </properties>
         <inlets>

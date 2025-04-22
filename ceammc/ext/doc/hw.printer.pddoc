@@ -25,6 +25,7 @@
             printer.</argument>
         </arguments>
         <properties>
+            <!-- @name -->
             <property name="@name" type="symbol" default="">printer name, if empty - use default
             system printer</property>
         </properties>

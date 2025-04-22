@@ -27,6 +27,7 @@
             <argument name="F" type="float">second number</argument>
         </arguments>
         <properties>
+            <!-- @epsilon -->
             <property name="@epsilon" type="float" default="0" minvalue="0">compare epsilon. If not
             zero calculates expession: !(-epsilon &lt; abs(A-B) &lt; +epsilon)</property>
         </properties>

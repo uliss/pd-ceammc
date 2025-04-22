@@ -25,7 +25,9 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @mix -->
             <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">mix amount
             between read signal and written</property>
         </properties>

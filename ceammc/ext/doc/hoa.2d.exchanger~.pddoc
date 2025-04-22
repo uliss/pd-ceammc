@@ -38,14 +38,19 @@
             normalization</argument>
         </arguments>
         <properties>
+            <!-- @fromB -->
             <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm
             fromMaxN</property>
+            <!-- @norm -->
             <property name="@norm" type="symbol" default="SN2D" enum="SN2D fromMaxN toMaxN">
             normalization</property>
+            <!-- @num -->
             <property name="@num" type="symbol" default="ACN"
             enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</property>
+            <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">the order of decomposition</property>
+            <!-- @toB -->
             <property name="@toB" type="alias">alias to @num toFurseMalham and @norm
             toMaxN</property>
         </properties>

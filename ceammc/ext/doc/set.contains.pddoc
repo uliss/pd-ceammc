@@ -22,6 +22,7 @@
             <argument name="SUBJ" type="atom">searched element</argument>
         </arguments>
         <properties>
+            <!-- @subj -->
             <property name="@subj" type="atom" default="null">searched element</property>
         </properties>
         <inlets>

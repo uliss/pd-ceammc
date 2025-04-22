@@ -25,6 +25,7 @@
             <argument name="PREFIX" type="symbol">prefix</argument>
         </arguments>
         <properties>
+            <!-- @prefix -->
             <property name="@prefix" type="symbol" default="">prefix</property>
         </properties>
         <inlets>

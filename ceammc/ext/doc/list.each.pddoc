@@ -29,6 +29,7 @@
             property</argument>
         </arguments>
         <properties>
+            <!-- @step -->
             <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">number of
             elements outputted to rightmost outlet on each iteration</property>
         </properties>

@@ -35,12 +35,16 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @prob -->
             <property name="@prob" type="float" default="1" minvalue="0" maxvalue="1">grain start
             probability in internal or external sync mode. ('int' or 'ext')</property>
+            <!-- @sync -->
             <property name="@sync" type="symbol" default="none" enum="none int ext">grain sync
             mode. If 'none': start grains right after they are finished, if 'int': start grains
             after specified interval (@tsync).</property>
+            <!-- @tsync -->
             <property name="@tsync" type="float" default="50" minvalue="1" units="millisecond">
             grain sync interval</property>
         </properties>

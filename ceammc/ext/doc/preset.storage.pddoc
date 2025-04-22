@@ -25,6 +25,7 @@
             files</par>
         </info>
         <properties>
+            <!-- @keys -->
             <property name="@keys" type="list" access="readonly" default="">list of all existing
             preset keys</property>
         </properties>

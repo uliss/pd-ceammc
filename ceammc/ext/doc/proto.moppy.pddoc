@@ -19,10 +19,13 @@
             <a href="https://github.com/Sammy1Am/Moppy2">https://github.com/Sammy1Am/Moppy2</a>
         </info>
         <properties>
+            <!-- @device -->
             <property name="@device" type="int" default="1" minvalue="1" maxvalue="255">moppy
             device ID</property>
+            <!-- @floppy -->
             <property name="@floppy" type="int" default="1" minvalue="1" maxvalue="16">floppy ID on
             moppy device</property>
+            <!-- @v -->
             <property name="@v" type="int" default="2" enum="2 1">MOPPY protocol version</property>
         </properties>
         <methods>

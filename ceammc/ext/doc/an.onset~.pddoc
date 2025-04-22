@@ -31,41 +31,60 @@
             buffer_size/2)</argument>
         </arguments>
         <properties>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">audio processing state</property>
+            <!-- @awhitening -->
             <property name="@awhitening" type="bool" default="0">adaptive whitening</property>
+            <!-- @bs -->
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
             access="initonly">buffer size</property>
+            <!-- @complex -->
             <property name="@complex" type="alias">alias to @method complex. Complex Domain Method
             onset detection function</property>
+            <!-- @compression -->
             <property name="@compression" type="float" minvalue="0" default="1">lambda logarithmic
             compression factor, 0 to disable</property>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="49.9093"
             units="millisecond">constant system delay to take back from detection time</property>
+            <!-- @energy -->
             <property name="@energy" type="alias">alias to @method energy. Energy based onset
             detection function</property>
+            <!-- @hfc -->
             <property name="@hfc" type="alias">alias to @method hfc. High Frequency Content onset
             detection</property>
+            <!-- @hs -->
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
             means @bs/2</property>
+            <!-- @kl -->
             <property name="@kl" type="alias">alias to @method kl. Kullback-Liebler onset detection
             function</property>
+            <!-- @method -->
             <property name="@method" type="symbol"
             enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
             default="default">onset method. Default is hfc.</property>
+            <!-- @mkl -->
             <property name="@mkl" type="alias">alias to @method mkl. Modified Kullback-Liebler
             onset detection function</property>
+            <!-- @phase -->
             <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
             detection function</property>
+            <!-- @silence -->
             <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
             maxvalue="0">onset detection silence threshold</property>
+            <!-- @specdiff -->
             <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
             method onset detection function</property>
+            <!-- @specflux -->
             <property name="@specflux" type="alias">alias to @method specflux. Spectral
             Flux</property>
+            <!-- @speedlim -->
             <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
             minimum interval between two consecutive onsets</property>
+            <!-- @threshold -->
             <property name="@threshold" type="float" default="0.058">peak picking
             threshold</property>
+            <!-- @wphase -->
             <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
             onset detection function</property>
         </properties>

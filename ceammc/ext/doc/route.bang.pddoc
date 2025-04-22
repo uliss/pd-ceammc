@@ -27,6 +27,7 @@
             requests) are passed thru</par>
         </info>
         <properties>
+            <!-- @strict -->
             <property name="@strict" type="bool" default="0">strict mode. By default empty list
             treated as bang. Set to true to disable this behavior</property>
         </properties>

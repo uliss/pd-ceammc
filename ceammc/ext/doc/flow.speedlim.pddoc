@@ -30,6 +30,7 @@
             time</argument>
         </arguments>
         <properties>
+            <!-- @limit -->
             <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">speed
             limit. If set to zero there is no flow limitations</property>
         </properties>

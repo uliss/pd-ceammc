@@ -16,6 +16,7 @@
             <since>0.9.1</since>
         </meta>
         <properties>
+            <!-- @max -->
             <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">maximum number
             of result</property>
         </properties>

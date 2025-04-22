@@ -19,6 +19,7 @@
             <argument name="PATH" type="symbol">directory to monitor filesystem events</argument>
         </arguments>
         <properties>
+            <!-- @path -->
             <property name="@path" type="symbol" default="">directory to monitor filesystem
             events</property>
         </properties>

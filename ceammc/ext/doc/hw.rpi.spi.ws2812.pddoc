@@ -21,12 +21,16 @@
             pixel/color operations</par>
         </info>
         <properties>
+            <!-- @clear -->
             <property name="@clear" type="bool" default="1">turn off all pixels when the object is
             deleted</property>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
             access="initonly">number of leds in the strip</property>
+            <!-- @spi_bus -->
             <property name="@spi_bus" type="int" minvalue="0" maxvalue="6" default="0"
             access="initonly">spi bus number</property>
+            <!-- @spi_cs -->
             <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
             access="initonly">spi CS (chip select/enable). In most cases you don't need to set this
             property, because LED strips are not using CS pin.</property>

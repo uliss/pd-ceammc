@@ -24,6 +24,7 @@
             <par>Note: [list a b c( and [a b c( are different values!</par>
         </info>
         <properties>
+            <!-- @onrepeat -->
             <property name="@onrepeat" type="symbol" default="">function called when repeat
             occurs</property>
         </properties>

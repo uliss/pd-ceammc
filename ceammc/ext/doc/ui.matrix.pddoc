@@ -39,36 +39,53 @@
             <argument name="COL" type="int" minvalue="1" maxvalue="64">matrix columns</argument>
         </arguments>
         <properties>
+            <!-- @active_color -->
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
+            <!-- @cols -->
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">number of
             matrix columns</property>
+            <!-- @current_col -->
             <property name="@current_col" type="int" minvalue="-1" default="-1">current column
             index. -1 if not specified. This property is not saved in patch</property>
+            <!-- @current_color -->
             <property name="@current_color" type="list" default="1 0.75 0 1">current col/row color
             (list of red, green, blue values in 0-1 range)</property>
+            <!-- @current_row -->
             <property name="@current_row" type="int" minvalue="-1" default="-1">current row index.
             -1 if not specified. This property is not saved in patch</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
+            <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
+            <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
+            <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @rows -->
             <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">number of
             matrix rows</property>
+            <!-- @send -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
             <property name="@size" type="list" default="105 53">element size (width, height
             pair)</property>
         </properties>

@@ -22,6 +22,7 @@
             <argument name="NOTES" type="list">list of note values (split points)</argument>
         </arguments>
         <properties>
+            <!-- @points -->
             <property name="@points" type="list" access="readonly" default="">split points. Should
             be in strict ascending order</property>
         </properties>

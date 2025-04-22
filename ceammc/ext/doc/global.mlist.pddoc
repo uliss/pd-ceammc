@@ -29,10 +29,13 @@
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
+            <!-- @empty -->
             <property name="@empty" type="bool" access="readonly" default="1">1 if list is empty,
             otherwise 0</property>
+            <!-- @id -->
             <property name="@id" type="symbol" access="initonly" default="default">global variable
             id</property>
+            <!-- @size -->
             <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             elements in list</property>
         </properties>

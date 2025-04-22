@@ -23,18 +23,25 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
+            <!-- @drive -->
             <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">distortion
             amount</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>
+            <!-- @gain -->
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-30"
             maxvalue="10">total effect gain</property>
+            <!-- @hp_freq -->
             <property name="@hp_freq" type="float" units="hertz" default="30" minvalue="20"
             maxvalue="2000">high pass frequency</property>
+            <!-- @lp_freq -->
             <property name="@lp_freq" type="float" units="hertz" default="10000" minvalue="1000"
             maxvalue="20000">low pass frequency</property>
         </properties>

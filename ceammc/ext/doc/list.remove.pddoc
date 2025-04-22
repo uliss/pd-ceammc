@@ -23,6 +23,7 @@
             also supported</argument>
         </arguments>
         <properties>
+            <!-- @indexes -->
             <property name="@indexes" type="list" default="">indexes to remove</property>
         </properties>
         <inlets>

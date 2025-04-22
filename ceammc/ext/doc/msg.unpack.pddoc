@@ -24,6 +24,7 @@
             <argument name="N" type="int" minvalue="1" maxvalue="32">number of outputs</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="32"
             access="initonly">number of outputs</property>
         </properties>

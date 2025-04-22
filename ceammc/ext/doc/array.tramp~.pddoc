@@ -20,11 +20,16 @@
             <argument name="SPEED" type="float">playing speed</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @from -->
             <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">normalized to
             [0-1] range ramp start</property>
+            <!-- @range -->
             <property name="@range" type="list" default="0 1">ramp range</property>
+            <!-- @speed -->
             <property name="@speed" type="float" default="1">ramp speed</property>
+            <!-- @to -->
             <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">normalized to
             [0-1] range ramp end</property>
         </properties>

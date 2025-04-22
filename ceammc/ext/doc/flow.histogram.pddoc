@@ -23,11 +23,15 @@
             <argument name="RANGE" type="list">FROM TO NUM_BINS?</argument>
         </arguments>
         <properties>
+            <!-- @bins -->
             <property name="@bins" type="list" default="0">bins border values</property>
+            <!-- @inner_bins -->
             <property name="@inner_bins" type="bool" default="1">output histogram inner bins
             only</property>
+            <!-- @norm -->
             <property name="@norm" type="bool" default="1">do the histogram
             normalization</property>
+            <!-- @sync -->
             <property name="@sync" type="bool" default="1">calculate and output histogram on every
             input value</property>
         </properties>

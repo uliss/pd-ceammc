@@ -31,32 +31,47 @@
             <argument name="SF" type="symbol">soundfont path</argument>
         </arguments>
         <properties>
+            <!-- @avoices -->
             <property name="@avoices" type="float" default="0" access="readonly">number midi
             channels</property>
+            <!-- @bufsize -->
             <property name="@bufsize" type="float" units="sample" default="0" access="readonly">
             internal buffer size</property>
+            <!-- @cpuload -->
             <property name="@cpuload" type="float" default="0" access="readonly">current cpu
             load</property>
+            <!-- @gain -->
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
+            <!-- @n -->
             <property name="@n" type="int" default="16" access="readonly">number of active
             voices</property>
+            <!-- @poly -->
             <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
             of voices</property>
+            <!-- @presets -->
             <property name="@presets" type="list" default="" access="readonly">presets name for
             current soundfont</property>
+            <!-- @reverb_damp -->
             <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
+            <!-- @reverb_level -->
             <property name="@reverb_level" type="float" default="0">reverberation level</property>
+            <!-- @reverb_room -->
             <property name="@reverb_room" type="float" default="0">reverberation room
             size</property>
+            <!-- @reverb_width -->
             <property name="@reverb_width" type="float" default="0">reverberation spread
             width</property>
+            <!-- @sf -->
             <property name="@sf" type="symbol" default="default">soundfont path, you can use
             **default** value to load default soundfont</property>
+            <!-- @soundfonts -->
             <property name="@soundfonts" type="list" access="readonly" default="">list of found
             soundfonts</property>
+            <!-- @version -->
             <property name="@version" type="symbol" access="readonly" default="2.3.2">FluidSynth
             version</property>
+            <!-- @volume -->
             <property name="@volume" type="float" minvalue="-60" maxvalue="20" default="0"
             units="decibel">output volume (same as @gain but in db)</property>
         </properties>

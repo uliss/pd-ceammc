@@ -25,6 +25,7 @@
             <argument name="SUFFIX" type="symbol">suffix</argument>
         </arguments>
         <properties>
+            <!-- @suffix -->
             <property name="@suffix" type="symbol" default="">suffix to search</property>
         </properties>
         <inlets>

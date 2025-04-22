@@ -33,8 +33,10 @@
             @h</argument>
         </arguments>
         <properties>
+            <!-- @h -->
             <property name="@h" type="int" default="8" minvalue="1" maxvalue="256"
             access="initonly">bitmap height in pixels</property>
+            <!-- @w -->
             <property name="@w" type="int" default="8" minvalue="1" maxvalue="256"
             access="initonly">bitmap width in pixels</property>
         </properties>

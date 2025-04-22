@@ -18,10 +18,13 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" maxvalue="480" default="130.8128"
             units="hertz">maximum speed of whistles</property>
+            <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
             (&gt;0 - play)</property>
+            <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">midi
             pitch</property>
         </properties>

@@ -30,6 +30,7 @@
             <argument name="STEP" type="int" minvalue="2">key/value length in input list</argument>
         </arguments>
         <properties>
+            <!-- @step -->
             <property name="@step" type="int" minvalue="2" default="2">key/value length in input
             list</property>
         </properties>

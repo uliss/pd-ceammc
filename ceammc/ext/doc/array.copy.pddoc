@@ -19,6 +19,7 @@
             <since>0.3</since>
         </meta>
         <properties>
+            <!-- @resize -->
             <property name="@resize" type="bool" default="0">resizing of destination array on
             overflow</property>
         </properties>

@@ -35,14 +35,19 @@
             <argument name="INIT" type="float">preset initial value</argument>
         </arguments>
         <properties>
+            <!-- @global -->
             <property name="@global" type="flag" default="0" access="initonly">use global path like
             /ID</property>
+            <!-- @id -->
             <property name="@id" type="symbol" access="initonly" default="">preset id</property>
+            <!-- @init -->
             <property name="@init" type="float" default="0" access="initonly">init float
             value</property>
+            <!-- @path -->
             <property name="@path" type="symbol" access="readonly" default="">property OSC-like
             path that includes id, abstraction name and may be subpatch name separated by
             slashes.</property>
+            <!-- @subpatch -->
             <property name="@subpatch" type="flag" default="0" access="initonly">include subpatch
             name to path</property>
         </properties>

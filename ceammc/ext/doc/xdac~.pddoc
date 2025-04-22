@@ -27,6 +27,7 @@
             and 2 out channels</argument>
         </arguments>
         <properties>
+            <!-- @channels -->
             <property name="@channels" type="list" default="1 2">list of mapped channels</property>
         </properties>
         <methods>

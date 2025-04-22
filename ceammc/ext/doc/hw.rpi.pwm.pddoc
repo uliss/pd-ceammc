@@ -44,6 +44,7 @@
             @ch</argument>
         </arguments>
         <properties>
+            <!-- @pwm_ch -->
             <property name="@pwm_ch" type="int" default="-1" minvalue="-1" maxvalue="3"
             access="initonly">PWM channel. Valid values are: 0-3. If equals -1: no PWM channel
             selected.</property>

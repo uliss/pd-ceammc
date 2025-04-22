@@ -27,10 +27,13 @@
             property</argument>
         </arguments>
         <properties>
+            <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
             time</property>
+            <!-- @empty -->
             <property name="@empty" type="bool" default="1" access="readonly">1 if pipe is empty,
             otherwise 0.</property>
+            <!-- @size -->
             <property name="@size" type="int" default="0" access="readonly">pipe size</property>
         </properties>
         <inlets>

@@ -19,6 +19,7 @@
             <argument name="COEFFS" type="list">coefficient list</argument>
         </arguments>
         <properties>
+            <!-- @coeffs -->
             <property name="@coeffs" type="list" default="">coefficient list</property>
         </properties>
         <inlets>

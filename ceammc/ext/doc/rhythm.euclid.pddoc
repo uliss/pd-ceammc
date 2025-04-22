@@ -26,10 +26,13 @@
             <argument name="OFFSET" type="int">sequence offset</argument>
         </arguments>
         <properties>
+            <!-- @beats -->
             <property name="@beats" type="int" default="3" minvalue="0" maxvalue="8192">number of
             beats inside the sequence</property>
+            <!-- @n -->
             <property name="@n" type="int" default="8" minvalue="1" maxvalue="8192">the whole
             sequence length</property>
+            <!-- @offset -->
             <property name="@offset" type="int" default="0">sequence offset</property>
         </properties>
         <inlets>

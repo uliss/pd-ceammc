@@ -33,10 +33,13 @@
             connected into chain</argument>
         </arguments>
         <properties>
+            <!-- @cs -->
             <property name="@cs" type="int" default="0" minvalue="0" maxvalue="3"
             access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
+            <!-- @displays -->
             <property name="@displays" type="int" default="1" minvalue="1" maxvalue="8"
             access="initonly">number of displays connected into the chain</property>
+            <!-- @spi -->
             <property name="@spi" type="int" default="0" minvalue="0" maxvalue="6"
             access="initonly">SPI bus number.</property>
         </properties>

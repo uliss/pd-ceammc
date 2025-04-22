@@ -28,6 +28,7 @@
             <argument name="VALUES" type="list">list of atoms to reject</argument>
         </arguments>
         <properties>
+            <!-- @values -->
             <property name="@values" type="list" default="">atoms to reject</property>
         </properties>
         <inlets>

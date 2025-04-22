@@ -22,6 +22,7 @@
             <argument name="MSG" type="list">init value for prepended message</argument>
         </arguments>
         <properties>
+            <!-- @msg -->
             <property name="@msg" type="list" default="">prepended message</property>
         </properties>
         <inlets>

@@ -21,13 +21,19 @@
             <argument name="ACTIVE" type="bool">pedal initial state</argument>
         </arguments>
         <properties>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">pedal state</property>
+            <!-- @chan -->
             <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">output Midi
             channel</property>
+            <!-- @chords -->
             <property name="@chords" type="alias">alias for @mode chords</property>
+            <!-- @classic -->
             <property name="@classic" type="alias">alias for @mode classic</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="chords classic" default="classic">pedal mode
             (should correspond to hardware switch on pedal)</property>
+            <!-- @seed -->
             <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
         </properties>
         <methods>

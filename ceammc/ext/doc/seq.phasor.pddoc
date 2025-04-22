@@ -25,13 +25,18 @@
             frequency</argument>
         </arguments>
         <properties>
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
             units="hertz">frequency</property>
+            <!-- @invert -->
             <property name="@invert" type="bool" default="0">saw inversion mode. If true, outputs
             descreasing waveform</property>
+            <!-- @on -->
             <property name="@on" type="bool" default="0">on/off state</property>
+            <!-- @open -->
             <property name="@open" type="bool" default="0">output in open [0..1) range, otherwise
             output range is [0..1]</property>
+            <!-- @steps -->
             <property name="@steps" type="int" default="128" minvalue="3">numbers of
             steps</property>
         </properties>

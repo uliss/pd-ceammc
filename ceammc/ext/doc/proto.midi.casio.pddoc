@@ -20,6 +20,7 @@
             <par>Note: on PX160 instrument change done only for incoming midi signals.</par>
         </info>
         <properties>
+            <!-- @model -->
             <property name="@model" type="symbol" default="px160" enum="px160">device
             model</property>
         </properties>

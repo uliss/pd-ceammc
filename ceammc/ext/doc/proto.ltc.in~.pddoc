@@ -22,9 +22,12 @@
             </also>
         </meta>
         <properties>
+            <!-- @fps -->
             <property name="@fps" type="int" default="25" access="readonly">current fpt
             rate</property>
+            <!-- @use_date -->
             <property name="@use_date" type="bool" default="1">decode date</property>
+            <!-- @volume -->
             <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel" access="readonly">input signal level</property>
         </properties>

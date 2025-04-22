@@ -22,7 +22,9 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">redraw after array change</property>
         </properties>
         <methods>
