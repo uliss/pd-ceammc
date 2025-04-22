@@ -758,6 +758,7 @@
     <entry name="route.symbol" descr="" ref_view="object">
       <xi:include href="route.symbol.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_flow.xml" parse="xml"/>
   </category>
   <category name="flt">
     <entry name="flt.a-weight" descr="" ref_view="object">
