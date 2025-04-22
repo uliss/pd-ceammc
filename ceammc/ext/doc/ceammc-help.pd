@@ -1575,7 +1575,7 @@ roll;
 #X obj 30 22126 snd.file;
 #X text 200 22126 Sound file loader on steroids;
 #X obj 30 22154 snd.play~;
-#X text 200 22154 Sound file player on steriods;
+#X text 200 22154 Sound file player on steroids;
 #X obj 20 22182 cnv 5 48 32 empty empty spat 4 16 0 17 -262144 -49933
 0;
 #X obj 20 22224 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -81,7 +81,7 @@
             relative to array end you can use $-X syntax</param>
             <param name="@gain V" type="property">apply gain to saved arrays, examples: +3.1db,
             -6db, 0.5 etc.</param>
-            <param name="@in_sr SR" type="property">array source samplerate, if ommited using patch
+            <param name="@in_sr SR" type="property">array source samplerate, if omitted using patch
             samplerate</param>
             <param name="@out_sr SR" type="property">output samplerate</param>
             <param name="@norm[alize]" type="property">normalize output</param>

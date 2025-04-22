@@ -17,7 +17,7 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Fullscale range settings:</par>
+            <par>Full-scale range settings:</par>
             <par>- @fsr 6144mv, range +-6.144V, 1-bit: 0.1875mV</par>
             <par>- @fsr 4096mv, range +-4.096V, 1-bit: 0.125mV</par>
             <par>- @fsr 2048mv, range +-2.048V, 1-bit: 0.0625mV</par>
@@ -31,7 +31,7 @@
         <properties>
             <!-- @fsr -->
             <property name="@fsr" type="symbol" default="6144mv" access="initonly"
-            enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">fullscale input range</property>
+            enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">full-scale input range</property>
             <!-- @i2c_addr -->
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
             maxvalue="119">I²C address. Also 'default' value is accepted (for addr ???) and 'alt'
@@ -57,7 +57,7 @@
             <property name="@out_max" type="float" default="1.0" access="readwrite">output max
             value</property>
             <!-- @out_min -->
-            <property name="@out_min" type="float" default="0.0" access="readwrite">output min
+            <property name="@out_min" type="float" default="0.0" access="readwrite">output minimum
             value</property>
             <!-- @poll_time -->
             <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0"
@@ -67,7 +67,7 @@
             <!-- measure -->
             <method name="measure">single measure request 
             <param name="CHAN" type="int" minvalue="0" maxvalue="3">the channel to measure. If
-            ommited: perform measure on all channels</param></method>
+            omitted: perform measure on all channels</param></method>
             <!-- poll -->
             <method name="poll">set polling turn on/off 
             <param name="STATE" type="bool" required="true">poll state</param></method>

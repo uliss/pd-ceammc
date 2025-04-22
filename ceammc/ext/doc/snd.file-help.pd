@@ -129,7 +129,7 @@ property.;
 #X text 255 1813 [@gain V]: apply gain to saved arrays \, examples:
 +3.1db \, -6db \, 0.5 etc. Type: property.;
 #X obj 255 1851 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1851 [@in_sr SR]: array source samplerate \, if ommited
+#X text 255 1851 [@in_sr SR]: array source samplerate \, if omitted
 using patch samplerate. Type: property.;
 #X obj 255 1889 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1889 [@out_sr SR]: output samplerate. Type: property.;

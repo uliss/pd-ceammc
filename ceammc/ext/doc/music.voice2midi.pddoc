@@ -116,7 +116,7 @@
 |
 [ui.dt]
 
-/*if octave is ommited, previous note octave is used*/
+/*if octave is omitted, previous note octave is used*/
 
 [list C2 B E F G A7 C D(
 |

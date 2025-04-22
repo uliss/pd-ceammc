@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Sound file player on steriods</tr>
+                <tr lang="en">Sound file player on steroids</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,7 +22,7 @@
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="32">number of output
             channels</argument>
-            <argument name="NAME" type="symbol">absolute or relative to patch soundfile
+            <argument name="NAME" type="symbol">absolute or relative to patch sound file
             name</argument>
         </arguments>
         <properties>
@@ -50,20 +50,20 @@
             <!-- @speed -->
             <property name="@speed" type="float" default="1" minvalue="0.25" maxvalue="4">playing
             speed. If @stretch mode is disabled (default): changes playing speed (also with pitch
-            change respectively) in realtime. If @stretch mode is enabled: can only change speed
+            change respectively) in real time. If @stretch mode is enabled: can only change speed
             (without pitch change) only on the next playing cycle</property>
             <!-- @stretch -->
             <property name="@stretch" type="bool" default="0">stretch mode. If true: use
             timestretch and pitch-shifting</property>
             <!-- @sync -->
             <property name="@sync" type="symbol" default="now" enum="now defer wait">sync mode.
-            'now': immidiately starts playing (abort previous) after receving start message.
+            'now': immediately starts playing (abort previous) after receiving start message.
             'defer': wait until previous playing will be done, that starts new. 'wait': do not
             playing until previous playing will not finished</property>
         </properties>
         <methods>
             <!-- ff -->
-            <method name="ff">fast forward by specified amount of timne 
+            <method name="ff">fast forward by specified amount of time 
             <param name="TIME" type="atom" required="false">time amount. Can't be in seconds,
             milliseconds, samples, SMPTE. If the time unit is not specified treat float values as
             samples. If argument is not specified: jump one second forward.</param></method>
@@ -73,7 +73,7 @@
             soundfile name</param></method>
             <!-- pause -->
             <method name="pause">pause 
-            <param name="FLAG" type="bool" required="false">pause/resume flag. If true or ommited:
+            <param name="FLAG" type="bool" required="false">pause/resume flag. If true or omitted:
             pause, if false: resume.</param></method>
             <!-- rewind -->
             <method name="rewind">move backwards by specified amount of time (relative value) 
@@ -88,11 +88,11 @@
             beginning</param></method>
             <!-- start -->
             <method name="start">start playing 
-            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
+            <param name="FLAG" type="bool" required="false">start/stop flag. If true or omitted:
             start, if false: stop.</param></method>
             <!-- stop -->
             <method name="stop">stop playing 
-            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
+            <param name="FLAG" type="bool" required="false">start/stop flag. If true or omitted:
             stop, if false: start.</param></method>
         </methods>
         <inlets>

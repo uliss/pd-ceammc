@@ -3,7 +3,7 @@
 #X msg 20 77 list C4 D5 E2 F-1 G9;
 #X obj 20 106 music.v->m;
 #X obj 20 135 ui.dt;
-#X text 20 164 if octave is ommited \, previous note octave is used;
+#X text 20 164 if octave is omitted \, previous note octave is used;
 #X msg 20 192 list C2 B E F G A7 C D;
 #X obj 20 221 music.v->m;
 #X obj 20 250 ui.dt;

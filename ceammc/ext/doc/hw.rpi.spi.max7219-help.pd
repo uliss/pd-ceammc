@@ -11,12 +11,12 @@ Pi;
 #X text 215 105 Handles communication with the MAX7219 chip for 7-segmented
 or 8x8 LED dot matrix displays. Each display can be connected in series
 with another and controlled via a single connection.;
-#X text 215 175 Note: in case of LED dot matrix disaply only write_bits
+#X text 215 175 Note: in case of LED dot matrix display only write_bits
 and write_reg commands will work as expected;
 #X text 215 215 Note: 7-segment LED display supports only this charset:
 -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu;
-#X text 215 255 Note: if the device address argument is -1 or ommited
-\, requested action is aplied for all devices in a chain.;
+#X text 215 255 Note: if the device address argument is -1 or omitted
+\, requested action is applied for all devices in a chain.;
 #X text 50 333 #7-segment only;
 #X text 299 333 #both;
 #X msg 434 333 clear;
@@ -80,7 +80,7 @@ value: 0\. Range: 0\...6\.;
 #X msg 110 1150 intensity;
 #X text 245 1150 set intensity level on the display. Arguments are:;
 #X obj 255 1173 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1173 LEVEL: intencity level. Type: int. Range: 0\...15\.;
+#X text 255 1173 LEVEL: intensity level. Type: int. Range: 0\...15\.;
 #X obj 255 1196 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1196 [ADDR=-1]: target display address in the chain. Type:
 int. Range: -1\...7\.;
@@ -116,7 +116,7 @@ support!). Arguments are:;
 #X text 255 1580 [PRECISION]: precision after the dot. Type: int. Range:
 0\...7\.;
 #X obj 255 1618 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1618 [ADDR]: display address in the chain. If ommited or
+#X text 255 1618 [ADDR]: display address in the chain. If omitted or
 -1: write to all displays. Type: int. Range: -1\...7\.;
 #X msg 110 1658 write hex;
 #X text 245 1658 write hex unsigned integer value into 7-segment display
@@ -132,7 +132,7 @@ Range: -1\...7\.;
 #X obj 255 1797 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1797 INT: value. Type: int.;
 #X obj 255 1820 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1820 [ADDR]: display address in the chain. If ommited or
+#X text 255 1820 [ADDR]: display address in the chain. If omitted or
 -1: write to all displays. Type: int. Range: -1\...7\.;
 #X msg 110 1860 write reg;
 #X text 245 1860 write the max7219 register data. Lowest level of communication.

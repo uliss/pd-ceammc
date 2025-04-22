@@ -110,7 +110,7 @@
             <param name="Y1" type="int" required="true">y1 coord</param></method>
             <!-- load -->
             <method name="load">load image to bitmap 
-            <param name="FILE" type="symbol" required="true">image path, relative or
+            <param name="FILE" type="symbol" required="true">image path, relative, or
             absolute</param>
             <param name="SCALE" type="float" minvalue="0" default="1">image scale</param></method>
             <!-- mirror -->
@@ -139,7 +139,7 @@
             <param name="DX" type="int" required="true">x offset</param></method>
             <!-- save -->
             <method name="save">save bitmap to PNG file 
-            <param name="PATH" type="symbol">file name, absolute or relative</param></method>
+            <param name="PATH" type="symbol">file name, absolute, or relative</param></method>
             <!-- sector -->
             <method name="sector">draw sector 
             <param name="X" type="int" required="true">x coord</param>

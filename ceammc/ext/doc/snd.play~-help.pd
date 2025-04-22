@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 537 50 Sound file player on steriods;
+#X text 537 50 Sound file player on steroids;
 #X obj 1 1 cnv 5 765 40 empty empty snd.play~ 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 snd.play~;
@@ -44,7 +44,7 @@
 #X text 110 643 2\.;
 #X text 150 643 symbol;
 #X obj 246 644 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 643 NAME: absolute or relative to patch soundfile name.
+#X text 245 643 NAME: absolute or relative to patch sound file name.
 Type: symbol.;
 #X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 693 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
@@ -76,15 +76,15 @@ mode enabled. Type: float. Default value: 1\. Range: 0.25\...4\.;
 #X msg 110 1025 @speed;
 #X text 245 1025 Get/Set playing speed. If @stretch mode is disabled
 (default): changes playing speed (also with pitch change respectively)
-in realtime. If @stretch mode is enabled: can only change speed (without
+in real time. If @stretch mode is enabled: can only change speed (without
 pitch change) only on the next playing cycle. Type: float. Default
 value: 1\. Range: 0.25\...4\.;
 #X msg 110 1128 @stretch;
 #X text 245 1128 Get/Set stretch mode. If true: use timestretch and
 pitch-shifting. Type: bool. Default value: 0\.;
 #X msg 110 1170 @sync;
-#X text 245 1170 Get/Set sync mode. 'now': immidiately starts playing
-(abort previous) after receving start message. 'defer': wait until
+#X text 245 1170 Get/Set sync mode. 'now': immediately starts playing
+(abort previous) after receiving start message. 'defer': wait until
 previous playing will be done \, that starts new. 'wait': do not playing
 until previous playing will not finished. Type: symbol. Default value:
 now. Allowed values: now \, defer \, wait.;
@@ -92,7 +92,7 @@ now. Allowed values: now \, defer \, wait.;
 #X obj 20 1272 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1307 ff;
-#X text 245 1307 fast forward by specified amount of timne. Arguments
+#X text 245 1307 fast forward by specified amount of time. Arguments
 are:;
 #X obj 255 1330 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1330 [TIME]: time amount. Can't be in seconds \, milliseconds
@@ -107,7 +107,7 @@ name. Type: symbol.;
 #X msg 110 1463 pause;
 #X text 245 1463 pause. Arguments are:;
 #X obj 255 1486 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1486 [FLAG]: pause/resume flag. If true or ommited: pause
+#X text 255 1486 [FLAG]: pause/resume flag. If true or omitted: pause
 \, if false: resume. Type: bool.;
 #X msg 110 1526 rewind;
 #X text 245 1526 move backwards by specified amount of time (relative
@@ -128,12 +128,12 @@ the beginning. Type: atom.;
 #X msg 110 1727 start;
 #X text 245 1727 start playing. Arguments are:;
 #X obj 255 1750 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1750 [FLAG]: start/stop flag. If true or ommited: start
+#X text 255 1750 [FLAG]: start/stop flag. If true or omitted: start
 \, if false: stop. Type: bool.;
 #X msg 110 1790 stop;
 #X text 245 1790 stop playing. Arguments are:;
 #X obj 255 1813 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1813 [FLAG]: start/stop flag. If true or ommited: stop
+#X text 255 1813 [FLAG]: start/stop flag. If true or omitted: stop
 \, if false: start. Type: bool.;
 #X obj 20 1863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1868 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
