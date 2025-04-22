@@ -540,6 +540,7 @@
     <entry name="dyn.softclip~" descr="" ref_view="object">
       <xi:include href="dyn.softclip~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_dyn.xml" parse="xml"/>
   </category>
   <category name="env">
     <entry name="env.adsr~" descr="" ref_view="object">
