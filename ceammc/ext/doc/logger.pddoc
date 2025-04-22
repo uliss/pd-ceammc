@@ -28,9 +28,9 @@
             <argument name="PREFIX" type="list">log message prefix</argument>
         </arguments>
         <properties>
-            <property name="@prefix" type="list" default="">log message prefix</property>
             <property name="@active" type="bool" default="1">enabled/disabled logging
             state</property>
+            <property name="@prefix" type="list" default="">log message prefix</property>
         </properties>
         <inlets>
             <inlet>

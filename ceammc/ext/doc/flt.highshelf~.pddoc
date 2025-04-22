@@ -27,13 +27,13 @@
             of boost or cut apply to the signal</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="10000">starting frequency for the shelf</property>
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">amount of boost or cut apply to the signal</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet type="audio">

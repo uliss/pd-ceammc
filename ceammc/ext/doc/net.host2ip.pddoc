@@ -22,10 +22,10 @@
             <argument name="TYPE" type="symbol" enum="ipv4 ipv6">result IP type</argument>
         </arguments>
         <properties>
-            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP
-            type</property>
             <property name="@ipv4" type="alias">shortcut for @type ipv4</property>
             <property name="@ipv6" type="alias">shortcut for @type ipv6</property>
+            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP
+            type</property>
         </properties>
         <inlets>
             <inlet>

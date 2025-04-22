@@ -29,9 +29,9 @@
         <properties>
             <property name="@n" type="int" minvalue="1" maxvalue="64" default="8"
             access="initonly">number of outlets</property>
-            <property name="@rev" type="bool" default="0">reversed bit order</property>
             <property name="@poly" type="flag" access="initonly">polyphonic mode for using with
             [clone] object</property>
+            <property name="@rev" type="bool" default="0">reversed bit order</property>
         </properties>
         <inlets>
             <inlet>

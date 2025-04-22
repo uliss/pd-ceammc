@@ -33,10 +33,10 @@
             @h</argument>
         </arguments>
         <properties>
-            <property name="@w" type="int" default="8" minvalue="1" maxvalue="256"
-            access="initonly">bitmap width in pixels</property>
             <property name="@h" type="int" default="8" minvalue="1" maxvalue="256"
             access="initonly">bitmap height in pixels</property>
+            <property name="@w" type="int" default="8" minvalue="1" maxvalue="256"
+            access="initonly">bitmap width in pixels</property>
         </properties>
         <methods>
             <!-- arc -->

@@ -26,10 +26,10 @@
             service names with format [service SERVICE(</par>
         </info>
         <properties>
-            <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">restrict addresses by
-            type</property>
             <property name="@fullname" type="bool" default="1">if true: output full instance name
             (with service and domain suffix), for ex.: 'THE_SERVICE._xx.local.' format</property>
+            <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">restrict addresses by
+            type</property>
         </properties>
         <methods>
             <!-- ifaces -->

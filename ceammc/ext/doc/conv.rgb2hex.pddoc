@@ -20,12 +20,12 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@mode" type="symbol" default="int" enum="int float">input
-            mode</property>
-            <property name="@int" type="alias">alias to @mode int. Expected input values are in
-            [0-255] range</property>
             <property name="@float" type="alias">alias to @mode float. Expected input values are in
             [0-1] range</property>
+            <property name="@int" type="alias">alias to @mode int. Expected input values are in
+            [0-255] range</property>
+            <property name="@mode" type="symbol" default="int" enum="int float">input
+            mode</property>
             <property name="@sync" type="flag" access="initonly">output value on any inlet
             change</property>
         </properties>

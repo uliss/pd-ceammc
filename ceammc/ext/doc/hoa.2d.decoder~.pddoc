@@ -45,19 +45,22 @@
             ambisonic mode)</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
-            <property name="@mode" type="symbol" default="regular"
-            enum="regular irregular binaural">decoding mode</property>
-            <property name="@regular" type="alias">alias for @mode regular</property>
-            <property name="@irregular" type="alias">alias for @mode irregular</property>
+            <property name="@angles" type="list" units="degree" default="0 90 180 270">angles of
+            loudspeakers. Only available for @irregular mode.</property>
             <property name="@binaural" type="alias">alias for @mode binaural</property>
             <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512"
             default="16">crop HRIR response. Only for @binaural mode.</property>
+            <property name="@irregular" type="alias">alias for @mode irregular</property>
+            <property name="@mode" type="symbol" default="regular"
+            enum="regular irregular binaural">decoding mode</property>
+            <property name="@nch" type="int" minvalue="1" access="initonly" default="0">number of
+            plain waves.</property>
+            <property name="@nharm" type="int" minvalue="1" access="readonly" default="3">number of
+            circular harmonics.</property>
             <property name="@offset" type="float" units="degree" default="0">rotation of
             loudspeakers. Only available for @regular and @irregular mode.</property>
-            <property name="@angles" type="list" units="degree" default="0 90 180 270">angles of
-            loudspeakers. Only available for @irregular mode.</property>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            access="initonly">the order of decomposition</property>
             <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
             access="readonly" default="0 -1 0 1">list of plain wave x-coordinates (abscissas). -1
             is the left of the soundfield, 0 is the center of the soundfield and 1 is the right of
@@ -66,10 +69,7 @@
             access="readonly" default="1 0 -1 0">list of plain wave y-coordinates (ordinatas). -1
             is the back of the soundfield, 0 is the center of the soundfield and 1 is the front of
             the soundfield.</property>
-            <property name="@nharm" type="int" minvalue="1" access="readonly" default="3">number of
-            circular harmonics.</property>
-            <property name="@nch" type="int" minvalue="1" access="initonly" default="0">number of
-            plain waves.</property>
+            <property name="@regular" type="alias">alias for @mode regular</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

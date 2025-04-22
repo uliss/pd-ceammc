@@ -19,15 +19,15 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@r" type="int" minvalue="-1" default="1">number of repeats in play
-            mode. If -1: repeat infinitely</property>
+            <property name="@auto" type="bool" default="0">autostart record on first input
+            atom</property>
             <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">max number
             of events, if 0: no max size check. If @auto is set - starts playback when max size
             reached.</property>
+            <property name="@r" type="int" minvalue="-1" default="1">number of repeats in play
+            mode. If -1: repeat infinitely</property>
             <property name="@speed" type="float" minvalue="0.0156" default="1" maxvalue="64">play
             speed</property>
-            <property name="@auto" type="bool" default="0">autostart record on first input
-            atom</property>
             <property name="@sync" type="bool" default="0">use external bang pulse to sync recorded
             events with.</property>
         </properties>

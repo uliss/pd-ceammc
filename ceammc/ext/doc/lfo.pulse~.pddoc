@@ -25,17 +25,17 @@
             <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
             cycle</property>
+            <property name="@initfreq" type="float" default="0" access="initonly" units="hertz">
+            initial frequency</property>
             <property name="@pause" type="bool" default="0">pause oscillator at current
             value</property>
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
-            <property name="@initfreq" type="float" default="0" access="initonly" units="hertz">
-            initial frequency</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

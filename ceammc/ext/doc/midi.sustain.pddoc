@@ -23,9 +23,9 @@
             <argument name="ON" type="bool">initial state</argument>
         </arguments>
         <properties>
-            <property name="@on" type="bool" default="0">pedal state</property>
             <property name="@ctlin" type="bool" default="0">listen to CTL64 from MIDI
             controller</property>
+            <property name="@on" type="bool" default="0">pedal state</property>
         </properties>
         <inlets>
             <inlet>

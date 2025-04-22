@@ -31,11 +31,11 @@
         <properties>
             <property name="@fsr" type="symbol" default="6144mv" access="initonly"
             enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">fullscale input range</property>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">I²C bus</property>
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
             maxvalue="119">I²C address. Also 'default' value is accepted (for addr ???) and 'alt'
             (for addr ???)</property>
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
             <property name="@in_max" type="float" minvalue="0.0" maxvalue="6144.0" default="5000.0"
             access="readwrite">input maximum value in millivolts</property>
             <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0"

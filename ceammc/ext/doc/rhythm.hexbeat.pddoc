@@ -19,9 +19,9 @@
             <argument name="HEX" type="symbol">init pattern value</argument>
         </arguments>
         <properties>
+            <property name="@hex" type="symbol" default="">hex pattern</property>
             <property name="@pattern" type="list" default="" access="readonly">list
             pattern</property>
-            <property name="@hex" type="symbol" default="">hex pattern</property>
         </properties>
         <inlets>
             <inlet>

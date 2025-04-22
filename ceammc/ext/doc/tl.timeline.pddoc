@@ -35,25 +35,25 @@
             length</argument>
         </arguments>
         <properties>
-            <property name="@is_running" type="bool" access="readonly" default="0">if timeline is
-            running</property>
-            <property name="@length" type="float" minvalue="0" access="initonly" default="60"
-            units="second">timeline length</property>
-            <property name="@size" type="int" access="readonly" default="1" minvalue="0">number of
-            events in timeline</property>
             <property name="@current" type="float" access="readonly" units="millisecond"
             default="0">current time</property>
             <property name="@current_sec" type="float" access="readonly" units="second"
             default="0">current time</property>
-            <property name="@phase" type="float" access="readonly" minvalue="0" maxvalue="1"
-            default="0">current phase in [0-1) range</property>
             <property name="@events" type="list" access="readonly" default="end">list of event
             names in chronological order</property>
+            <property name="@is_running" type="bool" access="readonly" default="0">if timeline is
+            running</property>
+            <property name="@length" type="float" minvalue="0" access="initonly" default="60"
+            units="second">timeline length</property>
             <property name="@loop" type="bool" default="0">loop mode</property>
             <property name="@mode" type="symbol" enum="fixed inf" default="fixed">timeline mode. If
             timeline is fixed, when reached, it outputs *end* event and stops after that. Infinite
             timeline never stops by itself. Fixed timeline can have @loop property for
             repeats</property>
+            <property name="@phase" type="float" access="readonly" minvalue="0" maxvalue="1"
+            default="0">current phase in [0-1) range</property>
+            <property name="@size" type="int" access="readonly" default="1" minvalue="0">number of
+            events in timeline</property>
         </properties>
         <methods>
             <!-- add -->

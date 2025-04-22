@@ -38,35 +38,33 @@
             actions</event>
         </mouse>
         <properties>
-            <property name="@current" type="int" default="-1" access="readonly">current preset
-            index</property>
-            <!-- common -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="102 42">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
-            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
-            green, blue values in 0-1 range)</property>
-            <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">empty cell color
-            (list of red, green, blue values in 0-1 range)</property>
-            <property name="@stored_color" type="list" default="0.5 0.5 0.5 1">stored cell color
-            (list of red, green, blue values in 0-1 range)</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <!-- font -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <property name="@current" type="int" default="-1" access="readonly">current preset
+            index</property>
+            <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">empty cell color
+            (list of red, green, blue values in 0-1 range)</property>
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="102 42">element size (width, height
+            pair)</property>
+            <property name="@stored_color" type="list" default="0.5 0.5 0.5 1">stored cell color
+            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
+            green, blue values in 0-1 range)</property>
         </properties>
         <methods>
             <!-- clear -->

@@ -24,21 +24,21 @@
             current canvas)</argument>
         </arguments>
         <properties>
-            <property name="@type" type="symbol" enum="float int bool enum symbol list"
-            default="float">property type</property>
-            <property name="@f" type="alias">alias to @type float</property>
-            <property name="@i" type="alias">alias to @type int</property>
             <property name="@b" type="alias">alias to @type bool</property>
-            <property name="@s" type="alias">alias to @type symbol</property>
-            <property name="@l" type="alias">alias to @type list</property>
             <property name="@default" type="list" access="initonly" default="">default property
             value</property>
-            <property name="@min" type="float" default="-inf" access="initonly">minimal value (for
-            float and int properties only)</property>
-            <property name="@max" type="float" default="+inf" access="initonly">maximum value (for
-            float and int properties only)</property>
             <property name="@enum" type="list" access="initonly" default="">allowed values (without
             default value) (for symbol properties only)</property>
+            <property name="@f" type="alias">alias to @type float</property>
+            <property name="@i" type="alias">alias to @type int</property>
+            <property name="@l" type="alias">alias to @type list</property>
+            <property name="@max" type="float" default="+inf" access="initonly">maximum value (for
+            float and int properties only)</property>
+            <property name="@min" type="float" default="-inf" access="initonly">minimal value (for
+            float and int properties only)</property>
+            <property name="@s" type="alias">alias to @type symbol</property>
+            <property name="@type" type="symbol" enum="float int bool enum symbol list"
+            default="float">property type</property>
         </properties>
         <example>
             <pdascii>

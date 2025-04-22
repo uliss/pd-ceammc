@@ -21,9 +21,9 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@on" type="bool" default="1">write mode</property>
             <property name="@interp" type="int" enum="0 1 3" default="0">interpolation
             mode</property>
+            <property name="@on" type="bool" default="1">write mode</property>
         </properties>
         <methods>
             <!-- resize -->

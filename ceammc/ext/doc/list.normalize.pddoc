@@ -23,8 +23,8 @@
         <properties>
             <property name="@by" type="symbol" enum="sum range" default="sum">normalization
             mode</property>
-            <property name="@sum" type="alias">alias to @by sum</property>
             <property name="@range" type="alias">alias to @by range</property>
+            <property name="@sum" type="alias">alias to @by sum</property>
         </properties>
         <inlets>
             <inlet>

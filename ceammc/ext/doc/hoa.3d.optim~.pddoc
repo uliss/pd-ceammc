@@ -38,13 +38,13 @@
             mode</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
-            access="initonly">the order of decomposition</property>
+            <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>
+            <property name="@inphase" type="alias">alias for @mode inphase.</property>
+            <property name="@maxre" type="alias">alias for @mode maxre.</property>
             <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
             optimization mode</property>
-            <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>
-            <property name="@maxre" type="alias">alias for @mode maxre.</property>
-            <property name="@inphase" type="alias">alias for @mode inphase.</property>
+            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
+            access="initonly">the order of decomposition</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

@@ -22,6 +22,11 @@
             nonlinearity to give even harmonics</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">distortion
             amount</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
@@ -29,11 +34,6 @@
             wet.</property>
             <property name="@offset" type="float" minvalue="0" maxvalue="0.5" default="0">constant
             added before nonlinearity to give even harmonics</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

@@ -29,9 +29,9 @@
             interval</argument>
         </arguments>
         <properties>
-            <property name="@min" type="int" units="millisecond" minvalue="1" default="100">minimal
-            bang interval</property>
             <property name="@max" type="int" units="millisecond" minvalue="1" default="200">maximum
+            bang interval</property>
+            <property name="@min" type="int" units="millisecond" minvalue="1" default="100">minimal
             bang interval</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>

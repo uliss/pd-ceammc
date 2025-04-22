@@ -23,16 +23,16 @@
             whistles probability if @auto enabled</argument>
         </arguments>
         <properties>
-            <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
-            maximum speed of whistles if @auto enabled</property>
-            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50"
-            units="percent">whistles probability if @auto enabled</property>
-            <property name="@gate" type="bool" default="0">play trigger. Starts playing on
-            release</property>
-            <property name="@auto" type="bool" default="0">auto playing mode</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@auto" type="bool" default="0">auto playing mode</property>
+            <property name="@gate" type="bool" default="0">play trigger. Starts playing on
+            release</property>
+            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50"
+            units="percent">whistles probability if @auto enabled</property>
+            <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
+            maximum speed of whistles if @auto enabled</property>
         </properties>
         <inlets>
             <inlet>

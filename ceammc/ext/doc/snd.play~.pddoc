@@ -26,30 +26,30 @@
             name</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" access="initonly" default="2" minvalue="1"
-            maxvalue="32">number of output channels</property>
-            <property name="@name" type="symbol" default="">absolute or relative to patch soundfile
-            name</property>
             <property name="@begin" type="atom" default="0" units="sample sec msec smpte">start
             playing position</property>
             <property name="@end" type="atom" default="-1" units="sample sec msec smpte">end
             playing position</property>
             <property name="@loop" type="bool" default="0">play in the loop</property>
-            <property name="@sync" type="symbol" default="now" enum="now defer wait">sync mode.
-            'now': immidiately starts playing (abort previous) after receving start message.
-            'defer': wait until previous playing will be done, that starts new. 'wait': do not
-            playing until previous playing will not finished</property>
-            <property name="@stretch" type="bool" default="0">stretch mode. If true: use
-            timestretch and pitch-shifting</property>
+            <property name="@n" type="int" access="initonly" default="2" minvalue="1"
+            maxvalue="32">number of output channels</property>
+            <property name="@name" type="symbol" default="">absolute or relative to patch soundfile
+            name</property>
+            <property name="@on_err" type="symbol" default="">the error send destination. For
+            example, if soundfile was not found, the message [not_found( will be send to this
+            global name</property>
             <property name="@pitch" type="float" default="1" minvalue="0.25" maxvalue="4">
             pitch-shift correction. Used only if @stretch mode enabled.</property>
             <property name="@speed" type="float" default="1" minvalue="0.25" maxvalue="4">playing
             speed. If @stretch mode is disabled (default): changes playing speed (also with pitch
             change respectively) in realtime. If @stretch mode is enabled: can only change speed
             (without pitch change) only on the next playing cycle</property>
-            <property name="@on_err" type="symbol" default="">the error send destination. For
-            example, if soundfile was not found, the message [not_found( will be send to this
-            global name</property>
+            <property name="@stretch" type="bool" default="0">stretch mode. If true: use
+            timestretch and pitch-shifting</property>
+            <property name="@sync" type="symbol" default="now" enum="now defer wait">sync mode.
+            'now': immidiately starts playing (abort previous) after receving start message.
+            'defer': wait until previous playing will be done, that starts new. 'wait': do not
+            playing until previous playing will not finished</property>
         </properties>
         <methods>
             <!-- ff -->

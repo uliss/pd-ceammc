@@ -20,11 +20,11 @@
             corner-resonance</argument>
         </arguments>
         <properties>
-            <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
-            amount of corner-resonance</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
+            amount of corner-resonance</property>
         </properties>
         <methods>
             <!-- reset -->

@@ -17,17 +17,17 @@
             <since>0.9.8</since>
         </meta>
         <properties>
-            <property name="@init" type="float" default="0" access="initonly">init encoder
-            value</property>
-            <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="127">DT GPIO pin</property>
-            <property name="@min" type="float" default="-100">min encoder value</property>
-            <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="127">CLK GPIO pin</property>
             <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1"
             maxvalue="127">BTN GPIO pin</property>
-            <property name="@step" type="float" default="1">encoder step</property>
+            <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">CLK GPIO pin</property>
+            <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">DT GPIO pin</property>
+            <property name="@init" type="float" default="0" access="initonly">init encoder
+            value</property>
             <property name="@max" type="float" default="100">max encoder value</property>
+            <property name="@min" type="float" default="-100">min encoder value</property>
+            <property name="@step" type="float" default="1">encoder step</property>
         </properties>
         <methods>
             <!-- get -->

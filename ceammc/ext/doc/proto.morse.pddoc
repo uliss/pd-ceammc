@@ -22,11 +22,11 @@
         <properties>
             <property name="@dot" type="float" default="100" minvalue="5" maxvalue="1000"
             units="millisecond">dot length</property>
+            <property name="@external" type="bool" default="0">use external clock</property>
             <property name="@letter" type="int" default="3" minvalue="2" maxvalue="20">space
             between letters in dot units</property>
             <property name="@word" type="int" default="5" minvalue="2" maxvalue="20">space between
             words in dot units</property>
-            <property name="@external" type="bool" default="0">use external clock</property>
         </properties>
         <methods>
             <!-- reset -->

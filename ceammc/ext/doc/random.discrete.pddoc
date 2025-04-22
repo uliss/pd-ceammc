@@ -30,9 +30,9 @@
             <argument name="WEIGHTS" type="list">weights (list of non-negative floats)</argument>
         </arguments>
         <properties>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
             <property name="@weights" type="list" default="">list of weights (non-negative
             floats)</property>
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

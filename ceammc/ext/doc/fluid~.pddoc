@@ -31,34 +31,34 @@
             <argument name="SF" type="symbol">soundfont path</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol" default="default">soundfont path, you can use
-            **default** value to load default soundfont</property>
-            <property name="@version" type="symbol" access="readonly" default="2.3.2">FluidSynth
-            version</property>
-            <property name="@soundfonts" type="list" access="readonly" default="">list of found
-            soundfonts</property>
+            <property name="@avoices" type="float" default="0" access="readonly">number midi
+            channels</property>
+            <property name="@bufsize" type="float" units="sample" default="0" access="readonly">
+            internal buffer size</property>
+            <property name="@cpuload" type="float" default="0" access="readonly">current cpu
+            load</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
-            <property name="@volume" type="float" minvalue="-60" maxvalue="20" default="0"
-            units="decibel">output volume (same as @gain but in db)</property>
+            <property name="@n" type="int" default="16" access="readonly">number of active
+            voices</property>
+            <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
+            of voices</property>
+            <property name="@presets" type="list" default="" access="readonly">presets name for
+            current soundfont</property>
+            <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
             <property name="@reverb_level" type="float" default="0">reverberation level</property>
             <property name="@reverb_room" type="float" default="0">reverberation room
             size</property>
             <property name="@reverb_width" type="float" default="0">reverberation spread
             width</property>
-            <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
-            <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
-            of voices</property>
-            <property name="@avoices" type="float" default="0" access="readonly">number midi
-            channels</property>
-            <property name="@n" type="int" default="16" access="readonly">number of active
-            voices</property>
-            <property name="@cpuload" type="float" default="0" access="readonly">current cpu
-            load</property>
-            <property name="@bufsize" type="float" units="sample" default="0" access="readonly">
-            internal buffer size</property>
-            <property name="@presets" type="list" default="" access="readonly">presets name for
-            current soundfont</property>
+            <property name="@sf" type="symbol" default="default">soundfont path, you can use
+            **default** value to load default soundfont</property>
+            <property name="@soundfonts" type="list" access="readonly" default="">list of found
+            soundfonts</property>
+            <property name="@version" type="symbol" access="readonly" default="2.3.2">FluidSynth
+            version</property>
+            <property name="@volume" type="float" minvalue="-60" maxvalue="20" default="0"
+            units="decibel">output volume (same as @gain but in db)</property>
         </properties>
         <methods>
             <!-- aftertouch -->

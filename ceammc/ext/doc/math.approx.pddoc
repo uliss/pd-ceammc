@@ -27,8 +27,8 @@
             <argument name="EPSILON" type="float">compare epsilon</argument>
         </arguments>
         <properties>
-            <property name="@value" type="float" default="0">compare pattern</property>
             <property name="@epsilon" type="float" default="0.01">compare epsilon</property>
+            <property name="@value" type="float" default="0">compare pattern</property>
         </properties>
         <inlets>
             <inlet>

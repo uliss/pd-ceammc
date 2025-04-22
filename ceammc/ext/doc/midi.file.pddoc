@@ -20,16 +20,16 @@
         </arguments>
         <properties>
             <property name="@filename" type="symbol">current filename</property>
-            <property name="@tracks" type="int" access="readonly" default="1">number of
-            tracks</property>
-            <property name="@tempo" type="int" access="readonly" default="120">midi tempo in ticks
-            per quarter</property>
+            <property name="@length_beat" type="float" access="readonly" default="0">file length in
+            quarters</property>
             <property name="@length_sec" type="float" access="readonly" units="second" default="0">
             file length</property>
             <property name="@length_tick" type="int" access="readonly" default="0">file length in
             ticks</property>
-            <property name="@length_beat" type="float" access="readonly" default="0">file length in
-            quarters</property>
+            <property name="@tempo" type="int" access="readonly" default="120">midi tempo in ticks
+            per quarter</property>
+            <property name="@tracks" type="int" access="readonly" default="1">number of
+            tracks</property>
         </properties>
         <methods>
             <!-- clear -->

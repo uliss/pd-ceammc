@@ -29,10 +29,10 @@
             stereo-pairs</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list" default="">gain coefficients per each
-            output</property>
             <property name="@n" type="int" minvalue="2" default="2" maxvalue="16"
             access="initonly">number of output stereo channels</property>
+            <property name="@value" type="list" default="">gain coefficients per each
+            output</property>
         </properties>
         <inlets>
             <inlet type="audio">

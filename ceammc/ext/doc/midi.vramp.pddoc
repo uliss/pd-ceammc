@@ -21,13 +21,13 @@
             <argument name="N" type="int" minvalue="0">number of steps</argument>
         </arguments>
         <properties>
-            <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">start
-            value</property>
-            <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">end
-            value</property>
-            <property name="@n" type="int" default="0" minvalue="0">number of steps</property>
             <property name="@auto" type="bool" default="0">auto reset mode. If true: reset to
             @start value after ramp is finished</property>
+            <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">start
+            value</property>
+            <property name="@n" type="int" default="0" minvalue="0">number of steps</property>
+            <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">end
+            value</property>
         </properties>
         <methods>
             <!-- reset -->

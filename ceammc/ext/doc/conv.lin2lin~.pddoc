@@ -31,16 +31,16 @@
             <argument name="OUT_TO" type="float">end of input output</argument>
         </arguments>
         <properties>
-            <property name="@in_from" type="float" default="-1">begin of input range</property>
-            <property name="@in_to" type="float" default="1">end of input range</property>
-            <property name="@out_from" type="float" default="-1">begin of output range</property>
-            <property name="@out_to" type="float" default="1">end of output range</property>
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
             noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip both).</property>
-            <property name="@noclip" type="alias">alias to @clip noclip</property>
-            <property name="@min" type="alias">alias to @clip min</property>
+            <property name="@in_from" type="float" default="-1">begin of input range</property>
+            <property name="@in_to" type="float" default="1">end of input range</property>
             <property name="@max" type="alias">alias to @clip max</property>
+            <property name="@min" type="alias">alias to @clip min</property>
             <property name="@minmax" type="alias">alias to @clip minmax</property>
+            <property name="@noclip" type="alias">alias to @clip noclip</property>
+            <property name="@out_from" type="float" default="-1">begin of output range</property>
+            <property name="@out_to" type="float" default="1">end of output range</property>
         </properties>
         <inlets>
             <inlet type="audio">

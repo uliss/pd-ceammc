@@ -24,11 +24,11 @@
             <par>Note: display can be configured in single line mode.</par>
         </info>
         <properties>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">I²C bus</property>
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
             maxvalue="119">I²C address. Values 'default' (for addr 0x27), 'alt' (for addr 0x3f) are
             also accepted</property>
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
             <property name="@rows" type="int" default="1" enum="1 2 4" access="initonly">number of
             display rows</property>
         </properties>

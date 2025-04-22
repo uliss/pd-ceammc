@@ -21,18 +21,18 @@
             pitch</argument>
         </arguments>
         <properties>
-            <property name="@pitch" type="float" minvalue="36" maxvalue="60" default="48">drone
-            MIDI pitch</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@decay" type="float" minvalue="100" maxvalue="120000"
             units="millisecond" default="4000">drone pluck decay time</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
             proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
             signal, 1 - wet.</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
+            <property name="@pitch" type="float" minvalue="36" maxvalue="60" default="48">drone
+            MIDI pitch</property>
         </properties>
         <methods>
             <!-- reset -->

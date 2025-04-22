@@ -34,10 +34,10 @@
             <par>Note: in Pd float point exceptions are disabled.</par>
         </info>
         <properties>
-            <property name="@type" type="symbol" default="quiet" enum="quiet signal">type of
-            outputed NaN: quiet or signal</property>
             <property name="@quiet" type="alias">alias to @type quiet</property>
             <property name="@signal" type="alias">alias to @type signal</property>
+            <property name="@type" type="symbol" default="quiet" enum="quiet signal">type of
+            outputed NaN: quiet or signal</property>
         </properties>
         <inlets>
             <inlet>

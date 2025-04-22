@@ -35,8 +35,8 @@
             @min=0, @max=ARG[0]</argument>
         </arguments>
         <properties>
-            <property name="@min" type="float" default="0">random range lower bound</property>
             <property name="@max" type="float" default="1">random range upper bound</property>
+            <property name="@min" type="float" default="0">random range lower bound</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <methods>

@@ -34,10 +34,10 @@
             empty</property>
             <property name="@filled" type="int" minvalue="0" access="readonly" default="0">current
             number of elements in queue</property>
-            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
-            queue</property>
             <property name="@free" type="int" minvalue="0" access="readonly" default="32">number of
             elements you can add to queue until it full</property>
+            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
+            queue</property>
         </properties>
         <methods>
             <!-- clear -->

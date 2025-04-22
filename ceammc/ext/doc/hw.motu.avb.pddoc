@@ -22,9 +22,9 @@
             <argument name="DEV" type="symbol">Motu device id</argument>
         </arguments>
         <properties>
+            <property name="@dev" type="symbol" default="">Motu device id</property>
             <property name="@host" type="symbol" default="localhost">Motu HTTP host</property>
             <property name="@port" type="int" default="1280">Motu HTTP port</property>
-            <property name="@dev" type="symbol" default="">Motu device id</property>
         </properties>
         <methods>
             <!-- comp_input_name -->

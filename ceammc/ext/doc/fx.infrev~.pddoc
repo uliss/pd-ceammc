@@ -30,17 +30,17 @@
             between the original (dry) and 'effected' (wet) signals</argument>
         </arguments>
         <properties>
-            <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">room
-            size</property>
-            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">filter
-            coefficient</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">damping of
             the lowpass comb filter</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">filter
+            coefficient</property>
+            <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">room
+            size</property>
         </properties>
         <methods>
             <!-- reset -->

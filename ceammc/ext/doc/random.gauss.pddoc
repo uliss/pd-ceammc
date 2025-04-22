@@ -36,9 +36,9 @@
         </arguments>
         <properties>
             <property name="@mu" type="float" default="0">the mean</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
             <property name="@sigma" type="float" minvalue="0" default="0">the standard
             deviation</property>
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

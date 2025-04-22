@@ -17,18 +17,18 @@
             <since>0.1</since>
         </meta>
         <properties>
-            <property name="@gate" type="bool" default="0">start/stop recording</property>
-            <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
-            units="decibel">playing gain</property>
-            <property name="@attack" type="float" units="millisecond" minvalue="0"
-            maxvalue="100000" default="50">rec envelope attack time</property>
-            <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
-            default="100">rec envelope sustain level - percent from trigger signal</property>
-            <property name="@release" type="float" units="millisecond" minvalue="0"
-            maxvalue="100000" default="50">rec envelope release time</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@attack" type="float" units="millisecond" minvalue="0"
+            maxvalue="100000" default="50">rec envelope attack time</property>
+            <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
+            units="decibel">playing gain</property>
+            <property name="@gate" type="bool" default="0">start/stop recording</property>
+            <property name="@release" type="float" units="millisecond" minvalue="0"
+            maxvalue="100000" default="50">rec envelope release time</property>
+            <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
+            default="100">rec envelope sustain level - percent from trigger signal</property>
         </properties>
         <methods>
             <!-- div -->

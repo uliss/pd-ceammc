@@ -22,15 +22,15 @@
             of samples to skip</argument>
         </arguments>
         <properties>
-            <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">output
-            bits</property>
-            <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
-            units="sample">number samples to skip</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">output
+            bits</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
+            units="sample">number samples to skip</property>
         </properties>
         <methods>
             <!-- reset -->

@@ -23,15 +23,15 @@
             <argument name="ON" type="bool">init on/off state</argument>
         </arguments>
         <properties>
-            <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">output
-            octave</property>
-            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">output
-            velocity</property>
-            <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">
-            current layout</property>
             <property name="@custom" type="atom" default="[]">custom layout (Dict data
             type)</property>
+            <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">
+            current layout</property>
+            <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">output
+            octave</property>
             <property name="@on" type="bool" default="1">on/off state</property>
+            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">output
+            velocity</property>
         </properties>
         <methods>
             <!-- custom -->

@@ -27,23 +27,23 @@
             <argument name="N" type="int" minvalue="2" maxvalue="20">number of inputs</argument>
         </arguments>
         <properties>
+            <property name="@clip" type="alias">alias for "@oversize clip" property. Pad shortest
+            list with last element to conform longest list</property>
+            <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
+            list with repeated values from the end to the beginning, then back and so
+            on.</property>
+            <property name="@lists" type="list" access="readonly" default="">input data list: list
+            of data:mlist</property>
             <property name="@method" type="symbol" enum="min pad clip wrap fold" default="min">
             behavior, if list have different sizes</property>
             <property name="@min" type="alias">alias for "@oversize min" property. Truncates lists
             to minimal common size</property>
-            <property name="@clip" type="alias">alias for "@oversize clip" property. Pad shortest
-            list with last element to conform longest list</property>
-            <property name="@wrap" type="alias">alias for "@oversize wrap" property. Pad shortest
-            list with repeated values from the beginning.</property>
-            <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
-            list with repeated values from the end to the beginning, then back and so
-            on.</property>
-            <property name="@pad" type="atom" default="0">pad value for pad method of
-            resizing</property>
             <property name="@n" type="int" minvalue="2" maxvalue="20" default="2"
             access="initonly">number of inputs</property>
-            <property name="@lists" type="list" access="readonly" default="">input data list: list
-            of data:mlist</property>
+            <property name="@pad" type="atom" default="0">pad value for pad method of
+            resizing</property>
+            <property name="@wrap" type="alias">alias for "@oversize wrap" property. Pad shortest
+            list with repeated values from the beginning.</property>
         </properties>
         <inlets dynamic="true">
             <inlet>

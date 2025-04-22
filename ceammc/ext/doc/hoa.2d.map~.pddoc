@@ -36,14 +36,14 @@
             nsrc=1)</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
-            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
-            input sources</property>
-            <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
             <property name="@mode" type="symbol" enum="pol car" default="pol">signal control mode
             (with nsrc=1). If 'pol': second and third signal inlets are treated as radius and angle
             values, if 'car': as X and Y coordinates</property>
+            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
+            input sources</property>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            access="initonly">the order of decomposition</property>
+            <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
         </properties>
         <methods>
             <!-- car -->

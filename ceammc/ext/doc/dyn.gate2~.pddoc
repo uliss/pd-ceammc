@@ -33,20 +33,20 @@
             release time = time constant (ms) for gate to close</argument>
         </arguments>
         <properties>
-            <property name="@threshold" type="float" units="decibel" minvalue="-90" maxvalue="0"
-            default="-60">dB level threshold above which gate opens</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
             default="0.1">attack time = time constant (ms) for gate to open</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@hold" type="float" units="millisecond" minvalue="1" maxvalue="500"
             default="100">hold time = time (ms) gate stays open after signal level &lt;
             threshold</property>
             <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
             maxvalue="500">release time = time constant (ms) for gate to close</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
+            <property name="@threshold" type="float" units="decibel" minvalue="-90" maxvalue="0"
+            default="-60">dB level threshold above which gate opens</property>
         </properties>
         <methods>
             <!-- reset -->

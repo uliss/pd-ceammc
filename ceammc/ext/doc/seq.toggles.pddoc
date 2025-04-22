@@ -38,31 +38,31 @@
         <properties>
             <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
             subdivision</property>
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
-            units="millisecond">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also
-            can be used</property>
-            <property name="@p" type="list" default="">sequencer pattern in beat duration
-            units</property>
-            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
-            repeats. If -1: repeat infinitely</property>
-            <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
-            <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
             sequence duration. (Recalculates @t property accordingly)</property>
-            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
-            beats before sequence start</property>
+            <property name="@i" type="int" access="readonly" default="0">current sequence
+            iteration</property>
+            <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
             <property name="@length" type="float" default="75">event length. In case of float or
             float wuth 'ms' suffix - event length is fixed for any event duration. In case of V% -
             @length expected to be in 0..100 range and event length is percent of duration. In case
             of negative @length event duration is calculated as duration+@length, but not less then
             1</property>
-            <property name="@i" type="int" access="readonly" default="0">current sequence
-            iteration</property>
-            <property name="@ri" type="int" access="readonly" default="0">current repeat
-            iteration</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>
+            <property name="@once" type="alias">alias to @r 1, play once</property>
+            <property name="@p" type="list" default="">sequencer pattern in beat duration
+            units</property>
+            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
+            repeats. If -1: repeat infinitely</property>
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
+            iteration</property>
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
+            units="millisecond">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also
+            can be used</property>
+            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
+            beats before sequence start</property>
         </properties>
         <methods>
             <!-- reset -->

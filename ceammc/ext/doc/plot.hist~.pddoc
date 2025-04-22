@@ -29,14 +29,14 @@
             property</argument>
         </arguments>
         <properties>
-            <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">max
-            number of input samples</property>
-            <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">number of
-            histogram bins</property>
-            <property name="@min" type="float" default="-1">minimal input value</property>
-            <property name="@max" type="float" default="1">maximum input value</property>
             <property name="@clip" type="bool" default="1">clip input values into input range,
             otherwise just ignore them</property>
+            <property name="@max" type="float" default="1">maximum input value</property>
+            <property name="@min" type="float" default="-1">minimal input value</property>
+            <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">number of
+            histogram bins</property>
+            <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">max
+            number of input samples</property>
         </properties>
         <inlets>
             <inlet type="audio">

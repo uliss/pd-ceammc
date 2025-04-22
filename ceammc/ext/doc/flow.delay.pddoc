@@ -34,11 +34,11 @@
             property</argument>
         </arguments>
         <properties>
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
-            time</property>
             <property name="@block" type="bool" default="0">blocking mode. If true, discards
             incoming messages until scheduled message will output, after that is ready to accept
             the new one. Otherwise acts like vanilla [del] object.</property>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
+            time</property>
         </properties>
         <inlets>
             <inlet>

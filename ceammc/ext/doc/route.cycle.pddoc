@@ -30,12 +30,12 @@
             <argument name="STEP" type="int">cycle step</argument>
         </arguments>
         <properties>
+            <property name="@index" type="int" default="0">current outlet index</property>
             <property name="@n" type="int" default="2" minvalue="1" maxvalue="64"
             access="initonly">number of outlets</property>
-            <property name="@index" type="int" default="0">current outlet index</property>
-            <property name="@step" type="int" default="1">cycle step</property>
             <property name="@offset" type="int" default="0" minvalue="-64" maxvalue="64">init cycle
             offset</property>
+            <property name="@step" type="int" default="1">cycle step</property>
         </properties>
         <inlets>
             <inlet>

@@ -24,14 +24,14 @@
             olive orange pink purple red white yellow</par>
         </info>
         <properties>
-            <property name="@pack" type="flag" access="initonly">output as list to first
-            outlet</property>
-            <property name="@mode" type="symbol" default="int" enum="int float">output
-            mode</property>
-            <property name="@int" type="alias">alias to @mode int. Output values in [0-255]
-            range</property>
             <property name="@float" type="alias">alias to @mode float. Output values in [0-1]
             range</property>
+            <property name="@int" type="alias">alias to @mode int. Output values in [0-255]
+            range</property>
+            <property name="@mode" type="symbol" default="int" enum="int float">output
+            mode</property>
+            <property name="@pack" type="flag" access="initonly">output as list to first
+            outlet</property>
         </properties>
         <inlets>
             <inlet>

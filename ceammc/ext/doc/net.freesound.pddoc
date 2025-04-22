@@ -30,12 +30,12 @@
             <event type="left-click" editmode="false">open id/secret editor</event>
         </mouse>
         <properties>
+            <property name="@oauth_file" type="symbol" default="" access="initonly">path to file
+            with OAuth2 ID/secret, one per line</property>
             <property name="@oauth_id" type="symbol" default="" access="initonly">Freesound OAuth2
             ID</property>
             <property name="@oauth_secret" type="symbol" default="" access="initonly">Freesound
             OAuth2 secret</property>
-            <property name="@oauth_file" type="symbol" default="" access="initonly">path to file
-            with OAuth2 ID/secret, one per line</property>
         </properties>
         <methods>
             <!-- access auth -->

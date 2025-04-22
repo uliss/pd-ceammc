@@ -28,26 +28,26 @@
             <argument name="VALUE" type="list">initial list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass
-            mode. See properties below for detailed information.</property>
             <property name="@clip" type="alias">clipped pass mode. When the list bounds are reached
             - min/max value repeats perpetually.</property>
-            <property name="@single" type="alias">single pass mode. When the list bounds are
-            reached - no output any more until reset.</property>
-            <property name="@loop" type="alias">@wrap alias</property>
-            <property name="@wrap" type="alias">wrap pass mode. List values are repeated in a
-            loop</property>
-            <property name="@fold" type="alias">fold pass mode. List values are repeated in a loop
-            with folding</property>
             <property name="@direction" type="bool" default="1">walking direction. "1" - forwards,
             "0" - backwards.</property>
+            <property name="@fold" type="alias">fold pass mode. List values are repeated in a loop
+            with folding</property>
             <property name="@index" type="list" minvalue="0" default="0">current
             position</property>
             <property name="@length" type="int" minvalue="1" default="1">output list
             length</property>
+            <property name="@loop" type="alias">@wrap alias</property>
+            <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass
+            mode. See properties below for detailed information.</property>
+            <property name="@single" type="alias">single pass mode. When the list bounds are
+            reached - no output any more until reset.</property>
             <property name="@size" type="int" minvalue="0" access="readonly" default="0">current
             list size</property>
             <property name="@value" type="list" default="">current list</property>
+            <property name="@wrap" type="alias">wrap pass mode. List values are repeated in a
+            loop</property>
         </properties>
         <methods>
             <!-- current -->

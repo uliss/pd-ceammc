@@ -33,17 +33,17 @@
             size in samples</argument>
         </arguments>
         <properties>
-            <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
-            units="sample">frame size in samples</property>
-            <property name="@overlap" type="int" enum="1 2 4 8" default="1">overlap of analysis
-            frames</property>
             <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">bias which
             favours small lags over large lags in the period detection, thereby avoiding low-octave
             jumps</property>
             <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">min
             fidelity threshold to report the pitch</property>
+            <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
+            units="sample">frame size in samples</property>
             <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
             units="hertz">max tracked frequency</property>
+            <property name="@overlap" type="int" enum="1 2 4 8" default="1">overlap of analysis
+            frames</property>
         </properties>
         <inlets>
             <inlet type="audio">

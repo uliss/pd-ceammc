@@ -26,9 +26,9 @@
         <properties>
             <property name="@host" type="symbol" default="localhost">hostname on that VLC player is
             running on</property>
+            <property name="@pass" type="atom" default="">VLC http password</property>
             <property name="@port" type="int" default="8080" minvalue="1" maxvalue="32768">hostname
             on that VLC player is running on</property>
-            <property name="@pass" type="atom" default="">VLC http password</property>
         </properties>
         <methods>
             <!-- add -->

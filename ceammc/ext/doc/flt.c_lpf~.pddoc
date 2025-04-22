@@ -31,13 +31,13 @@
             factory</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="hertz">center frequency</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="1">quality
             factor: @freq/BANDWIDTH</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet>

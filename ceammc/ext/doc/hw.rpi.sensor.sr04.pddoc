@@ -29,12 +29,12 @@
             number</argument>
         </arguments>
         <properties>
-            <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
-            access="initonly">a trigger pin GPIO number</property>
             <property name="@echo_pin" type="int" default="27" minvalue="0" maxvalue="255"
             access="initonly">an echo pin GPIO number</property>
             <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
             units="msec">poll interval</property>
+            <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
+            access="initonly">a trigger pin GPIO number</property>
         </properties>
         <methods>
             <!-- poll -->
