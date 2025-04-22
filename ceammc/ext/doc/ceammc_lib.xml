@@ -2482,6 +2482,7 @@
     <entry name="synth.wurley~" descr="" ref_view="object">
       <xi:include href="synth.wurley~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_synth.xml" parse="xml"/>
   </category>
   <category name="system">
     <entry name="system.colorpanel" descr="" ref_view="object">
