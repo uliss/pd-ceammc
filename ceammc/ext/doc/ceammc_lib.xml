@@ -19,6 +19,7 @@
     <entry name="an.zero~" descr="" ref_view="object">
       <xi:include href="an.zero~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_an.xml" parse="xml"/>
   </category>
   <category name="array">
     <entry name="array.bpm" descr="" ref_view="object">
