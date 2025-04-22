@@ -169,11 +169,12 @@
         net.osc.server net.ws.client net.ws.server
     }}
     {noise {
-        noise.baker noise.clifford noise.collatz noise.colored~ noise.crackle~
-        noise.duffing noise.ginger noise.henon noise.henon_heilles
-        noise.henon_phase noise.henonf noise.ikeda noise.lfreq0~ noise.lfreq~
-        noise.lorenz noise.lyapunov noise.navier_stokes noise.pink~
-        noise.rossler noise.stein noise.torus noise.verhulst noise.white~
+        noise.baker noise.chua~ noise.clifford noise.collatz noise.colored~
+        noise.crackle~ noise.duffing noise.ginger noise.henon
+        noise.henon_heilles noise.henon_phase noise.henonf noise.ikeda
+        noise.lfreq0~ noise.lfreq~ noise.lorenz noise.lyapunov
+        noise.navier_stokes noise.pink~ noise.rossler noise.stein noise.torus
+        noise.verhulst noise.white~
     }}
     {osc {
         osc.blit~ osc.impulse~ osc.pulse~ osc.saw4~ osc.saw~ osc.sinfb~
@@ -238,11 +239,11 @@
         symbol2intlist
     }}
     {synth {
-        noise.chua~ synth.bee3~ synth.birds~ synth.church_bell~ synth.clap~
-        synth.dubdub~ synth.dx7~ synth.eguitar~ synth.english_bell~
-        synth.fgrain~ synth.french_bell~ synth.german_bell~ synth.glass_harm~
-        synth.glitch~ synth.harpsichord~ synth.hat~ synth.kick2~ synth.kick~
-        synth.ks~ synth.marimba~ synth.metro~ synth.piano~ synth.rhodey~
+        synth.bee3~ synth.birds~ synth.church_bell~ synth.clap~ synth.dubdub~
+        synth.dx7~ synth.eguitar~ synth.english_bell~ synth.fgrain~
+        synth.french_bell~ synth.german_bell~ synth.glass_harm~ synth.glitch~
+        synth.harpsichord~ synth.hat~ synth.kick2~ synth.kick~ synth.ks~
+        synth.marimba~ synth.metro~ synth.piano~ synth.rhodey~
         synth.risset_arp~ synth.risset_bell~ synth.risset_tone~
         synth.russian_bell~ synth.shakers~ synth.sitar~ synth.snare~
         synth.standard_bell~ synth.tube_bell~ synth.voice_fofc~
