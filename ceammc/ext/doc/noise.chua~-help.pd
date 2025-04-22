@@ -68,7 +68,7 @@ gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
-#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
 #X obj 1 1034 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1037 library: ceammc v0.9.8;
 #N canvas 10 1056 400 290 info 0;
@@ -80,7 +80,7 @@ gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
 #X text 10 54 object:;
 #X text 120 54 noise.chua~;
 #X text 10 76 category:;
-#X text 120 76 synth;
+#X text 120 76 noise;
 #X text 10 98 since:;
 #X text 120 98 0.9.6;
 #X text 10 120 authors:;

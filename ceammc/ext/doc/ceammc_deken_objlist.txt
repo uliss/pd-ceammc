@@ -1001,6 +1001,7 @@ net.osc	OSC server control
 net.ws.client	WebSocket client / WebSocket клиент
 net.ws.server	WebSocket server / WebSocket сервер
 noise.baker	Part of a-chaos library
+noise.chua~	Chua's diode circuit
 noise.clifford	clifford attractor
 noise.collatz	collatz conjecture output
 noise.colored~	colored noise generator with an arbitrary spectral roll
@@ -1253,7 +1254,6 @@ symbol2intlist	converts symbol to list of character codes
 ceammc/symbol2intlist	converts symbol to list of character codes
 ceammc/sym->ilist	converts symbol to list of character codes
 sym->ilist	converts symbol to list of character codes
-noise.chua~	Chua's diode circuit
 synth.bee3~	Hammond-oid organ FM synthesis instrument
 synth.birds~	bird singing generator
 synth.church_bell~	generic church bell modal model

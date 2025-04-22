@@ -1841,6 +1841,9 @@
     <entry name="noise.baker" descr="" ref_view="object">
       <xi:include href="noise.baker.pddoc" parse="xml"/>
     </entry>
+    <entry name="noise.chua~" descr="" ref_view="object">
+      <xi:include href="noise.chua~.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.clifford" descr="" ref_view="object">
       <xi:include href="noise.clifford.pddoc" parse="xml"/>
     </entry>
@@ -2378,9 +2381,6 @@
     </entry>
   </category>
   <category name="synth">
-    <entry name="noise.chua~" descr="" ref_view="object">
-      <xi:include href="noise.chua~.pddoc" parse="xml"/>
-    </entry>
     <entry name="synth.bee3~" descr="" ref_view="object">
       <xi:include href="synth.bee3~.pddoc" parse="xml"/>
     </entry>
