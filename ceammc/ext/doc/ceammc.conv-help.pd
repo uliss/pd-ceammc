@@ -116,7 +116,7 @@ to current samplerate;
 #X obj 30 1633 music.dur2time;
 #X text 200 1633 convert duration list to time;
 #X obj 30 1661 music.voice2midi;
-#X text 200 1661 convert voice music list of midi pitches;
+#X text 200 1661 convert single voice music to list of MIDI pitches;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
 #X obj 1 1689 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
