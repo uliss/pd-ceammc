@@ -1086,6 +1086,7 @@
     <entry name="hw.serial" descr="" ref_view="object">
       <xi:include href="hw.serial.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_hw.xml" parse="xml"/>
   </category>
   <category name="lang">
     <entry name="lang.faust~" descr="" ref_view="link">
