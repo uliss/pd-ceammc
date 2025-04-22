@@ -203,11 +203,13 @@ else()
     find_program(TIDY tidy)
 endif()
 
-if(TIDY)
+if(TIDY AND PD_DOC_FORMAT)
     message(STATUS "HTMLtidy found: ${TIDY}. The 'ceammc_pddoc_format' target available.")
+
     add_custom_target(ceammc_pddoc_format
         COMMAND ls *.pddoc | while read f\;
         do
+            ${PD_DOC_FORMAT} --in-place $$f \;
             ${TIDY} -quiet -xml --indent auto
             --priority-attributes "name,type"
             --indent-spaces 4 --indent-cdata no --wrap 100 --wrap-sections no $$f > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
