@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.slider" type="gui">
         <title>ui.slider</title>
         <meta>
@@ -27,10 +27,6 @@
         <info>
             <par>[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</par>
         </info>
-        <arguments>
-            <argument name="MIN" type="float">min value</argument>
-            <argument name="MAX" type="float">max value</argument>
-        </arguments>
         <mouse>
             <event type="drag" editmode="true" keys="Cmd">changes the slider value</event>
             <event type="double-click" editmode="true" keys="Cmd">changes slider
@@ -49,6 +45,10 @@
             <event type="right-click" editmode="true" keys="Shift">open object help</event>
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
+        <arguments>
+            <argument name="MIN" type="float">min value</argument>
+            <argument name="MAX" type="float">max value</argument>
+        </arguments>
         <properties>
             <property name="@min" type="float" default="0">minimum slider value</property>
             <property name="@max" type="float" default="1">maximum slider value</property>
@@ -116,33 +116,42 @@
             pixels</property>
         </properties>
         <methods>
-            <method name="set">sets slider value without output 
-            <param name="V" type="atom" required="true">new float value or
-            'random'</param></method>
-            <method name="++">increment slider value without output</method>
-            <method name="--">decrement slider value without output</method>
-            <method name="+">add value to slider without output 
-            <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">subtract value from slider without output 
-            <param name="V" type="float" required="true">subtracted value</param></method>
+            <!-- * -->
             <method name="*">multiply slider value without output 
             <param name="V" type="float" required="true">multiplied value</param></method>
+            <!-- + -->
+            <method name="+">add value to slider without output 
+            <param name="V" type="float" required="true">added value</param></method>
+            <!-- ++ -->
+            <method name="++">increment slider value without output</method>
+            <method name="-">subtract value from slider without output 
+            <param name="V" type="float" required="true">subtracted value</param></method>
+            <method name="--">decrement slider value without output</method>
+            <!-- / -->
             <method name="/">divide slider value without output 
             <param name="V" type="float" required="true">denominator value</param></method>
-            <method name="random">set slider to random value and output</method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- clear -->
             <method name="clear">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- interp -->
             <method name="interp">interplolates between presets 
             <param name="IDX" type="float" required="true">preset fraction index</param></method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- random -->
+            <method name="random">set slider to random value and output</method>
+            <!-- set -->
+            <method name="set">sets slider value without output 
+            <param name="V" type="atom" required="true">new float value or
+            'random'</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>
