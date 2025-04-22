@@ -47,8 +47,8 @@ hist~	calculate and output signal histogram
 plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
 plot.logspace~	outputs numbers spaced evenly on a log scale
 plot.response~	output amp/phase freq response to impulse
-bitmap	binary image (2D bit matrix)
-ceammc/bitmap	binary image (2D bit matrix)
+bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
+ceammc/bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
 ceammc.search	ceammc library search object
 chrono.datetime	output current date and time info
 ceammc/datetime	output current date and time info
@@ -175,9 +175,9 @@ degree->key	convert scale degree to key
 conv.edge2bang	edge detector for numeric stream
 ceammc/edge->bang	edge detector for numeric stream
 edge->bang	edge detector for numeric stream
-conv.guido2note	convert Guido notation into MIDI and duration
-ceammc/guido->note	convert Guido notation into MIDI and duration
-guido->note	convert Guido notation into MIDI and duration
+conv.guido2note	convert Guido notation into MIDI and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+ceammc/guido->note	convert Guido notation into MIDI and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+guido->note	convert Guido notation into MIDI and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 conv.hex2int	hex symbol to int value
 ceammc/hex->int	hex symbol to int value
 hex->int	hex symbol to int value
@@ -310,7 +310,7 @@ ceammc/mlist	multidimensional list container
 mlist	multidimensional list container
 ceammc/ml	multidimensional list container
 ml	multidimensional list container
-data.path	filesystem path datatype
+data.path	filesystem path datatype / тип данных: путь в файловой системе
 data.set	container that store unique elements
 data.set2list	converts set to list
 ceammc/set->list	converts set to list
@@ -418,8 +418,8 @@ flow.>=	numeric stream router
 flow.group	group input atoms in list of specified size
 ceammc/group	group input atoms in list of specified size
 group	group input atoms in list of specified size
-flow.histogram	histogram for numeric control flow
-flow.hist	histogram for numeric control flow
+flow.histogram	histogram for numeric control flow / гисторамма для числового потока управления
+flow.hist	histogram for numeric control flow / гисторамма для числового потока управления
 flow.interval	measure time between flow events
 flow.less	numeric stream router, like many [moses]
 flow.<	numeric stream router, like many [moses]
@@ -604,27 +604,27 @@ hw.apple_smc	query the system management control in Apples
 hw.apple_sms	query the sudden motion sensor in Apples
 hw.arduino	Arduino device
 hw.display	get/set display properties
-hw.gamepad	gamepad controller
+hw.gamepad	gamepad controller / геймпад контроллеры
 hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
-hw.printer	basic document printing support
-hw.rpi.adc.ads1115	driver for 16-bit ADC on ads1115 chip for Raspberry Pi
-hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module)
-hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module)
-hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module)
-hw.rpi.display.ssd1306	driver for OLED display on ssd1306 chip for Raspberry Pi
-hw.rpi.gpio	GPIO control for Raspberry Pi
-hw.rpi.i2c.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi
-hw.rpi.pwm.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi
-hw.rpi.pwm	hardware PWM output for RaspberryPi
-hw.rpi.rotenc	rotary encoder for Raspberry Pi
-hw.rpi.sensor.dht11	digital humidity and temperature sensor (DHT11) for Raspberry Pi
-hw.rpi.sensor.ir	IR (infrared) sensors and protocols for Raspberry Pi
-hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer for Raspberry Pi
-hw.rpi.sensor.sr04	HC-SR04 ultrasonic ranging module for Raspberry Pi
-hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi
-hw.rpi.spi.max7219	LED matrix driver based on max7219 chip for Raspberry Pi
-hw.rpi.spi.ws2812	ws2812 LED strip driver for Raspberry Pi
+hw.printer	basic document printing support / базовая поддержка печати документов
+hw.rpi.adc.ads1115	driver for 16-bit ADC on ads1115 chip for Raspberry Pi / драйвер для 16-битного АЦП на чипе ads1115 для Raspberry Pi
+hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+hw.rpi.display.ssd1306	driver for OLED display on ssd1306 chip for Raspberry Pi / драйвер для OLED дисплея на чипе ssd1306 для Raspberry Pi
+hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
+hw.rpi.i2c.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.pwm.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.pwm	hardware PWM output for RaspberryPi / аппаратный ШИМ (PWM) для RaspberryPi
+hw.rpi.rotenc	rotary encoder for Raspberry Pi / поворотный энкодер для Raspberry Pi
+hw.rpi.sensor.dht11	digital humidity and temperature sensor (DHT11) for Raspberry Pi / цифровой датчик влажности и температуры (DHT11) для Raspberry Pi
+hw.rpi.sensor.ir	IR (infrared) sensors and protocols for Raspberry Pi / ИК (инфракрасные) датчики и протоколы для Raspberry Pi
+hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer for Raspberry Pi / MPU-6050 гироскоп и датчик ускорения для Raspberry Pi
+hw.rpi.sensor.sr04	HC-SR04 ultrasonic ranging module for Raspberry Pi / HC-SR04 ультразвуковой датчик расстояния для Raspberry Pi
+hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi / лазерный дальномер на чипе VL53L0X для Raspberry Pi
+hw.rpi.spi.max7219	LED matrix driver based on max7219 chip for Raspberry Pi / драйвер для LED матрицы на чипе max7219 для Raspberry Pi
+hw.rpi.spi.ws2812	ws2812 LED strip driver for Raspberry Pi / драйвер для светодиодной ленты ws2812 для Raspberry Pi
 hw.serial	serial port device
 lang.faust~	faust realtime compilation
 lang.lua	Lua JIT language bindings
@@ -976,30 +976,30 @@ ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
 msg.pack	message pack
 msg.sched	message scheduler
-msg.unpack	message unpack to selector and arguments
+msg.unpack	message unpack to selector and arguments / распаковка сообщения на селектор и аргументы
 rhythm.euclid	euclid pattern generator
 rhythm.hexbeat	hexbeat pattern generator
 rhythm.lsystem	L-system pattern generator
 net.artnet.send	ArtNet DMX message sender
 artnet.send	ArtNet DMX message sender
-net.freesound	Freesound API v2 client
+net.freesound	Freesound API v2 client / клиент для Freesound API v2
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
-net.http.client	HTTP client
-http.client	HTTP client
+net.http.client	HTTP client / HTTP клиент
+http.client	HTTP client / HTTP клиент
 net.http.send	HTTP request sender
 http.send	HTTP request sender
-net.mdns	MDNS service discovery
-net.mqtt.client	MQTT client
-mqtt.client	MQTT client
+net.mdns	MDNS service discovery / обнаружение служб MDNS
+net.mqtt.client	MQTT client / MQTT клиент
+mqtt.client	MQTT client / MQTT клиент
 net.osc.receive	OSC message listener
 net.osc.r	OSC message listener
 net.osc.send	OSC message sender
 net.osc.s	OSC message sender
 net.osc.server	OSC server control
 net.osc	OSC server control
-net.ws.client	WebSocket client
-net.ws.server	WebSocket server
+net.ws.client	WebSocket client / WebSocket клиент
+net.ws.server	WebSocket server / WebSocket сервер
 noise.baker	Part of a-chaos library
 noise.clifford	clifford attractor
 noise.collatz	collatz conjecture output
@@ -1116,7 +1116,7 @@ proto.midi.sysex	raw midi SYSex encoder/parser
 proto.moppy	protocol for Musical flOPPY controller
 proto.morse	Morse encoder
 proto.mpv	mpv video player control
-proto.obs	WebSocket client to control OBS studio
+proto.obs	WebSocket client to control OBS studio / WebSocket клиент для управления OBS studio
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.vlc	VLC video player control over HTTP
 proto.whammy	Control for Digitech Whammy pedal
@@ -1289,14 +1289,14 @@ synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
 synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
-system.command	run commands with pipes on Unix and Windows
-system.cmd	run commands with pipes on Unix and Windows
+system.command	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
+system.cmd	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
 system.cursor	Output cursor motion, mousewheel and button clicks
 system.exec	run external command in separate process
 system.exit	quit PureData
 system.getenv	Get system environment variables
 system.hostname	outputs system hostname
-system.info	retrieve system information: CPU and temperature
+system.info	retrieve system information: CPU and temperature / получение информации о системе: ЦПУ и температура
 system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
 system.memused	returns the process physical memory use - current and peak
 system.screen_size	returns current screen size in pixels
