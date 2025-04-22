@@ -3,15 +3,15 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 symbol.equal;
-#X text 200 117;
+#X text 200 117 check symbols for equality;
 #X obj 30 145 symbol.length;
-#X text 200 145;
+#X text 200 145 number of characters in symbol (unicode supported);
 #X obj 30 173 symbol.num_compare;
-#X text 200 173;
+#X text 200 173 numeric symbol compare;
 #X obj 30 201 symbol2any;
-#X text 200 201;
+#X text 200 201 converts symbol or string to message;
 #X obj 30 229 symbol2intlist;
-#X text 200 229;
+#X text 200 229 converts symbol to list of character codes;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::symbol 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

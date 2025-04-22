@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 samp.time~;
-#X text 200 117;
+#X text 200 117 sample counter;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::samp 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
