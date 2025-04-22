@@ -120,6 +120,7 @@
     <entry name="plot.response~" descr="" ref_view="object">
       <xi:include href="plot.response~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_array.xml" parse="xml"/>
   </category>
   <category name="base">
     <entry name="bitmap" descr="" ref_view="object">
