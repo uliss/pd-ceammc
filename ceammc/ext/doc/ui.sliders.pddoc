@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.sliders" type="gui">
         <title>ui.sliders</title>
         <meta>
@@ -105,46 +105,62 @@
             pixels</property>
         </properties>
         <methods>
+            <!-- * -->
+            <method name="*">multiply each slider without output 
+            <param name="V" type="float" required="true">multiplied value</param></method>
+            <!-- + -->
+            <method name="+">add value to every slider without output 
+            <param name="V" type="float" required="true">added value</param></method>
+            <!-- ++ -->
+            <method name="++">increment all sliders without output</method>
+            <method name="-">subtract value from every slider without output 
+            <param name="V" type="float" required="true">subtracted value</param></method>
+            <method name="--">decrement all sliders without output</method>
+            <!-- / -->
+            <method name="/">divide each slider without output 
+            <param name="V" type="float" required="true">denominator value</param></method>
+            <!-- clear -->
+            <method name="clear">clears specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
-            <method name="select">draws specified slider with select color 
-            <param name="N" type="int" required="true" minvalue="0">slider index, starting from
-            0.</param></method>
-            <method name="random">fill sliders with random values without output</method>
-            <method name="linup">fill sliders with increasing values without output</method>
-            <method name="lindown">fill sliders with decreasing values without output</method>
+            <!-- fill -->
             <method name="fill">fill sliders value with specified value without output</method>
-            <method name="set">sets sliders values without output 
-            <param name="VALUES" type="list">slider values</param></method>
+            <!-- get slider N -->
             <method name="get slider N">get specified slider value 
             <param name="N" type="int" required="true" minvalue="0">slider position, starting from
             0</param></method>
+            <!-- interp -->
+            <method name="interp">interplolates between presets 
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
+            <!-- lindown -->
+            <method name="lindown">fill sliders with decreasing values without output</method>
+            <!-- linup -->
+            <method name="linup">fill sliders with increasing values without output</method>
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- random -->
+            <method name="random">fill sliders with random values without output</method>
+            <!-- select -->
+            <method name="select">draws specified slider with select color 
+            <param name="N" type="int" required="true" minvalue="0">slider index, starting from
+            0.</param></method>
+            <!-- set -->
+            <method name="set">sets sliders values without output 
+            <param name="VALUES" type="list">slider values</param></method>
+            <!-- set slider N V -->
             <method name="set slider N V">sets specified slider value 
             <param name="N" type="int" required="true" minvalue="0">slider position, starting from
             0</param>
             <param name="V" type="float" required="true">slider value</param></method>
-            <method name="++">increment all sliders without output</method>
-            <method name="--">decrement all sliders without output</method>
-            <method name="+">add value to every slider without output 
-            <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">subtract value from every slider without output 
-            <param name="V" type="float" required="true">subtracted value</param></method>
-            <method name="*">multiply each slider without output 
-            <param name="V" type="float" required="true">multiplied value</param></method>
-            <method name="/">divide each slider without output 
-            <param name="V" type="float" required="true">denominator value</param></method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- store -->
             <method name="store">stores specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="clear">clears specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="interp">interplolates between presets 
-            <param name="IDX" type="float" required="true">preset fraction index</param></method>
-            <!-- common-->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
             <inlet>

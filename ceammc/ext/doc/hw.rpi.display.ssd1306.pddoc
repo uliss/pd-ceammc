@@ -21,56 +21,6 @@
             <par>Note: you should send [flush( message to transfer internal pixel buffer to the
             device</par>
         </info>
-        <methods>
-            <!-- rotation -->
-            <method name="rotation">set display rotation 
-            <param name="ANGLE" type="int" enum="0 90 180 270">rotation angle</param></method>
-            <!-- invert -->
-            <method name="invert">invert display 
-            <param name="VALUE" type="bool" required="true">value</param></method>
-            <!-- mirror -->
-            <method name="mirror">mirror display 
-            <param name="VALUE" type="bool" required="true">value</param></method>
-            <!-- font -->
-            <method name="font">set current font 
-            <param name="FONT" type="symbol" required="true">font name</param></method>
-            <!-- write bytes -->
-            <method name="write bytes">write raw byte list to the display buffer and move internal
-            cursor position 
-            <param name="BYTES" type="list" required="true">list of bytes (integers in 0..255
-            range). Each byte describes a single column of 8 pixels in height</param></method>
-            <!-- write bitmap -->
-            <method name="write bitmap">write bitmap to the display buffer 
-            <param name="X" type="int" required="true">bitmap X coordinate</param>
-            <param name="Y" type="int" required="true">bitmap Y coordinate</param>
-            <param name="WIDTH" type="int" minvalue="1" required="true">bitmap width in
-            pixels</param>
-            <param name="PIXELS" type="list" required="true">list of pixels (0 or
-            1)</param></method>
-            <!-- clear -->
-            <method name="clear">clear display and optionally flush internal buffer 
-            <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to
-            the device</param></method>
-            <!-- brightness -->
-            <method name="brightness">set display brightness 
-            <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">brightness level from 0
-            (lowest) to 4 (brightest). Normal level is 2.</param></method>
-            <!-- switch_on -->
-            <method name="switch_on">switch on display (needed for SPI connection) 
-            <param name="VALUE" type="bool" required="true">value</param></method>
-            <!-- flush -->
-            <method name="flush">flush internal buffer to the device</method>
-            <!-- text -->
-            <method name="text">draw text on the display 
-            <param name="TXT" type="symbol" required="true">text</param>
-            <param name="X" type="int" required="true">left text X coordinate</param>
-            <param name="Y" type="int" required="true">top text Y coordinate</param></method>
-            <!-- pixel -->
-            <method name="pixel">draw pixel 
-            <param name="X" type="int" minvalue="0" required="true">X coord (from the left)</param>
-            <param name="Y" type="int" minvalue="0" required="true">Y coord (from the top)</param>
-            <param name="VALUE" type="bool" required="true">pixel value</param></method>
-        </methods>
         <arguments>
             <argument name="MODE" type="symbol" enum="i2c spi">display connection. See
             @mode</argument>
@@ -96,6 +46,56 @@
             <property name="@spi_bus" type="int" default="0" minvalue="0" maxvalue="6"
             access="initonly">SPI bus</property>
         </properties>
+        <methods>
+            <!-- brightness -->
+            <method name="brightness">set display brightness 
+            <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">brightness level from 0
+            (lowest) to 4 (brightest). Normal level is 2.</param></method>
+            <!-- clear -->
+            <method name="clear">clear display and optionally flush internal buffer 
+            <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to
+            the device</param></method>
+            <!-- flush -->
+            <method name="flush">flush internal buffer to the device</method>
+            <!-- font -->
+            <method name="font">set current font 
+            <param name="FONT" type="symbol" required="true">font name</param></method>
+            <!-- invert -->
+            <method name="invert">invert display 
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <!-- mirror -->
+            <method name="mirror">mirror display 
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <!-- pixel -->
+            <method name="pixel">draw pixel 
+            <param name="X" type="int" minvalue="0" required="true">X coord (from the left)</param>
+            <param name="Y" type="int" minvalue="0" required="true">Y coord (from the top)</param>
+            <param name="VALUE" type="bool" required="true">pixel value</param></method>
+            <!-- rotation -->
+            <method name="rotation">set display rotation 
+            <param name="ANGLE" type="int" enum="0 90 180 270">rotation angle</param></method>
+            <!-- switch_on -->
+            <method name="switch_on">switch on display (needed for SPI connection) 
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <!-- text -->
+            <method name="text">draw text on the display 
+            <param name="TXT" type="symbol" required="true">text</param>
+            <param name="X" type="int" required="true">left text X coordinate</param>
+            <param name="Y" type="int" required="true">top text Y coordinate</param></method>
+            <!-- write bitmap -->
+            <method name="write bitmap">write bitmap to the display buffer 
+            <param name="X" type="int" required="true">bitmap X coordinate</param>
+            <param name="Y" type="int" required="true">bitmap Y coordinate</param>
+            <param name="WIDTH" type="int" minvalue="1" required="true">bitmap width in
+            pixels</param>
+            <param name="PIXELS" type="list" required="true">list of pixels (0 or
+            1)</param></method>
+            <!-- write bytes -->
+            <method name="write bytes">write raw byte list to the display buffer and move internal
+            cursor position 
+            <param name="BYTES" type="list" required="true">list of bytes (integers in 0..255
+            range). Each byte describes a single column of 8 pixels in height</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>
@@ -135,7 +135,6 @@
 #f $1
 #g 255 127 63 31 15 7 3 1, flush
 #k @nitems 4
-
 ]]>
             </pdascii>
         </example>

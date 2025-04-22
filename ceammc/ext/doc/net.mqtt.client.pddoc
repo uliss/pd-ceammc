@@ -29,6 +29,13 @@
             <property name="@retain" type="bool" default="0">retain flag</property>
         </properties>
         <methods>
+            <!-- close -->
+            <method name="close">close MQTT connection</method>
+            <!-- connect -->
+            <method name="connect">connect to websocket server 
+            <param name="URL" type="symbol" required="true">mqtt server url, for ex.:
+            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1
+            etc.</param></method>
             <!-- publish -->
             <method name="publish">publish message to topic 
             <param name="TOPIC" type="symbol" required="true">topic</param>
@@ -39,13 +46,6 @@
             <!-- unsubscribe -->
             <method name="unsubscribe">unsubscribe from topic 
             <param name="TOPIC" type="symbol" required="true">topic</param></method>
-            <!-- close -->
-            <method name="close">close MQTT connection</method>
-            <!-- connect -->
-            <method name="connect">connect to websocket server 
-            <param name="URL" type="symbol" required="true">mqtt server url, for ex.:
-            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1
-            etc.</param></method>
         </methods>
         <inlets>
             <inlet>

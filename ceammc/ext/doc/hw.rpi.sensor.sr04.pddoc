@@ -22,10 +22,6 @@
             <par>Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you
             could damage your Raspberry Pi!</par>
         </info>
-        <methods>
-            <method name="poll">turn the sensor polling on/off 
-            <param name="STATE" type="bool" required="true">poll state</param></method>
-        </methods>
         <arguments>
             <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">a trigger pin GPIO
             number</argument>
@@ -40,6 +36,11 @@
             <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
             units="msec">poll interval</property>
         </properties>
+        <methods>
+            <!-- poll -->
+            <method name="poll">turn the sensor polling on/off 
+            <param name="STATE" type="bool" required="true">poll state</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">single distance measure</xinfo>

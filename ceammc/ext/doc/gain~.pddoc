@@ -41,7 +41,6 @@
             <!-- +db -->
             <method name="+db">increase gain in db 
             <param name="VALS" type="list">values for each input channel</param></method>
-            <!-- - -->
             <method name="-">decrease gain amplitude 
             <param name="VALS" type="list">values for each input channel</param></method>
             <!-- -all -->

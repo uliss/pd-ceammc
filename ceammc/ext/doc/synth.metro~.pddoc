@@ -61,9 +61,13 @@
         <methods>
             <!-- down -->
             <method name="down">manually play downbeat sound</method>
-            <method name="on">manually play onbeat sound</method>
-            <method name="off">manually play offbeat sound</method>
+            <!-- mark -->
             <method name="mark">manually play mark sound</method>
+            <!-- off -->
+            <method name="off">manually play offbeat sound</method>
+            <!-- on -->
+            <method name="on">manually play onbeat sound</method>
+            <!-- reset -->
             <method name="reset">reset metro to the beginning</method>
         </methods>
         <inlets>

@@ -25,13 +25,18 @@
             <property name="@async" type="bool" default="1">use async operations</property>
         </properties>
         <methods>
+            <!-- exists -->
             <method name="exists">checks if path exists. Output [exists VALUE( message</method>
-            <method name="type">request path type. Output [type TYPE( message, where type is one
-            of: regular, dir, symlink, char, block, fifo, socket</method>
+            <!-- info -->
             <method name="info">request path information. Output [info DICT(</method>
-            <method name="size">request file size in bytes. Output [size BYTES(</method>
+            <!-- permissions -->
             <method name="permissions">request path permissions. Output [permissions
             VALUE(</method>
+            <!-- size -->
+            <method name="size">request file size in bytes. Output [size BYTES(</method>
+            <!-- type -->
+            <method name="type">request path type. Output [type TYPE( message, where type is one
+            of: regular, dir, symlink, char, block, fifo, socket</method>
         </methods>
         <inlets>
             <inlet>

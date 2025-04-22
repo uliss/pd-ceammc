@@ -20,43 +20,6 @@
                 <alias>hw.rpi.display.lcd2004</alias>
             </aliases>
         </meta>
-        <methods>
-            <!-- backlight -->
-            <method name="backlight">turn on/off the display backlight 
-            <param name="STATE" type="bool" required="true">new state</param></method>
-            <!-- clear -->
-            <method name="clear">clear all display data and set cursor position to 0, 0</method>
-            <!-- cursor_blink -->
-            <method name="cursor_blink">turn on/off cursor blinking 
-            <param name="STATE" type="bool" required="true">new state</param></method>
-            <!-- cursor_on -->
-            <method name="cursor_on">turn on/off display cursor 
-            <param name="STATE" type="bool" required="true">new state</param></method>
-            <!-- cursor_on -->
-            <method name="cursor_pos">set cursor potision 
-            <param name="LINE" type="int" required="true" minvalue="0">cursor line</param>
-            <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">cursor line
-            character position</param></method>
-            <!-- move_display -->
-            <method name="move_display">move display content horizontally 
-            <param name="SHIFT" type="int" required="true">relative display move, not altering the
-            display content</param></method>
-            <!-- move_cursor -->
-            <method name="move_cursor">move cursor horizontally 
-            <param name="SHIFT" type="int" required="true">relative cursor shift. Negative values
-            move the cursor leftwards, positive values - rightwards</param></method>
-            <!-- char -->
-            <method name="char">write character to the display and move cursor to the next position
-            
-            <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">char
-            code</param></method>
-            <!-- write -->
-            <method name="write">write the message at the current cursor position and then move the
-            cursor to the next position after last written character 
-            <param name="MSG" type="list" required="true">value list</param></method>
-            <!-- font -->
-            <method name="font">choose font</method>
-        </methods>
         <info>
             <par>Note: display can be configured in single line mode.</par>
         </info>
@@ -69,6 +32,43 @@
             <property name="@rows" type="int" default="1" enum="1 2 4" access="initonly">number of
             display rows</property>
         </properties>
+        <methods>
+            <!-- backlight -->
+            <method name="backlight">turn on/off the display backlight 
+            <param name="STATE" type="bool" required="true">new state</param></method>
+            <!-- char -->
+            <method name="char">write character to the display and move cursor to the next position
+            
+            <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">char
+            code</param></method>
+            <!-- clear -->
+            <method name="clear">clear all display data and set cursor position to 0, 0</method>
+            <!-- cursor_blink -->
+            <method name="cursor_blink">turn on/off cursor blinking 
+            <param name="STATE" type="bool" required="true">new state</param></method>
+            <!-- cursor_on -->
+            <method name="cursor_on">turn on/off display cursor 
+            <param name="STATE" type="bool" required="true">new state</param></method>
+            <!-- cursor_pos -->
+            <method name="cursor_pos">set cursor potision 
+            <param name="LINE" type="int" required="true" minvalue="0">cursor line</param>
+            <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">cursor line
+            character position</param></method>
+            <!-- font -->
+            <method name="font">choose font</method>
+            <!-- move_cursor -->
+            <method name="move_cursor">move cursor horizontally 
+            <param name="SHIFT" type="int" required="true">relative cursor shift. Negative values
+            move the cursor leftwards, positive values - rightwards</param></method>
+            <!-- move_display -->
+            <method name="move_display">move display content horizontally 
+            <param name="SHIFT" type="int" required="true">relative display move, not altering the
+            display content</param></method>
+            <!-- write -->
+            <method name="write">write the message at the current cursor position and then move the
+            cursor to the next position after last written character 
+            <param name="MSG" type="list" required="true">value list</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

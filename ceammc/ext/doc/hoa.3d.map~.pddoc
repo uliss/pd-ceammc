@@ -41,10 +41,20 @@
             signal control mode (with @nsrc 1), polar or cartesian</property>
         </properties>
         <methods>
+            <!-- car -->
+            <method name="car">alias to cartesian method</method>
+            <!-- cartesian -->
+            <method name="cartesian">set source mapping in cartesian coordinates 
+            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
+            <param name="X" type="float" required="true">x coordinate</param>
+            <param name="Y" type="float" required="true">y coordinate</param>
+            <param name="Z" type="float" required="true">z coordinate</param></method>
             <!-- mute -->
             <method name="mute">mute/unmute specified source 
             <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
             <param name="STATE" type="int" required="true" enum="0 1">mute value</param></method>
+            <!-- pol -->
+            <method name="pol">alias to polar method</method>
             <!-- polar -->
             <method name="polar">set source mapping in polar coordinates 
             <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
@@ -53,16 +63,6 @@
             units="radian">azimuth angle</param>
             <param name="ELEV" type="float" required="true" minvalue="0" maxvalue="2π"
             units="radian">elevation</param></method>
-            <!-- cartesian -->
-            <method name="cartesian">set source mapping in cartesian coordinates 
-            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
-            <param name="X" type="float" required="true">x coordinate</param>
-            <param name="Y" type="float" required="true">y coordinate</param>
-            <param name="Z" type="float" required="true">z coordinate</param></method>
-            <!-- pol -->
-            <method name="pol">alias to polar method</method>
-            <!-- car -->
-            <method name="car">alias to cartesian method</method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

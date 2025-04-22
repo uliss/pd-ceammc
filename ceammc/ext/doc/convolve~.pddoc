@@ -26,14 +26,14 @@
             <property name="@norm" type="bool" default="1">normalize impulse response</property>
         </properties>
         <methods>
+            <!-- load_array -->
+            <method name="load_array">load IR from array 
+            <param name="ARRAY" type="symbol" required="true">array name</param></method>
             <!-- load_file -->
             <method name="load_file">load IR from specified file (resamples if required from file
             samplerate to runtime samplerate) 
             <param name="FILE" type="atom" required="true">file name, relative or
             absolute</param></method>
-            <!-- load_array -->
-            <method name="load_array">load IR from array 
-            <param name="ARRAY" type="symbol" required="true">array name</param></method>
             <!-- set -->
             <method name="set">set IR from list 
             <param name="LIST" type="float" required="true">IR data</param></method>

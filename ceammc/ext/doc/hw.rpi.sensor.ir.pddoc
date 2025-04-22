@@ -16,10 +16,6 @@
             <keywords>display gpio raspberry ir infrared sensor</keywords>
             <since>0.9.8</since>
         </meta>
-        <methods>
-            <method name="poll">start/stop IR sensor polling 
-            <param name="VALUE" type="bool" required="true">state</param></method>
-        </methods>
         <arguments>
             <argument name="PIN" type="int" minvalue="-1" maxvalue="127">GPIO connection pin. See
             @pin</argument>
@@ -30,6 +26,11 @@
             <property name="@proto" type="symbol" default="NEC">protocol name. You should switch
             off/on pollling to take effect after chaning this property</property>
         </properties>
+        <methods>
+            <!-- poll -->
+            <method name="poll">start/stop IR sensor polling 
+            <param name="VALUE" type="bool" required="true">state</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

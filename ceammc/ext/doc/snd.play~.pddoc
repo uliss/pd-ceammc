@@ -52,27 +52,19 @@
             global name</property>
         </properties>
         <methods>
-            <!-- open -->
-            <method name="open">sets @name property 
-            <param name="FILENAME" type="symbol" required="true">absolute or relative to patch
-            soundfile name</param></method>
-            <!-- start -->
-            <method name="start">start playing 
-            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
-            start, if false: stop.</param></method>
-            <!-- stop -->
-            <method name="stop">stop playing 
-            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
-            stop, if false: start.</param></method>
-            <!-- pause -->
-            <method name="pause">pause 
-            <param name="FLAG" type="bool" required="false">pause/resume flag. If true or ommited:
-            pause, if false: resume.</param></method>
             <!-- ff -->
             <method name="ff">fast forward by specified amount of timne 
             <param name="TIME" type="atom" required="false">time amount. Can't be in seconds,
             milliseconds, samples, SMPTE. If the time unit is not specified treat float values as
             samples. If argument is not specified: jump one second forward.</param></method>
+            <!-- open -->
+            <method name="open">sets @name property 
+            <param name="FILENAME" type="symbol" required="true">absolute or relative to patch
+            soundfile name</param></method>
+            <!-- pause -->
+            <method name="pause">pause 
+            <param name="FLAG" type="bool" required="false">pause/resume flag. If true or ommited:
+            pause, if false: resume.</param></method>
             <!-- rewind -->
             <method name="rewind">move backwards by specified amount of time (relative value) 
             <param name="TIME" type="atom" required="false">time amount. Can't be in seconds,
@@ -84,6 +76,14 @@
             milliseconds, samples, SMPTE. If the time unit is not specified treat float values as
             milliseconds. If arguments is not specified jump: seek to the
             beginning</param></method>
+            <!-- start -->
+            <method name="start">start playing 
+            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
+            start, if false: stop.</param></method>
+            <!-- stop -->
+            <method name="stop">stop playing 
+            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
+            stop, if false: start.</param></method>
         </methods>
         <inlets>
             <inlet type="control">

@@ -71,8 +71,6 @@
             <!-- append -->
             <method name="append">appends new menu item 
             <param name="ATOMS" type="list" required="true">item name</param></method>
-            <!-- erase -->
-            <method name="erase">clears all items menu</method>
             <!-- clear -->
             <method name="clear">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
@@ -80,6 +78,8 @@
             <method name="delete">removes item from menu 
             <param name="IDX" type="int" minvalue="0" required="true">removed item
             index</param></method>
+            <!-- erase -->
+            <method name="erase">clears all items menu</method>
             <!-- file_glob -->
             <method name="file_glob">fill menu with filenames. 
             <param name="PATTERN" type="symbol" required="true">filename pattern, like * (all

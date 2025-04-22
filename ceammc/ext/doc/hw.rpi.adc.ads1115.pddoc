@@ -28,13 +28,6 @@
         <arguments>
             <argument name="MODE" type="symbol" enum="diff single">See @mode</argument>
         </arguments>
-        <methods>
-            <method name="measure">single measure request 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="3">the channel to measure. If
-            ommited: perform measure on all channels</param></method>
-            <method name="poll">set polling turn on/off 
-            <param name="STATE" type="bool" required="true">poll state</param></method>
-        </methods>
         <properties>
             <property name="@fsr" type="symbol" default="6144mv" access="initonly"
             enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">fullscale input range</property>
@@ -60,6 +53,15 @@
             <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0"
             units="millisecond" access="initonly">polling measure time</property>
         </properties>
+        <methods>
+            <!-- measure -->
+            <method name="measure">single measure request 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="3">the channel to measure. If
+            ommited: perform measure on all channels</param></method>
+            <!-- poll -->
+            <method name="poll">set polling turn on/off 
+            <param name="STATE" type="bool" required="true">poll state</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang" />

@@ -212,21 +212,6 @@
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
-            <!-- width -->
-            <method name="width">set stroke width 
-            <param name="WIDTH" type="float" required="true">line width</param></method>
-            <!-- move_by -->
-            <method name="move_by">move current drawing point by relative offset 
-            <param name="X" type="atom" required="true">x relative offset in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
-            height</param></method>
-            <!-- move_to -->
-            <method name="move_to">move current drawing point to absolute position 
-            <param name="X" type="atom" required="true">x-coord in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
-            height</param></method>
             <!-- matrix -->
             <method name="matrix">set 2D transformation matrix 
             <param name="XX" type="atom" required="true">xx component of the affine
@@ -241,6 +226,18 @@
             transformation</param>
             <param name="Y0" type="atom" required="true">y component of the affine
             transformation</param></method>
+            <!-- move_by -->
+            <method name="move_by">move current drawing point by relative offset 
+            <param name="X" type="atom" required="true">x relative offset in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
+            height</param></method>
+            <!-- move_to -->
+            <method name="move_to">move current drawing point to absolute position 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param></method>
             <!-- musicxml -->
             <method name="musicxml">render MusicXML file 
             <param name="X" type="atom" required="true">x-coord in pixels or percents of
@@ -346,6 +343,9 @@
             <param name="Y" type="float" required="true">y offset</param></method>
             <!-- update -->
             <method name="update">updates drawed image</method>
+            <!-- width -->
+            <method name="width">set stroke width 
+            <param name="WIDTH" type="float" required="true">line width</param></method>
         </methods>
         <inlets>
             <inlet>

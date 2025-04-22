@@ -79,8 +79,6 @@
             <!-- append -->
             <method name="append">appends new tab item 
             <param name="ATOMS" type="list" required="true">item name</param></method>
-            <!-- erase -->
-            <method name="erase">clears all tab menu</method>
             <!-- clear -->
             <method name="clear">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
@@ -88,6 +86,8 @@
             <method name="delete">removes item from tab 
             <param name="IDX" type="int" minvalue="0" required="true">removed item
             index</param></method>
+            <!-- erase -->
+            <method name="erase">clears all tab menu</method>
             <!-- flip -->
             <method name="flip">flips radio (only in checklist mode)</method>
             <!-- insert -->

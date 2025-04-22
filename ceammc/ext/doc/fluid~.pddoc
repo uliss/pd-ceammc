@@ -176,6 +176,13 @@
             <method name="reset">reset synth channels 
             <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
             MIDI channel, if zero or not specified reset all channels</param></method>
+            <!-- set_preset -->
+            <method name="set_preset">set soundfont preset for midi channel 
+            <param name="CHAN" type="int" minvalue="1" maxvalue="16" required="true">MIDI
+            channel</param>
+            <param name="PRESET" type="atom" required="true">preset name or index</param>
+            <param name="SFONT" type="int" minvalue="1" required="false">soundfont index. See
+            @soundfonts property.</param></method>
             <!-- soft -->
             <method name="soft">soft (left) pedal, activate the soft strike effect 
             <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI channel,
@@ -222,13 +229,6 @@
             (not related to MIDI instrument bank)</param>
             <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">tuning
             preset (not related to MIDI instrument program)</param></method>
-            <!-- set preset -->
-            <method name="set_preset">set soundfont preset for midi channel 
-            <param name="CHAN" type="int" minvalue="1" maxvalue="16" required="true">MIDI
-            channel</param>
-            <param name="PRESET" type="atom" required="true">preset name or index</param>
-            <param name="SFONT" type="int" minvalue="1" required="false">soundfont index. See
-            @soundfonts property.</param></method>
         </methods>
         <inlets>
             <inlet>

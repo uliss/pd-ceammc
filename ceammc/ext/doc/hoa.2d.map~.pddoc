@@ -46,25 +46,25 @@
             values, if 'car': as X and Y coordinates</property>
         </properties>
         <methods>
+            <!-- car -->
+            <method name="car">alias to 'cartesian' method</method>
+            <!-- cartesian -->
+            <method name="cartesian">set source mapping in cartesian coordinates 
+            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="X" type="float" required="true">y-coord</param></method>
             <!-- mute -->
             <method name="mute">mute/unmute specified source 
             <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
             <param name="STATE" type="int" required="true" enum="0 1">mute value</param></method>
+            <!-- pol -->
+            <method name="pol">alias to 'polar' method</method>
             <!-- polar -->
             <method name="polar">set source mapping in polar coordinates 
             <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
             <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">radius</param>
             <param name="ANG" type="float" required="true" minvalue="0" maxvalue="2π"
             units="radian">rotation angle</param></method>
-            <!-- pol -->
-            <method name="pol">alias to 'polar' method</method>
-            <!-- cartesian -->
-            <method name="cartesian">set source mapping in cartesian coordinates 
-            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
-            <param name="X" type="float" required="true">x-coord</param>
-            <param name="X" type="float" required="true">y-coord</param></method>
-            <!-- car -->
-            <method name="car">alias to 'cartesian' method</method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

@@ -26,9 +26,6 @@
             plane wave domain.</par>
             <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
         </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="1">number of planewave channels</argument>
-        </arguments>
         <mouse>
             <event type="drag" editmode="false">change the single amp value</event>
             <event type="drag" editmode="false" keys="Shift">change the all amp values</event>
@@ -40,6 +37,9 @@
             <event type="right-click" editmode="true" keys="Shift">open object help</event>
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
+        <arguments>
+            <argument name="N" type="int" minvalue="1">number of planewave channels</argument>
+        </arguments>
         <properties>
             <property name="@min" type="float" default="0">minimum amp value</property>
             <property name="@max" type="float" default="1">maximum amp value</property>
@@ -88,21 +88,24 @@
             pixels</property>
         </properties>
         <methods>
+            <!-- clear -->
+            <method name="clear" category="preset">clears specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- interp -->
+            <method name="interp">interplolates between presets 
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
+            <!-- load -->
+            <method name="load" category="preset">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
-            <!-- presets -->
-            <method name="load" category="preset">loads specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- store -->
             <method name="store" category="preset">stores specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="clear" category="preset">clears specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="interp">interplolates between presets 
-            <param name="IDX" type="float" required="true">preset fraction index</param></method>
         </methods>
         <inlets>
             <inlet>

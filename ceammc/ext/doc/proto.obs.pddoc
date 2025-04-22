@@ -16,44 +16,6 @@
             <keywords>obs video</keywords>
             <since>0.9.8</since>
         </meta>
-        <methods>
-            <method name="connect">connect to OBS studio. Message [connected 1( is send to output
-            on success, [connected 0( - on error. 
-            <param name="PASSWD" type="symbol" required="false">if specified, temporaly overrides
-            @passwd property</param></method>
-            <method name="disconnect">disconnect from OBS studio. Message [connected 0( is send to
-            output</method>
-            <!-- info -->
-            <method name="info">request OBS studio information: OBS version, web-socket version,
-            RPC version and list of supported image formats. This info is outputted as messages to
-            first outlet.</method>
-            <method name="scene list">request scene list</method>
-            <method name="scene current get">request current scene</method>
-            <method name="scene current set">set current scene 
-            <param name="SCENE" type="symbol" required="true">scene name</param></method>
-            <method name="scene next">change to next scene</method>
-            <method name="scene prev">change to prev scene</method>
-            <method name="scene first">change to first scene</method>
-            <method name="scene last">change to last scene</method>
-            <method name="scene create">create new scene 
-            <param name="SCENE" type="symbol" required="true">scene name</param></method>
-            <method name="scene remove">remove scene 
-            <param name="SCENE" type="symbol" required="true">scene name</param></method>
-            <method name="collection list">request collection list</method>
-            <method name="collection current get">request current collection</method>
-            <method name="collection current set">set current collection 
-            <param name="NAME" type="symbol" required="true">collection name</param></method>
-            <method name="monitor list">request monitor list</method>
-            <method name="item list">request list of scene items 
-            <param name="SCENE" type="symbol" required="true">scene name</param></method>
-            <method name="item enable">enable/disable scene item 
-            <param name="SCENE" type="symbol" required="true">scene name</param>
-            <param name="IDX" type="int" required="true">item pos</param>
-            <param name="VALUE" type="bool" required="true">value</param></method>
-            <method name="item remove">remove scene item 
-            <param name="SCENE" type="symbol" required="true">scene name</param>
-            <param name="IDX" type="int" required="true">item pos</param></method>
-        </methods>
         <properties>
             <property name="@host" type="symbol" default="localhost">OBS studio host
             name</property>
@@ -61,6 +23,62 @@
             <property name="@port" type="int" default="4455" minvalue="1" maxvalue="32767">OBS
             studio control port</property>
         </properties>
+        <methods>
+            <!-- collection current get -->
+            <method name="collection current get">request current collection</method>
+            <!-- collection current set -->
+            <method name="collection current set">set current collection 
+            <param name="NAME" type="symbol" required="true">collection name</param></method>
+            <!-- collection list -->
+            <method name="collection list">request collection list</method>
+            <!-- connect -->
+            <method name="connect">connect to OBS studio. Message [connected 1( is send to output
+            on success, [connected 0( - on error. 
+            <param name="PASSWD" type="symbol" required="false">if specified, temporaly overrides
+            @passwd property</param></method>
+            <!-- disconnect -->
+            <method name="disconnect">disconnect from OBS studio. Message [connected 0( is send to
+            output</method>
+            <!-- info -->
+            <method name="info">request OBS studio information: OBS version, web-socket version,
+            RPC version and list of supported image formats. This info is outputted as messages to
+            first outlet.</method>
+            <!-- item enable -->
+            <method name="item enable">enable/disable scene item 
+            <param name="SCENE" type="symbol" required="true">scene name</param>
+            <param name="IDX" type="int" required="true">item pos</param>
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <!-- item list -->
+            <method name="item list">request list of scene items 
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+            <!-- item remove -->
+            <method name="item remove">remove scene item 
+            <param name="SCENE" type="symbol" required="true">scene name</param>
+            <param name="IDX" type="int" required="true">item pos</param></method>
+            <!-- monitor list -->
+            <method name="monitor list">request monitor list</method>
+            <!-- scene create -->
+            <method name="scene create">create new scene 
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+            <!-- scene current get -->
+            <method name="scene current get">request current scene</method>
+            <!-- scene current set -->
+            <method name="scene current set">set current scene 
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+            <!-- scene first -->
+            <method name="scene first">change to first scene</method>
+            <!-- scene last -->
+            <method name="scene last">change to last scene</method>
+            <!-- scene list -->
+            <method name="scene list">request scene list</method>
+            <!-- scene next -->
+            <method name="scene next">change to next scene</method>
+            <!-- scene prev -->
+            <method name="scene prev">change to prev scene</method>
+            <!-- scene remove -->
+            <method name="scene remove">remove scene 
+            <param name="SCENE" type="symbol" required="true">scene name</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="float">raw midi input bytes</xinfo>

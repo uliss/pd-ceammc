@@ -40,10 +40,11 @@
             period to check program output</property>
         </properties>
         <methods>
-            <!-- terminate -->
-            <method name="terminate">terminate the running process</method>
+            <!-- stdin -->
             <method name="stdin">run the program with given input values 
             <param name="ARGS" type="list" required="false">the input values</param></method>
+            <!-- terminate -->
+            <method name="terminate">terminate the running process</method>
         </methods>
         <inlets>
             <inlet>

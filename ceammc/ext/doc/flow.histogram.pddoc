@@ -32,6 +32,7 @@
             input value</property>
         </properties>
         <methods>
+            <!-- clear -->
             <method name="clear">clear all histogram data</method>
         </methods>
         <inlets>

@@ -32,6 +32,7 @@
             access="initonly">GPIO connection pin</property>
         </properties>
         <methods>
+            <!-- poll -->
             <method name="poll">turn the sensor polling on/off 
             <param name="STATE" type="bool" required="true">poll state</param></method>
         </methods>

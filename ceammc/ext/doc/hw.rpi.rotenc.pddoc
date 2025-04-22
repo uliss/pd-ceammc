@@ -16,12 +16,6 @@
             <keywords>display gpio raspberry rotary encoder</keywords>
             <since>0.9.8</since>
         </meta>
-        <methods>
-            <method name="get">request current value output</method>
-            <method name="set">set current value without output 
-            <param name="VAL" type="float" required="true">new value</param></method>
-            <method name="reset">reset current value to @init</method>
-        </methods>
         <properties>
             <property name="@init" type="float" default="0" access="initonly">init encoder
             value</property>
@@ -35,6 +29,15 @@
             <property name="@step" type="float" default="1">encoder step</property>
             <property name="@max" type="float" default="100">max encoder value</property>
         </properties>
+        <methods>
+            <!-- get -->
+            <method name="get">request current value output</method>
+            <!-- reset -->
+            <method name="reset">reset current value to @init</method>
+            <!-- set -->
+            <method name="set">set current value without output 
+            <param name="VAL" type="float" required="true">new value</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output current value</xinfo>
