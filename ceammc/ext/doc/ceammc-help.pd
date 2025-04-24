@@ -708,6 +708,8 @@ signal is analyzed using a 32-band filter bank;
 #X text 200 9848 digitized CryBaby wah pedal;
 #X obj 30 9876 fx.zita_rev1~;
 #X text 200 9876 Zita stereo reverb;
+#X obj 573 8813 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 573 8813 various sound effects;
 #X obj 20 9904 cnv 5 69 32 empty empty global 4 16 0 17 -262144 -49933
 0;
 #X obj 20 9946 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1939,4 +1941,4 @@ https://github.com/uliss/pure-data;
 http://github.com/uliss/pddoc;
 #X obj 670 26522 loadmsg 0;
 #X obj 670 26557 switch~;
-#X connect 1824 0 1825 0;
+#X connect 1826 0 1827 0;

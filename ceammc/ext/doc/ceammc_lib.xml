@@ -998,6 +998,7 @@
     <entry name="fx.zita_rev1~" descr="Zita stereo reverb" ref_view="object">
       <xi:include href="fx.zita_rev1~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_fx.xml" parse="xml"/>
   </category>
   <category name="global">
     <entry name="global.dict" descr="global named dictionary" ref_view="object">
