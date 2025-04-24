@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">container that store unique elements</tr>
+                <tr lang="en">the set: container that store only unique elements</tr>
+                <tr lang="ru">множество: контейнер, в котором хранятся только уникальные
+                элементы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

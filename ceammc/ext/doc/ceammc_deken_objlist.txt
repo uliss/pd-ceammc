@@ -84,8 +84,8 @@ metro.seq	metro sequencer
 metro.wchoice	metro with weighted random choice from timeset
 mix~	multislot signal mixer
 ceammc/mix~	multislot signal mixer
-nsig~	Mulitchannel converter from control to audio rate
-ceammc/nsig~	Mulitchannel converter from control to audio rate
+nsig~	multichannel converter from control to audio rate
+ceammc/nsig~	multichannel converter from control to audio rate
 obj.props	property extractor
 radio	float index to outlet values as radio switch
 ceammc/radio	float index to outlet values as radio switch
@@ -287,34 +287,34 @@ music.voice2midi	convert single voice music to list of MIDI pitches / конве
 music.v->m	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
 color.mix	color mixer
 color.scale	create color scales
-data.bimap	bidirectional map container
-ceammc/bimap	bidirectional map container
-bimap	bidirectional map container
-data.color	Color datatype
-color	Color datatype
-ceammc/color	Color datatype
-data.copy	make copy for any data types: MList, Set etc...
-data.dict	dictionary container: store values by key
-ceammc/dict	dictionary container: store values by key
-dict	dictionary container: store values by key
-data.fifo	First-In-First-Out (FIFO) queue data container
-data.float	robust float object
-.float	robust float object
-.f	robust float object
-data.int	robust int object
-.int	robust int object
-.i	robust int object
-data.list	list container
-data.mlist	multidimensional list container
-ceammc/mlist	multidimensional list container
-mlist	multidimensional list container
-ceammc/ml	multidimensional list container
-ml	multidimensional list container
+data.bimap	bidirectional map container / двунаправленное отображение
+ceammc/bimap	bidirectional map container / двунаправленное отображение
+bimap	bidirectional map container / двунаправленное отображение
+data.color	color datatype / цветовой тип данных
+color	color datatype / цветовой тип данных
+ceammc/color	color datatype / цветовой тип данных
+data.copy	makes a copy for any data type: MList, Set etc... / делает копии любых типов данных: MList, Set и т.д.
+data.dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
+ceammc/dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
+dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
+data.fifo	FIFO (First In First Out) - the queue data container / FIFO First In First Out) - контейнер данных "очередь"
+data.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
+.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
+.f	a multi-functional float object / многофункциональный объект числа с плавающей точкой
+data.int	a multi-functional integer object / многофункциональный объект целого числа
+.int	a multi-functional integer object / многофункциональный объект целого числа
+.i	a multi-functional integer object / многофункциональный объект целого числа
+data.list	the list container / cписок
+data.mlist	the multidimensional list container / многомерный список
+ceammc/mlist	the multidimensional list container / многомерный список
+mlist	the multidimensional list container / многомерный список
+ceammc/ml	the multidimensional list container / многомерный список
+ml	the multidimensional list container / многомерный список
 data.path	filesystem path datatype / тип данных: путь в файловой системе
-data.set	container that store unique elements
-data.set2list	converts set to list
-ceammc/set->list	converts set to list
-set->list	converts set to list
+data.set	the set: container that store only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
+data.set2list	converts the set to the list / преобразует множество в список
+ceammc/set->list	converts the set to the list / преобразует множество в список
+set->list	converts the set to the list / преобразует множество в список
 dict.contains	predicate to check if dict contains a keys
 dict.each	map each value in dict
 dict.from_list	creates dictionary from list

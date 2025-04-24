@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 630 50 cnv 1 135 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 630 50 robust int object;
+#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 506 50 a multi-functional integer object;
 #X obj 1 1 cnv 5 765 40 empty empty data.int 20 20 0 20 -104026 -4096
 0;
 #X obj 587 11 .int;

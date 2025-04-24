@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">dictionary container: store values by key</tr>
+                <tr lang="en">the dictionary container: stores key-values pairs</tr>
+                <tr lang="ru">контейнер словаря: хранит пары ключ-значение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

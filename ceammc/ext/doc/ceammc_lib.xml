@@ -175,7 +175,7 @@
     <entry name="mix~" descr="multislot signal mixer" ref_view="object">
       <xi:include href="mix~.pddoc" parse="xml"/>
     </entry>
-    <entry name="nsig~" descr="Mulitchannel converter from control to audio rate" ref_view="object">
+    <entry name="nsig~" descr="multichannel converter from control to audio rate" ref_view="object">
       <xi:include href="nsig~.pddoc" parse="xml"/>
     </entry>
     <entry name="obj.props" descr="property extractor" ref_view="object">
@@ -403,37 +403,37 @@
     <entry name="data.bimap" descr="bidirectional map container" ref_view="object">
       <xi:include href="data.bimap.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.color" descr="Color datatype" ref_view="object">
+    <entry name="data.color" descr="color datatype" ref_view="object">
       <xi:include href="data.color.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.copy" descr="make copy for any data types: MList, Set etc..." ref_view="object">
+    <entry name="data.copy" descr="makes a copy for any data type: MList, Set etc..." ref_view="object">
       <xi:include href="data.copy.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.dict" descr="dictionary container: store values by key" ref_view="object">
+    <entry name="data.dict" descr="the dictionary container: stores key-values pairs" ref_view="object">
       <xi:include href="data.dict.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.fifo" descr="First-In-First-Out (FIFO) queue data container" ref_view="object">
+    <entry name="data.fifo" descr="FIFO (First In First Out) - the queue data container" ref_view="object">
       <xi:include href="data.fifo.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.float" descr="robust float object" ref_view="object">
+    <entry name="data.float" descr="a multi-functional float object" ref_view="object">
       <xi:include href="data.float.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.int" descr="robust int object" ref_view="object">
+    <entry name="data.int" descr="a multi-functional integer object" ref_view="object">
       <xi:include href="data.int.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.list" descr="list container" ref_view="object">
+    <entry name="data.list" descr="the list container" ref_view="object">
       <xi:include href="data.list.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.mlist" descr="multidimensional list container" ref_view="object">
+    <entry name="data.mlist" descr="the multidimensional list container" ref_view="object">
       <xi:include href="data.mlist.pddoc" parse="xml"/>
     </entry>
     <entry name="data.path" descr="filesystem path datatype" ref_view="object">
       <xi:include href="data.path.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.set" descr="container that store unique elements" ref_view="object">
+    <entry name="data.set" descr="the set: container that store only unique elements" ref_view="object">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.set2list" descr="converts set to list" ref_view="object">
+    <entry name="data.set2list" descr="converts the set to the list" ref_view="object">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.contains" descr="predicate to check if dict contains a keys" ref_view="object">

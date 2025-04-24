@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">bidirectional map container</tr>
+                <tr lang="ru">двунаправленное отображение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

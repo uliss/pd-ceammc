@@ -37,7 +37,7 @@
 #X obj 30 562 mix~;
 #X text 200 562 multislot signal mixer;
 #X obj 30 590 nsig~;
-#X text 200 590 Mulitchannel converter from control to audio rate;
+#X text 200 590 multichannel converter from control to audio rate;
 #X obj 30 618 obj.props;
 #X text 200 618 property extractor;
 #X obj 30 646 radio;

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">First-In-First-Out (FIFO) queue data container</tr>
+                <tr lang="en">FIFO (First In First Out) - the queue data container</tr>
+                <tr lang="ru">FIFO First In First Out) - контейнер данных "очередь"</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

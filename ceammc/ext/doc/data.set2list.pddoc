@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">converts set to list</tr>
+                <tr lang="en">converts the set to the list</tr>
+                <tr lang="ru">преобразует множество в список</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
