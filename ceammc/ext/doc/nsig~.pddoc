@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Mulitchannel converter from control to audio rate</tr>
+                <tr lang="en">multichannel converter from control to audio rate</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
