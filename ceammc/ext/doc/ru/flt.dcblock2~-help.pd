@@ -1,0 +1,81 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 629 50 stereo DC blocker;
+#X obj 1 1 cnv 5 765 40 empty empty flt.dcblock2~ 20 20 0 20 -104026
+-4096 0;
+#X obj 645 11 flt.dcblock2~;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Stereo DC blocker. It has -3dB point near 35 Hz (at
+44.1 kHz) and high-frequency gain near 1.0025 (due to no scaling).;
+#X obj 50 158 sig~ 2;
+#X obj 117 187 env~;
+#X floatatom 117 216 5 0 0 0 - - -;
+#X obj 50 245 flt.dcblock2~;
+#X obj 50 274 env~;
+#X obj 146 274 env~;
+#X floatatom 50 302 5 0 0 0 - - -;
+#X floatatom 146 302 5 0 0 0 - - -;
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 374 @active;
+#X text 245 374 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 432 1\.;
+#X text 245 432 right input signal.;
+#X text 110 452 2\.;
+#X text 245 452 left input signal.;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 487 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 488 1\.;
+#X text 245 488 left filtered signal.;
+#X text 110 508 2\.;
+#X text 245 508 right filtered signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 558 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 561 библиотека: ceammc v0.9.8;
+#X text 531 573 смотрите также:;
+#X obj 652 573 flt.dcblock~;
+#N canvas 10 580 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.dcblock2~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 filter \, dcblock;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 580 pd info;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 6 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;

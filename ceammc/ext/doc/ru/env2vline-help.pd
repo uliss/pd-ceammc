@@ -1,0 +1,145 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 422 50 Converts envelope to bunch of vline messages;
+#X obj 1 1 cnv 5 765 40 empty empty env2vline 20 20 0 20 -104026 -4096
+0;
+#N canvas 577 11 250 400 aliases 0;
+#X obj 30 40 ceammc/env2vline;
+#X obj 30 78 ceammc/env->vline;
+#X obj 30 116 env->vline;
+#X restore 577 11 pd aliases;
+#X obj 674 11 env2vline;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Supports stop-points for multisegment envelopes. Note:
+non-linear envelopes are outputted using linear approximation;
+#X obj 50 158 loadbang;
+#X obj 414 158 r a1;
+#X obj 50 187 envelope easr 20 -4 1000 -8;
+#X obj 414 187 env->array env_a1;
+#X obj 69 216 s a1;
+#X msg 136 216 bang;
+#X obj 203 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 245 env->vline;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array env_a1 100 float 0;
+#X coords 0 1 100 0 110 80 1;
+#X restore 414 245 graph;
+#X obj 50 274 vline~;
+#X obj 136 274 osc~ 1000;
+#X obj 50 302 *~;
+#X obj 50 331 ui.hgain~;
+#X obj 50 360 dac~;
+#X obj 50 389 loadbang;
+#X msg 50 418 line 0 100 1 400 0.2 1000 0.7 2000 0 \, set_stop_point 2 1 \, set_stop_point 3 1 \, bang;
+#X obj 50 461 envelope;
+#X msg 155 461 next;
+#X msg 222 461 reset;
+#X obj 414 461 r a2;
+#X obj 69 489 s a2;
+#X obj 414 489 env->array env_b1;
+#X obj 50 518 env->vline;
+#X obj 50 547 vline~;
+#X obj 136 547 osc~ 1200;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array env_b1 100 float 0;
+#X coords 0 1 100 0 110 80 1;
+#X restore 414 547 graph;
+#X obj 50 576 *~;
+#X obj 50 605 ui.hgain~;
+#X obj 50 634 dac~;
+#X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 689 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 692 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 724 @sync;
+#X text 245 724 Получить/Установить sync with input data. When set
+to 1 outputs envelope (as fixed) on every input data. Тип: bool. Значение
+по умолчанию: 0\.;
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 831 next;
+#X text 245 831 output segment until next stop-point or end of envelope
+is reached.;
+#X msg 110 871 reset;
+#X text 245 871 reset current segment position for multi-segment envelopes.;
+#X obj 20 909 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 914 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 915 1\.;
+#X text 150 915 *bang*;
+#X text 245 915 output as envelope of fixed length (no stop-points
+are encountered).;
+#X text 150 950 *float*;
+#X text 245 950 output as attack (on 1) / release (on 0) envelope with
+one stop-point.;
+#X text 150 985 *data*;
+#X text 245 985 output as fixed envelope* data.;
+#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1020 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1021 1\.;
+#X text 245 1021 bunch of vline-compatible messages: VALUE \, DURATION
+\, OFFSET.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
+#X obj 1 1071 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1074 библиотека: ceammc v0.9.8;
+#X text 456 1086 смотрите также:;
+#X obj 577 1086 vline->env;
+#X obj 666 1086 env->array;
+#N canvas 10 1093 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 env2vline;
+#X text 10 76 категория:;
+#X text 120 76 env;
+#X text 10 98 с версии:;
+#X text 120 98 0.5;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 envelope \, vline;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1093 pd info;
+#X connect 7 0 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 9 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 16 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 20 1;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 23 0 27 0;
+#X connect 26 0 28 0;
+#X connect 23 0 29 0;
+#X connect 24 0 29 0;
+#X connect 25 0 29 0;
+#X connect 29 0 30 0;
+#X connect 30 0 33 0;
+#X connect 31 0 33 1;
+#X connect 33 0 34 0;
+#X connect 34 0 35 0;
+#X connect 34 0 35 1;

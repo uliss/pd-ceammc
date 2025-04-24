@@ -1,0 +1,64 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 384 50 patch dependencies: used objects and abstractions;
+#X obj 1 1 cnv 5 765 40 empty empty patch.deps 20 20 0 20 -104026
+-4096 0;
+#X obj 668 11 patch.deps;
+#X msg 50 118 bang;
+#X obj 50 147 patch.deps;
+#X obj 50 176 print DEPS;
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 231 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 266 dump;
+#X text 245 266 output dependency tree to Pd window.;
+#X obj 20 304 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 309 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 310 1\.;
+#X text 150 310 *bang*;
+#X text 245 310 output patch dependencies as Dict. Keys are library
+external paths or abstraction full paths \, values are external or
+abstraction names. PureData core objects listed under "_core" key.;
+#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 390 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 391 1\.;
+#X text 245 391 patch dependency.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 библиотека: ceammc v0.9.8;
+#X text 546 520 смотрите также:;
+#X obj 667 520 patch.tree;
+#N canvas 10 527 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 patch.deps;
+#X text 10 76 категория:;
+#X text 120 76 patch;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.0;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 patch \, canvas \, deps;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 527 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;

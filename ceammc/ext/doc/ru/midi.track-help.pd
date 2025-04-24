@@ -1,0 +1,140 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 552 50 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 552 50 extract track from MidiFile;
+#X obj 1 1 cnv 5 765 40 empty empty midi.track 20 20 0 20 -104026
+-4096 0;
+#X obj 666 11 midi.track;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 147 openpanel;
+#X msg 165 147 symbol midi/bach-wtk2-prelude2.mid;
+#X msg 50 176 read \$1 \, bang;
+#X obj 50 205 midi.file;
+#X msg 78 234 play;
+#X msg 146 234 stop;
+#X obj 50 262 midi.track @join @speed 0.7;
+#X obj 50 291 midi.ev->note;
+#X obj 50 320 unpack f f;
+#X obj 50 349 mtof;
+#X obj 117 349 / 100;
+#X obj 50 378 osc~;
+#X obj 50 406 *~;
+#X obj 50 435 ui.hgain2~;
+#X obj 50 464 dac~;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 519 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 554 1\.;
+#X text 150 554 int;
+#X obj 246 555 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 554 TRACK: init track number. Тип: int. Минимальное значение:
+0\.;
+#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 589 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 592 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 624 @join;
+#X text 245 624 join all tracks into one. Значение по умолчанию: 0\.;
+#X msg 110 654 @speed;
+#X text 245 654 Получить/Установить play speed factor. Тип: float.
+Значение по умолчанию: 1\. Минимальное значение: 0.01\.;
+#X msg 110 696 @track;
+#X text 245 696 Получить/Установить track number. Тип: int. Значение
+по умолчанию: 0\. Минимальное значение: 0\.;
+#X msg 110 738 @current?;
+#X text 245 738 (только чтение) Получить current event tick index.
+Тип: int. Значение по умолчанию: 0\.;
+#X msg 110 780 @nevents?;
+#X text 245 780 (только чтение) Получить number of events in track.
+Тип: int. Значение по умолчанию: 0\.;
+#X msg 110 822 @state?;
+#X text 245 822 (только чтение) Получить current state. 0: stopped
+\, 1: playing \, 2: paused. Тип: int. Значение по умолчанию: 0\. Разрешённые
+значения: 0 \, 1 \, 2\.;
+#X msg 110 879 @tempo?;
+#X text 245 879 (только чтение) Получить current tempo in TPQ. Тип:
+int. Значение по умолчанию: 120\.;
+#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 936 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 971 next;
+#X text 245 971 moves playing position to next event. No output.;
+#X msg 110 999 pause;
+#X text 245 999 pause playing.;
+#X msg 110 1027 play;
+#X text 245 1027 start playing.;
+#X msg 110 1055 reset;
+#X text 245 1055 set current event index to zero and send All Notes
+Off event.;
+#X msg 110 1083 seek;
+#X text 245 1083 seek to specified tick.;
+#X msg 110 1111 stop;
+#X text 245 1111 stop playing and send All Notes Off event.;
+#X obj 20 1149 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1154 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1155 1\.;
+#X text 150 1155 *bang*;
+#X text 245 1155 output current event.;
+#X text 150 1175 *data*;
+#X text 245 1175 MidiStream object: set new mifi file.;
+#X obj 20 1205 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1210 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1211 1\.;
+#X text 245 1211 MidiEvent message.;
+#X text 110 1231 2\.;
+#X text 245 1231 time in milliseconds until next MIDI event.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 1 1281 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1284 библиотека: ceammc v0.9.8;
+#N canvas 10 1303 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 midi.track;
+#X text 10 76 категория:;
+#X text 120 76 midi;
+#X text 10 98 с версии:;
+#X text 120 98 0.4;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 midi \, track;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1303 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 13 1 15 0;
+#X connect 14 0 16 0;
+#X connect 16 0 17 0;
+#X connect 15 0 17 1;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 0 19 1;

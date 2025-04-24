@@ -1,0 +1,103 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 629 50 changes list size;
+#X obj 1 1 cnv 5 765 40 empty empty list.resize 20 20 0 20 -104026
+-4096 0;
+#X obj 660 11 list.resize;
+#X msg 50 118 1 2 3 4 5 6 7 8 9 10 11;
+#X msg 69 147 1 2 3;
+#X msg 88 176 @wrap;
+#X msg 165 176 @fold;
+#X msg 242 176 @clip;
+#X msg 318 176 @pad -1;
+#X msg 414 176 dump;
+#X obj 50 234 list.resize 8;
+#X obj 50 262 ui.dt;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 352 1\.;
+#X text 150 352 int;
+#X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 352 SIZE: desired list size. Тип: int. Минимальное значение:
+0\.;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 422 @clip;
+#X text 245 422 Alias for @method clip.;
+#X msg 110 452 @fold;
+#X text 245 452 Alias for @method fold.;
+#X msg 110 482 @method;
+#X text 245 482 Получить/Установить method of resizing \, if new size
+is longer then current. Тип: symbol. Значение по умолчанию: pad. Разрешённые
+значения: pad \, clip \, wrap \, fold.;
+#X msg 110 539 @pad;
+#X text 245 539 Получить/Установить pad value for pad method of resizing.
+Тип: atom. Значение по умолчанию: 0\.;
+#X msg 110 581 @wrap;
+#X text 245 581 Alias for @method wrap.;
+#X msg 110 611 @size;
+#X text 245 611 Получить/Установить output list size. Тип: int. Значение
+по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 668 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 669 1\.;
+#X text 150 669 *list*;
+#X text 245 669 input list.;
+#X text 110 689 2\.;
+#X text 150 689 *int*;
+#X text 245 689 set desired list size.;
+#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 724 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 725 1\.;
+#X text 245 725 resized list.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 1 775 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 778 библиотека: ceammc v0.9.8;
+#X text 540 790 смотрите также:;
+#X obj 661 790 list.length;
+#N canvas 10 797 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 list.resize;
+#X text 10 76 категория:;
+#X text 120 76 list;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 list \, size \, resize;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 797 pd info;
+#X connect 4 0 11 0;
+#X connect 5 0 11 0;
+#X connect 6 0 11 0;
+#X connect 7 0 11 0;
+#X connect 8 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;

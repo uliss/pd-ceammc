@@ -1,0 +1,87 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 683 50 cnv 1 82 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 683 50 signal NaN;
+#X obj 1 1 cnv 5 765 40 empty empty math.nan~ 20 20 0 20 -104026 -4096
+0;
+#X obj 673 11 math.nan~;
+#X obj 210 80 cnv 1 555 267 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 In computing \, NaN \, standing for not a number \,
+is a numeric data type value representing an undefined or unrepresentable
+value \, especially in floating-point calculations. Systematic use
+of NaNs was introduced by the IEEE 754 floating-point standard in 1985
+\, along with the representation of other non-finite quantities like
+infinities.;
+#X text 215 181 When an operation results in a quiet NaN \, there is
+no indication that anything is unusual until the program checks the
+result and sees a NaN. That is \, computation continues without any
+signal from the floating point unit (FPU) or library if floating-point
+is implemented in software. A signalling NaN will produce a signal
+\, usually in the form of exception from the FPU. Whether the exception
+is thrown depends on the state of the FPU.;
+#X text 215 312 Note: in Pd float point exceptions are disabled.;
+#X obj 50 375 math.nan~ @quiet;
+#X obj 251 375 ui.dsp~;
+#X obj 50 404 ui.n~;
+#X obj 50 433 math.nan~ @signal;
+#X obj 50 462 ui.n~;
+#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 517 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 552 @quiet;
+#X text 245 552 Alias to @type quiet.;
+#X msg 110 582 @signal;
+#X text 245 582 Alias to @type signal.;
+#X msg 110 612 @type;
+#X text 245 612 Получить/Установить type of outputed NaN: quiet or
+signal. Тип: symbol. Значение по умолчанию: quiet. Разрешённые значения:
+quiet \, signal.;
+#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 684 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 685 1\.;
+#X text 245 685 control input.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 720 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 721 1\.;
+#X text 245 721 output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 1 771 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 774 библиотека: ceammc v0.9.8;
+#X text 478 786 смотрите также:;
+#X obj 599 786 math.nan;
+#X obj 673 786 math.inf~;
+#N canvas 10 793 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 math.nan~;
+#X text 10 76 категория:;
+#X text 120 76 math;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 math \, nan;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 793 pd info;
+#X connect 8 0 10 0;
+#X connect 11 0 12 0;

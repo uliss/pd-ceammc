@@ -1,0 +1,233 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 644 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 644 50 UI gain control;
+#X obj 1 1 cnv 5 765 40 empty empty ui.gain~ 20 20 0 20 -104026 -4096
+0;
+#X obj 493 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.hgain~] @url ui.gain~-help.pd;
+#X obj 586 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.vgain~] @url ui.gain~-help.pd;
+#X obj 679 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.gain~] @url ui.gain~-help.pd;
+#X text 50 118 use [ui.hgain~] to create horizontal control];
+#X obj 50 147 ui.hgain~;
+#X obj 50 176 osc~ 440;
+#X msg 78 205 @db -30;
+#X msg 174 205 @amp 0.25;
+#X msg 290 205 - 3;
+#X msg 347 205 + 3;
+#X msg 405 205 ++;
+#X msg 453 205 --;
+#X msg 98 234 bang;
+#X obj 50 262 ui.gain~ @output_value 1;
+#X obj 98 291 ui.dsp~;
+#X obj 50 392 ~->;
+#X obj 50 421 dac~;
+#X obj 126 421 ui.display @display_type 1;
+#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 476 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 511 Left-click;
+#X text 285 511 jump to click position if @relative property is off.;
+#X text 110 531 Mouse-drag;
+#X text 285 531 relative gain change if @relative is on \, otherwise
+follows mouse pointer.;
+#X text 110 566 Mouse-drag + ⇧;
+#X text 285 566 slow relative gain change if @relative is on.;
+#X text 110 586 Mouse-wheel;
+#X text 285 586 change the knob value.;
+#X text 110 606 Mouse-wheel + ⇧;
+#X text 285 606 change the knob value slowly.;
+#X text 110 626 Right-click;
+#X text 285 626 open popup menu.;
+#X text 110 646 Right-click + ⇧;
+#X text 285 646 open object help.;
+#X text 110 666 Right-click + ⌥;
+#X text 285 666 open properties dialog.;
+#X text 110 686 Double-click + ⇧;
+#X text 285 686 toggle MIDI-learn mode (red border displayed).;
+#X text 110 706 Mouse-drag + ⌘;
+#X text 285 706 relative gain change.;
+#X text 45 706 [Правка];
+#X text 110 726 Double-click + ⌘;
+#X text 285 726 toggle horizontal/vertical orientation.;
+#X text 45 726 [Правка];
+#X text 110 746 Right-click + ⇧;
+#X text 285 746 open object help.;
+#X text 45 746 [Правка];
+#X text 110 766 Right-click + ⌥;
+#X text 285 766 open properties dialog.;
+#X text 45 766 [Правка];
+#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 801 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 804 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 836 @amp;
+#X text 245 836 Получить/Установить gain as amplitude ratio. Тип: float.
+Значение по умолчанию: 0\.;
+#X msg 110 878 @db;
+#X text 245 878 Получить/Установить gain in dbfs scale. Тип: float.
+Единицы: 'db'. Значение по умолчанию: -60\.;
+#X msg 110 920 @max;
+#X text 245 920 Получить/Установить maximum gain value. Тип: int. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -12\...12\.;
+#X msg 110 962 @min;
+#X text 245 962 Получить/Установить minimal gain value. Тип: int. Единицы:
+'db'. Значение по умолчанию: -60\. Диапазон: -90\...-15\.;
+#X msg 110 1004 @mouse_events;
+#X text 245 1004 Получить/Установить mouse events output mode. If on
+outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
+Значение по умолчанию: 0\.;
+#X msg 110 1061 @output_value;
+#X text 245 1061 Получить/Установить flag to output @db property after
+each knob move. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1103 @receive;
+#X text 245 1103 Получить/Установить receive source. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 1145 @relative;
+#X text 245 1145 Получить/Установить relative input mode. When set
+do not jump to value on click. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 110 1187 @send;
+#X text 245 1187 Получить/Установить send destination. Тип: symbol.
+Значение по умолчанию: (null).;
+#X msg 110 1229 @show_range;
+#X text 245 1229 Получить/Установить if show slider range. Тип: bool.
+Значение по умолчанию: 1\.;
+#X msg 110 1271 @midi_channel;
+#X text 245 1271 Получить/Установить binded MIDI channel. 0 means listen
+to all channels. Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...255\.;
+#X msg 110 1328 @midi_control;
+#X text 245 1328 Получить/Установить binded MIDI controller number.
+-1 means not binded to any controller. Тип: int. Значение по умолчанию:
+-1\. Диапазон: -1\...127\.;
+#X msg 110 1385 @midi_pickup;
+#X text 245 1385 Получить/Установить pickup current value. If slider
+is binded to value \, first time you should pass over this value to
+make binding. It prevents from sudden value change on first control
+change. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 110 1457 @background_color;
+#X text 245 1457 Получить/Установить element background color (list
+of red \, green \, blue values in 0-1 range). Тип: list. Значение по
+умолчанию: 0.93 0.93 0.93 1\.;
+#X msg 110 1514 @border_color;
+#X text 245 1514 Получить/Установить border color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
+0.6 0.6 1\.;
+#X msg 110 1571 @knob_color;
+#X text 245 1571 Получить/Установить knob color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
+1 1\.;
+#X msg 110 1628 @fontname;
+#X text 245 1628 Получить/Установить fontname. Тип: symbol. Значение
+по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
+Helvetica \, Monaco \, Times.;
+#X msg 110 1685 @fontsize;
+#X text 245 1685 Получить/Установить fontsize. Тип: int. Значение по
+умолчанию: 11\. Диапазон: 4\...100\.;
+#X msg 110 1727 @fontslant;
+#X text 245 1727 Получить/Установить font slant. Тип: symbol. Значение
+по умолчанию: roman. Разрешённые значения: roman \, italic.;
+#X msg 110 1769 @fontweight;
+#X text 245 1769 Получить/Установить font weight. Тип: symbol. Значение
+по умолчанию: normal. Разрешённые значения: normal \, bold.;
+#X msg 110 1811 @pinned;
+#X text 245 1811 Получить/Установить pin mode. if 1 - put element to
+the lowest level. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1853 @presetname;
+#X text 245 1853 Получить/Установить preset name for using with [ui.preset].
+Тип: symbol. Значение по умолчанию: (null).;
+#X msg 110 1895 @size;
+#X text 245 1895 Получить/Установить element size (width \, height
+pair). Тип: list. Значение по умолчанию: 15 120\.;
+#X obj 20 1947 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1952 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1987 clear;
+#X text 245 1987 clears specified preset. Аргументы:;
+#X obj 255 2010 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2010 IDX: preset index. Тип: int.;
+#X msg 110 2035 interp;
+#X text 245 2035 interplolates between presets. Аргументы:;
+#X obj 255 2058 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2058 IDX: preset fraction index. Тип: float.;
+#X msg 110 2083 load;
+#X text 245 2083 loads specified preset. Аргументы:;
+#X obj 255 2106 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2106 IDX: preset index. Тип: int.;
+#X msg 110 2131 pos;
+#X text 245 2131 set UI element position. Аргументы:;
+#X obj 255 2154 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2154 X: top left x-coord. Тип: float.;
+#X obj 255 2177 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2177 Y: top right y-coord. Тип: float.;
+#X msg 110 2202 set N;
+#X text 245 2202 set current gain to N db.;
+#X msg 110 2230 store;
+#X text 245 2230 stores specified preset. Аргументы:;
+#X obj 255 2253 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2253 IDX: preset index. Тип: int.;
+#X msg 110 2278 + N;
+#X text 245 2278 increase current gain by N db.;
+#X msg 110 2306 ++;
+#X text 245 2306 decrease current gain by 1 db.;
+#X msg 110 2334 - N;
+#X text 245 2334 decrease current gain by N db.;
+#X msg 110 2362 --;
+#X text 245 2362 decrease current gain by 1 db.;
+#X obj 20 2400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2405 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 2406 1\.;
+#X text 245 2406 input signal.;
+#X text 150 2426 *bang*;
+#X text 245 2426 output current gain @db property.;
+#X obj 20 2456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2461 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 2462 1\.;
+#X text 245 2462 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 2512 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2515 библиотека: ceammc v0.9.8;
+#N canvas 10 2534 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 ui.gain~;
+#X text 10 76 категория:;
+#X text 120 76 ui;
+#X text 10 98 с версии:;
+#X text 120 98 0.5;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 ui \, gain;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2534 pd info;
+#X connect 8 0 16 0;
+#X connect 9 0 16 0;
+#X connect 15 0 16 0;
+#X connect 10 0 16 0;
+#X connect 11 0 16 0;
+#X connect 12 0 16 0;
+#X connect 13 0 16 0;
+#X connect 14 0 16 0;
+#X connect 16 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 20 0;

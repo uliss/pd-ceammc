@@ -1,0 +1,111 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 407 50 построение числовых графиков данных на массиве;
+#X obj 1 1 cnv 5 765 40 empty empty array.plot 20 20 0 20 -104026
+-4096 0;
+#X obj 667 11 array.plot;
+#X msg 50 118 1 100 3;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array APLT 10 float 0;
+#X coords 0 1 10 -1 300 160 1;
+#X restore 376 118 graph;
+#X obj 50 147 list.seq @closed 1;
+#X obj 69 176 ui.dt;
+#X obj 50 248 math.sqrt;
+#X obj 50 277 array.plot APLT;
+#X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 377 1\.;
+#X text 150 377 symbol;
+#X obj 246 378 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 377 ARRAY: array name. Тип: symbol.;
+#X text 110 397 2\.;
+#X text 150 397 float;
+#X obj 246 398 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 397 YMIN: minimal y-axis value. Тип: float. Диапазон: -2048…2048;
+#X text 110 417 3\.;
+#X text 150 417 float;
+#X obj 246 418 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 417 YMAX: maximum y-axis value. Тип: float. Диапазон: -2048…2048;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 487 @array;
+#X text 245 487 Получить/Установить array name. Тип: symbol.;
+#X msg 110 517 @nan;
+#X text 245 517 Получить/Установить value to replace nan on plot. Тип:
+float. Значение по умолчанию: +inf.;
+#X msg 110 559 @yauto;
+#X text 245 559 Получить/Установить calculate y-axis range automatically.
+Тип: bool. Значение по умолчанию: 1\.;
+#X msg 110 601 @ymax;
+#X text 245 601 Получить/Установить maximum y-axis value. Тип: float.
+Значение по умолчанию: 1\. Диапазон: -2048\...2048\.;
+#X msg 110 643 @ymin;
+#X text 245 643 Получить/Установить minimal y-axis value. Тип: float.
+Значение по умолчанию: -1\. Диапазон: -2048\...2048\.;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 701 1\.;
+#X text 150 701 *float*;
+#X text 245 701 single input sample.;
+#X text 150 721 *list*;
+#X text 245 721 resizes array to list size and plot all list values.;
+#X text 110 741 2\.;
+#X text 150 741 *bang*;
+#X text 245 741 plot all samples fitted to specified array.;
+#X text 150 761 *float*;
+#X text 245 761 plot specified number of samples \, resizes array.;
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 797 1\.;
+#X text 245 797 bang on done.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 850 библиотека: ceammc v0.9.8;
+#X text 538 862 смотрите также:;
+#X obj 659 862 array.plot~;
+#N canvas 10 869 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 array.plot;
+#X text 10 76 категория:;
+#X text 120 76 array;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.2;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 array \, plot;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 869 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;

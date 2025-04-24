@@ -1,0 +1,125 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 422 50 BPF coefficient calculator for biquad filter;
+#X obj 1 1 cnv 5 765 40 empty empty flt.c_bpf~ 20 20 0 20 -104026
+-4096 0;
+#X obj 666 11 flt.c_bpf~;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Calculates coefficients for transfer function: H(z)=(b0
++ b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
+#X obj 50 158 noise.pink~;
+#X obj 184 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 222 158 5 0 0 0 - - -;
+#X floatatom 328 158 5 0 0 0 - - -;
+#X obj 50 187 *~;
+#X msg 222 187 @freq \$1;
+#X msg 328 187 @q \$1;
+#X obj 222 216 flt.c_bpf~ 1000 100;
+#X obj 50 288 flt.biquad~;
+#X obj 50 317 ui.gain~ @size 120 16;
+#X obj 50 345 dac~;
+#X obj 50 374 ui.dsp~;
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 429 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 464 1\.;
+#X text 150 464 float;
+#X obj 246 465 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 464 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
+#X text 110 484 2\.;
+#X text 150 484 float;
+#X obj 246 485 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 484 Q: quality factory. Тип: float. Диапазон: 0.01…100;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 519 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 554 @id;
+#X text 245 554 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/flt_c_bpf/PROP_NAME
+osc address \, if empty bind to /flt_c_bpf/PROP_NAME. Тип: symbol.;
+#X msg 110 611 @osc;
+#X text 245 611 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 653 @active;
+#X text 245 653 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 695 @freq;
+#X text 245 695 Получить/Установить center frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X msg 110 737 @q;
+#X text 245 737 Получить/Установить quality factor: @freq/BANDWIDTH.
+Тип: float. Значение по умолчанию: 0.1\. Диапазон: 0.01\...100\.;
+#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 794 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 795 1\.;
+#X text 245 795 control signal.;
+#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 830 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 831 1\.;
+#X text 245 831 b0\.;
+#X text 110 851 2\.;
+#X text 245 851 b1\.;
+#X text 110 871 3\.;
+#X text 245 871 b2\.;
+#X text 110 891 4\.;
+#X text 245 891 a1\.;
+#X text 110 911 5\.;
+#X text 245 911 a2\.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 961 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 964 библиотека: ceammc v0.9.8;
+#X text 346 976 смотрите также:;
+#X obj 467 976 flt.biquad~;
+#X obj 563 976 flt.bpf12~;
+#X obj 652 976 flt.c_notch~;
+#N canvas 10 983 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.c_bpf~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Alex Nadzharov \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 filter \, biquad \, bpf;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 983 pd info;
+#X connect 6 0 10 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 10 0 14 0;
+#X connect 13 0 14 1;
+#X connect 13 1 14 2;
+#X connect 13 2 14 3;
+#X connect 13 3 14 4;
+#X connect 13 4 14 5;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 16 1;

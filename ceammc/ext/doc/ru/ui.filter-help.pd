@@ -1,0 +1,198 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 414 50 cnv 1 351 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 414 50 UI filter object calculator for biquad filter;
+#X obj 1 1 cnv 5 765 40 empty empty ui.filter 20 20 0 20 -104026 -4096
+0;
+#X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.filter] @url ui.filter-help.pd;
+#X obj 50 118 ui.tab lin log rad;
+#X obj 251 118 ui.tab lpf hpf bpf bpfq @size 160 15;
+#X msg 50 147 @scale \$2;
+#X msg 251 147 @type \$2;
+#X obj 50 176 ui.filter;
+#X obj 50 291 ui.dt;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 381 Left-click;
+#X text 285 381 jump to coord under mouse pointer.;
+#X text 110 401 Right-click;
+#X text 285 401 opens popup menu for filter type selection.;
+#X text 110 421 Mouse-drag;
+#X text 285 421 change frequency and Q/gain value.;
+#X text 110 441 Mouse-wheel;
+#X text 285 441 only for peakEq filter: change Q-factor.;
+#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 476 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 511 @freq;
+#X text 245 511 Получить/Установить filter frequency. Тип: float. Значение
+по умолчанию: 1000\. Диапазон: 0\...20000\.;
+#X msg 110 553 @gain;
+#X text 245 553 Получить/Установить gain (for low/highshelf/peak filters).
+Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -24\...24\.;
+#X msg 110 610 @mouse_events;
+#X text 245 610 Получить/Установить mouse events output mode. If on
+outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
+Значение по умолчанию: 0\.;
+#X msg 110 667 @q;
+#X text 245 667 Получить/Установить quality factor. Тип: float. Значение
+по умолчанию: 0.7071\. Диапазон: 0.0156\...64\.;
+#X msg 110 709 @receive;
+#X text 245 709 Получить/Установить receive source. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 751 @scale;
+#X text 245 751 Получить/Установить frequency scale. Тип: symbol. Значение
+по умолчанию: lin. Разрешённые значения: lin \, log \, rad.;
+#X msg 110 793 @send;
+#X text 245 793 Получить/Установить send destination. Тип: symbol.
+Значение по умолчанию: (null).;
+#X msg 110 835 @type;
+#X text 245 835 Получить/Установить frequency scale. Тип: symbol. Значение
+по умолчанию: lpf. Разрешённые значения: lpf \, hpf \, bpf \, bpfq
+\, lowshelf \, highshelf \, peak \, notch.;
+#X msg 110 892 @background_color;
+#X text 245 892 Получить/Установить element background color (list
+of red \, green \, blue values in 0-1 range). Тип: list. Значение по
+умолчанию: 0.93 0.93 0.93 1\.;
+#X msg 110 949 @border_color;
+#X text 245 949 Получить/Установить border color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
+0.6 0.6 1\.;
+#X msg 110 1006 @grid_color;
+#X text 245 1006 Получить/Установить knob color. Тип: list. Значение
+по умолчанию: 0.6 0.6 0.6 1\.;
+#X msg 110 1048 @knob_color;
+#X text 245 1048 Получить/Установить knob color. Тип: list. Значение
+по умолчанию: 0 0.75 1 1\.;
+#X msg 110 1090 @label_color;
+#X text 245 1090 Получить/Установить label color in RGB format within
+0-1 range \, for example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию:
+0.6 0.6 0.6 1\.;
+#X msg 110 1147 @plot_color;
+#X text 245 1147 Получить/Установить knob color. Тип: list. Значение
+по умолчанию: 0 0 0 1\.;
+#X msg 110 1189 @label;
+#X text 245 1189 Получить/Установить label text. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 1231 @label_align;
+#X text 245 1231 Получить/Установить label horizontal align. Тип: symbol.
+Значение по умолчанию: left. Разрешённые значения: left \, center \,
+right.;
+#X msg 110 1288 @label_margins;
+#X text 245 1288 Получить/Установить label offset in pixels. Тип: list.
+Значение по умолчанию: 0 0\.;
+#X msg 110 1330 @label_side;
+#X text 245 1330 Получить/Установить label snap side. Тип: symbol.
+Значение по умолчанию: top. Разрешённые значения: left \, top \, right
+\, bottom.;
+#X msg 110 1387 @label_valign;
+#X text 245 1387 Получить/Установить label vertical align. Тип: symbol.
+Значение по умолчанию: top. Разрешённые значения: top \, center \,
+bottom.;
+#X msg 110 1444 @fontname;
+#X text 245 1444 Получить/Установить fontname. Тип: symbol. Значение
+по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
+Helvetica \, Monaco \, Times.;
+#X msg 110 1501 @fontsize;
+#X text 245 1501 Получить/Установить fontsize. Тип: int. Значение по
+умолчанию: 11\. Диапазон: 4\...100\.;
+#X msg 110 1543 @fontslant;
+#X text 245 1543 Получить/Установить font slant. Тип: symbol. Значение
+по умолчанию: roman. Разрешённые значения: roman \, italic.;
+#X msg 110 1585 @fontweight;
+#X text 245 1585 Получить/Установить font weight. Тип: symbol. Значение
+по умолчанию: normal. Разрешённые значения: normal \, bold.;
+#X msg 110 1627 @pinned;
+#X text 245 1627 Получить/Установить pin mode. if 1 - put element to
+the lowest level. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1669 @presetname;
+#X text 245 1669 Получить/Установить preset name for using with [ui.preset].
+Тип: symbol. Значение по умолчанию: (null).;
+#X msg 110 1711 @size;
+#X text 245 1711 Получить/Установить element size (width \, height
+pair). Тип: list. Значение по умолчанию: 300 100\.;
+#X obj 20 1763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1768 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1803 biquad;
+#X text 245 1803 set biquad coefficients (but not changes current filter
+properties). Аргументы:;
+#X obj 255 1841 cnv 1 113 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1841 b0 b1 b2 a1 a2: coefficients. Тип: list.;
+#X msg 110 1866 clear;
+#X text 245 1866 clears specified preset. Аргументы:;
+#X obj 255 1889 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1889 IDX: preset index. Тип: int.;
+#X msg 110 1914 interp;
+#X text 245 1914 for this object acts as *load* \, no interpolation
+performed.;
+#X msg 110 1942 load;
+#X text 245 1942 loads specified preset. Аргументы:;
+#X obj 255 1965 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1965 IDX: preset index. Тип: int.;
+#X msg 110 1990 pos;
+#X text 245 1990 set UI element position. Аргументы:;
+#X obj 255 2013 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2013 X: top left x-coord. Тип: float.;
+#X obj 255 2036 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2036 Y: top right y-coord. Тип: float.;
+#X msg 110 2061 store;
+#X text 245 2061 stores specified preset. Аргументы:;
+#X obj 255 2084 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2084 IDX: preset index. Тип: int.;
+#X msg 110 2109 dump;
+#X text 245 2109 dumps all object info to Pd console window.;
+#X obj 20 2147 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2152 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 2153 1\.;
+#X text 245 2153 control input.;
+#X obj 20 2183 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2188 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 2189 1\.;
+#X text 245 2189 list: b0 b1 b2 a1 a2\.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 2239 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2242 библиотека: ceammc v0.9.8;
+#X text 544 2254 смотрите также:;
+#X obj 665 2257 ui.link @background_color 0.78431 0.78431 0.78431
+@title [ui.filter~] @url ui.filter~-help.pd;
+#N canvas 10 2261 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 ui.filter;
+#X text 10 76 категория:;
+#X text 120 76 ui;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.2;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 ui \, filter \, biquad;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2261 pd info;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;

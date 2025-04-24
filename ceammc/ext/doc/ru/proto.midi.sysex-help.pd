@@ -1,0 +1,85 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 538 50 cnv 1 227 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 538 50 raw midi SYSex encoder/parser;
+#X obj 1 1 cnv 5 765 40 empty empty proto.midi.sysex 20 20 0 20
+-104026 -4096 0;
+#X obj 623 11 proto.midi.sysex;
+#X obj 50 118 proto.midi.sysex-mvol;
+#X obj 50 147 proto.midi.sysex-mbal;
+#X obj 50 176 proto.midi.sysex-mtune;
+#X obj 50 205 proto.midi.sysex-idreq;
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 295 id_request;
+#X text 245 295 send Identity Request SysEx message.;
+#X msg 110 323 mbal:f;
+#X text 245 323 set device master balance. Аргументы:;
+#X obj 255 346 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 346 PAN: balance. Тип: float. Диапазон: -1…1\.;
+#X msg 110 371 mtune;
+#X text 245 371 set device master tuning in float semitones (combination
+of coarse and fine tune). Аргументы:;
+#X obj 255 409 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 409 V: tuning. Тип: float. Диапазон: -64…63\. Единицы:
+'semitone'.;
+#X msg 110 449 mtune.;
+#X text 245 449 set device master fine tuning in cents. Аргументы:;
+#X obj 255 472 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 472 V: tuning. Тип: int. Диапазон: -100…100\. Единицы:
+'cent'.;
+#X msg 110 497 mtune~;
+#X text 245 497 set device master coarse tuning in semitones. Аргументы:;
+#X obj 255 520 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 520 V: tuning. Тип: int. Диапазон: -64…63\. Единицы: 'semitone'.;
+#X msg 110 545 mvolume;
+#X text 245 545 set device master volume. Аргументы:;
+#X obj 255 568 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 568 LEVEL: volume level. Тип: float. Диапазон: 0…1\.;
+#X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 608 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 609 1\.;
+#X text 150 609 *float*;
+#X text 245 609 raw midi input bytes.;
+#X text 150 629 *list*;
+#X text 245 629 raw midi input bytes.;
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 664 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 665 1\.;
+#X text 245 665 float: raw midi output or parsed messages with selector
+(output format is the same as for corresponding methods).;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
+#X obj 1 730 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 733 библиотека: ceammc v0.9.8;
+#N canvas 10 752 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 proto.midi.sysex;
+#X text 10 76 категория:;
+#X text 120 76 proto;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.4;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 parser \, midi;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 752 pd info;

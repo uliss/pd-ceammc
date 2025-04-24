@@ -1,0 +1,169 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 323 50 cnv 1 442 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 323 50 заполнение массива одним значением \, шаблоном или функцией;
+#X obj 1 1 cnv 5 765 40 empty empty array.fill 20 20 0 20 -104026
+-4096 0;
+#X obj 667 11 array.fill;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array afill 300 float 0;
+#X coords 0 1 300 -1 300 90 1;
+#X restore 50 118 graph;
+#X msg 50 219 fill 0.1;
+#X msg 213 219 gauss 0 0.4;
+#X msg 386 219 gauss 0.5 0.2;
+#X msg 50 248 fill -0.2 0 1 0.5 0.6;
+#X msg 328 248 uniform -0.2 0.5;
+#X msg 50 277 fill @from 50 0.5 0.6 0.7 0.7 0.8;
+#X msg 434 277 pulse 50 0.7 0.3;
+#X msg 50 305 fill @from 20 @to -10 -0.5;
+#X msg 366 305 saw 60 0.9;
+#X msg 530 305 tri 80 0.6;
+#X obj 155 334 ui.knob;
+#X msg 155 392 sin 100 0.8 \$1;
+#X obj 50 421 array.fill @array afill;
+#X obj 50 449 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 486 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 489 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 521 1\.;
+#X text 150 521 symbol;
+#X obj 246 522 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 521 ARRAY: array name. Тип: symbol.;
+#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 556 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 559 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 591 @array;
+#X text 245 591 Получить/Установить array name. Тип: symbol.;
+#X msg 110 621 @redraw;
+#X text 245 621 Получить/Установить redraw after array change. Тип:
+bool. Значение по умолчанию: 1\.;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 678 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 713 fill;
+#X text 245 713 fill all array with specified value or pattern. Аргументы:;
+#X obj 255 736 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 736 [@from]: fill range begin index. If not specified set
+to 0\. Тип: int.;
+#X obj 255 774 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 774 [@to]: fill range end index. Can be negative - to address
+from array end. For example: -1 means till last element (not including).
+If not specified set to array length. Тип: int.;
+#X obj 255 827 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 827 VAL1: value 1\. Тип: float.;
+#X obj 255 850 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 850 [VAL...]: other values.. Тип: float.;
+#X msg 110 875 gauss;
+#X text 245 875 fill all array with random value with normal (gauss)
+distribution. Аргументы:;
+#X obj 255 913 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 913 [MEAN=0]: mean value. Тип: float.;
+#X obj 255 936 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 936 [SIGMA=1]: standard deviation. Тип: float. Минимальное
+значение: 0\.;
+#X msg 110 976 pulse;
+#X text 245 976 fill all array with pulse wave. Аргументы:;
+#X obj 255 999 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 999 T: wave period. Тип: float. Минимальное значение: 1\.
+Единицы: 'samp'.;
+#X obj 255 1037 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1037 [A=1]: wave amplitude. Тип: float.;
+#X obj 255 1060 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1060 [D=0.5]: duty cycle. Тип: float. Диапазон: 0.001…0.999\.;
+#X msg 110 1085 saw;
+#X text 245 1085 fill all array with saw wave. Аргументы:;
+#X obj 255 1108 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1108 T: wave period. Тип: float. Минимальное значение:
+1\. Единицы: 'samp'.;
+#X obj 255 1146 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1146 [A=1]: wave amplitude. Тип: float.;
+#X obj 255 1169 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1169 [PHASE=0]: wave phase. Тип: float. Диапазон: 0…1\.;
+#X msg 110 1194 sin;
+#X text 245 1194 fill all array with sine wave. Аргументы:;
+#X obj 255 1217 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1217 T: wave period. Should be >0\. Тип: float. Минимальное
+значение: 0\. Единицы: 'samp'.;
+#X obj 255 1255 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1255 [A=1]: amplitude. Тип: float.;
+#X obj 255 1278 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1278 [PHASE=0]: phase in 0\...1 range. Тип: float. Диапазон:
+0…1\.;
+#X msg 110 1303 tri;
+#X text 245 1303 fill all array with triangle wave. Аргументы:;
+#X obj 255 1326 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1326 T: wave period. Тип: float. Минимальное значение:
+1\. Единицы: 'samp'.;
+#X obj 255 1364 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1364 [AMP=1]: wave amplitude. Тип: float.;
+#X msg 110 1389 uniform;
+#X text 245 1389 fill all array with random value with uniform distribution.
+Аргументы:;
+#X obj 255 1427 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1427 [A=0]: min value. Тип: float.;
+#X obj 255 1450 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1450 [B=1]: max value. Тип: float.;
+#X obj 20 1485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1490 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1491 1\.;
+#X text 150 1491 *symbol*;
+#X text 245 1491 change array name.;
+#X obj 20 1521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1526 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1527 1\.;
+#X text 245 1527 bang on finish.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 1577 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1580 библиотека: ceammc v0.9.8;
+#X text 546 1592 смотрите также:;
+#X obj 667 1592 array.each;
+#N canvas 10 1599 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 array.fill;
+#X text 10 76 категория:;
+#X text 120 76 array;
+#X text 10 98 с версии:;
+#X text 120 98 0.3;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 array \, fill;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1599 pd info;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 5 0 17 0;
+#X connect 8 0 17 0;
+#X connect 10 0 17 0;
+#X connect 12 0 17 0;
+#X connect 6 0 17 0;
+#X connect 7 0 17 0;
+#X connect 9 0 17 0;
+#X connect 11 0 17 0;
+#X connect 13 0 17 0;
+#X connect 14 0 17 0;

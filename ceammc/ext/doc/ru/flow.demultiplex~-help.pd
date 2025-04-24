@@ -1,0 +1,109 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 559 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 559 50 audio stream demultiplexer;
+#X obj 1 1 cnv 5 765 40 empty empty flow.demultiplex~ 20 20 0 20
+-104026 -4096 0;
+#X obj 320 11 flow.demux~;
+#X obj 426 11 ceammc/demux~;
+#X obj 546 11 demux~;
+#X obj 616 11 flow.demultiplex~;
+#X obj 50 118 osc~ 440;
+#X obj 184 118 ui.radio @nitems 4;
+#X obj 386 118 ui.dsp~;
+#X msg 69 147 @value?;
+#X obj 50 176 flow.demultiplex~ 4;
+#X obj 50 205 ~->;
+#X obj 78 234 ui.display @display_type 1;
+#X obj 50 262 env~;
+#X obj 136 262 env~;
+#X obj 232 262 env~;
+#X obj 328 262 env~;
+#X floatatom 50 291 5 0 0 0 - - -;
+#X floatatom 136 291 5 0 0 0 - - -;
+#X floatatom 232 291 5 0 0 0 - - -;
+#X floatatom 328 291 5 0 0 0 - - -;
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 331 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 363 1\.;
+#X text 150 363 int;
+#X obj 246 364 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 363 N: number of signals outputs. Тип: int. Диапазон: 2…16;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 401 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 433 @n;
+#X text 245 433 (при инициализации) Получить/Установить number of outlets.
+Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+#X msg 110 475 @value;
+#X text 245 475 Получить/Установить gain coefficients per each output.
+Тип: list.;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 533 1\.;
+#X text 245 533 input signal.;
+#X text 110 553 2\.;
+#X text 245 553 demultiplexer control.;
+#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 588 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 589 1\.;
+#X text 245 589 first output.;
+#X text 110 609 ....;
+#X text 245 609 ... output.;
+#X text 110 629 n.;
+#X text 245 629 n-th output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
+#X obj 1 679 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 682 библиотека: ceammc v0.9.8;
+#X text 356 694 смотрите также:;
+#X obj 477 694 flow.demultiplex2~;
+#X obj 623 694 flow.demultiplex;
+#N canvas 10 701 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flow.demultiplex~;
+#X text 10 76 категория:;
+#X text 120 76 flow;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 flow \, demultiplex;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 701 pd info;
+#X connect 7 0 11 0;
+#X connect 10 0 11 0;
+#X connect 8 0 11 1;
+#X connect 11 0 12 0;
+#X connect 12 1 13 0;
+#X connect 12 0 14 0;
+#X connect 14 0 18 0;
+#X connect 15 0 19 0;
+#X connect 16 0 20 0;
+#X connect 17 0 21 0;
+#X connect 11 1 15 0;
+#X connect 11 2 16 0;
+#X connect 11 3 17 0;

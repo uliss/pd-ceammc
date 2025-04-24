@@ -1,0 +1,70 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 537 50 base-2 exponential for signal;
+#X obj 1 1 cnv 5 765 40 empty empty math.exp2~ 20 20 0 20 -104026
+-4096 0;
+#X obj 666 11 math.exp2~;
+#X obj 210 80 cnv 1 555 150 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The exp2() function computes 2**x \, the base-2 exponential
+of x.;
+#X text 215 120 Special values:;
+#X text 215 145 exp2(+-0) return 1\.;
+#X text 215 170 exp2(-infinity) return +0\.;
+#X text 215 195 exp2(+infinity) return +infinity.;
+#X obj 50 258 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 287 plot.linspace~ -2 4;
+#X obj 50 316 math.exp2~;
+#X obj 50 345 ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 16 @size
+400 200;
+#X obj 50 561 ui.dsp~;
+#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 616 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 617 1\.;
+#X text 150 617 *float*;
+#X text 245 617 input signal.;
+#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 652 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 653 1\.;
+#X text 245 653 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 1 703 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 706 библиотека: ceammc v0.9.8;
+#X text 545 718 смотрите также:;
+#X obj 666 718 math.log2~;
+#N canvas 10 725 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 math.exp2~;
+#X text 10 76 категория:;
+#X text 120 76 math;
+#X text 10 98 с версии:;
+#X text 120 98 0.9;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 math \, exp2;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 725 pd info;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 11 1 13 1;

@@ -1,0 +1,118 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 367 50 cnv 1 398 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 367 50 message outlet for a patcher loaded by hoa.process~;
+#X obj 1 1 cnv 5 765 40 empty empty hoa.out 20 20 0 20 -104026 -4096
+0;
+#X obj 689 11 hoa.out;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 hoa.out defines a message outlet for a patcher loaded
+by a hoa.process~ object.;
+#X msg 50 158 open 0;
+#X msg 136 158 open 1;
+#X msg 232 158 42;
+#X msg 280 158 #0 43;
+#X msg 366 158 #1 44;
+#X obj 50 202 hoa.process~ 2 hoa/hoa_in_example1 planewaves;
+#X obj 50 230 print A;
+#X msg 50 259 open 0;
+#X msg 174 259 42;
+#X msg 222 259 #0 43;
+#X msg 309 259 #1 44;
+#X msg 395 259 45;
+#X msg 443 259 #0 46;
+#X msg 530 259 #1 47;
+#X msg 69 288 open 1;
+#X obj 50 317 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
+#X obj 50 345 print B;
+#X obj 366 345 print C;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 435 1\.;
+#X text 150 435 int;
+#X obj 246 436 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 435 INDEX: outlet index. Тип: int. Минимальное значение:
+1\.;
+#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 470 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 473 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 505 @index;
+#X text 245 505 Получить/Установить outlet index. Тип: int. Значение
+по умолчанию: 1\. Минимальное значение: 1\.;
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 562 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 563 1\.;
+#X text 150 563 *bang*;
+#X text 245 563 output bang message in the corresponding hoa.process~
+object's message outlet.;
+#X text 150 598 *float*;
+#X text 245 598 output float message in the corresponding hoa.process~
+object's message outlet.;
+#X text 150 633 *symbol*;
+#X text 245 633 output symbol message in the corresponding hoa.process~
+object's message outlet.;
+#X text 150 668 *list*;
+#X text 245 668 output list message in the corresponding hoa.process~
+object's message outlet.;
+#X text 150 703 *any*;
+#X text 245 703 output any message in the corresponding hoa.process~
+object's message outlet.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 768 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 771 библиотека: ceammc v0.9.8;
+#X text 434 783 смотрите также:;
+#X obj 555 783 hoa.out~;
+#X obj 629 783 hoa.in;
+#X obj 688 783 hoa.in~;
+#N canvas 10 790 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hoa.out;
+#X text 10 76 категория:;
+#X text 120 76 spat;
+#X text 10 98 с версии:;
+#X text 120 98 0.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
+Thomas Le Meur;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 hoa \, outlet;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 790 pd info;
+#X connect 6 0 11 0;
+#X connect 7 0 11 0;
+#X connect 8 0 11 1;
+#X connect 9 0 11 1;
+#X connect 10 0 11 1;
+#X connect 11 0 12 0;
+#X connect 13 0 21 0;
+#X connect 20 0 21 0;
+#X connect 14 0 21 1;
+#X connect 15 0 21 1;
+#X connect 16 0 21 1;
+#X connect 17 0 21 3;
+#X connect 18 0 21 3;
+#X connect 19 0 21 3;
+#X connect 21 0 22 0;
+#X connect 21 1 23 0;

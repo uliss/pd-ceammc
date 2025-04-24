@@ -1,0 +1,143 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 651 50 cnv 1 114 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 651 50 Arduino device;
+#X obj 1 1 cnv 5 765 40 empty empty hw.arduino 20 20 0 20 -104026
+-4096 0;
+#X obj 667 11 hw.arduino;
+#X obj 210 80 cnv 1 555 80 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Arduino serial port tha t supports reconnect and hotplug.
+If no properties are given tries to connect to first available and
+not opened device. If @reconnect flag is given \, waits for device
+hotplug and reconnects to it.;
+#X msg 50 188 249;
+#X text 117 188 firmata version request;
+#X msg 69 217 1 2 3 4 5;
+#X text 184 217 serial echo;
+#X msg 88 246 @devices?;
+#X obj 50 289 hw.arduino @reconnect @on_connect ardconn;
+#X obj 50 318 print arduino;
+#X obj 50 347 function ardconn;
+#X obj 232 347 b;
+#X obj 50 375 flow.count;
+#X floatatom 50 404 5 0 0 0 - - -;
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 441 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 476 1\.;
+#X text 150 476 symbol;
+#X obj 246 477 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 476 PORT: serial port name \, eg.: COM3 on Windows \, /dev/ttyACM0
+on Linux and /dev/cu.usbmodem411 on MacOSX. Тип: symbol.;
+#X text 110 511 2\.;
+#X text 150 511 int;
+#X obj 246 512 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 511 RATE: serial baud rate. Разрешённые значения: 110 \,
+115200 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000 \, 300
+\, 38400 \, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Тип: int.;
+#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 576 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 579 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 611 @port;
+#X text 245 611 (при инициализации) Получить/Установить name of arduino
+serial port \, eg.: COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411
+on MacOSX. If specified on creation tries to connect to this device
+only. Тип: symbol.;
+#X msg 110 683 @reconnect;
+#X text 245 683 enables hot-pluggin. Значение по умолчанию: 0\.;
+#X msg 110 713 @on_connect;
+#X text 245 713 Получить/Установить function called every time on connect.
+Тип: symbol.;
+#X msg 110 755 @product_id;
+#X text 245 755 Получить/Установить USB device product id. If vendor
+and product ids are specified at creation \, tries to connect to devices
+only with such properties. Note: product id is specified in decimal
+mode \, not in hex. Тип: int. Значение по умолчанию: 0\.;
+#X msg 110 842 @rate;
+#X text 245 842 Получить/Установить serial baud rate. Standard value
+supported by most serial ports: 110 \, 300 \, 600 \, 1200 \, 2400 \,
+4800 \, 9600 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600
+\, 115200\. Тип: int. Значение по умолчанию: 57600\. Разрешённые значения:
+57600 \, 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \, 9600 \, 14400
+\, 19200 \, 38400 \, 56000 \, 115200 \, 128000 \, 256000\.;
+#X msg 110 945 @serial;
+#X text 245 945 Получить/Установить USB device serial number. If specified
+at creation \, tries to connect to devices only with such serial number.
+Тип: symbol.;
+#X msg 110 1002 @vendor_id;
+#X text 245 1002 Получить/Установить USB device vendor id. If specified
+at creation \, tries to connect to devices only with such vendor. Note:
+vendor id is specified in decimal mode \, not in hex. Тип: int. Значение
+по умолчанию: 0\.;
+#X msg 110 1074 @connected?;
+#X text 245 1074 (только чтение) Получить state of connection to device.
+Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1116 @devices?;
+#X text 245 1116 (только чтение) Получить list of found Arduino devices.
+Тип: list.;
+#X obj 20 1168 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1173 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1208 connect;
+#X text 245 1208 manually connect to device.;
+#X msg 110 1236 disconnect;
+#X text 245 1236 disconnect from device.;
+#X obj 20 1274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1279 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1280 1\.;
+#X text 150 1280 *float*;
+#X text 245 1280 sends float value in byte range [0-255] to arduino
+device.;
+#X text 150 1300 *list*;
+#X text 245 1300 sends list of floats in byte range [0-255] to arduino
+device.;
+#X obj 20 1330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1335 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1336 1\.;
+#X text 245 1336 outputs received byte from arduino.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 1386 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1389 библиотека: ceammc v0.9.8;
+#N canvas 10 1408 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.arduino;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.5;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 arduino;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1408 pd info;
+#X connect 6 0 11 0;
+#X connect 8 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 13 1 14 0;
+#X connect 14 0 13 1;

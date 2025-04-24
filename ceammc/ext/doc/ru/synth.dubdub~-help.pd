@@ -1,0 +1,126 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 300 50 cnv 1 465 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 300 50 simple synth based on a sawtooth wave filtered by a
+resonant lowpass;
+#X obj 1 1 cnv 5 765 40 empty empty synth.dubdub~ 20 20 0 20 -104026
+-4096 0;
+#X obj 645 11 synth.dubdub~;
+#X obj 50 118 ui.keyboard;
+#X obj 50 190 msg note;
+#X obj 69 219 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 328 219 ui.knob;
+#X obj 434 219 ui.knob;
+#X obj 69 248 metro.pattern 200 150 50;
+#X msg 328 262 @q \$1;
+#X obj 434 262 lin->lin 0 1 100 8000;
+#X msg 69 277 next;
+#X obj 69 305 list.walk C2 D3 G3 C4 Bb2 C2 @loop;
+#X msg 434 305 @cutoff \$1;
+#X obj 69 334 pitch->midi;
+#X msg 69 363 @pitch \$1 \, @gate 0;
+#X obj 69 392 msg.after 10 @gate 1;
+#X obj 50 421 synth.dubdub~;
+#X obj 50 449 ui.gain~ @size 120 16;
+#X obj 50 478 dac~;
+#X obj 50 507 ui.dsp~;
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 562 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 565 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 597 @id;
+#X text 245 597 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/synth_dubdub/PROP_NAME
+osc address \, if empty bind to /synth_dubdub/PROP_NAME. Тип: symbol.;
+#X msg 110 669 @osc;
+#X text 245 669 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 711 @active;
+#X text 245 711 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 753 @cutoff;
+#X text 245 753 Получить/Установить cutoff frequency. Тип: float. Значение
+по умолчанию: 3000\. Диапазон: 20\...20000\.;
+#X msg 110 795 @freq;
+#X text 245 795 Получить/Установить frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 130.8128\.;
+#X msg 110 837 @gate;
+#X text 245 837 Получить/Установить play trigger >0: on \, 0: off.
+Values greater then zero set output amplitude. Тип: float. Значение
+по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 894 @pitch;
+#X text 245 894 Получить/Установить midi pitch. Тип: float. Значение
+по умолчанию: 48\. Диапазон: 24\...84\.;
+#X msg 110 936 @q;
+#X text 245 936 Получить/Установить quality factor. Тип: float. Значение
+по умолчанию: 0.1\. Диапазон: 0.01\...100\.;
+#X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 993 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 1028 note;
+#X text 245 1028 note on/off message. Аргументы:;
+#X obj 255 1051 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1051 NOTE: midi note. Тип: float.;
+#X obj 255 1074 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1074 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1114 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1115 1\.;
+#X text 150 1115 *list*;
+#X text 245 1115 NOTE VEL.;
+#X obj 20 1145 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1150 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1151 1\.;
+#X text 245 1151;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1201 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1204 библиотека: ceammc v0.9.8;
+#N canvas 10 1223 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 synth.dubdub~;
+#X text 10 76 категория:;
+#X text 120 76 synth;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 dubdub \, saw;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1223 pd info;
+#X connect 4 0 5 0;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 12 0 13 0;
+#X connect 11 0 14 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 5 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 20 1;
+#X connect 10 0 18 0;
+#X connect 14 0 18 0;

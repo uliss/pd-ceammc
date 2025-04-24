@@ -1,0 +1,82 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 360 50 cnv 1 405 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 360 50 convert key number to SPN name according to tonality;
+#X obj 1 1 cnv 5 765 40 empty empty midi.key2str 20 20 0 20 -104026
+-4096 0;
+#X obj 532 11 midi.key->str;
+#X obj 652 11 midi.key2str;
+#X floatatom 50 118 5 0 0 0 - - -;
+#X msg 98 118 @tonality F minor;
+#X msg 290 118 @tonality E;
+#X msg 424 118 @tonality C;
+#X obj 50 176 midi.key->str @symbol;
+#X obj 50 205 ui.dt;
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 295 1\.;
+#X text 150 295 list;
+#X obj 246 296 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 295 TONALITY: initial tomality. Тип: list.;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 365 @symbol;
+#X text 245 365 output as symbol instead of string by default. Значение
+по умолчанию: 0\.;
+#X msg 110 407 @tonality;
+#X text 245 407 Получить/Установить current tonality. Тип: list. Значение
+по умолчанию: C major.;
+#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 464 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 465 1\.;
+#X text 150 465 *float*;
+#X text 245 465 standart MIDI key number [0-127].;
+#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 500 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 501 1\.;
+#X text 245 501 output key name.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 1 551 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 554 библиотека: ceammc v0.9.8;
+#N canvas 10 573 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 midi.key2str;
+#X text 10 76 категория:;
+#X text 120 76 midi;
+#X text 10 98 с версии:;
+#X text 120 98 0.4;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 midi \, key \, name;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 573 pd info;
+#X connect 5 0 9 0;
+#X connect 6 0 9 0;
+#X connect 7 0 9 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;

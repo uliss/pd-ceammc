@@ -1,0 +1,118 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 521 50 cnv 1 244 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 generic church bell modal model;
+#X obj 1 1 cnv 5 765 40 empty empty synth.church_bell~ 20 20 0 20
+-104026 -4096 0;
+#X obj 609 11 synth.church_bell~;
+#X obj 210 80 cnv 1 555 115 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Modeled after T. Rossing and R. Perrin \, Vibrations
+of Bells \, Applied Acoustics 2 \, 1987;
+#X text 215 120 Model height is 301 mm;
+#X text 215 145 This model contains 7 excitation positions going linearly
+from the bottom to the top of the bell;
+#X obj 50 223 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 194 223 ui.dsp~;
+#X obj 50 252 metro 250;
+#X msg 50 281 @gate 1;
+#X obj 50 310 msg.after 200 @gate 0;
+#X obj 50 339 msg synth.church_bell;
+#X obj 50 367 gsynth.church_bell~;
+#X obj 50 641 ui.gain~ @size 120 16;
+#X obj 50 670 dac~;
+#X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 725 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 728 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 760 @id;
+#X text 245 760 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/synth_church_bell/PROP_NAME
+osc address \, if empty bind to /synth_church_bell/PROP_NAME. Тип:
+symbol.;
+#X msg 110 832 @osc;
+#X text 245 832 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 874 @active;
+#X text 245 874 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 916 @cutoff;
+#X text 245 916 Получить/Установить cutoff coefficent. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 6500\. Диапазон: 20\...20000\.;
+#X msg 110 958 @decay_ratio;
+#X text 245 958 Получить/Установить decay ratio. Тип: float. Значение
+по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 1000 @decay_slope;
+#X text 245 1000 Получить/Установить decay slope. Тип: float. Значение
+по умолчанию: 2.5\. Диапазон: 0\...10\.;
+#X msg 110 1042 @gain;
+#X text 245 1042 Получить/Установить pluck gain. Тип: float. Значение
+по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 1084 @gate;
+#X text 245 1084 Получить/Установить play trigger - 1: on \, 0: off.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1126 @pos;
+#X text 245 1126 Получить/Установить strike position (0 is on the bottom).
+Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...6\.;
+#X msg 110 1168 @sharp;
+#X text 245 1168 Получить/Установить strike sharpness. Тип: float.
+Значение по умолчанию: 0.5\. Диапазон: 0.01\...5\.;
+#X msg 110 1210 @t60;
+#X text 245 1210 Получить/Установить time to decay to -60db level.
+Тип: float. Единицы: 'sec'. Значение по умолчанию: 20\. Диапазон: 0.1\...30\.;
+#X obj 20 1277 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1282 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1317 reset;
+#X text 245 1317 reset synth.;
+#X obj 20 1355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1360 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1361 1\.;
+#X text 150 1361 *bang*;
+#X text 245 1361 play.;
+#X obj 20 1391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1396 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1397 1\.;
+#X text 245 1397 synth output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1447 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1450 библиотека: ceammc v0.9.8;
+#N canvas 10 1469 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 synth.church_bell~;
+#X text 10 76 категория:;
+#X text 120 76 synth;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 bell \, church;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1469 pd info;
+#X connect 8 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 16 1;

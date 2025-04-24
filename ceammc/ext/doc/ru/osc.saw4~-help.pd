@@ -1,0 +1,106 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 567 50 cnv 1 198 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 567 50 Bandlimited sawtooth wave;
+#X obj 1 1 cnv 5 765 40 empty empty osc.saw4~ 20 20 0 20 -104026 -4096
+0;
+#X obj 673 11 osc.saw4~;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Differentiated Polynomial Waves (DPW) used for aliasing
+suppression. 4nd order interpolation.;
+#X floatatom 50 158 5 0 0 0 - - -;
+#X obj 136 158 ui.dsp~;
+#X msg 50 187 \$1 50;
+#X obj 50 216 line~;
+#X msg 174 216 bang;
+#X obj 50 245 osc.saw4~;
+#X obj 50 274 ui.gain~ @size 120 14;
+#X obj 50 302 dac~;
+#X obj 126 302 ui.spectroscope~ @size 150 100;
+#X obj 50 418 ui.dsp~;
+#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 473 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 476 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 508 1\.;
+#X text 150 508 float;
+#X obj 246 509 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 508 FREQ(Hz): frequency. Тип: float.;
+#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 543 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 546 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 578 @id;
+#X text 245 578 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/osc_saw4/PROP_NAME osc
+address \, if empty bind to /osc_saw4/PROP_NAME. Тип: symbol.;
+#X msg 110 635 @osc;
+#X text 245 635 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 677 @active;
+#X text 245 677 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 719 @phase;
+#X text 245 719 Получить/Установить phase. Тип: float. Значение по
+умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 776 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 777 1\.;
+#X text 150 777 *float*;
+#X text 245 777 frequency in Hz.;
+#X text 110 797 2\.;
+#X text 150 797 *bang*;
+#X text 245 797 reset phase.;
+#X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 832 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 833 1\.;
+#X text 245 833 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
+#X obj 1 883 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 886 библиотека: ceammc v0.9.8;
+#X text 316 898 смотрите также:;
+#X obj 437 898 osc.saw~;
+#X obj 511 898 osc.tri~;
+#X obj 585 898 osc.square~;
+#X obj 681 898 lfo.tri~;
+#N canvas 10 905 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 osc.saw4~;
+#X text 10 76 категория:;
+#X text 120 76 osc;
+#X text 10 98 с версии:;
+#X text 120 98 0.7;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 oscillator \, band-limited;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 905 pd info;
+#X connect 6 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 0 13 1;
+#X connect 12 0 14 0;

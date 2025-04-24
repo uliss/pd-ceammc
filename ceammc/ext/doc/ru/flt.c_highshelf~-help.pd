@@ -1,0 +1,125 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 376 50 Highshelf filter coefficient calculator for biquad;
+#X obj 1 1 cnv 5 765 40 empty empty flt.c_highshelf~ 20 20 0 20
+-104026 -4096 0;
+#X obj 623 11 flt.c_highshelf~;
+#X obj 210 80 cnv 1 555 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 gain boost|cut above some frequency;
+#X text 215 105 Calculates coefficients for transfer function: H(z)=(b0
++ b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
+#X obj 50 183 noise.pink~;
+#X obj 78 212 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 241 *~;
+#X floatatom 98 270 5 0 0 0 - - -;
+#X floatatom 203 270 5 0 0 0 - - -;
+#X msg 98 299 @freq \$1;
+#X msg 203 299 @gain \$1;
+#X obj 98 327 flt.c_highshelf~ 1100 -15;
+#X obj 50 370 flt.biquad~;
+#X obj 50 399 ui.gain~ @size 120 16;
+#X obj 50 428 dac~;
+#X obj 50 457 ui.dsp~;
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 512 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 515 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 547 1\.;
+#X text 150 547 float;
+#X obj 246 548 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 547 FREQ(Hz): cutoff frequency. Тип: float. Диапазон: 20…20000;
+#X text 110 567 2\.;
+#X text 150 567 float;
+#X obj 246 568 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 567 GAIN(db): filter gain. Тип: float. Диапазон: -15…+15;
+#X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 602 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 605 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 637 @id;
+#X text 245 637 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/flt_c_highshelf/PROP_NAME
+osc address \, if empty bind to /flt_c_highshelf/PROP_NAME. Тип: symbol.;
+#X msg 110 709 @osc;
+#X text 245 709 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 751 @active;
+#X text 245 751 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 793 @freq;
+#X text 245 793 Получить/Установить center frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 10000\. Диапазон: 20\...20000\.;
+#X msg 110 835 @gain;
+#X text 245 835 Получить/Установить filter gain. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -15\...15\.;
+#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 892 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 893 1\.;
+#X text 245 893 control input.;
+#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 928 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 929 1\.;
+#X text 245 929 b0\.;
+#X text 110 949 2\.;
+#X text 245 949 b1\.;
+#X text 110 969 3\.;
+#X text 245 969 b2\.;
+#X text 110 989 4\.;
+#X text 245 989 a1\.;
+#X text 110 1009 5\.;
+#X text 245 1009 a2\.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1059 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1062 библиотека: ceammc v0.9.8;
+#X text 421 1074 смотрите также:;
+#X obj 542 1074 flt.highshelf~;
+#X obj 659 1074 flt.biquad~;
+#N canvas 10 1081 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.c_highshelf~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Alex Nadzharov \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 filter \, highshelf;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1081 pd info;
+#X connect 7 0 9 0;
+#X connect 8 0 9 1;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 9 0 15 0;
+#X connect 14 0 15 1;
+#X connect 14 1 15 2;
+#X connect 14 2 15 3;
+#X connect 14 3 15 4;
+#X connect 14 4 15 5;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 16 0 17 1;

@@ -1,0 +1,129 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 567 50 cnv 1 198 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 567 50 graphic 10 band equalizer;
+#X obj 1 1 cnv 5 765 40 empty empty flt.eq10~ 20 20 0 20 -104026 -4096
+0;
+#X obj 674 11 flt.eq10~;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 One band per octave. 5th-order Butterworth filters;
+#X msg 50 143 fill 0.5 \, bang;
+#X obj 280 143 r~ ssc;
+#X obj 50 172 ui.sliders @count 10;
+#X obj 280 172 ui.spectroscope~ @size 300 100 @log_scale 1;
+#X obj 50 287 lin->lin 0 1 -10 10;
+#X floatatom 222 330 5 0 0 0 - - -;
+#X obj 78 359 noise.white~;
+#X msg 222 359 @f8000 \$1;
+#X obj 50 388 flt.eq10~;
+#X obj 50 417 ui.gain~ @size 120 14;
+#X obj 290 417 ui.dsp~;
+#X obj 50 446 dac~;
+#X obj 117 446 s~ ssc;
+#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 501 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 504 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 536 @id;
+#X text 245 536 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/flt_eq10/PROP_NAME osc
+address \, if empty bind to /flt_eq10/PROP_NAME. Тип: symbol.;
+#X msg 110 593 @osc;
+#X text 245 593 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 635 @active;
+#X text 245 635 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 677 @f1000;
+#X text 245 677 Получить/Установить gain at 1000Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 719 @f125;
+#X text 245 719 Получить/Установить gain at 125Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 761 @f16000;
+#X text 245 761 Получить/Установить gain at 16000Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 803 @f2000;
+#X text 245 803 Получить/Установить gain at 2000Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 845 @f250;
+#X text 245 845 Получить/Установить gain at 250Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 887 @f31;
+#X text 245 887 Получить/Установить gain at 31.25Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 929 @f4000;
+#X text 245 929 Получить/Установить gain at 4000Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 971 @f500;
+#X text 245 971 Получить/Установить gain at 500Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 1013 @f62;
+#X text 245 1013 Получить/Установить gain at 62.5Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X msg 110 1055 @f8000;
+#X text 245 1055 Получить/Установить gain at 8000Hz. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -70\...10\.;
+#X obj 20 1107 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1112 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1147 reset;
+#X text 245 1147 reset filter state to default.;
+#X obj 20 1185 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1190 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1191 1\.;
+#X text 245 1191 input signal.;
+#X text 150 1211 *list*;
+#X text 245 1211 sets equalizer coefficients.;
+#X obj 20 1241 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1246 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1247 1\.;
+#X text 245 1247 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1297 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1300 библиотека: ceammc v0.9.8;
+#X text 531 1312 смотрите также:;
+#X obj 652 1312 flt.eq_peak~;
+#N canvas 10 1319 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.eq10~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 graphic \, filter \, equalizer;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1319 pd info;
+#X connect 6 0 8 0;
+#X connect 7 0 9 0;
+#X connect 8 0 10 0;
+#X connect 11 0 13 0;
+#X connect 10 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 17 0;
+#X connect 15 0 17 1;
+#X connect 15 0 18 0;

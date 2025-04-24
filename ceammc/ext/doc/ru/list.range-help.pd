@@ -1,0 +1,89 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 468 50 output list smallest and largest value;
+#X obj 1 1 cnv 5 765 40 empty empty list.range 20 20 0 20 -104026
+-4096 0;
+#X obj 562 11 list.minmax;
+#X obj 667 11 list.range;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Note: if @type = any \, numbers are smaller then symbols;
+#X msg 50 143 -3 0 10 2 -5 11 a b c;
+#X obj 50 172 list.range @f;
+#X obj 50 201 ui.dt;
+#X msg 50 230 -3 0 10 2 -5 11 a b c;
+#X obj 50 259 list.range @s;
+#X obj 50 287 ui.dt;
+#X msg 50 316 -3 0 10 2 -5 11 a b c;
+#X obj 50 345 list.range @a;
+#X obj 50 374 ui.dt;
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 429 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 464 @a;
+#X text 245 464 Alias to @type any \, accept all.;
+#X msg 110 494 @f;
+#X text 245 494 Alias to @type float \, accept only floats.;
+#X msg 110 524 @s;
+#X text 245 524 Alias to @type symbol \, accept only symbols.;
+#X msg 110 554 @type;
+#X text 245 554 Получить/Установить type of accepted atoms. Тип: symbol.
+Значение по умолчанию: float. Разрешённые значения: float \, symbol
+\, any.;
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 626 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 627 1\.;
+#X text 150 627 *list*;
+#X text 245 627 input list.;
+#X text 150 647 *data:mlist*;
+#X text 245 647 input mlist.;
+#X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 682 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 683 1\.;
+#X text 245 683 list of two elements: first is a smallest value \,
+second - largest.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 1 748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 751 библиотека: ceammc v0.9.8;
+#X text 488 763 смотрите также:;
+#X obj 609 763 list.min;
+#X obj 682 763 list.max;
+#N canvas 10 770 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 list.range;
+#X text 10 76 категория:;
+#X text 120 76 list;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 list \, range \, compare;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 770 pd info;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;

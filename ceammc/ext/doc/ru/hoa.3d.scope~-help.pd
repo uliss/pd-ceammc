@@ -1,0 +1,186 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 536 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 536 50 a 3d ambisonic harmonic scope;
+#X obj 1 1 cnv 5 765 40 empty empty hoa.3d.scope~ 20 20 0 20 -104026
+-4096 0;
+#X obj 643 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.3d.scope~] @url hoa.3d.scope~-help.pd;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 displays the circular harmonics of an ambisonic sound
+field;
+#X obj 50 143 osc.square~ 0.15;
+#X obj 280 143 phasor~ 0.15;
+#X obj 443 143 phasor~ 0.15;
+#X obj 50 172 ui.gain~ @size 120 14;
+#X obj 280 172 phase->rad~;
+#X obj 443 172 phase->rad~;
+#X obj 50 201 hoa.3d.encoder~ 3, f 17;
+#X obj 50 230 hoa.3d.scope~ 3 @size 123 123;
+#X obj 50 359 ui.dsp~;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 449 Right-click + ⇧;
+#X text 285 449 open the object help.;
+#X text 110 469 Right-click + ⌥;
+#X text 285 469 open the properties dialog.;
+#X text 110 489 Right-click;
+#X text 285 489 opens the Pd popup menu.;
+#X text 45 489 [Правка];
+#X text 110 509 Right-click + ⇧;
+#X text 285 509 open the object help.;
+#X text 45 509 [Правка];
+#X text 110 529 Right-click + ⌥;
+#X text 285 529 open the properties dialog.;
+#X text 45 529 [Правка];
+#X obj 20 559 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 564 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 567 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 599 @gain;
+#X text 245 599 Получить/Установить gain. Тип: float. Значение по умолчанию:
+1\. Минимальное значение: 0\.;
+#X msg 110 641 @order;
+#X text 245 641 Получить/Установить the order of decomposition. Тип:
+int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X msg 110 683 @refresh;
+#X text 245 683 Получить/Установить redraw time. Тип: int. Единицы:
+'ms'. Значение по умолчанию: 100\. Диапазон: 20\...1000\.;
+#X msg 110 725 @view;
+#X text 245 725 Получить/Установить view rotation. Тип: list. Значение
+по умолчанию: 0 0 0\.;
+#X msg 110 767 @background_color;
+#X text 245 767 Получить/Установить element background color (list
+of red \, green \, blue values in 0-1 range). Тип: list. Значение по
+умолчанию: 0.93 0.93 0.93 1\.;
+#X msg 110 824 @border_color;
+#X text 245 824 Получить/Установить border color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
+0.6 0.6 1\.;
+#X msg 110 881 @label_color;
+#X text 245 881 Получить/Установить label color in RGB format within
+0-1 range \, for example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию:
+0 0 0 1\.;
+#X msg 110 938 @nh_color;
+#X text 245 938 Получить/Установить negative harmonics color. Тип:
+list. Значение по умолчанию: 0 0 1 1\.;
+#X msg 110 980 @ph_color;
+#X text 245 980 Получить/Установить positive harmonics color. Тип:
+list. Значение по умолчанию: 1 0 0 1\.;
+#X msg 110 1022 @label;
+#X text 245 1022 Получить/Установить label text. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 1064 @label_align;
+#X text 245 1064 Получить/Установить label horizontal align. Тип: symbol.
+Значение по умолчанию: left. Разрешённые значения: left \, center \,
+right.;
+#X msg 110 1121 @label_inner;
+#X text 245 1121 Получить/Установить label position (1 - inner \, 0
+- outer). Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1163 @label_margins;
+#X text 245 1163 Получить/Установить label offset in pixels. Тип: list.
+Значение по умолчанию: 0 0\.;
+#X msg 110 1205 @label_side;
+#X text 245 1205 Получить/Установить label snap side. Тип: symbol.
+Значение по умолчанию: top. Разрешённые значения: left \, top \, right
+\, bottom.;
+#X msg 110 1262 @label_valign;
+#X text 245 1262 Получить/Установить label vertical align. Тип: symbol.
+Значение по умолчанию: top. Разрешённые значения: top \, center \,
+bottom.;
+#X msg 110 1319 @fontname;
+#X text 245 1319 Получить/Установить fontname. Тип: symbol. Значение
+по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
+Helvetica \, Monaco \, Times.;
+#X msg 110 1376 @fontsize;
+#X text 245 1376 Получить/Установить fontsize. Тип: int. Значение по
+умолчанию: 11\. Диапазон: 4\...100\.;
+#X msg 110 1418 @fontslant;
+#X text 245 1418 Получить/Установить font slant. Тип: symbol. Значение
+по умолчанию: roman. Разрешённые значения: roman \, italic.;
+#X msg 110 1460 @fontweight;
+#X text 245 1460 Получить/Установить font weight. Тип: symbol. Значение
+по умолчанию: normal. Разрешённые значения: normal \, bold.;
+#X msg 110 1502 @pinned;
+#X text 245 1502 Получить/Установить pin mode. if 1 - put element to
+the lowest level. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1544 @size;
+#X text 245 1544 Получить/Установить element size (width \, height
+pair). Тип: list. Значение по умолчанию: 120 120\.;
+#X obj 20 1596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1601 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1636 pos;
+#X text 245 1636 set UI element position. Аргументы:;
+#X obj 255 1659 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1659 X: top left x-coord. Тип: float.;
+#X obj 255 1682 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1682 Y: top right y-coord. Тип: float.;
+#X msg 110 1707 dump;
+#X text 245 1707 dumps all object info to Pd console window.;
+#X obj 20 1745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1751 1\.;
+#X text 245 1751 first input harmonic.;
+#X text 110 1771 ....;
+#X text 245 1771 ... input harmonic.;
+#X text 110 1791 n.;
+#X text 245 1791 n-th input harmonic.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 1841 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1844 библиотека: ceammc v0.9.8;
+#N canvas 10 1863 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hoa.3d.scope~;
+#X text 10 76 категория:;
+#X text 120 76 spat;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.7;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
+Thomas Le Meur;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 hoa \, scope;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1863 pd info;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 1 13 1;
+#X connect 12 2 13 2;
+#X connect 12 3 13 3;
+#X connect 12 4 13 4;
+#X connect 12 5 13 5;
+#X connect 12 6 13 6;
+#X connect 12 7 13 7;
+#X connect 12 8 13 8;
+#X connect 12 9 13 9;
+#X connect 12 10 13 10;
+#X connect 12 11 13 11;
+#X connect 12 12 13 12;
+#X connect 12 13 13 13;
+#X connect 12 14 13 14;
+#X connect 12 15 13 15;
+#X connect 10 0 12 1;
+#X connect 11 0 12 2;

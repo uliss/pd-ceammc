@@ -1,0 +1,89 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 614 50 cnv 1 151 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 614 50 call named function;
+#X obj 1 1 cnv 5 765 40 empty empty function.call 20 20 0 20 -104026
+-4096 0;
+#X obj 554 11 func.call;
+#X obj 645 11 function.call;
+#X obj 50 118 function f1;
+#X obj 184 118 sin;
+#X obj 50 147 function f2;
+#X obj 184 147 sqrt;
+#X floatatom 50 176 5 0 0 0 - - -;
+#X msg 107 176 symbol f1;
+#X msg 222 176 symbol f2;
+#X obj 50 205 func.call f1;
+#X floatatom 50 234 5 0 0 0 - - -;
+#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 271 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 274 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 306 1\.;
+#X text 150 306 symbol;
+#X obj 246 307 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 306 NAME: function name. Тип: symbol.;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 344 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 376 @name;
+#X text 245 376 Получить/Установить function name. Тип: symbol.;
+#X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 421 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 422 1\.;
+#X text 245 422 input value.;
+#X text 110 442 2\.;
+#X text 150 442 *symbol*;
+#X text 245 442 change function name.;
+#X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 477 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 478 1\.;
+#X text 245 478 function result.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 1 528 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 531 библиотека: ceammc v0.9.8;
+#X text 558 543 смотрите также:;
+#X obj 679 546 ui.link @background_color 0.78431 0.78431 0.78431
+@title [function] @url function-help.pd;
+#N canvas 10 550 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 function.call;
+#X text 10 76 категория:;
+#X text 120 76 base;
+#X text 10 98 с версии:;
+#X text 120 98 0.3;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 function \, call;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 550 pd info;
+#X connect 9 0 12 0;
+#X connect 10 0 12 1;
+#X connect 11 0 12 1;
+#X connect 12 0 13 0;
+#X connect 5 1 6 0;
+#X connect 6 0 5 1;
+#X connect 7 1 8 0;
+#X connect 8 0 7 1;

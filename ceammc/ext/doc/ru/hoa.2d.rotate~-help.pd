@@ -1,0 +1,136 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 491 50 a 2D ambisonic sound field rotation;
+#X obj 1 1 cnv 5 765 40 empty empty hoa.2d.rotate~ 20 20 0 20 -104026
+-4096 0;
+#X obj 532 11 hoa.rotate~;
+#X obj 638 11 hoa.2d.rotate~;
+#X obj 210 80 cnv 1 555 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 215 80 ui.link @background_color 0.98039 0.98039 0.98039 @title
+CICM documentation @url hoa/hoa.2d.rotate~-help.pd;
+#X obj 50 142 sig~ 1;
+#X obj 194 142 sig~ 1.62;
+#X obj 376 142 sig~ -0.9;
+#X obj 50 171 hoa.encoder~ 5, f 21;
+#X obj 376 171 hoa.encoder~ 5, f 21;
+#X obj 510 200 lfo.saw~ 0.15;
+#X obj 510 229 phase->rad~;
+#X obj 165 258 hoa.rotate~ 5, f 23;
+#X obj 510 258 ui.n~;
+#X obj 165 286 hoa.scope~ 5 @gain 4 @size 164 164;
+#X obj 50 459 ui.dsp~;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 549 1\.;
+#X text 150 549 int;
+#X obj 246 550 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 549 ORDER: the order of decomposition. Тип: int. Диапазон:
+1…63;
+#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 584 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 587 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 619 @order;
+#X text 245 619 (при инициализации) Получить/Установить the order of
+decomposition. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+#X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 691 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 692 1\.;
+#X text 245 692 first input harmonic.;
+#X text 110 712 ....;
+#X text 245 712 ... input harmonic.;
+#X text 110 732 n.;
+#X text 245 732 n-th input harmonic.;
+#X text 110 752 n+1\.;
+#X text 245 752 Set the angle of the rotation of the soundfield in
+radian. The rotation angle is anti-clockwise and wrapped between 0
+and 2π.;
+#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 817 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 818 1\.;
+#X text 245 818 first output harmonic.;
+#X text 110 838 ....;
+#X text 245 838 ... output harmonic.;
+#X text 110 858 n.;
+#X text 245 858 n-th output harmonic.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 908 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 911 библиотека: ceammc v0.9.8;
+#X text 531 923 смотрите также:;
+#X obj 652 923 hoa.encoder~;
+#N canvas 10 930 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hoa.2d.rotate~;
+#X text 10 76 категория:;
+#X text 120 76 spat;
+#X text 10 98 с версии:;
+#X text 120 98 0.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
+Thomas Le Meur;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 hoa \, rotate;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 930 pd info;
+#X connect 7 0 10 0;
+#X connect 8 0 10 1;
+#X connect 9 0 11 0;
+#X connect 12 0 13 0;
+#X connect 10 0 14 0;
+#X connect 10 1 14 1;
+#X connect 10 2 14 2;
+#X connect 10 3 14 3;
+#X connect 10 4 14 4;
+#X connect 10 5 14 5;
+#X connect 10 6 14 6;
+#X connect 10 7 14 7;
+#X connect 10 8 14 8;
+#X connect 10 9 14 9;
+#X connect 10 10 14 10;
+#X connect 11 0 14 0;
+#X connect 11 1 14 1;
+#X connect 11 2 14 2;
+#X connect 11 3 14 3;
+#X connect 11 4 14 4;
+#X connect 11 5 14 5;
+#X connect 11 6 14 6;
+#X connect 11 7 14 7;
+#X connect 11 8 14 8;
+#X connect 11 9 14 9;
+#X connect 11 10 14 10;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 14 1 16 1;
+#X connect 14 2 16 2;
+#X connect 14 3 16 3;
+#X connect 14 4 16 4;
+#X connect 14 5 16 5;
+#X connect 14 6 16 6;
+#X connect 14 7 16 7;
+#X connect 14 8 16 8;
+#X connect 14 9 16 9;
+#X connect 14 10 16 10;
+#X connect 13 0 14 11;

@@ -1,0 +1,152 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 299 50 cnv 1 466 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 299 50 драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry
+Pi;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.display.hd44780 20 20 0 20
+-104026 -4096 0;
+#N canvas 483 11 250 400 aliases 0;
+#X obj 30 40 hw.rpi.display.lcd1602;
+#X obj 30 78 hw.rpi.display.lcd2004;
+#X restore 483 11 pd aliases;
+#X obj 580 11 hw.rpi.display.hd44780;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Note: display can be configured in single line mode.;
+#X obj 50 143 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 232 143 clear;
+#X msg 50 172 backlight \$1;
+#X msg 232 172 cursor_pos 0 0;
+#X obj 59 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 232 201 cursor_pos 1 0;
+#X msg 59 230 cursor_on \$1;
+#X msg 232 230 move_cursor 1;
+#X obj 59 259 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 232 259 move_cursor -1;
+#X msg 59 287 cursor_blink \$1;
+#X listbox 270 287 20 0 0 0 - - -;
+#X obj 270 316 msg write;
+#X obj 50 345 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr auto
+@rows 2;
+#X obj 50 388 ui.link @title 'Connection_Scheme' @url
+ceammc://img/conn_ws2812.png;
+#X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 450 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 453 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 485 @i2c_addr;
+#X text 245 485 (при инициализации) Получить/Установить I²C address.
+Values 'default' (for addr 0x27) \, 'alt' (for addr 0x3f) are also
+accepted. Тип: int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
+#X msg 110 557 @i2c_bus;
+#X text 245 557 (при инициализации) Получить/Установить I²C bus. Тип:
+atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
+3 \, 4 \, 5 \, 6 \, default \, none.;
+#X msg 110 614 @rows;
+#X text 245 614 (при инициализации) Получить/Установить number of display
+rows. Тип: int. Значение по умолчанию: 1\. Разрешённые значения: 1
+\, 2 \, 4\.;
+#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 686 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 721 backlight;
+#X text 245 721 turn on/off the display backlight. Аргументы:;
+#X obj 255 744 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 744 STATE: new state. Тип: bool.;
+#X msg 110 769 char;
+#X text 245 769 write character to the display and move cursor to the
+next position. Аргументы:;
+#X obj 255 807 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 807 CHAR: char code. Тип: int. Диапазон: 0…255\.;
+#X msg 110 832 clear;
+#X text 245 832 clear all display data and set cursor position to 0
+\, 0\.;
+#X msg 110 860 cursor_blink;
+#X text 245 860 turn on/off cursor blinking. Аргументы:;
+#X obj 255 883 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 883 STATE: new state. Тип: bool.;
+#X msg 110 908 cursor_on;
+#X text 245 908 turn on/off display cursor. Аргументы:;
+#X obj 255 931 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 931 STATE: new state. Тип: bool.;
+#X msg 110 956 cursor_pos;
+#X text 245 956 set cursor potision. Аргументы:;
+#X obj 255 979 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 979 LINE: cursor line. Тип: int. Минимальное значение:
+0\.;
+#X obj 255 1002 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1002 COL: cursor line character position. Тип: int. Диапазон:
+0…20\.;
+#X msg 110 1042 font;
+#X text 245 1042 choose font.;
+#X msg 110 1070 move_cursor;
+#X text 245 1070 move cursor horizontally. Аргументы:;
+#X obj 255 1093 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1093 SHIFT: relative cursor shift. Negative values move
+the cursor leftwards \, positive values - rightwards. Тип: int.;
+#X msg 110 1133 move_display;
+#X text 245 1133 move display content horizontally. Аргументы:;
+#X obj 255 1156 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1156 SHIFT: relative display move \, not altering the display
+content. Тип: int.;
+#X msg 110 1196 write;
+#X text 245 1196 write the message at the current cursor position and
+then move the cursor to the next position after last written character.
+Аргументы:;
+#X obj 255 1249 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1249 MSG: value list. Тип: list.;
+#X obj 20 1284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1289 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1290 1\.;
+#X text 245 1290 control input.;
+#X obj 20 1320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1325 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1326 1\.;
+#X text 245 1326 no output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 1376 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1379 библиотека: ceammc v0.9.8;
+#N canvas 10 1398 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.rpi.display.hd44780;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 display \, 1602 \, 2004 \, lcd \, i2c \, rpi;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1398 pd info;
+#X connect 7 0 9 0;
+#X connect 11 0 13 0;
+#X connect 15 0 17 0;
+#X connect 18 0 19 0;
+#X connect 9 0 20 0;
+#X connect 13 0 20 0;
+#X connect 17 0 20 0;
+#X connect 8 0 20 0;
+#X connect 10 0 20 0;
+#X connect 12 0 20 0;
+#X connect 14 0 20 0;
+#X connect 16 0 20 0;
+#X connect 19 0 20 0;

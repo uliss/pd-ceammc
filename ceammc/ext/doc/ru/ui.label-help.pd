@@ -1,0 +1,173 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 614 50 cnv 1 151 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 614 50 simple label widget;
+#X obj 1 1 cnv 5 765 40 empty empty ui.label 20 20 0 20 -104026 -4096
+0;
+#X obj 679 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.label] @url ui.label-help.pd;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Label object with spaces \, text-align \, font customization
+and word-wrap;
+#X text 50 158 [ui.label test label];
+#X msg 50 187 hidden inlet;
+#X obj 50 216 ui.label test label @receive lbl1;
+#X obj 50 274 ui.label test label @align center @background_color 0.8
+0.9 0.4 1 @receive lbl1;
+#X obj 50 331 ui.label test label @align right @receive lbl1
+@background_color 0.4 0.9 0.8 1;
+#X msg 50 403 1;
+#X floatatom 88 403 5 0 0 0 - - -;
+#X msg 146 403 a b c;
+#X symbolatom 222 403 5 0 0 0 - - -;
+#X msg 299 403 append A;
+#X msg 414 403 prepend C;
+#X obj 50 446 s lbl1;
+#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 501 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 536 Right-click + ⇧;
+#X text 285 536 open object help.;
+#X text 110 556 Right-click + ⌥;
+#X text 285 556 open properties dialog.;
+#X text 110 576 Right-click;
+#X text 285 576 opens Pd popup menu.;
+#X text 45 576 [Правка];
+#X text 110 596 Right-click + ⇧;
+#X text 285 596 open the object help.;
+#X text 45 596 [Правка];
+#X text 110 616 Right-click + ⌥;
+#X text 285 616 open properties dialog.;
+#X text 45 616 [Правка];
+#X obj 20 646 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 651 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 654 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 686 1\.;
+#X text 150 686 list;
+#X obj 246 687 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 686 TEXT: label text. Тип: list.;
+#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 721 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 724 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 756 @align;
+#X text 245 756 Получить/Установить text align. Тип: symbol. Значение
+по умолчанию: left. Разрешённые значения: left \, center \, right.;
+#X msg 110 798 @margin_bottom;
+#X text 245 798 Получить/Установить text bottom margin. Тип: int. Значение
+по умолчанию: 5\.;
+#X msg 110 840 @margin_left;
+#X text 245 840 Получить/Установить text left margin. Тип: int. Значение
+по умолчанию: 5\.;
+#X msg 110 882 @margin_right;
+#X text 245 882 Получить/Установить text right margin. Тип: int. Значение
+по умолчанию: 5\.;
+#X msg 110 924 @margin_top;
+#X text 245 924 Получить/Установить text top margin. Тип: int. Значение
+по умолчанию: 5\.;
+#X msg 110 966 @receive;
+#X text 245 966 Получить/Установить receive source. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 1008 @text;
+#X text 245 1008 Получить/Установить label text. Тип: list. Значение
+по умолчанию: Label.;
+#X msg 110 1050 @background_color;
+#X text 245 1050 Получить/Установить element background color (list
+of red \, green \, blue values in 0-1 range). Тип: list. Значение по
+умолчанию: 1 1 1 1\.;
+#X msg 110 1107 @text_color;
+#X text 245 1107 Получить/Установить text color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0
+0 1\.;
+#X msg 110 1164 @fontname;
+#X text 245 1164 Получить/Установить fontname. Тип: symbol. Значение
+по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
+Helvetica \, Monaco \, Times.;
+#X msg 110 1221 @fontsize;
+#X text 245 1221 Получить/Установить fontsize. Тип: int. Значение по
+умолчанию: 32\. Диапазон: 4\...100\.;
+#X msg 110 1263 @fontslant;
+#X text 245 1263 Получить/Установить font slant. Тип: symbol. Значение
+по умолчанию: roman. Разрешённые значения: roman \, italic.;
+#X msg 110 1305 @fontweight;
+#X text 245 1305 Получить/Установить font weight. Тип: symbol. Значение
+по умолчанию: normal. Разрешённые значения: normal \, bold.;
+#X msg 110 1347 @pinned;
+#X text 245 1347 Получить/Установить pin mode. if 1 - put element to
+the lowest level. Тип: bool. Значение по умолчанию: 1\.;
+#X msg 110 1389 @size;
+#X text 245 1389 Получить/Установить element size (width \, height
+pair). Тип: list. Значение по умолчанию: 300 47\.;
+#X obj 20 1441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1446 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1481 append;
+#X text 245 1481 appends to @text end.;
+#X msg 110 1509 clear;
+#X text 245 1509 clear label text and clear @text property.;
+#X msg 110 1537 pos;
+#X text 245 1537 set UI element position. Аргументы:;
+#X obj 255 1560 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1560 X: top left x-coord. Тип: float.;
+#X obj 255 1583 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1583 Y: top right y-coord. Тип: float.;
+#X msg 110 1608 prepend;
+#X text 245 1608 insert into beginning of @text.;
+#X obj 20 1646 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1651 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1652 1\.;
+#X text 150 1652 *float*;
+#X text 245 1652 [hidden inlet] set the label text to the given float
+without changing @text property.;
+#X text 150 1687 *symbol*;
+#X text 245 1687 [hidden inlet] set the label text without changing
+@text property.;
+#X text 150 1722 *list*;
+#X text 245 1722 [hidden inlet] set the label text to the given list
+separated by spaces without changing @text property.;
+#X text 150 1757 *any*;
+#X text 245 1757 [hidden inlet] set the label text to the given message
+separated by spaces without changing @text property.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1822 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1825 библиотека: ceammc v0.9.8;
+#N canvas 10 1844 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 ui.label;
+#X text 10 76 категория:;
+#X text 120 76 ui;
+#X text 10 98 с версии:;
+#X text 120 98 0.5;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 ui \, label;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1844 pd info;
+#X connect 7 0 8 0;
+#X connect 11 0 17 0;
+#X connect 12 0 17 0;
+#X connect 13 0 17 0;
+#X connect 14 0 17 0;
+#X connect 15 0 17 0;
+#X connect 16 0 17 0;

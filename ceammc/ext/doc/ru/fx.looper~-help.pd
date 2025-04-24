@@ -1,0 +1,171 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 636 50 cnv 1 129 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 636 50 One track looper;
+#X obj 1 1 cnv 5 765 40 empty empty fx.looper~ 20 20 0 20 -104026
+-4096 0;
+#X obj 666 11 fx.looper~;
+#X obj 50 118 adc~ 1;
+#X msg 69 147 record;
+#X msg 155 147 play;
+#X msg 222 147 overdub;
+#X msg 318 147 stop;
+#X msg 386 147 clear;
+#X obj 50 205 fx.looper~ @loop_bang 1;
+#X obj 50 234 ui.gain~ @size 120 14;
+#X obj 290 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 338 234 ui.dsp~;
+#X obj 50 262 dac~;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 352 1\.;
+#X text 150 352 float;
+#X obj 246 353 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 352 CAPACITY(sec): max loop time. Тип: float. Диапазон:
+0…120;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 422 @array;
+#X text 245 422 Получить/Установить use specified array for record
+instead of internal buffer. Тип: symbol.;
+#X msg 110 464 @capacity;
+#X text 245 464 Получить/Установить max loop time. Тип: float. Единицы:
+'sec'. Значение по умолчанию: 5\. Диапазон: 0\...120\.;
+#X msg 110 506 @dub_to_play_time;
+#X text 245 506 Получить/Установить record fadeout time while transition
+from overdub to play. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+20\. Минимальное значение: 0\.;
+#X msg 110 563 @dub_to_stop_time;
+#X text 245 563 Получить/Установить fadeout time while transition from
+overdub to stop. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+20\. Минимальное значение: 0\.;
+#X msg 110 620 @loop_bang;
+#X text 245 620 Получить/Установить output bang on each loop start.
+Тип: bool. Значение по умолчанию: 1\.;
+#X msg 110 662 @loop_smooth;
+#X text 245 662 Получить/Установить time of lin fadein/fadeout applied
+to recorded loop for smooth playing. Тип: float. Единицы: 'ms'. Значение
+по умолчанию: 10\. Минимальное значение: 0\.;
+#X msg 110 719 @play_to_dub_time;
+#X text 245 719 Получить/Установить fadein time of overdub input signal
+while transition from play mode. Тип: float. Единицы: 'ms'. Значение
+по умолчанию: 10\. Минимальное значение: 0\.;
+#X msg 110 776 @play_to_stop_time;
+#X text 245 776 Получить/Установить fadeout time while transition from
+play to stop. Тип: float. Единицы: 'ms'. Значение по умолчанию: 10\.
+Минимальное значение: 0\.;
+#X msg 110 833 @rec_to_play_time;
+#X text 245 833 Получить/Установить xfade between recorded and input
+signal while transition from record to play. Тип: float. Единицы: 'ms'.
+Значение по умолчанию: 30\. Минимальное значение: 0\.;
+#X msg 110 890 @round;
+#X text 245 890 Получить/Установить encrease loop length to be multiple
+of specified value. If *0* - no rounding is performed. Тип: int. Единицы:
+'samp'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X msg 110 962 @stop_to_play_time;
+#X text 245 962 Получить/Установить fadein time of play while transition
+from stop. Тип: float. Единицы: 'ms'. Значение по умолчанию: 10\. Минимальное
+значение: 0\.;
+#X msg 110 1019 @length?;
+#X text 245 1019 (только чтение) Получить recorded loop length. Тип:
+float. Единицы: 'sec'. Значение по умолчанию: 0\. Минимальное значение:
+0\.;
+#X msg 110 1076 @play_phase?;
+#X text 245 1076 (только чтение) Получить current playing phase position.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1118 @play_pos?;
+#X text 245 1118 (только чтение) Получить current playing position.
+Тип: float. Единицы: 'sec'. Значение по умолчанию: 0\. Минимальное
+значение: 0\.;
+#X msg 110 1175 @state?;
+#X text 245 1175 (только чтение) Получить current state. Тип: symbol.
+Значение по умолчанию: init. Разрешённые значения: init \, stop \,
+record \, play \, overdub.;
+#X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1247 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1282 adjust;
+#X text 245 1282 increase loop length. Аргументы:;
+#X obj 255 1305 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1305 [DELTA]: loop length delta. Тип: float. Единицы: 'samp'.;
+#X msg 110 1330 clear;
+#X text 245 1330 clear loop data and stops playing.;
+#X msg 110 1358 overdub;
+#X text 245 1358 start loop overdubbing while keeping it playing.;
+#X msg 110 1386 pause;
+#X text 245 1386 loop pause.;
+#X msg 110 1414 play;
+#X text 245 1414 play recorded or stopped loop.;
+#X msg 110 1442 rec;
+#X text 245 1442 same as record.;
+#X msg 110 1470 record;
+#X text 245 1470 start loop record.;
+#X msg 110 1498 smooth;
+#X text 245 1498 Аргументы:;
+#X obj 255 1521 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1521 [TIME]: apply linear fadein/fadeout to loop. Тип:
+float. Единицы: 'ms'.;
+#X msg 110 1561 stop;
+#X text 245 1561 stop played loop.;
+#X obj 20 1599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1604 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1605 1\.;
+#X text 245 1605 input signal.;
+#X obj 20 1635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1640 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1641 1\.;
+#X text 245 1641 output signal.;
+#X text 110 1661 2\.;
+#X text 245 1661 bang on each loop start if @loop_bang property is
+true.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1711 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1714 библиотека: ceammc v0.9.8;
+#N canvas 10 1733 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 fx.looper~;
+#X text 10 76 категория:;
+#X text 120 76 fx;
+#X text 10 98 с версии:;
+#X text 120 98 0.5;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 fx \, looper;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1733 pd info;
+#X connect 4 0 10 0;
+#X connect 5 0 10 0;
+#X connect 6 0 10 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;
+#X connect 11 0 14 0;
+#X connect 11 0 14 1;

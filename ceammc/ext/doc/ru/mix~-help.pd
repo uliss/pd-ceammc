@@ -1,0 +1,129 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 590 50 multislot signal mixer;
+#X obj 1 1 cnv 5 765 40 empty empty mix~ 20 20 0 20 -104026 -4096 0;
+#X obj 603 11 ceammc/mix~;
+#X obj 709 11 mix~;
+#X obj 50 118 ui.sliders @count 4;
+#X obj 299 118 ui.dsp~;
+#X obj 462 205 ui.radio @nitems 4 @mode 1;
+#X obj 597 205 ui.radio @nitems 4 @mode 1;
+#X obj 78 234 osc~ 200;
+#X obj 174 234 osc~ 400;
+#X obj 270 234 osc~ 600;
+#X obj 366 234 osc~ 800;
+#X obj 462 234 msg @mute;
+#X obj 597 234 msg @solo;
+#X obj 50 277 mix~ 4;
+#X obj 50 305 ui.gain~ @size 120 16;
+#X obj 50 334 dac~;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 424 1\.;
+#X text 150 424 int;
+#X obj 246 425 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 424 N: number of inputs. Тип: int. Диапазон: 2…16;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 459 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 494 @db;
+#X text 245 494 Получить/Установить amplitude values in decibels. Тип:
+list. Единицы: 'db'. Значение по умолчанию: -144 -144\. Минимальное
+значение: -144\.;
+#X msg 110 551 @mute;
+#X text 245 551 Получить/Установить mute channel list \, allowed values:
+0 \, 1\. Тип: list. Значение по умолчанию: 0 0\.;
+#X msg 110 593 @solo;
+#X text 245 593 Получить/Установить solo channel list \, allowed values:
+0 \, 1\. Тип: list. Значение по умолчанию: 0 0\.;
+#X msg 110 635 @value;
+#X text 245 635 Получить/Установить linear amplitude values. Тип: list.
+Значение по умолчанию: 0 0\. Минимальное значение: 0\.;
+#X msg 110 677 @xfade_time;
+#X text 245 677 Получить/Установить smooth time. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 20\. Минимальное значение: 1\.;
+#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 734 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 769 mute;
+#X text 245 769 mute specified channel. Аргументы:;
+#X obj 255 792 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 792 CH: channel index (from 0). Тип: int. Минимальное значение:
+0\.;
+#X obj 255 830 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 830 VAL: 1 - mute \, 0 - unmute. Тип: int. Разрешённые
+значения: 0 \, 1\.;
+#X msg 110 870 solo;
+#X text 245 870 solo (mute all others that not solo) specified channel.
+Аргументы:;
+#X obj 255 908 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 908 CH: channel index (from 0). Тип: int. Минимальное значение:
+0\.;
+#X obj 255 946 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 946 [VAL]: 1 - enable solo \, 0 - disable solo. Тип: int.
+Разрешённые значения: 0 \, 1\.;
+#X obj 20 996 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1001 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1002 1\.;
+#X text 245 1002 input signal.;
+#X text 110 1022 ....;
+#X text 245 1022 input signal.;
+#X text 110 1042 n.;
+#X text 150 1042 *float*;
+#X text 245 1042 input signal.;
+#X obj 20 1072 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1077 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1078 1\.;
+#X text 245 1078 output mixed signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 1 1128 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1131 библиотека: ceammc v0.9.8;
+#N canvas 10 1150 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 mix~;
+#X text 10 76 категория:;
+#X text 120 76 base;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 mix \, amplitude \, decibel;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1150 pd info;
+#X connect 7 0 13 0;
+#X connect 8 0 14 0;
+#X connect 5 0 15 0;
+#X connect 9 0 15 0;
+#X connect 10 0 15 1;
+#X connect 11 0 15 2;
+#X connect 12 0 15 3;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 16 0 17 1;

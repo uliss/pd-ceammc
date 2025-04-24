@@ -1,0 +1,102 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 499 50 output largest element in the list;
+#X obj 1 1 cnv 5 765 40 empty empty list.max 20 20 0 20 -104026 -4096
+0;
+#X obj 682 11 list.max;
+#X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 By default returns largest float in list \, this equal
+to using @float property.;
+#X text 215 120 Also you can choose largest symbol from list \, using
+@symbol property.;
+#X msg 50 198 1 2 3 a b;
+#X msg 174 198 list a b c;
+#X msg 309 198 1 2 3 a b;
+#X msg 434 198 list a aa ab ac;
+#X obj 50 242 list.max @float;
+#X obj 309 242 list.max @symbol;
+#X floatatom 50 270 5 0 0 0 - - -;
+#X symbolatom 309 270 10 0 0 0 - - -;
+#X msg 50 299 1 a 2 b 3 c;
+#X floatatom 184 299 5 0 0 0 - - -;
+#X symbolatom 251 299 8 0 0 0 - - -;
+#X obj 50 342 list.max @any;
+#X obj 50 371 ui.dt;
+#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 426 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 429 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 461 @any;
+#X text 245 461 Alias for @type any. Find greatest atom of any type.
+Note: symbols are greater then numbers.;
+#X msg 110 503 @float;
+#X text 245 503 Alias for @type float. Find max float element in list.;
+#X msg 110 533 @symbol;
+#X text 245 533 Alias for @type symbol. Find greatest symbol element.;
+#X msg 110 563 @type;
+#X text 245 563 Получить/Установить type of largest element. Тип: symbol.
+Значение по умолчанию: float. Разрешённые значения: float \, symbol
+\, any.;
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 635 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 636 1\.;
+#X text 150 636 *list*;
+#X text 245 636 input list.;
+#X text 150 656 *data:mlist*;
+#X text 245 656 input mlist.;
+#X text 150 676 *float*;
+#X text 245 676 passed thru in @float or @any mode.;
+#X text 150 696 *symbol*;
+#X text 245 696 passed thru in @symbol or @any mode.;
+#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 731 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 732 1\.;
+#X text 245 732 largest element.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 1 782 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 785 библиотека: ceammc v0.9.8;
+#X text 561 797 смотрите также:;
+#X obj 682 797 list.min;
+#N canvas 10 804 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 list.max;
+#X text 10 76 категория:;
+#X text 120 76 list;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 list \, max \, compare;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 804 pd info;
+#X connect 7 0 11 0;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;

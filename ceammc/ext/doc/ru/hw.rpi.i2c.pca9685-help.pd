@@ -1,0 +1,191 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 337 50 cnv 1 428 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 337 50 драйвер для 16-канального 12-битного ШИМ модуля на чипе
+PCA9685 для Raspberry Pi;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.i2c.pca9685 20 20 0 20
+-104026 -4096 0;
+#X obj 455 11 hw.rpi.pwm.pca9685;
+#X obj 610 11 hw.rpi.i2c.pca9685;
+#X obj 210 80 cnv 1 555 340 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Note: default PWM freq is 50Hz;
+#X text 215 105 *Servo Control*;
+#X text 215 130 Many digital servos run on a 20ms pulse width (50Hz
+update frequency) based duty cycle \, and do not utilize the entire
+pulse width for their control;
+#X text 215 185 Typically \, 2.5% of the 20ms pulse width (0.5ms) represents
+-90° offset \, and 12.5% of the 20ms pulse width (2.5ms) represents
++90° offset;
+#X text 215 240 Be aware that driving some 180° servos too far past
+their -90°/+90° operational range can cause a little plastic limiter
+pin to break off and get stuck inside of the servo's gearing \, which
+could potentially cause the servo to become jammed and no longer function;
+#X text 215 325 Continuous servos operate in much the same fashion
+as 180° servos \, but instead of the 2.5%/12.5% pulse width controlling
+a -90°/+90° offset it controls a -1x/+1x speed multiplier \, with 0x
+being parked/no-movement and -1x/+1x being maximum speed in either
+direction.;
+#X text 50 448 180° servo example;
+#X obj 50 477 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 506 enable \$1;
+#X obj 69 535 ui.hsl;
+#X obj 69 564 l->l 0 1 0.5 2.5;
+#X obj 69 592 clip 0.5 2.5;
+#X msg 69 621 pwidth 0 \$1;
+#X obj 50 664 hw.rpi.pwm.pca9685 default;
+#X obj 50 693 ui.link @title 'Connection_scheme' @url
+ceammc://img/conn_pca9685.png;
+#X obj 50 722 ui.link @title 'Address' @url
+ceammc://img/info_pca9685.jpg;
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 787 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 819 1\.;
+#X text 150 819 atom;
+#X obj 246 820 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 819 I2C_BUS: See @i2c_bus property. Разрешённые значения:
+1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none. Тип: atom.;
+#X obj 20 864 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 869 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 872 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 904 @i2c_addr;
+#X text 245 904 (при инициализации) Получить/Установить I²C address.
+Also 'default' value is accepted (for addr 0x40). Тип: int. Значение
+по умолчанию: -1\. Диапазон: -4\...119\.;
+#X msg 110 961 @i2c_bus;
+#X text 245 961 (при инициализации) Получить/Установить I²C bus. Тип:
+atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
+3 \, 4 \, 5 \, 6 \, default \, none.;
+#X obj 20 1028 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1033 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1068 const;
+#X text 245 1068 set channel constant value. Аргументы:;
+#X obj 255 1091 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1091 CHAN: device PWM channel. If equals to 16 means all
+channels. Тип: int. Диапазон: 0…16\.;
+#X obj 255 1129 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1129 VALUE: value. Тип: bool.;
+#X obj 255 1152 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1152 [DELAY]: the setting is delayed by the given phase
+value. Тип: float. Диапазон: 0…1\.;
+#X msg 110 1192 disable_prog_addr;
+#X text 245 1192 disable of using programmable address. Аргументы:;
+#X obj 255 1215 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1215 TYPE: prog address type. Тип: atom. Разрешённые значения:
+1 \, 2 \, 3 \, all.;
+#X msg 110 1255 duty;
+#X text 245 1255 set channel PWM duty cycle. Аргументы:;
+#X obj 255 1278 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1278 CHAN: device PWM channel. If equals to 16 means all
+channels. Тип: int. Диапазон: 0…16\.;
+#X obj 255 1316 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1316 DUTY: duty cycle value. Тип: float. Диапазон: -1…1\.;
+#X obj 255 1339 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1339 [PHASE]: phase offset. Тип: float. Диапазон: -1…1\.;
+#X msg 110 1364 enable;
+#X text 245 1364 enable/disable the device. The disabled state is equal
+to sleep \, the device is keeping all current PWM setting \, but just
+not responds to the new settings. Аргументы:;
+#X obj 255 1417 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1417 [STATE=1]: new state. Тип: bool.;
+#X msg 110 1442 enable_restart_and_disable;
+#X text 325 1442 put the controller to sleep while keeping the PWM
+register contents in preparation for a future restart.;
+#X msg 110 1482 freq;
+#X text 245 1482 set PWM frequency. Аргументы:;
+#X obj 255 1505 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1505 FREQ: new frequency. Тип: float. Диапазон: 24…2048\.
+Единицы: 'Hz'.;
+#X msg 110 1545 period;
+#X text 245 1545 set PWM period. Аргументы:;
+#X obj 255 1568 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1568 PERIOD: new frequency. Тип: float. Диапазон: 0.5…40\.
+Единицы: 'ms'.;
+#X msg 110 1608 polarity;
+#X text 245 1608 set PWM inversed polarity. Applicable when OE = 0\.
+Аргументы:;
+#X obj 255 1646 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1646 POLARITY: polarity value: 0 - direct \, 1 - inversed.
+Тип: bool.;
+#X msg 110 1686 pwidth;
+#X text 245 1686 set channel PWM pulse width. Аргументы:;
+#X obj 255 1709 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1709 CHAN: device PWM channel. If equals to 16 means all
+channels. Тип: int. Диапазон: 0…16\.;
+#X obj 255 1747 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1747 WIDTH: pulse width. Тип: float. Диапазон: 0.5…40\.
+Единицы: 'ms'.;
+#X obj 255 1785 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1785 [PHASE]: phase offset. Тип: float. Диапазон: 0…1\.;
+#X msg 110 1810 restart;
+#X text 245 1810 re-enable the controller after a sleep with restart
+enabled so that previously active PWM channels are restarted.;
+#X msg 110 1850 set_raw;
+#X text 245 1850 set channel raw PWM frequency. Аргументы:;
+#X obj 255 1873 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1873 CHAN: device PWM channel. If equals to 16 means all
+channels. Тип: int. Диапазон: 0…16\.;
+#X obj 255 1911 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1911 ON: ON counter time value. Тип: int. Диапазон: 0…4095\.;
+#X obj 255 1934 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1934 OFF: OFF counter time value. Тип: int. Диапазон: 0…4095\.;
+#X msg 110 1959 use_prog_addr;
+#X text 245 1959 set and use programmable address. Аргументы:;
+#X obj 255 1982 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1982 TYPE: prog address type. Тип: atom. Разрешённые значения:
+1 \, 2 \, 3 \, all.;
+#X obj 255 2020 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2020 I2C_ADDR: new I²C address. Тип: int. Диапазон: 7…119\.;
+#X obj 20 2055 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2060 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 2061 1\.;
+#X text 245 2061 control input.;
+#X obj 20 2091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2096 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 2097 1\.;
+#X text 245 2097 control output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 2147 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2150 библиотека: ceammc v0.9.8;
+#N canvas 10 2169 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.rpi.i2c.pca9685;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 display \, pwm \, raspberry \, servo;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2169 pd info;
+#X connect 13 0 14 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 14 0 19 0;
+#X connect 18 0 19 0;

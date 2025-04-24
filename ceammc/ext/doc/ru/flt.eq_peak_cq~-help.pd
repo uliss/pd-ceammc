@@ -1,0 +1,110 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 384 50 constant-Q second order peaking equalizer section;
+#X obj 1 1 cnv 5 765 40 empty empty flt.eq_peak_cq~ 20 20 0 20 -104026
+-4096 0;
+#X obj 630 11 flt.eq_peak_cq~;
+#X obj 50 118 noise~;
+#X floatatom 136 118 5 0 0 0 - - -;
+#X floatatom 242 118 5 0 0 0 - - -;
+#X floatatom 347 118 5 0 0 0 - - -;
+#X msg 136 147 @freq \$1;
+#X msg 242 147 @gain \$1;
+#X msg 347 147 @q \$1;
+#X obj 50 176 flt.eq_peak_cq~ 3000 15 3;
+#X obj 50 205 ui.ssc~ @size 500 120 @log_scale 1;
+#X obj 50 334 ui.dsp~;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 424 1\.;
+#X text 150 424 float;
+#X obj 246 425 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 424 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
+#X text 110 444 2\.;
+#X text 150 444 float;
+#X obj 246 445 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 444 GAIN(db): filter gain. Тип: float. Диапазон: -15…+15;
+#X text 110 464 3\.;
+#X text 150 464 float;
+#X obj 246 465 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 464 Q: quality factory. Тип: float. Диапазон: 0.1…100;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 499 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 534 @id;
+#X text 245 534 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/flt_eq_peak_cq/PROP_NAME
+osc address \, if empty bind to /flt_eq_peak_cq/PROP_NAME. Тип: symbol.;
+#X msg 110 606 @osc;
+#X text 245 606 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 648 @active;
+#X text 245 648 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 690 @freq;
+#X text 245 690 Получить/Установить center frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X msg 110 732 @gain;
+#X text 245 732 Получить/Установить filter gain. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -15\...15\.;
+#X msg 110 774 @q;
+#X text 245 774 Получить/Установить quality factor: @freq/BANDWIDTH.
+Тип: float. Значение по умолчанию: 3\. Диапазон: 0.1\...100\.;
+#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 831 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 832 1\.;
+#X text 245 832 input signal.;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 867 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 868 1\.;
+#X text 245 868 filtered signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 921 библиотека: ceammc v0.9.8;
+#X text 531 933 смотрите также:;
+#X obj 652 933 flt.eq_peak~;
+#N canvas 10 940 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.eq_peak_cq~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 filter \, equalizer;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 940 pd info;
+#X connect 5 0 8 0;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
+#X connect 4 0 11 0;
+#X connect 8 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;

@@ -1,0 +1,162 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 498 50 cnv 1 267 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 498 50 VLC video player control over HTTP;
+#X obj 1 1 cnv 5 765 40 empty empty proto.vlc 20 20 0 20 -104026 -4096
+0;
+#X obj 675 11 proto.vlc;
+#X obj 210 80 cnv 1 555 59 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 VLC video player control;
+#X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
+@title videolan.org @url https://www.videolan.org/vlc;
+#X msg 50 167 play;
+#X msg 174 167 playlist;
+#X msg 328 167 next;
+#X msg 424 167 prev;
+#X msg 50 196 stop;
+#X obj 174 196 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 328 196 browse file://;
+#X obj 59 225 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 174 225 openpanel;
+#X symbolatom 328 225 10 0 0 0 - - -;
+#X msg 50 254 pause;
+#X msg 126 254 fs;
+#X msg 174 254 add file://\$1;
+#X msg 328 254 seek \$1;
+#X obj 50 283 proto.vlc localhost @pass 12345;
+#X obj 50 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 270 311 print;
+#X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 366 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 369 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 401 1\.;
+#X text 150 401 symbol;
+#X obj 246 402 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 401 HOST: hostname on that VLC player is running on. Тип:
+symbol.;
+#X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 436 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 439 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 471 @host;
+#X text 245 471 Получить/Установить hostname on that VLC player is
+running on. Тип: symbol. Значение по умолчанию: localhost.;
+#X msg 110 513 @pass;
+#X text 245 513 Получить/Установить VLC http password. Тип: atom.;
+#X msg 110 543 @port;
+#X text 245 543 Получить/Установить hostname on that VLC player is
+running on. Тип: int. Значение по умолчанию: 8080\. Диапазон: 1\...32768\.;
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 650 add;
+#X text 245 650 add URI to playlist. Аргументы:;
+#X obj 255 673 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 673 URI: resource URI (file:// or http:// or camera://).
+Тип: symbol.;
+#X msg 110 713 browse;
+#X text 245 713 browse resource. Аргументы:;
+#X obj 255 736 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 736 URI: resource URI (file:///path). Тип: symbol.;
+#X msg 110 761 clear;
+#X text 245 761 clear playlist.;
+#X msg 110 789 delete;
+#X text 245 789 delete item from playlist. Аргументы:;
+#X obj 255 812 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 812 [ID]: playlist entry id. Тип: int.;
+#X msg 110 837 fs;
+#X text 245 837 toggle VLC fullscreen mode.;
+#X msg 110 865 loop;
+#X text 245 865 toggle loop.;
+#X msg 110 893 next;
+#X text 245 893 go to the next entry on the playlist.;
+#X msg 110 921 pause;
+#X text 245 921 pause/resume playback. Аргументы:;
+#X obj 255 944 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 944 [VAL]: 1 or omitted: pause \, 0: resume. Тип: int.
+Разрешённые значения: 0 \, 1\.;
+#X msg 110 984 play;
+#X text 245 984 start playback.;
+#X msg 110 1012 playlist;
+#X text 245 1012 request playlist. Output as dict to second outlet.;
+#X msg 110 1040 prev;
+#X text 245 1040 go to the previous entry on the playlist.;
+#X msg 110 1068 seek;
+#X text 245 1068 seek playback position. Аргументы:;
+#X obj 255 1091 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1091 TIME: absolute time position (int value in seconds
+or 00h:00m:00s) or relative offset (+val \, -val). Тип: atom.;
+#X msg 110 1131 status;
+#X text 245 1131 request playback status. Output as dict to second
+outlet.;
+#X msg 110 1159 stop;
+#X text 245 1159 stop playback.;
+#X msg 110 1187 volume;
+#X text 245 1187 set playing volume. Аргументы:;
+#X obj 255 1210 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1210 VAL: absolute value in percent or relative change
++VOL or -VOL. Тип: atom.;
+#X obj 20 1260 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1265 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1266 1\.;
+#X text 245 1266 commands.;
+#X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1301 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1302 1\.;
+#X text 245 1302 int: 1 on success \, 0 on error.;
+#X text 110 1322 2\.;
+#X text 245 1322 dict: response data.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
+#X obj 1 1372 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1375 библиотека: ceammc v0.9.8;
+#N canvas 10 1394 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 proto.vlc;
+#X text 10 76 категория:;
+#X text 120 76 proto;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.5;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 mpv \, mplayer;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1394 pd info;
+#X connect 12 0 15 0;
+#X connect 14 0 17 0;
+#X connect 15 0 19 0;
+#X connect 16 0 20 0;
+#X connect 17 0 21 0;
+#X connect 18 0 21 0;
+#X connect 19 0 21 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 23 0;
+#X connect 7 0 21 0;
+#X connect 11 0 21 0;
+#X connect 8 0 21 0;
+#X connect 9 0 21 0;
+#X connect 10 0 21 0;
+#X connect 13 0 21 0;

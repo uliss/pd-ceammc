@@ -1,0 +1,99 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 346 50 cnv 1 419 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 346 50 set property for connected object/subpatch/abstraction;
+#X obj 1 1 cnv 5 765 40 empty empty prop.set 20 20 0 20 -104026 -4096
+0;
+#X obj 621 11 p.set;
+#X obj 682 11 prop.set;
+#X obj 210 80 cnv 1 555 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The object adds ability to change properties of flow
+objects that should accept any incoming messages. The object should
+be connected to destination \, but it not sends pd messages to change
+props \, but using internal pd method calls;
+#X text 215 150 Object can be used with patch declared user properties;
+#X text 215 175 Note: you can connect to *any* destination inlet;
+#X msg 50 238 @delay 400;
+#X text 165 238 passed thru;
+#X msg 328 238 400;
+#X msg 386 238 0;
+#X text 414 238 change delay time;
+#X obj 328 267 prop.set @delay;
+#X obj 50 296 flow.delay 1000;
+#X obj 50 325 ui.dt;
+#X floatatom 50 354 5 0 0 0 - - -;
+#X text 88 354 the only way to resize;
+#X msg 50 382 \$1 20;
+#X obj 50 411 prop.set @size;
+#X obj 50 440 ui.d;
+#X floatatom 50 483 5 0 0 0 - - -;
+#X text 88 483 abstraction property;
+#X obj 50 512 prop.set @p1;
+#X obj 50 541 prop.set-patch;
+#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 596 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 599 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 631 1\.;
+#X text 150 631 list;
+#X obj 246 632 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 631 PROPS: property names. Тип: list.;
+#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 666 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 667 1\.;
+#X text 245 667 first property value.;
+#X text 110 687 ....;
+#X text 245 687 ... property value.;
+#X text 110 707 n.;
+#X text 245 707 n-th property value.;
+#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 742 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 743 1\.;
+#X text 245 743 outputs nothing. connect to destination object(s).;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
+#X obj 1 793 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 796 библиотека: ceammc v0.9.8;
+#X text 561 808 смотрите также:;
+#X obj 682 808 prop.get;
+#N canvas 10 815 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 prop.set;
+#X text 10 76 категория:;
+#X text 120 76 property;
+#X text 10 98 с версии:;
+#X text 120 98 0.9;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 property;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 815 pd info;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
+#X connect 9 0 15 0;
+#X connect 14 0 15 1;
+#X connect 15 0 16 0;
+#X connect 17 0 19 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 22 0 24 0;
+#X connect 24 0 25 0;

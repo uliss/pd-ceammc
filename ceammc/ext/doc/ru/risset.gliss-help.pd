@@ -1,0 +1,114 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 483 50 Sheppard/Risset glissando calculator;
+#X obj 1 1 cnv 5 765 40 empty empty risset.gliss 20 20 0 20 -104026
+-4096 0;
+#X obj 654 11 risset.gliss;
+#X msg 50 118 0 \, 1 10000;
+#X floatatom 184 118 5 0 0 0 - - -;
+#X floatatom 357 118 5 0 0 0 - - -;
+#X obj 50 147 line 0 20;
+#X msg 184 147 @interval \$1;
+#X msg 357 147 @shift \$1;
+#X obj 50 205 risset.gliss 60;
+#X obj 50 234 msg \#:0;
+#X obj 155 234 msg \#:0;
+#X obj 50 262 hoa.process~ 5 risset.gliss-osc~ planewaves;
+#X obj 50 305 ui.hgain~;
+#X obj 357 305 ui.dsp~;
+#X obj 50 334 dac~ 1 2;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 424 1\.;
+#X text 150 424 float;
+#X obj 246 425 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 424 BASE(semitone): base pitch. Тип: float. Диапазон: 10…100;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 459 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 494 @n;
+#X text 245 494 (при инициализации) Получить/Установить number of bands.
+Тип: int. Значение по умолчанию: 5\.;
+#X msg 110 536 @ampexp;
+#X text 245 536 Получить/Установить amplitude exponent. Тип: float.
+Значение по умолчанию: 2\.;
+#X msg 110 578 @base;
+#X text 245 578 Получить/Установить base pitch. Тип: float. Единицы:
+'semitone'. Значение по умолчанию: 60\. Диапазон: 10\...100\.;
+#X msg 110 620 @interval;
+#X text 245 620 Получить/Установить interval between bands. Тип: float.
+Единицы: 'semitone'. Значение по умолчанию: 12\.;
+#X msg 110 662 @shift;
+#X text 245 662 Получить/Установить band shift in octaves. Тип: float.
+Значение по умолчанию: 0\.;
+#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 719 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 779 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 780 1\.;
+#X text 150 780 *float*;
+#X text 245 780 glissando phase.;
+#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 815 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 816 1\.;
+#X text 245 816 list of midi pitches.;
+#X text 110 836 2\.;
+#X text 245 836 list of amplitudes.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
+#X obj 1 886 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 889 библиотека: ceammc v0.9.8;
+#N canvas 10 908 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 risset.gliss;
+#X text 10 76 категория:;
+#X text 120 76 misc;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.5;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 misc \, risset \, glissando;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 908 pd info;
+#X connect 4 0 7 0;
+#X connect 5 0 8 0;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;
+#X connect 11 0 13 1;
+#X connect 12 0 13 2;
+#X connect 13 0 14 0;
+#X connect 13 1 14 0;
+#X connect 13 2 14 0;
+#X connect 13 3 14 0;
+#X connect 13 4 14 0;
+#X connect 14 0 16 0;
+#X connect 14 0 16 1;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;

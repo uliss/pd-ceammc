@@ -1,0 +1,105 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 521 50 cnv 1 244 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 convert LAB color values to RGB;
+#X obj 1 1 cnv 5 765 40 empty empty conv.lab2rgb 20 20 0 20 -104026
+-4096 0;
+#X obj 436 11 ceammc/lab->rgb;
+#X obj 570 11 lab->rgb;
+#X obj 653 11 conv.lab2rgb;
+#X obj 210 80 cnv 1 555 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Wiki:;
+#X obj 255 82 ui.link @background_color 0.98039 0.98039 0.98039 @title
+CIELAB color space @url
+https://en.wikipedia.org/wiki/CIELAB_color_space;
+#X obj 50 142 ui.hsl @label L* @label_inner 1 @show_value 1
+@label_color 0.1 0.25 1;
+#X obj 136 171 ui.hsl -1 1 @label a* @label_inner 1 @show_value 1
+@label_color 0.1 0.25 1;
+#X msg 59 200 bang;
+#X obj 251 200 ui.hsl -1 1 @label b* @label_inner 1 @show_value 1
+@label_color 0.1 0.25 1;
+#X obj 50 229 lab->rgb @sync @float @pack;
+#X obj 78 258 ui.dt;
+#X obj 50 301 msg @background_color;
+#X obj 50 329 ui.t @size 40 40 @nosave 1;
+#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 387 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 419 @pack;
+#X text 245 419 output as list (creates single outlet object).;
+#X msg 110 449 @sync;
+#X text 245 449 output at any inlet change.;
+#X msg 110 479 @float;
+#X text 245 479 Alias to @mode float. Output float values in [0-1]
+range.;
+#X msg 110 509 @int;
+#X text 245 509 Alias to @mode int. Output integer values in [0-255]
+range.;
+#X msg 110 539 @mode;
+#X text 245 539 Получить/Установить output mode. Тип: symbol. Значение
+по умолчанию: int. Разрешённые значения: int \, float.;
+#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 596 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 597 1\.;
+#X text 150 597 *bang*;
+#X text 245 597 output current value.;
+#X text 150 617 *float*;
+#X text 245 617 set color L-component and output. Диапазон: 0…1\.;
+#X text 110 637 2\.;
+#X text 150 637 *float*;
+#X text 245 637 set color a*-component. Диапазон: -1…1\.;
+#X text 110 657 3\.;
+#X text 150 657 *float*;
+#X text 245 657 set color b*-component. Диапазон: -1…1\.;
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 692 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 693 1\.;
+#X text 245 693 list: R G B or red channel value (int[0-255] or float[0-1]).;
+#X text 110 713 2\.;
+#X text 245 713 int[0-255] or float[0-1]: green channel value.;
+#X text 110 733 3\.;
+#X text 245 733 int[0-255] or float[0-1]: blue channel value.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 1 783 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 786 библиотека: ceammc v0.9.8;
+#N canvas 10 805 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 conv.lab2rgb;
+#X text 10 76 категория:;
+#X text 120 76 conv;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.7;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 conv \, color \, lab \, rgb;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 805 pd info;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 9 0 13 0;
+#X connect 10 0 13 1;
+#X connect 12 0 13 2;

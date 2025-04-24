@@ -1,0 +1,173 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 590 50 детектор темпа сигнала;
+#X obj 1 1 cnv 5 765 40 empty empty an.tempo~ 20 20 0 20 -104026 -4096
+0;
+#X obj 673 11 an.tempo~;
+#X obj 210 80 cnv 1 555 59 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Tempo detector based on aubio library;
+#X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
+@title https://aubio.org @url https://aubio.org/;
+#X obj 50 167 loadmsg load sound/loop_breakbeat.flac to antmp @resize;
+#X obj 50 196 snd.file;
+#X obj 50 225 table antmp;
+#X obj 194 225 ui.hsl @show_value 1 @min 0.1 @max 2.5;
+#X obj 50 254 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 117 254 stop;
+#X msg 194 254 @speed \$1;
+#X obj 357 254 ui.dsp~;
+#X obj 50 297 array.play~ antmp @loop 1;
+#X obj 357 297 ui.menu hfc energy complex phase wphase specdiff
+specflux kl mkl;
+#X msg 357 326 @method \$1;
+#X obj 78 354 an.tempo~;
+#X floatatom 78 383 5 0 0 0 - - -;
+#X floatatom 146 383 5 0 0 0 - - -;
+#X obj 78 412 ui.b;
+#X obj 78 441 click~;
+#X obj 78 470 flt.resonbp~ 1000 50;
+#X obj 50 498 ui.hgain~;
+#X obj 50 527 dac~;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 582 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 585 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 617 1\.;
+#X text 150 617 int;
+#X obj 246 618 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 617 BS(samp): buffer size. Тип: int. Минимальное значение:
+64\.;
+#X text 110 637 2\.;
+#X text 150 637 symbol;
+#X obj 246 638 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 637 METHOD: onset detection method. Разрешённые значения:
+centroid \, complex \, complexdomain \, decrease \, default \, energy
+\, hfc \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \,
+specdiff \, specflux \, spread \, wphase. Тип: symbol.;
+#X text 110 702 3\.;
+#X text 150 702 int;
+#X obj 246 703 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 702 HS(samp): hop size (by default buffer_size/2). Тип:
+int. Минимальное значение: 0\.;
+#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 752 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 755 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 787 @bs;
+#X text 245 787 (при инициализации) Получить/Установить buffer size.
+Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Минимальное
+значение: 64\.;
+#X msg 110 844 @active;
+#X text 245 844 Получить/Установить audio processing state. Тип: bool.
+Значение по умолчанию: 1\.;
+#X msg 110 886 @complex;
+#X text 245 886 Alias to @method complex. Complex Domain Method onset
+detection function.;
+#X msg 110 928 @delay;
+#X text 245 928 Получить/Установить constant system delay to take back
+from detection time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+0\. Минимальное значение: 0\.;
+#X msg 110 985 @energy;
+#X text 245 985 Alias to @method energy. Energy based onset detection
+function.;
+#X msg 110 1027 @hfc;
+#X text 245 1027 Alias to @method hfc. High Frequency Content onset
+detection.;
+#X msg 110 1057 @hs;
+#X text 245 1057 Получить/Установить hop size. 0 means @bs/2\. Тип:
+int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
+0\.;
+#X msg 110 1114 @kl;
+#X text 245 1114 Alias to @method kl. Kullback-Liebler onset detection
+function.;
+#X msg 110 1156 @method;
+#X text 245 1156 Получить/Установить onset method. Default is hfc.
+Тип: symbol. Значение по умолчанию: default. Разрешённые значения:
+specflux \, phase \, energy \, hfc \, kl \, complex \, default \, specdiff
+\, wphase \, rolloff \, spread \, kurtosis \, skewness \, complexdomain
+\, decrease \, slope \, centroid.;
+#X msg 110 1243 @mkl;
+#X text 245 1243 Alias to @method mkl. Modified Kullback-Liebler onset
+detection function.;
+#X msg 110 1285 @phase;
+#X text 245 1285 Alias to @method phase. Phase Based Method onset detection
+function.;
+#X msg 110 1327 @silence;
+#X text 245 1327 Получить/Установить onset detection silence threshold.
+Тип: float. Единицы: 'db'. Значение по умолчанию: -90\. Диапазон: -90\...0\.;
+#X msg 110 1384 @specdiff;
+#X text 245 1384 Alias to @method specdiff. Spectral difference method
+onset detection function.;
+#X msg 110 1426 @specflux;
+#X text 245 1426 Alias to @method specflux. Spectral Flux.;
+#X msg 110 1456 @threshold;
+#X text 245 1456 Получить/Установить peak picking threshold. Тип: float.
+Значение по умолчанию: 0.3\.;
+#X msg 110 1498 @wphase;
+#X text 245 1498 Alias to @method phase. Weighted Phase Deviation onset
+detection function.;
+#X obj 20 1550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1555 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1556 1\.;
+#X text 245 1556 input signal.;
+#X obj 20 1586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1591 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1592 1\.;
+#X text 245 1592 float: BPM value.;
+#X text 110 1612 2\.;
+#X text 245 1612 float: detection confidence.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
+#X obj 1 1662 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1665 библиотека: ceammc v0.9.8;
+#N canvas 10 1684 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 an.tempo~;
+#X text 10 76 категория:;
+#X text 120 76 an;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.3;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 tempo \, aubio \, bpm;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1684 pd info;
+#X connect 7 0 8 0;
+#X connect 10 0 13 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 16 0 17 0;
+#X connect 15 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 20 0;
+#X connect 19 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 15 0 24 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 24 0 25 1;

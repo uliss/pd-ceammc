@@ -1,0 +1,168 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 529 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 529 50 Logistic map chaotic generator;
+#X obj 1 1 cnv 5 765 40 empty empty chaos.logistic 20 20 0 20 -104026
+-4096 0;
+#X obj 513 11 noise.logistic;
+#X obj 639 11 chaos.logistic;
+#X obj 210 80 cnv 1 555 604 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 A non-interpolating generator based on the difference
+equations:;
+#X text 215 120 x[n+1] = λ * x[n] * (1 - x[n]);
+#X obj 215 145 ui.link @background_color 0.98039 0.98039 0.98039
+@title wiki: Logistic map @url
+https://en.wikipedia.org/wiki/Logistic_map;
+#X text 215 169 By varying the parameter λ \, the following behavior
+is observed:;
+#X text 215 209 • With λ between 0 and 1 \, the population will eventually
+die \, independent of the initial population;
+#X text 215 249 • With λ between 1 and 2 \, the population will quickly
+approach the value λ − 1/λ \, independent of the initial population;
+#X text 215 304 • With λ between 2 and 3 \, the population will also
+eventually approach the same value λ − 1/λ \, but first will fluctuate
+around that value for some time.;
+#X text 215 359 • With λ between 3 and 1 + √6 ≈ 3.44949 \, from almost
+all initial conditions the population will approach permanent oscillations
+between two values. These two values are dependent on λ.;
+#X text 215 429 • With λ between 3.44949 and 3.54409 (approximately)
+\, from almost all initial conditions the population will approach
+permanent oscillations among four values.;
+#X text 215 484 • With λ increasing beyond 3.54409 \, from almost all
+initial conditions the population will approach oscillations among
+8 values \, then 16 \, 32 \, etc.;
+#X text 215 539 • At λ ≈ 3.56995 is the onset of chaos \, at the end
+of the period-doubling cascade.;
+#X text 215 579 • Most values of r beyond 3.56995 exhibit chaotic behavior
+\, but there are still certain isolated ranges of r that show non-chaotic
+behavior.;
+#X text 215 634 Beyond λ = 4 \, almost all initial values eventually
+leave the interval [0 \, 1] and diverge.;
+#X obj 50 712 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 395 712 r~ logistic;
+#X obj 50 741 metro.random 60 100;
+#X floatatom 280 741 5 0 0 0 - - -;
+#X obj 395 741 ui.scope~ @size 360 100;
+#X msg 50 770 3;
+#X msg 174 770 reset;
+#X msg 280 770 lambda \$1;
+#X obj 50 799 list.gen;
+#X obj 174 799 chaos.logistic 0.777 3.97;
+#X obj 50 828 l->l -1 1 20 600 @clip minmax;
+#X obj 50 856 list.unpack 3;
+#X obj 50 885 sig~;
+#X obj 184 885 * 400;
+#X obj 270 885 / 250;
+#X obj 184 914 sig~;
+#X msg 270 914 @res \$1;
+#X obj 50 943 osc~;
+#X obj 184 943 lop~ 2;
+#X obj 50 972 flt.moog_vcf~;
+#X obj 50 1000 clip~ -1 1;
+#X obj 50 1029 ui.hgain~;
+#X obj 194 1029 s~ logistic;
+#X obj 405 1029 ui.dsp~;
+#X obj 50 1058 dac~;
+#X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1113 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 1116 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 1148 1\.;
+#X text 150 1148 float;
+#X obj 246 1149 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1148 INIT: x init value (default 0.777). Тип: float.;
+#X text 110 1168 2\.;
+#X text 150 1168 float;
+#X obj 246 1169 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1168 LAMBDA: lambda value (default 3.9). Тип: float.;
+#X obj 20 1198 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1203 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1238 lambda;
+#X text 245 1238 set lambda value.;
+#X msg 110 1266 om;
+#X text 245 1266 set output mode. Аргументы:;
+#X obj 255 1289 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1289 BOOL: output mode. If 1: outputs new generated value
+after lambda or seed method call \, if 0 - change values without output.
+Default is 0\. Тип: int.;
+#X msg 110 1344 reset;
+#X text 245 1344 set to initial state.;
+#X msg 110 1372 seed;
+#X text 245 1372 set init value \, updates init value.;
+#X msg 110 1400 set;
+#X text 245 1400 set init value and lambda value and updates init value.;
+#X obj 20 1438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1443 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1444 1\.;
+#X text 150 1444 *bang*;
+#X text 245 1444 generate and output new value.;
+#X text 150 1464 *float*;
+#X text 245 1464 set x-value and if output mode is 1 outputs new value.;
+#X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1499 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1500 1\.;
+#X text 245 1500 new generated x-value.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
+#X obj 1 1550 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1553 библиотека: ceammc v0.9.8;
+#X text 546 1565 смотрите также:;
+#X obj 667 1565 chaos.std0;
+#N canvas 10 1572 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 chaos.logistic;
+#X text 10 76 категория:;
+#X text 120 76 chaos;
+#X text 10 98 с версии:;
+#X text 120 98 0.9;
+#X text 10 120 авторы:;
+#X text 120 120 André Sier;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 chaos \, logistic;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1572 pd info;
+#X connect 19 0 21 0;
+#X connect 20 0 23 0;
+#X connect 21 0 24 0;
+#X connect 22 0 26 0;
+#X connect 24 0 27 0;
+#X connect 25 0 28 0;
+#X connect 26 0 28 0;
+#X connect 27 0 29 0;
+#X connect 29 0 30 0;
+#X connect 30 0 31 0;
+#X connect 30 1 32 0;
+#X connect 30 2 33 0;
+#X connect 32 0 34 0;
+#X connect 33 0 35 0;
+#X connect 31 0 36 0;
+#X connect 34 0 37 0;
+#X connect 36 0 38 0;
+#X connect 37 0 38 1;
+#X connect 35 0 38 0;
+#X connect 38 0 39 0;
+#X connect 39 0 40 0;
+#X connect 39 0 41 0;
+#X connect 40 0 43 0;
+#X connect 40 0 43 1;
+#X connect 27 1 28 0;
+#X connect 28 0 27 1;
