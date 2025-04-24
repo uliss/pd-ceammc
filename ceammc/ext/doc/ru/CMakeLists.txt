@@ -26,7 +26,14 @@ foreach(f ${DOC_FILES})
     )
 endforeach()
 
-add_custom_target(ceammc_pddoc_ru
+add_custom_target(ceammc_pddoc_cat_ru
     DEPENDS ${DOC_PD_FILES} ${PDDOC_LIB_FILE}
+    COMMAND ${PD_CAT2PD}
+        --locale RU
+        ${PDDOC_LIB_FILE}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
+add_custom_target(ceammc_pddoc_ru
+    DEPENDS ceammc_pddoc_cat_ru ${DOC_PD_FILES} ${PDDOC_LIB_FILE}
     # COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc.db ${CMAKE_CURRENT_SOURCE_DIR}
 )

@@ -1,0 +1,23 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 268 50 cnv 1 472 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 268 50 глобальные именованные объекты \, доступные отовсюду
+в PureData;
+#X obj 30 117 global.dict;
+#X text 200 117 глобальный именованный словарь;
+#X obj 30 145 global.float;
+#X text 200 145 глобальной именованное число с плавающей точкой;
+#X obj 30 173 global.int;
+#X text 200 173 глобальной именованное целое число;
+#X obj 30 201 global.list;
+#X text 200 201 глобальный именованный список;
+#X obj 30 229 global.mlist;
+#X text 200 229 глобальный именованный многоуровневый список (MList);
+#X obj 30 257 global.set;
+#X text 200 257 глобальное именованное множество;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::global 20 20 0 20 -104026
+-4096 0;
+#X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 523 library: ceammc;

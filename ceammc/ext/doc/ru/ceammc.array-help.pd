@@ -1,0 +1,82 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 328 50 cnv 1 412 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 328 50 объекты для работы со звуковыми массивами и таблицами;
+#X obj 30 117 array.bpm;
+#X text 200 117 вычисление BPM;
+#X obj 30 145 array.circular;
+#X text 200 145 чтение/запись в массив \, как в кольцевой буфер;
+#X obj 30 173 array.circular~;
+#X text 200 173 чтение/запись сигнала в массив \, как в кольцевой буфер;
+#X obj 30 201 array.convolve;
+#X text 200 201 FFT свертка массива;
+#X obj 30 229 array.copy;
+#X text 200 229 копирование семплов из одного массива в другой;
+#X obj 30 257 array.do;
+#X text 200 257 обход и модифиция содержимого массива через боковую
+цепь;
+#X obj 30 285 array.each;
+#X text 200 285 обработка каждого элемента массива через боковую цепь;
+#X obj 30 313 array.fill;
+#X text 200 313 заполнение массива одним значением \, шаблоном или
+функцией;
+#X obj 30 341 array.grainer~;
+#X text 200 341 гранулятор звуковой таблицы;
+#X obj 30 369 array.hist;
+#X text 200 369 вычисление гистограммы массива;
+#X obj 30 397 array.ltcplay~;
+#X text 200 397 проигрывание звуковой таблицы \, с управлением по LTC;
+#X obj 30 425 array.mean;
+#X text 200 425 вычисляет среднее арифметическое значение массива;
+#X obj 30 453 array.minmax;
+#X text 200 453 поиск минимального и максимального значения в массиве;
+#X obj 30 481 array.play~;
+#X text 200 481 проигрывание массива с изменяемой скоростью и амплитудой;
+#X obj 30 509 array.plot;
+#X text 200 509 построение числовых графиков данных на массиве;
+#X obj 30 537 array.plot~;
+#X text 200 537 постороение графика сигнала на заданном массиве;
+#X obj 30 565 array.readwrite~;
+#X text 200 565 одновременное чтение/запись сигналов в массив;
+#X obj 30 593 array.resample;
+#X text 200 593 пересемплирование массива;
+#X obj 30 621 array.rms;
+#X text 200 621 вычисляет среднее квадратное значение для массива;
+#X obj 30 649 array.set;
+#X text 200 649 устанавливает содержание массива данными из списка;
+#X obj 30 677 array.stddev;
+#X text 200 677 вычисляет стандартное отклонение для значений массива;
+#X obj 30 705 array.stretch;
+#X text 200 705 растяжение во времени \, изменени высоты тона или скорости
+у массива;
+#X obj 30 745 array.sum;
+#X text 200 745 вычисляет сумму элементов массива;
+#X obj 30 773 array.sum2;
+#X text 200 773 вычисляет сумму квадратов элементов массива;
+#X obj 30 801 array.tramp~;
+#X text 200 801 запускаемый генератор линейного индекса для массива;
+#X obj 30 829 array.variance;
+#X text 200 829 вычисляет дисперсию значений массива;
+#X obj 30 857 array.vplay;
+#X text 200 857 простой плеер массивов для использования с объектом
+vline~;
+#X obj 30 885 array.window;
+#X text 200 885 заполенение массива оконной функцией;
+#X obj 30 913 plot.geomspace~;
+#X text 200 913 outputs numbers spaced evenly on a log scale (a geometric
+progression);
+#X obj 30 953 plot.hist~;
+#X text 200 953 calculate and output signal histogram;
+#X obj 30 981 plot.linspace~;
+#X text 200 981 outputs numbers spaced evenly spaced over a specified
+interval;
+#X obj 30 1021 plot.logspace~;
+#X text 200 1021 outputs numbers spaced evenly on a log scale;
+#X obj 30 1049 plot.response~;
+#X text 200 1049 output amp/phase freq response to impulse;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
+-4096 0;
+#X obj 1 1077 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1087 library: ceammc;
