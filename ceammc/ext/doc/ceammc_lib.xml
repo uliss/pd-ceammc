@@ -555,34 +555,34 @@
     <entry name="env.asr~" descr="Attack/Sustain/Release envelope generator" ref_view="object">
       <xi:include href="env.asr~.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.concat" descr="Envelope concatenation" ref_view="object">
+    <entry name="env.concat" descr="envelope concatenation" ref_view="object">
       <xi:include href="env.concat.pddoc" parse="xml"/>
     </entry>
     <entry name="env.follow~" descr="Envelope follower with independent attack and release times" ref_view="object">
       <xi:include href="env.follow~.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.mix" descr="Mix between two envelopes. Envelopes should contain equal number of segments" ref_view="object">
+    <entry name="env.mix" descr="mix between two envelopes that contain the equal number of segments" ref_view="object">
       <xi:include href="env.mix.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.smooth~" descr="An envelope with an exponential attack and release" ref_view="object">
+    <entry name="env.smooth~" descr="envelope with an exponential attack and release" ref_view="object">
       <xi:include href="env.smooth~.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.tscale" descr="Envelope time-scale" ref_view="object">
+    <entry name="env.tscale" descr="envelope time-scale" ref_view="object">
       <xi:include href="env.tscale.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.tshift" descr="Envelope time-shift (horizontal)" ref_view="object">
+    <entry name="env.tshift" descr="envelope time-shift (horizontal)" ref_view="object">
       <xi:include href="env.tshift.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.vscale" descr="Envelope value-scale" ref_view="object">
+    <entry name="env.vscale" descr="envelope amplitude value-scale" ref_view="object">
       <xi:include href="env.vscale.pddoc" parse="xml"/>
     </entry>
-    <entry name="env2array" descr="Renders envelope to specified array" ref_view="object">
+    <entry name="env2array" descr="renders the envelope into the array" ref_view="object">
       <xi:include href="env2array.pddoc" parse="xml"/>
     </entry>
-    <entry name="env2vline" descr="Converts envelope to bunch of vline messages" ref_view="object">
+    <entry name="env2vline" descr="сonverts the envelope into the sequence of messages for vline object" ref_view="object">
       <xi:include href="env2vline.pddoc" parse="xml"/>
     </entry>
-    <entry name="envelope" descr="Envelope data type" ref_view="object">
+    <entry name="envelope" descr="envelope data type" ref_view="object">
       <xi:include href="envelope.pddoc" parse="xml"/>
     </entry>
     <entry name="vline2env" descr="Converts vline messages to env" ref_view="object">

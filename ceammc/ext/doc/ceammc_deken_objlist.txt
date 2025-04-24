@@ -359,29 +359,29 @@ dyn.gate~	mono signal gate
 dyn.limit2~	stereo 1176LN Peak Limiter
 dyn.limit~	mono 1176LN Peak Limiter
 dyn.softclip~	soft signal clip
-env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator
-env.ar~	Attack/Release envelope generator
-env.asr2~	stereo Attack/Sustain/Release envelope generator
-env.asr~	Attack/Sustain/Release envelope generator
-env.concat	Envelope concatenation
+env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator / генератор огибающей ADSR (Attack, Decay, Sustain, Release)
+env.ar~	Attack/Release envelope generator / генератор огибающей Attack/Release
+env.asr2~	stereo Attack/Sustain/Release envelope generator / стерео генератор огибающей Attack/Sustain/Release
+env.asr~	Attack/Sustain/Release envelope generator / генератор огибающей Attack/Sustain/Release
+env.concat	envelope concatenation / конкатенация огибающих
 env.follow~	Envelope follower with independent attack and release times
-env.mix	Mix between two envelopes. Envelopes should contain equal number of segments
-env.smooth~	An envelope with an exponential attack and release
-env.tscale	Envelope time-scale
-env.tshift	Envelope time-shift (horizontal)
-env.vscale	Envelope value-scale
-env2array	Renders envelope to specified array
-ceammc/env2array	Renders envelope to specified array
-ceammc/env->array	Renders envelope to specified array
-env->array	Renders envelope to specified array
-env2vline	Converts envelope to bunch of vline messages
-ceammc/env2vline	Converts envelope to bunch of vline messages
-ceammc/env->vline	Converts envelope to bunch of vline messages
-env->vline	Converts envelope to bunch of vline messages
-envelope	Envelope data type
-ceammc/envelope	Envelope data type
-ceammc/env	Envelope data type
-env	Envelope data type
+env.mix	mix between two envelopes that contain the equal number of segments / микс между двумя огибающими, содержащими равное количество сегментов
+env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и отпусканием
+env.tscale	envelope time-scale / растяжение огибающей во времени
+env.tshift	envelope time-shift (horizontal) / сдвиг огибающей по времени (по горизонтали)
+env.vscale	envelope amplitude value-scale / изменение амплитуды огибующей
+env2array	renders the envelope into the array / рендеринг огибающей в массив
+ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
+ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив
+env->array	renders the envelope into the array / рендеринг огибающей в массив
+env2vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+ceammc/env2vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+ceammc/env->vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+env->vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+envelope	envelope data type / тип данных огибающей
+ceammc/envelope	envelope data type / тип данных огибающей
+ceammc/env	envelope data type / тип данных огибающей
+env	envelope data type / тип данных огибающей
 vline2env	Converts vline messages to env
 ceammc/vline2env	Converts vline messages to env
 ceammc/vline->env	Converts vline messages to env

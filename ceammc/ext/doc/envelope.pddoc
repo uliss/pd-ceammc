@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Envelope data type</tr>
+                <tr lang="en">envelope data type</tr>
+                <tr lang="ru">тип данных огибающей</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

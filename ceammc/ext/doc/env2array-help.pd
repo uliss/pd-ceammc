@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 490 50 cnv 1 275 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 490 50 Renders envelope to specified array;
+#X obj 492 50 cnv 1 273 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 492 50 renders the envelope into the array;
 #X obj 1 1 cnv 5 765 40 empty empty env2array 20 20 0 20 -104026 -4096
 0;
 #N canvas 577 11 250 400 aliases 0;
