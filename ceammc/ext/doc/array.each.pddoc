@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">process each array elements via side-chain</tr>
+                <tr lang="ru">обработка каждого элемента массива через боковую цепь</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

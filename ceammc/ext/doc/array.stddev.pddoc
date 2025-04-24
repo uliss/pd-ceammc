@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">calculates standard deviation for array values</tr>
+                <tr lang="ru">вычисляет стандартное отклонение для значений массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

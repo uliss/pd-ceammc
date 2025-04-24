@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">circular buffer for arrays</tr>
+                <tr lang="en">read/write the signal into the array like in a circular buffer</tr>
+                <tr lang="ru">чтение/запись сигнала в массив, как в кольцевой буфер</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

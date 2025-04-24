@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 468 50 calculates array arithmetic mean value;
+#X obj 437 50 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 437 50 calculates the array arithmetic mean value;
 #X obj 1 1 cnv 5 765 40 empty empty array.mean 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 array.mean;

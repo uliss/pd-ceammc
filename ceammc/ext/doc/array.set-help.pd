@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 553 50 cnv 1 212 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 553 50 set array content from list;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 453 50 set the array content from the list data;
 #X obj 1 1 cnv 5 765 40 empty empty array.set 20 20 0 20 -104026 -4096
 0;
 #X obj 413 11 ceammc/list->array;

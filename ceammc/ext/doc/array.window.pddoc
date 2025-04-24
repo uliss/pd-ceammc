@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">fill array with window</tr>
+                <tr lang="en">fills the array with the window function</tr>
+                <tr lang="ru">заполенение массива оконной функцией</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

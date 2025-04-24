@@ -6,40 +6,40 @@ helmholtz~	pitch tracker / питч-трекер
 an.rms~	root mean square of the signal with moving-average algorithm / среднее квадратичное сигнала с алгоритмом скользящего среднего
 an.tempo~	tempo detector / детектор темпа
 an.zero~	calculate the signal zero crossing count/rate/freq / вычисление частоты/скорости/числа пересечения сигналом нулевого значения
-array.bpm	BPM calculator
-array.circular	array read/write as circular buffer
-array.circular~	circular buffer for arrays
-array.convolve	array FFT convolution
-array.copy	copy samples from one array to another
-array.do	iterate and modify array content via side-chain
-array.each	process each array elements via side-chain
-array.fill	fill array with single value, pattern or function
-array.grainer~	array granulator
-array.hist	calculates array histogram
-array.histogram	calculates array histogram
-array.ltcplay~	array player controlled by LTC
-array.mean	calculates array arithmetic mean value
-array.minmax	find array min and max element value
-array.play~	array player with variable speed and amplitude
-array.p~	array player with variable speed and amplitude
-array.plot	array data plotter
-array.plot~	plot signal on specified array
-array.readwrite~	array reader/writer
-array.rw~	array reader/writer
-array.resample	array resampler
-array.r	array resampler
-array.rms	calculates root mean square value for array
-array.set	set array content from list
-ceammc/list->array	set array content from list
-list->array	set array content from list
-array.stddev	calculates standard deviation for array values
-array.stretch	array time-stretch, pitch-shift or rate-change
-array.sum	calculates sum of array elements
-array.sum2	calculates sum of squares of array elements
-array.tramp~	triggered ramp generator for array
-array.variance	calculates variance of array values
-array.vplay	simple array player for using with vline~
-array.window	fill array with window
+array.bpm	BPM calculator / вычисление BPM
+array.circular	read/write to the array as circular buffer / чтение/запись в массив, как в кольцевой буфер
+array.circular~	read/write the signal into the array like in a circular buffer / чтение/запись сигнала в массив, как в кольцевой буфер
+array.convolve	FFT convolution of the array / FFT свертка массива
+array.copy	copy samples from the one array to another / копирование семплов из одного массива в другой
+array.do	iterate and modify the array content via the side-chain / обход и модифиция содержимого массива через боковую цепь
+array.each	process each array elements via side-chain / обработка каждого элемента массива через боковую цепь
+array.fill	fill the array with the single value, pattern or function / заполнение массива одним значением, шаблоном или функцией
+array.grainer~	array granulator / гранулятор звуковой таблицы
+array.hist	calculate the array histogram / вычисление гистограммы массива
+array.histogram	calculate the array histogram / вычисление гистограммы массива
+array.ltcplay~	array player controlled by LTC / проигрывание звуковой таблицы, с управлением по LTC
+array.mean	calculates the array arithmetic mean value / вычисляет среднее арифметическое значение массива
+array.minmax	find minimal and max values in the array / поиск минимального и максимального значения в массиве
+array.play~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
+array.p~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
+array.plot	array data plotter / построение числовых графиков данных на массиве
+array.plot~	plot the signal on the specified array / постороение графика сигнала на заданном массиве
+array.readwrite~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
+array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
+array.resample	array resampler / пересемплирование массива
+array.r	array resampler / пересемплирование массива
+array.rms	calculates the root mean square value for the array / вычисляет среднее квадратное значение для массива
+array.set	set the array content from the list data / устанавливает содержание массива данными из списка
+ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
+list->array	set the array content from the list data / устанавливает содержание массива данными из списка
+array.stddev	calculates standard deviation for array values / вычисляет стандартное отклонение для значений массива
+array.stretch	the array time-stretch, pitch-shift or rate-change / растяжение во времени, изменени высоты тона или скорости у массива
+array.sum	calculates sum of array elements / вычисляет сумму элементов массива
+array.sum2	calculates sum of squares of array elements / вычисляет сумму квадратов элементов массива
+array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейного индекса для массива
+array.variance	calculates variance of array values / вычисляет дисперсию значений массива
+array.vplay	simple array player for using with the vline~ object / простой плеер массивов для использования с объектом vline~
+array.window	fills the array with the window function / заполенение массива оконной функцией
 plot.geomspace~	outputs numbers spaced evenly on a log scale (a geometric progression)
 plot.hist~	calculate and output signal histogram
 ceammc/hist~	calculate and output signal histogram
@@ -115,12 +115,12 @@ chaos.logistic	Logistic map chaotic generator
 noise.logistic	Logistic map chaotic generator
 chaos.std0	Standard map chaotic generator
 chaos.std0~	Standard map chaotic generator
-array.p2s	convert array phase [0..1] to sample position
-array.p->s	convert array phase [0..1] to sample position
-array.phase->sample	convert array phase [0..1] to sample position
-array.s2p	convert sample position to phase range [0..1]
-array.s->p	convert sample position to phase range [0..1]
-array.sample->phase	convert sample position to phase range [0..1]
+array.p2s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
+array.p->s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
+array.phase->sample	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
+array.s2p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
+array.s->p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
+array.sample->phase	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
 conv.amp2dbfs	convert from amplitude to decibel full scale
 ceammc/amp->dbfs	convert from amplitude to decibel full scale
 amp->dbfs	convert from amplitude to decibel full scale

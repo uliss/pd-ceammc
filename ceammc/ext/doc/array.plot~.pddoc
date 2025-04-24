@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">plot signal on specified array</tr>
+                <tr lang="en">plot the signal on the specified array</tr>
+                <tr lang="ru">постороение графика сигнала на заданном массиве</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

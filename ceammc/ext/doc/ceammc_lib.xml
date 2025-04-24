@@ -25,40 +25,40 @@
     <entry name="array.bpm" descr="BPM calculator" ref_view="object">
       <xi:include href="array.bpm.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.circular" descr="array read/write as circular buffer" ref_view="object">
+    <entry name="array.circular" descr="read/write to the array as circular buffer" ref_view="object">
       <xi:include href="array.circular.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.circular~" descr="circular buffer for arrays" ref_view="object">
+    <entry name="array.circular~" descr="read/write the signal into the array like in a circular buffer" ref_view="object">
       <xi:include href="array.circular~.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.convolve" descr="array FFT convolution" ref_view="object">
+    <entry name="array.convolve" descr="FFT convolution of the array" ref_view="object">
       <xi:include href="array.convolve.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.copy" descr="copy samples from one array to another" ref_view="object">
+    <entry name="array.copy" descr="copy samples from the one array to another" ref_view="object">
       <xi:include href="array.copy.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.do" descr="iterate and modify array content via side-chain" ref_view="object">
+    <entry name="array.do" descr="iterate and modify the array content via the side-chain" ref_view="object">
       <xi:include href="array.do.pddoc" parse="xml"/>
     </entry>
     <entry name="array.each" descr="process each array elements via side-chain" ref_view="object">
       <xi:include href="array.each.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.fill" descr="fill array with single value, pattern or function" ref_view="object">
+    <entry name="array.fill" descr="fill the array with the single value, pattern or function" ref_view="object">
       <xi:include href="array.fill.pddoc" parse="xml"/>
     </entry>
     <entry name="array.grainer~" descr="array granulator" ref_view="object">
       <xi:include href="array.grainer~.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.hist" descr="calculates array histogram" ref_view="object">
+    <entry name="array.hist" descr="calculate the array histogram" ref_view="object">
       <xi:include href="array.hist.pddoc" parse="xml"/>
     </entry>
     <entry name="array.ltcplay~" descr="array player controlled by LTC" ref_view="object">
       <xi:include href="array.ltcplay~.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.mean" descr="calculates array arithmetic mean value" ref_view="object">
+    <entry name="array.mean" descr="calculates the array arithmetic mean value" ref_view="object">
       <xi:include href="array.mean.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.minmax" descr="find array min and max element value" ref_view="object">
+    <entry name="array.minmax" descr="find minimal and max values in the array" ref_view="object">
       <xi:include href="array.minmax.pddoc" parse="xml"/>
     </entry>
     <entry name="array.play~" descr="array player with variable speed and amplitude" ref_view="object">
@@ -67,25 +67,25 @@
     <entry name="array.plot" descr="array data plotter" ref_view="object">
       <xi:include href="array.plot.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.plot~" descr="plot signal on specified array" ref_view="object">
+    <entry name="array.plot~" descr="plot the signal on the specified array" ref_view="object">
       <xi:include href="array.plot~.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.readwrite~" descr="array reader/writer" ref_view="object">
+    <entry name="array.readwrite~" descr="simultaneous read/write signals to the array" ref_view="object">
       <xi:include href="array.readwrite~.pddoc" parse="xml"/>
     </entry>
     <entry name="array.resample" descr="array resampler" ref_view="object">
       <xi:include href="array.resample.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.rms" descr="calculates root mean square value for array" ref_view="object">
+    <entry name="array.rms" descr="calculates the root mean square value for the array" ref_view="object">
       <xi:include href="array.rms.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.set" descr="set array content from list" ref_view="object">
+    <entry name="array.set" descr="set the array content from the list data" ref_view="object">
       <xi:include href="array.set.pddoc" parse="xml"/>
     </entry>
     <entry name="array.stddev" descr="calculates standard deviation for array values" ref_view="object">
       <xi:include href="array.stddev.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.stretch" descr="array time-stretch, pitch-shift or rate-change" ref_view="object">
+    <entry name="array.stretch" descr="the array time-stretch, pitch-shift or rate-change" ref_view="object">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
     </entry>
     <entry name="array.sum" descr="calculates sum of array elements" ref_view="object">
@@ -94,16 +94,16 @@
     <entry name="array.sum2" descr="calculates sum of squares of array elements" ref_view="object">
       <xi:include href="array.sum2.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.tramp~" descr="triggered ramp generator for array" ref_view="object">
+    <entry name="array.tramp~" descr="triggered ramp index generator for the array" ref_view="object">
       <xi:include href="array.tramp~.pddoc" parse="xml"/>
     </entry>
     <entry name="array.variance" descr="calculates variance of array values" ref_view="object">
       <xi:include href="array.variance.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.vplay" descr="simple array player for using with vline~" ref_view="object">
+    <entry name="array.vplay" descr="simple array player for using with the vline~ object" ref_view="object">
       <xi:include href="array.vplay.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.window" descr="fill array with window" ref_view="object">
+    <entry name="array.window" descr="fills the array with the window function" ref_view="object">
       <xi:include href="array.window.pddoc" parse="xml"/>
     </entry>
     <entry name="plot.geomspace~" descr="outputs numbers spaced evenly on a log scale (a geometric progression)" ref_view="object">
@@ -230,10 +230,10 @@
     </entry>
   </category>
   <category name="conv">
-    <entry name="array.p2s" descr="convert array phase [0..1] to sample position" ref_view="object">
+    <entry name="array.p2s" descr="converting the array phase [0..1] to the sample index" ref_view="object">
       <xi:include href="array.p2s.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.s2p" descr="convert sample position to phase range [0..1]" ref_view="object">
+    <entry name="array.s2p" descr="convert the sample index to the phase range [0..1]" ref_view="object">
       <xi:include href="array.s2p.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.amp2dbfs" descr="convert from amplitude to decibel full scale" ref_view="object">

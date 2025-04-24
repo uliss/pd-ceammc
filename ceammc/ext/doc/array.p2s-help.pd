@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 407 50 convert array phase [0\..1] to sample position;
+#X obj 345 50 cnv 1 420 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 345 50 converting the array phase [0\..1] to the sample index;
 #X obj 1 1 cnv 5 765 40 empty empty array.p2s 20 20 0 20 -104026 -4096
 0;
 #X obj 413 11 array.p->s;

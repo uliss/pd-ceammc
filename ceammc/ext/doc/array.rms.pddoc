@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">calculates root mean square value for array</tr>
+                <tr lang="en">calculates the root mean square value for the array</tr>
+                <tr lang="ru">вычисляет среднее квадратное значение для массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

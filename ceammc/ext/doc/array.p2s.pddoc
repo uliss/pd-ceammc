@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert array phase [0..1] to sample position</tr>
+                <tr lang="en">converting the array phase [0..1] to the sample index</tr>
+                <tr lang="ru">преобразование фазы в массиве [0..1] в индекс семпла</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

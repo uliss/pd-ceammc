@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">calculates variance of array values</tr>
+                <tr lang="ru">вычисляет дисперсию значений массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

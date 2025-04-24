@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert sample position to phase range [0..1]</tr>
+                <tr lang="en">convert the sample index to the phase range [0..1]</tr>
+                <tr lang="ru">преобразование индекса семпла в фазовый диапазон [0..1]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

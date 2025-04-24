@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">calculates array histogram</tr>
+                <tr lang="en">calculate the array histogram</tr>
+                <tr lang="ru">вычисление гистограммы массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

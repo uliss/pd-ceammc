@@ -8,14 +8,12 @@
             </authors>
             <description>
                 <tr lang="en">array granulator</tr>
+                <tr lang="ru">гранулятор звуковой таблицы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>array</category>
             <keywords>array grain particle granular</keywords>
-            <also>
-                <see>array.each</see>
-            </also>
             <since>0.9.2</since>
         </meta>
         <info>

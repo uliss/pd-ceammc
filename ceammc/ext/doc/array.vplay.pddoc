@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">simple array player for using with vline~</tr>
+                <tr lang="en">simple array player for using with the vline~ object</tr>
+                <tr lang="ru">простой плеер массивов для использования с объектом vline~</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
