@@ -1058,20 +1058,20 @@ path.pattern	pattern filename generator
 path.search	file search
 path.split	file path split
 is_any	checks if input data has *any* type
-is_bang	checks if input data has *bang* type
-is_data	checks if input data has *data* type
-ceammc/is_data	checks if input data has *data* type
-is_dict	checks if input data has *dict* type
-ceammc/is_dict	checks if input data has *dict* type
-is_even	checks if input number is even
-is_file	checks if file exists and accessible
-ceammc/is_file	checks if file exists and accessible
-is_float	checks if input data has *float* type
-is_list	checks if input data has *list* type
-is_odd	checks if input number is odd
-is_pointer	checks if input data has *pointer* type
-is_prop	checks if input message is *property* message
-is_symbol	checks if input data has *symbol* type
+is_bang	checks if the input is a *bang* / проверяет, является ли входное сообщение *bang*
+is_data	checks if the input is a *data* type / проверяет, является ли входное сообщение типом данных
+ceammc/is_data	checks if the input is a *data* type / проверяет, является ли входное сообщение типом данных
+is_dict	checks if the input message is a dictionary / проверяет, является ли входное сообщение словарём
+ceammc/is_dict	checks if the input message is a dictionary / проверяет, является ли входное сообщение словарём
+is_even	even number check / проверка входного числа на чётность
+is_file	checks if the file exists and accessible / проверка существования и доступности файла
+ceammc/is_file	checks if the file exists and accessible / проверка существования и доступности файла
+is_float	checks if the input message is a *float* / проверка, является ли входное сообщение числом с плавающей точкой
+is_list	checks if the input message is a *list* / проверка, является ли входное сообщение списком
+is_odd	input number oddity check / проверка входного числа на нечётност
+is_pointer	checks if input messagee is a *pointer* / проверка, является ли входное сообщение указателем
+is_prop	checks if the input message is a *property* message / проверка, является ли входное сообщение *свойством*
+is_symbol	checks if input message is a *symbol* / проверка, является ли входное сообщение *символом*
 preset.float	load/store float preset
 preset.f	load/store float preset
 preset.list	load/store symbol preset

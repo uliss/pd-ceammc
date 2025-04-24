@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if input data has *data* type</tr>
+                <tr lang="en">checks if the input is a *data* type</tr>
+                <tr lang="ru">проверяет, является ли входное сообщение типом данных</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

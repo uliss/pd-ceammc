@@ -2012,37 +2012,37 @@
     <entry name="is_any" descr="checks if input data has *any* type" ref_view="object">
       <xi:include href="is_any.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_bang" descr="checks if input data has *bang* type" ref_view="object">
+    <entry name="is_bang" descr="checks if the input is a *bang*" ref_view="object">
       <xi:include href="is_bang.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_data" descr="checks if input data has *data* type" ref_view="object">
+    <entry name="is_data" descr="checks if the input is a *data* type" ref_view="object">
       <xi:include href="is_data.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_dict" descr="checks if input data has *dict* type" ref_view="object">
+    <entry name="is_dict" descr="checks if the input message is a dictionary" ref_view="object">
       <xi:include href="is_dict.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_even" descr="checks if input number is even" ref_view="object">
+    <entry name="is_even" descr="even number check" ref_view="object">
       <xi:include href="is_even.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_file" descr="checks if file exists and accessible" ref_view="object">
+    <entry name="is_file" descr="checks if the file exists and accessible" ref_view="object">
       <xi:include href="is_file.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_float" descr="checks if input data has *float* type" ref_view="object">
+    <entry name="is_float" descr="checks if the input message is a *float*" ref_view="object">
       <xi:include href="is_float.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_list" descr="checks if input data has *list* type" ref_view="object">
+    <entry name="is_list" descr="checks if the input message is a *list*" ref_view="object">
       <xi:include href="is_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_odd" descr="checks if input number is odd" ref_view="object">
+    <entry name="is_odd" descr="input number oddity check" ref_view="object">
       <xi:include href="is_odd.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_pointer" descr="checks if input data has *pointer* type" ref_view="object">
+    <entry name="is_pointer" descr="checks if input messagee is a *pointer*" ref_view="object">
       <xi:include href="is_pointer.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_prop" descr="checks if input message is *property* message" ref_view="object">
+    <entry name="is_prop" descr="checks if the input message is a *property* message" ref_view="object">
       <xi:include href="is_prop.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_symbol" descr="checks if input data has *symbol* type" ref_view="object">
+    <entry name="is_symbol" descr="checks if input message is a *symbol*" ref_view="object">
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
   </category>
