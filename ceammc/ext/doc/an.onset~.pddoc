@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">onset detector</tr>
-                <tr lang="ru">детектор атаки</tr>
+                <tr lang="en">the signal onset detector</tr>
+                <tr lang="ru">детектор атаки сигнала</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

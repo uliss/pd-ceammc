@@ -1,10 +1,10 @@
 an.onset	onset detector for arrays / детектор атаки для массивов
-an.onset~	onset detector / детектор атаки
-an.pitchtrack~	pitch tracker / питч-трекер
-ceammc/helmholtz~	pitch tracker / питч-трекер
-helmholtz~	pitch tracker / питч-трекер
+an.onset~	the signal onset detector / детектор атаки сигнала
+an.pitchtrack~	the signal pitch tracker / отслеживает высоту сигнала
+ceammc/helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
+helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
 an.rms~	root mean square of the signal with moving-average algorithm / среднее квадратичное сигнала с алгоритмом скользящего среднего
-an.tempo~	tempo detector / детектор темпа
+an.tempo~	the signal tempo detector / детектор темпа сигнала
 an.zero~	calculate the signal zero crossing count/rate/freq / вычисление частоты/скорости/числа пересечения сигналом нулевого значения
 array.bpm	BPM calculator / вычисление BPM
 array.circular	read/write to the array as circular buffer / чтение/запись в массив, как в кольцевой буфер

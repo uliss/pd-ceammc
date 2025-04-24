@@ -4,16 +4,16 @@
     <entry name="an.onset" descr="onset detector for arrays" ref_view="object">
       <xi:include href="an.onset.pddoc" parse="xml"/>
     </entry>
-    <entry name="an.onset~" descr="onset detector" ref_view="object">
+    <entry name="an.onset~" descr="the signal onset detector" ref_view="object">
       <xi:include href="an.onset~.pddoc" parse="xml"/>
     </entry>
-    <entry name="an.pitchtrack~" descr="pitch tracker" ref_view="object">
+    <entry name="an.pitchtrack~" descr="the signal pitch tracker" ref_view="object">
       <xi:include href="an.pitchtrack~.pddoc" parse="xml"/>
     </entry>
     <entry name="an.rms~" descr="root mean square of the signal with moving-average algorithm" ref_view="object">
       <xi:include href="an.rms~.pddoc" parse="xml"/>
     </entry>
-    <entry name="an.tempo~" descr="tempo detector" ref_view="object">
+    <entry name="an.tempo~" descr="the signal tempo detector" ref_view="object">
       <xi:include href="an.tempo~.pddoc" parse="xml"/>
     </entry>
     <entry name="an.zero~" descr="calculate the signal zero crossing count/rate/freq" ref_view="object">
