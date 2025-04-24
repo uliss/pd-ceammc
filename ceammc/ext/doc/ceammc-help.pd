@@ -17,6 +17,8 @@ algorithm;
 #X text 200 270 the signal tempo detector;
 #X obj 30 298 an.zero~;
 #X text 200 298 calculate the signal zero crossing count/rate/freq;
+#X obj 458 115 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 115 objects to analyse sounds properties;
 #X obj 20 326 cnv 5 59 32 empty empty array 4 16 0 17 -262144 -49933
 0;
 #X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -90,6 +92,8 @@ interval;
 #X text 200 1283 outputs numbers spaced evenly on a log scale;
 #X obj 30 1311 plot.response~;
 #X text 200 1311 output amp/phase freq response to impulse;
+#X obj 412 336 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 412 336 objects for working with arrays and tables;
 #X obj 20 1339 cnv 5 48 32 empty empty base 4 16 0 17 -262144 -49933
 0;
 #X obj 20 1381 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -383,6 +387,8 @@ to current samplerate;
 #X text 200 5413 mono 1176LN Peak Limiter;
 #X obj 30 5441 dyn.softclip~;
 #X text 200 5441 soft signal clip;
+#X obj 397 5062 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 397 5062 objects for working with sound dynamic range;
 #X obj 20 5469 cnv 5 39 32 empty empty env 4 16 0 17 -262144 -49933 0;
 #X obj 20 5511 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5522 env.adsr~;
@@ -536,6 +542,8 @@ and lists;
 #X text 200 7519 routes input flow to random outlet;
 #X obj 30 7547 route.symbol;
 #X text 200 7547 separate symbol messages from other types;
+#X obj 611 5964 cnv 1 129 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 611 5964 dataflow control;
 #X obj 20 7575 cnv 5 37 32 empty empty flt 4 16 0 17 -262144 -49933 0;
 #X obj 20 7617 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 7628 flt.a-weight;
@@ -770,6 +778,9 @@ Pi;
 #X text 200 10802 ws2812 LED strip driver for Raspberry Pi;
 #X obj 30 10830 hw.serial;
 #X text 200 10830 serial port device;
+#X obj 420 10135 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 420 10135 objects for working with various hardware;
 #X obj 20 10858 cnv 5 47 32 empty empty lang 4 16 0 17 -262144 -49933
 0;
 #X obj 20 10900 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -957,6 +968,9 @@ list is specified by the argument;
 #X text 200 13355 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2 list2-2
 etc.).;
+#X obj 527 11332 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 527 11332 objects for list processing;
 #X obj 20 13410 cnv 5 48 32 empty empty live 4 16 0 17 -262144 -49933
 0;
 #X obj 20 13452 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1185,6 +1199,9 @@ direction;
 #X text 200 16477 truncate to integer value;
 #X obj 30 16505 math.trunc~;
 #X text 200 16505 truncate to integer value;
+#X obj 382 13734 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 382 13734 math objects. can operate with list of numbers;
 #X obj 20 16533 cnv 5 49 32 empty empty midi 4 16 0 17 -262144 -49933
 0;
 #X obj 20 16575 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1776,6 +1793,9 @@ instrument;
 filterbank.;
 #X obj 30 24863 synth.wurley~;
 #X text 200 24863 Wurlitzer electric piano FM synthesis instrument;
+#X obj 620 23872 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 620 23872 sound synthesis;
 #X obj 20 24891 cnv 5 69 32 empty empty system 4 16 0 17 -262144
 -49933 0;
 #X obj 20 24933 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1910,4 +1930,4 @@ https://github.com/uliss/pure-data;
 http://github.com/uliss/pddoc;
 #X obj 670 26522 loadmsg 0;
 #X obj 670 26557 switch~;
-#X connect 1802 0 1803 0;
+#X connect 1818 0 1819 0;
