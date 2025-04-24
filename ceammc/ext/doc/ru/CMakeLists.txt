@@ -28,26 +28,5 @@ endforeach()
 
 add_custom_target(ceammc_pddoc_ru
     DEPENDS ${DOC_PD_FILES} ${PDDOC_LIB_FILE}
-    # COMMAND cat "*-xlet_db.txt" | sort > ceammc.db
     # COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc.db ${CMAKE_CURRENT_SOURCE_DIR}
 )
-
-# install all help files
-foreach(_doc_file ${DOC_FILES})
-    install(FILES "${_doc_file}-help.pd"
-        DESTINATION ${DOC_INSTALL_PATH}/ru
-        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
-    file(GLOB _xfiles "${_doc_file}-*.pd")
-    # find extra files, for example: module.name.test1.pd
-    foreach(_xfile ${_xfiles})
-        if(NOT ${_xfile} MATCHES "-help\.pd$")
-            install(FILES ${_xfile}
-                DESTINATION ${DOC_INSTALL_PATH}/ru
-                PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
-        endif()
-    endforeach()
-endforeach()
-
-# Documentation index install
-install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/ru"
-    PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
