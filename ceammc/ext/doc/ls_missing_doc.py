@@ -2,7 +2,7 @@
 import os
 import re
 import logging
-import xml.etree.ElementTree as ET
+from xml.etree import ElementTree as ET
 
 logging.addLevelName(logging.WARNING, "\033[1;31m%s\033[1;0m " % logging.getLevelName(logging.WARNING))
 logging.addLevelName(logging.ERROR, "\033[1;41m%s\033[1;0m " % logging.getLevelName(logging.ERROR))
@@ -73,7 +73,13 @@ def non_documented():
 
         logging.warning("undocumented objects: %s", len(files))
 
+
+def non_annotated_categories():
+    pass
+
+
 if __name__ == '__main__':
     not_in_project()
     non_documented()
+    non_annotated_categories()
 

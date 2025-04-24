@@ -424,6 +424,8 @@ equal number of segments;
 #X text 200 5898 Envelope data type;
 #X obj 30 5926 vline2env;
 #X text 200 5926 Converts vline messages to env;
+#X obj 458 5479 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 5479 objects to work with sound envelopes;
 #X obj 20 5954 cnv 5 49 32 empty empty flow 4 16 0 17 -262144 -49933
 0;
 #X obj 20 5996 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1937,4 +1939,4 @@ https://github.com/uliss/pure-data;
 http://github.com/uliss/pddoc;
 #X obj 670 26522 loadmsg 0;
 #X obj 670 26557 switch~;
-#X connect 1822 0 1823 0;
+#X connect 1824 0 1825 0;

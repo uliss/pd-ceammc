@@ -588,6 +588,7 @@
     <entry name="vline2env" descr="Converts vline messages to env" ref_view="object">
       <xi:include href="vline2env.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_env.xml" parse="xml"/>
   </category>
   <category name="flow">
     <entry name="expand_env" descr="Substitute environment variables in data stream" ref_view="object">
