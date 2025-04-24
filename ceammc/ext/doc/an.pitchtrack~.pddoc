@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">pitch tracker</tr>
+                <tr lang="ru" finished="true">питч-трекер</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

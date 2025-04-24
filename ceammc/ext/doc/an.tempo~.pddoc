@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">tempo detector</tr>
+                <tr lang="ru" finished="true">детектор темпа</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

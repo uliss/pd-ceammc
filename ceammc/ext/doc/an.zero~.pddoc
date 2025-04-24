@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">zero crossing count/rate/freq calculator</tr>
+                <tr lang="en">calculate the signal zero crossing count/rate/freq</tr>
+                <tr lang="ru" finished="true">вычисление частоты/скорости/числа пересечения
+                сигналом нулевого значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
