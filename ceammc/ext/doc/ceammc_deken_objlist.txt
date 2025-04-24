@@ -329,7 +329,7 @@ dict.to_list	converts dictionary to plain list / конвертирует сло
 ceammc/dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
 dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
 dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневнего списка (MList)
-global.bimap	Global visibility bidirectional map container
+global.bimap	global bidirectional map / глобальное двунаправленное отображение
 local.bimap	local to patch bidirectional map container
 mlist.flatten	flatten nested mlist
 rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions
@@ -593,13 +593,13 @@ fx.tremolo~	tremolo effect from guitarix project
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal
 fx.zita_rev1~	Zita stereo reverb
-global.dict	global named dict object
-global.json	global named dict object
-global.float	global named float object
-global.int	global named integer object
-global.list	global named list object
-global.mlist	global named mlist object
-global.set	global named set object
+global.dict	global named dictionary / глобальный именованный словарь
+global.json	global named dictionary / глобальный именованный словарь
+global.float	global named float object / глобальной именованное число с плавающей точкой
+global.int	global named integer object / глобальной именованное целое число
+global.list	global named list / глобальный именованный список
+global.mlist	global named multilevel list (MList) / глобальный именованный многоуровневый список (MList)
+global.set	global named set / глобальное именованное множество
 hw.apple_smc	query the system management control in Apples
 hw.apple_sms	query the sudden motion sensor in Apples
 hw.arduino	Arduino device

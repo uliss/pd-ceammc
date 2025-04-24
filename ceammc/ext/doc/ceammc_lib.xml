@@ -466,7 +466,7 @@
     <entry name="dict.values" descr="output the dictionary values as MList" ref_view="object">
       <xi:include href="dict.values.pddoc" parse="xml"/>
     </entry>
-    <entry name="global.bimap" descr="Global visibility bidirectional map container" ref_view="object">
+    <entry name="global.bimap" descr="global bidirectional map" ref_view="object">
       <xi:include href="global.bimap.pddoc" parse="xml"/>
     </entry>
     <entry name="local.bimap" descr="local to patch bidirectional map container" ref_view="object">
@@ -999,7 +999,7 @@
     </entry>
   </category>
   <category name="global">
-    <entry name="global.dict" descr="global named dict object" ref_view="object">
+    <entry name="global.dict" descr="global named dictionary" ref_view="object">
       <xi:include href="global.dict.pddoc" parse="xml"/>
     </entry>
     <entry name="global.float" descr="global named float object" ref_view="object">
@@ -1008,15 +1008,16 @@
     <entry name="global.int" descr="global named integer object" ref_view="object">
       <xi:include href="global.int.pddoc" parse="xml"/>
     </entry>
-    <entry name="global.list" descr="global named list object" ref_view="object">
+    <entry name="global.list" descr="global named list" ref_view="object">
       <xi:include href="global.list.pddoc" parse="xml"/>
     </entry>
-    <entry name="global.mlist" descr="global named mlist object" ref_view="object">
+    <entry name="global.mlist" descr="global named multilevel list (MList)" ref_view="object">
       <xi:include href="global.mlist.pddoc" parse="xml"/>
     </entry>
-    <entry name="global.set" descr="global named set object" ref_view="object">
+    <entry name="global.set" descr="global named set" ref_view="object">
       <xi:include href="global.set.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_global.xml" parse="xml"/>
   </category>
   <category name="hw">
     <entry name="hw.apple_smc" descr="query the system management control in Apples" ref_view="object">

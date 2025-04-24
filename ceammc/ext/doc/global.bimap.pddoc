@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Global visibility bidirectional map container</tr>
+                <tr lang="en">global bidirectional map</tr>
+                <tr lang="ru">глобальное двунаправленное отображение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

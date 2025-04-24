@@ -51,7 +51,7 @@
 #X obj 30 761 dict.values;
 #X text 200 761 output the dictionary values as MList;
 #X obj 30 789 global.bimap;
-#X text 200 789 Global visibility bidirectional map container;
+#X text 200 789 global bidirectional map;
 #X obj 30 817 local.bimap;
 #X text 200 817 local to patch bidirectional map container;
 #X obj 30 845 mlist.flatten;
