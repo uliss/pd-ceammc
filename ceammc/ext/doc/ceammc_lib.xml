@@ -2045,6 +2045,7 @@
     <entry name="is_symbol" descr="checks if input message is a *symbol*" ref_view="object">
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_predicates.xml" parse="xml"/>
   </category>
   <category name="preset">
     <entry name="preset.float" descr="load/store float preset" ref_view="object">

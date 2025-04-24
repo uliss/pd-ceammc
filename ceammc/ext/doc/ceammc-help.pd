@@ -1476,6 +1476,10 @@ roll;
 #X text 200 20339 checks if the input message is a *property* message;
 #X obj 30 20367 is_symbol;
 #X text 200 20367 checks if input message is a *symbol*;
+#X obj 267 20016 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 267 20016 predicate objects. Checks message or data types \,
+returns 1 or 0\.;
 #X obj 20 20395 cnv 5 68 32 empty empty preset 4 16 0 17 -262144
 -49933 0;
 #X obj 20 20437 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1933,4 +1937,4 @@ https://github.com/uliss/pure-data;
 http://github.com/uliss/pddoc;
 #X obj 670 26522 loadmsg 0;
 #X obj 670 26557 switch~;
-#X connect 1820 0 1821 0;
+#X connect 1822 0 1823 0;
