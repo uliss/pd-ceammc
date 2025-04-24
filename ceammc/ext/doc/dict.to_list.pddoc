@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">converts dictionary to plain list</tr>
+                <tr lang="ru">конвертирует словарь в простой одномерный список</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

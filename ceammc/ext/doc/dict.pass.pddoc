@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">passes specified keys in dict</tr>
+                <tr lang="en">passes only specified keys in the dictionary</tr>
+                <tr lang="ru">пропускает (фильтрует) только указанные ключи в словаре</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -45,7 +46,7 @@
 |
 [dict.pass a e]
 |
-[ui.d]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

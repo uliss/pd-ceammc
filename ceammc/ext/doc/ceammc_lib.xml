@@ -436,34 +436,34 @@
     <entry name="data.set2list" descr="converts the set to the list" ref_view="object">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.contains" descr="predicate to check if dict contains a keys" ref_view="object">
+    <entry name="dict.contains" descr="check if the dictionary contains the key" ref_view="object">
       <xi:include href="dict.contains.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.each" descr="map each value in dict" ref_view="object">
+    <entry name="dict.each" descr="map each value in dictionary with the side-chain function" ref_view="object">
       <xi:include href="dict.each.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.from_list" descr="creates dictionary from list" ref_view="object">
+    <entry name="dict.from_list" descr="creates dictionary from the list" ref_view="object">
       <xi:include href="dict.from_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.get" descr="output dict values" ref_view="object">
+    <entry name="dict.get" descr="output the dictionary values" ref_view="object">
       <xi:include href="dict.get.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.keys" descr="get list of dict keys" ref_view="object">
+    <entry name="dict.keys" descr="output the list of dictionary keys" ref_view="object">
       <xi:include href="dict.keys.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.pass" descr="passes specified keys in dict" ref_view="object">
+    <entry name="dict.pass" descr="passes only specified keys in the dictionary" ref_view="object">
       <xi:include href="dict.pass.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.reject" descr="rejects specified keys from dict" ref_view="object">
+    <entry name="dict.reject" descr="rejects specified keys from the dictionary" ref_view="object">
       <xi:include href="dict.reject.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.size" descr="dictionary size" ref_view="object">
+    <entry name="dict.size" descr="output the dictionary size (number of key/value pairs)" ref_view="object">
       <xi:include href="dict.size.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.to_list" descr="converts dictionary to plain list" ref_view="object">
       <xi:include href="dict.to_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.values" descr="dictionary values as mlist" ref_view="object">
+    <entry name="dict.values" descr="output the dictionary values as MList" ref_view="object">
       <xi:include href="dict.values.pddoc" parse="xml"/>
     </entry>
     <entry name="global.bimap" descr="Global visibility bidirectional map container" ref_view="object">

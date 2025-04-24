@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output dict values</tr>
+                <tr lang="en">output the dictionary values</tr>
+                <tr lang="ru">выводит значения словаря</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -56,7 +57,7 @@
 |     ^|    ^^|   ^^^|
 |      |      |      |
 |      |      |      |
-[S]    [F]    [S]    [ui.display]
+[S]    [F]    [S]    [ui.dt]
 
 
 [dict.get-paths]

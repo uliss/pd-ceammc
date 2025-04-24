@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 560 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 560 50 dictionary values as mlist;
+#X obj 476 50 cnv 1 289 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 476 50 output the dictionary values as MList;
 #X obj 1 1 cnv 5 765 40 empty empty dict.values 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 dict.values;
@@ -10,7 +10,7 @@
 #X obj 50 147 data.dict \[bpm: 120 title: "Unknown masterpiece" freqs:
 1 2 3 4\];
 #X obj 50 205 dict.values;
-#X obj 50 234 ui.display @display_type 1;
+#X obj 50 234 ui.dt;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 621 50 output dict values;
+#X obj 545 50 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 545 50 output the dictionary values;
 #X obj 1 1 cnv 5 765 40 empty empty dict.get 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 dict.get;
@@ -14,7 +14,7 @@
 #X symbolatom 50 302 5 0 0 0 - - -;
 #X floatatom 117 302 5 0 0 0 - - -;
 #X symbolatom 184 302 5 0 0 0 - - -;
-#X obj 251 302 ui.display;
+#X obj 251 302 ui.dt;
 #X obj 50 345 dict.get-paths;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144

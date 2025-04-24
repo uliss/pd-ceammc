@@ -315,20 +315,20 @@ data.set	the set: container that store only unique elements / множество
 data.set2list	converts the set to the list / преобразует множество в список
 ceammc/set->list	converts the set to the list / преобразует множество в список
 set->list	converts the set to the list / преобразует множество в список
-dict.contains	predicate to check if dict contains a keys
-dict.each	map each value in dict
-dict.from_list	creates dictionary from list
-ceammc/list->dict	creates dictionary from list
-list->dict	creates dictionary from list
-dict.get	output dict values
-dict.keys	get list of dict keys
-dict.pass	passes specified keys in dict
-dict.reject	rejects specified keys from dict
-dict.size	dictionary size
-dict.to_list	converts dictionary to plain list
-ceammc/dict->list	converts dictionary to plain list
-dict->list	converts dictionary to plain list
-dict.values	dictionary values as mlist
+dict.contains	check if the dictionary contains the key / проверка, содержит ли словарь указанный ключ
+dict.each	map each value in dictionary with the side-chain function / отображение каждого значения в словаре с помощью боковой цепи обработки
+dict.from_list	creates dictionary from the list / создает словарь из списка
+ceammc/list->dict	creates dictionary from the list / создает словарь из списка
+list->dict	creates dictionary from the list / создает словарь из списка
+dict.get	output the dictionary values / выводит значения словаря
+dict.keys	output the list of dictionary keys / выводит список ключей словаря
+dict.pass	passes only specified keys in the dictionary / пропускает (фильтрует) только указанные ключи в словаре
+dict.reject	rejects specified keys from the dictionary / удаляет указанные ключи из словаря
+dict.size	output the dictionary size (number of key/value pairs) / выводит размер словаря (число пар ключ/значение)
+dict.to_list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
+ceammc/dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
+dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
+dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневнего списка (MList)
 global.bimap	Global visibility bidirectional map container
 local.bimap	local to patch bidirectional map container
 mlist.flatten	flatten nested mlist
