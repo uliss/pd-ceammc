@@ -2,6 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 535 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 535 50 различные звуковые эффекты;
 #X obj 30 117 fx.bitdown~;
 #X text 200 117 bit downer and downsampler effect;
 #X obj 30 145 fx.chorus~;

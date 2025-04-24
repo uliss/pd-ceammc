@@ -2,6 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 649 50 cnv 1 91 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 649 50 осцилляторы;
 #X obj 30 117 osc.blit~;
 #X text 200 117 Bandlimited impulse train oscillator;
 #X obj 30 145 osc.impulse~;

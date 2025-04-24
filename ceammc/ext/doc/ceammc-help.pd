@@ -1405,6 +1405,8 @@ roll;
 #X text 200 19256 Bandlimited square wave oscillator;
 #X obj 30 19284 osc.tri~;
 #X text 200 19284 Bandlimited triangle wave oscillator;
+#X obj 650 19017 cnv 1 90 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 650 19017 oscillators;
 #X obj 20 19312 cnv 5 58 32 empty empty patch 4 16 0 17 -262144 -49933
 0;
 #X obj 20 19354 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1574,6 +1576,9 @@ returns 1 or 0\.;
 #X text 200 21643 piecewise constant random distribution;
 #X obj 30 21671 random.pw_lin;
 #X text 200 21671 piecewise linear random distribution;
+#X obj 552 21432 cnv 1 188 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 552 21432 random number generation;
 #X obj 20 21699 cnv 5 48 32 empty empty samp 4 16 0 17 -262144 -49933
 0;
 #X obj 20 21741 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1941,4 +1946,4 @@ https://github.com/uliss/pure-data;
 http://github.com/uliss/pddoc;
 #X obj 670 26522 loadmsg 0;
 #X obj 670 26557 switch~;
-#X connect 1826 0 1827 0;
+#X connect 1830 0 1831 0;

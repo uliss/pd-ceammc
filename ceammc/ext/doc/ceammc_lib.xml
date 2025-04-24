@@ -1942,6 +1942,7 @@
     <entry name="osc.tri~" descr="Bandlimited triangle wave oscillator" ref_view="object">
       <xi:include href="osc.tri~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_osc.xml" parse="xml"/>
   </category>
   <category name="patch">
     <entry name="canvas.active" descr="checks if canvas window is on top and active" ref_view="object">
@@ -2173,6 +2174,7 @@
     <entry name="random.pw_lin" descr="piecewise linear random distribution" ref_view="object">
       <xi:include href="random.pw_lin.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_random.xml" parse="xml"/>
   </category>
   <category name="samp">
     <entry name="samp.time~" descr="sample counter" ref_view="object">
