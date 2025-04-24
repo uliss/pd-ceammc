@@ -22,7 +22,7 @@ foreach(f ${DOC_FILES})
              --write-xlets-db 0
             "${fname_pddoc}" ${fname}
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${fname} ${CMAKE_CURRENT_SOURCE_DIR}
-        # VERBATIM COMMAND find ${CMAKE_CURRENT_BINARY_DIR} -name "${f}.*.pd" -exec cp {} ${CMAKE_CURRENT_SOURCE_DIR} ";"
+        VERBATIM COMMAND find ${CMAKE_CURRENT_BINARY_DIR} -name "${f}.*.pd" -exec cp {} ${CMAKE_CURRENT_SOURCE_DIR} ";"
     )
 endforeach()
 
