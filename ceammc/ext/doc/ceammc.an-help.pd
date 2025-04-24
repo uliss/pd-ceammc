@@ -11,11 +11,12 @@
 #X obj 30 173 an.pitchtrack~;
 #X text 200 173 pitch tracker;
 #X obj 30 201 an.rms~;
-#X text 200 201 root mean square with moving-average algorithm.;
+#X text 200 201 root mean square of the signal with moving-average
+algorithm;
 #X obj 30 229 an.tempo~;
 #X text 200 229 tempo detector;
 #X obj 30 257 an.zero~;
-#X text 200 257 zero crossing count/rate/freq calculator;
+#X text 200 257 calculate the signal zero crossing count/rate/freq;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::an 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

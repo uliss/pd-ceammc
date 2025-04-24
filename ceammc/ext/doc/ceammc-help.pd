@@ -11,11 +11,12 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 #X obj 30 214 an.pitchtrack~;
 #X text 200 214 pitch tracker;
 #X obj 30 242 an.rms~;
-#X text 200 242 root mean square with moving-average algorithm.;
+#X text 200 242 root mean square of the signal with moving-average
+algorithm;
 #X obj 30 270 an.tempo~;
 #X text 200 270 tempo detector;
 #X obj 30 298 an.zero~;
-#X text 200 298 zero crossing count/rate/freq calculator;
+#X text 200 298 calculate the signal zero crossing count/rate/freq;
 #X obj 20 326 cnv 5 59 32 empty empty array 4 16 0 17 -262144 -49933
 0;
 #X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1903,7 +1904,7 @@ ui.spectroscope~-help.pd;
 #X text 20 26495 version: v0.9.8 \, license: GPL3;
 #X obj 20 26523 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 26547 ui.link @title Generated with pddoc v0.8.0 @url
+#X obj 20 26547 ui.link @title Generated with pddoc v0.9.0 @url
 http://github.com/uliss/pddoc;
 #X obj 670 26510 loadmsg 0;
 #X obj 670 26545 switch~;
