@@ -112,6 +112,8 @@ else()
             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
         add_dependencies(ceammc_pddoc ceammc_pddoc_gen_deken_objlist)
     endif()
+
+    add_subdirectory(ru)
 endif()
 
 if(WIN32)
