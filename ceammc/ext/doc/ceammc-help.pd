@@ -1256,6 +1256,9 @@ value;
 #X text 200 17130 apply crescendo or diminuendo for midi message flow;
 #X obj 30 17158 midi.vrand;
 #X text 200 17158 midi velocity randomizer;
+#X obj 534 16555 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 534 16555 working with MIDI protocol;
 #X obj 20 17186 cnv 5 49 32 empty empty misc 4 16 0 17 -262144 -49933
 0;
 #X obj 20 17228 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1950,4 +1953,4 @@ https://github.com/uliss/pure-data;
 http://github.com/uliss/pddoc;
 #X obj 670 26534 loadmsg 0;
 #X obj 670 26569 switch~;
-#X connect 1830 0 1831 0;
+#X connect 1832 0 1833 0;

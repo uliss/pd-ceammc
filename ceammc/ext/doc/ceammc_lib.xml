@@ -1735,6 +1735,7 @@
     <entry name="midi.vrand" descr="midi velocity randomizer" ref_view="object">
       <xi:include href="midi.vrand.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_midi.xml" parse="xml"/>
   </category>
   <category name="misc">
     <entry name="click~" descr="Output single impulse on bang" ref_view="object">
