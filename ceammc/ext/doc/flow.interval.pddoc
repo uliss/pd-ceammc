@@ -25,7 +25,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output time between the current and the previous message in milliseconds</outlet>
+            <outlet>output time between the current and the previous message in
+            milliseconds</outlet>
         </outlets>
         <example>
             <pdascii>

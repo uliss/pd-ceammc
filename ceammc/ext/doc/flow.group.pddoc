@@ -8,8 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">group input atoms in lists of specified size</tr>
-                <tr lang="ru">группирует входные атомы в списки указанного
-                размера</tr>
+                <tr lang="ru">группирует входные атомы в списки указанного размера</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

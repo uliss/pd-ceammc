@@ -8,7 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">routes the control flow by the regular expession match</tr>
-                <tr lang="ru">маршрутизатор управляющего потока с помощью совпадений с регулярным выражением</tr>
+                <tr lang="ru">маршрутизатор управляющего потока с помощью совпадений с регулярным
+                выражением</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

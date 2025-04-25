@@ -8,8 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sequential delay/router for the input stream</tr>
-                <tr lang="ru">последовательный маршрутизатор с задержками для входного
-                потока</tr>
+                <tr lang="ru">последовательный маршрутизатор с задержками для входного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
