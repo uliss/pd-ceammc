@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 421 50 cnv 1 344 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 421 50 weighted atom generation from specified list;
+#X obj 346 50 cnv 1 419 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 346 50 случайный взвешенный выбор атомов из указанного списка;
 #X obj 1 1 cnv 5 765 40 empty empty random.atom 20 20 0 20 -104026
 -4096 0;
 #X obj 579 11 random.a;

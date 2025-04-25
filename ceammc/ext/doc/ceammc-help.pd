@@ -1561,15 +1561,19 @@ returns 1 or 0\.;
 -49933 0;
 #X obj 20 21476 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 21487 random.atom;
-#X text 200 21487 weighted atom generation from specified list;
+#X text 200 21487 weighed choosing of the random atom from the specified
+list;
 #X obj 30 21515 random.discrete;
-#X text 200 21515 random weighted integers on interval [0 \, n);
+#X text 200 21515 generate random weighted integers on the interval
+[0 \, n);
 #X obj 30 21543 random.float;
-#X text 200 21543 uniform random float generator in specified range;
+#X text 200 21543 uniform random generator of floats in the specified
+range;
 #X obj 30 21571 random.gauss;
 #X text 200 21571 gaussian random distribution;
 #X obj 30 21599 random.int;
-#X text 200 21599 uniform random integer generator in specified range;
+#X text 200 21599 uniform random integer generator in the specified
+range;
 #X obj 30 21627 random.linear;
 #X text 200 21627 random linear distribution;
 #X obj 30 21655 random.pw_const;

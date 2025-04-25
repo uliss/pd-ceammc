@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 561 50 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 561 50 random linear distribution;
+#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 514 50 случайное линейное распределение;
 #X obj 1 1 cnv 5 765 40 empty empty random.linear 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 random.linear;
