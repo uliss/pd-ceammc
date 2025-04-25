@@ -498,7 +498,7 @@ route.float	separates float messages from others / отделяет числов
 route.f	separates float messages from others / отделяет числовые сообщения от других типов
 route.list	separates list messages from other types / отделяет списки от сообщений других типов
 route.l	separates list messages from other types / отделяет списки от сообщений других типов
-route.prop	separate property messages from other types
+route.prop	separates property messages from other types / отделяет сообщения со свойствами от других типов
 route.random	routes the input message into the random outlet / направляет входное сообщение в случайный выход
 route.r	routes the input message into the random outlet / направляет входное сообщение в случайный выход
 route.symbol	separates symbol messages from other types / отделяет символьные сообщения от других типов

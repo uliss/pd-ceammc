@@ -526,25 +526,24 @@ time;
 #X obj 30 7307 replace;
 #X text 200 7307 Replace atoms in data stream;
 #X obj 30 7335 route.any;
-#X text 200 7335 separate any messages from bangs \, floats \, symbols
+#X text 200 7335 separate messages from bangs \, floats \, symbols
 and lists;
 #X obj 30 7363 route.bang;
-#X text 200 7363 separate bang messages from other types;
+#X text 200 7363 separates the bang messages from others;
 #X obj 30 7391 route.cycle;
 #X text 200 7391 cyclic message router;
 #X obj 30 7419 route.data;
-#X text 200 7419 separate any messages from bangs \, floats \, symbols
-and lists;
+#X text 200 7419 separates data messages from others;
 #X obj 30 7447 route.float;
-#X text 200 7447 separate float messages from other types;
+#X text 200 7447 separates float messages from others;
 #X obj 30 7475 route.list;
-#X text 200 7475 separate list messages from other types;
+#X text 200 7475 separates list messages from other types;
 #X obj 30 7503 route.prop;
-#X text 200 7503 separate property messages from other types;
+#X text 200 7503 separates property messages from other types;
 #X obj 30 7531 route.random;
-#X text 200 7531 routes input flow to random outlet;
+#X text 200 7531 routes the input message into the random outlet;
 #X obj 30 7559 route.symbol;
-#X text 200 7559 separate symbol messages from other types;
+#X text 200 7559 separates symbol messages from other types;
 #X obj 611 5976 cnv 1 129 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 611 5976 dataflow control;
 #X obj 20 7587 cnv 5 37 32 empty empty flt 4 16 0 17 -262144 -49933 0;

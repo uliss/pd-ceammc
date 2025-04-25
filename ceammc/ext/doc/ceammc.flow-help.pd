@@ -113,7 +113,7 @@ and lists;
 #X obj 30 1573 route.list;
 #X text 200 1573 separates list messages from other types;
 #X obj 30 1601 route.prop;
-#X text 200 1601 separate property messages from other types;
+#X text 200 1601 separates property messages from other types;
 #X obj 30 1629 route.random;
 #X text 200 1629 routes the input message into the random outlet;
 #X obj 30 1657 route.symbol;

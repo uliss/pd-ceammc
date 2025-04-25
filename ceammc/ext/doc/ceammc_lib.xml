@@ -750,7 +750,7 @@
     <entry name="route.list" descr="separates list messages from other types" ref_view="object">
       <xi:include href="route.list.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.prop" descr="separate property messages from other types" ref_view="object">
+    <entry name="route.prop" descr="separates property messages from other types" ref_view="object">
       <xi:include href="route.prop.pddoc" parse="xml"/>
     </entry>
     <entry name="route.random" descr="routes the input message into the random outlet" ref_view="object">
