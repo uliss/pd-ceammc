@@ -27,69 +27,69 @@ midi signals.;
 #X obj 50 385 proto.midi.casio-rev;
 #X obj 50 414 proto.midi.casio-chorus;
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 469 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 504 @model;
-#X text 245 504 Get/Set device model. Type: symbol. Default value:
-px160\. Allowed values: px160\.;
+#X text 245 504 Получить/Установить device model. Тип: symbol. Значение
+по умолчанию: px160\. Разрешённые значения: px160\.;
 #X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 561 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 110 596 chorus;
-#X text 245 596 set chorus fx level. Arguments are:;
+#X text 245 596 set chorus fx level. Аргументы:;
 #X obj 255 619 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 619 VALUE: level. Type: float. Range: 0\...1\.;
+#X text 255 619 VALUE: level. Тип: float. Диапазон: 0…1\.;
 #X msg 110 644 chorus_depth;
-#X text 245 644 set chorus depth. Arguments are:;
+#X text 245 644 set chorus depth. Аргументы:;
 #X obj 255 667 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 667 DEPTH: depth value. Type: float. Range: 0\...1\.;
+#X text 255 667 DEPTH: depth value. Тип: float. Диапазон: 0…1\.;
 #X msg 110 692 chorus_fb;
-#X text 245 692 set chorus feedback level. Arguments are:;
+#X text 245 692 set chorus feedback level. Аргументы:;
 #X obj 255 715 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 715 AMOUNT: level. Type: float. Range: 0\...1\.;
+#X text 255 715 AMOUNT: level. Тип: float. Диапазон: 0…1\.;
 #X msg 110 740 chorus_rate;
-#X text 245 740 set chorus rate. Arguments are:;
+#X text 245 740 set chorus rate. Аргументы:;
 #X obj 255 763 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 763 RATE: rate value. Type: float. Range: 0\...1\.;
+#X text 255 763 RATE: rate value. Тип: float. Диапазон: 0…1\.;
 #X msg 110 788 chorus_send;
-#X text 245 788 set chorus send level. Arguments are:;
+#X text 245 788 set chorus send level. Аргументы:;
 #X obj 255 811 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 811 AMOUNT: level. Type: float. Range: 0\...1\.;
+#X text 255 811 AMOUNT: level. Тип: float. Диапазон: 0…1\.;
 #X msg 110 836 chorus_type;
-#X text 245 836 set chorus type. Arguments are:;
+#X text 245 836 set chorus type. Аргументы:;
 #X obj 255 859 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 859 TYPE: chorus type. For PX160 - 1: chorus1 \, 2: chorus2
-\, 3: deep chorus \, 4: flanger. Type: int. Range: 1\...4\.;
+\, 3: deep chorus \, 4: flanger. Тип: int. Диапазон: 1…4\.;
 #X msg 110 899 instr;
-#X text 245 899 send Note On message. Arguments are:;
+#X text 245 899 send Note On message. Аргументы:;
 #X obj 255 922 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 922 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X text 255 922 [CH]: midi channel. Тип: int. Диапазон: 0…15\.;
 #X obj 255 945 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 945 NAME: instrument name. Type: symbol. Allowed values:
+#X text 255 945 NAME: instrument name. Тип: symbol. Разрешённые значения:
 piano \, epiano \, strings \, bass \, organ \, vibr \, harps.;
 #X obj 255 983 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 983 TYPE: instrument type. for 'piano': concert|modern|classic|mellow|bright|0\..4
 \, for 'epiano': 0|1|fm|2|3|60 \, for 'strings': 0|1 \, for 'bass':
 0 \, for 'organ': pipe|jass|elec1|elec2|0\..3 \, for 'vibr' and 'haprs':
-0\. Type: atom.;
+0\. Тип: atom.;
 #X msg 110 1068 rev_time;
-#X text 245 1068 set reverb time. Arguments are:;
+#X text 245 1068 set reverb time. Аргументы:;
 #X obj 255 1091 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1091 AMOUNT: reverb time. Type: int. Range: 0\...127\.;
+#X text 255 1091 AMOUNT: reverb time. Тип: int. Диапазон: 0…127\.;
 #X msg 110 1116 rev_type;
-#X text 245 1116 set reverb type. Arguments are:;
+#X text 245 1116 set reverb type. Аргументы:;
 #X obj 255 1139 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1139 TYPE: reverb type. For PX160 - 1: room \, 2: default
-(hall) \, 3: hall2 \, 4: stadium. Type: int. Range: 1\...4\.;
+(hall) \, 3: hall2 \, 4: stadium. Тип: int. Диапазон: 1…4\.;
 #X obj 20 1189 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1194 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
+#X obj 20 1194 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
 #X text 110 1195 1\.;
 #X text 245 1195 control messages.;
 #X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1230 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1230 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1231 1\.;
 #X text 245 1231 float: raw midi output.;
@@ -99,31 +99,31 @@ piano \, epiano \, strings \, bass \, organ \, vibr \, harps.;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
 #X obj 1 1281 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1284 library: ceammc v0.9.8;
+#X text 10 1284 библиотека: ceammc v0.9.8;
 #N canvas 10 1303 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 proto.midi.casio;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 proto;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.5;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 parser \, midi \, casio;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 120 268 generated by pddoc;
+#X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1303 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 13 0;

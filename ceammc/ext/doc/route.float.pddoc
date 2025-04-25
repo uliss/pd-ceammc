@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">separate float messages from other types</tr>
+                <tr lang="en">separates float messages from others</tr>
+                <tr lang="ru">отделяет числовые сообщения от других типов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

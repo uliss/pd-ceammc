@@ -106,26 +106,26 @@
 #X obj 30 1453 replace;
 #X text 200 1453 Replace atoms in data stream;
 #X obj 30 1481 route.any;
-#X text 200 1481 separate any messages from bangs \, floats \, symbols
-and lists;
-#X obj 30 1509 route.bang;
-#X text 200 1509 separate bang messages from other types;
-#X obj 30 1537 route.cycle;
-#X text 200 1537 cyclic message router;
-#X obj 30 1565 route.data;
-#X text 200 1565 separate any messages from bangs \, floats \, symbols
-and lists;
-#X obj 30 1593 route.float;
-#X text 200 1593 separate float messages from other types;
-#X obj 30 1621 route.list;
-#X text 200 1621 separate list messages from other types;
-#X obj 30 1649 route.prop;
-#X text 200 1649 separate property messages from other types;
-#X obj 30 1677 route.random;
-#X text 200 1677 routes input flow to random outlet;
-#X obj 30 1705 route.symbol;
-#X text 200 1705 separate symbol messages from other types;
+#X text 200 1481 отделяет сообщения общего вида от пустых событий (bang)
+\, числовых значений \, символов и списков;
+#X obj 30 1521 route.bang;
+#X text 200 1521 отделяет пустые события (bangs) от сообщений других
+типов;
+#X obj 30 1549 route.cycle;
+#X text 200 1549 циклический маршрутизатор сообщений;
+#X obj 30 1577 route.data;
+#X text 200 1577 отделяет сообщения с данными от других;
+#X obj 30 1605 route.float;
+#X text 200 1605 отделяет числовые сообщения от других типов;
+#X obj 30 1633 route.list;
+#X text 200 1633 отделяет списки от сообщений других типов;
+#X obj 30 1661 route.prop;
+#X text 200 1661 Отдельные сообщения о собственности других типов;
+#X obj 30 1689 route.random;
+#X text 200 1689 направляет входное сообщение в случайный выход;
+#X obj 30 1717 route.symbol;
+#X text 200 1717 отделяет символьные сообщения от других типов;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1733 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1743 library: ceammc;
+#X obj 1 1745 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1755 library: ceammc;

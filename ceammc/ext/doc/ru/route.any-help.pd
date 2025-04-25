@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 308 50 cnv 1 457 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 308 50 separate any messages from bangs \, floats \, symbols
-and lists;
+#X obj 332 50 cnv 1 433 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 332 50 отделяет сообщения общего вида от пустых событий (bang)
+\, числовых значений \, символов и списков;
 #X obj 1 1 cnv 5 765 40 empty empty route.any 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 route.any;

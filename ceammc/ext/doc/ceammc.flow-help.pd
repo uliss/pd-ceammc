@@ -100,25 +100,24 @@ time;
 #X obj 30 1405 replace;
 #X text 200 1405 Replace atoms in data stream;
 #X obj 30 1433 route.any;
-#X text 200 1433 separate any messages from bangs \, floats \, symbols
+#X text 200 1433 separate messages from bangs \, floats \, symbols
 and lists;
 #X obj 30 1461 route.bang;
-#X text 200 1461 separate bang messages from other types;
+#X text 200 1461 separates the bang messages from others;
 #X obj 30 1489 route.cycle;
 #X text 200 1489 cyclic message router;
 #X obj 30 1517 route.data;
-#X text 200 1517 separate any messages from bangs \, floats \, symbols
-and lists;
+#X text 200 1517 separates data messages from others;
 #X obj 30 1545 route.float;
-#X text 200 1545 separate float messages from other types;
+#X text 200 1545 separates float messages from others;
 #X obj 30 1573 route.list;
-#X text 200 1573 separate list messages from other types;
+#X text 200 1573 separates list messages from other types;
 #X obj 30 1601 route.prop;
 #X text 200 1601 separate property messages from other types;
 #X obj 30 1629 route.random;
-#X text 200 1629 routes input flow to random outlet;
+#X text 200 1629 routes the input message into the random outlet;
 #X obj 30 1657 route.symbol;
-#X text 200 1657 separate symbol messages from other types;
+#X text 200 1657 separates symbol messages from other types;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
 #X obj 1 1685 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

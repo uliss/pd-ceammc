@@ -488,21 +488,21 @@ ceammc/~->	extracts control messages from audio connections / извлекает
 ~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
-route.any	separate any messages from bangs, floats, symbols and lists
-route.bang	separate bang messages from other types
-route.b	separate bang messages from other types
-route.cycle	cyclic message router
-route.data	separate any messages from bangs, floats, symbols and lists
-route.d	separate any messages from bangs, floats, symbols and lists
-route.float	separate float messages from other types
-route.f	separate float messages from other types
-route.list	separate list messages from other types
-route.l	separate list messages from other types
+route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от пустых событий (bang), числовых значений, символов и списков
+route.bang	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
+route.b	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
+route.cycle	cyclic message router / циклический маршрутизатор сообщений
+route.data	separates data messages from others / отделяет сообщения с данными от других
+route.d	separates data messages from others / отделяет сообщения с данными от других
+route.float	separates float messages from others / отделяет числовые сообщения от других типов
+route.f	separates float messages from others / отделяет числовые сообщения от других типов
+route.list	separates list messages from other types / отделяет списки от сообщений других типов
+route.l	separates list messages from other types / отделяет списки от сообщений других типов
 route.prop	separate property messages from other types
-route.random	routes input flow to random outlet
-route.r	routes input flow to random outlet
-route.symbol	separate symbol messages from other types
-route.s	separate symbol messages from other types
+route.random	routes the input message into the random outlet / направляет входное сообщение в случайный выход
+route.r	routes the input message into the random outlet / направляет входное сообщение в случайный выход
+route.symbol	separates symbol messages from other types / отделяет символьные сообщения от других типов
+route.s	separates symbol messages from other types / отделяет символьные сообщения от других типов
 flt.a-weight	convert frequency to A-weight value
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter

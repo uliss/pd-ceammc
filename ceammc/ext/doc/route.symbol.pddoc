@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">separate symbol messages from other types</tr>
+                <tr lang="en">separates symbol messages from other types</tr>
+                <tr lang="ru">отделяет символьные сообщения от других типов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

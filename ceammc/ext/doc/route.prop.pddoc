@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">separate property messages from other types</tr>
+                <tr lang="ru" finished="false">Отдельные сообщения о собственности других
+                типов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

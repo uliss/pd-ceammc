@@ -732,31 +732,31 @@
     <entry name="replace" descr="Replace atoms in data stream" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.any" descr="separate any messages from bangs, floats, symbols and lists" ref_view="object">
+    <entry name="route.any" descr="separate messages from bangs, floats, symbols and lists" ref_view="object">
       <xi:include href="route.any.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.bang" descr="separate bang messages from other types" ref_view="object">
+    <entry name="route.bang" descr="separates the bang messages from others" ref_view="object">
       <xi:include href="route.bang.pddoc" parse="xml"/>
     </entry>
     <entry name="route.cycle" descr="cyclic message router" ref_view="object">
       <xi:include href="route.cycle.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.data" descr="separate any messages from bangs, floats, symbols and lists" ref_view="object">
+    <entry name="route.data" descr="separates data messages from others" ref_view="object">
       <xi:include href="route.data.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.float" descr="separate float messages from other types" ref_view="object">
+    <entry name="route.float" descr="separates float messages from others" ref_view="object">
       <xi:include href="route.float.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.list" descr="separate list messages from other types" ref_view="object">
+    <entry name="route.list" descr="separates list messages from other types" ref_view="object">
       <xi:include href="route.list.pddoc" parse="xml"/>
     </entry>
     <entry name="route.prop" descr="separate property messages from other types" ref_view="object">
       <xi:include href="route.prop.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.random" descr="routes input flow to random outlet" ref_view="object">
+    <entry name="route.random" descr="routes the input message into the random outlet" ref_view="object">
       <xi:include href="route.random.pddoc" parse="xml"/>
     </entry>
-    <entry name="route.symbol" descr="separate symbol messages from other types" ref_view="object">
+    <entry name="route.symbol" descr="separates symbol messages from other types" ref_view="object">
       <xi:include href="route.symbol.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_flow.xml" parse="xml"/>

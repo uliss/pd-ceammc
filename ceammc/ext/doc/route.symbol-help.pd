@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 446 50 cnv 1 319 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 446 50 separate symbol messages from other types;
+#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 438 50 separates symbol messages from other types;
 #X obj 1 1 cnv 5 765 40 empty empty route.symbol 20 20 0 20 -104026
 -4096 0;
 #X obj 579 11 route.s;
