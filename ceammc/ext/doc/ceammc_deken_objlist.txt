@@ -917,34 +917,34 @@ math.tanh~	hyperbolic tangent for signals
 math.tan~	tangent function
 math.trunc	truncate to integer value
 math.trunc~	truncate to integer value
-midi.arp	MIDI arpeggiator
-midi.cc	enhanced version of vanilla ctlin
-midi.clock	midi clock toolbox
-midi.ctl2str	convert Standard MIDI Controllers number to name
-midi.ctl->str	convert Standard MIDI Controllers number to name
-midi.event2ctl	convert MidiEvent message to controller channel/value pair
-midi.ev->ctl	convert MidiEvent message to controller channel/value pair
-midi.event2note	convert MidiEvent message to midi note/velocity pair
-midi.ev->note	convert MidiEvent message to midi note/velocity pair
-midi.event2prg	convert MidiEvent message to midi program change value
-midi.ev->prg	convert MidiEvent message to midi program change value
-midi.file	standard midi file SMF reader and writer
-midi.kbd	computer keyboard midi
-midi.key2str	convert key number to SPN name according to tonality
-midi.key->str	convert key number to SPN name according to tonality
-midi.modus	snap/skip midi pitches according modus
-midi.note.pass	midi note pass by expression
-note.pass	midi note pass by expression
-midi.oct	midi octave transpose
-midi.prg2str	convert GM Instrument number to name (string or symbol)
-midi.prg->str	convert GM Instrument number to name (string or symbol)
-midi.split	midi note splitter
-midi.sustain	sustain pedal emulation
-midi.sysex	sysex input messages as list
-midi.track	extract track from MidiFile
-midi.tuning	apply tuning to midi messages
-midi.vramp	apply crescendo or diminuendo for midi message flow
-midi.vrand	midi velocity randomizer
+midi.arp	MIDI arpeggiator / MIDI арпеджиатор
+midi.cc	enhanced version of vanilla [ctlin] / усовершенствованная версия [ctlin]
+midi.clock	MIDI-clock
+midi.ctl2str	converts Standard MIDI Controllers number to name / преображует номер стандартного MIDI контроллеров в имя
+midi.ctl->str	converts Standard MIDI Controllers number to name / преображует номер стандартного MIDI контроллеров в имя
+midi.event2ctl	converts the MidiEvent message into the controller channel/value pair / конвертируем сообщение MidiEvent в пару канал/значение
+midi.ev->ctl	converts the MidiEvent message into the controller channel/value pair / конвертируем сообщение MidiEvent в пару канал/значение
+midi.event2note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
+midi.ev->note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
+midi.event2prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
+midi.ev->prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
+midi.file	the standard midi file (SMF) reader and writer / чтение и запись стандартных MIDI файлов (SMF)
+midi.kbd	computer keyboard MIDI emulator / эмулятор MIDI клавиатуры c помощью клавиатуры компьютера
+midi.key2str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
+midi.key->str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
+midi.modus	snap or skip MIDI-pitches according the specified modus / приводит или удаляет MIDI-ноты согласно указанному ладу
+midi.note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
+note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
+midi.oct	MIDI octave transposition / октавная MIDI транспозиция
+midi.prg2str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
+midi.prg->str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
+midi.split	MIDI note range splitter / разбивает MIDI ноты на диапазоны
+midi.sustain	sustain pedal emulation / эмуляция педали сустейна
+midi.sysex	output sysex input messages as a list / выводит входные sysex сообщения в виде списка
+midi.track	extracts the track from MidiFile message / извлекает трек из сообщения MidiFile
+midi.tuning	apply the tuning for notes flow / применяет настройку для нотного потока
+midi.vramp	apply crescendo or diminuendo for notes flow / применяет crescendo или diminuendo для потока нот
+midi.vrand	midi velocity randomizer / рандомизатор силы нажатия MIDI
 click~	Output single impulse on bang
 ceammc/click~	Output single impulse on bang
 fluid~	FluidSynth SoundFont 2 player

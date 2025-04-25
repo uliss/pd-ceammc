@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">midi octave transpose</tr>
+                <tr lang="en">MIDI octave transposition</tr>
+                <tr lang="ru">октавная MIDI транспозиция</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

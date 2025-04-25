@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">midi note pass by expression</tr>
+                <tr lang="en">passes MIDI notes according to the calculated expression</tr>
+                <tr lang="ru">пропускает MIDI-ноты согласно вычисляемому выражению</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

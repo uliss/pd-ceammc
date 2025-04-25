@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert Standard MIDI Controllers number to name</tr>
+                <tr lang="en">converts Standard MIDI Controllers number to name</tr>
+                <tr lang="ru">преображует номер стандартного MIDI контроллеров
+                в имя</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

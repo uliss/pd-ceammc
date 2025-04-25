@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">snap/skip midi pitches according modus</tr>
+                <tr lang="en">snap or skip MIDI-pitches according the specified modus</tr>
+                <tr lang="ru">приводит или удаляет MIDI-ноты согласно указанному ладу</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

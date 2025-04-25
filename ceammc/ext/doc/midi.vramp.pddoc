@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">apply crescendo or diminuendo for midi message flow</tr>
+                <tr lang="en">apply crescendo or diminuendo for notes flow</tr>
+                <tr lang="ru">применяет crescendo или diminuendo для потока нот</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

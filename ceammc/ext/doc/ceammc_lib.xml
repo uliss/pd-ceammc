@@ -1675,61 +1675,61 @@
     <entry name="midi.arp" descr="MIDI arpeggiator" ref_view="object">
       <xi:include href="midi.arp.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.cc" descr="enhanced version of vanilla ctlin" ref_view="object">
+    <entry name="midi.cc" descr="enhanced version of vanilla [ctlin]" ref_view="object">
       <xi:include href="midi.cc.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.clock" descr="midi clock toolbox" ref_view="object">
+    <entry name="midi.clock" descr="MIDI-clock" ref_view="object">
       <xi:include href="midi.clock.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.ctl2str" descr="convert Standard MIDI Controllers number to name" ref_view="object">
+    <entry name="midi.ctl2str" descr="converts Standard MIDI Controllers number to name" ref_view="object">
       <xi:include href="midi.ctl2str.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.event2ctl" descr="convert MidiEvent message to controller channel/value pair" ref_view="object">
+    <entry name="midi.event2ctl" descr="converts the MidiEvent message into the controller channel/value pair" ref_view="object">
       <xi:include href="midi.event2ctl.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.event2note" descr="convert MidiEvent message to midi note/velocity pair" ref_view="object">
+    <entry name="midi.event2note" descr="converts the MidiEvent message into the midi note/velocity pair" ref_view="object">
       <xi:include href="midi.event2note.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.event2prg" descr="convert MidiEvent message to midi program change value" ref_view="object">
+    <entry name="midi.event2prg" descr="converts the MidiEvent message into the program change" ref_view="object">
       <xi:include href="midi.event2prg.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.file" descr="standard midi file SMF reader and writer" ref_view="object">
+    <entry name="midi.file" descr="the standard midi file (SMF) reader and writer" ref_view="object">
       <xi:include href="midi.file.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.kbd" descr="computer keyboard midi" ref_view="object">
+    <entry name="midi.kbd" descr="computer keyboard MIDI emulator" ref_view="object">
       <xi:include href="midi.kbd.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.key2str" descr="convert key number to SPN name according to tonality" ref_view="object">
+    <entry name="midi.key2str" descr="converts the MIDI-key into the SPN name format" ref_view="object">
       <xi:include href="midi.key2str.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.modus" descr="snap/skip midi pitches according modus" ref_view="object">
+    <entry name="midi.modus" descr="snap or skip MIDI-pitches according the specified modus" ref_view="object">
       <xi:include href="midi.modus.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.note.pass" descr="midi note pass by expression" ref_view="object">
+    <entry name="midi.note.pass" descr="passes MIDI notes according to the calculated expression" ref_view="object">
       <xi:include href="midi.note.pass.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.oct" descr="midi octave transpose" ref_view="object">
+    <entry name="midi.oct" descr="MIDI octave transposition" ref_view="object">
       <xi:include href="midi.oct.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.prg2str" descr="convert GM Instrument number to name (string or symbol)" ref_view="object">
+    <entry name="midi.prg2str" descr="converts the GM Instrument number into the name" ref_view="object">
       <xi:include href="midi.prg2str.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.split" descr="midi note splitter" ref_view="object">
+    <entry name="midi.split" descr="MIDI note range splitter" ref_view="object">
       <xi:include href="midi.split.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.sustain" descr="sustain pedal emulation" ref_view="object">
       <xi:include href="midi.sustain.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.sysex" descr="sysex input messages as list" ref_view="object">
+    <entry name="midi.sysex" descr="output sysex input messages as a list" ref_view="object">
       <xi:include href="midi.sysex.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.track" descr="extract track from MidiFile" ref_view="object">
+    <entry name="midi.track" descr="extracts the track from MidiFile message" ref_view="object">
       <xi:include href="midi.track.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.tuning" descr="apply tuning to midi messages" ref_view="object">
+    <entry name="midi.tuning" descr="apply the tuning for notes flow" ref_view="object">
       <xi:include href="midi.tuning.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.vramp" descr="apply crescendo or diminuendo for midi message flow" ref_view="object">
+    <entry name="midi.vramp" descr="apply crescendo or diminuendo for notes flow" ref_view="object">
       <xi:include href="midi.vramp.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.vrand" descr="midi velocity randomizer" ref_view="object">

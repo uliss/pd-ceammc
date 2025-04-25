@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">MIDI arpeggiator</tr>
+                <tr lang="ru">MIDI арпеджиатор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 620 50 cnv 1 145 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 620 50 midi note splitter;
+#X obj 574 50 cnv 1 191 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 574 50 MIDI note range splitter;
 #X obj 1 1 cnv 5 765 40 empty empty midi.split 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 midi.split;

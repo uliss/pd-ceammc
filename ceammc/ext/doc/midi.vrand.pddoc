@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">midi velocity randomizer</tr>
+                <tr lang="ru">рандомизатор силы нажатия MIDI</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

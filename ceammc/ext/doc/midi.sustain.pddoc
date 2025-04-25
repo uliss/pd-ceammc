@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sustain pedal emulation</tr>
+                <tr lang="ru">эмуляция педали сустейна</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert MidiEvent message to controller channel/value pair</tr>
+                <tr lang="en">converts the MidiEvent message into the controller channel/value pair</tr>
+                <tr lang="ru">конвертируем сообщение MidiEvent в пару канал/значение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert GM Instrument number to name (string or symbol)</tr>
+                <tr lang="en">converts the GM Instrument number into the name</tr>
+                <tr lang="ru">преобразует номер инструмента GeneralMidi в его имя</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
