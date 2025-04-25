@@ -1122,17 +1122,17 @@ proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.vlc	VLC video player control over HTTP
 proto.whammy	Control for Digitech Whammy pedal
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
-random.atom	weighted atom generation from specified list
-random.a	weighted atom generation from specified list
-random.discrete	random weighted integers on interval [0, n)
-random.float	uniform random float generator in specified range
-random.f	uniform random float generator in specified range
-random.gauss	gaussian random distribution
-random.int	uniform random integer generator in specified range
-random.i	uniform random integer generator in specified range
-random.linear	random linear distribution
-random.pw_const	piecewise constant random distribution
-random.pw_lin	piecewise linear random distribution
+random.atom	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
+random.a	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
+random.discrete	generate random weighted integers on the interval [0, n) / генерирует случайные взвешенные целые числа на интервале [0, n)
+random.float	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне
+random.f	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне
+random.gauss	gaussian random distribution / гауссово случайное распределение
+random.int	uniform random integer generator in the specified range / равномерный генератор случайных целых чисел в заданном диапазоне
+random.i	uniform random integer generator in the specified range / равномерный генератор случайных целых чисел в заданном диапазоне
+random.linear	random linear distribution / случайное линейное распределение
+random.pw_const	piecewise constant random distribution / кусочно-постоянное случайное распределение
+random.pw_lin	piecewise linear random distribution / кусочно-линейное случайное распределение
 samp.time~	sample counter
 samp.t~	sample counter
 seq.arp	sequence arpeggiator

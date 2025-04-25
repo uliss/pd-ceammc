@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">random linear distribution</tr>
+                <tr lang="ru">случайное линейное распределение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

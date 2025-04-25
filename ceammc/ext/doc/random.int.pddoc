@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">uniform random integer generator in specified range</tr>
+                <tr lang="en">uniform random integer generator in the specified range</tr>
+                <tr lang="ru">равномерный генератор случайных целых чисел в заданном
+                диапазоне</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

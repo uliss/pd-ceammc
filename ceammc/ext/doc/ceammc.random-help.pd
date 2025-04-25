@@ -5,15 +5,18 @@
 #X obj 552 50 cnv 1 188 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 552 50 random number generation;
 #X obj 30 117 random.atom;
-#X text 200 117 weighted atom generation from specified list;
+#X text 200 117 weighed choosing of the random atom from the specified
+list;
 #X obj 30 145 random.discrete;
-#X text 200 145 random weighted integers on interval [0 \, n);
+#X text 200 145 generate random weighted integers on the interval [0
+\, n);
 #X obj 30 173 random.float;
-#X text 200 173 uniform random float generator in specified range;
+#X text 200 173 uniform random generator of floats in the specified
+range;
 #X obj 30 201 random.gauss;
 #X text 200 201 gaussian random distribution;
 #X obj 30 229 random.int;
-#X text 200 229 uniform random integer generator in specified range;
+#X text 200 229 uniform random integer generator in the specified range;
 #X obj 30 257 random.linear;
 #X text 200 257 random linear distribution;
 #X obj 30 285 random.pw_const;

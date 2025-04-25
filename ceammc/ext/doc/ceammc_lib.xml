@@ -2150,19 +2150,19 @@
     </entry>
   </category>
   <category name="random">
-    <entry name="random.atom" descr="weighted atom generation from specified list" ref_view="object">
+    <entry name="random.atom" descr="weighed choosing of the random atom from the specified list" ref_view="object">
       <xi:include href="random.atom.pddoc" parse="xml"/>
     </entry>
-    <entry name="random.discrete" descr="random weighted integers on interval [0, n)" ref_view="object">
+    <entry name="random.discrete" descr="generate random weighted integers on the interval [0, n)" ref_view="object">
       <xi:include href="random.discrete.pddoc" parse="xml"/>
     </entry>
-    <entry name="random.float" descr="uniform random float generator in specified range" ref_view="object">
+    <entry name="random.float" descr="uniform random generator of floats in the specified range" ref_view="object">
       <xi:include href="random.float.pddoc" parse="xml"/>
     </entry>
     <entry name="random.gauss" descr="gaussian random distribution" ref_view="object">
       <xi:include href="random.gauss.pddoc" parse="xml"/>
     </entry>
-    <entry name="random.int" descr="uniform random integer generator in specified range" ref_view="object">
+    <entry name="random.int" descr="uniform random integer generator in the specified range" ref_view="object">
       <xi:include href="random.int.pddoc" parse="xml"/>
     </entry>
     <entry name="random.linear" descr="random linear distribution" ref_view="object">

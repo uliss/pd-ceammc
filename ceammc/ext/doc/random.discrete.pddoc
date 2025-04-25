@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">random weighted integers on interval [0, n)</tr>
+                <tr lang="en">generate random weighted integers on the interval [0, n)</tr>
+                <tr lang="ru">генерирует случайные взвешенные целые числа на интервале [0,
+                n)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

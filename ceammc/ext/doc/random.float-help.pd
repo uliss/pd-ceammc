@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 384 50 uniform random float generator in specified range;
+#X obj 322 50 cnv 1 443 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 322 50 uniform random generator of floats in the specified
+range;
 #X obj 1 1 cnv 5 765 40 empty empty random.float 20 20 0 20 -104026
 -4096 0;
 #X obj 572 11 random.f;
