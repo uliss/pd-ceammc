@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">audio stream stereo demultiplexer</tr>
+                <tr lang="ru">демультиплексор стерео аудиопотока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

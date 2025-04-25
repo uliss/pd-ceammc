@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">prepend message before received one</tr>
+                <tr lang="en">inject the message before the current one</tr>
+                <tr lang="ru">вставляет сообщение перед текущим</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

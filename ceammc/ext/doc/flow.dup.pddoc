@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">message duplicator</tr>
+                <tr lang="en">duplicate messages</tr>
+                <tr lang="ru">дупликатор сообщений</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

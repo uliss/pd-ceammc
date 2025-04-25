@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 514 50 measure time between flow events;
+#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 506 50 measure the time between messages;
 #X obj 1 1 cnv 5 765 40 empty empty flow.interval 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 flow.interval;
@@ -21,7 +21,8 @@
 #X obj 20 307 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 308 1\.;
-#X text 245 308 output time between current and previous event in milliseconds.;
+#X text 245 308 output time between the current and the previous message
+in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

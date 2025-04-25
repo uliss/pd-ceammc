@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">control stream speed limiter</tr>
+                <tr lang="ru">ограничитель скорости потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -50,19 +51,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[0, 100 1000( [0, 100 200(
-|             |
-[line         ]
+[ui.hsl]         [F]
+|                |.
+[flow.speedlim 500]
 |
-[t f f              ]
-^|                  |
-[flow.speedlim 100] [sel 100]
-|                   |
-|                   [flush(
-|                   |
-[flow.group  @by 100]
-|
-[ui.dt]
+[ui.hsl]
 ]]>
             </pdascii>
         </example>

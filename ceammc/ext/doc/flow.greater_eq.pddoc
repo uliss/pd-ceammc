@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">numeric stream router</tr>
+                <tr lang="en">numeric stream router by 'greater or equal' condition</tr>
+                <tr lang="ru">маршрутизатор числового потока по условию 'больше или равно'</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

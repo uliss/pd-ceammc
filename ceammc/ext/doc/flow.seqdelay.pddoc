@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sequential delay/router for input flow</tr>
+                <tr lang="en">sequential delay/router for the input stream</tr>
+                <tr lang="ru">последовательный маршрутизатор с задержками для входного
+                потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -65,6 +67,16 @@
         <example>
             <pdascii>
 <![CDATA[
+[bang( [note 60 120(
+|      |
+[flow.seqdelay 0 1000 500 1000 #i]
+|
+[ui.dt]       [ui.dt #k]
+
+       [ui.dt #j]    [ui.dt #l]
+
+[X i:1->j] [X i:2->k] [X i:3->l]
+
 [bang(              [list 0 500 120 110( /*- change pattern*/
 |                   |
 |       [T]         |  [list 0 400 100 300(

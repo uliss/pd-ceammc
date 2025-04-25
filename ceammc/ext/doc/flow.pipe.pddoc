@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">enhanced version on vanilla pipe object</tr>
+                <tr lang="en">enhanced version on the vanilla [pipe] object</tr>
+                <tr lang="ru">усовершенствованная версия объекта [pipe]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

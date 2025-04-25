@@ -389,103 +389,103 @@ vline->env	Converts vline messages to env
 expand_env	Substitute environment variables in data stream
 ceammc/expand_env	Substitute environment variables in data stream
 flow.append	append message to flow stream
-flow.change	rejects redundant input values
-flow.count	control flow event counter
-flow.delay	enhanced version on vanilla delay object
-flow.del	enhanced version on vanilla delay object
-flow.demultiplex	control flow demultiplexer
-flow.demux	control flow demultiplexer
-flow.demultiplex2~	audio stream stereo demultiplexer
-flow.demux2~	audio stream stereo demultiplexer
-ceammc/demux2~	audio stream stereo demultiplexer
-demux2~	audio stream stereo demultiplexer
-flow.demultiplex~	audio stream demultiplexer
-flow.demux~	audio stream demultiplexer
-ceammc/demux~	audio stream demultiplexer
-demux~	audio stream demultiplexer
-flow.dollar	data flow dollar converter
-flow.$$	data flow dollar converter
-flow.dup	message duplicator
+flow.change	rejects repeatet input messages / удаляет повторяющиеся сообщения
+flow.count	control flow event counter / счетчик числа сообщений в управляющем потоке
+flow.delay	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
+flow.del	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
+flow.demultiplex	demultiplex of the control flow / демультиплексор управляющего потока
+flow.demux	demultiplex of the control flow / демультиплексор управляющего потока
+flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+flow.demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+ceammc/demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+flow.demultiplex~	audio stream demultiplexer / демультиплексор аудиопотока
+flow.demux~	audio stream demultiplexer / демультиплексор аудиопотока
+ceammc/demux~	audio stream demultiplexer / демультиплексор аудиопотока
+demux~	audio stream demultiplexer / демультиплексор аудиопотока
+flow.dollar	substitude the $-values / подставляет $-значения
+flow.$$	substitude the $-values / подставляет $-значения
+flow.dup	duplicate messages / дупликатор сообщений
 flow.float	pass floats
 flow.f	pass floats
-flow.gate	control flow gate. [spigot] analog
-ceammc/gate	control flow gate. [spigot] analog
-gate	control flow gate. [spigot] analog
-flow.greater	numeric stream router
-flow.>	numeric stream router
-flow.greater_eq	numeric stream router
-flow.>=	numeric stream router
-flow.group	group input atoms in list of specified size
-ceammc/group	group input atoms in list of specified size
-group	group input atoms in list of specified size
+flow.gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+ceammc/gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+flow.greater	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
+flow.>	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
+flow.greater_eq	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
+flow.>=	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
+flow.group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
+ceammc/group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
+group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
 flow.histogram	histogram for numeric control flow / гисторамма для числового потока управления
 flow.hist	histogram for numeric control flow / гисторамма для числового потока управления
-flow.interval	measure time between flow events
-flow.less	numeric stream router, like many [moses]
-flow.<	numeric stream router, like many [moses]
-flow.less_eq	numeric stream router, like many [moses]
-flow.<=	numeric stream router, like many [moses]
-flow.list2many	routes list element with message selectors
-ceammc/list->many	routes list element with message selectors
-list->many	routes list element with message selectors
-flow.match	route data flow by regexp match
-flow.mem	store data flow in memory
-flow.multiplex	control flow multiplexer
-flow.mux	control flow multiplexer
-flow.multiplex2~	audio stream stereo multiplexer
-flow.mux2~	audio stream stereo multiplexer
-ceammc/mux2~	audio stream stereo multiplexer
-mux2~	audio stream stereo multiplexer
-flow.multiplex~	audio stream multiplexer
-flow.mux~	audio stream multiplexer
-ceammc/mux~	audio stream multiplexer
-mux~	audio stream multiplexer
-flow.once	one message pass thru
-ceammc/once	one message pass thru
-once	one message pass thru
-flow.pack	flow pack
-flow.pass	pass specified values
-ceammc/pass	pass specified values
-pass	pass specified values
-flow.pass_if	pass values that accepted by predicate object
-ceammc/pass_if	pass values that accepted by predicate object
-pass_if	pass values that accepted by predicate object
-flow.pipe	enhanced version on vanilla pipe object
-flow.prepend	prepend message before received one
-flow.queue	multi-channel control flow sync queue (or FIFO)
-flow.record	flow stream recorder/player
-flow.rec	flow stream recorder/player
-flow.reject	reject specified values
-ceammc/reject	reject specified values
-reject	reject specified values
-flow.!	reject specified values
-flow.reject_if	reject values by predicate
-ceammc/reject_if	reject values by predicate
-reject_if	reject values by predicate
-flow.ring	dataflow ring buffer
-flow.>>	dataflow ring buffer
-flow.route	advanced message router
-flow.select	vanilla flow on steroids
-flow.sel	vanilla flow on steroids
-flow.seqdelay	sequential delay/router for input flow
-flow.seqdel	sequential delay/router for input flow
-flow.space	space in time messages received at the same logical time
-flow.speedlim	control stream speed limiter
-ceammc/speedlim	control stream speed limiter
-speedlim	control stream speed limiter
-flow.split	split data flow by external side-chain predicate
-ceammc/split	split data flow by external side-chain predicate
-split	split data flow by external side-chain predicate
-flow.stack	any message stack
-flow.sync	bus with only hot inlets
-flow.'	bus with only hot inlets
-flow.sync_pack	flow pack with all hot inlets
-flow.pack'	flow pack with all hot inlets
-flow.tee~	separate audio and control streams
-ceammc/tee~	separate audio and control streams
-tee~	separate audio and control streams
-ceammc/~->	separate audio and control streams
-~->	separate audio and control streams
+flow.interval	measure the time between messages / измерение времени между сообщениями
+flow.less	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
+flow.<	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
+flow.less_eq	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
+flow.<=	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
+flow.list2many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
+ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
+list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
+flow.match	routes the control flow by the regular expession match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
+flow.mem	store into the memory or output the control flow messages / сохраняет в памяти или выводит сообщения потока управления
+flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
+flow.mux	control flow multiplexer / мультиплексор управляющего потока
+flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+flow.mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+ceammc/mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+flow.multiplex~	audio stream multiplexer / мультиплексор аудиопотока
+flow.mux~	audio stream multiplexer / мультиплексор аудиопотока
+ceammc/mux~	audio stream multiplexer / мультиплексор аудиопотока
+mux~	audio stream multiplexer / мультиплексор аудиопотока
+flow.once	pass the only message / пропускает единственное сообщение
+ceammc/once	pass the only message / пропускает единственное сообщение
+once	pass the only message / пропускает единственное сообщение
+flow.pack	packs atoms from multiple stream into the single one / упаковка атомов из нескольких потоков в один
+flow.pass	pass specified values / пропускает указанные значения
+ceammc/pass	pass specified values / пропускает указанные значения
+pass	pass specified values / пропускает указанные значения
+flow.pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
+ceammc/pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
+pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
+flow.pipe	enhanced version on the vanilla [pipe] object / усовершенствованная версия объекта [pipe]
+flow.prepend	inject the message before the current one / вставляет сообщение перед текущим
+flow.queue	multichannel message queue with sync capabilities / многоканальная очередь сообщений с возможностью синхронизации
+flow.record	control flow record/play / запись/воспроизведение управляющего потока
+flow.rec	control flow record/play / запись/воспроизведение управляющего потока
+flow.reject	reject specified values / не пропускает указанные значения
+ceammc/reject	reject specified values / не пропускает указанные значения
+reject	reject specified values / не пропускает указанные значения
+flow.!	reject specified values / не пропускает указанные значения
+flow.reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
+ceammc/reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
+reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
+flow.ring	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
+flow.>>	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
+flow.route	enhanced message router / улучшенный маршрутизатор сообщений
+flow.select	enhanced message selector / улучшенный селектор сообщений
+flow.sel	enhanced message selector / улучшенный селектор сообщений
+flow.seqdelay	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
+flow.seqdel	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
+flow.space	spaces in time messages received at the same logical time / распределить во времени сообщения, полученные одновременно
+flow.speedlim	control stream speed limiter / ограничитель скорости потока
+ceammc/speedlim	control stream speed limiter / ограничитель скорости потока
+speedlim	control stream speed limiter / ограничитель скорости потока
+flow.split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+ceammc/split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+flow.stack	message stack / стек сообщений
+flow.sync	sync multichannel bus / синхронная многоканальная шина
+flow.'	sync multichannel bus / синхронная многоканальная шина
+flow.sync_pack	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
+flow.pack'	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
+flow.tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+ceammc/tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+ceammc/~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
 route.any	separate any messages from bangs, floats, symbols and lists

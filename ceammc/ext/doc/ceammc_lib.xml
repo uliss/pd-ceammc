@@ -597,16 +597,16 @@
     <entry name="flow.append" descr="append message to flow stream" ref_view="object">
       <xi:include href="flow.append.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.change" descr="rejects redundant input values" ref_view="object">
+    <entry name="flow.change" descr="rejects repeatet input messages" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.count" descr="control flow event counter" ref_view="object">
       <xi:include href="flow.count.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.delay" descr="enhanced version on vanilla delay object" ref_view="object">
+    <entry name="flow.delay" descr="enhanced version of the vanilla [delay] object" ref_view="object">
       <xi:include href="flow.delay.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.demultiplex" descr="control flow demultiplexer" ref_view="object">
+    <entry name="flow.demultiplex" descr="demultiplex of the control flow" ref_view="object">
       <xi:include href="flow.demultiplex.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.demultiplex2~" descr="audio stream stereo demultiplexer" ref_view="object">
@@ -615,46 +615,46 @@
     <entry name="flow.demultiplex~" descr="audio stream demultiplexer" ref_view="object">
       <xi:include href="flow.demultiplex~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.dollar" descr="data flow dollar converter" ref_view="object">
+    <entry name="flow.dollar" descr="substitude the $-values" ref_view="object">
       <xi:include href="flow.dollar.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.dup" descr="message duplicator" ref_view="object">
+    <entry name="flow.dup" descr="duplicate messages" ref_view="object">
       <xi:include href="flow.dup.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.float" descr="pass floats" ref_view="object">
       <xi:include href="flow.float.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.gate" descr="control flow gate. [spigot] analog" ref_view="object">
+    <entry name="flow.gate" descr="control flow gate. [spigot] object analog" ref_view="object">
       <xi:include href="flow.gate.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.greater" descr="numeric stream router" ref_view="object">
+    <entry name="flow.greater" descr="numeric stream router by 'greater' condition" ref_view="object">
       <xi:include href="flow.greater.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.greater_eq" descr="numeric stream router" ref_view="object">
+    <entry name="flow.greater_eq" descr="numeric stream router by 'greater or equal' condition" ref_view="object">
       <xi:include href="flow.greater_eq.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.group" descr="group input atoms in list of specified size" ref_view="object">
+    <entry name="flow.group" descr="group input atoms in lists of specified size" ref_view="object">
       <xi:include href="flow.group.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.histogram" descr="histogram for numeric control flow" ref_view="object">
       <xi:include href="flow.histogram.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.interval" descr="measure time between flow events" ref_view="object">
+    <entry name="flow.interval" descr="measure the time between messages" ref_view="object">
       <xi:include href="flow.interval.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.less" descr="numeric stream router, like many [moses]" ref_view="object">
+    <entry name="flow.less" descr="numeric stream router by 'less' condition" ref_view="object">
       <xi:include href="flow.less.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.less_eq" descr="numeric stream router, like many [moses]" ref_view="object">
+    <entry name="flow.less_eq" descr="numeric stream router by 'less or equal' condition" ref_view="object">
       <xi:include href="flow.less_eq.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.list2many" descr="routes list element with message selectors" ref_view="object">
+    <entry name="flow.list2many" descr="routes the list element with the corresponding message" ref_view="object">
       <xi:include href="flow.list2many.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.match" descr="route data flow by regexp match" ref_view="object">
+    <entry name="flow.match" descr="routes the control flow by the regular expession match" ref_view="object">
       <xi:include href="flow.match.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.mem" descr="store data flow in memory" ref_view="object">
+    <entry name="flow.mem" descr="store into the memory or output the control flow messages" ref_view="object">
       <xi:include href="flow.mem.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.multiplex" descr="control flow multiplexer" ref_view="object">
@@ -666,67 +666,67 @@
     <entry name="flow.multiplex~" descr="audio stream multiplexer" ref_view="object">
       <xi:include href="flow.multiplex~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.once" descr="one message pass thru" ref_view="object">
+    <entry name="flow.once" descr="pass the only message" ref_view="object">
       <xi:include href="flow.once.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.pack" descr="flow pack" ref_view="object">
+    <entry name="flow.pack" descr="packs atoms from multiple stream into the single one" ref_view="object">
       <xi:include href="flow.pack.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.pass" descr="pass specified values" ref_view="object">
       <xi:include href="flow.pass.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.pass_if" descr="pass values that accepted by predicate object" ref_view="object">
+    <entry name="flow.pass_if" descr="passes the message, accepted by the predicate side-chain" ref_view="object">
       <xi:include href="flow.pass_if.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.pipe" descr="enhanced version on vanilla pipe object" ref_view="object">
+    <entry name="flow.pipe" descr="enhanced version on the vanilla [pipe] object" ref_view="object">
       <xi:include href="flow.pipe.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.prepend" descr="prepend message before received one" ref_view="object">
+    <entry name="flow.prepend" descr="inject the message before the current one" ref_view="object">
       <xi:include href="flow.prepend.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.queue" descr="multi-channel control flow sync queue (or FIFO)" ref_view="object">
+    <entry name="flow.queue" descr="multichannel message queue with sync capabilities" ref_view="object">
       <xi:include href="flow.queue.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.record" descr="flow stream recorder/player" ref_view="object">
+    <entry name="flow.record" descr="control flow record/play" ref_view="object">
       <xi:include href="flow.record.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.reject" descr="reject specified values" ref_view="object">
       <xi:include href="flow.reject.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.reject_if" descr="reject values by predicate" ref_view="object">
+    <entry name="flow.reject_if" descr="reject the message, accepted by the predicate side-chain" ref_view="object">
       <xi:include href="flow.reject_if.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.ring" descr="dataflow ring buffer" ref_view="object">
+    <entry name="flow.ring" descr="queue router for control flow" ref_view="object">
       <xi:include href="flow.ring.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.route" descr="advanced message router" ref_view="object">
+    <entry name="flow.route" descr="enhanced message router" ref_view="object">
       <xi:include href="flow.route.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.select" descr="vanilla flow on steroids" ref_view="object">
+    <entry name="flow.select" descr="enhanced message selector" ref_view="object">
       <xi:include href="flow.select.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.seqdelay" descr="sequential delay/router for input flow" ref_view="object">
+    <entry name="flow.seqdelay" descr="sequential delay/router for the input stream" ref_view="object">
       <xi:include href="flow.seqdelay.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.space" descr="space in time messages received at the same logical time" ref_view="object">
+    <entry name="flow.space" descr="spaces in time messages received at the same logical time" ref_view="object">
       <xi:include href="flow.space.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.speedlim" descr="control stream speed limiter" ref_view="object">
       <xi:include href="flow.speedlim.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.split" descr="split data flow by external side-chain predicate" ref_view="object">
+    <entry name="flow.split" descr="splits control flow by external side-chain predicate" ref_view="object">
       <xi:include href="flow.split.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.stack" descr="any message stack" ref_view="object">
+    <entry name="flow.stack" descr="message stack" ref_view="object">
       <xi:include href="flow.stack.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.sync" descr="bus with only hot inlets" ref_view="object">
+    <entry name="flow.sync" descr="sync multichannel bus" ref_view="object">
       <xi:include href="flow.sync.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.sync_pack" descr="flow pack with all hot inlets" ref_view="object">
+    <entry name="flow.sync_pack" descr="[flow.pack] with all &quot;hot&quot; inlets" ref_view="object">
       <xi:include href="flow.sync_pack.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.tee~" descr="separate audio and control streams" ref_view="object">
+    <entry name="flow.tee~" descr="extracts control messages from audio connections" ref_view="object">
       <xi:include href="flow.tee~.pddoc" parse="xml"/>
     </entry>
     <entry name="replace" descr="Replace atoms in data stream" ref_view="object">

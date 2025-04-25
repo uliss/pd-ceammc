@@ -14,7 +14,7 @@
 -1;
 #X msg 203 147 a b c d;
 #X obj 50 190 flow.pass 1 10 100 a z;
-#X obj 50 219 ui.display @display_type 1;
+#X obj 50 219 ui.dt;
 #X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 274 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

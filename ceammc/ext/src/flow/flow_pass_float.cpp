@@ -36,4 +36,6 @@ void setup_flow_pass_float()
     obj.setDescription("pass floats");
     obj.setCategory("flow");
     obj.setKeywords({"pass"});
+    obj.setDeprecated();
+    obj.setUseInstead("route.float");
 }

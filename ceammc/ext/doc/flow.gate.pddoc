@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">control flow gate. [spigot] analog</tr>
+                <tr lang="en">control flow gate. [spigot] object analog</tr>
+                <tr lang="ru">шлюз для потока сообщений. аналог объекта [spigot]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

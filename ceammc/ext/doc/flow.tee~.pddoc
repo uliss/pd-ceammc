@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">separate audio and control streams</tr>
+                <tr lang="en">extracts control messages from audio connections</tr>
+                <tr lang="ru">извлекает управляющие сообщения из аудиосоединений</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

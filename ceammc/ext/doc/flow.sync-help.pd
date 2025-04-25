@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 576 50 cnv 1 189 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 576 50 bus with only hot inlets;
+#X obj 599 50 cnv 1 166 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 599 50 sync multichannel bus;
 #X obj 1 1 cnv 5 765 40 empty empty flow.sync 20 20 0 20 -104026 -4096
 0;
 #X obj 608 11 flow.';
@@ -17,9 +17,9 @@ stored values from all inlets from rightmost to leftmost;
 #X obj 126 231 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
 10 -262144 -1 -1 0 0;
 #X obj 50 260 flow.sync 3;
-#X obj 126 289 ui.d @display_type 1;
-#X obj 88 317 ui.d @display_type 1;
-#X obj 50 346 ui.d @display_type 1;
+#X obj 126 289 ui.dt;
+#X obj 88 317 ui.dt;
+#X obj 50 346 ui.dt;
 #X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 401 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

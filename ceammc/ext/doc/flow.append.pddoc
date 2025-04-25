@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">append message to flow stream</tr>
+                <tr lang="ru" finished="false">Добавить сообщение для потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

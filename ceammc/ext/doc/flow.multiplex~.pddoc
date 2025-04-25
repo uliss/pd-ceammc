@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">audio stream multiplexer</tr>
+                <tr lang="ru">мультиплексор аудиопотока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
