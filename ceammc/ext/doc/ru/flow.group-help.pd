@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 429 50 cnv 1 336 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 429 50 group input atoms in list of specified size;
+#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 361 50 группирует входные атомы в списки указанного размера;
 #X obj 1 1 cnv 5 765 40 empty empty flow.group 20 20 0 20 -104026
 -4096 0;
 #X obj 493 11 ceammc/group;

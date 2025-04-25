@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 544 50 cnv 1 221 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 544 50 control stream speed limiter;
+#X obj 545 50 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 545 50 ограничитель скорости потока;
 #X obj 1 1 cnv 5 765 40 empty empty flow.speedlim 20 20 0 20 -104026
 -4096 0;
 #X obj 428 11 ceammc/speedlim;
@@ -13,58 +13,53 @@ in ms. Can be used for button debouncing. In initial state is opened
 \, on first message pass it and then became closed within specified
 time interval. All incoming messages in that time are dropped. After
 this interval expiried goes to opened state;
-#X msg 50 219 0 \, 100 1000;
-#X msg 184 219 0 \, 100 200;
-#X obj 50 248 line;
-#X obj 50 277 t f f;
-#X obj 50 306 flow.speedlim 100;
-#X obj 242 306 sel 100;
-#X msg 242 335 flush;
-#X obj 50 363 flow.group @by 100;
-#X obj 50 392 ui.dt;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 219 ui.hsl;
+#X floatatom 213 219 5 0 0 0 - - -;
+#X obj 50 248 flow.speedlim 500;
+#X obj 50 277 ui.hsl;
+#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 332 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 335 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 482 1\.;
-#X text 150 482 int;
-#X obj 246 483 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 482 LIMIT(ms): limit time. Тип: int. Минимальное значение:
+#X text 110 367 1\.;
+#X text 150 367 int;
+#X obj 246 368 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 367 LIMIT(ms): limit time. Тип: int. Минимальное значение:
 0\.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 517 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 552 @limit;
-#X text 245 552 Получить/Установить speed limit. If set to zero there
+#X msg 110 437 @limit;
+#X text 245 437 Получить/Установить speed limit. If set to zero there
 is no flow limitations. Тип: int. Единицы: 'ms'. Значение по умолчанию:
 0\. Минимальное значение: 0\.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 509 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 625 1\.;
-#X text 245 625 input flow.;
-#X text 110 645 2\.;
-#X text 150 645 *bang*;
-#X text 245 645 reset internal timer and goes to opened state.;
-#X text 150 665 *float*;
-#X text 245 665 set speed limit.;
-#X text 245 685 reset: reset internal timer and goes to opened state.;
-#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 720 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 510 1\.;
+#X text 245 510 input flow.;
+#X text 110 530 2\.;
+#X text 150 530 *bang*;
+#X text 245 530 reset internal timer and goes to opened state.;
+#X text 150 550 *float*;
+#X text 245 550 set speed limit.;
+#X text 245 570 reset: reset internal timer and goes to opened state.;
+#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 605 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 721 1\.;
-#X text 245 721 output flow.;
+#X text 110 606 1\.;
+#X text 245 606 output flow.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 771 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 774 библиотека: ceammc v0.9.8;
-#N canvas 10 793 400 290 info 0;
+#X obj 1 656 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 659 библиотека: ceammc v0.9.8;
+#N canvas 10 678 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,13 +83,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 793 pd info;
+#X restore 10 678 pd info;
 #X connect 8 0 10 0;
-#X connect 9 0 10 0;
+#X connect 9 0 10 1;
 #X connect 10 0 11 0;
-#X connect 11 1 12 0;
-#X connect 11 0 13 0;
-#X connect 13 0 14 0;
-#X connect 12 0 15 0;
-#X connect 14 0 15 0;
-#X connect 15 0 16 0;

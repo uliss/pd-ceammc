@@ -1,14 +1,14 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 598 50 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 598 50 numeric stream router;
+#X obj 378 50 cnv 1 387 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 378 50 маршрутизатор числового потока по условию 'больше';
 #X obj 1 1 cnv 5 765 40 empty empty flow.greater 20 20 0 20 -104026
 -4096 0;
 #X obj 583 11 flow.>;
 #X obj 652 11 flow.greater;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Numbers thar are *less* or *equal* then last argument
-are passed to N-th inlet;
+#X text 215 80 Numbers that are *less* or *equal* then last argument
+are passed to the N-th inlet;
 #X floatatom 50 158 5 0 0 0 - - -;
 #X obj 50 216 flow.greater 100 10 1;
 #X floatatom 50 245 5 0 0 0 - - -;
