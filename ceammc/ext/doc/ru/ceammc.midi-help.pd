@@ -11,10 +11,9 @@
 #X obj 30 173 midi.clock;
 #X text 200 173 MIDI-clock;
 #X obj 30 201 midi.ctl2str;
-#X text 200 201 преображует номер стандартного MIDI контроллеров в
-имя;
+#X text 200 201 преобразует номер стандартного MIDI контроллера в имя;
 #X obj 30 229 midi.event2ctl;
-#X text 200 229 конвертируем сообщение MidiEvent в пару канал/значение;
+#X text 200 229 конвертирует сообщение MidiEvent в пару канал/значение;
 #X obj 30 257 midi.event2note;
 #X text 200 257 конвертирует сообщение MidiEvent в пару нота/сила нажатия;
 #X obj 30 285 midi.event2prg;
