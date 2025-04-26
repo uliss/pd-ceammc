@@ -922,8 +922,8 @@ midi.cc	enhanced version of vanilla [ctlin] / усовершенствованн
 midi.clock	MIDI-clock
 midi.ctl2str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
 midi.ctl->str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
-midi.event2ctl	converts the MidiEvent message into the controller channel/value pair / конвертируем сообщение MidiEvent в пару канал/значение
-midi.ev->ctl	converts the MidiEvent message into the controller channel/value pair / конвертируем сообщение MidiEvent в пару канал/значение
+midi.event2ctl	converts the MidiEvent message into the controller channel/value pair / конвертирует сообщение MidiEvent в пару канал/значение
+midi.ev->ctl	converts the MidiEvent message into the controller channel/value pair / конвертирует сообщение MidiEvent в пару канал/значение
 midi.event2note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
 midi.ev->note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
 midi.event2prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
