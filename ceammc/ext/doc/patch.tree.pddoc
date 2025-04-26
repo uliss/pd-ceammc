@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output the object tree of the patch </tr>
+                <tr lang="en">output the object tree of the patch</tr>
                 <tr lang="ru">выводит дерево объектов патча</tr>
             </description>
             <license>GPL3 or later</license>

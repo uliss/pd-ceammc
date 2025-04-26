@@ -8,8 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">output the patch dependencies: used objects and abstractions</tr>
-                <tr lang="ru">выводит зависимости патча: используемые объекты и
-                абстракции</tr>
+                <tr lang="ru">выводит зависимости патча: используемые объекты и абстракции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
