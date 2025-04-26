@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Unit-amplitude low-frequency impulse train</tr>
+                <tr lang="en">unit-amplitude low-frequency impulse train</tr>
+                <tr lang="ru">низкочастотный импульсный осциллятор единичной амплитуды</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,7 +25,7 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>frequency in Hz</xinfo>
+                <xinfo on="float">frequency in Hz</xinfo>
             </inlet>
             <inlet type="control">
                 <xinfo on="bang">reset phase</xinfo>
@@ -36,12 +37,28 @@
         <example>
             <pdascii>
 <![CDATA[
-[floatatom]
+[F]                 [ui.dsp~]
+|
+[lfo.impulse~ 401]
+|
+[ui.scope~ @size=300x100]
+
+
+
+
+
+
+
+[lfo.impulse~-sound]
+]]>
+            </pdascii>
+            <pdascii id="sound">
+<![CDATA[
+[F]                [ui.dsp~]
 |
 [lfo.impulse~ 8]
-|              [tgl]
-|  .___________/
-[*~]
+|
+[ui.hgain~]
 |\
 [dac~]
 ]]>

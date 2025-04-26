@@ -633,12 +633,12 @@ lfo.+pulse~	Unit-amplitude nonnegative low frequency pulse train
 lfo.+saw~	Positive unit-amplitude low frequency saw wave
 lfo.+square~	Positive low frequency square wave
 lfo.+tri~	Positive unit-amplitude low frequency triangle wave
-lfo.impulse~	Unit-amplitude low-frequency impulse train
-lfo.mosc~	multi-oscillator with various waveforms
-lfo.pulse~	Full-range unit-amplitude low frequency pulse train
-lfo.saw~	Full-range unit-amplitude low frequency saw
-lfo.square~	Zero-mean unit-amplitude low frequency square wave
-lfo.tri~	Zero-mean unit-amplitude low frequency triangle wave
+lfo.impulse~	unit-amplitude low-frequency impulse train / низкочастотный импульсный осциллятор единичной амплитуды
+lfo.mosc~	multi-oscillator with various waveforms / мультиосциллятор с различными формами волн
+lfo.pulse~	full-range unit-amplitude low frequency pulse train / прямоугольная низкочастотная волна единичной амплитудны в дипазоне [-1,+1]
+lfo.saw~	full-range unit-amplitude low frequency saw / низкочастотная пилообразная волна в диапазоне [-1,+1]
+lfo.square~	zero-mean unit-amplitude low frequency square wave / низкочастотная квадратная волна единичной амплитуды с нулевым средним значением
+lfo.tri~	zero-mean unit-amplitude low frequency triangle wave / низкочастотная треугольная волна единичной амплитуды с нулевым средним значением
 list.^at	on input index(es) outputs list element(s)
 list.^contains	checks if input atom is found in the list
 list.^search	on input atom returns it index in list

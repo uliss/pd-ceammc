@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">Positive unit-amplitude low frequency saw wave</tr>
+                <tr lang="ru" finished="false">Положительная удельная амплитудная низкочастотная
+                пила волны</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

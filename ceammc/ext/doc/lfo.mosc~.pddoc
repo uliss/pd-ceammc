@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">multi-oscillator with various waveforms</tr>
+                <tr lang="ru">мультиосциллятор с различными формами волн</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

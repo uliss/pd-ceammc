@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Full-range unit-amplitude low frequency saw</tr>
+                <tr lang="en">full-range unit-amplitude low frequency saw</tr>
+                <tr lang="ru">низкочастотная пилообразная волна в диапазоне [-1,+1]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -55,6 +56,27 @@
         </outlets>
         <example>
             <pdascii>
+<![CDATA[
+[F]      [T]                   [ui.dsp~]
+|        |
+|        [@invert $1(
+|        |
+|        |
+[lfo.saw~ 46]
+|
+|
+[ui.scope~ @size=300x100]
+
+
+
+
+
+
+
+[lfo.saw~-sound]
+]]>
+            </pdascii>
+            <pdascii id="sound">
 <![CDATA[
 [osc.saw~ 100]
 |

@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">Unit-amplitude nonnegative low frequency pulse train</tr>
+                <tr lang="ru" finished="false">Единичная амплитуда неотрицательного низкочастотного
+                импульсного поезда</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Full-range unit-amplitude low frequency pulse train</tr>
+                <tr lang="en">full-range unit-amplitude low frequency pulse train</tr>
+                <tr lang="ru">прямоугольная низкочастотная волна единичной амплитудны в дипазоне [-1,+1]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -60,15 +61,36 @@
         <example>
             <pdascii>
 <![CDATA[
+[F]      [ui.knob]                   [ui.dsp~]
+|        |
+|        |
+|        [@duty $1(
+|        |
+[lfo.pulse~ 46]
+|
+|
+[ui.scope~ @size=300x100 @max=1.25 @min=-1.25]
+
+
+
+
+
+
+
+[lfo.pulse~-sound]
+]]>
+            </pdascii>
+            <pdascii id="sound">
+<![CDATA[
 [osc.saw~ 100]          [ui.knob]
 |                       |
 [ui.gain~ @size 120 14] |
 |                       |
 |              [F]      [@duty $1(
 |              |        |
-|              [lfo.pulse~ 6]
+|              [lfo.pulse~ 2]
 |          .___/
-[pan.linsig~]    [ui.dsp~]
+[pan.linsig~]           [ui.dsp~]
 |  ^|.
 [dac~]
 ]]>
