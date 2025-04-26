@@ -60,7 +60,7 @@ hoa.3d.scope~-help.pd;
 #X obj 30 842 pan.cos~;
 #X text 200 842 two channel equal power sine/cosine panner;
 #X obj 30 870 pan.linsig~;
-#X text 200 870 two channel linear panner with signal control;
+#X text 200 870 two channel linear panner with the signal control;
 #X obj 30 898 pan.lin~;
 #X text 200 898 two channel linear panner;
 #X obj 30 926 pan.spread~;

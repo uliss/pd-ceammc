@@ -1191,13 +1191,13 @@ hoa.2d.process~	patcher loader for multichannel processing
 hoa.3d.process~	patcher loader for multichannel processing
 hoa.scope~	a 2d ambisonic harmonic scope
 hoa.2d.scope~	a 2d ambisonic harmonic scope
-pan.cos~	two channel equal power sine/cosine panner
-pan.linsig~	two channel linear panner with signal control
-pan.lin~	two channel linear panner
-ceammc/pan~	two channel linear panner
-pan~	two channel linear panner
-pan.spread~	spreads input channels across the stereo field
-pan.sqrt~	two channel equal power square root panner
+pan.cos~	two channel equal power sine/cosine panner / двухканальное косинусное панорамирование равной мощности
+pan.linsig~	two channel linear panner with the signal control / двухканальное линейное панорамирование управляемое сигналом
+pan.lin~	two channel linear panner / двухканальное линейное панорамирование
+ceammc/pan~	two channel linear panner / двухканальное линейное панорамирование
+pan~	two channel linear panner / двухканальное линейное панорамирование
+pan.spread~	spreads input channels across the stereo field / распределяет входные каналы по стереополю
+pan.sqrt~	two channel equal power square root panner / двухканальное квадратичное панорамирование равной мощности
 spat.pan4~	GMEM SPAT: 4-outputs spatializer
 ceammc/pan4~	GMEM SPAT: 4-outputs spatializer
 pan4~	GMEM SPAT: 4-outputs spatializer
