@@ -920,8 +920,8 @@ math.trunc~	truncate to integer value
 midi.arp	MIDI arpeggiator / MIDI арпеджиатор
 midi.cc	enhanced version of vanilla [ctlin] / усовершенствованная версия [ctlin]
 midi.clock	MIDI-clock
-midi.ctl2str	converts Standard MIDI Controllers number to name / преображует номер стандартного MIDI контроллеров в имя
-midi.ctl->str	converts Standard MIDI Controllers number to name / преображует номер стандартного MIDI контроллеров в имя
+midi.ctl2str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
+midi.ctl->str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
 midi.event2ctl	converts the MidiEvent message into the controller channel/value pair / конвертируем сообщение MidiEvent в пару канал/значение
 midi.ev->ctl	converts the MidiEvent message into the controller channel/value pair / конвертируем сообщение MidiEvent в пару канал/значение
 midi.event2note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
