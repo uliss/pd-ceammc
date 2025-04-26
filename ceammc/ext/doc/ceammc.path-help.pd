@@ -5,15 +5,15 @@
 #X obj 30 117 file.size;
 #X text 200 117 output file size;
 #X obj 30 145 path.basename;
-#X text 200 145 outputs filename portion of pathname;
+#X text 200 145 outputs the filename portion of the pathname;
 #X obj 30 173 path.dirname;
 #X text 200 173 outputs directory portion of pathname;
 #X obj 30 201 path.exists;
-#X text 200 201 checks if given path exists;
+#X text 200 201 checks if the given path exists;
 #X obj 30 229 path.file;
 #X text 200 229 file input/output;
 #X obj 30 257 path.is_dir;
-#X text 200 257 check if path is directory;
+#X text 200 257 checks if the path is a directory;
 #X obj 30 285 path.lsdir;
 #X text 200 285 list directory contents;
 #X obj 30 313 path.monitor;
@@ -25,7 +25,7 @@
 #X obj 30 397 path.search;
 #X text 200 397 file search;
 #X obj 30 425 path.split;
-#X text 200 425 file path split;
+#X text 200 425 split path into dirname and basename;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::path 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">list directory contents</tr>
+                <tr lang="ru">cписок содержимого каталога</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

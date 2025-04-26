@@ -1978,19 +1978,19 @@
     <entry name="file.size" descr="output file size" ref_view="object">
       <xi:include href="file.size.pddoc" parse="xml"/>
     </entry>
-    <entry name="path.basename" descr="outputs filename portion of pathname" ref_view="object">
+    <entry name="path.basename" descr="outputs the filename portion of the pathname" ref_view="object">
       <xi:include href="path.basename.pddoc" parse="xml"/>
     </entry>
     <entry name="path.dirname" descr="outputs directory portion of pathname" ref_view="object">
       <xi:include href="path.dirname.pddoc" parse="xml"/>
     </entry>
-    <entry name="path.exists" descr="checks if given path exists" ref_view="object">
+    <entry name="path.exists" descr="checks if the given path exists" ref_view="object">
       <xi:include href="path.exists.pddoc" parse="xml"/>
     </entry>
     <entry name="path.file" descr="file input/output" ref_view="object">
       <xi:include href="path.file.pddoc" parse="xml"/>
     </entry>
-    <entry name="path.is_dir" descr="check if path is directory" ref_view="object">
+    <entry name="path.is_dir" descr="checks if the path is a directory" ref_view="object">
       <xi:include href="path.is_dir.pddoc" parse="xml"/>
     </entry>
     <entry name="path.lsdir" descr="list directory contents" ref_view="object">
@@ -2008,7 +2008,7 @@
     <entry name="path.search" descr="file search" ref_view="object">
       <xi:include href="path.search.pddoc" parse="xml"/>
     </entry>
-    <entry name="path.split" descr="file path split" ref_view="object">
+    <entry name="path.split" descr="split path into dirname and basename" ref_view="object">
       <xi:include href="path.split.pddoc" parse="xml"/>
     </entry>
   </category>

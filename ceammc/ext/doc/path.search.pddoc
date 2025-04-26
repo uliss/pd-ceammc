@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">file search</tr>
+                <tr lang="ru">поиск файлов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

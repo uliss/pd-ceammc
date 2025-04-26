@@ -1044,19 +1044,19 @@ patch.args	get patch or subpatch initial arguments / получить начал
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
 file.size	output file size
-path.basename	outputs filename portion of pathname
-path.dirname	outputs directory portion of pathname
-path.exists	checks if given path exists
-path.file	file input/output
-path.is_dir	check if path is directory
-path.lsdir	list directory contents
-path.ls	list directory contents
-path.monitor	filesystem event monitor
-path.normalize	normalize file paths
-path.norm	normalize file paths
-path.pattern	pattern filename generator
-path.search	file search
-path.split	file path split
+path.basename	outputs the filename portion of the pathname / выводит имя файла из пути к файлу
+path.dirname	outputs directory portion of pathname / выводит имя каталога файла из пути к файлу
+path.exists	checks if the given path exists / проверка существования пути
+path.file	file input/output / файловый ввод/вывод
+path.is_dir	checks if the path is a directory / проверяет, является ли путь каталогом
+path.lsdir	list directory contents / cписок содержимого каталога
+path.ls	list directory contents / cписок содержимого каталога
+path.monitor	filesystem event monitor / мониторинг событий файловой системы
+path.normalize	normalize file paths / нормализует пути файлов
+path.norm	normalize file paths / нормализует пути файлов
+path.pattern	pattern filename generator / генерирует имя файла по данному шаблону
+path.search	file search / поиск файлов
+path.split	split path into dirname and basename / разбивает путь на имя каталога и файла
 is_any	checks if input data has *any* type
 is_bang	checks if the input is a *bang* / проверяет, является ли входное сообщение *bang*
 is_data	checks if the input is a *data* type / проверяет, является ли входное сообщение типом данных

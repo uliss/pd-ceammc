@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">file input/output</tr>
+                <tr lang="ru">файловый ввод/вывод</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
