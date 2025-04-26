@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 360 50 cnv 1 405 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 360 50 Zero-mean unit-amplitude low frequency triangle wave;
+#X obj 346 50 cnv 1 419 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 346 50 низкочастотная треугольная волна единичной амплитуды
+с нулевым средним значением;
 #X obj 1 1 cnv 5 765 40 empty empty lfo.tri~ 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 lfo.tri~;
