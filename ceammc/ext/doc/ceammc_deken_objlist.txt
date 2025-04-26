@@ -629,10 +629,10 @@ hw.serial	serial port device
 lang.faust~	faust realtime compilation
 lang.lua	Lua JIT language bindings
 ui.faust~	faust compiled ui object
-lfo.+pulse~	Unit-amplitude nonnegative low frequency pulse train
-lfo.+saw~	Positive unit-amplitude low frequency saw wave
-lfo.+square~	Positive low frequency square wave
-lfo.+tri~	Positive unit-amplitude low frequency triangle wave
+lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитудны в дипазоне [0,+1]
+lfo.+saw~	positive unit-amplitude low frequency saw wave / низкочастотная пилообразная волна в диапазоне [0,+1]
+lfo.+square~	positive low frequency square wave / низкочастотная квадратная волна единичной амплитуды в диапазоне [0,+1]
+lfo.+tri~	positive unit-amplitude low frequency triangle wave / низкочастотная треугольная волна единичной амплитуды в диапазоне [0,+1)
 lfo.impulse~	unit-amplitude low-frequency impulse train / низкочастотный импульсный осциллятор единичной амплитуды
 lfo.mosc~	multi-oscillator with various waveforms / мультиосциллятор с различными формами волн
 lfo.pulse~	full-range unit-amplitude low frequency pulse train / прямоугольная низкочастотная волна единичной амплитудны в дипазоне [-1,+1]

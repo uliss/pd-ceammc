@@ -7,9 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Positive unit-amplitude low frequency saw wave</tr>
-                <tr lang="ru" finished="false">Положительная удельная амплитудная низкочастотная
-                пила волны</tr>
+                <tr lang="en">positive unit-amplitude low frequency saw wave</tr>
+                <tr lang="ru">низкочастотная пилообразная волна в диапазоне [0,+1]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

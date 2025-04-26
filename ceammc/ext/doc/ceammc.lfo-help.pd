@@ -3,13 +3,13 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 lfo.+pulse~;
-#X text 200 117 Unit-amplitude nonnegative low frequency pulse train;
+#X text 200 117 unit-amplitude nonnegative low frequency pulse train;
 #X obj 30 145 lfo.+saw~;
-#X text 200 145 Positive unit-amplitude low frequency saw wave;
+#X text 200 145 positive unit-amplitude low frequency saw wave;
 #X obj 30 173 lfo.+square~;
-#X text 200 173 Positive low frequency square wave;
+#X text 200 173 positive low frequency square wave;
 #X obj 30 201 lfo.+tri~;
-#X text 200 201 Positive unit-amplitude low frequency triangle wave;
+#X text 200 201 positive unit-amplitude low frequency triangle wave;
 #X obj 30 229 lfo.impulse~;
 #X text 200 229 unit-amplitude low-frequency impulse train;
 #X obj 30 257 lfo.mosc~;

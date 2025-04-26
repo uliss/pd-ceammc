@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Positive unit-amplitude low frequency triangle wave</tr>
-                <tr lang="ru" finished="false">Положительная волна треугольника низкой частоты</tr>
+                <tr lang="en">positive unit-amplitude low frequency triangle wave</tr>
+                <tr lang="ru">низкочастотная треугольная волна единичной амплитуды в диапазоне [0,+1)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

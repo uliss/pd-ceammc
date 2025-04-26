@@ -1105,16 +1105,16 @@
     </entry>
   </category>
   <category name="lfo">
-    <entry name="lfo.+pulse~" descr="Unit-amplitude nonnegative low frequency pulse train" ref_view="object">
+    <entry name="lfo.+pulse~" descr="unit-amplitude nonnegative low frequency pulse train" ref_view="object">
       <xi:include href="lfo.%2Bpulse~.pddoc" parse="xml"/>
     </entry>
-    <entry name="lfo.+saw~" descr="Positive unit-amplitude low frequency saw wave" ref_view="object">
+    <entry name="lfo.+saw~" descr="positive unit-amplitude low frequency saw wave" ref_view="object">
       <xi:include href="lfo.%2Bsaw~.pddoc" parse="xml"/>
     </entry>
-    <entry name="lfo.+square~" descr="Positive low frequency square wave" ref_view="object">
+    <entry name="lfo.+square~" descr="positive low frequency square wave" ref_view="object">
       <xi:include href="lfo.%2Bsquare~.pddoc" parse="xml"/>
     </entry>
-    <entry name="lfo.+tri~" descr="Positive unit-amplitude low frequency triangle wave" ref_view="object">
+    <entry name="lfo.+tri~" descr="positive unit-amplitude low frequency triangle wave" ref_view="object">
       <xi:include href="lfo.%2Btri~.pddoc" parse="xml"/>
     </entry>
     <entry name="lfo.impulse~" descr="unit-amplitude low-frequency impulse train" ref_view="object">
