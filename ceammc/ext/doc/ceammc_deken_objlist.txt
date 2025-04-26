@@ -1040,9 +1040,9 @@ canvas.dir	current canvas directory and nesting level
 canvas.name	current canvas name
 canvas.path	current canvas fullpath
 canvas.top	verbose information about top-level canvas
-patch.args	Get patch or subpatch arguments
-patch.deps	patch dependencies: used objects and abstractions
-patch.tree	patch tree
+patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
+patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
+patch.tree	output the object tree of the patch / выводит дерево объектов патча
 file.size	output file size
 path.basename	outputs filename portion of pathname
 path.dirname	outputs directory portion of pathname
@@ -1079,7 +1079,7 @@ preset.l	load/store symbol preset
 preset.storage	preset storage control
 preset.symbol	load/store symbol preset
 preset.s	load/store symbol preset
-patch.props	patch properties manager
+patch.props	get or set the patch properties / получение или установка свойств патча
 prop	get/set named property value for subpatch or abstraction
 ceammc/prop	get/set named property value for subpatch or abstraction
 prop.declare	declare named property for subpatch or abstraction

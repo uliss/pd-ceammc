@@ -1964,13 +1964,13 @@
     <entry name="canvas.top" descr="verbose information about top-level canvas" ref_view="object">
       <xi:include href="canvas.top.pddoc" parse="xml"/>
     </entry>
-    <entry name="patch.args" descr="Get patch or subpatch arguments" ref_view="object">
+    <entry name="patch.args" descr="get patch or subpatch initial arguments" ref_view="object">
       <xi:include href="patch.args.pddoc" parse="xml"/>
     </entry>
-    <entry name="patch.deps" descr="patch dependencies: used objects and abstractions" ref_view="object">
+    <entry name="patch.deps" descr="output the patch dependencies: used objects and abstractions" ref_view="object">
       <xi:include href="patch.deps.pddoc" parse="xml"/>
     </entry>
-    <entry name="patch.tree" descr="patch tree" ref_view="object">
+    <entry name="patch.tree" descr="output the object tree of the patch" ref_view="object">
       <xi:include href="patch.tree.pddoc" parse="xml"/>
     </entry>
   </category>
@@ -2066,7 +2066,7 @@
     </entry>
   </category>
   <category name="property">
-    <entry name="patch.props" descr="patch properties manager" ref_view="object">
+    <entry name="patch.props" descr="get or set the patch properties" ref_view="object">
       <xi:include href="patch.props.pddoc" parse="xml"/>
     </entry>
     <entry name="prop" descr="get/set named property value for subpatch or abstraction" ref_view="object">

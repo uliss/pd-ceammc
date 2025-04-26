@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Get patch or subpatch arguments</tr>
+                <tr lang="en">get patch or subpatch initial arguments</tr>
+                <tr lang="ru">получить начальные аргументы для патча или субпатча</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

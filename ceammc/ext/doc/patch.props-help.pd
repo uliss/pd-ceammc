@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 575 50 patch properties manager;
+#X obj 522 50 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 522 50 get or set the patch properties;
 #X obj 1 1 cnv 5 765 40 empty empty patch.props 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 patch.props;
@@ -14,7 +14,7 @@
 #X msg 222 201 @freq?;
 #X msg 309 201 default;
 #X obj 50 230 patch.props;
-#X obj 50 259 ui.display @display_type 1;
+#X obj 50 259 ui.dt;
 #X floatatom 50 287 5 0 0 0 - - -;
 #X floatatom 174 287 5 0 0 0 - - -;
 #X obj 50 316 prop @freq;

@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">patch dependencies: used objects and abstractions</tr>
+                <tr lang="en">output the patch dependencies: used objects and abstractions</tr>
+                <tr lang="ru">выводит зависимости патча: используемые объекты и
+                абстракции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -37,9 +39,37 @@
 <![CDATA[
 [bang(
 |
-[patch.deps]
+[patch.deps  ]
+|            |
+[print DEPS] [dict.reject _core]
+             |
+             [dict.values]
+             |
+             [ui.dt]
+
+
+
+[patch.deps-abs]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[hsl]
 |
-[print DEPS]
+[F]
+|
+[ui.hsl]
+
+[patch.deps-abs1]
+]]>
+            </pdascii>
+            <pdascii id="abs1">
+<![CDATA[
+[hsl]
+|
+[F]
+|
+[ui.hsl]
 ]]>
             </pdascii>
         </example>

@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 patch.props;
-#X text 200 117 patch properties manager;
+#X text 200 117 получение или установка свойств патча;
 #X obj 30 145 prop;
 #X text 200 145 get/set named property value for subpatch or abstraction;
 #X obj 30 173 prop.declare;
