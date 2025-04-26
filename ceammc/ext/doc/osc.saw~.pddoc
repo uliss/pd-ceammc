@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Alias-free sawtooth wave</tr>
+                <tr lang="en">alias-free sawtooth wave</tr>
+                <tr lang="ru">осциллятор пилообразного сигнала с ограниченным спектром</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -55,8 +56,8 @@
 [osc.saw~ ]
 |
 [ui.gain~ @size 120 14]
-|\      |
-[dac~]  [ui.spectroscope~ @size 150 100]
+|\       |
+[dac~]   [ui.spectroscope~ @size 150 100]
 
 
 

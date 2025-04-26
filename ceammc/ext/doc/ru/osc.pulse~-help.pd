@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 498 50 cnv 1 267 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 498 50 Bandlimited pulse train oscillator;
+#X obj 345 50 cnv 1 420 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 345 50 осциллятор прямоугольной волны с ограниченным спектром;
 #X obj 1 1 cnv 5 765 40 empty empty osc.pulse~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 osc.pulse~;

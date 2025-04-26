@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Bandlimited impulse train generator</tr>
+                <tr lang="en">bandlimited impulse train generator</tr>
+                <tr lang="ru">генератор импульсного сигнала с ограниченным спектром</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

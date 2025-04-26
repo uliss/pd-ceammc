@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 567 50 cnv 1 198 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 567 50 Bandlimited sawtooth wave;
+#X text 567 50 bandlimited sawtooth wave;
 #X obj 1 1 cnv 5 765 40 empty empty osc.saw4~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 osc.saw4~;
@@ -16,7 +16,7 @@ suppression. 4nd order interpolation.;
 #X obj 50 245 osc.saw4~;
 #X obj 50 274 ui.gain~ @size 120 14;
 #X obj 50 302 dac~;
-#X obj 126 302 ui.spectroscope~ @size 150 100;
+#X obj 136 302 ui.spectroscope~ @size 150 100;
 #X obj 50 418 ui.dsp~;
 #X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 473 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144

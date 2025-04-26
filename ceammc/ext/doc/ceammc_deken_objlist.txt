@@ -1024,15 +1024,15 @@ noise.stein	Stein distribution
 noise.torus	torus attractor
 noise.verhulst	verhulst distribution
 noise.white~	White noise generator
-osc.blit~	Bandlimited impulse train oscillator
-osc.impulse~	Bandlimited impulse train generator
-osc.pulse~	Bandlimited pulse train oscillator
-osc.saw4~	Bandlimited sawtooth wave
-osc.saw~	Alias-free sawtooth wave
-osc.sinfb~	Sine oscilator with feedback
-osc.sin~	Sine wave oscillator
-osc.square~	Bandlimited square wave oscillator
-osc.tri~	Bandlimited triangle wave oscillator
+osc.blit~	bandlimited oscillator with controllable harmonics / генератор с ограниченным спектром и управлением гармониками
+osc.impulse~	bandlimited impulse train generator / генератор импульсного сигнала с ограниченным спектром
+osc.pulse~	bandlimited pulse train oscillator / осциллятор прямоугольной волны с ограниченным спектром
+osc.saw4~	bandlimited sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
+osc.saw~	alias-free sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
+osc.sinfb~	sine oscilator with feedback / синусоидальный осциллятор с обратной связью
+osc.sin~	sine wave oscillator / синусоидальный осциллятор
+osc.square~	bandlimited square wave oscillator / осциллятор квадратной волны с ограниченным спектром
+osc.tri~	bandlimited triangle wave oscillator / осциллятор треугольной волны с ограниченным спектром
 canvas.active	checks if canvas window is on top and active
 ceammc/canvas.active	checks if canvas window is on top and active
 canvas.current	verbose information about current canvas

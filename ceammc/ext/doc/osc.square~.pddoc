@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Bandlimited square wave oscillator</tr>
+                <tr lang="en">bandlimited square wave oscillator</tr>
+                <tr lang="ru">осциллятор квадратной волны с ограниченным спектром</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -45,13 +46,13 @@
 |
 [$1 50(
 |
-[line~]     [bang(
-|           |.
+[line~]    [bang(
+|          |.
 [osc.square~]
 |
 [ui.gain~ @size 120 14]
-|\       |
-[dac~]   [ui.scope~]
+|\        |
+[dac~]    [ui.scope~]
 ]]>
             </pdascii>
         </example>

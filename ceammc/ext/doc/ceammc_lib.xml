@@ -1916,31 +1916,31 @@
     </entry>
   </category>
   <category name="osc">
-    <entry name="osc.blit~" descr="Bandlimited impulse train oscillator" ref_view="object">
+    <entry name="osc.blit~" descr="bandlimited oscillator with controllable harmonics" ref_view="object">
       <xi:include href="osc.blit~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.impulse~" descr="Bandlimited impulse train generator" ref_view="object">
+    <entry name="osc.impulse~" descr="bandlimited impulse train generator" ref_view="object">
       <xi:include href="osc.impulse~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.pulse~" descr="Bandlimited pulse train oscillator" ref_view="object">
+    <entry name="osc.pulse~" descr="bandlimited pulse train oscillator" ref_view="object">
       <xi:include href="osc.pulse~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.saw4~" descr="Bandlimited sawtooth wave" ref_view="object">
+    <entry name="osc.saw4~" descr="bandlimited sawtooth wave" ref_view="object">
       <xi:include href="osc.saw4~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.saw~" descr="Alias-free sawtooth wave" ref_view="object">
+    <entry name="osc.saw~" descr="alias-free sawtooth wave" ref_view="object">
       <xi:include href="osc.saw~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.sinfb~" descr="Sine oscilator with feedback" ref_view="object">
+    <entry name="osc.sinfb~" descr="sine oscilator with feedback" ref_view="object">
       <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.sin~" descr="Sine wave oscillator" ref_view="object">
+    <entry name="osc.sin~" descr="sine wave oscillator" ref_view="object">
       <xi:include href="osc.sin~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.square~" descr="Bandlimited square wave oscillator" ref_view="object">
+    <entry name="osc.square~" descr="bandlimited square wave oscillator" ref_view="object">
       <xi:include href="osc.square~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.tri~" descr="Bandlimited triangle wave oscillator" ref_view="object">
+    <entry name="osc.tri~" descr="bandlimited triangle wave oscillator" ref_view="object">
       <xi:include href="osc.tri~.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_osc.xml" parse="xml"/>
