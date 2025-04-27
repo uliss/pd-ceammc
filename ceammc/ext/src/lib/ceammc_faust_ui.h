@@ -14,8 +14,8 @@
 #ifndef CEAMMC_FAUST_UI_H
 #define CEAMMC_FAUST_UI_H
 
-#include "ceammc_datatypes.h"
 #include "ceammc_property_info.h"
+#include "ceammc_string_types.h"
 #include "faust_common_ui.h"
 
 namespace ceammc {
@@ -75,7 +75,7 @@ namespace faust {
         t_symbol* setPropertySym() { return set_prop_symbol_; }
 
         FAUSTFLOAT value(FAUSTFLOAT def = 0.f) const;
-        void setValue(FAUSTFLOAT v, bool clip = false);
+        bool setValue(FAUSTFLOAT v, bool clip = false);
 
         const FAUSTFLOAT* valuePtr() const { return vptr_; }
         void setValuePtr(FAUSTFLOAT* vPtr)

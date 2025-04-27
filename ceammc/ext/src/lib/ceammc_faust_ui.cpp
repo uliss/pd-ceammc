@@ -136,26 +136,27 @@ FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
     return std::min(max_, std::max(min_, *vptr_));
 }
 
-void UIElement::setValue(FAUSTFLOAT v, bool clip)
+bool UIElement::setValue(FAUSTFLOAT v, bool clip)
 {
     if (!vptr_)
-        return;
+        return false;
 
     if (v < min_) {
         if (clip)
             *vptr_ = min_;
 
-        return;
+        return true;
     }
 
     if (v > max_) {
         if (clip)
             *vptr_ = max_;
 
-        return;
+        return true;
     }
 
     *vptr_ = v;
+    return true;
 }
 
 void UIElement::initProperty()
