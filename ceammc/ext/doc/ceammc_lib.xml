@@ -885,6 +885,7 @@
     <entry name="flt.speaker~" descr="speaker emulation band-pass filter" ref_view="object">
       <xi:include href="flt.speaker~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_flt.xml" parse="xml"/>
   </category>
   <category name="fx">
     <entry name="fx.bitdown~" descr="bit downer and downsampler effect" ref_view="object">
@@ -1373,6 +1374,7 @@
     <entry name="local.set" descr="local named set object" ref_view="object">
       <xi:include href="local.set.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_local.xml" parse="xml"/>
   </category>
   <category name="math">
     <entry name="math.abs" descr="absolute value function" ref_view="object">
@@ -1973,6 +1975,7 @@
     <entry name="patch.tree" descr="output the object tree of the patch" ref_view="object">
       <xi:include href="patch.tree.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_patch.xml" parse="xml"/>
   </category>
   <category name="path">
     <entry name="file.size" descr="output file size" ref_view="object">
@@ -2011,6 +2014,7 @@
     <entry name="path.split" descr="split path into dirname and basename" ref_view="object">
       <xi:include href="path.split.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_path.xml" parse="xml"/>
   </category>
   <category name="predicates">
     <entry name="is_any" descr="checks if input data has *any* type" ref_view="object">
@@ -2093,6 +2097,7 @@
     <entry name="prop.set" descr="set the property value for connected object, subpatch or abstraction" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_property.xml" parse="xml"/>
   </category>
   <category name="proto">
     <entry name="proto.arturia.minilab" descr="simple SysEx control for Arturia MiniLab" ref_view="object">
@@ -2369,6 +2374,7 @@
     <entry name="string2symbol" descr="converts the string into the symbol" ref_view="object">
       <xi:include href="string2symbol.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_string.xml" parse="xml"/>
   </category>
   <category name="symbol">
     <entry name="symbol.equal" descr="check symbols for equality" ref_view="object">
@@ -2386,6 +2392,7 @@
     <entry name="symbol2intlist" descr="converts symbol to list of character codes" ref_view="object">
       <xi:include href="symbol2intlist.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_symbol.xml" parse="xml"/>
   </category>
   <category name="synth">
     <entry name="synth.bee3~" descr="Hammond-oid organ FM synthesis instrument" ref_view="object">
@@ -2665,6 +2672,7 @@
     <entry name="ui.toggle" descr="modern toggle widget" ref_view="link">
       <xi:include href="ui.toggle.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_ui.xml" parse="xml"/>
   </category>
   <meta>
     <version>0.9.8</version>

@@ -631,6 +631,8 @@ object;
 #X text 200 8744 simple resonant lowpass filter;
 #X obj 30 8772 flt.speaker~;
 #X text 200 8772 speaker emulation band-pass filter;
+#X obj 681 7597 cnv 1 59 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 681 7597 filters;
 #X obj 20 8800 cnv 5 28 32 empty empty fx 4 16 0 17 -262144 -49933 0;
 #X obj 20 8842 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 8853 fx.bitdown~;
@@ -999,6 +1001,10 @@ sound in loop;
 #X text 200 13665 local named mlist object;
 #X obj 30 13693 local.set;
 #X text 200 13693 local named set object;
+#X obj 314 13510 cnv 1 426 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 314 13510 local named objects accessible only from current
+canvas;
 #X obj 20 13721 cnv 5 49 32 empty empty math 4 16 0 17 -262144 -49933
 0;
 #X obj 20 13763 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1438,6 +1444,9 @@ object;
 #X text 200 19618 output the patch dependencies: used objects and abstractions;
 #X obj 30 19646 patch.tree;
 #X text 200 19646 output the object tree of the patch;
+#X obj 497 19367 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 497 19367 object for working with patches;
 #X obj 20 19674 cnv 5 48 32 empty empty path 4 16 0 17 -262144 -49933
 0;
 #X obj 20 19716 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1465,6 +1474,9 @@ object;
 #X text 200 20007 file search;
 #X obj 30 20035 path.split;
 #X text 200 20035 split path into dirname and basename;
+#X obj 511 19684 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 511 19684 working with filesystem paths;
 #X obj 20 20063 cnv 5 109 32 empty empty predicates 4 16 0 17 -262144
 -49933 0;
 #X obj 20 20105 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1531,6 +1543,9 @@ or abstraction;
 #X obj 30 20906 prop.set;
 #X text 200 20906 set the property value for connected object \, subpatch
 or abstraction;
+#X obj 435 20627 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 435 20627 working with object or patch properties;
 #X obj 20 20946 cnv 5 58 32 empty empty proto 4 16 0 17 -262144 -49933
 0;
 #X obj 20 20988 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1741,6 +1756,9 @@ separator;
 #X text 200 23694 extract a substring from the input string;
 #X obj 30 23722 string2symbol;
 #X text 200 23722 converts the string into the symbol;
+#X obj 518 23315 cnv 1 222 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 518 23315 working with String datatype;
 #X obj 20 23750 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
 -49933 0;
 #X obj 20 23792 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1754,6 +1772,9 @@ separator;
 #X text 200 23887 converts symbol or string to message;
 #X obj 30 23915 symbol2intlist;
 #X text 200 23915 converts symbol to list of character codes;
+#X obj 580 23760 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 580 23760 working with symbols;
 #X obj 20 23943 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
 0;
 #X obj 20 23985 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1957,6 +1978,9 @@ ui.spectroscope~-help.pd;
 #X text 200 26538 displays a list of text buttons or text toggles;
 #X obj 30 26566 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
 #X text 200 26563 modern toggle widget;
+#X obj 489 25545 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 489 25545 graphical user interface objects;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
 #X obj 1 26588 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 26588 version: v0.9.8 \, license: GPL3;
@@ -1966,4 +1990,4 @@ https://github.com/uliss/pure-data;
 https://github.com/uliss/pddoc;
 #X obj 670 26603 loadmsg 0;
 #X obj 670 26638 switch~;
-#X connect 1832 0 1833 0;
+#X connect 1848 0 1849 0;
