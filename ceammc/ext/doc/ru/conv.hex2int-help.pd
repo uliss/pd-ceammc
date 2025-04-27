@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 583 50 cnv 1 182 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 583 50 hex symbol to int value;
+#X obj 353 50 cnv 1 412 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 353 50 конвертирует шестнадцатеричный символ в целочисленное
+значение;
 #X obj 1 1 cnv 5 765 40 empty empty conv.hex2int 20 20 0 20 -104026
 -4096 0;
 #X obj 436 11 ceammc/hex->int;
@@ -12,7 +13,7 @@
 #X floatatom 50 176 5 0 0 0 - - -;
 #X msg 50 205 list 0xFF 0xFFFF DEADBEEF;
 #X obj 50 234 hex->int;
-#X obj 50 262 ui.d @display_type 1;
+#X obj 50 262 ui.dt;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

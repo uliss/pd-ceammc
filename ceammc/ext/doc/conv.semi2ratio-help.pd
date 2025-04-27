@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 322 50 cnv 1 443 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 322 50 convert interval in semitones to frequency ratio in
+#X obj 314 50 cnv 1 451 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 314 50 converts interval in semitones to frequency ratio in
 12-ET;
 #X obj 1 1 cnv 5 765 40 empty empty conv.semi2ratio 20 20 0 20 -104026
 -4096 0;

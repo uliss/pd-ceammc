@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 432 50 cnv 1 333 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 432 50 convert phase value [0-1] to radians [0-2π];
+#X obj 394 50 cnv 1 371 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 394 50 преобразует значение фазы [0-1] в радианы [0-2π];
 #X obj 1 1 cnv 5 765 40 empty empty conv.phase2rad 20 20 0 20 -104026
 -4096 0;
 #X obj 393 11 ceammc/phase->rad;

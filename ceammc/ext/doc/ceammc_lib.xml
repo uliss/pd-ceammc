@@ -236,13 +236,13 @@
     <entry name="array.s2p" descr="convert the sample index to the phase range [0..1]" ref_view="object">
       <xi:include href="array.s2p.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.amp2dbfs" descr="convert from amplitude to decibel full scale" ref_view="object">
+    <entry name="conv.amp2dbfs" descr="convert from the amplitude to a decibel full scale" ref_view="object">
       <xi:include href="conv.amp2dbfs.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.amp2dbfs~" descr="convert from amplitude to decibel full scale" ref_view="object">
+    <entry name="conv.amp2dbfs~" descr="convert from the amplitude to a decibel full scale" ref_view="object">
       <xi:include href="conv.amp2dbfs~.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bar2ms" descr="calculate bar and beat duration" ref_view="object">
+    <entry name="conv.bar2ms" descr="calculates bar and beat duration" ref_view="object">
       <xi:include href="conv.bar2ms.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.bits2bang" descr="convert list of bits to bang events" ref_view="object">
@@ -251,31 +251,31 @@
     <entry name="conv.bits2int" descr="convert list of bits to integer" ref_view="object">
       <xi:include href="conv.bits2int.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bits2note" descr="convert list of bits to note events" ref_view="object">
+    <entry name="conv.bits2note" descr="convert list of bits into note, velocity pairs" ref_view="object">
       <xi:include href="conv.bits2note.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bits2pos" descr="convert list of bits to list of bit position" ref_view="object">
+    <entry name="conv.bits2pos" descr="converts the list of bits into the list of checked bit position" ref_view="object">
       <xi:include href="conv.bits2pos.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bpm2hz" descr="converts BPM to frequency in hertz" ref_view="object">
+    <entry name="conv.bpm2hz" descr="converts BPM tempo into a frequency in hertz" ref_view="object">
       <xi:include href="conv.bpm2hz.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bpm2ms" descr="convert frequency in BPM to period in milliseconds" ref_view="object">
+    <entry name="conv.bpm2ms" descr="converts the BPM tempo into a beat period in milliseconds" ref_view="object">
       <xi:include href="conv.bpm2ms.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bpm2sec" descr="convert frequency in BPM to period in seconds" ref_view="object">
+    <entry name="conv.bpm2sec" descr="converts the BPM tempo into a period in seconds" ref_view="object">
       <xi:include href="conv.bpm2sec.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.car2pol" descr="convert cartesian coords to polar" ref_view="object">
+    <entry name="conv.car2pol" descr="converts cartesian coords to polar" ref_view="object">
       <xi:include href="conv.car2pol.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.cc2amp" descr="convert from MIDI Control Change range" ref_view="object">
+    <entry name="conv.cc2amp" descr="converts from MIDI Control Change range" ref_view="object">
       <xi:include href="conv.cc2amp.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.char2morse" descr="convert character to morse code" ref_view="object">
+    <entry name="conv.char2morse" descr="converts the single character into the Morse code" ref_view="object">
       <xi:include href="conv.char2morse.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.color2rgba" descr="convert named or hex color to separate RGBA values" ref_view="object">
+    <entry name="conv.color2rgba" descr="converts the named or hex color into separate RGBA values" ref_view="object">
       <xi:include href="conv.color2rgba.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.dbfs2amp" descr="convert decibel full scale to amplitude" ref_view="object">
@@ -284,16 +284,16 @@
     <entry name="conv.dbfs2amp~" descr="convert decibel full scale to amplitude" ref_view="object">
       <xi:include href="conv.dbfs2amp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.degree2key" descr="convert scale degree to key" ref_view="object">
+    <entry name="conv.degree2key" descr="converts the scale degree into a key number" ref_view="object">
       <xi:include href="conv.degree2key.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.edge2bang" descr="edge detector for numeric stream" ref_view="object">
       <xi:include href="conv.edge2bang.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.guido2note" descr="convert Guido notation into MIDI and duration" ref_view="object">
+    <entry name="conv.guido2note" descr="convert the Guido notation into a MIDI pitch and duration" ref_view="object">
       <xi:include href="conv.guido2note.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.hex2int" descr="hex symbol to int value" ref_view="object">
+    <entry name="conv.hex2int" descr="converts hex symbol into a integer value" ref_view="object">
       <xi:include href="conv.hex2int.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.hsl2rgb" descr="convert HSL color values to RGB" ref_view="object">
@@ -305,25 +305,25 @@
     <entry name="conv.lab2rgb" descr="convert LAB color values to RGB" ref_view="object">
       <xi:include href="conv.lab2rgb.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.lin2curve" descr="map linear to exponential range with 0 allowed." ref_view="object">
+    <entry name="conv.lin2curve" descr="map linear to exponential range with 0 allowed" ref_view="object">
       <xi:include href="conv.lin2curve.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.lin2exp" descr="maps linear range to exponential range" ref_view="object">
       <xi:include href="conv.lin2exp.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.lin2lin" descr="convert from one linear range to another" ref_view="object">
+    <entry name="conv.lin2lin" descr="converts from the one linear range into another" ref_view="object">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.lin2lin~" descr="convert from one linear range to another for signals" ref_view="object">
+    <entry name="conv.lin2lin~" descr="converts from the one linear range to another for signals" ref_view="object">
       <xi:include href="conv.lin2lin~.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.list2props" descr="converts list to series of property messages" ref_view="object">
       <xi:include href="conv.list2props.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.midi2freq" descr="convert from midi pitch to frequency in hz (with various base A and temperament)" ref_view="object">
+    <entry name="conv.midi2freq" descr="advanced MIDI pitch conversion to a frequency" ref_view="object">
       <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.ms2bpm" descr="convert period in milliseconds to frequency in BPM" ref_view="object">
+    <entry name="conv.ms2bpm" descr="converts period in milliseconds to BPM tempo" ref_view="object">
       <xi:include href="conv.ms2bpm.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.ms2samp" descr="convert time in milliseconds to number of samples according to current samplerate" ref_view="object">
@@ -332,58 +332,58 @@
     <entry name="conv.ms2samp~" descr="convert time in milliseconds to number of samples according to current samplerate" ref_view="object">
       <xi:include href="conv.ms2samp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.ms2str" descr="converts float time in milliseconds to formated symbol (or string)" ref_view="object">
+    <entry name="conv.ms2str" descr="formats time in milliseconds to symbol or string" ref_view="object">
       <xi:include href="conv.ms2str.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.note2guido" descr="convert MIDI note to Guido notation" ref_view="object">
+    <entry name="conv.note2guido" descr="converts MIDI note number to Guido notation" ref_view="object">
       <xi:include href="conv.note2guido.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.phase2rad" descr="convert phase value [0-1] to radians [0-2π]" ref_view="object">
+    <entry name="conv.phase2rad" descr="converts phase value [0-1] to radians [0-2π]" ref_view="object">
       <xi:include href="conv.phase2rad.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.phase2rad~" descr="convert phase value [0-1] to radians [0-2π]" ref_view="object">
       <xi:include href="conv.phase2rad~.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.pitch2midi" descr="converts symbol pitch name to MIDI note number" ref_view="object">
+    <entry name="conv.pitch2midi" descr="converts SPN pitch to MIDI note number" ref_view="object">
       <xi:include href="conv.pitch2midi.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.pol2car" descr="convert from polar coordinates to cartesian" ref_view="object">
       <xi:include href="conv.pol2car.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.rad2phase" descr="convert radians value to phase" ref_view="object">
+    <entry name="conv.rad2phase" descr="convert radians value to phase [0-1)" ref_view="object">
       <xi:include href="conv.rad2phase.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.rad2phase~" descr="convert radians value to phase" ref_view="object">
+    <entry name="conv.rad2phase~" descr="convert radians value to phase [0-1)" ref_view="object">
       <xi:include href="conv.rad2phase~.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.rgb2hex" descr="convert separate RGB values to hex color" ref_view="object">
       <xi:include href="conv.rgb2hex.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.samp2ms" descr="convert samples to time according to samplerate" ref_view="object">
+    <entry name="conv.samp2ms" descr="converts samples to millisecond according samplerate" ref_view="object">
       <xi:include href="conv.samp2ms.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.samp2ms~" descr="convert samples to milliseconds according to samplerate" ref_view="object">
+    <entry name="conv.samp2ms~" descr="converts samples to milliseconds according to samplerate" ref_view="object">
       <xi:include href="conv.samp2ms~.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.samp2sec" descr="convert samples to time according to samplerate" ref_view="object">
+    <entry name="conv.samp2sec" descr="convert samples to seconds according to samplerate" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.sec2bpm" descr="convert period in seconds to frequency in BPM" ref_view="object">
+    <entry name="conv.sec2bpm" descr="converts period in seconds to frequency in BPM" ref_view="object">
       <xi:include href="conv.sec2bpm.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.sec2samp" descr="convert time in seconds to number of samples according to current samplerate" ref_view="object">
+    <entry name="conv.sec2samp" descr="converts time in seconds to number of samples according to current samplerate" ref_view="object">
       <xi:include href="conv.sec2samp.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.sec2str" descr="converts float time in seconds to formated symbol (or string)" ref_view="object">
+    <entry name="conv.sec2str" descr="formats time in seconds to symbol or string" ref_view="object">
       <xi:include href="conv.sec2str.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.semi2ratio" descr="convert interval in semitones to frequency ratio in 12-ET" ref_view="object">
+    <entry name="conv.semi2ratio" descr="converts interval in semitones to frequency ratio in 12-ET" ref_view="object">
       <xi:include href="conv.semi2ratio.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.sig2float~" descr="convert signal to floats" ref_view="object">
+    <entry name="conv.sig2float~" descr="converts audiosignal to control numeric stream" ref_view="object">
       <xi:include href="conv.sig2float~.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.str2sec" descr="converts formatted time to float value in seconds" ref_view="object">
+    <entry name="conv.str2sec" descr="converts the formatted time to a float value in seconds" ref_view="object">
       <xi:include href="conv.str2sec.pddoc" parse="xml"/>
     </entry>
     <entry name="music.dur2time" descr="convert duration list to time" ref_view="object">

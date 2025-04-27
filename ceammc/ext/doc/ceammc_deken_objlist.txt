@@ -28,7 +28,7 @@ array.readwrite~	simultaneous read/write signals to the array / одноврем
 array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
 array.resample	array resampler / пересемплирование массива
 array.r	array resampler / пересемплирование массива
-array.rms	calculates the root mean square value for the array / вычисляет среднее квадратное значение для массива
+array.rms	calculates the root mean square value for the array / вычисляет среднее квадратичное значение для массива
 array.set	set the array content from the list data / устанавливает содержание массива данными из списка
 ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
 list->array	set the array content from the list data / устанавливает содержание массива данными из списка
@@ -121,166 +121,166 @@ array.phase->sample	converting the array phase [0..1] to the sample index / пр
 array.s2p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
 array.s->p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
 array.sample->phase	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
-conv.amp2dbfs	convert from amplitude to decibel full scale
-ceammc/amp->dbfs	convert from amplitude to decibel full scale
-amp->dbfs	convert from amplitude to decibel full scale
-conv.amp2dbfs~	convert from amplitude to decibel full scale
-ceammc/amp->dbfs~	convert from amplitude to decibel full scale
-amp->dbfs~	convert from amplitude to decibel full scale
-conv.bar2ms	calculate bar and beat duration
-ceammc/bar->ms	calculate bar and beat duration
-bar->ms	calculate bar and beat duration
-conv.bits2bang	convert list of bits to bang events
-ceammc/bits->bang	convert list of bits to bang events
-bits->bang	convert list of bits to bang events
-conv.bits2int	convert list of bits to integer
-ceammc/bits->int	convert list of bits to integer
-bits->int	convert list of bits to integer
-conv.bits2note	convert list of bits to note events
-ceammc/bits->note	convert list of bits to note events
-bits->note	convert list of bits to note events
-conv.bits2pos	convert list of bits to list of bit position
-ceammc/bits->pos	convert list of bits to list of bit position
-bits->pos	convert list of bits to list of bit position
-conv.bpm2hz	converts BPM to frequency in hertz
-ceammc/bpm->hz	converts BPM to frequency in hertz
-bpm->hz	converts BPM to frequency in hertz
-conv.bpm2ms	convert frequency in BPM to period in milliseconds
-ceammc/bpm->ms	convert frequency in BPM to period in milliseconds
-bpm->ms	convert frequency in BPM to period in milliseconds
-conv.bpm2sec	convert frequency in BPM to period in seconds
-ceammc/bpm->sec	convert frequency in BPM to period in seconds
-bpm->sec	convert frequency in BPM to period in seconds
-conv.car2pol	convert cartesian coords to polar
-ceammc/car->pol	convert cartesian coords to polar
-car->pol	convert cartesian coords to polar
-conv.cc2amp	convert from MIDI Control Change range
-ceammc/cc->amp	convert from MIDI Control Change range
-cc->amp	convert from MIDI Control Change range
-conv.char2morse	convert character to morse code
-ceammc/char->morse	convert character to morse code
-char->morse	convert character to morse code
-conv.color2rgba	convert named or hex color to separate RGBA values
-ceammc/color->rgba	convert named or hex color to separate RGBA values
-color->rgba	convert named or hex color to separate RGBA values
-conv.dbfs2amp	convert decibel full scale to amplitude
-ceammc/dbfs->amp	convert decibel full scale to amplitude
-dbfs->amp	convert decibel full scale to amplitude
-conv.dbfs2amp~	convert decibel full scale to amplitude
-ceammc/dbfs->amp~	convert decibel full scale to amplitude
-dbfs->amp~	convert decibel full scale to amplitude
-conv.degree2key	convert scale degree to key
-ceammc/degree->key	convert scale degree to key
-degree->key	convert scale degree to key
-conv.edge2bang	edge detector for numeric stream
-ceammc/edge->bang	edge detector for numeric stream
-edge->bang	edge detector for numeric stream
-conv.guido2note	convert Guido notation into MIDI and duration / конвертер из Guido-нотации в MIDI ноту и длительность
-ceammc/guido->note	convert Guido notation into MIDI and duration / конвертер из Guido-нотации в MIDI ноту и длительность
-guido->note	convert Guido notation into MIDI and duration / конвертер из Guido-нотации в MIDI ноту и длительность
-conv.hex2int	hex symbol to int value
-ceammc/hex->int	hex symbol to int value
-hex->int	hex symbol to int value
-conv.hsl2rgb	convert HSL color values to RGB
-ceammc/hsl->rgb	convert HSL color values to RGB
-hsl->rgb	convert HSL color values to RGB
-conv.int2bits	convert integer to list of bits
-ceammc/int->bits	convert integer to list of bits
-int->bits	convert integer to list of bits
-conv.lab2rgb	convert LAB color values to RGB
-ceammc/lab->rgb	convert LAB color values to RGB
-lab->rgb	convert LAB color values to RGB
-conv.lin2curve	map linear to exponential range with 0 allowed.
-ceammc/lin->curve	map linear to exponential range with 0 allowed.
-lin->curve	map linear to exponential range with 0 allowed.
-conv.lin2exp	maps linear range to exponential range
-ceammc/lin->exp	maps linear range to exponential range
-lin->exp	maps linear range to exponential range
-conv.lin2lin	convert from one linear range to another
-ceammc/lin->lin	convert from one linear range to another
-lin->lin	convert from one linear range to another
-ceammc/l->l	convert from one linear range to another
-l->l	convert from one linear range to another
-conv.lin2lin~	convert from one linear range to another for signals
-ceammc/lin->lin~	convert from one linear range to another for signals
-lin->lin~	convert from one linear range to another for signals
-ceammc/l->l~	convert from one linear range to another for signals
-l->l~	convert from one linear range to another for signals
-conv.list2props	converts list to series of property messages
-ceammc/list->props	converts list to series of property messages
-list->props	converts list to series of property messages
-ceammc/any->props	converts list to series of property messages
-any->props	converts list to series of property messages
-conv.midi2freq	convert from midi pitch to frequency in hz (with various base A and temperament)
-ceammc/midi->freq	convert from midi pitch to frequency in hz (with various base A and temperament)
-midi->freq	convert from midi pitch to frequency in hz (with various base A and temperament)
-ceammc/m->f	convert from midi pitch to frequency in hz (with various base A and temperament)
-m->f	convert from midi pitch to frequency in hz (with various base A and temperament)
-conv.ms2bpm	convert period in milliseconds to frequency in BPM
-ceammc/ms->bpm	convert period in milliseconds to frequency in BPM
-ms->bpm	convert period in milliseconds to frequency in BPM
-conv.ms2samp	convert time in milliseconds to number of samples according to current samplerate
-ceammc/ms->samp	convert time in milliseconds to number of samples according to current samplerate
-ms->samp	convert time in milliseconds to number of samples according to current samplerate
-conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate
-ceammc/ms->samp~	convert time in milliseconds to number of samples according to current samplerate
-ms->samp~	convert time in milliseconds to number of samples according to current samplerate
-conv.ms2str	converts float time in milliseconds to formated symbol (or string)
-ceammc/ms->str	converts float time in milliseconds to formated symbol (or string)
-ms->str	converts float time in milliseconds to formated symbol (or string)
-conv.note2guido	convert MIDI note to Guido notation
-ceammc/note->guido	convert MIDI note to Guido notation
-note->guido	convert MIDI note to Guido notation
-conv.phase2rad	convert phase value [0-1] to radians [0-2π]
-ceammc/phase->rad	convert phase value [0-1] to radians [0-2π]
-phase->rad	convert phase value [0-1] to radians [0-2π]
-conv.phase2rad~	convert phase value [0-1] to radians [0-2π]
-ceammc/phase->rad~	convert phase value [0-1] to radians [0-2π]
-phase->rad~	convert phase value [0-1] to radians [0-2π]
-conv.pitch2midi	converts symbol pitch name to MIDI note number
-ceammc/pitch->midi	converts symbol pitch name to MIDI note number
-pitch->midi	converts symbol pitch name to MIDI note number
-conv.pol2car	convert from polar coordinates to cartesian
-ceammc/pol->car	convert from polar coordinates to cartesian
-pol->car	convert from polar coordinates to cartesian
-conv.rad2phase	convert radians value to phase
-ceammc/rad->phase	convert radians value to phase
-rad->phase	convert radians value to phase
-conv.rad2phase~	convert radians value to phase
-ceammc/rad->phase~	convert radians value to phase
-rad->phase~	convert radians value to phase
-conv.rgb2hex	convert separate RGB values to hex color
-ceammc/rgb->hex	convert separate RGB values to hex color
-rgb->hex	convert separate RGB values to hex color
-conv.samp2ms	convert samples to time according to samplerate
-ceammc/samp->ms	convert samples to time according to samplerate
-samp->ms	convert samples to time according to samplerate
-conv.samp2ms~	convert samples to milliseconds according to samplerate
-ceammc/samp->ms~	convert samples to milliseconds according to samplerate
-samp->ms~	convert samples to milliseconds according to samplerate
-conv.samp2sec	convert samples to time according to samplerate
-ceammc/samp->sec	convert samples to time according to samplerate
-samp->sec	convert samples to time according to samplerate
-conv.sec2bpm	convert period in seconds to frequency in BPM
-ceammc/sec->bpm	convert period in seconds to frequency in BPM
-sec->bpm	convert period in seconds to frequency in BPM
-conv.sec2samp	convert time in seconds to number of samples according to current samplerate
-ceammc/sec->samp	convert time in seconds to number of samples according to current samplerate
-sec->samp	convert time in seconds to number of samples according to current samplerate
-conv.sec2str	converts float time in seconds to formated symbol (or string)
-ceammc/sec->str	converts float time in seconds to formated symbol (or string)
-sec->str	converts float time in seconds to formated symbol (or string)
-conv.semi2ratio	convert interval in semitones to frequency ratio in 12-ET
-ceammc/semi->ratio	convert interval in semitones to frequency ratio in 12-ET
-semi->ratio	convert interval in semitones to frequency ratio in 12-ET
-conv.sig2float~	convert signal to floats
-ceammc/sig->float~	convert signal to floats
-sig->float~	convert signal to floats
-ceammc/s->f~	convert signal to floats
-s->f~	convert signal to floats
-conv.str2sec	converts formatted time to float value in seconds
-ceammc/str->sec	converts formatted time to float value in seconds
-str->sec	converts formatted time to float value in seconds
+conv.amp2dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+ceammc/amp->dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+amp->dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+conv.amp2dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+ceammc/amp->dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+amp->dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+conv.bar2ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
+ceammc/bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
+bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
+conv.bits2bang	convert list of bits to bang events / конвертирует список битов в пустые события
+ceammc/bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
+bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
+conv.bits2int	convert list of bits to integer / преобразовать список битов в целое число
+ceammc/bits->int	convert list of bits to integer / преобразовать список битов в целое число
+bits->int	convert list of bits to integer / преобразовать список битов в целое число
+conv.bits2note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажания
+ceammc/bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажания
+bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажания
+conv.bits2pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+ceammc/bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+conv.bpm2hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
+ceammc/bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
+bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
+conv.bpm2ms	converts the BPM tempo into a beat period in milliseconds / преобразует темп BPM в период между ударными долями в миллисекундах
+ceammc/bpm->ms	converts the BPM tempo into a beat period in milliseconds / преобразует темп BPM в период между ударными долями в миллисекундах
+bpm->ms	converts the BPM tempo into a beat period in milliseconds / преобразует темп BPM в период между ударными долями в миллисекундах
+conv.bpm2sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
+ceammc/bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
+bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
+conv.car2pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
+ceammc/car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
+car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
+conv.cc2amp	converts from MIDI Control Change range
+ceammc/cc->amp	converts from MIDI Control Change range
+cc->amp	converts from MIDI Control Change range
+conv.char2morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+ceammc/char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+conv.color2rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
+ceammc/color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
+color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
+conv.dbfs2amp	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+ceammc/dbfs->amp	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+dbfs->amp	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+conv.dbfs2amp~	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+ceammc/dbfs->amp~	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+dbfs->amp~	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+conv.degree2key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
+ceammc/degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
+degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
+conv.edge2bang	edge detector for numeric stream / детектор переходного для численного потока
+ceammc/edge->bang	edge detector for numeric stream / детектор переходного для численного потока
+edge->bang	edge detector for numeric stream / детектор переходного для численного потока
+conv.guido2note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+ceammc/guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+conv.hex2int	converts hex symbol into a integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+ceammc/hex->int	converts hex symbol into a integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+hex->int	converts hex symbol into a integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+conv.hsl2rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
+ceammc/hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
+hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
+conv.int2bits	convert integer to list of bits / конвертировать целое число в список битов
+ceammc/int->bits	convert integer to list of bits / конвертировать целое число в список битов
+int->bits	convert integer to list of bits / конвертировать целое число в список битов
+conv.lab2rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
+ceammc/lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
+lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
+conv.lin2curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+ceammc/lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+conv.lin2exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
+ceammc/lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
+lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
+conv.lin2lin	converts from the one linear range into another / отображает один линейный диапазон в другой
+ceammc/lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
+lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
+ceammc/l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
+l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
+conv.lin2lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+conv.list2props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+ceammc/list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+ceammc/any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+conv.midi2freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+ceammc/m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
+ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
+ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
+conv.ms2samp	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ceammc/ms->samp	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ms->samp	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ceammc/ms->samp~	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ms->samp~	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.ms2str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
+ceammc/ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
+ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
+conv.note2guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
+ceammc/note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
+note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
+conv.phase2rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+ceammc/phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+conv.phase2rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+ceammc/phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+conv.pitch2midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
+ceammc/pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
+pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
+conv.pol2car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
+ceammc/pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
+pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
+conv.rad2phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+ceammc/rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+conv.rad2phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
+ceammc/rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
+rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
+conv.rgb2hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
+ceammc/rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
+rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
+conv.samp2ms	converts samples to millisecond according samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+ceammc/samp->ms	converts samples to millisecond according samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+samp->ms	converts samples to millisecond according samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.samp2ms~	converts samples to milliseconds according to samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+ceammc/samp->ms~	converts samples to milliseconds according to samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+samp->ms~	converts samples to milliseconds according to samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.samp2sec	convert samples to seconds according to samplerate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+ceammc/samp->sec	convert samples to seconds according to samplerate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+samp->sec	convert samples to seconds according to samplerate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+conv.sec2bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
+ceammc/sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
+sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
+conv.sec2samp	converts time in seconds to number of samples according to current samplerate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+ceammc/sec->samp	converts time in seconds to number of samples according to current samplerate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+sec->samp	converts time in seconds to number of samples according to current samplerate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+conv.sec2str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
+ceammc/sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
+sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
+conv.semi2ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
+ceammc/semi->ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
+semi->ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
+conv.sig2float~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+ceammc/sig->float~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+sig->float~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+ceammc/s->f~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+s->f~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+conv.str2sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
+ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
+str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
 music.dur2time	convert duration list to time
 music.d->t	convert duration list to time
 music.voice2midi	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI

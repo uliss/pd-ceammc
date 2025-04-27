@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 323 50 cnv 1 442 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 323 50 convert time in seconds to number of samples according
+#X obj 315 50 cnv 1 450 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 converts time in seconds to number of samples according
 to current samplerate;
 #X obj 1 1 cnv 5 765 40 empty empty conv.sec2samp 20 20 0 20 -104026
 -4096 0;

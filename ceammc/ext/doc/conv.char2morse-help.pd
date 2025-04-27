@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 522 50 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 522 50 convert character to morse code;
+#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 384 50 converts the single character into the Morse code;
 #X obj 1 1 cnv 5 765 40 empty empty conv.char2morse 20 20 0 20 -104026
 -4096 0;
 #X obj 370 11 ceammc/char->morse;
@@ -28,7 +28,7 @@ of dots and dashes \, otherwise as 0 and 1\. Type: bool. Default value:
 0;
 #X text 110 393 1\.;
 #X text 150 393 *symbol*;
-#X text 245 393 single characted.;
+#X text 245 393 single character.;
 #X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 428 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

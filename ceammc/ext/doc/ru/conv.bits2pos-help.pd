@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 422 50 convert list of bits to list of bit position;
+#X obj 292 50 cnv 1 473 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 292 50 преобразует список битов в список позиций установленных
+битов;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bits2pos 20 20 0 20 -104026
 -4096 0;
 #X obj 415 11 ceammc/bits->pos;

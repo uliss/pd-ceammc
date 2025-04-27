@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 401 50 cnv 1 364 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 401 50 map linear to exponential range with 0 allowed.;
+#X obj 291 50 cnv 1 474 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 291 50 отображает линейный диапазон в экспоненциальный с разрешенным
+0;
 #X obj 1 1 cnv 5 765 40 empty empty conv.lin2curve 20 20 0 20 -104026
 -4096 0;
 #X obj 391 11 ceammc/lin->curve;
