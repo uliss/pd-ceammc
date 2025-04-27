@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <category-info version="1.0">
-<tr lang="en">math objects. can operate with list of numbers</tr>
-<tr lang="ru">различные математические объекты, которые могут работать в том числе и со списками чисел</tr>
+<tr lang="en">math objects that can operate with number lists </tr>
+<tr lang="ru">математические объекты, которые могут работать со списками чисел</tr>
 </category-info>

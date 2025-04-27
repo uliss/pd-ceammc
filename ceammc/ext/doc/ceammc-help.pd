@@ -824,6 +824,9 @@ Pi;
 #X text 200 11263 zero-mean unit-amplitude low frequency square wave;
 #X obj 30 11291 lfo.tri~;
 #X text 200 11291 zero-mean unit-amplitude low frequency triangle wave;
+#X obj 543 10996 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 543 10996 low frequency oscillators;
 #X obj 20 11319 cnv 5 47 32 empty empty list 4 16 0 17 -262144 -49933
 0;
 #X obj 20 11361 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1995,4 +1998,4 @@ https://github.com/uliss/pure-data;
 https://github.com/uliss/pddoc;
 #X obj 670 26603 loadmsg 0;
 #X obj 670 26638 switch~;
-#X connect 1852 0 1853 0;
+#X connect 1854 0 1855 0;

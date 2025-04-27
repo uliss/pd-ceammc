@@ -500,6 +500,7 @@
     <entry name="set.union" descr="output union of given sets" ref_view="object">
       <xi:include href="set.union.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_data.xml" parse="xml"/>
   </category>
   <category name="dyn">
     <entry name="dyn.comp2~" descr="stereo dynamic range compressor" ref_view="object">
@@ -1137,6 +1138,7 @@
     <entry name="lfo.tri~" descr="zero-mean unit-amplitude low frequency triangle wave" ref_view="object">
       <xi:include href="lfo.tri~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_lfo.xml" parse="xml"/>
   </category>
   <category name="list">
     <entry name="list.^at" descr="on input index(es) outputs list element(s)" ref_view="object">

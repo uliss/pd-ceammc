@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 504 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 504 50 объекты для работы со списками;
+#X obj 596 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 596 50 работа со списками;
 #X obj 30 117 list.^at;
 #X text 200 117 on input index(es) outputs list element(s);
 #X obj 30 145 list.^contains;

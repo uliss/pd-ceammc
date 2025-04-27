@@ -2,6 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 543 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 543 50 low frequency oscillators;
 #X obj 30 117 lfo.+pulse~;
 #X text 200 117 unit-amplitude nonnegative low frequency pulse train;
 #X obj 30 145 lfo.+saw~;

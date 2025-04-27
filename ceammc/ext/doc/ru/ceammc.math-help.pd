@@ -2,9 +2,9 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 290 50 cnv 1 450 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 290 50 различные математические объекты \, которые могут работать
-в том числе и со списками чисел;
+#X obj 289 50 cnv 1 451 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 289 50 математические объекты \, которые могут работать со
+списками чисел;
 #X obj 30 117 math.abs;
 #X text 200 117 абсолютное значение;
 #X obj 30 145 math.abs~;

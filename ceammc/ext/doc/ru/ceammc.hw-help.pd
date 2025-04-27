@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 305 50 cnv 1 435 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 305 50 объекты для работы с различными аппаратными устройствами;
+#X obj 397 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 397 50 работа с различными аппаратными устройствами;
 #X obj 30 117 hw.apple_smc;
 #X text 200 117 query the system management control in Apples;
 #X obj 30 145 hw.apple_sms;
