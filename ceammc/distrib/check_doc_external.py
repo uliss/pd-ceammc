@@ -60,6 +60,8 @@ def mouse_method2event(event: str) -> str:
         return "wheel"
     elif event == "mouseleave":
         return None
+    elif event == "mouseup":
+        return None
     else:
         return event
 
