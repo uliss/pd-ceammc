@@ -37,8 +37,8 @@ first value in queue.;
 #X text 110 449 1\.;
 #X text 150 449 int;
 #X obj 246 450 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 449 SIZE: if specified \, creates fixed-size queue. Value
-'0' means default size (1024). Тип: int. Минимальное значение: 0\.;
+#X text 245 449 SIZE: if specified \, creates fixed-size queue. See
+@size property. Тип: int. Диапазон: 1…1024;
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 499 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
