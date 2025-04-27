@@ -53,8 +53,8 @@ ceammc.search	ceammc library search object
 chrono.datetime	output current date and time info
 ceammc/datetime	output current date and time info
 datetime	output current date and time info
-convolve~	realtime FFT convolution
-ceammc/convolve~	realtime FFT convolution
+convolve~	realtime FFT convolution / свёртка FFT в реальном времени
+ceammc/convolve~	realtime FFT convolution / свёртка FFT в реальном времени
 function	named function
 func	named function
 ceammc/func	named function
@@ -388,7 +388,7 @@ ceammc/vline->env	Converts vline messages to env
 vline->env	Converts vline messages to env
 expand_env	Substitute environment variables in data stream
 ceammc/expand_env	Substitute environment variables in data stream
-flow.append	append message to flow stream
+flow.append	append message to flow stream / добавляет сообщение в поток
 flow.change	rejects repeatet input messages / удаляет повторяющиеся сообщения
 flow.count	control flow event counter / счетчик числа сообщений в управляющем потоке
 flow.delay	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
@@ -807,9 +807,9 @@ math.mul	multiplication / умножение
 math.*	multiplication / умножение
 math.nan	Not a Number, unrepresentable value / Не число, непредставимое значение
 math.nan~	NaN signal / сигнал NaNN
-math.neg	negate function
-ceammc/-x	negate function
--x	negate function
+math.neg	negate function / отрицательная функция
+ceammc/-x	negate function / отрицательная функция
+-x	negate function / отрицательная функция
 math.or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
 ceammc/or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
 or	operation OR for multiple arguments / операция ИЛИ для множества аргументов

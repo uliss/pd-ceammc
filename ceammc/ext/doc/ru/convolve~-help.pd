@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 577 50 cnv 1 188 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 577 50 realtime FFT convolution;
+#X obj 530 50 cnv 1 235 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 530 50 свёртка FFT в реальном времени;
 #X obj 1 1 cnv 5 765 40 empty empty convolve~ 20 20 0 20 -104026 -4096
 0;
 #X obj 532 11 ceammc/convolve~;

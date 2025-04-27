@@ -7,7 +7,7 @@
 #X obj 30 117 expand_env;
 #X text 200 117 Substitute environment variables in data stream;
 #X obj 30 145 flow.append;
-#X text 200 145 Добавить сообщение для потока;
+#X text 200 145 добавляет сообщение в поток;
 #X obj 30 173 flow.change;
 #X text 200 173 удаляет повторяющиеся сообщения;
 #X obj 30 201 flow.count;
