@@ -67,7 +67,7 @@ const ObjectInfoStorage::Version& ObjectInfoStorage::libVersion() const
 
 std::string ObjectInfoStorage::libStrVersion() const
 {
-    return fmt::format("{}.{}", (int)lib_version_.first, (int)lib_version_.second);
+    return fmt::format("{}.{}", static_cast<int>(lib_version_.first), static_cast<int>(lib_version_.second));
 }
 
 void ObjectInfoStorage::addBase(t_class* c, t_newmethod creator)
@@ -93,6 +93,33 @@ void ObjectInfoStorage::addFlext(t_class* c)
 void ObjectInfoStorage::addUI(t_class* c)
 {
     ui_set_.insert(c);
+}
+
+void ObjectInfoStorage::setDocLanguage(DocLanguage lang)
+{
+    switch (lang) {
+    case Russian: {
+        for (auto cls : base_set_) {
+            auto doc_path = fmt::format("ru/{0}", cls->c_name->s_name);
+            cls->c_helpname = gensym(doc_path.c_str());
+        }
+
+        for (auto cls : ui_set_) {
+            auto doc_path = fmt::format("ru/{0}", cls->c_name->s_name);
+            cls->c_helpname = gensym(doc_path.c_str());
+        }
+    } break;
+    case English:
+    default: {
+        for (auto cls : base_set_) {
+            cls->c_helpname = cls->c_name;
+        }
+
+        for (auto cls : ui_set_) {
+            cls->c_helpname = cls->c_name;
+        }
+    } break;
+    }
 }
 
 void ObjectInfoStorage::addAlias(const char* name, t_class* c, t_newmethod creator)
