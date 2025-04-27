@@ -8,8 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">verbose information about top-level canvas of the object</tr>
-                <tr lang="ru">подробная информация о холсте верхнего
-                уровня у объекта</tr>
+                <tr lang="ru">подробная информация о холсте верхнего уровня у объекта</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

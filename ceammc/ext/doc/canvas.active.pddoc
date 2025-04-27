@@ -8,7 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">checks if the canvas of the object is on the top and active</tr>
-                <tr lang="ru">проверяет, активно ли окно холста объекта и расположено ли оно поверх других</tr>
+                <tr lang="ru">проверяет, активно ли окно холста объекта и расположено ли оно поверх
+                других</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

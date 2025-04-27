@@ -8,8 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">round to largest integral value not greater than input value</tr>
-                <tr lang="ru">округление до наибольшего целого значения, не
-                превышающего входного значения</tr>
+                <tr lang="ru">округление до наибольшего целого значения, не превышающего входного
+                значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

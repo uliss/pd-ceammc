@@ -8,7 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">sync remainder of modulo division (float or integer)</tr>
-                <tr lang="ru">синхронный остаток от деления по модулю (с плавающей точкой или целое)</tr>
+                <tr lang="ru">синхронный остаток от деления по модулю (с плавающей точкой или
+                целое)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
