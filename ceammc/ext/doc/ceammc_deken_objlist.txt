@@ -754,9 +754,9 @@ math.atanh~	hyperbolic arc tangent for signals / обратный гипербо
 math.atan~	arc tangent for signals / арктангенс для сигналов
 math.binomial	binomial coefficient calculator / калькулятор биномиальных коэффициентов
 math.nck	binomial coefficient calculator / калькулятор биномиальных коэффициентов
-math.cabs~	magnitude of a complex signals
-ceammc/cabs~	magnitude of a complex signals
-cabs~	magnitude of a complex signals
+math.cabs~	magnitude of a complex signals / абсолютное значение комплексного сигнала
+ceammc/cabs~	magnitude of a complex signals / абсолютное значение комплексного сигнала
+cabs~	magnitude of a complex signals / абсолютное значение комплексного сигнала
 math.carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
 ceammc/carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
 carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
