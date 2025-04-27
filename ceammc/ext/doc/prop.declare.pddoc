@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">declare named property for subpatch or abstraction</tr>
+                <tr lang="en">declare the named property for a subpatch or an abstraction</tr>
+                <tr lang="ru">объявляет именованное свойство для субпатча или абстракции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

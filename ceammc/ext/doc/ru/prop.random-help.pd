@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 613 50 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 613 50 property randomizer;
+#X obj 530 50 cnv 1 235 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 530 50 рандомизатор значения свойства;
 #X obj 1 1 cnv 5 765 40 empty empty prop.random 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 prop.random;

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">property randomizer</tr>
+                <tr lang="en">property value randomizer</tr>
+                <tr lang="ru">рандомизатор значения свойства</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

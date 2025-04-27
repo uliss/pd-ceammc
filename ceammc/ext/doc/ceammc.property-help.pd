@@ -5,21 +5,23 @@
 #X obj 30 117 patch.props;
 #X text 200 117 get or set the patch properties;
 #X obj 30 145 prop;
-#X text 200 145 get/set named property value for subpatch or abstraction;
+#X text 200 145 get/set the named property value for subpatch or abstraction;
 #X obj 30 173 prop.declare;
-#X text 200 173 declare named property for subpatch or abstraction;
+#X text 200 173 declare the named property for a subpatch or an abstraction;
 #X obj 30 201 prop.get;
-#X text 200 201 get property from connected object/subpatch/abstraction;
-#X obj 30 229 prop.join;
-#X text 200 229 join property to main data flow;
-#X obj 30 257 prop.random;
-#X text 200 257 property randomizer;
-#X obj 30 285 prop.route;
-#X text 200 285 separate properties from dataflow;
-#X obj 30 313 prop.route~;
-#X text 200 313 Property extractor from audio streams;
-#X obj 30 341 prop.set;
-#X text 200 341 set property for connected object/subpatch/abstraction;
+#X text 200 201 get the property value from connected object \, subpatch
+or abstraction;
+#X obj 30 241 prop.join;
+#X text 200 241 inject properties into the main data flow;
+#X obj 30 269 prop.random;
+#X text 200 269 property value randomizer;
+#X obj 30 297 prop.route;
+#X text 200 297 separates properties from the dataflow;
+#X obj 30 325 prop.route~;
+#X text 200 325 property extractor from audio connections;
+#X obj 30 353 prop.set;
+#X text 200 353 set the property value for connected object \, subpatch
+or abstraction;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::property 20 20 0 20
 -104026 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -2069,28 +2069,28 @@
     <entry name="patch.props" descr="get or set the patch properties" ref_view="object">
       <xi:include href="patch.props.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop" descr="get/set named property value for subpatch or abstraction" ref_view="object">
+    <entry name="prop" descr="get/set the named property value for subpatch or abstraction" ref_view="object">
       <xi:include href="prop.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.declare" descr="declare named property for subpatch or abstraction" ref_view="object">
+    <entry name="prop.declare" descr="declare the named property for a subpatch or an abstraction" ref_view="object">
       <xi:include href="prop.declare.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.get" descr="get property from connected object/subpatch/abstraction" ref_view="object">
+    <entry name="prop.get" descr="get the property value from connected object, subpatch or abstraction" ref_view="object">
       <xi:include href="prop.get.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.join" descr="join property to main data flow" ref_view="object">
+    <entry name="prop.join" descr="inject properties into the main data flow" ref_view="object">
       <xi:include href="prop.join.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.random" descr="property randomizer" ref_view="object">
+    <entry name="prop.random" descr="property value randomizer" ref_view="object">
       <xi:include href="prop.random.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.route" descr="separate properties from dataflow" ref_view="object">
+    <entry name="prop.route" descr="separates properties from the dataflow" ref_view="object">
       <xi:include href="prop.route.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.route~" descr="Property extractor from audio streams" ref_view="object">
+    <entry name="prop.route~" descr="property extractor from audio connections" ref_view="object">
       <xi:include href="prop.route~.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.set" descr="set property for connected object/subpatch/abstraction" ref_view="object">
+    <entry name="prop.set" descr="set the property value for connected object, subpatch or abstraction" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
     </entry>
   </category>

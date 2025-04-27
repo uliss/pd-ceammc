@@ -1,13 +1,13 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 330 50 cnv 1 435 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 330 50 get/set named property value for subpatch or abstraction;
+#X obj 299 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 299 50 get/set the named property value for subpatch or abstraction;
 #X obj 1 1 cnv 5 765 40 empty empty prop 20 20 0 20 -104026 -4096 0;
 #X obj 605 11 ceammc/prop;
 #X obj 710 11 prop;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Property should be declared with [prop.declare]. Min/max
-limits can be set to property;
+#X text 215 80 The property should be declared with [prop.declare].
+Min/max limits can be set to the property;
 #X obj 50 158 prop.declare freq @min 20 @max 20000 @default 1000;
 #X obj 50 187 prop.declare gain @min -60 @max 12 @default -3;
 #X floatatom 50 216 5 0 0 0 - - -;
