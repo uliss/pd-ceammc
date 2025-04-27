@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">UI gain control</tr>
+                <tr lang="en">gain control</tr>
+                <tr lang="ru">контроль громкости</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

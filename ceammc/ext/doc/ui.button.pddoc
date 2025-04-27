@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">button widget</tr>
+                <tr lang="en">on/off button widget</tr>
+                <tr lang="ru">виджет кнопки c двумя состояниями</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

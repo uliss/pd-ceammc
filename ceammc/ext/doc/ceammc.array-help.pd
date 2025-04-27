@@ -59,7 +59,7 @@ function;
 #X obj 30 829 array.variance;
 #X text 200 829 calculates variance of array values;
 #X obj 30 857 array.vplay;
-#X text 200 857 simple array player for using with the vline~ object;
+#X text 200 857 simple array player for using with the [vline~] object;
 #X obj 30 885 array.window;
 #X text 200 885 fills the array with the window function;
 #X obj 30 913 plot.geomspace~;

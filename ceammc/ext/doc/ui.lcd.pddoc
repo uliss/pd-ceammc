@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">black and white bitmap display</tr>
+                <tr lang="ru">черно-белый растровый дисплей</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

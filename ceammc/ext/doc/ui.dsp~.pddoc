@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">GUI for turning DSP on/off</tr>
+                <tr lang="en">widget to switch DSP on or off</tr>
+                <tr lang="ru">виджет для включения или выключения обработки звука</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

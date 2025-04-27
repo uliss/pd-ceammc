@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Shows peak and rms signal level</tr>
+                <tr lang="en">peak and RMS signal level</tr>
+                <tr lang="ru">пиковый и RMS уровень сигнала</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

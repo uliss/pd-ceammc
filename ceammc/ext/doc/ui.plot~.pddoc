@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">signal plotter</tr>
+                <tr lang="ru">построитель графика для сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Pierre Guillot</author>
             </authors>
             <description>
-                <tr lang="en">A bang... that's all</tr>
+                <tr lang="en">a button that sends an empty event (bang)</tr>
+                <tr lang="ru">кнопка отправляющая пустое событие (bang)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

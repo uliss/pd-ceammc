@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 660 50 cnv 1 105 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 660 50 button widget;
+#X obj 606 50 cnv 1 159 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 606 50 on/off button widget;
 #X obj 1 1 cnv 5 765 40 empty empty ui.button 20 20 0 20 -104026 -4096
 0;
 #X obj 601 13 ui.link @background_color 0.39216 0.39216 0.39216 @title

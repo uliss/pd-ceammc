@@ -61,9 +61,9 @@
 #X text 200 829 вычисляет дисперсию значений массива;
 #X obj 30 857 array.vplay;
 #X text 200 857 простой плеер массивов для использования с объектом
-vline~;
+[vline~];
 #X obj 30 885 array.window;
-#X text 200 885 заполенение массива оконной функцией;
+#X text 200 885 заполнение массива оконной функцией;
 #X obj 30 913 plot.geomspace~;
 #X text 200 913 outputs numbers spaced evenly on a log scale (a geometric
 progression);

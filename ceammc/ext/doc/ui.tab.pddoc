@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">displays a list of text buttons or text toggles</tr>
+                <tr lang="ru">список текстовых кнопок или текстовых переключателей</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

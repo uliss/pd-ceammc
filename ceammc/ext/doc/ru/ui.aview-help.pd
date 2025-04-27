@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 483 50 array view with cursor and selection;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 376 50 отображение массива с курсором и выбором диапазона;
 #X obj 1 1 cnv 5 765 40 empty empty ui.aview 20 20 0 20 -104026 -4096
 0;
 #X obj 679 13 ui.link @background_color 0.39216 0.39216 0.39216 @title

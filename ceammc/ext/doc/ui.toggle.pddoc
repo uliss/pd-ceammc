@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">modern toggle widget</tr>
+                <tr lang="ru">cовременный виджет переключателя</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 314 50 cnv 1 451 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 314 50 простой плеер массивов для использования с объектом
-vline~;
+#X obj 302 50 cnv 1 463 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 302 50 простой плеер массивов для использования с объектом
+[vline~];
 #X obj 1 1 cnv 5 765 40 empty empty array.vplay 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 array.vplay;

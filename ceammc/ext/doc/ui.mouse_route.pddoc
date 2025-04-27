@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">routes mouse events from ui objects</tr>
+                <tr lang="ru">маршрутизация событий мыши от ui объектов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

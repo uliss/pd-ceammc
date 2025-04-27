@@ -100,7 +100,7 @@
     <entry name="array.variance" descr="calculates variance of array values" ref_view="object">
       <xi:include href="array.variance.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.vplay" descr="simple array player for using with the vline~ object" ref_view="object">
+    <entry name="array.vplay" descr="simple array player for using with the [vline~] object" ref_view="object">
       <xi:include href="array.vplay.pddoc" parse="xml"/>
     </entry>
     <entry name="array.window" descr="fills the array with the window function" ref_view="object">
@@ -1103,7 +1103,7 @@
     <entry name="lang.lua" descr="Lua JIT language bindings" ref_view="object">
       <xi:include href="lang.lua.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.faust~" descr="faust compiled ui object" ref_view="link">
+    <entry name="ui.faust~" descr="Faust DSP programming language widget" ref_view="link">
       <xi:include href="ui.faust~.pddoc" parse="xml"/>
     </entry>
   </category>
@@ -2559,49 +2559,49 @@
     <xi:include href="ceammc_category_tl.xml" parse="xml"/>
   </category>
   <category name="ui">
-    <entry name="ui.aview" descr="array view with cursor and selection" ref_view="link">
+    <entry name="ui.aview" descr="array view with cursor and range selection" ref_view="link">
       <xi:include href="ui.aview.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.bang" descr="A bang... that's all" ref_view="link">
+    <entry name="ui.bang" descr="a button that sends an empty event (bang)" ref_view="link">
       <xi:include href="ui.bang.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.button" descr="button widget" ref_view="link">
+    <entry name="ui.button" descr="on/off button widget" ref_view="link">
       <xi:include href="ui.button.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.canvas" descr="UI canvas for drawing" ref_view="link">
+    <entry name="ui.canvas" descr="canvas for drawing" ref_view="link">
       <xi:include href="ui.canvas.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.cmeter~" descr="Multichannel circular peak and rms signal meter" ref_view="link">
+    <entry name="ui.cmeter~" descr="multichannel circular signal meter" ref_view="link">
       <xi:include href="ui.cmeter~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.colorpanel" descr="colorchooser widget" ref_view="link">
       <xi:include href="ui.colorpanel.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.display" descr="Display GUI object" ref_view="link">
+    <entry name="ui.display" descr="display widget" ref_view="link">
       <xi:include href="ui.display.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.dsp~" descr="GUI for turning DSP on/off" ref_view="link">
+    <entry name="ui.dsp~" descr="widget to switch DSP on or off" ref_view="link">
       <xi:include href="ui.dsp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.env" descr="envelope editor widget" ref_view="link">
+    <entry name="ui.env" descr="envelope editor" ref_view="link">
       <xi:include href="ui.env.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.filter" descr="UI filter object calculator for biquad filter" ref_view="link">
+    <entry name="ui.filter" descr="filter widget for calculating [flt.biquad~] coefficients" ref_view="link">
       <xi:include href="ui.filter.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.filter~" descr="UI filter object based on biquad filter" ref_view="link">
+    <entry name="ui.filter~" descr="sound filter widget" ref_view="link">
       <xi:include href="ui.filter~.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.gain2~" descr="UI stereo gain control" ref_view="link">
+    <entry name="ui.gain2~" descr="stereo gain control" ref_view="link">
       <xi:include href="ui.gain2~.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.gain~" descr="UI gain control" ref_view="link">
+    <entry name="ui.gain~" descr="gain control" ref_view="link">
       <xi:include href="ui.gain~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.icon" descr="simple icon with button capabilities" ref_view="link">
       <xi:include href="ui.icon.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.incdec" descr="value increment/decrement" ref_view="link">
+    <entry name="ui.incdec" descr="value increment or decrement widget" ref_view="link">
       <xi:include href="ui.incdec.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.keyboard" descr="keyboard widget" ref_view="link">
@@ -2616,16 +2616,16 @@
     <entry name="ui.lcd" descr="black and white bitmap display" ref_view="link">
       <xi:include href="ui.lcd.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.link" descr="Hyperlink widget" ref_view="link">
+    <entry name="ui.link" descr="hyperlink widget" ref_view="link">
       <xi:include href="ui.link.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.matrix" descr="The matrix of toggles has you." ref_view="link">
+    <entry name="ui.matrix" descr="toggel matrix" ref_view="link">
       <xi:include href="ui.matrix.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.menu" descr="Dropdown menu" ref_view="link">
+    <entry name="ui.menu" descr="dropdown menu" ref_view="link">
       <xi:include href="ui.menu.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.meter~" descr="Shows peak and rms signal level" ref_view="link">
+    <entry name="ui.meter~" descr="peak and RMS signal level" ref_view="link">
       <xi:include href="ui.meter~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.midi" descr="incoming MIDI message viewport" ref_view="link">
@@ -2637,10 +2637,10 @@
     <entry name="ui.mouse_route" descr="routes mouse events from ui objects" ref_view="link">
       <xi:include href="ui.mouse_route.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.number" descr="counterpart of the vanilla [nbx]" ref_view="link">
+    <entry name="ui.number" descr="number box" ref_view="link">
       <xi:include href="ui.number.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.number~" descr="counterpart of the vanilla [nbx] for signal" ref_view="link">
+    <entry name="ui.number~" descr="number viewport for signals" ref_view="link">
       <xi:include href="ui.number~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.plot~" descr="signal plotter" ref_view="link">
@@ -2649,28 +2649,28 @@
     <entry name="ui.polar" descr="2D slider in polar coordinates" ref_view="link">
       <xi:include href="ui.polar.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.preset" descr="Preset manager" ref_view="link">
+    <entry name="ui.preset" descr="preset manager" ref_view="link">
       <xi:include href="ui.preset.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.radio" descr="counterpart of the vanilla radio toggle" ref_view="link">
+    <entry name="ui.radio" descr="radio toggle with multiselect option" ref_view="link">
       <xi:include href="ui.radio.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.rslider" descr="range slider" ref_view="link">
+    <entry name="ui.rslider" descr="two range slider" ref_view="link">
       <xi:include href="ui.rslider.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.scope~" descr="Scope GUI object" ref_view="link">
+    <entry name="ui.scope~" descr="waveform signal scope widget" ref_view="link">
       <xi:include href="ui.scope~.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.slider" descr="counterpart of the vanilla slider" ref_view="link">
+    <entry name="ui.slider" descr="slider widget" ref_view="link">
       <xi:include href="ui.slider.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.slider2d" descr="2D slider widget" ref_view="link">
       <xi:include href="ui.slider2d.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.sliders" descr="Multiple slider widget" ref_view="link">
+    <entry name="ui.sliders" descr="multiple slider widget" ref_view="link">
       <xi:include href="ui.sliders.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.spectroscope~" descr="Spectroscope GUI object" ref_view="link">
+    <entry name="ui.spectroscope~" descr="spectroscope widget" ref_view="link">
       <xi:include href="ui.spectroscope~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.tab" descr="displays a list of text buttons or text toggles" ref_view="link">

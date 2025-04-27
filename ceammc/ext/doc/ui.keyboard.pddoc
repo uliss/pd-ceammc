@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">keyboard widget</tr>
+                <tr lang="ru">виджет клавиатуры</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

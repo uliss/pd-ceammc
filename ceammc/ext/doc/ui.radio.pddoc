@@ -7,7 +7,8 @@
                 <author>Pierre Guillot</author>
             </authors>
             <description>
-                <tr lang="en">counterpart of the vanilla radio toggle</tr>
+                <tr lang="en">radio toggle with multiselect option</tr>
+                <tr lang="ru">радиопереключатель с возможностью множественного выбора</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

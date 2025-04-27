@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">simple icon with button capabilities</tr>
+                <tr lang="ru">простая иконка с возможностями нажатия</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

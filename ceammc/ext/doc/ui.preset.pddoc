@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Preset manager</tr>
+                <tr lang="en">preset manager</tr>
+                <tr lang="ru">менеджер пресетов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

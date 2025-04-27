@@ -38,8 +38,8 @@ array.sum	calculates sum of array elements / вычисляет сумму эл�
 array.sum2	calculates sum of squares of array elements / вычисляет сумму квадратов элементов массива
 array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейного индекса для массива
 array.variance	calculates variance of array values / вычисляет дисперсию значений массива
-array.vplay	simple array player for using with the vline~ object / простой плеер массивов для использования с объектом vline~
-array.window	fills the array with the window function / заполенение массива оконной функцией
+array.vplay	simple array player for using with the [vline~] object / простой плеер массивов для использования с объектом [vline~]
+array.window	fills the array with the window function / заполнение массива оконной функцией
 plot.geomspace~	outputs numbers spaced evenly on a log scale (a geometric progression)
 plot.hist~	calculate and output signal histogram
 ceammc/hist~	calculate and output signal histogram
@@ -628,7 +628,7 @@ hw.rpi.spi.ws2812	ws2812 LED strip driver for Raspberry Pi / драйвер дл
 hw.serial	serial port device
 lang.faust~	faust realtime compilation
 lang.lua	Lua JIT language bindings
-ui.faust~	faust compiled ui object
+ui.faust~	Faust DSP programming language widget / виджет языка программирования Faust
 lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитудны в дипазоне [0,+1]
 lfo.+saw~	positive unit-amplitude low frequency saw wave / низкочастотная пилообразная волна в диапазоне [0,+1]
 lfo.+square~	positive low frequency square wave / низкочастотная квадратная волна единичной амплитуды в диапазоне [0,+1]
@@ -1309,77 +1309,77 @@ timeline	Timeline - event scheduler
 tl.toggle	Timeline bang
 tl.t	Timeline bang
 tl.transport	Timeline transport control
-ui.aview	array view with cursor and selection
-ui.bang	A bang... that's all
-ui.b	A bang... that's all
-ui.button	button widget
-ui.btn	button widget
-ui.canvas	UI canvas for drawing
-ui.cnv	UI canvas for drawing
-ui.cmeter~	Multichannel circular peak and rms signal meter
-ui.cm~	Multichannel circular peak and rms signal meter
-hoa.2d.meter~	Multichannel circular peak and rms signal meter
-ui.colorpanel	colorchooser widget
-ui.display	Display GUI object
-ui.d	Display GUI object
-ui.dt	Display GUI object
-ui.dsp~	GUI for turning DSP on/off
-ui.env	envelope editor widget
-ui.filter	UI filter object calculator for biquad filter
-ui.filter~	UI filter object based on biquad filter
-ui.gain2~	UI stereo gain control
-ui.hgain2~	UI stereo gain control
-ui.vgain2~	UI stereo gain control
-ui.gain~	UI gain control
-ui.hgain~	UI gain control
-ui.vgain~	UI gain control
-ui.icon	simple icon with button capabilities
-ui.incdec	value increment/decrement
-ui.keyboard	keyboard widget
-ui.hk	keyboard widget
-ui.vkeyboard	keyboard widget
-ui.vk	keyboard widget
-ui.knob	knob widget
-ui.k	knob widget
-ui.label	simple label widget
-ui.lcd	black and white bitmap display
-ui.link	Hyperlink widget
-ui.matrix	The matrix of toggles has you.
-ui.menu	Dropdown menu
-ui.meter~	Shows peak and rms signal level
-ui.m~	Shows peak and rms signal level
-ui.hm~	Shows peak and rms signal level
-ui.vm~	Shows peak and rms signal level
-ui.midi	incoming MIDI message viewport
-ui.mouse_filter	filter mouse events from ui objects
-ui.mf	filter mouse events from ui objects
-ui.mouse_route	routes mouse events from ui objects
-ui.mr	routes mouse events from ui objects
-ui.number	counterpart of the vanilla [nbx]
-ui.n	counterpart of the vanilla [nbx]
-ui.number~	counterpart of the vanilla [nbx] for signal
-ui.n~	counterpart of the vanilla [nbx] for signal
-ui.plot~	signal plotter
-ui.polar	2D slider in polar coordinates
-ui.preset	Preset manager
-ui.radio	counterpart of the vanilla radio toggle
-ui.radio*	counterpart of the vanilla radio toggle
-ui.hrd	counterpart of the vanilla radio toggle
-ui.hrd*	counterpart of the vanilla radio toggle
-ui.vrd	counterpart of the vanilla radio toggle
-ui.vrd*	counterpart of the vanilla radio toggle
-ui.rslider	range slider
-ui.rsl	range slider
-ui.scope~	Scope GUI object
-ui.slider	counterpart of the vanilla slider
-ui.hsl	counterpart of the vanilla slider
-ui.vsl	counterpart of the vanilla slider
-ui.slider2d	2D slider widget
-ui.s2d	2D slider widget
-ui.sliders	Multiple slider widget
-ui.vsliders	Multiple slider widget
-ui.spectroscope~	Spectroscope GUI object
-ui.ssc~	Spectroscope GUI object
-ui.tab	displays a list of text buttons or text toggles
-ui.toggle	modern toggle widget
-ui.t	modern toggle widget
+ui.aview	array view with cursor and range selection / отображение массива с курсором и выбором диапазона
+ui.bang	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
+ui.b	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
+ui.button	on/off button widget / виджет кнопки c двумя состояниями
+ui.btn	on/off button widget / виджет кнопки c двумя состояниями
+ui.canvas	canvas for drawing / холст для рисования
+ui.cnv	canvas for drawing / холст для рисования
+ui.cmeter~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
+ui.cm~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
+hoa.2d.meter~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
+ui.colorpanel	colorchooser widget / виджет выбора цвета
+ui.display	display widget / виджет дисплей
+ui.d	display widget / виджет дисплей
+ui.dt	display widget / виджет дисплей
+ui.dsp~	widget to switch DSP on or off / виджет для включения или выключения обработки звука
+ui.env	envelope editor / редактор огибающей
+ui.filter	filter widget for calculating [flt.biquad~] coefficients / виджет-калькулятор коэффициентов для фильтра [flt.biquad~]
+ui.filter~	sound filter widget / виджет звукового фильтра
+ui.gain2~	stereo gain control / контроль громкости стерео
+ui.hgain2~	stereo gain control / контроль громкости стерео
+ui.vgain2~	stereo gain control / контроль громкости стерео
+ui.gain~	gain control / контроль громкости
+ui.hgain~	gain control / контроль громкости
+ui.vgain~	gain control / контроль громкости
+ui.icon	simple icon with button capabilities / простая иконка с возможностями нажатия
+ui.incdec	value increment or decrement widget / виджет увеличения или уменьшения значения
+ui.keyboard	keyboard widget / виджет клавиатуры
+ui.hk	keyboard widget / виджет клавиатуры
+ui.vkeyboard	keyboard widget / виджет клавиатуры
+ui.vk	keyboard widget / виджет клавиатуры
+ui.knob	knob widget / виджет ручки
+ui.k	knob widget / виджет ручки
+ui.label	simple label widget / простой виджет надписи
+ui.lcd	black and white bitmap display / черно-белый растровый дисплей
+ui.link	hyperlink widget / виджет гиперссылки
+ui.matrix	toggel matrix / матрица переключателей
+ui.menu	dropdown menu / выпадающее меню
+ui.meter~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.m~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.hm~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.vm~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.midi	incoming MIDI message viewport / окно просмотра MIDI сообщений
+ui.mouse_filter	filter mouse events from ui objects / фильтр событий мыши из ui объектов
+ui.mf	filter mouse events from ui objects / фильтр событий мыши из ui объектов
+ui.mouse_route	routes mouse events from ui objects / маршрутизация событий мыши от ui объектов
+ui.mr	routes mouse events from ui objects / маршрутизация событий мыши от ui объектов
+ui.number	number box / числовой бокс
+ui.n	number box / числовой бокс
+ui.number~	number viewport for signals / просмотр числовых значений сигнала
+ui.n~	number viewport for signals / просмотр числовых значений сигнала
+ui.plot~	signal plotter / построитель графика для сигналов
+ui.polar	2D slider in polar coordinates / 2D слайдер в полярных координатах
+ui.preset	preset manager / менеджер пресетов
+ui.radio	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.radio*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.hrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.hrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.vrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.vrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.rslider	two range slider / двухдиапазонный слайдер
+ui.rsl	two range slider / двухдиапазонный слайдер
+ui.scope~	waveform signal scope widget / виджет просмотра формы волны
+ui.slider	slider widget / виджет слайдера (ползунка)
+ui.hsl	slider widget / виджет слайдера (ползунка)
+ui.vsl	slider widget / виджет слайдера (ползунка)
+ui.slider2d	2D slider widget / 2D виджет слайдера
+ui.s2d	2D slider widget / 2D виджет слайдера
+ui.sliders	multiple slider widget / виджет многоползункового слайдера
+ui.vsliders	multiple slider widget / виджет многоползункового слайдера
+ui.spectroscope~	spectroscope widget / виджет просмотрщика спектра
+ui.ssc~	spectroscope widget / виджет просмотрщика спектра
+ui.tab	displays a list of text buttons or text toggles / список текстовых кнопок или текстовых переключателей
+ui.toggle	modern toggle widget / cовременный виджет переключателя
+ui.t	modern toggle widget / cовременный виджет переключателя

@@ -7,7 +7,7 @@
 #X obj 30 142 lang.lua;
 #X text 200 142 Lua JIT language bindings;
 #X obj 30 173 ui.link @title [ui.faust~] @url ui.faust~-help.pd;
-#X text 200 170 faust compiled ui object;
+#X text 200 170 виджет языка программирования Faust;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::lang 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">simple label widget</tr>
+                <tr lang="ru">простой виджет надписи</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
