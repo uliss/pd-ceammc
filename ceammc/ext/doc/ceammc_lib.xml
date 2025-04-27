@@ -392,6 +392,7 @@
     <entry name="music.voice2midi" descr="convert single voice music to list of MIDI pitches" ref_view="object">
       <xi:include href="music.voice2midi.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_conv.xml" parse="xml"/>
   </category>
   <category name="data">
     <entry name="color.mix" descr="color mixer" ref_view="object">
@@ -1842,6 +1843,7 @@
     <entry name="net.ws.server" descr="WebSocket server" ref_view="object">
       <xi:include href="net.ws.server.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_net.xml" parse="xml"/>
   </category>
   <category name="noise">
     <entry name="noise.baker" descr="Part of a-chaos library" ref_view="object">

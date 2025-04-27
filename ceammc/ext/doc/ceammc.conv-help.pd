@@ -2,6 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 596 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 596 50 various converters;
 #X obj 30 117 array.p2s;
 #X text 200 117 converting the array phase [0\..1] to the sample index;
 #X obj 30 145 array.s2p;
