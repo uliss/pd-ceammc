@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 415 50 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 415 50 checks if string contains specified substring;
+#X obj 383 50 cnv 1 382 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 383 50 проверяет \, содержит ли строка указанную подстроку;
 #X obj 1 1 cnv 5 765 40 empty empty string.contains 20 20 0 20 -104026
 -4096 0;
 #X obj 520 11 str.contains;

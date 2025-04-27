@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">replace from one substring to another in input string</tr>
+                <tr lang="ru">замена одной строки на другую во входной строке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">check strings or symbols for equality</tr>
+                <tr lang="ru">проверка строк или символов на равенство</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

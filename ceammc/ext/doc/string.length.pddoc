@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">number of characters in string (unicode supported)</tr>
+                <tr lang="en">number of characters in string (with Unicode supported)</tr>
+                <tr lang="ru">количество символов в строке (с поддержкой Unicode)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

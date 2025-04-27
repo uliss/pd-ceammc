@@ -1206,39 +1206,39 @@ ceammc/pan8~	GMEM SPAT: 8-outputs spatializer
 pan8~	GMEM SPAT: 8-outputs spatializer
 spat.zita6x8~	spat with 6 inputs sources to 8 channel output
 spat.zita8~	8 channel reverb spatializer
-string	string constructor
-ceammc/string	string constructor
-ceammc/str	string constructor
-str	string constructor
-string.contains	checks if string contains specified substring
-str.contains	checks if string contains specified substring
-string.ends_with	checks if string ends with specified substring
-str.ends_with	checks if string ends with specified substring
-string.equal	check strings or symbols for equality
-str.equal	check strings or symbols for equality
-string.format	formats string like printf.
-str.format	formats string like printf.
-string.join	joins (concatenates) list to string with separator
-str.join	joins (concatenates) list to string with separator
-string.length	number of characters in string (unicode supported)
-str.length	number of characters in string (unicode supported)
-string.match	check if string match regular expression
-str.match	check if string match regular expression
-string.remove	remove substring from input string
-str.remove	remove substring from input string
-string.replace	replace from one substring to another in input string
-str.replace	replace from one substring to another in input string
-string.split	split string or symbol by separator
-str.split	split string or symbol by separator
-symbol.split	split string or symbol by separator
-string.starts_with	checks if string starts with specified substring
-str.starts_with	checks if string starts with specified substring
-string.substr	extract substring from input string
-str.substr	extract substring from input string
-string2symbol	converts string to symbol
-ceammc/string2symbol	converts string to symbol
-ceammc/str->sym	converts string to symbol
-str->sym	converts string to symbol
+string	constructs the string / создание строки
+ceammc/string	constructs the string / создание строки
+ceammc/str	constructs the string / создание строки
+str	constructs the string / создание строки
+string.contains	checks if string contains specified substring / проверяет, содержит ли строка указанную подстроку
+str.contains	checks if string contains specified substring / проверяет, содержит ли строка указанную подстроку
+string.ends_with	checks if string ends with specified substring / проверяет, заканчивается ли строка указанной подстрочкой
+str.ends_with	checks if string ends with specified substring / проверяет, заканчивается ли строка указанной подстрочкой
+string.equal	check strings or symbols for equality / проверка строк или символов на равенство
+str.equal	check strings or symbols for equality / проверка строк или символов на равенство
+string.format	formats string like printf function / форматирует строки в стиле функции printf
+str.format	formats string like printf function / форматирует строки в стиле функции printf
+string.join	joins the list into a string with the element separator / объединяет список в строку с указанным разделителем элементов
+str.join	joins the list into a string with the element separator / объединяет список в строку с указанным разделителем элементов
+string.length	number of characters in string (with Unicode supported) / количество символов в строке (с поддержкой Unicode)
+str.length	number of characters in string (with Unicode supported) / количество символов в строке (с поддержкой Unicode)
+string.match	checks if the string matches to the regular expression / проверка соответствия строки регулярному выражению
+str.match	checks if the string matches to the regular expression / проверка соответствия строки регулярному выражению
+string.remove	removes a substring from the input string / удаляет подстроку из входной строки
+str.remove	removes a substring from the input string / удаляет подстроку из входной строки
+string.replace	replace from one substring to another in input string / замена одной строки на другую во входной строке
+str.replace	replace from one substring to another in input string / замена одной строки на другую во входной строке
+string.split	splits the string or symbol into the list by the separator / разбивает строку или символ в список по разделителю
+str.split	splits the string or symbol into the list by the separator / разбивает строку или символ в список по разделителю
+symbol.split	splits the string or symbol into the list by the separator / разбивает строку или символ в список по разделителю
+string.starts_with	checks if string starts with specified substring / проверка, начинается ли строка с определенной подстроки
+str.starts_with	checks if string starts with specified substring / проверка, начинается ли строка с определенной подстроки
+string.substr	extract substring from input string / извлечение подстроки из входной строки
+str.substr	extract substring from input string / извлечение подстроки из входной строки
+string2symbol	converts string to symbol / преобразует строку в символ
+ceammc/string2symbol	converts string to symbol / преобразует строку в символ
+ceammc/str->sym	converts string to symbol / преобразует строку в символ
+str->sym	converts string to symbol / преобразует строку в символ
 symbol.equal	check symbols for equality
 symbol.length	number of characters in symbol (unicode supported)
 symbol.num_compare	numeric symbol compare

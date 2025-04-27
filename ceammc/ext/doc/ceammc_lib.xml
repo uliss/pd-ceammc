@@ -2327,7 +2327,7 @@
     </entry>
   </category>
   <category name="string">
-    <entry name="string" descr="string constructor" ref_view="object">
+    <entry name="string" descr="constructs the string" ref_view="object">
       <xi:include href="string.pddoc" parse="xml"/>
     </entry>
     <entry name="string.contains" descr="checks if string contains specified substring" ref_view="object">
@@ -2339,25 +2339,25 @@
     <entry name="string.equal" descr="check strings or symbols for equality" ref_view="object">
       <xi:include href="string.equal.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.format" descr="formats string like printf." ref_view="object">
+    <entry name="string.format" descr="formats string like printf function" ref_view="object">
       <xi:include href="string.format.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.join" descr="joins (concatenates) list to string with separator" ref_view="object">
+    <entry name="string.join" descr="joins the list into a string with the element separator" ref_view="object">
       <xi:include href="string.join.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.length" descr="number of characters in string (unicode supported)" ref_view="object">
+    <entry name="string.length" descr="number of characters in string (with Unicode supported)" ref_view="object">
       <xi:include href="string.length.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.match" descr="check if string match regular expression" ref_view="object">
+    <entry name="string.match" descr="checks if the string matches to the regular expression" ref_view="object">
       <xi:include href="string.match.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.remove" descr="remove substring from input string" ref_view="object">
+    <entry name="string.remove" descr="removes a substring from the input string" ref_view="object">
       <xi:include href="string.remove.pddoc" parse="xml"/>
     </entry>
     <entry name="string.replace" descr="replace from one substring to another in input string" ref_view="object">
       <xi:include href="string.replace.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.split" descr="split string or symbol by separator" ref_view="object">
+    <entry name="string.split" descr="splits the string or symbol into the list by the separator" ref_view="object">
       <xi:include href="string.split.pddoc" parse="xml"/>
     </entry>
     <entry name="string.starts_with" descr="checks if string starts with specified substring" ref_view="object">

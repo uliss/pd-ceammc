@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 491 50 split string or symbol by separator;
+#X obj 315 50 cnv 1 450 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 splits the string or symbol into the list by the separator;
 #X obj 1 1 cnv 5 765 40 empty empty string.split 20 20 0 20 -104026
 -4096 0;
 #X obj 451 11 str.split;

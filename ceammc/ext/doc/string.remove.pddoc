@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">remove substring from input string</tr>
+                <tr lang="en">removes a substring from the input string</tr>
+                <tr lang="ru">удаляет подстроку из входной строки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
