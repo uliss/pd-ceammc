@@ -2022,7 +2022,7 @@
     <xi:include href="ceammc_category_path.xml" parse="xml"/>
   </category>
   <category name="predicates">
-    <entry name="is_any" descr="checks if input data has *any* type" ref_view="object">
+    <entry name="is_any" descr="checks if the input has a general message type" ref_view="object">
       <xi:include href="is_any.pddoc" parse="xml"/>
     </entry>
     <entry name="is_bang" descr="checks if the input is a *bang*" ref_view="object">

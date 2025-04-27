@@ -1494,7 +1494,7 @@ object;
 -49933 0;
 #X obj 20 20105 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 20116 is_any;
-#X text 200 20116 checks if input data has *any* type;
+#X text 200 20116 checks if the input has a general message type;
 #X obj 30 20144 is_bang;
 #X text 200 20144 checks if the input is a *bang*;
 #X obj 30 20172 is_data;

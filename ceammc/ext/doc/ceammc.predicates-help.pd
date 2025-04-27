@@ -6,7 +6,7 @@
 #X text 267 50 predicate objects. Checks message or data types \, returns
 1 or 0\.;
 #X obj 30 117 is_any;
-#X text 200 117 checks if input data has *any* type;
+#X text 200 117 checks if the input has a general message type;
 #X obj 30 145 is_bang;
 #X text 200 145 checks if the input is a *bang*;
 #X obj 30 173 is_data;

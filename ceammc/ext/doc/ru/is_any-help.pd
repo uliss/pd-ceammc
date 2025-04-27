@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 491 50 checks if input data has *any* type;
+#X obj 315 50 cnv 1 450 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 проверяет \, является ли входное сообщение сообщением
+общего типа;
 #X obj 1 1 cnv 5 765 40 empty empty is_any 20 20 0 20 -104026 -4096 0;
 #X obj 696 11 is_any;
 #X msg 50 118 message;
