@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">constant-Q second order peaking equalizer section</tr>
+                <tr lang="ru">секция эквалайзера: пиковый фильтр второго порядка c constant-Q</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

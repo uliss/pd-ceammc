@@ -1,8 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 308 50 cnv 1 457 53 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 308 50 second order "peaking equalizer" section (gain boost
-or cut near some frequency). Also called a "parametric equalizer" section.;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 468 50 second order peaking equalizer section;
 #X obj 1 1 cnv 5 765 40 empty empty flt.eq_peak~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 flt.eq_peak~;

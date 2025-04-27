@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 383 50 cnv 1 382 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 383 50 One-pole coefficient calculator for biquad filter;
+#X obj 371 50 cnv 1 394 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 371 50 калькулятор однополюсного фильтра для [flt.biquad~];
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_pole 20 20 0 20 -104026
 -4096 0;
 #X obj 392 11 ceammc/pole->biquad;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 575 50 feed forward comb filter;
+#X obj 577 50 cnv 1 188 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 577 50 гребенчатый фильтр (КИХ);
 #X obj 1 1 cnv 5 765 40 empty empty flt.ff_comb~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 flt.ff_comb~;

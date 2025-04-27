@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">One-pole coefficient calculator for biquad filter</tr>
+                <tr lang="en">оne-pole coefficient calculator for [flt.biquad~]</tr>
+                <tr lang="ru">калькулятор однополюсного фильтра для [flt.biquad~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

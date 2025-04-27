@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">feedback comb filter</tr>
+                <tr lang="ru">гребенчатый фильтр с обратной связью (БИХ)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

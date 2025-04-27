@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert frequency to A-weight value</tr>
+                <tr lang="ru" finished="false">Преобразовать частоту в весовое значение A</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

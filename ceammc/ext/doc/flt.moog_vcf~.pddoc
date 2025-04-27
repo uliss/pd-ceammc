@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Moog Voltage Controlled Filter</tr>
+                <tr lang="ru">управляемый напряжением фильтр Муга</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

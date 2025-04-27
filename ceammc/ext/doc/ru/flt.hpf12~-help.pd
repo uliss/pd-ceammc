@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 444 50 cnv 1 321 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 444 50 High-pass second order Butterworth filter;
+#X obj 521 50 cnv 1 244 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 ФВЧ Баттерворта второго порядка;
 #X obj 1 1 cnv 5 765 40 empty empty flt.hpf12~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 flt.hpf12~;

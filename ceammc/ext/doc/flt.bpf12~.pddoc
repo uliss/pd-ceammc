@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Two pole band-pass butterworth filter</tr>
+                <tr lang="en">two pole band-pass Butterworth filter</tr>
+                <tr lang="ru">двухполюсный полосовой фильтр Баттерворта</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

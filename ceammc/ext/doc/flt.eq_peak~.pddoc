@@ -8,8 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">second order "peaking equalizer" section (gain boost or cut near some
-                frequency). Also called a "parametric equalizer" section.</tr>
+                <tr lang="en">second order peaking equalizer section</tr>
+                <tr lang="ru">секция эквалайзера: пиковый фильтр второго порядка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

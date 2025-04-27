@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">Low-pass fourth order Butterworth filter</tr>
+                <tr lang="ru">ФНЧ Баттерворта четвертого порядка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

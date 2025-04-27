@@ -504,56 +504,56 @@ route.r	routes the input message into the random outlet / направляет �
 route.symbol	separates symbol messages from other types / отделяет символьные сообщения от других типов
 route.s	separates symbol messages from other types / отделяет символьные сообщения от других типов
 flt.a-weight	convert frequency to A-weight value
-flt.biquad~	second order IIR filter.
-flt.bpf12~	Two pole band-pass butterworth filter
-flt.bpf24~	Four pole band-pass butterworth filter
-flt.bpf36e~	elliptic band-pass filter with -36db rolloff
-flt.bpf72e~	elliptic band-pass filter with -72db rolloff
-flt.c_apf	Allpass filter coefficient calculator for biquad
-ceammc/apf->biquad	Allpass filter coefficient calculator for biquad
-apf->biquad	Allpass filter coefficient calculator for biquad
-flt.c_bpf~	BPF coefficient calculator for biquad filter
-flt.c_highshelf~	Highshelf filter coefficient calculator for biquad
-flt.c_hpf	HPF coefficient calculator for biquad filter
-ceammc/hpf->biquad	HPF coefficient calculator for biquad filter
-hpf->biquad	HPF coefficient calculator for biquad filter
-flt.c_hpf~	HPF coefficient calculator for biquad filter
-flt.c_lowshelf~	Lowshelf filter coefficient calculator for biquad
-flt.c_lpf	LPF coefficient calculator for biquad filter
-ceammc/lpf->biquad	LPF coefficient calculator for biquad filter
-lpf->biquad	LPF coefficient calculator for biquad filter
-flt.c_lpf~	LPF coefficient calculator for biquad filter
-flt.c_notch	Notch filter coefficient calculator for biquad
-ceammc/notch->biquad	Notch filter coefficient calculator for biquad
-notch->biquad	Notch filter coefficient calculator for biquad
-flt.c_notch~	Band-reject coefficient calculator for biquad filter
-flt.c_peak~	Peaking equalizer calculator for biquad
-flt.c_pole	One-pole coefficient calculator for biquad filter
-ceammc/pole->biquad	One-pole coefficient calculator for biquad filter
-pole->biquad	One-pole coefficient calculator for biquad filter
-flt.dcblock2~	stereo DC blocker
-flt.dcblock~	mono DC blocker
-flt.eq10~	graphic 10 band equalizer
-flt.eq_peak_cq~	constant-Q second order peaking equalizer section
-flt.eq_peak~	second order "peaking equalizer" section (gain boost or cut near some frequency). Also called a "parametric equalizer" section.
-flt.fb_comb~	feedback comb filter
-flt.fbank5x1~	5 band one octave butterworth filterbank
-flt.ff_comb~	feed forward comb filter
-flt.freqz	compute the frequency response of a digital filter
-flt.freqz~	compute the frequency response of a digital filter
-flt.highshelf~	gain boost|cut above some frequency
-flt.hpf12~	High-pass second order Butterworth filter
-flt.hpf24~	High-pass fourth order Butterworth filter
-flt.lowshelf~	gain boost|cut below some frequency
-flt.lpf12~	Low-pass second order Butterworth filter
-flt.lpf24~	Low-pass fourth order Butterworth filter
-flt.median	Median control flow filter
-flt.moog_vcf~	Moog Voltage Controlled Filter
-flt.notch~	band-rejection filter
-flt.resonbp~	Simple resonant bandpass filter
-flt.resonhp~	Simple resonant highpass filter
-flt.resonlp~	Simple resonant lowpass filter
-flt.speaker~	speaker emulation band-pass filter
+flt.biquad~	second order IIR filter / БИХ фильтр второго порядка
+flt.bpf12~	two pole band-pass Butterworth filter / двухполюсный полосовой фильтр Баттерворта
+flt.bpf24~	four pole band-pass Butterworth filter / четырехполюсный полосовой фильтр Баттерворта
+flt.bpf36e~	elliptic band-pass filter with -36db rolloff / эллиптический полосовой фильтр с -36db спадом
+flt.bpf72e~	elliptic band-pass filter with -72db rolloff / эллиптический полосовой фильтр с -72db спадом
+flt.c_apf	allpass filter coefficients calculator for [flt.biquad~] object / калькулятор коэффициентов всепропускающего фильтра для объекта [flt.biquad~]
+ceammc/apf->biquad	allpass filter coefficients calculator for [flt.biquad~] object / калькулятор коэффициентов всепропускающего фильтра для объекта [flt.biquad~]
+apf->biquad	allpass filter coefficients calculator for [flt.biquad~] object / калькулятор коэффициентов всепропускающего фильтра для объекта [flt.biquad~]
+flt.c_bpf~	BPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов полосового фильтра для [flt.biquad~]
+flt.c_highshelf~	highshelf filter coefficient calculator for [flt.biquad~] / калькулятор коэффициентов полочного фильтра высоких частот для [flt.biquad~]
+flt.c_hpf	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+ceammc/hpf->biquad	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+hpf->biquad	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+flt.c_hpf~	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+flt.c_lowshelf~	lowshelf filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов полочного фильтра низких частот для [flt.biquad~]
+flt.c_lpf	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+ceammc/lpf->biquad	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+lpf->biquad	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+flt.c_lpf~	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+flt.c_notch	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+ceammc/notch->biquad	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+notch->biquad	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+flt.c_notch~	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+flt.c_peak~	peaking filter calculator for [flt.biquad~] / калькулятор пикового фильтра для [flt.biquad~]
+flt.c_pole	оne-pole coefficient calculator for [flt.biquad~] / калькулятор однополюсного фильтра для [flt.biquad~]
+ceammc/pole->biquad	оne-pole coefficient calculator for [flt.biquad~] / калькулятор однополюсного фильтра для [flt.biquad~]
+pole->biquad	оne-pole coefficient calculator for [flt.biquad~] / калькулятор однополюсного фильтра для [flt.biquad~]
+flt.dcblock2~	stereo DC blocker / двухканальный фильтр, блокирующий постоянную составляющую сигнала
+flt.dcblock~	mono DC blocker / одноканальный фильтр, блокирующий постоянную составляющую сигнала
+flt.eq10~	graphic 10 band equalizer / графический 10-полосный эквалайзер
+flt.eq_peak_cq~	constant-Q second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка c constant-Q
+flt.eq_peak~	second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка
+flt.fb_comb~	feedback comb filter / гребенчатый фильтр с обратной связью (БИХ)
+flt.fbank5x1~	5 band one octave butterworth filterbank / 5-полосный банк однооктавных фильтров Баттерворта
+flt.ff_comb~	feed forward comb filter / гребенчатый фильтр (КИХ)
+flt.freqz	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
+flt.freqz~	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
+flt.highshelf~	gain boost|cut above some frequency / усиление или ослабление частот выше указанной
+flt.hpf12~	high-pass second order Butterworth filter / ФВЧ Баттерворта второго порядка
+flt.hpf24~	High-pass fourth order Butterworth filter / ФВЧ Баттерворта четвертого порядка
+flt.lowshelf~	gain boost|cut below some frequency / усиление или ослабление частот ниже указанной
+flt.lpf12~	Low-pass second order Butterworth filter / ФНЧ Баттерворта второго порядка
+flt.lpf24~	Low-pass fourth order Butterworth filter / ФНЧ Баттерворта четвертого порядка
+flt.median	median control flow filter / медианный фильтр для контрольного потока
+flt.moog_vcf~	Moog Voltage Controlled Filter / управляемый напряжением фильтр Муга
+flt.notch~	band-rejection filter / режекторный фильтр
+flt.resonbp~	simple resonant bandpass filter / простой резонансный полосовой фильтр
+flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
+flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
+flt.speaker~	speaker emulation band-pass filter / полосовой фильтр-эмуляция динамика
 fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
 fx.dattorro~	dattorro reverb
@@ -832,7 +832,7 @@ ceammc/round	round to integral value, regardless of rounding direction / окр�
 math.round~	signal round / округление сигнала до ближайшего целого значения
 round~	signal round / округление сигнала до ближайшего целого значения
 ceammc/round~	signal round / округление сигнала до ближайшего целого значения
-math.sign	sign function
+math.sign	sign function / знаковая функция
 math.sin	sine function / функция синуса
 math.sinh	hyperbolic sine function / гиперболическая функция синуса
 math.sinh~	hyperbolic sine for signals / гиперболический синус для сигналов

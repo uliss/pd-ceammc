@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 629 50 stereo DC blocker;
+#X obj 322 50 cnv 1 443 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 322 50 двухканальный фильтр \, блокирующий постоянную составляющую
+сигнала;
 #X obj 1 1 cnv 5 765 40 empty empty flt.dcblock2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 flt.dcblock2~;

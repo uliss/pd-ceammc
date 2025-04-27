@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">speaker emulation band-pass filter</tr>
+                <tr lang="ru">полосовой фильтр-эмуляция динамика</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

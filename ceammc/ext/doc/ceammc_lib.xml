@@ -765,13 +765,13 @@
     <entry name="flt.a-weight" descr="convert frequency to A-weight value" ref_view="object">
       <xi:include href="flt.a-weight.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.biquad~" descr="second order IIR filter." ref_view="object">
+    <entry name="flt.biquad~" descr="second order IIR filter" ref_view="object">
       <xi:include href="flt.biquad~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.bpf12~" descr="Two pole band-pass butterworth filter" ref_view="object">
+    <entry name="flt.bpf12~" descr="two pole band-pass Butterworth filter" ref_view="object">
       <xi:include href="flt.bpf12~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.bpf24~" descr="Four pole band-pass butterworth filter" ref_view="object">
+    <entry name="flt.bpf24~" descr="four pole band-pass Butterworth filter" ref_view="object">
       <xi:include href="flt.bpf24~.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.bpf36e~" descr="elliptic band-pass filter with -36db rolloff" ref_view="object">
@@ -780,40 +780,40 @@
     <entry name="flt.bpf72e~" descr="elliptic band-pass filter with -72db rolloff" ref_view="object">
       <xi:include href="flt.bpf72e~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_apf" descr="Allpass filter coefficient calculator for biquad" ref_view="object">
+    <entry name="flt.c_apf" descr="allpass filter coefficients calculator for [flt.biquad~] object" ref_view="object">
       <xi:include href="flt.c_apf.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_bpf~" descr="BPF coefficient calculator for biquad filter" ref_view="object">
+    <entry name="flt.c_bpf~" descr="BPF coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_bpf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_highshelf~" descr="Highshelf filter coefficient calculator for biquad" ref_view="object">
+    <entry name="flt.c_highshelf~" descr="highshelf filter coefficient calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_highshelf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_hpf" descr="HPF coefficient calculator for biquad filter" ref_view="object">
+    <entry name="flt.c_hpf" descr="HPF coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_hpf.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_hpf~" descr="HPF coefficient calculator for biquad filter" ref_view="object">
+    <entry name="flt.c_hpf~" descr="HPF coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_hpf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_lowshelf~" descr="Lowshelf filter coefficient calculator for biquad" ref_view="object">
+    <entry name="flt.c_lowshelf~" descr="lowshelf filter coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_lowshelf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_lpf" descr="LPF coefficient calculator for biquad filter" ref_view="object">
+    <entry name="flt.c_lpf" descr="LPF coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_lpf.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_lpf~" descr="LPF coefficient calculator for biquad filter" ref_view="object">
+    <entry name="flt.c_lpf~" descr="LPF coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_lpf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_notch" descr="Notch filter coefficient calculator for biquad" ref_view="object">
+    <entry name="flt.c_notch" descr="band-reject filter coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_notch.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_notch~" descr="Band-reject coefficient calculator for biquad filter" ref_view="object">
+    <entry name="flt.c_notch~" descr="band-reject filter coefficients calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_notch~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_peak~" descr="Peaking equalizer calculator for biquad" ref_view="object">
+    <entry name="flt.c_peak~" descr="peaking filter calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_peak~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.c_pole" descr="One-pole coefficient calculator for biquad filter" ref_view="object">
+    <entry name="flt.c_pole" descr="оne-pole coefficient calculator for [flt.biquad~]" ref_view="object">
       <xi:include href="flt.c_pole.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.dcblock2~" descr="stereo DC blocker" ref_view="object">
@@ -828,7 +828,7 @@
     <entry name="flt.eq_peak_cq~" descr="constant-Q second order peaking equalizer section" ref_view="object">
       <xi:include href="flt.eq_peak_cq~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.eq_peak~" descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency). Also called a &quot;parametric equalizer&quot; section." ref_view="object">
+    <entry name="flt.eq_peak~" descr="second order peaking equalizer section" ref_view="object">
       <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.fb_comb~" descr="feedback comb filter" ref_view="object">
@@ -849,7 +849,7 @@
     <entry name="flt.highshelf~" descr="gain boost|cut above some frequency" ref_view="object">
       <xi:include href="flt.highshelf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.hpf12~" descr="High-pass second order Butterworth filter" ref_view="object">
+    <entry name="flt.hpf12~" descr="high-pass second order Butterworth filter" ref_view="object">
       <xi:include href="flt.hpf12~.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.hpf24~" descr="High-pass fourth order Butterworth filter" ref_view="object">
@@ -864,7 +864,7 @@
     <entry name="flt.lpf24~" descr="Low-pass fourth order Butterworth filter" ref_view="object">
       <xi:include href="flt.lpf24~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.median" descr="Median control flow filter" ref_view="object">
+    <entry name="flt.median" descr="median control flow filter" ref_view="object">
       <xi:include href="flt.median.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.moog_vcf~" descr="Moog Voltage Controlled Filter" ref_view="object">
@@ -873,13 +873,13 @@
     <entry name="flt.notch~" descr="band-rejection filter" ref_view="object">
       <xi:include href="flt.notch~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.resonbp~" descr="Simple resonant bandpass filter" ref_view="object">
+    <entry name="flt.resonbp~" descr="simple resonant bandpass filter" ref_view="object">
       <xi:include href="flt.resonbp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.resonhp~" descr="Simple resonant highpass filter" ref_view="object">
+    <entry name="flt.resonhp~" descr="simple resonant highpass filter" ref_view="object">
       <xi:include href="flt.resonhp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.resonlp~" descr="Simple resonant lowpass filter" ref_view="object">
+    <entry name="flt.resonlp~" descr="simple resonant lowpass filter" ref_view="object">
       <xi:include href="flt.resonlp~.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.speaker~" descr="speaker emulation band-pass filter" ref_view="object">

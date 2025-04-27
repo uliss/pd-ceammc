@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">gain boost|cut above some frequency</tr>
+                <tr lang="ru">усиление или ослабление частот выше указанной</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">band-rejection filter</tr>
+                <tr lang="ru">режекторный фильтр</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

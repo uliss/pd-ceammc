@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">compute the frequency response of a digital filter</tr>
+                <tr lang="ru">вычисляет частотный отклик цифрового фильтра</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

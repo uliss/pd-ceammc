@@ -8,7 +8,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Band-reject coefficient calculator for biquad filter</tr>
+                <tr lang="en">band-reject filter coefficients calculator for [flt.biquad~]</tr>
+                <tr lang="ru">калькулятор коэффициентов режекторного фильтра для
+                [flt.biquad~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

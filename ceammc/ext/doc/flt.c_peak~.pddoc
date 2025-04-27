@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Peaking equalizer calculator for biquad</tr>
+                <tr lang="en">peaking filter calculator for [flt.biquad~]</tr>
+                <tr lang="ru">калькулятор пикового фильтра для [flt.biquad~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

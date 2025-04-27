@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">feed forward comb filter</tr>
+                <tr lang="ru">гребенчатый фильтр (КИХ)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">elliptic band-pass filter with -72db rolloff</tr>
+                <tr lang="ru">эллиптический полосовой фильтр с -72db спадом</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

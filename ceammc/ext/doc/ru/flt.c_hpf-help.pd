@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 421 50 cnv 1 344 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 421 50 HPF coefficient calculator for biquad filter;
+#X obj 348 50 cnv 1 417 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 348 50 калькулятор коэффициентов ФВЧ частот для [flt.biquad~];
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_hpf 20 20 0 20 -104026 -4096
 0;
 #X obj 415 11 ceammc/hpf->biquad;
