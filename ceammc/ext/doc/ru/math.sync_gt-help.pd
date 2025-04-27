@@ -71,7 +71,7 @@ output result.;
 #X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 ключевые слова:;
-#X text 120 164 math \, sync \, greater \, then \, compare;
+#X text 120 164 math \, sync \, greater \, than \, compare;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
