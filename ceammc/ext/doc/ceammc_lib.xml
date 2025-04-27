@@ -1920,6 +1920,7 @@
     <entry name="noise.white~" descr="White noise generator" ref_view="object">
       <xi:include href="noise.white~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_noise.xml" parse="xml"/>
   </category>
   <category name="osc">
     <entry name="osc.blit~" descr="bandlimited oscillator with controllable harmonics" ref_view="object">
@@ -2334,6 +2335,7 @@
     <entry name="spat.zita8~" descr="8 channel reverb spatializer" ref_view="object">
       <xi:include href="spat.zita8~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_spat.xml" parse="xml"/>
   </category>
   <category name="string">
     <entry name="string" descr="constructs the string" ref_view="object">
@@ -2554,6 +2556,7 @@
     <entry name="tl.transport" descr="Timeline transport control" ref_view="object">
       <xi:include href="tl.transport.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_tl.xml" parse="xml"/>
   </category>
   <category name="ui">
     <entry name="ui.aview" descr="array view with cursor and selection" ref_view="link">

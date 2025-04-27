@@ -92,8 +92,8 @@ interval;
 #X text 200 1283 outputs numbers spaced evenly on a log scale;
 #X obj 30 1311 plot.response~;
 #X text 200 1311 output amp/phase freq response to impulse;
-#X obj 412 336 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 412 336 objects for working with arrays and tables;
+#X obj 504 336 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 504 336 working with arrays and tables;
 #X obj 20 1339 cnv 5 48 32 empty empty base 4 16 0 17 -262144 -49933
 0;
 #X obj 20 1381 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -361,6 +361,8 @@ to current samplerate;
 #X text 200 4996 symmetric difference between two sets;
 #X obj 30 5024 set.union;
 #X text 200 5024 output union of given sets;
+#X obj 504 4029 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 504 4029 working with various datatypes;
 #X obj 20 5052 cnv 5 38 32 empty empty dyn 4 16 0 17 -262144 -49933 0;
 #X obj 20 5094 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5105 dyn.comp2~;
@@ -389,8 +391,8 @@ to current samplerate;
 #X text 200 5413 mono 1176LN Peak Limiter;
 #X obj 30 5441 dyn.softclip~;
 #X text 200 5441 soft signal clip;
-#X obj 397 5062 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 397 5062 objects for working with sound dynamic range;
+#X obj 488 5062 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 488 5062 working with sound dynamic range;
 #X obj 20 5469 cnv 5 39 32 empty empty env 4 16 0 17 -262144 -49933 0;
 #X obj 20 5511 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5522 env.adsr~;
@@ -427,8 +429,8 @@ for vline object;
 #X text 200 5910 envelope data type;
 #X obj 30 5938 vline2env;
 #X text 200 5938 Converts vline messages to env;
-#X obj 458 5479 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 458 5479 objects to work with sound envelopes;
+#X obj 519 5479 cnv 1 221 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 519 5479 working with sound envelopes;
 #X obj 20 5966 cnv 5 49 32 empty empty flow 4 16 0 17 -262144 -49933
 0;
 #X obj 20 6008 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -789,9 +791,9 @@ Pi;
 #X text 200 10799 ws2812 LED strip driver for Raspberry Pi;
 #X obj 30 10827 hw.serial;
 #X text 200 10827 serial port device;
-#X obj 420 10132 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 511 10132 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 420 10132 objects for working with various hardware;
+#X text 511 10132 working with various hardware;
 #X obj 20 10855 cnv 5 47 32 empty empty lang 4 16 0 17 -262144 -49933
 0;
 #X obj 20 10897 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -982,9 +984,9 @@ list is specified by the argument;
 #X text 200 13352 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2 list2-2
 etc.).;
-#X obj 527 11329 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 620 11329 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 527 11329 objects for list processing;
+#X text 620 11329 list processing;
 #X obj 20 13407 cnv 5 48 32 empty empty live 4 16 0 17 -262144 -49933
 0;
 #X obj 20 13449 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1218,9 +1220,9 @@ direction;
 #X text 200 16498 truncate to integer value;
 #X obj 30 16526 math.trunc~;
 #X text 200 16526 truncate to integer value;
-#X obj 382 13731 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 374 13731 cnv 1 366 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 382 13731 math objects. can operate with list of numbers;
+#X text 374 13731 math objects that can operate with number lists;
 #X obj 20 16554 cnv 5 49 32 empty empty midi 4 16 0 17 -262144 -49933
 0;
 #X obj 20 16596 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1403,6 +1405,9 @@ roll;
 #X text 200 18996 verhulst distribution;
 #X obj 30 19024 noise.white~;
 #X text 200 19024 White noise generator;
+#X obj 612 18337 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 612 18337 noise generators;
 #X obj 20 19052 cnv 5 38 32 empty empty osc 4 16 0 17 -262144 -49933
 0;
 #X obj 20 19094 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1452,9 +1457,9 @@ object;
 #X text 200 19618 output the patch dependencies: used objects and abstractions;
 #X obj 30 19646 patch.tree;
 #X text 200 19646 output the object tree of the patch;
-#X obj 497 19367 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 580 19367 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 497 19367 object for working with patches;
+#X text 580 19367 working with patches;
 #X obj 20 19674 cnv 5 48 32 empty empty path 4 16 0 17 -262144 -49933
 0;
 #X obj 20 19716 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1998,4 +2003,4 @@ https://github.com/uliss/pure-data;
 https://github.com/uliss/pddoc;
 #X obj 670 26603 loadmsg 0;
 #X obj 670 26638 switch~;
-#X connect 1854 0 1855 0;
+#X connect 1858 0 1859 0;
