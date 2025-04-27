@@ -73,4 +73,14 @@ TEST_CASE("data.fifo", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @size, 2);
         REQUIRE_PROPERTY_FLOAT(t, @free, 2);
     }
+
+    SECTION("run")
+    {
+        TestDataFifo t("data.fifo", LA("@size", 2));
+        t << 1;
+        t << 2;
+        REQUIRE_NO_MSG(t);
+        t << 3;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+    }
 }
