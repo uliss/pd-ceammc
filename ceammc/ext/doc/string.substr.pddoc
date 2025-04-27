@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">extract substring from input string</tr>
+                <tr lang="en">extract a substring from the input string</tr>
                 <tr lang="ru">извлечение подстроки из входной строки</tr>
             </description>
             <license>GPL3 or later</license>

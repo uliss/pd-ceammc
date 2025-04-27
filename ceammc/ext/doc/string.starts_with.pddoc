@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if string starts with specified substring</tr>
+                <tr lang="en">checks if the string starts with the specified substring</tr>
                 <tr lang="ru">проверка, начинается ли строка с определенной подстроки</tr>
             </description>
             <license>GPL3 or later</license>
