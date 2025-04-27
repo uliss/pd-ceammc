@@ -503,7 +503,7 @@ route.random	routes the input message into the random outlet / направля�
 route.r	routes the input message into the random outlet / направляет входное сообщение в случайный выход
 route.symbol	separates symbol messages from other types / отделяет символьные сообщения от других типов
 route.s	separates symbol messages from other types / отделяет символьные сообщения от других типов
-flt.a-weight	convert frequency to A-weight value
+flt.a-weight	convert frequency to A-weight value / вычисляет А-взвешенное значение для данной частоты
 flt.biquad~	second order IIR filter / БИХ фильтр второго порядка
 flt.bpf12~	two pole band-pass Butterworth filter / двухполюсный полосовой фильтр Баттерворта
 flt.bpf24~	four pole band-pass Butterworth filter / четырехполюсный полосовой фильтр Баттерворта
