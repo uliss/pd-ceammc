@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">map linear to exponential range with 0 allowed.</tr>
+                <tr lang="en">map linear to exponential range with 0 allowed</tr>
+                <tr lang="ru">отображает линейный диапазон в экспоненциальный с разрешенным 0</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

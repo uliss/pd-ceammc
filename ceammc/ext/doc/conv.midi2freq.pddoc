@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert from midi pitch to frequency in hz (with various base A and
-                temperament)</tr>
+                <tr lang="en">advanced MIDI pitch conversion to a frequency</tr>
+                <tr lang="ru">продвинутое преобразование MIDI нот в частоту в Гц</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

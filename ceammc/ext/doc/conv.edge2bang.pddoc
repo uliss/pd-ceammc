@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">edge detector for numeric stream</tr>
+                <tr lang="ru">детектор переходного для численного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

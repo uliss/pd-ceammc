@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert MIDI note to Guido notation</tr>
+                <tr lang="en">converts MIDI note number to Guido notation</tr>
+                <tr lang="ru">преобразует MIDI ноту в Guido-нотацию</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -9,6 +9,8 @@
             <description>
                 <tr lang="en">convert time in milliseconds to number of samples according to
                 current samplerate</tr>
+                <tr lang="ru">преобразовать время в миллисекундах в количество семплов в
+                соответствии с текущей скоростью семплирования</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

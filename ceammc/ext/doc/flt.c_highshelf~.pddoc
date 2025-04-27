@@ -9,7 +9,8 @@
             </authors>
             <description>
                 <tr lang="en">highshelf filter coefficient calculator for [flt.biquad~]</tr>
-                <tr lang="ru">калькулятор коэффициентов полочного фильтра высоких частот для [flt.biquad~]</tr>
+                <tr lang="ru">калькулятор коэффициентов полочного фильтра высоких частот для
+                [flt.biquad~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

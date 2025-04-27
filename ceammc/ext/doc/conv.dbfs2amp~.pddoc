@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert decibel full scale to amplitude</tr>
+                <tr lang="ru">преобразование децибел полной шкалы в амплитуду</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

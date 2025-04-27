@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert list of bits to list of bit position</tr>
+                <tr lang="en">converts the list of bits into the list of checked bit position</tr>
+                <tr lang="ru">преобразует список битов в список позиций установленных битов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

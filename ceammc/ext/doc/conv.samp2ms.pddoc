@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert samples to time according to samplerate</tr>
+                <tr lang="en">converts samples to millisecond according samplerate</tr>
+                <tr lang="ru">преобразовывает семплы в миллисекунды в соответствии со скоростью
+                семплирования</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

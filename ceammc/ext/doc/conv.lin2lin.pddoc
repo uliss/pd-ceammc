@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert from one linear range to another</tr>
+                <tr lang="en">converts from the one linear range into another</tr>
+                <tr lang="ru">отображает один линейный диапазон в другой</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

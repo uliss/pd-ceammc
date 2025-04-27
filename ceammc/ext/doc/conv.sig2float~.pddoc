@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert signal to floats</tr>
+                <tr lang="en">converts audiosignal to control numeric stream</tr>
+                <tr lang="ru">преобразует аудиосигнал в управляющий числовой поток</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

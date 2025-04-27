@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">hex symbol to int value</tr>
+                <tr lang="en">converts hex symbol into a integer value</tr>
+                <tr lang="ru">конвертирует шестнадцатеричный символ в целочисленное значение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -45,7 +46,7 @@
 |
 [hex->int]
 |
-[ui.d @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

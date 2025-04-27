@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert character to morse code</tr>
+                <tr lang="en">converts the single character into the Morse code</tr>
+                <tr lang="ru">преобразует единичный символ в код Морзе</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,7 +33,7 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">single characted</xinfo>
+                <xinfo on="symbol">single character</xinfo>
             </inlet>
         </inlets>
         <outlets>

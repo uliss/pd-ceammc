@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert LAB color values to RGB</tr>
+                <tr lang="ru">преобразование цветовых значений из LAB в RGB</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

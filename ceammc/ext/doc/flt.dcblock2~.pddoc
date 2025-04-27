@@ -8,7 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">stereo DC blocker</tr>
-                <tr lang="ru">двухканальный фильтр, блокирующий постоянную составляющую сигнала</tr>
+                <tr lang="ru">двухканальный фильтр, блокирующий постоянную составляющую
+                сигнала</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

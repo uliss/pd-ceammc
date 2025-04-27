@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert from amplitude to decibel full scale</tr>
+                <tr lang="en">convert from the amplitude to a decibel full scale</tr>
+                <tr lang="ru">преобразование из амплитуды в децибелы полной шкалы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

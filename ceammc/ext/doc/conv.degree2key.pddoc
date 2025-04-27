@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert scale degree to key</tr>
+                <tr lang="en">converts the scale degree into a key number</tr>
+                <tr lang="ru">преобразует номер ступени лада в номер клавиши</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

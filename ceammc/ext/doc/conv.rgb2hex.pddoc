@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert separate RGB values to hex color</tr>
+                <tr lang="ru">преобразование отдельных значений RGB в шестнадцатеричный цвет</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert list of bits to note events</tr>
+                <tr lang="en">convert list of bits into note, velocity pairs</tr>
+                <tr lang="ru">конвертирует список битов в пары: номер ноты, сила нажания</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

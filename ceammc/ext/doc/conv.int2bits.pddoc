@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert integer to list of bits</tr>
+                <tr lang="ru">конвертировать целое число в список битов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
