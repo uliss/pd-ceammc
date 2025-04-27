@@ -780,8 +780,8 @@ math.cos~	cosine function / функция косинуса
 math.div	division / деление
 math./	division / деление
 math.e	mathematical constant, base of the natural logarithm / математическая константа, основание натурального логарифма
-math.erf	error function
-math.erf~	error function for signals
+math.erf	error function / функция ошибок
+math.erf~	error function for signals / функция ошибок для сигналов
 math.exp	base-e exponential function / экспоненциальная функция на основе числа e
 math.exp2	base-2 exponential function / экспоненциальная функция на основе 2
 math.exp2~	base-2 exponential for signal / экспоненциальная функция на основе 2 для сигналов
