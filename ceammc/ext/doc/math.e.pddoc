@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">mathematical constant, base of the natural logarithm</tr>
+                <tr lang="ru">математическая константа, основание натурального
+                логарифма</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

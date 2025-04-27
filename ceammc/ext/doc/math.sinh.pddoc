@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">hyperbolic sine function</tr>
+                <tr lang="ru">гиперболическая функция синуса</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">binomial coefficient calculator</tr>
+                <tr lang="ru">калькулятор биномиальных коэффициентов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

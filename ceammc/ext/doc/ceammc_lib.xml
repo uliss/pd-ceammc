@@ -1396,7 +1396,7 @@
     <entry name="math.and" descr="operation AND for multiple arguments" ref_view="object">
       <xi:include href="math.and.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.approx" descr="check if input value approximately equal to pattern" ref_view="object">
+    <entry name="math.approx" descr="checks if the input value is approximately equal to the pattern" ref_view="object">
       <xi:include href="math.approx.pddoc" parse="xml"/>
     </entry>
     <entry name="math.asin" descr="arc sine function" ref_view="object">
@@ -1441,7 +1441,7 @@
     <entry name="math.cdiv~" descr="division of complex signals" ref_view="object">
       <xi:include href="math.cdiv~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.ceil" descr="round to smallest integral value not less than input value" ref_view="object">
+    <entry name="math.ceil" descr="round to the smallest integral value not less than input value" ref_view="object">
       <xi:include href="math.ceil.pddoc" parse="xml"/>
     </entry>
     <entry name="math.ceil~" descr="round to smallest integral value not less than input value" ref_view="object">
@@ -1465,7 +1465,7 @@
     <entry name="math.cos~" descr="cosine function" ref_view="object">
       <xi:include href="math.cos~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.div" descr="division (on lists too)" ref_view="object">
+    <entry name="math.div" descr="division" ref_view="object">
       <xi:include href="math.div.pddoc" parse="xml"/>
     </entry>
     <entry name="math.e" descr="mathematical constant, base of the natural logarithm" ref_view="object">
@@ -1477,43 +1477,43 @@
     <entry name="math.erf~" descr="error function for signals" ref_view="object">
       <xi:include href="math.erf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.exp" descr="exponential functions" ref_view="object">
+    <entry name="math.exp" descr="base-e exponential function" ref_view="object">
       <xi:include href="math.exp.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.exp2" descr="exponential functions" ref_view="object">
+    <entry name="math.exp2" descr="base-2 exponential function" ref_view="object">
       <xi:include href="math.exp2.pddoc" parse="xml"/>
     </entry>
     <entry name="math.exp2~" descr="base-2 exponential for signal" ref_view="object">
       <xi:include href="math.exp2~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.expr" descr="dynamic [expr]" ref_view="object">
+    <entry name="math.expr" descr="dynamic version of [expr] object" ref_view="object">
       <xi:include href="math.expr.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.exp~" descr="base-e exponential for signal" ref_view="object">
+    <entry name="math.exp~" descr="base-e exponential function for signals" ref_view="object">
       <xi:include href="math.exp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.floor" descr="round to largest integral value not greater than x" ref_view="object">
+    <entry name="math.floor" descr="round to largest integral value not greater than input value" ref_view="object">
       <xi:include href="math.floor.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.floor~" descr="round to largest integral value not greater than x" ref_view="object">
+    <entry name="math.floor~" descr="round to largest integral value not greater than input value" ref_view="object">
       <xi:include href="math.floor~.pddoc" parse="xml"/>
     </entry>
     <entry name="math.gamma" descr="gamma function" ref_view="object">
       <xi:include href="math.gamma.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.gamma~" descr="gamma function for floating point signals" ref_view="object">
+    <entry name="math.gamma~" descr="gamma function fot signals" ref_view="object">
       <xi:include href="math.gamma~.pddoc" parse="xml"/>
     </entry>
     <entry name="math.gcd" descr="calculate greatest common divisor" ref_view="object">
       <xi:include href="math.gcd.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.inf" descr="infinity value that cannot be represented accurately" ref_view="object">
+    <entry name="math.inf" descr="output infinity value in the IEEE 754 standart" ref_view="object">
       <xi:include href="math.inf.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.inf~" descr="inifinity signal generator" ref_view="object">
+    <entry name="math.inf~" descr="output infinity value in the IEEE 754 standart" ref_view="object">
       <xi:include href="math.inf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.lcm" descr="calculate least common multiple" ref_view="object">
+    <entry name="math.lcm" descr="calculates least common multiple" ref_view="object">
       <xi:include href="math.lcm.pddoc" parse="xml"/>
     </entry>
     <entry name="math.lgamma" descr="natural logarithm of the absolute value of the gamma function" ref_view="object">
@@ -1525,28 +1525,28 @@
     <entry name="math.log" descr="natural logarithm" ref_view="object">
       <xi:include href="math.log.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.log10" descr="logarithm functions" ref_view="object">
+    <entry name="math.log10" descr="base-10 logarithm" ref_view="object">
       <xi:include href="math.log10.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.log10~" descr="natural logarithm" ref_view="object">
+    <entry name="math.log10~" descr="base-10 logarithm" ref_view="object">
       <xi:include href="math.log10~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.log2" descr="logarithm functions" ref_view="object">
+    <entry name="math.log2" descr="base-2 logarithm" ref_view="object">
       <xi:include href="math.log2.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.log2~" descr="base-2 logarithm" ref_view="object">
+    <entry name="math.log2~" descr="base-2 logarithm for signals" ref_view="object">
       <xi:include href="math.log2~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.log~" descr="natural logarithm" ref_view="object">
+    <entry name="math.log~" descr="natural logarithm for signals" ref_view="object">
       <xi:include href="math.log~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.mul" descr="multiplication (on lists too)" ref_view="object">
+    <entry name="math.mul" descr="multiplication" ref_view="object">
       <xi:include href="math.mul.pddoc" parse="xml"/>
     </entry>
     <entry name="math.nan" descr="Not a Number, unrepresentable value" ref_view="object">
       <xi:include href="math.nan.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.nan~" descr="signal NaN" ref_view="object">
+    <entry name="math.nan~" descr="NaN signal" ref_view="object">
       <xi:include href="math.nan~.pddoc" parse="xml"/>
     </entry>
     <entry name="math.neg" descr="negate function" ref_view="object">
@@ -1555,10 +1555,10 @@
     <entry name="math.or" descr="operation OR for multiple arguments" ref_view="object">
       <xi:include href="math.or.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.pi" descr="mathematical constant" ref_view="object">
+    <entry name="math.pi" descr="mathematical constant π" ref_view="object">
       <xi:include href="math.pi.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.pi~" descr="mathematical constant" ref_view="object">
+    <entry name="math.pi~" descr="mathematical constant π" ref_view="object">
       <xi:include href="math.pi~.pddoc" parse="xml"/>
     </entry>
     <entry name="math.polyeval" descr="evaluates the polynomial described by the coefficients list" ref_view="object">

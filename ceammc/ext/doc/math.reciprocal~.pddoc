@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">calculate reciprocal number for signals</tr>
+                <tr lang="ru">вычислить обратное значение для сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

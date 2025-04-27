@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">exponent of a complex signals</tr>
+                <tr lang="ru">комплексная экспонента для сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

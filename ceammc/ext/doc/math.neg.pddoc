@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">negate function</tr>
+                <tr lang="ru" finished="false">отрицательная функция</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

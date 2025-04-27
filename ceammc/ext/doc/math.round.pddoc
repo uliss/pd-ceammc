@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">round to integral value, regardless of rounding direction</tr>
+                <tr lang="ru">округление до ближайшего целого значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

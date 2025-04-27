@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Not a Number, unrepresentable value</tr>
+                <tr lang="ru">Не число, непредставимое значение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

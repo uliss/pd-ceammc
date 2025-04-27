@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">base-e exponential for signal</tr>
+                <tr lang="en">base-e exponential function for signals</tr>
+                <tr lang="ru">экспоненциальная функция для сигналов на основе числа e</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

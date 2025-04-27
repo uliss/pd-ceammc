@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">operation OR for multiple arguments</tr>
+                <tr lang="ru">операция ИЛИ для множества аргументов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

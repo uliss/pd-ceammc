@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 654 50 cnv 1 111 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 654 50 dynamic [expr];
+#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 514 50 dynamic version of [expr] object;
 #X obj 1 1 cnv 5 765 40 empty empty math.expr 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.expr;

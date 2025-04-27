@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">cube root function for signals</tr>
+                <tr lang="ru">кубический корень для сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

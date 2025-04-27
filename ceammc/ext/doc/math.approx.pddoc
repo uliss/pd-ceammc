@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">check if input value approximately equal to pattern</tr>
+                <tr lang="en">checks if the input value is approximately equal to the pattern</tr>
+                <tr lang="ru">проверить, если входное значение приблизительно равно образцу</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

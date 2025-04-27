@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 361 50 infinity value that cannot be represented accurately;
+#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 384 50 выводит бесконечное значение в стандарте IEEE 754;
 #X obj 1 1 cnv 5 765 40 empty empty math.inf 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 math.inf;
@@ -14,17 +14,18 @@ accurately.;
 -1;
 #X obj 50 217 math.inf;
 #X floatatom 50 246 5 0 0 0 - - -;
-#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 283 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 275 math.inf-math;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 284 1\.;
-#X text 150 284 *bang*;
-#X text 245 284 outputs *inf* value.;
-#X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 331 1\.;
+#X text 150 331 *bang*;
+#X text 245 331 outputs *inf* value.;
+#X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 366 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 320 1\.;
-#X text 245 320 output value.;
+#X text 110 367 1\.;
+#X text 245 367 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

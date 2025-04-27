@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 316 50 cnv 1 449 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 316 50 round to smallest integral value not less than input
-value;
+#X obj 307 50 cnv 1 458 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 307 50 округление до наименьшего целого значения \, которое
+не менее входного;
 #X obj 1 1 cnv 5 765 40 empty empty math.ceil~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.ceil~;

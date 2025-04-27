@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 629 50 natural logarithm;
+#X obj 507 50 cnv 1 258 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 507 50 натуральный логарифм для сигналов;
 #X obj 1 1 cnv 5 765 40 empty empty math.log~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 math.log~;

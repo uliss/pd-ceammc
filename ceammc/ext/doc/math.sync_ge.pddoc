@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sync greater equal numbers compare</tr>
+                <tr lang="ru">синхронная проверка на больше или равно</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

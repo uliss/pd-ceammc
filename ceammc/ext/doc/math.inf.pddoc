@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">infinity value that cannot be represented accurately</tr>
+                <tr lang="en">output infinity value in the IEEE 754 standart</tr>
+                <tr lang="ru">выводит бесконечное значение в стандарте IEEE 754</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -37,6 +38,43 @@
 [B]
 |
 [math.inf]
+|
+[F]
+
+[math.inf-math]
+]]>
+            </pdascii>
+            <pdascii id="math">
+<![CDATA[
+/*multiplication*/
+
+[msg.onload]
+|
+[math.inf]
+|     |
+[* 2] [* -2]
+|     |
+[F]   [F]
+
+/*division*/
+
+[msg.onload]
+|
+[math.inf      ]
+|      |       |
+[/ 10] [/ -10] [/ 0]
+|      |       |
+[F]    [F]     [F]
+
+/*compare*/
+
+[msg.onload]
+|
+[math.inf      ]
+|
+[t f f]
+| ^|.
+[== ]
 |
 [F]
 ]]>

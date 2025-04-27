@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">magnitude of a complex signals</tr>
+                <tr lang="ru" finished="false">Значение сложных сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

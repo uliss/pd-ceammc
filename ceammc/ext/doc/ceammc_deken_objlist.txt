@@ -732,191 +732,191 @@ local.int	canvas-scoped named integer variable
 local.list	local named list object
 local.mlist	local named mlist object
 local.set	local named set object
-math.abs	absolute value function
-math.abs~	absolute value function for signals
-math.acos	arc cosine function
-math.acosh	inverse hyperbolic cosine function
-math.acosh~	hyperbolic arc cosine for signals
-math.acos~	arc cosine function for signals
-math.and	operation AND for multiple arguments
-ceammc/and	operation AND for multiple arguments
-and	operation AND for multiple arguments
-math.approx	check if input value approximately equal to pattern
-ceammc/approx	check if input value approximately equal to pattern
-approx	check if input value approximately equal to pattern
-math.asin	arc sine function
-math.asinh	inverse hyperbolic sine function
-math.asinh~	hyperbolic arc sine for signals
-math.asin~	arc sine for signals
-math.atan	arc tangent function
-math.atanh	inverse hyperbolic tangent function
-math.atanh~	hyperbolic arc tangent for signals
-math.atan~	arc tangent for signals
-math.binomial	binomial coefficient calculator
-math.nck	binomial coefficient calculator
+math.abs	absolute value function / абсолютное значение
+math.abs~	absolute value function for signals / функция абсолютного значения для сигналов
+math.acos	arc cosine function / арккосинус
+math.acosh	inverse hyperbolic cosine function / обратный гиперболический косинус
+math.acosh~	hyperbolic arc cosine for signals / обратный гиперболический косинус для сигналов
+math.acos~	arc cosine function for signals / арккосинус для сигналов
+math.and	operation AND for multiple arguments / операция И для множества аргументов
+ceammc/and	operation AND for multiple arguments / операция И для множества аргументов
+and	operation AND for multiple arguments / операция И для множества аргументов
+math.approx	checks if the input value is approximately equal to the pattern / проверить, если входное значение приблизительно равно образцу
+ceammc/approx	checks if the input value is approximately equal to the pattern / проверить, если входное значение приблизительно равно образцу
+approx	checks if the input value is approximately equal to the pattern / проверить, если входное значение приблизительно равно образцу
+math.asin	arc sine function / арксинус
+math.asinh	inverse hyperbolic sine function / обратный гиперболический синус
+math.asinh~	hyperbolic arc sine for signals / обратный гиперболической синус для сигналов
+math.asin~	arc sine for signals / арксинус для сигналов
+math.atan	arc tangent function / арктангенс
+math.atanh	inverse hyperbolic tangent function / обратный гиперболический тангенс
+math.atanh~	hyperbolic arc tangent for signals / обратный гиперболический тангенс для сигналов
+math.atan~	arc tangent for signals / арктангенс для сигналов
+math.binomial	binomial coefficient calculator / калькулятор биномиальных коэффициентов
+math.nck	binomial coefficient calculator / калькулятор биномиальных коэффициентов
 math.cabs~	magnitude of a complex signals
 ceammc/cabs~	magnitude of a complex signals
 cabs~	magnitude of a complex signals
-math.carg~	phase angle of a complex signals
-ceammc/carg~	phase angle of a complex signals
-carg~	phase angle of a complex signals
-math.cbrt	cube root function
-math.cbrt~	cube root function for signals
-math.cdiv~	division of complex signals
-ceammc/cdiv~	division of complex signals
-cdiv~	division of complex signals
-math.ceil	round to smallest integral value not less than input value
-math.ceil~	round to smallest integral value not less than input value
-math.cexp~	exponent of a complex signals
-ceammc/cexp~	exponent of a complex signals
-cexp~	exponent of a complex signals
-math.cmul~	multiplication of complex signals
-ceammc/cmul~	multiplication of complex signals
-cmul~	multiplication of complex signals
-math.cos	cosine function
-math.cosh	hyperbolic cosine function
-math.cosh~	hyperbolic cosine for signals
-math.cos~	cosine function
-math.div	division (on lists too)
-math./	division (on lists too)
-math.e	mathematical constant, base of the natural logarithm
+math.carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
+ceammc/carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
+carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
+math.cbrt	cube root function / кубический корень
+math.cbrt~	cube root function for signals / кубический корень для сигналов
+math.cdiv~	division of complex signals / деление комплексных сигналов
+ceammc/cdiv~	division of complex signals / деление комплексных сигналов
+cdiv~	division of complex signals / деление комплексных сигналов
+math.ceil	round to the smallest integral value not less than input value / округление до наименьшего целого значения, которое не меньше входного
+math.ceil~	round to smallest integral value not less than input value / округление до наименьшего целого значения, которое не менее входного
+math.cexp~	exponent of a complex signals / комплексная экспонента для сигналов
+ceammc/cexp~	exponent of a complex signals / комплексная экспонента для сигналов
+cexp~	exponent of a complex signals / комплексная экспонента для сигналов
+math.cmul~	multiplication of complex signals / умножение комплексных сигналов
+ceammc/cmul~	multiplication of complex signals / умножение комплексных сигналов
+cmul~	multiplication of complex signals / умножение комплексных сигналов
+math.cos	cosine function / функция косинуса
+math.cosh	hyperbolic cosine function / гиперболический косинус
+math.cosh~	hyperbolic cosine for signals / гиперболический косинус для сигналов
+math.cos~	cosine function / функция косинуса
+math.div	division / деление
+math./	division / деление
+math.e	mathematical constant, base of the natural logarithm / математическая константа, основание натурального логарифма
 math.erf	error function
 math.erf~	error function for signals
-math.exp	exponential functions
-math.exp2	exponential functions
-math.exp2~	base-2 exponential for signal
-math.expr	dynamic [expr]
-math.exp~	base-e exponential for signal
-math.floor	round to largest integral value not greater than x
-math.floor~	round to largest integral value not greater than x
-math.gamma	gamma function
-math.gamma~	gamma function for floating point signals
-math.gcd	calculate greatest common divisor
-math.inf	infinity value that cannot be represented accurately
-math.inf~	inifinity signal generator
-math.lcm	calculate least common multiple
-math.lgamma	natural logarithm of the absolute value of the gamma function
-math.lgamma~	natural logarithm of the absolute value of the gamma function for signals
-math.log	natural logarithm
-math.log10	logarithm functions
-math.log10~	natural logarithm
-math.log2	logarithm functions
-math.log2~	base-2 logarithm
-math.log~	natural logarithm
-math.mul	multiplication (on lists too)
-math.*	multiplication (on lists too)
-math.nan	Not a Number, unrepresentable value
-math.nan~	signal NaN
+math.exp	base-e exponential function / экспоненциальная функция на основе числа e
+math.exp2	base-2 exponential function / экспоненциальная функция на основе 2
+math.exp2~	base-2 exponential for signal / экспоненциальная функция на основе 2 для сигналов
+math.expr	dynamic version of [expr] object / динамическая версия объекта [expr]
+math.exp~	base-e exponential function for signals / экспоненциальная функция для сигналов на основе числа e
+math.floor	round to largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входное значение
+math.floor~	round to largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входного значения
+math.gamma	gamma function / гамма функция
+math.gamma~	gamma function fot signals / гамма-функция для сигналов
+math.gcd	calculate greatest common divisor / вычисляет наибольший общий делитель
+math.inf	output infinity value in the IEEE 754 standart / выводит бесконечное значение в стандарте IEEE 754
+math.inf~	output infinity value in the IEEE 754 standart / выводит бесконечное значение в стандарте IEEE 754
+math.lcm	calculates least common multiple / вычисляет наименьшее общее кратное
+math.lgamma	natural logarithm of the absolute value of the gamma function / натуральный логарифм абсолютного значения гамма-функции
+math.lgamma~	natural logarithm of the absolute value of the gamma function for signals / натуральный логарифм абсолютного значения гамма-функции для сигналов
+math.log	natural logarithm / натуральный логарифм
+math.log10	base-10 logarithm / логарифм по основанию 10
+math.log10~	base-10 logarithm / логарифм по основанию 10
+math.log2	base-2 logarithm / логарифм по основанию 2
+math.log2~	base-2 logarithm for signals / логарифм по основанию 2 для сигналов
+math.log~	natural logarithm for signals / натуральный логарифм для сигналов
+math.mul	multiplication / умножение
+math.*	multiplication / умножение
+math.nan	Not a Number, unrepresentable value / Не число, непредставимое значение
+math.nan~	NaN signal / сигнал NaNN
 math.neg	negate function
 ceammc/-x	negate function
 -x	negate function
-math.or	operation OR for multiple arguments
-ceammc/or	operation OR for multiple arguments
-or	operation OR for multiple arguments
-math.pi	mathematical constant
-ceammc/pi	mathematical constant
-pi	mathematical constant
-math.pi~	mathematical constant
-ceammc/pi~	mathematical constant
-pi~	mathematical constant
-math.polyeval	evaluates the polynomial described by the coefficients list
-math.reciprocal	calculate reciprocal number
-ceammc/1/x	calculate reciprocal number
-1/x	calculate reciprocal number
-math.reciprocal~	calculate reciprocal number for signals
-ceammc/1/x~	calculate reciprocal number for signals
-1/x~	calculate reciprocal number for signals
-math.round	round to integral value, regardless of rounding direction
-round	round to integral value, regardless of rounding direction
-ceammc/round	round to integral value, regardless of rounding direction
-math.round~	signal round
-round~	signal round
-ceammc/round~	signal round
+math.or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
+ceammc/or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
+or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
+math.pi	mathematical constant π / математическая константа π
+ceammc/pi	mathematical constant π / математическая константа π
+pi	mathematical constant π / математическая константа π
+math.pi~	mathematical constant π / математическая константа π
+ceammc/pi~	mathematical constant π / математическая константа π
+pi~	mathematical constant π / математическая константа π
+math.polyeval	evaluates the polynomial described by the coefficients list / вычисляет многочлен, описанный списком коэффициентов
+math.reciprocal	calculate reciprocal number / вычислить обратное значение
+ceammc/1/x	calculate reciprocal number / вычислить обратное значение
+1/x	calculate reciprocal number / вычислить обратное значение
+math.reciprocal~	calculate reciprocal number for signals / вычислить обратное значение для сигналов
+ceammc/1/x~	calculate reciprocal number for signals / вычислить обратное значение для сигналов
+1/x~	calculate reciprocal number for signals / вычислить обратное значение для сигналов
+math.round	round to integral value, regardless of rounding direction / округление до ближайшего целого значения
+round	round to integral value, regardless of rounding direction / округление до ближайшего целого значения
+ceammc/round	round to integral value, regardless of rounding direction / округление до ближайшего целого значения
+math.round~	signal round / округление сигнала до ближайшего целого значения
+round~	signal round / округление сигнала до ближайшего целого значения
+ceammc/round~	signal round / округление сигнала до ближайшего целого значения
 math.sign	sign function
-math.sin	sine function
-math.sinh	hyperbolic sine function
-math.sinh~	hyperbolic sine for signals
-math.sin~	sine function
-math.sqrt	square root function
-math.sqrt~	square root for signal
-math.squared	value square
-math.^2	value square
-ceammc/^2	value square
-^2	value square
-math.squared~	signal value square
-math.^2~	signal value square
-ceammc/^2~	signal value square
-^2~	signal value square
-math.sync_add	sync addition
-math.+'	sync addition
-ceammc/+'	sync addition
-+'	sync addition
-math.sync_and	sync logical AND operation
-math.&&'	sync logical AND operation
-ceammc/&&'	sync logical AND operation
-&&'	sync logical AND operation
-math.sync_div	sync division
-math./'	sync division
-ceammc//'	sync division
-/'	sync division
-math.sync_eq	sync equal numbers check
-math.=='	sync equal numbers check
-ceammc/=='	sync equal numbers check
-=='	sync equal numbers check
-math.sync_ge	sync greater equal numbers compare
-math.>='	sync greater equal numbers compare
-ceammc/>='	sync greater equal numbers compare
->='	sync greater equal numbers compare
-math.sync_gt	sync greater then numbers compare
-math.>'	sync greater then numbers compare
-ceammc/>'	sync greater then numbers compare
->'	sync greater then numbers compare
-math.sync_le	sync less equal numbers compare
-math.<='	sync less equal numbers compare
-ceammc/<='	sync less equal numbers compare
-<='	sync less equal numbers compare
-math.sync_lshift	sync signed bit left shift
-math.<<'	sync signed bit left shift
-ceammc/<<'	sync signed bit left shift
-<<'	sync signed bit left shift
-math.sync_lt	sync less then numbers compare
-math.<'	sync less then numbers compare
-ceammc/<'	sync less then numbers compare
-<'	sync less then numbers compare
-math.sync_mod	sync remainder of modulo division (float or integer)
-math.%'	sync remainder of modulo division (float or integer)
-ceammc/%'	sync remainder of modulo division (float or integer)
-%'	sync remainder of modulo division (float or integer)
-math.sync_mul	sync multiplication
-math.*'	sync multiplication
-ceammc/*'	sync multiplication
-*'	sync multiplication
-math.sync_ne	sync numbers for not equality
-math.!='	sync numbers for not equality
-ceammc/!='	sync numbers for not equality
-!='	sync numbers for not equality
-math.sync_or	sync logical OR operation
-math.||'	sync logical OR operation
-ceammc/||'	sync logical OR operation
-||'	sync logical OR operation
-math.sync_rshift	sync signed bit right shift
-math.>>'	sync signed bit right shift
-ceammc/>>'	sync signed bit right shift
->>'	sync signed bit right shift
-math.sync_sub	sync subtraction
-math.-'	sync subtraction
-ceammc/-'	sync subtraction
--'	sync subtraction
-math.sync_xor	sync logical XOR operation
-math.^'	sync logical XOR operation
-ceammc/^'	sync logical XOR operation
-^'	sync logical XOR operation
-math.tan	tangent function
-math.tanh	hyperbolic tangent function
-math.tanh~	hyperbolic tangent for signals
-math.tan~	tangent function
-math.trunc	truncate to integer value
-math.trunc~	truncate to integer value
+math.sin	sine function / функция синуса
+math.sinh	hyperbolic sine function / гиперболическая функция синуса
+math.sinh~	hyperbolic sine for signals / гиперболический синус для сигналов
+math.sin~	sine function / функция синуса
+math.sqrt	square root function / функция квадратного корня
+math.sqrt~	square root for signal / квадратный корень для сигнала
+math.squared	value square / возведение в квадрат
+math.^2	value square / возведение в квадрат
+ceammc/^2	value square / возведение в квадрат
+^2	value square / возведение в квадрат
+math.squared~	signal value square / возведение в квадрат
+math.^2~	signal value square / возведение в квадрат
+ceammc/^2~	signal value square / возведение в квадрат
+^2~	signal value square / возведение в квадрат
+math.sync_add	sync addition / синхронное сложение
+math.+'	sync addition / синхронное сложение
+ceammc/+'	sync addition / синхронное сложение
++'	sync addition / синхронное сложение
+math.sync_and	sync logical AND operation / синхронное логическое И
+math.&&'	sync logical AND operation / синхронное логическое И
+ceammc/&&'	sync logical AND operation / синхронное логическое И
+&&'	sync logical AND operation / синхронное логическое И
+math.sync_div	sync division / синхронное деление
+math./'	sync division / синхронное деление
+ceammc//'	sync division / синхронное деление
+/'	sync division / синхронное деление
+math.sync_eq	sync equal numbers check / синхронная проверка на равенство
+math.=='	sync equal numbers check / синхронная проверка на равенство
+ceammc/=='	sync equal numbers check / синхронная проверка на равенство
+=='	sync equal numbers check / синхронная проверка на равенство
+math.sync_ge	sync greater equal numbers compare / синхронная проверка на больше или равно
+math.>='	sync greater equal numbers compare / синхронная проверка на больше или равно
+ceammc/>='	sync greater equal numbers compare / синхронная проверка на больше или равно
+>='	sync greater equal numbers compare / синхронная проверка на больше или равно
+math.sync_gt	sync greater then numbers compare / синхронная проверка на большее значение
+math.>'	sync greater then numbers compare / синхронная проверка на большее значение
+ceammc/>'	sync greater then numbers compare / синхронная проверка на большее значение
+>'	sync greater then numbers compare / синхронная проверка на большее значение
+math.sync_le	sync less equal numbers compare / синхронная проверка на меньше или равно
+math.<='	sync less equal numbers compare / синхронная проверка на меньше или равно
+ceammc/<='	sync less equal numbers compare / синхронная проверка на меньше или равно
+<='	sync less equal numbers compare / синхронная проверка на меньше или равно
+math.sync_lshift	sync signed bit left shift / синхронный битовый сдвиг налево
+math.<<'	sync signed bit left shift / синхронный битовый сдвиг налево
+ceammc/<<'	sync signed bit left shift / синхронный битовый сдвиг налево
+<<'	sync signed bit left shift / синхронный битовый сдвиг налево
+math.sync_lt	sync less then numbers compare / синхронная проверка на меньшее значение
+math.<'	sync less then numbers compare / синхронная проверка на меньшее значение
+ceammc/<'	sync less then numbers compare / синхронная проверка на меньшее значение
+<'	sync less then numbers compare / синхронная проверка на меньшее значение
+math.sync_mod	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+math.%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+ceammc/%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+math.sync_mul	sync multiplication / синхронное умножение
+math.*'	sync multiplication / синхронное умножение
+ceammc/*'	sync multiplication / синхронное умножение
+*'	sync multiplication / синхронное умножение
+math.sync_ne	sync numbers for not equality / синхронная проверка на неравенство
+math.!='	sync numbers for not equality / синхронная проверка на неравенство
+ceammc/!='	sync numbers for not equality / синхронная проверка на неравенство
+!='	sync numbers for not equality / синхронная проверка на неравенство
+math.sync_or	sync logical OR operation / синхронная логическая операция И
+math.||'	sync logical OR operation / синхронная логическая операция И
+ceammc/||'	sync logical OR operation / синхронная логическая операция И
+||'	sync logical OR operation / синхронная логическая операция И
+math.sync_rshift	sync signed bit right shift / синхронный битовый сдвиг вправо
+math.>>'	sync signed bit right shift / синхронный битовый сдвиг вправо
+ceammc/>>'	sync signed bit right shift / синхронный битовый сдвиг вправо
+>>'	sync signed bit right shift / синхронный битовый сдвиг вправо
+math.sync_sub	sync subtraction / синхронное вычитание
+math.-'	sync subtraction / синхронное вычитание
+ceammc/-'	sync subtraction / синхронное вычитание
+-'	sync subtraction / синхронное вычитание
+math.sync_xor	sync logical XOR operation / логическая операция исключающее ИЛИ
+math.^'	sync logical XOR operation / логическая операция исключающее ИЛИ
+ceammc/^'	sync logical XOR operation / логическая операция исключающее ИЛИ
+^'	sync logical XOR operation / логическая операция исключающее ИЛИ
+math.tan	tangent function / тангенс
+math.tanh	hyperbolic tangent function / гиперболический тангенс
+math.tanh~	hyperbolic tangent for signals / гиперболический тангенс для сигналов
+math.tan~	tangent function / тангенс
+math.trunc	truncate to integer value / усечение до целочисленного значения
+math.trunc~	truncate to integer value / усечение до целочисленного значения
 midi.arp	MIDI arpeggiator / MIDI арпеджиатор
 midi.cc	enhanced version of vanilla [ctlin] / усовершенствованная версия [ctlin]
 midi.clock	MIDI-clock
