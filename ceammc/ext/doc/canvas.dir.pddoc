@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">current canvas directory and nesting level</tr>
+                <tr lang="en">outputs the current canvas directory of the object and nesting level</tr>
+                <tr lang="ru">выводит директорию холста у объекта и его уровень вложенности</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

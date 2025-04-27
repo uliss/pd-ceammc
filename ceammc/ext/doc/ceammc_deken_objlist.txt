@@ -1033,13 +1033,13 @@ osc.sinfb~	sine oscilator with feedback / синусоидальный осци�
 osc.sin~	sine wave oscillator / синусоидальный осциллятор
 osc.square~	bandlimited square wave oscillator / осциллятор квадратной волны с ограниченным спектром
 osc.tri~	bandlimited triangle wave oscillator / осциллятор треугольной волны с ограниченным спектром
-canvas.active	checks if canvas window is on top and active
-ceammc/canvas.active	checks if canvas window is on top and active
-canvas.current	verbose information about current canvas
-canvas.dir	current canvas directory and nesting level
-canvas.name	current canvas name
-canvas.path	current canvas fullpath
-canvas.top	verbose information about top-level canvas
+canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
+ceammc/canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
+canvas.current	get the information about the current canvas of the object / получение информации о текущем холста объекта
+canvas.dir	outputs the current canvas directory of the object and nesting level / выводит директорию холста у объекта и его уровень вложенности
+canvas.name	output the current canvas name of the object / выводит имя текущего холста у объекта
+canvas.path	output the current canvas filesystem fullpath of the object / выводит полный путь холста в файловой системе у объекта
+canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня у объекта
 patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча

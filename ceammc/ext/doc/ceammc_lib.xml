@@ -1946,22 +1946,22 @@
     <xi:include href="ceammc_category_osc.xml" parse="xml"/>
   </category>
   <category name="patch">
-    <entry name="canvas.active" descr="checks if canvas window is on top and active" ref_view="object">
+    <entry name="canvas.active" descr="checks if the canvas of the object is on the top and active" ref_view="object">
       <xi:include href="canvas.active.pddoc" parse="xml"/>
     </entry>
-    <entry name="canvas.current" descr="verbose information about current canvas" ref_view="object">
+    <entry name="canvas.current" descr="get the information about the current canvas of the object" ref_view="object">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
-    <entry name="canvas.dir" descr="current canvas directory and nesting level" ref_view="object">
+    <entry name="canvas.dir" descr="outputs the current canvas directory of the object and nesting level" ref_view="object">
       <xi:include href="canvas.dir.pddoc" parse="xml"/>
     </entry>
-    <entry name="canvas.name" descr="current canvas name" ref_view="object">
+    <entry name="canvas.name" descr="output the current canvas name of the object" ref_view="object">
       <xi:include href="canvas.name.pddoc" parse="xml"/>
     </entry>
-    <entry name="canvas.path" descr="current canvas fullpath" ref_view="object">
+    <entry name="canvas.path" descr="output the current canvas filesystem fullpath of the object" ref_view="object">
       <xi:include href="canvas.path.pddoc" parse="xml"/>
     </entry>
-    <entry name="canvas.top" descr="verbose information about top-level canvas" ref_view="object">
+    <entry name="canvas.top" descr="verbose information about top-level canvas of the object" ref_view="object">
       <xi:include href="canvas.top.pddoc" parse="xml"/>
     </entry>
     <entry name="patch.args" descr="get patch or subpatch initial arguments" ref_view="object">

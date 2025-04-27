@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">verbose information about current canvas</tr>
+                <tr lang="en">get the information about the current canvas of the object</tr>
+                <tr lang="ru">получение информации о текущем холста объекта</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
