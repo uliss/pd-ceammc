@@ -11,7 +11,7 @@ array.circular	read/write to the array as circular buffer / чтение/зап�
 array.circular~	read/write the signal into the array like in a circular buffer / чтение/запись сигнала в массив, как в кольцевой буфер
 array.convolve	FFT convolution of the array / FFT свертка массива
 array.copy	copy samples from the one array to another / копирование семплов из одного массива в другой
-array.do	iterate and modify the array content via the side-chain / обход и модифиция содержимого массива через боковую цепь
+array.do	iterate and modify the array content via the side-chain / обход и модификация содержимого массива через боковую цепь
 array.each	process each array elements via side-chain / обработка каждого элемента массива через боковую цепь
 array.fill	fill the array with the single value, pattern or function / заполнение массива одним значением, шаблоном или функцией
 array.grainer~	array granulator / гранулятор звуковой таблицы
@@ -23,7 +23,7 @@ array.minmax	find minimal and max values in the array / поиск минима�
 array.play~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
 array.p~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
 array.plot	array data plotter / построение числовых графиков данных на массиве
-array.plot~	plot the signal on the specified array / постороение графика сигнала на заданном массиве
+array.plot~	plot the signal on the specified array / построение графика сигнала на заданном массиве
 array.readwrite~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
 array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
 array.resample	resampling the array / пересемплирование массива
@@ -33,7 +33,7 @@ array.set	set the array content from the list data / устанавливает 
 ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
 list->array	set the array content from the list data / устанавливает содержание массива данными из списка
 array.stddev	calculates standard deviation for array values / вычисляет стандартное отклонение для значений массива
-array.stretch	the array time-stretch, pitch-shift or rate-change / растяжение во времени, изменени высоты тона или скорости у массива
+array.stretch	the array time-stretch, pitch-shift or rate-change / растяжение во времени, изменение высоты тона или скорости у массива
 array.sum	calculates sum of array elements / вычисляет сумму элементов массива
 array.sum2	calculates sum of squares of array elements / вычисляет сумму квадратов элементов массива
 array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейного индекса для массива
@@ -136,9 +136,9 @@ bits->bang	convert list of bits to bang events / конвертирует спи
 conv.bits2int	convert list of bits to integer / преобразовать список битов в целое число
 ceammc/bits->int	convert list of bits to integer / преобразовать список битов в целое число
 bits->int	convert list of bits to integer / преобразовать список битов в целое число
-conv.bits2note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажания
-ceammc/bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажания
-bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажания
+conv.bits2note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
+ceammc/bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
+bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
 conv.bits2pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
 ceammc/bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
 bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
@@ -328,7 +328,7 @@ dict.size	output the dictionary size (number of key/value pairs) / выводи�
 dict.to_list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
 ceammc/dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
 dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
-dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневнего списка (MList)
+dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневого списка (MList)
 global.bimap	global bidirectional map / глобальное двунаправленное отображение
 local.bimap	local to patch bidirectional map container
 mlist.flatten	flatten nested mlist
@@ -369,7 +369,7 @@ env.mix	mix between two envelopes that contain the equal number of segments / м
 env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и отпусканием
 env.tscale	envelope timescale / растяжение огибающей во времени
 env.tshift	envelope time-shift (horizontal) / сдвиг огибающей по времени (по горизонтали)
-env.vscale	envelope amplitude value-scale / изменение амплитуды огибующей
+env.vscale	envelope amplitude value-scale / изменение амплитуды огибающей
 env2array	renders the envelope into the array / рендеринг огибающей в массив
 ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
 ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив
@@ -418,8 +418,8 @@ flow.>=	numeric stream router by 'greater or equal' condition / маршрути
 flow.group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
 ceammc/group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
 group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
-flow.histogram	histogram for numeric control flow / гисторамма для числового потока управления
-flow.hist	histogram for numeric control flow / гисторамма для числового потока управления
+flow.histogram	histogram for numeric control flow / гистограмма для числового потока управления
+flow.hist	histogram for numeric control flow / гистограмма для числового потока управления
 flow.interval	measure the time between messages / измерение времени между сообщениями
 flow.less	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
 flow.<	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
@@ -629,13 +629,13 @@ hw.serial	serial port device
 lang.faust~	faust realtime compilation
 lang.lua	Lua JIT language bindings
 ui.faust~	Faust DSP programming language widget / виджет языка программирования Faust
-lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитудны в дипазоне [0,+1]
+lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитуды в диапазоне [0,+1]
 lfo.+saw~	positive unit-amplitude low frequency saw wave / низкочастотная пилообразная волна в диапазоне [0,+1]
 lfo.+square~	positive low frequency square wave / низкочастотная квадратная волна единичной амплитуды в диапазоне [0,+1]
 lfo.+tri~	positive unit-amplitude low frequency triangle wave / низкочастотная треугольная волна единичной амплитуды в диапазоне [0,+1)
 lfo.impulse~	unit-amplitude low-frequency impulse train / низкочастотный импульсный осциллятор единичной амплитуды
 lfo.mosc~	multi-oscillator with various waveforms / мультиосциллятор с различными формами волн
-lfo.pulse~	full-range unit-amplitude low frequency pulse train / прямоугольная низкочастотная волна единичной амплитудны в дипазоне [-1,+1]
+lfo.pulse~	full-range unit-amplitude low frequency pulse train / прямоугольная низкочастотная волна единичной амплитуды в диапазоне [-1,+1]
 lfo.saw~	full-range unit-amplitude low frequency saw / низкочастотная пилообразная волна в диапазоне [-1,+1]
 lfo.square~	zero-mean unit-amplitude low frequency square wave / низкочастотная квадратная волна единичной амплитуды с нулевым средним значением
 lfo.tri~	zero-mean unit-amplitude low frequency triangle wave / низкочастотная треугольная волна единичной амплитуды с нулевым средним значением
@@ -789,7 +789,7 @@ math.expr	dynamic version of [expr] object / динамическая верси
 math.exp~	base-e exponential function for signals / экспоненциальная функция для сигналов на основе числа e
 math.floor	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входное значение
 math.floor~	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входного значения
-math.gamma	gamma function / гамма функция
+math.gamma	gamma function / гамма-функция
 math.gamma~	gamma function for signals / гамма-функция для сигналов
 math.gcd	calculate the greatest common divisor / вычисляет наибольший общий делитель
 math.inf	output infinity value in the IEEE 754 standard / выводит бесконечное значение в стандарте IEEE 754
@@ -1068,7 +1068,7 @@ is_file	checks if the file exists and accessible / проверка сущест
 ceammc/is_file	checks if the file exists and accessible / проверка существования и доступности файла
 is_float	checks if the input message is a *float* / проверка, является ли входное сообщение числом с плавающей точкой
 is_list	checks if the input message is a *list* / проверка, является ли входное сообщение списком
-is_odd	input number oddity check / проверка входного числа на нечётност
+is_odd	input number oddity check / проверка входного числа на нечётность
 is_pointer	checks if input message is a *pointer* / проверка, является ли входное сообщение указателем
 is_prop	checks if the input message is a *property* message / проверка, является ли входное сообщение *свойством*
 is_symbol	checks if input message is a *symbol* / проверка, является ли входное сообщение *символом*
@@ -1212,8 +1212,8 @@ ceammc/str	constructs the string / создание строки
 str	constructs the string / создание строки
 string.contains	checks if the string contains specified substring / проверяет, содержит ли строка указанную подстроку
 str.contains	checks if the string contains specified substring / проверяет, содержит ли строка указанную подстроку
-string.ends_with	checks if the string ends with the specified substring / проверяет, заканчивается ли строка указанной подстрочкой
-str.ends_with	checks if the string ends with the specified substring / проверяет, заканчивается ли строка указанной подстрочкой
+string.ends_with	checks if the string ends with the specified substring / проверяет, заканчивается ли строка указанной подстрокой
+str.ends_with	checks if the string ends with the specified substring / проверяет, заканчивается ли строка указанной подстрокой
 string.equal	check strings or symbols for equality / проверка строк или символов на равенство
 str.equal	check strings or symbols for equality / проверка строк или символов на равенство
 string.format	formats a string like printf function / форматирует строки в стиле функции printf

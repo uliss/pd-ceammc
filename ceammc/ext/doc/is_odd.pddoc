@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">input number oddity check</tr>
-                <tr lang="ru">проверка входного числа на нечётност</tr>
+                <tr lang="ru">проверка входного числа на нечётность</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

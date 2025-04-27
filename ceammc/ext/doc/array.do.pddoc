@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">iterate and modify the array content via the side-chain</tr>
-                <tr lang="ru">обход и модифиция содержимого массива через боковую цепь</tr>
+                <tr lang="ru">обход и модификация содержимого массива через боковую цепь</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

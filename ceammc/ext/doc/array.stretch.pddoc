@@ -9,7 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">the array time-stretch, pitch-shift or rate-change</tr>
-                <tr lang="ru">растяжение во времени, изменени высоты тона или скорости у
+                <tr lang="ru">растяжение во времени, изменение высоты тона или скорости у
                 массива</tr>
             </description>
             <license>GPL3 or later</license>
