@@ -92,6 +92,10 @@ namespace faust {
         const UIEnumList& enumData() const { return enum_data_; }
         void setEnumData(UIEnumList&& data) { enum_data_ = std::move(data); }
 
+        void setMin(float f);
+        void setMax(float f);
+        void setMinMax(float min, float max);
+
     private:
         void initProperty();
     };
@@ -112,6 +116,8 @@ namespace faust {
             UPDATE_UNITS = 1 << 1,
             UPDATE_STYLE = 1 << 2,
             UPDATE_ENUM = 1 << 3,
+            UPDATE_MIN = 1 << 4,
+            UPDATE_MAX = 1 << 5,
         };
 
         const FAUSTFLOAT* value_ { 0 };
@@ -119,6 +125,8 @@ namespace faust {
         PropValueUnits units_ { PropValueUnits::NONE };
         std::uint8_t update_flags_ { UPDATE_NONE };
         UIEnumList enum_;
+        float min_ { 0 };
+        float max_ { 0 };
 
     public:
         void reset();
@@ -127,6 +135,8 @@ namespace faust {
         void setType(PropValueType t);
         void setUnits(PropValueUnits u);
         void setStyle(const char* str);
+        void setMin(const char* str);
+        void setMax(const char* str);
         const void* value() const { return value_; }
     };
 

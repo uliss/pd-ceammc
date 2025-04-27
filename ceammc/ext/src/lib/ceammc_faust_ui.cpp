@@ -223,6 +223,35 @@ void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, F
     }
 }
 
+void UIElement::setMin(float f)
+{
+    if (!pinfo_.setConstraints(PropValueConstraints::GREATER_EQUAL) || !pinfo_.setMinFloat(f))
+        LIB_ERR << "can't set min value: " << f;
+
+    if (pinfo_.defaultFloat() < f)
+        pinfo_.setDefault(f);
+}
+
+void UIElement::setMax(float f)
+{
+    if (!pinfo_.setConstraints(PropValueConstraints::LESS_EQUAL) || !pinfo_.setMaxFloat(f))
+        LIB_ERR << "can't set max value: " << f;
+
+    if (pinfo_.defaultFloat() > f)
+        pinfo_.setDefault(f);
+}
+
+void UIElement::setMinMax(float min, float max)
+{
+    if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE) || !pinfo_.setRangeFloat(min, max))
+        LIB_ERR << "can't set minmax value: " << min << ' ' << max;
+
+    if (pinfo_.defaultFloat() < min)
+        pinfo_.setDefault(min);
+    else if (pinfo_.defaultFloat() > max)
+        pinfo_.setDefault(max);
+}
+
 size_t PdUI::uiCount() const { return ui_elements_.size(); }
 
 void PdUI::addSoundfile(const char*, const char*, Soundfile**) { }
@@ -250,6 +279,7 @@ void PdUI::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone)
 
     elem->setValuePtr(zone);
     ui_elements_.push_back(std::move(elem));
+    last_declare_.reset();
 }
 
 void PdUI::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone,
@@ -261,6 +291,7 @@ void PdUI::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone,
     elem->setContraints(init, min, max, step);
     elem->setValuePtr(zone);
     ui_elements_.push_back(std::move(elem));
+    last_declare_.reset();
 }
 
 void PdUI::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone,
@@ -272,6 +303,7 @@ void PdUI::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone,
     elem->setContraints(0.0, min, max, 0.0);
     elem->setValuePtr(zone);
     ui_elements_.push_back(std::move(elem));
+    last_declare_.reset();
 }
 
 void PdUI::addButton(const char* label, FAUSTFLOAT* zone)
@@ -282,6 +314,7 @@ void PdUI::addButton(const char* label, FAUSTFLOAT* zone)
     elem->setContraints(0, 0, 1, 1);
     elem->setValuePtr(zone);
     ui_elements_.push_back(std::move(elem));
+    last_declare_.reset();
 }
 
 void PdUI::addCheckButton(const char* label, FAUSTFLOAT* zone)
@@ -289,9 +322,9 @@ void PdUI::addCheckButton(const char* label, FAUSTFLOAT* zone)
     UIElementPtr elem(new UIElement(UI_CHECK_BUTTON, gensym(label)));
     last_declare_.update(zone, elem);
 
-    elem->setContraints(0, 0, 1, 1);
     elem->setValuePtr(zone);
     ui_elements_.push_back(std::move(elem));
+    last_declare_.reset();
 }
 
 void PdUI::addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
@@ -341,7 +374,6 @@ void PdUI::closeBox()
 
 void PdUI::declare(FAUSTFLOAT* v, const char* name, const char* value)
 {
-    last_declare_.reset();
     last_declare_.setValue(v);
 
     switch (crc32_hash(name)) {
@@ -353,6 +385,12 @@ void PdUI::declare(FAUSTFLOAT* v, const char* name, const char* value)
         break;
     case "style"_hash:
         last_declare_.setStyle(value);
+        break;
+    case "min"_hash:
+        last_declare_.setMin(value);
+        break;
+    case "max"_hash:
+        last_declare_.setMax(value);
         break;
     default:
         break;
@@ -409,6 +447,13 @@ void DeclareValue::update(const FAUSTFLOAT* value, UIElementPtr& e)
 
     if (update_flags_ & UPDATE_ENUM)
         e->setEnumData(std::move(enum_));
+
+    if ((update_flags_ & UPDATE_MIN) && (update_flags_ & UPDATE_MAX))
+        e->setMinMax(min_, max_);
+    else if (update_flags_ & UPDATE_MIN)
+        e->setMin(min_);
+    else if (update_flags_ & UPDATE_MAX)
+        e->setMax(max_);
 }
 
 void DeclareValue::setValue(const FAUSTFLOAT* v)
@@ -443,6 +488,28 @@ void DeclareValue::setStyle(const char* str)
             update_flags_ |= UPDATE_ENUM;
         }
     }
+}
+
+void DeclareValue::setMin(const char* str)
+{
+    char* end = nullptr;
+    min_ = strtof(str, &end);
+
+    if (end != str)
+        update_flags_ |= UPDATE_MIN;
+    else
+        LIB_ERR << "can't set min value: " << str;
+}
+
+void DeclareValue::setMax(const char* str)
+{
+    char* end = nullptr;
+    max_ = strtof(str, &end);
+
+    if (end != str)
+        update_flags_ |= UPDATE_MAX;
+    else
+        LIB_ERR << "can't set min value: " << str;
 }
 
 UIEnumEntry::UIEnumEntry(const char* name)

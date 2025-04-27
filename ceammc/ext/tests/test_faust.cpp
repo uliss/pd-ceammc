@@ -239,4 +239,90 @@ TEST_CASE("Faust", "[ceammc::faust]")
         REQUIRE(to_units("cent") == PropValueUnits::CENT);
         REQUIRE(to_units("semitone") == PropValueUnits::SEMITONE);
     }
+
+    SECTION("checkbutton")
+    {
+        SECTION("bool")
+        {
+            FAUSTFLOAT v = 0;
+            PdUI ui("tgl");
+            ui.declare(&v, "type", "bool");
+            ui.addCheckButton("btn", &v);
+            REQUIRE(ui.elements().size() == 1);
+            REQUIRE(ui.elements().front()->label()->s_name == std::string("btn"));
+            REQUIRE(ui.elements().front()->propInfo().defaultBool() == false);
+            REQUIRE(ui.elements().front()->propInfo().isBool());
+            REQUIRE_FALSE(ui.elements().front()->propInfo().hasConstraintsMin());
+            REQUIRE_FALSE(ui.elements().front()->propInfo().hasConstraintsMax());
+            REQUIRE(ui.elements().front()->propInfo().view() == PropValueView::TOGGLE);
+        }
+
+        SECTION("float")
+        {
+            FAUSTFLOAT v = 0;
+            PdUI ui("tgl");
+            ui.declare(&v, "type", "float");
+            ui.addCheckButton("btn", &v);
+            REQUIRE(ui.elements().size() == 1);
+            REQUIRE(ui.elements().front()->label()->s_name == std::string("btn"));
+            REQUIRE(ui.elements().front()->propInfo().defaultFloat() == 0);
+            REQUIRE(ui.elements().front()->propInfo().isFloat());
+            REQUIRE_FALSE(ui.elements().front()->propInfo().hasConstraintsMin());
+            REQUIRE_FALSE(ui.elements().front()->propInfo().hasConstraintsMax());
+            REQUIRE(ui.elements().front()->propInfo().view() == PropValueView::SLIDER);
+        }
+
+        SECTION("float min")
+        {
+            FAUSTFLOAT v = 0;
+            PdUI ui("tgl");
+            ui.declare(&v, "type", "float");
+            ui.declare(&v, "min", "2.5");
+            ui.addCheckButton("btn", &v);
+            REQUIRE(ui.elements().size() == 1);
+            REQUIRE(ui.elements().front()->label()->s_name == std::string("btn"));
+            REQUIRE(ui.elements().front()->propInfo().defaultFloat() == 2.5);
+            REQUIRE(ui.elements().front()->propInfo().isFloat());
+            REQUIRE(ui.elements().front()->propInfo().hasConstraintsMin());
+            REQUIRE(ui.elements().front()->propInfo().minFloat() == 2.5);
+            REQUIRE_FALSE(ui.elements().front()->propInfo().hasConstraintsMax());
+            REQUIRE(ui.elements().front()->propInfo().view() == PropValueView::SLIDER);
+        }
+
+        SECTION("float max")
+        {
+            FAUSTFLOAT v = 0;
+            PdUI ui("tgl");
+            ui.declare(&v, "type", "float");
+            ui.declare(&v, "max", "-1");
+            ui.addCheckButton("btn", &v);
+            REQUIRE(ui.elements().size() == 1);
+            REQUIRE(ui.elements().front()->label()->s_name == std::string("btn"));
+            REQUIRE(ui.elements().front()->propInfo().defaultFloat() == -1);
+            REQUIRE(ui.elements().front()->propInfo().isFloat());
+            REQUIRE(ui.elements().front()->propInfo().hasConstraintsMax());
+            REQUIRE(ui.elements().front()->propInfo().maxFloat() == -1);
+            REQUIRE_FALSE(ui.elements().front()->propInfo().hasConstraintsMin());
+            REQUIRE(ui.elements().front()->propInfo().view() == PropValueView::SLIDER);
+        }
+
+        SECTION("float minmax")
+        {
+            FAUSTFLOAT v = 0;
+            PdUI ui("tgl");
+            ui.declare(&v, "type", "float");
+            ui.declare(&v, "min", "1");
+            ui.declare(&v, "max", "10");
+            ui.addCheckButton("btn", &v);
+            REQUIRE(ui.elements().size() == 1);
+            REQUIRE(ui.elements().front()->label()->s_name == std::string("btn"));
+            REQUIRE(ui.elements().front()->propInfo().defaultFloat() == 1);
+            REQUIRE(ui.elements().front()->propInfo().isFloat());
+            REQUIRE(ui.elements().front()->propInfo().hasConstraintsMax());
+            REQUIRE(ui.elements().front()->propInfo().hasConstraintsMin());
+            REQUIRE(ui.elements().front()->propInfo().minFloat() == 1);
+            REQUIRE(ui.elements().front()->propInfo().maxFloat() == 10);
+            REQUIRE(ui.elements().front()->propInfo().view() == PropValueView::SLIDER);
+        }
+    }
 }
