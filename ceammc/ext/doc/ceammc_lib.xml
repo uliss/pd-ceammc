@@ -560,7 +560,7 @@
     <entry name="env.concat" descr="envelope concatenation" ref_view="object">
       <xi:include href="env.concat.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.follow~" descr="Envelope follower with independent attack and release times" ref_view="object">
+    <entry name="env.follow~" descr="envelope follower with independent attack and release times" ref_view="object">
       <xi:include href="env.follow~.pddoc" parse="xml"/>
     </entry>
     <entry name="env.mix" descr="mix between two envelopes that contain the equal number of segments" ref_view="object">

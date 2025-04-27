@@ -364,7 +364,7 @@ env.ar~	Attack/Release envelope generator / генератор огибающе�
 env.asr2~	stereo Attack/Sustain/Release envelope generator / стерео генератор огибающей Attack/Sustain/Release
 env.asr~	Attack/Sustain/Release envelope generator / генератор огибающей Attack/Sustain/Release
 env.concat	envelope concatenation / конкатенация огибающих
-env.follow~	Envelope follower with independent attack and release times
+env.follow~	envelope follower with independent attack and release times / детектор огибающей с независимой атакой и временем отпускания
 env.mix	mix between two envelopes that contain the equal number of segments / микс между двумя огибающими, содержащими равное количество сегментов
 env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и отпусканием
 env.tscale	envelope time-scale / растяжение огибающей во времени
