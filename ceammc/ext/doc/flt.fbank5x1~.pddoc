@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">5 band one octave butterworth filterbank</tr>
+                <tr lang="en">5 band one octave Butterworth filterbank</tr>
                 <tr lang="ru">5-полосный банк однооктавных фильтров Баттерворта</tr>
             </description>
             <license>GPL3 or later</license>

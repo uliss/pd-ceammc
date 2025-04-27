@@ -49,7 +49,7 @@ values;
 #X obj 30 689 conv.guido2note;
 #X text 200 689 convert the Guido notation into a MIDI pitch and duration;
 #X obj 30 717 conv.hex2int;
-#X text 200 717 converts hex symbol into a integer value;
+#X text 200 717 converts hex symbol into an integer value;
 #X obj 30 745 conv.hsl2rgb;
 #X text 200 745 convert HSL color values to RGB;
 #X obj 30 773 conv.int2bits;
@@ -72,10 +72,10 @@ values;
 #X text 200 997 converts period in milliseconds to BPM tempo;
 #X obj 30 1025 conv.ms2samp;
 #X text 200 1025 convert time in milliseconds to number of samples
-according to current samplerate;
+according to current sample rate;
 #X obj 30 1065 conv.ms2samp~;
 #X text 200 1065 convert time in milliseconds to number of samples
-according to current samplerate;
+according to current sample rate;
 #X obj 30 1105 conv.ms2str;
 #X text 200 1105 formats time in milliseconds to symbol or string;
 #X obj 30 1133 conv.note2guido;
@@ -95,23 +95,24 @@ according to current samplerate;
 #X obj 30 1329 conv.rgb2hex;
 #X text 200 1329 convert separate RGB values to hex color;
 #X obj 30 1357 conv.samp2ms;
-#X text 200 1357 converts samples to millisecond according samplerate;
+#X text 200 1357 converts samples to millisecond according sample rate;
 #X obj 30 1385 conv.samp2ms~;
-#X text 200 1385 converts samples to milliseconds according to samplerate;
+#X text 200 1385 converts samples to milliseconds according to sample
+rate;
 #X obj 30 1413 conv.samp2sec;
-#X text 200 1413 convert samples to seconds according to samplerate;
+#X text 200 1413 convert samples to seconds according to sample rate;
 #X obj 30 1441 conv.sec2bpm;
 #X text 200 1441 converts period in seconds to frequency in BPM;
 #X obj 30 1469 conv.sec2samp;
 #X text 200 1469 converts time in seconds to number of samples according
-to current samplerate;
+to current sample rate;
 #X obj 30 1509 conv.sec2str;
 #X text 200 1509 formats time in seconds to symbol or string;
 #X obj 30 1537 conv.semi2ratio;
 #X text 200 1537 converts interval in semitones to frequency ratio
 in 12-ET;
 #X obj 30 1565 conv.sig2float~;
-#X text 200 1565 converts audiosignal to control numeric stream;
+#X text 200 1565 converts audio signal to control numeric stream;
 #X obj 30 1593 conv.str2sec;
 #X text 200 1593 converts the formatted time to a float value in seconds;
 #X obj 30 1621 music.dur2time;

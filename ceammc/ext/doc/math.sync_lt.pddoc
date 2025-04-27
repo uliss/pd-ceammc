@@ -7,13 +7,13 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sync less then numbers compare</tr>
+                <tr lang="en">sync less than numbers compare</tr>
                 <tr lang="ru">синхронная проверка на меньшее значение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>math</category>
-            <keywords>math sync less then</keywords>
+            <keywords>math sync less than</keywords>
             <aliases>
                 <alias>math.&lt;'</alias>
                 <alias>ceammc/&lt;'</alias>

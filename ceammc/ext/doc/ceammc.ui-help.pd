@@ -46,7 +46,7 @@ ui.colorpanel-help.pd;
 #X obj 30 595 ui.link @title [ui.link] @url ui.link-help.pd;
 #X text 200 592 hyperlink widget;
 #X obj 30 620 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 200 617 toggel matrix;
+#X text 200 617 toggle matrix;
 #X obj 30 645 ui.link @title [ui.menu] @url ui.menu-help.pd;
 #X text 200 642 dropdown menu;
 #X obj 30 670 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
@@ -55,10 +55,10 @@ ui.colorpanel-help.pd;
 #X text 200 692 incoming MIDI message viewport;
 #X obj 30 720 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 717 filter mouse events from ui objects;
+#X text 200 717 filter mouse events from UI objects;
 #X obj 30 745 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 742 routes mouse events from ui objects;
+#X text 200 742 routes mouse events from UI objects;
 #X obj 30 770 ui.link @title [ui.number] @url ui.number-help.pd;
 #X text 200 767 number box;
 #X obj 30 795 ui.link @title [ui.number~] @url ui.number~-help.pd;

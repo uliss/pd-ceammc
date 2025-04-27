@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sine oscilator with feedback</tr>
+                <tr lang="en">sine oscillator with feedback</tr>
                 <tr lang="ru">синусоидальный осциллятор с обратной связью</tr>
             </description>
             <license>GPL3 or later</license>

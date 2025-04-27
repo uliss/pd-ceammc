@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">array resampler</tr>
+                <tr lang="en">resampling the array</tr>
                 <tr lang="ru">пересемплирование массива</tr>
             </description>
             <license>GPL3 or later</license>

@@ -41,7 +41,7 @@ function;
 #X obj 30 577 array.readwrite~;
 #X text 200 577 simultaneous read/write signals to the array;
 #X obj 30 605 array.resample;
-#X text 200 605 array resampler;
+#X text 200 605 resampling the array;
 #X obj 30 633 array.rms;
 #X text 200 633 calculates the root mean square value for the array;
 #X obj 30 661 array.set;

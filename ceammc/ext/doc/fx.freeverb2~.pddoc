@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">freeverb2 - stereo version of freeverb</tr>
+                <tr lang="en">stereo version of [fx.freeverb~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

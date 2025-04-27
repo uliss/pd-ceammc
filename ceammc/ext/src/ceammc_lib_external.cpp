@@ -14,6 +14,7 @@
 
 #include "ceammc.h"
 #include "ceammc_config.h"
+#include "ceammc_log.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "mod_init.h"
@@ -135,13 +136,26 @@ void ceammc_cords(t_object* x, t_symbol* s)
         sys_vgui("[tkcanvas_name $::focused_window] lower cord\n");
 }
 
+void ceammc_doc_lang(t_object* x, t_symbol* s)
+{
+    using namespace ceammc;
+
+    if (s == gensym("ru")) {
+        pdDebug(nullptr, "set documentation language to Russian");
+        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::Russian);
+    } else {
+        pdDebug(nullptr, "set documentation language to English");
+        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::English);
+    }
+}
+
 void ceammc_tcl_path_init()
 {
     auto extern_dir = class_gethelpdir(ceammc_class);
     if (extern_dir)
         sys_vgui("lappend ::auto_path {%s/tcl}\n", extern_dir);
 }
-}  // namespace
+} // namespace
 
 extern "C" CEAMMC_EXTERN int ceammc_init_done()
 {
@@ -168,6 +182,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         reinterpret_cast<t_method>(ceammc_postscript), gensym("postscript"), A_DEFSYMBOL, 0);
     class_addmethod(ceammc_class,
         reinterpret_cast<t_method>(ceammc_cords), gensym("cords"), A_DEFSYMBOL, 0);
+    class_addmethod(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_doc_lang), gensym("doc"), A_DEFSYMBOL, 0);
 
     auto tcl = getenv("CEAMMC_TCL");
     if (tcl && tcl[0] == '1') {

@@ -5,7 +5,7 @@
 #X obj 535 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 535 50 различные звуковые эффекты;
 #X obj 30 117 fx.bitdown~;
-#X text 200 117 bit downer and downsampler effect;
+#X text 200 117 a bit downer and downsampler effect;
 #X obj 30 145 fx.chorus~;
 #X text 200 145 Chorus effect;
 #X obj 30 173 fx.dattorro~;
@@ -31,9 +31,9 @@
 #X obj 30 453 fx.flanger~;
 #X text 200 453 mono flanging effect;
 #X obj 30 481 fx.freeverb2~;
-#X text 200 481 freeverb2 - stereo version of freeverb;
+#X text 200 481 stereo version of [fx.freeverb~];
 #X obj 30 509 fx.freeverb~;
-#X text 200 509 freeverb - common used open-source reverb;
+#X text 200 509 freeverb - commonly used open-source reverb;
 #X obj 30 537 fx.freqshift~;
 #X text 200 537 frequency shifter or single-sideband ring modulation;
 #X obj 30 565 fx.granulator~;
@@ -65,7 +65,7 @@
 #X obj 30 929 fx.scramble~;
 #X text 200 929 scramble delayed sound fragments;
 #X obj 30 957 fx.shimmer~;
-#X text 200 957 shimmer reverb effect effect;
+#X text 200 957 shimmer reverb effect;
 #X obj 30 985 fx.stutter~;
 #X text 200 985 stutter effect;
 #X obj 30 1013 fx.tapiir~;

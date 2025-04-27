@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert samples to seconds according to samplerate</tr>
+                <tr lang="en">convert samples to seconds according to sample rate</tr>
                 <tr lang="ru">преобразовывает семплы в секунды в соответствии со скоростью
                 семплирования</tr>
             </description>

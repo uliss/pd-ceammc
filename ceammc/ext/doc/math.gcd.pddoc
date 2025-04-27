@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">calculate greatest common divisor</tr>
+                <tr lang="en">calculate the greatest common divisor</tr>
                 <tr lang="ru">вычисляет наибольший общий делитель</tr>
             </description>
             <license>GPL3 or later</license>

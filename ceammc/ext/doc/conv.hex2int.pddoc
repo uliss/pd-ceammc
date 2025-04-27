@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">converts hex symbol into a integer value</tr>
+                <tr lang="en">converts hex symbol into an integer value</tr>
                 <tr lang="ru">конвертирует шестнадцатеричный символ в целочисленное значение</tr>
             </description>
             <license>GPL3 or later</license>

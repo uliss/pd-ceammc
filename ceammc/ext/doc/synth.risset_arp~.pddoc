@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Jean Claude Risset's harmonic arpeggio effect</tr>
+                <tr lang="en">Jean-Claude Risset's harmonic arpeggio effect</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -15,7 +15,7 @@
 #X obj 30 229 osc.saw~;
 #X text 200 229 alias-free sawtooth wave;
 #X obj 30 257 osc.sinfb~;
-#X text 200 257 sine oscilator with feedback;
+#X text 200 257 sine oscillator with feedback;
 #X obj 30 285 osc.sin~;
 #X text 200 285 sine wave oscillator;
 #X obj 30 313 osc.square~;

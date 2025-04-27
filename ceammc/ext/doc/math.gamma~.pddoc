@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">gamma function fot signals</tr>
+                <tr lang="en">gamma function for signals</tr>
                 <tr lang="ru">гамма-функция для сигналов</tr>
             </description>
             <license>GPL3 or later</license>

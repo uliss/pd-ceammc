@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output infinity value in the IEEE 754 standart</tr>
+                <tr lang="en">output infinity value in the IEEE 754 standard</tr>
                 <tr lang="ru">выводит бесконечное значение в стандарте IEEE 754</tr>
             </description>
             <license>GPL3 or later</license>

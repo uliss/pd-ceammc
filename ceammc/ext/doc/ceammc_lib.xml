@@ -73,7 +73,7 @@
     <entry name="array.readwrite~" descr="simultaneous read/write signals to the array" ref_view="object">
       <xi:include href="array.readwrite~.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.resample" descr="array resampler" ref_view="object">
+    <entry name="array.resample" descr="resampling the array" ref_view="object">
       <xi:include href="array.resample.pddoc" parse="xml"/>
     </entry>
     <entry name="array.rms" descr="calculates the root mean square value for the array" ref_view="object">
@@ -133,7 +133,7 @@
     <entry name="chrono.datetime" descr="output current date and time info" ref_view="object">
       <xi:include href="chrono.datetime.pddoc" parse="xml"/>
     </entry>
-    <entry name="convolve~" descr="realtime FFT convolution" ref_view="object">
+    <entry name="convolve~" descr="real-time FFT convolution" ref_view="object">
       <xi:include href="convolve~.pddoc" parse="xml"/>
     </entry>
     <entry name="function" descr="named function" ref_view="link">
@@ -293,7 +293,7 @@
     <entry name="conv.guido2note" descr="convert the Guido notation into a MIDI pitch and duration" ref_view="object">
       <xi:include href="conv.guido2note.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.hex2int" descr="converts hex symbol into a integer value" ref_view="object">
+    <entry name="conv.hex2int" descr="converts hex symbol into an integer value" ref_view="object">
       <xi:include href="conv.hex2int.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.hsl2rgb" descr="convert HSL color values to RGB" ref_view="object">
@@ -326,10 +326,10 @@
     <entry name="conv.ms2bpm" descr="converts period in milliseconds to BPM tempo" ref_view="object">
       <xi:include href="conv.ms2bpm.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.ms2samp" descr="convert time in milliseconds to number of samples according to current samplerate" ref_view="object">
+    <entry name="conv.ms2samp" descr="convert time in milliseconds to number of samples according to current sample rate" ref_view="object">
       <xi:include href="conv.ms2samp.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.ms2samp~" descr="convert time in milliseconds to number of samples according to current samplerate" ref_view="object">
+    <entry name="conv.ms2samp~" descr="convert time in milliseconds to number of samples according to current sample rate" ref_view="object">
       <xi:include href="conv.ms2samp~.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.ms2str" descr="formats time in milliseconds to symbol or string" ref_view="object">
@@ -359,19 +359,19 @@
     <entry name="conv.rgb2hex" descr="convert separate RGB values to hex color" ref_view="object">
       <xi:include href="conv.rgb2hex.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.samp2ms" descr="converts samples to millisecond according samplerate" ref_view="object">
+    <entry name="conv.samp2ms" descr="converts samples to millisecond according sample rate" ref_view="object">
       <xi:include href="conv.samp2ms.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.samp2ms~" descr="converts samples to milliseconds according to samplerate" ref_view="object">
+    <entry name="conv.samp2ms~" descr="converts samples to milliseconds according to sample rate" ref_view="object">
       <xi:include href="conv.samp2ms~.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.samp2sec" descr="convert samples to seconds according to samplerate" ref_view="object">
+    <entry name="conv.samp2sec" descr="convert samples to seconds according to sample rate" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.sec2bpm" descr="converts period in seconds to frequency in BPM" ref_view="object">
       <xi:include href="conv.sec2bpm.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.sec2samp" descr="converts time in seconds to number of samples according to current samplerate" ref_view="object">
+    <entry name="conv.sec2samp" descr="converts time in seconds to number of samples according to current sample rate" ref_view="object">
       <xi:include href="conv.sec2samp.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.sec2str" descr="formats time in seconds to symbol or string" ref_view="object">
@@ -380,7 +380,7 @@
     <entry name="conv.semi2ratio" descr="converts interval in semitones to frequency ratio in 12-ET" ref_view="object">
       <xi:include href="conv.semi2ratio.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.sig2float~" descr="converts audiosignal to control numeric stream" ref_view="object">
+    <entry name="conv.sig2float~" descr="converts audio signal to control numeric stream" ref_view="object">
       <xi:include href="conv.sig2float~.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.str2sec" descr="converts the formatted time to a float value in seconds" ref_view="object">
@@ -569,7 +569,7 @@
     <entry name="env.smooth~" descr="envelope with an exponential attack and release" ref_view="object">
       <xi:include href="env.smooth~.pddoc" parse="xml"/>
     </entry>
-    <entry name="env.tscale" descr="envelope time-scale" ref_view="object">
+    <entry name="env.tscale" descr="envelope timescale" ref_view="object">
       <xi:include href="env.tscale.pddoc" parse="xml"/>
     </entry>
     <entry name="env.tshift" descr="envelope time-shift (horizontal)" ref_view="object">
@@ -599,7 +599,7 @@
     <entry name="flow.append" descr="append message to flow stream" ref_view="object">
       <xi:include href="flow.append.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.change" descr="rejects repeatet input messages" ref_view="object">
+    <entry name="flow.change" descr="rejects repeated input messages" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.count" descr="control flow event counter" ref_view="object">
@@ -653,7 +653,7 @@
     <entry name="flow.list2many" descr="routes the list element with the corresponding message" ref_view="object">
       <xi:include href="flow.list2many.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.match" descr="routes the control flow by the regular expession match" ref_view="object">
+    <entry name="flow.match" descr="routes the control flow by the regular expression match" ref_view="object">
       <xi:include href="flow.match.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.mem" descr="store into the memory or output the control flow messages" ref_view="object">
@@ -836,7 +836,7 @@
     <entry name="flt.fb_comb~" descr="feedback comb filter" ref_view="object">
       <xi:include href="flt.fb_comb~.pddoc" parse="xml"/>
     </entry>
-    <entry name="flt.fbank5x1~" descr="5 band one octave butterworth filterbank" ref_view="object">
+    <entry name="flt.fbank5x1~" descr="5 band one octave Butterworth filterbank" ref_view="object">
       <xi:include href="flt.fbank5x1~.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.ff_comb~" descr="feed forward comb filter" ref_view="object">
@@ -890,7 +890,7 @@
     <xi:include href="ceammc_category_flt.xml" parse="xml"/>
   </category>
   <category name="fx">
-    <entry name="fx.bitdown~" descr="bit downer and downsampler effect" ref_view="object">
+    <entry name="fx.bitdown~" descr="a bit downer and downsampler effect" ref_view="object">
       <xi:include href="fx.bitdown~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.chorus~" descr="Chorus effect" ref_view="object">
@@ -929,10 +929,10 @@
     <entry name="fx.flanger~" descr="mono flanging effect" ref_view="object">
       <xi:include href="fx.flanger~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.freeverb2~" descr="freeverb2 - stereo version of freeverb" ref_view="object">
+    <entry name="fx.freeverb2~" descr="stereo version of [fx.freeverb~]" ref_view="object">
       <xi:include href="fx.freeverb2~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.freeverb~" descr="freeverb - common used open-source reverb" ref_view="object">
+    <entry name="fx.freeverb~" descr="freeverb - commonly used open-source reverb" ref_view="object">
       <xi:include href="fx.freeverb~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.freqshift~" descr="frequency shifter or single-sideband ring modulation" ref_view="object">
@@ -980,7 +980,7 @@
     <entry name="fx.scramble~" descr="scramble delayed sound fragments" ref_view="object">
       <xi:include href="fx.scramble~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.shimmer~" descr="shimmer reverb effect effect" ref_view="object">
+    <entry name="fx.shimmer~" descr="shimmer reverb effect" ref_view="object">
       <xi:include href="fx.shimmer~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.stutter~" descr="stutter effect" ref_view="object">
@@ -1064,7 +1064,7 @@
     <entry name="hw.rpi.i2c.pca9685" descr="driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi" ref_view="object">
       <xi:include href="hw.rpi.i2c.pca9685.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.rpi.pwm" descr="hardware PWM output for RaspberryPi" ref_view="object">
+    <entry name="hw.rpi.pwm" descr="hardware PWM output for Raspberry Pi" ref_view="object">
       <xi:include href="hw.rpi.pwm.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.rotenc" descr="rotary encoder for Raspberry Pi" ref_view="object">
@@ -1225,7 +1225,7 @@
     <entry name="list.map" descr="map list values by specified dictionary" ref_view="object">
       <xi:include href="list.map.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.max" descr="output largest element in the list" ref_view="object">
+    <entry name="list.max" descr="output the largest element in the list" ref_view="object">
       <xi:include href="list.max.pddoc" parse="xml"/>
     </entry>
     <entry name="list.mean" descr="calculates average of list of floats" ref_view="object">
@@ -1345,7 +1345,7 @@
     <entry name="list.unzip" descr="splits list to N lists, each to separate output" ref_view="object">
       <xi:include href="list.unzip.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.walk" descr="Walks thru the list" ref_view="object">
+    <entry name="list.walk" descr="walks through the list" ref_view="object">
       <xi:include href="list.walk.pddoc" parse="xml"/>
     </entry>
     <entry name="list.zip" descr="takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.)." ref_view="object">
@@ -1449,7 +1449,7 @@
     <entry name="math.ceil" descr="round to the smallest integral value not less than input value" ref_view="object">
       <xi:include href="math.ceil.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.ceil~" descr="round to smallest integral value not less than input value" ref_view="object">
+    <entry name="math.ceil~" descr="round to the smallest integral value not less than input value" ref_view="object">
       <xi:include href="math.ceil~.pddoc" parse="xml"/>
     </entry>
     <entry name="math.cexp~" descr="exponent of a complex signals" ref_view="object">
@@ -1497,28 +1497,28 @@
     <entry name="math.exp~" descr="base-e exponential function for signals" ref_view="object">
       <xi:include href="math.exp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.floor" descr="round to largest integral value not greater than input value" ref_view="object">
+    <entry name="math.floor" descr="round to the largest integral value not greater than input value" ref_view="object">
       <xi:include href="math.floor.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.floor~" descr="round to largest integral value not greater than input value" ref_view="object">
+    <entry name="math.floor~" descr="round to the largest integral value not greater than input value" ref_view="object">
       <xi:include href="math.floor~.pddoc" parse="xml"/>
     </entry>
     <entry name="math.gamma" descr="gamma function" ref_view="object">
       <xi:include href="math.gamma.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.gamma~" descr="gamma function fot signals" ref_view="object">
+    <entry name="math.gamma~" descr="gamma function for signals" ref_view="object">
       <xi:include href="math.gamma~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.gcd" descr="calculate greatest common divisor" ref_view="object">
+    <entry name="math.gcd" descr="calculate the greatest common divisor" ref_view="object">
       <xi:include href="math.gcd.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.inf" descr="output infinity value in the IEEE 754 standart" ref_view="object">
+    <entry name="math.inf" descr="output infinity value in the IEEE 754 standard" ref_view="object">
       <xi:include href="math.inf.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.inf~" descr="output infinity value in the IEEE 754 standart" ref_view="object">
+    <entry name="math.inf~" descr="output infinity value in the IEEE 754 standard" ref_view="object">
       <xi:include href="math.inf~.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.lcm" descr="calculates least common multiple" ref_view="object">
+    <entry name="math.lcm" descr="calculates the least common multiple" ref_view="object">
       <xi:include href="math.lcm.pddoc" parse="xml"/>
     </entry>
     <entry name="math.lgamma" descr="natural logarithm of the absolute value of the gamma function" ref_view="object">
@@ -1623,7 +1623,7 @@
     <entry name="math.sync_ge" descr="sync greater equal numbers compare" ref_view="object">
       <xi:include href="math.sync_ge.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.sync_gt" descr="sync greater then numbers compare" ref_view="object">
+    <entry name="math.sync_gt" descr="sync greater than numbers compare" ref_view="object">
       <xi:include href="math.sync_gt.pddoc" parse="xml"/>
     </entry>
     <entry name="math.sync_le" descr="sync less equal numbers compare" ref_view="object">
@@ -1632,7 +1632,7 @@
     <entry name="math.sync_lshift" descr="sync signed bit left shift" ref_view="object">
       <xi:include href="math.sync_lshift.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.sync_lt" descr="sync less then numbers compare" ref_view="object">
+    <entry name="math.sync_lt" descr="sync less than numbers compare" ref_view="object">
       <xi:include href="math.sync_lt.pddoc" parse="xml"/>
     </entry>
     <entry name="math.sync_mod" descr="sync remainder of modulo division (float or integer)" ref_view="object">
@@ -1938,7 +1938,7 @@
     <entry name="osc.saw~" descr="alias-free sawtooth wave" ref_view="object">
       <xi:include href="osc.saw~.pddoc" parse="xml"/>
     </entry>
-    <entry name="osc.sinfb~" descr="sine oscilator with feedback" ref_view="object">
+    <entry name="osc.sinfb~" descr="sine oscillator with feedback" ref_view="object">
       <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
     </entry>
     <entry name="osc.sin~" descr="sine wave oscillator" ref_view="object">
@@ -2049,7 +2049,7 @@
     <entry name="is_odd" descr="input number oddity check" ref_view="object">
       <xi:include href="is_odd.pddoc" parse="xml"/>
     </entry>
-    <entry name="is_pointer" descr="checks if input messagee is a *pointer*" ref_view="object">
+    <entry name="is_pointer" descr="checks if input message is a *pointer*" ref_view="object">
       <xi:include href="is_pointer.pddoc" parse="xml"/>
     </entry>
     <entry name="is_prop" descr="checks if the input message is a *property* message" ref_view="object">
@@ -2467,13 +2467,13 @@
     <entry name="synth.rhodey~" descr="STK Fender Rhodes electric piano FM synthesis instrument" ref_view="object">
       <xi:include href="synth.rhodey~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.risset_arp~" descr="Jean Claude Risset's harmonic arpeggio effect" ref_view="object">
+    <entry name="synth.risset_arp~" descr="Jean-Claude Risset's harmonic arpeggio effect" ref_view="object">
       <xi:include href="synth.risset_arp~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.risset_bell~" descr="Jean Claude Risset's bell synth" ref_view="object">
+    <entry name="synth.risset_bell~" descr="Jean-Claude Risset's bell synth" ref_view="object">
       <xi:include href="synth.risset_bell~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.risset_tone~" descr="Jean Claude Risset's endless glissando" ref_view="object">
+    <entry name="synth.risset_tone~" descr="Jean-Claude Risset's endless glissando" ref_view="object">
       <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.russian_bell~" descr="russian church bell modal model" ref_view="object">
@@ -2619,7 +2619,7 @@
     <entry name="ui.link" descr="hyperlink widget" ref_view="link">
       <xi:include href="ui.link.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.matrix" descr="toggel matrix" ref_view="link">
+    <entry name="ui.matrix" descr="toggle matrix" ref_view="link">
       <xi:include href="ui.matrix.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.menu" descr="dropdown menu" ref_view="link">
@@ -2631,10 +2631,10 @@
     <entry name="ui.midi" descr="incoming MIDI message viewport" ref_view="link">
       <xi:include href="ui.midi.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.mouse_filter" descr="filter mouse events from ui objects" ref_view="link">
+    <entry name="ui.mouse_filter" descr="filter mouse events from UI objects" ref_view="link">
       <xi:include href="ui.mouse_filter.pddoc" parse="xml"/>
     </entry>
-    <entry name="ui.mouse_route" descr="routes mouse events from ui objects" ref_view="link">
+    <entry name="ui.mouse_route" descr="routes mouse events from UI objects" ref_view="link">
       <xi:include href="ui.mouse_route.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.number" descr="number box" ref_view="link">

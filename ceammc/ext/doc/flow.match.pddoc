@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">routes the control flow by the regular expession match</tr>
+                <tr lang="en">routes the control flow by the regular expression match</tr>
                 <tr lang="ru">маршрутизатор управляющего потока с помощью совпадений с регулярным
                 выражением</tr>
             </description>

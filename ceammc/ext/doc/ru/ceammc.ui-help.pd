@@ -55,10 +55,10 @@ ui.colorpanel-help.pd;
 #X text 200 692 окно просмотра MIDI сообщений;
 #X obj 30 720 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 717 фильтр событий мыши из ui объектов;
+#X text 200 717 фильтр событий мыши из UI объектов;
 #X obj 30 745 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 742 маршрутизация событий мыши от ui объектов;
+#X text 200 742 маршрутизация событий мыши от UI объектов;
 #X obj 30 770 ui.link @title [ui.number] @url ui.number-help.pd;
 #X text 200 767 числовой бокс;
 #X obj 30 795 ui.link @title [ui.number~] @url ui.number~-help.pd;

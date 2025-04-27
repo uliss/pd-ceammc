@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Jean Claude Risset's bell synth</tr>
+                <tr lang="en">Jean-Claude Risset's bell synth</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

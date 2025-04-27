@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sync greater then numbers compare</tr>
+                <tr lang="en">sync greater than numbers compare</tr>
                 <tr lang="ru">синхронная проверка на большее значение</tr>
             </description>
             <license>GPL3 or later</license>

@@ -26,8 +26,8 @@ array.plot	array data plotter / построение числовых графи
 array.plot~	plot the signal on the specified array / постороение графика сигнала на заданном массиве
 array.readwrite~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
 array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
-array.resample	array resampler / пересемплирование массива
-array.r	array resampler / пересемплирование массива
+array.resample	resampling the array / пересемплирование массива
+array.r	resampling the array / пересемплирование массива
 array.rms	calculates the root mean square value for the array / вычисляет среднее квадратичное значение для массива
 array.set	set the array content from the list data / устанавливает содержание массива данными из списка
 ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
@@ -53,8 +53,8 @@ ceammc.search	ceammc library search object
 chrono.datetime	output current date and time info
 ceammc/datetime	output current date and time info
 datetime	output current date and time info
-convolve~	realtime FFT convolution / свёртка FFT в реальном времени
-ceammc/convolve~	realtime FFT convolution / свёртка FFT в реальном времени
+convolve~	real-time FFT convolution / свёртка FFT в реальном времени
+ceammc/convolve~	real-time FFT convolution / свёртка FFT в реальном времени
 function	named function
 func	named function
 ceammc/func	named function
@@ -178,9 +178,9 @@ edge->bang	edge detector for numeric stream / детектор переходн�
 conv.guido2note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 ceammc/guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
-conv.hex2int	converts hex symbol into a integer value / конвертирует шестнадцатеричный символ в целочисленное значение
-ceammc/hex->int	converts hex symbol into a integer value / конвертирует шестнадцатеричный символ в целочисленное значение
-hex->int	converts hex symbol into a integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+conv.hex2int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+ceammc/hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
 conv.hsl2rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
 ceammc/hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
 hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
@@ -219,12 +219,12 @@ m->f	advanced MIDI pitch conversion to a frequency / продвинутое пр
 conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
 ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
 ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
-conv.ms2samp	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ceammc/ms->samp	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ms->samp	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ceammc/ms->samp~	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ms->samp~	convert time in milliseconds to number of samples according to current samplerate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.ms2samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ceammc/ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.ms2samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ceammc/ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 conv.ms2str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
 ceammc/ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
 ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
@@ -252,32 +252,32 @@ rad->phase~	convert radians value to phase [0-1) / преобразование 
 conv.rgb2hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
 ceammc/rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
 rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
-conv.samp2ms	converts samples to millisecond according samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-ceammc/samp->ms	converts samples to millisecond according samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-samp->ms	converts samples to millisecond according samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-conv.samp2ms~	converts samples to milliseconds according to samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-ceammc/samp->ms~	converts samples to milliseconds according to samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-samp->ms~	converts samples to milliseconds according to samplerate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-conv.samp2sec	convert samples to seconds according to samplerate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
-ceammc/samp->sec	convert samples to seconds according to samplerate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
-samp->sec	convert samples to seconds according to samplerate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+conv.samp2ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+ceammc/samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.samp2ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+ceammc/samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.samp2sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+ceammc/samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
 conv.sec2bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 ceammc/sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
-conv.sec2samp	converts time in seconds to number of samples according to current samplerate / преобразует секунды в количество семплов согласно текущей скорости семплирования
-ceammc/sec->samp	converts time in seconds to number of samples according to current samplerate / преобразует секунды в количество семплов согласно текущей скорости семплирования
-sec->samp	converts time in seconds to number of samples according to current samplerate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+conv.sec2samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+ceammc/sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
 conv.sec2str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
 ceammc/sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
 sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
 conv.semi2ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
 ceammc/semi->ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
 semi->ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
-conv.sig2float~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
-ceammc/sig->float~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
-sig->float~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
-ceammc/s->f~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
-s->f~	converts audiosignal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+conv.sig2float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+ceammc/sig->float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+sig->float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+ceammc/s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
 conv.str2sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
 ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
 str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
@@ -367,7 +367,7 @@ env.concat	envelope concatenation / конкатенация огибающих
 env.follow~	envelope follower with independent attack and release times / детектор огибающей с независимой атакой и временем отпускания
 env.mix	mix between two envelopes that contain the equal number of segments / микс между двумя огибающими, содержащими равное количество сегментов
 env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и отпусканием
-env.tscale	envelope time-scale / растяжение огибающей во времени
+env.tscale	envelope timescale / растяжение огибающей во времени
 env.tshift	envelope time-shift (horizontal) / сдвиг огибающей по времени (по горизонтали)
 env.vscale	envelope amplitude value-scale / изменение амплитуды огибующей
 env2array	renders the envelope into the array / рендеринг огибающей в массив
@@ -389,7 +389,7 @@ vline->env	Converts vline messages to env
 expand_env	Substitute environment variables in data stream
 ceammc/expand_env	Substitute environment variables in data stream
 flow.append	append message to flow stream / добавляет сообщение в поток
-flow.change	rejects repeatet input messages / удаляет повторяющиеся сообщения
+flow.change	rejects repeated input messages / удаляет повторяющиеся сообщения
 flow.count	control flow event counter / счетчик числа сообщений в управляющем потоке
 flow.delay	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
 flow.del	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
@@ -428,7 +428,7 @@ flow.<=	numeric stream router by 'less or equal' condition / маршрутиз�
 flow.list2many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
 ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
 list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
-flow.match	routes the control flow by the regular expession match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
+flow.match	routes the control flow by the regular expression match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
 flow.mem	store into the memory or output the control flow messages / сохраняет в памяти или выводит сообщения потока управления
 flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
 flow.mux	control flow multiplexer / мультиплексор управляющего потока
@@ -537,7 +537,7 @@ flt.eq10~	graphic 10 band equalizer / графический 10-полосный
 flt.eq_peak_cq~	constant-Q second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка c constant-Q
 flt.eq_peak~	second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка
 flt.fb_comb~	feedback comb filter / гребенчатый фильтр с обратной связью (БИХ)
-flt.fbank5x1~	5 band one octave butterworth filterbank / 5-полосный банк однооктавных фильтров Баттерворта
+flt.fbank5x1~	5 band one octave Butterworth filterbank / 5-полосный банк однооктавных фильтров Баттерворта
 flt.ff_comb~	feed forward comb filter / гребенчатый фильтр (КИХ)
 flt.freqz	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
 flt.freqz~	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
@@ -554,7 +554,7 @@ flt.resonbp~	simple resonant bandpass filter / простой резонансн
 flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
 flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
 flt.speaker~	speaker emulation band-pass filter / полосовой фильтр-эмуляция динамика
-fx.bitdown~	bit downer and downsampler effect
+fx.bitdown~	a bit downer and downsampler effect
 fx.chorus~	Chorus effect
 fx.dattorro~	dattorro reverb
 fx.delay~	smooth delay with a feedback control
@@ -569,8 +569,8 @@ fx.echo2~	stereo echo effect
 fx.echo~	enhanced echo effect
 fx.secho~	enhanced echo effect
 fx.flanger~	mono flanging effect
-fx.freeverb2~	freeverb2 - stereo version of freeverb
-fx.freeverb~	freeverb - common used open-source reverb
+fx.freeverb2~	stereo version of [fx.freeverb~]
+fx.freeverb~	freeverb - commonly used open-source reverb
 fx.freqshift~	frequency shifter or single-sideband ring modulation
 fx.granulator~	simple input stream granulator
 fx.greyhole~	A complex echo-like effect
@@ -586,7 +586,7 @@ fx.ringmod~	ring modulator effect
 fx.room~	Gardners room emulation algorithms
 fx.satrev~	Schroeder reverberator from 1971
 fx.scramble~	scramble delayed sound fragments
-fx.shimmer~	shimmer reverb effect effect
+fx.shimmer~	shimmer reverb effect
 fx.stutter~	stutter effect
 fx.tapiir~	multi-tap delay
 fx.tremolo~	tremolo effect from guitarix project
@@ -616,7 +616,7 @@ hw.rpi.display.ssd1306	driver for OLED display on ssd1306 chip for Raspberry Pi 
 hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
 hw.rpi.i2c.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
 hw.rpi.pwm.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
-hw.rpi.pwm	hardware PWM output for RaspberryPi / аппаратный ШИМ (PWM) для RaspberryPi
+hw.rpi.pwm	hardware PWM output for Raspberry Pi / аппаратный ШИМ (PWM) для Raspberry Pi
 hw.rpi.rotenc	rotary encoder for Raspberry Pi / поворотный энкодер для Raspberry Pi
 hw.rpi.sensor.dht11	digital humidity and temperature sensor (DHT11) for Raspberry Pi / цифровой датчик влажности и температуры (DHT11) для Raspberry Pi
 hw.rpi.sensor.ir	IR (infrared) sensors and protocols for Raspberry Pi / ИК (инфракрасные) датчики и протоколы для Raspberry Pi
@@ -670,7 +670,7 @@ list.last	output last list element
 list.length	output the number of atoms in the list
 list.size	output the number of atoms in the list
 list.map	map list values by specified dictionary
-list.max	output largest element in the list
+list.max	output the largest element in the list
 list.mean	calculates average of list of floats
 list.average	calculates average of list of floats
 list.min	returns smallest element in the list
@@ -721,7 +721,7 @@ list.unique	removes duplicates from input list
 list.unpack	unpack list elements to separate outlets
 list.unzip	splits list to N lists, each to separate output
 list.deinterleave	splits list to N lists, each to separate output
-list.walk	Walks thru the list
+list.walk	walks through the list
 list.zip	takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).
 list.interleave	takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).
 live.capture~	record up to 32s of sound and playback the recorded sound in loop
@@ -766,7 +766,7 @@ math.cdiv~	division of complex signals / деление комплексных �
 ceammc/cdiv~	division of complex signals / деление комплексных сигналов
 cdiv~	division of complex signals / деление комплексных сигналов
 math.ceil	round to the smallest integral value not less than input value / округление до наименьшего целого значения, которое не меньше входного
-math.ceil~	round to smallest integral value not less than input value / округление до наименьшего целого значения, которое не менее входного
+math.ceil~	round to the smallest integral value not less than input value / округление до наименьшего целого значения, которое не менее входного
 math.cexp~	exponent of a complex signals / комплексная экспонента для сигналов
 ceammc/cexp~	exponent of a complex signals / комплексная экспонента для сигналов
 cexp~	exponent of a complex signals / комплексная экспонента для сигналов
@@ -787,14 +787,14 @@ math.exp2	base-2 exponential function / экспоненциальная фун�
 math.exp2~	base-2 exponential for signal / экспоненциальная функция на основе 2 для сигналов
 math.expr	dynamic version of [expr] object / динамическая версия объекта [expr]
 math.exp~	base-e exponential function for signals / экспоненциальная функция для сигналов на основе числа e
-math.floor	round to largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входное значение
-math.floor~	round to largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входного значения
+math.floor	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входное значение
+math.floor~	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входного значения
 math.gamma	gamma function / гамма функция
-math.gamma~	gamma function fot signals / гамма-функция для сигналов
-math.gcd	calculate greatest common divisor / вычисляет наибольший общий делитель
-math.inf	output infinity value in the IEEE 754 standart / выводит бесконечное значение в стандарте IEEE 754
-math.inf~	output infinity value in the IEEE 754 standart / выводит бесконечное значение в стандарте IEEE 754
-math.lcm	calculates least common multiple / вычисляет наименьшее общее кратное
+math.gamma~	gamma function for signals / гамма-функция для сигналов
+math.gcd	calculate the greatest common divisor / вычисляет наибольший общий делитель
+math.inf	output infinity value in the IEEE 754 standard / выводит бесконечное значение в стандарте IEEE 754
+math.inf~	output infinity value in the IEEE 754 standard / выводит бесконечное значение в стандарте IEEE 754
+math.lcm	calculates the least common multiple / вычисляет наименьшее общее кратное
 math.lgamma	natural logarithm of the absolute value of the gamma function / натуральный логарифм абсолютного значения гамма-функции
 math.lgamma~	natural logarithm of the absolute value of the gamma function for signals / натуральный логарифм абсолютного значения гамма-функции для сигналов
 math.log	natural logarithm / натуральный логарифм
@@ -867,10 +867,10 @@ math.sync_ge	sync greater equal numbers compare / синхронная пров�
 math.>='	sync greater equal numbers compare / синхронная проверка на больше или равно
 ceammc/>='	sync greater equal numbers compare / синхронная проверка на больше или равно
 >='	sync greater equal numbers compare / синхронная проверка на больше или равно
-math.sync_gt	sync greater then numbers compare / синхронная проверка на большее значение
-math.>'	sync greater then numbers compare / синхронная проверка на большее значение
-ceammc/>'	sync greater then numbers compare / синхронная проверка на большее значение
->'	sync greater then numbers compare / синхронная проверка на большее значение
+math.sync_gt	sync greater than numbers compare / синхронная проверка на большее значение
+math.>'	sync greater than numbers compare / синхронная проверка на большее значение
+ceammc/>'	sync greater than numbers compare / синхронная проверка на большее значение
+>'	sync greater than numbers compare / синхронная проверка на большее значение
 math.sync_le	sync less equal numbers compare / синхронная проверка на меньше или равно
 math.<='	sync less equal numbers compare / синхронная проверка на меньше или равно
 ceammc/<='	sync less equal numbers compare / синхронная проверка на меньше или равно
@@ -879,10 +879,10 @@ math.sync_lshift	sync signed bit left shift / синхронный битовы�
 math.<<'	sync signed bit left shift / синхронный битовый сдвиг налево
 ceammc/<<'	sync signed bit left shift / синхронный битовый сдвиг налево
 <<'	sync signed bit left shift / синхронный битовый сдвиг налево
-math.sync_lt	sync less then numbers compare / синхронная проверка на меньшее значение
-math.<'	sync less then numbers compare / синхронная проверка на меньшее значение
-ceammc/<'	sync less then numbers compare / синхронная проверка на меньшее значение
-<'	sync less then numbers compare / синхронная проверка на меньшее значение
+math.sync_lt	sync less than numbers compare / синхронная проверка на меньшее значение
+math.<'	sync less than numbers compare / синхронная проверка на меньшее значение
+ceammc/<'	sync less than numbers compare / синхронная проверка на меньшее значение
+<'	sync less than numbers compare / синхронная проверка на меньшее значение
 math.sync_mod	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
 math.%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
 ceammc/%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
@@ -1029,7 +1029,7 @@ osc.impulse~	bandlimited impulse train generator / генератор импул
 osc.pulse~	bandlimited pulse train oscillator / осциллятор прямоугольной волны с ограниченным спектром
 osc.saw4~	bandlimited sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
 osc.saw~	alias-free sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
-osc.sinfb~	sine oscilator with feedback / синусоидальный осциллятор с обратной связью
+osc.sinfb~	sine oscillator with feedback / синусоидальный осциллятор с обратной связью
 osc.sin~	sine wave oscillator / синусоидальный осциллятор
 osc.square~	bandlimited square wave oscillator / осциллятор квадратной волны с ограниченным спектром
 osc.tri~	bandlimited triangle wave oscillator / осциллятор треугольной волны с ограниченным спектром
@@ -1069,7 +1069,7 @@ ceammc/is_file	checks if the file exists and accessible / проверка су�
 is_float	checks if the input message is a *float* / проверка, является ли входное сообщение числом с плавающей точкой
 is_list	checks if the input message is a *list* / проверка, является ли входное сообщение списком
 is_odd	input number oddity check / проверка входного числа на нечётност
-is_pointer	checks if input messagee is a *pointer* / проверка, является ли входное сообщение указателем
+is_pointer	checks if input message is a *pointer* / проверка, является ли входное сообщение указателем
 is_prop	checks if the input message is a *property* message / проверка, является ли входное сообщение *свойством*
 is_symbol	checks if input message is a *symbol* / проверка, является ли входное сообщение *символом*
 preset.float	load/store float preset
@@ -1276,9 +1276,9 @@ synth.marimba~	simple marimba physical model implementing a single tone bar conn
 synth.metro~	ready to use metronome synth
 synth.piano~	waveguide commuted piano
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
-synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
-synth.risset_bell~	Jean Claude Risset's bell synth
-synth.risset_tone~	Jean Claude Risset's endless glissando
+synth.risset_arp~	Jean-Claude Risset's harmonic arpeggio effect
+synth.risset_bell~	Jean-Claude Risset's bell synth
+synth.risset_tone~	Jean-Claude Risset's endless glissando
 synth.russian_bell~	russian church bell modal model
 synth.shakers~	various percussion sounds from STK library
 synth.sitar~	STK sitar
@@ -1344,17 +1344,17 @@ ui.k	knob widget / виджет ручки
 ui.label	simple label widget / простой виджет надписи
 ui.lcd	black and white bitmap display / черно-белый растровый дисплей
 ui.link	hyperlink widget / виджет гиперссылки
-ui.matrix	toggel matrix / матрица переключателей
+ui.matrix	toggle matrix / матрица переключателей
 ui.menu	dropdown menu / выпадающее меню
 ui.meter~	peak and RMS signal level / пиковый и RMS уровень сигнала
 ui.m~	peak and RMS signal level / пиковый и RMS уровень сигнала
 ui.hm~	peak and RMS signal level / пиковый и RMS уровень сигнала
 ui.vm~	peak and RMS signal level / пиковый и RMS уровень сигнала
 ui.midi	incoming MIDI message viewport / окно просмотра MIDI сообщений
-ui.mouse_filter	filter mouse events from ui objects / фильтр событий мыши из ui объектов
-ui.mf	filter mouse events from ui objects / фильтр событий мыши из ui объектов
-ui.mouse_route	routes mouse events from ui objects / маршрутизация событий мыши от ui объектов
-ui.mr	routes mouse events from ui objects / маршрутизация событий мыши от ui объектов
+ui.mouse_filter	filter mouse events from UI objects / фильтр событий мыши из UI объектов
+ui.mf	filter mouse events from UI objects / фильтр событий мыши из UI объектов
+ui.mouse_route	routes mouse events from UI objects / маршрутизация событий мыши от UI объектов
+ui.mr	routes mouse events from UI objects / маршрутизация событий мыши от UI объектов
 ui.number	number box / числовой бокс
 ui.n	number box / числовой бокс
 ui.number~	number viewport for signals / просмотр числовых значений сигнала

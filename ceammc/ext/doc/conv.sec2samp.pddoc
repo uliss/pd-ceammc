@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">converts time in seconds to number of samples according to current
-                samplerate</tr>
+                sample rate</tr>
                 <tr lang="ru">преобразует секунды в количество семплов согласно текущей скорости
                 семплирования</tr>
             </description>

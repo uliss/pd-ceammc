@@ -9,7 +9,7 @@
 #X obj 30 173 chrono.datetime;
 #X text 200 173 output current date and time info;
 #X obj 30 201 convolve~;
-#X text 200 201 realtime FFT convolution;
+#X text 200 201 real-time FFT convolution;
 #X obj 30 232 ui.link @title [function] @url function-help.pd;
 #X text 200 229 named function;
 #X obj 30 254 function.call;

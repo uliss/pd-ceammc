@@ -35,7 +35,7 @@ Pi;
 #X text 200 465 драйвер для 16-канального 12-битного ШИМ модуля на
 чипе PCA9685 для Raspberry Pi;
 #X obj 30 505 hw.rpi.pwm;
-#X text 200 505 аппаратный ШИМ (PWM) для RaspberryPi;
+#X text 200 505 аппаратный ШИМ (PWM) для Raspberry Pi;
 #X obj 30 533 hw.rpi.rotenc;
 #X text 200 533 поворотный энкодер для Raspberry Pi;
 #X obj 30 561 hw.rpi.sensor.dht11;

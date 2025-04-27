@@ -9,7 +9,7 @@
 #X obj 30 145 flow.append;
 #X text 200 145 append message to flow stream;
 #X obj 30 173 flow.change;
-#X text 200 173 rejects repeatet input messages;
+#X text 200 173 rejects repeated input messages;
 #X obj 30 201 flow.count;
 #X text 200 201 control flow event counter;
 #X obj 30 229 flow.delay;
@@ -45,7 +45,7 @@
 #X obj 30 649 flow.list2many;
 #X text 200 649 routes the list element with the corresponding message;
 #X obj 30 677 flow.match;
-#X text 200 677 routes the control flow by the regular expession match;
+#X text 200 677 routes the control flow by the regular expression match;
 #X obj 30 705 flow.mem;
 #X text 200 705 store into the memory or output the control flow messages;
 #X obj 30 733 flow.multiplex;

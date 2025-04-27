@@ -68,7 +68,7 @@ current one then stores this sum;
 #X obj 30 909 list.map;
 #X text 200 909 map list values by specified dictionary;
 #X obj 30 937 list.max;
-#X text 200 937 output largest element in the list;
+#X text 200 937 output the largest element in the list;
 #X obj 30 965 list.mean;
 #X text 200 965 calculates average of list of floats;
 #X obj 30 993 list.min;
@@ -151,7 +151,7 @@ list is specified by the argument;
 #X obj 30 2041 list.unzip;
 #X text 200 2041 splits list to N lists \, each to separate output;
 #X obj 30 2069 list.walk;
-#X text 200 2069 Walks thru the list;
+#X text 200 2069 walks through the list;
 #X obj 30 2097 list.zip;
 #X text 200 2097 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2 list2-2

@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">round to smallest integral value not less than input value</tr>
+                <tr lang="en">round to the smallest integral value not less than input value</tr>
                 <tr lang="ru">округление до наименьшего целого значения, которое не менее
                 входного</tr>
             </description>

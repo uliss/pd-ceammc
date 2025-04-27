@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">filter mouse events from ui objects</tr>
-                <tr lang="ru">фильтр событий мыши из ui объектов</tr>
+                <tr lang="en">filter mouse events from UI objects</tr>
+                <tr lang="ru">фильтр событий мыши из UI объектов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Walks thru the list</tr>
+                <tr lang="en">walks through the list</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
