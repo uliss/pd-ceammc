@@ -2,6 +2,7 @@ declare name "synth.hat";
 
 import("stdfaust.lib");
 cm = library("ceammc.lib");
+ui = library("ceammc_ui.lib");
 
 process = sy.hat(freq, tone, attack, decay, gate) with {
     // base frequency
@@ -12,5 +13,5 @@ process = sy.hat(freq, tone, attack, decay, gate) with {
     attack = vslider("attack [unit:ms]", 20, 5, 400, 1) * 0.001 : si.smoo;
     // decay time in ms
     decay = vslider("release [unit:ms]", 100, 5, 4000, 1) * 0.001 : si.smoo;
-    gate  = checkbox("gate [type:float]");
+    gate  = ui.fgate;
 };

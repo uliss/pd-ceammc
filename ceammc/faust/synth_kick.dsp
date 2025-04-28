@@ -2,6 +2,7 @@ declare name "synth.kick";
 
 import("stdfaust.lib");
 cm = library("ceammc.lib");
+ui = library("ceammc_ui.lib");
 
 // Port from SuperCollider (SC) to Faust of SOSkick in
 // <SuperCollider>/examples/demonstrations/DrumSynths.scd
@@ -11,7 +12,7 @@ cm = library("ceammc.lib");
 //https://github.com/josmithiii/faust-jos/tree/master/percussion
 
 process = kick_mix with {
-    gate  = checkbox("gate [type:float]");
+    gate  = ui.fgate;
     ampdb = vslider("gain [unit:db]", -20, -60, 40, 0.1);
     freq  = vslider("freq [unit:Hz]", 50, 10, 5000, 0.1);
     beater_rel = vslider("release [unit:ms]", 1000, 10, 8000, 0.1) : cm.time_pd2faust;

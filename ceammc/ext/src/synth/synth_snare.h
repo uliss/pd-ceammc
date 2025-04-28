@@ -73,12 +73,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -194,14 +194,14 @@ class FAUST_API synth_snare_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,14 +221,14 @@ class FAUST_API synth_snare_dsp {
         virtual synth_snare_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -684,9 +684,11 @@ class synth_snare : public synth_snare_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.17.1");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_snare -scn synth_snare_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "synth_snare.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
@@ -747,12 +749,12 @@ class synth_snare : public synth_snare_dsp {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 0.001f * fConst0;
-		fConst2 = 0.000375f * fConst0;
-		fConst3 = 1162.3893f / fConst0;
+		fConst2 = 0.000275f * fConst0;
+		fConst3 = 2073.4512f / fConst0;
 		fConst4 = std::sin(fConst3);
 		fConst5 = std::cos(fConst3);
-		fConst6 = 0.000275f * fConst0;
-		fConst7 = 2073.4512f / fConst0;
+		fConst6 = 0.000375f * fConst0;
+		fConst7 = 1162.3893f / fConst0;
 		fConst8 = std::sin(fConst7);
 		fConst9 = std::cos(fConst7);
 		fConst10 = std::tan(22116.812f / fConst0);
@@ -880,6 +882,8 @@ class synth_snare : public synth_snare_dsp {
 		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.3f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fVslider1, "unit", "ms");
 		ui_interface->addVerticalSlider("decay", &fVslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fCheckbox0, "max", "1");
+		ui_interface->declare(&fCheckbox0, "min", "0");
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider2, "unit", "ms");
@@ -898,8 +902,8 @@ class synth_snare : public synth_snare_dsp {
 		float fSlow6 = float(fVslider1);
 		float fSlow7 = 1.0f - std::pow(1.0f, 1.0f / (fConst1 * fSlow6 + float((0.001f * fSlow6) == 0.0f)));
 		float fSlow8 = float(fVslider2);
-		float fSlow9 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst2 * fSlow8 + float((0.000375f * fSlow8) == 0.0f)));
-		float fSlow10 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst6 * fSlow8 + float((0.000275f * fSlow8) == 0.0f)));
+		float fSlow9 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst2 * fSlow8 + float((0.000275f * fSlow8) == 0.0f)));
+		float fSlow10 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst6 * fSlow8 + float((0.000375f * fSlow8) == 0.0f)));
 		float fSlow11 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst1 * fSlow8 + float((0.001f * fSlow8) == 0.0f)));
 		float fSlow12 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst22 * fSlow8 + float((0.000915f * fSlow8) == 0.0f)));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
@@ -921,7 +925,7 @@ class synth_snare : public synth_snare_dsp {
 			fRec5[0] = fTemp6 + fConst5 * fRec5[1] - fConst4 * fRec4[1];
 			iRec6[0] = iTemp3 & (iRec6[1] | (fRec7[1] >= 1.0f));
 			int iTemp7 = iTemp4 & (fRec7[1] > 0.0f);
-			fRec7[0] = (fSlow5 * float(((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)) - fRec7[1] * (fSlow7 * float(iRec6[1] & (fRec7[1] > 1.0f)) + -1.0f + fSlow10 * float(iTemp7))) * float((iTemp7 == 0) | (fRec7[1] >= 1e-06f));
+			fRec7[0] = (fSlow5 * float(((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)) + fRec7[1] * (1.0f - fSlow7 * float(iRec6[1] & (fRec7[1] > 1.0f)) - fSlow10 * float(iTemp7))) * float((iTemp7 == 0) | (fRec7[1] >= 1e-06f));
 			fRec8[0] = fConst8 * fRec9[1] + fConst9 * fRec8[1];
 			fRec9[0] = fTemp6 + fConst9 * fRec9[1] - fConst8 * fRec8[1];
 			iRec10[0] = iTemp3 & (iRec10[1] | (fRec11[1] >= 1.0f));
@@ -934,7 +938,7 @@ class synth_snare : public synth_snare_dsp {
 			fRec12[0] = fRec13[0] - fConst12 * (fConst15 * fRec12[2] + fConst16 * fRec12[1]);
 			iRec15[0] = iTemp3 & (iRec15[1] | (fRec16[1] >= 1.0f));
 			int iTemp10 = iTemp4 & (fRec16[1] > 0.0f);
-			fRec16[0] = (fSlow5 * float(((iRec15[1] == 0) & iTemp3) & (fRec16[1] < 1.0f)) - fRec16[1] * (fSlow12 * float(iTemp10) - (1.0f - fSlow7 * float(iRec15[1] & (fRec16[1] > 1.0f))))) * float((iTemp10 == 0) | (fRec16[1] >= 1e-06f));
+			fRec16[0] = (fSlow5 * float(((iRec15[1] == 0) & iTemp3) & (fRec16[1] < 1.0f)) + fRec16[1] * (1.0f - fSlow7 * float(iRec15[1] & (fRec16[1] > 1.0f)) - fSlow12 * float(iTemp10))) * float((iTemp10 == 0) | (fRec16[1] >= 1e-06f));
 			fRec18[0] = fConst23 * (fConst24 * (fTemp9 - fVec3[1]) - fConst25 * fRec18[1]);
 			fRec17[0] = fRec18[0] - fConst26 * (fConst27 * fRec17[2] + fConst28 * fRec17[1]);
 			output0[i0] = FAUSTFLOAT(0.25118864f * fRec0[0] * (fRec2[0] * (fRec4[0] + 0.25f) + fRec7[0] * (fRec8[0] + 0.25f) + 0.2f * (fConst12 * fRec11[0] * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) + fConst21 * fRec16[0] * (fRec17[0] + fRec17[2] - 2.0f * fRec17[1]))));

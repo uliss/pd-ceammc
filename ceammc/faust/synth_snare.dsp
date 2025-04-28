@@ -2,6 +2,7 @@ declare name "synth.snare";
 
 import("stdfaust.lib");
 cm = library("ceammc.lib");
+ui = library("ceammc_ui.lib");
 
 // Port from SuperCollider to Faust of snare_stein in
 // SynthDefPool by Dan Stowell, which in turn was based
@@ -36,7 +37,7 @@ with {
 };
 
 process = snare * amp with {
-    gate = checkbox("gate [type:float]");
+    gate = ui.fgate;
     trigger = (gate>gate');
 
     // using gate value as amplitude: sample and hold it on gate open

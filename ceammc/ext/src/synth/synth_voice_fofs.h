@@ -73,12 +73,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -194,14 +194,14 @@ class FAUST_API synth_voice_fofs_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,14 +221,14 @@ class FAUST_API synth_voice_fofs_dsp {
         virtual synth_voice_fofs_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -715,7 +715,7 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 		m->declare("basics.lib/listInterp:author", "Romain Michon");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.17.1");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_voice_fofs -scn synth_voice_fofs_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
@@ -993,130 +993,130 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 			float fTemp15 = fTemp14 + (((iTemp6) ? ((iTemp11) ? 12.0f : ((iTemp12) ? 12.0f : ((iTemp13) ? 12.0f : 15.0f))) : ((iTemp7) ? ((iTemp10) ? 4.0f : 1e+01f) : ((iTemp8) ? 2.5f : ((iTemp9) ? 2.5f : 1e+01f)))) - fTemp14) * ((fTemp2 <= fSlow15) ? 0.0f : ((fTemp2 >= fSlow16) ? 1.0f : (fTemp2 - fSlow15) / fSlow17));
 			float fTemp16 = fSlow18 + fRec7[0];
 			int iTemp17 = fTemp16 < 23.0f;
-			int iTemp18 = fTemp16 < 22.0f;
-			int iTemp19 = fTemp16 < 21.0f;
-			int iTemp20 = fTemp16 < 2e+01f;
-			float fTemp21 = fSlow18 + fRec7[0] + -2e+01f;
-			float fTemp22 = 2e+01f * fTemp21;
-			int iTemp23 = fTemp16 < 19.0f;
-			float fTemp24 = fSlow18 + fRec7[0] + -19.0f;
-			float fTemp25 = 5e+01f * fTemp24;
-			int iTemp26 = fTemp16 < 18.0f;
-			float fTemp27 = fSlow18 + fRec7[0] + -18.0f;
-			int iTemp28 = fTemp16 < 17.0f;
-			int iTemp29 = fTemp16 < 16.0f;
-			float fTemp30 = fSlow18 + fRec7[0] + -16.0f;
-			int iTemp31 = fTemp16 < 15.0f;
-			int iTemp32 = fTemp16 < 14.0f;
-			float fTemp33 = fSlow18 + fRec7[0] + -14.0f;
-			float fTemp34 = 2e+01f * fTemp33;
-			int iTemp35 = fTemp16 < 13.0f;
-			int iTemp36 = fTemp16 < 12.0f;
-			int iTemp37 = fTemp16 < 11.0f;
-			int iTemp38 = fTemp16 < 1e+01f;
-			float fTemp39 = fSlow18 + fRec7[0] + -1e+01f;
-			float fTemp40 = 2e+01f * fTemp39;
-			int iTemp41 = fTemp16 < 9.0f;
-			float fTemp42 = fSlow18 + fRec7[0] + -9.0f;
-			float fTemp43 = 2e+01f * fTemp42;
-			int iTemp44 = fTemp16 < 8.0f;
-			int iTemp45 = fTemp16 < 7.0f;
-			int iTemp46 = fTemp16 < 6.0f;
-			int iTemp47 = fTemp16 < 5.0f;
-			float fTemp48 = fSlow18 + fRec7[0] + -5.0f;
-			float fTemp49 = 1e+01f * fTemp48;
-			int iTemp50 = fTemp16 < 4.0f;
-			float fTemp51 = fSlow18 + fRec7[0] + -4.0f;
-			float fTemp52 = 6e+01f * fTemp51;
-			int iTemp53 = fTemp16 < 3.0f;
-			float fTemp54 = fSlow18 + fRec7[0] + -3.0f;
-			int iTemp55 = fTemp16 < 2.0f;
-			float fTemp56 = fSlow18 + fRec7[0] + -2.0f;
-			float fTemp57 = 2e+01f * fTemp56;
-			float fTemp58 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? 1.2e+02f : ((iTemp53) ? 1.2e+02f - fTemp57 : 1e+02f)) : ((iTemp50) ? 7e+01f * fTemp54 + 1e+02f : 1.7e+02f)) : ((iTemp47) ? 1.7e+02f - fTemp52 : 1.1e+02f)) : ((iTemp46) ? 1.1e+02f - fTemp49 : 1e+02f)) : 1e+02f) : 1e+02f) : 1e+02f) : ((iTemp38) ? fTemp43 + 1e+02f : 1.2e+02f)) : ((iTemp37) ? 1.2e+02f - fTemp40 : 1e+02f)) : 1e+02f) : 1e+02f) : 1e+02f) : ((iTemp31) ? fTemp34 + 1e+02f : 1.2e+02f)) : 1.2e+02f) : ((iTemp28) ? 1.2e+02f - 2e+01f * fTemp30 : 1e+02f)) : 1e+02f) : ((iTemp23) ? 7e+01f * fTemp27 + 1e+02f : 1.7e+02f)) : ((iTemp20) ? 1.7e+02f - fTemp25 : 1.2e+02f)) : ((iTemp19) ? 1.2e+02f - fTemp22 : 1e+02f)) : 1e+02f) : 1e+02f) : 1e+02f);
-			fRec6[0] = fConst6 * fTemp15 * fTemp58 + fConst5 * fRec6[1];
-			float fTemp59 = std::exp(-(fConst4 * fRec6[0]));
-			fRec8[0] = fConst6 * fTemp58 + fConst5 * fRec8[1];
-			float fTemp60 = std::exp(-(fConst4 * fRec8[0]));
-			fRec0[0] = fVec2[1] + fRec0[1] * (fTemp59 + fTemp60) - fTemp59 * fTemp60 * fRec0[2];
-			float fTemp61 = 0.00084f * (1e+03f - fTemp2) + 0.8f;
-			int iTemp62 = fTemp16 < 24.0f;
-			float fTemp63 = fSlow18 + fRec7[0] + -23.0f;
-			float fTemp64 = fSlow18 + fRec7[0] + -22.0f;
-			float fTemp65 = fSlow18 + fRec7[0] + -21.0f;
-			float fTemp66 = fSlow18 + fRec7[0] + -17.0f;
-			float fTemp67 = ((iTemp26) ? 0.029314f * fTemp66 + 0.050119f : 0.079433f);
-			float fTemp68 = fSlow18 + fRec7[0] + -15.0f;
-			float fTemp69 = fSlow18 + fRec7[0] + -13.0f;
-			float fTemp70 = fSlow18 + fRec7[0] + -12.0f;
-			float fTemp71 = fSlow18 + fRec7[0] + -11.0f;
-			float fTemp72 = fSlow18 + fRec7[0] + -8.0f;
-			float fTemp73 = fSlow18 + fRec7[0] + -7.0f;
-			float fTemp74 = fSlow18 + fRec7[0] + -6.0f;
-			int iTemp75 = fTemp16 < 1.0f;
-			int iTemp76 = fTemp16 < 0.0f;
-			float fTemp77 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 0.1f : ((iTemp75) ? 0.1f - 0.068377f * fTemp16 : 0.031623f)) : 0.031623f) : ((iTemp53) ? 0.126866f * fTemp56 + 0.031623f : 0.158489f)) : ((iTemp50) ? 0.158489f - 0.126866f * fTemp54 : 0.031623f)) : ((iTemp47) ? 0.32319f * fTemp51 + 0.031623f : 0.354813f)) : 0.354813f) : ((iTemp45) ? 0.354813f - 0.196324f * fTemp74 : 0.158489f)) : ((iTemp44) ? 0.158489f - 0.069364f * fTemp73 : 0.089125f)) : ((iTemp41) ? 0.089125f - 0.064006f * fTemp72 : 0.025119f)) : ((iTemp38) ? 0.045676f * fTemp42 + 0.025119f : 0.070795f)) : ((iTemp37) ? 0.055098f * fTemp39 + 0.070795f : 0.125893f)) : ((iTemp36) ? 0.125893f - 0.062797f * fTemp71 : 0.063096f)) : ((iTemp35) ? 0.063096f - 0.012977f * fTemp70 : 0.050119f)) : ((iTemp32) ? 0.020676f * fTemp69 + 0.050119f : 0.070795f)) : ((iTemp31) ? 0.070795f - 0.045676f * fTemp33 : 0.025119f)) : ((iTemp29) ? 0.152709f * fTemp68 + 0.025119f : 0.177828f)) : ((iTemp28) ? 0.177828f - 0.127709f * fTemp30 : 0.050119f)) : fTemp67) : ((iTemp23) ? 0.079433f - 0.06165f * fTemp27 : 0.017783f)) : ((iTemp20) ? 0.428901f * fTemp24 + 0.017783f : 0.446684f)) : ((iTemp19) ? 0.446684f - 0.195495f * fTemp21 : 0.251189f)) : ((iTemp18) ? 0.251189f - 0.125296f * fTemp65 : 0.125893f)) : ((iTemp17) ? 0.125296f * fTemp64 + 0.125893f : 0.251189f)) : ((iTemp62) ? 0.251189f - 0.109935f * fTemp63 : 0.141254f));
-			float fTemp78 = 0.0036666666f * (4e+02f - fTemp2) + 3.0f;
-			int iTemp79 = iTemp0 | int(fTemp4);
-			float fTemp80 = 1e+02f * fTemp63;
-			float fTemp81 = 5e+01f * fTemp39;
-			float fTemp82 = ((iTemp79) ? 0.0f : fRec9[1] + fConst1 * ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 2.8e+03f : ((iTemp75) ? 2.8e+03f - 1e+02f * fTemp16 : 2.7e+03f)) : 2.7e+03f) : ((iTemp53) ? 1.3e+02f * fTemp56 + 2.7e+03f : 2.83e+03f)) : ((iTemp50) ? 2.83e+03f - 3e+02f * fTemp54 : 2.53e+03f)) : ((iTemp47) ? 2.53e+03f - 2.8e+02f * fTemp51 : 2.25e+03f)) : ((iTemp46) ? 1.5e+02f * fTemp48 + 2.25e+03f : 2.4e+03f)) : ((iTemp45) ? 2e+02f * fTemp74 + 2.4e+03f : 2.6e+03f)) : ((iTemp44) ? 2.6e+03f - 2e+02f * fTemp73 : 2.4e+03f)) : 2.4e+03f) : ((iTemp38) ? 3.5e+02f * fTemp42 + 2.4e+03f : 2.75e+03f)) : ((iTemp37) ? 2.75e+03f - fTemp81 : 2.7e+03f)) : ((iTemp36) ? 2e+02f * fTemp71 + 2.7e+03f : 2.9e+03f)) : ((iTemp35) ? 2.9e+03f - 2e+02f * fTemp70 : 2.7e+03f)) : ((iTemp32) ? 5e+01f * fTemp69 + 2.7e+03f : 2.75e+03f)) : ((iTemp31) ? 1.5e+02f * fTemp33 + 2.75e+03f : 2.9e+03f)) : ((iTemp29) ? 2.9e+03f - 1e+02f * fTemp68 : 2.8e+03f)) : ((iTemp28) ? 1.5e+02f * fTemp30 + 2.8e+03f : 2.95e+03f)) : ((iTemp26) ? 2.95e+03f - 1.2e+02f * fTemp66 : 2.83e+03f)) : ((iTemp23) ? 2.83e+03f - 1.3e+02f * fTemp27 : 2.7e+03f)) : ((iTemp20) ? 2.7e+03f - fTemp25 : 2.65e+03f)) : ((iTemp19) ? 2.65e+03f - 5e+01f * fTemp21 : 2.6e+03f)) : ((iTemp18) ? 2e+02f * fTemp65 + 2.6e+03f : 2.8e+03f)) : ((iTemp17) ? 2.8e+03f - 2e+02f * fTemp64 : 2.6e+03f)) : ((iTemp62) ? fTemp80 + 2.6e+03f : 2.7e+03f)));
-			fRec9[0] = fTemp82 - std::floor(fTemp82);
-			float fTemp83 = 2e+01f * fTemp68;
-			float fTemp84 = 1e+01f * fTemp39;
-			float fTemp85 = 1e+01f * fTemp51;
-			float fTemp86 = 2e+01f * fTemp54;
-			float fTemp87 = fSlow18 + fRec7[0] + -1.0f;
-			float fTemp88 = 2e+01f * fTemp16;
-			float fTemp89 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 8e+01f : ((iTemp75) ? 8e+01f - fTemp88 : 6e+01f)) : ((iTemp55) ? 6e+01f - 1e+01f * fTemp87 : 5e+01f)) : ((iTemp53) ? fTemp57 + 5e+01f : 7e+01f)) : ((iTemp50) ? 7e+01f - fTemp86 : 5e+01f)) : ((iTemp47) ? fTemp85 + 5e+01f : 6e+01f)) : ((iTemp46) ? 6e+01f - 2e+01f * fTemp48 : 4e+01f)) : ((iTemp45) ? 2e+01f * fTemp74 + 4e+01f : 6e+01f)) : ((iTemp44) ? 6e+01f - 2e+01f * fTemp73 : 4e+01f)) : 4e+01f) : ((iTemp38) ? 4e+01f * (fTemp42 + 1.0f) : 8e+01f)) : ((iTemp37) ? 8e+01f - fTemp84 : 7e+01f)) : ((iTemp36) ? 7e+01f - 3e+01f * fTemp71 : 4e+01f)) : 4e+01f) : 4e+01f) : ((iTemp31) ? 4e+01f * (fTemp33 + 1.0f) : 8e+01f)) : ((iTemp29) ? 8e+01f - fTemp83 : 6e+01f)) : 6e+01f) : ((iTemp26) ? 6e+01f - 2e+01f * fTemp66 : 4e+01f)) : ((iTemp23) ? 1e+01f * fTemp27 + 4e+01f : 5e+01f)) : 5e+01f) : ((iTemp19) ? fTemp22 + 5e+01f : 7e+01f)) : ((iTemp18) ? 7e+01f - 3e+01f * fTemp65 : 4e+01f)) : ((iTemp17) ? 3e+01f * fTemp64 + 4e+01f : 7e+01f)) : ((iTemp62) ? 7e+01f - 3e+01f * fTemp63 : 4e+01f));
-			fRec11[0] = fConst6 * fTemp15 * fTemp89 + fConst5 * fRec11[1];
-			float fTemp90 = std::exp(-(fConst4 * fRec11[0]));
-			fRec12[0] = fConst6 * fTemp89 + fConst5 * fRec12[1];
-			float fTemp91 = std::exp(-(fConst4 * fRec12[0]));
-			fRec10[0] = fVec2[1] + fRec10[1] * (fTemp90 + fTemp91) - fTemp90 * fTemp91 * fRec10[2];
-			float fTemp92 = 8e+01f * fTemp30;
-			float fTemp93 = 5e+01f * fTemp72;
-			float fTemp94 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 8e+02f : ((iTemp75) ? 8e+02f - 4e+02f * fTemp16 : 4e+02f)) : ((iTemp55) ? 4e+02f - 5e+01f * fTemp87 : 3.5e+02f)) : ((iTemp53) ? 1e+02f * fTemp56 + 3.5e+02f : 4.5e+02f)) : ((iTemp50) ? 4.5e+02f - 125.0f * fTemp54 : 325.0f)) : ((iTemp47) ? 275.0f * fTemp51 + 325.0f : 6e+02f)) : ((iTemp46) ? 6e+02f - 2e+02f * fTemp48 : 4e+02f)) : ((iTemp45) ? 4e+02f - 1.5e+02f * fTemp74 : 2.5e+02f)) : ((iTemp44) ? 1.5e+02f * fTemp73 + 2.5e+02f : 4e+02f)) : ((iTemp41) ? 4e+02f - fTemp93 : 3.5e+02f)) : ((iTemp38) ? 3.1e+02f * fTemp42 + 3.5e+02f : 6.6e+02f)) : ((iTemp37) ? 6.6e+02f - 2.2e+02f * fTemp39 : 4.4e+02f)) : ((iTemp36) ? 4.4e+02f - 1.7e+02f * fTemp71 : 2.7e+02f)) : ((iTemp35) ? 1.6e+02f * fTemp70 + 2.7e+02f : 4.3e+02f)) : ((iTemp32) ? 4.3e+02f - 6e+01f * fTemp69 : 3.7e+02f)) : ((iTemp31) ? 4.3e+02f * fTemp33 + 3.7e+02f : 8e+02f)) : ((iTemp29) ? 8e+02f - 4.5e+02f * fTemp68 : 3.5e+02f)) : ((iTemp28) ? 3.5e+02f - fTemp92 : 2.7e+02f)) : ((iTemp26) ? 1.8e+02f * fTemp66 + 2.7e+02f : 4.5e+02f)) : ((iTemp23) ? 4.5e+02f - 125.0f * fTemp27 : 325.0f)) : ((iTemp20) ? 325.0f * (fTemp24 + 1.0f) : 6.5e+02f)) : ((iTemp19) ? 6.5e+02f - 2.5e+02f * fTemp21 : 4e+02f)) : ((iTemp18) ? 4e+02f - 1.1e+02f * fTemp65 : 2.9e+02f)) : ((iTemp17) ? 1.1e+02f * fTemp64 + 2.9e+02f : 4e+02f)) : ((iTemp62) ? 4e+02f - 5e+01f * fTemp63 : 3.5e+02f));
-			float fTemp95 = ((iTemp79) ? 0.0f : fRec13[1] + fConst1 * ((fTemp94 <= fTemp2) ? fTemp2 : fTemp94));
-			fRec13[0] = fTemp95 - std::floor(fTemp95);
-			float fTemp96 = 1e+01f * fTemp64;
-			float fTemp97 = 1e+01f * fTemp21;
-			float fTemp98 = 1e+01f * fTemp42;
-			float fTemp99 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 9e+01f : ((iTemp75) ? 9e+01f - 1e+01f * fTemp16 : 8e+01f)) : ((iTemp55) ? 2e+01f * fTemp87 + 8e+01f : 1e+02f)) : ((iTemp53) ? 1e+02f - fTemp57 : 8e+01f)) : ((iTemp50) ? 8e+01f - fTemp86 : 6e+01f)) : ((iTemp47) ? fTemp85 + 6e+01f : 7e+01f)) : ((iTemp46) ? fTemp49 + 7e+01f : 8e+01f)) : ((iTemp45) ? 1e+01f * fTemp74 + 8e+01f : 9e+01f)) : ((iTemp44) ? 9e+01f - 1e+01f * fTemp73 : 8e+01f)) : 8e+01f) : ((iTemp38) ? fTemp98 + 8e+01f : 9e+01f)) : ((iTemp37) ? 9e+01f - fTemp84 : 8e+01f)) : ((iTemp36) ? 1e+01f * fTemp71 + 8e+01f : 9e+01f)) : ((iTemp35) ? 9e+01f - 1e+01f * fTemp70 : 8e+01f)) : ((iTemp32) ? 8e+01f - 2e+01f * fTemp69 : 6e+01f)) : ((iTemp31) ? 3e+01f * fTemp33 + 6e+01f : 9e+01f)) : ((iTemp29) ? 1e+01f * fTemp68 + 9e+01f : 1e+02f)) : ((iTemp28) ? 1e+02f - 1e+01f * fTemp30 : 9e+01f)) : ((iTemp26) ? 9e+01f - 1e+01f * fTemp66 : 8e+01f)) : ((iTemp23) ? 8e+01f - 2e+01f * fTemp27 : 6e+01f)) : ((iTemp20) ? 3e+01f * fTemp24 + 6e+01f : 9e+01f)) : ((iTemp19) ? 9e+01f - fTemp97 : 8e+01f)) : ((iTemp18) ? 1e+01f * fTemp65 + 8e+01f : 9e+01f)) : ((iTemp17) ? 9e+01f - fTemp96 : 8e+01f)) : ((iTemp62) ? 8e+01f - 2e+01f * fTemp63 : 6e+01f));
-			fRec15[0] = fConst6 * fTemp15 * fTemp99 + fConst5 * fRec15[1];
-			float fTemp100 = std::exp(-(fConst4 * fRec15[0]));
-			fRec16[0] = fConst6 * fTemp99 + fConst5 * fRec16[1];
-			float fTemp101 = std::exp(-(fConst4 * fRec16[0]));
-			fRec14[0] = fVec2[1] + fRec14[1] * (fTemp100 + fTemp101) - fTemp100 * fTemp101 * fRec14[2];
-			float fTemp102 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 0.630957f : ((iTemp75) ? 0.630957f - 0.567861f * fTemp16 : 0.063096f)) : ((iTemp55) ? 0.036904f * fTemp87 + 0.063096f : 0.1f)) : ((iTemp53) ? 0.254813f * fTemp56 + 0.1f : 0.354813f)) : ((iTemp50) ? 0.354813f - 0.103624f * fTemp54 : 0.251189f)) : ((iTemp47) ? 0.195495f * fTemp51 + 0.251189f : 0.446684f)) : ((iTemp46) ? 0.446684f - 0.195495f * fTemp48 : 0.251189f)) : ((iTemp45) ? 0.251189f - 0.219566f * fTemp74 : 0.031623f)) : ((iTemp44) ? 0.250215f * fTemp73 + 0.031623f : 0.281838f)) : ((iTemp41) ? 0.281838f - 0.181838f * fTemp72 : 0.1f)) : ((iTemp38) ? 0.401187f * fTemp42 + 0.1f : 0.501187f)) : ((iTemp37) ? 0.501187f - 0.301661f * fTemp39 : 0.199526f)) : ((iTemp36) ? 0.199526f - 0.13643f * fTemp71 : 0.063096f)) : ((iTemp35) ? 0.253132f * fTemp70 + 0.063096f : 0.316228f)) : ((iTemp32) ? 0.316228f - 0.216228f * fTemp69 : 0.1f)) : ((iTemp31) ? 0.401187f * fTemp33 + 0.1f : 0.501187f)) : ((iTemp29) ? 0.501187f - 0.401187f * fTemp68 : 0.1f)) : ((iTemp28) ? 0.151189f * fTemp30 + 0.1f : 0.251189f)) : ((iTemp26) ? 0.030649f * fTemp66 + 0.251189f : 0.281838f)) : ((iTemp23) ? 0.281838f - 0.123349f * fTemp27 : 0.158489f)) : ((iTemp20) ? 0.342698f * fTemp24 + 0.158489f : 0.501187f)) : ((iTemp19) ? 0.501187f - 0.301661f * fTemp21 : 0.199526f)) : ((iTemp18) ? 0.199526f - 0.021698f * fTemp65 : 0.177828f)) : ((iTemp17) ? 0.1384f * fTemp64 + 0.177828f : 0.316228f)) : ((iTemp62) ? 0.316228f - 0.216228f * fTemp63 : 0.1f));
-			float fTemp103 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 1.15e+03f : ((iTemp75) ? 4.5e+02f * fTemp16 + 1.15e+03f : 1.6e+03f)) : ((iTemp55) ? 1e+02f * fTemp87 + 1.6e+03f : 1.7e+03f)) : ((iTemp53) ? 1.7e+03f - 9e+02f * fTemp56 : 8e+02f)) : ((iTemp50) ? 8e+02f - 1e+02f * fTemp54 : 7e+02f)) : ((iTemp47) ? 3.4e+02f * fTemp51 + 7e+02f : 1.04e+03f)) : ((iTemp46) ? 5.8e+02f * fTemp48 + 1.04e+03f : 1.62e+03f)) : ((iTemp45) ? 1.3e+02f * fTemp74 + 1.62e+03f : 1.75e+03f)) : ((iTemp44) ? 1.75e+03f - 1e+03f * fTemp73 : 7.5e+02f)) : ((iTemp41) ? 7.5e+02f - 1.5e+02f * fTemp72 : 6e+02f)) : ((iTemp38) ? 5.2e+02f * fTemp42 + 6e+02f : 1.12e+03f)) : ((iTemp37) ? 6.8e+02f * fTemp39 + 1.12e+03f : 1.8e+03f)) : ((iTemp36) ? 5e+01f * fTemp71 + 1.8e+03f : 1.85e+03f)) : ((iTemp35) ? 1.85e+03f - 1.03e+03f * fTemp70 : 8.2e+02f)) : ((iTemp32) ? 8.2e+02f - 1.9e+02f * fTemp69 : 6.3e+02f)) : ((iTemp31) ? 5.2e+02f * fTemp33 + 6.3e+02f : 1.15e+03f)) : ((iTemp29) ? 8.5e+02f * fTemp68 + 1.15e+03f : 2e+03f)) : ((iTemp28) ? 1.4e+02f * fTemp30 + 2e+03f : 2.14e+03f)) : ((iTemp26) ? 2.14e+03f - 1.34e+03f * fTemp66 : 8e+02f)) : ((iTemp23) ? 8e+02f - 1e+02f * fTemp27 : 7e+02f)) : ((iTemp20) ? 3.8e+02f * fTemp24 + 7e+02f : 1.08e+03f)) : ((iTemp19) ? 6.2e+02f * fTemp21 + 1.08e+03f : 1.7e+03f)) : ((iTemp18) ? 1.7e+02f * fTemp65 + 1.7e+03f : 1.87e+03f)) : ((iTemp17) ? 1.87e+03f - 1.07e+03f * fTemp64 : 8e+02f)) : ((iTemp62) ? 8e+02f - 2e+02f * fTemp63 : 6e+02f));
-			float fTemp104 = 2.0f * fTemp2 + 3e+01f;
-			float fTemp105 = ((iTemp79) ? 0.0f : fRec17[1] + fConst1 * ((iSlow20) ? (((fTemp103 >= 1.3e+03f) & (fTemp2 >= 2e+02f)) ? fTemp103 - 0.00095238094f * (fTemp2 + -2e+02f) * (fTemp103 + -1.3e+03f) : ((fTemp103 <= fTemp104) ? fTemp104 : fTemp103)) : fTemp103));
+			int iTemp18 = fTemp16 < 24.0f;
+			float fTemp19 = fSlow18 + fRec7[0] + -23.0f;
+			int iTemp20 = fTemp16 < 22.0f;
+			float fTemp21 = fSlow18 + fRec7[0] + -22.0f;
+			int iTemp22 = fTemp16 < 21.0f;
+			float fTemp23 = fSlow18 + fRec7[0] + -21.0f;
+			int iTemp24 = fTemp16 < 2e+01f;
+			float fTemp25 = fSlow18 + fRec7[0] + -2e+01f;
+			float fTemp26 = 2e+01f * fTemp25;
+			int iTemp27 = fTemp16 < 19.0f;
+			int iTemp28 = fTemp16 < 18.0f;
+			float fTemp29 = fSlow18 + fRec7[0] + -18.0f;
+			int iTemp30 = fTemp16 < 17.0f;
+			float fTemp31 = fSlow18 + fRec7[0] + -17.0f;
+			int iTemp32 = fTemp16 < 16.0f;
+			int iTemp33 = fTemp16 < 15.0f;
+			float fTemp34 = fSlow18 + fRec7[0] + -15.0f;
+			float fTemp35 = 2e+01f * fTemp34;
+			int iTemp36 = fTemp16 < 14.0f;
+			float fTemp37 = fSlow18 + fRec7[0] + -14.0f;
+			int iTemp38 = fTemp16 < 13.0f;
+			int iTemp39 = fTemp16 < 12.0f;
+			int iTemp40 = fTemp16 < 11.0f;
+			float fTemp41 = fSlow18 + fRec7[0] + -11.0f;
+			int iTemp42 = fTemp16 < 1e+01f;
+			float fTemp43 = fSlow18 + fRec7[0] + -1e+01f;
+			float fTemp44 = 1e+01f * fTemp43;
+			int iTemp45 = fTemp16 < 9.0f;
+			float fTemp46 = fSlow18 + fRec7[0] + -9.0f;
+			int iTemp47 = fTemp16 < 8.0f;
+			int iTemp48 = fTemp16 < 7.0f;
+			float fTemp49 = fSlow18 + fRec7[0] + -7.0f;
+			int iTemp50 = fTemp16 < 6.0f;
+			float fTemp51 = fSlow18 + fRec7[0] + -6.0f;
+			int iTemp52 = fTemp16 < 5.0f;
+			float fTemp53 = fSlow18 + fRec7[0] + -5.0f;
+			int iTemp54 = fTemp16 < 4.0f;
+			float fTemp55 = fSlow18 + fRec7[0] + -4.0f;
+			float fTemp56 = 1e+01f * fTemp55;
+			int iTemp57 = fTemp16 < 3.0f;
+			float fTemp58 = fSlow18 + fRec7[0] + -3.0f;
+			float fTemp59 = 2e+01f * fTemp58;
+			int iTemp60 = fTemp16 < 2.0f;
+			float fTemp61 = fSlow18 + fRec7[0] + -2.0f;
+			float fTemp62 = 2e+01f * fTemp61;
+			int iTemp63 = fTemp16 < 1.0f;
+			float fTemp64 = fSlow18 + fRec7[0] + -1.0f;
+			int iTemp65 = fTemp16 < 0.0f;
+			float fTemp66 = 2e+01f * fTemp16;
+			float fTemp67 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 8e+01f : ((iTemp63) ? 8e+01f - fTemp66 : 6e+01f)) : ((iTemp60) ? 6e+01f - 1e+01f * fTemp64 : 5e+01f)) : ((iTemp57) ? fTemp62 + 5e+01f : 7e+01f)) : ((iTemp54) ? 7e+01f - fTemp59 : 5e+01f)) : ((iTemp52) ? fTemp56 + 5e+01f : 6e+01f)) : ((iTemp50) ? 6e+01f - 2e+01f * fTemp53 : 4e+01f)) : ((iTemp48) ? 2e+01f * fTemp51 + 4e+01f : 6e+01f)) : ((iTemp47) ? 6e+01f - 2e+01f * fTemp49 : 4e+01f)) : 4e+01f) : ((iTemp42) ? 4e+01f * (fTemp46 + 1.0f) : 8e+01f)) : ((iTemp40) ? 8e+01f - fTemp44 : 7e+01f)) : ((iTemp39) ? 7e+01f - 3e+01f * fTemp41 : 4e+01f)) : 4e+01f) : 4e+01f) : ((iTemp33) ? 4e+01f * (fTemp37 + 1.0f) : 8e+01f)) : ((iTemp32) ? 8e+01f - fTemp35 : 6e+01f)) : 6e+01f) : ((iTemp28) ? 6e+01f - 2e+01f * fTemp31 : 4e+01f)) : ((iTemp27) ? 1e+01f * fTemp29 + 4e+01f : 5e+01f)) : 5e+01f) : ((iTemp22) ? fTemp26 + 5e+01f : 7e+01f)) : ((iTemp20) ? 7e+01f - 3e+01f * fTemp23 : 4e+01f)) : ((iTemp17) ? 3e+01f * fTemp21 + 4e+01f : 7e+01f)) : ((iTemp18) ? 7e+01f - 3e+01f * fTemp19 : 4e+01f));
+			fRec6[0] = fConst6 * fTemp15 * fTemp67 + fConst5 * fRec6[1];
+			float fTemp68 = std::exp(-(fConst4 * fRec6[0]));
+			fRec8[0] = fConst6 * fTemp67 + fConst5 * fRec8[1];
+			float fTemp69 = std::exp(-(fConst4 * fRec8[0]));
+			fRec0[0] = fVec2[1] + fRec0[1] * (fTemp68 + fTemp69) - fTemp68 * fTemp69 * fRec0[2];
+			float fTemp70 = 0.00084f * (1e+03f - fTemp2) + 0.8f;
+			float fTemp71 = 0.0036666666f * (4e+02f - fTemp2) + 3.0f;
+			int iTemp72 = iTemp0 | int(fTemp4);
+			float fTemp73 = fSlow18 + fRec7[0] + -19.0f;
+			float fTemp74 = fSlow18 + fRec7[0] + -16.0f;
+			float fTemp75 = 8e+01f * fTemp74;
+			float fTemp76 = fSlow18 + fRec7[0] + -13.0f;
+			float fTemp77 = fSlow18 + fRec7[0] + -12.0f;
+			float fTemp78 = fSlow18 + fRec7[0] + -8.0f;
+			float fTemp79 = 5e+01f * fTemp78;
+			float fTemp80 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 8e+02f : ((iTemp63) ? 8e+02f - 4e+02f * fTemp16 : 4e+02f)) : ((iTemp60) ? 4e+02f - 5e+01f * fTemp64 : 3.5e+02f)) : ((iTemp57) ? 1e+02f * fTemp61 + 3.5e+02f : 4.5e+02f)) : ((iTemp54) ? 4.5e+02f - 125.0f * fTemp58 : 325.0f)) : ((iTemp52) ? 275.0f * fTemp55 + 325.0f : 6e+02f)) : ((iTemp50) ? 6e+02f - 2e+02f * fTemp53 : 4e+02f)) : ((iTemp48) ? 4e+02f - 1.5e+02f * fTemp51 : 2.5e+02f)) : ((iTemp47) ? 1.5e+02f * fTemp49 + 2.5e+02f : 4e+02f)) : ((iTemp45) ? 4e+02f - fTemp79 : 3.5e+02f)) : ((iTemp42) ? 3.1e+02f * fTemp46 + 3.5e+02f : 6.6e+02f)) : ((iTemp40) ? 6.6e+02f - 2.2e+02f * fTemp43 : 4.4e+02f)) : ((iTemp39) ? 4.4e+02f - 1.7e+02f * fTemp41 : 2.7e+02f)) : ((iTemp38) ? 1.6e+02f * fTemp77 + 2.7e+02f : 4.3e+02f)) : ((iTemp36) ? 4.3e+02f - 6e+01f * fTemp76 : 3.7e+02f)) : ((iTemp33) ? 4.3e+02f * fTemp37 + 3.7e+02f : 8e+02f)) : ((iTemp32) ? 8e+02f - 4.5e+02f * fTemp34 : 3.5e+02f)) : ((iTemp30) ? 3.5e+02f - fTemp75 : 2.7e+02f)) : ((iTemp28) ? 1.8e+02f * fTemp31 + 2.7e+02f : 4.5e+02f)) : ((iTemp27) ? 4.5e+02f - 125.0f * fTemp29 : 325.0f)) : ((iTemp24) ? 325.0f * (fTemp73 + 1.0f) : 6.5e+02f)) : ((iTemp22) ? 6.5e+02f - 2.5e+02f * fTemp25 : 4e+02f)) : ((iTemp20) ? 4e+02f - 1.1e+02f * fTemp23 : 2.9e+02f)) : ((iTemp17) ? 1.1e+02f * fTemp21 + 2.9e+02f : 4e+02f)) : ((iTemp18) ? 4e+02f - 5e+01f * fTemp19 : 3.5e+02f));
+			float fTemp81 = ((iTemp72) ? 0.0f : fRec9[1] + fConst1 * ((fTemp80 <= fTemp2) ? fTemp2 : fTemp80));
+			fRec9[0] = fTemp81 - std::floor(fTemp81);
+			float fTemp82 = 1e+01f * fTemp21;
+			float fTemp83 = 1e+01f * fTemp25;
+			float fTemp84 = 1e+01f * fTemp46;
+			float fTemp85 = 1e+01f * fTemp53;
+			float fTemp86 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 9e+01f : ((iTemp63) ? 9e+01f - 1e+01f * fTemp16 : 8e+01f)) : ((iTemp60) ? 2e+01f * fTemp64 + 8e+01f : 1e+02f)) : ((iTemp57) ? 1e+02f - fTemp62 : 8e+01f)) : ((iTemp54) ? 8e+01f - fTemp59 : 6e+01f)) : ((iTemp52) ? fTemp56 + 6e+01f : 7e+01f)) : ((iTemp50) ? fTemp85 + 7e+01f : 8e+01f)) : ((iTemp48) ? 1e+01f * fTemp51 + 8e+01f : 9e+01f)) : ((iTemp47) ? 9e+01f - 1e+01f * fTemp49 : 8e+01f)) : 8e+01f) : ((iTemp42) ? fTemp84 + 8e+01f : 9e+01f)) : ((iTemp40) ? 9e+01f - fTemp44 : 8e+01f)) : ((iTemp39) ? 1e+01f * fTemp41 + 8e+01f : 9e+01f)) : ((iTemp38) ? 9e+01f - 1e+01f * fTemp77 : 8e+01f)) : ((iTemp36) ? 8e+01f - 2e+01f * fTemp76 : 6e+01f)) : ((iTemp33) ? 3e+01f * fTemp37 + 6e+01f : 9e+01f)) : ((iTemp32) ? 1e+01f * fTemp34 + 9e+01f : 1e+02f)) : ((iTemp30) ? 1e+02f - 1e+01f * fTemp74 : 9e+01f)) : ((iTemp28) ? 9e+01f - 1e+01f * fTemp31 : 8e+01f)) : ((iTemp27) ? 8e+01f - 2e+01f * fTemp29 : 6e+01f)) : ((iTemp24) ? 3e+01f * fTemp73 + 6e+01f : 9e+01f)) : ((iTemp22) ? 9e+01f - fTemp83 : 8e+01f)) : ((iTemp20) ? 1e+01f * fTemp23 + 8e+01f : 9e+01f)) : ((iTemp17) ? 9e+01f - fTemp82 : 8e+01f)) : ((iTemp18) ? 8e+01f - 2e+01f * fTemp19 : 6e+01f));
+			fRec11[0] = fConst6 * fTemp15 * fTemp86 + fConst5 * fRec11[1];
+			float fTemp87 = std::exp(-(fConst4 * fRec11[0]));
+			fRec12[0] = fConst6 * fTemp86 + fConst5 * fRec12[1];
+			float fTemp88 = std::exp(-(fConst4 * fRec12[0]));
+			fRec10[0] = fVec2[1] + fRec10[1] * (fTemp87 + fTemp88) - fTemp87 * fTemp88 * fRec10[2];
+			float fTemp89 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 0.630957f : ((iTemp63) ? 0.630957f - 0.567861f * fTemp16 : 0.063096f)) : ((iTemp60) ? 0.036904f * fTemp64 + 0.063096f : 0.1f)) : ((iTemp57) ? 0.254813f * fTemp61 + 0.1f : 0.354813f)) : ((iTemp54) ? 0.354813f - 0.103624f * fTemp58 : 0.251189f)) : ((iTemp52) ? 0.195495f * fTemp55 + 0.251189f : 0.446684f)) : ((iTemp50) ? 0.446684f - 0.195495f * fTemp53 : 0.251189f)) : ((iTemp48) ? 0.251189f - 0.219566f * fTemp51 : 0.031623f)) : ((iTemp47) ? 0.250215f * fTemp49 + 0.031623f : 0.281838f)) : ((iTemp45) ? 0.281838f - 0.181838f * fTemp78 : 0.1f)) : ((iTemp42) ? 0.401187f * fTemp46 + 0.1f : 0.501187f)) : ((iTemp40) ? 0.501187f - 0.301661f * fTemp43 : 0.199526f)) : ((iTemp39) ? 0.199526f - 0.13643f * fTemp41 : 0.063096f)) : ((iTemp38) ? 0.253132f * fTemp77 + 0.063096f : 0.316228f)) : ((iTemp36) ? 0.316228f - 0.216228f * fTemp76 : 0.1f)) : ((iTemp33) ? 0.401187f * fTemp37 + 0.1f : 0.501187f)) : ((iTemp32) ? 0.501187f - 0.401187f * fTemp34 : 0.1f)) : ((iTemp30) ? 0.151189f * fTemp74 + 0.1f : 0.251189f)) : ((iTemp28) ? 0.030649f * fTemp31 + 0.251189f : 0.281838f)) : ((iTemp27) ? 0.281838f - 0.123349f * fTemp29 : 0.158489f)) : ((iTemp24) ? 0.342698f * fTemp73 + 0.158489f : 0.501187f)) : ((iTemp22) ? 0.501187f - 0.301661f * fTemp25 : 0.199526f)) : ((iTemp20) ? 0.199526f - 0.021698f * fTemp23 : 0.177828f)) : ((iTemp17) ? 0.1384f * fTemp21 + 0.177828f : 0.316228f)) : ((iTemp18) ? 0.316228f - 0.216228f * fTemp19 : 0.1f));
+			float fTemp90 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 1.15e+03f : ((iTemp63) ? 4.5e+02f * fTemp16 + 1.15e+03f : 1.6e+03f)) : ((iTemp60) ? 1e+02f * fTemp64 + 1.6e+03f : 1.7e+03f)) : ((iTemp57) ? 1.7e+03f - 9e+02f * fTemp61 : 8e+02f)) : ((iTemp54) ? 8e+02f - 1e+02f * fTemp58 : 7e+02f)) : ((iTemp52) ? 3.4e+02f * fTemp55 + 7e+02f : 1.04e+03f)) : ((iTemp50) ? 5.8e+02f * fTemp53 + 1.04e+03f : 1.62e+03f)) : ((iTemp48) ? 1.3e+02f * fTemp51 + 1.62e+03f : 1.75e+03f)) : ((iTemp47) ? 1.75e+03f - 1e+03f * fTemp49 : 7.5e+02f)) : ((iTemp45) ? 7.5e+02f - 1.5e+02f * fTemp78 : 6e+02f)) : ((iTemp42) ? 5.2e+02f * fTemp46 + 6e+02f : 1.12e+03f)) : ((iTemp40) ? 6.8e+02f * fTemp43 + 1.12e+03f : 1.8e+03f)) : ((iTemp39) ? 5e+01f * fTemp41 + 1.8e+03f : 1.85e+03f)) : ((iTemp38) ? 1.85e+03f - 1.03e+03f * fTemp77 : 8.2e+02f)) : ((iTemp36) ? 8.2e+02f - 1.9e+02f * fTemp76 : 6.3e+02f)) : ((iTemp33) ? 5.2e+02f * fTemp37 + 6.3e+02f : 1.15e+03f)) : ((iTemp32) ? 8.5e+02f * fTemp34 + 1.15e+03f : 2e+03f)) : ((iTemp30) ? 1.4e+02f * fTemp74 + 2e+03f : 2.14e+03f)) : ((iTemp28) ? 2.14e+03f - 1.34e+03f * fTemp31 : 8e+02f)) : ((iTemp27) ? 8e+02f - 1e+02f * fTemp29 : 7e+02f)) : ((iTemp24) ? 3.8e+02f * fTemp73 + 7e+02f : 1.08e+03f)) : ((iTemp22) ? 6.2e+02f * fTemp25 + 1.08e+03f : 1.7e+03f)) : ((iTemp20) ? 1.7e+02f * fTemp23 + 1.7e+03f : 1.87e+03f)) : ((iTemp17) ? 1.87e+03f - 1.07e+03f * fTemp21 : 8e+02f)) : ((iTemp18) ? 8e+02f - 2e+02f * fTemp19 : 6e+02f));
+			float fTemp91 = 2.0f * fTemp2 + 3e+01f;
+			float fTemp92 = ((iTemp72) ? 0.0f : fRec13[1] + fConst1 * ((iSlow20) ? (((fTemp90 >= 1.3e+03f) & (fTemp2 >= 2e+02f)) ? fTemp90 - 0.00095238094f * (fTemp2 + -2e+02f) * (fTemp90 + -1.3e+03f) : ((fTemp90 <= fTemp91) ? fTemp91 : fTemp90)) : fTemp90));
+			fRec13[0] = fTemp92 - std::floor(fTemp92);
+			float fTemp93 = 5e+01f * fTemp73;
+			float fTemp94 = 2e+01f * fTemp37;
+			float fTemp95 = 2e+01f * fTemp43;
+			float fTemp96 = 2e+01f * fTemp46;
+			float fTemp97 = 6e+01f * fTemp55;
+			float fTemp98 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? 1.2e+02f : ((iTemp57) ? 1.2e+02f - fTemp62 : 1e+02f)) : ((iTemp54) ? 7e+01f * fTemp58 + 1e+02f : 1.7e+02f)) : ((iTemp52) ? 1.7e+02f - fTemp97 : 1.1e+02f)) : ((iTemp50) ? 1.1e+02f - fTemp85 : 1e+02f)) : 1e+02f) : 1e+02f) : 1e+02f) : ((iTemp42) ? fTemp96 + 1e+02f : 1.2e+02f)) : ((iTemp40) ? 1.2e+02f - fTemp95 : 1e+02f)) : 1e+02f) : 1e+02f) : 1e+02f) : ((iTemp33) ? fTemp94 + 1e+02f : 1.2e+02f)) : 1.2e+02f) : ((iTemp30) ? 1.2e+02f - 2e+01f * fTemp74 : 1e+02f)) : 1e+02f) : ((iTemp27) ? 7e+01f * fTemp29 + 1e+02f : 1.7e+02f)) : ((iTemp24) ? 1.7e+02f - fTemp93 : 1.2e+02f)) : ((iTemp22) ? 1.2e+02f - fTemp26 : 1e+02f)) : 1e+02f) : 1e+02f) : 1e+02f);
+			fRec15[0] = fConst6 * fTemp15 * fTemp98 + fConst5 * fRec15[1];
+			float fTemp99 = std::exp(-(fConst4 * fRec15[0]));
+			fRec16[0] = fConst6 * fTemp98 + fConst5 * fRec16[1];
+			float fTemp100 = std::exp(-(fConst4 * fRec16[0]));
+			fRec14[0] = fVec2[1] + fRec14[1] * (fTemp99 + fTemp100) - fTemp99 * fTemp100 * fRec14[2];
+			float fTemp101 = ((iTemp28) ? 0.029314f * fTemp31 + 0.050119f : 0.079433f);
+			float fTemp102 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 0.1f : ((iTemp63) ? 0.1f - 0.068377f * fTemp16 : 0.031623f)) : 0.031623f) : ((iTemp57) ? 0.126866f * fTemp61 + 0.031623f : 0.158489f)) : ((iTemp54) ? 0.158489f - 0.126866f * fTemp58 : 0.031623f)) : ((iTemp52) ? 0.32319f * fTemp55 + 0.031623f : 0.354813f)) : 0.354813f) : ((iTemp48) ? 0.354813f - 0.196324f * fTemp51 : 0.158489f)) : ((iTemp47) ? 0.158489f - 0.069364f * fTemp49 : 0.089125f)) : ((iTemp45) ? 0.089125f - 0.064006f * fTemp78 : 0.025119f)) : ((iTemp42) ? 0.045676f * fTemp46 + 0.025119f : 0.070795f)) : ((iTemp40) ? 0.055098f * fTemp43 + 0.070795f : 0.125893f)) : ((iTemp39) ? 0.125893f - 0.062797f * fTemp41 : 0.063096f)) : ((iTemp38) ? 0.063096f - 0.012977f * fTemp77 : 0.050119f)) : ((iTemp36) ? 0.020676f * fTemp76 + 0.050119f : 0.070795f)) : ((iTemp33) ? 0.070795f - 0.045676f * fTemp37 : 0.025119f)) : ((iTemp32) ? 0.152709f * fTemp34 + 0.025119f : 0.177828f)) : ((iTemp30) ? 0.177828f - 0.127709f * fTemp74 : 0.050119f)) : fTemp101) : ((iTemp27) ? 0.079433f - 0.06165f * fTemp29 : 0.017783f)) : ((iTemp24) ? 0.428901f * fTemp73 + 0.017783f : 0.446684f)) : ((iTemp22) ? 0.446684f - 0.195495f * fTemp25 : 0.251189f)) : ((iTemp20) ? 0.251189f - 0.125296f * fTemp23 : 0.125893f)) : ((iTemp17) ? 0.125296f * fTemp21 + 0.125893f : 0.251189f)) : ((iTemp18) ? 0.251189f - 0.109935f * fTemp19 : 0.141254f));
+			float fTemp103 = 1e+02f * fTemp19;
+			float fTemp104 = 5e+01f * fTemp43;
+			float fTemp105 = ((iTemp72) ? 0.0f : fRec17[1] + fConst1 * ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 2.8e+03f : ((iTemp63) ? 2.8e+03f - 1e+02f * fTemp16 : 2.7e+03f)) : 2.7e+03f) : ((iTemp57) ? 1.3e+02f * fTemp61 + 2.7e+03f : 2.83e+03f)) : ((iTemp54) ? 2.83e+03f - 3e+02f * fTemp58 : 2.53e+03f)) : ((iTemp52) ? 2.53e+03f - 2.8e+02f * fTemp55 : 2.25e+03f)) : ((iTemp50) ? 1.5e+02f * fTemp53 + 2.25e+03f : 2.4e+03f)) : ((iTemp48) ? 2e+02f * fTemp51 + 2.4e+03f : 2.6e+03f)) : ((iTemp47) ? 2.6e+03f - 2e+02f * fTemp49 : 2.4e+03f)) : 2.4e+03f) : ((iTemp42) ? 3.5e+02f * fTemp46 + 2.4e+03f : 2.75e+03f)) : ((iTemp40) ? 2.75e+03f - fTemp104 : 2.7e+03f)) : ((iTemp39) ? 2e+02f * fTemp41 + 2.7e+03f : 2.9e+03f)) : ((iTemp38) ? 2.9e+03f - 2e+02f * fTemp77 : 2.7e+03f)) : ((iTemp36) ? 5e+01f * fTemp76 + 2.7e+03f : 2.75e+03f)) : ((iTemp33) ? 1.5e+02f * fTemp37 + 2.75e+03f : 2.9e+03f)) : ((iTemp32) ? 2.9e+03f - 1e+02f * fTemp34 : 2.8e+03f)) : ((iTemp30) ? 1.5e+02f * fTemp74 + 2.8e+03f : 2.95e+03f)) : ((iTemp28) ? 2.95e+03f - 1.2e+02f * fTemp31 : 2.83e+03f)) : ((iTemp27) ? 2.83e+03f - 1.3e+02f * fTemp29 : 2.7e+03f)) : ((iTemp24) ? 2.7e+03f - fTemp93 : 2.65e+03f)) : ((iTemp22) ? 2.65e+03f - 5e+01f * fTemp25 : 2.6e+03f)) : ((iTemp20) ? 2e+02f * fTemp23 + 2.6e+03f : 2.8e+03f)) : ((iTemp17) ? 2.8e+03f - 2e+02f * fTemp21 : 2.6e+03f)) : ((iTemp18) ? fTemp103 + 2.6e+03f : 2.7e+03f)));
 			fRec17[0] = fTemp105 - std::floor(fTemp105);
-			float fTemp106 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 1.3e+02f : ((iTemp75) ? fTemp88 + 1.3e+02f : 1.5e+02f)) : 1.5e+02f) : ((iTemp53) ? 1.5e+02f - fTemp57 : 1.3e+02f)) : ((iTemp50) ? 5e+01f * fTemp54 + 1.3e+02f : 1.8e+02f)) : ((iTemp47) ? 1.8e+02f - fTemp52 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp38) ? fTemp98 + 1.2e+02f : 1.3e+02f)) : ((iTemp37) ? 1.3e+02f - fTemp84 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp31) ? 1e+01f * fTemp33 + 1.2e+02f : 1.3e+02f)) : ((iTemp29) ? fTemp83 + 1.3e+02f : 1.5e+02f)) : ((iTemp28) ? 1.5e+02f - 3e+01f * fTemp30 : 1.2e+02f)) : 1.2e+02f) : ((iTemp23) ? 6e+01f * fTemp27 + 1.2e+02f : 1.8e+02f)) : ((iTemp20) ? 1.8e+02f - fTemp25 : 1.3e+02f)) : ((iTemp19) ? 1.3e+02f - fTemp97 : 1.2e+02f)) : 1.2e+02f) : ((iTemp17) ? fTemp96 + 1.2e+02f : 1.3e+02f)) : ((iTemp62) ? 1.3e+02f - 1e+01f * fTemp63 : 1.2e+02f));
+			float fTemp106 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 1.3e+02f : ((iTemp63) ? fTemp66 + 1.3e+02f : 1.5e+02f)) : 1.5e+02f) : ((iTemp57) ? 1.5e+02f - fTemp62 : 1.3e+02f)) : ((iTemp54) ? 5e+01f * fTemp58 + 1.3e+02f : 1.8e+02f)) : ((iTemp52) ? 1.8e+02f - fTemp97 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp42) ? fTemp84 + 1.2e+02f : 1.3e+02f)) : ((iTemp40) ? 1.3e+02f - fTemp44 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp33) ? 1e+01f * fTemp37 + 1.2e+02f : 1.3e+02f)) : ((iTemp32) ? fTemp35 + 1.3e+02f : 1.5e+02f)) : ((iTemp30) ? 1.5e+02f - 3e+01f * fTemp74 : 1.2e+02f)) : 1.2e+02f) : ((iTemp27) ? 6e+01f * fTemp29 + 1.2e+02f : 1.8e+02f)) : ((iTemp24) ? 1.8e+02f - fTemp93 : 1.3e+02f)) : ((iTemp22) ? 1.3e+02f - fTemp83 : 1.2e+02f)) : 1.2e+02f) : ((iTemp17) ? fTemp82 + 1.2e+02f : 1.3e+02f)) : ((iTemp18) ? 1.3e+02f - 1e+01f * fTemp19 : 1.2e+02f));
 			fRec19[0] = fConst6 * fTemp15 * fTemp106 + fConst5 * fRec19[1];
 			float fTemp107 = std::exp(-(fConst4 * fRec19[0]));
 			fRec20[0] = fConst6 * fTemp106 + fConst5 * fRec20[1];
 			float fTemp108 = std::exp(-(fConst4 * fRec20[0]));
 			fRec18[0] = fVec2[1] + fRec18[1] * (fTemp107 + fTemp108) - fTemp107 * fTemp108 * fRec18[2];
-			float fTemp109 = ((iTemp36) ? 0.1f - 0.084151f * fTemp71 : 0.015849f);
-			float fTemp110 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 0.015849f : ((iTemp75) ? 0.001934f * fTemp16 + 0.015849f : 0.017783f)) : ((iTemp55) ? 0.017783f - 0.001934f * fTemp87 : 0.015849f)) : ((iTemp53) ? 0.023962f * fTemp56 + 0.015849f : 0.039811f)) : ((iTemp50) ? 0.039811f - 0.029811f * fTemp54 : 0.01f)) : ((iTemp47) ? 0.344813f * fTemp51 + 0.01f : 0.354813f)) : ((iTemp46) ? 0.354813f - 0.103624f * fTemp48 : 0.251189f)) : ((iTemp45) ? 0.251189f - 0.171756f * fTemp74 : 0.079433f)) : ((iTemp44) ? 0.020567f * fTemp73 + 0.079433f : 0.1f)) : ((iTemp41) ? 0.1f - 0.060189f * fTemp72 : 0.039811f)) : ((iTemp38) ? 0.023285f * fTemp42 + 0.039811f : 0.063096f)) : ((iTemp37) ? 0.036904f * fTemp39 + 0.063096f : 0.1f)) : fTemp109) : ((iTemp35) ? 0.063584f * fTemp70 + 0.015849f : 0.079433f)) : ((iTemp32) ? 0.079433f - 0.04781f * fTemp69 : 0.031623f)) : ((iTemp31) ? 0.068377f * fTemp33 + 0.031623f : 0.1f)) : ((iTemp29) ? 0.1f - 0.09f * fTemp68 : 0.01f)) : ((iTemp28) ? 0.040119f * fTemp30 + 0.01f : 0.050119f)) : fTemp67) : ((iTemp23) ? 0.079433f - 0.069433f * fTemp27 : 0.01f)) : ((iTemp20) ? 0.388107f * fTemp24 + 0.01f : 0.398107f)) : ((iTemp19) ? 0.398107f - 0.198581f * fTemp21 : 0.199526f)) : ((iTemp18) ? 0.199526f - 0.099526f * fTemp65 : 0.1f)) : ((iTemp17) ? 0.151189f * fTemp64 + 0.1f : 0.251189f)) : ((iTemp62) ? 0.251189f - 0.051663f * fTemp63 : 0.199526f));
-			float fTemp111 = 3.5e+02f * fTemp48;
-			float fTemp112 = ((iTemp79) ? 0.0f : fRec21[1] + fConst1 * ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 3.5e+03f : ((iTemp75) ? 3.5e+03f - 2e+02f * fTemp16 : 3.3e+03f)) : ((iTemp55) ? 4e+02f * fTemp87 + 3.3e+03f : 3.7e+03f)) : ((iTemp53) ? 3.7e+03f - 2e+02f * fTemp56 : 3.5e+03f)) : 3.5e+03f) : ((iTemp47) ? 3.5e+03f - 1.05e+03f * fTemp51 : 2.45e+03f)) : ((iTemp46) ? fTemp111 + 2.45e+03f : 2.8e+03f)) : ((iTemp45) ? 2.5e+02f * fTemp74 + 2.8e+03f : 3.05e+03f)) : ((iTemp44) ? 3.05e+03f - 4.5e+02f * fTemp73 : 2.6e+03f)) : ((iTemp41) ? 75.0f * fTemp72 + 2.6e+03f : 2675.0f)) : ((iTemp38) ? 325.0f * fTemp42 + 2675.0f : 3e+03f)) : 3e+03f) : ((iTemp36) ? 3.5e+02f * fTemp71 + 3e+03f : 3.35e+03f)) : ((iTemp35) ? 3.35e+03f - 3.5e+02f * fTemp70 : 3e+03f)) : 3e+03f) : ((iTemp31) ? 9e+02f * fTemp33 + 3e+03f : 3.9e+03f)) : ((iTemp29) ? 3.9e+03f - 3e+02f * fTemp68 : 3.6e+03f)) : ((iTemp28) ? 3e+02f * fTemp30 + 3.6e+03f : 3.9e+03f)) : ((iTemp26) ? 3.9e+03f - 1e+02f * fTemp66 : 3.8e+03f)) : 3.8e+03f) : ((iTemp20) ? 3.8e+03f - 9e+02f * fTemp24 : 2.9e+03f)) : ((iTemp19) ? 3e+02f * fTemp21 + 2.9e+03f : 3.2e+03f)) : ((iTemp18) ? 5e+01f * fTemp65 + 3.2e+03f : 3.25e+03f)) : ((iTemp17) ? 3.25e+03f - 4.5e+02f * fTemp64 : 2.8e+03f)) : ((iTemp62) ? fTemp80 + 2.8e+03f : 2.9e+03f)));
+			float fTemp109 = ((iTemp39) ? 0.1f - 0.084151f * fTemp41 : 0.015849f);
+			float fTemp110 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 0.015849f : ((iTemp63) ? 0.001934f * fTemp16 + 0.015849f : 0.017783f)) : ((iTemp60) ? 0.017783f - 0.001934f * fTemp64 : 0.015849f)) : ((iTemp57) ? 0.023962f * fTemp61 + 0.015849f : 0.039811f)) : ((iTemp54) ? 0.039811f - 0.029811f * fTemp58 : 0.01f)) : ((iTemp52) ? 0.344813f * fTemp55 + 0.01f : 0.354813f)) : ((iTemp50) ? 0.354813f - 0.103624f * fTemp53 : 0.251189f)) : ((iTemp48) ? 0.251189f - 0.171756f * fTemp51 : 0.079433f)) : ((iTemp47) ? 0.020567f * fTemp49 + 0.079433f : 0.1f)) : ((iTemp45) ? 0.1f - 0.060189f * fTemp78 : 0.039811f)) : ((iTemp42) ? 0.023285f * fTemp46 + 0.039811f : 0.063096f)) : ((iTemp40) ? 0.036904f * fTemp43 + 0.063096f : 0.1f)) : fTemp109) : ((iTemp38) ? 0.063584f * fTemp77 + 0.015849f : 0.079433f)) : ((iTemp36) ? 0.079433f - 0.04781f * fTemp76 : 0.031623f)) : ((iTemp33) ? 0.068377f * fTemp37 + 0.031623f : 0.1f)) : ((iTemp32) ? 0.1f - 0.09f * fTemp34 : 0.01f)) : ((iTemp30) ? 0.040119f * fTemp74 + 0.01f : 0.050119f)) : fTemp101) : ((iTemp27) ? 0.079433f - 0.069433f * fTemp29 : 0.01f)) : ((iTemp24) ? 0.388107f * fTemp73 + 0.01f : 0.398107f)) : ((iTemp22) ? 0.398107f - 0.198581f * fTemp25 : 0.199526f)) : ((iTemp20) ? 0.199526f - 0.099526f * fTemp23 : 0.1f)) : ((iTemp17) ? 0.151189f * fTemp21 + 0.1f : 0.251189f)) : ((iTemp18) ? 0.251189f - 0.051663f * fTemp19 : 0.199526f));
+			float fTemp111 = 3.5e+02f * fTemp53;
+			float fTemp112 = ((iTemp72) ? 0.0f : fRec21[1] + fConst1 * ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 3.5e+03f : ((iTemp63) ? 3.5e+03f - 2e+02f * fTemp16 : 3.3e+03f)) : ((iTemp60) ? 4e+02f * fTemp64 + 3.3e+03f : 3.7e+03f)) : ((iTemp57) ? 3.7e+03f - 2e+02f * fTemp61 : 3.5e+03f)) : 3.5e+03f) : ((iTemp52) ? 3.5e+03f - 1.05e+03f * fTemp55 : 2.45e+03f)) : ((iTemp50) ? fTemp111 + 2.45e+03f : 2.8e+03f)) : ((iTemp48) ? 2.5e+02f * fTemp51 + 2.8e+03f : 3.05e+03f)) : ((iTemp47) ? 3.05e+03f - 4.5e+02f * fTemp49 : 2.6e+03f)) : ((iTemp45) ? 75.0f * fTemp78 + 2.6e+03f : 2675.0f)) : ((iTemp42) ? 325.0f * fTemp46 + 2675.0f : 3e+03f)) : 3e+03f) : ((iTemp39) ? 3.5e+02f * fTemp41 + 3e+03f : 3.35e+03f)) : ((iTemp38) ? 3.35e+03f - 3.5e+02f * fTemp77 : 3e+03f)) : 3e+03f) : ((iTemp33) ? 9e+02f * fTemp37 + 3e+03f : 3.9e+03f)) : ((iTemp32) ? 3.9e+03f - 3e+02f * fTemp34 : 3.6e+03f)) : ((iTemp30) ? 3e+02f * fTemp74 + 3.6e+03f : 3.9e+03f)) : ((iTemp28) ? 3.9e+03f - 1e+02f * fTemp31 : 3.8e+03f)) : 3.8e+03f) : ((iTemp24) ? 3.8e+03f - 9e+02f * fTemp73 : 2.9e+03f)) : ((iTemp22) ? 3e+02f * fTemp25 + 2.9e+03f : 3.2e+03f)) : ((iTemp20) ? 5e+01f * fTemp23 + 3.2e+03f : 3.25e+03f)) : ((iTemp17) ? 3.25e+03f - 4.5e+02f * fTemp21 : 2.8e+03f)) : ((iTemp18) ? fTemp103 + 2.8e+03f : 2.9e+03f)));
 			fRec21[0] = fTemp112 - std::floor(fTemp112);
-			float fTemp113 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? ((iTemp75) ? ((iTemp76) ? 1.4e+02f : ((iTemp75) ? 6e+01f * fTemp16 + 1.4e+02f : 2e+02f)) : 2e+02f) : ((iTemp53) ? 2e+02f - 65.0f * fTemp56 : 135.0f)) : ((iTemp50) ? 65.0f * fTemp54 + 135.0f : 2e+02f)) : ((iTemp47) ? 2e+02f - 7e+01f * fTemp51 : 1.3e+02f)) : ((iTemp46) ? 1.3e+02f - fTemp49 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp38) ? fTemp43 + 1.2e+02f : 1.4e+02f)) : ((iTemp37) ? 1.4e+02f - fTemp40 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp31) ? fTemp34 + 1.2e+02f : 1.4e+02f)) : ((iTemp29) ? 6e+01f * fTemp68 + 1.4e+02f : 2e+02f)) : ((iTemp28) ? 2e+02f - fTemp92 : 1.2e+02f)) : 1.2e+02f) : ((iTemp23) ? 8e+01f * fTemp27 + 1.2e+02f : 2e+02f)) : ((iTemp20) ? 2e+02f - 6e+01f * fTemp24 : 1.4e+02f)) : ((iTemp19) ? 1.4e+02f - fTemp22 : 1.2e+02f)) : 1.2e+02f) : ((iTemp17) ? 15.0f * fTemp64 + 1.2e+02f : 135.0f)) : ((iTemp62) ? 135.0f - 15.0f * fTemp63 : 1.2e+02f));
+			float fTemp113 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? ((iTemp63) ? ((iTemp65) ? 1.4e+02f : ((iTemp63) ? 6e+01f * fTemp16 + 1.4e+02f : 2e+02f)) : 2e+02f) : ((iTemp57) ? 2e+02f - 65.0f * fTemp61 : 135.0f)) : ((iTemp54) ? 65.0f * fTemp58 + 135.0f : 2e+02f)) : ((iTemp52) ? 2e+02f - 7e+01f * fTemp55 : 1.3e+02f)) : ((iTemp50) ? 1.3e+02f - fTemp85 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp42) ? fTemp96 + 1.2e+02f : 1.4e+02f)) : ((iTemp40) ? 1.4e+02f - fTemp95 : 1.2e+02f)) : 1.2e+02f) : 1.2e+02f) : 1.2e+02f) : ((iTemp33) ? fTemp94 + 1.2e+02f : 1.4e+02f)) : ((iTemp32) ? 6e+01f * fTemp34 + 1.4e+02f : 2e+02f)) : ((iTemp30) ? 2e+02f - fTemp75 : 1.2e+02f)) : 1.2e+02f) : ((iTemp27) ? 8e+01f * fTemp29 + 1.2e+02f : 2e+02f)) : ((iTemp24) ? 2e+02f - 6e+01f * fTemp73 : 1.4e+02f)) : ((iTemp22) ? 1.4e+02f - fTemp26 : 1.2e+02f)) : 1.2e+02f) : ((iTemp17) ? 15.0f * fTemp21 + 1.2e+02f : 135.0f)) : ((iTemp18) ? 135.0f - 15.0f * fTemp19 : 1.2e+02f));
 			fRec23[0] = fConst6 * fTemp15 * fTemp113 + fConst5 * fRec23[1];
 			float fTemp114 = std::exp(-(fConst4 * fRec23[0]));
 			fRec24[0] = fConst6 * fTemp113 + fConst5 * fRec24[1];
 			float fTemp115 = std::exp(-(fConst4 * fRec24[0]));
 			fRec22[0] = fVec2[1] + fRec22[1] * (fTemp114 + fTemp115) - fTemp114 * fTemp115 * fRec22[2];
-			float fTemp116 = ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? ((iTemp53) ? ((iTemp55) ? 0.001f : ((iTemp53) ? 0.000778f * fTemp56 + 0.001f : 0.001778f)) : ((iTemp50) ? 0.001778f - 0.001147f * fTemp54 : 0.000631f)) : ((iTemp47) ? 0.099369f * fTemp51 + 0.000631f : 0.1f)) : ((iTemp46) ? 0.025893f * fTemp48 + 0.1f : 0.125893f)) : ((iTemp45) ? 0.125893f - 0.086082f * fTemp74 : 0.039811f)) : ((iTemp44) ? 0.039811f - 0.029811f * fTemp73 : 0.01f)) : ((iTemp41) ? 0.005849f * fTemp72 + 0.01f : 0.015849f)) : ((iTemp38) ? 0.015849f - 0.00326f * fTemp42 : 0.012589f)) : ((iTemp37) ? 0.087411f * fTemp39 + 0.012589f : 0.1f)) : fTemp109) : ((iTemp35) ? 0.004104f * fTemp70 + 0.015849f : 0.019953f)) : 0.019953f) : ((iTemp31) ? 0.019953f - 0.016791f * fTemp33 : 0.003162f)) : ((iTemp29) ? 0.003162f - 0.001577f * fTemp68 : 0.001585f)) : ((iTemp28) ? 0.004725f * fTemp30 + 0.001585f : 0.00631f)) : ((iTemp26) ? 0.00631f - 0.003148f * fTemp66 : 0.003162f)) : ((iTemp23) ? 0.003162f - 0.002162f * fTemp27 : 0.001f)) : ((iTemp20) ? 0.078433f * fTemp24 + 0.001f : 0.079433f)) : ((iTemp19) ? 0.020567f * fTemp21 + 0.079433f : 0.1f)) : ((iTemp18) ? 0.1f - 0.068377f * fTemp65 : 0.031623f)) : ((iTemp17) ? 0.018496f * fTemp64 + 0.031623f : 0.050119f)) : 0.050119f);
-			float fTemp117 = ((iTemp79) ? 0.0f : fRec25[1] + fConst1 * ((iTemp17) ? ((iTemp18) ? ((iTemp19) ? ((iTemp20) ? ((iTemp23) ? ((iTemp26) ? ((iTemp28) ? ((iTemp29) ? ((iTemp31) ? ((iTemp32) ? ((iTemp35) ? ((iTemp36) ? ((iTemp37) ? ((iTemp38) ? ((iTemp41) ? ((iTemp44) ? ((iTemp45) ? ((iTemp46) ? ((iTemp47) ? ((iTemp50) ? 4.95e+03f : ((iTemp47) ? 4.95e+03f - 2.2e+03f * fTemp51 : 2.75e+03f)) : ((iTemp46) ? fTemp111 + 2.75e+03f : 3.1e+03f)) : ((iTemp45) ? 2.4e+02f * fTemp74 + 3.1e+03f : 3.34e+03f)) : ((iTemp44) ? 3.34e+03f - 4.4e+02f * fTemp73 : 2.9e+03f)) : ((iTemp41) ? fTemp93 + 2.9e+03f : 2.95e+03f)) : ((iTemp38) ? 4e+02f * fTemp42 + 2.95e+03f : 3.35e+03f)) : ((iTemp37) ? 3.35e+03f - fTemp81 : 3.3e+03f)) : ((iTemp36) ? 2.9e+02f * fTemp71 + 3.3e+03f : 3.59e+03f)) : ((iTemp35) ? 3.59e+03f - 2.9e+02f * fTemp70 : 3.3e+03f)) : ((iTemp32) ? 1e+02f * fTemp69 + 3.3e+03f : 3.4e+03f)) : ((iTemp31) ? 1.55e+03f * fTemp33 + 3.4e+03f : 4.95e+03f)) : 4.95e+03f) : 4.95e+03f) : 4.95e+03f) : 4.95e+03f) : ((iTemp20) ? 4.95e+03f - 1.7e+03f * fTemp24 : 3.25e+03f)) : ((iTemp19) ? 3.3e+02f * fTemp21 + 3.25e+03f : 3.58e+03f)) : ((iTemp18) ? 3.58e+03f - 4e+01f * fTemp65 : 3.54e+03f)) : ((iTemp17) ? 3.54e+03f - 5.4e+02f * fTemp64 : 3e+03f)) : ((iTemp62) ? 3e+02f * fTemp63 + 3e+03f : 3.3e+03f)));
+			float fTemp116 = ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? ((iTemp57) ? ((iTemp60) ? 0.001f : ((iTemp57) ? 0.000778f * fTemp61 + 0.001f : 0.001778f)) : ((iTemp54) ? 0.001778f - 0.001147f * fTemp58 : 0.000631f)) : ((iTemp52) ? 0.099369f * fTemp55 + 0.000631f : 0.1f)) : ((iTemp50) ? 0.025893f * fTemp53 + 0.1f : 0.125893f)) : ((iTemp48) ? 0.125893f - 0.086082f * fTemp51 : 0.039811f)) : ((iTemp47) ? 0.039811f - 0.029811f * fTemp49 : 0.01f)) : ((iTemp45) ? 0.005849f * fTemp78 + 0.01f : 0.015849f)) : ((iTemp42) ? 0.015849f - 0.00326f * fTemp46 : 0.012589f)) : ((iTemp40) ? 0.087411f * fTemp43 + 0.012589f : 0.1f)) : fTemp109) : ((iTemp38) ? 0.004104f * fTemp77 + 0.015849f : 0.019953f)) : 0.019953f) : ((iTemp33) ? 0.019953f - 0.016791f * fTemp37 : 0.003162f)) : ((iTemp32) ? 0.003162f - 0.001577f * fTemp34 : 0.001585f)) : ((iTemp30) ? 0.004725f * fTemp74 + 0.001585f : 0.00631f)) : ((iTemp28) ? 0.00631f - 0.003148f * fTemp31 : 0.003162f)) : ((iTemp27) ? 0.003162f - 0.002162f * fTemp29 : 0.001f)) : ((iTemp24) ? 0.078433f * fTemp73 + 0.001f : 0.079433f)) : ((iTemp22) ? 0.020567f * fTemp25 + 0.079433f : 0.1f)) : ((iTemp20) ? 0.1f - 0.068377f * fTemp23 : 0.031623f)) : ((iTemp17) ? 0.018496f * fTemp21 + 0.031623f : 0.050119f)) : 0.050119f);
+			float fTemp117 = ((iTemp72) ? 0.0f : fRec25[1] + fConst1 * ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? 4.95e+03f : ((iTemp52) ? 4.95e+03f - 2.2e+03f * fTemp55 : 2.75e+03f)) : ((iTemp50) ? fTemp111 + 2.75e+03f : 3.1e+03f)) : ((iTemp48) ? 2.4e+02f * fTemp51 + 3.1e+03f : 3.34e+03f)) : ((iTemp47) ? 3.34e+03f - 4.4e+02f * fTemp49 : 2.9e+03f)) : ((iTemp45) ? fTemp79 + 2.9e+03f : 2.95e+03f)) : ((iTemp42) ? 4e+02f * fTemp46 + 2.95e+03f : 3.35e+03f)) : ((iTemp40) ? 3.35e+03f - fTemp104 : 3.3e+03f)) : ((iTemp39) ? 2.9e+02f * fTemp41 + 3.3e+03f : 3.59e+03f)) : ((iTemp38) ? 3.59e+03f - 2.9e+02f * fTemp77 : 3.3e+03f)) : ((iTemp36) ? 1e+02f * fTemp76 + 3.3e+03f : 3.4e+03f)) : ((iTemp33) ? 1.55e+03f * fTemp37 + 3.4e+03f : 4.95e+03f)) : 4.95e+03f) : 4.95e+03f) : 4.95e+03f) : 4.95e+03f) : ((iTemp24) ? 4.95e+03f - 1.7e+03f * fTemp73 : 3.25e+03f)) : ((iTemp22) ? 3.3e+02f * fTemp25 + 3.25e+03f : 3.58e+03f)) : ((iTemp20) ? 3.58e+03f - 4e+01f * fTemp23 : 3.54e+03f)) : ((iTemp17) ? 3.54e+03f - 5.4e+02f * fTemp21 : 3e+03f)) : ((iTemp18) ? 3e+02f * fTemp19 + 3e+03f : 3.3e+03f)));
 			fRec25[0] = fTemp117 - std::floor(fTemp117);
 			fVec3[0] = fSlow22;
 			fRec26[0] = fSlow22 + fRec26[1] * float(fVec3[1] >= fSlow22);
 			iRec27[0] = iSlow24 * (iRec27[1] + 1);
-			output0[i0] = FAUSTFLOAT(5e+01f * (fRec0[0] * ((iSlow19) ? fTemp78 * fTemp77 : fTemp61 * fTemp77) * (1.0f - (fTemp60 + fTemp59 * (1.0f - fTemp60))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec9[0]), 65535))] + fRec10[0] * ((iSlow19) ? fTemp78 : fTemp61) * (1.0f - (fTemp91 + fTemp90 * (1.0f - fTemp91))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec13[0]), 65535))] + fRec14[0] * ((iSlow19) ? fTemp78 * fTemp102 : fTemp61 * fTemp102) * (1.0f - (fTemp101 + fTemp100 * (1.0f - fTemp101))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec17[0]), 65535))] + fRec18[0] * ((iSlow19) ? fTemp78 * fTemp110 : fTemp61 * fTemp110) * (1.0f - (fTemp108 + fTemp107 * (1.0f - fTemp108))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec21[0]), 65535))] + fRec22[0] * ((iSlow19) ? fTemp78 * fTemp116 : fTemp61 * fTemp116) * (1.0f - (fTemp115 + fTemp114 * (1.0f - fTemp115))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec25[0]), 65535))]) * std::max<float>(0.0f, std::min<float>(fSlow21 * fRec26[0], 1.0f) - fSlow23 * float(iRec27[0])));
+			output0[i0] = FAUSTFLOAT(5e+01f * (fRec0[0] * ((iSlow19) ? fTemp71 : fTemp70) * (1.0f - (fTemp68 + fTemp69 * (1.0f - fTemp68))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec9[0]), 65535))] + fRec10[0] * ((iSlow19) ? fTemp71 * fTemp89 : fTemp70 * fTemp89) * (1.0f - (fTemp88 + fTemp87 * (1.0f - fTemp88))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec13[0]), 65535))] + fRec14[0] * ((iSlow19) ? fTemp71 * fTemp102 : fTemp70 * fTemp102) * (1.0f - (fTemp100 + fTemp99 * (1.0f - fTemp100))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec17[0]), 65535))] + fRec18[0] * ((iSlow19) ? fTemp71 * fTemp110 : fTemp70 * fTemp110) * (1.0f - (fTemp107 + fTemp108 * (1.0f - fTemp107))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec21[0]), 65535))] + fRec22[0] * ((iSlow19) ? fTemp71 * fTemp116 : fTemp70 * fTemp116) * (1.0f - (fTemp115 + fTemp114 * (1.0f - fTemp115))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec25[0]), 65535))]) * std::max<float>(0.0f, std::min<float>(fSlow21 * fRec26[0], 1.0f) - fSlow23 * float(iRec27[0])));
 			iVec0[1] = iVec0[0];
 			fRec3[1] = fRec3[0];
 			fRec2[1] = fRec2[0];

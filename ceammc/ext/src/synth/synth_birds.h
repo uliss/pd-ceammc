@@ -74,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -195,14 +195,14 @@ class FAUST_API synth_birds_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -222,14 +222,14 @@ class FAUST_API synth_birds_dsp {
         virtual synth_birds_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -784,12 +784,12 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("author", "Pierre Cochard");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.17.1");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_birds -scn synth_birds_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "synth_birds.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -1130,19 +1130,19 @@ class synth_birds : public synth_birds_dsp {
 			fVec4[0] = fTemp30 + (1.0f - fTemp29);
 			float fTemp31 = (fTemp30 + (1.0f - (fTemp29 + fVec4[1]))) / fTemp27;
 			fVec5[0] = fTemp31;
-			float fTemp32 = float(iVec0[2]) * (fTemp31 - fVec5[1]) / fTemp27;
+			float fTemp32 = float(iVec0[2]) * (fVec5[1] - fTemp31) / fTemp27;
 			fVec6[IOTA0 & 4095] = fTemp32;
 			float fTemp33 = std::max<float>(0.0f, std::min<float>(2047.0f, fConst39 / fTemp26));
 			int iTemp34 = int(fTemp33);
 			float fTemp35 = std::floor(fTemp33);
-			fRec18[0] = 0.999f * fRec18[1] + fConst29 * (fTemp32 - fVec6[(IOTA0 - iTemp34) & 4095] * (fTemp35 + (1.0f - fTemp33)) - (fTemp33 - fTemp35) * fVec6[(IOTA0 - (iTemp34 + 1)) & 4095]);
+			fRec18[0] = 0.999f * fRec18[1] - fConst29 * (fTemp32 - fVec6[(IOTA0 - iTemp34) & 4095] * (fTemp35 + (1.0f - fTemp33)) - (fTemp33 - fTemp35) * fVec6[(IOTA0 - (iTemp34 + 1)) & 4095]);
 			iRec25[0] = ((fTemp3 < (fConst40 * fTemp4)) ? iRec4[0] : iRec25[1]);
 			float fTemp36 = float(iRec25[0]);
 			int iTemp37 = fTemp36 < (fConst41 * fTemp4);
 			float fTemp38 = fConst42 * fTemp4;
 			int iTemp39 = fTemp36 < fTemp38;
 			fRec24[0] = 0.001f * ((iTemp37) ? ((iTemp39) ? ((iRec25[0] < 0) ? 0.0f : ((iTemp39) ? fConst44 * (fTemp36 / fTemp4) : 0.554f)) : ((iTemp37) ? fConst43 * ((fTemp38 - fTemp36) / fTemp4) + 0.554f : 0.0f)) : 0.0f) + 0.999f * fRec24[1];
-			fRec23[0] = fConst5 * (fRec24[0] + fRec24[1] - fConst26 * fRec23[1]);
+			fRec23[0] = -(fConst5 * (fConst26 * fRec23[1] - (fRec24[0] + fRec24[1])));
 			iRec28[0] = ((fTemp3 < (fConst45 * fTemp4)) ? iRec4[0] : iRec28[1]);
 			float fTemp40 = float(iRec28[0]);
 			float fTemp41 = fConst46 * fTemp4;
@@ -1172,7 +1172,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp63 = fConst65 * fTemp4;
 			int iTemp64 = fTemp40 < fTemp63;
 			fRec27[0] = 0.001f * ((iTemp42) ? ((iTemp45) ? ((iTemp49) ? ((iTemp52) ? ((iTemp54) ? ((iTemp56) ? ((iTemp58) ? ((iTemp60) ? ((iTemp62) ? ((iTemp64) ? ((iRec28[0] < 0) ? 0.0f : ((iTemp64) ? fConst67 * (fTemp40 / fTemp4) : 1.0f)) : ((iTemp62) ? fConst66 * ((fTemp63 - fTemp40) / fTemp4) + 1.0f : 0.0f)) : ((iTemp60) ? fConst64 * (fTemp43 * (fTemp40 - fTemp61) / fTemp4) : fTemp46)) : ((iTemp58) ? fTemp43 * (0.001f - fConst62 * ((fTemp40 - fTemp59) / fTemp4)) : 0.0f)) : ((iTemp56) ? fConst60 * ((fTemp40 - fTemp57) / fTemp4) : 0.434f)) : ((iTemp54) ? fConst58 * ((fTemp40 - fTemp55) * (fTemp46 + -0.434f) / fTemp4) + 0.434f : fTemp46)) : ((iTemp52) ? fTemp46 + fConst56 * (fTemp50 * (fTemp40 - fTemp53) / fTemp4) : 1.0f)) : ((iTemp49) ? fConst54 * (fTemp47 * (fTemp40 - fTemp51) / fTemp4) + 1.0f : fTemp46)) : ((iTemp45) ? fTemp46 + fConst52 * ((fTemp40 - fTemp48) * fTemp50 / fTemp4) : 1.0f)) : ((iTemp42) ? fConst50 * ((fTemp40 - fTemp44) * fTemp47 / fTemp4) + 1.0f : fTemp46)) : ((fTemp40 < (fConst47 * fTemp4)) ? fTemp43 * (0.001f - fConst48 * ((fTemp40 - fTemp41) / fTemp4)) : 0.0f)) + 0.999f * fRec27[1];
-			fRec26[0] = -(fConst5 * (fConst26 * fRec26[1] - (fRec27[0] + fRec27[1])));
+			fRec26[0] = fConst5 * (fRec27[0] + fRec27[1] - fConst26 * fRec26[1]);
 			float fTemp65 = ((iTemp15) ? 0.0f : fRec15[1] + fConst27 * fTemp16 * (fConst28 * fRec18[0] * fTemp25 * (fRec23[0] + 1.0f) + 4.4e+02f) * (fRec26[0] + 1.0f));
 			fRec15[0] = fTemp65 - std::floor(fTemp65);
 			float fTemp66 = 65536.0f * fRec15[0];
