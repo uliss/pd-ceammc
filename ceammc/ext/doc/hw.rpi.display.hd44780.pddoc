@@ -46,6 +46,9 @@
             code</param></method>
             <!-- clear -->
             <method name="clear">clear all display data and set cursor position to 0, 0</method>
+            <method name="clear_line">clear only specified line
+                <param name="LINE" type="int" required="true" minvalue="0" maxvalue="3">line index</param>
+            </method>
             <!-- cursor_blink -->
             <method name="cursor_blink">turn on/off cursor blinking 
             <param name="STATE" type="bool" required="true">new state</param></method>
