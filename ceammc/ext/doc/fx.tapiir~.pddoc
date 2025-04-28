@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">multi-tap delay</tr>
+                <tr lang="ru">многоуровневая задержка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

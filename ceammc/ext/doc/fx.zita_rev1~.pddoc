@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Zita stereo reverb</tr>
+                <tr lang="en">zita stereo reverb</tr>
+                <tr lang="ru">zita стерео ревербератор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

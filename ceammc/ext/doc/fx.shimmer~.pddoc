@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">shimmer reverb effect</tr>
+                <tr lang="ru">шиммер-эффект реверберации</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

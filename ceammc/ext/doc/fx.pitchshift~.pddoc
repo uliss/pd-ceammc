@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">simple pitch shifter based on 2 delay lines</tr>
+                <tr lang="ru">простой питчшифтер на основе 2 линий задержки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

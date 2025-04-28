@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">tremolo effect from guitarix project</tr>
+                <tr lang="en">tremolo effect from Guitarix project</tr>
+                <tr lang="ru">эффект тремоло от проекта Guitarix</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

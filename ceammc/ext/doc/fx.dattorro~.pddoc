@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">dattorro reverb</tr>
+                <tr lang="en">Dattorro reverb</tr>
+                <tr lang="ru">реверберация Dattorro</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

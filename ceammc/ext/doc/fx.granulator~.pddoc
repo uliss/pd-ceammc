@@ -9,7 +9,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">simple input stream granulator</tr>
+                <tr lang="en">input stream granulator</tr>
+                <tr lang="ru">гранулятор входного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

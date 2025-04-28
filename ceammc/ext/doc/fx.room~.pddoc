@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Gardners room emulation algorithms</tr>
+                <tr lang="en">Gardners room emulation algorithm</tr>
+                <tr lang="ru">алгоритм Гарднера для эмуляции комнаты</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -9,6 +9,8 @@
             <description>
                 <tr lang="en">very simple vocoder where the spectrum of the modulation signal is
                 analyzed using a 32-band filter bank</tr>
+                <tr lang="ru" finished="false">очень простой вокодер, в котором спектр сигнала
+                модуляции анализируется с помощью 32-диапазонного фильтра</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

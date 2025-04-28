@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">cubic nonlinearity distortion</tr>
+                <tr lang="ru">кубический нелинейный дисторшн</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

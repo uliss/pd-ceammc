@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">freeverb - commonly used open-source reverb</tr>
+                <tr lang="en">commonly used open-source reverb</tr>
+                <tr lang="ru">широко используемый ревербератор с открытым исходным кодом</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">smooth delay with a feedback control</tr>
+                <tr lang="ru">плавный дилей с контролем обратной связи</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

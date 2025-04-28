@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Schroeder quad reverberator from 1972</tr>
+                <tr lang="ru">квадрофонический ревербератор Шрёдера из 1972 года</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

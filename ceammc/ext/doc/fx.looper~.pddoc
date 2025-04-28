@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">One track looper</tr>
+                <tr lang="en">a single track looper</tr>
+                <tr lang="ru">однодорожечный лупер</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

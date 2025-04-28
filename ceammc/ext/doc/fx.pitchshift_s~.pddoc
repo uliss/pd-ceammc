@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">signal version of fx.pitchshift~</tr>
+                <tr lang="en">signal version of [fx.pitchshift~]</tr>
+                <tr lang="ru">сигнальная версия [fx.pitchshift~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

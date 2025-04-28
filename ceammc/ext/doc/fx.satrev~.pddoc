@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Schroeder reverberator from 1971</tr>
+                <tr lang="ru">ревербератор Шрёдера 1971 года</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

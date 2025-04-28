@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">mono sympathetic resonance generator</tr>
+                <tr lang="ru">одноканальный симпатический резонансный генератор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">simple distortion #3 from Guitarix effects set</tr>
+                <tr lang="ru">простой дисторшн №3 из набора эффектов Guitarix</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

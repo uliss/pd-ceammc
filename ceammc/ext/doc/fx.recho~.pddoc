@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">reversed echo effect</tr>
+                <tr lang="ru">обратный эффект эха</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

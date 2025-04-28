@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">a bit downer and downsampler effect</tr>
+                <tr lang="ru">понижение разрядности и эффект даунсемплинга</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

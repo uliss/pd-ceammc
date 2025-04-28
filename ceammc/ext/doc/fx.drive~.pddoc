@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Guitarix drive effect</tr>
+                <tr lang="ru">драйв-эффект из Guitarix</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

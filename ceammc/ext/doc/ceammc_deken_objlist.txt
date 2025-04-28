@@ -554,45 +554,45 @@ flt.resonbp~	simple resonant bandpass filter / простой резонансн
 flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
 flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
 flt.speaker~	speaker emulation band-pass filter / полосовой фильтр-эмуляция динамика
-fx.bitdown~	a bit downer and downsampler effect
-fx.chorus~	Chorus effect
-fx.dattorro~	dattorro reverb
-fx.delay~	smooth delay with a feedback control
-fx.sdelay~	smooth delay with a feedback control
-fx.distortion1~	distortion #1 from Guitarix effects set
-fx.distortion2~	distortion #2 from Guitarix effects set
-fx.distortion3~	simple distortion #3 from Guitarix effects set
-fx.distortion~	cubic nonlinearity distortion
-fx.drive~	Guitarix drive effect
-fx.drone_box~	mono sympathetic resonance generator
-fx.echo2~	stereo echo effect
-fx.echo~	enhanced echo effect
-fx.secho~	enhanced echo effect
-fx.flanger~	mono flanging effect
-fx.freeverb2~	stereo version of [fx.freeverb~]
-fx.freeverb~	freeverb - commonly used open-source reverb
-fx.freqshift~	frequency shifter or single-sideband ring modulation
-fx.granulator~	simple input stream granulator
-fx.greyhole~	A complex echo-like effect
-fx.infrev~	port of Infinity VST plugin from airwindows
-fx.jcrev~	Schroeder quad reverberator from 1972
-fx.looper~	One track looper
-fx.overdrive~	overdrive effect
-fx.pitchshift_s~	signal version of fx.pitchshift~
-fx.pitchshift~	simple pitch shifter based on 2 delay lines
-fx.rb_pitchshift~	rubber band pitchshift
-fx.recho~	reversed echo effect
-fx.ringmod~	ring modulator effect
-fx.room~	Gardners room emulation algorithms
-fx.satrev~	Schroeder reverberator from 1971
-fx.scramble~	scramble delayed sound fragments
-fx.shimmer~	shimmer reverb effect
-fx.stutter~	stutter effect
-fx.tapiir~	multi-tap delay
-fx.tremolo~	tremolo effect from guitarix project
+fx.bitdown~	a bit downer and downsampler effect / понижение разрядности и эффект даунсемплинга
+fx.chorus~	chorus effect / хорус-эффект
+fx.dattorro~	Dattorro reverb / реверберация Dattorro
+fx.delay~	smooth delay with a feedback control / плавный дилей с контролем обратной связи
+fx.sdelay~	smooth delay with a feedback control / плавный дилей с контролем обратной связи
+fx.distortion1~	distortion #1 from Guitarix effects set / дисторшн №1 из набора эффектов Guitarix
+fx.distortion2~	distortion #2 from Guitarix effects set / дисторшн №2 из набора эффектов Guitarix
+fx.distortion3~	simple distortion #3 from Guitarix effects set / простой дисторшн №3 из набора эффектов Guitarix
+fx.distortion~	cubic nonlinearity distortion / кубический нелинейный дисторшн
+fx.drive~	Guitarix drive effect / драйв-эффект из Guitarix
+fx.drone_box~	mono sympathetic resonance generator / одноканальный симпатический резонансный генератор
+fx.echo2~	stereo echo effect / стерео эхо-эффект
+fx.echo~	enhanced echo effect / улучшенный эхо-эффект
+fx.secho~	enhanced echo effect / улучшенный эхо-эффект
+fx.flanger~	mono flanging effect / одноканальный фленжер эффект
+fx.freeverb2~	a stereo version of [fx.freeverb~] / стерео версия [fx.freeverb~]
+fx.freeverb~	commonly used open-source reverb / широко используемый ревербератор с открытым исходным кодом
+fx.freqshift~	frequency shifter or the single-sideband ring modulation / сдвиг частоты или однополосный кольцевой модулятор
+fx.granulator~	input stream granulator / гранулятор входного потока
+fx.greyhole~	a complex echo-like effect / cложный эхоподобный эффект
+fx.infrev~	port of Infinity VST plugin from "airwindows" / порт плагина Infinity VST из "airwindows"
+fx.jcrev~	Schroeder quad reverberator from 1972 / квадрофонический ревербератор Шрёдера из 1972 года
+fx.looper~	a single track looper / однодорожечный лупер
+fx.overdrive~	overdrive effect / эффект перегрузки
+fx.pitchshift_s~	signal version of [fx.pitchshift~] / сигнальная версия [fx.pitchshift~]
+fx.pitchshift~	simple pitch shifter based on 2 delay lines / простой питчшифтер на основе 2 линий задержки
+fx.rb_pitchshift~	pitchshift from the rubberband library / питчшифтер из библиотеки rubberband
+fx.recho~	reversed echo effect / обратный эффект эха
+fx.ringmod~	ring modulator effect / кольцевой модулятор
+fx.room~	Gardners room emulation algorithm / алгоритм Гарднера для эмуляции комнаты
+fx.satrev~	Schroeder reverberator from 1971 / ревербератор Шрёдера 1971 года
+fx.scramble~	scramble delayed sound fragments / скремблер задержанных звуковых фрагментов
+fx.shimmer~	shimmer reverb effect / шиммер-эффект реверберации
+fx.stutter~	stutter effect / эффект заикания
+fx.tapiir~	multi-tap delay / многоуровневая задержка
+fx.tremolo~	tremolo effect from Guitarix project / эффект тремоло от проекта Guitarix
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
-fx.wahwah~	digitized CryBaby wah pedal
-fx.zita_rev1~	Zita stereo reverb
+fx.wahwah~	digitized CryBaby wah pedal / педаль CryBaby WahWah
+fx.zita_rev1~	zita stereo reverb / zita стерео ревербератор
 global.dict	global named dictionary / глобальный именованный словарь
 global.json	global named dictionary / глобальный именованный словарь
 global.float	global named float object / глобальной именованное число с плавающей точкой

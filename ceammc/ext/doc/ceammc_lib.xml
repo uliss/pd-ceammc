@@ -893,10 +893,10 @@
     <entry name="fx.bitdown~" descr="a bit downer and downsampler effect" ref_view="object">
       <xi:include href="fx.bitdown~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.chorus~" descr="Chorus effect" ref_view="object">
+    <entry name="fx.chorus~" descr="chorus effect" ref_view="object">
       <xi:include href="fx.chorus~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.dattorro~" descr="dattorro reverb" ref_view="object">
+    <entry name="fx.dattorro~" descr="Dattorro reverb" ref_view="object">
       <xi:include href="fx.dattorro~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.delay~" descr="smooth delay with a feedback control" ref_view="object">
@@ -929,40 +929,40 @@
     <entry name="fx.flanger~" descr="mono flanging effect" ref_view="object">
       <xi:include href="fx.flanger~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.freeverb2~" descr="stereo version of [fx.freeverb~]" ref_view="object">
+    <entry name="fx.freeverb2~" descr="a stereo version of [fx.freeverb~]" ref_view="object">
       <xi:include href="fx.freeverb2~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.freeverb~" descr="freeverb - commonly used open-source reverb" ref_view="object">
+    <entry name="fx.freeverb~" descr="commonly used open-source reverb" ref_view="object">
       <xi:include href="fx.freeverb~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.freqshift~" descr="frequency shifter or single-sideband ring modulation" ref_view="object">
+    <entry name="fx.freqshift~" descr="frequency shifter or the single-sideband ring modulation" ref_view="object">
       <xi:include href="fx.freqshift~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.granulator~" descr="simple input stream granulator" ref_view="object">
+    <entry name="fx.granulator~" descr="input stream granulator" ref_view="object">
       <xi:include href="fx.granulator~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.greyhole~" descr="A complex echo-like effect" ref_view="object">
+    <entry name="fx.greyhole~" descr="a complex echo-like effect" ref_view="object">
       <xi:include href="fx.greyhole~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.infrev~" descr="port of Infinity VST plugin from airwindows" ref_view="object">
+    <entry name="fx.infrev~" descr="port of Infinity VST plugin from &quot;airwindows&quot;" ref_view="object">
       <xi:include href="fx.infrev~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.jcrev~" descr="Schroeder quad reverberator from 1972" ref_view="object">
       <xi:include href="fx.jcrev~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.looper~" descr="One track looper" ref_view="object">
+    <entry name="fx.looper~" descr="a single track looper" ref_view="object">
       <xi:include href="fx.looper~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.overdrive~" descr="overdrive effect" ref_view="object">
       <xi:include href="fx.overdrive~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.pitchshift_s~" descr="signal version of fx.pitchshift~" ref_view="object">
+    <entry name="fx.pitchshift_s~" descr="signal version of [fx.pitchshift~]" ref_view="object">
       <xi:include href="fx.pitchshift_s~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.pitchshift~" descr="simple pitch shifter based on 2 delay lines" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.rb_pitchshift~" descr="rubber band pitchshift" ref_view="object">
+    <entry name="fx.rb_pitchshift~" descr="pitchshift from the rubberband library" ref_view="object">
       <xi:include href="fx.rb_pitchshift~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.recho~" descr="reversed echo effect" ref_view="object">
@@ -971,7 +971,7 @@
     <entry name="fx.ringmod~" descr="ring modulator effect" ref_view="object">
       <xi:include href="fx.ringmod~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.room~" descr="Gardners room emulation algorithms" ref_view="object">
+    <entry name="fx.room~" descr="Gardners room emulation algorithm" ref_view="object">
       <xi:include href="fx.room~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.satrev~" descr="Schroeder reverberator from 1971" ref_view="object">
@@ -989,7 +989,7 @@
     <entry name="fx.tapiir~" descr="multi-tap delay" ref_view="object">
       <xi:include href="fx.tapiir~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.tremolo~" descr="tremolo effect from guitarix project" ref_view="object">
+    <entry name="fx.tremolo~" descr="tremolo effect from Guitarix project" ref_view="object">
       <xi:include href="fx.tremolo~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.vocoder~" descr="very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank" ref_view="object">
@@ -998,7 +998,7 @@
     <entry name="fx.wahwah~" descr="digitized CryBaby wah pedal" ref_view="object">
       <xi:include href="fx.wahwah~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.zita_rev1~" descr="Zita stereo reverb" ref_view="object">
+    <entry name="fx.zita_rev1~" descr="zita stereo reverb" ref_view="object">
       <xi:include href="fx.zita_rev1~.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_fx.xml" parse="xml"/>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">stereo echo effect</tr>
+                <tr lang="ru">стерео эхо-эффект</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
