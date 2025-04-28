@@ -49,7 +49,7 @@ with{
     ampModSens(n) = ba.take(n+1,ampModSensUI);
     opModeUI = par(i,6,nentry("op%i:opMode",0,0,1,1));
     opMode(n) = ba.take(n+1,opModeUI);
-    opFreqUI = par(i,6,nentry("op%i:freq [unit:Hz]",1.0,0.0,2.0,0.01));
+    opFreqUI = par(i,6,nentry("op%i:freq [unit:Hz]",1.0,0.0,32.0,0.01));
     opFreq(n) = ba.take(n+1,opFreqUI);
     opDetuneUI = par(i,6,nentry("op%i:detune",1,-10,10,1));
     opDetune(n) = ba.take(n+1,opDetuneUI);
