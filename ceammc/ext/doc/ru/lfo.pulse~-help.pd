@@ -20,8 +20,9 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 float;
-#X obj 246 440 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 INITFREQ(Hz): initial frequency. Тип: float.;
+#X obj 246 440 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 FREQ(Hz): initial frequency. Тип: float. Диапазон:
+0…1000;
 #X text 110 459 2\.;
 #X text 150 459 float;
 #X obj 246 460 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -35,18 +36,18 @@
 #X text 245 529 (при инициализации) Получить/Установить OSC address
 id. If specified \, bind all properties to /ID/lfo_pulse/PROP_NAME
 osc address \, if empty bind to /lfo_pulse/PROP_NAME. Тип: symbol.;
-#X msg 110 586 @initfreq;
-#X text 245 586 (при инициализации) Получить/Установить initial frequency.
-Тип: float. Единицы: 'Hz'. Значение по умолчанию: 0\.;
-#X msg 110 628 @osc;
-#X text 245 628 (при инициализации) Получить/Установить OSC server
+#X msg 110 586 @osc;
+#X text 245 586 (при инициализации) Получить/Установить OSC server
 name to listen. Тип: symbol.;
-#X msg 110 670 @active;
-#X text 245 670 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 628 @active;
+#X text 245 628 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 712 @duty;
-#X text 245 712 Получить/Установить duty cycle. Тип: float. Значение
+#X msg 110 670 @duty;
+#X text 245 670 Получить/Установить duty cycle. Тип: float. Значение
 по умолчанию: 0.5\. Диапазон: 0\...1\.;
+#X msg 110 712 @freq;
+#X text 245 712 Получить/Установить initial frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...1000\.;
 #X msg 110 754 @pause;
 #X text 245 754 Получить/Установить pause oscillator at current value.
 Тип: bool. Значение по умолчанию: 0\.;

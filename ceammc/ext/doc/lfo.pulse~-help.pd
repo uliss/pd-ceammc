@@ -19,8 +19,8 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 float;
-#X obj 246 440 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 INITFREQ(Hz): initial frequency. Type: float.;
+#X obj 246 440 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 FREQ(Hz): initial frequency. Type: float. Range: 0\...1000;
 #X text 110 459 2\.;
 #X text 150 459 float;
 #X obj 246 460 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -34,18 +34,18 @@
 #X text 245 529 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/lfo_pulse/PROP_NAME osc address \, if empty
 bind to /lfo_pulse/PROP_NAME. Type: symbol.;
-#X msg 110 586 @initfreq;
-#X text 245 586 (initonly) Get/Set initial frequency. Type: float.
-Units: 'Hz'. Default value: 0\.;
-#X msg 110 628 @osc;
-#X text 245 628 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 586 @osc;
+#X text 245 586 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 658 @active;
-#X text 245 658 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 616 @active;
+#X text 245 616 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 688 @duty;
-#X text 245 688 Get/Set duty cycle. Type: float. Default value: 0.5\.
+#X msg 110 646 @duty;
+#X text 245 646 Get/Set duty cycle. Type: float. Default value: 0.5\.
 Range: 0\...1\.;
+#X msg 110 688 @freq;
+#X text 245 688 Get/Set initial frequency. Type: float. Units: 'Hz'.
+Default value: 0\. Range: 0\...1000\.;
 #X msg 110 730 @pause;
 #X text 245 730 Get/Set pause oscillator at current value. Type: bool.
 Default value: 0\.;
