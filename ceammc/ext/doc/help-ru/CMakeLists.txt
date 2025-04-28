@@ -1,5 +1,6 @@
 set(PDDOC_DB_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../ceammc.db")
 set(PDDOC_LIB_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../ceammc_lib.xml")
+set(PDDOC_HELP_INDEX "${CMAKE_CURRENT_SOURCE_DIR}/ceammc-help.pd")
 
 set(DOC_PD_FILES)
 set(DOC_XLET_DB_FILES)
@@ -33,7 +34,17 @@ add_custom_target(ceammc_pddoc_cat_ru
         ${PDDOC_LIB_FILE}
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
+add_custom_command(
+    OUTPUT  ${PDDOC_HELP_INDEX}
+    DEPENDS ${PDDOC_LIB_FILE}
+    COMMAND ${PD_LIB2PD}
+        --xlet-db "${CMAKE_CURRENT_SOURCE_DIR}/.."
+        ${PDDOC_LIB_FILE}
+    COMMAND ${CMAKE_COMMAND}
+        -E copy_if_different ${PDDOC_HELP_INDEX}
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
 add_custom_target(ceammc_pddoc_ru
-    DEPENDS ceammc_pddoc_cat_ru ${DOC_PD_FILES} ${PDDOC_LIB_FILE}
-    # COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc.db ${CMAKE_CURRENT_SOURCE_DIR}
+    DEPENDS ceammc_pddoc_cat_ru ${DOC_PD_FILES} ${PDDOC_LIB_FILE} ${PDDOC_HELP_INDEX}
 )

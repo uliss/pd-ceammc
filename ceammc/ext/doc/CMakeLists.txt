@@ -113,10 +113,10 @@ else()
         add_dependencies(ceammc_pddoc ceammc_pddoc_gen_deken_objlist)
     endif()
 
-    add_subdirectory(ru)
+    add_subdirectory(help-ru)
 endif()
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ru DESTINATION "${CEAMMC_INSTALL_PATH}")
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/help-ru DESTINATION "${CEAMMC_INSTALL_PATH}")
 
 if(WIN32)
     set(DOC_INSTALL_PATH "extra/ceammc")
