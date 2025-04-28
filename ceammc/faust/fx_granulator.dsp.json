@@ -1,31 +1,38 @@
 {
 	"name": "fx.granulator",
 	"filename": "fx_granulator.dsp",
-	"version": "2.53.1",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -single -ftz 0",
-	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib"],
-	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"version": "2.74.5.",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib"],
+	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"size": 529744,
 	"inputs": 1,
 	"outputs": 2,
 	"meta": [ 
-		{ "author": "Mayank Sanganeria" },
-		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.8" },
-		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
-		{ "ceammc.lib/version": "0.1.4" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -single -ftz 0" },
+		{ "author": "Lukas Hartmann & Luca Hilbrich" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "filename": "fx_granulator.dsp" },
+		{ "filters.lib/highpass:author": "Julius O. Smith III" },
+		{ "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/tf1:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf1s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/version": "1.3.0" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.5" },
+		{ "maths.lib/version": "2.8.0" },
 		{ "name": "fx.granulator" },
 		{ "platform.lib/name": "Generic Platform Library" },
-		{ "platform.lib/version": "0.2" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.3" },
-		{ "version": "1.0" }
+		{ "platform.lib/version": "1.3.0" },
+		{ "version": "2.8.1" }
 	],
 	"ui": [ 
 		{
@@ -33,43 +40,144 @@
 			"label": "fx.granulator",
 			"items": [ 
 				{
-					"type": "hslider",
+					"type": "vslider",
 					"label": "delay",
 					"shortname": "delay",
 					"address": "/fx.granulator/delay",
-					"meta": [
-						{ "unit": "sec" }
-					],
-					"init": 10,
+					"init": 2,
 					"min": 0.5,
-					"max": 10,
+					"max": 2,
 					"step": 0.1
 				},
 				{
-					"type": "hslider",
+					"type": "vslider",
 					"label": "density",
 					"shortname": "density",
 					"address": "/fx.granulator/density",
-					"meta": [
-						{ "type": "int" }
-					],
-					"init": 10,
+					"init": 1,
 					"min": 1,
-					"max": 64,
+					"max": 16,
 					"step": 1
 				},
 				{
-					"type": "hslider",
-					"label": "length",
-					"shortname": "length",
-					"address": "/fx.granulator/length",
+					"type": "vslider",
+					"label": "gainAL",
+					"shortname": "gainAL",
+					"address": "/fx.granulator/gainAL",
 					"meta": [
-						{ "unit": "ms" }
+						{ "style": "knob" }
+					],
+					"init": 0.8,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "gainAR",
+					"shortname": "gainAR",
+					"address": "/fx.granulator/gainAR",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 0.2,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "gainBL",
+					"shortname": "gainBL",
+					"address": "/fx.granulator/gainBL",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 0.2,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "gainBR",
+					"shortname": "gainBR",
+					"address": "/fx.granulator/gainBR",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 0.8,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "hpfA",
+					"shortname": "hpfA",
+					"address": "/fx.granulator/hpfA",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "hz" }
 					],
 					"init": 100,
-					"min": 10,
-					"max": 500,
+					"min": 50,
+					"max": 10000,
+					"step": 1
+				},
+				{
+					"type": "vslider",
+					"label": "hpfB",
+					"shortname": "hpfB",
+					"address": "/fx.granulator/hpfB",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "hz" }
+					],
+					"init": 100,
+					"min": 50,
+					"max": 10000,
+					"step": 1
+				},
+				{
+					"type": "vslider",
+					"label": "pitchA",
+					"shortname": "pitchA",
+					"address": "/fx.granulator/pitchA",
+					"init": 1,
+					"min": -2,
+					"max": 2,
 					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "pitchB",
+					"shortname": "pitchB",
+					"address": "/fx.granulator/pitchB",
+					"init": 1,
+					"min": -2,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "size",
+					"shortname": "size",
+					"address": "/fx.granulator/size",
+					"init": 0.1,
+					"min": 0.01,
+					"max": 0.5,
+					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "spread",
+					"shortname": "spread",
+					"address": "/fx.granulator/spread",
+					"init": 1,
+					"min": 0.1,
+					"max": 2,
+					"step": 0.1
 				}
 			]
 		}
