@@ -1,6 +1,6 @@
 #N canvas 418 233 682 597 12;
 #X obj 45 150 cnv 15 590 395 empty empty empty 20 12 0 14 #dcdcdc #404040 0;
-#X obj 67 327 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "https://github.com/uliss/pd-ceammc" @title "https://github.com/uliss/pd-ceammc";
+#X obj 67 317 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "https://github.com/uliss/pd-ceammc" @title "https://github.com/uliss/pd-ceammc";
 #X obj 60 501 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc-help.pd" @title "ceammc:doc";
 #X obj 585 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
 #X obj 45 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
@@ -17,8 +17,8 @@
 #X text 150 164 Distribution version:;
 #X text 150 179 ceammc version:;
 #X text 150 149 Git commit:;
-#X text 315 104 28 04 2025 UTC 22:01:03 ;
-#X text 315 149 v2025.04-1341-g9c2c8f9cc;
+#X text 315 104 28 04 2025 UTC 22:32:57 ;
+#X text 315 149 v2025.04-1343-g26571df1c;
 #X text 315 134 devel;
 #X text 150 134 Git branch:;
 #X text 315 164 v2025.04;
@@ -49,10 +49,10 @@
 #X connect 7 0 8 0;
 #X connect 8 0 6 0;
 #X restore 476 488 pd qrcode;
-#X obj 67 348 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_0.9.8.pd" @title "Release\ info\ (en)";
-#X obj 67 368 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_0.9.8_ru.pd" @title "Release\ info\ (ru)";
+#X obj 67 338 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_0.9.8.pd" @title "Release\ info\ (en)";
+#X obj 67 358 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_0.9.8_ru.pd" @title "Release\ info\ (ru)";
 #X text 474 303 Ссылки на загрузку:;
-#X text 60 184 Это сборка PureData v2025.04 от Центра Электроакустической Музыки Московской Консерватории (ЦЭАМ). Авторы: Сергей Полтавский и Алексей Наджаров. Основано на оригинальной "ванильной" версии Pd-0.53.0 Миллера Пакетта.;
-#X text 60 274 Распространяется по лицензии GPL 3;
-#X text 60 304 Исходный код доступен по ссылке:;
-#X text 60 392 Эта сборка содержит библиотеку расширений ceammc-0.9.8 \, которая используется для образовательного процесса и художественных задач. В ней содержится более      855 объектов для работы с аудио \, списками \, MIDI \, OSC \, графическим интерфейсом пользователя и т.д.;
+#X text 60 174 Это сборка PureData v2025.04 от Центра Электроакустической Музыки Московской Консерватории (ЦЭАМ). Авторы: Сергей Полтавский и Алексей Наджаров. Основано на оригинальной "ванильной" версии Pd-0.53.0 Миллера Пакетта.;
+#X text 60 264 Распространяется по лицензии GPL 3;
+#X text 60 294 Исходный код доступен по ссылке:;
+#X text 60 382 Cборка содержит библиотеку расширений ceammc-0.9.8 \, которая используется в Центр \, как для образовательного процесса \, так и для решения различный художественных и технических задач. В ней содержится более      855 объектов для работы с аудио \, списками \, MIDI \, OSC \, графическим интерфейсом пользователя и т.д.;

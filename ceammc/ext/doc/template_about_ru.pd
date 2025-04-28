@@ -1,6 +1,6 @@
 #N canvas 418 233 682 597 12;
 #X obj 45 150 cnv 15 590 395 empty empty empty 20 12 0 14 #dcdcdc #404040 0;
-#X obj 67 327 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "@CEAMMC_LIB_HOME@" @title "@CEAMMC_LIB_HOME@";
+#X obj 67 317 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "@CEAMMC_LIB_HOME@" @title "@CEAMMC_LIB_HOME@";
 #X obj 60 501 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc-help.pd" @title "ceammc:doc";
 #X obj 585 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
 #X obj 45 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
@@ -49,10 +49,10 @@
 #X connect 7 0 8 0;
 #X connect 8 0 6 0;
 #X restore 476 488 pd qrcode;
-#X obj 67 348 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_@CEAMMC_LIB_VERSION@.pd" @title "Release\ info\ (en)";
-#X obj 67 368 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_@CEAMMC_LIB_VERSION@_ru.pd" @title "Release\ info\ (ru)";
+#X obj 67 338 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_@CEAMMC_LIB_VERSION@.pd" @title "Release\ info\ (en)";
+#X obj 67 358 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_@CEAMMC_LIB_VERSION@_ru.pd" @title "Release\ info\ (ru)";
 #X text 474 303 Ссылки на загрузку:;
-#X text 60 184 Это сборка PureData v@CEAMMC_DISTRIB_VERSION@ от Центра Электроакустической Музыки Московской Консерватории (ЦЭАМ). Авторы: Сергей Полтавский и Алексей Наджаров. Основано на оригинальной "ванильной" версии Pd-@PD_TEXT_VERSION_SHORT@ Миллера Пакетта.;
-#X text 60 274 Распространяется по лицензии GPL 3;
-#X text 60 304 Исходный код доступен по ссылке:;
-#X text 60 392 Эта сборка содержит библиотеку расширений ceammc-@CEAMMC_LIB_VERSION@ \, которая используется для образовательного процесса и художественных задач. В ней содержится более @CEAMMC_OBJECT_COUNT@ объектов для работы с аудио \, списками \, MIDI \, OSC \, графическим интерфейсом пользователя и т.д.;
+#X text 60 174 Это сборка PureData v@CEAMMC_DISTRIB_VERSION@ от Центра Электроакустической Музыки Московской Консерватории (ЦЭАМ). Авторы: Сергей Полтавский и Алексей Наджаров. Основано на оригинальной "ванильной" версии Pd-@PD_TEXT_VERSION_SHORT@ Миллера Пакетта.;
+#X text 60 264 Распространяется по лицензии GPL 3;
+#X text 60 294 Исходный код доступен по ссылке:;
+#X text 60 382 Cборка содержит библиотеку расширений ceammc-@CEAMMC_LIB_VERSION@ \, которая используется в Центр \, как для образовательного процесса \, так и для решения различный художественных и технических задач. В ней содержится более @CEAMMC_OBJECT_COUNT@ объектов для работы с аудио \, списками \, MIDI \, OSC \, графическим интерфейсом пользователя и т.д.;
