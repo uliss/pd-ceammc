@@ -1,6 +1,7 @@
 #include "synth_dx7.h"
 #include "ceammc_factory.h"
 #include "synth_faust_with_freq.h"
+#include "synth_rust.hpp"
 
 using namespace ceammc;
 using SynthDx7 = SynthWithFreq<faust_synth_dx7_tilde>;
