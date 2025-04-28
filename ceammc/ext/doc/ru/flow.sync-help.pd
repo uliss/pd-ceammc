@@ -28,35 +28,43 @@ stored values from all inlets from rightmost to leftmost;
 #X text 110 436 1\.;
 #X text 150 436 int;
 #X obj 246 437 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 436 N: Number of input/outputs. Тип: int. Диапазон: 1…16;
+#X text 245 436 N: Number of input/outputs. Тип: int. Диапазон: 2…16;
 #X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 471 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 471 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 506 @n;
+#X text 245 506 (при инициализации) Получить/Установить number of inputs/outputs.
+Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 578 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 472 1\.;
-#X text 245 472 first inlet.;
-#X text 110 492 ....;
-#X text 245 492 ...;
-#X text 110 512 n.;
-#X text 245 512 Nth inlet.;
-#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 547 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 579 1\.;
+#X text 245 579 first inlet.;
+#X text 110 599 ....;
+#X text 245 599 ...;
+#X text 110 619 n.;
+#X text 245 619 Nth inlet.;
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 654 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 548 1\.;
-#X text 245 548 first outlet.;
-#X text 110 568 ....;
-#X text 245 568 ... outlet.;
-#X text 110 588 n.;
-#X text 245 588 Nth outlet.;
+#X text 110 655 1\.;
+#X text 245 655 first outlet.;
+#X text 110 675 ....;
+#X text 245 675 ... outlet.;
+#X text 110 695 n.;
+#X text 245 695 Nth outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 638 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 641 библиотека: ceammc v0.9.8;
-#X text 548 653 смотрите также:;
-#X obj 669 653 flow.pack';
-#N canvas 10 660 400 290 info 0;
+#X obj 1 745 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 748 библиотека: ceammc v0.9.8;
+#X text 548 760 смотрите также:;
+#X obj 669 760 flow.pack';
+#N canvas 10 767 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -80,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 660 pd info;
+#X restore 10 767 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 10 1;
 #X connect 9 0 10 2;
