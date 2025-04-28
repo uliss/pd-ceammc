@@ -21,8 +21,8 @@
             <!-- @active -->
             <property name="@active" type="bool" default="1" access="readwrite">@active</property>
             <!-- @algorithm -->
-            <property name="@algorithm" type="int" minvalue="0" maxvalue="15" default="0"
-            access="readwrite">FM algorithm number</property>
+            <property name="@algorithm" type="int" minvalue="0" maxvalue="31" default="0"
+            access="readwrite">FM algorithm number (0-based)</property>
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
             access="readwrite">@feedback</property>

@@ -27,8 +27,8 @@ symbol.;
 #X msg 110 454 @active;
 #X text 245 454 Get/Set @active. Type: bool. Default value: 1\.;
 #X msg 110 484 @algorithm;
-#X text 245 484 Get/Set FM algorithm number. Type: int. Default value:
-0\. Range: 0\...15\.;
+#X text 245 484 Get/Set FM algorithm number (0-based). Type: int. Default
+value: 0\. Range: 0\...31\.;
 #X msg 110 526 @feedback;
 #X text 245 526 Get/Set @feedback. Type: float. Default value: 0.0\.
 Range: 0.0\...99.0\.;
