@@ -103,6 +103,8 @@ def print_arg_template(arg):
         str += f'minvalue="{arg["min"]}" '
     if "max" in arg:
         str += f'maxvalue="{arg["max"]}" '
+    if "units" in arg:
+        str += f'units="{' '.join(arg["units"])}" '
     if "property" in arg:
         name = f'See {arg["property"]}'
 
