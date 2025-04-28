@@ -21,6 +21,8 @@
             frequency</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
             <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <!-- @freq -->
