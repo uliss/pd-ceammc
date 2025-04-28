@@ -39,6 +39,7 @@ add_custom_command(
     DEPENDS ${PDDOC_LIB_FILE}
     COMMAND ${PD_LIB2PD}
         --xlet-db "${CMAKE_CURRENT_SOURCE_DIR}/.."
+        --locale RU
         ${PDDOC_LIB_FILE}
     COMMAND ${CMAKE_COMMAND}
         -E copy_if_different ${PDDOC_HELP_INDEX}
