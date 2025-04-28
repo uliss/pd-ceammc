@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "nono.quando.h1"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __piece_nono_quando_h1_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API piece_nono_quando_h1_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public piece_nono_quando_h1_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual piece_nono_quando_h1_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -562,9 +617,11 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
  private:
 	
 	int fSampleRate;
+	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fConst2;
+	int iVec0[2];
 	float fRec1[2];
 	float fConst3;
 	float fConst4;
@@ -575,7 +632,7 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 	float fRec5[2];
 	FAUSTFLOAT fVslider0;
 	float fRec8[2];
-	int iVec0[2];
+	int iVec1[2];
 	int iConst5;
 	int iRec9[2];
 	float fRec4[2];
@@ -590,38 +647,45 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 	float fRec12[2];
 	
  public:
+	piece_nono_quando_h1() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("analyzers.lib/amp_follower_ar:author", "Jonatan Liljedahl, revised by Romain Michon");
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
-		m->declare("analyzers.lib/version", "0.2");
+		m->declare("analyzers.lib/version", "1.2.0");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "piece_nono_quando_h1.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
+		m->declare("misceffects.lib/gate_gain_mono:author", "Julius O. Smith III");
+		m->declare("misceffects.lib/gate_gain_mono:license", "STK-4.3");
+		m->declare("misceffects.lib/gate_mono:author", "Julius O. Smith III");
+		m->declare("misceffects.lib/gate_mono:license", "STK-4.3");
 		m->declare("misceffects.lib/name", "Misc Effects Library");
-		m->declare("misceffects.lib/version", "2.0");
+		m->declare("misceffects.lib/version", "2.5.0");
 		m->declare("name", "nono.quando.h1");
 		m->declare("oscillators.lib/lf_sawpos:author", "Bart Brouns, revised by Stéphane Letz");
 		m->declare("oscillators.lib/lf_sawpos:licence", "STK-4.3");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.3");
+		m->declare("oscillators.lib/version", "1.5.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("spats.lib/name", "Faust Spatialization Library");
 		m->declare("spats.lib/spat:author", "Laurent Pottier, revised by Romain Michon");
-		m->declare("spats.lib/version", "0.0");
+		m->declare("spats.lib/version", "1.1.0");
 	}
 
 	virtual int getNumInputs() {
@@ -636,7 +700,7 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 1.0f / fConst0;
@@ -656,46 +720,49 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec1[l0] = 0.0f;
+			iVec0[l0] = 0;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec6[l1] = 0.0f;
+			fRec1[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec7[l2] = 0.0f;
+			fRec6[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec5[l3] = 0.0f;
+			fRec7[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec8[l4] = 0.0f;
+			fRec5[l4] = 0.0f;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			iVec0[l5] = 0;
+			fRec8[l5] = 0.0f;
 		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			iRec9[l6] = 0;
+			iVec1[l6] = 0;
 		}
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			fRec4[l7] = 0.0f;
+			iRec9[l7] = 0;
 		}
 		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
-			fRec3[l8] = 0.0f;
+			fRec4[l8] = 0.0f;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec2[l9] = 0.0f;
+			fRec3[l9] = 0.0f;
 		}
 		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
-			fRec0[l10] = 0.0f;
+			fRec2[l10] = 0.0f;
 		}
 		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
-			fRec10[l11] = 0.0f;
+			fRec0[l11] = 0.0f;
 		}
 		for (int l12 = 0; l12 < 2; l12 = l12 + 1) {
-			fRec11[l12] = 0.0f;
+			fRec10[l12] = 0.0f;
 		}
 		for (int l13 = 0; l13 < 2; l13 = l13 + 1) {
-			fRec12[l13] = 0.0f;
+			fRec11[l13] = 0.0f;
+		}
+		for (int l14 = 0; l14 < 2; l14 = l14 + 1) {
+			fRec12[l14] = 0.0f;
 		}
 	}
 	
@@ -703,6 +770,7 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -753,6 +821,7 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 		float fSlow9 = fSlow7 / (1.0f - fSlow8);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
+			iVec0[0] = 1;
 			fRec1[0] = fSlow0 + fConst2 * fRec1[1];
 			float fTemp1 = fRec1[0] + 1.0f;
 			float fTemp2 = float(input1[i0]);
@@ -760,23 +829,23 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 			fRec7[0] = fSlow2 + fConst2 * fRec7[1];
 			float fTemp3 = std::min<float>(fRec6[0], fRec7[0]);
 			int iTemp4 = std::fabs(fTemp3) < 1.1920929e-07f;
-			float fTemp5 = ((iTemp4) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp4) ? 1.0f : fTemp3)));
+			float fTemp5 = ((iTemp4) ? 0.0f : std::exp(-(fConst3 / ((iTemp4) ? 1.0f : fTemp3))));
 			fRec5[0] = std::fabs(fTemp2) * (1.0f - fTemp5) + fRec5[1] * fTemp5;
 			fRec8[0] = fSlow3 + fConst2 * fRec8[1];
 			int iTemp6 = fRec5[0] > std::pow(1e+01f, 0.05f * fRec8[0]);
-			iVec0[0] = iTemp6;
-			iRec9[0] = std::max<int>(iConst5 * (iTemp6 < iVec0[1]), iRec9[1] + -1);
+			iVec1[0] = iTemp6;
+			iRec9[0] = std::max<int>(iConst5 * (iTemp6 < iVec1[1]), iRec9[1] + -1);
 			float fTemp7 = std::fabs(std::max<float>(float(iTemp6), float(iRec9[0] > 0)));
 			int iTemp8 = std::fabs(fRec7[0]) < 1.1920929e-07f;
-			float fTemp9 = ((iTemp8) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp8) ? 1.0f : fRec7[0])));
+			float fTemp9 = ((iTemp8) ? 0.0f : std::exp(-(fConst3 / ((iTemp8) ? 1.0f : fRec7[0]))));
 			int iTemp10 = std::fabs(fRec6[0]) < 1.1920929e-07f;
-			float fTemp11 = ((iTemp10) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp10) ? 1.0f : fRec6[0])));
+			float fTemp11 = ((iTemp10) ? 0.0f : std::exp(-(fConst3 / ((iTemp10) ? 1.0f : fRec6[0]))));
 			float fTemp12 = ((fTemp7 > fRec4[1]) ? fTemp11 : fTemp9);
 			fRec4[0] = fTemp7 * (1.0f - fTemp12) + fRec4[1] * fTemp12;
 			float fTemp13 = std::fabs(fTemp2 * fRec4[0]);
 			float fTemp14 = ((fTemp13 > fRec3[1]) ? fTemp11 : fTemp9);
 			fRec3[0] = fTemp13 * (1.0f - fTemp14) + fRec3[1] * fTemp14;
-			float fTemp15 = fRec2[1] + fConst3 / ((fRec3[0] <= 0.001f) ? 1e+03f : ((iSlow5) ? fSlow6 + fSlow7 * fRec3[0] : fSlow6 + fSlow9 * (1.0f - std::pow(fSlow8, fRec3[0]))));
+			float fTemp15 = ((1 - iVec0[1]) ? 0.0f : fRec2[1] + fConst3 / ((fRec3[0] <= 0.001f) ? 1e+03f : ((iSlow5) ? fSlow6 + fSlow7 * fRec3[0] : fSlow6 + fSlow9 * (1.0f - std::pow(fSlow8, fRec3[0])))));
 			fRec2[0] = fTemp15 - std::floor(fTemp15);
 			fRec0[0] = 5e-05f * fTemp1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 1.5f, 1.0f) + -0.5f))) + 0.9999f * fRec0[1];
 			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0]);
@@ -786,12 +855,13 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 			output2[i0] = FAUSTFLOAT(fTemp0 * fRec11[0]);
 			fRec12[0] = 5e-05f * fTemp1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 0.75f, 1.0f) + -0.5f))) + 0.9999f * fRec12[1];
 			output3[i0] = FAUSTFLOAT(fTemp0 * fRec12[0]);
+			iVec0[1] = iVec0[0];
 			fRec1[1] = fRec1[0];
 			fRec6[1] = fRec6[0];
 			fRec7[1] = fRec7[0];
 			fRec5[1] = fRec5[0];
 			fRec8[1] = fRec8[0];
-			iVec0[1] = iVec0[0];
+			iVec1[1] = iVec1[0];
 			iRec9[1] = iRec9[0];
 			fRec4[1] = fRec4[0];
 			fRec3[1] = fRec3[0];

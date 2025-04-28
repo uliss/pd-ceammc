@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.moog_vcf"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -double -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_moog_vcf_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API flt_moog_vcf_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public flt_moog_vcf_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual flt_moog_vcf_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -565,6 +620,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
  private:
 	
 	int fSampleRate;
+	double fConst0;
 	double fConst1;
 	FAUSTFLOAT fVslider0;
 	double fConst2;
@@ -576,11 +632,14 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	double fRec4[2];
 	
  public:
+	flt_moog_vcf() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0");
 		m->declare("filename", "flt_moog_vcf.dsp");
 		m->declare("filters.lib/allpassnnlt:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpassnnlt:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -590,22 +649,22 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 		m->declare("filters.lib/tf2np:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2np:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2np:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "flt.moog_vcf");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("vaeffects.lib/moog_vcf_2bn:author", "Julius O. Smith III");
 		m->declare("vaeffects.lib/moog_vcf_2bn:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("vaeffects.lib/moog_vcf_2bn:license", "MIT-style STK-4.3 license");
 		m->declare("vaeffects.lib/name", "Faust Virtual Analog Filter Effect Library");
-		m->declare("vaeffects.lib/version", "0.2");
+		m->declare("vaeffects.lib/version", "1.2.1");
 	}
 
 	virtual int getNumInputs() {
@@ -620,7 +679,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
+		fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
 		fConst1 = 44.1 / fConst0;
 		fConst2 = 1.0 - fConst1;
 		fConst3 = 3.141592653589793 / fConst0;
@@ -652,6 +711,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -683,44 +743,50 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fTemp1 = flt_moog_vcf_faustpower2_f(1.4141994202374715 * fRec0[0]);
 			double fTemp2 = 1.9999800000000003 * fRec0[0];
 			double fTemp3 = fTemp1 + fTemp2;
-			double fTemp4 = fTemp2 + 2.0;
-			double fTemp5 = std::tan(fConst3 * std::max<double>(double(input1[i0]), 2e+01));
-			double fTemp6 = 1.0 / fTemp5;
-			double fTemp7 = fTemp1 + fTemp2 + (fTemp4 + fTemp6) / fTemp5 + 1.0;
-			double fTemp8 = (fTemp3 + (1.0 - (fTemp4 - fTemp6) / fTemp5)) / fTemp7;
+			double fTemp4 = std::tan(fConst3 * std::max<double>(double(input1[i0]), 2e+01));
+			double fTemp5 = 1.0 / fTemp4;
+			double fTemp6 = fTemp2 + fTemp5;
+			double fTemp7 = fTemp3 + (fTemp6 + 2.0) / fTemp4 + 1.0;
+			double fTemp8 = (fTemp3 + (1.0 - (fTemp2 + (2.0 - fTemp5)) / fTemp4)) / fTemp7;
 			double fTemp9 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp8));
-			double fTemp10 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp9);
-			double fTemp11 = std::sqrt(std::max<double>(0.0, fTemp10));
-			double fTemp12 = fTemp0 * fTemp11 - fTemp9 * fRec1[1];
-			double fTemp13 = 1.0 / flt_moog_vcf_faustpower2_f(fTemp5);
-			double fTemp14 = fTemp3 + (1.0 - fTemp13);
-			double fTemp15 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp14 / (fTemp7 * (fTemp8 + 1.0)))));
-			double fTemp16 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp15);
-			double fTemp17 = std::sqrt(std::max<double>(0.0, fTemp16));
-			fRec3[0] = fTemp12 * fTemp17 - fTemp15 * fRec3[1];
-			fRec1[0] = fTemp12 * fTemp15 + fRec3[1] * fTemp17;
+			double fTemp10 = fTemp2 + 2.0;
+			double fTemp11 = fTemp1 + fTemp2 + (fTemp10 + fTemp5) / fTemp4 + 1.0;
+			double fTemp12 = (fTemp3 + (1.0 - (fTemp10 - fTemp5) / fTemp4)) / fTemp11;
+			double fTemp13 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp12));
+			double fTemp14 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp13);
+			double fTemp15 = std::sqrt(std::max<double>(0.0, fTemp14));
+			double fTemp16 = fTemp0 * fTemp15 - fTemp13 * fRec1[1];
+			double fTemp17 = 1.0 / flt_moog_vcf_faustpower2_f(fTemp4);
+			double fTemp18 = fTemp3 + (1.0 - fTemp17);
+			double fTemp19 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp18 / (fTemp11 * (fTemp12 + 1.0)))));
+			double fTemp20 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp19);
+			double fTemp21 = std::sqrt(std::max<double>(0.0, fTemp20));
+			fRec3[0] = fTemp16 * fTemp21 - fTemp19 * fRec3[1];
+			fRec1[0] = fTemp16 * fTemp19 + fRec3[1] * fTemp21;
 			double fRec2 = fRec3[0];
-			double fTemp18 = 1.0 - fTemp14 / fTemp7;
-			double fTemp19 = std::sqrt(fTemp10);
-			double fTemp20 = fTemp0 * fTemp9 + fRec1[1] * fTemp11 + 2.0 * (fRec1[0] * fTemp18 / fTemp19) + fRec2 * (1.0 - fTemp8 - 2.0 * fTemp15 * fTemp18) / (fTemp19 * std::sqrt(fTemp16));
-			double fTemp21 = 2.0 - fTemp2;
-			double fTemp22 = 1.0 - fTemp2;
-			double fTemp23 = fTemp1 + (fTemp6 + fTemp21) / fTemp5 + fTemp22;
-			double fTemp24 = (fTemp1 + (fTemp6 - fTemp21) / fTemp5 + fTemp22) / fTemp23;
-			double fTemp25 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp24));
-			double fTemp26 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp25);
-			double fTemp27 = std::sqrt(std::max<double>(0.0, fTemp26));
-			double fTemp28 = fTemp20 * fTemp27 / fTemp7 - fTemp25 * fRec4[1];
-			double fTemp29 = fTemp1 + (1.0 - (fTemp2 + fTemp13));
-			double fTemp30 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp29 / (fTemp23 * (fTemp24 + 1.0)))));
-			double fTemp31 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp30);
-			double fTemp32 = std::sqrt(std::max<double>(0.0, fTemp31));
-			fRec6[0] = fTemp28 * fTemp32 - fTemp30 * fRec6[1];
-			fRec4[0] = fTemp28 * fTemp30 + fRec6[1] * fTemp32;
+			double fTemp22 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp9);
+			double fTemp23 = 1.0 - fTemp18 / fTemp7;
+			double fTemp24 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp18 / (fTemp7 * (fTemp8 + 1.0)))));
+			double fTemp25 = 1.0 - fTemp2;
+			double fTemp26 = 2.0 - fTemp2;
+			double fTemp27 = fTemp1 + (fTemp5 + fTemp26) / fTemp4 + fTemp25;
+			double fTemp28 = (fTemp1 + (fTemp6 + -2.0) / fTemp4 + fTemp25) / fTemp27;
+			double fTemp29 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp28));
+			double fTemp30 = 1.0 - fTemp18 / fTemp11;
+			double fTemp31 = std::sqrt(fTemp14);
+			double fTemp32 = (fTemp1 + (fTemp5 - fTemp26) / fTemp4 + fTemp25) / fTemp27;
+			double fTemp33 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp32));
+			double fTemp34 = (fTemp0 * fTemp13 + fRec1[1] * fTemp15 + 2.0 * (fRec1[0] * fTemp30 / fTemp31) + fRec2 * (1.0 - fTemp12 - 2.0 * fTemp19 * fTemp30) / (fTemp31 * std::sqrt(fTemp20))) * std::sqrt(std::max<double>(0.0, 1.0 - flt_moog_vcf_faustpower2_f(fTemp33))) / fTemp11 - fTemp33 * fRec4[1];
+			double fTemp35 = fTemp1 + (1.0 - (fTemp2 + fTemp17));
+			double fTemp36 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp35 / (fTemp27 * (fTemp32 + 1.0)))));
+			double fTemp37 = std::sqrt(std::max<double>(0.0, 1.0 - flt_moog_vcf_faustpower2_f(fTemp36)));
+			fRec6[0] = fTemp34 * fTemp37 - fTemp36 * fRec6[1];
+			fRec4[0] = fTemp34 * fTemp36 + fRec6[1] * fTemp37;
 			double fRec5 = fRec6[0];
-			double fTemp33 = 1.0 - fTemp29 / fTemp23;
-			double fTemp34 = std::sqrt(fTemp26);
-			output0[i0] = FAUSTFLOAT((fTemp20 * fTemp25 / fTemp7 + fRec4[1] * fTemp27 + 2.0 * (fRec4[0] * fTemp33 / fTemp34) + fRec5 * (1.0 - fTemp24 - 2.0 * fTemp30 * fTemp33) / (fTemp34 * std::sqrt(fTemp31))) / fTemp23);
+			double fTemp38 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp29);
+			double fTemp39 = 1.0 - fTemp35 / fTemp27;
+			double fTemp40 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp35 / (fTemp27 * (fTemp28 + 1.0)))));
+			output0[i0] = FAUSTFLOAT(((fTemp0 * fTemp9 + fRec1[1] * std::sqrt(std::max<double>(0.0, fTemp22)) + (fRec2 * (1.0 - (fTemp8 + 2.0 * fTemp23 * fTemp24)) / std::sqrt(1.0 - flt_moog_vcf_faustpower2_f(fTemp24)) + 2.0 * fRec1[0] * fTemp23) / std::sqrt(fTemp22)) * fTemp29 / fTemp7 + fRec4[1] * std::sqrt(std::max<double>(0.0, fTemp38)) + (fRec5 * (1.0 - (fTemp28 + 2.0 * fTemp39 * fTemp40)) / std::sqrt(1.0 - flt_moog_vcf_faustpower2_f(fTemp40)) + 2.0 * fRec4[0] * fTemp39) / std::sqrt(fTemp38)) / fTemp27);
 			fRec0[1] = fRec0[0];
 			fRec3[1] = fRec3[0];
 			fRec1[1] = fRec1[0];

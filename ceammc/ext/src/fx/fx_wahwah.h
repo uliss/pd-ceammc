@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.wahwah"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_wahwah -scn fx_wahwah_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_wahwah -scn fx_wahwah_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_wahwah_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API fx_wahwah_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public fx_wahwah_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual fx_wahwah_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -594,19 +649,20 @@ class fx_wahwah : public fx_wahwah_dsp {
 	
 	FAUSTFLOAT fCheckbox0;
 	int fSampleRate;
+	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fConst2;
 	int iVec0[2];
 	float fRec0[2];
 	float ftbl0[16];
-	FAUSTFLOAT fHslider1;
-	float fVec1[2];
 	float fConst3;
-	FAUSTFLOAT fHslider2;
+	FAUSTFLOAT fHslider1;
 	float fRec4[2];
 	int iRec3[2];
-	int iVec2[2];
+	int iVec1[2];
+	FAUSTFLOAT fHslider2;
+	float fVec2[2];
 	float fRec5[2];
 	int iRec6[2];
 	float fRec2[2];
@@ -617,16 +673,19 @@ class fx_wahwah : public fx_wahwah_dsp {
 	float fRec1[3];
 	
  public:
+	fx_wahwah() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_wahwah -scn fx_wahwah_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_wahwah -scn fx_wahwah_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "fx_wahwah.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -639,19 +698,19 @@ class fx_wahwah : public fx_wahwah_dsp {
 		m->declare("filters.lib/tf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "fx.wahwah");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("vaeffects.lib/name", "Faust Virtual Analog Filter Effect Library");
-		m->declare("vaeffects.lib/version", "0.2");
+		m->declare("vaeffects.lib/version", "1.2.1");
 	}
 
 	virtual int getNumInputs() {
@@ -666,7 +725,7 @@ class fx_wahwah : public fx_wahwah_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fx_wahwahSIG0* sig0 = newfx_wahwahSIG0();
@@ -681,8 +740,8 @@ class fx_wahwah : public fx_wahwah_dsp {
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(0.6f);
-		fHslider2 = FAUSTFLOAT(5.4e+02f);
+		fHslider1 = FAUSTFLOAT(5.4e+02f);
+		fHslider2 = FAUSTFLOAT(0.6f);
 	}
 	
 	virtual void instanceClear() {
@@ -693,16 +752,16 @@ class fx_wahwah : public fx_wahwah_dsp {
 			fRec0[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fVec1[l2] = 0.0f;
+			fRec4[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec4[l3] = 0.0f;
+			iRec3[l3] = 0;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			iRec3[l4] = 0;
+			iVec1[l4] = 0;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			iVec2[l5] = 0;
+			fVec2[l5] = 0.0f;
 		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
 			fRec5[l6] = 0.0f;
@@ -728,6 +787,7 @@ class fx_wahwah : public fx_wahwah_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -744,12 +804,12 @@ class fx_wahwah : public fx_wahwah_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.wahwah");
-		ui_interface->addHorizontalSlider("angle", &fHslider1, FAUSTFLOAT(0.6f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("angle", &fHslider2, FAUSTFLOAT(0.6f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
-		ui_interface->declare(&fHslider2, "unit", "bpm");
-		ui_interface->addHorizontalSlider("speed", &fHslider2, FAUSTFLOAT(5.4e+02f), FAUSTFLOAT(3.6e+02f), FAUSTFLOAT(7.8e+02f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fHslider1, "unit", "bpm");
+		ui_interface->addHorizontalSlider("speed", &fHslider1, FAUSTFLOAT(5.4e+02f), FAUSTFLOAT(3.6e+02f), FAUSTFLOAT(7.8e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	
@@ -758,23 +818,23 @@ class fx_wahwah : public fx_wahwah_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = fConst1 * float(fHslider0);
-		float fSlow2 = float(fHslider1);
-		float fSlow3 = fConst1 * float(fHslider2);
-		int iSlow4 = fSlow2 <= 0.0f;
+		float fSlow2 = fConst1 * float(fHslider1);
+		float fSlow3 = float(fHslider2);
+		int iSlow4 = fSlow3 <= 0.0f;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = ((iSlow0) ? 0.0f : fTemp0);
 			iVec0[0] = 1;
 			fRec0[0] = fSlow1 + fConst2 * fRec0[1];
-			fVec1[0] = fSlow2;
-			fRec4[0] = fSlow3 + fConst2 * fRec4[1];
+			fRec4[0] = fSlow2 + fConst2 * fRec4[1];
 			iRec3[0] = (iVec0[1] + iRec3[1]) % int(fConst3 / float(int(fRec4[0])));
 			int iTemp2 = iRec3[0] <= iRec3[1];
-			iVec2[0] = iTemp2;
-			fRec5[0] = ((iVec2[1]) ? 0.0f : std::fabs(fSlow2 - fVec1[1]) + fRec5[1]);
+			iVec1[0] = iTemp2;
+			fVec2[0] = fSlow3;
+			fRec5[0] = ((iVec1[1]) ? 0.0f : std::fabs(fSlow3 - fVec2[1]) + fRec5[1]);
 			iRec6[0] = (iTemp2 + iRec6[1]) % 15;
-			ftbl0[((iTemp2 & ((fRec5[0] > 0.0f) | iSlow4)) ? iRec6[0] : 15)] = fSlow2;
-			float fTemp3 = ftbl0[iRec6[0]];
+			ftbl0[std::max<int>(0, std::min<int>(((iTemp2 & ((fRec5[0] > 0.0f) | iSlow4)) ? iRec6[0] : 15), 15))] = fSlow3;
+			float fTemp3 = ftbl0[std::max<int>(0, std::min<int>(iRec6[0], 15))];
 			fRec2[0] = 0.0001f * std::pow(4.0f, fTemp3) + 0.999f * fRec2[1];
 			float fTemp4 = std::pow(2.0f, 2.3f * fTemp3);
 			float fTemp5 = 1.0f - fConst4 * (fTemp4 / std::pow(2.0f, 2.0f * (1.0f - fTemp3) + 1.0f));
@@ -784,10 +844,10 @@ class fx_wahwah : public fx_wahwah_dsp {
 			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * (fRec1[0] - fRec1[1])));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
-			fVec1[1] = fVec1[0];
 			fRec4[1] = fRec4[0];
 			iRec3[1] = iRec3[0];
-			iVec2[1] = iVec2[0];
+			iVec1[1] = iVec1[0];
+			fVec2[1] = fVec2[0];
 			fRec5[1] = fRec5[0];
 			iRec6[1] = iRec6[0];
 			fRec2[1] = fRec2[0];
