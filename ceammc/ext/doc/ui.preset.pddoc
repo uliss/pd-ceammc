@@ -131,7 +131,9 @@
 |                         |
 | [clear 1(   [clearall(  [interp $1 #a(
 | |           |
-| | [store 1( | [loadmsg read prs.txt]
+| | [store 1( | [loadmsg read %CEAMMC%/prs.txt]
+| | |         | |
+| | |         | [expand_env]
 | | |         | |
 [ui.preset    #z]
 [X a->z]
