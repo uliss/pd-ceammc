@@ -46,12 +46,12 @@ private:
     bool setTapFb(size_t tapn, const AtomListView& lv);
 
     template <size_t N>
-    void createTapFbProp()
+    Property* createTapFbProp()
     {
         char name[] = "@fbsX";
         name[4] = N + '0';
 
-        createCbListProperty(
+        auto p = createCbListProperty(
             name, [this]() -> AtomList {
                 AtomList res;
                 getTapFb(N, res);
@@ -59,6 +59,8 @@ private:
             [this](const AtomListView& lv) -> bool {
                 return setTapFb(N, lv);
             });
+
+        return p;
     }
 };
 
