@@ -1,0 +1,21 @@
+#N canvas 0 0 708 499 12;
+#X msg 20 48 [users: [name: Alice age: 23 levels: 1 2 3 4] [name: Bob age: 25 levels: 1 2 3]] \, bang;
+#X obj 20 106 data.dict;
+#X obj 20 135 dict.get /users/*/name /users/*/age /users/*/levels/2:3;
+#X obj 20 164 print NAMES;
+#X obj 135 192 print AGE;
+#X obj 250 221 print LEVELS;
+#X text 20 279 path segment can be:;
+#X text 58 308 * - match to all dict keys or all list elements;
+#X text 58 336 key - match to the dict key;
+#X text 58 365 POS - match to the element in the list at specified
+position;
+#X text 58 394 POS: - match to the elements in the list from specified
+position until the end of the list;
+#X text 58 437 POS:LENGTH - match to the number of elements in the
+list from specified position;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 2 2 5 0;

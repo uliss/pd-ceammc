@@ -1,0 +1,12 @@
+#N canvas 0 0 208 242 12;
+#X obj 20 48 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
+-262144 -1 -1 0 0;
+#X floatatom 20.0 77.6 5 0 0 0 - - -;
+#X obj 20 106 ui.hsl;
+#X msg 20 135 bang;
+#X obj 20 164 patch.tree;
+#X obj 20 192 ui.dt;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;

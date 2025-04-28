@@ -1,0 +1,7 @@
+#N canvas 0 0 281 185 12;
+#X obj 20 48 r snd-err;
+#X obj 20 77 ui.dt;
+#X msg 20 106 open not_exists.wav \, 1;
+#X obj 20 135 snd.play~ 1 @on_err snd-err;
+#X connect 0 0 1 0;
+#X connect 2 0 3 0;
