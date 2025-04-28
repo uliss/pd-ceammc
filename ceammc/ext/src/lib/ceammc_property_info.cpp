@@ -257,7 +257,7 @@ bool PropertyInfo::noDefault() const
 
 bool PropertyInfo::setMinFloat(t_float v)
 {
-    if (!isFloat()) {
+    if (!isFloat() && !isList()) {
         PROP_LOG() << "not float property: setMinFloat failed";
         return false;
     }
@@ -277,7 +277,7 @@ bool PropertyInfo::setMinFloat(t_float v)
 
 bool PropertyInfo::setMaxFloat(t_float v)
 {
-    if (!isFloat()) {
+    if (!isFloat() && !isList()) {
         PROP_LOG() << "not float property: setMinFloat failed";
         return false;
     }
@@ -405,7 +405,7 @@ Atom PropertyInfo::enumAt(size_t idx) const
 
 bool PropertyInfo::setRangeFloat(t_float min, t_float max)
 {
-    if (!isFloat()) {
+    if (!isFloat() && !isList()) {
         PROP_LOG() << "not float property: setRangeFloat failed";
         return false;
     }
@@ -1084,7 +1084,7 @@ bool PropertyInfo::getJSON(std::string& str) const
         obj["arg_index"] = argIndex();
 
     if (hasConstraintsMin()) {
-        if (isFloat()) {
+        if (isFloat() || isList()) {
             auto f = minFloat();
             if (f == FLOAT_INF_MAX)
                 obj["min"] = "inf";
@@ -1104,7 +1104,7 @@ bool PropertyInfo::getJSON(std::string& str) const
     }
 
     if (hasConstraintsMax()) {
-        if (isFloat()) {
+        if (isFloat() || isList()) {
             auto f = maxFloat();
             if (f == FLOAT_INF_MAX)
                 obj["max"] = "inf";
