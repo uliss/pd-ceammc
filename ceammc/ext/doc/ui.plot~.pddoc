@@ -141,22 +141,22 @@
 |
 [plot.linspace~ -5 5 256 #a {w=50}]
 |      |            |     |
-[1/x~] [math.exp2~] [^2~] [expr~ sin($v1)*20] [ui.plot~.lin1-help]
+[1/x~] [math.exp2~] [^2~] [expr~ sin($v1)*20] [ui.plot~-lin1]
 |      |            |     |
 |      |.           |..   |...
 [ui.plot~ @xlabels 1 @ylabels 1 @size 353 250 @n 4 @ymin -40 @ymax 40 #b]
 
 
-                                              [ui.plot~.lin3-help]
+                                              [ui.plot~-lin3]
 
 
-                                              [ui.plot~.log10-help]
+                                              [ui.plot~-log10]
 
 
-                                              [ui.plot~.log2-help]
+                                              [ui.plot~-log2]
 
 
-                                              [ui.plot~.ln-help]
+                                              [ui.plot~-ln]
 
 
 

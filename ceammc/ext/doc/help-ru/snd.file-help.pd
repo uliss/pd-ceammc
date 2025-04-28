@@ -33,10 +33,10 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X obj 50 519 ui.hgain2~;
 #X obj 280 519 ui.dsp~;
 #X obj 50 548 dac~;
-#X obj 50 576 snd.file.resample-help;
-#X obj 290 576 snd.file.gain-help;
-#X obj 50 605 snd.file.pattern-help;
-#X obj 290 605 snd.file.position-help;
+#X obj 50 576 snd.file-resample;
+#X obj 242 576 snd.file-gain;
+#X obj 50 605 snd.file-pattern;
+#X obj 242 605 snd.file-pos;
 #X obj 20 655 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 660 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

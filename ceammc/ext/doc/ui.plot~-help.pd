@@ -13,13 +13,13 @@
 #X obj 117 176 math.exp2~;
 #X obj 242 176 ^2~;
 #X obj 299 176 expr~ sin($v1)*20;
-#X obj 491 176 ui.plot~.lin1-help;
+#X obj 491 176 ui.plot~-lin1;
 #X obj 50 219 ui.plot~ @xlabels 1 @ylabels 1 @size 353 250 @n 4 @ymin
 -40 @ymax 40;
-#X obj 491 262 ui.plot~.lin3-help;
-#X obj 491 305 ui.plot~.log10-help;
-#X obj 491 349 ui.plot~.log2-help;
-#X obj 491 392 ui.plot~.ln-help;
+#X obj 491 262 ui.plot~-lin3;
+#X obj 491 305 ui.plot~-log10;
+#X obj 491 349 ui.plot~-log2;
+#X obj 491 392 ui.plot~-ln;
 #X obj 50 478 ui.dsp~;
 #X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 533 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144

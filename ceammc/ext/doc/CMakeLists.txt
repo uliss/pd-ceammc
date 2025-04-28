@@ -150,7 +150,7 @@ foreach(_doc_file ${DOC_FILES})
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
     file(GLOB _xfiles "${_doc_file}-*.pd")
-    # find extra files, for example: module.name.test1.pd
+    # find extra files, for example: module.name-test1.pd
     foreach(_xfile ${_xfiles})
         if(NOT ${_xfile} MATCHES "-help\.pd$")
             install(FILES ${_xfile}
@@ -167,7 +167,6 @@ install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
 # extra doc file: presets, sound examples etc.
 set(EXTRA_DOC_FILES prs.txt stargazing.mod)
 file(GLOB _PDDOC_WAV "*.wav")
-file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
 file(GLOB _PDDOC_INFOS "*-info.pd")
 file(GLOB _PDDOC_EXAMPLES2 "*-example.pd")
 file(GLOB _PDDOC_GLITCH "*.glitch")
@@ -182,12 +181,6 @@ install(
         ${_PDDOC_EXAMPLES2}
         ${_PDDOC_INFOS}
         ${_PDDOC_GLITCH}
-        ui.plot~.lin1-help.pd
-        ui.plot~.lin2-help.pd
-        ui.plot~.lin3-help.pd
-        ui.plot~.ln-help.pd
-        ui.plot~.log2-help.pd
-        ui.plot~.log10-help.pd
         poly.obj.pd
         poly.osc~.pd
     DESTINATION ${DOC_INSTALL_PATH}

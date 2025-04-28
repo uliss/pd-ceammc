@@ -136,9 +136,9 @@
 |                  ^|.
 [dac~                ]
 
-[snd.file.resample-help] [snd.file.gain-help]
+[snd.file-resample] [snd.file-gain]
 
-[snd.file.pattern-help]  [snd.file.position-help]
+[snd.file-pattern]  [snd.file-pos]
 
 [X play->a2]
 [X stop->a2]
