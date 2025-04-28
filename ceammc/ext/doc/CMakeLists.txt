@@ -274,10 +274,10 @@ if(APPLE)
     if(RSYNC_EXEC)
         # note: trailing slash after CMAKE_CURRENT_SOURCE_DIR is important!
         add_custom_target(dev_pddoc
-            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
+            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --include 'help-ru' --exclude '*'
                 ${CMAKE_CURRENT_BINARY_DIR}/
                 ${CMAKE_CURRENT_SOURCE_DIR}
-            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
+            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --include 'help-ru' --exclude '*'
                 ${CMAKE_CURRENT_SOURCE_DIR}/
                 ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc
             DEPENDS ceammc_pddoc)
