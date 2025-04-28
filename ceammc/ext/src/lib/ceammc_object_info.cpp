@@ -101,22 +101,22 @@ void ObjectInfoStorage::setDocLanguage(DocLanguage lang)
     case Russian: {
         for (auto cls : base_set_) {
             auto doc_path = fmt::format("help-ru/{0}", cls->c_name->s_name);
-            cls->c_helpname = gensym(doc_path.c_str());
+            class_sethelpsymbol(cls, gensym(doc_path.c_str()));
         }
 
         for (auto cls : ui_set_) {
             auto doc_path = fmt::format("help-ru/{0}", cls->c_name->s_name);
-            cls->c_helpname = gensym(doc_path.c_str());
+            class_sethelpsymbol(cls, gensym(doc_path.c_str()));
         }
     } break;
     case English:
     default: {
         for (auto cls : base_set_) {
-            cls->c_helpname = cls->c_name;
+            class_sethelpsymbol(cls, cls->c_name);
         }
 
         for (auto cls : ui_set_) {
-            cls->c_helpname = cls->c_name;
+            class_sethelpsymbol(cls, cls->c_name);
         }
     } break;
     }
