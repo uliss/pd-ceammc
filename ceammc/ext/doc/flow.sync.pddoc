@@ -32,7 +32,9 @@
             input/outputs</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2" access="initonly">number of inputs/outputs</property>
+            <!-- @n -->
+            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2"
+            access="initonly">number of inputs/outputs</property>
         </properties>
         <inlets dynamic="true">
             <inlet>
