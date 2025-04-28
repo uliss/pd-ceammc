@@ -39,6 +39,7 @@ MOUSE_METHODS = [
     "mousewheel",
     "mouseleave",
     "rightclick",
+    "mouseup",
     ]
 
 def mouse_method2event(event: str) -> str:
