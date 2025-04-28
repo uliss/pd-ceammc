@@ -242,7 +242,7 @@
             <!-- @op4:rate -->
             <property name="@op4:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
             access="readwrite">op4: rate</property>
-            <!-- @op4:velSens -->
+            <!-- @op4:vel -->
             <property name="@op4:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
             access="readwrite">op4: keyboard velocity sensivity</property>
             <!-- @op5:L1 -->
