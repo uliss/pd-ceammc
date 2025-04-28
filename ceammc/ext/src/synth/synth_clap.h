@@ -645,6 +645,8 @@ class synth_clap : public synth_clap_dsp {
 	}
 	
 	void metadata(Meta* m) { 
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_clap -scn synth_clap_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("envelopes.lib/adsr:author", "Yann Orlarey and Andrey Bundin");
 		m->declare("envelopes.lib/author", "GRAME");
@@ -764,6 +766,8 @@ class synth_clap : public synth_clap_dsp {
 		ui_interface->openVerticalBox("synth.clap");
 		ui_interface->declare(&fVslider0, "unit", "ms");
 		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4e+02f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fCheckbox0, "max", "1");
+		ui_interface->declare(&fCheckbox0, "min", "0");
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider1, "unit", "ms");
@@ -797,7 +801,7 @@ class synth_clap : public synth_clap_dsp {
 			float fTemp6 = 1.0f / fTemp5;
 			float fTemp7 = (fTemp6 + 0.82372326f) / fTemp5 + 1.0f;
 			fRec0[0] = 4.656613e-10f * float(iRec1[0]) * (std::max<float>(0.0f, std::min<float>(fRec2[0] / fTemp0, std::max<float>((fTemp0 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.06f)) + 1.0f, 0.0f)) * fTemp1) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp2, std::max<float>((fTemp2 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.05f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp3, std::max<float>((fTemp3 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.04f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp4, std::max<float>((fTemp4 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.02f)) + 1.0f, 0.0f)))) - (fRec0[2] * ((fTemp6 + -0.82372326f) / fTemp5 + 1.0f) + 2.0f * fRec0[1] * (1.0f - 1.0f / synth_clap_faustpower2_f(fTemp5))) / fTemp7;
-			output0[i0] = FAUSTFLOAT(tanhf((fRec0[0] + fRec0[2] + 2.0f * fRec0[1]) / fTemp7));
+			output0[i0] = FAUSTFLOAT(tanhf((fRec0[2] + fRec0[0] + 2.0f * fRec0[1]) / fTemp7));
 			iRec1[1] = iRec1[0];
 			fVec0[1] = fVec0[0];
 			fRec2[1] = fRec2[0];
