@@ -28,7 +28,7 @@
             <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
             access="initonly">number of leds in the strip</property>
             <!-- @spi_bus -->
-            <property name="@spi_bus" type="int" minvalue="0" maxvalue="6" default="0"
+            <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
             access="initonly">spi bus number</property>
             <!-- @spi_cs -->
             <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"

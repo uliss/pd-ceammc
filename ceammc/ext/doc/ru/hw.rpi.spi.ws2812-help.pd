@@ -31,7 +31,7 @@ ceammc://img/conn_ws2812.png;
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 486 @spi_bus;
 #X text 245 486 (при инициализации) Получить/Установить spi bus number.
-Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...6\.;
+Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...6\.;
 #X msg 110 528 @spi_cs;
 #X text 245 528 (при инициализации) Получить/Установить spi CS (chip
 select/enable). In most cases you don't need to set this property \,

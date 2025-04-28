@@ -30,7 +30,7 @@ ceammc://img/conn_ws2812.png;
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 486 @spi_bus;
 #X text 245 486 (initonly) Get/Set spi bus number. Type: int. Default
-value: 0\. Range: 0\...6\.;
+value: -1\. Range: -1\...6\.;
 #X msg 110 528 @spi_cs;
 #X text 245 528 (initonly) Get/Set spi CS (chip select/enable). In
 most cases you don't need to set this property \, because LED strips
