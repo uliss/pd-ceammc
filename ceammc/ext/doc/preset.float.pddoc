@@ -73,8 +73,14 @@
         <example>
             <pdascii>
 <![CDATA[
-/* change value */
+/*change the value*/
 
+      [store 0(
+      |
+      | [load 0(
+      | |
+      | |  [clear 0(
+      | |  |
 [F] X [preset.float f1]
 
 
