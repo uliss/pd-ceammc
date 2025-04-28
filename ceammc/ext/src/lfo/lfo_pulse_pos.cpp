@@ -4,11 +4,20 @@ using namespace ceammc;
 
 class LfoPulsePos : public faust_lfo_pulse_pos_tilde {
 public:
-    LfoPulsePos(const PdArgs& args)
+    explicit LfoPulsePos(const PdArgs& args)
         : faust_lfo_pulse_pos_tilde(args)
     {
         createInlet();
-        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
+
+        auto freq = new FloatProperty("@freq", 0);
+        freq->setSuccessFn([this, freq](Property*) {
+            setInitSignalValue(freq->value());
+        });
+        freq->setUnitsHz();
+        freq->setArgIndex(0);
+        freq->checkClosedRange(0, 1000);
+        addProperty(freq);
+
         bindPositionalArgToProperty(1, gensym("@duty"));
     }
 

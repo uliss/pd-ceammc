@@ -23,7 +23,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="1000.0" units="hertz">frequency</argument>
             <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
@@ -40,6 +40,8 @@
             <!-- @phase -->
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
+            <property name="@freq" type="float" minvalue="0.0" maxvalue="1000.0" default="0.0" units="hertz" access="readwrite">
+            frequency</property>
         </properties>
         <methods>
             <!-- reset -->
