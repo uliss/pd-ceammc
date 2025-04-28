@@ -57,6 +57,7 @@ add_flow_test(space)
 add_flow_test(speedlim)
 add_flow_test(split)
 add_flow_test(stack)
+add_flow_test(sync)
 add_flow_test(sync_pack)
 
 target_sources(test_ext_flow PRIVATE

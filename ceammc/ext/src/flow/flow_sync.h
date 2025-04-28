@@ -24,9 +24,12 @@ typedef std::vector<Message> MessageList;
 
 class FlowSync : public BaseObject {
     MessageList msg_list_;
+    IntProperty* n_ { nullptr };
 
 public:
     FlowSync(const PdArgs& a);
+
+    void initDone() final;
 
     void onInlet(size_t n, const AtomListView& lv) override;
     void onList(const AtomListView& lv) override;
