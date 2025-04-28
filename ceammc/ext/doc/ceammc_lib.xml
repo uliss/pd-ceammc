@@ -2073,6 +2073,7 @@
     <entry name="preset.symbol" descr="load or store the symbol into a preset" ref_view="object">
       <xi:include href="preset.symbol.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_preset.xml" parse="xml"/>
   </category>
   <category name="property">
     <entry name="patch.props" descr="get or set the patch properties" ref_view="object">

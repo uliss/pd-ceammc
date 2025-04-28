@@ -1577,6 +1577,9 @@ roll;
 #X text 200 21005 управление пресетами;
 #X obj 30 21033 preset.symbol;
 #X text 200 21033 загружает или сохраняет символ в пресет;
+#X obj 596 20906 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 596 20906 работа с пресетами;
 #X obj 20 21061 cnv 5 90 32 empty empty property 4 16 0 17 -262144
 -49933 0;
 #X obj 20 21103 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -2055,4 +2058,4 @@ https://github.com/uliss/pure-data;
 https://github.com/uliss/pddoc;
 #X obj 670 27107 loadmsg 0;
 #X obj 670 27142 switch~;
-#X connect 1862 0 1863 0;
+#X connect 1864 0 1865 0;
