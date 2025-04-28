@@ -231,7 +231,43 @@ proc ::pd_menucommands::set_filenewdir {mytoplevel} {
 # parse the textfile for the About Pd page
 proc ::pd_menucommands::menu_aboutpd {} {
     # ceammc about
-    ::pd_menucommands::menu_doc_open "extra/ceammc" "about.pd"
+    # see load_locale() from pd-gui.tcl
+    set about_dir "extra/ceammc"
+    set lang ""
+
+    # on any UNIX-like environment, Tcl should automatically use LANG, LC_ALL,
+    # etc. otherwise we need to dig it up.  Mac OS X only uses LANG, etc. from
+    # the Terminal, and Windows doesn't have LANG, etc unless you manually set
+    # it up yourself.  Windows apps don't use the locale env vars usually.
+    if {$::tcl_platform(os) eq "Darwin"} {
+        if  {![info exists ::env(LANG)]} {
+            # http://thread.gmane.org/gmane.comp.lang.tcl.mac/5215
+            # http://thread.gmane.org/gmane.comp.lang.tcl.mac/6433
+            if {![catch "exec defaults read com.apple.dock loc" loc]} {
+                set lang $loc
+            } elseif {![catch "exec defaults read NSGlobalDomain AppleLocale" loc]} {
+                set lang $loc
+            }
+        } else {
+            set lang $::env(LANG)
+        }
+    } elseif {$::tcl_platform(platform) eq "windows"} {
+        # using LANG on Windows is useful for easy debugging
+        if {[info exists ::env(LANG)] && $::env(LANG) ne "C" && $::env(LANG) ne ""} {
+            set lang $::env(LANG)
+        } elseif {![catch {package require registry}]} {
+            set lang [string tolower \
+                     [string range \
+                     [registry get {HKEY_CURRENT_USER\Control Panel\International} sLanguage] 0 1] ]
+        }
+    }
+
+    if {[string match "ru_*" $lang]} {
+        set about_dir "extra/ceammc/help-ru"
+    }
+
+    ::pd_menucommands::menu_doc_open "${about_dir}" "about.pd"
+    # end ceammc
 }
 
 # ------------------------------------------------------------------------------
