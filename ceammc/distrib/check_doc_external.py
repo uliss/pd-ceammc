@@ -124,7 +124,7 @@ def print_prop_template(arg):
     if "default" in arg:
         str += f'default="{arg["default"]}" '
     if "units" in arg:
-        str += f'units="{arg["units"]}" '
+        str += f'units="{' '.join(arg["units"])}" '
     if "access" in arg:
         str += f'access="{arg["access"]}" '
 
