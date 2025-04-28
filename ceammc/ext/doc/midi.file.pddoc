@@ -21,7 +21,7 @@
         </arguments>
         <properties>
             <!-- @filename -->
-            <property name="@filename" type="symbol">current filename</property>
+            <property name="@filename" type="symbol" default="">current filename</property>
             <!-- @length_beat -->
             <property name="@length_beat" type="float" access="readonly" default="0">file length in
             quarters</property>
