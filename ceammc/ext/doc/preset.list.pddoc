@@ -26,6 +26,9 @@
         <info>
             <par>Named list preset entry. Can store/load up to 256 various lists</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">open preset editor</event>
+        </mouse>
         <arguments>
             <argument name="ID" type="symbol">preset id (should be unique in most use
             cases)</argument>
@@ -54,6 +57,8 @@
             <method name="load">load preset value by specified index and output it</method>
             <!-- store -->
             <method name="store">stores preset value at specified index</method>
+            <!-- interp -->
+            <method name="interp">do nothing</method>
         </methods>
         <inlets>
             <inlet>
