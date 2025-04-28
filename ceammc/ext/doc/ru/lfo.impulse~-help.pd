@@ -18,7 +18,7 @@
 #X text 110 381 1\.;
 #X text 150 381 float;
 #X obj 246 382 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 381 FREQ(Hz): frequency. Тип: float.;
+#X text 245 381 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 416 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
@@ -27,28 +27,31 @@
 #X msg 110 451 @active;
 #X text 245 451 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 508 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 493 @freq;
+#X text 245 493 Получить/Установить initial frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...1000\.;
+#X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 550 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 509 1\.;
-#X text 150 509 *float*;
-#X text 245 509 frequency in Hz.;
-#X text 110 529 2\.;
-#X text 150 529 *bang*;
-#X text 245 529 reset phase.;
-#X obj 20 559 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 564 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 551 1\.;
+#X text 150 551 *float*;
+#X text 245 551 frequency in Hz.;
+#X text 110 571 2\.;
+#X text 150 571 *bang*;
+#X text 245 571 reset phase.;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 606 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 565 1\.;
-#X text 245 565 output signal.;
+#X text 110 607 1\.;
+#X text 245 607 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 615 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 618 библиотека: ceammc v0.9.8;
-#N canvas 10 637 400 290 info 0;
+#X obj 1 657 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 660 библиотека: ceammc v0.9.8;
+#N canvas 10 679 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -72,6 +75,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 637 pd info;
+#X restore 10 679 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;

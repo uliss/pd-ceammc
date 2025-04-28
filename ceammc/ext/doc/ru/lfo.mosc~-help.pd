@@ -25,7 +25,7 @@
 #X text 110 435 1\.;
 #X text 150 435 float;
 #X obj 246 436 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 435 FREQ(Hz): frequency. Тип: float.;
+#X text 245 435 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
 #X text 110 455 2\.;
 #X text 150 455 symbol;
 #X obj 246 456 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -50,51 +50,54 @@ name to listen. Тип: symbol.;
 #X msg 110 681 @duty;
 #X text 245 681 Получить/Установить duty cycle for pulse waveform.
 Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 723 @pause;
-#X text 245 723 Получить/Установить pause oscillator at current value.
+#X msg 110 723 @freq;
+#X text 245 723 Получить/Установить initial frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...1000\.;
+#X msg 110 765 @pause;
+#X text 245 765 Получить/Установить pause oscillator at current value.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 765 @phase;
-#X text 245 765 Получить/Установить initial phase. Тип: float. Значение
+#X msg 110 807 @phase;
+#X text 245 807 Получить/Установить initial phase. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 807 @wave;
-#X text 245 807 Получить/Установить wave type. Тип: symbol. Значение
+#X msg 110 849 @wave;
+#X text 245 849 Получить/Установить wave type. Тип: symbol. Значение
 по умолчанию: sin. Разрешённые значения: sin \, saw \, tri \, sqr \,
 pulse \, +sin \, +saw \, +tri \, +sqr \, +pulse.;
-#X msg 110 864 @windex;
-#X text 245 864 Получить/Установить waveform index (counting from 0):
+#X msg 110 906 @windex;
+#X text 245 906 Получить/Установить waveform index (counting from 0):
 sin \, saw \, tri \, sqr \, pulse \, +sin \, +saw \, +tri \, +sqr \,
 +pulse. Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...9\.;
-#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 936 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 973 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 978 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 971 reset;
-#X text 245 971 reset to initial state.;
-#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1014 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1013 reset;
+#X text 245 1013 reset to initial state.;
+#X obj 20 1051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1056 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1015 1\.;
-#X text 245 1015 frequency in Hz.;
-#X text 110 1035 2\.;
-#X text 150 1035 *bang*;
-#X text 245 1035 reset phase.;
-#X text 150 1055 *int*;
-#X text 245 1055 select waveform.;
-#X obj 20 1085 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1090 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1057 1\.;
+#X text 245 1057 frequency in Hz.;
+#X text 110 1077 2\.;
+#X text 150 1077 *bang*;
+#X text 245 1077 reset phase.;
+#X text 150 1097 *int*;
+#X text 245 1097 select waveform.;
+#X obj 20 1127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1132 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1091 1\.;
-#X text 245 1091 oscillator output.;
+#X text 110 1133 1\.;
+#X text 245 1133 oscillator output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 1141 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1144 библиотека: ceammc v0.9.8;
-#X text 465 1156 смотрите также:;
-#X obj 586 1156 lfo.square~;
-#X obj 681 1156 lfo.saw~;
-#N canvas 10 1163 400 290 info 0;
+#X obj 1 1183 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1186 библиотека: ceammc v0.9.8;
+#X text 465 1198 смотрите также:;
+#X obj 586 1198 lfo.square~;
+#X obj 681 1198 lfo.saw~;
+#N canvas 10 1205 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -118,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1163 pd info;
+#X restore 10 1205 pd info;
 #X connect 8 0 10 0;
 #X connect 6 0 11 0;
 #X connect 10 0 11 0;
