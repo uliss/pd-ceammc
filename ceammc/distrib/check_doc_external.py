@@ -130,7 +130,7 @@ def print_prop_template(arg):
         str += f'access="{arg["access"]}" '
 
     str = str.strip()
-    cprint(f'<{str}>{name}</property>', 'white')
+    cprint(f'<{str}>{arg["name"]}</property>', 'white')
 
 
 # methods starting with @ - properties in UI objects
