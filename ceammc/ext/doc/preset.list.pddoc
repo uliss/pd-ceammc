@@ -7,12 +7,13 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">load/store symbol preset</tr>
+                <tr lang="en">loads or store the list into a preset</tr>
+                <tr lang="ru">загружает или сохраняет список в пресете</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>preset</category>
-            <keywords>preset storage symbol</keywords>
+            <keywords>preset storage list</keywords>
             <since>0.4</since>
             <also>
                 <see>preset.storage</see>

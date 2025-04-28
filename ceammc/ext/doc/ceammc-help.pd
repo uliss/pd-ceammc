@@ -1527,13 +1527,13 @@ returns 1 or 0\.;
 -49933 0;
 #X obj 20 20518 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 20529 preset.float;
-#X text 200 20529 load/store float preset;
+#X text 200 20529 load or store the float into a preset;
 #X obj 30 20557 preset.list;
-#X text 200 20557 load/store symbol preset;
+#X text 200 20557 loads or store the list into a preset;
 #X obj 30 20585 preset.storage;
-#X text 200 20585 preset storage control;
+#X text 200 20585 preset storage controller;
 #X obj 30 20613 preset.symbol;
-#X text 200 20613 load/store symbol preset;
+#X text 200 20613 load or store the symbol into a preset;
 #X obj 20 20641 cnv 5 90 32 empty empty property 4 16 0 17 -262144
 -49933 0;
 #X obj 20 20683 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;

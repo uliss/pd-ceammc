@@ -1072,13 +1072,13 @@ is_odd	input number oddity check / проверка входного числа 
 is_pointer	checks if input message is a *pointer* / проверка, является ли входное сообщение указателем
 is_prop	checks if the input message is a *property* message / проверка, является ли входное сообщение *свойством*
 is_symbol	checks if input message is a *symbol* / проверка, является ли входное сообщение *символом*
-preset.float	load/store float preset
-preset.f	load/store float preset
-preset.list	load/store symbol preset
-preset.l	load/store symbol preset
-preset.storage	preset storage control
-preset.symbol	load/store symbol preset
-preset.s	load/store symbol preset
+preset.float	load or store the float into a preset / загружает или сохраняет числовое значение в пресете
+preset.f	load or store the float into a preset / загружает или сохраняет числовое значение в пресете
+preset.list	loads or store the list into a preset / загружает или сохраняет список в пресете
+preset.l	loads or store the list into a preset / загружает или сохраняет список в пресете
+preset.storage	preset storage controller / управление пресетами
+preset.symbol	load or store the symbol into a preset / загружает или сохраняет символ в пресет
+preset.s	load or store the symbol into a preset / загружает или сохраняет символ в пресет
 patch.props	get or set the patch properties / получение или установка свойств патча
 prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции
 ceammc/prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции

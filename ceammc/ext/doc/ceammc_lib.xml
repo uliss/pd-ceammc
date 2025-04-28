@@ -2061,16 +2061,16 @@
     <xi:include href="ceammc_category_predicates.xml" parse="xml"/>
   </category>
   <category name="preset">
-    <entry name="preset.float" descr="load/store float preset" ref_view="object">
+    <entry name="preset.float" descr="load or store the float into a preset" ref_view="object">
       <xi:include href="preset.float.pddoc" parse="xml"/>
     </entry>
-    <entry name="preset.list" descr="load/store symbol preset" ref_view="object">
+    <entry name="preset.list" descr="loads or store the list into a preset" ref_view="object">
       <xi:include href="preset.list.pddoc" parse="xml"/>
     </entry>
-    <entry name="preset.storage" descr="preset storage control" ref_view="object">
+    <entry name="preset.storage" descr="preset storage controller" ref_view="object">
       <xi:include href="preset.storage.pddoc" parse="xml"/>
     </entry>
-    <entry name="preset.symbol" descr="load/store symbol preset" ref_view="object">
+    <entry name="preset.symbol" descr="load or store the symbol into a preset" ref_view="object">
       <xi:include href="preset.symbol.pddoc" parse="xml"/>
     </entry>
   </category>
