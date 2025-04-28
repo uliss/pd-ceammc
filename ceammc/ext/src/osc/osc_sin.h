@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "osc_sin"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn osc_sin -scn osc_sin_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn osc_sin -scn osc_sin_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __osc_sin_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API osc_sin_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public osc_sin_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual osc_sin_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -602,27 +657,31 @@ class osc_sin : public osc_sin_dsp {
 	
  private:
 	
+	int iVec1[2];
 	int fSampleRate;
 	float fConst0;
 	float fRec1[2];
 	
  public:
+	osc_sin() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn osc_sin -scn osc_sin_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn osc_sin -scn osc_sin_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "osc_sin.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "osc_sin");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.3");
+		m->declare("oscillators.lib/version", "1.5.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 	}
 
 	virtual int getNumInputs() {
@@ -649,7 +708,10 @@ class osc_sin : public osc_sin_dsp {
 	
 	virtual void instanceClear() {
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec1[l2] = 0.0f;
+			iVec1[l2] = 0;
+		}
+		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
+			fRec1[l3] = 0.0f;
 		}
 	}
 	
@@ -657,6 +719,7 @@ class osc_sin : public osc_sin_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -680,9 +743,11 @@ class osc_sin : public osc_sin_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fTemp0 = fRec1[1] + fConst0 * float(input0[i0]);
+			iVec1[0] = 1;
+			float fTemp0 = ((1 - iVec1[1]) ? 0.0f : fRec1[1] + fConst0 * float(input0[i0]));
 			fRec1[0] = fTemp0 - std::floor(fTemp0);
-			output0[i0] = FAUSTFLOAT(ftbl0osc_sinSIG0[int(65536.0f * fRec1[0])]);
+			output0[i0] = FAUSTFLOAT(ftbl0osc_sinSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec1[0]), 65535))]);
+			iVec1[1] = iVec1[0];
 			fRec1[1] = fRec1[0];
 		}
 	}

@@ -36,8 +36,12 @@
             <!-- @displays -->
             <property name="@displays" type="int" default="1" minvalue="1" maxvalue="4"
             access="initonly">number of displays connected into the chain</property>
-            <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1" access="initonly">SPI bus number</property>
-            <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
+            <!-- @spi_bus -->
+            <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
+            access="initonly">SPI bus number</property>
+            <!-- @spi_cs -->
+            <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
+            access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
         </properties>
         <methods>
             <!-- clear -->

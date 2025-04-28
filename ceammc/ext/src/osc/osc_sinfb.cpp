@@ -4,12 +4,23 @@
 using namespace ceammc;
 
 class OscSinFb : public faust_osc_sinfb_tilde {
+    FloatProperty* freq_ { nullptr };
+
 public:
-    OscSinFb(const PdArgs& args)
+    explicit OscSinFb(const PdArgs& args)
         : faust_osc_sinfb_tilde(args)
     {
         createInlet();
-        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
+
+        freq_ = new FloatProperty("@freq", 0);
+        freq_->setSuccessFn([this](Property*) {
+            setInitSignalValue(freq_->value());
+        });
+        freq_->setUnitsHz();
+        freq_->checkClosedRange(0, samplerate() / 2);
+        freq_->setArgIndex(0);
+        addProperty(freq_);
+
         bindPositionalArgToProperty(1, gensym("@feedback"));
     }
 

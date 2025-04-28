@@ -17,8 +17,8 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="0" maxvalue="20000" units="hertz">initial
-            frequency</argument>
+            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">See
+            @freq</argument>
             <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="6.283185">oscillator
             feedback coefficient in range 0..2pi</argument>
         </arguments>
@@ -30,6 +30,9 @@
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="6.2832" default="0">
             oscillator feedback coefficient</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
+            units="hertz">frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">

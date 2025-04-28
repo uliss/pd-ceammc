@@ -20,7 +20,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20">frequency</argument>
+            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050.0" units="hertz">See
+            @freq</argument>
             <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
@@ -31,6 +32,9 @@
             <!-- @duty -->
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
             cycle</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
+            units="hertz">frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">

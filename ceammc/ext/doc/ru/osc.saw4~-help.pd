@@ -26,7 +26,7 @@ suppression. 4nd order interpolation.;
 #X text 110 508 1\.;
 #X text 150 508 float;
 #X obj 246 509 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 508 FREQ(Hz): frequency. Тип: float.;
+#X text 245 508 FREQ(Hz): See @freq. Тип: float. Диапазон: 0.0…22050;
 #X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 543 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
@@ -42,36 +42,39 @@ name to listen. Тип: symbol.;
 #X msg 110 677 @active;
 #X text 245 677 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 719 @phase;
-#X text 245 719 Получить/Установить phase. Тип: float. Значение по
+#X msg 110 719 @freq;
+#X text 245 719 Получить/Установить frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...22050\.;
+#X msg 110 761 @phase;
+#X text 245 761 Получить/Установить phase. Тип: float. Значение по
 умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 776 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 818 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 777 1\.;
-#X text 150 777 *float*;
-#X text 245 777 frequency in Hz.;
-#X text 110 797 2\.;
-#X text 150 797 *bang*;
-#X text 245 797 reset phase.;
-#X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 832 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 819 1\.;
+#X text 150 819 *float*;
+#X text 245 819 frequency in Hz.;
+#X text 110 839 2\.;
+#X text 150 839 *bang*;
+#X text 245 839 reset phase.;
+#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 874 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 833 1\.;
-#X text 245 833 output signal.;
+#X text 110 875 1\.;
+#X text 245 875 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 883 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 886 библиотека: ceammc v0.9.8;
-#X text 316 898 смотрите также:;
-#X obj 437 898 osc.saw~;
-#X obj 511 898 osc.tri~;
-#X obj 585 898 osc.square~;
-#X obj 681 898 lfo.tri~;
-#N canvas 10 905 400 290 info 0;
+#X obj 1 925 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 928 библиотека: ceammc v0.9.8;
+#X text 316 940 смотрите также:;
+#X obj 437 940 osc.saw~;
+#X obj 511 940 osc.tri~;
+#X obj 585 940 osc.square~;
+#X obj 681 940 lfo.tri~;
+#N canvas 10 947 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -95,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 905 pd info;
+#X restore 10 947 pd info;
 #X connect 6 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
