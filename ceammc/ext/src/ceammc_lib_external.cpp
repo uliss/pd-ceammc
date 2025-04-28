@@ -83,6 +83,11 @@ void* ceammc_new()
     return x;
 }
 
+void ceammc_free(t_object* x)
+{
+    pd_unbind(&x->te_g.g_pd, gensym("ceammc"));
+}
+
 void ceammc_bang(t_object* x)
 {
     auto obj_list = ceammc_ext_list();
@@ -140,12 +145,18 @@ void ceammc_doc_lang(t_object* x, t_symbol* s)
 {
     using namespace ceammc;
 
+    char buf[MAXPDSTRING] = { 0 };
+    auto cls = x->te_g.g_pd;
+
     if (s == gensym("ru")) {
         pdDebug(nullptr, "set documentation language to Russian");
         ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::Russian);
+        sprintf(buf, "help-ru/%s", class_getname(cls));
+        class_sethelpsymbol(cls, gensym(buf));
     } else {
         pdDebug(nullptr, "set documentation language to English");
         ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::English);
+        class_sethelpsymbol(cls, gensym(class_getname(cls)));
     }
 }
 
@@ -170,7 +181,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     }
 
     ceammc_class = class_new(gensym("ceammc"),
-        reinterpret_cast<t_newmethod>(ceammc_new), 0,
+        reinterpret_cast<t_newmethod>(ceammc_new),
+        reinterpret_cast<t_method>(ceammc_free),
         sizeof(t_object), CLASS_DEFAULT, A_NULL);
 
     class_addbang(ceammc_class, reinterpret_cast<t_method>(ceammc_bang));
