@@ -54,21 +54,21 @@ and write_reg commands will work as expected;
 #X text 150 826 int;
 #X obj 246 827 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 826 DISPLAYS: number of displays connected into chain.
-Type: int. Range: 1\...8;
+Type: int. Range: 1\...4;
 #X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 876 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 879 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 911 @cs;
-#X text 245 911 (initonly) Get/Set CS (ChipSelect \, SlaveSelect or
+#X msg 110 911 @displays;
+#X text 245 911 (initonly) Get/Set number of displays connected into
+the chain. Type: int. Default value: 1\. Range: 1\...4\.;
+#X msg 110 953 @spi_bus;
+#X text 245 953 (initonly) Get/Set SPI bus number. Type: int. Default
+value: -1\. Range: -1\...6\.;
+#X msg 110 995 @spi_cs;
+#X text 245 995 (initonly) Get/Set CS (ChipSelect \, SlaveSelect or
 ChipEnable) index. Type: int. Default value: 0\. Range: 0\...3\.;
-#X msg 110 953 @displays;
-#X text 245 953 (initonly) Get/Set number of displays connected into
-the chain. Type: int. Default value: 1\. Range: 1\...8\.;
-#X msg 110 995 @spi;
-#X text 245 995 (initonly) Get/Set SPI bus number. Type: int. Default
-value: 0\. Range: 0\...6\.;
 #X obj 20 1047 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1052 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

@@ -29,19 +29,15 @@
             for all devices in a chain.</par>
         </info>
         <arguments>
-            <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="8">number of displays
+            <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="4">number of displays
             connected into chain</argument>
         </arguments>
         <properties>
-            <!-- @cs -->
-            <property name="@cs" type="int" default="0" minvalue="0" maxvalue="3"
-            access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
             <!-- @displays -->
-            <property name="@displays" type="int" default="1" minvalue="1" maxvalue="8"
+            <property name="@displays" type="int" default="1" minvalue="1" maxvalue="4"
             access="initonly">number of displays connected into the chain</property>
-            <!-- @spi -->
-            <property name="@spi" type="int" default="0" minvalue="0" maxvalue="6"
-            access="initonly">SPI bus number.</property>
+            <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1" access="initonly">SPI bus number</property>
+            <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
         </properties>
         <methods>
             <!-- clear -->
