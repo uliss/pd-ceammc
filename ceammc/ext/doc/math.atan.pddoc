@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="math.atan">
-        <title>math.atan</title>
-        <meta>
-            <authors>
-                <author>Serge Poltavsky</author>
-            </authors>
-            <description>
-                <tr lang="en">arc tangent function</tr>
-                <tr lang="ru">арктангенс</tr>
-            </description>
-            <license>GPL3 or later</license>
-            <library>ceammc</library>
-            <category>math</category>
-            <keywords>math atan</keywords>
-            <also>
-                <see>math.acos</see>
-                <see>math.asin</see>
-                <see>math.cos</see>
-            </also>
-            <since>0.1</since>
-        </meta>
-        <info>
-            <par>Outputs the principal value of the arc tangent of input value. The result is in
+   <object name="math.atan">
+    <title>math.atan</title>
+    <meta>
+     <authors>
+      <author>Serge Poltavsky</author>
+     </authors>
+     <description>
+      <tr lang="en">arc tangent function</tr>
+      <tr lang="ru">арктангенс</tr>
+     </description>
+     <license>GPL3 or later</license>
+     <library>ceammc</library>
+     <category>math</category>
+     <keywords>math atan</keywords>
+     <also>
+      <see>math.acos</see>
+      <see>math.asin</see>
+      <see>math.cos</see>
+     </also>
+     <since>0.1</since>
+    </meta>
+    <info>
+     <par>Outputs the principal value of the arc tangent of input value. The result is in
             the range [-π/2, +π/2].</par>
-            <par>Special values:</par>
-            <par>atan(+-0) returns +-0.</par>
-            <par>atan(+-infinity) returns +-π/2</par>
-        </info>
-        <inlets>
-            <inlet>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">apply to all numeric values</xinfo>
-            </inlet>
-        </inlets>
-        <outlets>
-            <outlet>result value</outlet>
-        </outlets>
-        <example>
-            <pdascii>
-<![CDATA[
+     <par>Special values:</par>
+     <par>atan(+-0) returns +-0.</par>
+     <par>atan(+-infinity) returns +-π/2</par>
+    </info>
+    <inlets>
+     <inlet>
+      <xinfo on="float">input value</xinfo>
+      <xinfo on="list">apply to all numeric values</xinfo>
+     </inlet>
+    </inlets>
+    <outlets>
+     <outlet>result value</outlet>
+    </outlets>
+    <example>
+     <pdascii><![CDATA[
 [bang(                 [array ATAN yr=-2..2 w=320]
 |
 [list.seq -4 4 0.025]
@@ -47,8 +46,7 @@
 [math.atan]
 |
 [list->array ATAN]
-]]>
-            </pdascii>
-        </example>
-    </object>
-</pddoc>
+]]></pdascii>
+    </example>
+   </object>
+  </pddoc>

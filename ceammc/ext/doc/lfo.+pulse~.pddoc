@@ -23,7 +23,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="1000.0" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="1000.0" units="hertz">
+            frequency</argument>
             <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
@@ -34,14 +35,15 @@
             <!-- @duty -->
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
             cycle</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" minvalue="0.0" maxvalue="1000.0" default="0.0"
+            units="hertz" access="readwrite">frequency</property>
             <!-- @pause -->
             <property name="@pause" type="bool" default="0">pause oscillator at current
             value</property>
             <!-- @phase -->
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
-            <property name="@freq" type="float" minvalue="0.0" maxvalue="1000.0" default="0.0" units="hertz" access="readwrite">
-            frequency</property>
         </properties>
         <methods>
             <!-- reset -->

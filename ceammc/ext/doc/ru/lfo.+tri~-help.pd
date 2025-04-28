@@ -21,7 +21,7 @@
 #X text 110 324 1\.;
 #X text 150 324 float;
 #X obj 246 325 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 324 FREQ(Hz): frequency. Тип: float.;
+#X text 245 324 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 359 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
@@ -37,42 +37,45 @@ name to listen. Тип: symbol.;
 #X msg 110 493 @active;
 #X text 245 493 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 535 @pause;
-#X text 245 535 Получить/Установить pause oscillator at current value.
+#X msg 110 535 @freq;
+#X text 245 535 Получить/Установить initial frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...1000\.;
+#X msg 110 577 @pause;
+#X text 245 577 Получить/Установить pause oscillator at current value.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 577 @phase;
-#X text 245 577 Получить/Установить initial phase. Тип: float. Значение
+#X msg 110 619 @phase;
+#X text 245 619 Получить/Установить initial phase. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 634 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 676 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 669 reset;
-#X text 245 669 reset to initial state.;
-#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 712 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 711 reset;
+#X text 245 711 reset to initial state.;
+#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 754 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 713 1\.;
-#X text 245 713 frequency in Hz (can be negative or zero).;
-#X text 110 733 2\.;
-#X text 150 733 *bang*;
-#X text 245 733 reset phase.;
-#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 768 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 755 1\.;
+#X text 245 755 frequency in Hz (can be negative or zero).;
+#X text 110 775 2\.;
+#X text 150 775 *bang*;
+#X text 245 775 reset phase.;
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 810 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 769 1\.;
-#X text 245 769 triangle wave in [0-1) range.;
+#X text 110 811 1\.;
+#X text 245 811 triangle wave in [0-1) range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 819 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 822 библиотека: ceammc v0.9.8;
-#X text 362 834 смотрите также:;
-#X obj 483 834 lfo.tri~;
-#X obj 557 834 lfo.square~;
-#X obj 652 834 lfo.impulse~;
-#N canvas 10 841 400 290 info 0;
+#X obj 1 861 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 864 библиотека: ceammc v0.9.8;
+#X text 362 876 смотрите также:;
+#X obj 483 876 lfo.tri~;
+#X obj 557 876 lfo.square~;
+#X obj 652 876 lfo.impulse~;
+#N canvas 10 883 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 841 pd info;
+#X restore 10 883 pd info;
 #X connect 5 0 6 0;
 #X connect 4 0 7 0;
 #X connect 6 0 7 1;

@@ -3,7 +3,7 @@
 using namespace ceammc;
 
 class LfoPulse : public faust_lfo_pulse_tilde {
-    FloatProperty* freq_;
+    FloatProperty* freq_ { nullptr };
 
 public:
     explicit LfoPulse(const PdArgs& args)

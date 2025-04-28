@@ -23,13 +23,17 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+            frequency</argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
+            units="hertz">initial frequency</property>
             <!-- @pause -->
             <property name="@pause" type="bool" default="0">pause oscillator at current
             value</property>

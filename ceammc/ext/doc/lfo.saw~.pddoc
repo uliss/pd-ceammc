@@ -22,7 +22,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+            frequency</argument>
             <argument name="INVERT" type="bool">wave inversion</argument>
         </arguments>
         <properties>
@@ -30,6 +31,9 @@
             <xi:include href="props_id.xml" />
             <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
+            units="hertz">initial frequency</property>
             <!-- @invert -->
             <property name="@invert" type="bool" default="0">wave inversion</property>
             <!-- @pause -->
