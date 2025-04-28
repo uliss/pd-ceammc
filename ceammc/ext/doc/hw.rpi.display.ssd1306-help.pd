@@ -60,7 +60,7 @@ none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
 Default value: i2c. Allowed values: i2c \, spi.;
 #X msg 110 852 @spi_bus;
 #X text 245 852 (initonly) Get/Set SPI bus. Type: int. Default value:
-0\. Range: 0\...6\.;
+-1\. Range: -1\...6\.;
 #X msg 110 894 @spi_cs;
 #X text 245 894 (initonly) Get/Set CS (chip select) GPIO pin. Type:
 int. Default value: -1\. Range: -1\...127\.;

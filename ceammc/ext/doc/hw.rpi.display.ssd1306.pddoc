@@ -40,7 +40,7 @@
             <property name="@size" type="list" default="128 64" access="initonly">display
             size</property>
             <!-- @spi_bus -->
-            <property name="@spi_bus" type="int" default="0" minvalue="0" maxvalue="6"
+            <property name="@spi_bus" type="int" default="-1" minvalue="-1" maxvalue="6"
             access="initonly">SPI bus</property>
             <!-- @spi_cs -->
             <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"
