@@ -43,7 +43,10 @@ if(WC)
         set(CEAMMC_OBJECT_COUNT ${WC_OUT})
     endif()
 endif()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd    ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about_ru.pd ${CMAKE_CURRENT_BINARY_DIR}/help-ru/about.pd @ONLY)
+
 
 # doc file list
 include(docs.cmake)
@@ -213,10 +216,17 @@ if(TIDY AND PD_DOC_FORMAT)
     add_custom_target(ceammc_pddoc_format
         COMMAND ls *.pddoc | while read f\;
         do
-            ${PD_DOC_FORMAT} --in-place $$f \;
-            ${TIDY} -quiet -xml --indent auto
-            --priority-attributes "name,type"
-            --indent-spaces 4 --indent-cdata no --wrap 100 --wrap-sections no $$f > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
+            ${PD_DOC_FORMAT} $$f > "${CMAKE_CURRENT_BINARY_DIR}/.format" \;
+            ${TIDY} -quiet
+                -xml
+                --indent auto
+                --priority-attributes "name,type"
+                --indent-spaces 4
+                --indent-cdata no
+                --wrap 100
+                --wrap-sections no
+                "${CMAKE_CURRENT_BINARY_DIR}/.format" > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
+            rm -rf "${CMAKE_CURRENT_BINARY_DIR}/.format" \;
             ${CMAKE_COMMAND} -E copy_if_different
                 "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
             echo "Format pddoc file: $$f" \;
