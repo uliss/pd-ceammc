@@ -33,8 +33,7 @@
             <event type="left-click" editmode="false">play selected note: output [NOTE VELOCITY( on
             mouse press and [NOTE 0( on mouse release. Velocity depends on click position: lower
             position produces higher velocity</event>
-            <event type="left-click" editmode="false" keys="Shift">play/stop sustained
-            note</event>
+            <event type="left-click" editmode="false" keys="Shift">play/stop sustained note</event>
             <event type="left-click" editmode="false" keys="Alt">release all note (send [NOTE 0(
             message for each sustained note)</event>
             <event type="drag" editmode="false">play notes under cursor and release others</event>
