@@ -3,18 +3,21 @@
 	"filename": "fx_granulator.dsp",
 	"version": "2.74.5.",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
-	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib"],
+	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/filters.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
-	"size": 529744,
+	"size": 576552,
 	"inputs": 1,
 	"outputs": 2,
 	"meta": [ 
 		{ "author": "Lukas Hartmann & Luca Hilbrich" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
+		{ "basics.lib/version": "1.16.0" },
 		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "filename": "fx_granulator.dsp" },
 		{ "filters.lib/highpass:author": "Julius O. Smith III" },
 		{ "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/tf1:author": "Julius O. Smith III" },
@@ -44,10 +47,13 @@
 					"label": "delay",
 					"shortname": "delay",
 					"address": "/fx.granulator/delay",
-					"init": 2,
-					"min": 0.5,
-					"max": 2,
-					"step": 0.1
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 3000,
+					"min": 500,
+					"max": 3000,
+					"step": 1
 				},
 				{
 					"type": "vslider",
@@ -67,7 +73,7 @@
 					"meta": [
 						{ "style": "knob" }
 					],
-					"init": 0.8,
+					"init": 0.75,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
@@ -80,7 +86,7 @@
 					"meta": [
 						{ "style": "knob" }
 					],
-					"init": 0.2,
+					"init": 0.25,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
@@ -93,7 +99,7 @@
 					"meta": [
 						{ "style": "knob" }
 					],
-					"init": 0.2,
+					"init": 0.25,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
@@ -106,7 +112,7 @@
 					"meta": [
 						{ "style": "knob" }
 					],
-					"init": 0.8,
+					"init": 0.75,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
@@ -145,8 +151,8 @@
 					"shortname": "pitchA",
 					"address": "/fx.granulator/pitchA",
 					"init": 1,
-					"min": -2,
-					"max": 2,
+					"min": -4,
+					"max": 4,
 					"step": 0.01
 				},
 				{
@@ -155,8 +161,8 @@
 					"shortname": "pitchB",
 					"address": "/fx.granulator/pitchB",
 					"init": 1,
-					"min": -2,
-					"max": 2,
+					"min": -4,
+					"max": 4,
 					"step": 0.01
 				},
 				{
@@ -164,20 +170,23 @@
 					"label": "size",
 					"shortname": "size",
 					"address": "/fx.granulator/size",
-					"init": 0.1,
-					"min": 0.01,
-					"max": 0.5,
-					"step": 0.01
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 100,
+					"min": 10,
+					"max": 1000,
+					"step": 1
 				},
 				{
 					"type": "vslider",
 					"label": "spread",
 					"shortname": "spread",
 					"address": "/fx.granulator/spread",
-					"init": 1,
-					"min": 0.1,
-					"max": 2,
-					"step": 0.1
+					"init": 0.5,
+					"min": 0.05,
+					"max": 1,
+					"step": 0.05
 				}
 			]
 		}

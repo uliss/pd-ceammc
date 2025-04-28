@@ -5,68 +5,111 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.granulator~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 fx.granulator~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X floatatom 174 147 5 0 0 0 - - -;
-#X floatatom 290 147 5 0 0 0 - - -;
-#X floatatom 414 147 5 0 0 0 - - -;
-#X obj 50 176 readsf~;
-#X msg 174 176 @delay \$1;
-#X msg 290 176 @length \$1;
-#X msg 414 176 @density \$1;
-#X obj 50 234 fx.granulator~;
-#X obj 50 262 ui.gain~ @size 120 14;
-#X obj 280 262 ui.dsp~;
-#X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The granulator contains two lines: A and B;
+#X text 215 105 Input buffer size: ~3 seconds;
+#X msg 50 168 open %CEAMMC%/sound/loop_breakbeat.flac \, 1;
+#X obj 50 197 expand_env;
+#X msg 174 197 stop;
+#X obj 242 197 ui.hsl @show_value 1 @min 1 @max 16;
+#X obj 405 197 ui.hsl @show_value 1 @min 10 @max 1000;
+#X obj 539 197 ui.hsl @show_value 1 @min 500 @max 3000;
+#X obj 50 226 snd.play~ 1;
+#X msg 242 226 @density \$1;
+#X msg 405 226 @size \$1;
+#X msg 539 226 @delay \$1;
+#X obj 242 255 ui.k @show_value 1 @min 100 @max 5000;
+#X obj 405 255 ui.k @show_value 1 @min 100 @max 5000;
+#X obj 539 255 ui.hsl @show_value 1 @min 0.05 @max 1;
+#X msg 539 284 @spread \$1;
+#X msg 242 312 @hpfA \$1;
+#X msg 405 312 @hpfB \$1;
+#X obj 242 341 ui.hsl @show_value 1 @min -4 @max 4;
+#X obj 405 341 ui.hsl @show_value 1 @min -4 @max 4;
+#X msg 242 370 @pitchA \$1;
+#X msg 405 370 @pitchB \$1;
+#X obj 50 413 fx.granulator~;
+#X obj 50 442 ui.gain2~ @size 120 14;
+#X obj 290 442 ui.dsp~;
+#X obj 50 471 dac~;
+#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 526 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 529 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 381 @id;
-#X text 245 381 (при инициализации) Получить/Установить OSC address
+#X msg 110 561 @id;
+#X text 245 561 (при инициализации) Получить/Установить OSC address
 id. If specified \, bind all properties to /ID/fx_granulator/PROP_NAME
 osc address \, if empty bind to /fx_granulator/PROP_NAME. Тип: symbol.;
-#X msg 110 453 @osc;
-#X text 245 453 (при инициализации) Получить/Установить OSC server
+#X msg 110 633 @osc;
+#X text 245 633 (при инициализации) Получить/Установить OSC server
 name to listen. Тип: symbol.;
-#X msg 110 495 @active;
-#X text 245 495 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
-#X msg 110 537 @delay;
-#X text 245 537 Получить/Установить grain total area length. Тип: float.
-Единицы: 'sec'. Значение по умолчанию: 10\. Диапазон: 0.5\...10\.;
-#X msg 110 594 @density;
-#X text 245 594 Получить/Установить number of grains. Тип: int. Значение
-по умолчанию: 10\. Диапазон: 1\...64\.;
-#X msg 110 636 @length;
-#X text 245 636 Получить/Установить grain length. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 100\. Диапазон: 10\...500\.;
-#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 693 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 110 675 @active;
+#X text 245 675 Turn on/off the dsp processing. Тип: bool. Значение
+по умолчанию: 1\.;
+#X msg 110 717 @delay;
+#X text 245 717 Получить/Установить grain delay. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 3000\. Диапазон: 500\...3000\.;
+#X msg 110 759 @density;
+#X text 245 759 Получить/Установить number of grains. Тип: float. Значение
+по умолчанию: 1.0\. Диапазон: 1.0\...16.0\.;
+#X msg 110 801 @gainAL;
+#X text 245 801 Получить/Установить A-channel left output gain. Тип:
+float. Значение по умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
+#X msg 110 843 @gainAR;
+#X text 245 843 Получить/Установить A-channel right ouptut gain. Тип:
+float. Значение по умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
+#X msg 110 885 @gainBL;
+#X text 245 885 Получить/Установить B-channel left output gain. Тип:
+float. Значение по умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
+#X msg 110 927 @gainBR;
+#X text 245 927 Получить/Установить B-channel right output gain. Тип:
+float. Значение по умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
+#X msg 110 969 @hpfA;
+#X text 245 969 Получить/Установить A-channel HPF corner frequency.
+Тип: float. Единицы: 'Hz'. Значение по умолчанию: 100.0\. Диапазон:
+50.0\...10000.0\.;
+#X msg 110 1026 @hpfB;
+#X text 245 1026 Получить/Установить B-channel HPF corner frequency.
+Тип: float. Единицы: 'Hz'. Значение по умолчанию: 100.0\. Диапазон:
+50.0\...10000.0\.;
+#X msg 110 1083 @pitchA;
+#X text 245 1083 Получить/Установить A-channel pitch shift. Тип: float.
+Значение по умолчанию: 1.0\. Диапазон: -4.0\...4.0\.;
+#X msg 110 1125 @pitchB;
+#X text 245 1125 Получить/Установить B-channel pitchshift. Тип: float.
+Значение по умолчанию: 1.0\. Диапазон: -4.0\...4.0\.;
+#X msg 110 1167 @spread;
+#X text 245 1167 Получить/Установить grain spread in the input buffer.
+Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0.05\...1.0\.;
+#X msg 110 1209 @size;
+#X text 245 1209 Получить/Установить grain size for both lines. Тип:
+float. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 10\...1000\.;
+#X obj 20 1276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1281 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1316 reset;
+#X text 245 1316 reset object state.;
+#X obj 20 1354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1359 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 728 reset;
-#X text 245 728 reset object state.;
-#X obj 20 766 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 771 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 110 772 1\.;
-#X text 245 772 left channel.;
-#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 807 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 110 808 1\.;
-#X text 245 808 output.;
-#X text 110 828 2\.;
-#X text 245 828 output.;
+#X text 110 1360 1\.;
+#X text 245 1360 input signal.;
+#X obj 20 1390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1395 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1396 1\.;
+#X text 245 1396 left output.;
+#X text 110 1416 2\.;
+#X text 245 1416 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 878 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 881 библиотека: ceammc v0.9.8;
-#N canvas 10 900 400 290 info 0;
+#X obj 1 1466 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1469 библиотека: ceammc v0.9.8;
+#N canvas 10 1488 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,16 +133,29 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 900 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 9 0;
-#X connect 6 0 10 0;
-#X connect 7 0 11 0;
-#X connect 8 0 12 0;
+#X restore 10 1488 pd info;
+#X connect 7 0 8 0;
+#X connect 8 0 13 0;
 #X connect 9 0 13 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 14 0 16 0;
-#X connect 14 0 16 1;
+#X connect 10 0 14 0;
+#X connect 11 0 15 0;
+#X connect 12 0 16 0;
+#X connect 23 0 25 0;
+#X connect 24 0 26 0;
+#X connect 13 0 27 0;
+#X connect 27 0 28 0;
+#X connect 27 1 28 1;
+#X connect 28 0 30 0;
+#X connect 28 1 30 1;
+#X connect 13 1 7 0;
+#X connect 14 0 27 0;
+#X connect 15 0 27 0;
+#X connect 16 0 27 0;
+#X connect 21 0 27 0;
+#X connect 17 0 21 0;
+#X connect 18 0 22 0;
+#X connect 22 0 27 0;
+#X connect 19 0 20 0;
+#X connect 20 0 27 0;
+#X connect 25 0 27 0;
+#X connect 26 0 27 0;

@@ -32,41 +32,42 @@ import("stdfaust.lib");
 
 // volumeSlider = vslider("input_gain", 0.5, 0, 1, 0.01); // volume slider
 // windowSlider = vslider("window [style:radio{'Sine Window':window1;'Hamming Window':window2;'Flat Top Window':window3}]",1,1,3,1);
-pitchSliderA = vslider("pitchA", 1, -2, 2, 0.01); // pitch control (downsampling)
-pitchSliderB = vslider("pitchB", 1, -2, 2, 0.01);  // pitch control (downsampling)
+pitchSliderA = vslider("pitchA", 1, -4, 4, 0.01); // pitch control (downsampling)
+pitchSliderB = vslider("pitchB", 1, -4, 4, 0.01); // pitch control (downsampling)
 
-grainAmountSlider     = vslider("density", 1, 1, MAXN, 1);     // number of grains
-grainbufferSizeSlider = vslider("size", 0.1, 0.01, 0.5, 0.01); // grain size in samples
-delayLengthSlider     = vslider("delay", 2, 0.5, 2, 0.1);      // delay length in samples
-positionspreadSlider  = vslider("spread", 1, 0.1, 2, 0.1);      // position spread of grains
+grainAmountSlider     = vslider("density", 1, 1, MAXN, 1);            // number of grains
+grainbufferSizeSlider = vslider("size  [unit:ms]", 100, 10, 1000, 1); // grain size in msec
+delayLengthSlider     = vslider("delay [unit:ms]", 1000, 500, BUF_SEC * 1000, 1) * 0.001; // delay between grains in msec
+positionspreadSlider  = vslider("spread", 0.5, 0.05, 1, 0.05);        // position spread of grains
 
-dry_wetA        = vslider("drywetA [style:knob]", 0.0, 0, 1, 0.001);
+// dry_wetA        = vslider("drywetA [style:knob]", 0.0, 0, 1, 0.001);
 filter_cuttoffA = vslider("hpfA    [unit:hz][style:knob]", 100, 50, 10000, 1);
-volumeSliderAL  = vslider("gainAL  [style:knob]", 0.8, 0, 1, 0.01);
-volumeSliderAR  = vslider("gainAR  [style:knob]", 0.2, 0, 1, 0.01);
+volumeSliderAL  = vslider("gainAL  [style:knob]", 0.75, 0, 1, 0.01);
+volumeSliderAR  = vslider("gainAR  [style:knob]", 0.25, 0, 1, 0.01);
 
-dry_wetB        = vslider("drywetB [style:knob]", 0.0, 0, 1, 0.001);
+// dry_wetB        = vslider("drywetB [style:knob]", 0.0, 0, 1, 0.001);
 filter_cuttoffB = vslider("hpfB    [unit:hz][style:knob]", 100, 50, 10000, 1);
-volumeSliderBL  = vslider("gainBL  [style:knob]", 0.2, 0, 1, 0.01);
-volumeSliderBR  = vslider("gainBR  [style:knob]", 0.8, 0, 1, 0.01);
+volumeSliderBL  = vslider("gainBL  [style:knob]", 0.25, 0, 1, 0.01);
+volumeSliderBR  = vslider("gainBR  [style:knob]", 0.75, 0, 1, 0.01);
 
 
 // CODE //
 
-SR = 44100; // samplerate in samples per second
-MAXN = 16; // maximum numbers of grains
+SR = 48000; // samplerate in samples per second
+MAXN = 16;  // maximum numbers of grains
 Volume = volumeSlider; // volume slider
+BUF_SEC = 3;
 
-Gain1 = 0.8; // gain of channel1 Alpha
+Gain1 = 0.8;  // gain of channel1 Alpha
 Gain2 = 0.85; // gain of channel1 Beta
-Gain3 = 0.9; // gain of channel2 Alpha
+Gain3 = 0.9;  // gain of channel2 Alpha
 Gain4 = 0.95; // gain of channel2 Beta
 
-bufferSize = 3 * SR; // size of input buffer in samples
+bufferSize = BUF_SEC * SR; // size of input buffer in samples
 bufferCounter = + (1) % delayLength ~ _; // counter to cycle through the input buffer from 0 to bufferSize
 delayLength = SR * delayLengthSlider; // set delay length with delay length slider
 
-grainbufferSize = SR * grainbufferSizeSlider; // size of grainbuffer in samples
+grainbufferSize = (grainbufferSizeSlider * 0.001) : ba.sec2samp; // size of grainbuffer in samples
 
 grainbufferCounterA = + (pitchSliderA) % grainbufferSize ~ _; // counter to cycle through the grains from 0 to grainSize
 grainbufferCounterB = + (pitchSliderB) % grainbufferSize ~ _; // counter to cycle through the grains from 0 to grainSize
@@ -109,7 +110,7 @@ polyNoise(n) = polyRandom(n) : par(i, n, /(RANDMAX));
 noiseChan(n, 0) = polyNoise(MAXN + 1) :> _, par(j, n - 1, !);
 noiseChan(n, i) = polyNoise(MAXN + 1) :> par(j, i, !), _, par(j, n - i - 1, !);
 
-noise(i) = (noiseChan(MAXN + 1, i) + 1) / 2 * positionspreadSlider; //to get nth channel of multi-channel noiser (not quite sure how)
+noise(i) = (noiseChan(MAXN + 1, i) + 1) / 1 * positionspreadSlider; //to get nth channel of multi-channel noiser (not quite sure how)
 
 // EFFECTS //
 
