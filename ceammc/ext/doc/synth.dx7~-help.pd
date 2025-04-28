@@ -24,43 +24,306 @@ bind to /synth_dx7/PROP_NAME. Type: symbol.;
 #X msg 110 424 @osc;
 #X text 245 424 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 454 @freq;
-#X text 245 454 Get/Set maximum speed of whistles. Type: float. Units:
+#X msg 110 454 @active;
+#X text 245 454 Get/Set @active. Type: bool. Default value: 1\.;
+#X msg 110 484 @algorithm;
+#X text 245 484 Get/Set @algorithm. Type: int. Default value: 0\. Range:
+0\...15\.;
+#X msg 110 526 @feedback;
+#X text 245 526 Get/Set @feedback. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 568 @freq;
+#X text 245 568 Get/Set maximum speed of whistles. Type: float. Units:
 'Hz'. Default value: 130.8128\. Range: 0\...480\.;
-#X msg 110 496 @gate;
-#X text 245 496 Get/Set synth gate (>0 - play). Type: float. Default
+#X msg 110 610 @gain;
+#X text 245 610 Get/Set @gain. Type: float. Default value: 0.800000011920929\.
+Range: 0.0\...1.0\.;
+#X msg 110 652 @gate;
+#X text 245 652 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 538 @pitch;
-#X text 245 538 Get/Set midi pitch. Type: float. Default value: 48\.
+#X msg 110 694 @op0:detune;
+#X text 245 694 Get/Set @op0:detune. Type: float. Default value: 1.0\.
+Range: -10.0\...10.0\.;
+#X msg 110 736 @op0:egL1;
+#X text 245 736 Get/Set @op0:egL1\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 778 @op0:egL2;
+#X text 245 778 Get/Set @op0:egL2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 820 @op0:egL3;
+#X text 245 820 Get/Set @op0:egL3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 862 @op0:egL4;
+#X text 245 862 Get/Set @op0:egL4\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 904 @op0:egR1;
+#X text 245 904 Get/Set @op0:egR1\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 946 @op0:egR2;
+#X text 245 946 Get/Set @op0:egR2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 988 @op0:egR3;
+#X text 245 988 Get/Set @op0:egR3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1030 @op0:egR4;
+#X text 245 1030 Get/Set @op0:egR4\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1072 @op0:freq;
+#X text 245 1072 Get/Set @op0:freq. Type: float. Units: 'Hz'. Default
+value: 1.0\. Range: 0.0\...2.0\.;
+#X msg 110 1114 @op0:key_vel_sens;
+#X text 245 1114 Get/Set @op0:key_vel_sens. Type: float. Default value:
+1.0\. Range: 0.0\...8.0\.;
+#X msg 110 1156 @op0:level;
+#X text 245 1156 Get/Set @op0:level. Type: float. Default value: 95.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1198 @op0:mode;
+#X text 245 1198 Get/Set @op0:mode. Type: float. Default value: 0.0\.
+Range: 0.0\...1.0\.;
+#X msg 110 1240 @op0:rate_scale;
+#X text 245 1240 Get/Set @op0:rate_scale. Type: float. Default value:
+0.0\. Range: 0.0\...10.0\.;
+#X msg 110 1282 @op1:detune;
+#X text 245 1282 Get/Set @op1:detune. Type: float. Default value: 1.0\.
+Range: -10.0\...10.0\.;
+#X msg 110 1324 @op1:egL1;
+#X text 245 1324 Get/Set @op1:egL1\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1366 @op1:egL2;
+#X text 245 1366 Get/Set @op1:egL2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1408 @op1:egL3;
+#X text 245 1408 Get/Set @op1:egL3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1450 @op1:egL4;
+#X text 245 1450 Get/Set @op1:egL4\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1492 @op1:egR1;
+#X text 245 1492 Get/Set @op1:egR1\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1534 @op1:egR2;
+#X text 245 1534 Get/Set @op1:egR2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1576 @op1:egR3;
+#X text 245 1576 Get/Set @op1:egR3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1618 @op1:egR4;
+#X text 245 1618 Get/Set @op1:egR4\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1660 @op1:freq;
+#X text 245 1660 Get/Set @op1:freq. Type: float. Units: 'Hz'. Default
+value: 1.0\. Range: 0.0\...2.0\.;
+#X msg 110 1702 @op1:key_vel_sens;
+#X text 245 1702 Get/Set @op1:key_vel_sens. Type: float. Default value:
+1.0\. Range: 0.0\...8.0\.;
+#X msg 110 1744 @op1:level;
+#X text 245 1744 Get/Set @op1:level. Type: float. Default value: 95.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1786 @op1:mode;
+#X text 245 1786 Get/Set @op1:mode. Type: float. Default value: 0.0\.
+Range: 0.0\...1.0\.;
+#X msg 110 1828 @op1:rate_scale;
+#X text 245 1828 Get/Set @op1:rate_scale. Type: float. Default value:
+0.0\. Range: 0.0\...10.0\.;
+#X msg 110 1870 @op2:detune;
+#X text 245 1870 Get/Set @op2:detune. Type: float. Default value: 1.0\.
+Range: -10.0\...10.0\.;
+#X msg 110 1912 @op2:egL1;
+#X text 245 1912 Get/Set @op2:egL1\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1954 @op2:egL2;
+#X text 245 1954 Get/Set @op2:egL2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 1996 @op2:egL3;
+#X text 245 1996 Get/Set @op2:egL3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2038 @op2:egL4;
+#X text 245 2038 Get/Set @op2:egL4\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2080 @op2:egR1;
+#X text 245 2080 Get/Set @op2:egR1\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2122 @op2:egR2;
+#X text 245 2122 Get/Set @op2:egR2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2164 @op2:egR3;
+#X text 245 2164 Get/Set @op2:egR3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2206 @op2:egR4;
+#X text 245 2206 Get/Set @op2:egR4\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2248 @op2:freq;
+#X text 245 2248 Get/Set @op2:freq. Type: float. Units: 'Hz'. Default
+value: 1.0\. Range: 0.0\...2.0\.;
+#X msg 110 2290 @op2:key_vel_sens;
+#X text 245 2290 Get/Set @op2:key_vel_sens. Type: float. Default value:
+1.0\. Range: 0.0\...8.0\.;
+#X msg 110 2332 @op2:level;
+#X text 245 2332 Get/Set @op2:level. Type: float. Default value: 95.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2374 @op2:mode;
+#X text 245 2374 Get/Set @op2:mode. Type: float. Default value: 0.0\.
+Range: 0.0\...1.0\.;
+#X msg 110 2416 @op2:rate_scale;
+#X text 245 2416 Get/Set @op2:rate_scale. Type: float. Default value:
+0.0\. Range: 0.0\...10.0\.;
+#X msg 110 2458 @op3:detune;
+#X text 245 2458 Get/Set @op3:detune. Type: float. Default value: 1.0\.
+Range: -10.0\...10.0\.;
+#X msg 110 2500 @op3:egL1;
+#X text 245 2500 Get/Set @op3:egL1\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2542 @op3:egL2;
+#X text 245 2542 Get/Set @op3:egL2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2584 @op3:egL3;
+#X text 245 2584 Get/Set @op3:egL3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2626 @op3:egL4;
+#X text 245 2626 Get/Set @op3:egL4\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2668 @op3:egR1;
+#X text 245 2668 Get/Set @op3:egR1\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2710 @op3:egR2;
+#X text 245 2710 Get/Set @op3:egR2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2752 @op3:egR3;
+#X text 245 2752 Get/Set @op3:egR3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2794 @op3:egR4;
+#X text 245 2794 Get/Set @op3:egR4\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2836 @op3:freq;
+#X text 245 2836 Get/Set @op3:freq. Type: float. Units: 'Hz'. Default
+value: 1.0\. Range: 0.0\...2.0\.;
+#X msg 110 2878 @op3:key_vel_sens;
+#X text 245 2878 Get/Set @op3:key_vel_sens. Type: float. Default value:
+1.0\. Range: 0.0\...8.0\.;
+#X msg 110 2920 @op3:level;
+#X text 245 2920 Get/Set @op3:level. Type: float. Default value: 95.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 2962 @op3:mode;
+#X text 245 2962 Get/Set @op3:mode. Type: float. Default value: 0.0\.
+Range: 0.0\...1.0\.;
+#X msg 110 3004 @op3:rate_scale;
+#X text 245 3004 Get/Set @op3:rate_scale. Type: float. Default value:
+0.0\. Range: 0.0\...10.0\.;
+#X msg 110 3046 @op4:detune;
+#X text 245 3046 Get/Set @op4:detune. Type: float. Default value: 1.0\.
+Range: -10.0\...10.0\.;
+#X msg 110 3088 @op4:egL1;
+#X text 245 3088 Get/Set @op4:egL1\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3130 @op4:egL2;
+#X text 245 3130 Get/Set @op4:egL2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3172 @op4:egL3;
+#X text 245 3172 Get/Set @op4:egL3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3214 @op4:egL4;
+#X text 245 3214 Get/Set @op4:egL4\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3256 @op4:egR1;
+#X text 245 3256 Get/Set @op4:egR1\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3298 @op4:egR2;
+#X text 245 3298 Get/Set @op4:egR2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3340 @op4:egR3;
+#X text 245 3340 Get/Set @op4:egR3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3382 @op4:egR4;
+#X text 245 3382 Get/Set @op4:egR4\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3424 @op4:freq;
+#X text 245 3424 Get/Set @op4:freq. Type: float. Units: 'Hz'. Default
+value: 1.0\. Range: 0.0\...2.0\.;
+#X msg 110 3466 @op4:key_vel_sens;
+#X text 245 3466 Get/Set @op4:key_vel_sens. Type: float. Default value:
+1.0\. Range: 0.0\...8.0\.;
+#X msg 110 3508 @op4:level;
+#X text 245 3508 Get/Set @op4:level. Type: float. Default value: 95.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3550 @op4:mode;
+#X text 245 3550 Get/Set @op4:mode. Type: float. Default value: 0.0\.
+Range: 0.0\...1.0\.;
+#X msg 110 3592 @op4:rate_scale;
+#X text 245 3592 Get/Set @op4:rate_scale. Type: float. Default value:
+0.0\. Range: 0.0\...10.0\.;
+#X msg 110 3634 @op5:detune;
+#X text 245 3634 Get/Set @op5:detune. Type: float. Default value: 1.0\.
+Range: -10.0\...10.0\.;
+#X msg 110 3676 @op5:egL1;
+#X text 245 3676 Get/Set @op5:egL1\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3718 @op5:egL2;
+#X text 245 3718 Get/Set @op5:egL2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3760 @op5:egL3;
+#X text 245 3760 Get/Set @op5:egL3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3802 @op5:egL4;
+#X text 245 3802 Get/Set @op5:egL4\. Type: float. Default value: 0.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3844 @op5:egR1;
+#X text 245 3844 Get/Set @op5:egR1\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3886 @op5:egR2;
+#X text 245 3886 Get/Set @op5:egR2\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3928 @op5:egR3;
+#X text 245 3928 Get/Set @op5:egR3\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 3970 @op5:egR4;
+#X text 245 3970 Get/Set @op5:egR4\. Type: float. Default value: 90.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 4012 @op5:freq;
+#X text 245 4012 Get/Set @op5:freq. Type: float. Units: 'Hz'. Default
+value: 1.0\. Range: 0.0\...2.0\.;
+#X msg 110 4054 @op5:key_vel_sens;
+#X text 245 4054 Get/Set @op5:key_vel_sens. Type: float. Default value:
+1.0\. Range: 0.0\...8.0\.;
+#X msg 110 4096 @op5:level;
+#X text 245 4096 Get/Set @op5:level. Type: float. Default value: 95.0\.
+Range: 0.0\...99.0\.;
+#X msg 110 4138 @op5:mode;
+#X text 245 4138 Get/Set @op5:mode. Type: float. Default value: 0.0\.
+Range: 0.0\...1.0\.;
+#X msg 110 4180 @op5:rate_scale;
+#X text 245 4180 Get/Set @op5:rate_scale. Type: float. Default value:
+0.0\. Range: 0.0\...10.0\.;
+#X msg 110 4222 @pitch;
+#X text 245 4222 Get/Set midi pitch. Type: float. Default value: 48\.
 Range: 24\...84\.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 595 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 4274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4279 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 630 note;
-#X text 245 630 note on/off message. Arguments are:;
-#X obj 255 653 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 653 NOTE: midi note. Type: float.;
-#X obj 255 676 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 676 VEL: velocity. Type: float. Range: 0\...127\.;
-#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 716 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 110 717 1\.;
-#X text 150 717 *list*;
-#X text 245 717 NOTE VEL.;
-#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 110 4314 note;
+#X text 245 4314 note on/off message. Arguments are:;
+#X obj 255 4337 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4337 NOTE: midi note. Type: float.;
+#X obj 255 4360 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4360 VEL: velocity. Type: float. Range: 0\...127\.;
+#X obj 20 4395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4400 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 753 1\.;
-#X text 245 753 synth output.;
+#X text 110 4401 1\.;
+#X text 150 4401 *list*;
+#X text 245 4401 NOTE VEL.;
+#X obj 20 4431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4436 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 4437 1\.;
+#X text 245 4437 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 803 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 806 library: ceammc v0.9.8;
-#N canvas 10 825 400 290 info 0;
+#X obj 1 4487 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4490 library: ceammc v0.9.8;
+#N canvas 10 4509 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -84,7 +347,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 825 pd info;
+#X restore 10 4509 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 7 0;
