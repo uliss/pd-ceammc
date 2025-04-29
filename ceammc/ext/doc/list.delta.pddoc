@@ -8,8 +8,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">outputs and saves the list of differences between the current and the previously saved list</tr>
-                <tr lang="ru">выводит и сохраняет список разностей между текущим и предыдущим сохраненным списком</tr>
+                <tr lang="en">outputs and saves the list of differences between the current and the
+                previously saved list</tr>
+                <tr lang="ru">выводит и сохраняет список разностей между текущим и предыдущим
+                сохраненным списком</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

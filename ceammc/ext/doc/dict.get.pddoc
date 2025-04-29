@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output the dictionary values</tr>
-                <tr lang="ru">выводит значения словаря</tr>
+                <tr lang="en">output the dictionary values by pre-defined key list</tr>
+                <tr lang="ru">выводит значения словаря по предварительно заданному списку ключей</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -11,7 +11,8 @@
             </authors>
             <description>
                 <tr lang="en">a 3d ambisonic harmonic scope</tr>
-                <tr lang="ru">отображение сферических гармоник в трехмерном амбисоническом поле</tr>
+                <tr lang="ru">отображение сферических гармоник в трехмерном амбисоническом
+                поле</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

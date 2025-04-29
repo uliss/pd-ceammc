@@ -39,7 +39,7 @@
 #X obj 30 565 dict.from_list;
 #X text 200 565 creates dictionary from the list;
 #X obj 30 593 dict.get;
-#X text 200 593 output the dictionary values;
+#X text 200 593 output the dictionary values by pre-defined key list;
 #X obj 30 621 dict.keys;
 #X text 200 621 output the list of dictionary keys;
 #X obj 30 649 dict.pass;

@@ -320,7 +320,7 @@ dict.each	map each value in dictionary with the side-chain function / отобр
 dict.from_list	creates dictionary from the list / создает словарь из списка
 ceammc/list->dict	creates dictionary from the list / создает словарь из списка
 list->dict	creates dictionary from the list / создает словарь из списка
-dict.get	output the dictionary values / выводит значения словаря
+dict.get	output the dictionary values by pre-defined key list / выводит значения словаря по предварительно заданному списку ключей
 dict.keys	output the list of dictionary keys / выводит список ключей словаря
 dict.pass	passes only specified keys in the dictionary / пропускает (фильтрует) только указанные ключи в словаре
 dict.reject	rejects specified keys from the dictionary / удаляет указанные ключи из словаря
