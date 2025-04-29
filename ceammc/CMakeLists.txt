@@ -23,10 +23,12 @@ configure_file(
 
 find_program(PD_CAT2PD pd_cat2pd)
 find_program(PD_DOC2PD pd_doc2pd)
+find_program(PD_DOCLS pd_docls)
 find_program(PD_DOC_FORMAT pd_docfmt)
 find_program(PD_LIB2DEKEN pd_lib2deken)
 find_program(PD_LIB2PD pd_lib2pd)
 find_program(PD_MAKELIB pd_makelibrary)
+find_program(PD_OBJCHECK pd_objcheck)
 find_program(PD_RELEASE_INFO pd_release_info)
 
 set(CEAMMC_INSTALL_PATH ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
