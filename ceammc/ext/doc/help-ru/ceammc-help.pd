@@ -913,1178 +913,1179 @@ Pi;
 #X text 200 12228 выводит число элементов \, удовлетворяющих внешнему
 предикату боковой цепи обработки;
 #X obj 30 12268 list.delta;
-#X text 200 12268 выводит список разностей между текущим и предыдущим
-списком;
-#X obj 30 12296 list.distribution;
-#X text 200 12296 выводит список распределения значений в списке;
-#X obj 30 12324 list.do;
-#X text 200 12324 итерирование и изменение содержимого списка через
+#X text 200 12268 выводит и сохраняет список разностей между текущим
+и предыдущим сохраненным списком;
+#X obj 30 12308 list.distribution;
+#X text 200 12308 выводит список распределения значений в списке;
+#X obj 30 12336 list.do;
+#X text 200 12336 итерирование и изменение содержимого списка через
 боковую цепь обработки;
-#X obj 30 12364 list.each;
-#X text 200 12364 отображает каждое значение списка через внешнюю боковую
+#X obj 30 12376 list.each;
+#X text 200 12376 отображает каждое значение списка через внешнюю боковую
 цепь обработки;
-#X obj 30 12404 list.enumerate;
-#X text 200 12404 нумерует элементы списка;
-#X obj 30 12432 list.equal;
-#X text 200 12432 проверка списков на равенство;
-#X obj 30 12460 list.first;
-#X text 200 12460 выводит первый элемент списка;
-#X obj 30 12488 list.gen;
-#X text 200 12488 генерирует список указанной длины через генератор
+#X obj 30 12416 list.enumerate;
+#X text 200 12416 нумерует элементы списка;
+#X obj 30 12444 list.equal;
+#X text 200 12444 проверка списков на равенство;
+#X obj 30 12472 list.first;
+#X text 200 12472 выводит первый элемент списка;
+#X obj 30 12500 list.gen;
+#X text 200 12500 генерирует список указанной длины через генератор
 боковой цепи;
-#X obj 30 12528 list.histogram;
-#X text 200 12528 выводит гистограмму распределений списка;
-#X obj 30 12556 list.insert;
-#X text 200 12556 вставляет элементы в указанную позицию в списке;
-#X obj 30 12584 list.integrator;
-#X text 200 12584 возвращает сумму ранее сохраненного списка и текущего;
-#X obj 30 12612 list.last;
-#X text 200 12612 выводит последний элемент списка;
-#X obj 30 12640 list.length;
-#X text 200 12640 выводит количество элементов в списке;
-#X obj 30 12668 list.map;
-#X text 200 12668 Значения списка карт в указанном словаре;
-#X obj 30 12696 list.max;
-#X text 200 12696 выводит самый большой элемент в списке;
-#X obj 30 12724 list.mean;
-#X text 200 12724 вычисляет среднее значение в списке;
-#X obj 30 12752 list.min;
-#X text 200 12752 возвращает наименьший элемент в списке;
-#X obj 30 12780 list.none_of;
-#X text 200 12780 проверяет \, что ни один из элементов не принимается
+#X obj 30 12540 list.histogram;
+#X text 200 12540 выводит гистограмму распределений списка;
+#X obj 30 12568 list.insert;
+#X text 200 12568 вставляет элементы в указанную позицию в списке;
+#X obj 30 12596 list.integrator;
+#X text 200 12596 выводит и сохраняет список сумм между ранее сохраненным
+списком и текущим;
+#X obj 30 12636 list.last;
+#X text 200 12636 выводит последний элемент списка;
+#X obj 30 12664 list.length;
+#X text 200 12664 выводит количество элементов в списке;
+#X obj 30 12692 list.map;
+#X text 200 12692 Значения списка карт в указанном словаре;
+#X obj 30 12720 list.max;
+#X text 200 12720 выводит самый большой элемент в списке;
+#X obj 30 12748 list.mean;
+#X text 200 12748 вычисляет среднее значение в списке;
+#X obj 30 12776 list.min;
+#X text 200 12776 возвращает наименьший элемент в списке;
+#X obj 30 12804 list.none_of;
+#X text 200 12804 проверяет \, что ни один из элементов не принимается
 предикатом боковой цепи обработки;
-#X obj 30 12820 list.normalize;
-#X text 200 12820 нормализует числовые значения списка \, чтобы их
+#X obj 30 12844 list.normalize;
+#X text 200 12844 нормализует числовые значения списка \, чтобы их
 сумма была равна единице;
-#X obj 30 12860 list.pass;
-#X text 200 12860 оставлять в списке только указанные элементы;
-#X obj 30 12888 list.pass_if;
-#X text 200 12888 оставляет в списке только элементы \, принятые предикатом
+#X obj 30 12884 list.pass;
+#X text 200 12884 оставлять в списке только указанные элементы;
+#X obj 30 12912 list.pass_if;
+#X text 200 12912 оставляет в списке только элементы \, принятые предикатом
 боковой цепи обработки;
-#X obj 30 12928 list.prepend;
-#X text 200 12928 вставить элементы в начало списка;
-#X obj 30 12956 list.product;
-#X text 200 12956 вычисляет произведение всех чисел в списке;
-#X obj 30 12984 list.range;
-#X text 200 12984 выводит минимальный и максимальный элемент в списке;
-#X obj 30 13012 list.reduce;
-#X text 200 13012 преобразование списка к единственному значению через
+#X obj 30 12952 list.prepend;
+#X text 200 12952 вставить элементы в начало списка;
+#X obj 30 12980 list.product;
+#X text 200 12980 вычисляет произведение всех чисел в списке;
+#X obj 30 13008 list.range;
+#X text 200 13008 выводит минимальный и максимальный элемент в списке;
+#X obj 30 13036 list.reduce;
+#X text 200 13036 преобразование списка к единственному значению через
 боковую цепь обработки;
-#X obj 30 13052 list.reject;
-#X text 200 13052 удаляет указанные элементы из списка;
-#X obj 30 13080 list.remove;
-#X text 200 13080 удалить элементы списка по указанным позициям;
-#X obj 30 13108 list.remove_if;
-#X text 200 13108 удалить элементы списка при помощи предиката боковой
+#X obj 30 13076 list.reject;
+#X text 200 13076 удаляет указанные элементы из списка;
+#X obj 30 13104 list.remove;
+#X text 200 13104 удалить элементы списка по указанным позициям;
+#X obj 30 13132 list.remove_if;
+#X text 200 13132 удалить элементы списка при помощи предиката боковой
 цепи;
-#X obj 30 13136 list.repack;
-#X text 200 13136 переупаковать список в последовательность списков
+#X obj 30 13160 list.repack;
+#X text 200 13160 переупаковать список в последовательность списков
 определенного размера;
-#X obj 30 13176 list.repeat;
-#X text 200 13176 создает список на основе повторов исходного списка;
-#X obj 30 13204 list.resample;
-#X text 200 13204 пересемплирует значения в списке с указанным соотношением
+#X obj 30 13200 list.repeat;
+#X text 200 13200 создает список на основе повторов исходного списка;
+#X obj 30 13228 list.resample;
+#X text 200 13228 пересемплирует значения в списке с указанным соотношением
 длины;
-#X obj 30 13244 list.resize;
-#X text 200 13244 изменяет длину списка;
-#X obj 30 13272 list.reverse;
-#X text 200 13272 меняет порядок элементов в списке на обратный;
-#X obj 30 13300 list.rldecode;
-#X text 200 13300 декодирование повторов в списках;
-#X obj 30 13328 list.rlencode;
-#X text 200 13328 кодирование повторов в списках;
-#X obj 30 13356 list.rotate;
-#X text 200 13356 циклическое вращение списка на целое число шагов;
-#X obj 30 13384 list.route;
-#X text 200 13384 маршрутизирует список по первому элементу \, как
+#X obj 30 13268 list.resize;
+#X text 200 13268 изменяет длину списка;
+#X obj 30 13296 list.reverse;
+#X text 200 13296 меняет порядок элементов в списке на обратный;
+#X obj 30 13324 list.rldecode;
+#X text 200 13324 декодирование повторов в списках;
+#X obj 30 13352 list.rlencode;
+#X text 200 13352 кодирование повторов в списках;
+#X obj 30 13380 list.rotate;
+#X text 200 13380 циклическое вращение списка на целое число шагов;
+#X obj 30 13408 list.route;
+#X text 200 13408 маршрутизирует список по первому элементу \, как
 объект [route];
-#X obj 30 13412 list.rundiff;
-#X text 200 13412 вычисляет разницу между соседними элементами входного
+#X obj 30 13436 list.rundiff;
+#X text 200 13436 вычисляет разницу между соседними элементами входного
 списка;
-#X obj 30 13440 list.runsum;
-#X text 200 13440 выводит список позиционных сумм \, который обновляется
+#X obj 30 13464 list.runsum;
+#X text 200 13464 выводит список позиционных сумм \, который обновляется
 при каждом входящем списке;
-#X obj 30 13480 list.search;
-#X text 200 13480 выводит позиции предварительно заданных элементов
+#X obj 30 13504 list.search;
+#X text 200 13504 выводит позиции предварительно заданных элементов
 во входном списке;
-#X obj 30 13520 list.separate;
-#X text 200 13520 поочередно выводит каждый элемент списка в виде отдельного
+#X obj 30 13544 list.separate;
+#X text 200 13544 поочередно выводит каждый элемент списка в виде отдельного
 сообщения;
-#X obj 30 13560 list.seq;
-#X text 200 13560 генерирует последовательноть чисел в виде списка;
-#X obj 30 13588 list.set;
-#X text 200 13588 устанавливает значение элемента списка в указанной
+#X obj 30 13584 list.seq;
+#X text 200 13584 генерирует последовательноть чисел в виде списка;
+#X obj 30 13612 list.set;
+#X text 200 13612 устанавливает значение элемента списка в указанной
 позиции;
-#X obj 30 13616 list.shift;
-#X text 200 13616 циклический сдвиг списка на вещественное число с
+#X obj 30 13640 list.shift;
+#X text 200 13640 циклический сдвиг списка на вещественное число с
 линейной интерполяцией;
-#X obj 30 13656 list.shuffle;
-#X text 200 13656 переставляет элементы списка в случайном порядке;
-#X obj 30 13684 list.slice;
-#X text 200 13684 выводит подсписок;
-#X obj 30 13712 list.sort;
-#X text 200 13712 сортирует список в порядке возрастания;
-#X obj 30 13740 list.sort_with;
-#X text 200 13740 сортирует список при помощи боковой цепи обработки;
-#X obj 30 13768 list.split;
-#X text 200 13768 разделяет список на две части по указанному индексу;
-#X obj 30 13796 list.stretch;
-#X text 200 13796 изменяет длину списка \, изменяя его значения с помощью
+#X obj 30 13680 list.shuffle;
+#X text 200 13680 переставляет элементы списка в случайном порядке;
+#X obj 30 13708 list.slice;
+#X text 200 13708 выводит подсписок;
+#X obj 30 13736 list.sort;
+#X text 200 13736 сортирует список в порядке возрастания;
+#X obj 30 13764 list.sort_with;
+#X text 200 13764 сортирует список при помощи боковой цепи обработки;
+#X obj 30 13792 list.split;
+#X text 200 13792 разделяет список на две части по указанному индексу;
+#X obj 30 13820 list.stretch;
+#X text 200 13820 изменяет длину списка \, изменяя его значения с помощью
 линейной интерполяции;
-#X obj 30 13836 list.sum;
-#X text 200 13836 вычисляет сумму элементов в списке;
-#X obj 30 13864 list.unique;
-#X text 200 13864 удаляет дубликаты из списка;
-#X obj 30 13892 list.unpack;
-#X text 200 13892 распаковывает элементы списка в соответствующие им
+#X obj 30 13860 list.sum;
+#X text 200 13860 вычисляет сумму элементов в списке;
+#X obj 30 13888 list.unique;
+#X text 200 13888 удаляет дубликаты из списка;
+#X obj 30 13916 list.unpack;
+#X text 200 13916 распаковывает элементы списка в соответствующие им
 выходы объекта;
-#X obj 30 13932 list.unzip;
-#X text 200 13932 распаковывает входной список на N списков из чередующихся
+#X obj 30 13956 list.unzip;
+#X text 200 13956 распаковывает входной список на N списков из чередующихся
 элементов;
-#X obj 30 13972 list.walk;
-#X text 200 13972 различные алгоритмы обхода элементов в списке;
-#X obj 30 14000 list.zip;
-#X text 200 14000 создает чередующийся список элементов из N входных
+#X obj 30 13996 list.walk;
+#X text 200 13996 различные алгоритмы обхода элементов в списке;
+#X obj 30 14024 list.zip;
+#X text 200 14024 создает чередующийся список элементов из N входных
 списков;
 #X obj 596 11737 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
 0;
 #X text 601 11737 работа со списками;
-#X obj 20 14028 cnv 5 48 32 empty empty live 4 16 0 17 -262144 -49933
+#X obj 20 14052 cnv 5 48 32 empty empty live 4 16 0 17 -262144 -49933
 0;
-#X obj 20 14070 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 14081 live.capture~;
-#X text 200 14081 record up to 32s of sound and playback the recorded
+#X obj 20 14094 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 14105 live.capture~;
+#X text 200 14105 record up to 32s of sound and playback the recorded
 sound in loop;
-#X obj 20 14121 cnv 5 58 32 empty empty local 4 16 0 17 -262144 -49933
+#X obj 20 14145 cnv 5 58 32 empty empty local 4 16 0 17 -262144 -49933
 0;
-#X obj 20 14163 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 14174 local.dict;
-#X text 200 14174 local named dict object;
-#X obj 30 14202 local.float;
-#X text 200 14202 canvas-scoped named float variable;
-#X obj 30 14230 local.int;
-#X text 200 14230 canvas-scoped named integer variable;
-#X obj 30 14258 local.list;
-#X text 200 14258 local named list object;
-#X obj 30 14286 local.mlist;
-#X text 200 14286 local named mlist object;
-#X obj 30 14314 local.set;
-#X text 200 14314 local named set object;
-#X obj 281 14131 cnv 1 459 38 empty empty empty 17 7 0 10 -245760 -1
+#X obj 20 14187 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 14198 local.dict;
+#X text 200 14198 local named dict object;
+#X obj 30 14226 local.float;
+#X text 200 14226 canvas-scoped named float variable;
+#X obj 30 14254 local.int;
+#X text 200 14254 canvas-scoped named integer variable;
+#X obj 30 14282 local.list;
+#X text 200 14282 local named list object;
+#X obj 30 14310 local.mlist;
+#X text 200 14310 local named mlist object;
+#X obj 30 14338 local.set;
+#X text 200 14338 local named set object;
+#X obj 281 14155 cnv 1 459 38 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 286 14131 локальный именованные объекты \, доступные только
+#X text 286 14155 локальный именованные объекты \, доступные только
 из текущего холста;
-#X obj 20 14342 cnv 5 49 32 empty empty math 4 16 0 17 -262144 -49933
+#X obj 20 14366 cnv 5 49 32 empty empty math 4 16 0 17 -262144 -49933
 0;
-#X obj 20 14384 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 14395 math.abs;
-#X text 200 14395 абсолютное значение;
-#X obj 30 14423 math.abs~;
-#X text 200 14423 функция абсолютного значения для сигналов;
-#X obj 30 14451 math.acos;
-#X text 200 14451 арккосинус;
-#X obj 30 14479 math.acosh;
-#X text 200 14479 обратный гиперболический косинус;
-#X obj 30 14507 math.acosh~;
-#X text 200 14507 обратный гиперболический косинус для сигналов;
-#X obj 30 14535 math.acos~;
-#X text 200 14535 арккосинус для сигналов;
-#X obj 30 14563 math.and;
-#X text 200 14563 операция И для множества аргументов;
-#X obj 30 14591 math.approx;
-#X text 200 14591 проверить \, если входное значение приблизительно
+#X obj 20 14408 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 14419 math.abs;
+#X text 200 14419 абсолютное значение;
+#X obj 30 14447 math.abs~;
+#X text 200 14447 функция абсолютного значения для сигналов;
+#X obj 30 14475 math.acos;
+#X text 200 14475 арккосинус;
+#X obj 30 14503 math.acosh;
+#X text 200 14503 обратный гиперболический косинус;
+#X obj 30 14531 math.acosh~;
+#X text 200 14531 обратный гиперболический косинус для сигналов;
+#X obj 30 14559 math.acos~;
+#X text 200 14559 арккосинус для сигналов;
+#X obj 30 14587 math.and;
+#X text 200 14587 операция И для множества аргументов;
+#X obj 30 14615 math.approx;
+#X text 200 14615 проверить \, если входное значение приблизительно
 равно образцу;
-#X obj 30 14619 math.asin;
-#X text 200 14619 арксинус;
-#X obj 30 14647 math.asinh;
-#X text 200 14647 обратный гиперболический синус;
-#X obj 30 14675 math.asinh~;
-#X text 200 14675 обратный гиперболической синус для сигналов;
-#X obj 30 14703 math.asin~;
-#X text 200 14703 арксинус для сигналов;
-#X obj 30 14731 math.atan;
-#X text 200 14731 арктангенс;
-#X obj 30 14759 math.atanh;
-#X text 200 14759 обратный гиперболический тангенс;
-#X obj 30 14787 math.atanh~;
-#X text 200 14787 обратный гиперболический тангенс для сигналов;
-#X obj 30 14815 math.atan~;
-#X text 200 14815 арктангенс для сигналов;
-#X obj 30 14843 math.binomial;
-#X text 200 14843 калькулятор биномиальных коэффициентов;
-#X obj 30 14871 math.cabs~;
-#X text 200 14871 абсолютное значение комплексного сигнала;
-#X obj 30 14899 math.carg~;
-#X text 200 14899 фазовый угол комплексных сигналов;
-#X obj 30 14927 math.cbrt;
-#X text 200 14927 кубический корень;
-#X obj 30 14955 math.cbrt~;
-#X text 200 14955 кубический корень для сигналов;
-#X obj 30 14983 math.cdiv~;
-#X text 200 14983 деление комплексных сигналов;
-#X obj 30 15011 math.ceil;
-#X text 200 15011 округление до наименьшего целого значения \, которое
+#X obj 30 14643 math.asin;
+#X text 200 14643 арксинус;
+#X obj 30 14671 math.asinh;
+#X text 200 14671 обратный гиперболический синус;
+#X obj 30 14699 math.asinh~;
+#X text 200 14699 обратный гиперболической синус для сигналов;
+#X obj 30 14727 math.asin~;
+#X text 200 14727 арксинус для сигналов;
+#X obj 30 14755 math.atan;
+#X text 200 14755 арктангенс;
+#X obj 30 14783 math.atanh;
+#X text 200 14783 обратный гиперболический тангенс;
+#X obj 30 14811 math.atanh~;
+#X text 200 14811 обратный гиперболический тангенс для сигналов;
+#X obj 30 14839 math.atan~;
+#X text 200 14839 арктангенс для сигналов;
+#X obj 30 14867 math.binomial;
+#X text 200 14867 калькулятор биномиальных коэффициентов;
+#X obj 30 14895 math.cabs~;
+#X text 200 14895 абсолютное значение комплексного сигнала;
+#X obj 30 14923 math.carg~;
+#X text 200 14923 фазовый угол комплексных сигналов;
+#X obj 30 14951 math.cbrt;
+#X text 200 14951 кубический корень;
+#X obj 30 14979 math.cbrt~;
+#X text 200 14979 кубический корень для сигналов;
+#X obj 30 15007 math.cdiv~;
+#X text 200 15007 деление комплексных сигналов;
+#X obj 30 15035 math.ceil;
+#X text 200 15035 округление до наименьшего целого значения \, которое
 не меньше входного;
-#X obj 30 15051 math.ceil~;
-#X text 200 15051 округление до наименьшего целого значения \, которое
+#X obj 30 15075 math.ceil~;
+#X text 200 15075 округление до наименьшего целого значения \, которое
 не менее входного;
-#X obj 30 15091 math.cexp~;
-#X text 200 15091 комплексная экспонента для сигналов;
-#X obj 30 15119 math.cmul~;
-#X text 200 15119 умножение комплексных сигналов;
-#X obj 30 15147 math.cos;
-#X text 200 15147 функция косинуса;
-#X obj 30 15175 math.cosh;
-#X text 200 15175 гиперболический косинус;
-#X obj 30 15203 math.cosh~;
-#X text 200 15203 гиперболический косинус для сигналов;
-#X obj 30 15231 math.cos~;
-#X text 200 15231 функция косинуса;
-#X obj 30 15259 math.div;
-#X text 200 15259 деление;
-#X obj 30 15287 math.e;
-#X text 200 15287 математическая константа \, основание натурального
+#X obj 30 15115 math.cexp~;
+#X text 200 15115 комплексная экспонента для сигналов;
+#X obj 30 15143 math.cmul~;
+#X text 200 15143 умножение комплексных сигналов;
+#X obj 30 15171 math.cos;
+#X text 200 15171 функция косинуса;
+#X obj 30 15199 math.cosh;
+#X text 200 15199 гиперболический косинус;
+#X obj 30 15227 math.cosh~;
+#X text 200 15227 гиперболический косинус для сигналов;
+#X obj 30 15255 math.cos~;
+#X text 200 15255 функция косинуса;
+#X obj 30 15283 math.div;
+#X text 200 15283 деление;
+#X obj 30 15311 math.e;
+#X text 200 15311 математическая константа \, основание натурального
 логарифма;
-#X obj 30 15315 math.erf;
-#X text 200 15315 функция ошибок;
-#X obj 30 15343 math.erf~;
-#X text 200 15343 функция ошибок для сигналов;
-#X obj 30 15371 math.exp;
-#X text 200 15371 экспоненциальная функция на основе числа e;
-#X obj 30 15399 math.exp2;
-#X text 200 15399 экспоненциальная функция на основе 2;
-#X obj 30 15427 math.exp2~;
-#X text 200 15427 экспоненциальная функция на основе 2 для сигналов;
-#X obj 30 15455 math.expr;
-#X text 200 15455 динамическая версия объекта [expr];
-#X obj 30 15483 math.exp~;
-#X text 200 15483 экспоненциальная функция для сигналов на основе числа
+#X obj 30 15339 math.erf;
+#X text 200 15339 функция ошибок;
+#X obj 30 15367 math.erf~;
+#X text 200 15367 функция ошибок для сигналов;
+#X obj 30 15395 math.exp;
+#X text 200 15395 экспоненциальная функция на основе числа e;
+#X obj 30 15423 math.exp2;
+#X text 200 15423 экспоненциальная функция на основе 2;
+#X obj 30 15451 math.exp2~;
+#X text 200 15451 экспоненциальная функция на основе 2 для сигналов;
+#X obj 30 15479 math.expr;
+#X text 200 15479 динамическая версия объекта [expr];
+#X obj 30 15507 math.exp~;
+#X text 200 15507 экспоненциальная функция для сигналов на основе числа
 e;
-#X obj 30 15511 math.floor;
-#X text 200 15511 округление до наибольшего целого значения \, не превышающего
+#X obj 30 15535 math.floor;
+#X text 200 15535 округление до наибольшего целого значения \, не превышающего
 входное значение;
-#X obj 30 15551 math.floor~;
-#X text 200 15551 округление до наибольшего целого значения \, не превышающего
+#X obj 30 15575 math.floor~;
+#X text 200 15575 округление до наибольшего целого значения \, не превышающего
 входного значения;
-#X obj 30 15591 math.gamma;
-#X text 200 15591 гамма-функция;
-#X obj 30 15619 math.gamma~;
-#X text 200 15619 гамма-функция для сигналов;
-#X obj 30 15647 math.gcd;
-#X text 200 15647 вычисляет наибольший общий делитель;
-#X obj 30 15675 math.inf;
-#X text 200 15675 выводит бесконечное значение в стандарте IEEE 754;
-#X obj 30 15703 math.inf~;
-#X text 200 15703 выводит бесконечное значение в стандарте IEEE 754;
-#X obj 30 15731 math.lcm;
-#X text 200 15731 вычисляет наименьшее общее кратное;
-#X obj 30 15759 math.lgamma;
-#X text 200 15759 натуральный логарифм абсолютного значения гамма-функции;
-#X obj 30 15787 math.lgamma~;
-#X text 200 15787 натуральный логарифм абсолютного значения гамма-функции
+#X obj 30 15615 math.gamma;
+#X text 200 15615 гамма-функция;
+#X obj 30 15643 math.gamma~;
+#X text 200 15643 гамма-функция для сигналов;
+#X obj 30 15671 math.gcd;
+#X text 200 15671 вычисляет наибольший общий делитель;
+#X obj 30 15699 math.inf;
+#X text 200 15699 выводит бесконечное значение в стандарте IEEE 754;
+#X obj 30 15727 math.inf~;
+#X text 200 15727 выводит бесконечное значение в стандарте IEEE 754;
+#X obj 30 15755 math.lcm;
+#X text 200 15755 вычисляет наименьшее общее кратное;
+#X obj 30 15783 math.lgamma;
+#X text 200 15783 натуральный логарифм абсолютного значения гамма-функции;
+#X obj 30 15811 math.lgamma~;
+#X text 200 15811 натуральный логарифм абсолютного значения гамма-функции
 для сигналов;
-#X obj 30 15827 math.log;
-#X text 200 15827 натуральный логарифм;
-#X obj 30 15855 math.log10;
-#X text 200 15855 логарифм по основанию 10;
-#X obj 30 15883 math.log10~;
-#X text 200 15883 логарифм по основанию 10;
-#X obj 30 15911 math.log2;
-#X text 200 15911 логарифм по основанию 2;
-#X obj 30 15939 math.log2~;
-#X text 200 15939 логарифм по основанию 2 для сигналов;
-#X obj 30 15967 math.log~;
-#X text 200 15967 натуральный логарифм для сигналов;
-#X obj 30 15995 math.mul;
-#X text 200 15995 умножение;
-#X obj 30 16023 math.nan;
-#X text 200 16023 Не число \, непредставимое значение;
-#X obj 30 16051 math.nan~;
-#X text 200 16051 сигнал NaNN;
-#X obj 30 16079 math.neg;
-#X text 200 16079 отрицательная функция;
-#X obj 30 16107 math.or;
-#X text 200 16107 операция ИЛИ для множества аргументов;
-#X obj 30 16135 math.pi;
-#X text 200 16135 математическая константа π;
-#X obj 30 16163 math.pi~;
-#X text 200 16163 математическая константа π;
-#X obj 30 16191 math.polyeval;
-#X text 200 16191 вычисляет многочлен \, описанный списком коэффициентов;
-#X obj 30 16219 math.reciprocal;
-#X text 200 16219 вычислить обратное значение;
-#X obj 30 16247 math.reciprocal~;
-#X text 200 16247 вычислить обратное значение для сигналов;
-#X obj 30 16275 math.round;
-#X text 200 16275 округление до ближайшего целого значения;
-#X obj 30 16303 math.round~;
-#X text 200 16303 округление сигнала до ближайшего целого значения;
-#X obj 30 16331 math.sign;
-#X text 200 16331 знаковая функция;
-#X obj 30 16359 math.sin;
-#X text 200 16359 функция синуса;
-#X obj 30 16387 math.sinh;
-#X text 200 16387 гиперболическая функция синуса;
-#X obj 30 16415 math.sinh~;
-#X text 200 16415 гиперболический синус для сигналов;
-#X obj 30 16443 math.sin~;
-#X text 200 16443 функция синуса;
-#X obj 30 16471 math.sqrt;
-#X text 200 16471 функция квадратного корня;
-#X obj 30 16499 math.sqrt~;
-#X text 200 16499 квадратный корень для сигнала;
-#X obj 30 16527 math.squared;
-#X text 200 16527 возведение в квадрат;
-#X obj 30 16555 math.squared~;
-#X text 200 16555 возведение в квадрат;
-#X obj 30 16583 math.sync_add;
-#X text 200 16583 синхронное сложение;
-#X obj 30 16611 math.sync_and;
-#X text 200 16611 синхронное логическое И;
-#X obj 30 16639 math.sync_div;
-#X text 200 16639 синхронное деление;
-#X obj 30 16667 math.sync_eq;
-#X text 200 16667 синхронная проверка на равенство;
-#X obj 30 16695 math.sync_ge;
-#X text 200 16695 синхронная проверка на больше или равно;
-#X obj 30 16723 math.sync_gt;
-#X text 200 16723 синхронная проверка на большее значение;
-#X obj 30 16751 math.sync_le;
-#X text 200 16751 синхронная проверка на меньше или равно;
-#X obj 30 16779 math.sync_lshift;
-#X text 200 16779 синхронный битовый сдвиг налево;
-#X obj 30 16807 math.sync_lt;
-#X text 200 16807 синхронная проверка на меньшее значение;
-#X obj 30 16835 math.sync_mod;
-#X text 200 16835 синхронный остаток от деления по модулю (с плавающей
+#X obj 30 15851 math.log;
+#X text 200 15851 натуральный логарифм;
+#X obj 30 15879 math.log10;
+#X text 200 15879 логарифм по основанию 10;
+#X obj 30 15907 math.log10~;
+#X text 200 15907 логарифм по основанию 10;
+#X obj 30 15935 math.log2;
+#X text 200 15935 логарифм по основанию 2;
+#X obj 30 15963 math.log2~;
+#X text 200 15963 логарифм по основанию 2 для сигналов;
+#X obj 30 15991 math.log~;
+#X text 200 15991 натуральный логарифм для сигналов;
+#X obj 30 16019 math.mul;
+#X text 200 16019 умножение;
+#X obj 30 16047 math.nan;
+#X text 200 16047 Не число \, непредставимое значение;
+#X obj 30 16075 math.nan~;
+#X text 200 16075 сигнал NaNN;
+#X obj 30 16103 math.neg;
+#X text 200 16103 отрицательная функция;
+#X obj 30 16131 math.or;
+#X text 200 16131 операция ИЛИ для множества аргументов;
+#X obj 30 16159 math.pi;
+#X text 200 16159 математическая константа π;
+#X obj 30 16187 math.pi~;
+#X text 200 16187 математическая константа π;
+#X obj 30 16215 math.polyeval;
+#X text 200 16215 вычисляет многочлен \, описанный списком коэффициентов;
+#X obj 30 16243 math.reciprocal;
+#X text 200 16243 вычислить обратное значение;
+#X obj 30 16271 math.reciprocal~;
+#X text 200 16271 вычислить обратное значение для сигналов;
+#X obj 30 16299 math.round;
+#X text 200 16299 округление до ближайшего целого значения;
+#X obj 30 16327 math.round~;
+#X text 200 16327 округление сигнала до ближайшего целого значения;
+#X obj 30 16355 math.sign;
+#X text 200 16355 знаковая функция;
+#X obj 30 16383 math.sin;
+#X text 200 16383 функция синуса;
+#X obj 30 16411 math.sinh;
+#X text 200 16411 гиперболическая функция синуса;
+#X obj 30 16439 math.sinh~;
+#X text 200 16439 гиперболический синус для сигналов;
+#X obj 30 16467 math.sin~;
+#X text 200 16467 функция синуса;
+#X obj 30 16495 math.sqrt;
+#X text 200 16495 функция квадратного корня;
+#X obj 30 16523 math.sqrt~;
+#X text 200 16523 квадратный корень для сигнала;
+#X obj 30 16551 math.squared;
+#X text 200 16551 возведение в квадрат;
+#X obj 30 16579 math.squared~;
+#X text 200 16579 возведение в квадрат;
+#X obj 30 16607 math.sync_add;
+#X text 200 16607 синхронное сложение;
+#X obj 30 16635 math.sync_and;
+#X text 200 16635 синхронное логическое И;
+#X obj 30 16663 math.sync_div;
+#X text 200 16663 синхронное деление;
+#X obj 30 16691 math.sync_eq;
+#X text 200 16691 синхронная проверка на равенство;
+#X obj 30 16719 math.sync_ge;
+#X text 200 16719 синхронная проверка на больше или равно;
+#X obj 30 16747 math.sync_gt;
+#X text 200 16747 синхронная проверка на большее значение;
+#X obj 30 16775 math.sync_le;
+#X text 200 16775 синхронная проверка на меньше или равно;
+#X obj 30 16803 math.sync_lshift;
+#X text 200 16803 синхронный битовый сдвиг налево;
+#X obj 30 16831 math.sync_lt;
+#X text 200 16831 синхронная проверка на меньшее значение;
+#X obj 30 16859 math.sync_mod;
+#X text 200 16859 синхронный остаток от деления по модулю (с плавающей
 точкой или целое);
-#X obj 30 16875 math.sync_mul;
-#X text 200 16875 синхронное умножение;
-#X obj 30 16903 math.sync_ne;
-#X text 200 16903 синхронная проверка на неравенство;
-#X obj 30 16931 math.sync_or;
-#X text 200 16931 синхронная логическая операция И;
-#X obj 30 16959 math.sync_rshift;
-#X text 200 16959 синхронный битовый сдвиг вправо;
-#X obj 30 16987 math.sync_sub;
-#X text 200 16987 синхронное вычитание;
-#X obj 30 17015 math.sync_xor;
-#X text 200 17015 логическая операция исключающее ИЛИ;
-#X obj 30 17043 math.tan;
-#X text 200 17043 тангенс;
-#X obj 30 17071 math.tanh;
-#X text 200 17071 гиперболический тангенс;
-#X obj 30 17099 math.tanh~;
-#X text 200 17099 гиперболический тангенс для сигналов;
-#X obj 30 17127 math.tan~;
-#X text 200 17127 тангенс;
-#X obj 30 17155 math.trunc;
-#X text 200 17155 усечение до целочисленного значения;
-#X obj 30 17183 math.trunc~;
-#X text 200 17183 усечение до целочисленного значения;
-#X obj 289 14352 cnv 1 451 38 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 16899 math.sync_mul;
+#X text 200 16899 синхронное умножение;
+#X obj 30 16927 math.sync_ne;
+#X text 200 16927 синхронная проверка на неравенство;
+#X obj 30 16955 math.sync_or;
+#X text 200 16955 синхронная логическая операция И;
+#X obj 30 16983 math.sync_rshift;
+#X text 200 16983 синхронный битовый сдвиг вправо;
+#X obj 30 17011 math.sync_sub;
+#X text 200 17011 синхронное вычитание;
+#X obj 30 17039 math.sync_xor;
+#X text 200 17039 логическая операция исключающее ИЛИ;
+#X obj 30 17067 math.tan;
+#X text 200 17067 тангенс;
+#X obj 30 17095 math.tanh;
+#X text 200 17095 гиперболический тангенс;
+#X obj 30 17123 math.tanh~;
+#X text 200 17123 гиперболический тангенс для сигналов;
+#X obj 30 17151 math.tan~;
+#X text 200 17151 тангенс;
+#X obj 30 17179 math.trunc;
+#X text 200 17179 усечение до целочисленного значения;
+#X obj 30 17207 math.trunc~;
+#X text 200 17207 усечение до целочисленного значения;
+#X obj 289 14376 cnv 1 451 38 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 294 14352 математические объекты \, которые могут работать
+#X text 294 14376 математические объекты \, которые могут работать
 со списками чисел;
-#X obj 20 17211 cnv 5 49 32 empty empty midi 4 16 0 17 -262144 -49933
+#X obj 20 17235 cnv 5 49 32 empty empty midi 4 16 0 17 -262144 -49933
 0;
-#X obj 20 17253 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 17264 midi.arp;
-#X text 200 17264 MIDI арпеджиатор;
-#X obj 30 17292 midi.cc;
-#X text 200 17292 усовершенствованная версия [ctlin];
-#X obj 30 17320 midi.clock;
-#X text 200 17320 MIDI-clock;
-#X obj 30 17348 midi.ctl2str;
-#X text 200 17348 преобразует номер стандартного MIDI контроллера в
+#X obj 20 17277 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 17288 midi.arp;
+#X text 200 17288 MIDI арпеджиатор;
+#X obj 30 17316 midi.cc;
+#X text 200 17316 усовершенствованная версия [ctlin];
+#X obj 30 17344 midi.clock;
+#X text 200 17344 MIDI-clock;
+#X obj 30 17372 midi.ctl2str;
+#X text 200 17372 преобразует номер стандартного MIDI контроллера в
 имя;
-#X obj 30 17376 midi.event2ctl;
-#X text 200 17376 конвертирует сообщение MidiEvent в пару канал/значение;
-#X obj 30 17404 midi.event2note;
-#X text 200 17404 конвертирует сообщение MidiEvent в пару нота/сила
+#X obj 30 17400 midi.event2ctl;
+#X text 200 17400 конвертирует сообщение MidiEvent в пару канал/значение;
+#X obj 30 17428 midi.event2note;
+#X text 200 17428 конвертирует сообщение MidiEvent в пару нота/сила
 нажатия;
-#X obj 30 17432 midi.event2prg;
-#X text 200 17432 конвертирует сообщение MidiEvent в MIDI: изменение
+#X obj 30 17456 midi.event2prg;
+#X text 200 17456 конвертирует сообщение MidiEvent в MIDI: изменение
 программы;
-#X obj 30 17460 midi.file;
-#X text 200 17460 чтение и запись стандартных MIDI файлов (SMF);
-#X obj 30 17488 midi.kbd;
-#X text 200 17488 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
-#X obj 30 17516 midi.key2str;
-#X text 200 17516 преобразует номер MIDI-клавиши в имя ноты в формате
+#X obj 30 17484 midi.file;
+#X text 200 17484 чтение и запись стандартных MIDI файлов (SMF);
+#X obj 30 17512 midi.kbd;
+#X text 200 17512 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
+#X obj 30 17540 midi.key2str;
+#X text 200 17540 преобразует номер MIDI-клавиши в имя ноты в формате
 SPN;
-#X obj 30 17544 midi.modus;
-#X text 200 17544 приводит или удаляет MIDI-ноты согласно указанному
+#X obj 30 17568 midi.modus;
+#X text 200 17568 приводит или удаляет MIDI-ноты согласно указанному
 ладу;
-#X obj 30 17572 midi.note.pass;
-#X text 200 17572 пропускает MIDI-ноты согласно вычисляемому выражению;
-#X obj 30 17600 midi.oct;
-#X text 200 17600 октавная MIDI транспозиция;
-#X obj 30 17628 midi.prg2str;
-#X text 200 17628 преобразует номер инструмента GeneralMidi в его имя;
-#X obj 30 17656 midi.split;
-#X text 200 17656 разбивает MIDI ноты на диапазоны;
-#X obj 30 17684 midi.sustain;
-#X text 200 17684 эмуляция педали сустейна;
-#X obj 30 17712 midi.sysex;
-#X text 200 17712 выводит входные sysex сообщения в виде списка;
-#X obj 30 17740 midi.track;
-#X text 200 17740 извлекает трек из сообщения MidiFile;
-#X obj 30 17768 midi.tuning;
-#X text 200 17768 применяет настройку для нотного потока;
-#X obj 30 17796 midi.vramp;
-#X text 200 17796 применяет crescendo или diminuendo для потока нот;
-#X obj 30 17824 midi.vrand;
-#X text 200 17824 рандомизатор силы нажатия MIDI;
-#X obj 550 17221 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 17596 midi.note.pass;
+#X text 200 17596 пропускает MIDI-ноты согласно вычисляемому выражению;
+#X obj 30 17624 midi.oct;
+#X text 200 17624 октавная MIDI транспозиция;
+#X obj 30 17652 midi.prg2str;
+#X text 200 17652 преобразует номер инструмента GeneralMidi в его имя;
+#X obj 30 17680 midi.split;
+#X text 200 17680 разбивает MIDI ноты на диапазоны;
+#X obj 30 17708 midi.sustain;
+#X text 200 17708 эмуляция педали сустейна;
+#X obj 30 17736 midi.sysex;
+#X text 200 17736 выводит входные sysex сообщения в виде списка;
+#X obj 30 17764 midi.track;
+#X text 200 17764 извлекает трек из сообщения MidiFile;
+#X obj 30 17792 midi.tuning;
+#X text 200 17792 применяет настройку для нотного потока;
+#X obj 30 17820 midi.vramp;
+#X text 200 17820 применяет crescendo или diminuendo для потока нот;
+#X obj 30 17848 midi.vrand;
+#X text 200 17848 рандомизатор силы нажатия MIDI;
+#X obj 550 17245 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 555 17221 работа с MIDI протоколом;
-#X obj 20 17852 cnv 5 49 32 empty empty misc 4 16 0 17 -262144 -49933
+#X text 555 17245 работа с MIDI протоколом;
+#X obj 20 17876 cnv 5 49 32 empty empty misc 4 16 0 17 -262144 -49933
 0;
-#X obj 20 17894 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 17905 click~;
-#X text 200 17905 Output single impulse on bang;
-#X obj 30 17933 fluid~;
-#X text 200 17933 FluidSynth SoundFont 2 player;
-#X obj 30 17961 modplug~;
-#X text 200 17961 MOD file player (using libmodplug);
-#X obj 30 17989 qrcode;
-#X text 200 17989 QR code generator;
-#X obj 30 18017 risset.gliss;
-#X text 200 18017 Sheppard/Risset glissando calculator;
-#X obj 30 18045 sfizz~;
-#X text 200 18045 SFZ format sample player;
-#X obj 30 18073 speech.flite;
-#X text 200 18073 render speech to array;
-#X obj 30 18101 speech.flite~;
-#X text 200 18101 render speech to array;
-#X obj 30 18129 speech.rhvoice~;
-#X text 200 18129 RHVoice text to speech synthesis;
-#X obj 20 18157 cnv 5 38 32 empty empty msg 4 16 0 17 -262144 -49933
+#X obj 20 17918 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 17929 click~;
+#X text 200 17929 Output single impulse on bang;
+#X obj 30 17957 fluid~;
+#X text 200 17957 FluidSynth SoundFont 2 player;
+#X obj 30 17985 modplug~;
+#X text 200 17985 MOD file player (using libmodplug);
+#X obj 30 18013 qrcode;
+#X text 200 18013 QR code generator;
+#X obj 30 18041 risset.gliss;
+#X text 200 18041 Sheppard/Risset glissando calculator;
+#X obj 30 18069 sfizz~;
+#X text 200 18069 SFZ format sample player;
+#X obj 30 18097 speech.flite;
+#X text 200 18097 render speech to array;
+#X obj 30 18125 speech.flite~;
+#X text 200 18125 render speech to array;
+#X obj 30 18153 speech.rhvoice~;
+#X text 200 18153 RHVoice text to speech synthesis;
+#X obj 20 18181 cnv 5 38 32 empty empty msg 4 16 0 17 -262144 -49933
 0;
-#X obj 20 18199 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 18210 loadexpr;
-#X text 200 18210 send message when patch loads;
-#X obj 30 18238 msg;
-#X text 200 18238 message constructor;
-#X obj 30 18266 msg.after;
-#X text 200 18266 send specified message after incoming message;
-#X obj 30 18294 msg.onclose;
-#X text 200 18294 send message when patch closes;
-#X obj 30 18322 msg.onload;
-#X text 200 18322 send message when patch loads;
-#X obj 30 18350 msg.pack;
-#X text 200 18350 message pack;
-#X obj 30 18378 msg.sched;
-#X text 200 18378 message scheduler;
-#X obj 30 18406 msg.unpack;
-#X text 200 18406 распаковка сообщения на селектор и аргументы;
-#X obj 20 18434 cnv 5 59 32 empty empty music 4 16 0 17 -262144 -49933
+#X obj 20 18223 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 18234 loadexpr;
+#X text 200 18234 send message when patch loads;
+#X obj 30 18262 msg;
+#X text 200 18262 message constructor;
+#X obj 30 18290 msg.after;
+#X text 200 18290 send specified message after incoming message;
+#X obj 30 18318 msg.onclose;
+#X text 200 18318 send message when patch closes;
+#X obj 30 18346 msg.onload;
+#X text 200 18346 send message when patch loads;
+#X obj 30 18374 msg.pack;
+#X text 200 18374 message pack;
+#X obj 30 18402 msg.sched;
+#X text 200 18402 message scheduler;
+#X obj 30 18430 msg.unpack;
+#X text 200 18430 распаковка сообщения на селектор и аргументы;
+#X obj 20 18458 cnv 5 59 32 empty empty music 4 16 0 17 -262144 -49933
 0;
-#X obj 20 18476 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 18487 rhythm.euclid;
-#X text 200 18487 euclid pattern generator;
-#X obj 30 18515 rhythm.hexbeat;
-#X text 200 18515 hexbeat pattern generator;
-#X obj 30 18543 rhythm.lsystem;
-#X text 200 18543 L-system pattern generator;
-#X obj 20 18571 cnv 5 37 32 empty empty net 4 16 0 17 -262144 -49933
+#X obj 20 18500 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 18511 rhythm.euclid;
+#X text 200 18511 euclid pattern generator;
+#X obj 30 18539 rhythm.hexbeat;
+#X text 200 18539 hexbeat pattern generator;
+#X obj 30 18567 rhythm.lsystem;
+#X text 200 18567 L-system pattern generator;
+#X obj 20 18595 cnv 5 37 32 empty empty net 4 16 0 17 -262144 -49933
 0;
-#X obj 20 18613 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 18624 net.artnet.send;
-#X text 200 18624 ArtNet DMX message sender;
-#X obj 30 18652 net.freesound;
-#X text 200 18652 клиент для Freesound API v2;
-#X obj 30 18680 net.host2ip;
-#X text 200 18680 returns IP address by DNS name;
-#X obj 30 18708 net.http.client;
-#X text 200 18708 HTTP клиент;
-#X obj 30 18736 net.http.send;
-#X text 200 18736 HTTP request sender;
-#X obj 30 18764 net.mdns;
-#X text 200 18764 обнаружение служб MDNS;
-#X obj 30 18792 net.mqtt.client;
-#X text 200 18792 MQTT клиент;
-#X obj 30 18820 net.osc.receive;
-#X text 200 18820 OSC message listener;
-#X obj 30 18848 net.osc.send;
-#X text 200 18848 OSC message sender;
-#X obj 30 18876 net.osc.server;
-#X text 200 18876 OSC server control;
-#X obj 30 18904 net.ws.client;
-#X text 200 18904 WebSocket клиент;
-#X obj 30 18932 net.ws.server;
-#X text 200 18932 WebSocket сервер;
-#X obj 534 18581 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 20 18637 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 18648 net.artnet.send;
+#X text 200 18648 ArtNet DMX message sender;
+#X obj 30 18676 net.freesound;
+#X text 200 18676 клиент для Freesound API v2;
+#X obj 30 18704 net.host2ip;
+#X text 200 18704 returns IP address by DNS name;
+#X obj 30 18732 net.http.client;
+#X text 200 18732 HTTP клиент;
+#X obj 30 18760 net.http.send;
+#X text 200 18760 HTTP request sender;
+#X obj 30 18788 net.mdns;
+#X text 200 18788 обнаружение служб MDNS;
+#X obj 30 18816 net.mqtt.client;
+#X text 200 18816 MQTT клиент;
+#X obj 30 18844 net.osc.receive;
+#X text 200 18844 OSC message listener;
+#X obj 30 18872 net.osc.send;
+#X text 200 18872 OSC message sender;
+#X obj 30 18900 net.osc.server;
+#X text 200 18900 OSC server control;
+#X obj 30 18928 net.ws.client;
+#X text 200 18928 WebSocket клиент;
+#X obj 30 18956 net.ws.server;
+#X text 200 18956 WebSocket сервер;
+#X obj 534 18605 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 539 18581 объекты для работы с сетью;
-#X obj 20 18960 cnv 5 59 32 empty empty noise 4 16 0 17 -262144 -49933
+#X text 539 18605 объекты для работы с сетью;
+#X obj 20 18984 cnv 5 59 32 empty empty noise 4 16 0 17 -262144 -49933
 0;
-#X obj 20 19002 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 19013 noise.baker;
-#X text 200 19013 Part of a-chaos library;
-#X obj 30 19041 noise.chua~;
-#X text 200 19041 Chua's diode circuit;
-#X obj 30 19069 noise.clifford;
-#X text 200 19069 clifford attractor;
-#X obj 30 19097 noise.collatz;
-#X text 200 19097 collatz conjecture output;
-#X obj 30 19125 noise.colored~;
-#X text 200 19125 colored noise generator with an arbitrary spectral
+#X obj 20 19026 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 19037 noise.baker;
+#X text 200 19037 Part of a-chaos library;
+#X obj 30 19065 noise.chua~;
+#X text 200 19065 Chua's diode circuit;
+#X obj 30 19093 noise.clifford;
+#X text 200 19093 clifford attractor;
+#X obj 30 19121 noise.collatz;
+#X text 200 19121 collatz conjecture output;
+#X obj 30 19149 noise.colored~;
+#X text 200 19149 colored noise generator with an arbitrary spectral
 roll;
-#X obj 30 19153 noise.crackle~;
-#X text 200 19153 sparse noise generator;
-#X obj 30 19181 noise.duffing;
-#X text 200 19181 duffing attractor;
-#X obj 30 19209 noise.ginger;
-#X text 200 19209 Gingerbreadman map chaotic generator;
-#X obj 30 19237 noise.henon;
-#X text 200 19237 henon attractor;
-#X obj 30 19265 noise.henon_heilles;
-#X text 200 19265 Hénon–Heiles_system;
-#X obj 30 19293 noise.henon_phase;
-#X text 200 19293 henon phase Ddagrams;
-#X obj 30 19321 noise.henonf;
-#X text 200 19321 Henon phase;
-#X obj 30 19349 noise.ikeda;
-#X text 200 19349 Ikeda attractor;
-#X obj 30 19377 noise.lfreq0~;
-#X text 200 19377 sampled/held noise (piecewise constant);
-#X obj 30 19405 noise.lfreq~;
-#X text 200 19405 noise.lfreq0~ smoothed with no overshoot;
-#X obj 30 19433 noise.lorenz;
-#X text 200 19433 Lorenz chaos;
-#X obj 30 19461 noise.lyapunov;
-#X text 200 19461 lyapunov random attractor;
-#X obj 30 19489 noise.navier_stokes;
-#X text 200 19489 navier-stokes diff equations;
-#X obj 30 19517 noise.pink~;
-#X text 200 19517 Pink noise generator;
-#X obj 30 19545 noise.rossler;
-#X text 200 19545 Rössler attractor;
-#X obj 30 19573 noise.stein;
-#X text 200 19573 Stein distribution;
-#X obj 30 19601 noise.torus;
-#X text 200 19601 torus attractor;
-#X obj 30 19629 noise.verhulst;
-#X text 200 19629 verhulst distribution;
-#X obj 30 19657 noise.white~;
-#X text 200 19657 White noise generator;
-#X obj 620 18970 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 19177 noise.crackle~;
+#X text 200 19177 sparse noise generator;
+#X obj 30 19205 noise.duffing;
+#X text 200 19205 duffing attractor;
+#X obj 30 19233 noise.ginger;
+#X text 200 19233 Gingerbreadman map chaotic generator;
+#X obj 30 19261 noise.henon;
+#X text 200 19261 henon attractor;
+#X obj 30 19289 noise.henon_heilles;
+#X text 200 19289 Hénon–Heiles_system;
+#X obj 30 19317 noise.henon_phase;
+#X text 200 19317 henon phase Ddagrams;
+#X obj 30 19345 noise.henonf;
+#X text 200 19345 Henon phase;
+#X obj 30 19373 noise.ikeda;
+#X text 200 19373 Ikeda attractor;
+#X obj 30 19401 noise.lfreq0~;
+#X text 200 19401 sampled/held noise (piecewise constant);
+#X obj 30 19429 noise.lfreq~;
+#X text 200 19429 noise.lfreq0~ smoothed with no overshoot;
+#X obj 30 19457 noise.lorenz;
+#X text 200 19457 Lorenz chaos;
+#X obj 30 19485 noise.lyapunov;
+#X text 200 19485 lyapunov random attractor;
+#X obj 30 19513 noise.navier_stokes;
+#X text 200 19513 navier-stokes diff equations;
+#X obj 30 19541 noise.pink~;
+#X text 200 19541 Pink noise generator;
+#X obj 30 19569 noise.rossler;
+#X text 200 19569 Rössler attractor;
+#X obj 30 19597 noise.stein;
+#X text 200 19597 Stein distribution;
+#X obj 30 19625 noise.torus;
+#X text 200 19625 torus attractor;
+#X obj 30 19653 noise.verhulst;
+#X text 200 19653 verhulst distribution;
+#X obj 30 19681 noise.white~;
+#X text 200 19681 White noise generator;
+#X obj 620 18994 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 625 18970 генераторы шума;
-#X obj 20 19685 cnv 5 38 32 empty empty osc 4 16 0 17 -262144 -49933
+#X text 625 18994 генераторы шума;
+#X obj 20 19709 cnv 5 38 32 empty empty osc 4 16 0 17 -262144 -49933
 0;
-#X obj 20 19727 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 19738 osc.blit~;
-#X text 200 19738 генератор с ограниченным спектром и управлением гармониками;
-#X obj 30 19766 osc.impulse~;
-#X text 200 19766 генератор импульсного сигнала с ограниченным спектром;
-#X obj 30 19794 osc.pulse~;
-#X text 200 19794 осциллятор прямоугольной волны с ограниченным спектром;
-#X obj 30 19822 osc.saw4~;
-#X text 200 19822 осциллятор пилообразного сигнала с ограниченным спектром;
-#X obj 30 19850 osc.saw~;
-#X text 200 19850 осциллятор пилообразного сигнала с ограниченным спектром;
-#X obj 30 19878 osc.sinfb~;
-#X text 200 19878 синусоидальный осциллятор с обратной связью;
-#X obj 30 19906 osc.sin~;
-#X text 200 19906 синусоидальный осциллятор;
-#X obj 30 19934 osc.square~;
-#X text 200 19934 осциллятор квадратной волны с ограниченным спектром;
-#X obj 30 19962 osc.tri~;
-#X text 200 19962 осциллятор треугольной волны с ограниченным спектром;
-#X obj 649 19695 cnv 1 91 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 654 19695 осцилляторы;
-#X obj 20 19990 cnv 5 58 32 empty empty patch 4 16 0 17 -262144 -49933
+#X obj 20 19751 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 19762 osc.blit~;
+#X text 200 19762 генератор с ограниченным спектром и управлением гармониками;
+#X obj 30 19790 osc.impulse~;
+#X text 200 19790 генератор импульсного сигнала с ограниченным спектром;
+#X obj 30 19818 osc.pulse~;
+#X text 200 19818 осциллятор прямоугольной волны с ограниченным спектром;
+#X obj 30 19846 osc.saw4~;
+#X text 200 19846 осциллятор пилообразного сигнала с ограниченным спектром;
+#X obj 30 19874 osc.saw~;
+#X text 200 19874 осциллятор пилообразного сигнала с ограниченным спектром;
+#X obj 30 19902 osc.sinfb~;
+#X text 200 19902 синусоидальный осциллятор с обратной связью;
+#X obj 30 19930 osc.sin~;
+#X text 200 19930 синусоидальный осциллятор;
+#X obj 30 19958 osc.square~;
+#X text 200 19958 осциллятор квадратной волны с ограниченным спектром;
+#X obj 30 19986 osc.tri~;
+#X text 200 19986 осциллятор треугольной волны с ограниченным спектром;
+#X obj 649 19719 cnv 1 91 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 654 19719 осцилляторы;
+#X obj 20 20014 cnv 5 58 32 empty empty patch 4 16 0 17 -262144 -49933
 0;
-#X obj 20 20032 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 20043 canvas.active;
-#X text 200 20043 проверяет \, активно ли окно холста объекта и расположено
+#X obj 20 20056 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 20067 canvas.active;
+#X text 200 20067 проверяет \, активно ли окно холста объекта и расположено
 ли оно поверх других;
-#X obj 30 20083 canvas.current;
-#X text 200 20083 получение информации о текущем холста объекта;
-#X obj 30 20111 canvas.dir;
-#X text 200 20111 выводит директорию холста у объекта и его уровень
+#X obj 30 20107 canvas.current;
+#X text 200 20107 получение информации о текущем холста объекта;
+#X obj 30 20135 canvas.dir;
+#X text 200 20135 выводит директорию холста у объекта и его уровень
 вложенности;
-#X obj 30 20139 canvas.name;
-#X text 200 20139 выводит имя текущего холста у объекта;
-#X obj 30 20167 canvas.path;
-#X text 200 20167 выводит полный путь холста в файловой системе у объекта;
-#X obj 30 20195 canvas.top;
-#X text 200 20195 подробная информация о холсте верхнего уровня у объекта;
-#X obj 30 20223 patch.args;
-#X text 200 20223 получить начальные аргументы для патча или субпатча;
-#X obj 30 20251 patch.deps;
-#X text 200 20251 выводит зависимости патча: используемые объекты и
+#X obj 30 20163 canvas.name;
+#X text 200 20163 выводит имя текущего холста у объекта;
+#X obj 30 20191 canvas.path;
+#X text 200 20191 выводит полный путь холста в файловой системе у объекта;
+#X obj 30 20219 canvas.top;
+#X text 200 20219 подробная информация о холсте верхнего уровня у объекта;
+#X obj 30 20247 patch.args;
+#X text 200 20247 получить начальные аргументы для патча или субпатча;
+#X obj 30 20275 patch.deps;
+#X text 200 20275 выводит зависимости патча: используемые объекты и
 абстракции;
-#X obj 30 20279 patch.tree;
-#X text 200 20279 выводит дерево объектов патча;
-#X obj 612 20000 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 20303 patch.tree;
+#X text 200 20303 выводит дерево объектов патча;
+#X obj 612 20024 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 617 20000 работа с патчами;
-#X obj 20 20307 cnv 5 48 32 empty empty path 4 16 0 17 -262144 -49933
+#X text 617 20024 работа с патчами;
+#X obj 20 20331 cnv 5 48 32 empty empty path 4 16 0 17 -262144 -49933
 0;
-#X obj 20 20349 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 20360 file.size;
-#X text 200 20360 output file size;
-#X obj 30 20388 path.basename;
-#X text 200 20388 выводит имя файла из пути к файлу;
-#X obj 30 20416 path.dirname;
-#X text 200 20416 выводит имя каталога файла из пути к файлу;
-#X obj 30 20444 path.exists;
-#X text 200 20444 проверка существования пути;
-#X obj 30 20472 path.file;
-#X text 200 20472 файловый ввод/вывод;
-#X obj 30 20500 path.is_dir;
-#X text 200 20500 проверяет \, является ли путь каталогом;
-#X obj 30 20528 path.lsdir;
-#X text 200 20528 cписок содержимого каталога;
-#X obj 30 20556 path.monitor;
-#X text 200 20556 мониторинг событий файловой системы;
-#X obj 30 20584 path.normalize;
-#X text 200 20584 нормализует пути файлов;
-#X obj 30 20612 path.pattern;
-#X text 200 20612 генерирует имя файла по данному шаблону;
-#X obj 30 20640 path.search;
-#X text 200 20640 поиск файлов;
-#X obj 30 20668 path.split;
-#X text 200 20668 разбивает путь на имя каталога и файла;
-#X obj 489 20317 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 20 20373 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 20384 file.size;
+#X text 200 20384 output file size;
+#X obj 30 20412 path.basename;
+#X text 200 20412 выводит имя файла из пути к файлу;
+#X obj 30 20440 path.dirname;
+#X text 200 20440 выводит имя каталога файла из пути к файлу;
+#X obj 30 20468 path.exists;
+#X text 200 20468 проверка существования пути;
+#X obj 30 20496 path.file;
+#X text 200 20496 файловый ввод/вывод;
+#X obj 30 20524 path.is_dir;
+#X text 200 20524 проверяет \, является ли путь каталогом;
+#X obj 30 20552 path.lsdir;
+#X text 200 20552 cписок содержимого каталога;
+#X obj 30 20580 path.monitor;
+#X text 200 20580 мониторинг событий файловой системы;
+#X obj 30 20608 path.normalize;
+#X text 200 20608 нормализует пути файлов;
+#X obj 30 20636 path.pattern;
+#X text 200 20636 генерирует имя файла по данному шаблону;
+#X obj 30 20664 path.search;
+#X text 200 20664 поиск файлов;
+#X obj 30 20692 path.split;
+#X text 200 20692 разбивает путь на имя каталога и файла;
+#X obj 489 20341 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 494 20317 работа с путями файловой системы;
-#X obj 20 20696 cnv 5 109 32 empty empty predicates 4 16 0 17 -262144
+#X text 494 20341 работа с путями файловой системы;
+#X obj 20 20720 cnv 5 109 32 empty empty predicates 4 16 0 17 -262144
 -49933 0;
-#X obj 20 20738 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 20749 is_any;
-#X text 200 20749 проверяет \, является ли входное сообщение сообщением
+#X obj 20 20762 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 20773 is_any;
+#X text 200 20773 проверяет \, является ли входное сообщение сообщением
 общего типа;
-#X obj 30 20789 is_bang;
-#X text 200 20789 проверяет \, является ли входное сообщение *bang*;
-#X obj 30 20817 is_data;
-#X text 200 20817 проверяет \, является ли входное сообщение типом
+#X obj 30 20813 is_bang;
+#X text 200 20813 проверяет \, является ли входное сообщение *bang*;
+#X obj 30 20841 is_data;
+#X text 200 20841 проверяет \, является ли входное сообщение типом
 данных;
-#X obj 30 20845 is_dict;
-#X text 200 20845 проверяет \, является ли входное сообщение словарём;
-#X obj 30 20873 is_even;
-#X text 200 20873 проверка входного числа на чётность;
-#X obj 30 20901 is_file;
-#X text 200 20901 проверка существования и доступности файла;
-#X obj 30 20929 is_float;
-#X text 200 20929 проверка \, является ли входное сообщение числом
+#X obj 30 20869 is_dict;
+#X text 200 20869 проверяет \, является ли входное сообщение словарём;
+#X obj 30 20897 is_even;
+#X text 200 20897 проверка входного числа на чётность;
+#X obj 30 20925 is_file;
+#X text 200 20925 проверка существования и доступности файла;
+#X obj 30 20953 is_float;
+#X text 200 20953 проверка \, является ли входное сообщение числом
 с плавающей точкой;
-#X obj 30 20969 is_list;
-#X text 200 20969 проверка \, является ли входное сообщение списком;
-#X obj 30 20997 is_odd;
-#X text 200 20997 проверка входного числа на нечётность;
-#X obj 30 21025 is_pointer;
-#X text 200 21025 проверка \, является ли входное сообщение указателем;
-#X obj 30 21053 is_prop;
-#X text 200 21053 проверка \, является ли входное сообщение *свойством*;
-#X obj 30 21081 is_symbol;
-#X text 200 21081 проверка \, является ли входное сообщение *символом*;
-#X obj 307 20706 cnv 1 433 38 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 20993 is_list;
+#X text 200 20993 проверка \, является ли входное сообщение списком;
+#X obj 30 21021 is_odd;
+#X text 200 21021 проверка входного числа на нечётность;
+#X obj 30 21049 is_pointer;
+#X text 200 21049 проверка \, является ли входное сообщение указателем;
+#X obj 30 21077 is_prop;
+#X text 200 21077 проверка \, является ли входное сообщение *свойством*;
+#X obj 30 21105 is_symbol;
+#X text 200 21105 проверка \, является ли входное сообщение *символом*;
+#X obj 307 20730 cnv 1 433 38 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 312 20706 объекты предикатов. Проверка типов сообщений или
+#X text 312 20730 объекты предикатов. Проверка типов сообщений или
 данных \, возвращают 1 или 0\.;
-#X obj 20 21109 cnv 5 68 32 empty empty preset 4 16 0 17 -262144
+#X obj 20 21133 cnv 5 68 32 empty empty preset 4 16 0 17 -262144
 -49933 0;
-#X obj 20 21151 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 21162 preset.float;
-#X text 200 21162 загружает или сохраняет числовое значение в пресете;
-#X obj 30 21190 preset.list;
-#X text 200 21190 загружает или сохраняет список в пресете;
-#X obj 30 21218 preset.storage;
-#X text 200 21218 управление пресетами;
-#X obj 30 21246 preset.symbol;
-#X text 200 21246 загружает или сохраняет символ в пресет;
-#X obj 596 21119 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 20 21175 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 21186 preset.float;
+#X text 200 21186 загружает или сохраняет числовое значение в пресете;
+#X obj 30 21214 preset.list;
+#X text 200 21214 загружает или сохраняет список в пресете;
+#X obj 30 21242 preset.storage;
+#X text 200 21242 управление пресетами;
+#X obj 30 21270 preset.symbol;
+#X text 200 21270 загружает или сохраняет символ в пресет;
+#X obj 596 21143 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 601 21119 работа с пресетами;
-#X obj 20 21274 cnv 5 90 32 empty empty property 4 16 0 17 -262144
+#X text 601 21143 работа с пресетами;
+#X obj 20 21298 cnv 5 90 32 empty empty property 4 16 0 17 -262144
 -49933 0;
-#X obj 20 21316 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 21327 patch.props;
-#X text 200 21327 получение или установка свойств патча;
-#X obj 30 21355 prop;
-#X text 200 21355 получить/установить именованное значение свойства
+#X obj 20 21340 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 21351 patch.props;
+#X text 200 21351 получение или установка свойств патча;
+#X obj 30 21379 prop;
+#X text 200 21379 получить/установить именованное значение свойства
 для субпатча или абстракции;
-#X obj 30 21395 prop.declare;
-#X text 200 21395 объявляет именованное свойство для субпатча или абстракции;
-#X obj 30 21423 prop.get;
-#X text 200 21423 получить значение свойства от подсоединённого объекта
+#X obj 30 21419 prop.declare;
+#X text 200 21419 объявляет именованное свойство для субпатча или абстракции;
+#X obj 30 21447 prop.get;
+#X text 200 21447 получить значение свойства от подсоединённого объекта
 \, субпатча или абстракции;
-#X obj 30 21463 prop.join;
-#X text 200 21463 добавляет свойства в основной поток данных;
-#X obj 30 21491 prop.random;
-#X text 200 21491 рандомизатор значения свойства;
-#X obj 30 21519 prop.route;
-#X text 200 21519 отделяет свойства от основного потока данных;
-#X obj 30 21547 prop.route~;
-#X text 200 21547 отделяет свойства от аудиосоединений;
-#X obj 30 21575 prop.set;
-#X text 200 21575 устанавливает значение свойства для подключенного
+#X obj 30 21487 prop.join;
+#X text 200 21487 добавляет свойства в основной поток данных;
+#X obj 30 21515 prop.random;
+#X text 200 21515 рандомизатор значения свойства;
+#X obj 30 21543 prop.route;
+#X text 200 21543 отделяет свойства от основного потока данных;
+#X obj 30 21571 prop.route~;
+#X text 200 21571 отделяет свойства от аудиосоединений;
+#X obj 30 21599 prop.set;
+#X text 200 21599 устанавливает значение свойства для подключенного
 объекта \, субпатча или абстракции;
-#X obj 428 21284 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 428 21308 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 433 21284 работа со свойствами объектов или патчей;
-#X obj 20 21615 cnv 5 58 32 empty empty proto 4 16 0 17 -262144 -49933
+#X text 433 21308 работа со свойствами объектов или патчей;
+#X obj 20 21639 cnv 5 58 32 empty empty proto 4 16 0 17 -262144 -49933
 0;
-#X obj 20 21657 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 21668 proto.arturia.minilab;
-#X text 200 21668 simple SysEx control for Arturia MiniLab;
-#X obj 30 21696 proto.feelworld;
-#X text 200 21696 protocol for FeelWorld LivePro L1 HDMI mixer;
-#X obj 30 21724 proto.firmata;
-#X text 200 21724 Firmata Arduino protocol support;
-#X obj 30 21752 proto.inscore;
-#X text 200 21752 INScore message creator;
-#X obj 30 21780 proto.ltc.in~;
-#X text 200 21780 LTC decoder;
-#X obj 30 21808 proto.ltc.out~;
-#X text 200 21808 LTC encoder;
-#X obj 30 21836 proto.midi;
-#X text 200 21836 raw midi encoder/parser;
-#X obj 30 21864 proto.midi.casio;
-#X text 200 21864 Casio Privia MIDI control;
-#X obj 30 21892 proto.midi.cc;
-#X text 200 21892 raw midi CC encoder/parser;
-#X obj 30 21920 proto.midi.sysex;
-#X text 200 21920 raw midi SYSex encoder/parser;
-#X obj 30 21948 proto.moppy;
-#X text 200 21948 protocol for Musical flOPPY controller;
-#X obj 30 21976 proto.morse;
-#X text 200 21976 Morse encoder;
-#X obj 30 22004 proto.mpv;
-#X text 200 22004 mpv video player control;
-#X obj 30 22032 proto.obs;
-#X text 200 22032 WebSocket клиент для управления OBS studio;
-#X obj 30 22060 proto.sp.alpaca;
-#X text 200 22060 protocol parser for Arduino-based CEAMMC footswitch;
-#X obj 30 22088 proto.vlc;
-#X text 200 22088 VLC video player control over HTTP;
-#X obj 30 22116 proto.whammy;
-#X text 200 22116 Control for Digitech Whammy pedal;
-#X obj 30 22144 proto.xtouch_ext;
-#X text 200 22144 Behringer XTouch Extender XMidi protocol;
-#X obj 20 22172 cnv 5 68 32 empty empty random 4 16 0 17 -262144
+#X obj 20 21681 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 21692 proto.arturia.minilab;
+#X text 200 21692 simple SysEx control for Arturia MiniLab;
+#X obj 30 21720 proto.feelworld;
+#X text 200 21720 protocol for FeelWorld LivePro L1 HDMI mixer;
+#X obj 30 21748 proto.firmata;
+#X text 200 21748 Firmata Arduino protocol support;
+#X obj 30 21776 proto.inscore;
+#X text 200 21776 INScore message creator;
+#X obj 30 21804 proto.ltc.in~;
+#X text 200 21804 LTC decoder;
+#X obj 30 21832 proto.ltc.out~;
+#X text 200 21832 LTC encoder;
+#X obj 30 21860 proto.midi;
+#X text 200 21860 raw midi encoder/parser;
+#X obj 30 21888 proto.midi.casio;
+#X text 200 21888 Casio Privia MIDI control;
+#X obj 30 21916 proto.midi.cc;
+#X text 200 21916 raw midi CC encoder/parser;
+#X obj 30 21944 proto.midi.sysex;
+#X text 200 21944 raw midi SYSex encoder/parser;
+#X obj 30 21972 proto.moppy;
+#X text 200 21972 protocol for Musical flOPPY controller;
+#X obj 30 22000 proto.morse;
+#X text 200 22000 Morse encoder;
+#X obj 30 22028 proto.mpv;
+#X text 200 22028 mpv video player control;
+#X obj 30 22056 proto.obs;
+#X text 200 22056 WebSocket клиент для управления OBS studio;
+#X obj 30 22084 proto.sp.alpaca;
+#X text 200 22084 protocol parser for Arduino-based CEAMMC footswitch;
+#X obj 30 22112 proto.vlc;
+#X text 200 22112 VLC video player control over HTTP;
+#X obj 30 22140 proto.whammy;
+#X text 200 22140 Control for Digitech Whammy pedal;
+#X obj 30 22168 proto.xtouch_ext;
+#X text 200 22168 Behringer XTouch Extender XMidi protocol;
+#X obj 20 22196 cnv 5 68 32 empty empty random 4 16 0 17 -262144
 -49933 0;
-#X obj 20 22214 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 22225 random.atom;
-#X text 200 22225 случайный взвешенный выбор атомов из указанного списка;
-#X obj 30 22253 random.discrete;
-#X text 200 22253 генерирует случайные взвешенные целые числа на интервале
+#X obj 20 22238 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 22249 random.atom;
+#X text 200 22249 случайный взвешенный выбор атомов из указанного списка;
+#X obj 30 22277 random.discrete;
+#X text 200 22277 генерирует случайные взвешенные целые числа на интервале
 [0 \, n);
-#X obj 30 22293 random.float;
-#X text 200 22293 равномерный генератор случайных чисел с плавающей
+#X obj 30 22317 random.float;
+#X text 200 22317 равномерный генератор случайных чисел с плавающей
 точкой в заданном диапазоне;
-#X obj 30 22333 random.gauss;
-#X text 200 22333 гауссово случайное распределение;
-#X obj 30 22361 random.int;
-#X text 200 22361 равномерный генератор случайных целых чисел в заданном
+#X obj 30 22357 random.gauss;
+#X text 200 22357 гауссово случайное распределение;
+#X obj 30 22385 random.int;
+#X text 200 22385 равномерный генератор случайных целых чисел в заданном
 диапазоне;
-#X obj 30 22401 random.linear;
-#X text 200 22401 случайное линейное распределение;
-#X obj 30 22429 random.pw_const;
-#X text 200 22429 кусочно-постоянное случайное распределение;
-#X obj 30 22457 random.pw_lin;
-#X text 200 22457 кусочно-линейное случайное распределение;
-#X obj 536 22182 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 22425 random.linear;
+#X text 200 22425 случайное линейное распределение;
+#X obj 30 22453 random.pw_const;
+#X text 200 22453 кусочно-постоянное случайное распределение;
+#X obj 30 22481 random.pw_lin;
+#X text 200 22481 кусочно-линейное случайное распределение;
+#X obj 536 22206 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 541 22182 генераторы случайных чисел;
-#X obj 20 22485 cnv 5 48 32 empty empty samp 4 16 0 17 -262144 -49933
+#X text 541 22206 генераторы случайных чисел;
+#X obj 20 22509 cnv 5 48 32 empty empty samp 4 16 0 17 -262144 -49933
 0;
-#X obj 20 22527 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 22538 samp.time~;
-#X text 200 22538 sample counter;
-#X obj 20 22566 cnv 5 37 32 empty empty seq 4 16 0 17 -262144 -49933
+#X obj 20 22551 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 22562 samp.time~;
+#X text 200 22562 sample counter;
+#X obj 20 22590 cnv 5 37 32 empty empty seq 4 16 0 17 -262144 -49933
 0;
-#X obj 20 22608 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 22619 seq.arp;
-#X text 200 22619 sequence arpeggiator;
-#X obj 30 22647 seq.bangs;
-#X text 200 22647 bang sequencer;
-#X obj 30 22675 seq.counter;
-#X text 200 22675 sequencer counter;
-#X obj 30 22703 seq.life;
-#X text 200 22703 Conway game of life sequencer;
-#X obj 30 22731 seq.matrix;
-#X text 200 22731 sequencer control for ui.matrix;
-#X obj 30 22759 seq.nbangs;
-#X text 200 22759 output specified number of bang with time intervals;
-#X obj 30 22787 seq.phasor;
-#X text 200 22787 control rate phasor (saw) generator;
-#X obj 30 22815 seq.toggles;
-#X text 200 22815 toggle sequencer;
-#X obj 30 22843 sequencer;
-#X text 200 22843 basic sequence player;
-#X obj 20 22871 cnv 5 37 32 empty empty snd 4 16 0 17 -262144 -49933
+#X obj 20 22632 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 22643 seq.arp;
+#X text 200 22643 sequence arpeggiator;
+#X obj 30 22671 seq.bangs;
+#X text 200 22671 bang sequencer;
+#X obj 30 22699 seq.counter;
+#X text 200 22699 sequencer counter;
+#X obj 30 22727 seq.life;
+#X text 200 22727 Conway game of life sequencer;
+#X obj 30 22755 seq.matrix;
+#X text 200 22755 sequencer control for ui.matrix;
+#X obj 30 22783 seq.nbangs;
+#X text 200 22783 output specified number of bang with time intervals;
+#X obj 30 22811 seq.phasor;
+#X text 200 22811 control rate phasor (saw) generator;
+#X obj 30 22839 seq.toggles;
+#X text 200 22839 toggle sequencer;
+#X obj 30 22867 sequencer;
+#X text 200 22867 basic sequence player;
+#X obj 20 22895 cnv 5 37 32 empty empty snd 4 16 0 17 -262144 -49933
 0;
-#X obj 20 22913 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 22924 snd.file;
-#X text 200 22924 Sound file loader on steroids;
-#X obj 30 22952 snd.play~;
-#X text 200 22952 Sound file player on steroids;
-#X obj 20 22980 cnv 5 48 32 empty empty spat 4 16 0 17 -262144 -49933
+#X obj 20 22937 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 22948 snd.file;
+#X text 200 22948 Sound file loader on steroids;
+#X obj 30 22976 snd.play~;
+#X text 200 22976 Sound file player on steroids;
+#X obj 20 23004 cnv 5 48 32 empty empty spat 4 16 0 17 -262144 -49933
 0;
-#X obj 20 23022 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 23033 hoa.2d.decoder~;
-#X text 200 23033 двумерный декодер амбисоников высоких порядков;
-#X obj 30 23061 hoa.2d.encoder~;
-#X text 200 23061 двумерный кодировщик амбисоников высоких порядков;
-#X obj 30 23089 hoa.2d.exchanger~;
-#X text 200 23089 перенумерование и нормализация каналов в двумерных
+#X obj 20 23046 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 23057 hoa.2d.decoder~;
+#X text 200 23057 двумерный декодер амбисоников высоких порядков;
+#X obj 30 23085 hoa.2d.encoder~;
+#X text 200 23085 двумерный кодировщик амбисоников высоких порядков;
+#X obj 30 23113 hoa.2d.exchanger~;
+#X text 200 23113 перенумерование и нормализация каналов в двумерных
 амбисониках;
-#X obj 30 23129 hoa.2d.map~;
-#X text 200 23129 многоканальное управление пространственными источниками
+#X obj 30 23153 hoa.2d.map~;
+#X text 200 23153 многоканальное управление пространственными источниками
 в двумерных амбисониках;
-#X obj 30 23169 hoa.2d.optim~;
-#X text 200 23169 оптимизация двумерных амбисоников;
-#X obj 30 23197 hoa.2d.projector~;
-#X text 200 23197 декомпозиция из сферических гармоник в плоские волны;
-#X obj 30 23225 hoa.2d.recomposer~;
-#X text 200 23225 декомпозиция плоских двумерных волн в сферические
+#X obj 30 23193 hoa.2d.optim~;
+#X text 200 23193 оптимизация двумерных амбисоников;
+#X obj 30 23221 hoa.2d.projector~;
+#X text 200 23221 декомпозиция из сферических гармоник в плоские волны;
+#X obj 30 23249 hoa.2d.recomposer~;
+#X text 200 23249 декомпозиция плоских двумерных волн в сферические
 гармоники;
-#X obj 30 23253 hoa.2d.rotate~;
-#X text 200 23253 вращение двумерного амбисонического звукового поля;
-#X obj 30 23284 ui.link @title [hoa.2d.space] @url
+#X obj 30 23277 hoa.2d.rotate~;
+#X text 200 23277 вращение двумерного амбисонического звукового поля;
+#X obj 30 23308 ui.link @title [hoa.2d.space] @url
 hoa.2d.space-help.pd;
-#X text 200 23281 контроль амплитуды двумерных плоских волн;
-#X obj 30 23306 hoa.2d.wider~;
-#X text 200 23306 двумерная симуляция дробного амбисонического порядка;
-#X obj 30 23334 hoa.3d.decoder~;
-#X text 200 23334 трехмерный декодер амбисоников высоких порядков;
-#X obj 30 23362 hoa.3d.encoder~;
-#X text 200 23362 3D кодировщик амбисоников высоких порядков;
-#X obj 30 23390 hoa.3d.exchanger~;
-#X text 200 23390 перенумерование и нормализация каналов;
-#X obj 30 23418 hoa.3d.map~;
-#X text 200 23418 многоканальное управление пространственными источниками
+#X text 200 23305 контроль амплитуды двумерных плоских волн;
+#X obj 30 23330 hoa.2d.wider~;
+#X text 200 23330 двумерная симуляция дробного амбисонического порядка;
+#X obj 30 23358 hoa.3d.decoder~;
+#X text 200 23358 трехмерный декодер амбисоников высоких порядков;
+#X obj 30 23386 hoa.3d.encoder~;
+#X text 200 23386 3D кодировщик амбисоников высоких порядков;
+#X obj 30 23414 hoa.3d.exchanger~;
+#X text 200 23414 перенумерование и нормализация каналов;
+#X obj 30 23442 hoa.3d.map~;
+#X text 200 23442 многоканальное управление пространственными источниками
 для трехмерных амбисоников;
-#X obj 30 23461 ui.link @title [hoa.3d.meter~] @url
+#X obj 30 23485 ui.link @title [hoa.3d.meter~] @url
 hoa.3d.meter~-help.pd;
-#X text 200 23458 трехмерный измеритель уровня звукового поля;
-#X obj 30 23483 hoa.3d.optim~;
-#X text 200 23483 оптимизация трехмерных амбисоников высоких порядков;
-#X obj 30 23514 ui.link @title [hoa.3d.scope~] @url
+#X text 200 23482 трехмерный измеритель уровня звукового поля;
+#X obj 30 23507 hoa.3d.optim~;
+#X text 200 23507 оптимизация трехмерных амбисоников высоких порядков;
+#X obj 30 23538 ui.link @title [hoa.3d.scope~] @url
 hoa.3d.scope~-help.pd;
-#X text 200 23511 отображение сферических гармоник в трехмерном амбисоническом
+#X text 200 23535 отображение сферических гармоник в трехмерном амбисоническом
 поле;
-#X obj 30 23551 hoa.3d.wider~;
-#X text 200 23551 трехмерная симуляция дробного амбисонического порядка;
-#X obj 30 23579 hoa.@process;
-#X text 200 23579 управление свойствами объекта [hoa.process~];
-#X obj 30 23607 hoa.in;
-#X text 200 23607 контрольный вход для патча \, загружаемого объектом
+#X obj 30 23575 hoa.3d.wider~;
+#X text 200 23575 трехмерная симуляция дробного амбисонического порядка;
+#X obj 30 23603 hoa.@process;
+#X text 200 23603 управление свойствами объекта [hoa.process~];
+#X obj 30 23631 hoa.in;
+#X text 200 23631 контрольный вход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 23647 hoa.in~;
-#X text 200 23647 сигнальный вход для патча \, загружаемого объектом
+#X obj 30 23671 hoa.in~;
+#X text 200 23671 сигнальный вход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 23690 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
-#X text 200 23687 GUI для пространственного размещения источников;
-#X obj 30 23712 hoa.out;
-#X text 200 23712 контрольный выход для патча \, загружаемого объектом
+#X obj 30 23714 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
+#X text 200 23711 GUI для пространственного размещения источников;
+#X obj 30 23736 hoa.out;
+#X text 200 23736 контрольный выход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 23752 hoa.out~;
-#X text 200 23752 сигнальный выход для патча \, загружаемого объектом
+#X obj 30 23776 hoa.out~;
+#X text 200 23776 сигнальный выход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 23792 hoa.process~;
-#X text 200 23792 загрузчик патчей для многоканальной обработки;
-#X obj 30 23823 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
-#X text 200 23820 отображение сферических гармоник в двумерном амбисоническом
+#X obj 30 23816 hoa.process~;
+#X text 200 23816 загрузчик патчей для многоканальной обработки;
+#X obj 30 23847 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
+#X text 200 23844 отображение сферических гармоник в двумерном амбисоническом
 поле;
-#X obj 30 23860 pan.cos~;
-#X text 200 23860 двухканальное косинусное панорамирование равной мощности;
-#X obj 30 23888 pan.linsig~;
-#X text 200 23888 двухканальное линейное панорамирование управляемое
+#X obj 30 23884 pan.cos~;
+#X text 200 23884 двухканальное косинусное панорамирование равной мощности;
+#X obj 30 23912 pan.linsig~;
+#X text 200 23912 двухканальное линейное панорамирование управляемое
 сигналом;
-#X obj 30 23916 pan.lin~;
-#X text 200 23916 двухканальное линейное панорамирование;
-#X obj 30 23944 pan.spread~;
-#X text 200 23944 распределяет входные каналы по стереополю;
-#X obj 30 23972 pan.sqrt~;
-#X text 200 23972 двухканальное квадратичное панорамирование равной
+#X obj 30 23940 pan.lin~;
+#X text 200 23940 двухканальное линейное панорамирование;
+#X obj 30 23968 pan.spread~;
+#X text 200 23968 распределяет входные каналы по стереополю;
+#X obj 30 23996 pan.sqrt~;
+#X text 200 23996 двухканальное квадратичное панорамирование равной
 мощности;
-#X obj 30 24000 spat.pan4~;
-#X text 200 24000 GMEM SPAT: 4-outputs spatializer;
-#X obj 30 24028 spat.pan8~;
-#X text 200 24028 GMEM SPAT: 8-outputs spatializer;
-#X obj 30 24056 spat.zita6x8~;
-#X text 200 24056 spat with 6 inputs sources to 8 channel output;
-#X obj 30 24084 spat.zita8~;
-#X text 200 24084 8 channel reverb spatializer;
-#X obj 488 22990 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 24024 spat.pan4~;
+#X text 200 24024 GMEM SPAT: 4-outputs spatializer;
+#X obj 30 24052 spat.pan8~;
+#X text 200 24052 GMEM SPAT: 8-outputs spatializer;
+#X obj 30 24080 spat.zita6x8~;
+#X text 200 24080 spat with 6 inputs sources to 8 channel output;
+#X obj 30 24108 spat.zita8~;
+#X text 200 24108 8 channel reverb spatializer;
+#X obj 488 23014 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 493 22990 работа с пространственным звуком;
-#X obj 20 24112 cnv 5 68 32 empty empty string 4 16 0 17 -262144
+#X text 493 23014 работа с пространственным звуком;
+#X obj 20 24136 cnv 5 68 32 empty empty string 4 16 0 17 -262144
 -49933 0;
-#X obj 20 24154 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 24165 string;
-#X text 200 24165 создание строки;
-#X obj 30 24193 string.contains;
-#X text 200 24193 проверяет \, содержит ли строка указанную подстроку;
-#X obj 30 24221 string.ends_with;
-#X text 200 24221 проверяет \, заканчивается ли строка указанной подстрокой;
-#X obj 30 24249 string.equal;
-#X text 200 24249 проверка строк или символов на равенство;
-#X obj 30 24277 string.format;
-#X text 200 24277 форматирует строки в стиле функции printf;
-#X obj 30 24305 string.join;
-#X text 200 24305 объединяет список в строку с указанным разделителем
+#X obj 20 24178 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 24189 string;
+#X text 200 24189 создание строки;
+#X obj 30 24217 string.contains;
+#X text 200 24217 проверяет \, содержит ли строка указанную подстроку;
+#X obj 30 24245 string.ends_with;
+#X text 200 24245 проверяет \, заканчивается ли строка указанной подстрокой;
+#X obj 30 24273 string.equal;
+#X text 200 24273 проверка строк или символов на равенство;
+#X obj 30 24301 string.format;
+#X text 200 24301 форматирует строки в стиле функции printf;
+#X obj 30 24329 string.join;
+#X text 200 24329 объединяет список в строку с указанным разделителем
 элементов;
-#X obj 30 24333 string.length;
-#X text 200 24333 количество символов в строке (с поддержкой Unicode);
-#X obj 30 24361 string.match;
-#X text 200 24361 проверка соответствия строки регулярному выражению;
-#X obj 30 24389 string.remove;
-#X text 200 24389 удаляет подстроку из входной строки;
-#X obj 30 24417 string.replace;
-#X text 200 24417 замена одной строки на другую во входной строке;
-#X obj 30 24445 string.split;
-#X text 200 24445 разбивает строку или символ в список по разделителю;
-#X obj 30 24473 string.starts_with;
-#X text 200 24473 проверка \, начинается ли строка с определенной подстроки;
-#X obj 30 24501 string.substr;
-#X text 200 24501 извлечение подстроки из входной строки;
-#X obj 30 24529 string2symbol;
-#X text 200 24529 преобразует строку в символ;
-#X obj 520 24122 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 24357 string.length;
+#X text 200 24357 количество символов в строке (с поддержкой Unicode);
+#X obj 30 24385 string.match;
+#X text 200 24385 проверка соответствия строки регулярному выражению;
+#X obj 30 24413 string.remove;
+#X text 200 24413 удаляет подстроку из входной строки;
+#X obj 30 24441 string.replace;
+#X text 200 24441 замена одной строки на другую во входной строке;
+#X obj 30 24469 string.split;
+#X text 200 24469 разбивает строку или символ в список по разделителю;
+#X obj 30 24497 string.starts_with;
+#X text 200 24497 проверка \, начинается ли строка с определенной подстроки;
+#X obj 30 24525 string.substr;
+#X text 200 24525 извлечение подстроки из входной строки;
+#X obj 30 24553 string2symbol;
+#X text 200 24553 преобразует строку в символ;
+#X obj 520 24146 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 525 24122 работа с типом данных String;
-#X obj 20 24557 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
+#X text 525 24146 работа с типом данных String;
+#X obj 20 24581 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
 -49933 0;
-#X obj 20 24599 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 24610 symbol.equal;
-#X text 200 24610 check symbols for equality;
-#X obj 30 24638 symbol.length;
-#X text 200 24638 number of characters in symbol (unicode supported);
-#X obj 30 24666 symbol.num_compare;
-#X text 200 24666 numeric symbol compare;
-#X obj 30 24694 symbol2any;
-#X text 200 24694 converts symbol or string to message;
-#X obj 30 24722 symbol2intlist;
-#X text 200 24722 converts symbol to list of character codes;
-#X obj 596 24567 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 20 24623 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 24634 symbol.equal;
+#X text 200 24634 check symbols for equality;
+#X obj 30 24662 symbol.length;
+#X text 200 24662 number of characters in symbol (unicode supported);
+#X obj 30 24690 symbol.num_compare;
+#X text 200 24690 numeric symbol compare;
+#X obj 30 24718 symbol2any;
+#X text 200 24718 converts symbol or string to message;
+#X obj 30 24746 symbol2intlist;
+#X text 200 24746 converts symbol to list of character codes;
+#X obj 596 24591 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 601 24567 работа с символами;
-#X obj 20 24750 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
+#X text 601 24591 работа с символами;
+#X obj 20 24774 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
 0;
-#X obj 20 24792 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 24803 synth.bee3~;
-#X text 200 24803 Hammond-oid organ FM synthesis instrument;
-#X obj 30 24831 synth.birds~;
-#X text 200 24831 bird singing generator;
-#X obj 30 24859 synth.church_bell~;
-#X text 200 24859 generic church bell modal model;
-#X obj 30 24887 synth.clap~;
-#X text 200 24887 clap synth from faust libraries;
-#X obj 30 24915 synth.dubdub~;
-#X text 200 24915 simple synth based on a sawtooth wave filtered by
+#X obj 20 24816 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 24827 synth.bee3~;
+#X text 200 24827 Hammond-oid organ FM synthesis instrument;
+#X obj 30 24855 synth.birds~;
+#X text 200 24855 bird singing generator;
+#X obj 30 24883 synth.church_bell~;
+#X text 200 24883 generic church bell modal model;
+#X obj 30 24911 synth.clap~;
+#X text 200 24911 clap synth from faust libraries;
+#X obj 30 24939 synth.dubdub~;
+#X text 200 24939 simple synth based on a sawtooth wave filtered by
 a resonant lowpass;
-#X obj 30 24955 synth.dx7~;
-#X text 200 24955 FAUST dx7 implementation;
-#X obj 30 24983 synth.eguitar~;
-#X text 200 24983 simple electric guitar model with steel strings;
-#X obj 30 25011 synth.english_bell~;
-#X text 200 25011 english church bell modal model;
-#X obj 30 25039 synth.fgrain~;
-#X text 200 25039 file granulator from STK;
-#X obj 30 25067 synth.french_bell~;
-#X text 200 25067 french church bell modal model;
-#X obj 30 25095 synth.german_bell~;
-#X text 200 25095 german church bell modal model;
-#X obj 30 25123 synth.glass_harm~;
-#X text 200 25123 nonlinear banded waveguide modeled Glass Harmonica;
-#X obj 30 25151 synth.glitch~;
-#X text 200 25151 Glitch synthesizer by naivesound;
-#X obj 30 25179 synth.harpsichord~;
-#X text 200 25179 waveguide commuted harpsichord;
-#X obj 30 25207 synth.hat~;
-#X text 200 25207 hi-hat synth from faust librariest;
-#X obj 30 25235 synth.kick2~;
-#X text 200 25235 low-kick synth from faust librariest;
-#X obj 30 25263 synth.kick~;
-#X text 200 25263 low-kick synth from Guitarix project;
-#X obj 30 25291 synth.ks~;
-#X text 200 25291 Karplus-Strong string;
-#X obj 30 25319 synth.marimba~;
-#X text 200 25319 simple marimba physical model implementing a single
+#X obj 30 24979 synth.dx7~;
+#X text 200 24979 FAUST dx7 implementation;
+#X obj 30 25007 synth.eguitar~;
+#X text 200 25007 simple electric guitar model with steel strings;
+#X obj 30 25035 synth.english_bell~;
+#X text 200 25035 english church bell modal model;
+#X obj 30 25063 synth.fgrain~;
+#X text 200 25063 file granulator from STK;
+#X obj 30 25091 synth.french_bell~;
+#X text 200 25091 french church bell modal model;
+#X obj 30 25119 synth.german_bell~;
+#X text 200 25119 german church bell modal model;
+#X obj 30 25147 synth.glass_harm~;
+#X text 200 25147 nonlinear banded waveguide modeled Glass Harmonica;
+#X obj 30 25175 synth.glitch~;
+#X text 200 25175 Glitch synthesizer by naivesound;
+#X obj 30 25203 synth.harpsichord~;
+#X text 200 25203 waveguide commuted harpsichord;
+#X obj 30 25231 synth.hat~;
+#X text 200 25231 hi-hat synth from faust librariest;
+#X obj 30 25259 synth.kick2~;
+#X text 200 25259 low-kick synth from faust librariest;
+#X obj 30 25287 synth.kick~;
+#X text 200 25287 low-kick synth from Guitarix project;
+#X obj 30 25315 synth.ks~;
+#X text 200 25315 Karplus-Strong string;
+#X obj 30 25343 synth.marimba~;
+#X text 200 25343 simple marimba physical model implementing a single
 tone bar connected to tube;
-#X obj 30 25359 synth.metro~;
-#X text 200 25359 ready to use metronome synth;
-#X obj 30 25387 synth.piano~;
-#X text 200 25387 waveguide commuted piano;
-#X obj 30 25415 synth.rhodey~;
-#X text 200 25415 STK Fender Rhodes electric piano FM synthesis instrument;
-#X obj 30 25443 synth.risset_arp~;
-#X text 200 25443 Jean-Claude Risset's harmonic arpeggio effect;
-#X obj 30 25471 synth.risset_bell~;
-#X text 200 25471 Jean-Claude Risset's bell synth;
-#X obj 30 25499 synth.risset_tone~;
-#X text 200 25499 Jean-Claude Risset's endless glissando;
-#X obj 30 25527 synth.russian_bell~;
-#X text 200 25527 russian church bell modal model;
-#X obj 30 25555 synth.shakers~;
-#X text 200 25555 various percussion sounds from STK library;
-#X obj 30 25583 synth.sitar~;
-#X text 200 25583 STK sitar;
-#X obj 30 25611 synth.snare~;
-#X text 200 25611 Snare drum synth from Guitarix project;
-#X obj 30 25639 synth.standard_bell~;
-#X text 200 25639 german church bell modal model;
-#X obj 30 25667 synth.tube_bell~;
-#X text 200 25667 STK tubular bell (orchestral chime) FM synthesis
+#X obj 30 25383 synth.metro~;
+#X text 200 25383 ready to use metronome synth;
+#X obj 30 25411 synth.piano~;
+#X text 200 25411 waveguide commuted piano;
+#X obj 30 25439 synth.rhodey~;
+#X text 200 25439 STK Fender Rhodes electric piano FM synthesis instrument;
+#X obj 30 25467 synth.risset_arp~;
+#X text 200 25467 Jean-Claude Risset's harmonic arpeggio effect;
+#X obj 30 25495 synth.risset_bell~;
+#X text 200 25495 Jean-Claude Risset's bell synth;
+#X obj 30 25523 synth.risset_tone~;
+#X text 200 25523 Jean-Claude Risset's endless glissando;
+#X obj 30 25551 synth.russian_bell~;
+#X text 200 25551 russian church bell modal model;
+#X obj 30 25579 synth.shakers~;
+#X text 200 25579 various percussion sounds from STK library;
+#X obj 30 25607 synth.sitar~;
+#X text 200 25607 STK sitar;
+#X obj 30 25635 synth.snare~;
+#X text 200 25635 Snare drum synth from Guitarix project;
+#X obj 30 25663 synth.standard_bell~;
+#X text 200 25663 german church bell modal model;
+#X obj 30 25691 synth.tube_bell~;
+#X text 200 25691 STK tubular bell (orchestral chime) FM synthesis
 instrument;
-#X obj 30 25695 synth.voice_fofc~;
-#X text 200 25695 Simple formant/vocal synthesizer with FOF-cycle filterbank.;
-#X obj 30 25723 synth.voice_fofs~;
-#X text 200 25723 Simple formant/vocal synthesizer with FOF-smooth
+#X obj 30 25719 synth.voice_fofc~;
+#X text 200 25719 Simple formant/vocal synthesizer with FOF-cycle filterbank.;
+#X obj 30 25747 synth.voice_fofs~;
+#X text 200 25747 Simple formant/vocal synthesizer with FOF-smooth
 filterbank.;
-#X obj 30 25751 synth.wurley~;
-#X text 200 25751 Wurlitzer electric piano FM synthesis instrument;
-#X obj 619 24760 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 25775 synth.wurley~;
+#X text 200 25775 Wurlitzer electric piano FM synthesis instrument;
+#X obj 619 24784 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 624 24760 звуковой синтез;
-#X obj 20 25779 cnv 5 69 32 empty empty system 4 16 0 17 -262144
+#X text 624 24784 звуковой синтез;
+#X obj 20 25803 cnv 5 69 32 empty empty system 4 16 0 17 -262144
 -49933 0;
-#X obj 20 25821 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 25832 system.colorpanel;
-#X text 200 25832 System color panel dialog popup;
-#X obj 30 25860 system.command;
-#X text 200 25860 запуск цепочек команд с перенаправлением вывода в
+#X obj 20 25845 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 25856 system.colorpanel;
+#X text 200 25856 System color panel dialog popup;
+#X obj 30 25884 system.command;
+#X text 200 25884 запуск цепочек команд с перенаправлением вывода в
 Unix и Windows;
-#X obj 30 25900 system.cursor;
-#X text 200 25900 Output cursor motion \, mousewheel and button clicks;
-#X obj 30 25928 system.exec;
-#X text 200 25928 run external command in separate process;
-#X obj 30 25956 system.exit;
-#X text 200 25956 quit PureData;
-#X obj 30 25984 system.getenv;
-#X text 200 25984 Get system environment variables;
-#X obj 30 26012 system.hostname;
-#X text 200 26012 outputs system hostname;
-#X obj 30 26040 system.info;
-#X text 200 26040 получение информации о системе: ЦПУ и температура;
-#X obj 30 26068 system.memsize;
-#X text 200 26068 returns the size of physical memory (RAM) in bytes
+#X obj 30 25924 system.cursor;
+#X text 200 25924 Output cursor motion \, mousewheel and button clicks;
+#X obj 30 25952 system.exec;
+#X text 200 25952 run external command in separate process;
+#X obj 30 25980 system.exit;
+#X text 200 25980 quit PureData;
+#X obj 30 26008 system.getenv;
+#X text 200 26008 Get system environment variables;
+#X obj 30 26036 system.hostname;
+#X text 200 26036 outputs system hostname;
+#X obj 30 26064 system.info;
+#X text 200 26064 получение информации о системе: ЦПУ и температура;
+#X obj 30 26092 system.memsize;
+#X text 200 26092 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 26108 system.memused;
-#X text 200 26108 returns the process physical memory use - current
+#X obj 30 26132 system.memused;
+#X text 200 26132 returns the process physical memory use - current
 and peak;
-#X obj 30 26136 system.screen_size;
-#X text 200 26136 returns current screen size in pixels;
-#X obj 20 26164 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
-#X obj 20 26206 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 26217 tl.bang;
-#X text 200 26217 Timeline bang (with possible delay);
-#X obj 30 26248 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 200 26245 Timeline section;
-#X obj 30 26270 tl.timeline;
-#X text 200 26270 Timeline - event scheduler;
-#X obj 30 26298 tl.toggle;
-#X text 200 26298 Timeline bang;
-#X obj 30 26326 tl.transport;
-#X text 200 26326 Timeline transport control;
-#X obj 588 26174 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 30 26160 system.screen_size;
+#X text 200 26160 returns current screen size in pixels;
+#X obj 20 26188 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
+#X obj 20 26230 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 26241 tl.bang;
+#X text 200 26241 Timeline bang (with possible delay);
+#X obj 30 26272 ui.link @title [tl.cue] @url tl.cue-help.pd;
+#X text 200 26269 Timeline section;
+#X obj 30 26294 tl.timeline;
+#X text 200 26294 Timeline - event scheduler;
+#X obj 30 26322 tl.toggle;
+#X text 200 26322 Timeline bang;
+#X obj 30 26350 tl.transport;
+#X text 200 26350 Timeline transport control;
+#X obj 588 26198 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 593 26174 работа с таймлайном;
-#X obj 20 26354 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
-#X obj 20 26396 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 26410 ui.link @title [ui.aview] @url ui.aview-help.pd;
-#X text 200 26407 отображение массива с курсором и выбором диапазона;
-#X obj 30 26435 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 200 26432 кнопка отправляющая пустое событие (bang);
-#X obj 30 26460 ui.link @title [ui.button] @url ui.button-help.pd;
-#X text 200 26457 виджет кнопки c двумя состояниями;
-#X obj 30 26485 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
-#X text 200 26482 холст для рисования;
-#X obj 30 26510 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
-#X text 200 26507 многоканальный круговой измеритель уровня сигнала;
-#X obj 30 26535 ui.link @title [ui.colorpanel] @url
+#X text 593 26198 работа с таймлайном;
+#X obj 20 26378 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
+#X obj 20 26420 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 26434 ui.link @title [ui.aview] @url ui.aview-help.pd;
+#X text 200 26431 отображение массива с курсором и выбором диапазона;
+#X obj 30 26459 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 200 26456 кнопка отправляющая пустое событие (bang);
+#X obj 30 26484 ui.link @title [ui.button] @url ui.button-help.pd;
+#X text 200 26481 виджет кнопки c двумя состояниями;
+#X obj 30 26509 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
+#X text 200 26506 холст для рисования;
+#X obj 30 26534 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
+#X text 200 26531 многоканальный круговой измеритель уровня сигнала;
+#X obj 30 26559 ui.link @title [ui.colorpanel] @url
 ui.colorpanel-help.pd;
-#X text 200 26532 виджет выбора цвета;
-#X obj 30 26560 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 200 26557 виджет дисплей;
-#X obj 30 26585 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
-#X text 200 26582 виджет для включения или выключения обработки звука;
-#X obj 30 26610 ui.link @title [ui.env] @url ui.env-help.pd;
-#X text 200 26607 редактор огибающей;
-#X obj 30 26635 ui.link @title [ui.filter] @url ui.filter-help.pd;
-#X text 200 26632 виджет-калькулятор коэффициентов для фильтра [flt.biquad~];
-#X obj 30 26660 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
-#X text 200 26657 виджет звукового фильтра;
-#X obj 30 26685 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
-#X text 200 26682 контроль громкости стерео;
-#X obj 30 26710 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
-#X text 200 26707 контроль громкости;
-#X obj 30 26735 ui.link @title [ui.icon] @url ui.icon-help.pd;
-#X text 200 26732 простая иконка с возможностями нажатия;
-#X obj 30 26760 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
-#X text 200 26757 виджет увеличения или уменьшения значения;
-#X obj 30 26785 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 200 26782 виджет клавиатуры;
-#X obj 30 26810 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 200 26807 виджет ручки;
-#X obj 30 26835 ui.link @title [ui.label] @url ui.label-help.pd;
-#X text 200 26832 простой виджет надписи;
-#X obj 30 26860 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
-#X text 200 26857 черно-белый растровый дисплей;
-#X obj 30 26885 ui.link @title [ui.link] @url ui.link-help.pd;
-#X text 200 26882 виджет гиперссылки;
-#X obj 30 26910 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 200 26907 матрица переключателей;
-#X obj 30 26935 ui.link @title [ui.menu] @url ui.menu-help.pd;
-#X text 200 26932 выпадающее меню;
-#X obj 30 26960 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
-#X text 200 26957 пиковый и RMS уровень сигнала;
-#X obj 30 26985 ui.link @title [ui.midi] @url ui.midi-help.pd;
-#X text 200 26982 окно просмотра MIDI сообщений;
-#X obj 30 27010 ui.link @title [ui.mouse_filter] @url
+#X text 200 26556 виджет выбора цвета;
+#X obj 30 26584 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 200 26581 виджет дисплей;
+#X obj 30 26609 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
+#X text 200 26606 виджет для включения или выключения обработки звука;
+#X obj 30 26634 ui.link @title [ui.env] @url ui.env-help.pd;
+#X text 200 26631 редактор огибающей;
+#X obj 30 26659 ui.link @title [ui.filter] @url ui.filter-help.pd;
+#X text 200 26656 виджет-калькулятор коэффициентов для фильтра [flt.biquad~];
+#X obj 30 26684 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
+#X text 200 26681 виджет звукового фильтра;
+#X obj 30 26709 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
+#X text 200 26706 контроль громкости стерео;
+#X obj 30 26734 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
+#X text 200 26731 контроль громкости;
+#X obj 30 26759 ui.link @title [ui.icon] @url ui.icon-help.pd;
+#X text 200 26756 простая иконка с возможностями нажатия;
+#X obj 30 26784 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
+#X text 200 26781 виджет увеличения или уменьшения значения;
+#X obj 30 26809 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 200 26806 виджет клавиатуры;
+#X obj 30 26834 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 200 26831 виджет ручки;
+#X obj 30 26859 ui.link @title [ui.label] @url ui.label-help.pd;
+#X text 200 26856 простой виджет надписи;
+#X obj 30 26884 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
+#X text 200 26881 черно-белый растровый дисплей;
+#X obj 30 26909 ui.link @title [ui.link] @url ui.link-help.pd;
+#X text 200 26906 виджет гиперссылки;
+#X obj 30 26934 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 200 26931 матрица переключателей;
+#X obj 30 26959 ui.link @title [ui.menu] @url ui.menu-help.pd;
+#X text 200 26956 выпадающее меню;
+#X obj 30 26984 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
+#X text 200 26981 пиковый и RMS уровень сигнала;
+#X obj 30 27009 ui.link @title [ui.midi] @url ui.midi-help.pd;
+#X text 200 27006 окно просмотра MIDI сообщений;
+#X obj 30 27034 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 27007 фильтр событий мыши из UI объектов;
-#X obj 30 27035 ui.link @title [ui.mouse_route] @url
+#X text 200 27031 фильтр событий мыши из UI объектов;
+#X obj 30 27059 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 27032 маршрутизация событий мыши от UI объектов;
-#X obj 30 27060 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 200 27057 числовой бокс;
-#X obj 30 27085 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 200 27082 просмотр числовых значений сигнала;
-#X obj 30 27110 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
-#X text 200 27107 построитель графика для сигналов;
-#X obj 30 27135 ui.link @title [ui.polar] @url ui.polar-help.pd;
-#X text 200 27132 2D слайдер в полярных координатах;
-#X obj 30 27160 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 200 27157 менеджер пресетов;
-#X obj 30 27185 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 27182 радиопереключатель с возможностью множественного
+#X text 200 27056 маршрутизация событий мыши от UI объектов;
+#X obj 30 27084 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 200 27081 числовой бокс;
+#X obj 30 27109 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 200 27106 просмотр числовых значений сигнала;
+#X obj 30 27134 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
+#X text 200 27131 построитель графика для сигналов;
+#X obj 30 27159 ui.link @title [ui.polar] @url ui.polar-help.pd;
+#X text 200 27156 2D слайдер в полярных координатах;
+#X obj 30 27184 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 200 27181 менеджер пресетов;
+#X obj 30 27209 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 200 27206 радиопереключатель с возможностью множественного
 выбора;
-#X obj 30 27210 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 27207 двухдиапазонный слайдер;
-#X obj 30 27235 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 27232 виджет просмотра формы волны;
-#X obj 30 27260 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 27257 виджет слайдера (ползунка);
-#X obj 30 27285 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 27282 2D виджет слайдера;
-#X obj 30 27310 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 27307 виджет многоползункового слайдера;
-#X obj 30 27335 ui.link @title [ui.spectroscope~] @url
+#X obj 30 27234 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 27231 двухдиапазонный слайдер;
+#X obj 30 27259 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 27256 виджет просмотра формы волны;
+#X obj 30 27284 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 27281 виджет слайдера (ползунка);
+#X obj 30 27309 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 27306 2D виджет слайдера;
+#X obj 30 27334 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 27331 виджет многоползункового слайдера;
+#X obj 30 27359 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 27332 виджет просмотрщика спектра;
-#X obj 30 27360 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 27357 список текстовых кнопок или текстовых переключателей;
-#X obj 30 27385 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 27382 cовременный виджет переключателя;
-#X obj 397 26364 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 27356 виджет просмотрщика спектра;
+#X obj 30 27384 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 27381 список текстовых кнопок или текстовых переключателей;
+#X obj 30 27409 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 27406 cовременный виджет переключателя;
+#X obj 397 26388 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 402 26364 объекты графического интерфейса пользователя;
+#X text 402 26388 объекты графического интерфейса пользователя;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 27407 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 27407 version: v0.9.8 \, license: GPL3;
-#X obj 20 27435 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 27431 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 27431 version: v0.9.8 \, license: GPL3;
+#X obj 20 27459 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 27459 ui.link @title Generated with pddoc v0.9.2 @url
+#X obj 20 27483 ui.link @title Generated with pddoc v0.9.2 @url
 https://github.com/uliss/pddoc;
-#X obj 670 27422 loadmsg 0;
-#X obj 670 27457 switch~;
+#X obj 670 27446 loadmsg 0;
+#X obj 670 27481 switch~;
 #X connect 1864 0 1865 0;

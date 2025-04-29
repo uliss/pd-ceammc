@@ -654,7 +654,7 @@ list.conv	convolution for lists / операция свертки для спи�
 list.correlate	lists cross-correlation / взаимная корреляция между списками
 list.count	output the number of items that equal to specified value / выводить количество элементов, равных заданному значению
 list.count_if	output the number of items that satisfy to an side-chain predicate / выводит число элементов, удовлетворяющих внешнему предикату боковой цепи обработки
-list.delta	output the list of differences between the current list and the previous one / выводит список разностей между текущим и предыдущим списком
+list.delta	outputs and saves the list of differences between the current and the previously saved list / выводит и сохраняет список разностей между текущим и предыдущим сохраненным списком
 list.distribution	output list value distribution / выводит список распределения значений в списке
 list.do	iterate and modify the list contents via a side-chain / итерирование и изменение содержимого списка через боковую цепь обработки
 list.each	maps an each list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь обработки
@@ -665,7 +665,7 @@ list.gen	generates a list of the specified length via a side-chain generator / �
 list.histogram	outputs a list distribution histogram / выводит гистограмму распределений списка
 list.hist	outputs a list distribution histogram / выводит гистограмму распределений списка
 list.insert	insert elements into the specified list position / вставляет элементы в указанную позицию в списке
-list.integrator	returns the sum of the previously stored list and the current one
+list.integrator	outputs and stores the list of sums between the previously stored list and the current one / выводит и сохраняет список сумм между ранее сохраненным списком и текущим
 list.last	output the last list element / выводит последний элемент списка
 list.length	output the number of elements in the list / выводит количество элементов в списке
 list.size	output the number of elements in the list / выводит количество элементов в списке

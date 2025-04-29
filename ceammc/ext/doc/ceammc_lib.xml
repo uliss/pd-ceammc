@@ -1183,7 +1183,7 @@
     <entry name="list.count_if" descr="output the number of items that satisfy to an side-chain predicate" ref_view="object">
       <xi:include href="list.count_if.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.delta" descr="output the list of differences between the current list and the previous one" ref_view="object">
+    <entry name="list.delta" descr="outputs and saves the list of differences between the current and the previously saved list" ref_view="object">
       <xi:include href="list.delta.pddoc" parse="xml"/>
     </entry>
     <entry name="list.distribution" descr="output list value distribution" ref_view="object">
@@ -1213,7 +1213,7 @@
     <entry name="list.insert" descr="insert elements into the specified list position" ref_view="object">
       <xi:include href="list.insert.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.integrator" descr="returns the sum of the previously stored list and the current one" ref_view="object">
+    <entry name="list.integrator" descr="outputs and stores the list of sums between the previously stored list and the current one" ref_view="object">
       <xi:include href="list.integrator.pddoc" parse="xml"/>
     </entry>
     <entry name="list.last" descr="output the last list element" ref_view="object">

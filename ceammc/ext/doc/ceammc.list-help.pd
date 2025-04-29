@@ -41,8 +41,8 @@ value;
 #X text 200 529 output the number of items that satisfy to an side-chain
 predicate;
 #X obj 30 569 list.delta;
-#X text 200 569 output the list of differences between the current
-list and the previous one;
+#X text 200 569 outputs and saves the list of differences between the
+current and the previously saved list;
 #X obj 30 609 list.distribution;
 #X text 200 609 output list value distribution;
 #X obj 30 637 list.do;
@@ -63,8 +63,8 @@ generator;
 #X obj 30 845 list.insert;
 #X text 200 845 insert elements into the specified list position;
 #X obj 30 873 list.integrator;
-#X text 200 873 returns the sum of the previously stored list and the
-current one;
+#X text 200 873 outputs and stores the list of sums between the previously
+stored list and the current one;
 #X obj 30 913 list.last;
 #X text 200 913 output the last list element;
 #X obj 30 941 list.length;
