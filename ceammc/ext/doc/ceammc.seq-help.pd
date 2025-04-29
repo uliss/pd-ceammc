@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 451 50 cnv 1 289 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 456 50 traversing the data in a various ways;
+#X obj 359 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 364 50 sequencers: traversing the data in a various ways;
 #X obj 30 117 seq.arp;
 #X text 200 117 chord arpeggiator;
 #X obj 30 145 seq.bangs;

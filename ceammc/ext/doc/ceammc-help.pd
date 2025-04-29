@@ -1673,9 +1673,9 @@ intervals;
 #X text 200 22287 toggle sequencer;
 #X obj 30 22315 sequencer;
 #X text 200 22315 basic sequence player;
-#X obj 451 22048 cnv 1 289 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 359 22048 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 456 22048 traversing the data in a various ways;
+#X text 364 22048 sequencers: traversing the data in a various ways;
 #X obj 20 22343 cnv 5 37 32 empty empty snd 4 16 0 17 -262144 -49933
 0;
 #X obj 20 22385 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
