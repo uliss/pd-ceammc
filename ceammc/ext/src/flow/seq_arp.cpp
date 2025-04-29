@@ -12,15 +12,21 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_arp.h"
-#include "ceammc_convert.h"
+#include "args/argcheck.h"
+#include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
 
-static t_symbol* SYM_FIRST;
-static t_symbol* SYM_LAST;
-static t_symbol* SYM_RANDOM;
-static t_symbol* SYM_ALL;
+CEAMMC_DEFINE_SYM_HASH(first)
+CEAMMC_DEFINE_SYM_HASH(last)
+CEAMMC_DEFINE_SYM_HASH(random)
+CEAMMC_DEFINE_SYM_HASH(all)
+CEAMMC_DEFINE_SYM_HASH(f)
+CEAMMC_DEFINE_SYM_HASH(l)
+CEAMMC_DEFINE_SYM_HASH(r)
+CEAMMC_DEFINE_SYM_HASH(a)
 
 SeqArp::SeqArp(const PdArgs& args)
     : BaseObject(args)
@@ -76,137 +82,41 @@ void SeqArp::onBang()
 
 void SeqArp::m_on(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("MODE:s=first|last|random|all|f|l|r|a?"
+                                      " VEL:f[1,127]?"
+                                      " NOTES:i>0?");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
     const auto& chord = chord_->value();
     if (chord.empty()) {
         METHOD_ERR(s) << "empty chord";
         return;
     }
 
-    const t_symbol* mode = lv.symbolAt(0, SYM_FIRST);
-    const auto cmode = mode->s_name[0];
-    const auto velocity = clip<t_float, 1, 127>(lv.floatAt(1, 127));
-    const int count = lv.intAt(2, 1);
+    const auto mode = lv.symbolAt(0, sym_first());
+    const auto velocity = lv.floatAt(1, 127);
+    const auto count = lv.intAt(2, 1);
 
-    auto usage = [this, s]() -> void {
-        METHOD_ERR(s) << "usage: on MODE(f[irst]|l[ast]|r[andom]|a[ll]) VELOCITY NUM";
-    };
-
-    if (count < 1) {
-        METHOD_ERR(s) << "invalid number of notes to turn on: " << count;
-        return usage();
-    }
-
-    Atom midi[2];
-    midi[1].setFloat(velocity, true);
-    AtomListView notev(&midi[0].atom(), 2);
-    // should be equal
-    const auto MAX = std::min<size_t>(on_offs_.size(), chord.size());
-
-    if (mode == SYM_FIRST || cmode == 'f') {
-        int num = count;
-
-        for (size_t i = 0; i < MAX && num > 0; i++) {
-            if (!on_offs_[i]) {
-                on_offs_[i] = true;
-                num -= 1;
-                midi[0] = chord[i];
-
-                floatTo(1, ++nactive_);
-                listTo(0, notev);
-            }
-        }
-    } else if (mode == SYM_LAST || cmode == 'l') {
-        int num = count;
-
-        for (size_t i = 0; i < MAX && num > 0; i++) {
-            const auto idx = MAX - (i + 1);
-            if (!on_offs_[idx]) {
-                on_offs_[idx] = true;
-                num -= 1;
-                midi[0] = chord[idx];
-
-                floatTo(1, ++nactive_);
-                listTo(0, notev);
-            }
-        }
-    } else if (mode == SYM_ALL || cmode == 'a') {
-        for (size_t i = 0; i < MAX; i++) {
-            if (!on_offs_[i]) {
-                on_offs_[i] = true;
-                midi[0] = chord[i];
-
-                floatTo(1, ++nactive_);
-                listTo(0, notev);
-            }
-        }
-    } else {
-        METHOD_ERR(s) << "unknown mode: " << s;
-        return usage();
-    }
+    processOnOff(crc32_hash(mode), true, velocity, count);
 }
 
 void SeqArp::m_off(t_symbol* s, const AtomListView& lv)
 {
-    const t_symbol* mode = lv.symbolAt(0, SYM_FIRST);
-    const auto cmode = mode->s_name[0];
+    static const args::ArgChecker chk("MODE:s=first|last|random|all|f|l|r|a? NOTES:i>0?");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
+    const auto& chord = chord_->value();
+    if (chord.empty()) {
+        METHOD_ERR(s) << "empty chord";
+        return;
+    }
+
+    const auto mode = lv.symbolAt(0, sym_first());
     const int count = lv.intAt(1, 1);
 
-    auto usage = [this, s]() -> void {
-        METHOD_ERR(s) << "usage: off MODE(f[irst]|l[ast]|r[andom]|a[ll]) NUM";
-    };
-
-    if (count < 1) {
-        METHOD_ERR(s) << "invalid number of notes to off, expected >= 1";
-        return usage();
-    }
-
-    Atom midi[2];
-    midi[1].setFloat(0, true);
-    AtomListView notev(&midi[0].atom(), 2);
-    // should be equal
-    const auto MAX = std::min<size_t>(on_offs_.size(), chord_->value().size());
-
-    if (mode == SYM_FIRST || cmode == 'f') {
-        int num = count;
-
-        for (size_t i = 0; i < MAX && num > 0; i++) {
-            if (on_offs_[i]) {
-                on_offs_[i] = 0;
-                num -= 1;
-                midi[0].setFloat(chord_->value().at(i).asFloat(), true);
-
-                floatTo(1, --nactive_);
-                listTo(0, notev);
-            }
-        }
-    } else if (mode == SYM_LAST || cmode == 'l') {
-        int num = count;
-
-        for (size_t i = 0; i < MAX && num > 0; i++) {
-            const auto idx = MAX - (i + 1);
-            if (on_offs_[idx]) {
-                on_offs_[idx] = 0;
-                num -= 1;
-                midi[0].setFloat(chord_->value().at(idx).asFloat(), true);
-
-                floatTo(1, --nactive_);
-                listTo(0, notev);
-            }
-        }
-    } else if (mode == SYM_ALL || cmode == 'a') {
-        for (size_t i = 0; i < MAX; i++) {
-            if (on_offs_[i]) {
-                on_offs_[i] = 0;
-                midi[0].setFloat(chord_->value().at(i).asFloat(), true);
-
-                floatTo(1, --nactive_);
-                listTo(0, notev);
-            }
-        }
-    } else {
-        METHOD_ERR(s) << "unknown mode: " << s;
-        return usage();
-    }
+    processOnOff(crc32_hash(mode), false, 0, count);
 }
 
 void SeqArp::m_reset(t_symbol* s, const AtomListView& lv)
@@ -218,53 +128,145 @@ void SeqArp::m_reset(t_symbol* s, const AtomListView& lv)
 
 void SeqArp::m_asr(t_symbol* s, const AtomListView& lv)
 {
-    const auto dur_ms = lv.floatAt(0, 0);
-    if (dur_ms <= 0) {
-        METHOD_ERR(s) << "positive step duration value expected, got: " << dur_ms;
+    static const args::ArgChecker chk("STEP_DUR:f>0"
+                                      " ATTACK:s=first|last|random|all|f|l|r|a"
+                                      " HOLD:i>0"
+                                      " RELEASE:s=first|last|random|all|f|l|r|a");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
+    const auto& chord = chord_->value();
+    if (chord.empty()) {
+        METHOD_ERR(s) << "empty chord";
         return;
     }
 
-    auto usage = [this, s]() -> void {
-        METHOD_ERR(s) << "usage: asr STEP_DUR(ms) ATTACK_MODE(all|first|last) HOLD_STEPS RELEASE_MODE(all|first|last)";
-    };
-
-    auto is_valid_mode = [](const t_symbol* s) -> bool {
-        return s == SYM_ALL || s == SYM_FIRST || s == SYM_LAST;
-    };
-
-    const auto on_mode = lv.symbolAt(1, &s_);
-    if (!is_valid_mode(on_mode)) {
-        METHOD_ERR(s) << "invalid attack mode: " << lv[1];
-        return usage();
-    }
-
-    const auto hold_steps = lv.intAt(2, 0);
-    if (hold_steps <= 0) {
-        METHOD_ERR(s) << "positive hold steps value expected, got: " << lv[2];
-        return usage();
-    }
-
-    const auto off_mode = lv.symbolAt(3, &s_);
-    if (!is_valid_mode(off_mode)) {
-        METHOD_ERR(s) << "invalid release mode: " << lv[3];
-        return usage();
-    }
-
-    asr_data_.step_duration_ms = dur_ms;
-    asr_data_.hold_steps = hold_steps;
-    asr_data_.on_mode = on_mode;
-    asr_data_.off_mode = off_mode;
+    asr_data_.step_duration_ms = lv.floatAt(0, 1);
+    asr_data_.on_mode = lv.symbolAt(1, sym_all());
+    asr_data_.hold_steps = lv.intAt(2, 1);
+    asr_data_.off_mode = lv.symbolAt(3, sym_all());
     asr_data_.state = AsrData::ATTACK;
     asr_clock_.exec();
 }
 
+bool SeqArp::findFirstMatchedNote(size_t from, size_t mode, bool state, size_t* idx) const
+{
+    switch (mode) {
+    case hash_all:
+    case hash_a:
+    case hash_first:
+    case hash_f:
+        for (size_t i = from; i < on_offs_.size(); i++) {
+            if (on_offs_[i] != state) {
+                *idx = i;
+                return true;
+            }
+        }
+        break;
+    case hash_last:
+    case hash_l:
+        for (size_t i = from; i < on_offs_.size(); i++) {
+            auto ri = on_offs_.size() - (i + 1);
+            if (on_offs_[ri] != state) {
+                *idx = ri;
+                return true;
+            }
+        }
+        break;
+    case hash_random:
+    case hash_r: {
+        auto suitable_notes_num = std::count_if(on_offs_.begin(), on_offs_.end(), [state](std::uint8_t x) {
+            return x != state;
+        });
+
+        if (suitable_notes_num == 0) {
+            *idx = 0;
+            return false;
+        }
+
+        std::uniform_int_distribution<typeof(suitable_notes_num)> dist(0, suitable_notes_num - 1);
+        // choose random suitable note
+        auto nth_random = dist(rng_);
+
+        // find nth suitable note
+        int count = 0;
+        auto which = std::find_if(on_offs_.begin(), on_offs_.end(), [&count, state, nth_random](std::uint8_t x) {
+            return (x != state && count++ == nth_random);
+        });
+
+        // should not happen
+        if (which == on_offs_.end()) {
+            return false;
+        } else {
+            *idx = std::distance(on_offs_.begin(), which);
+            return true;
+        }
+
+    } break;
+    default:
+        OBJ_ERR << "invalid mode: " << mode;
+        break;
+    }
+
+    return false;
+}
+
+void SeqArp::outputNoteMessage(size_t idx, t_float vel, int nactive)
+{
+    if (idx >= chord_->value().size())
+        return;
+
+    AtomArray<2> midi;
+    midi[0] = chord_->value()[idx];
+    midi[1] = vel;
+
+    floatTo(1, nactive);
+    listTo(0, midi.view());
+}
+
+void SeqArp::processOnOff(size_t mode_hash, bool state, t_float vel, int num)
+{
+    switch (mode_hash) {
+    case hash_first:
+    case hash_f: {
+        size_t idx = 0;
+        while (findFirstMatchedNote(idx, mode_hash, state, &idx) && num-- > 0) {
+            on_offs_[idx] = state;
+            outputNoteMessage(idx, vel, state ? ++nactive_ : --nactive_);
+        }
+    } break;
+    case hash_last:
+    case hash_l: {
+        size_t idx = 0;
+        while (findFirstMatchedNote(0, mode_hash, state, &idx) && num-- > 0) {
+            on_offs_[idx] = state;
+            outputNoteMessage(idx, vel, state ? ++nactive_ : --nactive_);
+        }
+    } break;
+    case hash_random:
+    case hash_r: {
+        size_t idx = 0;
+        while (findFirstMatchedNote(0, mode_hash, state, &idx) && num-- > 0) {
+            on_offs_[idx] = state;
+            outputNoteMessage(idx, vel, state ? ++nactive_ : --nactive_);
+        }
+    } break;
+    case hash_all:
+    case hash_a: {
+        size_t idx = 0;
+        while (findFirstMatchedNote(idx, mode_hash, state, &idx)) {
+            on_offs_[idx] = state;
+            outputNoteMessage(idx, vel, state ? ++nactive_ : --nactive_);
+        }
+    } break;
+    default:
+        OBJ_ERR << "unknown note mode: " << mode_hash;
+        break;
+    }
+}
+
 void setup_seq_arp()
 {
-    SYM_FIRST = gensym("first");
-    SYM_LAST = gensym("last");
-    SYM_RANDOM = gensym("random");
-    SYM_ALL = gensym("all");
-
     ObjectFactory<SeqArp> obj("seq.arp");
     obj.addMethod("on", &SeqArp::m_on);
     obj.addMethod("off", &SeqArp::m_off);
@@ -274,5 +276,5 @@ void setup_seq_arp()
 
     obj.setDescription("sequence arpeggiator");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "arpeggio", "pattern"});
+    obj.setKeywords({ "seq", "arpeggio", "pattern" });
 }
