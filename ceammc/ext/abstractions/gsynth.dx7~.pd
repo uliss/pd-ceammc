@@ -85,7 +85,7 @@
 #X msg 260 584 @op0:detune \$1;
 #X obj 12 614 ui.number @size 60 12 @label op0:freq: @label_side top
 @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.dx7~/numbox13 @min 0 @max 2 @step 0.01;
+/gui/\$1/synth.dx7~/numbox13 @min 0 @max 32 @step 0.01;
 #X msg 260 614 @op0:freq \$1;
 #X obj 12 644 ui.number @size 60 12 @label op0:level: @label_side top
 @label_align left @fontsize 10 @presetname
@@ -141,7 +141,7 @@ top @label_align left @fontsize 10 @presetname
 #X msg 260 1004 @op1:detune \$1;
 #X obj 12 1034 ui.number @size 60 12 @label op1:freq: @label_side top
 @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.dx7~/numbox27 @min 0 @max 2 @step 0.01;
+/gui/\$1/synth.dx7~/numbox27 @min 0 @max 32 @step 0.01;
 #X msg 260 1034 @op1:freq \$1;
 #X obj 12 1064 ui.number @size 60 12 @label op1:level: @label_side top
 @label_align left @fontsize 10 @presetname
@@ -197,7 +197,7 @@ top @label_align left @fontsize 10 @presetname
 #X msg 260 1424 @op2:detune \$1;
 #X obj 12 1454 ui.number @size 60 12 @label op2:freq: @label_side top
 @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.dx7~/numbox41 @min 0 @max 2 @step 0.01;
+/gui/\$1/synth.dx7~/numbox41 @min 0 @max 32 @step 0.01;
 #X msg 260 1454 @op2:freq \$1;
 #X obj 12 1484 ui.number @size 60 12 @label op2:level: @label_side top
 @label_align left @fontsize 10 @presetname
@@ -253,7 +253,7 @@ top @label_align left @fontsize 10 @presetname
 #X msg 260 1844 @op3:detune \$1;
 #X obj 12 1874 ui.number @size 60 12 @label op3:freq: @label_side top
 @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.dx7~/numbox55 @min 0 @max 2 @step 0.01;
+/gui/\$1/synth.dx7~/numbox55 @min 0 @max 32 @step 0.01;
 #X msg 260 1874 @op3:freq \$1;
 #X obj 12 1904 ui.number @size 60 12 @label op3:level: @label_side top
 @label_align left @fontsize 10 @presetname
@@ -309,7 +309,7 @@ top @label_align left @fontsize 10 @presetname
 #X msg 260 2264 @op4:detune \$1;
 #X obj 12 2294 ui.number @size 60 12 @label op4:freq: @label_side top
 @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.dx7~/numbox69 @min 0 @max 2 @step 0.01;
+/gui/\$1/synth.dx7~/numbox69 @min 0 @max 32 @step 0.01;
 #X msg 260 2294 @op4:freq \$1;
 #X obj 12 2324 ui.number @size 60 12 @label op4:level: @label_side top
 @label_align left @fontsize 10 @presetname
@@ -365,7 +365,7 @@ top @label_align left @fontsize 10 @presetname
 #X msg 260 2684 @op5:detune \$1;
 #X obj 12 2714 ui.number @size 60 12 @label op5:freq: @label_side top
 @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.dx7~/numbox83 @min 0 @max 2 @step 0.01;
+/gui/\$1/synth.dx7~/numbox83 @min 0 @max 32 @step 0.01;
 #X msg 260 2714 @op5:freq \$1;
 #X obj 12 2744 ui.number @size 60 12 @label op5:level: @label_side top
 @label_align left @fontsize 10 @presetname
