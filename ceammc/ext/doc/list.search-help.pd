@@ -6,31 +6,31 @@ input list;
 #X obj 1 1 cnv 5 765 40 empty empty list.search 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.search;
-#X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Returns item position in list or -1 if not found.;
-#X text 215 105 If several items are specified returns list of positions.;
-#X msg 50 168 1 2 3 4;
-#X msg 146 168 list ABC BC A;
-#X floatatom 203 197 5 0 0 0 - - -;
-#X msg 270 197 3 2;
-#X obj 50 226 list.search A;
-#X obj 50 255 ui.dt;
-#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 310 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 210 93 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 93 Returns item position in list or -1 if not found.;
+#X text 215 118 If several items are specified returns list of positions.;
+#X msg 50 181 1 2 3 4;
+#X msg 146 181 list ABC BC A;
+#X floatatom 203 210 5 0 0 0 - - -;
+#X msg 270 210 3 2;
+#X obj 50 239 list.search A;
+#X obj 50 268 ui.dt;
+#X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 323 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 311 1\.;
-#X text 150 311 *list*;
-#X text 245 311 input list.;
-#X text 150 331 *data:mlist*;
-#X text 245 331 input mlist.;
-#X text 110 351 2\.;
-#X text 150 351 *list*;
-#X text 245 351 set searched items.;
-#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 324 1\.;
+#X text 150 324 *list*;
+#X text 245 324 input list.;
+#X text 150 344 *data:mlist*;
+#X text 245 344 input mlist.;
+#X text 110 364 2\.;
+#X text 150 364 *list*;
+#X text 245 364 set searched items.;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 387 1\.;
-#X text 245 387 position of search item or list of such positions.;
+#X text 110 400 1\.;
+#X text 245 400 position of search item or list of such positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

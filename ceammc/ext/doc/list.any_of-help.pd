@@ -6,35 +6,35 @@ by the processing sidechain;
 #X obj 1 1 cnv 5 765 40 empty empty list.any_of 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 list.any_of;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Note: also data.mlist;
-#X msg 50 143 1 2;
-#X msg 107 143 1 2 3 4;
-#X msg 203 143 (1 2 3 5) \, bang;
-#X obj 203 172 ml;
-#X obj 50 201 list.any_of;
-#X obj 242 201 > 3;
-#X floatatom 50 230 5 0 0 0 - - -;
-#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 267 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 210 93 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 93 Note: also data.mlist;
+#X msg 50 156 1 2;
+#X msg 107 156 1 2 3 4;
+#X msg 203 156 (1 2 3 5) \, bang;
+#X obj 203 185 ml;
+#X obj 50 214 list.any_of;
+#X obj 242 214 > 3;
+#X floatatom 50 243 5 0 0 0 - - -;
+#X obj 20 275 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 280 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 268 1\.;
-#X text 150 268 *list*;
-#X text 245 268 Input list.;
-#X text 150 288 *data*;
-#X text 245 288 Input mlist.;
-#X text 110 308 2\.;
-#X text 150 308 *float*;
-#X text 245 308 input value from predicate. "1" means accepted. "0"
+#X text 110 281 1\.;
+#X text 150 281 *list*;
+#X text 245 281 Input list.;
+#X text 150 301 *data*;
+#X text 245 301 Input mlist.;
+#X text 110 321 2\.;
+#X text 150 321 *float*;
+#X text 245 321 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1\.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 358 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 359 1\.;
-#X text 245 359 1 - if predicate object returns true for all the elements
+#X text 110 372 1\.;
+#X text 245 372 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 394 2\.;
-#X text 245 394 atom to predicate.;
+#X text 110 407 2\.;
+#X text 245 407 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
