@@ -1671,6 +1671,10 @@ roll;
 #X text 200 22176 Control for Digitech Whammy pedal;
 #X obj 30 22204 proto.xtouch_ext;
 #X text 200 22204 Behringer XTouch Extender XMidi protocol;
+#X obj 274 21685 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 279 21685 работа с различными протоколами сообщений и форматами
+данных;
 #X obj 20 22232 cnv 5 68 32 empty empty random 4 16 0 17 -262144
 -49933 0;
 #X obj 20 22274 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -2095,4 +2099,4 @@ https://github.com/uliss/pure-data;
 https://github.com/uliss/pddoc;
 #X obj 670 27494 loadmsg 0;
 #X obj 670 27529 switch~;
-#X connect 1866 0 1867 0;
+#X connect 1868 0 1869 0;

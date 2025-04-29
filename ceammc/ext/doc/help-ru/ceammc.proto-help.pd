@@ -2,6 +2,9 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 274 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 279 50 работа с различными протоколами сообщений и форматами
+данных;
 #X obj 30 117 proto.arturia.minilab;
 #X text 200 117 simple SysEx control for Arturia MiniLab;
 #X obj 30 145 proto.feelworld;
