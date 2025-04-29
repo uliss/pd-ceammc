@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">rotates list</tr>
+                <tr lang="en">a cyclic list rotation by an integer number of steps</tr>
+                <tr lang="ru">циклическое вращение списка на целое число шагов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

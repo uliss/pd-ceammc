@@ -8,8 +8,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">returns the difference between the current list of floats and the
-                previous one.</tr>
+                <tr lang="en">output the list of differences between the current list and the
+                previous one</tr>
+                <tr lang="ru">выводит список разностей между текущим и предыдущим списком</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 299 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 299 50 checks if at least one list element is accepted by predicate;
+#X obj 292 50 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 292 50 checks whether at least one list element has been accepted
+by the processing sidechain;
 #X obj 1 1 cnv 5 765 40 empty empty list.any_of 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 list.any_of;

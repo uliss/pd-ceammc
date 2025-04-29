@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">on input index(es) outputs list element(s)</tr>
+                <tr lang="en">outputs elements from a predefined list based on an input list of indices</tr>
+                <tr lang="ru">выводит элементы предварительно заданного списка по входящему списку индексов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -63,7 +64,7 @@
 |    |
 [list.^at A B C D E F G H]
 |
-[ui.display @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 468 50 prepend atom or list before input list;
+#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 484 50 insert elements into a list begining;
 #X obj 1 1 cnv 5 765 40 empty empty list.prepend 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 list.prepend;
@@ -18,7 +18,7 @@
 #X obj 136 172 str test1;
 #X obj 318 172 str ANOTHER STRING;
 #X obj 50 215 list.prepend "@prop" ABC;
-#X obj 50 244 ui.display @display_type 1;
+#X obj 50 244 ui.dt;
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 299 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

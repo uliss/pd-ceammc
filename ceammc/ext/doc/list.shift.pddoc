@@ -8,7 +8,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">shifts the contents of the list with linear interpolation</tr>
+                <tr lang="en">cyclic shift of a list by a real number with a linear
+                Interpolation</tr>
+                <tr lang="ru">циклический сдвиг списка на вещественное число с линейной
+                интерполяцией</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

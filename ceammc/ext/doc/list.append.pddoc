@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">append atom or list to the end of input list</tr>
+                <tr lang="en">append elements to the end of a list</tr>
+                <tr lang="ru">добавляет элементы в конец списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

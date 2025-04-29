@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">outputs random element from list</tr>
+                <tr lang="ru">вывод случайного элемента из списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

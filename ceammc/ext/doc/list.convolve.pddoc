@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convolution for lists</tr>
+                <tr lang="ru">операция свертки для списков</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

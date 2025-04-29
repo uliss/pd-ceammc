@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">list cross-correlation</tr>
+                <tr lang="en">lists cross-correlation</tr>
+                <tr lang="ru">взаимная корреляция между списками</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

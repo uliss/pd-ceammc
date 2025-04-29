@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if all list atoms accepted by predicate</tr>
+                <tr lang="en">checks whether all elements of the list have been accepted by the predicate of the side chain processing</tr>
+                <tr lang="ru">проверяет, все ли элементы списка были приняты предикатом боковой цепи обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">resample list with specified ratio</tr>
+                <tr lang="en">resamples the values in the list with the specified length ratio</tr>
+                <tr lang="ru">пересемплирует значения в списке с указанным соотношением длины</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

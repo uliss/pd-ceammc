@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">numeric sequence list generator</tr>
+                <tr lang="en">generates a sequence of numbers in the form of a list</tr>
+                <tr lang="ru">генерирует последовательноть чисел в виде списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

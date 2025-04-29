@@ -1,14 +1,14 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 400 50 cnv 1 365 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 400 50 splits list to N lists \, each to separate output;
+#X obj 308 50 cnv 1 457 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 308 50 unpacks the input list into N lists of interleaved elements;
 #X obj 1 1 cnv 5 765 40 empty empty list.unzip 20 20 0 20 -104026
 -4096 0;
 #X obj 519 11 list.deinterleave;
 #X obj 667 11 list.unzip;
 #X obj 210 80 cnv 1 555 130 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 For N = 2 and list elements [1 2 3 4] we get [1 3] on
-output 1 and [2 4] on output 2\.;
+the first outlet and [2 4] on the second one;
 #X text 215 120 If input value is [1 2 3 4 5] the output depends on
 split method.;
 #X text 215 160 If @min method used \, output is [1 3 5] and [2 4].

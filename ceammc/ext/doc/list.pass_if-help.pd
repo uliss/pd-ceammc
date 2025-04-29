@@ -1,14 +1,14 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 445 50 leave only elements accepted by predicate;
+#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 361 50 leave only elements accepted by side-chain predicate;
 #X obj 1 1 cnv 5 765 40 empty empty list.pass_if 20 20 0 20 -104026
 -4096 0;
 #X obj 548 11 list.filter;
 #X obj 653 11 list.pass_if;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Predicate object should accept atom and output 0 (remove
-element) or 1 (leave element).;
+element) or 1 (leave element);
 #X msg 50 158 10;
 #X msg 338 158 10;
 #X obj 50 187 list.seq;

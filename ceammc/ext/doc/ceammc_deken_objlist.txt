@@ -554,7 +554,7 @@ flt.resonbp~	simple resonant bandpass filter / простой резонансн
 flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
 flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
 flt.speaker~	speaker emulation band-pass filter / полосовой фильтр-эмуляция динамика
-fx.bitdown~	a bit downer and downsampler effect / понижение разрядности и эффект даунсемплинга
+fx.bitdown~	a bit downer and downsampler effect / понижение разрядности входного сигнала и эффект даунсемплинга
 fx.chorus~	chorus effect / хорус-эффект
 fx.dattorro~	Dattorro reverb / реверберация Dattorro
 fx.delay~	smooth delay with a feedback control / плавный дилей с контролем обратной связи
@@ -639,91 +639,91 @@ lfo.pulse~	full-range unit-amplitude low frequency pulse train / прямоуг�
 lfo.saw~	full-range unit-amplitude low frequency saw / низкочастотная пилообразная волна в диапазоне [-1,+1]
 lfo.square~	zero-mean unit-amplitude low frequency square wave / низкочастотная квадратная волна единичной амплитуды с нулевым средним значением
 lfo.tri~	zero-mean unit-amplitude low frequency triangle wave / низкочастотная треугольная волна единичной амплитуды с нулевым средним значением
-list.^at	on input index(es) outputs list element(s)
-list.^contains	checks if input atom is found in the list
-list.^search	on input atom returns it index in list
-list.all_of	checks if all list atoms accepted by predicate
-list.any_of	checks if at least one list element is accepted by predicate
-list.append	append atom or list to the end of input list
-list.apply_to	modifies list value at specified position, filtering it via external object
-list.at	outputs list element(s) at specified index(es)
-list.choice	outputs random element from list
-list.contains	checks if input list contains specified atoms
-list.convolve	convolution for lists
-list.conv	convolution for lists
-list.correlate	list cross-correlation
-list.count	output the number of items that equal to specified value
-list.count_if	output the number of items that satisfy to external predicate
-list.delta	returns the difference between the current list of floats and the previous one.
-list.distribution	list value distribution
-list.do	iterate and modify list contents via side-chain
-list.each	maps each list value via external side-chain
-list.enumerate	enumerates input list
-list.equal	checks if given lists are equal
-list.first	returns first list element
-list.gen	generates list of specified length via external generator
-list.histogram	outputs distribution histogram
-list.hist	outputs distribution histogram
-list.insert	insert atom or list to the specified position of input list
-list.integrator	returns the sum of the previously stored list and the current one then stores this sum
-list.last	output last list element
-list.length	output the number of atoms in the list
-list.size	output the number of atoms in the list
+list.^at	outputs elements from a predefined list based on an input list of indices / выводит элементы предварительно заданного списка по входящему списку индексов
+list.^contains	checks whether the predefined list contains the input element / проверяет, содержит ли предварительно заданный список входной элемент
+list.^search	outputs the indices of the found input elements in a predefined list / выводит индексы найденных входных элементов в предварительно заданном списке
+list.all_of	checks whether all elements of the list have been accepted by the predicate of the side chain processing / проверяет, все ли элементы списка были приняты предикатом боковой цепи обработки
+list.any_of	checks whether at least one list element has been accepted by the processing sidechain / проверяет, был ли принят хотя бы один элемент списка предикатом боковой цепи обработки
+list.append	append elements to the end of a list / добавляет элементы в конец списка
+list.apply_to	modifies specified list elements via a side-chain / обрабатывает указанные элементы списка через боковую церь обработки
+list.at	outputs the previously specified elements of the input list / выводит предварительно указанные элементы входящего списка
+list.choice	outputs random element from list / вывод случайного элемента из списка
+list.contains	checks if the input list contains specified elements / проверяет, содержит ли входной список предварительно указанные элементы
+list.convolve	convolution for lists / операция свертки для списков
+list.conv	convolution for lists / операция свертки для списков
+list.correlate	lists cross-correlation / взаимная корреляция между списками
+list.count	output the number of items that equal to specified value / выводить количество элементов, равных заданному значению
+list.count_if	output the number of items that satisfy to an side-chain predicate / выводит число элементов, удовлетворяющих внешнему предикату боковой цепи обработки
+list.delta	output the list of differences between the current list and the previous one / выводит список разностей между текущим и предыдущим списком
+list.distribution	output list value distribution / выводит список распределения значений в списке
+list.do	iterate and modify the list contents via a side-chain / итерирование и изменение содержимого списка через боковую цепь обработки
+list.each	maps an each list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь обработки
+list.enumerate	enumerates list elements / нумерует элементы списка
+list.equal	list equal check / проверка списков на равенство
+list.first	output the first list element / выводит первый элемент списка
+list.gen	generates a list of the specified length via a side-chain generator / генерирует список указанной длины через генератор боковой цепи
+list.histogram	outputs a list distribution histogram / выводит гистограмму распределений списка
+list.hist	outputs a list distribution histogram / выводит гистограмму распределений списка
+list.insert	insert elements into the specified list position / вставляет элементы в указанную позицию в списке
+list.integrator	returns the sum of the previously stored list and the current one
+list.last	output the last list element / выводит последний элемент списка
+list.length	output the number of elements in the list / выводит количество элементов в списке
+list.size	output the number of elements in the list / выводит количество элементов в списке
 list.map	map list values by specified dictionary
-list.max	output the largest element in the list
-list.mean	calculates average of list of floats
-list.average	calculates average of list of floats
-list.min	returns smallest element in the list
-list.none_of	checks if none of list atoms is accepted by predicate
-list.normalize	normalizes float list values to get their sum = 1.0
-list.pass	leave in list only specified elements
-list.pass_if	leave only elements accepted by predicate
-list.filter	leave only elements accepted by predicate
-list.prepend	prepend atom or list before input list
-list.product	calculates product of floats in list
-list.range	output list smallest and largest value
-list.minmax	output list smallest and largest value
-list.reduce	apply function of two arguments cumulatively to the list
-list.foldl	apply function of two arguments cumulatively to the list
-list.reject	remove specified element from list
-list.remove	remove list element(s) at specified positions
-list.remove_if	remove elements by predicate
-list.repack	repack list to specified size
-list.repeat	output new list by repeating input list specified times
-list.resample	resample list with specified ratio
-list.r	resample list with specified ratio
-list.resize	changes list size
-list.reverse	reverses the order of the elements in the list
-list.rldecode	Run-length list decoder (RLE)
-list.unwrap	Run-length list decoder (RLE)
-list.rlencode	RLE (run-length encoding) for lists
-list.wrap	RLE (run-length encoding) for lists
-list.rotate	rotates list
-list.<<	rotates list
-list.>>	rotates list
-list.route	acts like [route] but for lists
-list.rundiff	running difference
-list.runsum	running sum
-list.search	search specified items in input list
-list.separate	sends list elements one by one separately
-list.sep	sends list elements one by one separately
-list.seq	numeric sequence list generator
-list.set	set list value at specified position
-list.shift	shifts the contents of the list with linear interpolation
-list.shuffle	randomly rearranges elements in list
-list.slice	extract sublist
-list.sort	sorts list values by ascending order
-list.sort_with	sort list with user defined side-chain
-list.split	splits list into two parts, the length of first list is specified by the argument
-list.stretch	stretches list - changes its size with linear interpolation
-list.sum	calculates sum of floats in list
-list.unique	removes duplicates from input list
-list.unpack	unpack list elements to separate outlets
-list.unzip	splits list to N lists, each to separate output
-list.deinterleave	splits list to N lists, each to separate output
-list.walk	walks through the list
-list.zip	takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).
-list.interleave	takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).
+list.max	output the largest list element / выводит самый большой элемент в списке
+list.mean	calculates the average value in a list / вычисляет среднее значение в списке
+list.average	calculates the average value in a list / вычисляет среднее значение в списке
+list.min	returns a smallest list element / возвращает наименьший элемент в списке
+list.none_of	checks if none of list elements is accepted by the predicate side-chain / проверяет, что ни один из элементов не принимается предикатом боковой цепи обработки
+list.normalize	normalizes numeric list values to get their sum equal to 1.0 / нормализует числовые значения списка, чтобы их сумма была равна единице
+list.pass	leave in list only specified elements / оставлять в списке только указанные элементы
+list.pass_if	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
+list.filter	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
+list.prepend	insert elements into a list begining / вставить элементы в начало списка
+list.product	calculates the product of all numbers in a list / вычисляет произведение всех чисел в списке
+list.range	outputs list smallest and largest elements / выводит минимальный и максимальный элемент в списке
+list.minmax	outputs list smallest and largest elements / выводит минимальный и максимальный элемент в списке
+list.reduce	transforms the list into a single value through side-chain processing / преобразование списка к единственному значению через боковую цепь обработки
+list.foldl	transforms the list into a single value through side-chain processing / преобразование списка к единственному значению через боковую цепь обработки
+list.reject	remove specified elements from the list / удаляет указанные элементы из списка
+list.remove	remove list elements at specified positions / удалить элементы списка по указанным позициям
+list.remove_if	remove list elements by the side-chain predicate / удалить элементы списка при помощи предиката боковой цепи
+list.repack	repack the list into a sequence of lists of the specified size / переупаковать список в последовательность списков определенного размера
+list.repeat	creates a list based on the repetitions of the original list / создает список на основе повторов исходного списка
+list.resample	resamples the values in the list with the specified length ratio / пересемплирует значения в списке с указанным соотношением длины
+list.r	resamples the values in the list with the specified length ratio / пересемплирует значения в списке с указанным соотношением длины
+list.resize	changes the list size / изменяет длину списка
+list.reverse	reverses the order of the elements in the list / меняет порядок элементов в списке на обратный
+list.rldecode	run-length decoding lists / декодирование повторов в списках
+list.unwrap	run-length decoding lists / декодирование повторов в списках
+list.rlencode	run-length encoding for lists / кодирование повторов в списках
+list.wrap	run-length encoding for lists / кодирование повторов в списках
+list.rotate	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
+list.<<	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
+list.>>	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
+list.route	routes the list by the first element, like [route] object / маршрутизирует список по первому элементу, как объект [route]
+list.rundiff	сomputes the difference between the adjacent elements of the input list / вычисляет разницу между соседними элементами входного списка
+list.runsum	outputs the list of positional sums which is updated upon each incoming list / выводит список позиционных сумм, который обновляется при каждом входящем списке
+list.search	outputs the positions of pre-defined elements in the input list / выводит позиции предварительно заданных элементов во входном списке
+list.separate	outputs each list item in turn as a separate message / поочередно выводит каждый элемент списка в виде отдельного сообщения
+list.sep	outputs each list item in turn as a separate message / поочередно выводит каждый элемент списка в виде отдельного сообщения
+list.seq	generates a sequence of numbers in the form of a list / генерирует последовательноть чисел в виде списка
+list.set	sets the value of the list item at the specified position / устанавливает значение элемента списка в указанной позиции
+list.shift	cyclic shift of a list by a real number with a linear Interpolation / циклический сдвиг списка на вещественное число с линейной интерполяцией
+list.shuffle	rearranges the elements of the list in a random order / переставляет элементы списка в случайном порядке
+list.slice	outputs a sublist / выводит подсписок
+list.sort	sorts the list in ascending orderr / сортирует список в порядке возрастания
+list.sort_with	sorts the list using a side processing chain / сортирует список при помощи боковой цепи обработки
+list.split	divides the list into two parts at the specified index position / разделяет список на две части по указанному индексу
+list.stretch	changes the length of the list by adjusting its values using linear interpolation / изменяет длину списка, изменяя его значения с помощью линейной интерполяции
+list.sum	calculates the sum of the elements in the list / вычисляет сумму элементов в списке
+list.unique	removes duplicates from the list / удаляет дубликаты из списка
+list.unpack	unpacks list elements into corresponding object outlets / распаковывает элементы списка в соответствующие им выходы объекта
+list.unzip	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся эелементов
+list.deinterleave	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся эелементов
+list.walk	various algorithms for traversing elements in a list / различные алгоритмы обхода элементов в списке
+list.zip	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
+list.interleave	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
 live.capture~	record up to 32s of sound and playback the recorded sound in loop
 local.dict	local named dict object
 local.json	local named dict object

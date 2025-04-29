@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">outputs list element(s) at specified index(es)</tr>
+                <tr lang="en">outputs the previously specified elements of the input list</tr>
+                <tr lang="ru">выводит предварительно указанные элементы входящего списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

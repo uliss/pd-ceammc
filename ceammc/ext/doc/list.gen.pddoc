@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">generates list of specified length via external generator</tr>
+                <tr lang="en">generates a list of the specified length via a side-chain generator</tr>
+                <tr lang="ru">генерирует список указанной длины через генератор боковой цепи</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sends list elements one by one separately</tr>
+                <tr lang="en">outputs each list item in turn as a separate message</tr>
+                <tr lang="ru">поочередно выводит каждый элемент списка в виде отдельного сообщения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

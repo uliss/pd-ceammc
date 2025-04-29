@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">running difference</tr>
+                <tr lang="en">сomputes the difference between the adjacent elements of the input list</tr>
+                <tr lang="ru">вычисляет разницу между соседними элементами входного списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,7 +20,7 @@
             </also>
         </meta>
         <info>
-            <par>Computes the adjacent difference of the elements of the input list</par>
+            <par>calculation flow:</par>
             <par>• y0 = x0</par>
             <par>• y1 = x1 - x0</par>
             <par>• y2 = x2 - x1</par>
@@ -37,7 +38,18 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.sliders @size 150 80]
+[1 1 1 1 #a( [1 2 3 4 #b( [1 3 5 7 #d( [1 2 3 2 1 #c(
+
+
+
+[list.rundiff #x]
+|
+[ui.dt]
+[X a->x] [X b->x] [X c->x] [X d->x]
+
+[ui.sliders]
+|
+|
 |
 |
 |
@@ -46,6 +58,7 @@
 [list.rundiff]
 |
 [ui.dt]
+/*.*/
 ]]>
             </pdascii>
         </example>

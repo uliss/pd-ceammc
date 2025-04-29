@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">remove list element(s) at specified positions</tr>
+                <tr lang="en">remove list elements at specified positions</tr>
+                <tr lang="ru">удалить элементы списка по указанным позициям</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

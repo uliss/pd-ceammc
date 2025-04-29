@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if input list contains specified atoms</tr>
+                <tr lang="en">checks if the input list contains specified elements</tr>
+                <tr lang="ru">проверяет, содержит ли входной список предварительно указанные элементы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -70,7 +71,7 @@
 |           |
 [flow.pass_if] X [list.contains 0]
 |
-[ui.display @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

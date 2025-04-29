@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 598 50 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 598 50 enumerates input list;
+#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 575 50 enumerates list elements;
 #X obj 1 1 cnv 5 765 40 empty empty list.enumerate 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 list.enumerate;
@@ -11,7 +11,7 @@
 #X msg 98 176 @from \$1;
 #X obj 222 176 mlist;
 #X obj 50 205 list.enumerate;
-#X obj 50 234 ui.display @display_type 1;
+#X obj 50 234 ui.dt;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

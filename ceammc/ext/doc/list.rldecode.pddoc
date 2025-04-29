@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Run-length list decoder (RLE)</tr>
+                <tr lang="en">run-length decoding lists</tr>
+                <tr lang="ru">декодирование повторов в списках</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

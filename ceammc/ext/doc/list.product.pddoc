@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">calculates product of floats in list</tr>
+                <tr lang="en">calculates the product of all numbers in a list</tr>
+                <tr lang="ru">вычисляет произведение всех чисел в списке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

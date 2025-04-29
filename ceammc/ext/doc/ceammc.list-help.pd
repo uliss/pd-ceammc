@@ -5,158 +5,172 @@
 #X obj 620 50 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 620 50 list processing;
 #X obj 30 117 list.^at;
-#X text 200 117 on input index(es) outputs list element(s);
-#X obj 30 145 list.^contains;
-#X text 200 145 checks if input atom is found in the list;
-#X obj 30 173 list.^search;
-#X text 200 173 on input atom returns it index in list;
-#X obj 30 201 list.all_of;
-#X text 200 201 checks if all list atoms accepted by predicate;
-#X obj 30 229 list.any_of;
-#X text 200 229 checks if at least one list element is accepted by
-predicate;
-#X obj 30 257 list.append;
-#X text 200 257 append atom or list to the end of input list;
-#X obj 30 285 list.apply_to;
-#X text 200 285 modifies list value at specified position \, filtering
-it via external object;
-#X obj 30 325 list.at;
-#X text 200 325 outputs list element(s) at specified index(es);
-#X obj 30 353 list.choice;
-#X text 200 353 outputs random element from list;
-#X obj 30 381 list.contains;
-#X text 200 381 checks if input list contains specified atoms;
-#X obj 30 409 list.convolve;
-#X text 200 409 convolution for lists;
-#X obj 30 437 list.correlate;
-#X text 200 437 list cross-correlation;
-#X obj 30 465 list.count;
-#X text 200 465 output the number of items that equal to specified
+#X text 200 117 outputs elements from a predefined list based on an
+input list of indices;
+#X obj 30 157 list.^contains;
+#X text 200 157 checks whether the predefined list contains the input
+element;
+#X obj 30 185 list.^search;
+#X text 200 185 outputs the indices of the found input elements in
+a predefined list;
+#X obj 30 225 list.all_of;
+#X text 200 225 checks whether all elements of the list have been accepted
+by the predicate of the side chain processing;
+#X obj 30 265 list.any_of;
+#X text 200 265 checks whether at least one list element has been accepted
+by the processing sidechain;
+#X obj 30 305 list.append;
+#X text 200 305 append elements to the end of a list;
+#X obj 30 333 list.apply_to;
+#X text 200 333 modifies specified list elements via a side-chain;
+#X obj 30 361 list.at;
+#X text 200 361 outputs the previously specified elements of the input
+list;
+#X obj 30 389 list.choice;
+#X text 200 389 outputs random element from list;
+#X obj 30 417 list.contains;
+#X text 200 417 checks if the input list contains specified elements;
+#X obj 30 445 list.convolve;
+#X text 200 445 convolution for lists;
+#X obj 30 473 list.correlate;
+#X text 200 473 lists cross-correlation;
+#X obj 30 501 list.count;
+#X text 200 501 output the number of items that equal to specified
 value;
-#X obj 30 493 list.count_if;
-#X text 200 493 output the number of items that satisfy to external
+#X obj 30 529 list.count_if;
+#X text 200 529 output the number of items that satisfy to an side-chain
 predicate;
-#X obj 30 521 list.delta;
-#X text 200 521 returns the difference between the current list of
-floats and the previous one.;
-#X obj 30 561 list.distribution;
-#X text 200 561 list value distribution;
-#X obj 30 589 list.do;
-#X text 200 589 iterate and modify list contents via side-chain;
-#X obj 30 617 list.each;
-#X text 200 617 maps each list value via external side-chain;
-#X obj 30 645 list.enumerate;
-#X text 200 645 enumerates input list;
-#X obj 30 673 list.equal;
-#X text 200 673 checks if given lists are equal;
-#X obj 30 701 list.first;
-#X text 200 701 returns first list element;
-#X obj 30 729 list.gen;
-#X text 200 729 generates list of specified length via external generator;
-#X obj 30 757 list.histogram;
-#X text 200 757 outputs distribution histogram;
-#X obj 30 785 list.insert;
-#X text 200 785 insert atom or list to the specified position of input
+#X obj 30 569 list.delta;
+#X text 200 569 output the list of differences between the current
+list and the previous one;
+#X obj 30 609 list.distribution;
+#X text 200 609 output list value distribution;
+#X obj 30 637 list.do;
+#X text 200 637 iterate and modify the list contents via a side-chain;
+#X obj 30 665 list.each;
+#X text 200 665 maps an each list value via an external side-chain;
+#X obj 30 693 list.enumerate;
+#X text 200 693 enumerates list elements;
+#X obj 30 721 list.equal;
+#X text 200 721 list equal check;
+#X obj 30 749 list.first;
+#X text 200 749 output the first list element;
+#X obj 30 777 list.gen;
+#X text 200 777 generates a list of the specified length via a side-chain
+generator;
+#X obj 30 817 list.histogram;
+#X text 200 817 outputs a list distribution histogram;
+#X obj 30 845 list.insert;
+#X text 200 845 insert elements into the specified list position;
+#X obj 30 873 list.integrator;
+#X text 200 873 returns the sum of the previously stored list and the
+current one;
+#X obj 30 913 list.last;
+#X text 200 913 output the last list element;
+#X obj 30 941 list.length;
+#X text 200 941 output the number of elements in the list;
+#X obj 30 969 list.map;
+#X text 200 969 map list values by specified dictionary;
+#X obj 30 997 list.max;
+#X text 200 997 output the largest list element;
+#X obj 30 1025 list.mean;
+#X text 200 1025 calculates the average value in a list;
+#X obj 30 1053 list.min;
+#X text 200 1053 returns a smallest list element;
+#X obj 30 1081 list.none_of;
+#X text 200 1081 checks if none of list elements is accepted by the
+predicate side-chain;
+#X obj 30 1121 list.normalize;
+#X text 200 1121 normalizes numeric list values to get their sum equal
+to 1.0;
+#X obj 30 1149 list.pass;
+#X text 200 1149 leave in list only specified elements;
+#X obj 30 1177 list.pass_if;
+#X text 200 1177 leave only elements accepted by side-chain predicate;
+#X obj 30 1205 list.prepend;
+#X text 200 1205 insert elements into a list begining;
+#X obj 30 1233 list.product;
+#X text 200 1233 calculates the product of all numbers in a list;
+#X obj 30 1261 list.range;
+#X text 200 1261 outputs list smallest and largest elements;
+#X obj 30 1289 list.reduce;
+#X text 200 1289 transforms the list into a single value through side-chain
+processing;
+#X obj 30 1329 list.reject;
+#X text 200 1329 remove specified elements from the list;
+#X obj 30 1357 list.remove;
+#X text 200 1357 remove list elements at specified positions;
+#X obj 30 1385 list.remove_if;
+#X text 200 1385 remove list elements by the side-chain predicate;
+#X obj 30 1413 list.repack;
+#X text 200 1413 repack the list into a sequence of lists of the specified
+size;
+#X obj 30 1453 list.repeat;
+#X text 200 1453 creates a list based on the repetitions of the original
 list;
-#X obj 30 813 list.integrator;
-#X text 200 813 returns the sum of the previously stored list and the
-current one then stores this sum;
-#X obj 30 853 list.last;
-#X text 200 853 output last list element;
-#X obj 30 881 list.length;
-#X text 200 881 output the number of atoms in the list;
-#X obj 30 909 list.map;
-#X text 200 909 map list values by specified dictionary;
-#X obj 30 937 list.max;
-#X text 200 937 output the largest element in the list;
-#X obj 30 965 list.mean;
-#X text 200 965 calculates average of list of floats;
-#X obj 30 993 list.min;
-#X text 200 993 returns smallest element in the list;
-#X obj 30 1021 list.none_of;
-#X text 200 1021 checks if none of list atoms is accepted by predicate;
-#X obj 30 1049 list.normalize;
-#X text 200 1049 normalizes float list values to get their sum = 1.0;
-#X obj 30 1077 list.pass;
-#X text 200 1077 leave in list only specified elements;
-#X obj 30 1105 list.pass_if;
-#X text 200 1105 leave only elements accepted by predicate;
-#X obj 30 1133 list.prepend;
-#X text 200 1133 prepend atom or list before input list;
-#X obj 30 1161 list.product;
-#X text 200 1161 calculates product of floats in list;
-#X obj 30 1189 list.range;
-#X text 200 1189 output list smallest and largest value;
-#X obj 30 1217 list.reduce;
-#X text 200 1217 apply function of two arguments cumulatively to the
-list;
-#X obj 30 1245 list.reject;
-#X text 200 1245 remove specified element from list;
-#X obj 30 1273 list.remove;
-#X text 200 1273 remove list element(s) at specified positions;
-#X obj 30 1301 list.remove_if;
-#X text 200 1301 remove elements by predicate;
-#X obj 30 1329 list.repack;
-#X text 200 1329 repack list to specified size;
-#X obj 30 1357 list.repeat;
-#X text 200 1357 output new list by repeating input list specified
-times;
-#X obj 30 1385 list.resample;
-#X text 200 1385 resample list with specified ratio;
-#X obj 30 1413 list.resize;
-#X text 200 1413 changes list size;
-#X obj 30 1441 list.reverse;
-#X text 200 1441 reverses the order of the elements in the list;
-#X obj 30 1469 list.rldecode;
-#X text 200 1469 Run-length list decoder (RLE);
-#X obj 30 1497 list.rlencode;
-#X text 200 1497 RLE (run-length encoding) for lists;
-#X obj 30 1525 list.rotate;
-#X text 200 1525 rotates list;
-#X obj 30 1553 list.route;
-#X text 200 1553 acts like [route] but for lists;
-#X obj 30 1581 list.rundiff;
-#X text 200 1581 running difference;
-#X obj 30 1609 list.runsum;
-#X text 200 1609 running sum;
-#X obj 30 1637 list.search;
-#X text 200 1637 search specified items in input list;
-#X obj 30 1665 list.separate;
-#X text 200 1665 sends list elements one by one separately;
-#X obj 30 1693 list.seq;
-#X text 200 1693 numeric sequence list generator;
-#X obj 30 1721 list.set;
-#X text 200 1721 set list value at specified position;
-#X obj 30 1749 list.shift;
-#X text 200 1749 shifts the contents of the list with linear interpolation;
-#X obj 30 1777 list.shuffle;
-#X text 200 1777 randomly rearranges elements in list;
-#X obj 30 1805 list.slice;
-#X text 200 1805 extract sublist;
-#X obj 30 1833 list.sort;
-#X text 200 1833 sorts list values by ascending order;
-#X obj 30 1861 list.sort_with;
-#X text 200 1861 sort list with user defined side-chain;
-#X obj 30 1889 list.split;
-#X text 200 1889 splits list into two parts \, the length of first
-list is specified by the argument;
-#X obj 30 1929 list.stretch;
-#X text 200 1929 stretches list - changes its size with linear interpolation;
-#X obj 30 1957 list.sum;
-#X text 200 1957 calculates sum of floats in list;
-#X obj 30 1985 list.unique;
-#X text 200 1985 removes duplicates from input list;
-#X obj 30 2013 list.unpack;
-#X text 200 2013 unpack list elements to separate outlets;
-#X obj 30 2041 list.unzip;
-#X text 200 2041 splits list to N lists \, each to separate output;
-#X obj 30 2069 list.walk;
-#X text 200 2069 walks through the list;
-#X obj 30 2097 list.zip;
-#X text 200 2097 takes n lists from n inlets (specified by argument)
-and output their elements sequentially (list1-1 list2-1 list1-2 list2-2
-etc.).;
+#X obj 30 1481 list.resample;
+#X text 200 1481 resamples the values in the list with the specified
+length ratio;
+#X obj 30 1521 list.resize;
+#X text 200 1521 changes the list size;
+#X obj 30 1549 list.reverse;
+#X text 200 1549 reverses the order of the elements in the list;
+#X obj 30 1577 list.rldecode;
+#X text 200 1577 run-length decoding lists;
+#X obj 30 1605 list.rlencode;
+#X text 200 1605 run-length encoding for lists;
+#X obj 30 1633 list.rotate;
+#X text 200 1633 a cyclic list rotation by an integer number of steps;
+#X obj 30 1661 list.route;
+#X text 200 1661 routes the list by the first element \, like [route]
+object;
+#X obj 30 1689 list.rundiff;
+#X text 200 1689 сomputes the difference between the adjacent elements
+of the input list;
+#X obj 30 1729 list.runsum;
+#X text 200 1729 outputs the list of positional sums which is updated
+upon each incoming list;
+#X obj 30 1769 list.search;
+#X text 200 1769 outputs the positions of pre-defined elements in the
+input list;
+#X obj 30 1809 list.separate;
+#X text 200 1809 outputs each list item in turn as a separate message;
+#X obj 30 1837 list.seq;
+#X text 200 1837 generates a sequence of numbers in the form of a list;
+#X obj 30 1865 list.set;
+#X text 200 1865 sets the value of the list item at the specified position;
+#X obj 30 1893 list.shift;
+#X text 200 1893 cyclic shift of a list by a real number with a linear
+Interpolation;
+#X obj 30 1933 list.shuffle;
+#X text 200 1933 rearranges the elements of the list in a random order;
+#X obj 30 1961 list.slice;
+#X text 200 1961 outputs a sublist;
+#X obj 30 1989 list.sort;
+#X text 200 1989 sorts the list in ascending orderr;
+#X obj 30 2017 list.sort_with;
+#X text 200 2017 sorts the list using a side processing chain;
+#X obj 30 2045 list.split;
+#X text 200 2045 divides the list into two parts at the specified index
+position;
+#X obj 30 2085 list.stretch;
+#X text 200 2085 changes the length of the list by adjusting its values
+using linear interpolation;
+#X obj 30 2125 list.sum;
+#X text 200 2125 calculates the sum of the elements in the list;
+#X obj 30 2153 list.unique;
+#X text 200 2153 removes duplicates from the list;
+#X obj 30 2181 list.unpack;
+#X text 200 2181 unpacks list elements into corresponding object outlets;
+#X obj 30 2209 list.unzip;
+#X text 200 2209 unpacks the input list into N lists of interleaved
+elements;
+#X obj 30 2237 list.walk;
+#X text 200 2237 various algorithms for traversing elements in a list;
+#X obj 30 2265 list.zip;
+#X text 200 2265 creates an interleaved list of items from N input
+lists;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 2152 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2162 library: ceammc;
+#X obj 1 2293 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2303 library: ceammc;

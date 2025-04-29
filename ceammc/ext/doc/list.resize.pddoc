@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">changes list size</tr>
+                <tr lang="en">changes the list size</tr>
+                <tr lang="ru">изменяет длину списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
