@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output union of given sets</tr>
+                <tr lang="en">union of sets</tr>
+                <tr lang="ru">объединение множеств</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

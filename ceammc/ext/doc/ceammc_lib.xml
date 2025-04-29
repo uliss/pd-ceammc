@@ -479,7 +479,7 @@
     <entry name="rtree.to_list" descr="convert OpenMusic-like rhythm tree to list of fractions" ref_view="object">
       <xi:include href="rtree.to_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="set.contains" descr="check if specified element is in set" ref_view="object">
+    <entry name="set.contains" descr="checks whether the predefined element is present in the input set" ref_view="object">
       <xi:include href="set.contains.pddoc" parse="xml"/>
     </entry>
     <entry name="set.diff" descr="difference between two sets" ref_view="object">
@@ -488,16 +488,16 @@
     <entry name="set.equal" descr="checks if two sets are equal (contains same elements)" ref_view="object">
       <xi:include href="set.equal.pddoc" parse="xml"/>
     </entry>
-    <entry name="set.intersect" descr="output intersection of given sets" ref_view="object">
+    <entry name="set.intersect" descr="intersection of sets" ref_view="object">
       <xi:include href="set.intersect.pddoc" parse="xml"/>
     </entry>
-    <entry name="set.size" descr="get number of elements in set" ref_view="object">
+    <entry name="set.size" descr="outputs the number of elements in a set" ref_view="object">
       <xi:include href="set.size.pddoc" parse="xml"/>
     </entry>
     <entry name="set.symdiff" descr="symmetric difference between two sets" ref_view="object">
       <xi:include href="set.symdiff.pddoc" parse="xml"/>
     </entry>
-    <entry name="set.union" descr="output union of given sets" ref_view="object">
+    <entry name="set.union" descr="union of sets" ref_view="object">
       <xi:include href="set.union.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_data.xml" parse="xml"/>

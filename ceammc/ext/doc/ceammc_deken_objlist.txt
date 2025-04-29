@@ -335,13 +335,13 @@ mlist.flatten	flatten nested mlist
 rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions
 ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions
 rtree->list	convert OpenMusic-like rhythm tree to list of fractions
-set.contains	check if specified element is in set
-set.diff	difference between two sets
-set.equal	checks if two sets are equal (contains same elements)
-set.intersect	output intersection of given sets
-set.size	get number of elements in set
-set.symdiff	symmetric difference between two sets
-set.union	output union of given sets
+set.contains	checks whether the predefined element is present in the input set / проверяет, присутстует ли предварительно заданный элемент во входном множестве
+set.diff	difference between two sets / разность между множествами
+set.equal	checks if two sets are equal (contains same elements) / проверяет, равны ли два множества (содержат одинаковые элементы)
+set.intersect	intersection of sets / пересечение множеств
+set.size	outputs the number of elements in a set / выводит количество элементов в множестве
+set.symdiff	symmetric difference between two sets / симметрическая разность между двумя множествами
+set.union	union of sets / объединение множеств
 dyn.comp2~	stereo dynamic range compressor
 dyn.comp_peak2~	stereo peak feed forward compressor with channel linking
 comp.peak2~	stereo peak feed forward compressor with channel linking

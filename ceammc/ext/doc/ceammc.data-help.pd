@@ -61,20 +61,21 @@
 #X obj 30 873 rtree.to_list;
 #X text 200 873 convert OpenMusic-like rhythm tree to list of fractions;
 #X obj 30 901 set.contains;
-#X text 200 901 check if specified element is in set;
-#X obj 30 929 set.diff;
-#X text 200 929 difference between two sets;
-#X obj 30 957 set.equal;
-#X text 200 957 checks if two sets are equal (contains same elements);
-#X obj 30 985 set.intersect;
-#X text 200 985 output intersection of given sets;
-#X obj 30 1013 set.size;
-#X text 200 1013 get number of elements in set;
-#X obj 30 1041 set.symdiff;
-#X text 200 1041 symmetric difference between two sets;
-#X obj 30 1069 set.union;
-#X text 200 1069 output union of given sets;
+#X text 200 901 checks whether the predefined element is present in
+the input set;
+#X obj 30 941 set.diff;
+#X text 200 941 difference between two sets;
+#X obj 30 969 set.equal;
+#X text 200 969 checks if two sets are equal (contains same elements);
+#X obj 30 997 set.intersect;
+#X text 200 997 intersection of sets;
+#X obj 30 1025 set.size;
+#X text 200 1025 outputs the number of elements in a set;
+#X obj 30 1053 set.symdiff;
+#X text 200 1053 symmetric difference between two sets;
+#X obj 30 1081 set.union;
+#X text 200 1081 union of sets;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::data 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1097 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1107 library: ceammc;
+#X obj 1 1109 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1119 library: ceammc;
