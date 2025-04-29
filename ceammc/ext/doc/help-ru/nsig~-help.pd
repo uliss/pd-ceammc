@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 383 50 cnv 1 382 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 383 50 multichannel converter from control to audio rate;
+#X text 388 50 multichannel converter from control to audio rate;
 #X obj 1 1 cnv 5 765 40 empty empty nsig~ 20 20 0 20 -104026 -4096 0;
 #X obj 590 11 ceammc/nsig~;
 #X obj 703 11 nsig~;

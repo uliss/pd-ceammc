@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 705 50 cnv 1 60 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 705 50 деление;
+#X text 710 50 деление;
 #X obj 1 1 cnv 5 765 40 empty empty math.div 20 20 0 20 -104026 -4096
 0;
 #X obj 612 11 math./;

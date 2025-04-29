@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 307 50 cnv 1 458 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 307 50 checks if the canvas of the object is on the top and
+#X text 312 50 checks if the canvas of the object is on the top and
 active;
 #X obj 1 1 cnv 5 765 40 empty empty canvas.active 20 20 0 20 -104026
 -4096 0;

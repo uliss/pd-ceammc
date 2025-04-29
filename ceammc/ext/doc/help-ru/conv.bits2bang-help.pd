@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 438 50 конвертирует список битов в пустые события;
+#X text 443 50 конвертирует список битов в пустые события;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bits2bang 20 20 0 20 -104026
 -4096 0;
 #X obj 394 11 ceammc/bits->bang;

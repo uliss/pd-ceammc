@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 422 50 float index to outlet values as radio switch;
+#X text 427 50 float index to outlet values as radio switch;
 #X obj 1 1 cnv 5 765 40 empty empty radio 20 20 0 20 -104026 -4096 0;
 #X obj 592 11 ceammc/radio;
 #X obj 704 11 radio;

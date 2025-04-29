@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 440 50 cnv 1 325 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 440 50 гребенчатый фильтр с обратной связью (БИХ);
+#X text 445 50 гребенчатый фильтр с обратной связью (БИХ);
 #X obj 1 1 cnv 5 765 40 empty empty flt.fb_comb~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 flt.fb_comb~;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 460 50 converts from MIDI Control Change range;
+#X text 465 50 converts from MIDI Control Change range;
 #X obj 1 1 cnv 5 765 40 empty empty conv.cc2amp 20 20 0 20 -104026
 -4096 0;
 #X obj 457 11 ceammc/cc->amp;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 499 50 удаляет указанные ключи из словаря;
+#X text 504 50 удаляет указанные ключи из словаря;
 #X obj 1 1 cnv 5 765 40 empty empty dict.reject 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 dict.reject;

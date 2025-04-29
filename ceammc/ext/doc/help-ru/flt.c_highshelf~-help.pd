@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 316 50 cnv 1 449 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 316 50 калькулятор коэффициентов полочного фильтра высоких
+#X text 321 50 калькулятор коэффициентов полочного фильтра высоких
 частот для [flt.biquad~];
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_highshelf~ 20 20 0 20
 -104026 -4096 0;

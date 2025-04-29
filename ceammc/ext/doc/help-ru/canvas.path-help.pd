@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 338 50 cnv 1 427 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 338 50 выводит полный путь холста в файловой системе у объекта;
+#X text 343 50 выводит полный путь холста в файловой системе у объекта;
 #X obj 1 1 cnv 5 765 40 empty empty canvas.path 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 canvas.path;

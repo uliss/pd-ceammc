@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 536 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 536 50 multi stereo-signal crossfade;
+#X text 541 50 multi stereo-signal crossfade;
 #X obj 1 1 cnv 5 765 40 empty empty xfade2~ 20 20 0 20 -104026 -4096
 0;
 #X obj 560 11 ceammc/xfade2~;

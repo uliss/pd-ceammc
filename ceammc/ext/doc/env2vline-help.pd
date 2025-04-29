@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 292 50 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 292 50 сonverts the envelope into the sequence of messages
+#X text 297 50 сonverts the envelope into the sequence of messages
 for vline object;
 #X obj 1 1 cnv 5 765 40 empty empty env2vline 20 20 0 20 -104026 -4096
 0;

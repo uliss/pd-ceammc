@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 620 50 cnv 1 145 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 620 50 многомерный список;
+#X text 625 50 многомерный список;
 #X obj 1 1 cnv 5 765 40 empty empty data.mlist 20 20 0 20 -104026
 -4096 0;
 #N canvas 570 11 250 400 aliases 0;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 536 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 536 50 sine oscillator with feedback;
+#X text 541 50 sine oscillator with feedback;
 #X obj 1 1 cnv 5 765 40 empty empty osc.sinfb~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 osc.sinfb~;

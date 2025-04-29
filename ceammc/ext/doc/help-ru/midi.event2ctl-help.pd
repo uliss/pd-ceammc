@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 346 50 cnv 1 419 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 346 50 конвертирует сообщение MidiEvent в пару канал/значение;
+#X text 351 50 конвертирует сообщение MidiEvent в пару канал/значение;
 #X obj 1 1 cnv 5 765 40 empty empty midi.event2ctl 20 20 0 20 -104026
 -4096 0;
 #X obj 525 11 midi.ev->ctl;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 sync logical OR operation;
+#X text 573 50 sync logical OR operation;
 #X obj 1 1 cnv 5 765 40 empty empty math.sync_or 20 20 0 20 -104026
 -4096 0;
 #X obj 431 11 math.||';
