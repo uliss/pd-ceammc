@@ -15,9 +15,6 @@
             <category>list</category>
             <keywords>list pass reject</keywords>
             <since>0.9.5</since>
-            <also>
-                <see>list.reject_if</see>
-            </also>
         </meta>
         <arguments>
             <argument name="ARGS" type="list">list of rejected values</argument>

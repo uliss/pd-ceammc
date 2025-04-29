@@ -76,7 +76,7 @@ VN0R VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
 #X text 10 1109 библиотека: ceammc v0.9.8;
 #X text 437 1121 смотрите также:;
 #X obj 558 1121 hw.apple_sms;
-#X obj 660 1121 hw.cpu_temp;
+#X obj 660 1121 system.info;
 #N canvas 10 1128 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

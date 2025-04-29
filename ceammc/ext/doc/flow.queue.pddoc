@@ -99,7 +99,6 @@
 [dac~]
 
 #a @label Pop
-#b @label Sync
 #y @auto_pop 1
 [X a->x:1]
 [X b->y:3]
