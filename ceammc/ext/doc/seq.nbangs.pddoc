@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">output specified number of bang with time intervals</tr>
+                <tr lang="ru" finished="false">выходное заданное количество взрыва с временными
+                интервалами</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

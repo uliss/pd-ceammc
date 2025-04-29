@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 seq.arp;
-#X text 200 117 sequence arpeggiator;
+#X text 200 117 chord arpeggiator;
 #X obj 30 145 seq.bangs;
 #X text 200 145 bang sequencer;
 #X obj 30 173 seq.counter;

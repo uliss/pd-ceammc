@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Conway game of life sequencer</tr>
+                <tr lang="ru" finished="false">Conway Game of Life Секвенсор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

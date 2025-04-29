@@ -1,104 +1,111 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 606 50 cnv 1 159 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 611 50 sequence arpeggiator;
+#X text 611 50 арпеджиатор аккордов;
 #X obj 1 1 cnv 5 765 40 empty empty seq.arp 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 seq.arp;
-#X msg 50 118 asr 100 first 10 last;
-#X obj 328 118 ui.dsp~;
-#X msg 69 147 asr 200 first 10 first;
-#X msg 98 176 asr 150 all 10 last;
-#X msg 117 205 on;
-#X msg 165 205 off;
-#X obj 50 234 seq.arp 60 64 67 79 54 80;
-#X obj 50 262 msg note;
-#X obj 155 262 loadmsg prog 1 12;
-#X obj 50 291 fluid~ sf2/VintageDreamsWaves-v2.sf2;
-#X obj 50 320 ui.hgain2~;
-#X obj 50 349 dac~;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 118 asr 500 first 2 all;
+#X text 328 118 start from first \, off all at once;
+#X msg 59 147 asr 500 last 2 all;
+#X text 328 147 start from last \, off all at once;
+#X msg 69 176 asr 500 last 2 last;
+#X text 328 176 start from last \, off from last;
+#X msg 78 205 asr 500 all 2 last;
+#X text 328 205 start from all \, off from last;
+#X msg 88 234 asr 500 all 2 first;
+#X text 328 234 start from all \, off from first;
+#X msg 98 262 asr 500 all 4 all;
+#X text 328 262 start from all \, hold 4 beat \, off all;
+#X msg 59 291 reset;
+#X obj 50 320 seq.arp 60 64 67 72 76;
+#X obj 50 349 msg note;
+#X obj 50 378 fluid~;
+#X obj 203 378 ui.dsp~;
+#X obj 50 406 ui.hgain2~;
+#X obj 50 435 dac~;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 490 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 439 1\.;
-#X text 150 439 list;
-#X obj 246 440 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 CHORD: list of pitches to arpeggiate. Тип: list.;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 525 1\.;
+#X text 150 525 list;
+#X obj 246 526 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 525 CHORD: list of pitches to arpeggiate. Тип: list.;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 509 @chord;
-#X text 245 509 Получить/Установить list of pitches to arpeggiate.
+#X msg 110 595 @chord;
+#X text 245 595 Получить/Установить list of pitches to arpeggiate.
 Тип: list.;
-#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 554 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 640 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 589 asr;
-#X text 245 589 set arpeggiate mode and run. Аргументы:;
-#X obj 255 612 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 612 STEP: step duration. Тип: float. Минимальное значение:
+#X msg 110 675 asr;
+#X text 245 675 set arpeggiate mode and run. Аргументы:;
+#X obj 255 698 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 698 STEP: step duration. Тип: float. Минимальное значение:
 0\. Единицы: 'ms'.;
-#X obj 255 650 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 650 ON_MODE: on mode. Тип: symbol. Разрешённые значения:
-all \, first \, last.;
-#X obj 255 688 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 688 HOLD: number of steps to hold value. Тип: int. Минимальное
+#X obj 255 736 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 736 ON_MODE: on mode. Тип: symbol. Разрешённые значения:
+all \, first \, last \, random.;
+#X obj 255 774 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 774 HOLD: number of steps to hold value. Тип: int. Минимальное
 значение: 1\.;
-#X obj 255 726 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 726 OFF_MODE: off mode. Тип: symbol. Разрешённые значения:
-all \, first \, last.;
-#X msg 110 766 off;
-#X text 245 766 turn off active notes. Аргументы:;
-#X obj 255 789 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 789 [MODE]: if =first turn off first active note in chord
+#X obj 255 812 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 812 OFF_MODE: off mode. Тип: symbol. Разрешённые значения:
+all \, first \, last \, random.;
+#X msg 110 852 off;
+#X text 245 852 turn off active notes. Аргументы:;
+#X obj 255 875 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 875 [MODE]: if =first turn off first active note in chord
 list \, if =last turn off last inactive note in chord list \, if =all
 turn off all active notes. Тип: symbol. Разрешённые значения: first
 \, last \, all \, random.;
-#X obj 255 857 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 857 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
+#X obj 255 943 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 943 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
 значение: 1\.;
-#X msg 110 897 on;
-#X text 245 897 turn on inactive notes. Аргументы:;
-#X obj 255 920 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 920 [MODE]: if =first play first inactive note in chord
+#X msg 110 983 on;
+#X text 245 983 turn on inactive notes. Аргументы:;
+#X obj 255 1006 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1006 [MODE]: if =first play first inactive note in chord
 list \, if =last play last inactive note in chord list \, if =all play
 all inactive notes. Тип: symbol. Разрешённые значения: first \, last
 \, all \, random.;
-#X obj 255 988 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 988 [VEL=127]: note velocity. Тип: float. Диапазон: 1…127\.;
-#X obj 255 1011 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1011 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
+#X obj 255 1074 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1074 [VEL=127]: note velocity. Тип: float. Диапазон: 1…127\.;
+#X obj 255 1097 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1097 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
 значение: 1\.;
-#X msg 110 1051 reset;
-#X text 245 1051 reset all notes to off without output.;
-#X obj 20 1089 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1094 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1137 reset;
+#X text 245 1137 reset all notes to off without output.;
+#X obj 20 1175 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1180 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1095 1\.;
-#X text 150 1095 *bang*;
-#X text 245 1095 play one note in sequence (same as [on( message).;
-#X obj 20 1125 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1130 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1181 1\.;
+#X text 150 1181 *bang*;
+#X text 245 1181 play one note in sequence (same as [on( message).;
+#X obj 20 1211 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1216 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1131 1\.;
-#X text 245 1131 list: pitch vel.;
-#X text 110 1151 2\.;
-#X text 245 1151 float: number of active notes.;
+#X text 110 1217 1\.;
+#X text 245 1217 list: pitch vel.;
+#X text 110 1237 2\.;
+#X text 245 1237 float: number of active notes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1201 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1204 библиотека: ceammc v0.9.8;
-#X text 531 1216 смотрите также:;
-#X obj 652 1216 seq.b;
-#X obj 704 1216 seq.t;
-#N canvas 10 1223 400 290 info 0;
+#X obj 1 1287 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1290 библиотека: ceammc v0.9.8;
+#X text 531 1302 смотрите также:;
+#X obj 652 1302 seq.b;
+#X obj 704 1302 seq.t;
+#N canvas 10 1309 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -122,16 +129,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1223 pd info;
-#X connect 4 0 10 0;
-#X connect 6 0 10 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
-#X connect 11 0 13 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 13 1 14 1;
-#X connect 14 0 15 0;
-#X connect 14 0 15 1;
+#X restore 10 1309 pd info;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 21 0;
+#X connect 19 1 21 1;
+#X connect 21 0 22 0;
+#X connect 21 0 22 1;
+#X connect 4 0 17 0;
+#X connect 6 0 17 0;
+#X connect 8 0 17 0;
+#X connect 10 0 17 0;
+#X connect 12 0 17 0;
+#X connect 14 0 17 0;

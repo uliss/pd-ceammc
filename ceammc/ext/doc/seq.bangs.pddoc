@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">bang sequencer</tr>
+                <tr lang="ru" finished="false">секвенсор взрыва</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

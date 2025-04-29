@@ -1135,7 +1135,7 @@ random.pw_const	piecewise constant random distribution / кусочно-пост
 random.pw_lin	piecewise linear random distribution / кусочно-линейное случайное распределение
 samp.time~	sample counter
 samp.t~	sample counter
-seq.arp	sequence arpeggiator
+seq.arp	chord arpeggiator / арпеджиатор аккордов
 seq.bangs	bang sequencer
 seq.b	bang sequencer
 seq.counter	sequencer counter

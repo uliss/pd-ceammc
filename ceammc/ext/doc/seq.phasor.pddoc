@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">control rate phasor (saw) generator</tr>
+                <tr lang="ru" finished="false">генератор управляющего коэффициента (пила)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

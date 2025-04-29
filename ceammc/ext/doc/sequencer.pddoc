@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">basic sequence player</tr>
+                <tr lang="ru" finished="false">Игрок базовой последовательности</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
