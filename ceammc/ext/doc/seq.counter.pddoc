@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sequencer counter</tr>
-                <tr lang="ru" finished="false">счетчик секвенирования</tr>
+                <tr lang="en">cyclic counter</tr>
+                <tr lang="ru">циклический счётчик</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

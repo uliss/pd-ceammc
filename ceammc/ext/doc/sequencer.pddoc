@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">basic sequence player</tr>
-                <tr lang="ru" finished="false">Игрок базовой последовательности</tr>
+                <tr lang="ru">базовый секвенсер значений</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -94,10 +94,10 @@
 |   |          |            [@mode $1(
 |   |          |            |
 [sequencer mtof(seq(56 90 3)) @t 120bpm @div 3 @inf]
-|                            ^|
-[t b f     ]                 [route done i ri]
-|         ^|                 |    ^|   ^^|
-[click~]  [@freq $1(         [B]  [F]  [F]
+|            |                      ^|
+[t b f     ] [print]                [route done i ri]
+|         ^|                        |    ^|   ^^|
+[click~]  [@freq $1(                [B]  [F]  [F]
 |         |
 [flt.resonbp~ 1000 60]
 |

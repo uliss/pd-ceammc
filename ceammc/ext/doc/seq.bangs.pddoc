@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">bang sequencer</tr>
-                <tr lang="ru" finished="false">секвенсор взрыва</tr>
+                <tr lang="en">bang event sequencer</tr>
+                <tr lang="ru">секвенсер пустых событий</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,9 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output specified number of bang with time intervals</tr>
-                <tr lang="ru" finished="false">выходное заданное количество взрыва с временными
-                интервалами</tr>
+                <tr lang="en">outputs the specified number of bangs with a time intervals</tr>
+                <tr lang="ru">выводит заданное число пустых сообщений через интервалы времени</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

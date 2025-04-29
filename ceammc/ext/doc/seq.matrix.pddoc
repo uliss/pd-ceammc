@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sequencer control for ui.matrix</tr>
-                <tr lang="ru" finished="false">Секвенсорное управление для ui.matrix</tr>
+                <tr lang="en">sequencer control for [ui.matrix] object</tr>
+                <tr lang="ru">секвенсер для объекта [ui.matrix]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -103,11 +103,11 @@
 |
 [unpack f f f f #a]
 |
-[F]  [osc~ 400]
+[F]  [osc~ 400]    [synth.clap~  #e2]
      |
      | [@gate #g0( [synth.kick2~ #e1]
      | |
-     [env.ar~ #e0] [synth.clap~ #e2]
+     [env.ar~ #e0]
 
 [pan.spread~ 5 #s {w=16}]
 *|*

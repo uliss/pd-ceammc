@@ -84,6 +84,8 @@
  [reset(
  |
 [seq.arp 60 64 67 72 76 #x]
+| |
+| [print]
 |
 [msg note]
 |

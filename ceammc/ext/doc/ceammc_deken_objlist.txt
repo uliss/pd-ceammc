@@ -1136,20 +1136,20 @@ random.pw_lin	piecewise linear random distribution / кусочно-линейн
 samp.time~	sample counter
 samp.t~	sample counter
 seq.arp	chord arpeggiator / арпеджиатор аккордов
-seq.bangs	bang sequencer
-seq.b	bang sequencer
-seq.counter	sequencer counter
-seq.life	Conway game of life sequencer
-seq.matrix	sequencer control for ui.matrix
-seq.nbangs	output specified number of bang with time intervals
-seq.nb	output specified number of bang with time intervals
-seq.phasor	control rate phasor (saw) generator
-seq.toggles	toggle sequencer
-seq.t	toggle sequencer
-sequencer	basic sequence player
-ceammc/sequencer	basic sequence player
-ceammc/seq	basic sequence player
-seq	basic sequence player
+seq.bangs	bang event sequencer / секвенсер пустых событий
+seq.b	bang event sequencer / секвенсер пустых событий
+seq.counter	cyclic counter / циклический счётчик
+seq.life	Conway game of life sequencer / секвенсер для игры Life Джона Конвея
+seq.matrix	sequencer control for [ui.matrix] object / секвенсер для объекта [ui.matrix]
+seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число пустых сообщений через интервалы времени
+seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число пустых сообщений через интервалы времени
+seq.phasor	control rate phasor generator / генератор фазора (пилы) для контрольных сигналов
+seq.toggles	toggle sequencer / секвенсор переключающих событий
+seq.t	toggle sequencer / секвенсор переключающих событий
+sequencer	basic sequence player / базовый секвенсер значений
+ceammc/sequencer	basic sequence player / базовый секвенсер значений
+ceammc/seq	basic sequence player / базовый секвенсер значений
+seq	basic sequence player / базовый секвенсер значений
 snd.file	Sound file loader on steroids
 snd.play~	Sound file player on steroids
 hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков

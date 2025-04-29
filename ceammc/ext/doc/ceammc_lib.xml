@@ -2197,22 +2197,22 @@
     <entry name="seq.arp" descr="chord arpeggiator" ref_view="object">
       <xi:include href="seq.arp.pddoc" parse="xml"/>
     </entry>
-    <entry name="seq.bangs" descr="bang sequencer" ref_view="object">
+    <entry name="seq.bangs" descr="bang event sequencer" ref_view="object">
       <xi:include href="seq.bangs.pddoc" parse="xml"/>
     </entry>
-    <entry name="seq.counter" descr="sequencer counter" ref_view="object">
+    <entry name="seq.counter" descr="cyclic counter" ref_view="object">
       <xi:include href="seq.counter.pddoc" parse="xml"/>
     </entry>
     <entry name="seq.life" descr="Conway game of life sequencer" ref_view="object">
       <xi:include href="seq.life.pddoc" parse="xml"/>
     </entry>
-    <entry name="seq.matrix" descr="sequencer control for ui.matrix" ref_view="object">
+    <entry name="seq.matrix" descr="sequencer control for [ui.matrix] object" ref_view="object">
       <xi:include href="seq.matrix.pddoc" parse="xml"/>
     </entry>
-    <entry name="seq.nbangs" descr="output specified number of bang with time intervals" ref_view="object">
+    <entry name="seq.nbangs" descr="outputs the specified number of bangs with a time intervals" ref_view="object">
       <xi:include href="seq.nbangs.pddoc" parse="xml"/>
     </entry>
-    <entry name="seq.phasor" descr="control rate phasor (saw) generator" ref_view="object">
+    <entry name="seq.phasor" descr="control rate phasor generator" ref_view="object">
       <xi:include href="seq.phasor.pddoc" parse="xml"/>
     </entry>
     <entry name="seq.toggles" descr="toggle sequencer" ref_view="object">
