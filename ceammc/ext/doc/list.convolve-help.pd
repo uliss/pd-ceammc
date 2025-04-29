@@ -6,35 +6,35 @@
 -4096 0;
 #X obj 555 11 list.conv;
 #X obj 646 11 list.convolve;
-#X obj 210 78 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 78 Note: may perform slowly in large lists because it does
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Note: may perform slowly in large lists because it does
 not use the FFT to compute the convolution;
-#X msg 50 156 1 2 3;
-#X obj 50 185 list.convolve 3 4 5;
-#X obj 50 214 ui.dt;
-#X obj 50 243 list.convolve-1;
-#X obj 20 293 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 298 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 176 1 2 3;
+#X obj 50 205 list.convolve 3 4 5;
+#X obj 50 234 ui.dt;
+#X obj 50 263 list.convolve-1;
+#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 318 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 301 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 333 1\.;
-#X text 150 333 list;
-#X obj 246 334 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 333 B: second argument values. Type: list.;
-#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 368 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 353 1\.;
+#X text 150 353 list;
+#X obj 246 354 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 353 B: second argument values. Type: list.;
+#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 388 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 371 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 391 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 403 @a;
-#X text 245 403 Get/Set first argument. Type: list.;
-#X msg 110 433 @b;
-#X text 245 433 Get/Set second argument. Type: list.;
-#X msg 110 463 @full;
-#X text 245 463 Alias to @mode full.;
-#X msg 110 493 @mode;
-#X text 245 493 Get/Set output mode. 'full' - output the convolution
+#X msg 110 423 @a;
+#X text 245 423 Get/Set first argument. Type: list.;
+#X msg 110 453 @b;
+#X text 245 453 Get/Set second argument. Type: list.;
+#X msg 110 483 @full;
+#X text 245 483 Alias to @mode full.;
+#X msg 110 513 @mode;
+#X text 245 513 Get/Set output mode. 'full' - output the convolution
 at each point of overlap \, with an output length of (M+N-1). At the
 end-points of the convolution \, the signals do not overlap completely
 \, and boundary effects may be seen. 'valid' - output of length (max(M
@@ -43,32 +43,32 @@ where the signals overlap completely. Values outside the signal boundary
 have no effect. 'same' - output of length max(M \, N). Boundary effects
 are still visible. Type: symbol. Default value: full. Allowed values:
 valid \, same \, full.;
-#X msg 110 656 @same;
-#X text 245 656 Alias to @mode same.;
-#X msg 110 686 @valid;
-#X text 245 686 Alias to @mode valid.;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 731 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 676 @same;
+#X text 245 676 Alias to @mode same.;
+#X msg 110 706 @valid;
+#X text 245 706 Alias to @mode valid.;
+#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 751 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 732 1\.;
-#X text 150 732 *list*;
-#X text 245 732 calculate convolution and output.;
-#X text 110 752 2\.;
+#X text 110 752 1\.;
 #X text 150 752 *list*;
-#X text 245 752 set second argument (@b property).;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 787 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 245 752 calculate convolution and output.;
+#X text 110 772 2\.;
+#X text 150 772 *list*;
+#X text 245 772 set second argument (@b property).;
+#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 807 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 788 1\.;
-#X text 245 788 list: output result.;
+#X text 110 808 1\.;
+#X text 245 808 list: output result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 838 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 841 library: ceammc v0.9.8;
-#N canvas 10 860 400 290 info 0;
+#X obj 1 858 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 861 library: ceammc v0.9.8;
+#N canvas 10 880 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -92,6 +92,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 860 pd info;
+#X restore 10 880 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

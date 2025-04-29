@@ -6,91 +6,91 @@ object;
 #X obj 1 1 cnv 5 765 40 empty empty list.route 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 list.route;
-#X obj 210 78 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 78 Outputs float \, symbol or list to matched outlet or
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Outputs float \, symbol or list to matched outlet or
 to last outlet if no match;
-#X msg 50 156 100;
-#X msg 136 156 symbol A;
-#X msg 270 156 list A;
-#X msg 50 185 200;
-#X msg 136 185 symbol B;
-#X msg 270 185 list A B;
-#X msg 50 214 150;
-#X msg 136 214 1 2 3;
-#X msg 270 214 200 300;
-#X obj 50 257 list.route A B 100 200;
-#X obj 50 315 ui.dt;
-#X obj 155 315 ui.dt;
-#X obj 261 315 ui.dt;
-#X obj 366 315 ui.dt;
-#X obj 472 315 ui.dt;
-#X msg 50 358 100;
-#X msg 146 358 symbol A;
-#X msg 290 358 list A;
-#X msg 434 358 1 2 3;
-#X msg 50 387 200;
-#X msg 146 387 symbol B;
-#X msg 290 387 list A B;
-#X msg 434 387 100 300;
-#X obj 50 430 list.route A B 100 @trim;
-#X obj 50 487 ui.dt;
-#X obj 155 487 ui.dt;
-#X obj 261 487 ui.dt;
-#X obj 366 487 ui.dt;
-#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 542 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 176 100;
+#X msg 136 176 symbol A;
+#X msg 270 176 list A;
+#X msg 50 205 200;
+#X msg 136 205 symbol B;
+#X msg 270 205 list A B;
+#X msg 50 234 150;
+#X msg 136 234 1 2 3;
+#X msg 270 234 200 300;
+#X obj 50 277 list.route A B 100 200;
+#X obj 50 335 ui.dt;
+#X obj 155 335 ui.dt;
+#X obj 261 335 ui.dt;
+#X obj 366 335 ui.dt;
+#X obj 472 335 ui.dt;
+#X msg 50 378 100;
+#X msg 146 378 symbol A;
+#X msg 290 378 list A;
+#X msg 434 378 1 2 3;
+#X msg 50 407 200;
+#X msg 146 407 symbol B;
+#X msg 290 407 list A B;
+#X msg 434 407 100 300;
+#X obj 50 450 list.route A B 100 @trim;
+#X obj 50 507 ui.dt;
+#X obj 155 507 ui.dt;
+#X obj 261 507 ui.dt;
+#X obj 366 507 ui.dt;
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 562 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 545 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 565 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 577 1\.;
-#X text 150 577 list;
-#X obj 246 578 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 577 ARGS: list of matched atoms. Type: list.;
-#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 612 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 597 1\.;
+#X text 150 597 list;
+#X obj 246 598 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 597 ARGS: list of matched atoms. Type: list.;
+#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 632 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 615 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 635 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 647 @args;
-#X text 245 647 (initonly) Get/Set matching atoms. Type: list.;
-#X msg 110 677 @as_any;
-#X text 245 677 trim list or symbol selector on output. Default value:
+#X msg 110 667 @args;
+#X text 245 667 (initonly) Get/Set matching atoms. Type: list.;
+#X msg 110 697 @as_any;
+#X text 245 697 trim list or symbol selector on output. Default value:
 0\.;
-#X msg 110 707 @trim;
-#X text 245 707 cut first element from list \, transform float or symbol
+#X msg 110 727 @trim;
+#X text 245 727 cut first element from list \, transform float or symbol
 to bang. Default value: 0\.;
-#X msg 110 749 @simplify;
-#X text 245 749 Get/Set one element list simplification - transform
+#X msg 110 769 @simplify;
+#X text 245 769 Get/Set one element list simplification - transform
 them to floats or symbols. Type: bool. Default value: 1\.;
-#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 806 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 826 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 807 1\.;
-#X text 150 807 *list*;
-#X text 245 807 input list.;
-#X text 150 827 *data:mlist*;
-#X text 245 827 input mlist.;
-#X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 862 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 827 1\.;
+#X text 150 827 *list*;
+#X text 245 827 input list.;
+#X text 150 847 *data:mlist*;
+#X text 245 847 input mlist.;
+#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 882 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 863 0\.;
-#X text 245 863 first match.;
-#X text 110 883 1\.;
-#X text 245 883 second match.;
-#X text 110 903 ....;
-#X text 245 903 nth match.;
-#X text 110 923 n.;
-#X text 245 923 unmatched element (without changes).;
+#X text 110 883 0\.;
+#X text 245 883 first match.;
+#X text 110 903 1\.;
+#X text 245 903 second match.;
+#X text 110 923 ....;
+#X text 245 923 nth match.;
+#X text 110 943 n.;
+#X text 245 943 unmatched element (without changes).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 973 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 976 library: ceammc v0.9.8;
-#X text 629 988 see also:;
-#X obj 704 988 route;
-#N canvas 10 995 400 290 info 0;
+#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 996 library: ceammc v0.9.8;
+#X text 629 1008 see also:;
+#X obj 704 1008 route;
+#N canvas 10 1015 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -114,7 +114,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 995 pd info;
+#X restore 10 1015 pd info;
 #X connect 15 0 16 0;
 #X connect 15 1 17 0;
 #X connect 15 2 18 0;

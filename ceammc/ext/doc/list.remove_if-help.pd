@@ -5,39 +5,39 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.remove_if 20 20 0 20 -104026
 -4096 0;
 #X obj 639 11 list.remove_if;
-#X obj 210 78 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 78 Predicate object should accept atom and output 0 (leave
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Predicate object should accept atom and output 0 (leave
 element) or 1 (remove).;
-#X msg 50 156 10;
-#X msg 299 156 10;
-#X obj 50 185 list.seq;
-#X obj 299 185 list.seq;
-#X obj 69 214 ui.dt;
-#X obj 318 214 ui.dt;
-#X obj 50 243 list.remove_if;
-#X obj 213 243 is_odd;
-#X obj 299 243 list.remove_if;
-#X obj 462 243 > 5;
-#X obj 50 272 ui.dt;
-#X obj 299 272 ui.dt;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 327 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 50 176 10;
+#X msg 299 176 10;
+#X obj 50 205 list.seq;
+#X obj 299 205 list.seq;
+#X obj 69 234 ui.dt;
+#X obj 318 234 ui.dt;
+#X obj 50 263 list.remove_if;
+#X obj 213 263 is_odd;
+#X obj 299 263 list.remove_if;
+#X obj 462 263 > 5;
+#X obj 50 292 ui.dt;
+#X obj 299 292 ui.dt;
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 347 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 328 1\.;
-#X text 150 328 *list*;
-#X text 245 328 input list.;
-#X text 150 348 *data:mlist*;
-#X text 245 348 input mlist.;
-#X text 110 368 2\.;
-#X text 150 368 *float*;
-#X text 245 368 value from predicate.;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 348 1\.;
+#X text 150 348 *list*;
+#X text 245 348 input list.;
+#X text 150 368 *data:mlist*;
+#X text 245 368 input mlist.;
+#X text 110 388 2\.;
+#X text 150 388 *float*;
+#X text 245 388 value from predicate.;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 423 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 404 1\.;
-#X text 245 404 output list (or mlist) with some removed elements.;
-#X text 110 424 2\.;
-#X text 245 424 atom to predicate.;
+#X text 110 424 1\.;
+#X text 245 424 output list (or mlist) with some removed elements.;
+#X text 110 444 2\.;
+#X text 245 444 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

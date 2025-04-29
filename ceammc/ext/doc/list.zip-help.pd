@@ -6,81 +6,81 @@
 0;
 #X obj 548 11 list.interleave;
 #X obj 682 11 list.zip;
-#X obj 210 78 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 78 takes X lists of length M and outputs them as a single
+#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 takes X lists of length M and outputs them as a single
 list:;
-#X text 215 103 l₀[0] \, l₁[0] \, ... \, lₓ[0] \, ... \, l₀[M-1] l₁[M-1]
+#X text 215 108 l₀[0] \, l₁[0] \, ... \, lₓ[0] \, ... \, l₀[M-1] l₁[M-1]
 ... lₓ[M-1];
-#X msg 50 166 10 20 30;
-#X msg 165 166 list a b;
-#X msg 270 166 1 2 3 4 5;
-#X msg 78 195 @pad;
-#X msg 194 195 @clip;
-#X msg 318 195 @wrap;
-#X msg 395 195 @fold;
-#X obj 50 238 list.zip 3 @min;
-#X obj 50 267 ui.dt;
-#X obj 20 317 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 322 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 186 10 20 30;
+#X msg 165 186 list a b;
+#X msg 270 186 1 2 3 4 5;
+#X msg 78 215 @pad;
+#X msg 194 215 @clip;
+#X msg 318 215 @wrap;
+#X msg 395 215 @fold;
+#X obj 50 258 list.zip 3 @min;
+#X obj 50 287 ui.dt;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 325 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 357 1\.;
-#X text 150 357 int;
-#X obj 246 358 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 357 N: number of inputs. Type: int. Range: 2\...20;
-#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 392 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 377 1\.;
+#X text 150 377 int;
+#X obj 246 378 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 377 N: number of inputs. Type: int. Range: 2\...20;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 395 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 427 @n;
-#X text 245 427 (initonly) Get/Set number of inputs. Type: int. Default
+#X msg 110 447 @n;
+#X text 245 447 (initonly) Get/Set number of inputs. Type: int. Default
 value: 2\. Range: 2\...20\.;
-#X msg 110 469 @clip;
-#X text 245 469 Alias for "@oversize clip" property. Pad shortest list
+#X msg 110 489 @clip;
+#X text 245 489 Alias for "@oversize clip" property. Pad shortest list
 with last element to conform longest list.;
-#X msg 110 511 @fold;
-#X text 245 511 Alias for "@oversize fold" property. Pad shortest list
+#X msg 110 531 @fold;
+#X text 245 531 Alias for "@oversize fold" property. Pad shortest list
 with repeated values from the end to the beginning \, then back and
 so on.;
-#X msg 110 568 @method;
-#X text 245 568 Get/Set behavior \, if list have different sizes. Type:
+#X msg 110 588 @method;
+#X text 245 588 Get/Set behavior \, if list have different sizes. Type:
 symbol. Default value: min. Allowed values: min \, pad \, clip \, wrap
 \, fold.;
-#X msg 110 625 @min;
-#X text 245 625 Alias for "@oversize min" property. Truncates lists
+#X msg 110 645 @min;
+#X text 245 645 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
-#X msg 110 667 @pad;
-#X text 245 667 Get/Set pad value for pad method of resizing. Type:
+#X msg 110 687 @pad;
+#X text 245 687 Get/Set pad value for pad method of resizing. Type:
 atom. Default value: 0\.;
-#X msg 110 709 @wrap;
-#X text 245 709 Alias for "@oversize wrap" property. Pad shortest list
+#X msg 110 729 @wrap;
+#X text 245 729 Alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
-#X msg 110 751 @lists?;
-#X text 245 751 (readonly) Get input data list: list of data:mlist.
+#X msg 110 771 @lists?;
+#X text 245 771 (readonly) Get input data list: list of data:mlist.
 Type: list.;
-#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 808 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 828 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 809 1\.;
-#X text 150 809 *list*;
-#X text 245 809 input list.;
-#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 844 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 829 1\.;
+#X text 150 829 *list*;
+#X text 245 829 input list.;
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 864 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 845 1\.;
-#X text 245 845 interleaved list.;
+#X text 110 865 1\.;
+#X text 245 865 interleaved list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 895 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 898 library: ceammc v0.9.8;
-#X text 592 910 see also:;
-#X obj 667 910 list.unzip;
-#N canvas 10 917 400 290 info 0;
+#X obj 1 915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 918 library: ceammc v0.9.8;
+#X text 592 930 see also:;
+#X obj 667 930 list.unzip;
+#N canvas 10 937 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 917 pd info;
+#X restore 10 937 pd info;
 #X connect 8 0 15 0;
 #X connect 11 0 15 0;
 #X connect 9 0 15 1;
