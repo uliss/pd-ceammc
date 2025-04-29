@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">signal inlet for a patcher loaded by hoa.process~</tr>
+                <tr lang="en">signal inlet for a patcher loaded by [hoa.process~] object</tr>
+                <tr lang="ru">сигнальный вход для патча, загружаемого объектом [hoa.process~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

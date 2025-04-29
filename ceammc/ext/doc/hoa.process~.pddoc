@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">patcher loader for multichannel processing</tr>
+                <tr lang="ru">загрузчик патчей для многоканальной обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

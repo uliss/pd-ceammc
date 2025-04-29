@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">hoa 2d decoder</tr>
+                <tr lang="en">2D decoder of higher order ambisonics</tr>
+                <tr lang="ru">двумерный декодер амбисоников высоких порядков</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

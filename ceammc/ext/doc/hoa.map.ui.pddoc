@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">a GUI to spatialize sources on a map</tr>
+                <tr lang="ru">GUI для пространственного размещения источников</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

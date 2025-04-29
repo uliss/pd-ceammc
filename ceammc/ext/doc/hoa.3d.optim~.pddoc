@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">a 3D ambisonic optimization tool</tr>
+                <tr lang="ru">оптимизация трехмерных амбисоников высоких порядков</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

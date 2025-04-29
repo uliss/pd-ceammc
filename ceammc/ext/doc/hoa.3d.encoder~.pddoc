@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">hoa 3d encoder</tr>
+                <tr lang="en">3D encoder of higher order ambisonics</tr>
+                <tr lang="ru">3D кодировщик амбисоников высоких порядков</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

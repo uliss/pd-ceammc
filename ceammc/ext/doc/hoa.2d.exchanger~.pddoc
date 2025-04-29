@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">renumbers and normalizes the channels</tr>
+                <tr lang="en">renumbers and normalizes the channels in 2d ambisonics</tr>
+                <tr lang="ru">перенумерование и нормализация каналов в двумерных амбисониках</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,7 +26,7 @@
             </aliases>
         </meta>
         <info>
-            <par>The library default normalization is SN3D and the numbering is ACN (cf tutorials).
+            <par>The library default normalization is SN2D and the numbering is ACN (cf tutorials).
             The exchangers will always convert from or to the standard.</par>
             <a href="hoa/hoa.2d.exchanger~-help.pd">CICM documentation</a>
         </info>

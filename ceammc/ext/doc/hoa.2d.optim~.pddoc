@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">a 2D ambisonic optimization tool</tr>
+                <tr lang="ru">оптимизация двумерных амбисоников</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
