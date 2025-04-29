@@ -1723,6 +1723,9 @@ roll;
 #X text 200 22887 секвенсор переключающих событий;
 #X obj 30 22915 sequencer;
 #X text 200 22915 базовый секвенсер значений;
+#X obj 481 22636 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1
+0;
+#X text 486 22636 обход данных различными способами;
 #X obj 20 22943 cnv 5 37 32 empty empty snd 4 16 0 17 -262144 -49933
 0;
 #X obj 20 22985 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -2092,4 +2095,4 @@ https://github.com/uliss/pure-data;
 https://github.com/uliss/pddoc;
 #X obj 670 27494 loadmsg 0;
 #X obj 670 27529 switch~;
-#X connect 1864 0 1865 0;
+#X connect 1866 0 1867 0;

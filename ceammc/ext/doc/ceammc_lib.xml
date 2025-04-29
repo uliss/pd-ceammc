@@ -2221,6 +2221,7 @@
     <entry name="sequencer" descr="basic sequence player" ref_view="object">
       <xi:include href="sequencer.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_seq.xml" parse="xml"/>
   </category>
   <category name="snd">
     <entry name="snd.file" descr="Sound file loader on steroids" ref_view="object">
