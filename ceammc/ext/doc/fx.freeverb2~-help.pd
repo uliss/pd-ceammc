@@ -5,111 +5,111 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.freeverb2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 fx.freeverb2~;
-#X obj 210 80 cnv 1 555 95 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 A simple Schroeder reverberator primarily developed
+#X obj 205 78 cnv 1 560 95 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 A simple Schroeder reverberator primarily developed
 by "Jezar at Dreampoint" that is extensively used in the free-software
 world. It uses four Schroeder allpasses in series and eight parallel
 Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 \, and is said to be especially well tuned.;
-#X msg 50 203 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 232 expand_env;
-#X obj 174 261 ui.knob;
-#X obj 280 261 ui.knob;
-#X obj 386 261 ui.knob;
-#X obj 50 290 readsf~;
-#X msg 174 319 @room \$1;
-#X msg 280 319 @damp \$1;
-#X msg 386 319 @drywet \$1;
-#X obj 405 347 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 405 376 @freeze \$1;
-#X obj 50 405 fx.freeverb2~ 0.95 0.125;
-#X obj 50 434 ui.gain~ @size 120 16;
-#X obj 280 434 ui.dsp~;
-#X obj 50 463 dac~;
-#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 518 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 221 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 250 expand_env;
+#X obj 174 279 ui.knob;
+#X obj 280 279 ui.knob;
+#X obj 386 279 ui.knob;
+#X obj 50 308 readsf~;
+#X msg 174 337 @room \$1;
+#X msg 280 337 @damp \$1;
+#X msg 386 337 @drywet \$1;
+#X obj 405 365 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 405 394 @freeze \$1;
+#X obj 50 423 fx.freeverb2~ 0.95 0.125;
+#X obj 50 452 ui.gain~ @size 120 16;
+#X obj 280 452 ui.dsp~;
+#X obj 50 481 dac~;
+#X obj 20 531 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 536 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 521 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 539 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 553 1\.;
-#X text 150 553 float;
-#X obj 246 554 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 553 ROOM: room size. Type: float. Range: 0\...1;
-#X text 110 573 2\.;
-#X text 150 573 float;
-#X obj 246 574 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 573 DRYWET: proportion of mix between the original (dry)
+#X text 110 571 1\.;
+#X text 150 571 float;
+#X obj 246 572 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 571 ROOM: room size. Type: float. Range: 0\...1;
+#X text 110 591 2\.;
+#X text 150 591 float;
+#X obj 246 592 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 591 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Type: float. Range: 0\...1;
-#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 641 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 626 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 644 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 658 @id;
-#X text 245 658 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 676 @id;
+#X text 245 676 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_freeverb2/PROP_NAME osc address \, if
 empty bind to /fx_freeverb2/PROP_NAME. Type: symbol.;
-#X msg 110 715 @osc;
-#X text 245 715 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 733 @osc;
+#X text 245 733 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 745 @active;
-#X text 245 745 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 763 @active;
+#X text 245 763 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 775 @bypass;
-#X text 245 775 Get/Set bypass flag. If true: bypass 'effected' signal.
+#X msg 110 793 @bypass;
+#X text 245 793 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
-#X msg 110 817 @damp;
-#X text 245 817 Get/Set damping of the lowpass comb filter. Type: float.
+#X msg 110 835 @damp;
+#X text 245 835 Get/Set damping of the lowpass comb filter. Type: float.
 Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 859 @drywet;
-#X text 245 859 Get/Set proportion of mix between the original (dry)
+#X msg 110 877 @drywet;
+#X text 245 877 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 0.33\. Range: 0\...1\.;
-#X msg 110 916 @fr_damp;
-#X text 245 916 Get/Set freeze room damp. Type: float. Default value:
+#X msg 110 934 @fr_damp;
+#X text 245 934 Get/Set freeze room damp. Type: float. Default value:
 0.0001\. Range: 0\...1\.;
-#X msg 110 958 @fr_room;
-#X text 245 958 Get/Set freeze room size. Type: float. Default value:
+#X msg 110 976 @fr_room;
+#X text 245 976 Get/Set freeze room size. Type: float. Default value:
 0.999\. Range: 0\...1\.;
-#X msg 110 1000 @fr_time;
-#X text 245 1000 Get/Set length of freeze tail. Type: float. Units:
+#X msg 110 1018 @fr_time;
+#X text 245 1018 Get/Set length of freeze tail. Type: float. Units:
 'ms'. Default value: 100\. Range: 0\...1000\.;
-#X msg 110 1042 @freeze;
-#X text 245 1042 Get/Set freeze reverberation tail. Type: bool. Default
+#X msg 110 1060 @freeze;
+#X text 245 1060 Get/Set freeze reverberation tail. Type: bool. Default
 value: 0\.;
-#X msg 110 1084 @room;
-#X text 245 1084 Get/Set room size. Type: float. Default value: 0.5\.
+#X msg 110 1102 @room;
+#X text 245 1102 Get/Set room size. Type: float. Default value: 0.5\.
 Range: 0\...1\.;
-#X msg 110 1126 @spread;
-#X text 245 1126 Get/Set spatial spread between 0 and 1 with 1 for
+#X msg 110 1144 @spread;
+#X text 245 1144 Get/Set spatial spread between 0 and 1 with 1 for
 maximum spread. Type: float. Default value: 0.5\. Range: 0\...1\.;
-#X obj 20 1178 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1183 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1196 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1201 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1218 reset;
-#X text 245 1218 reset reverb.;
-#X obj 20 1256 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1261 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1236 reset;
+#X text 245 1236 reset reverb.;
+#X obj 20 1274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1279 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1262 1\.;
-#X text 245 1262 left channel.;
-#X text 110 1282 2\.;
-#X text 245 1282 right channel.;
-#X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1317 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1280 1\.;
+#X text 245 1280 left channel.;
+#X text 110 1300 2\.;
+#X text 245 1300 right channel.;
+#X obj 20 1330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1335 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1318 1\.;
-#X text 245 1318 output left.;
-#X text 110 1338 2\.;
-#X text 245 1338 output right.;
+#X text 110 1336 1\.;
+#X text 245 1336 output left.;
+#X text 110 1356 2\.;
+#X text 245 1356 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1388 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1391 library: ceammc v0.9.8;
-#N canvas 10 1410 400 290 info 0;
+#X obj 1 1406 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1409 library: ceammc v0.9.8;
+#N canvas 10 1428 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -133,7 +133,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1410 pd info;
+#X restore 10 1428 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 11 0;
 #X connect 8 0 12 0;

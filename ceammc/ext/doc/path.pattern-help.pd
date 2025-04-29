@@ -5,62 +5,62 @@
 #X obj 1 1 cnv 5 765 40 empty empty path.pattern 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 path.pattern;
-#X obj 210 80 cnv 1 555 325 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Note: generate NEW filename (checks that generated filename
+#X obj 205 78 cnv 1 560 325 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Note: generate NEW filename (checks that generated filename
 not exists);
-#X text 215 120 ### sequence is replaced with number;
-#X text 215 145 Following variables in pattern expanded:;
-#X text 215 170 • %YEAR% - current year (4-digits);
-#X text 215 195 • %MONTH% - current month (2-digits);
-#X text 215 220 • %DAY% - current day (2-digits);
-#X text 215 245 • %HOUR% - current hour (2-digits);
-#X text 215 270 • %MIN% - current minute (2-digits);
-#X text 215 295 • %SEC% - current second (2-digits);
-#X text 215 320 • %TIME% - current time: %HOUR%-%MIN%-%SEC%;
-#X text 215 345 • %DATE% - current date: %YEAR%-%MONTH%-%DAY%;
-#X text 215 370 • %NOW% - current datetime: %DATE%_%TIME%;
-#X msg 50 433 symbol file-###.wav;
-#X msg 78 462 symbol ~/test-%NOW%.wav;
-#X msg 107 491 bang;
-#X obj 50 520 path.pattern;
-#X obj 50 549 ui.dt @auto_size 0 @size 400 40;
-#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 604 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 215 123 ### sequence is replaced with number;
+#X text 215 148 Following variables in pattern expanded:;
+#X text 215 173 • %YEAR% - current year (4-digits);
+#X text 215 198 • %MONTH% - current month (2-digits);
+#X text 215 223 • %DAY% - current day (2-digits);
+#X text 215 248 • %HOUR% - current hour (2-digits);
+#X text 215 273 • %MIN% - current minute (2-digits);
+#X text 215 298 • %SEC% - current second (2-digits);
+#X text 215 323 • %TIME% - current time: %HOUR%-%MIN%-%SEC%;
+#X text 215 348 • %DATE% - current date: %YEAR%-%MONTH%-%DAY%;
+#X text 215 373 • %NOW% - current datetime: %DATE%_%TIME%;
+#X msg 50 451 symbol file-###.wav;
+#X msg 78 480 symbol ~/test-%NOW%.wav;
+#X msg 107 509 bang;
+#X obj 50 538 path.pattern;
+#X obj 50 567 ui.dt @auto_size 0 @size 400 40;
+#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 622 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 607 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 625 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 639 1\.;
-#X text 150 639 symbol;
-#X obj 246 640 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 639 PATTERN: filename generation pattern. Type: symbol.;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 674 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 657 1\.;
+#X text 150 657 symbol;
+#X obj 246 658 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 657 PATTERN: filename generation pattern. Type: symbol.;
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 692 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 677 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 695 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 709 @pattern;
-#X text 245 709 Get/Set filename pattern. Type: symbol.;
-#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 754 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 727 @pattern;
+#X text 245 727 Get/Set filename pattern. Type: symbol.;
+#X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 772 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 755 1\.;
-#X text 150 755 *bang*;
-#X text 245 755 output generated filename pattern.;
-#X text 150 775 *symbol*;
-#X text 245 775 set new pattern and generate filename pattern.;
-#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 810 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 773 1\.;
+#X text 150 773 *bang*;
+#X text 245 773 output generated filename pattern.;
+#X text 150 793 *symbol*;
+#X text 245 793 set new pattern and generate filename pattern.;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 828 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 811 1\.;
-#X text 245 811 symbol: filename.;
+#X text 110 829 1\.;
+#X text 245 829 symbol: filename.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 861 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 864 library: ceammc v0.9.8;
-#N canvas 10 883 400 290 info 0;
+#X obj 1 879 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 882 library: ceammc v0.9.8;
+#N canvas 10 901 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -84,7 +84,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 883 pd info;
+#X restore 10 901 pd info;
 #X connect 17 0 20 0;
 #X connect 18 0 20 0;
 #X connect 19 0 20 0;

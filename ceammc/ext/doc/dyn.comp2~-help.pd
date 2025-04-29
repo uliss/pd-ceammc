@@ -5,131 +5,131 @@
 #X obj 1 1 cnv 5 765 40 empty empty dyn.comp2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 dyn.comp2~;
-#X obj 210 80 cnv 1 555 34 empty empty empty 17 7 0 10 -257983 -1 0;
-#X obj 215 80 ui.link @background_color 0.98039 0.98039 0.98039 @title
+#X obj 205 78 cnv 1 560 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 215 83 ui.link @background_color 0.98039 0.98039 0.98039 @title
 Dynamic range             compression @url
 https://en.wikipedia.org/wiki/Dynamic_range_compression;
-#X obj 50 142 ui.hsl -60 20 @show_value 1;
-#X obj 174 142 ui.hsl -60 20 @show_value 1;
-#X obj 376 142 ui.dsp~;
-#X obj 50 171 dbfs->amp;
-#X obj 174 171 dbfs->amp;
-#X obj 50 200 sig~;
-#X obj 174 200 sig~;
-#X obj 242 200 ui.hsl 1 16 @show_value 1;
-#X obj 376 200 ui.hsl -60 0 @show_value 1;
-#X msg 242 243 @ratio \$1;
-#X msg 376 243 @threshold \$1;
-#X obj 50 286 dyn.comp2~ 3 -60 10 100;
-#X obj 50 315 env~;
-#X obj 136 315 env~;
-#X obj 242 315 ui.hsl @active_scale 1;
-#X obj 50 344 - 100;
-#X obj 136 344 - 100;
-#X floatatom 50 373 5 0 0 0 - - -;
-#X floatatom 136 373 5 0 0 0 - - -;
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 160 ui.hsl -60 20 @show_value 1;
+#X obj 174 160 ui.hsl -60 20 @show_value 1;
+#X obj 376 160 ui.dsp~;
+#X obj 50 189 dbfs->amp;
+#X obj 174 189 dbfs->amp;
+#X obj 50 218 sig~;
+#X obj 174 218 sig~;
+#X obj 242 218 ui.hsl 1 16 @show_value 1;
+#X obj 376 218 ui.hsl -60 0 @show_value 1;
+#X msg 242 261 @ratio \$1;
+#X msg 376 261 @threshold \$1;
+#X obj 50 304 dyn.comp2~ 3 -60 10 100;
+#X obj 50 333 env~;
+#X obj 136 333 env~;
+#X obj 242 333 ui.hsl @active_scale 1;
+#X obj 50 362 - 100;
+#X obj 136 362 - 100;
+#X floatatom 50 391 5 0 0 0 - - -;
+#X floatatom 136 391 5 0 0 0 - - -;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 413 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 445 1\.;
-#X text 150 445 float;
-#X obj 246 446 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 445 RATIO: compression ratio (1 = no compression \, >1
+#X text 110 463 1\.;
+#X text 150 463 float;
+#X obj 246 464 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 463 RATIO: compression ratio (1 = no compression \, >1
 means compression). Type: float. Range: 1\...16;
-#X text 110 480 2\.;
-#X text 150 480 float;
-#X obj 246 481 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 480 THRESHOLD(db): level threshold above which compression
+#X text 110 498 2\.;
+#X text 150 498 float;
+#X obj 246 499 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 498 THRESHOLD(db): level threshold above which compression
 kicks in. Type: float. Range: -90\...0;
-#X text 110 515 3\.;
-#X text 150 515 float;
-#X obj 246 516 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 515 ATTACK(ms): attack time = time constant when level
+#X text 110 533 3\.;
+#X text 150 533 float;
+#X obj 246 534 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 533 ATTACK(ms): attack time = time constant when level
 & compression going up. Type: float. Range: 0.1\...100;
-#X text 110 550 4\.;
-#X text 150 550 float;
-#X obj 246 551 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 550 RELEASE(ms): release time = time constant coming out
+#X text 110 568 4\.;
+#X text 150 568 float;
+#X obj 246 569 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 568 RELEASE(ms): release time = time constant coming out
 of compression. Type: float. Range: 1\...500;
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 600 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 618 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 621 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 635 @id;
-#X text 245 635 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 653 @id;
+#X text 245 653 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/dyn_comp2/PROP_NAME osc address \, if empty
 bind to /dyn_comp2/PROP_NAME. Type: symbol.;
-#X msg 110 692 @osc;
-#X text 245 692 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 710 @osc;
+#X text 245 710 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 722 @active;
-#X text 245 722 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 740 @active;
+#X text 245 740 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 752 @attack;
-#X text 245 752 Get/Set time constant when level & compression going
+#X msg 110 770 @attack;
+#X text 245 770 Get/Set time constant when level & compression going
 up. Type: float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
-#X msg 110 809 @bypass;
-#X text 245 809 Get/Set bypass flag. If true: bypass 'effected' signal.
+#X msg 110 827 @bypass;
+#X text 245 827 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
-#X msg 110 851 @gain;
-#X text 245 851 Get/Set make up gain: applied to the signal after the
+#X msg 110 869 @gain;
+#X text 245 869 Get/Set make up gain: applied to the signal after the
 compression takes place. Type: float. Units: 'db'. Default value: 0\.
 Range: -18\...18\.;
-#X msg 110 908 @ratio;
-#X text 245 908 Get/Set compression ratio (1 = no compression \, >1
+#X msg 110 926 @ratio;
+#X text 245 926 Get/Set compression ratio (1 = no compression \, >1
 means compression). Type: float. Default value: 1\. Range: 1\...16\.;
-#X msg 110 965 @refresh;
-#X text 245 965 Get/Set compression level output time interval. If
+#X msg 110 983 @refresh;
+#X text 245 983 Get/Set compression level output time interval. If
 0 - no output. Type: int. Units: 'ms'. Default value: 100\. Range:
 0\...1000\.;
-#X msg 110 1022 @release;
-#X text 245 1022 Get/Set release time = time constant coming out of
+#X msg 110 1040 @release;
+#X text 245 1040 Get/Set release time = time constant coming out of
 compression. Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
-#X msg 110 1079 @threshold;
-#X text 245 1079 Get/Set level threshold above which compression kicks
+#X msg 110 1097 @threshold;
+#X text 245 1097 Get/Set level threshold above which compression kicks
 in. Type: float. Units: 'db'. Default value: -10\. Range: -90\...0\.;
-#X msg 110 1136 @level?;
-#X text 245 1136 (readonly) Get current level of compression. Type:
+#X msg 110 1154 @level?;
+#X text 245 1154 (readonly) Get current level of compression. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X obj 20 1188 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1193 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1206 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1211 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1228 preset;
-#X text 245 1228 choose predefined preset. Arguments are:;
-#X obj 255 1251 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1251 PRESET: name. Type: symbol. Allowed values: vocal
+#X msg 110 1246 preset;
+#X text 245 1246 choose predefined preset. Arguments are:;
+#X obj 255 1269 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1269 PRESET: name. Type: symbol. Allowed values: vocal
 \, drums \, bass \, strings.;
-#X msg 110 1291 reset;
-#X text 245 1291 reset to initial state.;
-#X obj 20 1329 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1334 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1309 reset;
+#X text 245 1309 reset to initial state.;
+#X obj 20 1347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1352 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1335 1\.;
-#X text 245 1335 left input signal.;
-#X text 110 1355 2\.;
-#X text 245 1355 right input signal.;
-#X obj 20 1385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1390 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1353 1\.;
+#X text 245 1353 left input signal.;
+#X text 110 1373 2\.;
+#X text 245 1373 right input signal.;
+#X obj 20 1403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1408 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1391 1\.;
-#X text 245 1391 left output signal.;
-#X text 110 1411 2\.;
-#X text 245 1411 right output signal.;
-#X text 110 1431 3\.;
-#X text 245 1431 float: output current compression level in [0\..1].;
+#X text 110 1409 1\.;
+#X text 245 1409 left output signal.;
+#X text 110 1429 2\.;
+#X text 245 1429 right output signal.;
+#X text 110 1449 3\.;
+#X text 245 1449 float: output current compression level in [0\..1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1481 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1484 library: ceammc v0.9.8;
-#X text 598 1496 see also:;
-#X obj 673 1496 dyn.comp~;
-#N canvas 10 1503 400 290 info 0;
+#X obj 1 1499 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1502 library: ceammc v0.9.8;
+#X text 598 1514 see also:;
+#X obj 673 1514 dyn.comp~;
+#N canvas 10 1521 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -153,7 +153,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1503 pd info;
+#X restore 10 1521 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;

@@ -6,117 +6,117 @@
 0;
 #X obj 575 11 fx.sdelay~;
 #X obj 674 11 fx.delay~;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 delay that doesn't click and doesn't transpose when
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 delay that doesn't click and doesn't transpose when
 the delay time is changed;
-#X msg 50 158 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 187 expand_env;
-#X obj 174 187 ui.hsl 0 1000 @show_value 1;
-#X obj 50 230 readsf~;
-#X floatatom 290 230 5 0 0 0 - - -;
-#X msg 174 259 @delay \$1;
-#X msg 290 259 @smooth \$1;
-#X obj 50 288 fx.delay~ @drywet 0.5;
-#X obj 50 317 ui.gain~ @size 120 16;
-#X obj 290 317 ui.dsp~;
-#X obj 50 345 dac~;
-#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 400 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 176 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 205 expand_env;
+#X obj 174 205 ui.hsl 0 1000 @show_value 1;
+#X obj 50 248 readsf~;
+#X floatatom 290 248 5 0 0 0 - - -;
+#X msg 174 277 @delay \$1;
+#X msg 290 277 @smooth \$1;
+#X obj 50 306 fx.delay~ @drywet 0.5;
+#X obj 50 335 ui.gain~ @size 120 16;
+#X obj 290 335 ui.dsp~;
+#X obj 50 363 dac~;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 435 1\.;
-#X text 150 435 float;
-#X obj 246 436 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 435 DELAY(ms): delay time. Type: float. Range: 0\...6000;
-#X text 110 455 2\.;
-#X text 150 455 float;
-#X obj 246 456 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 455 FEEDBACK: feedback coefficient. Type: float. Range:
+#X text 110 453 1\.;
+#X text 150 453 float;
+#X obj 246 454 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 453 DELAY(ms): delay time. Type: float. Range: 0\...6000;
+#X text 110 473 2\.;
+#X text 150 473 float;
+#X obj 246 474 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 473 FEEDBACK: feedback coefficient. Type: float. Range:
 0\...1;
-#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 490 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 508 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 511 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 525 @id;
-#X text 245 525 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 543 @id;
+#X text 245 543 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_delay/PROP_NAME osc address \, if empty
 bind to /fx_delay/PROP_NAME. Type: symbol.;
-#X msg 110 582 @osc;
-#X text 245 582 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 600 @osc;
+#X text 245 600 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 612 @active;
-#X text 245 612 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 630 @active;
+#X text 245 630 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 642 @bypass;
-#X text 245 642 Get/Set bypass flag. If true: bypass 'effected' signal.
+#X msg 110 660 @bypass;
+#X text 245 660 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
-#X msg 110 684 @c_attack;
-#X text 245 684 Get/Set feedback compression attack time. Type: float.
+#X msg 110 702 @c_attack;
+#X text 245 702 Get/Set feedback compression attack time. Type: float.
 Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
-#X msg 110 726 @c_release;
-#X text 245 726 Get/Set feedback compression release time. Type: float.
+#X msg 110 744 @c_release;
+#X text 245 744 Get/Set feedback compression release time. Type: float.
 Units: 'ms'. Default value: 50\. Range: 1\...500\.;
-#X msg 110 768 @c_thresh;
-#X text 245 768 Get/Set feedback compression threshold level. Type:
+#X msg 110 786 @c_thresh;
+#X text 245 786 Get/Set feedback compression threshold level. Type:
 float. Units: 'db'. Default value: 0\. Range: -60\...0\.;
-#X msg 110 810 @compress;
-#X text 245 810 Get/Set feedback compression factor. 0: means no compression
+#X msg 110 828 @compress;
+#X text 245 828 Get/Set feedback compression factor. 0: means no compression
 \, 1: limit feedback level. Type: float. Default value: 0.5\. Range:
 0\...1\.;
-#X msg 110 867 @delay;
-#X text 245 867 Get/Set echo time. Type: float. Units: 'ms'. Default
+#X msg 110 885 @delay;
+#X text 245 885 Get/Set echo time. Type: float. Units: 'ms'. Default
 value: 1\. Range: 0\...6000\.;
-#X msg 110 909 @drywet;
-#X text 245 909 Get/Set proportion of mix between the original (dry)
+#X msg 110 927 @drywet;
+#X text 245 927 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Range: 0\...1\.;
-#X msg 110 966 @f_hpf;
-#X text 245 966 Get/Set feedback high-pass filter cutoff frequency.
+#X msg 110 984 @f_hpf;
+#X text 245 984 Get/Set feedback high-pass filter cutoff frequency.
 Type: float. Units: 'Hz'. Default value: 300\. Range: 20\...20000\.;
-#X msg 110 1008 @f_lpf;
-#X text 245 1008 Get/Set feedback low-pass filter cutoff frequency.
+#X msg 110 1026 @f_lpf;
+#X text 245 1026 Get/Set feedback low-pass filter cutoff frequency.
 Type: float. Units: 'Hz'. Default value: 9000\. Range: 20\...20000\.;
-#X msg 110 1065 @feedback;
-#X text 245 1065 Get/Set feedback coefficient. Type: float. Default
+#X msg 110 1083 @feedback;
+#X text 245 1083 Get/Set feedback coefficient. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 1107 @filter;
-#X text 245 1107 Get/Set if true - apply filter to feedback signal.
+#X msg 110 1125 @filter;
+#X text 245 1125 Get/Set if true - apply filter to feedback signal.
 Type: bool. Default value: 0\.;
-#X msg 110 1149 @smooth;
-#X text 245 1149 Get/Set interpolation time on delay time change \,
+#X msg 110 1167 @smooth;
+#X text 245 1167 Get/Set interpolation time on delay time change \,
 that prevents click and transpose \, if equal to 0 produces artifacts
 on delay change. Type: float. Units: 'ms'. Default value: 50\. Range:
 0\...500\.;
-#X obj 20 1231 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1236 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1249 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1254 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1271 reset;
-#X text 245 1271 clears delay line.;
-#X obj 20 1309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1314 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1289 reset;
+#X text 245 1289 clears delay line.;
+#X obj 20 1327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1332 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1315 1\.;
-#X text 245 1315 input signal.;
-#X text 110 1335 2\.;
-#X text 150 1335 *float*;
-#X text 245 1335 set delay time.;
-#X obj 20 1365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1370 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1333 1\.;
+#X text 245 1333 input signal.;
+#X text 110 1353 2\.;
+#X text 150 1353 *float*;
+#X text 245 1353 set delay time.;
+#X obj 20 1383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1388 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1371 1\.;
-#X text 245 1371 output signal.;
+#X text 110 1389 1\.;
+#X text 245 1389 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1421 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1424 library: ceammc v0.9.8;
-#X text 606 1436 see also:;
-#X obj 681 1436 fx.echo~;
-#N canvas 10 1443 400 290 info 0;
+#X obj 1 1439 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1442 library: ceammc v0.9.8;
+#X text 606 1454 see also:;
+#X obj 681 1454 fx.echo~;
+#N canvas 10 1461 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -140,7 +140,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1443 pd info;
+#X restore 10 1461 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 9 0 12 0;

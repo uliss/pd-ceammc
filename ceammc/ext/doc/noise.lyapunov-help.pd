@@ -5,135 +5,135 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.lyapunov 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 noise.lyapunov;
-#X obj 210 80 cnv 1 555 440 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 inspired by Paul Bourke \, implementation by André Sier;
-#X text 215 105 ---;
-#X text 215 130 lyapunov random attractors;
-#X text 215 155 ---;
-#X text 215 180 Paul Bourke's words http://astronomy.swin.edu.au/%7Epbourke/fractals/lyapunov/;
-#X text 215 220 ---;
-#X text 215 245 On average 98% of the random selections of (an \, bn)
+#X obj 205 78 cnv 1 560 440 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 inspired by Paul Bourke \, implementation by André Sier;
+#X text 215 108 ---;
+#X text 215 133 lyapunov random attractors;
+#X text 215 158 ---;
+#X text 215 183 Paul Bourke's words http://astronomy.swin.edu.au/%7Epbourke/fractals/lyapunov/;
+#X text 215 223 ---;
+#X text 215 248 On average 98% of the random selections of (an \, bn)
 result in an infinite series.;
-#X text 215 285 This is so common because of the range (-2<=a \, b<=2)
+#X text 215 288 This is so common because of the range (-2<=a \, b<=2)
 for each of the parameters a and b \, the number of infinite cases
 will reduce greatly with a smaller range.;
-#X text 215 340 About 1% were point attractors \, and about 0.5% were
+#X text 215 343 About 1% were point attractors \, and about 0.5% were
 periodic basins of attraction.;
-#X text 215 380 ===;
-#X text 215 405 x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 + a[3]*x[n]*y[n]
+#X text 215 383 ===;
+#X text 215 408 x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 + a[3]*x[n]*y[n]
 + a[4]*y[n] + a[5]*y[n]^2;
-#X text 215 445 y[n+1] = b[0] + b[1]*x[n] + b[2]*x[n]^2 + b[3]*x[n]*y[n]
+#X text 215 448 y[n+1] = b[0] + b[1]*x[n] + b[2]*x[n]^2 + b[3]*x[n]*y[n]
 + b[4]*y[n] + b[5]*y[n]^2;
-#X text 215 485 ===;
-#X obj 50 548 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 577 metro 50;
-#X obj 69 620 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 184 620 5 0 0 0 - - -;
-#X msg 69 649 om \$1;
-#X msg 184 649 set \$1;
-#X msg 318 649 reset;
-#X floatatom 59 678 5 0 0 0 - - -;
-#X floatatom 194 678 5 0 0 0 - - -;
-#X msg 59 707 x \$1;
-#X msg 194 707 y \$1;
-#X floatatom 88 735 5 0 0 0 - - -;
-#X floatatom 184 735 5 0 0 0 - - -;
-#X msg 88 764 a \$1;
-#X msg 184 764 b \$1;
-#X obj 50 793 noise.lyapunov;
-#X obj 50 822 ui.display;
-#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 877 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 215 488 ===;
+#X obj 50 566 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 595 metro 50;
+#X obj 69 638 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 184 638 5 0 0 0 - - -;
+#X msg 69 667 om \$1;
+#X msg 184 667 set \$1;
+#X msg 318 667 reset;
+#X floatatom 59 696 5 0 0 0 - - -;
+#X floatatom 194 696 5 0 0 0 - - -;
+#X msg 59 725 x \$1;
+#X msg 194 725 y \$1;
+#X floatatom 88 753 5 0 0 0 - - -;
+#X floatatom 184 753 5 0 0 0 - - -;
+#X msg 88 782 a \$1;
+#X msg 184 782 b \$1;
+#X obj 50 811 noise.lyapunov;
+#X obj 50 840 ui.display;
+#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 895 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 880 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 898 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 912 1\.;
-#X text 150 912 float;
-#X obj 246 913 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 912 A: a value (optional). Type: float.;
-#X text 110 932 2\.;
-#X text 150 932 float;
-#X obj 246 933 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 932 B: b value (optional). Type: float.;
-#X text 110 952 3\.;
-#X text 150 952 float;
-#X obj 246 953 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 952 X: x value (optional). Type: float.;
-#X text 110 972 4\.;
-#X text 150 972 float;
-#X obj 246 973 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 972 Y: y value (optional). Type: float.;
-#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1007 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 110 930 1\.;
+#X text 150 930 float;
+#X obj 246 931 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 930 A: a value (optional). Type: float.;
+#X text 110 950 2\.;
+#X text 150 950 float;
+#X obj 246 951 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 950 B: b value (optional). Type: float.;
+#X text 110 970 3\.;
+#X text 150 970 float;
+#X obj 246 971 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 970 X: x value (optional). Type: float.;
+#X text 110 990 4\.;
+#X text 150 990 float;
+#X obj 246 991 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 990 Y: y value (optional). Type: float.;
+#X obj 20 1020 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1025 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1042 a;
-#X text 245 1042 Arguments are:;
-#X obj 255 1065 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1065 A0: a[0] value. Type: float.;
-#X obj 255 1088 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1088 [A1]: a[1] value. Type: float.;
-#X obj 255 1111 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1111 [A2]: a[2] value. Type: float.;
-#X obj 255 1134 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1134 [A3]: a[3] value. Type: float.;
-#X obj 255 1157 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1157 [A4]: a[4] value. Type: float.;
-#X obj 255 1180 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1180 [A5]: a[5] value. Type: float.;
-#X msg 110 1205 b;
-#X text 245 1205 Arguments are:;
-#X obj 255 1228 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1228 B0: b[0] value. Type: float.;
-#X obj 255 1251 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1251 [B1]: b[1] value. Type: float.;
-#X obj 255 1274 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1274 [B2]: b[2] value. Type: float.;
-#X obj 255 1297 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1297 [B3]: b[3] value. Type: float.;
-#X obj 255 1320 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1320 [B4]: b[4] value. Type: float.;
-#X obj 255 1343 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1343 [B5]: b[5] value. Type: float.;
-#X msg 110 1368 om;
-#X text 245 1368 Arguments are:;
-#X obj 255 1391 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1391 OM: enables output when cut or fold value is changed.
+#X msg 110 1060 a;
+#X text 245 1060 Arguments are:;
+#X obj 255 1083 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1083 A0: a[0] value. Type: float.;
+#X obj 255 1106 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1106 [A1]: a[1] value. Type: float.;
+#X obj 255 1129 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1129 [A2]: a[2] value. Type: float.;
+#X obj 255 1152 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1152 [A3]: a[3] value. Type: float.;
+#X obj 255 1175 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1175 [A4]: a[4] value. Type: float.;
+#X obj 255 1198 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1198 [A5]: a[5] value. Type: float.;
+#X msg 110 1223 b;
+#X text 245 1223 Arguments are:;
+#X obj 255 1246 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1246 B0: b[0] value. Type: float.;
+#X obj 255 1269 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1269 [B1]: b[1] value. Type: float.;
+#X obj 255 1292 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1292 [B2]: b[2] value. Type: float.;
+#X obj 255 1315 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1315 [B3]: b[3] value. Type: float.;
+#X obj 255 1338 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1338 [B4]: b[4] value. Type: float.;
+#X obj 255 1361 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1361 [B5]: b[5] value. Type: float.;
+#X msg 110 1386 om;
+#X text 245 1386 Arguments are:;
+#X obj 255 1409 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1409 OM: enables output when cut or fold value is changed.
 Type: int.;
-#X msg 110 1431 reset;
-#X text 245 1431 reset state.;
-#X msg 110 1459 set;
-#X text 245 1459 Arguments are:;
-#X obj 255 1482 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1482 SET: set to value. Type: float.;
-#X msg 110 1507 x;
-#X text 245 1507 Arguments are:;
-#X obj 255 1530 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1530 NX: x value. Type: float.;
-#X msg 110 1555 y;
-#X text 245 1555 Arguments are:;
-#X obj 255 1578 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1578 NY: y value. Type: float.;
-#X obj 20 1613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1618 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1449 reset;
+#X text 245 1449 reset state.;
+#X msg 110 1477 set;
+#X text 245 1477 Arguments are:;
+#X obj 255 1500 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1500 SET: set to value. Type: float.;
+#X msg 110 1525 x;
+#X text 245 1525 Arguments are:;
+#X obj 255 1548 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1548 NX: x value. Type: float.;
+#X msg 110 1573 y;
+#X text 245 1573 Arguments are:;
+#X obj 255 1596 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1596 NY: y value. Type: float.;
+#X obj 20 1631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1636 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1619 1\.;
-#X text 150 1619 *bang*;
-#X text 245 1619 output value.;
-#X obj 20 1649 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1654 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1637 1\.;
+#X text 150 1637 *bang*;
+#X text 245 1637 output value.;
+#X obj 20 1667 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1672 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1655 1\.;
-#X text 245 1655 x outlet.;
-#X text 110 1675 2\.;
-#X text 245 1675 y outlet.;
+#X text 110 1673 1\.;
+#X text 245 1673 x outlet.;
+#X text 110 1693 2\.;
+#X text 245 1693 y outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1725 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1728 library: ceammc v0.9.8;
-#N canvas 10 1747 400 290 info 0;
+#X obj 1 1743 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1746 library: ceammc v0.9.8;
+#N canvas 10 1765 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -157,7 +157,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1747 pd info;
+#X restore 10 1765 pd info;
 #X connect 18 0 19 0;
 #X connect 20 0 22 0;
 #X connect 21 0 23 0;

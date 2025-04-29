@@ -5,28 +5,28 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.sinh 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.sinh;
-#X obj 210 80 cnv 1 555 110 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The sinh() function computes the hyperbolic sine of
+#X obj 205 78 cnv 1 560 110 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The sinh() function computes the hyperbolic sine of
 x.;
-#X text 215 105 Special values:;
-#X text 215 130 sinh(+-0) returns +-0\.;
-#X text 215 155 sinh(+-infinity) returns +-infinity.;
-#X floatatom 50 218 5 0 0 0 - - -;
-#X obj 50 247 math.sinh;
-#X floatatom 50 276 5 0 0 0 - - -;
-#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 313 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 215 108 Special values:;
+#X text 215 133 sinh(+-0) returns +-0\.;
+#X text 215 158 sinh(+-infinity) returns +-infinity.;
+#X floatatom 50 236 5 0 0 0 - - -;
+#X obj 50 265 math.sinh;
+#X floatatom 50 294 5 0 0 0 - - -;
+#X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 331 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 314 1\.;
-#X text 150 314 *float*;
-#X text 245 314 input value.;
-#X text 150 334 *list*;
-#X text 245 334 apply to all numeric values.;
-#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 332 1\.;
+#X text 150 332 *float*;
+#X text 245 332 input value.;
+#X text 150 352 *list*;
+#X text 245 352 apply to all numeric values.;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 370 1\.;
-#X text 245 370 result value.;
+#X text 110 388 1\.;
+#X text 245 388 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -7,79 +7,79 @@ list;
 -4096 0;
 #X obj 579 11 random.a;
 #X obj 661 11 random.atom;
-#X obj 210 80 cnv 1 555 185 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Choose random atom from specified list (with weights)
+#X obj 205 78 cnv 1 560 185 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Choose random atom from specified list (with weights)
 and output it.;
-#X text 215 120 If no weights specified \, choose elements with random
+#X text 215 123 If no weights specified \, choose elements with random
 uniform distribution.;
-#X text 215 160 Use @seed property to get reproducible sequences. If
+#X text 215 163 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
-#X text 215 215 Note: when @nonrep property is set \, distribution
+#X text 215 218 Note: when @nonrep property is set \, distribution
 is not uniform or weighted.;
-#X obj 50 293 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 184 293 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 322 metro 110;
-#X msg 184 322 @nonrep \$1;
-#X obj 50 351 random.atom C5 D5 C6 Eb4 @w 2 1 6 3;
-#X obj 50 380 pitch->midi;
-#X obj 50 409 mtof;
-#X obj 50 437 osc~;
-#X obj 117 437 b;
-#X obj 50 466 env.ar~ 10 70;
-#X obj 50 495 ui.hgain~;
-#X obj 203 495 ui.dsp~;
-#X obj 50 524 dac~;
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 579 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 184 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 340 metro 110;
+#X msg 184 340 @nonrep \$1;
+#X obj 50 369 random.atom C5 D5 C6 Eb4 @w 2 1 6 3;
+#X obj 50 398 pitch->midi;
+#X obj 50 427 mtof;
+#X obj 50 455 osc~;
+#X obj 117 455 b;
+#X obj 50 484 env.ar~ 10 70;
+#X obj 50 513 ui.hgain~;
+#X obj 203 513 ui.dsp~;
+#X obj 50 542 dac~;
+#X obj 20 592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 597 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 600 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 614 1\.;
-#X text 150 614 list;
-#X obj 246 615 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 614 VALUE: list of atoms. Type: list.;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 649 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 632 1\.;
+#X text 150 632 list;
+#X obj 246 633 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 632 VALUE: list of atoms. Type: list.;
+#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 667 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 652 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 670 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 684 @nonrep;
-#X text 245 684 Get/Set generate non-repeated adjacent values (note:
+#X msg 110 702 @nonrep;
+#X text 245 702 Get/Set generate non-repeated adjacent values (note:
 distribution will changed!). Type: bool. Default value: 0\.;
-#X msg 110 726 @seed;
-#X text 245 726 Get/Set generator seed. Type: int. Default value: 0\.
+#X msg 110 744 @seed;
+#X text 245 744 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
-#X msg 110 768 @value;
-#X text 245 768 Get/Set list of atoms. Type: list.;
-#X msg 110 798 @w;
-#X text 245 798 Get/Set list of atom weights. Type: list.;
-#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 843 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 786 @value;
+#X text 245 786 Get/Set list of atoms. Type: list.;
+#X msg 110 816 @w;
+#X text 245 816 Get/Set list of atom weights. Type: list.;
+#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 861 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 844 1\.;
-#X text 150 844 *bang*;
-#X text 245 844 output random atom.;
-#X text 110 864 2\.;
-#X text 150 864 *list*;
-#X text 245 864 set list of elements to choose from. Note: clear all
+#X text 110 862 1\.;
+#X text 150 862 *bang*;
+#X text 245 862 output random atom.;
+#X text 110 882 2\.;
+#X text 150 882 *list*;
+#X text 245 882 set list of elements to choose from. Note: clear all
 weights.;
-#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 899 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 917 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 900 1\.;
-#X text 245 900 random atom value.;
+#X text 110 918 1\.;
+#X text 245 918 random atom value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 950 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 953 library: ceammc v0.9.8;
-#X text 478 965 see also:;
-#X obj 553 965 random.float;
-#X obj 654 965 random.gauss;
-#N canvas 10 972 400 290 info 0;
+#X obj 1 968 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 971 library: ceammc v0.9.8;
+#X text 478 983 see also:;
+#X obj 553 983 random.float;
+#X obj 654 983 random.gauss;
+#N canvas 10 990 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 972 pd info;
+#X restore 10 990 pd info;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;

@@ -5,109 +5,109 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.granulator~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 fx.granulator~;
-#X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The granulator contains two lines: A and B;
-#X text 215 105 Input buffer size: ~3 seconds;
-#X msg 50 168 open %CEAMMC%/sound/loop_breakbeat.flac \, 1;
-#X obj 50 197 expand_env;
-#X msg 174 197 stop;
-#X obj 242 197 ui.hsl @show_value 1 @min 1 @max 16;
-#X obj 405 197 ui.hsl @show_value 1 @min 10 @max 1000;
-#X obj 539 197 ui.hsl @show_value 1 @min 500 @max 3000;
-#X obj 50 226 snd.play~ 1;
-#X msg 242 226 @density \$1;
-#X msg 405 226 @size \$1;
-#X msg 539 226 @delay \$1;
-#X obj 242 255 ui.k @show_value 1 @min 100 @max 5000;
-#X obj 405 255 ui.k @show_value 1 @min 100 @max 5000;
-#X obj 539 255 ui.hsl @show_value 1 @min 0.05 @max 1;
-#X msg 539 284 @spread \$1;
-#X msg 242 312 @hpfA \$1;
-#X msg 405 312 @hpfB \$1;
-#X obj 242 341 ui.hsl @show_value 1 @min -4 @max 4;
-#X obj 405 341 ui.hsl @show_value 1 @min -4 @max 4;
-#X msg 242 370 @pitchA \$1;
-#X msg 405 370 @pitchB \$1;
-#X obj 50 413 fx.granulator~;
-#X obj 50 442 ui.gain2~ @size 120 14;
-#X obj 290 442 ui.dsp~;
-#X obj 50 471 dac~;
-#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 526 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The granulator contains two lines: A and B;
+#X text 215 108 Input buffer size: ~3 seconds;
+#X msg 50 186 open %CEAMMC%/sound/loop_breakbeat.flac \, 1;
+#X obj 50 215 expand_env;
+#X msg 174 215 stop;
+#X obj 242 215 ui.hsl @show_value 1 @min 1 @max 16;
+#X obj 405 215 ui.hsl @show_value 1 @min 10 @max 1000;
+#X obj 539 215 ui.hsl @show_value 1 @min 500 @max 3000;
+#X obj 50 244 snd.play~ 1;
+#X msg 242 244 @density \$1;
+#X msg 405 244 @size \$1;
+#X msg 539 244 @delay \$1;
+#X obj 242 273 ui.k @show_value 1 @min 100 @max 5000;
+#X obj 405 273 ui.k @show_value 1 @min 100 @max 5000;
+#X obj 539 273 ui.hsl @show_value 1 @min 0.05 @max 1;
+#X msg 539 302 @spread \$1;
+#X msg 242 330 @hpfA \$1;
+#X msg 405 330 @hpfB \$1;
+#X obj 242 359 ui.hsl @show_value 1 @min -4 @max 4;
+#X obj 405 359 ui.hsl @show_value 1 @min -4 @max 4;
+#X msg 242 388 @pitchA \$1;
+#X msg 405 388 @pitchB \$1;
+#X obj 50 431 fx.granulator~;
+#X obj 50 460 ui.gain2~ @size 120 14;
+#X obj 290 460 ui.dsp~;
+#X obj 50 489 dac~;
+#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 544 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 529 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 547 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 561 @id;
-#X text 245 561 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 579 @id;
+#X text 245 579 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_granulator/PROP_NAME osc address \, if
 empty bind to /fx_granulator/PROP_NAME. Type: symbol.;
-#X msg 110 618 @osc;
-#X text 245 618 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 636 @osc;
+#X text 245 636 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 648 @active;
-#X text 245 648 Turn on/off the dsp processing. Type: bool. Default
+#X msg 110 666 @active;
+#X text 245 666 Turn on/off the dsp processing. Type: bool. Default
 value: 1\.;
-#X msg 110 690 @delay;
-#X text 245 690 Get/Set grain delay. Type: float. Units: 'ms'. Default
+#X msg 110 708 @delay;
+#X text 245 708 Get/Set grain delay. Type: float. Units: 'ms'. Default
 value: 3000\. Range: 500\...3000\.;
-#X msg 110 732 @density;
-#X text 245 732 Get/Set number of grains. Type: float. Default value:
+#X msg 110 750 @density;
+#X text 245 750 Get/Set number of grains. Type: float. Default value:
 1.0\. Range: 1.0\...16.0\.;
-#X msg 110 774 @gainAL;
-#X text 245 774 Get/Set A-channel left output gain. Type: float. Default
+#X msg 110 792 @gainAL;
+#X text 245 792 Get/Set A-channel left output gain. Type: float. Default
 value: 0.75\. Range: 0.0\...1.0\.;
-#X msg 110 816 @gainAR;
-#X text 245 816 Get/Set A-channel right ouptut gain. Type: float. Default
+#X msg 110 834 @gainAR;
+#X text 245 834 Get/Set A-channel right ouptut gain. Type: float. Default
 value: 0.25\. Range: 0.0\...1.0\.;
-#X msg 110 858 @gainBL;
-#X text 245 858 Get/Set B-channel left output gain. Type: float. Default
+#X msg 110 876 @gainBL;
+#X text 245 876 Get/Set B-channel left output gain. Type: float. Default
 value: 0.25\. Range: 0.0\...1.0\.;
-#X msg 110 900 @gainBR;
-#X text 245 900 Get/Set B-channel right output gain. Type: float. Default
+#X msg 110 918 @gainBR;
+#X text 245 918 Get/Set B-channel right output gain. Type: float. Default
 value: 0.75\. Range: 0.0\...1.0\.;
-#X msg 110 942 @hpfA;
-#X text 245 942 Get/Set A-channel HPF corner frequency. Type: float.
+#X msg 110 960 @hpfA;
+#X text 245 960 Get/Set A-channel HPF corner frequency. Type: float.
 Units: 'Hz'. Default value: 100.0\. Range: 50.0\...10000.0\.;
-#X msg 110 984 @hpfB;
-#X text 245 984 Get/Set B-channel HPF corner frequency. Type: float.
+#X msg 110 1002 @hpfB;
+#X text 245 1002 Get/Set B-channel HPF corner frequency. Type: float.
 Units: 'Hz'. Default value: 100.0\. Range: 50.0\...10000.0\.;
-#X msg 110 1026 @pitchA;
-#X text 245 1026 Get/Set A-channel pitch shift. Type: float. Default
+#X msg 110 1044 @pitchA;
+#X text 245 1044 Get/Set A-channel pitch shift. Type: float. Default
 value: 1.0\. Range: -4.0\...4.0\.;
-#X msg 110 1068 @pitchB;
-#X text 245 1068 Get/Set B-channel pitchshift. Type: float. Default
+#X msg 110 1086 @pitchB;
+#X text 245 1086 Get/Set B-channel pitchshift. Type: float. Default
 value: 1.0\. Range: -4.0\...4.0\.;
-#X msg 110 1110 @spread;
-#X text 245 1110 Get/Set grain spread in the input buffer. Type: float.
+#X msg 110 1128 @spread;
+#X text 245 1128 Get/Set grain spread in the input buffer. Type: float.
 Default value: 0.5\. Range: 0.05\...1.0\.;
-#X msg 110 1152 @size;
-#X text 245 1152 Get/Set grain size for both lines. Type: float. Units:
+#X msg 110 1170 @size;
+#X text 245 1170 Get/Set grain size for both lines. Type: float. Units:
 'ms'. Default value: 100\. Range: 10\...1000\.;
-#X obj 20 1204 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1209 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1227 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1244 reset;
-#X text 245 1244 reset object state.;
-#X obj 20 1282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1287 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1262 reset;
+#X text 245 1262 reset object state.;
+#X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1288 1\.;
-#X text 245 1288 input signal.;
-#X obj 20 1318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1323 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1306 1\.;
+#X text 245 1306 input signal.;
+#X obj 20 1336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1341 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1324 1\.;
-#X text 245 1324 left output.;
-#X text 110 1344 2\.;
-#X text 245 1344 right output.;
+#X text 110 1342 1\.;
+#X text 245 1342 left output.;
+#X text 110 1362 2\.;
+#X text 245 1362 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1394 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1397 library: ceammc v0.9.8;
-#N canvas 10 1416 400 290 info 0;
+#X obj 1 1412 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1415 library: ceammc v0.9.8;
+#N canvas 10 1434 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -131,7 +131,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1416 pd info;
+#X restore 10 1434 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;
