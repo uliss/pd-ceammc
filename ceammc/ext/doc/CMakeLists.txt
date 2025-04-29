@@ -283,6 +283,6 @@ if(APPLE)
             COMMAND ${RSYNC_EXEC} -av --include '*.pd' --include 'help-ru' --exclude '*'
                 ${CMAKE_CURRENT_SOURCE_DIR}/
                 ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc
-            DEPENDS ceammc_pddoc)
+            DEPENDS ceammc_pddoc ceammc_pddoc_ru)
     endif()
 endif()
