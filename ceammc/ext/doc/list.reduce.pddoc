@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">transforms the list into a single value through side-chain processing</tr>
-                <tr lang="ru">преобразование списка к единственному значению через боковую цепь обработки</tr>
+                <tr lang="en">transforms the list into a single value through side-chain
+                processing</tr>
+                <tr lang="ru">преобразование списка к единственному значению через боковую цепь
+                обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

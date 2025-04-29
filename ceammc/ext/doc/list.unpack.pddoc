@@ -8,7 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">unpacks list elements into corresponding object outlets</tr>
-                <tr lang="ru">распаковывает элементы списка в соответствующие им выходы объекта</tr>
+                <tr lang="ru">распаковывает элементы списка в соответствующие им выходы
+                объекта</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

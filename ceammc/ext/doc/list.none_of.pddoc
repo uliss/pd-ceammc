@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if none of list elements is accepted by the predicate side-chain</tr>
-                <tr lang="ru">проверяет, что ни один из элементов не принимается предикатом боковой цепи обработки</tr>
+                <tr lang="en">checks if none of list elements is accepted by the predicate
+                side-chain</tr>
+                <tr lang="ru">проверяет, что ни один из элементов не принимается предикатом боковой
+                цепи обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">outputs the list of positional sums which is updated upon each incoming list</tr>
-                <tr lang="ru">выводит список позиционных сумм, который обновляется при каждом входящем списке</tr>
+                <tr lang="en">outputs the list of positional sums which is updated upon each
+                incoming list</tr>
+                <tr lang="ru">выводит список позиционных сумм, который обновляется при каждом
+                входящем списке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

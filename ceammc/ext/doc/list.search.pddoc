@@ -8,7 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">outputs the positions of pre-defined elements in the input list</tr>
-                <tr lang="ru">выводит позиции предварительно заданных элементов во входном списке</tr>
+                <tr lang="ru">выводит позиции предварительно заданных элементов во входном
+                списке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
