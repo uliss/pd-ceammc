@@ -8,41 +8,41 @@
 #X obj 495 11 ceammc/split;
 #X obj 607 11 split;
 #X obj 668 11 flow.split;
-#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Predicate side chain should accept value and return
+#X obj 205 78 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Predicate side chain should accept value and return
 1 (true) or 0 (false). If true \, input value is outputed to first
 outlet. Otherwise to second outlet.;
-#X floatatom 50 173 5 0 0 0 - - -;
-#X msg 270 173 1 2;
-#X msg 328 173 2 1;
-#X obj 453 173 flow.split-more;
-#X obj 50 202 flow.split;
-#X obj 174 202 > 0;
-#X obj 270 202 flow.split;
-#X obj 395 202 <;
-#X obj 453 202 flow.split-sound;
-#X floatatom 50 231 5 0 0 0 - - -;
-#X floatatom 98 231 5 0 0 0 - - -;
-#X obj 328 231 ui.dt;
-#X obj 270 260 ui.dt;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X floatatom 50 191 5 0 0 0 - - -;
+#X msg 270 191 1 2;
+#X msg 328 191 2 1;
+#X obj 453 191 flow.split-more;
+#X obj 50 220 flow.split;
+#X obj 174 220 > 0;
+#X obj 270 220 flow.split;
+#X obj 395 220 <;
+#X obj 453 220 flow.split-sound;
+#X floatatom 50 249 5 0 0 0 - - -;
+#X floatatom 98 249 5 0 0 0 - - -;
+#X obj 328 249 ui.dt;
+#X obj 270 278 ui.dt;
+#X obj 20 328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 333 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 316 1\.;
-#X text 245 316 input value.;
-#X text 110 336 2\.;
-#X text 150 336 *float*;
-#X text 245 336 input from predicate side chain. If 1 received - output
+#X text 110 334 1\.;
+#X text 245 334 input value.;
+#X text 110 354 2\.;
+#X text 150 354 *float*;
+#X text 245 354 input from predicate side chain. If 1 received - output
 for first outlet. If 0 - to second.;
-#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 387 1\.;
-#X text 245 387 values for which predicate side-chain returned true.;
-#X text 110 407 2\.;
-#X text 245 407 values for which predicate side-chain returned false.;
-#X text 110 427 3\.;
-#X text 245 427 value to predicate side-chain.;
+#X text 110 405 1\.;
+#X text 245 405 values for which predicate side-chain returned true.;
+#X text 110 425 2\.;
+#X text 245 425 values for which predicate side-chain returned false.;
+#X text 110 445 3\.;
+#X text 245 445 value to predicate side-chain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

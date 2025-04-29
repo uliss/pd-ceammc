@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 322 50 cnv 1 443 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 322 50 удалить элементы списка при помощи предиката боковой
+#X obj 314 50 cnv 1 447 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 318 50 удалить элементы списка при помощи предиката боковой
 цепи;
 #X obj 1 1 cnv 5 765 40 empty empty list.remove_if 20 20 0 20 -104026
 -4096 0;

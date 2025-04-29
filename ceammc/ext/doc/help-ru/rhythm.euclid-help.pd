@@ -5,79 +5,79 @@
 #X obj 1 1 cnv 5 765 40 empty empty rhythm.euclid 20 20 0 20 -104026
 -4096 0;
 #X obj 647 11 rhythm.euclid;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Note: fast Bresenham algorithm is used;
-#X obj 50 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Note: fast Bresenham algorithm is used;
+#X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 143 3 5 1;
-#X listbox 174 143 20 0 0 0 - - -;
-#X obj 88 172 msg.after bang;
-#X obj 50 201 rhythm.euclid 3 7;
-#X obj 50 230 t l l;
-#X obj 88 259 list.size;
-#X msg 88 287 @nitems \$1 \, @size 150 15;
-#X obj 50 316 ui.hrd* @nosave 1;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 88 161 3 5 1;
+#X listbox 174 161 20 0 0 0 - - -;
+#X obj 88 190 msg.after bang;
+#X obj 50 219 rhythm.euclid 3 7;
+#X obj 50 248 t l l;
+#X obj 88 277 list.size;
+#X msg 88 305 @nitems \$1 \, @size 150 15;
+#X obj 50 334 ui.hrd* @nosave 1;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 406 1\.;
-#X text 150 406 int;
-#X obj 246 407 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 406 BEATS: number of beats inside the sequence. Тип: int.
+#X text 110 424 1\.;
+#X text 150 424 int;
+#X obj 246 425 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 424 BEATS: number of beats inside the sequence. Тип: int.
 Диапазон: 0…8192;
-#X text 110 441 2\.;
-#X text 150 441 int;
-#X obj 246 442 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 441 N: the whole sequence length. Тип: int. Диапазон: 1…8192;
-#X text 110 461 3\.;
-#X text 150 461 int;
-#X obj 246 462 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 461 OFFSET: sequence offset. Тип: int.;
-#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 459 2\.;
+#X text 150 459 int;
+#X obj 246 460 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 459 N: the whole sequence length. Тип: int. Диапазон: 1…8192;
+#X text 110 479 3\.;
+#X text 150 479 int;
+#X obj 246 480 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 479 OFFSET: sequence offset. Тип: int.;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 499 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 531 @beats;
-#X text 245 531 Получить/Установить number of beats inside the sequence.
+#X msg 110 549 @beats;
+#X text 245 549 Получить/Установить number of beats inside the sequence.
 Тип: int. Значение по умолчанию: 3\. Диапазон: 0\...8192\.;
-#X msg 110 573 @n;
-#X text 245 573 Получить/Установить the whole sequence length. Тип:
+#X msg 110 591 @n;
+#X text 245 591 Получить/Установить the whole sequence length. Тип:
 int. Значение по умолчанию: 8\. Диапазон: 1\...8192\.;
-#X msg 110 615 @offset;
-#X text 245 615 Получить/Установить sequence offset. Тип: int. Значение
+#X msg 110 633 @offset;
+#X text 245 633 Получить/Установить sequence offset. Тип: int. Значение
 по умолчанию: 0\.;
-#X obj 20 667 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 672 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 690 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 673 1\.;
-#X text 150 673 *bang*;
-#X text 245 673 output generated sequence.;
-#X text 150 693 *int*;
-#X text 245 693 set number of beats in the sequence.;
-#X text 150 713 *list*;
-#X text 245 713 list: BEATS LENGTH OFFSET?.;
-#X text 110 733 2\.;
-#X text 150 733 *int*;
-#X text 245 733 set sequence lenghth.;
-#X text 110 753 3\.;
-#X text 150 753 *int*;
-#X text 245 753 set sequence offset.;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 788 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 691 1\.;
+#X text 150 691 *bang*;
+#X text 245 691 output generated sequence.;
+#X text 150 711 *int*;
+#X text 245 711 set number of beats in the sequence.;
+#X text 150 731 *list*;
+#X text 245 731 list: BEATS LENGTH OFFSET?.;
+#X text 110 751 2\.;
+#X text 150 751 *int*;
+#X text 245 751 set sequence lenghth.;
+#X text 110 771 3\.;
+#X text 150 771 *int*;
+#X text 245 771 set sequence offset.;
+#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 806 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 789 1\.;
-#X text 245 789 converted value.;
+#X text 110 807 1\.;
+#X text 245 807 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title music @url ceammc.music-help.pd;
-#X obj 1 839 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 842 библиотека: ceammc v0.9.8;
-#N canvas 10 861 400 290 info 0;
+#X obj 1 857 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 860 библиотека: ceammc v0.9.8;
+#N canvas 10 879 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 861 pd info;
+#X restore 10 879 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;
 #X connect 6 0 10 0;

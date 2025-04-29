@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 480 50 cnv 1 260 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 480 50 working with sound spatialisation;
+#X obj 472 50 cnv 1 264 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 476 50 working with sound spatialisation;
 #X obj 30 117 hoa.2d.decoder~;
 #X text 200 117 hoa 2d decoder;
 #X obj 30 145 hoa.2d.encoder~;

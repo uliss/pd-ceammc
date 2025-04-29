@@ -10,130 +10,130 @@
 [ui.dt] @url ui.display-help.pd;
 #X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.display] @url ui.display-help.pd;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 [ui.dt] is the alias for [ui.display @display_type 1];
-#X msg 50 143 list a b c;
-#X msg 174 143 1;
-#X msg 213 143 symbol X;
-#X msg 318 143 any msg;
-#X msg 414 143 bang;
-#X obj 50 201 ui.display;
-#X text 50 244 display message type;
-#X msg 50 273 list a b c;
-#X msg 174 273 1;
-#X msg 213 273 symbol X;
-#X msg 318 273 any msg;
-#X msg 414 273 bang;
-#X obj 50 330 ui.dt;
-#X obj 50 359 ui.display-spec;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 [ui.dt] is the alias for [ui.display @display_type 1];
+#X msg 50 161 list a b c;
+#X msg 174 161 1;
+#X msg 213 161 symbol X;
+#X msg 318 161 any msg;
+#X msg 414 161 bang;
+#X obj 50 219 ui.display;
+#X text 50 262 display message type;
+#X msg 50 291 list a b c;
+#X msg 174 291 1;
+#X msg 213 291 symbol X;
+#X msg 318 291 any msg;
+#X msg 414 291 bang;
+#X obj 50 348 ui.dt;
+#X obj 50 377 ui.display-spec;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 449 Left-click;
-#X text 285 449 copy the message value to the clipboard buffer.;
-#X text 110 469 Left-click + ⇧;
-#X text 285 469 copy the whole message value with selector to the clipboard
+#X text 110 467 Left-click;
+#X text 285 467 copy the message value to the clipboard buffer.;
+#X text 110 487 Left-click + ⇧;
+#X text 285 487 copy the whole message value with selector to the clipboard
 buffer.;
-#X text 110 504 Double-click;
-#X text 285 504 show/hide message type.;
-#X text 110 524 Right-click;
-#X text 285 524 open popup menu.;
-#X text 110 544 Right-click + ⇧;
-#X text 285 544 open object help.;
-#X text 110 564 Right-click + ⌥;
-#X text 285 564 open properties dialog.;
-#X text 110 584 Right-click + ⇧;
-#X text 285 584 open object help.;
-#X text 45 584 [Правка];
-#X text 110 604 Right-click + ⌥;
-#X text 285 604 open properties dialog.;
-#X text 45 604 [Правка];
-#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 639 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 522 Double-click;
+#X text 285 522 show/hide message type.;
+#X text 110 542 Right-click;
+#X text 285 542 open popup menu.;
+#X text 110 562 Right-click + ⇧;
+#X text 285 562 open object help.;
+#X text 110 582 Right-click + ⌥;
+#X text 285 582 open properties dialog.;
+#X text 110 602 Right-click + ⇧;
+#X text 285 602 open object help.;
+#X text 45 602 [Правка];
+#X text 110 622 Right-click + ⌥;
+#X text 285 622 open properties dialog.;
+#X text 45 622 [Правка];
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 657 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 642 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 660 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 674 @auto_size;
-#X text 245 674 Получить/Установить flag if automatically resize contents
+#X msg 110 692 @auto_size;
+#X text 245 692 Получить/Установить flag if automatically resize contents
 to feet incoming message. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 716 @display_events;
-#X text 245 716 Получить/Установить flag for blinking on incoming messages.
+#X msg 110 734 @display_events;
+#X text 245 734 Получить/Установить flag for blinking on incoming messages.
 Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 758 @display_type;
-#X text 245 758 Получить/Установить flag for displaying incoming message
+#X msg 110 776 @display_type;
+#X text 245 776 Получить/Установить flag for displaying incoming message
 type. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 800 @float_width;
-#X text 245 800 Получить/Установить number of digits after floating
+#X msg 110 818 @float_width;
+#X text 245 818 Получить/Установить number of digits after floating
 point. If -1: skip trailing zeroes \, if 0 - output as integers. Тип:
 int. Значение по умолчанию: -1\. Диапазон: -1\...17\.;
-#X msg 110 857 @hex;
-#X text 245 857 Получить/Установить output integers in hex format.
+#X msg 110 875 @hex;
+#X text 245 875 Получить/Установить output integers in hex format.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 899 @hex_width;
-#X text 245 899 Получить/Установить hex output format width. Тип: int.
+#X msg 110 917 @hex_width;
+#X text 245 917 Получить/Установить hex output format width. Тип: int.
 Значение по умолчанию: 2\. Диапазон: 0\...16\.;
-#X msg 110 941 @receive;
-#X text 245 941 Получить/Установить receive source. Тип: symbol. Значение
+#X msg 110 959 @receive;
+#X text 245 959 Получить/Установить receive source. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 983 @active_color;
-#X text 245 983 Получить/Установить element active color (list of red
-\, green \, blue values in 0-1 range). Тип: list. Значение по умолчанию:
+#X msg 110 1001 @active_color;
+#X text 245 1001 Получить/Установить element active color (list of
+red \, green \, blue values in 0-1 range). Тип: list. Значение по умолчанию:
 0 0.75 1 1\.;
-#X msg 110 1040 @background_color;
-#X text 245 1040 Получить/Установить element background color (list
+#X msg 110 1058 @background_color;
+#X text 245 1058 Получить/Установить element background color (list
 of red \, green \, blue values in 0-1 range). Тип: list. Значение по
 умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 110 1097 @border_color;
-#X text 245 1097 Получить/Установить border color (list of red \, green
+#X msg 110 1115 @border_color;
+#X text 245 1115 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
 0.6 0.6 1\.;
-#X msg 110 1154 @text_color;
-#X text 245 1154 Получить/Установить text color (list of red \, green
+#X msg 110 1172 @text_color;
+#X text 245 1172 Получить/Установить text color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0
 0 1\.;
-#X msg 110 1211 @fontname;
-#X text 245 1211 Получить/Установить fontname. Тип: symbol. Значение
+#X msg 110 1229 @fontname;
+#X text 245 1229 Получить/Установить fontname. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
-#X msg 110 1268 @fontsize;
-#X text 245 1268 Получить/Установить fontsize. Тип: int. Значение по
+#X msg 110 1286 @fontsize;
+#X text 245 1286 Получить/Установить fontsize. Тип: int. Значение по
 умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 1310 @fontslant;
-#X text 245 1310 Получить/Установить font slant. Тип: symbol. Значение
+#X msg 110 1328 @fontslant;
+#X text 245 1328 Получить/Установить font slant. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 1352 @fontweight;
-#X text 245 1352 Получить/Установить font weight. Тип: symbol. Значение
+#X msg 110 1370 @fontweight;
+#X text 245 1370 Получить/Установить font weight. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 1394 @pinned;
-#X text 245 1394 Получить/Установить pin mode. if 1 - put element to
+#X msg 110 1412 @pinned;
+#X text 245 1412 Получить/Установить pin mode. if 1 - put element to
 the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1436 @size;
-#X text 245 1436 Получить/Установить element size (width \, height
+#X msg 110 1454 @size;
+#X text 245 1454 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 80 18\.;
-#X obj 20 1488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1493 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1511 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1528 pos;
-#X text 245 1528 set UI element position. Аргументы:;
-#X obj 255 1551 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1551 X: top left x-coord. Тип: float.;
-#X obj 255 1574 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1574 Y: top right y-coord. Тип: float.;
-#X obj 20 1609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1614 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1546 pos;
+#X text 245 1546 set UI element position. Аргументы:;
+#X obj 255 1569 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1569 X: top left x-coord. Тип: float.;
+#X obj 255 1592 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1592 Y: top right y-coord. Тип: float.;
+#X obj 20 1627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1632 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1615 1\.;
-#X text 245 1615 accepts any messages and displays it.;
+#X text 110 1633 1\.;
+#X text 245 1633 accepts any messages and displays it.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1665 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1668 библиотека: ceammc v0.9.8;
-#X text 597 1680 смотрите также:;
-#X obj 718 1680 msg;
-#N canvas 10 1687 400 290 info 0;
+#X obj 1 1683 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1686 библиотека: ceammc v0.9.8;
+#X text 597 1698 смотрите также:;
+#X obj 718 1698 msg;
+#N canvas 10 1705 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -157,7 +157,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1687 pd info;
+#X restore 10 1705 pd info;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;
 #X connect 10 0 13 0;

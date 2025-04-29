@@ -5,63 +5,63 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.crackle~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 noise.crackle~;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Random impulses in the amplitude range -1 to 1 are generated
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Random impulses in the amplitude range -1 to 1 are generated
 at an average rate of @freq impulses per second;
-#X msg 50 158 @freq 3;
-#X msg 146 158 @freq 50;
-#X obj 50 187 noise.crackle~;
-#X obj 50 216 ui.gain~ @size 120 16;
-#X obj 50 245 dac~;
-#X obj 50 274 ui.dsp~;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 176 @freq 3;
+#X msg 146 176 @freq 50;
+#X obj 50 205 noise.crackle~;
+#X obj 50 234 ui.gain~ @size 120 16;
+#X obj 50 263 dac~;
+#X obj 50 292 ui.dsp~;
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 347 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 332 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 364 1\.;
-#X text 150 364 float;
-#X obj 246 365 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 364 FREQ(Hz): average frequency of noise impulses per second.
+#X text 110 382 1\.;
+#X text 150 382 float;
+#X obj 246 383 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 382 FREQ(Hz): average frequency of noise impulses per second.
 Тип: float. Диапазон: 0…100;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 417 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 435 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 449 @id;
-#X text 245 449 (при инициализации) Получить/Установить OSC address
+#X msg 110 467 @id;
+#X text 245 467 (при инициализации) Получить/Установить OSC address
 id. If specified \, bind all properties to /ID/noise_crackle/PROP_NAME
 osc address \, if empty bind to /noise_crackle/PROP_NAME. Тип: symbol.;
-#X msg 110 521 @osc;
-#X text 245 521 (при инициализации) Получить/Установить OSC server
+#X msg 110 539 @osc;
+#X text 245 539 (при инициализации) Получить/Установить OSC server
 name to listen. Тип: symbol.;
-#X msg 110 563 @active;
-#X text 245 563 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 581 @active;
+#X text 245 581 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 605 @freq;
-#X text 245 605 Получить/Установить average frequency of noise impulses
+#X msg 110 623 @freq;
+#X text 245 623 Получить/Установить average frequency of noise impulses
 per second. Тип: float. Единицы: 'Hz'. Значение по умолчанию: 10\.
 Диапазон: 0\...100\.;
-#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 677 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 695 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 678 1\.;
-#X text 150 678 *float*;
-#X text 245 678 set average frequency.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 696 1\.;
+#X text 150 696 *float*;
+#X text 245 696 set average frequency.;
+#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 731 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 714 1\.;
-#X text 245 714 output signal.;
+#X text 110 732 1\.;
+#X text 245 732 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 764 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 767 библиотека: ceammc v0.9.8;
-#N canvas 10 786 400 290 info 0;
+#X obj 1 782 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 785 библиотека: ceammc v0.9.8;
+#N canvas 10 804 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 786 pd info;
+#X restore 10 804 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

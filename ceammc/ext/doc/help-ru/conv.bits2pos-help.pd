@@ -8,33 +8,33 @@
 #X obj 415 11 ceammc/bits->pos;
 #X obj 556 11 bits->pos;
 #X obj 646 11 conv.bits2pos;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Note: byte default the least significant bit is the
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Note: byte default the least significant bit is the
 rightmost \, this can be changed with @rev property;
-#X msg 50 158 1 0 1 1 0 0 0 0;
-#X obj 222 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 222 187 @rev \$1;
-#X obj 50 216 bits->pos;
-#X obj 50 245 ui.dt;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X msg 50 176 1 0 1 1 0 0 0 0;
+#X obj 222 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 222 205 @rev \$1;
+#X obj 50 234 bits->pos;
+#X obj 50 263 ui.dt;
+#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 318 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 303 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 335 @rev;
-#X text 245 335 Получить/Установить reversed bit order. Тип: bool.
+#X msg 110 353 @rev;
+#X text 245 353 Получить/Установить reversed bit order. Тип: bool.
 Значение по умолчанию: 0\.;
-#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 392 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 410 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 393 1\.;
-#X text 150 393 *list*;
-#X text 245 393 input bit list.;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 428 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 411 1\.;
+#X text 150 411 *list*;
+#X text 245 411 input bit list.;
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 446 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 429 1\.;
-#X text 245 429 list of bit positions.;
+#X text 110 447 1\.;
+#X text 245 447 list of bit positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

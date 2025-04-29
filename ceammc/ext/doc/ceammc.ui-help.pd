@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 489 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 489 50 graphical user interface objects;
+#X obj 481 50 cnv 1 255 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 485 50 graphical user interface objects;
 #X obj 30 120 ui.link @title [ui.aview] @url ui.aview-help.pd;
 #X text 200 117 array view with cursor and range selection;
 #X obj 30 145 ui.link @title [ui.bang] @url ui.bang-help.pd;

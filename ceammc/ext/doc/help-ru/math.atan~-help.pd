@@ -5,37 +5,37 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.atan~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.atan~;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Outputs arc tangent of input signal. The result is in
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Outputs arc tangent of input signal. The result is in
 the range [-π/2 \, +π/2];
-#X obj 50 158 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 187 plot.linspace~ -5 5;
-#X obj 50 216 math.atan~;
-#X obj 50 245 ui.plot~ @xlabels 1 @ylabels 1 @ymin -1.6 @ymax 1.6
+#X obj 50 205 plot.linspace~ -5 5;
+#X obj 50 234 math.atan~;
+#X obj 50 263 ui.plot~ @xlabels 1 @ylabels 1 @ymin -1.6 @ymax 1.6
 @ymin_ticks 0 @ymaj_ticks 0 @xmin_grid 1 @size 400 200;
-#X obj 50 461 ui.dsp~;
-#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 516 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 479 ui.dsp~;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 517 1\.;
-#X text 245 517 input signal.;
-#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 552 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 535 1\.;
+#X text 245 535 input signal.;
+#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 570 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 553 1\.;
-#X text 245 553 result signal.;
+#X text 110 571 1\.;
+#X text 245 571 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 603 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 606 библиотека: ceammc v0.9.8;
-#X text 464 618 смотрите также:;
-#X obj 585 618 math.atan;
-#X obj 666 618 math.acos~;
-#N canvas 10 625 400 290 info 0;
+#X obj 1 621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 624 библиотека: ceammc v0.9.8;
+#X text 464 636 смотрите также:;
+#X obj 585 636 math.atan;
+#X obj 666 636 math.acos~;
+#N canvas 10 643 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -59,7 +59,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 625 pd info;
+#X restore 10 643 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

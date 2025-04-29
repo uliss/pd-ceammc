@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 345 50 cnv 1 420 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 345 50 divides the list into two parts at the specified index
+#X obj 337 50 cnv 1 424 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 341 50 divides the list into two parts at the specified index
 position;
 #X obj 1 1 cnv 5 765 40 empty empty list.split 20 20 0 20 -104026
 -4096 0;

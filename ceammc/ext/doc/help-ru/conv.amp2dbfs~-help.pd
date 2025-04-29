@@ -7,36 +7,36 @@
 #X obj 390 11 ceammc/amp->dbfs~;
 #X obj 539 11 amp->dbfs~;
 #X obj 638 11 conv.amp2dbfs~;
-#X obj 210 80 cnv 1 555 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 formulae: 20 * log10(amp);
-#X text 215 105 Note: amplitude value <=0 is converted to -144 db (24-bit
+#X obj 205 78 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 formulae: 20 * log10(amp);
+#X text 215 108 Note: amplitude value <=0 is converted to -144 db (24-bit
 range);
-#X msg 50 183 bang;
-#X obj 50 212 plot.linspace~ 1 -0.1;
-#X obj 50 241 amp->dbfs~;
-#X obj 50 270 ui.plot~ @ymin -144 @ymax 0 @ylabels 1 @xlabels 1 @size
+#X msg 50 201 bang;
+#X obj 50 230 plot.linspace~ 1 -0.1;
+#X obj 50 259 amp->dbfs~;
+#X obj 50 288 ui.plot~ @ymin -144 @ymax 0 @ylabels 1 @xlabels 1 @size
 600 160;
-#X obj 50 443 ui.dsp~;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 498 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 461 ui.dsp~;
+#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 516 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 499 1\.;
-#X text 245 499 input signal.;
-#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 534 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 517 1\.;
+#X text 245 517 input signal.;
+#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 552 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 535 1\.;
-#X text 245 535 converted signal.;
+#X text 110 553 1\.;
+#X text 245 553 converted signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 585 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 588 библиотека: ceammc v0.9.8;
-#X text 545 600 смотрите также:;
-#X obj 666 600 dbfs->amp~;
-#N canvas 10 607 400 290 info 0;
+#X obj 1 603 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 606 библиотека: ceammc v0.9.8;
+#X text 545 618 смотрите также:;
+#X obj 666 618 dbfs->amp~;
+#N canvas 10 625 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -60,7 +60,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 607 pd info;
+#X restore 10 625 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

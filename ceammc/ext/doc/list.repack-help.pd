@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 324 50 cnv 1 441 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 324 50 repack the list into a sequence of lists of the specified
+#X obj 316 50 cnv 1 445 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 320 50 repack the list into a sequence of lists of the specified
 size;
 #X obj 1 1 cnv 5 765 40 empty empty list.repack 20 20 0 20 -104026
 -4096 0;

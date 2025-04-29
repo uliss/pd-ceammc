@@ -5,79 +5,79 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.pw_const 20 20 0 20 -104026
 -4096 0;
 #X obj 632 11 random.pw_const;
-#X obj 210 80 cnv 1 555 160 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Produces random floating-point numbers \, which are
+#X obj 205 78 cnv 1 560 160 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Produces random floating-point numbers \, which are
 uniformly distributed within each of the several subintervals [b0 \,
 b1) \, each with its own weight;
-#X text 215 135 Const segments specified as: bound0 \, weight0 \, bound1
+#X text 215 138 Const segments specified as: bound0 \, weight0 \, bound1
 \, weight0 \, bound2 etc;
-#X text 215 175 Use @seed property to get reproducible sequences. If
+#X text 215 178 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
-#X obj 50 268 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 286 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 472 268 graph;
-#X obj 50 297 list.gen 1000;
-#X obj 203 297 random.pw_const 0 1 1 0 2 2 3;
-#X obj 50 326 list.histogram @bins 100;
-#X obj 50 355 list.normalize @range;
-#X obj 50 384 list.enumerate @append;
-#X obj 50 412 list.repack 2;
-#X obj 50 441 tabwrite array1;
-#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 472 286 graph;
+#X obj 50 315 list.gen 1000;
+#X obj 203 315 random.pw_const 0 1 1 0 2 2 3;
+#X obj 50 344 list.histogram @bins 100;
+#X obj 50 373 list.normalize @range;
+#X obj 50 402 list.enumerate @append;
+#X obj 50 430 list.repack 2;
+#X obj 50 459 tabwrite array1;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 499 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 531 1\.;
-#X text 150 531 list;
-#X obj 246 532 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 531 V: interleaved interval boundaries and boundary propabilities.
+#X text 110 549 1\.;
+#X text 150 549 list;
+#X obj 246 550 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 549 V: interleaved interval boundaries and boundary propabilities.
 Note: number of arguments should be odd and >=5\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
 Тип: list.;
-#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 611 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 629 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 614 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 632 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 646 @seed;
-#X text 245 646 Получить/Установить generator seed. Тип: int. Значение
+#X msg 110 664 @seed;
+#X text 245 664 Получить/Установить generator seed. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 688 @v;
-#X text 245 688 Получить/Установить interleaved interval boundaries
+#X msg 110 706 @v;
+#X text 245 706 Получить/Установить interleaved interval boundaries
 and boundary propabilities. Тип: list.;
-#X msg 110 730 @bounds?;
-#X text 245 730 (только чтение) Получить list of boundaries. Тип: list.;
-#X msg 110 760 @weights?;
-#X text 245 760 (только чтение) Получить list of weights. Тип: list.;
-#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 805 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 748 @bounds?;
+#X text 245 748 (только чтение) Получить list of boundaries. Тип: list.;
+#X msg 110 778 @weights?;
+#X text 245 778 (только чтение) Получить list of weights. Тип: list.;
+#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 823 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 806 1\.;
-#X text 150 806 *bang*;
-#X text 245 806 generates random number.;
-#X text 150 826 *list*;
-#X text 245 826 set new distribution values.;
-#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 861 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 824 1\.;
+#X text 150 824 *bang*;
+#X text 245 824 generates random number.;
+#X text 150 844 *list*;
+#X text 245 844 set new distribution values.;
+#X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 879 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 862 1\.;
-#X text 245 862 result value.;
+#X text 110 880 1\.;
+#X text 245 880 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 912 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 915 библиотека: ceammc v0.9.8;
-#X text 417 927 смотрите также:;
-#X obj 538 927 random.linear;
-#X obj 647 927 random.pw_lin;
-#N canvas 10 934 400 290 info 0;
+#X obj 1 930 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 933 библиотека: ceammc v0.9.8;
+#X text 417 945 смотрите также:;
+#X obj 538 945 random.linear;
+#X obj 647 945 random.pw_lin;
+#N canvas 10 952 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 934 pd info;
+#X restore 10 952 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 12 0;
 #X connect 12 0 13 0;

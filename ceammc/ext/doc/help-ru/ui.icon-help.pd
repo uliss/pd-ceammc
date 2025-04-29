@@ -6,304 +6,304 @@
 0;
 #X obj 686 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.icon] @url ui.icon-help.pd;
-#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The object can be in bang \, button and toggle modes.
+#X obj 205 78 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The object can be in bang \, button and toggle modes.
 The button mode is default: outputs 1 on mouse down \, 0 on mouse up.
 See @mode property for more information.;
-#X text 50 173 @mode bang;
-#X text 280 173 @mode toggle;
-#X text 549 173 @mode button;
-#X obj 50 202 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 50 191 @mode bang;
+#X text 280 191 @mode toggle;
+#X text 549 191 @mode button;
+#X obj 50 220 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 88 202 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 299 202 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 88 220 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 299 220 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 338 202 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 568 202 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 231 ui.icon play @mode bang;
-#X obj 299 231 ui.icon play @mode toggle;
-#X obj 568 231 ui.icon add;
-#X obj 50 260 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 338 220 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 568 220 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 249 ui.icon play @mode bang;
+#X obj 299 249 ui.icon play @mode toggle;
+#X obj 568 249 ui.icon add;
+#X obj 50 278 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 299 260 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 568 260 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X text 50 303 add;
-#X text 395 303 label;
-#X obj 50 332 ui.icon add;
-#X obj 395 332 ui.icon label;
-#X text 50 360 add_circle;
-#X text 395 360 label_outline;
-#X obj 50 389 ui.icon add_circle;
-#X obj 395 389 ui.icon label_outline;
-#X text 50 418 add_circle_outline;
-#X text 395 418 levels;
-#X obj 50 447 ui.icon add_circle_outline;
-#X obj 395 447 ui.icon levels;
-#X text 50 476 add_to_queue;
-#X text 395 476 lightbulb_outline;
-#X obj 50 504 ui.icon add_to_queue;
-#X obj 395 504 ui.icon lightbulb_outline;
-#X text 50 533 alarm;
-#X text 395 533 linear_scale;
-#X obj 50 562 ui.icon alarm;
-#X obj 395 562 ui.icon linear_scale;
-#X text 50 591 alarm_off;
-#X text 395 591 list;
-#X obj 50 620 ui.icon alarm_off;
-#X obj 395 620 ui.icon list;
-#X text 50 649 alarm_on;
-#X text 395 649 lock;
-#X obj 50 677 ui.icon alarm_on;
-#X obj 395 677 ui.icon lock;
-#X text 50 706 album;
-#X text 395 706 lock_open;
-#X obj 50 735 ui.icon album;
-#X obj 395 735 ui.icon lock_open;
-#X text 50 764 arrow_down;
-#X text 395 764 loop;
-#X obj 50 792 ui.icon arrow_down;
-#X obj 395 792 ui.icon loop;
-#X text 50 821 arrow_left;
-#X text 395 821 mic;
-#X obj 50 850 ui.icon arrow_left;
-#X obj 395 850 ui.icon mic;
-#X text 50 879 arrow_right;
-#X text 395 879 mic_none;
-#X obj 50 908 ui.icon arrow_right;
-#X obj 395 908 ui.icon mic_none;
-#X text 50 936 arrow_up;
-#X text 395 936 mic_off;
-#X obj 50 965 ui.icon arrow_up;
-#X obj 395 965 ui.icon mic_off;
-#X text 50 994 audio;
-#X text 395 994 midi;
-#X obj 50 1023 ui.icon audio;
-#X obj 395 1023 ui.icon midi;
-#X text 50 1052 backspace;
-#X text 395 1052 mouse;
-#X obj 50 1080 ui.icon backspace;
-#X obj 395 1080 ui.icon mouse;
-#X text 50 1109 block;
-#X text 395 1109 movie;
-#X obj 50 1138 ui.icon block;
-#X obj 395 1138 ui.icon movie;
-#X text 50 1167 bluetooth;
-#X text 395 1167 notifications;
-#X obj 50 1196 ui.icon bluetooth;
-#X obj 395 1196 ui.icon notifications;
-#X text 50 1225 blur_on;
-#X text 395 1225 open_with;
-#X obj 50 1253 ui.icon blur_on;
-#X obj 395 1253 ui.icon open_with;
-#X text 50 1282 bookmark;
-#X text 395 1282 pause;
-#X obj 50 1311 ui.icon bookmark;
-#X obj 395 1311 ui.icon pause;
-#X text 50 1340 bookmark_border;
-#X text 395 1340 pause_circle_filled;
-#X obj 50 1368 ui.icon bookmark_border;
-#X obj 395 1368 ui.icon pause_circle_filled;
-#X text 50 1397 build;
-#X text 395 1397 pause_circle_outline;
-#X obj 50 1426 ui.icon build;
-#X obj 395 1426 ui.icon pause_circle_outline;
-#X text 50 1455 cached;
-#X text 395 1455 play;
-#X obj 50 1484 ui.icon cached;
-#X obj 395 1484 ui.icon play;
-#X text 50 1512 capslock;
-#X text 395 1512 play_circle_filled;
-#X obj 50 1541 ui.icon capslock;
-#X obj 395 1541 ui.icon play_circle_filled;
-#X text 50 1570 check_circle;
-#X text 395 1570 play_circle_filled_white;
-#X obj 50 1599 ui.icon check_circle;
-#X obj 395 1599 ui.icon play_circle_filled_white;
-#X text 50 1628 clear;
-#X text 395 1628 play_circle_outline;
-#X obj 50 1656 ui.icon clear;
-#X obj 395 1656 ui.icon play_circle_outline;
-#X text 50 1685 clock;
-#X text 395 1685 power;
-#X obj 50 1714 ui.icon clock;
-#X obj 395 1714 ui.icon power;
-#X text 50 1743 computer;
-#X text 395 1743 radio;
-#X obj 50 1772 ui.icon computer;
-#X obj 395 1772 ui.icon radio;
-#X text 50 1800 content_cut;
-#X text 395 1800 record;
-#X obj 50 1829 ui.icon content_cut;
-#X obj 395 1829 ui.icon record;
-#X text 50 1858 copy;
-#X text 395 1858 redo;
-#X obj 50 1887 ui.icon copy;
-#X obj 395 1887 ui.icon redo;
-#X text 50 1916 copyright;
-#X text 395 1916 refresh;
-#X obj 50 1944 ui.icon copyright;
-#X obj 395 1944 ui.icon refresh;
-#X text 50 1973 delete;
-#X text 395 1973 remove;
-#X obj 50 2002 ui.icon delete;
-#X obj 395 2002 ui.icon remove;
-#X text 50 2031 delete_forever;
-#X text 395 2031 remove_circle;
-#X obj 50 2060 ui.icon delete_forever;
-#X obj 395 2060 ui.icon remove_circle;
-#X text 50 2088 done;
-#X text 395 2088 remove_circle_outline;
-#X obj 50 2117 ui.icon done;
-#X obj 395 2117 ui.icon remove_circle_outline;
-#X text 50 2146 eject;
-#X text 395 2146 repeat;
-#X obj 50 2175 ui.icon eject;
-#X obj 395 2175 ui.icon repeat;
-#X text 50 2204 equalizer;
-#X text 395 2204 repeat_one;
-#X obj 50 2233 ui.icon equalizer;
-#X obj 395 2233 ui.icon repeat_one;
-#X text 50 2261 exit;
-#X text 395 2261 report_problem;
-#X obj 50 2290 ui.icon exit;
-#X obj 395 2290 ui.icon report_problem;
-#X text 50 2319 fast_forward;
-#X text 395 2319 save;
-#X obj 50 2348 ui.icon fast_forward;
-#X obj 395 2348 ui.icon save;
-#X text 50 2377 fast_rewind;
-#X text 395 2377 search;
-#X obj 50 2405 ui.icon fast_rewind;
-#X obj 395 2405 ui.icon search;
-#X text 50 2434 favorite;
-#X text 395 2434 select_all;
-#X obj 50 2463 ui.icon favorite;
-#X obj 395 2463 ui.icon select_all;
-#X text 50 2492 favorite_border;
-#X text 395 2492 settings;
-#X obj 50 2520 ui.icon favorite_border;
-#X obj 395 2520 ui.icon settings;
-#X text 50 2549 fingerprint;
-#X text 395 2549 settings2;
-#X obj 50 2578 ui.icon fingerprint;
-#X obj 395 2578 ui.icon settings2;
-#X text 50 2607 flag;
-#X text 395 2607 settings_voice;
-#X obj 50 2636 ui.icon flag;
-#X obj 395 2636 ui.icon settings_voice;
-#X text 50 2664 folder;
-#X text 395 2664 shuffle;
-#X obj 50 2693 ui.icon folder;
-#X obj 395 2693 ui.icon shuffle;
-#X text 50 2722 folder_open;
-#X text 395 2722 skip_next;
-#X obj 50 2751 ui.icon folder_open;
-#X obj 395 2751 ui.icon skip_next;
-#X text 50 2780 functions;
-#X text 395 2780 skip_previous;
-#X obj 50 2808 ui.icon functions;
-#X obj 395 2808 ui.icon skip_previous;
-#X text 50 2837 gamepad;
-#X text 395 2837 speaker;
-#X obj 50 2866 ui.icon gamepad;
-#X obj 395 2866 ui.icon speaker;
-#X text 50 2895 get_app;
-#X text 395 2895 speaker_group;
-#X obj 50 2924 ui.icon get_app;
-#X obj 395 2924 ui.icon speaker_group;
-#X text 50 2952 grade;
-#X text 395 2952 stars;
-#X obj 50 2981 ui.icon grade;
-#X obj 395 2981 ui.icon stars;
-#X text 50 3010 grain;
-#X text 395 3010 stop;
-#X obj 50 3039 ui.icon grain;
-#X obj 395 3039 ui.icon stop;
-#X text 50 3068 group;
-#X text 395 3068 tape;
-#X obj 50 3096 ui.icon group;
-#X obj 395 3096 ui.icon tape;
-#X text 50 3125 hdmi;
-#X text 395 3125 timeline;
-#X obj 50 3154 ui.icon hdmi;
-#X obj 395 3154 ui.icon timeline;
-#X text 50 3183 headset;
-#X text 395 3183 touch_app;
-#X obj 50 3212 ui.icon headset;
-#X obj 395 3212 ui.icon touch_app;
-#X text 50 3240 headset_mic;
-#X text 395 3240 trending_flat;
-#X obj 50 3269 ui.icon headset_mic;
-#X obj 395 3269 ui.icon trending_flat;
-#X text 50 3298 hearing;
-#X text 395 3298 undo;
-#X obj 50 3327 ui.icon hearing;
-#X obj 395 3327 ui.icon undo;
-#X text 50 3356 help;
-#X text 395 3356 videocam;
-#X obj 50 3384 ui.icon help;
-#X obj 395 3384 ui.icon videocam;
-#X text 50 3413 help_outline;
-#X text 395 3413 visibility;
-#X obj 50 3442 ui.icon help_outline;
-#X obj 395 3442 ui.icon visibility;
-#X text 50 3471 history;
-#X text 395 3471 visibility_off;
-#X obj 50 3500 ui.icon history;
-#X obj 395 3500 ui.icon visibility_off;
-#X text 50 3528 home;
-#X text 395 3528 volume_down;
-#X obj 50 3557 ui.icon home;
-#X obj 395 3557 ui.icon volume_down;
-#X text 50 3586 hourglass;
-#X text 395 3586 volume_mute;
-#X obj 50 3615 ui.icon hourglass;
-#X obj 395 3615 ui.icon volume_mute;
-#X text 50 3644 info;
-#X text 395 3644 volume_off;
-#X obj 50 3672 ui.icon info;
-#X obj 395 3672 ui.icon volume_off;
-#X text 50 3701 info_outline;
-#X text 395 3701 volume_up;
-#X obj 50 3730 ui.icon info_outline;
-#X obj 395 3730 ui.icon volume_up;
-#X text 50 3759 input;
-#X text 395 3759 zoom_in;
-#X obj 50 3788 ui.icon input;
-#X obj 395 3788 ui.icon zoom_in;
-#X text 50 3816 keyboard;
-#X text 395 3816 zoom_out;
-#X obj 50 3845 ui.icon keyboard;
-#X obj 395 3845 ui.icon zoom_out;
-#X obj 20 3895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3900 cnv 5 115 25 empty empty события_мыши: 4 12 0 14
+#X obj 299 278 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 568 278 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X text 50 321 add;
+#X text 395 321 label;
+#X obj 50 350 ui.icon add;
+#X obj 395 350 ui.icon label;
+#X text 50 378 add_circle;
+#X text 395 378 label_outline;
+#X obj 50 407 ui.icon add_circle;
+#X obj 395 407 ui.icon label_outline;
+#X text 50 436 add_circle_outline;
+#X text 395 436 levels;
+#X obj 50 465 ui.icon add_circle_outline;
+#X obj 395 465 ui.icon levels;
+#X text 50 494 add_to_queue;
+#X text 395 494 lightbulb_outline;
+#X obj 50 522 ui.icon add_to_queue;
+#X obj 395 522 ui.icon lightbulb_outline;
+#X text 50 551 alarm;
+#X text 395 551 linear_scale;
+#X obj 50 580 ui.icon alarm;
+#X obj 395 580 ui.icon linear_scale;
+#X text 50 609 alarm_off;
+#X text 395 609 list;
+#X obj 50 638 ui.icon alarm_off;
+#X obj 395 638 ui.icon list;
+#X text 50 667 alarm_on;
+#X text 395 667 lock;
+#X obj 50 695 ui.icon alarm_on;
+#X obj 395 695 ui.icon lock;
+#X text 50 724 album;
+#X text 395 724 lock_open;
+#X obj 50 753 ui.icon album;
+#X obj 395 753 ui.icon lock_open;
+#X text 50 782 arrow_down;
+#X text 395 782 loop;
+#X obj 50 810 ui.icon arrow_down;
+#X obj 395 810 ui.icon loop;
+#X text 50 839 arrow_left;
+#X text 395 839 mic;
+#X obj 50 868 ui.icon arrow_left;
+#X obj 395 868 ui.icon mic;
+#X text 50 897 arrow_right;
+#X text 395 897 mic_none;
+#X obj 50 926 ui.icon arrow_right;
+#X obj 395 926 ui.icon mic_none;
+#X text 50 954 arrow_up;
+#X text 395 954 mic_off;
+#X obj 50 983 ui.icon arrow_up;
+#X obj 395 983 ui.icon mic_off;
+#X text 50 1012 audio;
+#X text 395 1012 midi;
+#X obj 50 1041 ui.icon audio;
+#X obj 395 1041 ui.icon midi;
+#X text 50 1070 backspace;
+#X text 395 1070 mouse;
+#X obj 50 1098 ui.icon backspace;
+#X obj 395 1098 ui.icon mouse;
+#X text 50 1127 block;
+#X text 395 1127 movie;
+#X obj 50 1156 ui.icon block;
+#X obj 395 1156 ui.icon movie;
+#X text 50 1185 bluetooth;
+#X text 395 1185 notifications;
+#X obj 50 1214 ui.icon bluetooth;
+#X obj 395 1214 ui.icon notifications;
+#X text 50 1243 blur_on;
+#X text 395 1243 open_with;
+#X obj 50 1271 ui.icon blur_on;
+#X obj 395 1271 ui.icon open_with;
+#X text 50 1300 bookmark;
+#X text 395 1300 pause;
+#X obj 50 1329 ui.icon bookmark;
+#X obj 395 1329 ui.icon pause;
+#X text 50 1358 bookmark_border;
+#X text 395 1358 pause_circle_filled;
+#X obj 50 1386 ui.icon bookmark_border;
+#X obj 395 1386 ui.icon pause_circle_filled;
+#X text 50 1415 build;
+#X text 395 1415 pause_circle_outline;
+#X obj 50 1444 ui.icon build;
+#X obj 395 1444 ui.icon pause_circle_outline;
+#X text 50 1473 cached;
+#X text 395 1473 play;
+#X obj 50 1502 ui.icon cached;
+#X obj 395 1502 ui.icon play;
+#X text 50 1530 capslock;
+#X text 395 1530 play_circle_filled;
+#X obj 50 1559 ui.icon capslock;
+#X obj 395 1559 ui.icon play_circle_filled;
+#X text 50 1588 check_circle;
+#X text 395 1588 play_circle_filled_white;
+#X obj 50 1617 ui.icon check_circle;
+#X obj 395 1617 ui.icon play_circle_filled_white;
+#X text 50 1646 clear;
+#X text 395 1646 play_circle_outline;
+#X obj 50 1674 ui.icon clear;
+#X obj 395 1674 ui.icon play_circle_outline;
+#X text 50 1703 clock;
+#X text 395 1703 power;
+#X obj 50 1732 ui.icon clock;
+#X obj 395 1732 ui.icon power;
+#X text 50 1761 computer;
+#X text 395 1761 radio;
+#X obj 50 1790 ui.icon computer;
+#X obj 395 1790 ui.icon radio;
+#X text 50 1818 content_cut;
+#X text 395 1818 record;
+#X obj 50 1847 ui.icon content_cut;
+#X obj 395 1847 ui.icon record;
+#X text 50 1876 copy;
+#X text 395 1876 redo;
+#X obj 50 1905 ui.icon copy;
+#X obj 395 1905 ui.icon redo;
+#X text 50 1934 copyright;
+#X text 395 1934 refresh;
+#X obj 50 1962 ui.icon copyright;
+#X obj 395 1962 ui.icon refresh;
+#X text 50 1991 delete;
+#X text 395 1991 remove;
+#X obj 50 2020 ui.icon delete;
+#X obj 395 2020 ui.icon remove;
+#X text 50 2049 delete_forever;
+#X text 395 2049 remove_circle;
+#X obj 50 2078 ui.icon delete_forever;
+#X obj 395 2078 ui.icon remove_circle;
+#X text 50 2106 done;
+#X text 395 2106 remove_circle_outline;
+#X obj 50 2135 ui.icon done;
+#X obj 395 2135 ui.icon remove_circle_outline;
+#X text 50 2164 eject;
+#X text 395 2164 repeat;
+#X obj 50 2193 ui.icon eject;
+#X obj 395 2193 ui.icon repeat;
+#X text 50 2222 equalizer;
+#X text 395 2222 repeat_one;
+#X obj 50 2251 ui.icon equalizer;
+#X obj 395 2251 ui.icon repeat_one;
+#X text 50 2279 exit;
+#X text 395 2279 report_problem;
+#X obj 50 2308 ui.icon exit;
+#X obj 395 2308 ui.icon report_problem;
+#X text 50 2337 fast_forward;
+#X text 395 2337 save;
+#X obj 50 2366 ui.icon fast_forward;
+#X obj 395 2366 ui.icon save;
+#X text 50 2395 fast_rewind;
+#X text 395 2395 search;
+#X obj 50 2423 ui.icon fast_rewind;
+#X obj 395 2423 ui.icon search;
+#X text 50 2452 favorite;
+#X text 395 2452 select_all;
+#X obj 50 2481 ui.icon favorite;
+#X obj 395 2481 ui.icon select_all;
+#X text 50 2510 favorite_border;
+#X text 395 2510 settings;
+#X obj 50 2538 ui.icon favorite_border;
+#X obj 395 2538 ui.icon settings;
+#X text 50 2567 fingerprint;
+#X text 395 2567 settings2;
+#X obj 50 2596 ui.icon fingerprint;
+#X obj 395 2596 ui.icon settings2;
+#X text 50 2625 flag;
+#X text 395 2625 settings_voice;
+#X obj 50 2654 ui.icon flag;
+#X obj 395 2654 ui.icon settings_voice;
+#X text 50 2682 folder;
+#X text 395 2682 shuffle;
+#X obj 50 2711 ui.icon folder;
+#X obj 395 2711 ui.icon shuffle;
+#X text 50 2740 folder_open;
+#X text 395 2740 skip_next;
+#X obj 50 2769 ui.icon folder_open;
+#X obj 395 2769 ui.icon skip_next;
+#X text 50 2798 functions;
+#X text 395 2798 skip_previous;
+#X obj 50 2826 ui.icon functions;
+#X obj 395 2826 ui.icon skip_previous;
+#X text 50 2855 gamepad;
+#X text 395 2855 speaker;
+#X obj 50 2884 ui.icon gamepad;
+#X obj 395 2884 ui.icon speaker;
+#X text 50 2913 get_app;
+#X text 395 2913 speaker_group;
+#X obj 50 2942 ui.icon get_app;
+#X obj 395 2942 ui.icon speaker_group;
+#X text 50 2970 grade;
+#X text 395 2970 stars;
+#X obj 50 2999 ui.icon grade;
+#X obj 395 2999 ui.icon stars;
+#X text 50 3028 grain;
+#X text 395 3028 stop;
+#X obj 50 3057 ui.icon grain;
+#X obj 395 3057 ui.icon stop;
+#X text 50 3086 group;
+#X text 395 3086 tape;
+#X obj 50 3114 ui.icon group;
+#X obj 395 3114 ui.icon tape;
+#X text 50 3143 hdmi;
+#X text 395 3143 timeline;
+#X obj 50 3172 ui.icon hdmi;
+#X obj 395 3172 ui.icon timeline;
+#X text 50 3201 headset;
+#X text 395 3201 touch_app;
+#X obj 50 3230 ui.icon headset;
+#X obj 395 3230 ui.icon touch_app;
+#X text 50 3258 headset_mic;
+#X text 395 3258 trending_flat;
+#X obj 50 3287 ui.icon headset_mic;
+#X obj 395 3287 ui.icon trending_flat;
+#X text 50 3316 hearing;
+#X text 395 3316 undo;
+#X obj 50 3345 ui.icon hearing;
+#X obj 395 3345 ui.icon undo;
+#X text 50 3374 help;
+#X text 395 3374 videocam;
+#X obj 50 3402 ui.icon help;
+#X obj 395 3402 ui.icon videocam;
+#X text 50 3431 help_outline;
+#X text 395 3431 visibility;
+#X obj 50 3460 ui.icon help_outline;
+#X obj 395 3460 ui.icon visibility;
+#X text 50 3489 history;
+#X text 395 3489 visibility_off;
+#X obj 50 3518 ui.icon history;
+#X obj 395 3518 ui.icon visibility_off;
+#X text 50 3546 home;
+#X text 395 3546 volume_down;
+#X obj 50 3575 ui.icon home;
+#X obj 395 3575 ui.icon volume_down;
+#X text 50 3604 hourglass;
+#X text 395 3604 volume_mute;
+#X obj 50 3633 ui.icon hourglass;
+#X obj 395 3633 ui.icon volume_mute;
+#X text 50 3662 info;
+#X text 395 3662 volume_off;
+#X obj 50 3690 ui.icon info;
+#X obj 395 3690 ui.icon volume_off;
+#X text 50 3719 info_outline;
+#X text 395 3719 volume_up;
+#X obj 50 3748 ui.icon info_outline;
+#X obj 395 3748 ui.icon volume_up;
+#X text 50 3777 input;
+#X text 395 3777 zoom_in;
+#X obj 50 3806 ui.icon input;
+#X obj 395 3806 ui.icon zoom_in;
+#X text 50 3834 keyboard;
+#X text 395 3834 zoom_out;
+#X obj 50 3863 ui.icon keyboard;
+#X obj 395 3863 ui.icon zoom_out;
+#X obj 20 3913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3918 cnv 5 115 25 empty empty события_мыши: 4 12 0 14
 -262144 -49933 0;
-#X text 110 3935 Left-click;
-#X text 285 3935 change the object state according to the @mode property.;
-#X text 110 3955 Left-click + ⌥;
-#X text 285 3955 output all icons to the Pd window.;
-#X text 110 3975 Right-click + ⇧;
-#X text 285 3975 open object help.;
-#X text 110 3995 Right-click + ⌥;
-#X text 285 3995 open properties dialog.;
-#X text 110 4015 Right-click;
-#X text 285 4015 opens Pd popup menu.;
-#X text 45 4015 [Правка];
-#X text 110 4035 Right-click + ⇧;
-#X text 285 4035 open the object help.;
-#X text 45 4035 [Правка];
-#X text 110 4055 Right-click + ⌥;
-#X text 285 4055 open properties dialog.;
-#X text 45 4055 [Правка];
-#X obj 20 4085 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4090 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 110 3953 Left-click;
+#X text 285 3953 change the object state according to the @mode property.;
+#X text 110 3973 Left-click + ⌥;
+#X text 285 3973 output all icons to the Pd window.;
+#X text 110 3993 Right-click + ⇧;
+#X text 285 3993 open object help.;
+#X text 110 4013 Right-click + ⌥;
+#X text 285 4013 open properties dialog.;
+#X text 110 4033 Right-click;
+#X text 285 4033 opens Pd popup menu.;
+#X text 45 4033 [Правка];
+#X text 110 4053 Right-click + ⇧;
+#X text 285 4053 open the object help.;
+#X text 45 4053 [Правка];
+#X text 110 4073 Right-click + ⌥;
+#X text 285 4073 open properties dialog.;
+#X text 45 4073 [Правка];
+#X obj 20 4103 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4108 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 4093 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 4111 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 4125 1\.;
-#X text 150 4125 symbol;
-#X obj 246 4126 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 4125 ICON: icon name from the list. Разрешённые значения:
+#X text 110 4143 1\.;
+#X text 150 4143 symbol;
+#X obj 246 4144 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 4143 ICON: icon name from the list. Разрешённые значения:
 add \, add_circle \, add_circle_outline \, add_to_queue \, alarm \,
 alarm_off \, alarm_on \, album \, arrow_down \, arrow_left \, arrow_right
 \, arrow_up \, audio \, backspace \, block \, bluetooth \, blur_on
@@ -327,16 +327,16 @@ notifications \, open_with \, pause \, pause_circle_filled \, pause_circle_outli
 \, undo \, videocam \, visibility \, visibility_off \, volume_down
 \, volume_mute \, volume_off \, volume_up \, zoom_in \, zoom_out. Тип:
 symbol.;
-#X obj 20 4517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4522 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 4535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4540 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 4525 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 4543 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 4557 @enabled;
-#X text 245 4557 Получить/Установить enabled property. Тип: bool. Значение
+#X msg 110 4575 @enabled;
+#X text 245 4575 Получить/Установить enabled property. Тип: bool. Значение
 по умолчанию: 1\.;
-#X msg 110 4599 @icon;
-#X text 245 4599 Получить/Установить icon name. Тип: symbol. Значение
+#X msg 110 4617 @icon;
+#X text 245 4617 Получить/Установить icon name. Тип: symbol. Значение
 по умолчанию: help. Разрешённые значения: add \, add_circle \, add_circle_outline
 \, add_to_queue \, alarm \, alarm_off \, alarm_on \, album \, arrow_down
 \, arrow_left \, arrow_right \, arrow_up \, audio \, backspace \, block
@@ -360,99 +360,99 @@ pause_circle_filled \, pause_circle_outline \, play \, play_circle_filled
 \, timeline \, touch_app \, trending_flat \, undo \, videocam \, visibility
 \, visibility_off \, volume_down \, volume_mute \, volume_off \, volume_up
 \, zoom_in \, zoom_out.;
-#X msg 110 4988 @icon_size;
-#X text 245 4988 Получить/Установить icons size. Тип: int. Значение
+#X msg 110 5006 @icon_size;
+#X text 245 5006 Получить/Установить icons size. Тип: int. Значение
 по умолчанию: 24\. Разрешённые значения: 18 \, 24 \, 36 \, 48\.;
-#X msg 110 5030 @mode;
-#X text 245 5030 Получить/Установить the output mode. In the bang mode
+#X msg 110 5048 @mode;
+#X text 245 5048 Получить/Установить the output mode. In the bang mode
 - outputs the bang on mouse down. In the button mode outputs 1 on mouse
 down and 0 on mouse up. In the toggle mode outputs 1/0 on mouse down
 \, like vanilla toggle object. Тип: symbol. Значение по умолчанию:
 button. Разрешённые значения: toggle \, button \, bang.;
-#X msg 110 5133 @receive;
-#X text 245 5133 Получить/Установить receive source. Тип: symbol. Значение
+#X msg 110 5151 @receive;
+#X text 245 5151 Получить/Установить receive source. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 5175 @send;
-#X text 245 5175 Получить/Установить send destination. Тип: symbol.
+#X msg 110 5193 @send;
+#X text 245 5193 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;
-#X msg 110 5217 @active_color;
-#X text 245 5217 Получить/Установить active color (list of red \, green
+#X msg 110 5235 @active_color;
+#X text 245 5235 Получить/Установить active color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
 1 1\.;
-#X msg 110 5274 @background_color;
-#X text 245 5274 Получить/Установить element background color (list
+#X msg 110 5292 @background_color;
+#X text 245 5292 Получить/Установить element background color (list
 of red \, green \, blue values in 0-1 range). Тип: list. Значение по
 умолчанию: 1 1 1 1\.;
-#X msg 110 5331 @border_color;
-#X text 245 5331 Получить/Установить border color (list of red \, green
+#X msg 110 5349 @border_color;
+#X text 245 5349 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 1 1
 1 1\.;
-#X msg 110 5388 @fontname;
-#X text 245 5388 Получить/Установить fontname. Тип: symbol. Значение
+#X msg 110 5406 @fontname;
+#X text 245 5406 Получить/Установить fontname. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Helvetica \, Monaco
 \, Courier \, Times \, DejaVu.;
-#X msg 110 5445 @fontsize;
-#X text 245 5445 Получить/Установить fontsize. Тип: int. Значение по
+#X msg 110 5463 @fontsize;
+#X text 245 5463 Получить/Установить fontsize. Тип: int. Значение по
 умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 5487 @fontslant;
-#X text 245 5487 Получить/Установить font slant. Тип: symbol. Значение
+#X msg 110 5505 @fontslant;
+#X text 245 5505 Получить/Установить font slant. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 5529 @fontweight;
-#X text 245 5529 Получить/Установить font weight. Тип: symbol. Значение
+#X msg 110 5547 @fontweight;
+#X text 245 5547 Получить/Установить font weight. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 5571 @pinned;
-#X text 245 5571 Получить/Установить pin mode. if 1 - put element to
+#X msg 110 5589 @pinned;
+#X text 245 5589 Получить/Установить pin mode. if 1 - put element to
 the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 5613 @presetname;
-#X text 245 5613 Получить/Установить preset name for using with [ui.preset].
+#X msg 110 5631 @presetname;
+#X text 245 5631 Получить/Установить preset name for using with [ui.preset].
 Тип: symbol. Значение по умолчанию: (null).;
-#X obj 20 5665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5670 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 5683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5688 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 5705 clear;
-#X text 245 5705 clears specified preset. Аргументы:;
-#X obj 255 5728 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5728 IDX: preset index. Тип: int.;
-#X msg 110 5753 interp;
-#X text 245 5753 for this object acts as *load* \, no interpolation
+#X msg 110 5723 clear;
+#X text 245 5723 clears specified preset. Аргументы:;
+#X obj 255 5746 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5746 IDX: preset index. Тип: int.;
+#X msg 110 5771 interp;
+#X text 245 5771 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 5781 load;
-#X text 245 5781 loads specified preset. Аргументы:;
-#X obj 255 5804 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5804 IDX: preset index. Тип: int.;
-#X msg 110 5829 pos;
-#X text 245 5829 set UI element position. Аргументы:;
-#X obj 255 5852 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5852 X: top left x-coord. Тип: float.;
-#X obj 255 5875 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5875 Y: top right y-coord. Тип: float.;
-#X msg 110 5900 set;
-#X text 245 5900 sets icon name.;
-#X msg 110 5928 store;
-#X text 245 5928 stores specified preset. Аргументы:;
-#X obj 255 5951 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5951 IDX: preset index. Тип: int.;
-#X obj 20 5986 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5991 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 5799 load;
+#X text 245 5799 loads specified preset. Аргументы:;
+#X obj 255 5822 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5822 IDX: preset index. Тип: int.;
+#X msg 110 5847 pos;
+#X text 245 5847 set UI element position. Аргументы:;
+#X obj 255 5870 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5870 X: top left x-coord. Тип: float.;
+#X obj 255 5893 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5893 Y: top right y-coord. Тип: float.;
+#X msg 110 5918 set;
+#X text 245 5918 sets icon name.;
+#X msg 110 5946 store;
+#X text 245 5946 stores specified preset. Аргументы:;
+#X obj 255 5969 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5969 IDX: preset index. Тип: int.;
+#X obj 20 6004 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 6009 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 5992 1\.;
-#X text 245 5992 (hidden inlet!) see @mode property.;
-#X obj 20 6022 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 6027 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 6010 1\.;
+#X text 245 6010 (hidden inlet!) see @mode property.;
+#X obj 20 6040 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 6045 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 6028 1\.;
-#X text 245 6028 (hidden outlet!) see @mode property.;
+#X text 110 6046 1\.;
+#X text 245 6046 (hidden outlet!) see @mode property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 6078 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 6081 библиотека: ceammc v0.9.8;
-#X text 565 6093 смотрите также:;
-#X obj 686 6096 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 6096 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 6099 библиотека: ceammc v0.9.8;
+#X text 565 6111 смотрите также:;
+#X obj 686 6114 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.bang] @url ui.bang-help.pd;
-#N canvas 10 6100 400 290 info 0;
+#N canvas 10 6118 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -476,7 +476,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 6100 pd info;
+#X restore 10 6118 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 11 0 15 0;

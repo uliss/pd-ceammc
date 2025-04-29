@@ -5,43 +5,43 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.atanh 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 math.atanh;
-#X obj 210 80 cnv 1 555 180 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The atanh() function computes the inverse hyperbolic
+#X obj 205 78 cnv 1 560 180 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The atanh() function computes the inverse hyperbolic
 tangent of the real argument input value.;
-#X text 215 120 Special values:;
-#X text 215 145 atanh(+-0) returns +-0\.;
-#X text 215 170 atanh(+-1) returns +-infinity and raises the "divide-by-zero"
+#X text 215 123 Special values:;
+#X text 215 148 atanh(+-0) returns +-0\.;
+#X text 215 173 atanh(+-1) returns +-infinity and raises the "divide-by-zero"
 floating- point exception.;
-#X text 215 210 atanh(x) returns a NaN and raises the "invalid" floating-point
+#X text 215 213 atanh(x) returns a NaN and raises the "invalid" floating-point
 exception for |x| > 1\.;
-#X floatatom 50 288 5 0 0 0 - - -;
-#X obj 50 317 math.atanh;
-#X floatatom 50 346 5 0 0 0 - - -;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 383 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X floatatom 50 306 5 0 0 0 - - -;
+#X obj 50 335 math.atanh;
+#X floatatom 50 364 5 0 0 0 - - -;
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 401 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 384 1\.;
-#X text 150 384 *float*;
-#X text 245 384 input value.;
-#X text 150 404 *list*;
-#X text 245 404 apply to all numeric values.;
-#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 439 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 402 1\.;
+#X text 150 402 *float*;
+#X text 245 402 input value.;
+#X text 150 422 *list*;
+#X text 245 422 apply to all numeric values.;
+#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 457 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 440 1\.;
-#X text 245 440 result value.;
+#X text 110 458 1\.;
+#X text 245 458 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 384 520 смотрите также:;
-#X obj 505 520 math.acosh;
-#X obj 593 520 math.asinh;
-#X obj 681 520 math.exp;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 508 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 511 библиотека: ceammc v0.9.8;
+#X text 384 523 смотрите также:;
+#X obj 505 523 math.acosh;
+#X obj 593 523 math.asinh;
+#X obj 681 523 math.exp;
+#N canvas 10 530 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -65,6 +65,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
+#X restore 10 530 pd info;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

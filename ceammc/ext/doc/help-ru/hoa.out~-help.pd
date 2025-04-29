@@ -5,55 +5,55 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.out~ 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 hoa.out~;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 defines a signal outlet for a patcher loaded by a hoa.process~
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 defines a signal outlet for a patcher loaded by a hoa.process~
 object;
-#X msg 50 158 open 0;
-#X msg 165 158 open 1;
-#X obj 50 187 sig~ 0.5;
-#X obj 366 187 sig~ 1;
-#X obj 50 216 hoa.process~ 2 hoa/hoa_out_example3 planewaves;
-#X obj 50 245 ui.n~;
-#X obj 203 245 ui.n~;
-#X obj 366 245 ui.n~;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 176 open 0;
+#X msg 165 176 open 1;
+#X obj 50 205 sig~ 0.5;
+#X obj 366 205 sig~ 1;
+#X obj 50 234 hoa.process~ 2 hoa/hoa_out_example3 planewaves;
+#X obj 50 263 ui.n~;
+#X obj 203 263 ui.n~;
+#X obj 366 263 ui.n~;
+#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 318 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 303 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 335 1\.;
-#X text 150 335 int;
-#X obj 246 336 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 335 EXTRA: shortcut for @extra property. Тип: int. Минимальное
+#X text 110 353 1\.;
+#X text 150 353 int;
+#X obj 246 354 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 353 EXTRA: shortcut for @extra property. Тип: int. Минимальное
 значение: 0\.;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 388 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 420 @extra;
-#X text 245 420 Получить/Установить extra inlet. Extra inlet are added
+#X msg 110 438 @extra;
+#X text 245 438 Получить/Установить extra inlet. Extra inlet are added
 to the "normal" instance inlet and can be used to send signal to all
 instances. Тип: int. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
-#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 507 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 525 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 508 1\.;
-#X text 245 508 output signal in the corresponding hoa.process~ object's
+#X text 110 526 1\.;
+#X text 245 526 output signal in the corresponding hoa.process~ object's
 signal outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 573 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 576 библиотека: ceammc v0.9.8;
-#X text 442 588 смотрите также:;
-#X obj 563 588 hoa.out;
-#X obj 629 588 hoa.in;
-#X obj 688 588 hoa.in~;
-#N canvas 10 595 400 290 info 0;
+#X obj 1 591 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 594 библиотека: ceammc v0.9.8;
+#X text 442 606 смотрите также:;
+#X obj 563 606 hoa.out;
+#X obj 629 606 hoa.in;
+#X obj 688 606 hoa.in~;
+#N canvas 10 613 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -78,7 +78,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 595 pd info;
+#X restore 10 613 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 10 1;
 #X connect 10 0 11 0;

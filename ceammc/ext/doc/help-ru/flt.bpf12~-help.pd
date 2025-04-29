@@ -5,98 +5,98 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.bpf12~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 flt.bpf12~;
-#X obj 210 80 cnv 1 555 114 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Band-pass filter passes frequencies within a certain
+#X obj 205 78 cnv 1 560 114 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Band-pass filter passes frequencies within a certain
 range and rejects frequencies outside that range.;
-#X text 215 120 Butterworth filter is a type of filter designed to
+#X text 215 123 Butterworth filter is a type of filter designed to
 have a frequency response as flat as possible in the passband.;
-#X obj 215 160 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 215 163 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Butterworth filter @url
 https://en.wikipedia.org/wiki/Butterworth_filter;
-#X msg 50 222 100;
-#X msg 107 222 500;
-#X msg 165 222 1000;
-#X msg 232 222 5000;
-#X msg 299 222 10000;
-#X msg 376 222 15000;
-#X msg 453 222 20000;
-#X floatatom 50 251 5 0 0 0 - - -;
-#X floatatom 165 266 5 0 0 0 - - -;
-#X msg 376 266 bang;
-#X text 472 266 plot response;
-#X msg 50 294 @freq \$1;
-#X msg 165 294 @q \$1;
-#X obj 376 294 click~;
-#X obj 50 323 flt.bpf12~ 1000 2.5;
-#X obj 50 352 plot.response~ @sr 1 @db 1;
-#X obj 50 381 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
+#X msg 50 240 100;
+#X msg 107 240 500;
+#X msg 165 240 1000;
+#X msg 232 240 5000;
+#X msg 299 240 10000;
+#X msg 376 240 15000;
+#X msg 453 240 20000;
+#X floatatom 50 269 5 0 0 0 - - -;
+#X floatatom 165 284 5 0 0 0 - - -;
+#X msg 376 284 bang;
+#X text 472 284 plot response;
+#X msg 50 312 @freq \$1;
+#X msg 165 312 @q \$1;
+#X obj 376 312 click~;
+#X obj 50 341 flt.bpf12~ 1000 2.5;
+#X obj 50 370 plot.response~ @sr 1 @db 1;
+#X obj 50 399 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
-#X obj 50 597 ui.dsp~;
-#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 652 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 615 ui.dsp~;
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 670 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 655 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 673 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 687 1\.;
-#X text 150 687 float;
-#X obj 246 688 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 687 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
-#X text 110 707 2\.;
-#X text 150 707 float;
-#X obj 246 708 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 707 Q: quality factory: @freq/BANDWIDTH. Тип: float. Диапазон:
+#X text 110 705 1\.;
+#X text 150 705 float;
+#X obj 246 706 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 705 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
+#X text 110 725 2\.;
+#X text 150 725 float;
+#X obj 246 726 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 725 Q: quality factory: @freq/BANDWIDTH. Тип: float. Диапазон:
 0.01…100;
-#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 757 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 775 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 760 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 778 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 792 @id;
-#X text 245 792 (при инициализации) Получить/Установить OSC address
+#X msg 110 810 @id;
+#X text 245 810 (при инициализации) Получить/Установить OSC address
 id. If specified \, bind all properties to /ID/flt_bpf12/PROP_NAME
 osc address \, if empty bind to /flt_bpf12/PROP_NAME. Тип: symbol.;
-#X msg 110 849 @osc;
-#X text 245 849 (при инициализации) Получить/Установить OSC server
+#X msg 110 867 @osc;
+#X text 245 867 (при инициализации) Получить/Установить OSC server
 name to listen. Тип: symbol.;
-#X msg 110 891 @active;
-#X text 245 891 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 909 @active;
+#X text 245 909 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 933 @freq;
-#X text 245 933 Получить/Установить center frequency. Тип: float. Единицы:
+#X msg 110 951 @freq;
+#X text 245 951 Получить/Установить center frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;
-#X msg 110 975 @q;
-#X text 245 975 Получить/Установить quality factor: @freq/BANDWIDTH.
+#X msg 110 993 @q;
+#X text 245 993 Получить/Установить quality factor: @freq/BANDWIDTH.
 Тип: float. Значение по умолчанию: 2\. Диапазон: 0.01\...100\.;
-#X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1032 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1045 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1050 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1067 reset;
-#X text 245 1067 reset filter state.;
-#X obj 20 1105 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1110 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1085 reset;
+#X text 245 1085 reset filter state.;
+#X obj 20 1123 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1128 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1111 1\.;
-#X text 245 1111 input signal.;
-#X text 110 1131 2\.;
-#X text 245 1131 set frequency.;
-#X text 110 1151 3\.;
-#X text 245 1151 set Q-factor.;
-#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1186 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1129 1\.;
+#X text 245 1129 input signal.;
+#X text 110 1149 2\.;
+#X text 245 1149 set frequency.;
+#X text 110 1169 3\.;
+#X text 245 1169 set Q-factor.;
+#X obj 20 1199 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1204 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1187 1\.;
-#X text 245 1187 filtered signal.;
+#X text 110 1205 1\.;
+#X text 245 1205 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1237 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1240 библиотека: ceammc v0.9.8;
-#X text 456 1252 смотрите также:;
-#X obj 577 1252 flt.bpf24~;
-#X obj 666 1252 flt.c_bpf~;
-#N canvas 10 1259 400 290 info 0;
+#X obj 1 1255 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1258 библиотека: ceammc v0.9.8;
+#X text 456 1270 смотрите также:;
+#X obj 577 1270 flt.bpf24~;
+#X obj 666 1270 flt.c_bpf~;
+#N canvas 10 1277 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -120,7 +120,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1259 pd info;
+#X restore 10 1277 pd info;
 #X connect 8 0 15 0;
 #X connect 9 0 15 0;
 #X connect 10 0 15 0;

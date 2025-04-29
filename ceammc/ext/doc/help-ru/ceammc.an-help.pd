@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 481 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 481 50 объекты для анализа свойств звука;
+#X obj 473 50 cnv 1 263 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 477 50 объекты для анализа свойств звука;
 #X obj 30 117 an.onset;
 #X text 200 117 детектор атаки для массивов;
 #X obj 30 145 an.onset~;

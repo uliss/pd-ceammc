@@ -7,76 +7,76 @@
 #X obj 369 11 ceammc/guido->note;
 #X obj 525 11 guido->note;
 #X obj 631 11 conv.guido2note;
-#X obj 210 80 cnv 1 555 34 empty empty empty 17 7 0 10 -257983 -1 0;
-#X obj 215 80 ui.link @background_color 0.98039 0.98039 0.98039 @title
+#X obj 205 78 cnv 1 560 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 215 83 ui.link @background_color 0.98039 0.98039 0.98039 @title
 GUIDO music notation @url
 https://en.wikipedia.org/wiki/GUIDO_music_notation;
-#X msg 50 142 symbol c#0/4.;
-#X floatatom 232 142 5 0 0 0 - - -;
-#X msg 290 142 60;
-#X msg 338 142 120;
-#X symbolatom 50 171 10 0 0 0 - - -;
-#X obj 232 171 prop.set @tempo;
-#X obj 50 200 conv.guido2note @tempo 80bpm;
-#X obj 50 229 ui.dt;
-#X obj 251 229 ui.dt;
-#X text 50 272 // music example;
-#X msg 50 301 bang;
-#X msg 146 301 reset;
-#X obj 50 329 list.walk b&2/8. g2/16 e2/16 d2/16 c#2/8 e2/8. cis2/16
+#X msg 50 160 symbol c#0/4.;
+#X floatatom 232 160 5 0 0 0 - - -;
+#X msg 290 160 60;
+#X msg 338 160 120;
+#X symbolatom 50 189 10 0 0 0 - - -;
+#X obj 232 189 prop.set @tempo;
+#X obj 50 218 conv.guido2note @tempo 80bpm;
+#X obj 50 247 ui.dt;
+#X obj 251 247 ui.dt;
+#X text 50 290 // music example;
+#X msg 50 319 bang;
+#X msg 146 319 reset;
+#X obj 50 347 list.walk b&2/8. g2/16 e2/16 d2/16 c#2/8 e2/8. cis2/16
 a1/16 g1/16 f/4;
-#X obj 50 373 guido->note @tempo 144;
-#X obj 50 402 makenote 120, f 22;
-#X obj 50 430 pack f f, f 18;
-#X obj 203 430 sel 0;
-#X obj 50 459 msg note;
-#X obj 203 459 del;
-#X obj 50 488 sfizz~ \#sine;
-#X obj 50 517 ui.hgain2~;
-#X obj 251 517 ui.dsp~;
-#X obj 50 545 dac~;
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 600 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 391 guido->note @tempo 144;
+#X obj 50 420 makenote 120, f 22;
+#X obj 50 448 pack f f, f 18;
+#X obj 203 448 sel 0;
+#X obj 50 477 msg note;
+#X obj 203 477 del;
+#X obj 50 506 sfizz~ \#sine;
+#X obj 50 535 ui.hgain2~;
+#X obj 251 535 ui.dsp~;
+#X obj 50 563 dac~;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 618 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 621 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 635 1\.;
-#X text 150 635 atom;
-#X obj 246 636 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 635 TEMPO(bpm): current tempo \, if float - treat as quarter-per-minute
+#X text 110 653 1\.;
+#X text 150 653 atom;
+#X obj 246 654 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 653 TEMPO(bpm): current tempo \, if float - treat as quarter-per-minute
 \, if symbol - bpm format expected \, for example: 120bpm \, 60|1/8_bpm
 \, 90|4\._bpm etc. Тип: atom.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 700 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 713 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 718 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 703 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 721 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 735 @tempo;
-#X text 245 735 Получить/Установить current tempo. Тип: atom. Единицы:
+#X msg 110 753 @tempo;
+#X text 245 753 Получить/Установить current tempo. Тип: atom. Единицы:
 'bpm'. Значение по умолчанию: 60|4bpm.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 792 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 810 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 793 1\.;
-#X text 150 793 *symbol*;
-#X text 245 793 Guido note.;
-#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 828 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 811 1\.;
+#X text 150 811 *symbol*;
+#X text 245 811 Guido note.;
+#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 846 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 829 1\.;
-#X text 245 829 int: MIDI pitch.;
-#X text 110 849 2\.;
-#X text 245 849 float: note duration in milliseconds.;
+#X text 110 847 1\.;
+#X text 245 847 int: MIDI pitch.;
+#X text 110 867 2\.;
+#X text 245 867 float: note duration in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 899 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 902 библиотека: ceammc v0.9.8;
-#X text 510 914 смотрите также:;
-#X obj 631 914 conv.note2guido;
-#N canvas 10 921 400 290 info 0;
+#X obj 1 917 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 920 библиотека: ceammc v0.9.8;
+#X text 510 932 смотрите также:;
+#X obj 631 932 conv.note2guido;
+#N canvas 10 939 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 921 pd info;
+#X restore 10 939 pd info;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;
 #X connect 10 0 13 0;

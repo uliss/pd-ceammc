@@ -6,96 +6,96 @@
 -4096 0;
 #X obj 657 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [lang.faust~] @url lang.faust~-help.pd;
-#X obj 210 80 cnv 1 555 34 empty empty empty 17 7 0 10 -257983 -1 0;
-#X obj 215 80 ui.link @background_color 0.98039 0.98039 0.98039 @title
+#X obj 205 78 cnv 1 560 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 215 83 ui.link @background_color 0.98039 0.98039 0.98039 @title
 https://faust.grame.fr/ @url https://faust.grame.fr/;
-#X msg 50 142 open;
-#X obj 126 142 ui.knob @min 0 @max 0.5;
-#X obj 251 142 ui.knob @min 0 @max 10;
-#X msg 126 186 @amp \$1;
-#X msg 251 186 @freq \$1;
-#X msg 69 214 read faust/ex2.dsp;
-#X obj 290 214 osc.square~ 300;
-#X obj 50 272 lang.faust~ faust/ex0.dsp;
-#X obj 50 301 ui.hgain~;
-#X obj 222 301 ui.dsp~;
-#X obj 50 329 dac~;
-#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 384 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X msg 50 160 open;
+#X obj 126 160 ui.knob @min 0 @max 0.5;
+#X obj 251 160 ui.knob @min 0 @max 10;
+#X msg 126 204 @amp \$1;
+#X msg 251 204 @freq \$1;
+#X msg 69 232 read faust/ex2.dsp;
+#X obj 290 232 osc.square~ 300;
+#X obj 50 290 lang.faust~ faust/ex0.dsp;
+#X obj 50 319 ui.hgain~;
+#X obj 222 319 ui.dsp~;
+#X obj 50 347 dac~;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 419 Left-click + ⌥;
-#X text 285 419 open Faust code editor.;
-#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 454 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 110 437 Left-click + ⌥;
+#X text 285 437 open Faust code editor.;
+#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 472 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 457 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 475 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 489 1\.;
-#X text 150 489 symbol;
-#X obj 246 490 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 489 LOAD: initial file to load after object creation. Тип:
+#X text 110 507 1\.;
+#X text 150 507 symbol;
+#X obj 246 508 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 507 LOAD: initial file to load after object creation. Тип:
 symbol.;
-#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 539 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 557 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 542 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 560 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 574 @load;
-#X text 245 574 (при инициализации) Получить/Установить initial file
+#X msg 110 592 @load;
+#X text 245 592 (при инициализации) Получить/Установить initial file
 to load after object creation. Тип: symbol.;
-#X msg 110 616 @active;
-#X text 245 616 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 634 @active;
+#X text 245 634 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 658 @include;
-#X text 245 658 Получить/Установить list of faust include directories.
+#X msg 110 676 @include;
+#X text 245 676 Получить/Установить list of faust include directories.
 Тип: list.;
-#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 715 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 733 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 750 open;
-#X text 245 750 open editor window.;
-#X msg 110 778 read;
-#X text 245 778 read Faust code from file and compile it. Аргументы:;
-#X obj 255 801 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 801 FILE: file path \, absolute or relative to patch \,
+#X msg 110 768 open;
+#X text 245 768 open editor window.;
+#X msg 110 796 read;
+#X text 245 796 read Faust code from file and compile it. Аргументы:;
+#X obj 255 819 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 819 FILE: file path \, absolute or relative to patch \,
 include directories. Тип: symbol.;
-#X msg 110 841 reset;
-#X text 245 841 reset object state.;
-#X msg 110 869 write;
-#X text 245 869 write Faust code to file. Аргументы:;
-#X obj 255 892 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 892 FILE: file path \, absolute or relative to patch. Тип:
+#X msg 110 859 reset;
+#X text 245 859 reset object state.;
+#X msg 110 887 write;
+#X text 245 887 write Faust code to file. Аргументы:;
+#X obj 255 910 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 910 FILE: file path \, absolute or relative to patch. Тип:
 symbol.;
-#X obj 255 915 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 915 [@force]: overwrite existing files. Тип: property.;
-#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 955 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 255 933 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 933 [@force]: overwrite existing files. Тип: property.;
+#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 973 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 956 1\.;
-#X text 245 956 control input.;
-#X text 110 976 2\.;
-#X text 245 976 first faust input.;
-#X text 110 996 ....;
-#X text 245 996 ... faust input.;
-#X text 110 1016 n+1\.;
-#X text 245 1016 n-th faust input.;
-#X obj 20 1046 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1051 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 974 1\.;
+#X text 245 974 control input.;
+#X text 110 994 2\.;
+#X text 245 994 first faust input.;
+#X text 110 1014 ....;
+#X text 245 1014 ... faust input.;
+#X text 110 1034 n+1\.;
+#X text 245 1034 n-th faust input.;
+#X obj 20 1064 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1069 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1052 1\.;
-#X text 245 1052 first faust output.;
-#X text 110 1072 ....;
-#X text 245 1072 ... faust output.;
-#X text 110 1092 n.;
-#X text 245 1092 n-th faust output.;
+#X text 110 1070 1\.;
+#X text 245 1070 first faust output.;
+#X text 110 1090 ....;
+#X text 245 1090 ... faust output.;
+#X text 110 1110 n.;
+#X text 245 1110 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1142 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1145 библиотека: ceammc v0.9.8;
-#N canvas 10 1164 400 290 info 0;
+#X obj 1 1160 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1163 библиотека: ceammc v0.9.8;
+#N canvas 10 1182 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -119,7 +119,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1164 pd info;
+#X restore 10 1182 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 6 0 13 0;

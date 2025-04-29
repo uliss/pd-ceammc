@@ -6,65 +6,65 @@
 0;
 #X obj 563 11 ceammc/replace;
 #X obj 690 11 replace;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 From/to values can be specified both as @from/@to properties
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 From/to values can be specified both as @from/@to properties
 or first and second arguments.;
-#X floatatom 50 158 5 0 0 0 - - -;
-#X msg 98 158 1 2 3;
-#X msg 184 158 list a b c;
-#X msg 117 216 dump;
-#X msg 203 216 symbol a;
-#X msg 309 216 symbol A;
-#X obj 50 259 replace 3 33333;
-#X obj 50 302 ui.display @auto_size 0 @size 120 17;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 50 176 5 0 0 0 - - -;
+#X msg 98 176 1 2 3;
+#X msg 184 176 list a b c;
+#X msg 117 234 dump;
+#X msg 203 234 symbol a;
+#X msg 309 234 symbol A;
+#X obj 50 277 replace 3 33333;
+#X obj 50 320 ui.display @auto_size 0 @size 120 17;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 392 1\.;
-#X text 150 392 atom;
-#X obj 246 393 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 FROM: replace subject. Тип: atom.;
-#X text 110 412 2\.;
-#X text 150 412 atom;
-#X obj 246 413 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 412 TO: replace value. Тип: atom.;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 410 1\.;
+#X text 150 410 atom;
+#X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 FROM: replace subject. Тип: atom.;
+#X text 110 430 2\.;
+#X text 150 430 atom;
+#X obj 246 431 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 430 TO: replace value. Тип: atom.;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 465 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 482 @from;
-#X text 245 482 Получить/Установить replace subject. Тип: atom. Значение
+#X msg 110 500 @from;
+#X text 245 500 Получить/Установить replace subject. Тип: atom. Значение
 по умолчанию: None.;
-#X msg 110 524 @to;
-#X text 245 524 Получить/Установить replace value. Тип: atom. Значение
+#X msg 110 542 @to;
+#X text 245 542 Получить/Установить replace value. Тип: atom. Значение
 по умолчанию: None.;
-#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 581 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 599 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 582 1\.;
-#X text 245 582 input data stream.;
-#X text 110 602 2\.;
-#X text 245 602 @from property inlet.;
-#X text 110 622 3\.;
-#X text 245 622 @to property inlet.;
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 657 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 600 1\.;
+#X text 245 600 input data stream.;
+#X text 110 620 2\.;
+#X text 245 620 @from property inlet.;
+#X text 110 640 3\.;
+#X text 245 640 @to property inlet.;
+#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 675 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 658 1\.;
-#X text 245 658 output data stream.;
+#X text 110 676 1\.;
+#X text 245 676 output data stream.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 708 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 711 библиотека: ceammc v0.9.8;
-#X text 554 723 смотрите также:;
-#X obj 675 723 flow.pass;
-#N canvas 10 730 400 290 info 0;
+#X obj 1 726 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 729 библиотека: ceammc v0.9.8;
+#X text 554 741 смотрите также:;
+#X obj 675 741 flow.pass;
+#N canvas 10 748 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 730 pd info;
+#X restore 10 748 pd info;
 #X connect 7 0 13 0;
 #X connect 8 0 13 0;
 #X connect 10 0 13 0;

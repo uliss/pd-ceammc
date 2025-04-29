@@ -5,56 +5,56 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.gamepad 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 hw.gamepad;
-#X obj 210 80 cnv 1 555 115 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 button names: south \, east \, north \, west \, ltrig
+#X obj 205 78 cnv 1 560 115 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 button names: south \, east \, north \, west \, ltrig
 \, ltrig2 \, rtrig \, rtrig2 \, select \, start \, mode \, lthumb \,
 rthumb \, up \, down \, left \, right \, unknown.;
-#X text 215 135 button events: pressed \, released \, repeated \, changed;
-#X text 215 160 axis names: lstickx \, lsticky \, rstickx \, rsticky
+#X text 215 138 button events: pressed \, released \, repeated \, changed;
+#X text 215 163 axis names: lstickx \, lsticky \, rstickx \, rsticky
 \, leftz \, rightz;
-#X msg 50 223 devices;
-#X obj 50 252 hw.gamepad, f 20;
-#X obj 98 281 print AXIS;
-#X obj 261 281 ui.dt @pinned 1;
-#X obj 50 310 print BUTTON;
-#X obj 50 339 route 0;
-#X obj 50 367 route lsticky lstickx rsticky rstickx;
-#X obj 50 396 flow.pack' 2;
-#X obj 222 396 flow.pack' 2;
-#X msg 50 425 cartesian \$1 \$2;
-#X msg 222 425 cartesian \$1 \$2;
-#X obj 50 454 ui.polar;
-#X obj 222 454 ui.polar;
-#X text 50 526 ...;
-#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 578 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 50 241 devices;
+#X obj 50 270 hw.gamepad, f 20;
+#X obj 98 299 print AXIS;
+#X obj 261 299 ui.dt @pinned 1;
+#X obj 50 328 print BUTTON;
+#X obj 50 357 route 0;
+#X obj 50 385 route lsticky lstickx rsticky rstickx;
+#X obj 50 414 flow.pack' 2;
+#X obj 222 414 flow.pack' 2;
+#X msg 50 443 cartesian \$1 \$2;
+#X msg 222 443 cartesian \$1 \$2;
+#X obj 50 472 ui.polar;
+#X obj 222 472 ui.polar;
+#X text 50 544 ...;
+#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 596 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 613 devices;
-#X text 245 613 output devices info as data:Dict into third outlet.;
-#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 656 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 631 devices;
+#X text 245 631 output devices info as data:Dict into third outlet.;
+#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 674 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 657 1\.;
-#X text 245 657 input.;
-#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 692 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 675 1\.;
+#X text 245 675 input.;
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 710 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 693 1\.;
-#X text 245 693 button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
+#X text 110 711 1\.;
+#X text 245 711 button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
 VALUE.;
-#X text 110 728 2\.;
-#X text 245 728 axis output: list GAMEPAD_ID AXIS_NAME VALUE.;
-#X text 110 748 3\.;
-#X text 245 748 [device DICT( - connected device information \, [connected
+#X text 110 746 2\.;
+#X text 245 746 axis output: list GAMEPAD_ID AXIS_NAME VALUE.;
+#X text 110 766 3\.;
+#X text 245 766 [device DICT( - connected device information \, [connected
 ID( - when device connected \, [disconnected ID( - when device disconnected.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 828 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 831 библиотека: ceammc v0.9.8;
-#N canvas 10 850 400 290 info 0;
+#X obj 1 846 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 849 библиотека: ceammc v0.9.8;
+#N canvas 10 868 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -78,7 +78,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 850 pd info;
+#X restore 10 868 pd info;
 #X connect 8 0 9 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;

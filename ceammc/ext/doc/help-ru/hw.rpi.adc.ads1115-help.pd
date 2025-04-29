@@ -6,113 +6,113 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.adc.ads1115 20 20 0 20
 -104026 -4096 0;
 #X obj 610 11 hw.rpi.adc.ads1115;
-#X obj 210 80 cnv 1 555 185 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Full-scale range settings:;
-#X text 215 105 - @fsr 6144mv \, range +-6.144V \, 1-bit: 0.1875mV;
-#X text 215 130 - @fsr 4096mv \, range +-4.096V \, 1-bit: 0.125mV;
-#X text 215 155 - @fsr 2048mv \, range +-2.048V \, 1-bit: 0.0625mV;
-#X text 215 180 - @fsr 1024mv \, range +-1.024V \, 1-bit: 0.03125mV;
-#X text 215 205 - @fsr 512mv \, range +-0.512V \, 1-bit: 0.015625mV;
-#X text 215 230 - @fsr 256mv \, range +-0.256V \, 1-bit: 0.0078125mV;
-#X obj 50 293 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 322 poll \$1;
-#X msg 69 351 measure 0;
-#X msg 88 380 measure;
-#X obj 50 409 hw.rpi.adc.ads1115 @i2c_bus default @i2c_addr default
+#X obj 205 78 cnv 1 560 185 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Full-scale range settings:;
+#X text 215 108 - @fsr 6144mv \, range +-6.144V \, 1-bit: 0.1875mV;
+#X text 215 133 - @fsr 4096mv \, range +-4.096V \, 1-bit: 0.125mV;
+#X text 215 158 - @fsr 2048mv \, range +-2.048V \, 1-bit: 0.0625mV;
+#X text 215 183 - @fsr 1024mv \, range +-1.024V \, 1-bit: 0.03125mV;
+#X text 215 208 - @fsr 512mv \, range +-0.512V \, 1-bit: 0.015625mV;
+#X text 215 233 - @fsr 256mv \, range +-0.256V \, 1-bit: 0.0078125mV;
+#X obj 50 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 340 poll \$1;
+#X msg 69 369 measure 0;
+#X msg 88 398 measure;
+#X obj 50 427 hw.rpi.adc.ads1115 @i2c_bus default @i2c_addr default
 @mode single @fsr 4096mv @norm 1 @in_min 0 @in_max 3300 @out_min 0
 @out_max 1;
-#X obj 50 466 route ch;
-#X obj 50 495 route 0 1 2 3, f 30;
-#X obj 50 524 ui.hsl @show_value 1;
-#X obj 88 553 ui.hsl @show_value 1;
-#X obj 126 581 ui.hsl @show_value 1;
-#X obj 165 610 ui.hsl @show_value 1;
-#X obj 50 639 ui.link @title 'Connection_Scheme' @url
+#X obj 50 484 route ch;
+#X obj 50 513 route 0 1 2 3, f 30;
+#X obj 50 542 ui.hsl @show_value 1;
+#X obj 88 571 ui.hsl @show_value 1;
+#X obj 126 599 ui.hsl @show_value 1;
+#X obj 165 628 ui.hsl @show_value 1;
+#X obj 50 657 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ads1115.png;
-#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 701 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 719 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 704 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 722 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 736 1\.;
-#X text 150 736 symbol;
-#X obj 246 737 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 736 MODE: See @mode. Разрешённые значения: diff \, single.
+#X text 110 754 1\.;
+#X text 150 754 symbol;
+#X obj 246 755 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 754 MODE: See @mode. Разрешённые значения: diff \, single.
 Тип: symbol.;
-#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 786 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 804 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 789 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 807 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 821 @fsr;
-#X text 245 821 (при инициализации) Получить/Установить full-scale
+#X msg 110 839 @fsr;
+#X text 245 839 (при инициализации) Получить/Установить full-scale
 input range. Тип: symbol. Значение по умолчанию: 6144mv. Разрешённые
 значения: 1024mv \, 2048mv \, 256mv \, 4096mv \, 512mv \, 6144mv.;
-#X msg 110 893 @i2c_addr;
-#X text 245 893 (при инициализации) Получить/Установить I²C address.
+#X msg 110 911 @i2c_addr;
+#X text 245 911 (при инициализации) Получить/Установить I²C address.
 Also 'default' value is accepted (for addr ???) and 'alt' (for addr
 ???). Тип: int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
-#X msg 110 965 @i2c_bus;
-#X text 245 965 (при инициализации) Получить/Установить I²C bus. Тип:
+#X msg 110 983 @i2c_bus;
+#X text 245 983 (при инициализации) Получить/Установить I²C bus. Тип:
 atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X msg 110 1022 @mode;
-#X text 245 1022 (при инициализации) Получить/Установить measure mode.
+#X msg 110 1040 @mode;
+#X text 245 1040 (при инициализации) Получить/Установить measure mode.
 If 'single' - measure level between A0 \, A1 \, A2 \, A3 and GND. If
 'diff' - diff measure between A0 and A1 \, A0 and A3 \, A1 and A3 \,
 A2 and A3\. Тип: symbol. Значение по умолчанию: single. Разрешённые
 значения: diff \, single.;
-#X msg 110 1109 @poll_time;
-#X text 245 1109 (при инициализации) Получить/Установить polling measure
+#X msg 110 1127 @poll_time;
+#X text 245 1127 (при инициализации) Получить/Установить polling measure
 time. Тип: float. Единицы: 'ms'. Значение по умолчанию: 20.0\. Диапазон:
 5.0\...250.0\.;
-#X msg 110 1166 @in_max;
-#X text 245 1166 Получить/Установить input maximum value in millivolts.
+#X msg 110 1184 @in_max;
+#X text 245 1184 Получить/Установить input maximum value in millivolts.
 Тип: float. Значение по умолчанию: 5000.0\. Диапазон: 0.0\...6144.0\.;
-#X msg 110 1223 @in_min;
-#X text 245 1223 Получить/Установить input minimal value in millivolts.
+#X msg 110 1241 @in_min;
+#X text 245 1241 Получить/Установить input minimal value in millivolts.
 Тип: float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...6144.0\.;
-#X msg 110 1265 @norm;
-#X text 245 1265 Получить/Установить normalization. If 1: normalize
+#X msg 110 1283 @norm;
+#X text 245 1283 Получить/Установить normalization. If 1: normalize
 output into specified by @out_min @out_max range. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 1322 @out_max;
-#X text 245 1322 Получить/Установить output max value. Тип: float.
+#X msg 110 1340 @out_max;
+#X text 245 1340 Получить/Установить output max value. Тип: float.
 Значение по умолчанию: 1.0\.;
-#X msg 110 1364 @out_min;
-#X text 245 1364 Получить/Установить output minimum value. Тип: float.
+#X msg 110 1382 @out_min;
+#X text 245 1382 Получить/Установить output minimum value. Тип: float.
 Значение по умолчанию: 0.0\.;
-#X obj 20 1416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1421 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1439 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1456 measure;
-#X text 245 1456 single measure request. Аргументы:;
-#X obj 255 1479 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1479 [CHAN]: the channel to measure. If omitted: perform
+#X msg 110 1474 measure;
+#X text 245 1474 single measure request. Аргументы:;
+#X obj 255 1497 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1497 [CHAN]: the channel to measure. If omitted: perform
 measure on all channels. Тип: int. Диапазон: 0…3\.;
-#X msg 110 1519 poll;
-#X text 245 1519 set polling turn on/off. Аргументы:;
-#X obj 255 1542 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1542 STATE: poll state. Тип: bool.;
-#X obj 20 1577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1582 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1537 poll;
+#X text 245 1537 set polling turn on/off. Аргументы:;
+#X obj 255 1560 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1560 STATE: poll state. Тип: bool.;
+#X obj 20 1595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1600 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1583 1\.;
-#X text 150 1583 *bang*;
-#X text 245 1583;
-#X obj 20 1613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1618 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1601 1\.;
+#X text 150 1601 *bang*;
+#X text 245 1601;
+#X obj 20 1631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1636 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1619 1\.;
-#X text 245 1619 [ch CHANNEL VALUE( messages.;
+#X text 110 1637 1\.;
+#X text 245 1637 [ch CHANNEL VALUE( messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1669 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1672 библиотека: ceammc v0.9.8;
-#N canvas 10 1691 400 290 info 0;
+#X obj 1 1687 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1690 библиотека: ceammc v0.9.8;
+#N canvas 10 1709 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -136,7 +136,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1691 pd info;
+#X restore 10 1709 pd info;
 #X connect 12 0 13 0;
 #X connect 13 0 16 0;
 #X connect 14 0 16 0;

@@ -5,201 +5,201 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.grainer~ 20 20 0 20 -104026
 -4096 0;
 #X obj 637 11 array.grainer~;
-#X obj 210 80 cnv 1 555 285 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Grain properties:;
-#X text 215 105 @at - grain position in source array (in samples);
-#X text 215 130 @l - grain length (in samples);
-#X text 215 155 @amp - grain amplitude in 0\..256 range;
-#X text 215 180 @s - grain speed in -10\..10 range;
-#X text 215 205 @p - grain pan in 0\..1 range;
-#X text 215 230 @w - grain window: rect \, tri or hann;
-#X text 215 255 @tb - time before grain start (in samples);
-#X text 215 280 @ta - time after grain done (in samples);
-#X text 215 305 @r - grain number of repeats (-1: infinite);
-#X text 215 330 @tag - grain tag;
-#X msg 50 393 fill 80 @l 300ms @at rand()*1s @at ondone +=100ms @pan ondone rand() @s ondone choice(1\ \,-0.5) @tb rand()*400ms @w hann;
-#X obj 146 465 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 69 494 clear;
-#X msg 146 494 pause * \$1;
-#X obj 50 523 array.grainer~ agr0;
-#X obj 270 523 ui.dsp~;
-#X obj 50 552 ui.hgain2~;
-#X obj 50 580 dac~;
-#X obj 50 609 table agr0;
-#X obj 50 638 msg.onload load guitar1.wav to agr0 @resize;
-#X obj 69 667 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 285 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Grain properties:;
+#X text 215 108 @at - grain position in source array (in samples);
+#X text 215 133 @l - grain length (in samples);
+#X text 215 158 @amp - grain amplitude in 0\..256 range;
+#X text 215 183 @s - grain speed in -10\..10 range;
+#X text 215 208 @p - grain pan in 0\..1 range;
+#X text 215 233 @w - grain window: rect \, tri or hann;
+#X text 215 258 @tb - time before grain start (in samples);
+#X text 215 283 @ta - time after grain done (in samples);
+#X text 215 308 @r - grain number of repeats (-1: infinite);
+#X text 215 333 @tag - grain tag;
+#X msg 50 411 fill 80 @l 300ms @at rand()*1s @at ondone +=100ms @pan ondone rand() @s ondone choice(1\ \,-0.5) @tb rand()*400ms @w hann;
+#X obj 146 483 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 69 512 clear;
+#X msg 146 512 pause * \$1;
+#X obj 50 541 array.grainer~ agr0;
+#X obj 270 541 ui.dsp~;
+#X obj 50 570 ui.hgain2~;
+#X obj 50 598 dac~;
+#X obj 50 627 table agr0;
+#X obj 50 656 msg.onload load guitar1.wav to agr0 @resize;
+#X obj 69 685 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 69 696 openpanel;
-#X msg 69 724 load \$1 to agr0 @resize;
-#X obj 50 753 snd.file;
-#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 808 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 69 714 openpanel;
+#X msg 69 742 load \$1 to agr0 @resize;
+#X obj 50 771 snd.file;
+#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 826 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 811 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 829 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 843 1\.;
-#X text 150 843 symbol;
-#X obj 246 844 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 843 ARRAY: array name. Тип: symbol.;
-#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 878 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 861 1\.;
+#X text 150 861 symbol;
+#X obj 246 862 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 861 ARRAY: array name. Тип: symbol.;
+#X obj 20 891 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 896 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 881 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 899 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 913 @array;
-#X text 245 913 Получить/Установить array name. Тип: symbol.;
-#X msg 110 943 @prob;
-#X text 245 943 Получить/Установить grain start probability in internal
+#X msg 110 931 @array;
+#X text 245 931 Получить/Установить array name. Тип: symbol.;
+#X msg 110 961 @prob;
+#X text 245 961 Получить/Установить grain start probability in internal
 or external sync mode. ('int' or 'ext'). Тип: float. Значение по умолчанию:
 1\. Диапазон: 0\...1\.;
-#X msg 110 1000 @sync;
-#X text 245 1000 Получить/Установить grain sync mode. If 'none': start
+#X msg 110 1018 @sync;
+#X text 245 1018 Получить/Установить grain sync mode. If 'none': start
 grains right after they are finished \, if 'int': start grains after
 specified interval (@tsync). Тип: symbol. Значение по умолчанию: none.
 Разрешённые значения: none \, int \, ext.;
-#X msg 110 1072 @tsync;
-#X text 245 1072 Получить/Установить grain sync interval. Тип: float.
+#X msg 110 1090 @tsync;
+#X text 245 1090 Получить/Установить grain sync interval. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 50\. Минимальное значение: 1\.;
-#X obj 20 1124 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1129 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1142 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1147 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1164 align;
-#X text 245 1164 align grain(s) to onset. Аргументы:;
-#X obj 255 1187 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1187 [SUBJ]: if '*' or omitted: align all grains \, if
+#X msg 110 1182 align;
+#X text 245 1182 align grain(s) to onset. Аргументы:;
+#X obj 255 1205 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1205 [SUBJ]: if '*' or omitted: align all grains \, if
 '.': align finished grains only \, if float: align grain with corresponding
 #id \, if symbol: align grains with corresponding tag. Тип: atom.;
-#X msg 110 1257 append;
-#X text 245 1257 append several grains. Аргументы:;
-#X obj 255 1280 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1280 N: number of grains. Тип: int. Минимальное значение:
+#X msg 110 1275 append;
+#X text 245 1275 append several grains. Аргументы:;
+#X obj 255 1298 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1298 N: number of grains. Тип: int. Минимальное значение:
 1\.;
-#X obj 255 1303 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1303 PROPS: grain properties. Тип: list.;
-#X msg 110 1328 clear;
-#X text 245 1328 remove grain(s). Аргументы:;
-#X obj 255 1351 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1351 [SUBJ]: if '*' or omitted: remove all grains \, if
+#X obj 255 1321 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1321 PROPS: grain properties. Тип: list.;
+#X msg 110 1346 clear;
+#X text 245 1346 remove grain(s). Аргументы:;
+#X obj 255 1369 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1369 [SUBJ]: if '*' or omitted: remove all grains \, if
 '.': remove finished grains only \, if float: remove grain with corresponding
 #id \, if symbol: remove grains with corresponding tag. Тип: atom.;
-#X msg 110 1421 defer;
-#X text 245 1421 defer method call until grains will finish. Аргументы:;
-#X obj 255 1444 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1444 [N]: number of finished grains to wait before calling.
+#X msg 110 1439 defer;
+#X text 245 1439 defer method call until grains will finish. Аргументы:;
+#X obj 255 1462 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1462 [N]: number of finished grains to wait before calling.
 If not specified \, treat as 1\. Тип: int. Диапазон: 1…255\.;
-#X obj 255 1482 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1482 METHOD: method name. Тип: symbol.;
-#X obj 255 1505 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1505 [ARGS]: method arguments. Тип: list.;
-#X msg 110 1530 fill;
-#X text 245 1530 fill with grains (remove all existing grains before).
+#X obj 255 1500 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1500 METHOD: method name. Тип: symbol.;
+#X obj 255 1523 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1523 [ARGS]: method arguments. Тип: list.;
+#X msg 110 1548 fill;
+#X text 245 1548 fill with grains (remove all existing grains before).
 Аргументы:;
-#X obj 255 1568 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1568 N: number of grains. Тип: int. Минимальное значение:
+#X obj 255 1586 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1586 N: number of grains. Тип: int. Минимальное значение:
 1\.;
-#X obj 255 1591 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1591 PROPS: grain properties. Тип: list.;
-#X msg 110 1616 grain;
-#X text 245 1616 create single grain. Аргументы:;
-#X obj 255 1639 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1639 PROPS: grain properties. Тип: list.;
-#X msg 110 1664 onsets;
-#X text 245 1664 analyze source array for onsets. Аргументы:;
-#X obj 255 1687 cnv 1 124 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1687 [METHOD=default]: onset detection method. Тип: symbol.
+#X obj 255 1609 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1609 PROPS: grain properties. Тип: list.;
+#X msg 110 1634 grain;
+#X text 245 1634 create single grain. Аргументы:;
+#X obj 255 1657 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1657 PROPS: grain properties. Тип: list.;
+#X msg 110 1682 onsets;
+#X text 245 1682 analyze source array for onsets. Аргументы:;
+#X obj 255 1705 cnv 1 124 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1705 [METHOD=default]: onset detection method. Тип: symbol.
 Разрешённые значения: default \, hfc \, energy \, complex \, phase
 \, wphase \, specdiff \, kl \, mkl \, specflux.;
-#X obj 255 1740 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1740 [SPACE=64]: minimal space between onsets. Тип: float.
+#X obj 255 1758 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1758 [SPACE=64]: minimal space between onsets. Тип: float.
 Единицы: 'ms'.;
-#X obj 255 1778 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1778 [SILENCE=-40]: silence level. Тип: float. Единицы:
+#X obj 255 1796 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1796 [SILENCE=-40]: silence level. Тип: float. Единицы:
 'db'.;
-#X msg 110 1803 pause;
-#X text 245 1803 pause (resume) grain(s). Аргументы:;
-#X obj 255 1826 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1826 SUBJ: if '*': pause all grains \, if float: pause
+#X msg 110 1821 pause;
+#X text 245 1821 pause (resume) grain(s). Аргументы:;
+#X obj 255 1844 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1844 SUBJ: if '*': pause all grains \, if float: pause
 grain with corresponding #id \, if symbol: pause grains with matched
 tag. Тип: atom.;
-#X obj 255 1879 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1879 [STATE]: on/off value. Тип: int. Разрешённые значения:
+#X obj 255 1897 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1897 [STATE]: on/off value. Тип: int. Разрешённые значения:
 0 \, 1\.;
-#X msg 110 1904 permutate;
-#X text 245 1904 permutate grain positions (@ta and @tb) values. Аргументы:;
-#X obj 255 1927 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1927 [N]: number of permutations. If N>0 results N-th next
+#X msg 110 1922 permutate;
+#X text 245 1922 permutate grain positions (@ta and @tb) values. Аргументы:;
+#X obj 255 1945 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1945 [N]: number of permutations. If N>0 results N-th next
 permutation \, N<0 - N-th previous permutation. Тип: int. Диапазон:
 -16…16\.;
-#X obj 255 1980 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1980 [TAG]: if '*' or omitted: reverse positions of all
+#X obj 255 1998 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1998 [TAG]: if '*' or omitted: reverse positions of all
 grains \, if '.': reverse positions of finished grains only \, otherwise
 reverse grains with corresponding tag. Тип: symbol.;
-#X msg 110 2035 reverse;
-#X text 245 2035 reverse grain positions (@ta and @tb) values. Аргументы:;
-#X obj 255 2058 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2058 [TAG]: if '*' or omitted: reverse positions of all
+#X msg 110 2053 reverse;
+#X text 245 2053 reverse grain positions (@ta and @tb) values. Аргументы:;
+#X obj 255 2076 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2076 [TAG]: if '*' or omitted: reverse positions of all
 grains \, if '.': reverse positions of finished grains only \, otherwise
 reverse grains with corresponding tag. Тип: symbol.;
-#X msg 110 2113 set;
-#X text 245 2113 set grain(s) properties. Аргументы:;
-#X obj 255 2136 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2136 SUBJ: if '*': set for all grains \, if float: set
+#X msg 110 2131 set;
+#X text 245 2131 set grain(s) properties. Аргументы:;
+#X obj 255 2154 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2154 SUBJ: if '*': set for all grains \, if float: set
 for grain with specified #id \, if symbol: set for grains with specified
 tag. Тип: atom.;
-#X obj 255 2189 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2189 PROPS: grain properties. Тип: list.;
-#X msg 110 2214 shuffle;
-#X text 245 2214 shuffle grain positions (@ta and @tb) values. Аргументы:;
-#X obj 255 2237 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2237 [TAG]: if '*' or omitted: shuffle all grains \, if
+#X obj 255 2207 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2207 PROPS: grain properties. Тип: list.;
+#X msg 110 2232 shuffle;
+#X text 245 2232 shuffle grain positions (@ta and @tb) values. Аргументы:;
+#X obj 255 2255 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2255 [TAG]: if '*' or omitted: shuffle all grains \, if
 '.': shuffle finished grains only \, otherwise shuffle grains with
 corresponding tag. Тип: symbol.;
-#X msg 110 2292 slice;
-#X text 245 2292 slice specified duration to specified number of grains
+#X msg 110 2310 slice;
+#X text 245 2310 slice specified duration to specified number of grains
 and add them. Аргументы:;
-#X obj 255 2330 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2330 N: desired number of grains. Тип: int. Диапазон: 1…64\.;
-#X obj 255 2353 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2353 [DUR]: duration to slice. Positive time value expected
+#X obj 255 2348 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2348 N: desired number of grains. Тип: int. Диапазон: 1…64\.;
+#X obj 255 2371 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2371 [DUR]: duration to slice. Positive time value expected
 \, for example: 100ms \, 1.02s \, 400samp etc. Float value treat as
 millisecond. If not specified - use the whole source array duration.
 Тип: atom.;
-#X obj 255 2421 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2421 [GRAIN]: properties of sliced grains. Тип: list.;
-#X msg 110 2446 spread;
-#X text 245 2446 uniformly arrange grains to fill specified time space.
+#X obj 255 2439 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2439 [GRAIN]: properties of sliced grains. Тип: list.;
+#X msg 110 2464 spread;
+#X text 245 2464 uniformly arrange grains to fill specified time space.
 Аргументы:;
-#X obj 255 2484 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2484 [DUR]: time space. Positive time values are expected
+#X obj 255 2502 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2502 [DUR]: time space. Positive time values are expected
 \, for example: 100ms \, 1.02s \, 400samp etc. Float value treat as
 millisecond. If not specified - use the whole source array duration.
 Тип: atom.;
-#X obj 255 2552 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2552 [TAG]: if '*' or omitted: spread all grains \, if
+#X obj 255 2570 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2570 [TAG]: if '*' or omitted: spread all grains \, if
 '.': spread finished grains only \, otherwise spread grains with corresponding
 tag. Тип: symbol.;
-#X obj 20 2617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2622 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 2635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2640 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2623 1\.;
-#X text 245 2623 control inlet.;
-#X text 150 2643 *bang*;
-#X text 245 2643 if @sync = 'ext': starts finished grains playback.;
-#X obj 20 2673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2678 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2641 1\.;
+#X text 245 2641 control inlet.;
+#X text 150 2661 *bang*;
+#X text 245 2661 if @sync = 'ext': starts finished grains playback.;
+#X obj 20 2691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2696 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2679 1\.;
-#X text 245 2679 left output.;
-#X text 110 2699 2\.;
-#X text 245 2699 right output.;
+#X text 110 2697 1\.;
+#X text 245 2697 left output.;
+#X text 110 2717 2\.;
+#X text 245 2717 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 2749 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2752 библиотека: ceammc v0.9.8;
-#N canvas 10 2771 400 290 info 0;
+#X obj 1 2767 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2770 библиотека: ceammc v0.9.8;
+#N canvas 10 2789 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -223,7 +223,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2771 pd info;
+#X restore 10 2789 pd info;
 #X connect 17 0 19 0;
 #X connect 16 0 20 0;
 #X connect 18 0 20 0;

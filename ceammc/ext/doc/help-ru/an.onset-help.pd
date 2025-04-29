@@ -5,159 +5,159 @@
 #X obj 1 1 cnv 5 765 40 empty empty an.onset 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 an.onset;
-#X obj 210 80 cnv 1 555 59 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Onset detector based on aubio library;
-#X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 205 78 cnv 1 560 59 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Onset detector based on aubio library;
+#X obj 215 108 ui.link @background_color 0.98039 0.98039 0.98039
 @title https://aubio.org @url https://aubio.org/;
-#X msg 50 167 symbol %DOC%/sound/voice.wav;
+#X msg 50 185 symbol %DOC%/sound/voice.wav;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array AONSET 100 float 0;
 #X coords 0 1 100 -1 380 100 1;
-#X restore 299 167 graph;
-#X obj 184 196 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 299 185 graph;
+#X obj 184 214 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 225 expand_env;
-#X obj 184 225 openpanel;
-#X msg 50 254 load \$1 to AONSET @resize;
-#X obj 50 283 snd.file;
-#X obj 50 311 b;
-#X msg 88 311 shuffle \, bang;
-#X msg 299 311 \$1;
-#X obj 50 340 an.onset AONSET;
-#X obj 194 340 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 232 340 5 0 0 0 - - -;
-#X obj 299 340 array.s->p AONSET;
-#X obj 50 369 data.list;
-#X obj 194 369 metro 70;
-#X obj 299 369 ui.hsl @size 16 380;
-#X obj 50 398 list.walk @fold;
-#X obj 299 398 r off;
-#X floatatom 510 398 5 0 0 0 - - -;
-#X obj 50 427 pack f f;
-#X obj 299 427 tabplay~ AONSET;
-#X obj 472 427 b;
-#X msg 510 427 @release \$1;
-#X obj 50 455 ms->samp;
-#X obj 299 455 env.ar~ 10 500;
-#X obj 50 484 s off;
-#X obj 299 484 ui.hgain~;
-#X obj 50 513 ui.dsp~;
-#X obj 299 513 dac~;
-#X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 568 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 243 expand_env;
+#X obj 184 243 openpanel;
+#X msg 50 272 load \$1 to AONSET @resize;
+#X obj 50 301 snd.file;
+#X obj 50 329 b;
+#X msg 88 329 shuffle \, bang;
+#X msg 299 329 \$1;
+#X obj 50 358 an.onset AONSET;
+#X obj 194 358 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 232 358 5 0 0 0 - - -;
+#X obj 299 358 array.s->p AONSET;
+#X obj 50 387 data.list;
+#X obj 194 387 metro 70;
+#X obj 299 387 ui.hsl @size 16 380;
+#X obj 50 416 list.walk @fold;
+#X obj 299 416 r off;
+#X floatatom 510 416 5 0 0 0 - - -;
+#X obj 50 445 pack f f;
+#X obj 299 445 tabplay~ AONSET;
+#X obj 472 445 b;
+#X msg 510 445 @release \$1;
+#X obj 50 473 ms->samp;
+#X obj 299 473 env.ar~ 10 500;
+#X obj 50 502 s off;
+#X obj 299 502 ui.hgain~;
+#X obj 50 531 ui.dsp~;
+#X obj 299 531 dac~;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 571 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 589 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 603 1\.;
-#X text 150 603 symbol;
-#X obj 246 604 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 603 ARRAY: array name. Тип: symbol.;
-#X text 110 623 2\.;
-#X text 150 623 int;
-#X obj 246 624 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 623 BS(samp): buffer size. Тип: int. Минимальное значение:
+#X text 110 621 1\.;
+#X text 150 621 symbol;
+#X obj 246 622 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 621 ARRAY: array name. Тип: symbol.;
+#X text 110 641 2\.;
+#X text 150 641 int;
+#X obj 246 642 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 641 BS(samp): buffer size. Тип: int. Минимальное значение:
 64\.;
-#X text 110 643 3\.;
-#X text 150 643 symbol;
-#X obj 246 644 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 643 METHOD: detection method. Разрешённые значения: centroid
+#X text 110 661 3\.;
+#X text 150 661 symbol;
+#X obj 246 662 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 661 METHOD: detection method. Разрешённые значения: centroid
 \, complex \, complexdomain \, decrease \, default \, energy \, hfc
 \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \, specdiff
 \, specflux \, spread \, wphase. Тип: symbol.;
-#X text 110 708 4\.;
-#X text 150 708 int;
-#X obj 246 709 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 708 HS(samp): hop size (by default buffer_size/2). Тип:
+#X text 110 726 4\.;
+#X text 150 726 int;
+#X obj 246 727 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 726 HS(samp): hop size (by default buffer_size/2). Тип:
 int. Минимальное значение: 0\.;
-#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 758 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 776 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 761 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 779 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 793 @bs;
-#X text 245 793 (при инициализации) Получить/Установить buffer size.
+#X msg 110 811 @bs;
+#X text 245 811 (при инициализации) Получить/Установить buffer size.
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Минимальное
 значение: 64\.;
-#X msg 110 850 @array;
-#X text 245 850 Получить/Установить name of analyzed array. Тип: symbol.;
-#X msg 110 880 @awhitening;
-#X text 245 880 Получить/Установить adaptive whitening. Тип: bool.
+#X msg 110 868 @array;
+#X text 245 868 Получить/Установить name of analyzed array. Тип: symbol.;
+#X msg 110 898 @awhitening;
+#X text 245 898 Получить/Установить adaptive whitening. Тип: bool.
 Значение по умолчанию: 0\.;
-#X msg 110 922 @complex;
-#X text 245 922 Alias to @method complex. Complex Domain Method onset
+#X msg 110 940 @complex;
+#X text 245 940 Alias to @method complex. Complex Domain Method onset
 detection function.;
-#X msg 110 964 @compression;
-#X text 245 964 Получить/Установить lambda logarithmic compression
+#X msg 110 982 @compression;
+#X text 245 982 Получить/Установить lambda logarithmic compression
 factor \, 0 to disable. Тип: float. Значение по умолчанию: 1\. Минимальное
 значение: 0\.;
-#X msg 110 1021 @delay;
-#X text 245 1021 Получить/Установить constant system delay to take
+#X msg 110 1039 @delay;
+#X text 245 1039 Получить/Установить constant system delay to take
 back from detection time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 49.9093\. Минимальное значение: 0\.;
-#X msg 110 1078 @energy;
-#X text 245 1078 Alias to @method energy. Energy based onset detection
+#X msg 110 1096 @energy;
+#X text 245 1096 Alias to @method energy. Energy based onset detection
 function.;
-#X msg 110 1120 @hfc;
-#X text 245 1120 Alias to @method hfc. High Frequency Content onset
+#X msg 110 1138 @hfc;
+#X text 245 1138 Alias to @method hfc. High Frequency Content onset
 detection.;
-#X msg 110 1150 @hs;
-#X text 245 1150 Получить/Установить hop size. 0 means @bs/2\. Тип:
+#X msg 110 1168 @hs;
+#X text 245 1168 Получить/Установить hop size. 0 means @bs/2\. Тип:
 int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
-#X msg 110 1207 @kl;
-#X text 245 1207 Alias to @method kl. Kullback-Liebler onset detection
+#X msg 110 1225 @kl;
+#X text 245 1225 Alias to @method kl. Kullback-Liebler onset detection
 function.;
-#X msg 110 1249 @method;
-#X text 245 1249 Получить/Установить onset method. Default is hfc.
+#X msg 110 1267 @method;
+#X text 245 1267 Получить/Установить onset method. Default is hfc.
 Тип: symbol. Значение по умолчанию: default. Разрешённые значения:
 specflux \, phase \, energy \, hfc \, kl \, complex \, default \, specdiff
 \, wphase \, rolloff \, spread \, kurtosis \, skewness \, complexdomain
 \, decrease \, slope \, centroid.;
-#X msg 110 1336 @mkl;
-#X text 245 1336 Alias to @method mkl. Modified Kullback-Liebler onset
+#X msg 110 1354 @mkl;
+#X text 245 1354 Alias to @method mkl. Modified Kullback-Liebler onset
 detection function.;
-#X msg 110 1378 @phase;
-#X text 245 1378 Alias to @method phase. Phase Based Method onset detection
+#X msg 110 1396 @phase;
+#X text 245 1396 Alias to @method phase. Phase Based Method onset detection
 function.;
-#X msg 110 1420 @silence;
-#X text 245 1420 Получить/Установить onset detection silence threshold.
+#X msg 110 1438 @silence;
+#X text 245 1438 Получить/Установить onset detection silence threshold.
 Тип: float. Единицы: 'db'. Значение по умолчанию: -70\. Диапазон: -80\...0\.;
-#X msg 110 1477 @specdiff;
-#X text 245 1477 Alias to @method specdiff. Spectral difference method
+#X msg 110 1495 @specdiff;
+#X text 245 1495 Alias to @method specdiff. Spectral difference method
 onset detection function.;
-#X msg 110 1519 @specflux;
-#X text 245 1519 Alias to @method specflux. Spectral Flux.;
-#X msg 110 1549 @speedlim;
-#X text 245 1549 Получить/Установить minimum interval between two consecutive
+#X msg 110 1537 @specflux;
+#X text 245 1537 Alias to @method specflux. Spectral Flux.;
+#X msg 110 1567 @speedlim;
+#X text 245 1567 Получить/Установить minimum interval between two consecutive
 onsets. Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Минимальное
 значение: 1\.;
-#X msg 110 1606 @threshold;
-#X text 245 1606 Получить/Установить peak picking threshold. Тип: float.
+#X msg 110 1624 @threshold;
+#X text 245 1624 Получить/Установить peak picking threshold. Тип: float.
 Значение по умолчанию: 0.058\.;
-#X msg 110 1648 @wphase;
-#X text 245 1648 Alias to @method phase. Weighted Phase Deviation onset
+#X msg 110 1666 @wphase;
+#X text 245 1666 Alias to @method phase. Weighted Phase Deviation onset
 detection function.;
-#X obj 20 1700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1705 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1718 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1723 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1706 1\.;
-#X text 150 1706 *bang*;
-#X text 245 1706 analyze array.;
-#X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1741 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1724 1\.;
+#X text 150 1724 *bang*;
+#X text 245 1724 analyze array.;
+#X obj 20 1754 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1759 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1742 1\.;
-#X text 245 1742 output list of detected onsets.;
+#X text 110 1760 1\.;
+#X text 245 1760 output list of detected onsets.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 1792 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1795 библиотека: ceammc v0.9.8;
-#X text 552 1807 смотрите также:;
-#X obj 673 1807 an.onset~;
-#N canvas 10 1814 400 290 info 0;
+#X obj 1 1810 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1813 библиотека: ceammc v0.9.8;
+#X text 552 1825 смотрите также:;
+#X obj 673 1825 an.onset~;
+#N canvas 10 1832 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -181,7 +181,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1814 pd info;
+#X restore 10 1832 pd info;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

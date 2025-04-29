@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 443 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 443 50 работа с динамическим диапазоном звука;
+#X obj 435 50 cnv 1 301 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 439 50 работа с динамическим диапазоном звука;
 #X obj 30 117 dyn.comp2~;
 #X text 200 117 stereo dynamic range compressor;
 #X obj 30 145 dyn.comp_peak2~;

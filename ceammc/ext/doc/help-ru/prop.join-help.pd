@@ -6,46 +6,46 @@
 0;
 #X obj 606 11 prop<-;
 #X obj 675 11 prop.join;
-#X obj 210 80 cnv 1 555 80 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Injects properties into data stream. Values from first
+#X obj 205 78 cnv 1 560 80 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Injects properties into data stream. Values from first
 inlet are passed unchanged and named property values added to stream.
 Note: all property inlets are *hot* \, i.e. if object receives new
 value on inlet it immediately outputs it.;
-#X floatatom 50 188 5 0 0 0 - - -;
-#X floatatom 136 188 5 0 0 0 - - -;
-#X obj 78 217 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 50 206 5 0 0 0 - - -;
+#X floatatom 136 206 5 0 0 0 - - -;
+#X obj 78 235 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 136 217 \$1 \$1;
-#X floatatom 203 246 5 0 0 0 - - -;
-#X obj 50 275 prop<- @size @a;
-#X obj 50 304 prop-> @size;
-#X floatatom 50 332 5 0 0 0 - - -;
-#X obj 117 332 ui.dt;
-#X obj 386 332 ui.dt;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 136 235 \$1 \$1;
+#X floatatom 203 264 5 0 0 0 - - -;
+#X obj 50 293 prop<- @size @a;
+#X obj 50 322 prop-> @size;
+#X floatatom 50 350 5 0 0 0 - - -;
+#X obj 117 350 ui.dt;
+#X obj 386 350 ui.dt;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 405 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 388 1\.;
-#X text 245 388 data stream.;
-#X text 110 408 2\.;
-#X text 245 408 property value.;
-#X text 110 428 ....;
-#X text 245 428 property value.;
-#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 463 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 406 1\.;
+#X text 245 406 data stream.;
+#X text 110 426 2\.;
+#X text 245 426 property value.;
+#X text 110 446 ....;
+#X text 245 446 property value.;
+#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 481 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 464 1\.;
-#X text 245 464 output values.;
+#X text 110 482 1\.;
+#X text 245 482 output values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 514 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 517 библиотека: ceammc v0.9.8;
-#X text 575 529 смотрите также:;
-#X obj 696 529 prop->;
-#N canvas 10 536 400 290 info 0;
+#X obj 1 532 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 535 библиотека: ceammc v0.9.8;
+#X text 575 547 смотрите также:;
+#X obj 696 547 prop->;
+#N canvas 10 554 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -69,7 +69,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 536 pd info;
+#X restore 10 554 pd info;
 #X connect 8 0 10 0;
 #X connect 7 0 12 0;
 #X connect 9 0 12 0;

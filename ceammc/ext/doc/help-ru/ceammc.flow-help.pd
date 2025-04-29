@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 534 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 534 50 управление потоками данных;
+#X obj 526 50 cnv 1 210 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 530 50 управление потоками данных;
 #X obj 30 117 expand_env;
 #X text 200 117 Substitute environment variables in data stream;
 #X obj 30 145 flow.append;

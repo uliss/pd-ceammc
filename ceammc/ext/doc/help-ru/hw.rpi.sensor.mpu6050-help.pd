@@ -5,66 +5,66 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.mpu6050 20 20 0 20
 -104026 -4096 0;
 #X obj 588 11 hw.rpi.sensor.mpu6050;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The MPU-6050 is a 6-axis (combines 3-axis Gyroscope
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The MPU-6050 is a 6-axis (combines 3-axis Gyroscope
 \, 3-axis Accelerometer) motion tracking device.;
-#X obj 50 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 187 poll \$1;
-#X obj 50 230 hw.rpi.sensor.mpu6050 @i2c_bus default;
-#X obj 50 259 route ypr gyro accel temp, f 30;
-#X obj 117 317 ui.dt @label Gyro;
-#X obj 251 317 ui.dt @label Accel;
-#X obj 386 317 ui.dt @label tº;
-#X obj 69 345 unpack f f f, f 45;
-#X floatatom 69 374 5 0 0 0 yaw - -;
-#X floatatom 232 374 5 0 0 0 pitch - -;
-#X floatatom 414 374 5 0 0 0 roll - -;
-#X obj 50 418 print YPR;
-#X obj 50 461 ui.link @title Connection_Scheme @url
+#X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 205 poll \$1;
+#X obj 50 248 hw.rpi.sensor.mpu6050 @i2c_bus default;
+#X obj 50 277 route ypr gyro accel temp, f 30;
+#X obj 117 335 ui.dt @label Gyro;
+#X obj 251 335 ui.dt @label Accel;
+#X obj 386 335 ui.dt @label tº;
+#X obj 69 363 unpack f f f, f 45;
+#X floatatom 69 392 5 0 0 0 yaw - -;
+#X floatatom 232 392 5 0 0 0 pitch - -;
+#X floatatom 414 392 5 0 0 0 roll - -;
+#X obj 50 436 print YPR;
+#X obj 50 479 ui.link @title Connection_Scheme @url
 ceammc://img/conn_mpu6050.png;
-#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 541 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 526 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 544 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 558 @i2c_addr;
-#X text 245 558 (при инициализации) Получить/Установить I2C address.
+#X msg 110 576 @i2c_addr;
+#X text 245 576 (при инициализации) Получить/Установить I2C address.
 The value 'default' means default device I²C address (0x68) \, value
 'alt': alternative I2C address (0x69 \, when pin AD0 pull high). Тип:
 int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
-#X msg 110 645 @i2c_bus;
-#X text 245 645 (при инициализации) Получить/Установить I²C bus. Тип:
+#X msg 110 663 @i2c_bus;
+#X text 245 663 (при инициализации) Получить/Установить I²C bus. Тип:
 atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 717 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 735 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 752 calibrate;
-#X text 245 752 calibrate the sensor. Place it still so that the Z
+#X msg 110 770 calibrate;
+#X text 245 770 calibrate the sensor. Place it still so that the Z
 axis is pointing down.;
-#X msg 110 792 poll;
-#X text 245 792 start/stop sensor polling. Аргументы:;
-#X obj 255 815 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 815 VALUE: state. Тип: bool.;
-#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 810 poll;
+#X text 245 810 start/stop sensor polling. Аргументы:;
+#X obj 255 833 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 833 VALUE: state. Тип: bool.;
+#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 873 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 856 1\.;
-#X text 245 856 control input.;
-#X obj 20 886 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 891 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 874 1\.;
+#X text 245 874 control input.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 909 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 892 1\.;
-#X text 245 892 messages: [ypr YAW PITCH ROLL( \, [time CELSIUS( \,
+#X text 110 910 1\.;
+#X text 245 910 messages: [ypr YAW PITCH ROLL( \, [time CELSIUS( \,
 [gyro X Y Z( and [accel X Y Z(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 957 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 960 библиотека: ceammc v0.9.8;
-#N canvas 10 979 400 290 info 0;
+#X obj 1 975 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 978 библиотека: ceammc v0.9.8;
+#N canvas 10 997 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 979 pd info;
+#X restore 10 997 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

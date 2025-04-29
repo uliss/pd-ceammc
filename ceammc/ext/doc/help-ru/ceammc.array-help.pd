@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 420 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 420 50 работа со звуковыми массивами и таблицами;
+#X obj 412 50 cnv 1 324 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 416 50 работа со звуковыми массивами и таблицами;
 #X obj 30 117 array.bpm;
 #X text 200 117 вычисление BPM;
 #X obj 30 145 array.circular;

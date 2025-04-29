@@ -6,40 +6,40 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.floor~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 math.floor~;
-#X obj 210 80 cnv 1 555 34 empty empty empty 17 7 0 10 -257983 -1 0;
-#X obj 215 80 ui.link @background_color 0.98039 0.98039 0.98039 @title
+#X obj 205 93 cnv 1 560 34 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 215 98 ui.link @background_color 0.98039 0.98039 0.98039 @title
 wiki: Floor and             ceiling functions @url
 https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
-#X msg 50 142 bang;
-#X obj 50 171 plot.linspace~ -3 3;
-#X obj 50 200 math.ceil~;
-#X obj 174 200 math.floor~;
-#X obj 50 229 ui.plot~ @ymin_ticks 0 @xlabels 1 @ylabels 1 @ymin -3
+#X msg 50 175 bang;
+#X obj 50 204 plot.linspace~ -3 3;
+#X obj 50 233 math.ceil~;
+#X obj 174 233 math.floor~;
+#X obj 50 262 ui.plot~ @ymin_ticks 0 @xlabels 1 @ylabels 1 @ymin -3
 @ymax 3 @size 260 260 @n 2;
-#X obj 50 502 ui.dsp~;
-#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 557 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 535 ui.dsp~;
+#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 590 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 558 1\.;
-#X text 245 558 input signal.;
-#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 593 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 591 1\.;
+#X text 245 591 input signal.;
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 626 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 594 1\.;
-#X text 245 594 result signal.;
+#X text 110 627 1\.;
+#X text 245 627 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 644 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 647 библиотека: ceammc v0.9.8;
-#X text 264 659 смотрите также:;
-#X obj 385 659 math.floor;
-#X obj 474 659 math.ceil~;
-#X obj 563 659 math.round~;
-#X obj 659 659 math.trunc~;
-#N canvas 10 666 400 290 info 0;
+#X obj 1 677 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 680 библиотека: ceammc v0.9.8;
+#X text 264 692 смотрите также:;
+#X obj 385 692 math.floor;
+#X obj 474 692 math.ceil~;
+#X obj 563 692 math.round~;
+#X obj 659 692 math.trunc~;
+#N canvas 10 699 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -63,7 +63,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 666 pd info;
+#X restore 10 699 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 7 0 9 0;

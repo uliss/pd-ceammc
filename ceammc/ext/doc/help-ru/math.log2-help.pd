@@ -5,43 +5,43 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.log2 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.log2;
-#X obj 210 80 cnv 1 555 125 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The log2() function computes the value of the logarithm
+#X obj 205 78 cnv 1 560 125 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The log2() function computes the value of the logarithm
 of argument x to base 2\.;
-#X text 215 120 Special values:;
-#X text 215 145 log2(1) return +0\.;
-#X text 215 170 log2(+infinity) return +infinity.;
-#X msg 50 233 bang;
+#X text 215 123 Special values:;
+#X text 215 148 log2(1) return +0\.;
+#X text 215 173 log2(+infinity) return +infinity.;
+#X msg 50 251 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array LOG2 100 float 0;
 #X coords 0 4 100 -4 320 140 1;
-#X restore 280 233 graph;
-#X obj 50 262 list.seq -1 16 0.125;
-#X obj 50 291 math.log2;
-#X obj 50 320 list->array LOG2;
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X restore 280 251 graph;
+#X obj 50 280 list.seq -1 16 0.125;
+#X obj 50 309 math.log2;
+#X obj 50 338 list->array LOG2;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 411 1\.;
-#X text 150 411 *float*;
-#X text 245 411 input value.;
-#X text 150 431 *list*;
-#X text 245 431 apply to all numeric values.;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 429 1\.;
+#X text 150 429 *float*;
+#X text 245 429 input value.;
+#X text 150 449 *list*;
+#X text 245 449 apply to all numeric values.;
+#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 484 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 467 1\.;
-#X text 245 467 result value.;
+#X text 110 485 1\.;
+#X text 245 485 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 517 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 520 библиотека: ceammc v0.9.8;
-#X text 560 532 смотрите также:;
-#X obj 681 532 math.exp;
-#N canvas 10 539 400 290 info 0;
+#X obj 1 535 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 538 библиотека: ceammc v0.9.8;
+#X text 560 550 смотрите также:;
+#X obj 681 550 math.exp;
+#N canvas 10 557 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -65,7 +65,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 539 pd info;
+#X restore 10 557 pd info;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;
 #X connect 12 0 13 0;

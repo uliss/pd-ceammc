@@ -6,89 +6,89 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.stretch 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 array.stretch;
-#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Based on SoundTouch library for changing the Tempo \,
+#X obj 205 93 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 Based on SoundTouch library for changing the Tempo \,
 Pitch and Playback Rates of arrays. Copies time-stretched data from
 source to destination array;
-#X obj 50 173 loadbang;
-#X msg 50 202 symbol voice.wav;
-#X msg 232 202 symbol bell.aiff;
+#X obj 50 206 loadbang;
+#X msg 50 235 symbol voice.wav;
+#X msg 232 235 symbol bell.aiff;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
 #X coords 0 1 100 -1 150 140 1;
-#X restore 414 202 graph;
+#X restore 414 235 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A2 100 float 0;
 #X coords 0 1 100 -1 150 140 1;
-#X restore 578 202 graph;
-#X msg 50 231 load %DOC%/sound/\$1 @to A1 @resize;
-#X obj 50 260 expand_env;
-#X obj 50 289 snd.file;
-#X obj 50 317 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 578 235 graph;
+#X msg 50 264 load %DOC%/sound/\$1 @to A1 @resize;
+#X obj 50 293 expand_env;
+#X obj 50 322 snd.file;
+#X obj 50 350 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 107 317 lower pitch;
-#X obj 50 346 array.stretch A1 A2 @pitch -5;
-#X obj 50 375 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 107 350 lower pitch;
+#X obj 50 379 array.stretch A1 A2 @pitch -5;
+#X obj 50 408 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 107 375 speed up and high;
-#X obj 357 375 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 107 408 speed up and high;
+#X obj 357 408 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 405 375 timestretch;
-#X obj 50 404 array.stretch A1 A2 @rate 1.5;
-#X obj 357 404 array.stretch A1 A2 @tempo -30 @speech 1;
-#X text 50 433 Play;
-#X obj 50 461 ui.tab @items A1 A2;
-#X msg 50 490 set \$2 \, bang;
-#X msg 194 490 stop;
-#X obj 50 519 tabplay~ A2;
-#X obj 50 548 ui.gain~ @size 120 16;
-#X obj 309 548 ui.dsp~;
-#X obj 50 576 dac~;
-#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 631 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 405 408 timestretch;
+#X obj 50 437 array.stretch A1 A2 @rate 1.5;
+#X obj 357 437 array.stretch A1 A2 @tempo -30 @speech 1;
+#X text 50 466 Play;
+#X obj 50 494 ui.tab @items A1 A2;
+#X msg 50 523 set \$2 \, bang;
+#X msg 194 523 stop;
+#X obj 50 552 tabplay~ A2;
+#X obj 50 581 ui.gain~ @size 120 16;
+#X obj 309 581 ui.dsp~;
+#X obj 50 609 dac~;
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 664 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 634 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 667 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 666 1\.;
-#X text 150 666 symbol;
-#X obj 246 667 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 666 SRC: source array. Тип: symbol.;
-#X text 110 686 2\.;
-#X text 150 686 symbol;
-#X obj 246 687 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 686 DEST: destination array. Тип: symbol.;
-#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 721 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 699 1\.;
+#X text 150 699 symbol;
+#X obj 246 700 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 699 SRC: source array. Тип: symbol.;
+#X text 110 719 2\.;
+#X text 150 719 symbol;
+#X obj 246 720 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 719 DEST: destination array. Тип: symbol.;
+#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 754 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 724 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 757 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 756 @aalength;
-#X text 245 756 Получить/Установить pitch transposer anti-alias filter
+#X msg 110 789 @aalength;
+#X text 245 789 Получить/Установить pitch transposer anti-alias filter
 length. Тип: int. Значение по умолчанию: 64\. Диапазон: 8\...128\.;
-#X msg 110 813 @antialias;
-#X text 245 813 Получить/Установить use of anti-alias filter. Anti-alias
+#X msg 110 846 @antialias;
+#X text 245 846 Получить/Установить use of anti-alias filter. Anti-alias
 filter is used to prevent folding of high frequencies when transposing
 the sample rate with interpolation. Тип: bool. Значение по умолчанию:
 0\.;
-#X msg 110 885 @dest;
-#X text 245 885 Получить/Установить destination array. Тип: symbol.;
-#X msg 110 915 @overlap;
-#X text 245 915 Получить/Установить Overlap length in milliseconds.
+#X msg 110 918 @dest;
+#X text 245 918 Получить/Установить destination array. Тип: symbol.;
+#X msg 110 948 @overlap;
+#X text 245 948 Получить/Установить Overlap length in milliseconds.
 When the chopped sound sequences are mixed back together \, to form
 a continuous sound stream \, this parameter defines over how long period
 the two consecutive sequences are let to overlap each other. Increasing
 this value increases computational burden & vice versa. Тип: int. Единицы:
 'ms'. Значение по умолчанию: 8\. Диапазон: 0\...100\.;
-#X msg 110 1033 @pitch;
-#X text 245 1033 Получить/Установить relative pitch change while keeping
+#X msg 110 1066 @pitch;
+#X text 245 1066 Получить/Установить relative pitch change while keeping
 the original tempo. Тип: float. Единицы: 'semitone'. Значение по умолчанию:
 0\.;
-#X msg 110 1090 @rate;
-#X text 245 1090 Получить/Установить playback rate - changes both tempo
+#X msg 110 1123 @rate;
+#X text 245 1123 Получить/Установить playback rate - changes both tempo
 and pitch together as if a vinyl disc was played at different RPM rate.
 Тип: float. Значение по умолчанию: 1\. Диапазон: 0.1\...2\.;
-#X msg 110 1162 @seekwindow;
-#X text 245 1162 Получить/Установить Seeking window default length
+#X msg 110 1195 @seekwindow;
+#X text 245 1195 Получить/Установить Seeking window default length
 in milliseconds for algorithm that finds the best possible overlapping
 location. This determines from how wide window the algorithm may look
 for an optimal joining location when mixing the sound sequences back
@@ -101,8 +101,8 @@ this setting. Increasing this value increases computational burden
 & vice versa. Giving *0* value for the seek window length sets automatic
 parameter value according to tempo setting (recommended). Тип: int.
 Единицы: 'ms'. Значение по умолчанию: 0\. Диапазон: 0\...100\.;
-#X msg 110 1415 @sequence;
-#X text 245 1415 Получить/Установить Default length of a single processing
+#X msg 110 1448 @sequence;
+#X text 245 1448 Получить/Установить Default length of a single processing
 sequence \, in milliseconds. This determines to how long sequences
 the original sound is chopped in the time-stretch algorithm. The larger
 this value is \, the lesser sequences are used in processing. In principle
@@ -111,34 +111,34 @@ increasing tempo and vice versa. Increasing this value reduces computational
 burden & vice versa. Giving *0* value for the sequence length sets
 automatic parameter value according to tempo setting (recommended).
 Тип: int. Единицы: 'ms'. Значение по умолчанию: 0\. Диапазон: 0\...100\.;
-#X msg 110 1593 @speech;
-#X text 245 1593 Получить/Установить optimize for speech sound source.
+#X msg 110 1626 @speech;
+#X text 245 1626 Получить/Установить optimize for speech sound source.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1635 @src;
-#X text 245 1635 Получить/Установить source array. Тип: symbol.;
-#X msg 110 1665 @tempo;
-#X text 245 1665 Получить/Установить relative tempo change without
+#X msg 110 1668 @src;
+#X text 245 1668 Получить/Установить source array. Тип: symbol.;
+#X msg 110 1698 @tempo;
+#X text 245 1698 Получить/Установить relative tempo change without
 affecting the sound pitch. Тип: float. Единицы: '%'. Значение по умолчанию:
 0\. Диапазон: -50\...100\.;
-#X obj 20 1732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1737 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1770 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1738 1\.;
-#X text 150 1738 *bang*;
-#X text 245 1738 starts processing.;
-#X obj 20 1768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1773 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1771 1\.;
+#X text 150 1771 *bang*;
+#X text 245 1771 starts processing.;
+#X obj 20 1801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1806 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1774 1\.;
-#X text 245 1774 float value - number of result samples.;
+#X text 110 1807 1\.;
+#X text 245 1807 float value - number of result samples.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1824 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1827 библиотека: ceammc v0.9.8;
-#N canvas 10 1846 400 290 info 0;
+#X obj 1 1857 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1860 библиотека: ceammc v0.9.8;
+#N canvas 10 1879 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -162,7 +162,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1846 pd info;
+#X restore 10 1879 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;

@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 281 50 cnv 1 459 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 281 50 локальный именованные объекты \, доступные только из
+#X obj 273 50 cnv 1 463 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 277 50 локальный именованные объекты \, доступные только из
 текущего холста;
 #X obj 30 117 local.dict;
 #X text 200 117 local named dict object;

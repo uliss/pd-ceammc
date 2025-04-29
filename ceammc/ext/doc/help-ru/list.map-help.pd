@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 460 50 map list values by specified dictionary;
+#X obj 452 50 cnv 1 309 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 456 50 map list values by specified dictionary;
 #X obj 1 1 cnv 5 765 40 empty empty list.map 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 list.map;

@@ -7,86 +7,86 @@
 -4096 0;
 #X obj 542 11 system.cmd;
 #X obj 639 11 system.command;
-#X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Note: this is simplest unix shell simulation \, do not
+#X obj 205 93 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 Note: this is simplest unix shell simulation \, do not
 expect too much from it \, if you need powerfull shell capabilities
 - write shell script and run it.;
-#X text 215 135 The pipe symbol should be separated by whitespaces.;
-#X msg 50 198 open /System/Applications/Utilities/Audio\ MIDI\ Setup.app;
-#X msg 50 227 ls | sort -r | tail;
-#X msg 78 256 du -h | cut -f1;
-#X msg 270 256 winver.exe;
-#X msg 107 285 bang;
-#X msg 174 285 @args cat \, stdin 1 2 3 4 5;
-#X obj 50 314 system.command pwd;
-#X floatatom 50 342 5 0 0 0 - - -;
-#X obj 165 342 print EXEC;
-#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 397 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 215 153 The pipe symbol should be separated by whitespaces.;
+#X msg 50 231 open /System/Applications/Utilities/Audio\ MIDI\ Setup.app;
+#X msg 50 260 ls | sort -r | tail;
+#X msg 78 289 du -h | cut -f1;
+#X msg 270 289 winver.exe;
+#X msg 107 318 bang;
+#X msg 174 318 @args cat \, stdin 1 2 3 4 5;
+#X obj 50 347 system.command pwd;
+#X floatatom 50 375 5 0 0 0 - - -;
+#X obj 165 375 print EXEC;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 400 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 433 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 432 1\.;
-#X text 150 432 list;
-#X obj 246 433 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 432 ARGS: execution program chain. Тип: list.;
-#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 467 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 465 1\.;
+#X text 150 465 list;
+#X obj 246 466 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 465 ARGS: execution program chain. Тип: list.;
+#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 500 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 470 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 503 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 502 @args;
-#X text 245 502 Получить/Установить execution program chain. Тип: list.;
-#X msg 110 532 @mode;
-#X text 245 532 Получить/Установить output processing mode. 'pd': output
+#X msg 110 535 @args;
+#X text 245 535 Получить/Установить execution program chain. Тип: list.;
+#X msg 110 565 @mode;
+#X text 245 565 Получить/Установить output processing mode. 'pd': output
 each output line as Pd atom list \, 'str': output whole as data:string
 \, 'lines': output each output line as data:string \, 'bytes': output
 as byte stream. Тип: symbol. Значение по умолчанию: pd. Разрешённые
 значения: pd \, str \, lines \, bytes.;
-#X msg 110 619 @pwd;
-#X text 245 619 Получить/Установить process working directory. Тип:
+#X msg 110 652 @pwd;
+#X text 245 652 Получить/Установить process working directory. Тип:
 symbol.;
-#X msg 110 649 @stderr;
-#X text 245 649 Получить/Установить capture stderr. Тип: bool. Значение
+#X msg 110 682 @stderr;
+#X text 245 682 Получить/Установить capture stderr. Тип: bool. Значение
 по умолчанию: 1\.;
-#X msg 110 691 @stdout;
-#X text 245 691 Получить/Установить capture stdout. Тип: bool. Значение
+#X msg 110 724 @stdout;
+#X text 245 724 Получить/Установить capture stdout. Тип: bool. Значение
 по умолчанию: 1\.;
-#X msg 110 733 @t;
-#X text 245 733 Получить/Установить period to check program output.
+#X msg 110 766 @t;
+#X text 245 766 Получить/Установить period to check program output.
 Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 5\...500\.;
-#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 805 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 833 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 838 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 840 stdin;
-#X text 245 840 run the program with given input values. Аргументы:;
-#X obj 255 863 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 863 [ARGS]: the input values. Тип: list.;
-#X msg 110 888 terminate;
-#X text 245 888 terminate the running process.;
-#X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 931 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 873 stdin;
+#X text 245 873 run the program with given input values. Аргументы:;
+#X obj 255 896 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 896 [ARGS]: the input values. Тип: list.;
+#X msg 110 921 terminate;
+#X text 245 921 terminate the running process.;
+#X obj 20 959 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 964 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 932 1\.;
-#X text 150 932 *bang*;
-#X text 245 932 run the program.;
-#X text 150 952 *any*;
-#X text 245 952 change @args property and then run the program.;
-#X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 987 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 110 988 1\.;
-#X text 245 988 int: output process exit code.;
-#X text 110 1008 2\.;
-#X text 245 1008 stdout output \, format depends from @mode.;
+#X text 110 965 1\.;
+#X text 150 965 *bang*;
+#X text 245 965 run the program.;
+#X text 150 985 *any*;
+#X text 245 985 change @args property and then run the program.;
+#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1020 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1021 1\.;
+#X text 245 1021 int: output process exit code.;
+#X text 110 1041 2\.;
+#X text 245 1041 stdout output \, format depends from @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 1058 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1061 библиотека: ceammc v0.9.8;
-#N canvas 10 1080 400 290 info 0;
+#X obj 1 1091 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1094 библиотека: ceammc v0.9.8;
+#N canvas 10 1113 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1080 pd info;
+#X restore 10 1113 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 12 0 14 0;

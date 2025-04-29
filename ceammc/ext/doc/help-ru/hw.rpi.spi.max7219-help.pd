@@ -6,176 +6,176 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.spi.max7219 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 hw.rpi.spi.max7219;
-#X obj 210 80 cnv 1 555 225 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Only Raspberry Pi support;
-#X text 215 105 Handles communication with the MAX7219 chip for 7-segmented
+#X obj 205 78 cnv 1 560 225 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Only Raspberry Pi support;
+#X text 215 108 Handles communication with the MAX7219 chip for 7-segmented
 or 8x8 LED dot matrix displays. Each display can be connected in series
 with another and controlled via a single connection.;
-#X text 215 175 Note: in case of LED dot matrix display only write_bits
+#X text 215 178 Note: in case of LED dot matrix display only write_bits
 and write_reg commands will work as expected;
-#X text 215 215 Note: 7-segment LED display supports only this charset:
+#X text 215 218 Note: 7-segment LED display supports only this charset:
 -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu;
-#X text 215 255 Note: if the device address argument is -1 or omitted
+#X text 215 258 Note: if the device address argument is -1 or omitted
 \, requested action is applied for all devices in a chain.;
-#X text 50 333 #7-segment only;
-#X text 299 333 #both;
-#X msg 434 333 clear;
-#X msg 558 333 get matrix;
-#X floatatom 50 362 5 0 0 0 - - -;
-#X obj 299 362 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 434 362 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 558 362 ui.matrix 8 8;
-#X msg 50 391 write int \$1;
-#X msg 299 391 power \$1;
-#X msg 434 391 test \$1 0;
-#X msg 50 420 write float -10.25 3;
-#X msg 299 420 write reg 2 15 0;
-#X msg 50 449 write hex 355;
-#X msg 299 449 write bytes -1 255 0 255;
-#X msg 50 477 write str DSP 0 left;
-#X floatatom 347 477 5 0 15 0 - - -;
-#X obj 558 477 route matrix;
-#X msg 50 506 write str DSP 255 center;
-#X msg 347 506 intensity \$1;
-#X obj 558 506 msg write matrix;
-#X msg 50 535 write str DSP 1 right;
-#X text 347 535 matrix only;
-#X msg 347 564 font FONT_4x6 \, text 1 6 ЦЭАМ \, get matrix;
-#X obj 347 593 bitmap 32 8;
-#X obj 347 621 msg write;
-#X obj 50 679 hw.rpi.spi.max7219 4;
-#X obj 50 736 hw.rpi.spi.max7219-spi;
-#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 791 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 50 351 #7-segment only;
+#X text 299 351 #both;
+#X msg 434 351 clear;
+#X msg 558 351 get matrix;
+#X floatatom 50 380 5 0 0 0 - - -;
+#X obj 299 380 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 434 380 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 558 380 ui.matrix 8 8;
+#X msg 50 409 write int \$1;
+#X msg 299 409 power \$1;
+#X msg 434 409 test \$1 0;
+#X msg 50 438 write float -10.25 3;
+#X msg 299 438 write reg 2 15 0;
+#X msg 50 467 write hex 355;
+#X msg 299 467 write bytes -1 255 0 255;
+#X msg 50 495 write str DSP 0 left;
+#X floatatom 347 495 5 0 15 0 - - -;
+#X obj 558 495 route matrix;
+#X msg 50 524 write str DSP 255 center;
+#X msg 347 524 intensity \$1;
+#X obj 558 524 msg write matrix;
+#X msg 50 553 write str DSP 1 right;
+#X text 347 553 matrix only;
+#X msg 347 582 font FONT_4x6 \, text 1 6 ЦЭАМ \, get matrix;
+#X obj 347 611 bitmap 32 8;
+#X obj 347 639 msg write;
+#X obj 50 697 hw.rpi.spi.max7219 4;
+#X obj 50 754 hw.rpi.spi.max7219-spi;
+#X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 809 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 794 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 812 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 826 1\.;
-#X text 150 826 int;
-#X obj 246 827 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 826 DISPLAYS: number of displays connected into chain.
+#X text 110 844 1\.;
+#X text 150 844 int;
+#X obj 246 845 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 844 DISPLAYS: number of displays connected into chain.
 Тип: int. Диапазон: 1…4;
-#X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 876 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 894 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 879 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 897 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 911 @displays;
-#X text 245 911 (при инициализации) Получить/Установить number of displays
+#X msg 110 929 @displays;
+#X text 245 929 (при инициализации) Получить/Установить number of displays
 connected into the chain. Тип: int. Значение по умолчанию: 1\. Диапазон:
 1\...4\.;
-#X msg 110 968 @spi_bus;
-#X text 245 968 (при инициализации) Получить/Установить SPI bus number.
+#X msg 110 986 @spi_bus;
+#X text 245 986 (при инициализации) Получить/Установить SPI bus number.
 Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...6\.;
-#X msg 110 1010 @spi_cs;
-#X text 245 1010 (при инициализации) Получить/Установить CS (ChipSelect
+#X msg 110 1028 @spi_cs;
+#X text 245 1028 (при инициализации) Получить/Установить CS (ChipSelect
 \, SlaveSelect or ChipEnable) index. Тип: int. Значение по умолчанию:
 0\. Диапазон: 0\...3\.;
-#X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1082 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1095 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1100 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1117 clear;
-#X text 245 1117 clear display. Аргументы:;
-#X obj 255 1140 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1140 [ADDR=0]: display address in chain. Тип: int. Диапазон:
+#X msg 110 1135 clear;
+#X text 245 1135 clear display. Аргументы:;
+#X obj 255 1158 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1158 [ADDR=0]: display address in chain. Тип: int. Диапазон:
 -1…7\.;
-#X msg 110 1180 intensity;
-#X text 245 1180 set intensity level on the display. Аргументы:;
-#X obj 255 1203 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1203 LEVEL: intensity level. Тип: int. Диапазон: 0…15\.;
-#X obj 255 1226 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1226 [ADDR=-1]: target display address in the chain. Тип:
+#X msg 110 1198 intensity;
+#X text 245 1198 set intensity level on the display. Аргументы:;
+#X obj 255 1221 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1221 LEVEL: intensity level. Тип: int. Диапазон: 0…15\.;
+#X obj 255 1244 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1244 [ADDR=-1]: target display address in the chain. Тип:
 int. Диапазон: -1…7\.;
-#X msg 110 1266 power;
-#X text 245 1266 power on/off display. Аргументы:;
-#X obj 255 1289 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1289 STATE: on/off state. Тип: bool.;
-#X msg 110 1314 test;
-#X text 245 1314 test display by turning all led on. Аргументы:;
-#X obj 255 1337 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1337 [ADDR=-1]: target display address in the chain. Тип:
+#X msg 110 1284 power;
+#X text 245 1284 power on/off display. Аргументы:;
+#X obj 255 1307 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1307 STATE: on/off state. Тип: bool.;
+#X msg 110 1332 test;
+#X text 245 1332 test display by turning all led on. Аргументы:;
+#X obj 255 1355 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1355 [ADDR=-1]: target display address in the chain. Тип:
 int. Диапазон: -1…7\.;
-#X msg 110 1377 write bits;
-#X text 245 1377 write raw bits into the display. Аргументы:;
-#X obj 255 1400 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1400 ADDR=0: target display address in the chain. Тип:
+#X msg 110 1395 write bits;
+#X text 245 1395 write raw bits into the display. Аргументы:;
+#X obj 255 1418 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1418 ADDR=0: target display address in the chain. Тип:
 int. Диапазон: -1…7\.;
-#X obj 255 1438 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1438 BITS: list of bits. Max length: 256\. Тип: list.;
-#X msg 110 1463 write bytes;
-#X text 245 1463 write raw bytes into the display. Аргументы:;
-#X obj 255 1486 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1486 ADDR=0: target display address in the chain. Тип:
+#X obj 255 1456 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1456 BITS: list of bits. Max length: 256\. Тип: list.;
+#X msg 110 1481 write bytes;
+#X text 245 1481 write raw bytes into the display. Аргументы:;
+#X obj 255 1504 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1504 ADDR=0: target display address in the chain. Тип:
 int. Диапазон: -1…7\.;
-#X obj 255 1524 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1524 DATA: list of bytes. Max length: 8\. Тип: list.;
-#X msg 110 1549 write float;
-#X text 245 1549 write float value into 7-segment display (no led matrix
+#X obj 255 1542 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1542 DATA: list of bytes. Max length: 8\. Тип: list.;
+#X msg 110 1567 write float;
+#X text 245 1567 write float value into 7-segment display (no led matrix
 support!). Аргументы:;
-#X obj 255 1587 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1587 VAL: value. Тип: float.;
-#X obj 255 1610 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1610 [PRECISION]: precision after the dot. Тип: int. Диапазон:
+#X obj 255 1605 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1605 VAL: value. Тип: float.;
+#X obj 255 1628 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1628 [PRECISION]: precision after the dot. Тип: int. Диапазон:
 0…7\.;
-#X obj 255 1648 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1648 [ADDR]: display address in the chain. If omitted or
+#X obj 255 1666 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1666 [ADDR]: display address in the chain. If omitted or
 -1: write to all displays. Тип: int. Диапазон: -1…7\.;
-#X msg 110 1688 write hex;
-#X text 245 1688 write hex unsigned integer value into 7-segment display
+#X msg 110 1706 write hex;
+#X text 245 1706 write hex unsigned integer value into 7-segment display
 (no led matrix support!). Аргументы:;
-#X obj 255 1726 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1726 INT: value. Тип: int. Минимальное значение: 0\.;
-#X obj 255 1749 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1749 [ADDR=0]: display address in the chain. Тип: int.
+#X obj 255 1744 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1744 INT: value. Тип: int. Минимальное значение: 0\.;
+#X obj 255 1767 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1767 [ADDR=0]: display address in the chain. Тип: int.
 Диапазон: -1…7\.;
-#X msg 110 1789 write int;
-#X text 245 1789 write signed integer value into 7-segment display
+#X msg 110 1807 write int;
+#X text 245 1807 write signed integer value into 7-segment display
 (no led matrix support!). Аргументы:;
-#X obj 255 1827 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1827 INT: value. Тип: int.;
-#X obj 255 1850 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1850 [ADDR]: display address in the chain. If omitted or
+#X obj 255 1845 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1845 INT: value. Тип: int.;
+#X obj 255 1868 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1868 [ADDR]: display address in the chain. If omitted or
 -1: write to all displays. Тип: int. Диапазон: -1…7\.;
-#X msg 110 1890 write reg;
-#X text 245 1890 write the max7219 register data. Lowest level of communication.
+#X msg 110 1908 write reg;
+#X text 245 1908 write the max7219 register data. Lowest level of communication.
 Аргументы:;
-#X obj 255 1928 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1928 REG: max7219 register index. Тип: int. Диапазон: 0…15\.;
-#X obj 255 1951 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1951 DATA: the register value. Тип: int. Диапазон: 0…255\.;
-#X obj 255 1974 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1974 [ADDR=0]: target display address in the chain. Тип:
+#X obj 255 1946 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1946 REG: max7219 register index. Тип: int. Диапазон: 0…15\.;
+#X obj 255 1969 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1969 DATA: the register value. Тип: int. Диапазон: 0…255\.;
+#X obj 255 1992 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1992 [ADDR=0]: target display address in the chain. Тип:
 int. Диапазон: -1…7\.;
-#X msg 110 2014 write str;
-#X text 245 2014 write string into 7-segment display (no led matrix
+#X msg 110 2032 write str;
+#X text 245 2032 write string into 7-segment display (no led matrix
 support!). Аргументы:;
-#X obj 255 2052 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2052 STR: string. maxlength: 8 chars. Тип: symbol.;
-#X obj 255 2075 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2075 [DOTS]: dots as bit value. For ex.: 0b00000011 turn
+#X obj 255 2070 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2070 STR: string. maxlength: 8 chars. Тип: symbol.;
+#X obj 255 2093 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2093 [DOTS]: dots as bit value. For ex.: 0b00000011 turn
 on a two leftmost dots. Тип: int. Диапазон: 0…255\.;
-#X obj 255 2113 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2113 [ALIGN=right]: string align. Тип: symbol. Разрешённые
+#X obj 255 2131 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2131 [ALIGN=right]: string align. Тип: symbol. Разрешённые
 значения: left \, center \, right.;
-#X obj 255 2151 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2151 [ADDR=0]: display address in the chain. Тип: int.
+#X obj 255 2169 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2169 [ADDR=0]: display address in the chain. Тип: int.
 Диапазон: -1…7\.;
-#X obj 20 2201 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2206 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 2219 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2224 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2207 1\.;
-#X text 245 2207 control input.;
-#X obj 20 2237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2242 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2225 1\.;
+#X text 245 2225 control input.;
+#X obj 20 2255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2260 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2283 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2286 библиотека: ceammc v0.9.8;
-#N canvas 10 2305 400 290 info 0;
+#X obj 1 2301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2304 библиотека: ceammc v0.9.8;
+#N canvas 10 2323 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -199,7 +199,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2305 pd info;
+#X restore 10 2323 pd info;
 #X connect 13 0 17 0;
 #X connect 14 0 18 0;
 #X connect 15 0 19 0;

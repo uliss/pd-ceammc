@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 536 50 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 536 50 генераторы случайных чисел;
+#X obj 528 50 cnv 1 208 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 532 50 генераторы случайных чисел;
 #X obj 30 117 random.atom;
 #X text 200 117 случайный взвешенный выбор атомов из указанного списка;
 #X obj 30 145 random.discrete;

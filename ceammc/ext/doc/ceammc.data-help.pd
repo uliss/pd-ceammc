@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 504 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 504 50 working with various datatypes;
+#X obj 496 50 cnv 1 240 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 500 50 working with various datatypes;
 #X obj 30 117 color.mix;
 #X text 200 117 color mixer;
 #X obj 30 145 color.scale;

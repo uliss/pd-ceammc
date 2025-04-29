@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 435 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 435 50 working with object or patch properties;
+#X obj 427 50 cnv 1 309 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 431 50 working with object or patch properties;
 #X obj 30 117 patch.props;
 #X text 200 117 get or set the patch properties;
 #X obj 30 145 prop;

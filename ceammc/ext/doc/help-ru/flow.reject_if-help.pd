@@ -8,30 +8,30 @@
 #X obj 408 11 ceammc/reject_if;
 #X obj 549 11 reject_if;
 #X obj 638 11 flow.reject_if;
-#X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 conditional value reject according to *predicate* object.
+#X obj 205 93 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 conditional value reject according to *predicate* object.
 *predicate* should accept value and ouput 0 or 1 \, for value passing.;
-#X text 215 135 [<] [is_even] [is_list] - examples of predicates.;
-#X floatatom 50 198 5 0 0 0 - - -;
-#X obj 50 227 flow.reject_if;
-#X obj 232 227 < 10;
-#X floatatom 50 256 5 0 0 0 - - -;
-#X obj 20 288 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 293 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 215 153 [<] [is_even] [is_list] - examples of predicates.;
+#X floatatom 50 231 5 0 0 0 - - -;
+#X obj 50 260 flow.reject_if;
+#X obj 232 260 < 10;
+#X floatatom 50 289 5 0 0 0 - - -;
+#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 326 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 294 1\.;
-#X text 245 294 input value.;
-#X text 110 314 2\.;
-#X text 150 314 *int*;
-#X text 245 314 value from predicate (0 or 1). If *1* reject value
+#X text 110 327 1\.;
+#X text 245 327 input value.;
+#X text 110 347 2\.;
+#X text 150 347 *int*;
+#X text 245 347 value from predicate (0 or 1). If *1* reject value
 \, if *0* - pass.;
-#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 364 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 365 1\.;
-#X text 245 365 passed values.;
-#X text 110 385 2\.;
-#X text 245 385 output value to predicate.;
+#X text 110 398 1\.;
+#X text 245 398 passed values.;
+#X text 110 418 2\.;
+#X text 245 418 output value to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

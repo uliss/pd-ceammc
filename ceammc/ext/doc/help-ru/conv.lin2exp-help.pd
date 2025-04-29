@@ -7,93 +7,93 @@
 #X obj 436 11 ceammc/lin->exp;
 #X obj 570 11 lin->exp;
 #X obj 653 11 conv.lin2exp;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The output range must not include zero. If the input
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The output range must not include zero. If the input
 exceeds the input range \, by default clip is applied.;
-#X msg 50 158 0 1001;
+#X msg 50 176 0 1001;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array l2e 1000 float 0;
 #X coords 0 1 1000 0 200 140 1;
-#X restore 395 158 graph;
-#X obj 50 187 list.seq;
-#X obj 50 216 list.separate;
-#X obj 50 245 t f f, f 12;
-#X obj 50 274 lin->exp 0 1001 0.01 1;
-#X obj 50 302 tabwrite l2e;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 395 176 graph;
+#X obj 50 205 list.seq;
+#X obj 50 234 list.separate;
+#X obj 50 263 t f f, f 12;
+#X obj 50 292 lin->exp 0 1001 0.01 1;
+#X obj 50 320 tabwrite l2e;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 392 1\.;
-#X text 150 392 float;
-#X obj 246 393 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 IN_FROM: begin of input range. Тип: float.;
-#X text 110 412 2\.;
-#X text 150 412 float;
-#X obj 246 413 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 412 IN_TO: end of input range. Тип: float.;
-#X text 110 432 3\.;
-#X text 150 432 float;
-#X obj 246 433 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 432 OUT_FROM: begin of output range. Тип: float.;
-#X text 110 452 4\.;
-#X text 150 452 float;
-#X obj 246 453 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 452 OUT_TO: end of input output. Тип: float.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 487 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 410 1\.;
+#X text 150 410 float;
+#X obj 246 411 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 IN_FROM: begin of input range. Тип: float.;
+#X text 110 430 2\.;
+#X text 150 430 float;
+#X obj 246 431 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 430 IN_TO: end of input range. Тип: float.;
+#X text 110 450 3\.;
+#X text 150 450 float;
+#X obj 246 451 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 450 OUT_FROM: begin of output range. Тип: float.;
+#X text 110 470 4\.;
+#X text 150 470 float;
+#X obj 246 471 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 470 OUT_TO: end of input output. Тип: float.;
+#X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 505 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 490 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 508 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 522 @clip;
-#X text 245 522 Получить/Установить noclip (don't clip) max (clip ceiling)
+#X msg 110 540 @clip;
+#X text 245 540 Получить/Установить noclip (don't clip) max (clip ceiling)
 min (clip floor) minmax (clip both). Тип: symbol. Значение по умолчанию:
 minmax. Разрешённые значения: noclip \, min \, max \, minmax.;
-#X msg 110 594 @in_from;
-#X text 245 594 Получить/Установить begin of input range. Тип: float.
+#X msg 110 612 @in_from;
+#X text 245 612 Получить/Установить begin of input range. Тип: float.
 Значение по умолчанию: 0\.;
-#X msg 110 636 @in_to;
-#X text 245 636 Получить/Установить end of input range. Тип: float.
+#X msg 110 654 @in_to;
+#X text 245 654 Получить/Установить end of input range. Тип: float.
 Значение по умолчанию: 127\.;
-#X msg 110 678 @max;
-#X text 245 678 Alias to @clip max.;
-#X msg 110 708 @min;
-#X text 245 708 Alias to @clip min.;
-#X msg 110 738 @minmax;
-#X text 245 738 Alias to @clip minmax.;
-#X msg 110 768 @noclip;
-#X text 245 768 Alias to @clip noclip.;
-#X msg 110 798 @out_from;
-#X text 245 798 Получить/Установить begin of output range. Тип: float.
+#X msg 110 696 @max;
+#X text 245 696 Alias to @clip max.;
+#X msg 110 726 @min;
+#X text 245 726 Alias to @clip min.;
+#X msg 110 756 @minmax;
+#X text 245 756 Alias to @clip minmax.;
+#X msg 110 786 @noclip;
+#X text 245 786 Alias to @clip noclip.;
+#X msg 110 816 @out_from;
+#X text 245 816 Получить/Установить begin of output range. Тип: float.
 Значение по умолчанию: 0.01\.;
-#X msg 110 840 @out_to;
-#X text 245 840 Получить/Установить end of output range. Тип: float.
+#X msg 110 858 @out_to;
+#X text 245 858 Получить/Установить end of output range. Тип: float.
 Значение по умолчанию: 1\.;
-#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 897 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 915 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 898 1\.;
-#X text 150 898 *float*;
-#X text 245 898 input value.;
-#X text 150 918 *list*;
-#X text 245 918 input list.;
-#X obj 20 948 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 953 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 916 1\.;
+#X text 150 916 *float*;
+#X text 245 916 input value.;
+#X text 150 936 *list*;
+#X text 245 936 input list.;
+#X obj 20 966 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 971 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 954 1\.;
-#X text 245 954 converted value.;
+#X text 110 972 1\.;
+#X text 245 972 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1004 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1007 библиотека: ceammc v0.9.8;
-#X text 415 1019 смотрите также:;
-#X obj 536 1019 conv.lin2lin;
-#X obj 638 1019 conv.lin2curve;
-#N canvas 10 1026 400 290 info 0;
+#X obj 1 1022 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1025 библиотека: ceammc v0.9.8;
+#X text 415 1037 смотрите также:;
+#X obj 536 1037 conv.lin2lin;
+#X obj 638 1037 conv.lin2curve;
+#N canvas 10 1044 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -117,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1026 pd info;
+#X restore 10 1044 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

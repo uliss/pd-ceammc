@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 620 50 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 620 50 генераторы шума;
+#X obj 612 50 cnv 1 124 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 616 50 генераторы шума;
 #X obj 30 117 noise.baker;
 #X text 200 117 Part of a-chaos library;
 #X obj 30 145 noise.chua~;

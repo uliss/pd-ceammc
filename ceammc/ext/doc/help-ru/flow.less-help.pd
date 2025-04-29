@@ -6,62 +6,62 @@
 0;
 #X obj 606 11 flow.<;
 #X obj 675 11 flow.less;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Numbers thar are *less* then N-th argument are passed
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Numbers thar are *less* then N-th argument are passed
 to N-th inlet;
-#X floatatom 50 158 5 0 0 0 - - -;
-#X obj 50 216 flow.less 0 10 20 30;
-#X floatatom 50 245 5 0 0 0 - - -;
-#X floatatom 107 245 5 0 0 0 - - -;
-#X floatatom 165 245 5 0 0 0 - - -;
-#X floatatom 222 245 5 0 0 0 - - -;
-#X floatatom 290 245 5 0 0 0 - - -;
-#X obj 20 277 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 282 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 50 176 5 0 0 0 - - -;
+#X obj 50 234 flow.less 0 10 20 30;
+#X floatatom 50 263 5 0 0 0 - - -;
+#X floatatom 107 263 5 0 0 0 - - -;
+#X floatatom 165 263 5 0 0 0 - - -;
+#X floatatom 222 263 5 0 0 0 - - -;
+#X floatatom 290 263 5 0 0 0 - - -;
+#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 300 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 285 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 303 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 317 1\.;
-#X text 150 317 list;
-#X obj 246 318 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 317 VALUES: compare values: list of floats in ascending
+#X text 110 335 1\.;
+#X text 150 335 list;
+#X obj 246 336 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 335 VALUES: compare values: list of floats in ascending
 order. Тип: list.;
-#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 367 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 370 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 388 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 402 @values;
-#X text 245 402 (при инициализации) Получить/Установить compare values:
+#X msg 110 420 @values;
+#X text 245 420 (при инициализации) Получить/Установить compare values:
 list of floats in ascending order. Тип: list.;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 477 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 460 1\.;
-#X text 150 460 *float*;
-#X text 245 460 input flow.;
-#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 495 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 478 1\.;
+#X text 150 478 *float*;
+#X text 245 478 input flow.;
+#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 513 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 496 1\.;
-#X text 245 496 numbers that are less then 1st argument.;
-#X text 110 516 ....;
-#X text 245 516 numbers that are less than ... argument.;
-#X text 110 536 n.;
-#X text 245 536 numbers that are less than N-th argument.;
-#X text 110 556 n+1\.;
-#X text 245 556 numbers that are greater or equal than last argument.;
+#X text 110 514 1\.;
+#X text 245 514 numbers that are less then 1st argument.;
+#X text 110 534 ....;
+#X text 245 534 numbers that are less than ... argument.;
+#X text 110 554 n.;
+#X text 245 554 numbers that are less than N-th argument.;
+#X text 110 574 n+1\.;
+#X text 245 574 numbers that are greater or equal than last argument.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 606 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 609 библиотека: ceammc v0.9.8;
-#X text 429 621 смотрите также:;
-#X obj 550 621 flow.greater;
-#X obj 653 621 flow.less_eq;
-#N canvas 10 628 400 290 info 0;
+#X obj 1 624 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 627 библиотека: ceammc v0.9.8;
+#X text 429 639 смотрите также:;
+#X obj 550 639 flow.greater;
+#X obj 653 639 flow.less_eq;
+#N canvas 10 646 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 628 pd info;
+#X restore 10 646 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 8 1 10 0;

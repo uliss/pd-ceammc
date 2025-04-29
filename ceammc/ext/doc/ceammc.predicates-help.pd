@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 267 50 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 267 50 predicate objects. Checks message or data types \, returns
+#X obj 259 50 cnv 1 477 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 263 50 predicate objects. Checks message or data types \, returns
 1 or 0\.;
 #X obj 30 117 is_any;
 #X text 200 117 checks if the input has a general message type;

@@ -6,56 +6,56 @@
 -4096 0;
 #X obj 549 11 str.format;
 #X obj 646 11 string.format;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 This format modifiers are supported: %d \, %u \, %i
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 This format modifiers are supported: %d \, %u \, %i
 \, %o \, %x \, %X \, %s \, %e \, %E.;
-#X floatatom 50 158 5 0 0 0 - - -;
-#X msg 98 158 @format %+02d;
-#X obj 50 202 string.format "%08.2f";
-#X obj 50 230 ui.dt;
-#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 285 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 50 176 5 0 0 0 - - -;
+#X msg 98 176 @format %+02d;
+#X obj 50 220 string.format "%08.2f";
+#X obj 50 248 ui.dt;
+#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 303 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 288 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 320 1\.;
-#X text 150 320 list;
-#X obj 246 321 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 320 FORMAT: format string. Тип: list.;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 338 1\.;
+#X text 150 338 list;
+#X obj 246 339 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 338 FORMAT: format string. Тип: list.;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 390 @int;
-#X text 245 390 flag for integer mode. If specified all floats are
+#X msg 110 408 @int;
+#X text 245 408 flag for integer mode. If specified all floats are
 converted to integers. This usefull for hex and octal formatting. Значение
 по умолчанию: 0\.;
-#X msg 110 447 @format;
-#X text 245 447 Получить/Установить format string. Тип: list.;
-#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 492 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 465 @format;
+#X text 245 465 Получить/Установить format string. Тип: list.;
+#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 510 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 493 1\.;
-#X text 150 493 *float*;
-#X text 245 493 float format argument.;
-#X text 150 513 *symbol*;
-#X text 245 513 float format argument.;
-#X text 150 533 *list*;
-#X text 245 533 format arguments (if many).;
-#X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 568 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 511 1\.;
+#X text 150 511 *float*;
+#X text 245 511 float format argument.;
+#X text 150 531 *symbol*;
+#X text 245 531 float format argument.;
+#X text 150 551 *list*;
+#X text 245 551 format arguments (if many).;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 569 1\.;
-#X text 245 569 output string.;
+#X text 110 587 1\.;
+#X text 245 587 output string.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 619 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 622 библиотека: ceammc v0.9.8;
-#N canvas 10 641 400 290 info 0;
+#X obj 1 637 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 640 библиотека: ceammc v0.9.8;
+#N canvas 10 659 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -79,7 +79,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 641 pd info;
+#X restore 10 659 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;

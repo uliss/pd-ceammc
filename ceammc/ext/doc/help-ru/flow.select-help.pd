@@ -6,85 +6,85 @@
 -4096 0;
 #X obj 577 11 flow.sel;
 #X obj 660 11 flow.select;
-#X obj 210 80 cnv 1 555 165 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Match syntax:;
-#X text 215 105 common: symbols or floats;
-#X text 215 130 compare: >NUM \, >=NUM \, <NUM \, <=NUM;
-#X text 215 155 intervals: FROM..TO \, or [FROM..TO] - closed interval
+#X obj 205 78 cnv 1 560 165 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Match syntax:;
+#X text 215 108 common: symbols or floats;
+#X text 215 133 compare: >NUM \, >=NUM \, <NUM \, <=NUM;
+#X text 215 158 intervals: FROM..TO \, or [FROM..TO] - closed interval
 \, [FROM..TO) or (FROM..TO] semi-open interval \, (FROM..TO) open interval
 \, NUM~EPSILON - value in NUM+-EPSILON range;
-#X text 215 210 set: A|B|C - match to A or B or C;
-#X msg 50 273 1 2 3;
-#X msg 194 273 list c 17;
-#X msg 50 302 10;
-#X msg 117 302 40;
-#X msg 194 302 b;
-#X floatatom 50 331 5 0 0 0 - - -;
-#X msg 117 331 30;
-#X msg 194 331 symbol c;
-#X msg 318 331 unmatched;
-#X obj 50 360 flow.sel 1..10 >20 a|b|c @v, f 32;
-#X obj 50 389 ui.dt;
-#X obj 117 417 ui.dt;
-#X obj 194 446 ui.dt;
-#X obj 270 475 ui.dt;
-#X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 530 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 215 213 set: A|B|C - match to A or B or C;
+#X msg 50 291 1 2 3;
+#X msg 194 291 list c 17;
+#X msg 50 320 10;
+#X msg 117 320 40;
+#X msg 194 320 b;
+#X floatatom 50 349 5 0 0 0 - - -;
+#X msg 117 349 30;
+#X msg 194 349 symbol c;
+#X msg 318 349 unmatched;
+#X obj 50 378 flow.sel 1..10 >20 a|b|c @v, f 32;
+#X obj 50 407 ui.dt;
+#X obj 117 435 ui.dt;
+#X obj 194 464 ui.dt;
+#X obj 270 493 ui.dt;
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 548 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 533 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 551 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 565 1\.;
-#X text 150 565 list;
-#X obj 246 566 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 565 ARGS: flow match expressions. Тип: list.;
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 600 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 583 1\.;
+#X text 150 583 list;
+#X obj 246 584 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 583 ARGS: flow match expressions. Тип: list.;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 618 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 621 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 635 @keep_value;
-#X text 245 635 Получить/Установить value output mode. If false (by
+#X msg 110 653 @keep_value;
+#X text 245 653 Получить/Установить value output mode. If false (by
 default) acts like vanilla select: output bang on match or full unmatched
 message to last outlet. If true always outputs full matched message
 to corresponding outlet. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 722 @msg;
-#X text 245 722 Получить/Установить output this message on match \,
+#X msg 110 740 @msg;
+#X text 245 740 Получить/Установить output this message on match \,
 instead of bang. Тип: list.;
-#X msg 110 764 @v;
-#X text 245 764 Alias to @keep_value 1\.;
-#X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 809 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 782 @v;
+#X text 245 782 Alias to @keep_value 1\.;
+#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 827 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 810 1\.;
-#X text 150 810 *float*;
-#X text 245 810 check float for matches.;
-#X text 150 830 *symbol*;
-#X text 245 830 check symbol for matches.;
-#X text 150 850 *list*;
-#X text 245 850 check first list element for matches.;
-#X text 150 870 *any*;
-#X text 245 870 check message selector for matches.;
-#X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 905 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 828 1\.;
+#X text 150 828 *float*;
+#X text 245 828 check float for matches.;
+#X text 150 848 *symbol*;
+#X text 245 848 check symbol for matches.;
+#X text 150 868 *list*;
+#X text 245 868 check first list element for matches.;
+#X text 150 888 *any*;
+#X text 245 888 check message selector for matches.;
+#X obj 20 918 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 923 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 906 1\.;
-#X text 245 906 first matched output: bang or full message.;
-#X text 110 926 ....;
-#X text 245 926 ... matched output: bang or full message.;
-#X text 110 946 n.;
-#X text 245 946 nth matched output: bang or full message.;
-#X text 110 966 n+1\.;
-#X text 245 966 unmatched message.;
+#X text 110 924 1\.;
+#X text 245 924 first matched output: bang or full message.;
+#X text 110 944 ....;
+#X text 245 944 ... matched output: bang or full message.;
+#X text 110 964 n.;
+#X text 245 964 nth matched output: bang or full message.;
+#X text 110 984 n+1\.;
+#X text 245 984 unmatched message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1016 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1019 библиотека: ceammc v0.9.8;
-#X text 546 1031 смотрите также:;
-#X obj 667 1031 flow.match;
-#N canvas 10 1038 400 290 info 0;
+#X obj 1 1034 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1037 библиотека: ceammc v0.9.8;
+#X text 546 1049 смотрите также:;
+#X obj 667 1049 flow.match;
+#N canvas 10 1056 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1038 pd info;
+#X restore 10 1056 pd info;
 #X connect 13 0 16 0;
 #X connect 16 0 20 0;
 #X connect 17 0 20 0;

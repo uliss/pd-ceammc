@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 268 50 cnv 1 472 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 268 50 глобальные именованные объекты \, доступные отовсюду
+#X obj 260 50 cnv 1 476 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 264 50 глобальные именованные объекты \, доступные отовсюду
 в PureData;
 #X obj 30 117 global.dict;
 #X text 200 117 глобальный именованный словарь;
