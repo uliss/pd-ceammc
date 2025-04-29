@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 642 50 cnv 1 94 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 646 50 oscillators;
+#X obj 650 50 cnv 1 90 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 655 50 oscillators;
 #X obj 30 117 osc.blit~;
 #X text 200 117 bandlimited oscillator with controllable harmonics;
 #X obj 30 145 osc.impulse~;

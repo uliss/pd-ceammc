@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 530 50 cnv 1 231 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 534 50 run-length encoding for lists;
+#X obj 538 50 cnv 1 227 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 543 50 run-length encoding for lists;
 #X obj 1 1 cnv 5 765 40 empty empty list.rlencode 20 20 0 20 -104026
 -4096 0;
 #X obj 556 11 list.wrap;

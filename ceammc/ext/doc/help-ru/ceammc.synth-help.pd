@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 611 50 cnv 1 125 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 615 50 звуковой синтез;
+#X obj 619 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 624 50 звуковой синтез;
 #X obj 30 117 synth.bee3~;
 #X text 200 117 Hammond-oid organ FM synthesis instrument;
 #X obj 30 145 synth.birds~;

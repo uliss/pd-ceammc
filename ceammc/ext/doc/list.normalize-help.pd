@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 292 50 cnv 1 469 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 296 50 normalizes numeric list values to get their sum equal
+#X obj 300 50 cnv 1 465 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 305 50 normalizes numeric list values to get their sum equal
 to 1.0;
 #X obj 1 1 cnv 5 765 40 empty empty list.normalize 20 20 0 20 -104026
 -4096 0;

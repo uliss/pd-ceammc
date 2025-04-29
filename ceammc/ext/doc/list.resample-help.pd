@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 308 50 cnv 1 453 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 312 50 resamples the values in the list with the specified
+#X obj 316 50 cnv 1 449 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 321 50 resamples the values in the list with the specified
 length ratio;
 #X obj 1 1 cnv 5 765 40 empty empty list.resample 20 20 0 20 -104026
 -4096 0;

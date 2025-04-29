@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 564 50 cnv 1 172 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 working with timeline;
+#X obj 572 50 cnv 1 168 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 577 50 working with timeline;
 #X obj 30 117 tl.bang;
 #X text 200 117 Timeline bang (with possible delay);
 #X obj 30 148 ui.link @title [tl.cue] @url tl.cue-help.pd;

@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 580 50 cnv 1 156 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 584 50 objects for network;
+#X obj 588 50 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 593 50 objects for network;
 #X obj 30 117 net.artnet.send;
 #X text 200 117 ArtNet DMX message sender;
 #X obj 30 145 net.freesound;

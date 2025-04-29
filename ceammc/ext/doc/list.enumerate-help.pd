@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 567 50 cnv 1 194 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 571 50 enumerates list elements;
+#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 580 50 enumerates list elements;
 #X obj 1 1 cnv 5 765 40 empty empty list.enumerate 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 list.enumerate;

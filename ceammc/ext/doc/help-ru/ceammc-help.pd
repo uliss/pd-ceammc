@@ -18,8 +18,8 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 #X obj 30 310 an.zero~;
 #X text 200 310 вычисление частоты/скорости/числа пересечения сигналом
 нулевого значения;
-#X obj 473 115 cnv 1 263 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 477 115 объекты для анализа свойств звука;
+#X obj 481 115 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 486 115 объекты для анализа свойств звука;
 #X obj 20 350 cnv 5 59 32 empty empty array 4 16 0 17 -262144 -49933
 0;
 #X obj 20 392 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -95,8 +95,8 @@ interval;
 #X text 200 1307 outputs numbers spaced evenly on a log scale;
 #X obj 30 1335 plot.response~;
 #X text 200 1335 output amp/phase freq response to impulse;
-#X obj 412 360 cnv 1 324 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 416 360 работа со звуковыми массивами и таблицами;
+#X obj 420 360 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 425 360 работа со звуковыми массивами и таблицами;
 #X obj 20 1363 cnv 5 48 32 empty empty base 4 16 0 17 -262144 -49933
 0;
 #X obj 20 1405 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -299,8 +299,8 @@ interval;
 #X obj 30 4123 music.voice2midi;
 #X text 200 4123 конвертирует одноголосную музыкальную нотацию в список
 нот MIDI;
-#X obj 573 2428 cnv 1 163 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 577 2428 различные конвертеры;
+#X obj 581 2428 cnv 1 159 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 586 2428 различные конвертеры;
 #X obj 20 4163 cnv 5 48 32 empty empty data 4 16 0 17 -262144 -49933
 0;
 #X obj 20 4205 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -377,8 +377,8 @@ interval;
 #X text 200 5176 symmetric difference between two sets;
 #X obj 30 5204 set.union;
 #X text 200 5204 output union of given sets;
-#X obj 473 4173 cnv 1 263 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 477 4173 работа с различными типами данных;
+#X obj 481 4173 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 486 4173 работа с различными типами данных;
 #X obj 20 5232 cnv 5 38 32 empty empty dyn 4 16 0 17 -262144 -49933 0;
 #X obj 20 5274 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5285 dyn.comp2~;
@@ -407,8 +407,8 @@ interval;
 #X text 200 5593 mono 1176LN Peak Limiter;
 #X obj 30 5621 dyn.softclip~;
 #X text 200 5621 soft signal clip;
-#X obj 435 5242 cnv 1 301 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 439 5242 работа с динамическим диапазоном звука;
+#X obj 443 5242 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 448 5242 работа с динамическим диапазоном звука;
 #X obj 20 5649 cnv 5 39 32 empty empty env 4 16 0 17 -262144 -49933 0;
 #X obj 20 5691 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5702 env.adsr~;
@@ -445,8 +445,8 @@ interval;
 #X text 200 6090 тип данных огибающей;
 #X obj 30 6118 vline2env;
 #X text 200 6118 Converts vline messages to env;
-#X obj 497 5659 cnv 1 239 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 501 5659 работа со звуковыми огибающими;
+#X obj 505 5659 cnv 1 235 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 510 5659 работа со звуковыми огибающими;
 #X obj 20 6146 cnv 5 49 32 empty empty flow 4 16 0 17 -262144 -49933
 0;
 #X obj 20 6188 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -571,8 +571,8 @@ interval;
 #X text 200 7771 направляет входное сообщение в случайный выход;
 #X obj 30 7799 route.symbol;
 #X text 200 7799 отделяет символьные сообщения от других типов;
-#X obj 526 6156 cnv 1 210 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 530 6156 управление потоками данных;
+#X obj 534 6156 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 539 6156 управление потоками данных;
 #X obj 20 7827 cnv 5 37 32 empty empty flt 4 16 0 17 -262144 -49933 0;
 #X obj 20 7869 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 7880 flt.a-weight;
@@ -665,8 +665,8 @@ c constant-Q;
 #X text 200 9080 простой резонансный ФНЧ;
 #X obj 30 9108 flt.speaker~;
 #X text 200 9108 полосовой фильтр-эмуляция динамика;
-#X obj 672 7837 cnv 1 64 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 676 7837 фильтры;
+#X obj 680 7837 cnv 1 60 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 685 7837 фильтры;
 #X obj 20 9136 cnv 5 28 32 empty empty fx 4 16 0 17 -262144 -49933 0;
 #X obj 20 9178 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 9189 fx.bitdown~;
@@ -745,8 +745,8 @@ c constant-Q;
 #X text 200 10181 педаль CryBaby WahWah;
 #X obj 30 10209 fx.zita_rev1~;
 #X text 200 10209 zita стерео ревербератор;
-#X obj 527 9146 cnv 1 209 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 531 9146 различные звуковые эффекты;
+#X obj 535 9146 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 540 9146 различные звуковые эффекты;
 #X obj 20 10237 cnv 5 69 32 empty empty global 4 16 0 17 -262144
 -49933 0;
 #X obj 20 10279 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -762,9 +762,9 @@ c constant-Q;
 #X text 200 10402 глобальный именованный многоуровневый список (MList);
 #X obj 30 10430 global.set;
 #X text 200 10430 глобальное именованное множество;
-#X obj 260 10247 cnv 1 476 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 268 10247 cnv 1 472 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 264 10247 глобальные именованные объекты \, доступные отовсюду
+#X text 273 10247 глобальные именованные объекты \, доступные отовсюду
 в PureData;
 #X obj 20 10458 cnv 5 29 32 empty empty hw 4 16 0 17 -262144 -49933 0;
 #X obj 20 10500 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -825,9 +825,9 @@ Pi;
 Pi;
 #X obj 30 11163 hw.serial;
 #X text 200 11163 serial port device;
-#X obj 389 10468 cnv 1 347 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 397 10468 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 393 10468 работа с различными аппаратными устройствами;
+#X text 402 10468 работа с различными аппаратными устройствами;
 #X obj 20 11191 cnv 5 47 32 empty empty lang 4 16 0 17 -262144 -49933
 0;
 #X obj 20 11233 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -868,9 +868,9 @@ Pi;
 #X obj 30 11687 lfo.tri~;
 #X text 200 11687 низкочастотная треугольная волна единичной амплитуды
 с нулевым средним значением;
-#X obj 527 11332 cnv 1 209 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 535 11332 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 531 11332 низкочастотные осцилляторы;
+#X text 540 11332 низкочастотные осцилляторы;
 #X obj 20 11727 cnv 5 47 32 empty empty list 4 16 0 17 -262144 -49933
 0;
 #X obj 20 11769 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1046,9 +1046,9 @@ Pi;
 #X obj 30 14000 list.zip;
 #X text 200 14000 создает чередующийся список элементов из N входных
 списков;
-#X obj 588 11737 cnv 1 148 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 596 11737 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 592 11737 работа со списками;
+#X text 601 11737 работа со списками;
 #X obj 20 14028 cnv 5 48 32 empty empty live 4 16 0 17 -262144 -49933
 0;
 #X obj 20 14070 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1070,9 +1070,9 @@ sound in loop;
 #X text 200 14286 local named mlist object;
 #X obj 30 14314 local.set;
 #X text 200 14314 local named set object;
-#X obj 273 14131 cnv 1 463 38 empty empty empty 17 7 0 10 -245760 -1
+#X obj 281 14131 cnv 1 459 38 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 277 14131 локальный именованные объекты \, доступные только
+#X text 286 14131 локальный именованные объекты \, доступные только
 из текущего холста;
 #X obj 20 14342 cnv 5 49 32 empty empty math 4 16 0 17 -262144 -49933
 0;
@@ -1282,9 +1282,9 @@ e;
 #X text 200 17155 усечение до целочисленного значения;
 #X obj 30 17183 math.trunc~;
 #X text 200 17183 усечение до целочисленного значения;
-#X obj 281 14352 cnv 1 455 38 empty empty empty 17 7 0 10 -245760 -1
+#X obj 289 14352 cnv 1 451 38 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 285 14352 математические объекты \, которые могут работать
+#X text 294 14352 математические объекты \, которые могут работать
 со списками чисел;
 #X obj 20 17211 cnv 5 49 32 empty empty midi 4 16 0 17 -262144 -49933
 0;
@@ -1336,9 +1336,9 @@ SPN;
 #X text 200 17796 применяет crescendo или diminuendo для потока нот;
 #X obj 30 17824 midi.vrand;
 #X text 200 17824 рандомизатор силы нажатия MIDI;
-#X obj 542 17221 cnv 1 194 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 550 17221 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 546 17221 работа с MIDI протоколом;
+#X text 555 17221 работа с MIDI протоколом;
 #X obj 20 17852 cnv 5 49 32 empty empty misc 4 16 0 17 -262144 -49933
 0;
 #X obj 20 17894 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1415,9 +1415,9 @@ SPN;
 #X text 200 18904 WebSocket клиент;
 #X obj 30 18932 net.ws.server;
 #X text 200 18932 WebSocket сервер;
-#X obj 526 18581 cnv 1 210 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 534 18581 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 530 18581 объекты для работы с сетью;
+#X text 539 18581 объекты для работы с сетью;
 #X obj 20 18960 cnv 5 59 32 empty empty noise 4 16 0 17 -262144 -49933
 0;
 #X obj 20 19002 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1470,9 +1470,9 @@ roll;
 #X text 200 19629 verhulst distribution;
 #X obj 30 19657 noise.white~;
 #X text 200 19657 White noise generator;
-#X obj 612 18970 cnv 1 124 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 620 18970 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 616 18970 генераторы шума;
+#X text 625 18970 генераторы шума;
 #X obj 20 19685 cnv 5 38 32 empty empty osc 4 16 0 17 -262144 -49933
 0;
 #X obj 20 19727 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1494,8 +1494,8 @@ roll;
 #X text 200 19934 осциллятор квадратной волны с ограниченным спектром;
 #X obj 30 19962 osc.tri~;
 #X text 200 19962 осциллятор треугольной волны с ограниченным спектром;
-#X obj 641 19695 cnv 1 95 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 645 19695 осцилляторы;
+#X obj 649 19695 cnv 1 91 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 654 19695 осцилляторы;
 #X obj 20 19990 cnv 5 58 32 empty empty patch 4 16 0 17 -262144 -49933
 0;
 #X obj 20 20032 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1520,9 +1520,9 @@ roll;
 абстракции;
 #X obj 30 20279 patch.tree;
 #X text 200 20279 выводит дерево объектов патча;
-#X obj 604 20000 cnv 1 132 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 612 20000 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 608 20000 работа с патчами;
+#X text 617 20000 работа с патчами;
 #X obj 20 20307 cnv 5 48 32 empty empty path 4 16 0 17 -262144 -49933
 0;
 #X obj 20 20349 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1550,9 +1550,9 @@ roll;
 #X text 200 20640 поиск файлов;
 #X obj 30 20668 path.split;
 #X text 200 20668 разбивает путь на имя каталога и файла;
-#X obj 481 20317 cnv 1 255 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 489 20317 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 485 20317 работа с путями файловой системы;
+#X text 494 20317 работа с путями файловой системы;
 #X obj 20 20696 cnv 5 109 32 empty empty predicates 4 16 0 17 -262144
 -49933 0;
 #X obj 20 20738 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1583,9 +1583,9 @@ roll;
 #X text 200 21053 проверка \, является ли входное сообщение *свойством*;
 #X obj 30 21081 is_symbol;
 #X text 200 21081 проверка \, является ли входное сообщение *символом*;
-#X obj 299 20706 cnv 1 437 38 empty empty empty 17 7 0 10 -245760 -1
+#X obj 307 20706 cnv 1 433 38 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 303 20706 объекты предикатов. Проверка типов сообщений или
+#X text 312 20706 объекты предикатов. Проверка типов сообщений или
 данных \, возвращают 1 или 0\.;
 #X obj 20 21109 cnv 5 68 32 empty empty preset 4 16 0 17 -262144
 -49933 0;
@@ -1598,9 +1598,9 @@ roll;
 #X text 200 21218 управление пресетами;
 #X obj 30 21246 preset.symbol;
 #X text 200 21246 загружает или сохраняет символ в пресет;
-#X obj 588 21119 cnv 1 148 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 596 21119 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 592 21119 работа с пресетами;
+#X text 601 21119 работа с пресетами;
 #X obj 20 21274 cnv 5 90 32 empty empty property 4 16 0 17 -262144
 -49933 0;
 #X obj 20 21316 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1625,9 +1625,9 @@ roll;
 #X obj 30 21575 prop.set;
 #X text 200 21575 устанавливает значение свойства для подключенного
 объекта \, субпатча или абстракции;
-#X obj 420 21284 cnv 1 316 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 428 21284 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 424 21284 работа со свойствами объектов или патчей;
+#X text 433 21284 работа со свойствами объектов или патчей;
 #X obj 20 21615 cnv 5 58 32 empty empty proto 4 16 0 17 -262144 -49933
 0;
 #X obj 20 21657 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1689,9 +1689,9 @@ roll;
 #X text 200 22429 кусочно-постоянное случайное распределение;
 #X obj 30 22457 random.pw_lin;
 #X text 200 22457 кусочно-линейное случайное распределение;
-#X obj 528 22182 cnv 1 208 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 536 22182 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 532 22182 генераторы случайных чисел;
+#X text 541 22182 генераторы случайных чисел;
 #X obj 20 22485 cnv 5 48 32 empty empty samp 4 16 0 17 -262144 -49933
 0;
 #X obj 20 22527 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1805,9 +1805,9 @@ hoa.3d.scope~-help.pd;
 #X text 200 23954 spat with 6 inputs sources to 8 channel output;
 #X obj 30 23982 spat.zita8~;
 #X text 200 23982 8 channel reverb spatializer;
-#X obj 480 22990 cnv 1 256 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 488 22990 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 484 22990 работа с пространственным звуком;
+#X text 493 22990 работа с пространственным звуком;
 #X obj 20 24010 cnv 5 68 32 empty empty string 4 16 0 17 -262144
 -49933 0;
 #X obj 20 24052 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1840,9 +1840,9 @@ hoa.3d.scope~-help.pd;
 #X text 200 24399 извлечение подстроки из входной строки;
 #X obj 30 24427 string2symbol;
 #X text 200 24427 преобразует строку в символ;
-#X obj 512 24020 cnv 1 224 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 520 24020 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 516 24020 работа с типом данных String;
+#X text 525 24020 работа с типом данных String;
 #X obj 20 24455 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
 -49933 0;
 #X obj 20 24497 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1856,9 +1856,9 @@ hoa.3d.scope~-help.pd;
 #X text 200 24592 converts symbol or string to message;
 #X obj 30 24620 symbol2intlist;
 #X text 200 24620 converts symbol to list of character codes;
-#X obj 588 24465 cnv 1 148 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 596 24465 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 592 24465 работа с символами;
+#X text 601 24465 работа с символами;
 #X obj 20 24648 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
 0;
 #X obj 20 24690 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1934,9 +1934,9 @@ instrument;
 filterbank.;
 #X obj 30 25649 synth.wurley~;
 #X text 200 25649 Wurlitzer electric piano FM synthesis instrument;
-#X obj 611 24658 cnv 1 125 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 619 24658 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 615 24658 звуковой синтез;
+#X text 624 24658 звуковой синтез;
 #X obj 20 25677 cnv 5 69 32 empty empty system 4 16 0 17 -262144
 -49933 0;
 #X obj 20 25719 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -1977,9 +1977,9 @@ and peak;
 #X text 200 26196 Timeline bang;
 #X obj 30 26224 tl.transport;
 #X text 200 26224 Timeline transport control;
-#X obj 580 26072 cnv 1 156 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 588 26072 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 584 26072 работа с таймлайном;
+#X text 593 26072 работа с таймлайном;
 #X obj 20 26252 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
 #X obj 20 26294 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 26308 ui.link @title [ui.aview] @url ui.aview-help.pd;
@@ -2067,9 +2067,9 @@ ui.spectroscope~-help.pd;
 #X text 200 27255 список текстовых кнопок или текстовых переключателей;
 #X obj 30 27283 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
 #X text 200 27280 cовременный виджет переключателя;
-#X obj 389 26262 cnv 1 347 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 397 26262 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 393 26262 объекты графического интерфейса пользователя;
+#X text 402 26262 объекты графического интерфейса пользователя;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
 #X obj 1 27305 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 27305 version: v0.9.8 \, license: GPL3;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 299 50 cnv 1 462 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 303 50 output the list of differences between the current list
+#X obj 307 50 cnv 1 458 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 312 50 output the list of differences between the current list
 and the previous one;
 #X obj 1 1 cnv 5 765 40 empty empty list.delta 20 20 0 20 -104026
 -4096 0;

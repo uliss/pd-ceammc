@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 510 50 cnv 1 226 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 514 50 working with String datatype;
+#X obj 518 50 cnv 1 222 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 523 50 working with String datatype;
 #X obj 30 117 string;
 #X text 200 117 constructs the string;
 #X obj 30 145 string.contains;

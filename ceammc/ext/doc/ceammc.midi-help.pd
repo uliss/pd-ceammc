@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 526 50 cnv 1 210 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 530 50 working with MIDI protocol;
+#X obj 534 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 539 50 working with MIDI protocol;
 #X obj 30 117 midi.arp;
 #X text 200 117 MIDI arpeggiator;
 #X obj 30 145 midi.cc;
