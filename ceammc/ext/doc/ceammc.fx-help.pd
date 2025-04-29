@@ -73,7 +73,7 @@
 #X obj 30 1041 fx.tremolo~;
 #X text 200 1041 tremolo effect from Guitarix project;
 #X obj 30 1069 fx.vocoder~;
-#X text 200 1069 very simple vocoder where the spectrum of the modulation
+#X text 200 1069 simple vocoder where the spectrum of the modulation
 signal is analyzed using a 32-band filter bank;
 #X obj 30 1109 fx.wahwah~;
 #X text 200 1109 digitized CryBaby wah pedal;

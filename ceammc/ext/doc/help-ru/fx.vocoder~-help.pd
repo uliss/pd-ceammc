@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 330 50 cnv 1 435 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 335 50 very simple vocoder where the spectrum of the modulation
-signal is analyzed using a 32-band filter bank;
+#X obj 338 50 cnv 1 427 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 343 50 простой вокодер \, в котором спектр модулирующего сигнала
+анализируется с помощью 32-диапазонного фильтра;
 #X obj 1 1 cnv 5 765 40 empty empty fx.vocoder~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 fx.vocoder~;

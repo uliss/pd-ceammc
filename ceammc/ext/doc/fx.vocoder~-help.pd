@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 330 50 cnv 1 435 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 335 50 very simple vocoder where the spectrum of the modulation
+#X obj 292 50 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 297 50 simple vocoder where the spectrum of the modulation
 signal is analyzed using a 32-band filter bank;
 #X obj 1 1 cnv 5 765 40 empty empty fx.vocoder~ 20 20 0 20 -104026
 -4096 0;

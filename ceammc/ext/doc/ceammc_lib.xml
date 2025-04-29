@@ -992,7 +992,7 @@
     <entry name="fx.tremolo~" descr="tremolo effect from Guitarix project" ref_view="object">
       <xi:include href="fx.tremolo~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.vocoder~" descr="very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank" ref_view="object">
+    <entry name="fx.vocoder~" descr="simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank" ref_view="object">
       <xi:include href="fx.vocoder~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.wahwah~" descr="digitized CryBaby wah pedal" ref_view="object">
