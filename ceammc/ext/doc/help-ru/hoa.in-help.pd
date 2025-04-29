@@ -1,65 +1,66 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 375 50 cnv 1 390 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 380 50 message inlet for a patcher loaded by hoa.process~;
+#X obj 384 50 cnv 1 381 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 389 50 контрольный вход для патча \, загружаемого объектом
+[hoa.process~];
 #X obj 1 1 cnv 5 765 40 empty empty hoa.in 20 20 0 20 -104026 -4096 0;
 #X obj 696 11 hoa.in;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 hoa.in defines a message inlet for a patcher loaded
+#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 hoa.in defines a message inlet for a patcher loaded
 by a hoa.process~ object.;
-#X msg 50 176 open 0;
-#X msg 136 176 open 1;
-#X msg 232 176 42;
-#X msg 280 176 #0 43;
-#X msg 366 176 #1 44;
-#X obj 50 220 hoa.process~ 2 hoa/hoa_in_example1 planewaves;
-#X obj 50 248 print A;
-#X msg 50 277 open 0;
-#X msg 174 277 42;
-#X msg 222 277 #0 43;
-#X msg 309 277 #1 44;
-#X msg 395 277 45;
-#X msg 443 277 #0 46;
-#X msg 530 277 #1 47;
-#X msg 69 306 open 1;
-#X obj 50 335 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
-#X obj 50 363 print B;
-#X obj 366 363 print C;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 418 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 191 open 0;
+#X msg 136 191 open 1;
+#X msg 232 191 42;
+#X msg 280 191 #0 43;
+#X msg 366 191 #1 44;
+#X obj 50 235 hoa.process~ 2 hoa/hoa_in_example1 planewaves;
+#X obj 50 263 print A;
+#X msg 50 292 open 0;
+#X msg 174 292 42;
+#X msg 222 292 #0 43;
+#X msg 309 292 #1 44;
+#X msg 395 292 45;
+#X msg 443 292 #0 46;
+#X msg 530 292 #1 47;
+#X msg 69 321 open 1;
+#X obj 50 350 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
+#X obj 50 378 print B;
+#X obj 366 378 print C;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 433 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 453 1\.;
-#X text 150 453 int;
-#X obj 246 454 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 453 INDEX: shortcut for @index property. Тип: int. Минимальное
+#X text 110 468 1\.;
+#X text 150 468 int;
+#X obj 246 469 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 468 INDEX: shortcut for @index property. Тип: int. Минимальное
 значение: 1\.;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 518 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 521 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 538 @index;
-#X text 245 538 Получить/Установить Defines an inlet index. Тип: int.
+#X msg 110 553 @index;
+#X text 245 553 Получить/Установить Defines an inlet index. Тип: int.
 Значение по умолчанию: 1\. Минимальное значение: 1\.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 595 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 610 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 596 1\.;
-#X text 245 596 output messages received from a hoa.process~ input.;
+#X text 110 611 1\.;
+#X text 245 611 output messages received from a hoa.process~ input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 646 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 649 библиотека: ceammc v0.9.8;
-#X text 427 661 смотрите также:;
-#X obj 548 661 hoa.in~;
-#X obj 615 661 hoa.out;
-#X obj 681 661 hoa.out~;
-#N canvas 10 668 400 290 info 0;
+#X obj 1 661 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 664 библиотека: ceammc v0.9.8;
+#X text 427 676 смотрите также:;
+#X obj 548 676 hoa.in~;
+#X obj 615 676 hoa.out;
+#X obj 681 676 hoa.out~;
+#N canvas 10 683 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 668 pd info;
+#X restore 10 683 pd info;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 1;

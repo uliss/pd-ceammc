@@ -719,8 +719,8 @@ list.stretch	changes the length of the list by adjusting its values using linear
 list.sum	calculates the sum of the elements in the list / вычисляет сумму элементов в списке
 list.unique	removes duplicates from the list / удаляет дубликаты из списка
 list.unpack	unpacks list elements into corresponding object outlets / распаковывает элементы списка в соответствующие им выходы объекта
-list.unzip	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся эелементов
-list.deinterleave	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся эелементов
+list.unzip	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся элементов
+list.deinterleave	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся элементов
 list.walk	various algorithms for traversing elements in a list / различные алгоритмы обхода элементов в списке
 list.zip	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
 list.interleave	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
@@ -1152,45 +1152,45 @@ ceammc/seq	basic sequence player
 seq	basic sequence player
 snd.file	Sound file loader on steroids
 snd.play~	Sound file player on steroids
-hoa.2d.decoder~	hoa 2d decoder
-hoa.decoder~	hoa 2d decoder
-hoa.2d.encoder~	hoa 2d encoder
-hoa.encoder~	hoa 2d encoder
-hoa.2d.exchanger~	renumbers and normalizes the channels
-hoa.exchanger~	renumbers and normalizes the channels
-hoa.2d.map~	a 2d ambisonic multisource spatializer
-hoa.map~	a 2d ambisonic multisource spatializer
-hoa.2d.optim~	a 2D ambisonic optimization tool
-hoa.optim~	a 2D ambisonic optimization tool
-hoa.2d.projector~	a plane waves decomposer from circular harmonics domain
-hoa.projector~	a plane waves decomposer from circular harmonics domain
-hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics
-hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics
-hoa.2d.rotate~	a 2D ambisonic sound field rotation
-hoa.rotate~	a 2D ambisonic sound field rotation
-hoa.2d.space	planewaves amp control
-hoa.space	planewaves amp control
-hoa.2d.wider~	a 2d fractional ambisonic order simulator
-hoa.wider~	a 2d fractional ambisonic order simulator
-hoa.3d.decoder~	hoa 3d decoder
-hoa.3d.encoder~	hoa 3d encoder
-hoa.3d.exchanger~	renumbers and normalizes the channels
-hoa.3d.map~	a 3d ambisonic multisource spatializer
-hoa.3d.meter~	multi spherical meter with sound field descriptor
-hoa.3d.optim~	a 3D ambisonic optimization tool
-hoa.3d.scope~	a 3d ambisonic harmonic scope
-hoa.3d.wider~	a 3d fractional ambisonic order simulator
-hoa.@process	process properties manager for hoa.process~
-hoa.in	message inlet for a patcher loaded by hoa.process~
-hoa.in~	signal inlet for a patcher loaded by hoa.process~
-hoa.map.ui	a GUI to spatialize sources on a map
-hoa.out	message outlet for a patcher loaded by hoa.process~
-hoa.out~	signal inlet for a patcher loaded by hoa.process~
-hoa.process~	patcher loader for multichannel processing
-hoa.2d.process~	patcher loader for multichannel processing
-hoa.3d.process~	patcher loader for multichannel processing
-hoa.scope~	a 2d ambisonic harmonic scope
-hoa.2d.scope~	a 2d ambisonic harmonic scope
+hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
+hoa.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
+hoa.2d.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
+hoa.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
+hoa.2d.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумерование и нормализация каналов в двумерных амбисониках
+hoa.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумерование и нормализация каналов в двумерных амбисониках
+hoa.2d.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
+hoa.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
+hoa.2d.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
+hoa.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
+hoa.2d.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция из сферических гармоник в плоские волны
+hoa.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция из сферических гармоник в плоские волны
+hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
+hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
+hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
+hoa.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
+hoa.2d.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
+hoa.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
+hoa.2d.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
+hoa.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
+hoa.3d.decoder~	3D decoder of higher order ambisonics / трехмерный декодер амбисоников высоких порядков
+hoa.3d.encoder~	3D encoder of higher order ambisonics / 3D кодировщик амбисоников высоких порядков
+hoa.3d.exchanger~	renumbers and normalizes the channels / перенумерование и нормализация каналов
+hoa.3d.map~	a 3D ambisonic multisource spatializer / многоканальное управление пространственными источниками для трехмерных амбисоников
+hoa.3d.meter~	multi spherical meter with sound field descriptor / трехмерный измеритель уровня звукового поля
+hoa.3d.optim~	a 3D ambisonic optimization tool / оптимизация трехмерных амбисоников высоких порядков
+hoa.3d.scope~	a 3d ambisonic harmonic scope / отображение сферических гармоник в трехмерном амбисоническом поле
+hoa.3d.wider~	a 3d fractional ambisonic order simulator / трехмерная симуляция дробного амбисонического порядка
+hoa.@process	properties manager for [hoa.process~] object / управление свойствами объекта [hoa.process~]
+hoa.in	message inlet for a patcher loaded by [hoa.process~] object / контрольный вход для патча, загружаемого объектом [hoa.process~]
+hoa.in~	signal inlet for a patcher loaded by [hoa.process~] object / сигнальный вход для патча, загружаемого объектом [hoa.process~]
+hoa.map.ui	a GUI to spatialize sources on a map / GUI для пространственного размещения источников
+hoa.out	message outlet for a patcher loaded by hoa.process~ / контрольный выход для патча, загружаемого объектом [hoa.process~]
+hoa.out~	signal inlet for a patcher loaded by hoa.process~ / сигнальный выход для патча, загружаемого объектом [hoa.process~]
+hoa.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
+hoa.2d.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
+hoa.3d.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
+hoa.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
+hoa.2d.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
 pan.cos~	two channel equal power sine/cosine panner / двухканальное косинусное панорамирование равной мощности
 pan.linsig~	two channel linear panner with the signal control / двухканальное линейное панорамирование управляемое сигналом
 pan.lin~	two channel linear panner / двухканальное линейное панорамирование

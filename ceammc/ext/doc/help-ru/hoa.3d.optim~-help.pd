@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 519 50 a 3D ambisonic optimization tool;
+#X obj 369 50 cnv 1 396 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 374 50 оптимизация трехмерных амбисоников высоких порядков;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.3d.optim~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 hoa.3d.optim~;

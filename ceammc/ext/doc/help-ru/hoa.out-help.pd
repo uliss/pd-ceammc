@@ -1,80 +1,81 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 367 50 cnv 1 398 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 372 50 message outlet for a patcher loaded by hoa.process~;
+#X obj 376 50 cnv 1 389 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 381 50 контрольный выход для патча \, загружаемого объектом
+[hoa.process~];
 #X obj 1 1 cnv 5 765 40 empty empty hoa.out 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 hoa.out;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 hoa.out defines a message outlet for a patcher loaded
+#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 hoa.out defines a message outlet for a patcher loaded
 by a hoa.process~ object.;
-#X msg 50 176 open 0;
-#X msg 136 176 open 1;
-#X msg 232 176 42;
-#X msg 280 176 #0 43;
-#X msg 366 176 #1 44;
-#X obj 50 220 hoa.process~ 2 hoa/hoa_in_example1 planewaves;
-#X obj 50 248 print A;
-#X msg 50 277 open 0;
-#X msg 174 277 42;
-#X msg 222 277 #0 43;
-#X msg 309 277 #1 44;
-#X msg 395 277 45;
-#X msg 443 277 #0 46;
-#X msg 530 277 #1 47;
-#X msg 69 306 open 1;
-#X obj 50 335 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
-#X obj 50 363 print B;
-#X obj 366 363 print C;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 418 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 191 open 0;
+#X msg 136 191 open 1;
+#X msg 232 191 42;
+#X msg 280 191 #0 43;
+#X msg 366 191 #1 44;
+#X obj 50 235 hoa.process~ 2 hoa/hoa_in_example1 planewaves;
+#X obj 50 263 print A;
+#X msg 50 292 open 0;
+#X msg 174 292 42;
+#X msg 222 292 #0 43;
+#X msg 309 292 #1 44;
+#X msg 395 292 45;
+#X msg 443 292 #0 46;
+#X msg 530 292 #1 47;
+#X msg 69 321 open 1;
+#X obj 50 350 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
+#X obj 50 378 print B;
+#X obj 366 378 print C;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 433 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 453 1\.;
-#X text 150 453 int;
-#X obj 246 454 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 453 INDEX: outlet index. Тип: int. Минимальное значение:
+#X text 110 468 1\.;
+#X text 150 468 int;
+#X obj 246 469 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 468 INDEX: outlet index. Тип: int. Минимальное значение:
 1\.;
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 488 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 491 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 523 @index;
-#X text 245 523 Получить/Установить outlet index. Тип: int. Значение
+#X msg 110 538 @index;
+#X text 245 538 Получить/Установить outlet index. Тип: int. Значение
 по умолчанию: 1\. Минимальное значение: 1\.;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 595 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 581 1\.;
-#X text 150 581 *bang*;
-#X text 245 581 output bang message in the corresponding hoa.process~
+#X text 110 596 1\.;
+#X text 150 596 *bang*;
+#X text 245 596 output bang message in the corresponding hoa.process~
 object's message outlet.;
-#X text 150 616 *float*;
-#X text 245 616 output float message in the corresponding hoa.process~
+#X text 150 631 *float*;
+#X text 245 631 output float message in the corresponding hoa.process~
 object's message outlet.;
-#X text 150 651 *symbol*;
-#X text 245 651 output symbol message in the corresponding hoa.process~
+#X text 150 666 *symbol*;
+#X text 245 666 output symbol message in the corresponding hoa.process~
 object's message outlet.;
-#X text 150 686 *list*;
-#X text 245 686 output list message in the corresponding hoa.process~
+#X text 150 701 *list*;
+#X text 245 701 output list message in the corresponding hoa.process~
 object's message outlet.;
-#X text 150 721 *any*;
-#X text 245 721 output any message in the corresponding hoa.process~
+#X text 150 736 *any*;
+#X text 245 736 output any message in the corresponding hoa.process~
 object's message outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 786 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 789 библиотека: ceammc v0.9.8;
-#X text 434 801 смотрите также:;
-#X obj 555 801 hoa.out~;
-#X obj 629 801 hoa.in;
-#X obj 688 801 hoa.in~;
-#N canvas 10 808 400 290 info 0;
+#X obj 1 801 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 804 библиотека: ceammc v0.9.8;
+#X text 434 816 смотрите также:;
+#X obj 555 816 hoa.out~;
+#X obj 629 816 hoa.in;
+#X obj 688 816 hoa.in~;
+#N canvas 10 823 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 808 pd info;
+#X restore 10 823 pd info;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 1;

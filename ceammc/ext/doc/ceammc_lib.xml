@@ -2231,16 +2231,16 @@
     </entry>
   </category>
   <category name="spat">
-    <entry name="hoa.2d.decoder~" descr="hoa 2d decoder" ref_view="object">
+    <entry name="hoa.2d.decoder~" descr="2D decoder of higher order ambisonics" ref_view="object">
       <xi:include href="hoa.2d.decoder~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.encoder~" descr="hoa 2d encoder" ref_view="object">
+    <entry name="hoa.2d.encoder~" descr="2D decoder of higher order ambisonics" ref_view="object">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.exchanger~" descr="renumbers and normalizes the channels" ref_view="object">
+    <entry name="hoa.2d.exchanger~" descr="renumbers and normalizes the channels in 2d ambisonics" ref_view="object">
       <xi:include href="hoa.2d.exchanger~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.map~" descr="a 2d ambisonic multisource spatializer" ref_view="object">
+    <entry name="hoa.2d.map~" descr="a 2D ambisonic multisource spatializer" ref_view="object">
       <xi:include href="hoa.2d.map~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.2d.optim~" descr="a 2D ambisonic optimization tool" ref_view="object">
@@ -2255,22 +2255,22 @@
     <entry name="hoa.2d.rotate~" descr="a 2D ambisonic sound field rotation" ref_view="object">
       <xi:include href="hoa.2d.rotate~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.space" descr="planewaves amp control" ref_view="link">
+    <entry name="hoa.2d.space" descr="2D planewaves amplitude control" ref_view="link">
       <xi:include href="hoa.2d.space.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.wider~" descr="a 2d fractional ambisonic order simulator" ref_view="object">
+    <entry name="hoa.2d.wider~" descr="a 2D fractional ambisonic order simulator" ref_view="object">
       <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.3d.decoder~" descr="hoa 3d decoder" ref_view="object">
+    <entry name="hoa.3d.decoder~" descr="3D decoder of higher order ambisonics" ref_view="object">
       <xi:include href="hoa.3d.decoder~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.3d.encoder~" descr="hoa 3d encoder" ref_view="object">
+    <entry name="hoa.3d.encoder~" descr="3D encoder of higher order ambisonics" ref_view="object">
       <xi:include href="hoa.3d.encoder~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.3d.exchanger~" descr="renumbers and normalizes the channels" ref_view="object">
       <xi:include href="hoa.3d.exchanger~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.3d.map~" descr="a 3d ambisonic multisource spatializer" ref_view="object">
+    <entry name="hoa.3d.map~" descr="a 3D ambisonic multisource spatializer" ref_view="object">
       <xi:include href="hoa.3d.map~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.3d.meter~" descr="multi spherical meter with sound field descriptor" ref_view="link">
@@ -2285,13 +2285,13 @@
     <entry name="hoa.3d.wider~" descr="a 3d fractional ambisonic order simulator" ref_view="object">
       <xi:include href="hoa.3d.wider~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.@process" descr="process properties manager for hoa.process~" ref_view="object">
+    <entry name="hoa.@process" descr="properties manager for [hoa.process~] object" ref_view="object">
       <xi:include href="hoa.%40process.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.in" descr="message inlet for a patcher loaded by hoa.process~" ref_view="object">
+    <entry name="hoa.in" descr="message inlet for a patcher loaded by [hoa.process~] object" ref_view="object">
       <xi:include href="hoa.in.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.in~" descr="signal inlet for a patcher loaded by hoa.process~" ref_view="object">
+    <entry name="hoa.in~" descr="signal inlet for a patcher loaded by [hoa.process~] object" ref_view="object">
       <xi:include href="hoa.in~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.map.ui" descr="a GUI to spatialize sources on a map" ref_view="link">

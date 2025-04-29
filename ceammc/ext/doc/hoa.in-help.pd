@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 375 50 cnv 1 390 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 380 50 message inlet for a patcher loaded by hoa.process~;
+#X obj 307 50 cnv 1 458 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 312 50 message inlet for a patcher loaded by [hoa.process~]
+object;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.in 20 20 0 20 -104026 -4096 0;
 #X obj 696 11 hoa.in;
 #X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
