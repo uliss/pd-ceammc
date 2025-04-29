@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 561 50 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 561 50 returns first list element;
+#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 537 50 выводит первый элемент списка;
 #X obj 1 1 cnv 5 765 40 empty empty list.first 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 list.first;

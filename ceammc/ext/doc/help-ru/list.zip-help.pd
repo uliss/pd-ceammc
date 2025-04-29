@@ -1,83 +1,86 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 307 50 cnv 1 458 53 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 307 50 takes n lists from n inlets (specified by argument)
-and output their elements sequentially (list1-1 list2-1 list1-2 list2-2
-etc.).;
+#X obj 315 50 cnv 1 450 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 создает чередующийся список элементов из N входных списков;
 #X obj 1 1 cnv 5 765 40 empty empty list.zip 20 20 0 20 -104026 -4096
 0;
 #X obj 548 11 list.interleave;
 #X obj 682 11 list.zip;
-#X msg 50 118 10 20 30;
-#X msg 165 118 list a b;
-#X msg 270 118 1 2 3 4 5;
-#X msg 78 147 @pad;
-#X msg 194 147 @clip;
-#X msg 318 147 @wrap;
-#X msg 395 147 @fold;
-#X obj 50 190 list.zip 3 @min;
-#X obj 50 219 ui.dt;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 274 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 takes X lists of length M and outputs them as a single
+list:;
+#X text 215 108 l₀[0] \, l₁[0] \, ... \, lₓ[0] \, ... \, l₀[M-1] l₁[M-1]
+... lₓ[M-1];
+#X msg 50 186 10 20 30;
+#X msg 165 186 list a b;
+#X msg 270 186 1 2 3 4 5;
+#X msg 78 215 @pad;
+#X msg 194 215 @clip;
+#X msg 318 215 @wrap;
+#X msg 395 215 @fold;
+#X obj 50 258 list.zip 3 @min;
+#X obj 50 287 ui.dt;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 309 1\.;
-#X text 150 309 int;
-#X obj 246 310 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 309 N: number of inputs. Тип: int. Диапазон: 2…20;
-#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 344 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 377 1\.;
+#X text 150 377 int;
+#X obj 246 378 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 377 N: number of inputs. Тип: int. Диапазон: 2…20;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 347 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 379 @n;
-#X text 245 379 (при инициализации) Получить/Установить number of inputs.
+#X msg 110 447 @n;
+#X text 245 447 (при инициализации) Получить/Установить number of inputs.
 Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...20\.;
-#X msg 110 421 @clip;
-#X text 245 421 Alias for "@oversize clip" property. Pad shortest list
+#X msg 110 489 @clip;
+#X text 245 489 Alias for "@oversize clip" property. Pad shortest list
 with last element to conform longest list.;
-#X msg 110 463 @fold;
-#X text 245 463 Alias for "@oversize fold" property. Pad shortest list
+#X msg 110 531 @fold;
+#X text 245 531 Alias for "@oversize fold" property. Pad shortest list
 with repeated values from the end to the beginning \, then back and
 so on.;
-#X msg 110 520 @method;
-#X text 245 520 Получить/Установить behavior \, if list have different
+#X msg 110 588 @method;
+#X text 245 588 Получить/Установить behavior \, if list have different
 sizes. Тип: symbol. Значение по умолчанию: min. Разрешённые значения:
 min \, pad \, clip \, wrap \, fold.;
-#X msg 110 577 @min;
-#X text 245 577 Alias for "@oversize min" property. Truncates lists
+#X msg 110 645 @min;
+#X text 245 645 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
-#X msg 110 619 @pad;
-#X text 245 619 Получить/Установить pad value for pad method of resizing.
+#X msg 110 687 @pad;
+#X text 245 687 Получить/Установить pad value for pad method of resizing.
 Тип: atom. Значение по умолчанию: 0\.;
-#X msg 110 661 @wrap;
-#X text 245 661 Alias for "@oversize wrap" property. Pad shortest list
+#X msg 110 729 @wrap;
+#X text 245 729 Alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
-#X msg 110 703 @lists?;
-#X text 245 703 (только чтение) Получить input data list: list of data:mlist.
+#X msg 110 771 @lists?;
+#X text 245 771 (только чтение) Получить input data list: list of data:mlist.
 Тип: list.;
-#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 760 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 828 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 761 1\.;
-#X text 150 761 *list*;
-#X text 245 761 input list.;
-#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 829 1\.;
+#X text 150 829 *list*;
+#X text 245 829 input list.;
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 864 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 797 1\.;
-#X text 245 797 interleaved list.;
+#X text 110 865 1\.;
+#X text 245 865 interleaved list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 850 библиотека: ceammc v0.9.8;
-#X text 546 862 смотрите также:;
-#X obj 667 862 list.unzip;
-#N canvas 10 869 400 290 info 0;
+#X obj 1 915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 918 библиотека: ceammc v0.9.8;
+#X text 546 930 смотрите также:;
+#X obj 667 930 list.unzip;
+#N canvas 10 937 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,12 +104,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 869 pd info;
-#X connect 5 0 12 0;
-#X connect 8 0 12 0;
-#X connect 6 0 12 1;
-#X connect 9 0 12 0;
-#X connect 7 0 12 2;
-#X connect 10 0 12 0;
-#X connect 11 0 12 0;
-#X connect 12 0 13 0;
+#X restore 10 937 pd info;
+#X connect 8 0 15 0;
+#X connect 11 0 15 0;
+#X connect 9 0 15 1;
+#X connect 12 0 15 0;
+#X connect 10 0 15 2;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;

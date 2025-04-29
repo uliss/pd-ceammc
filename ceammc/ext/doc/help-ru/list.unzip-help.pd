@@ -1,73 +1,74 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 400 50 cnv 1 365 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 400 50 splits list to N lists \, each to separate output;
+#X obj 323 50 cnv 1 442 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 323 50 распаковывает входной список на N списков из чередующихся
+эелементов;
 #X obj 1 1 cnv 5 765 40 empty empty list.unzip 20 20 0 20 -104026
 -4096 0;
 #X obj 519 11 list.deinterleave;
 #X obj 667 11 list.unzip;
-#X obj 210 80 cnv 1 555 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 For N = 2 and list elements [1 2 3 4] we get [1 3] on
-output 1 and [2 4] on output 2\.;
-#X text 215 120 If input value is [1 2 3 4 5] the output depends on
+#X obj 205 93 cnv 1 560 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 For N = 2 and list elements [1 2 3 4] we get [1 3] on
+the first outlet and [2 4] on the second one;
+#X text 215 138 If input value is [1 2 3 4 5] the output depends on
 split method.;
-#X text 215 160 If @min method used \, output is [1 3 5] and [2 4].
+#X text 215 178 If @min method used \, output is [1 3 5] and [2 4].
 If @pad method used with value X \, output if [1 3 5] and [2 4 X];
-#X msg 50 238 1 2 3 4;
-#X msg 146 238 1 2 3 4 5;
-#X msg 78 282 dump;
-#X msg 203 282 @min;
-#X msg 270 282 @pad X;
-#X obj 50 339 list.unzip 2;
-#X obj 50 368 ui.dt;
-#X obj 203 368 ui.dt;
-#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 423 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 271 1 2 3 4;
+#X msg 146 271 1 2 3 4 5;
+#X msg 78 315 dump;
+#X msg 203 315 @min;
+#X msg 270 315 @pad X;
+#X obj 50 372 list.unzip 2;
+#X obj 50 401 ui.dt;
+#X obj 203 401 ui.dt;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 426 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 459 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 458 1\.;
-#X text 150 458 int;
-#X obj 246 459 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 458 N: number of output outlets. Тип: int. Минимальное
+#X text 110 491 1\.;
+#X text 150 491 int;
+#X obj 246 492 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 491 N: number of output outlets. Тип: int. Минимальное
 значение: 2\.;
-#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 508 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 541 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 511 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 544 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 543 @method;
-#X text 245 543 Получить/Установить split method if number element
+#X msg 110 576 @method;
+#X text 245 576 Получить/Установить split method if number element
 in the input list is not multiple of number of outputs. Тип: symbol.
 Значение по умолчанию: min. Разрешённые значения: min \, pad.;
-#X msg 110 600 @min;
-#X text 245 600 Alias to @method min. No padding used.;
-#X msg 110 630 @pad;
-#X text 245 630 Получить/Установить padding value. Pads result lists
+#X msg 110 633 @min;
+#X text 245 633 Alias to @method min. No padding used.;
+#X msg 110 663 @pad;
+#X text 245 663 Получить/Установить padding value. Pads result lists
 with specified value \, if number of elements in the input list is
 not multiple of number of outputs. Тип: atom. Значение по умолчанию:
 0\.;
-#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 717 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 718 1\.;
-#X text 150 718 *list*;
-#X text 245 718 input list.;
-#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 753 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 751 1\.;
+#X text 150 751 *list*;
+#X text 245 751 input list.;
+#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 786 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 754 1\.;
-#X text 245 754 unzipped list.;
+#X text 110 787 1\.;
+#X text 245 787 unzipped list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 804 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 807 библиотека: ceammc v0.9.8;
-#X text 561 819 смотрите также:;
-#X obj 682 819 list.zip;
-#N canvas 10 826 400 290 info 0;
+#X obj 1 837 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 840 библиотека: ceammc v0.9.8;
+#X text 561 852 смотрите также:;
+#X obj 682 852 list.zip;
+#N canvas 10 859 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 826 pd info;
+#X restore 10 859 pd info;
 #X connect 9 0 14 0;
 #X connect 11 0 14 0;
 #X connect 10 0 14 0;

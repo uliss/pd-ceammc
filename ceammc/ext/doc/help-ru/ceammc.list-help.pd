@@ -5,158 +5,177 @@
 #X obj 596 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 596 50 работа со списками;
 #X obj 30 117 list.^at;
-#X text 200 117 on input index(es) outputs list element(s);
-#X obj 30 145 list.^contains;
-#X text 200 145 checks if input atom is found in the list;
-#X obj 30 173 list.^search;
-#X text 200 173 on input atom returns it index in list;
-#X obj 30 201 list.all_of;
-#X text 200 201 checks if all list atoms accepted by predicate;
-#X obj 30 229 list.any_of;
-#X text 200 229 checks if at least one list element is accepted by
-predicate;
-#X obj 30 257 list.append;
-#X text 200 257 append atom or list to the end of input list;
-#X obj 30 285 list.apply_to;
-#X text 200 285 modifies list value at specified position \, filtering
-it via external object;
-#X obj 30 325 list.at;
-#X text 200 325 outputs list element(s) at specified index(es);
-#X obj 30 353 list.choice;
-#X text 200 353 outputs random element from list;
-#X obj 30 381 list.contains;
-#X text 200 381 checks if input list contains specified atoms;
-#X obj 30 409 list.convolve;
-#X text 200 409 convolution for lists;
-#X obj 30 437 list.correlate;
-#X text 200 437 list cross-correlation;
-#X obj 30 465 list.count;
-#X text 200 465 output the number of items that equal to specified
-value;
-#X obj 30 493 list.count_if;
-#X text 200 493 output the number of items that satisfy to external
-predicate;
-#X obj 30 521 list.delta;
-#X text 200 521 returns the difference between the current list of
-floats and the previous one.;
-#X obj 30 561 list.distribution;
-#X text 200 561 list value distribution;
-#X obj 30 589 list.do;
-#X text 200 589 iterate and modify list contents via side-chain;
-#X obj 30 617 list.each;
-#X text 200 617 maps each list value via external side-chain;
-#X obj 30 645 list.enumerate;
-#X text 200 645 enumerates input list;
-#X obj 30 673 list.equal;
-#X text 200 673 checks if given lists are equal;
-#X obj 30 701 list.first;
-#X text 200 701 returns first list element;
-#X obj 30 729 list.gen;
-#X text 200 729 generates list of specified length via external generator;
-#X obj 30 757 list.histogram;
-#X text 200 757 outputs distribution histogram;
-#X obj 30 785 list.insert;
-#X text 200 785 insert atom or list to the specified position of input
-list;
-#X obj 30 813 list.integrator;
-#X text 200 813 returns the sum of the previously stored list and the
-current one then stores this sum;
-#X obj 30 853 list.last;
-#X text 200 853 output last list element;
-#X obj 30 881 list.length;
-#X text 200 881 output the number of atoms in the list;
-#X obj 30 909 list.map;
-#X text 200 909 map list values by specified dictionary;
-#X obj 30 937 list.max;
-#X text 200 937 output the largest element in the list;
-#X obj 30 965 list.mean;
-#X text 200 965 calculates average of list of floats;
-#X obj 30 993 list.min;
-#X text 200 993 returns smallest element in the list;
-#X obj 30 1021 list.none_of;
-#X text 200 1021 checks if none of list atoms is accepted by predicate;
-#X obj 30 1049 list.normalize;
-#X text 200 1049 normalizes float list values to get their sum = 1.0;
-#X obj 30 1077 list.pass;
-#X text 200 1077 leave in list only specified elements;
-#X obj 30 1105 list.pass_if;
-#X text 200 1105 leave only elements accepted by predicate;
-#X obj 30 1133 list.prepend;
-#X text 200 1133 prepend atom or list before input list;
-#X obj 30 1161 list.product;
-#X text 200 1161 calculates product of floats in list;
-#X obj 30 1189 list.range;
-#X text 200 1189 output list smallest and largest value;
-#X obj 30 1217 list.reduce;
-#X text 200 1217 apply function of two arguments cumulatively to the
-list;
-#X obj 30 1245 list.reject;
-#X text 200 1245 remove specified element from list;
-#X obj 30 1273 list.remove;
-#X text 200 1273 remove list element(s) at specified positions;
-#X obj 30 1301 list.remove_if;
-#X text 200 1301 remove elements by predicate;
-#X obj 30 1329 list.repack;
-#X text 200 1329 repack list to specified size;
-#X obj 30 1357 list.repeat;
-#X text 200 1357 output new list by repeating input list specified
-times;
-#X obj 30 1385 list.resample;
-#X text 200 1385 resample list with specified ratio;
-#X obj 30 1413 list.resize;
-#X text 200 1413 changes list size;
-#X obj 30 1441 list.reverse;
-#X text 200 1441 reverses the order of the elements in the list;
-#X obj 30 1469 list.rldecode;
-#X text 200 1469 Run-length list decoder (RLE);
-#X obj 30 1497 list.rlencode;
-#X text 200 1497 RLE (run-length encoding) for lists;
-#X obj 30 1525 list.rotate;
-#X text 200 1525 rotates list;
-#X obj 30 1553 list.route;
-#X text 200 1553 acts like [route] but for lists;
-#X obj 30 1581 list.rundiff;
-#X text 200 1581 running difference;
-#X obj 30 1609 list.runsum;
-#X text 200 1609 running sum;
-#X obj 30 1637 list.search;
-#X text 200 1637 search specified items in input list;
-#X obj 30 1665 list.separate;
-#X text 200 1665 sends list elements one by one separately;
-#X obj 30 1693 list.seq;
-#X text 200 1693 numeric sequence list generator;
-#X obj 30 1721 list.set;
-#X text 200 1721 set list value at specified position;
-#X obj 30 1749 list.shift;
-#X text 200 1749 shifts the contents of the list with linear interpolation;
-#X obj 30 1777 list.shuffle;
-#X text 200 1777 randomly rearranges elements in list;
-#X obj 30 1805 list.slice;
-#X text 200 1805 extract sublist;
-#X obj 30 1833 list.sort;
-#X text 200 1833 sorts list values by ascending order;
-#X obj 30 1861 list.sort_with;
-#X text 200 1861 sort list with user defined side-chain;
-#X obj 30 1889 list.split;
-#X text 200 1889 splits list into two parts \, the length of first
-list is specified by the argument;
-#X obj 30 1929 list.stretch;
-#X text 200 1929 stretches list - changes its size with linear interpolation;
-#X obj 30 1957 list.sum;
-#X text 200 1957 calculates sum of floats in list;
-#X obj 30 1985 list.unique;
-#X text 200 1985 removes duplicates from input list;
-#X obj 30 2013 list.unpack;
-#X text 200 2013 unpack list elements to separate outlets;
-#X obj 30 2041 list.unzip;
-#X text 200 2041 splits list to N lists \, each to separate output;
-#X obj 30 2069 list.walk;
-#X text 200 2069 walks through the list;
-#X obj 30 2097 list.zip;
-#X text 200 2097 takes n lists from n inlets (specified by argument)
-and output their elements sequentially (list1-1 list2-1 list1-2 list2-2
-etc.).;
+#X text 200 117 выводит элементы предварительно заданного списка по
+входящему списку индексов;
+#X obj 30 157 list.^contains;
+#X text 200 157 проверяет \, содержит ли предварительно заданный список
+входной элемент;
+#X obj 30 197 list.^search;
+#X text 200 197 выводит индексы найденных входных элементов в предварительно
+заданном списке;
+#X obj 30 237 list.all_of;
+#X text 200 237 проверяет \, все ли элементы списка были приняты предикатом
+боковой цепи обработки;
+#X obj 30 277 list.any_of;
+#X text 200 277 проверяет \, был ли принят хотя бы один элемент списка
+предикатом боковой цепи обработки;
+#X obj 30 317 list.append;
+#X text 200 317 добавляет элементы в конец списка;
+#X obj 30 345 list.apply_to;
+#X text 200 345 обрабатывает указанные элементы списка через боковую
+церь обработки;
+#X obj 30 385 list.at;
+#X text 200 385 выводит предварительно указанные элементы входящего
+списка;
+#X obj 30 413 list.choice;
+#X text 200 413 вывод случайного элемента из списка;
+#X obj 30 441 list.contains;
+#X text 200 441 проверяет \, содержит ли входной список предварительно
+указанные элементы;
+#X obj 30 481 list.convolve;
+#X text 200 481 операция свертки для списков;
+#X obj 30 509 list.correlate;
+#X text 200 509 взаимная корреляция между списками;
+#X obj 30 537 list.count;
+#X text 200 537 выводить количество элементов \, равных заданному значению;
+#X obj 30 565 list.count_if;
+#X text 200 565 выводит число элементов \, удовлетворяющих внешнему
+предикату боковой цепи обработки;
+#X obj 30 605 list.delta;
+#X text 200 605 выводит список разностей между текущим и предыдущим
+списком;
+#X obj 30 633 list.distribution;
+#X text 200 633 выводит список распределения значений в списке;
+#X obj 30 661 list.do;
+#X text 200 661 итерирование и изменение содержимого списка через боковую
+цепь обработки;
+#X obj 30 701 list.each;
+#X text 200 701 отображает каждое значение списка через внешнюю боковую
+цепь обработки;
+#X obj 30 741 list.enumerate;
+#X text 200 741 нумерует элементы списка;
+#X obj 30 769 list.equal;
+#X text 200 769 проверка списков на равенство;
+#X obj 30 797 list.first;
+#X text 200 797 выводит первый элемент списка;
+#X obj 30 825 list.gen;
+#X text 200 825 генерирует список указанной длины через генератор боковой
+цепи;
+#X obj 30 865 list.histogram;
+#X text 200 865 выводит гистограмму распределений списка;
+#X obj 30 893 list.insert;
+#X text 200 893 вставляет элементы в указанную позицию в списке;
+#X obj 30 921 list.integrator;
+#X text 200 921 возвращает сумму ранее сохраненного списка и текущего;
+#X obj 30 949 list.last;
+#X text 200 949 выводит последний элемент списка;
+#X obj 30 977 list.length;
+#X text 200 977 выводит количество элементов в списке;
+#X obj 30 1005 list.map;
+#X text 200 1005 Значения списка карт в указанном словаре;
+#X obj 30 1033 list.max;
+#X text 200 1033 выводит самый большой элемент в списке;
+#X obj 30 1061 list.mean;
+#X text 200 1061 вычисляет среднее значение в списке;
+#X obj 30 1089 list.min;
+#X text 200 1089 возвращает наименьший элемент в списке;
+#X obj 30 1117 list.none_of;
+#X text 200 1117 проверяет \, что ни один из элементов не принимается
+предикатом боковой цепи обработки;
+#X obj 30 1157 list.normalize;
+#X text 200 1157 нормализует числовые значения списка \, чтобы их сумма
+была равна единице;
+#X obj 30 1197 list.pass;
+#X text 200 1197 оставлять в списке только указанные элементы;
+#X obj 30 1225 list.pass_if;
+#X text 200 1225 оставляет в списке только элементы \, принятые предикатом
+боковой цепи обработки;
+#X obj 30 1265 list.prepend;
+#X text 200 1265 вставить элементы в начало списка;
+#X obj 30 1293 list.product;
+#X text 200 1293 вычисляет произведение всех чисел в списке;
+#X obj 30 1321 list.range;
+#X text 200 1321 выводит минимальный и максимальный элемент в списке;
+#X obj 30 1349 list.reduce;
+#X text 200 1349 преобразование списка к единственному значению через
+боковую цепь обработки;
+#X obj 30 1389 list.reject;
+#X text 200 1389 удаляет указанные элементы из списка;
+#X obj 30 1417 list.remove;
+#X text 200 1417 удалить элементы списка по указанным позициям;
+#X obj 30 1445 list.remove_if;
+#X text 200 1445 удалить элементы списка при помощи предиката боковой
+цепи;
+#X obj 30 1473 list.repack;
+#X text 200 1473 переупаковать список в последовательность списков
+определенного размера;
+#X obj 30 1513 list.repeat;
+#X text 200 1513 создает список на основе повторов исходного списка;
+#X obj 30 1541 list.resample;
+#X text 200 1541 пересемплирует значения в списке с указанным соотношением
+длины;
+#X obj 30 1581 list.resize;
+#X text 200 1581 изменяет длину списка;
+#X obj 30 1609 list.reverse;
+#X text 200 1609 меняет порядок элементов в списке на обратный;
+#X obj 30 1637 list.rldecode;
+#X text 200 1637 декодирование повторов в списках;
+#X obj 30 1665 list.rlencode;
+#X text 200 1665 кодирование повторов в списках;
+#X obj 30 1693 list.rotate;
+#X text 200 1693 циклическое вращение списка на целое число шагов;
+#X obj 30 1721 list.route;
+#X text 200 1721 маршрутизирует список по первому элементу \, как объект
+[route];
+#X obj 30 1749 list.rundiff;
+#X text 200 1749 вычисляет разницу между соседними элементами входного
+списка;
+#X obj 30 1777 list.runsum;
+#X text 200 1777 выводит список позиционных сумм \, который обновляется
+при каждом входящем списке;
+#X obj 30 1817 list.search;
+#X text 200 1817 выводит позиции предварительно заданных элементов
+во входном списке;
+#X obj 30 1857 list.separate;
+#X text 200 1857 поочередно выводит каждый элемент списка в виде отдельного
+сообщения;
+#X obj 30 1897 list.seq;
+#X text 200 1897 генерирует последовательноть чисел в виде списка;
+#X obj 30 1925 list.set;
+#X text 200 1925 устанавливает значение элемента списка в указанной
+позиции;
+#X obj 30 1953 list.shift;
+#X text 200 1953 циклический сдвиг списка на вещественное число с линейной
+интерполяцией;
+#X obj 30 1993 list.shuffle;
+#X text 200 1993 переставляет элементы списка в случайном порядке;
+#X obj 30 2021 list.slice;
+#X text 200 2021 выводит подсписок;
+#X obj 30 2049 list.sort;
+#X text 200 2049 сортирует список в порядке возрастания;
+#X obj 30 2077 list.sort_with;
+#X text 200 2077 сортирует список при помощи боковой цепи обработки;
+#X obj 30 2105 list.split;
+#X text 200 2105 разделяет список на две части по указанному индексу;
+#X obj 30 2133 list.stretch;
+#X text 200 2133 изменяет длину списка \, изменяя его значения с помощью
+линейной интерполяции;
+#X obj 30 2173 list.sum;
+#X text 200 2173 вычисляет сумму элементов в списке;
+#X obj 30 2201 list.unique;
+#X text 200 2201 удаляет дубликаты из списка;
+#X obj 30 2229 list.unpack;
+#X text 200 2229 распаковывает элементы списка в соответствующие им
+выходы объекта;
+#X obj 30 2269 list.unzip;
+#X text 200 2269 распаковывает входной список на N списков из чередующихся
+эелементов;
+#X obj 30 2309 list.walk;
+#X text 200 2309 различные алгоритмы обхода элементов в списке;
+#X obj 30 2337 list.zip;
+#X text 200 2337 создает чередующийся список элементов из N входных
+списков;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 2152 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2162 library: ceammc;
+#X obj 1 2365 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2375 library: ceammc;

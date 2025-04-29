@@ -1,71 +1,71 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 529 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 529 50 outputs distribution histogram;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 453 50 выводит гистограмму распределений списка;
 #X obj 1 1 cnv 5 765 40 empty empty list.histogram 20 20 0 20 -104026
 -4096 0;
 #X obj 548 11 list.hist;
 #X obj 638 11 list.histogram;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Histogram outputted as list of probabilities in specified
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Histogram outputted as list of probabilities in specified
 number of bins;
-#X obj 50 158 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 386 158 graph;
-#X obj 50 187 list.gen 512;
-#X obj 194 187 random.gauss 50 10;
-#X obj 50 216 list.histogram;
-#X obj 50 245 list.normalize @range;
-#X obj 50 274 list.enumerate @append;
-#X obj 50 302 list.repack 2;
-#X obj 50 331 tabwrite array1;
-#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 386 176 graph;
+#X obj 50 205 list.gen 512;
+#X obj 194 205 random.gauss 50 10;
+#X obj 50 234 list.histogram;
+#X obj 50 263 list.normalize @range;
+#X obj 50 292 list.enumerate @append;
+#X obj 50 320 list.repack 2;
+#X obj 50 349 tabwrite array1;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 389 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 421 1\.;
-#X text 150 421 int;
-#X obj 246 422 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 421 BINS: number of histogram bins. Тип: int. Диапазон:
+#X text 110 439 1\.;
+#X text 150 439 int;
+#X obj 246 440 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 BINS: number of histogram bins. Тип: int. Диапазон:
 2…1024;
-#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 456 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 459 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 491 @bins;
-#X text 245 491 Получить/Установить number of histogram bins. Тип:
+#X msg 110 509 @bins;
+#X text 245 509 Получить/Установить number of histogram bins. Тип:
 int. Значение по умолчанию: 100\. Диапазон: 2\...1024\.;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 548 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 549 1\.;
-#X text 150 549 *list*;
-#X text 245 549 input list.;
-#X text 150 569 *data:mlist*;
-#X text 245 569 input mlist.;
-#X text 110 589 2\.;
-#X text 150 589 *int*;
-#X text 245 589 set number of bins.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 567 1\.;
+#X text 150 567 *list*;
+#X text 245 567 input list.;
+#X text 150 587 *data:mlist*;
+#X text 245 587 input mlist.;
+#X text 110 607 2\.;
+#X text 150 607 *int*;
+#X text 245 607 set number of bins.;
+#X obj 20 637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 642 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 625 1\.;
-#X text 245 625 output list - length of @bins.;
+#X text 110 643 1\.;
+#X text 245 643 output list - length of @bins.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 675 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 678 библиотека: ceammc v0.9.8;
-#X text 546 690 смотрите также:;
-#X obj 667 690 array.hist;
-#N canvas 10 697 400 290 info 0;
+#X obj 1 693 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 696 библиотека: ceammc v0.9.8;
+#X text 546 708 смотрите также:;
+#X obj 667 708 array.hist;
+#N canvas 10 715 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +89,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 697 pd info;
+#X restore 10 715 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;
