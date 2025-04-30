@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">weighted atom generation from specified list</tr>
+                <tr lang="en">weighed choosing of the random atom from the specified list</tr>
+                <tr lang="ru">случайный взвешенный выбор атомов из указанного списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -33,11 +34,15 @@
             <argument name="VALUE" type="list">list of atoms</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list" default="">list of atoms</property>
-            <property name="@w" type="list" default="">list of atom weights</property>
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @nonrep -->
             <property name="@nonrep" type="bool" default="0">generate non-repeated adjacent values
             (note: distribution will changed!)</property>
+            <!-- @seed -->
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @value -->
+            <property name="@value" type="list" default="">list of atoms</property>
+            <!-- @w -->
+            <property name="@w" type="list" default="">list of atom weights</property>
         </properties>
         <inlets>
             <inlet>

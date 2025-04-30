@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">hyperbolic tangent for signals</tr>
+                <tr lang="ru">гиперболический тангенс для сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

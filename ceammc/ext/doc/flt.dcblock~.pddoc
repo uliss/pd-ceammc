@@ -9,6 +9,8 @@
             </authors>
             <description>
                 <tr lang="en">mono DC blocker</tr>
+                <tr lang="ru">одноканальный фильтр, блокирующий постоянную составляющую
+                сигнала</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,6 +26,7 @@
             gain near 1.0025 (due to no scaling)</par>
         </info>
         <properties>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>

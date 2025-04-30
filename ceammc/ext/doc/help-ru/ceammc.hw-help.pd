@@ -1,0 +1,66 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 397 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 402 50 работа с различными аппаратными устройствами;
+#X obj 30 117 hw.apple_smc;
+#X text 200 117 query the system management control in Apples;
+#X obj 30 145 hw.apple_sms;
+#X text 200 145 query the sudden motion sensor in Apples;
+#X obj 30 173 hw.arduino;
+#X text 200 173 Arduino device;
+#X obj 30 201 hw.display;
+#X text 200 201 get/set display properties;
+#X obj 30 229 hw.gamepad;
+#X text 200 229 геймпад контроллеры;
+#X obj 30 257 hw.kbd_light;
+#X text 200 257 Get/set keyboard light on some devices;
+#X obj 30 285 hw.motu.avb;
+#X text 200 285 controls Motu AVB devices over http requests;
+#X obj 30 313 hw.printer;
+#X text 200 313 базовая поддержка печати документов;
+#X obj 30 341 hw.rpi.adc.ads1115;
+#X text 200 341 драйвер для 16-битного АЦП на чипе ads1115 для Raspberry
+Pi;
+#X obj 30 369 hw.rpi.display.hd44780;
+#X text 200 369 драйвер для ЖКИ дисплея (1602 или 2004 модуль) для
+Raspberry Pi;
+#X obj 30 409 hw.rpi.display.ssd1306;
+#X text 200 409 драйвер для OLED дисплея на чипе ssd1306 для Raspberry
+Pi;
+#X obj 30 437 hw.rpi.gpio;
+#X text 200 437 управление GPIO на Raspberry Pi;
+#X obj 30 465 hw.rpi.i2c.pca9685;
+#X text 200 465 драйвер для 16-канального 12-битного ШИМ модуля на
+чипе PCA9685 для Raspberry Pi;
+#X obj 30 505 hw.rpi.pwm;
+#X text 200 505 аппаратный ШИМ (PWM) для Raspberry Pi;
+#X obj 30 533 hw.rpi.rotenc;
+#X text 200 533 поворотный энкодер для Raspberry Pi;
+#X obj 30 561 hw.rpi.sensor.dht11;
+#X text 200 561 цифровой датчик влажности и температуры (DHT11) для
+Raspberry Pi;
+#X obj 30 601 hw.rpi.sensor.ir;
+#X text 200 601 ИК (инфракрасные) датчики и протоколы для Raspberry
+Pi;
+#X obj 30 629 hw.rpi.sensor.mpu6050;
+#X text 200 629 MPU-6050 гироскоп и датчик ускорения для Raspberry
+Pi;
+#X obj 30 657 hw.rpi.sensor.sr04;
+#X text 200 657 HC-SR04 ультразвуковой датчик расстояния для Raspberry
+Pi;
+#X obj 30 685 hw.rpi.sensor.vl53l0x;
+#X text 200 685 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
+#X obj 30 713 hw.rpi.spi.max7219;
+#X text 200 713 драйвер для LED матрицы на чипе max7219 для Raspberry
+Pi;
+#X obj 30 741 hw.rpi.spi.ws2812;
+#X text 200 741 драйвер для светодиодной ленты ws2812 для Raspberry
+Pi;
+#X obj 30 769 hw.serial;
+#X text 200 769 serial port device;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
+-4096 0;
+#X obj 1 797 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 807 library: ceammc;

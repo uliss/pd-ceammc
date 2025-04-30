@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">bang sequencer</tr>
+                <tr lang="en">bang event sequencer</tr>
+                <tr lang="ru">секвенсер пустых событий</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,28 +23,39 @@
             <argument name="P" type="list">sequencer pattern in beat duration units</argument>
         </arguments>
         <properties>
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
-            units="millisecond">time between beats. Unit values like 100ms or 240bpm also can be
-            used</property>
-            <property name="@p" type="list" default="">sequencer pattern in beat duration
-            units</property>
-            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
-            repeats. If -1: repeat infinitely</property>
-            <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
-            <property name="@once" type="alias">alias to @r 1, play once</property>
-            <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
-            sequence duration. (Recalculates @t property accordingly)</property>
+            <!-- @div -->
             <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
             subdivision</property>
-            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
-            beats before sequence start</property>
+            <!-- @dur -->
+            <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
+            sequence duration. (Recalculates @t property accordingly)</property>
+            <!-- @i -->
             <property name="@i" type="int" access="readonly" default="0">current sequence
             iteration</property>
-            <property name="@ri" type="int" access="readonly" default="0">current repeat
-            iteration</property>
+            <!-- @inf -->
+            <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>
+            <!-- @once -->
+            <property name="@once" type="alias">alias to @r 1, play once</property>
+            <!-- @p -->
+            <property name="@p" type="list" default="">sequencer pattern in beat duration
+            units</property>
+            <!-- @r -->
+            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
+            repeats. If -1: repeat infinitely</property>
+            <!-- @ri -->
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
+            iteration</property>
+            <!-- @t -->
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
+            units="millisecond">time between beats. Unit values like 100ms or 240bpm also can be
+            used</property>
+            <!-- @upbeat -->
+            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
+            beats before sequence start</property>
         </properties>
         <methods>
             <!-- hexbeat -->

@@ -17,29 +17,35 @@
             <since>0.1</since>
         </meta>
         <properties>
-            <property name="@gate" type="bool" default="0">start/stop recording</property>
-            <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
-            units="decibel">playing gain</property>
-            <property name="@attack" type="float" units="millisecond" minvalue="0"
-            maxvalue="100000" default="50">rec envelope attack time</property>
-            <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
-            default="100">rec envelope sustain level - percent from trigger signal</property>
-            <property name="@release" type="float" units="millisecond" minvalue="0"
-            maxvalue="100000" default="50">rec envelope release time</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @attack -->
+            <property name="@attack" type="float" units="millisecond" minvalue="0"
+            maxvalue="100000" default="50">rec envelope attack time</property>
+            <!-- @gain -->
+            <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
+            units="decibel">playing gain</property>
+            <!-- @gate -->
+            <property name="@gate" type="bool" default="0">start/stop recording</property>
+            <!-- @release -->
+            <property name="@release" type="float" units="millisecond" minvalue="0"
+            maxvalue="100000" default="50">rec envelope release time</property>
+            <!-- @sustain -->
+            <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
+            default="100">rec envelope sustain level - percent from trigger signal</property>
         </properties>
         <methods>
+            <!-- div -->
+            <method name="div">set rec division 
+            <param name="N" type="int" minvalue="1" maxvalue="8">value</param></method>
             <!-- record -->
             <method name="record">start record</method>
             <!-- reset -->
             <method name="reset">reset recorded data</method>
             <!-- stop -->
             <method name="stop">stop record</method>
-            <!-- set record division -->
-            <method name="div">set rec division 
-            <param name="N" type="int" minvalue="1" maxvalue="8">value</param></method>
         </methods>
         <inlets>
             <inlet type="audio">

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "noise.chua"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -double -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __noise_chua_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API noise_chua_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public noise_chua_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual noise_chua_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -563,6 +618,7 @@ class noise_chua : public noise_chua_dsp {
  private:
 	
 	int fSampleRate;
+	double fConst0;
 	double fConst1;
 	FAUSTFLOAT fHslider0;
 	double fConst2;
@@ -592,11 +648,14 @@ class noise_chua : public noise_chua_dsp {
 	double fRec10[2];
 	
  public:
+	noise_chua() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0");
 		m->declare("filename", "noise_chua.dsp");
 		m->declare("filters.lib/dcblocker:author", "Julius O. Smith III");
 		m->declare("filters.lib/dcblocker:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -606,7 +665,7 @@ class noise_chua : public noise_chua_dsp {
 		m->declare("filters.lib/pole:author", "Julius O. Smith III");
 		m->declare("filters.lib/pole:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/pole:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("filters.lib/zero:author", "Julius O. Smith III");
 		m->declare("filters.lib/zero:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/zero:license", "MIT-style STK-4.3 license");
@@ -614,12 +673,12 @@ class noise_chua : public noise_chua_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "noise.chua");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("wdmodels.lib/builddown:author", "Dirk Roosenburg");
 		m->declare("wdmodels.lib/builddown:copyright", "Copyright (C) 2020 by Dirk Roosenburg <dirk.roosenburg.30@gmail.com>");
 		m->declare("wdmodels.lib/builddown:license", "MIT-style STK-4.3 license");
@@ -657,7 +716,7 @@ class noise_chua : public noise_chua_dsp {
 		m->declare("wdmodels.lib/u_chua:author", "Dirk Roosenburg");
 		m->declare("wdmodels.lib/u_chua:copyright", "Copyright (C) 2020 by Dirk Roosenburg <dirk.roosenburg.30@gmail.com>");
 		m->declare("wdmodels.lib/u_chua:license", "MIT-style STK-4.3 license");
-		m->declare("wdmodels.lib/version", "0.2.1");
+		m->declare("wdmodels.lib/version", "1.2.1");
 	}
 
 	virtual int getNumInputs() {
@@ -672,7 +731,7 @@ class noise_chua : public noise_chua_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
+		fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
 		fConst1 = 2e-09 * fConst0;
 		fConst2 = 4.41e+04 / fConst0;
 		fConst3 = 1.0 - 44.1 / fConst0;
@@ -740,6 +799,7 @@ class noise_chua : public noise_chua_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -787,32 +847,31 @@ class noise_chua : public noise_chua_dsp {
 			double fTemp6 = fTemp5 + 1.0;
 			double fTemp7 = 1.0 - fTemp5;
 			double fTemp8 = fTemp1 * fRec1[1];
-			double fTemp9 = fConst4 * (fRec4[1] / fRec9[0]);
 			fVec0[0] = fSlow6;
-			double fTemp10 = 0.0 - 4.0 * (fVec0[1] - fSlow6);
-			double fTemp11 = fTemp10 * double(fTemp10 > 0.0);
-			double fTemp12 = 0.0 - (fRec5[1] + fTemp11);
-			double fTemp13 = fConst6 * fRec8[0] * fTemp12;
-			double fTemp14 = fTemp9 + fTemp13;
-			double fTemp15 = fConst6 * fRec8[0] + fConst4 / fRec9[0];
-			double fTemp16 = double(-1 * iRec3[1]) - fTemp14 / fTemp15;
-			double fTemp17 = fSlow5 * fTemp16;
-			double fTemp18 = fTemp8 + fTemp17;
-			double fTemp19 = fSlow5 + fTemp1;
-			double fTemp20 = fTemp18 / fTemp19;
-			double fTemp21 = 0.5 * ((fTemp3 + 1.0) / fTemp4 - fTemp6 / fTemp7) * (std::fabs(fTemp20 + fTemp4) - std::fabs(fTemp20 + fTemp3 + -1.0));
-			double fTemp22 = fTemp6 * fTemp18 / fTemp7;
-			double fTemp23 = fTemp21 + (fTemp17 + 0.0 - fSlow5 * fRec1[1] + fTemp22) / fTemp19;
-			fVec1[0] = fTemp23;
-			fRec1[0] = fTemp23;
-			fRec2[0] = 0.5 * (fTemp23 + fVec1[1]);
+			double fTemp9 = fSlow6 - fVec0[1];
+			double fTemp10 = 4.0 * fTemp9 * double((4.0 * fTemp9) > 0.0);
+			double fTemp11 = fRec5[1] + fTemp10;
+			double fTemp12 = fRec8[0] * fTemp11;
+			double fTemp13 = fConst4 * (fRec4[1] / fRec9[0]) - fConst6 * fTemp12;
+			double fTemp14 = fConst6 * fRec8[0] + fConst4 / fRec9[0];
+			double fTemp15 = double(-iRec3[1]) - fTemp13 / fTemp14;
+			double fTemp16 = fSlow5 * fTemp15;
+			double fTemp17 = fTemp8 + fTemp16;
+			double fTemp18 = fSlow5 + fTemp1;
+			double fTemp19 = fTemp17 / fTemp18;
+			double fTemp20 = 0.5 * ((fTemp3 + 1.0) / fTemp4 - fTemp6 / fTemp7) * (std::fabs(fTemp19 + fTemp4) - std::fabs(fTemp19 + fTemp3 + -1.0));
+			double fTemp21 = fTemp6 * fTemp17 / fTemp7;
+			double fTemp22 = fTemp20 + (fTemp16 + (fTemp21 - fSlow5 * fRec1[1])) / fTemp18;
+			fVec1[0] = fTemp22;
+			fRec1[0] = fTemp22;
+			fRec2[0] = 0.5 * (fTemp22 + fVec1[1]);
 			iRec3[0] = 0;
-			double fTemp24 = (0.0 - (fTemp21 + (fTemp8 + fTemp22 + (0.0 - fTemp1 * fTemp16)) / fTemp19) / fTemp0 + (0.0 - double(iRec3[1]) / fTemp0) + fRec7[0] * fTemp14 / fTemp15) / fTemp1;
-			fRec4[0] = 0.0 - (fTemp24 + (fTemp13 + (0.0 - fConst6 * fRec8[0] * fRec4[1])) / fTemp15);
-			double fTemp25 = 0.0 - (fTemp11 + fTemp24 + (fTemp9 + (0.0 - fConst4 * (fTemp12 / fRec9[0]))) / fTemp15);
-			fVec2[0] = fTemp25;
-			fRec5[0] = fTemp25;
-			fRec6[0] = 0.5 * (fTemp25 + fVec2[1]);
+			double fTemp23 = ((fTemp20 + (fTemp8 + fTemp21 - fTemp1 * fTemp15) / fTemp18 + double(iRec3[1])) / fTemp0 - fRec7[0] * fTemp13 / fTemp14) / fTemp1;
+			fRec4[0] = fConst6 * (fTemp12 / fTemp14) + fTemp23 + fConst6 * (fRec8[0] * fRec4[1] / fTemp14);
+			double fTemp24 = fTemp10 + (fConst4 * ((fRec4[1] + fTemp11) / (fRec9[0] * fTemp14)) - fTemp23);
+			fVec2[0] = fTemp24;
+			fRec5[0] = -fTemp24;
+			fRec6[0] = -(0.5 * (fTemp24 + fVec2[1]));
 			fRec0[0] = fRec2[0] + 0.995 * fRec0[1] - fRec2[1];
 			output0[i0] = FAUSTFLOAT(tanh(fRec0[0]));
 			fRec10[0] = fRec6[0] + 0.995 * fRec10[1] - fRec6[1];

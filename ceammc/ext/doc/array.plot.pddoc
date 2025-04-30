@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">array data plotter</tr>
+                <tr lang="ru">построение числовых графиков данных на массиве</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,15 +27,20 @@
             value</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@ymin" type="float" minvalue="-2048" maxvalue="2048" default="-1">
-            minimal y-axis value</property>
-            <property name="@ymax" type="float" minvalue="-2048" maxvalue="2048" default="1">
-            maximum y-axis value</property>
-            <property name="@yauto" type="bool" default="1">calculate y-axis range
-            automatically</property>
+            <!-- @nan -->
             <property name="@nan" type="float" default="+inf">value to replace nan on
             plot</property>
+            <!-- @yauto -->
+            <property name="@yauto" type="bool" default="1">calculate y-axis range
+            automatically</property>
+            <!-- @ymax -->
+            <property name="@ymax" type="float" minvalue="-2048" maxvalue="2048" default="1">
+            maximum y-axis value</property>
+            <!-- @ymin -->
+            <property name="@ymin" type="float" minvalue="-2048" maxvalue="2048" default="-1">
+            minimal y-axis value</property>
         </properties>
         <inlets>
             <inlet>

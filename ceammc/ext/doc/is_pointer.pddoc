@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if input data has *pointer* type</tr>
+                <tr lang="en">checks if input message is a *pointer*</tr>
+                <tr lang="ru">проверка, является ли входное сообщение указателем</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

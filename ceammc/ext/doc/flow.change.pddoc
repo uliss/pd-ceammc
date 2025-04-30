@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">rejects redundant input values</tr>
+                <tr lang="en">rejects repeated input messages</tr>
+                <tr lang="ru">удаляет повторяющиеся сообщения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,6 +25,7 @@
             <par>Note: [list a b c( and [a b c( are different values!</par>
         </info>
         <properties>
+            <!-- @onrepeat -->
             <property name="@onrepeat" type="symbol" default="">function called when repeat
             occurs</property>
         </properties>

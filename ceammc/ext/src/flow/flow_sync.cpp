@@ -12,26 +12,27 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_sync.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
-
-#include <cmath>
 
 static const int MIN_INLETS = 2;
 static const int MAX_INLETS = 16;
 static const int DEF_NCHAN = MIN_INLETS;
 
-static int iround(float v) { return static_cast<int>(lroundf(v)); }
-static int iround(double v) { return static_cast<int>(lround(v)); }
-
 FlowSync::FlowSync(const PdArgs& a)
     : BaseObject(a)
 {
-    int num = DEF_NCHAN;
-    if (a.args.size() > 0)
-        num = iround(clip<t_float>(a.args[0].asFloat(DEF_NCHAN), MIN_INLETS, MAX_INLETS));
+    n_ = new IntProperty("@n", DEF_NCHAN);
+    n_->checkClosedRange(MIN_INLETS, MAX_INLETS);
+    n_->setArgIndex(0);
+    n_->setInitOnly();
+    addProperty(n_);
+}
 
-    for (int i = 0; i < num; i++) {
+void FlowSync::initDone()
+{
+    BaseObject::initDone();
+
+    for (int i = 0; i < n_->value(); i++) {
         if (i > 0)
             createInlet();
 
@@ -46,9 +47,9 @@ void FlowSync::onInlet(size_t n, const AtomListView& lv)
         return;
 
     if (lv.size() > 0) {
-        if (lv[0].isFloat())
+        if (lv.isFloat())
             msg_list_[n].setFloat(lv[0].asFloat());
-        else if (lv[0].asSymbol())
+        else if (lv.isSymbol())
             msg_list_[n].setSymbol(lv[0].asSymbol());
         else
             msg_list_[n].setList(lv);
@@ -97,5 +98,5 @@ void setup_flow_sync()
 
     obj.setDescription("bus with only hot inlets");
     obj.setCategory("flow");
-    obj.setKeywords({"flow", "control"});
+    obj.setKeywords({ "flow", "control" });
 }

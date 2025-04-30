@@ -27,8 +27,10 @@
             <argument name="OUT" type="int" minvalue="1" maxvalue="16">number of outputs</argument>
         </arguments>
         <properties>
+            <!-- @in -->
             <property name="@in" type="int" default="1" minvalue="1" maxvalue="16"
             access="initonly">number of inputs</property>
+            <!-- @out -->
             <property name="@out" type="int" default="1" minvalue="1" maxvalue="16"
             access="initonly">number of outputs</property>
         </properties>

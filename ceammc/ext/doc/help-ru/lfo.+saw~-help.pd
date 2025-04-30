@@ -1,0 +1,127 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 356 50 cnv 1 409 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 361 50 низкочастотная пилообразная волна в диапазоне [0 \,
++1];
+#X obj 1 1 cnv 5 765 40 empty empty lfo.+saw~ 20 20 0 20 -104026 -4096
+0;
+#X obj 674 11 lfo.+saw~;
+#X floatatom 50 118 5 0 0 0 - - -;
+#X obj 136 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 290 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 136 147 @invert \$1;
+#X msg 290 147 @pause \$1;
+#X msg 434 147 bang;
+#X obj 50 176 lfo.+saw~ 1;
+#X obj 50 205 *~ 3000;
+#X obj 50 234 +~ 100;
+#X obj 50 262 osc~;
+#X obj 50 291 ui.gain~ @size 120 14;
+#X obj 290 291 ui.dsp~;
+#X obj 50 320 dac~;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 410 1\.;
+#X text 150 410 float;
+#X obj 246 411 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
+#X text 110 430 2\.;
+#X text 150 430 bool;
+#X obj 246 431 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 430 INVERT: invert saw. Тип: bool.;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 465 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 500 @id;
+#X text 245 500 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/lfo_+saw/PROP_NAME osc
+address \, if empty bind to /lfo_+saw/PROP_NAME. Тип: symbol.;
+#X msg 110 557 @osc;
+#X text 245 557 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 599 @active;
+#X text 245 599 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 641 @freq;
+#X text 245 641 Получить/Установить initial frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...1000\.;
+#X msg 110 683 @invert;
+#X text 245 683 Получить/Установить wave inversion. Тип: bool. Значение
+по умолчанию: 0\.;
+#X msg 110 725 @pause;
+#X text 245 725 Получить/Установить pause oscillator at current value.
+Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 767 @phase;
+#X text 245 767 Получить/Установить initial phase. Тип: float. Значение
+по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 824 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 859 reset;
+#X text 245 859 reset to initial state.;
+#X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 902 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 903 1\.;
+#X text 245 903 frequency in Hz (can be negative and zero).;
+#X text 110 923 2\.;
+#X text 150 923 *bang*;
+#X text 245 923 reset phase to initial value (@phase).;
+#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 958 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 959 1\.;
+#X text 245 959 sawtooth wave in [0-1) range.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
+#X obj 1 1009 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1012 библиотека: ceammc v0.9.8;
+#X text 354 1024 смотрите также:;
+#X obj 475 1024 lfo.saw~;
+#X obj 549 1024 lfo.+square~;
+#X obj 652 1024 lfo.impulse~;
+#N canvas 10 1031 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 lfo.+saw~;
+#X text 10 76 категория:;
+#X text 120 76 lfo;
+#X text 10 98 с версии:;
+#X text 120 98 0.7;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 lfo \, oscillator \, saw;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1031 pd info;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 4 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 16 0;
+#X connect 14 0 16 1;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 1;

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if input data has *list* type</tr>
+                <tr lang="en">checks if the input message is a *list*</tr>
+                <tr lang="ru">проверка, является ли входное сообщение списком</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

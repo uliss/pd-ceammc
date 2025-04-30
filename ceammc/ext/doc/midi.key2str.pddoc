@@ -7,12 +7,13 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert key number to SPN name according to tonality</tr>
+                <tr lang="en">converts the MIDI-key into the SPN name format</tr>
+                <tr lang="ru">преобразует номер MIDI-клавиши в имя ноты в формате SPN</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>midi</category>
-            <keywords>midi key name</keywords>
+            <keywords>midi key name spn pitch notation</keywords>
             <aliases>
                 <alias>midi.key-&gt;str</alias>
             </aliases>
@@ -22,8 +23,10 @@
             <argument name="TONALITY" type="list">initial tomality</argument>
         </arguments>
         <properties>
+            <!-- @symbol -->
             <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
             instead of string by default</property>
+            <!-- @tonality -->
             <property name="@tonality" type="list" default="C major">current tonality</property>
         </properties>
         <inlets>

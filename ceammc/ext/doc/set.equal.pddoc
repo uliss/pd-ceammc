@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">checks if two sets are equal (contains same elements)</tr>
+                <tr lang="ru">проверяет, равны ли два множества (содержат одинаковые элементы)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="SUBJ" type="list">right set elements</argument>
         </arguments>
         <properties>
+            <!-- @subj -->
             <property name="@subj" type="list" default="Set()">right set elements of
             data:Set</property>
         </properties>

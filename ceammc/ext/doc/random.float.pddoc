@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">uniform random float generator in specified range</tr>
+                <tr lang="en">uniform random generator of floats in the specified range</tr>
+                <tr lang="ru">равномерный генератор случайных чисел с плавающей точкой в заданном
+                диапазоне</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -35,8 +37,11 @@
             @min=0, @max=ARG[0]</argument>
         </arguments>
         <properties>
-            <property name="@min" type="float" default="0">random range lower bound</property>
+            <!-- @max -->
             <property name="@max" type="float" default="1">random range upper bound</property>
+            <!-- @min -->
+            <property name="@min" type="float" default="0">random range lower bound</property>
+            <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <methods>

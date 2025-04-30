@@ -28,6 +28,7 @@
             spectrum.</par>
         </info>
         <properties>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <outlets>

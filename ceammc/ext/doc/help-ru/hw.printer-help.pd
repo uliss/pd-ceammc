@@ -1,0 +1,101 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 496 50 базовая поддержка печати документов;
+#X obj 1 1 cnv 5 765 40 empty empty hw.printer 20 20 0 20 -104026
+-4096 0;
+#X obj 667 11 hw.printer;
+#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 MacOs: supports only text \, PDF and images files.;
+#X text 215 108 Windows: supports only PDF files.;
+#X msg 50 186 devices;
+#X obj 155 186 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 69 215 choose;
+#X obj 155 215 openpanel;
+#X msg 155 244 print \$1 @landscape 0;
+#X obj 50 273 hw.printer;
+#X text 165 273 using default printer;
+#X obj 50 302 print;
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 357 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 392 1\.;
+#X text 150 392 symbol;
+#X obj 246 393 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 392 NAME: printer name \, if empty - use default system
+printer. Тип: symbol.;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 442 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 445 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 477 @name;
+#X text 245 477 Получить/Установить printer name \, if empty - use
+default system printer. Тип: symbol.;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 534 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 569 choose;
+#X text 245 569 choose printer by index. Аргументы:;
+#X obj 255 592 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 592 [IDX]: printer index in device list. Тип: int. Минимальное
+значение: 0\.;
+#X msg 110 632 devices;
+#X text 245 632 list printers.;
+#X msg 110 660 print;
+#X text 245 660 print file. Аргументы:;
+#X obj 255 683 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 683 FILE: file to print. Тип: symbol.;
+#X obj 255 706 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 706 [@landscape]: print in landscape mode. Тип: bool.;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 746 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 747 1\.;
+#X text 245 747 input.;
+#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 782 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 783 1\.;
+#X text 245 783 dict: printer info output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 833 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 836 библиотека: ceammc v0.9.8;
+#N canvas 10 855 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.printer;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 display \, brightness;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 855 pd info;
+#X connect 8 0 10 0;
+#X connect 10 0 11 0;
+#X connect 7 0 12 0;
+#X connect 9 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;

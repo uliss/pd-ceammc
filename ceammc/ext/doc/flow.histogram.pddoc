@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">histogram for numeric control flow</tr>
-                <tr lang="ru">гисторамма для числового потока управления</tr>
+                <tr lang="ru">гистограмма для числового потока управления</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,15 +23,20 @@
             <argument name="RANGE" type="list">FROM TO NUM_BINS?</argument>
         </arguments>
         <properties>
+            <!-- @bins -->
             <property name="@bins" type="list" default="0">bins border values</property>
-            <property name="@norm" type="bool" default="1">do the histogram
-            normalization</property>
+            <!-- @inner_bins -->
             <property name="@inner_bins" type="bool" default="1">output histogram inner bins
             only</property>
+            <!-- @norm -->
+            <property name="@norm" type="bool" default="1">do the histogram
+            normalization</property>
+            <!-- @sync -->
             <property name="@sync" type="bool" default="1">calculate and output histogram on every
             input value</property>
         </properties>
         <methods>
+            <!-- clear -->
             <method name="clear">clear all histogram data</method>
         </methods>
         <inlets>

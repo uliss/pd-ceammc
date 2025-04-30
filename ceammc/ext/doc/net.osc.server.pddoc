@@ -29,23 +29,31 @@
             property</argument>
         </arguments>
         <properties>
-            <property name="@dump" type="bool" default="0">dump incoming messages to Pd
-            window</property>
+            <!-- @auto_start -->
             <property name="@auto_start" type="bool" default="1">automatically start on
             creation</property>
+            <!-- @dump -->
+            <property name="@dump" type="bool" default="0">dump incoming messages to Pd
+            window</property>
+            <!-- @host -->
+            <property name="@host" type="symbol" default="" access="readonly">OSC server
+            host</property>
+            <!-- @name -->
+            <property name="@name" type="symbol" default="default" access="initonly">OSC server
+            name</property>
+            <!-- @path -->
+            <property name="@path" type="symbol" default="" access="readonly">OSC server local
+            socket path</property>
+            <!-- @port -->
+            <property name="@port" type="int" default="9000" access="readonly">OSC server
+            port</property>
+            <!-- @proto -->
+            <property name="@proto" type="symbol" default="udp" access="readonly">OSC server proto
+            (udp or tcp)</property>
+            <!-- @url -->
             <property name="@url" type="atom" default="udp:9000" access="initonly">OSC server url
             in form: PROTO:PORT (udp:12345) or just PORT, or osc.PROTO://:PORT (for ex.
             osc.tcp://:9001)</property>
-            <property name="@name" type="symbol" default="default" access="initonly">OSC server
-            name</property>
-            <property name="@port" type="int" default="9000" access="readonly">OSC server
-            port</property>
-            <property name="@path" type="symbol" default="" access="readonly">OSC server local
-            socket path</property>
-            <property name="@proto" type="symbol" default="udp" access="readonly">OSC server proto
-            (udp or tcp)</property>
-            <property name="@host" type="symbol" default="" access="readonly">OSC server
-            host</property>
         </properties>
         <methods>
             <!-- start -->

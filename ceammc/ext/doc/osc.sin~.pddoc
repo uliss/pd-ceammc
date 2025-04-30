@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Sine wave oscillator</tr>
+                <tr lang="en">sine wave oscillator</tr>
+                <tr lang="ru">синусоидальный осциллятор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,10 +26,17 @@
             <par>included for library comprehension</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20">frequency</argument>
+            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">See
+            @freq</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
+            units="hertz">frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">

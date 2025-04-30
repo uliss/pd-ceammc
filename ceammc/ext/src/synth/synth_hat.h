@@ -73,12 +73,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -194,14 +194,14 @@ class FAUST_API synth_hat_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,14 +221,14 @@ class FAUST_API synth_hat_dsp {
         virtual synth_hat_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -619,37 +619,39 @@ class synth_hat : public synth_hat_dsp {
 	
  private:
 	
+	FAUSTFLOAT fCheckbox0;
+	float fVec0[2];
+	float fRec0[2];
 	int fSampleRate;
 	float fConst0;
 	float fConst1;
-	float fConst2;
 	FAUSTFLOAT fVslider0;
+	float fConst2;
 	float fConst3;
-	float fRec2[2];
 	float fRec1[2];
-	float fConst4;
-	float fRec3[2];
-	int iRec4[2];
-	float fConst5;
 	FAUSTFLOAT fVslider1;
-	float fRec5[2];
-	float fRec0[3];
-	FAUSTFLOAT fCheckbox0;
-	float fVec0[2];
-	float fRec6[2];
-	float fConst6;
+	float fRec2[2];
+	float fConst4;
+	int iRec3[2];
+	float fConst5;
 	FAUSTFLOAT fVslider2;
+	float fRec6[2];
+	float fRec5[2];
+	float fConst6;
 	float fRec7[2];
-	FAUSTFLOAT fVslider3;
-	float fRec8[2];
+	int iRec8[2];
 	float fConst7;
-	int iRec9[2];
+	FAUSTFLOAT fVslider3;
+	float fRec9[2];
+	float fRec4[3];
 	
  public:
 	synth_hat() {
 	}
 	
 	void metadata(Meta* m) { 
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_hat -scn synth_hat_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("envelopes.lib/adsr:author", "Yann Orlarey and Andrey Bundin");
 		m->declare("envelopes.lib/author", "GRAME");
@@ -664,7 +666,7 @@ class synth_hat : public synth_hat_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/resonlp:author", "Julius O. Smith III");
 		m->declare("filters.lib/resonlp:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -705,56 +707,56 @@ class synth_hat : public synth_hat_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 1.0f / fConst0;
+		fConst1 = 0.0441f / fConst0;
 		fConst2 = 44.1f / fConst0;
 		fConst3 = 1.0f - fConst2;
-		fConst4 = 2.0f / fConst0;
-		fConst5 = 3.1415927f / fConst0;
-		fConst6 = 0.0441f / fConst0;
-		fConst7 = 1.0f / std::max<float>(1.0f, 0.1f * fConst0);
+		fConst4 = 1.0f / std::max<float>(1.0f, 0.1f * fConst0);
+		fConst5 = 1.0f / fConst0;
+		fConst6 = 2.0f / fConst0;
+		fConst7 = 3.1415927f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(317.0f);
-		fVslider1 = FAUSTFLOAT(6.4e+03f);
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fVslider2 = FAUSTFLOAT(2e+01f);
-		fVslider3 = FAUSTFLOAT(1e+02f);
+		fVslider0 = FAUSTFLOAT(2e+01f);
+		fVslider1 = FAUSTFLOAT(1e+02f);
+		fVslider2 = FAUSTFLOAT(317.0f);
+		fVslider3 = FAUSTFLOAT(6.4e+03f);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec2[l0] = 0.0f;
+			fVec0[l0] = 0.0f;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec1[l1] = 0.0f;
+			fRec0[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec3[l2] = 0.0f;
+			fRec1[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			iRec4[l3] = 0;
+			fRec2[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec5[l4] = 0.0f;
+			iRec3[l4] = 0;
 		}
-		for (int l5 = 0; l5 < 3; l5 = l5 + 1) {
-			fRec0[l5] = 0.0f;
+		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
+			fRec6[l5] = 0.0f;
 		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			fVec0[l6] = 0.0f;
+			fRec5[l6] = 0.0f;
 		}
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			fRec6[l7] = 0.0f;
+			fRec7[l7] = 0.0f;
 		}
 		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
-			fRec7[l8] = 0.0f;
+			iRec8[l8] = 0;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec8[l9] = 0.0f;
+			fRec9[l9] = 0.0f;
 		}
-		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
-			iRec9[l10] = 0;
+		for (int l10 = 0; l10 < 3; l10 = l10 + 1) {
+			fRec4[l10] = 0.0f;
 		}
 	}
 	
@@ -779,60 +781,62 @@ class synth_hat : public synth_hat_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.hat");
-		ui_interface->declare(&fVslider2, "unit", "ms");
-		ui_interface->addVerticalSlider("attack", &fVslider2, FAUSTFLOAT(2e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+02f), FAUSTFLOAT(1.0f));
-		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(317.0f), FAUSTFLOAT(3e+02f), FAUSTFLOAT(4e+03f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fVslider0, "unit", "ms");
+		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(2e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+02f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fVslider2, "unit", "Hz");
+		ui_interface->addVerticalSlider("freq", &fVslider2, FAUSTFLOAT(317.0f), FAUSTFLOAT(3e+02f), FAUSTFLOAT(4e+03f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fCheckbox0, "max", "1");
+		ui_interface->declare(&fCheckbox0, "min", "0");
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
-		ui_interface->declare(&fVslider3, "unit", "ms");
-		ui_interface->addVerticalSlider("release", &fVslider3, FAUSTFLOAT(1e+02f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+03f), FAUSTFLOAT(1.0f));
-		ui_interface->declare(&fVslider1, "unit", "Hz");
-		ui_interface->addVerticalSlider("tone", &fVslider1, FAUSTFLOAT(6.4e+03f), FAUSTFLOAT(8e+02f), FAUSTFLOAT(1.8e+04f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fVslider1, "unit", "ms");
+		ui_interface->addVerticalSlider("release", &fVslider1, FAUSTFLOAT(1e+02f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+03f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fVslider3, "unit", "Hz");
+		ui_interface->addVerticalSlider("tone", &fVslider3, FAUSTFLOAT(6.4e+03f), FAUSTFLOAT(8e+02f), FAUSTFLOAT(1.8e+04f), FAUSTFLOAT(1.0f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = fConst2 * float(fVslider0);
-		float fSlow1 = fConst2 * float(fVslider1);
-		float fSlow2 = float(fCheckbox0);
-		float fSlow3 = fConst6 * float(fVslider2);
-		float fSlow4 = fConst6 * float(fVslider3);
-		int iSlow5 = fSlow2 == 0.0f;
+		float fSlow0 = float(fCheckbox0);
+		float fSlow1 = fConst1 * float(fVslider0);
+		float fSlow2 = fConst1 * float(fVslider1);
+		int iSlow3 = fSlow0 == 0.0f;
+		float fSlow4 = fConst2 * float(fVslider2);
+		float fSlow5 = fConst2 * float(fVslider3);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fRec2[0] = fSlow0 + fConst3 * fRec2[1];
-			float fTemp0 = fRec1[1] + fConst1 * fRec2[0];
-			fRec1[0] = fTemp0 - float(int(fTemp0));
-			float fTemp1 = fRec3[1] + fConst4 * fRec2[0];
-			fRec3[0] = fTemp1 - float(int(fTemp1));
-			iRec4[0] = 1103515245 * iRec4[1] + 12345;
-			float fTemp2 = fRec3[0] + 9.313226e-10f * float(iRec4[0]);
-			float fTemp3 = fRec1[0] + 2.0f * std::sin(6.2831855f * (fTemp2 - std::floor(fTemp2)));
-			fRec5[0] = fSlow1 + fConst3 * fRec5[1];
-			float fTemp4 = std::tan(fConst5 * fRec5[0]);
-			float fTemp5 = 1.0f / fTemp4;
-			float fTemp6 = (fTemp5 + 0.82372326f) / fTemp4 + 1.0f;
-			fRec0[0] = std::sin(6.2831855f * (fTemp3 - std::floor(fTemp3))) - (fRec0[2] * ((fTemp5 + -0.82372326f) / fTemp4 + 1.0f) + 2.0f * fRec0[1] * (1.0f - 1.0f / synth_hat_faustpower2_f(fTemp4))) / fTemp6;
-			fVec0[0] = fSlow2;
-			fRec6[0] = fSlow2 + fRec6[1] * float(fVec0[1] >= fSlow2);
-			fRec7[0] = fSlow3 + fConst3 * fRec7[1];
-			float fTemp7 = std::max<float>(1.0f, fConst0 * fRec7[0]);
-			fRec8[0] = fSlow4 + fConst3 * fRec8[1];
-			iRec9[0] = iSlow5 * (iRec9[1] + 1);
-			output0[i0] = FAUSTFLOAT((fRec0[2] + fRec0[0] + 2.0f * fRec0[1]) * std::max<float>(0.0f, std::min<float>(fRec6[0] / fTemp7, std::max<float>((fTemp7 - fRec6[0]) / std::max<float>(1.0f, fConst0 * fRec8[0]) + 1.0f, 0.0f)) * (1.0f - fConst7 * float(iRec9[0]))) / fTemp6);
-			fRec2[1] = fRec2[0];
-			fRec1[1] = fRec1[0];
-			fRec3[1] = fRec3[0];
-			iRec4[1] = iRec4[0];
-			fRec5[1] = fRec5[0];
-			fRec0[2] = fRec0[1];
-			fRec0[1] = fRec0[0];
+			fVec0[0] = fSlow0;
+			fRec0[0] = fSlow0 + fRec0[1] * float(fVec0[1] >= fSlow0);
+			fRec1[0] = fSlow1 + fConst3 * fRec1[1];
+			float fTemp0 = std::max<float>(1.0f, fConst0 * fRec1[0]);
+			fRec2[0] = fSlow2 + fConst3 * fRec2[1];
+			iRec3[0] = iSlow3 * (iRec3[1] + 1);
+			fRec6[0] = fSlow4 + fConst3 * fRec6[1];
+			float fTemp1 = fRec5[1] + fConst5 * fRec6[0];
+			fRec5[0] = fTemp1 - float(int(fTemp1));
+			float fTemp2 = fRec7[1] + fConst6 * fRec6[0];
+			fRec7[0] = fTemp2 - float(int(fTemp2));
+			iRec8[0] = 1103515245 * iRec8[1] + 12345;
+			float fTemp3 = fRec7[0] + 9.313226e-10f * float(iRec8[0]);
+			float fTemp4 = fRec5[0] + 2.0f * std::sin(6.2831855f * (fTemp3 - std::floor(fTemp3)));
+			fRec9[0] = fSlow5 + fConst3 * fRec9[1];
+			float fTemp5 = std::tan(fConst7 * fRec9[0]);
+			float fTemp6 = 1.0f / fTemp5;
+			float fTemp7 = (fTemp6 + 0.82372326f) / fTemp5 + 1.0f;
+			fRec4[0] = std::sin(6.2831855f * (fTemp4 - std::floor(fTemp4))) - (fRec4[2] * ((fTemp6 + -0.82372326f) / fTemp5 + 1.0f) + 2.0f * fRec4[1] * (1.0f - 1.0f / synth_hat_faustpower2_f(fTemp5))) / fTemp7;
+			output0[i0] = FAUSTFLOAT(std::max<float>(0.0f, std::min<float>(fRec0[0] / fTemp0, std::max<float>((fTemp0 - fRec0[0]) / std::max<float>(1.0f, fConst0 * fRec2[0]) + 1.0f, 0.0f)) * (1.0f - fConst4 * float(iRec3[0]))) * (fRec4[0] + fRec4[2] + 2.0f * fRec4[1]) / fTemp7);
 			fVec0[1] = fVec0[0];
+			fRec0[1] = fRec0[0];
+			fRec1[1] = fRec1[0];
+			fRec2[1] = fRec2[0];
+			iRec3[1] = iRec3[0];
 			fRec6[1] = fRec6[0];
+			fRec5[1] = fRec5[0];
 			fRec7[1] = fRec7[0];
-			fRec8[1] = fRec8[0];
-			iRec9[1] = iRec9[0];
+			iRec8[1] = iRec8[0];
+			fRec9[1] = fRec9[0];
+			fRec4[2] = fRec4[1];
+			fRec4[1] = fRec4[0];
 		}
 	}
 

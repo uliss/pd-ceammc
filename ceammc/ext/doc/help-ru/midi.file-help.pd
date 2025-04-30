@@ -1,0 +1,120 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 416 50 cnv 1 349 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 421 50 чтение и запись стандартных MIDI файлов (SMF);
+#X obj 1 1 cnv 5 765 40 empty empty midi.file 20 20 0 20 -104026 -4096
+0;
+#X obj 674 11 midi.file;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 147 openpanel;
+#X msg 50 176 read \$1 \, bang;
+#X obj 50 205 midi.file;
+#X msg 78 234 play;
+#X msg 146 234 stop;
+#X obj 50 262 midi.track @join;
+#X obj 50 291 midi.ev->note;
+#X obj 50 320 unpack f f;
+#X obj 50 349 mtof;
+#X obj 117 349 / 100;
+#X obj 50 378 osc~;
+#X obj 50 406 *~;
+#X obj 50 435 dac~;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 490 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 525 1\.;
+#X text 150 525 symbol;
+#X obj 246 526 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 525 FILENAME: initial MIDI filename. Тип: symbol.;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 595 @filename;
+#X text 245 595 Получить/Установить current filename. Тип: symbol.;
+#X msg 110 625 @length_beat?;
+#X text 245 625 (только чтение) Получить file length in quarters. Тип:
+float. Значение по умолчанию: 0\.;
+#X msg 110 667 @length_sec?;
+#X text 245 667 (только чтение) Получить file length. Тип: float. Единицы:
+'sec'. Значение по умолчанию: 0\.;
+#X msg 110 709 @length_tick?;
+#X text 245 709 (только чтение) Получить file length in ticks. Тип:
+int. Значение по умолчанию: 0\.;
+#X msg 110 751 @tempo?;
+#X text 245 751 (только чтение) Получить midi tempo in ticks per quarter.
+Тип: int. Значение по умолчанию: 120\.;
+#X msg 110 793 @tracks?;
+#X text 245 793 (только чтение) Получить number of tracks. Тип: int.
+Значение по умолчанию: 1\.;
+#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 850 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 885 clear;
+#X text 245 885 removes all midi file content.;
+#X msg 110 913 read;
+#X text 245 913 read specified midi file. No output.;
+#X msg 110 941 write;
+#X text 245 941 write to specified midi file.;
+#X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 984 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 985 1\.;
+#X text 150 985 *bang*;
+#X text 245 985 output MidiFile data type.;
+#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1020 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1021 1\.;
+#X text 245 1021 MidiStream data type.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 1 1071 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1074 библиотека: ceammc v0.9.8;
+#N canvas 10 1093 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 midi.file;
+#X text 10 76 категория:;
+#X text 120 76 midi;
+#X text 10 98 с версии:;
+#X text 120 98 0.4;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 midi \, file;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1093 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 14 0 16 1;
+#X connect 16 0 17 0;
+#X connect 16 0 17 1;

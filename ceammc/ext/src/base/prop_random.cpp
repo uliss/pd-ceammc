@@ -16,8 +16,6 @@
 #include "ceammc_factory.h"
 #include "datatype_property.h"
 
-#include <chrono>
-
 extern "C" {
 #include "g_canvas.h"
 #include "m_imp.h"
@@ -234,5 +232,5 @@ void setup_prop_random()
 
     obj.setDescription("property randomizer");
     obj.setCategory("property");
-    obj.setKeywords({"property", "random"});
+    obj.setKeywords({ "property", "random" });
 }

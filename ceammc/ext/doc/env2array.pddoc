@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Renders envelope to specified array</tr>
+                <tr lang="en">renders the envelope into the array</tr>
+                <tr lang="ru">рендеринг огибающей в массив</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,14 +28,20 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">target array name</property>
-            <property name="@redraw" type="bool" default="1">redraw after array change</property>
+            <!-- @fit -->
+            <property name="@fit" type="alias">alias to @mode fit property</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="fit resize raw" default="fit">rendering
             mode: *fit* to array size, *resize* array to envelope length or *raw* render while
             enough space in array</property>
-            <property name="@fit" type="alias">alias to @mode fit property</property>
-            <property name="@resize" type="alias">alias to @mode resize property</property>
+            <!-- @raw -->
             <property name="@raw" type="alias">alias to @mode raw property</property>
+            <!-- @redraw -->
+            <property name="@redraw" type="bool" default="1">redraw after array change</property>
+            <!-- @resize -->
+            <property name="@resize" type="alias">alias to @mode resize property</property>
         </properties>
         <inlets>
             <inlet>

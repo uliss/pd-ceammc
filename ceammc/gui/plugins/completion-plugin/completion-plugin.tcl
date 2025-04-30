@@ -595,8 +595,10 @@ proc ::completion::add_user_externalsOnFolder {{dir .} depth} {
 #            ::pdwindow::post "name_without_extension = $name_without_extension\n"
             set external_name [string range $name_without_extension 0 end-5]
 
-        ::completion::msg_debug "       external_name = $external_name" "loaded_externals"
-        if {[string match "ceammc*" $extension_path]} { continue }
+            ::completion::msg_debug "       external_name = $external_name" "loaded_externals"
+            # ignore ceammc category information pages
+            if {[string match "ceammc*" $extension_path]} { continue }
+            if {[string match "help-*" $extension_path]} { continue }
 
             lappend ::completion::all_externals $extension_path$external_name
 #            lappend ::completion::all_externals $external_name

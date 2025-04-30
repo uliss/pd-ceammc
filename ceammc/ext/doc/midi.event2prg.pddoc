@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert MidiEvent message to midi program change value</tr>
+                <tr lang="en">converts the MidiEvent message into the program change</tr>
+                <tr lang="ru">конвертирует сообщение MidiEvent в MIDI: изменение программы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

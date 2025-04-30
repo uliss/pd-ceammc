@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">dac~ with channel ranges</tr>
+                <tr lang="en">[dac~] with channel ranges</tr>
+                <tr lang="ru">[dac~] с диапазонами каналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,6 +28,7 @@
             and 2 out channels</argument>
         </arguments>
         <properties>
+            <!-- @channels -->
             <property name="@channels" type="list" default="1 2">list of mapped channels</property>
         </properties>
         <methods>
@@ -81,7 +83,7 @@
 [ui.hgain2~    ]  [@channels 2 1(
 | ^|              |
 |  |.             |
-[xdac~ 1 2        ]
+[xdac~ 1 2   {i:2}]
 
 [X b->c]
 ]]>

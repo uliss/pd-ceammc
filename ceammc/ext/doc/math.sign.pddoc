@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sign function</tr>
+                <tr lang="ru">знаковая функция</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

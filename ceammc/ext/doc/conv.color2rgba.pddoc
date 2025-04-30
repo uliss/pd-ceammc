@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert named or hex color to separate RGBA values</tr>
+                <tr lang="en">converts the named or hex color into separate RGBA values</tr>
+                <tr lang="ru">преобразует именованный или шестнадцатеричный цвет в отдельные
+                значения RGBA</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,14 +26,18 @@
             olive orange pink purple red white yellow</par>
         </info>
         <properties>
-            <property name="@pack" type="flag" access="initonly">output as list to first
-            outlet</property>
-            <property name="@mode" type="symbol" default="int" enum="int float">output
-            mode</property>
-            <property name="@int" type="alias">alias to @mode int. Output values in [0-255]
-            range</property>
+            <!-- @float -->
             <property name="@float" type="alias">alias to @mode float. Output values in [0-1]
             range</property>
+            <!-- @int -->
+            <property name="@int" type="alias">alias to @mode int. Output values in [0-255]
+            range</property>
+            <!-- @mode -->
+            <property name="@mode" type="symbol" default="int" enum="int float">output
+            mode</property>
+            <!-- @pack -->
+            <property name="@pack" type="flag" access="initonly">output as list to first
+            outlet</property>
         </properties>
         <inlets>
             <inlet>

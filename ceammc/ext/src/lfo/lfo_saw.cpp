@@ -3,15 +3,24 @@
 using namespace ceammc;
 
 class LfoSaw : public faust_lfo_saw_tilde {
+    FloatProperty* freq_ { nullptr };
+
 public:
-    LfoSaw(const PdArgs& args)
+    explicit LfoSaw(const PdArgs& args)
         : faust_lfo_saw_tilde(args)
     {
-        static t_symbol* SYM_PROP_INVERT = gensym("@invert");
-
         createInlet();
-        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
-        bindPositionalArgToProperty(1, SYM_PROP_INVERT);
+
+        freq_ = new FloatProperty("@freq", 0);
+        freq_->setSuccessFn([this](Property*) {
+            setInitSignalValue(freq_->value());
+        });
+        freq_->setUnitsHz();
+        freq_->checkClosedRange(0, 1000);
+        freq_->setArgIndex(0);
+        addProperty(freq_);
+
+        bindPositionalArgToProperty(1, gensym("@invert"));
     }
 
     void onInlet(size_t n, const AtomListView&) override

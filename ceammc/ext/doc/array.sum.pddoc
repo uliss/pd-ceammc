@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">calculates sum of array elements</tr>
+                <tr lang="ru">вычисляет сумму элементов массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
         </properties>
         <inlets>

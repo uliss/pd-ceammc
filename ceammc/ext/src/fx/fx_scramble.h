@@ -2,8 +2,8 @@
 author: "Serge Poltavski"
 name: "fx.scramble"
 version: "0.1"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_scramble -scn fx_scramble_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_scramble -scn fx_scramble_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_scramble_H__
@@ -45,6 +45,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -73,7 +74,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -223,23 +230,48 @@ class FAUST_API fx_scramble_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -272,6 +304,8 @@ class FAUST_API decorator_dsp : public fx_scramble_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -291,16 +325,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual fx_scramble_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -570,53 +625,57 @@ class fx_scramble : public fx_scramble_dsp {
 	FAUSTFLOAT fCheckbox0;
 	float fRec0[2];
 	int fSampleRate;
+	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fConst2;
 	float fRec1[2];
-	FAUSTFLOAT fHslider1;
 	float fConst3;
 	float fConst4;
-	float fRec3[2];
-	int IOTA0;
-	float fVec1[2097152];
+	FAUSTFLOAT fHslider1;
 	float fConst5;
-	float fConst6;
 	FAUSTFLOAT fHslider2;
-	float fConst7;
 	FAUSTFLOAT fHslider3;
 	FAUSTFLOAT fHslider4;
-	FAUSTFLOAT fHslider5;
-	float fRec8[2];
-	float fRec9[2];
-	int iRec10[2];
 	float fRec7[2];
-	float fRec5[2];
+	float fRec8[2];
+	int iRec9[2];
 	float fRec6[2];
 	float fRec4[2];
+	float fRec5[2];
+	float fRec3[2];
+	FAUSTFLOAT fHslider5;
+	float fConst6;
+	float fConst7;
+	float fRec10[2];
+	int IOTA0;
+	float fVec1[2097152];
 	float fRec2[2];
-	float fRec12[2];
-	float fVec2[2097152];
-	float fRec17[2];
-	float fRec18[2];
 	float fRec16[2];
-	float fRec14[2];
+	float fRec17[2];
 	float fRec15[2];
 	float fRec13[2];
+	float fRec14[2];
+	float fRec12[2];
+	float fRec18[2];
+	float fVec2[2097152];
 	float fRec11[2];
 	
  public:
+	fx_scramble() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("author", "Serge Poltavski");
 		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_scramble -scn fx_scramble_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_scramble -scn fx_scramble_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("compressors.lib/FFcompressor_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/FFcompressor_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
@@ -624,36 +683,36 @@ class fx_scramble : public fx_scramble_dsp {
 		m->declare("compressors.lib/peak_compression_gain_N_chan_db:license", "GPLv3");
 		m->declare("compressors.lib/peak_compression_gain_mono_db:author", "Bart Brouns");
 		m->declare("compressors.lib/peak_compression_gain_mono_db:license", "GPLv3");
-		m->declare("compressors.lib/version", "0.4");
+		m->declare("compressors.lib/version", "1.6.0");
 		m->declare("delays.lib/fdelay3:author", "Julius O. Smith III");
 		m->declare("delays.lib/fdelayltv:author", "Julius O. Smith III");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.1");
+		m->declare("delays.lib/version", "1.1.0");
 		m->declare("filename", "fx_scramble.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/nlf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/nlf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/nlf2:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "fx.scramble");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
-		m->declare("noises.lib/version", "0.4");
+		m->declare("noises.lib/version", "1.4.1");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.3");
+		m->declare("oscillators.lib/version", "1.5.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.2");
+		m->declare("routes.lib/version", "1.2.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("version", "0.1");
 	}
 
@@ -669,24 +728,24 @@ class fx_scramble : public fx_scramble_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
-		fConst3 = std::exp(0.0f - 1e+03f / fConst0);
-		fConst4 = std::exp(0.0f - 1e+01f / fConst0);
-		fConst5 = 6.0f * fConst0;
-		fConst6 = 0.5f * (fConst5 + -1.0f);
-		fConst7 = 6.2831855f / fConst0;
+		fConst3 = 6.0f * fConst0;
+		fConst4 = 0.5f * (fConst3 + -1.0f);
+		fConst5 = 6.2831855f / fConst0;
+		fConst6 = std::exp(-(1e+03f / fConst0));
+		fConst7 = std::exp(-(1e+01f / fConst0));
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(0.5f);
-		fHslider1 = FAUSTFLOAT(0.25f);
-		fHslider2 = FAUSTFLOAT(0.5f);
-		fHslider3 = FAUSTFLOAT(7.0f);
-		fHslider4 = FAUSTFLOAT(0.25f);
-		fHslider5 = FAUSTFLOAT(5.0f);
+		fHslider1 = FAUSTFLOAT(0.5f);
+		fHslider2 = FAUSTFLOAT(7.0f);
+		fHslider3 = FAUSTFLOAT(0.25f);
+		fHslider4 = FAUSTFLOAT(5.0f);
+		fHslider5 = FAUSTFLOAT(0.25f);
 	}
 	
 	virtual void instanceClear() {
@@ -700,59 +759,59 @@ class fx_scramble : public fx_scramble_dsp {
 			fRec1[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec3[l3] = 0.0f;
+			fRec7[l3] = 0.0f;
 		}
-		IOTA0 = 0;
-		for (int l4 = 0; l4 < 2097152; l4 = l4 + 1) {
-			fVec1[l4] = 0.0f;
+		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
+			fRec8[l4] = 0.0f;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			fRec8[l5] = 0.0f;
+			iRec9[l5] = 0;
 		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			fRec9[l6] = 0.0f;
+			fRec6[l6] = 0.0f;
 		}
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			iRec10[l7] = 0;
+			fRec4[l7] = 0.0f;
 		}
 		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
-			fRec7[l8] = 0.0f;
+			fRec5[l8] = 0.0f;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec5[l9] = 0.0f;
+			fRec3[l9] = 0.0f;
 		}
 		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
-			fRec6[l10] = 0.0f;
+			fRec10[l10] = 0.0f;
 		}
-		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
-			fRec4[l11] = 0.0f;
+		IOTA0 = 0;
+		for (int l11 = 0; l11 < 2097152; l11 = l11 + 1) {
+			fVec1[l11] = 0.0f;
 		}
 		for (int l12 = 0; l12 < 2; l12 = l12 + 1) {
 			fRec2[l12] = 0.0f;
 		}
 		for (int l13 = 0; l13 < 2; l13 = l13 + 1) {
-			fRec12[l13] = 0.0f;
+			fRec16[l13] = 0.0f;
 		}
-		for (int l14 = 0; l14 < 2097152; l14 = l14 + 1) {
-			fVec2[l14] = 0.0f;
+		for (int l14 = 0; l14 < 2; l14 = l14 + 1) {
+			fRec17[l14] = 0.0f;
 		}
 		for (int l15 = 0; l15 < 2; l15 = l15 + 1) {
-			fRec17[l15] = 0.0f;
+			fRec15[l15] = 0.0f;
 		}
 		for (int l16 = 0; l16 < 2; l16 = l16 + 1) {
-			fRec18[l16] = 0.0f;
+			fRec13[l16] = 0.0f;
 		}
 		for (int l17 = 0; l17 < 2; l17 = l17 + 1) {
-			fRec16[l17] = 0.0f;
+			fRec14[l17] = 0.0f;
 		}
 		for (int l18 = 0; l18 < 2; l18 = l18 + 1) {
-			fRec14[l18] = 0.0f;
+			fRec12[l18] = 0.0f;
 		}
 		for (int l19 = 0; l19 < 2; l19 = l19 + 1) {
-			fRec15[l19] = 0.0f;
+			fRec18[l19] = 0.0f;
 		}
-		for (int l20 = 0; l20 < 2; l20 = l20 + 1) {
-			fRec13[l20] = 0.0f;
+		for (int l20 = 0; l20 < 2097152; l20 = l20 + 1) {
+			fVec2[l20] = 0.0f;
 		}
 		for (int l21 = 0; l21 < 2; l21 = l21 + 1) {
 			fRec11[l21] = 0.0f;
@@ -763,6 +822,7 @@ class fx_scramble : public fx_scramble_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -780,15 +840,15 @@ class fx_scramble : public fx_scramble_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.scramble");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->addHorizontalSlider("dev", &fHslider4, FAUSTFLOAT(0.25f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("dev", &fHslider3, FAUSTFLOAT(0.25f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("feedback", &fHslider1, FAUSTFLOAT(0.25f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99f), FAUSTFLOAT(0.001f));
-		ui_interface->declare(&fHslider3, "unit", "hz");
-		ui_interface->addHorizontalSlider("freq1", &fHslider3, FAUSTFLOAT(7.0f), FAUSTFLOAT(0.25f), FAUSTFLOAT(5e+01f), FAUSTFLOAT(0.01f));
-		ui_interface->declare(&fHslider5, "unit", "hz");
-		ui_interface->addHorizontalSlider("freq2", &fHslider5, FAUSTFLOAT(5.0f), FAUSTFLOAT(0.25f), FAUSTFLOAT(5e+01f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("range", &fHslider2, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("feedback", &fHslider5, FAUSTFLOAT(0.25f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99f), FAUSTFLOAT(0.001f));
+		ui_interface->declare(&fHslider2, "unit", "hz");
+		ui_interface->addHorizontalSlider("freq1", &fHslider2, FAUSTFLOAT(7.0f), FAUSTFLOAT(0.25f), FAUSTFLOAT(5e+01f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider4, "unit", "hz");
+		ui_interface->addHorizontalSlider("freq2", &fHslider4, FAUSTFLOAT(5.0f), FAUSTFLOAT(0.25f), FAUSTFLOAT(5e+01f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("range", &fHslider1, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->closeBox();
 	}
 	
@@ -798,102 +858,104 @@ class fx_scramble : public fx_scramble_dsp {
 		FAUSTFLOAT* output1 = outputs[1];
 		float fSlow0 = float(float(fCheckbox0) >= 1.0f);
 		float fSlow1 = fConst1 * float(fHslider0);
-		float fSlow2 = float(fHslider1);
-		float fSlow3 = fConst6 * float(fHslider2);
-		float fSlow4 = fConst7 * float(fHslider3);
-		float fSlow5 = 0.99f * float(fHslider4);
-		float fSlow6 = fConst7 * float(fHslider5);
-		float fSlow7 = std::sin(fSlow6);
-		float fSlow8 = std::cos(fSlow6);
-		float fSlow9 = std::sin(fSlow4);
-		float fSlow10 = std::cos(fSlow4);
+		float fSlow2 = fConst4 * float(fHslider1);
+		float fSlow3 = fConst5 * float(fHslider2);
+		float fSlow4 = 0.99f * float(fHslider3);
+		float fSlow5 = fConst5 * float(fHslider4);
+		float fSlow6 = std::sin(fSlow5);
+		float fSlow7 = std::cos(fSlow5);
+		float fSlow8 = float(fHslider5);
+		float fSlow9 = std::sin(fSlow3);
+		float fSlow10 = std::cos(fSlow3);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
+			float fTemp0 = float(input0[i0]);
 			iVec0[0] = 1;
-			float fTemp0 = fRec0[1] + 0.0078125f;
-			float fTemp1 = fRec0[1] + -0.0078125f;
-			fRec0[0] = ((fTemp0 < fSlow0) ? fTemp0 : ((fTemp1 > fSlow0) ? fTemp1 : fSlow0));
-			float fTemp2 = 1.0f - fRec0[0];
-			float fTemp3 = float(input0[i0]);
+			float fTemp1 = fRec0[1] + 0.0078125f;
+			float fTemp2 = fRec0[1] + -0.0078125f;
+			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
+			float fTemp3 = fTemp0 * fRec0[0];
+			float fTemp4 = 1.0f - fRec0[0];
 			fRec1[0] = fSlow1 + fConst2 * fRec1[1];
-			float fTemp4 = fTemp3 * (1.0f - fRec1[0]);
-			float fTemp5 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fSlow2 * fRec2[1])));
-			int iTemp6 = (fTemp5 > -11.0f) + (fTemp5 > -9.0f);
-			float fTemp7 = 0.0f - 0.5f * std::max<float>(0.0f, ((iTemp6 == 0) ? 0.0f : ((iTemp6 == 1) ? 0.25f * fx_scramble_faustpower2_f(fTemp5 + 11.0f) : fTemp5 + 1e+01f)));
-			float fTemp8 = ((fTemp7 > fRec3[1]) ? fConst4 : fConst3);
-			fRec3[0] = fTemp7 * (1.0f - fTemp8) + fRec3[1] * fTemp8;
-			float fTemp9 = fTemp3 + fSlow2 * fRec2[1] * std::pow(1e+01f, 0.05f * fRec3[0]);
-			fVec1[IOTA0 & 2097151] = fTemp9;
-			fRec8[0] = fSlow7 * fRec9[1] + fSlow8 * fRec8[1];
-			float fTemp10 = float(1 - iVec0[1]);
-			fRec9[0] = fTemp10 + fSlow8 * fRec9[1] - fSlow7 * fRec8[1];
-			int iTemp11 = (fRec8[1] <= 0.0f) & (fRec8[0] > 0.0f);
-			iRec10[0] = 1103515245 * iRec10[1] + 12345;
-			float fTemp12 = float(iRec10[0]);
-			fRec7[0] = fRec7[1] * float(1 - iTemp11) + 4.656613e-10f * fTemp12 * float(iTemp11);
-			float fTemp13 = fSlow4 * (fSlow5 * fRec7[0] + 1.0f);
-			float fTemp14 = std::sin(fTemp13);
-			float fTemp15 = std::cos(fTemp13);
-			fRec5[0] = fRec6[1] * fTemp14 + fRec5[1] * fTemp15;
-			fRec6[0] = fTemp10 + fRec6[1] * fTemp15 - fTemp14 * fRec5[1];
-			int iTemp16 = (fRec5[1] <= 0.0f) & (fRec5[0] > 0.0f);
-			fRec4[0] = fRec4[1] * float(1 - iTemp16) + 4.656613e-10f * fTemp12 * float(iTemp16);
-			float fTemp17 = fSlow3 * (fRec4[0] + 1.0f);
-			float fTemp18 = fTemp17 + -0.999995f;
-			int iTemp19 = int(fTemp18);
-			float fTemp20 = std::floor(fTemp18);
-			float fTemp21 = fTemp17 + (-1.0f - fTemp20);
-			float fTemp22 = fTemp17 + (-2.0f - fTemp20);
-			float fTemp23 = fTemp17 + (-3.0f - fTemp20);
-			fRec2[0] = fVec1[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp19))))) & 2097151] * (0.0f - fTemp21) * (0.0f - 0.5f * fTemp22) * (0.0f - 0.33333334f * fTemp23) + (fTemp17 - fTemp20) * (fVec1[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp19 + 1))))) & 2097151] * (0.0f - fTemp22) * (0.0f - 0.5f * fTemp23) + 0.5f * fTemp21 * fVec1[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp19 + 2))))) & 2097151] * (0.0f - fTemp23) + 0.16666667f * fTemp21 * fTemp22 * fVec1[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp19 + 3))))) & 2097151]);
-			float fTemp24 = fTemp3 * fRec0[0];
-			output0[i0] = FAUSTFLOAT(fTemp2 * (fTemp4 + fRec1[0] * fRec2[0]) + fTemp24);
-			float fTemp25 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fSlow2 * fRec11[1])));
-			int iTemp26 = (fTemp25 > -11.0f) + (fTemp25 > -9.0f);
-			float fTemp27 = 0.0f - 0.5f * std::max<float>(0.0f, ((iTemp26 == 0) ? 0.0f : ((iTemp26 == 1) ? 0.25f * fx_scramble_faustpower2_f(fTemp25 + 11.0f) : fTemp25 + 1e+01f)));
-			float fTemp28 = ((fTemp27 > fRec12[1]) ? fConst4 : fConst3);
-			fRec12[0] = fTemp27 * (1.0f - fTemp28) + fRec12[1] * fTemp28;
-			float fTemp29 = fTemp3 + fSlow2 * fRec11[1] * std::pow(1e+01f, 0.05f * fRec12[0]);
-			fVec2[IOTA0 & 2097151] = fTemp29;
-			fRec17[0] = fSlow9 * fRec18[1] + fSlow10 * fRec17[1];
-			fRec18[0] = fTemp10 + fSlow10 * fRec18[1] - fSlow9 * fRec17[1];
-			int iTemp30 = (fRec17[1] <= 0.0f) & (fRec17[0] > 0.0f);
-			fRec16[0] = fRec16[1] * float(1 - iTemp30) + 4.656613e-10f * fTemp12 * float(iTemp30);
-			float fTemp31 = fSlow6 * (fSlow5 * fRec16[0] + 1.0f);
-			float fTemp32 = std::sin(fTemp31);
-			float fTemp33 = std::cos(fTemp31);
-			fRec14[0] = fRec15[1] * fTemp32 + fRec14[1] * fTemp33;
-			fRec15[0] = fTemp10 + fRec15[1] * fTemp33 - fTemp32 * fRec14[1];
-			int iTemp34 = (fRec14[1] <= 0.0f) & (fRec14[0] > 0.0f);
-			fRec13[0] = fRec13[1] * float(1 - iTemp34) + 4.656613e-10f * fTemp12 * float(iTemp34);
-			float fTemp35 = fSlow3 * (fRec13[0] + 1.0f);
-			float fTemp36 = fTemp35 + -0.999995f;
-			int iTemp37 = int(fTemp36);
-			float fTemp38 = std::floor(fTemp36);
-			float fTemp39 = fTemp35 + (-1.0f - fTemp38);
-			float fTemp40 = fTemp35 + (-2.0f - fTemp38);
-			float fTemp41 = fTemp35 + (-3.0f - fTemp38);
-			fRec11[0] = fVec2[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp37))))) & 2097151] * (0.0f - fTemp39) * (0.0f - 0.5f * fTemp40) * (0.0f - 0.33333334f * fTemp41) + (fTemp35 - fTemp38) * (fVec2[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp37 + 1))))) & 2097151] * (0.0f - fTemp40) * (0.0f - 0.5f * fTemp41) + 0.5f * fTemp39 * fVec2[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp37 + 2))))) & 2097151] * (0.0f - fTemp41) + 0.16666667f * fTemp39 * fTemp40 * fVec2[(IOTA0 - int(std::min<float>(fConst5, float(std::max<int>(0, iTemp37 + 3))))) & 2097151]);
-			output1[i0] = FAUSTFLOAT(fTemp24 + fTemp2 * (fTemp4 + fRec1[0] * fRec11[0]));
+			float fTemp5 = fTemp0 * (1.0f - fRec1[0]);
+			fRec7[0] = fSlow6 * fRec8[1] + fSlow7 * fRec7[1];
+			float fTemp6 = float(1 - iVec0[1]);
+			fRec8[0] = fTemp6 + fSlow7 * fRec8[1] - fSlow6 * fRec7[1];
+			int iTemp7 = (fRec7[1] <= 0.0f) & (fRec7[0] > 0.0f);
+			iRec9[0] = 1103515245 * iRec9[1] + 12345;
+			float fTemp8 = float(iRec9[0]);
+			fRec6[0] = fRec6[1] * float(1 - iTemp7) + 4.656613e-10f * fTemp8 * float(iTemp7);
+			float fTemp9 = fSlow3 * (fSlow4 * fRec6[0] + 1.0f);
+			float fTemp10 = std::sin(fTemp9);
+			float fTemp11 = std::cos(fTemp9);
+			fRec4[0] = fRec5[1] * fTemp10 + fRec4[1] * fTemp11;
+			fRec5[0] = fTemp6 + fRec5[1] * fTemp11 - fTemp10 * fRec4[1];
+			int iTemp12 = (fRec4[1] <= 0.0f) & (fRec4[0] > 0.0f);
+			fRec3[0] = fRec3[1] * float(1 - iTemp12) + 4.656613e-10f * fTemp8 * float(iTemp12);
+			float fTemp13 = fSlow2 * (fRec3[0] + 1.0f);
+			float fTemp14 = fTemp13 + -0.999995f;
+			float fTemp15 = std::floor(fTemp14);
+			float fTemp16 = fTemp13 + (-2.0f - fTemp15);
+			float fTemp17 = fTemp13 - fTemp15;
+			float fTemp18 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fSlow8 * fRec2[1])));
+			int iTemp19 = (fTemp18 > -11.0f) + (fTemp18 > -9.0f);
+			float fTemp20 = std::max<float>(0.0f, ((iTemp19 == 0) ? 0.0f : ((iTemp19 == 1) ? 0.25f * fx_scramble_faustpower2_f(fTemp18 + 11.0f) : fTemp18 + 1e+01f)));
+			float fTemp21 = ((-(0.5f * fTemp20) > fRec10[1]) ? fConst7 : fConst6);
+			fRec10[0] = fRec10[1] * fTemp21 - 0.5f * fTemp20 * (1.0f - fTemp21);
+			float fTemp22 = fTemp0 + fSlow8 * fRec2[1] * std::pow(1e+01f, 0.05f * fRec10[0]);
+			fVec1[IOTA0 & 2097151] = fTemp22;
+			int iTemp23 = int(fTemp14);
+			float fTemp24 = fTemp13 + (-1.0f - fTemp15);
+			float fTemp25 = fTemp17 * fTemp24;
+			fRec2[0] = (fTemp13 + (-3.0f - fTemp15)) * (fTemp16 * (0.5f * fTemp17 * fVec1[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp23 + 1))))) & 2097151] - 0.16666667f * fVec1[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp23))))) & 2097151] * fTemp24) - 0.5f * fTemp25 * fVec1[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp23 + 2))))) & 2097151]) + 0.16666667f * fTemp25 * fTemp16 * fVec1[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp23 + 3))))) & 2097151];
+			output0[i0] = FAUSTFLOAT(fTemp3 + fTemp4 * (fTemp5 + fRec1[0] * fRec2[0]));
+			fRec16[0] = fSlow9 * fRec17[1] + fSlow10 * fRec16[1];
+			fRec17[0] = fTemp6 + fSlow10 * fRec17[1] - fSlow9 * fRec16[1];
+			int iTemp26 = (fRec16[1] <= 0.0f) & (fRec16[0] > 0.0f);
+			fRec15[0] = fRec15[1] * float(1 - iTemp26) + 4.656613e-10f * fTemp8 * float(iTemp26);
+			float fTemp27 = fSlow5 * (fSlow4 * fRec15[0] + 1.0f);
+			float fTemp28 = std::sin(fTemp27);
+			float fTemp29 = std::cos(fTemp27);
+			fRec13[0] = fRec14[1] * fTemp28 + fRec13[1] * fTemp29;
+			fRec14[0] = fTemp6 + fRec14[1] * fTemp29 - fTemp28 * fRec13[1];
+			int iTemp30 = (fRec13[1] <= 0.0f) & (fRec13[0] > 0.0f);
+			fRec12[0] = fRec12[1] * float(1 - iTemp30) + 4.656613e-10f * fTemp8 * float(iTemp30);
+			float fTemp31 = fSlow2 * (fRec12[0] + 1.0f);
+			float fTemp32 = fTemp31 + -0.999995f;
+			float fTemp33 = std::floor(fTemp32);
+			float fTemp34 = fTemp31 + (-2.0f - fTemp33);
+			float fTemp35 = fTemp31 - fTemp33;
+			float fTemp36 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fSlow8 * fRec11[1])));
+			int iTemp37 = (fTemp36 > -11.0f) + (fTemp36 > -9.0f);
+			float fTemp38 = std::max<float>(0.0f, ((iTemp37 == 0) ? 0.0f : ((iTemp37 == 1) ? 0.25f * fx_scramble_faustpower2_f(fTemp36 + 11.0f) : fTemp36 + 1e+01f)));
+			float fTemp39 = ((-(0.5f * fTemp38) > fRec18[1]) ? fConst7 : fConst6);
+			fRec18[0] = fRec18[1] * fTemp39 - 0.5f * fTemp38 * (1.0f - fTemp39);
+			float fTemp40 = fTemp0 + fSlow8 * fRec11[1] * std::pow(1e+01f, 0.05f * fRec18[0]);
+			fVec2[IOTA0 & 2097151] = fTemp40;
+			int iTemp41 = int(fTemp32);
+			float fTemp42 = fTemp31 + (-1.0f - fTemp33);
+			float fTemp43 = fTemp35 * fTemp42;
+			fRec11[0] = (fTemp31 + (-3.0f - fTemp33)) * (fTemp34 * (0.5f * fTemp35 * fVec2[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp41 + 1))))) & 2097151] - 0.16666667f * fVec2[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp41))))) & 2097151] * fTemp42) - 0.5f * fTemp43 * fVec2[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp41 + 2))))) & 2097151]) + 0.16666667f * fTemp43 * fTemp34 * fVec2[(IOTA0 - int(std::min<float>(fConst3, float(std::max<int>(0, iTemp41 + 3))))) & 2097151];
+			output1[i0] = FAUSTFLOAT(fTemp3 + fTemp4 * (fTemp5 + fRec1[0] * fRec11[0]));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
-			fRec3[1] = fRec3[0];
-			IOTA0 = IOTA0 + 1;
-			fRec8[1] = fRec8[0];
-			fRec9[1] = fRec9[0];
-			iRec10[1] = iRec10[0];
 			fRec7[1] = fRec7[0];
-			fRec5[1] = fRec5[0];
+			fRec8[1] = fRec8[0];
+			iRec9[1] = iRec9[0];
 			fRec6[1] = fRec6[0];
 			fRec4[1] = fRec4[0];
+			fRec5[1] = fRec5[0];
+			fRec3[1] = fRec3[0];
+			fRec10[1] = fRec10[0];
+			IOTA0 = IOTA0 + 1;
 			fRec2[1] = fRec2[0];
-			fRec12[1] = fRec12[0];
-			fRec17[1] = fRec17[0];
-			fRec18[1] = fRec18[0];
 			fRec16[1] = fRec16[0];
-			fRec14[1] = fRec14[0];
+			fRec17[1] = fRec17[0];
 			fRec15[1] = fRec15[0];
 			fRec13[1] = fRec13[0];
+			fRec14[1] = fRec14[0];
+			fRec12[1] = fRec12[0];
+			fRec18[1] = fRec18[0];
 			fRec11[1] = fRec11[0];
 		}
 	}

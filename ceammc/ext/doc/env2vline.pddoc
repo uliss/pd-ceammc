@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Converts envelope to bunch of vline messages</tr>
+                <tr lang="en">сonverts the envelope into the sequence of messages for vline
+                object</tr>
+                <tr lang="ru">преобразует огибающую в последовательность сообщений для объекта
+                vline</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,6 +32,7 @@
             outputted using linear approximation</par>
         </info>
         <properties>
+            <!-- @sync -->
             <property name="@sync" type="bool" default="0">sync with input data. When set to 1
             outputs envelope (as fixed) on every input data</property>
         </properties>

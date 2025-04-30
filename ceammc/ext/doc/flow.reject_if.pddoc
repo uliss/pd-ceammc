@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">reject values by predicate</tr>
+                <tr lang="en">reject the message, accepted by the predicate side-chain</tr>
+                <tr lang="ru">не пропускает значение, принятое предикатом боковой цепи
+                обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

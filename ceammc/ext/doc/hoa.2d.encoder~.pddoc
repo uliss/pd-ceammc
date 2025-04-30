@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">hoa 2d encoder</tr>
+                <tr lang="en">2D decoder of higher order ambisonics</tr>
+                <tr lang="ru">двумерный кодировщик амбисоников высоких порядков</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -34,6 +35,7 @@
             decomposition</argument>
         </arguments>
         <properties>
+            <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">the order of decomposition</property>
         </properties>

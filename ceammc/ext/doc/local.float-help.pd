@@ -1,82 +1,82 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 499 50 canvas-scoped named float variable;
+#X text 504 50 canvas-scoped named float variable;
 #X obj 1 1 cnv 5 765 40 empty empty local.float 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 local.float;
-#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Defines named local float variable \, accessed by name
+#X obj 205 78 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Defines named local float variable \, accessed by name
 and available only within its patch (canvas). Note: it is not accessible
 even from subpatch.;
-#X floatatom 50 173 5 0 0 0 - - -;
-#X msg 107 173 + 2 \, bang;
-#X msg 251 173 * 3 \, bang;
-#X msg 395 173 bang;
-#X msg 136 217 - 3 \, bang;
-#X msg 270 217 / 2 \, bang;
-#X obj 50 274 local.float f1;
-#X obj 395 274 local.float f1;
-#X floatatom 50 303 5 0 0 0 - - -;
-#X floatatom 395 303 5 0 0 0 - - -;
-#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 340 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X floatatom 50 191 5 0 0 0 - - -;
+#X msg 107 191 + 2 \, bang;
+#X msg 251 191 * 3 \, bang;
+#X msg 395 191 bang;
+#X msg 136 235 - 3 \, bang;
+#X msg 270 235 / 2 \, bang;
+#X obj 50 292 local.float f1;
+#X obj 395 292 local.float f1;
+#X floatatom 50 321 5 0 0 0 - - -;
+#X floatatom 395 321 5 0 0 0 - - -;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 343 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 375 1\.;
-#X text 150 375 symbol;
-#X obj 246 376 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 375 ID: object ID. Type: symbol.;
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 393 1\.;
+#X text 150 393 symbol;
+#X obj 246 394 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 393 ID: object ID. Type: symbol.;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 413 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 445 @id;
-#X text 245 445 (initonly) Get/Set local variable id. Type: symbol.
+#X msg 110 463 @id;
+#X text 245 463 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
-#X msg 110 487 @value?;
-#X text 245 487 (readonly) Get current value. Type: float. Default
+#X msg 110 505 @value?;
+#X text 245 505 (readonly) Get current value. Type: float. Default
 value: 0\.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 532 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 550 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 567 set;
-#X text 245 567 sets new value without output.;
-#X msg 110 595 *;
-#X text 245 595 multiply to \, no output.;
-#X msg 110 623 +;
-#X text 245 623 add to float \, no output.;
-#X msg 110 651 -;
-#X text 245 651 subtract from float \, no output.;
-#X msg 110 679 /;
-#X text 245 679 divide by \, no output.;
-#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 722 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 585 set;
+#X text 245 585 sets new value without output.;
+#X msg 110 613 *;
+#X text 245 613 multiply to \, no output.;
+#X msg 110 641 +;
+#X text 245 641 add to float \, no output.;
+#X msg 110 669 -;
+#X text 245 669 subtract from float \, no output.;
+#X msg 110 697 /;
+#X text 245 697 divide by \, no output.;
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 740 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 723 1\.;
-#X text 150 723 *bang*;
-#X text 245 723 output value.;
-#X text 150 743 *float*;
-#X text 245 743 sets new value and outputs it ONLY at current object
+#X text 110 741 1\.;
+#X text 150 741 *bang*;
+#X text 245 741 output value.;
+#X text 150 761 *float*;
+#X text 245 761 sets new value and outputs it ONLY at current object
 outlet.;
-#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 778 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 779 1\.;
-#X text 245 779 float output.;
+#X text 110 797 1\.;
+#X text 245 797 float output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title local @url ceammc.local-help.pd;
-#X obj 1 829 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 832 library: ceammc v0.9.8;
-#X text 512 844 see also:;
-#X obj 587 844 local.int;
-#X obj 667 844 global.int;
-#N canvas 10 851 400 290 info 0;
+#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 850 library: ceammc v0.9.8;
+#X text 512 862 see also:;
+#X obj 587 862 local.int;
+#X obj 667 862 global.int;
+#N canvas 10 869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 851 pd info;
+#X restore 10 869 pd info;
 #X connect 6 0 12 0;
 #X connect 7 0 12 0;
 #X connect 10 0 12 0;

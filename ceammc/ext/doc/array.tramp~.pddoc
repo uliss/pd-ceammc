@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">triggered ramp generator for array</tr>
+                <tr lang="en">triggered ramp index generator for the array</tr>
+                <tr lang="ru">запускаемый генератор линейного индекса для массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,13 +21,18 @@
             <argument name="SPEED" type="float">playing speed</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@speed" type="float" default="1">ramp speed</property>
+            <!-- @from -->
             <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">normalized to
             [0-1] range ramp start</property>
+            <!-- @range -->
+            <property name="@range" type="list" default="0 1">ramp range</property>
+            <!-- @speed -->
+            <property name="@speed" type="float" default="1">ramp speed</property>
+            <!-- @to -->
             <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">normalized to
             [0-1] range ramp end</property>
-            <property name="@range" type="list" default="0 1">ramp range</property>
         </properties>
         <inlets>
             <inlet>

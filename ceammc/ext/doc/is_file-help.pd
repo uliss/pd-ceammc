@@ -1,32 +1,32 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 483 50 checks if file exists and accessible;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 50 checks if the file exists and accessible;
 #X obj 1 1 cnv 5 765 40 empty empty is_file 20 20 0 20 -104026 -4096
 0;
 #X obj 562 11 ceammc/is_file;
 #X obj 689 11 is_file;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 If relative path is given file searched under patch
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 If relative path is given file searched under patch
 directory;
-#X msg 50 143 symbol is_file-help.pd;
-#X msg 88 172 symbol not-exists;
-#X obj 50 201 is_file;
-#X obj 50 230 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 267 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 50 161 symbol is_file-help.pd;
+#X msg 88 190 symbol not-exists;
+#X obj 50 219 is_file;
+#X obj 50 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 268 1\.;
-#X text 150 268 *symbol*;
-#X text 245 268 outputs '1' if file exists and can be opened \, otherwise
+#X text 110 286 1\.;
+#X text 150 286 *symbol*;
+#X text 245 286 outputs '1' if file exists and can be opened \, otherwise
 '0'.;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 321 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 304 1\.;
-#X text 245 304 0 or 1\.;
-#X text 110 324 2\.;
-#X text 245 324 symbol os String: pass filename if file exists.;
+#X text 110 322 1\.;
+#X text 245 322 0 or 1\.;
+#X text 110 342 2\.;
+#X text 245 342 symbol os String: pass filename if file exists.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

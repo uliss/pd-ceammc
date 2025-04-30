@@ -8,7 +8,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Highshelf filter coefficient calculator for biquad</tr>
+                <tr lang="en">highshelf filter coefficient calculator for [flt.biquad~]</tr>
+                <tr lang="ru">калькулятор коэффициентов полочного фильтра высоких частот для
+                [flt.biquad~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,13 +34,16 @@
             gain</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="10000"
-            units="hertz">center frequency</property>
-            <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
-            units="decibel">filter gain</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="10000"
+            units="hertz">center frequency</property>
+            <!-- @gain -->
+            <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
+            units="decibel">filter gain</property>
         </properties>
         <inlets>
             <inlet>

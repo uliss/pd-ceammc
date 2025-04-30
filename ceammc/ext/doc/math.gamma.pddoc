@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">gamma function</tr>
+                <tr lang="ru">гамма-функция</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

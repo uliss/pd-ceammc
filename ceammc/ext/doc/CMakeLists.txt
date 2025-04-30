@@ -43,7 +43,10 @@ if(WC)
         set(CEAMMC_OBJECT_COUNT ${WC_OUT})
     endif()
 endif()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd    ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about_ru.pd ${CMAKE_CURRENT_BINARY_DIR}/help-ru/about.pd @ONLY)
+
 
 # doc file list
 include(docs.cmake)
@@ -112,7 +115,11 @@ else()
             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
         add_dependencies(ceammc_pddoc ceammc_pddoc_gen_deken_objlist)
     endif()
+
+    add_subdirectory(help-ru)
 endif()
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/help-ru DESTINATION "${CEAMMC_INSTALL_PATH}")
 
 if(WIN32)
     set(DOC_INSTALL_PATH "extra/ceammc")
@@ -143,7 +150,7 @@ foreach(_doc_file ${DOC_FILES})
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
     file(GLOB _xfiles "${_doc_file}-*.pd")
-    # find extra files, for example: module.name.test1.pd
+    # find extra files, for example: module.name-test1.pd
     foreach(_xfile ${_xfiles})
         if(NOT ${_xfile} MATCHES "-help\.pd$")
             install(FILES ${_xfile}
@@ -160,7 +167,6 @@ install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
 # extra doc file: presets, sound examples etc.
 set(EXTRA_DOC_FILES prs.txt stargazing.mod)
 file(GLOB _PDDOC_WAV "*.wav")
-file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
 file(GLOB _PDDOC_INFOS "*-info.pd")
 file(GLOB _PDDOC_EXAMPLES2 "*-example.pd")
 file(GLOB _PDDOC_GLITCH "*.glitch")
@@ -175,12 +181,6 @@ install(
         ${_PDDOC_EXAMPLES2}
         ${_PDDOC_INFOS}
         ${_PDDOC_GLITCH}
-        ui.plot~.lin1-help.pd
-        ui.plot~.lin2-help.pd
-        ui.plot~.lin3-help.pd
-        ui.plot~.ln-help.pd
-        ui.plot~.log2-help.pd
-        ui.plot~.log10-help.pd
         poly.obj.pd
         poly.osc~.pd
     DESTINATION ${DOC_INSTALL_PATH}
@@ -203,14 +203,23 @@ else()
     find_program(TIDY tidy)
 endif()
 
-if(TIDY)
+if(TIDY AND PD_DOC_FORMAT)
     message(STATUS "HTMLtidy found: ${TIDY}. The 'ceammc_pddoc_format' target available.")
+
     add_custom_target(ceammc_pddoc_format
         COMMAND ls *.pddoc | while read f\;
         do
-            ${TIDY} -quiet -xml --indent auto
-            --priority-attributes "name,type"
-            --indent-spaces 4 --indent-cdata no --wrap 100 --wrap-sections no $$f > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
+            ${PD_DOC_FORMAT} $$f > "${CMAKE_CURRENT_BINARY_DIR}/.format" \;
+            ${TIDY} -quiet
+                -xml
+                --indent auto
+                --priority-attributes "name,type"
+                --indent-spaces 4
+                --indent-cdata no
+                --wrap 100
+                --wrap-sections no
+                "${CMAKE_CURRENT_BINARY_DIR}/.format" > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
+            rm -rf "${CMAKE_CURRENT_BINARY_DIR}/.format" \;
             ${CMAKE_COMMAND} -E copy_if_different
                 "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
             echo "Format pddoc file: $$f" \;
@@ -268,12 +277,12 @@ if(APPLE)
     if(RSYNC_EXEC)
         # note: trailing slash after CMAKE_CURRENT_SOURCE_DIR is important!
         add_custom_target(dev_pddoc
-            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
+            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --include 'help-ru' --exclude '*'
                 ${CMAKE_CURRENT_BINARY_DIR}/
                 ${CMAKE_CURRENT_SOURCE_DIR}
-            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
+            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --include 'help-ru' --exclude '*'
                 ${CMAKE_CURRENT_SOURCE_DIR}/
                 ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc
-            DEPENDS ceammc_pddoc)
+            DEPENDS ceammc_pddoc ceammc_pddoc_ru)
     endif()
 endif()

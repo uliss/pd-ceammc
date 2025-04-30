@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output dict values</tr>
+                <tr lang="en">output the dictionary values by pre-defined key list</tr>
+                <tr lang="ru">выводит значения словаря по предварительно заданному списку
+                ключей</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,10 +28,12 @@
             <argument name="KEYS" type="list">keys</argument>
         </arguments>
         <properties>
-            <property name="@keys" type="list" access="initonly" default="">extracted
-            keys</property>
+            <!-- @default -->
             <property name="@default" type="atom" default="null">default value when key is not
             found in dictionary. If not specified no output is performed.</property>
+            <!-- @keys -->
+            <property name="@keys" type="list" access="initonly" default="">extracted
+            keys</property>
         </properties>
         <inlets>
             <inlet>
@@ -54,7 +58,7 @@
 |     ^|    ^^|   ^^^|
 |      |      |      |
 |      |      |      |
-[S]    [F]    [S]    [ui.display]
+[S]    [F]    [S]    [ui.dt]
 
 
 [dict.get-paths]

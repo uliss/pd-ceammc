@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">normalize file paths</tr>
+                <tr lang="ru">нормализует пути файлов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

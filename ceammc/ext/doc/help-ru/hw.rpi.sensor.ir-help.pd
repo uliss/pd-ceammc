@@ -1,0 +1,100 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 345 50 cnv 1 420 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 350 50 ИК (инфракрасные) датчики и протоколы для Raspberry
+Pi;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.ir 20 20 0 20
+-104026 -4096 0;
+#X obj 624 11 hw.rpi.sensor.ir;
+#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 165 118 ui.menu NEC RC5 RC6 JVC Sharp;
+#X msg 50 147 poll \$1;
+#X msg 165 147 @proto \$2;
+#X obj 50 190 hw.rpi.sensor.ir @pin 23;
+#X obj 59 219 route D S F;
+#X floatatom 59 248 5 0 0 0 - - -;
+#X floatatom 126 248 5 0 0 0 - - -;
+#X floatatom 194 248 5 0 0 0 - - -;
+#X obj 50 277 print IR;
+#X obj 50 305 ui.link @title Connection_Scheme @url
+ceammc://img/conn_infrared.png;
+#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 367 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 370 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 402 1\.;
+#X text 150 402 int;
+#X obj 246 403 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 402 PIN: GPIO connection pin. See @pin. Тип: int. Диапазон:
+-1…127;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 487 @pin;
+#X text 245 487 (при инициализации) Получить/Установить connection
+GPIO pin. Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X msg 110 529 @proto;
+#X text 245 529 Получить/Установить protocol name. You should switch
+off/on pollling to take effect after chaning this property. Тип: symbol.
+Значение по умолчанию: NEC.;
+#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 601 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 636 poll;
+#X text 245 636 start/stop IR sensor polling. Аргументы:;
+#X obj 255 659 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 659 VALUE: state. Тип: bool.;
+#X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 699 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 700 1\.;
+#X text 245 700 control input.;
+#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 735 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 736 1\.;
+#X text 245 736 pressed infrared remote keys accoring to protocol.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 786 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 789 библиотека: ceammc v0.9.8;
+#N canvas 10 808 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.rpi.sensor.ir;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 display \, gpio \, raspberry \, ir \, infrared \, sensor;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 808 pd info;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 9 2 12 0;
+#X connect 8 0 13 0;

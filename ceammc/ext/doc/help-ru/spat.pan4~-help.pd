@@ -1,0 +1,118 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 513 50 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 518 50 GMEM SPAT: 4-outputs spatializer;
+#X obj 1 1 cnv 5 765 40 empty empty spat.pan4~ 20 20 0 20 -104026
+-4096 0;
+#X obj 492 11 ceammc/pan4~;
+#X obj 605 11 pan4~;
+#X obj 667 11 spat.pan4~;
+#X obj 50 118 osc~ 1000;
+#X obj 165 118 ui.knob;
+#X obj 299 118 ui.knob;
+#X obj 165 162 phase->rad;
+#X msg 165 190 @angle \$1;
+#X msg 299 190 @radius \$1;
+#X obj 50 248 spat.pan4~ 0.8 pi();
+#X obj 50 277 ui.m~;
+#X obj 126 277 ui.m~;
+#X obj 203 277 ui.m~;
+#X obj 280 277 ui.m~;
+#X obj 50 406 ui.dsp~;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 496 1\.;
+#X text 150 496 float;
+#X obj 246 497 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 496 RADIUS: panning radius. Тип: float. Диапазон: 0…1;
+#X text 110 516 2\.;
+#X text 150 516 float;
+#X obj 246 517 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 516 ANGLE(rad): circle panning position in radians. Тип:
+float. Диапазон: 0…2π;
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 569 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 601 @id;
+#X text 245 601 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/spat_pan4/PROP_NAME
+osc address \, if empty bind to /spat_pan4/PROP_NAME. Тип: symbol.;
+#X msg 110 658 @osc;
+#X text 245 658 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 700 @active;
+#X text 245 700 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 742 @angle;
+#X text 245 742 Получить/Установить panning position in radians. Тип:
+float. Единицы: 'rad'. Значение по умолчанию: 0\. Диапазон: 0\...2π.;
+#X msg 110 784 @radius;
+#X text 245 784 Получить/Установить distance from circle center. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 841 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 842 1\.;
+#X text 245 842 input signal.;
+#X text 150 862 *list*;
+#X text 245 862 set radius and angle.;
+#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 897 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 898 1\.;
+#X text 245 898 1st output channel.;
+#X text 110 918 2\.;
+#X text 245 918 2nd output channel.;
+#X text 110 938 3\.;
+#X text 245 938 3rd output channel.;
+#X text 110 958 4\.;
+#X text 245 958 4th output channel.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 1008 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1011 библиотека: ceammc v0.9.8;
+#X text 582 1023 смотрите также:;
+#X obj 703 1023 pan8~;
+#N canvas 10 1030 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 spat.pan4~;
+#X text 10 76 категория:;
+#X text 120 76 spat;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 spat \, span;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1030 pd info;
+#X connect 7 0 9 0;
+#X connect 9 0 10 0;
+#X connect 8 0 11 0;
+#X connect 6 0 12 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
+#X connect 12 2 15 0;
+#X connect 12 3 16 0;

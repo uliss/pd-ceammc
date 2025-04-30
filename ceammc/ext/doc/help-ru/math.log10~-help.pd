@@ -1,0 +1,67 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 574 50 cnv 1 191 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 579 50 логарифм по основанию 10;
+#X obj 1 1 cnv 5 765 40 empty empty math.log10~ 20 20 0 20 -104026
+-4096 0;
+#X obj 659 11 math.log10~;
+#X obj 205 78 cnv 1 560 110 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Outputs the value of the base-10 logarithm;
+#X text 215 108 Special values:;
+#X text 215 133 log10(1) return +0\.;
+#X text 215 158 log10(+infinity) return +infinity.;
+#X obj 50 236 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 265 plot.linspace~ -1 100;
+#X obj 50 294 math.log10~;
+#X obj 50 323 ui.plot~ @xlabels 1 @ylabels 1 @ymin -2 @ymax 2 @size
+400 200;
+#X obj 50 539 ui.dsp~;
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 594 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 595 1\.;
+#X text 245 595 input signal.;
+#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 630 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 631 1\.;
+#X text 245 631 result signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 1 681 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 684 библиотека: ceammc v0.9.8;
+#X text 546 696 смотрите также:;
+#X obj 667 696 math.log10;
+#N canvas 10 703 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 math.log10~;
+#X text 10 76 категория:;
+#X text 120 76 math;
+#X text 10 98 с версии:;
+#X text 120 98 0.9;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 math \, log10;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 703 pd info;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 10 1 12 1;

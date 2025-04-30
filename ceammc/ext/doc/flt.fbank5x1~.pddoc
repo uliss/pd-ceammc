@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">5 band one octave butterworth filterbank</tr>
+                <tr lang="en">5 band one octave Butterworth filterbank</tr>
+                <tr lang="ru">5-полосный банк однооктавных фильтров Баттерворта</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -36,19 +37,25 @@
             property init value</argument>
         </arguments>
         <properties>
-            <property name="@f250" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">first filter (lowpass) gain at 250Hz</property>
-            <property name="@f500" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">second filter (bandpass) gain at 500Hz</property>
-            <property name="@f1000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">third filter (bandpass) gain at 1000Hz</property>
-            <property name="@f2000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">fourth filter (bandpass) gain at 2000Hz</property>
-            <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">fifth filter (highpass) gain at 4000Hz</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @f1000 -->
+            <property name="@f1000" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">third filter (bandpass) gain at 1000Hz</property>
+            <!-- @f2000 -->
+            <property name="@f2000" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">fourth filter (bandpass) gain at 2000Hz</property>
+            <!-- @f250 -->
+            <property name="@f250" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">first filter (lowpass) gain at 250Hz</property>
+            <!-- @f4000 -->
+            <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">fifth filter (highpass) gain at 4000Hz</property>
+            <!-- @f500 -->
+            <property name="@f500" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">second filter (bandpass) gain at 500Hz</property>
         </properties>
         <methods>
             <!-- reset -->

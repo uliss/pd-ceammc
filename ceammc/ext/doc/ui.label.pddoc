@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">simple label widget</tr>
+                <tr lang="ru">простой виджет надписи</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,31 +30,45 @@
             <argument name="TEXT" type="list">label text</argument>
         </arguments>
         <properties>
-            <property name="@text" type="list" default="Label">label text</property>
+            <!-- @align -->
             <property name="@align" type="symbol" default="left" enum="left center right">text
             align</property>
-            <property name="@margin_top" type="int" default="5">text top margin</property>
-            <property name="@margin_left" type="int" default="5">text left margin</property>
-            <property name="@margin_right" type="int" default="5">text right margin</property>
-            <property name="@margin_bottom" type="int" default="5">text bottom margin</property>
-            <!-- common -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="300 47">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="1">pin mode. if 1 - put element to the
-            lowest level</property>
-            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
-            green, blue values in 0-1 range)</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="1 1 1 1">element background
             color (list of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" default="32" maxvalue="100">
-            fontsize</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" default="32" maxvalue="100">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @margin_bottom -->
+            <property name="@margin_bottom" type="int" default="5">text bottom margin</property>
+            <!-- @margin_left -->
+            <property name="@margin_left" type="int" default="5">text left margin</property>
+            <!-- @margin_right -->
+            <property name="@margin_right" type="int" default="5">text right margin</property>
+            <!-- @margin_top -->
+            <property name="@margin_top" type="int" default="5">text top margin</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="1">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="300 47">element size (width, height
+            pair)</property>
+            <!-- @text -->
+            <property name="@text" type="list" default="Label">label text</property>
+            <!-- @text_color -->
+            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
+            green, blue values in 0-1 range)</property>
         </properties>
         <methods>
             <!-- append -->

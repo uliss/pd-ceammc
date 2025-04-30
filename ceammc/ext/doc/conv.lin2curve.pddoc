@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">map linear to exponential range with 0 allowed.</tr>
+                <tr lang="en">map linear to exponential range with 0 allowed</tr>
+                <tr lang="ru">отображает линейный диапазон в экспоненциальный с разрешенным 0</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -36,18 +37,28 @@
             <argument name="CURVE" type="float">curve shape</argument>
         </arguments>
         <properties>
-            <property name="@in_from" type="float" default="0">begin of input range</property>
-            <property name="@in_to" type="float" default="127">end of input range</property>
-            <property name="@out_from" type="float" default="0">begin of output range</property>
-            <property name="@out_to" type="float" default="1">end of output range</property>
-            <property name="@curve" type="float" default="-4">0 (linear) &lt;0 (concave, negatively
-            curved) &gt;0 (convex, positively curved)</property>
+            <!-- @clip -->
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
             noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip both).</property>
-            <property name="@noclip" type="alias">alias to @clip noclip</property>
-            <property name="@min" type="alias">alias to @clip min</property>
+            <!-- @curve -->
+            <property name="@curve" type="float" default="-4">0 (linear) &lt;0 (concave, negatively
+            curved) &gt;0 (convex, positively curved)</property>
+            <!-- @in_from -->
+            <property name="@in_from" type="float" default="0">begin of input range</property>
+            <!-- @in_to -->
+            <property name="@in_to" type="float" default="127">end of input range</property>
+            <!-- @max -->
             <property name="@max" type="alias">alias to @clip max</property>
+            <!-- @min -->
+            <property name="@min" type="alias">alias to @clip min</property>
+            <!-- @minmax -->
             <property name="@minmax" type="alias">alias to @clip minmax</property>
+            <!-- @noclip -->
+            <property name="@noclip" type="alias">alias to @clip noclip</property>
+            <!-- @out_from -->
+            <property name="@out_from" type="float" default="0">begin of output range</property>
+            <!-- @out_to -->
+            <property name="@out_to" type="float" default="1">end of output range</property>
         </properties>
         <inlets>
             <inlet>

@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">very simple vocoder where the spectrum of the modulation signal is
+                <tr lang="en">simple vocoder where the spectrum of the modulation signal is
                 analyzed using a 32-band filter bank</tr>
+                <tr lang="ru">простой вокодер, в котором спектр модулирующего сигнала анализируется
+                с помощью 32-диапазонного фильтра</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -17,15 +19,19 @@
             <since>0.7</since>
         </meta>
         <properties>
-            <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
-            units="millisecond">attack time</property>
-            <property name="@release" type="float" minvalue="0.1" maxvalue="100" default="5"
-            units="millisecond">release time</property>
-            <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
-            coefficient to adjust the bandwidth of each band</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @attack -->
+            <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
+            units="millisecond">attack time</property>
+            <!-- @bwratio -->
+            <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
+            coefficient to adjust the bandwidth of each band</property>
+            <!-- @release -->
+            <property name="@release" type="float" minvalue="0.1" maxvalue="100" default="5"
+            units="millisecond">release time</property>
         </properties>
         <methods>
             <!-- reset -->

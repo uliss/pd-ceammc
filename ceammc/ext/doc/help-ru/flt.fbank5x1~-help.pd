@@ -1,0 +1,158 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 389 50 5-полосный банк однооктавных фильтров Баттерворта;
+#X obj 1 1 cnv 5 765 40 empty empty flt.fbank5x1~ 20 20 0 20 -104026
+-4096 0;
+#X obj 645 11 flt.fbank5x1~;
+#X obj 205 78 cnv 1 560 145 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Split the input signal into a bank of parallel signals
+\, one for each spectral band;
+#X text 215 123 Contains: lowpass \, 3 bandbass and highpass filter;
+#X text 215 148 A Filter-Bank is a signal bandsplitter having the property
+that summing its output signals gives an allpass-filtered version of
+the filter-bank input signal. A more conventional term for this is
+an "allpass-complementary filter bank";
+#X msg 50 271 bang;
+#X obj 232 271 msg.onload fill 0;
+#X obj 50 300 click~;
+#X obj 232 300 ui.sliders 5 @min -6 @max 6;
+#X obj 50 401 flt.fbank5x1~;
+#X obj 50 444 plot.response~ @sr 1 @db 1;
+#X obj 50 473 ui.plot~ @xlabels 1 @ylabels 1 @ymin -6 @ymax 6
+@ymin_ticks 0 @ymaj_ticks 0 @size 300 100;
+#X obj 50 588 ui.dsp~;
+#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 643 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 646 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 678 1\.;
+#X text 150 678 float;
+#X obj 246 679 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 678 F250(db): @f250 property init value. Тип: float. Диапазон:
+-6…6;
+#X text 110 713 2\.;
+#X text 150 713 float;
+#X obj 246 714 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 713 F500(db): @f500 property init value. Тип: float. Диапазон:
+-6…6;
+#X text 110 748 3\.;
+#X text 150 748 float;
+#X obj 246 749 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 748 F1000(db): @f1000 property init value. Тип: float.
+Диапазон: -6…6;
+#X text 110 783 4\.;
+#X text 150 783 float;
+#X obj 246 784 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 783 F2000(db): @f2000 property init value. Тип: float.
+Диапазон: -6…6;
+#X text 110 818 5\.;
+#X text 150 818 float;
+#X obj 246 819 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 818 F4000(db): @f4000 property init value. Тип: float.
+Диапазон: -6…6;
+#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 868 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 871 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 903 @id;
+#X text 245 903 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/flt_fbank5x1/PROP_NAME
+osc address \, if empty bind to /flt_fbank5x1/PROP_NAME. Тип: symbol.;
+#X msg 110 975 @osc;
+#X text 245 975 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 1017 @active;
+#X text 245 1017 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 1059 @f1000;
+#X text 245 1059 Получить/Установить third filter (bandpass) gain at
+1000Hz. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
+-6\...6\.;
+#X msg 110 1116 @f2000;
+#X text 245 1116 Получить/Установить fourth filter (bandpass) gain
+at 2000Hz. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
+-6\...6\.;
+#X msg 110 1173 @f250;
+#X text 245 1173 Получить/Установить first filter (lowpass) gain at
+250Hz. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
+-6\...6\.;
+#X msg 110 1230 @f4000;
+#X text 245 1230 Получить/Установить fifth filter (highpass) gain at
+4000Hz. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
+-6\...6\.;
+#X msg 110 1287 @f500;
+#X text 245 1287 Получить/Установить second filter (bandpass) gain
+at 500Hz. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
+-6\...6\.;
+#X obj 20 1354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1359 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1394 reset;
+#X text 245 1394 reset filter state.;
+#X obj 20 1432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1437 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1438 1\.;
+#X text 245 1438 input signal.;
+#X text 150 1458 *list*;
+#X text 245 1458 5 element list of db gains.;
+#X obj 20 1488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1493 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1494 1\.;
+#X text 245 1494 lpf: 250Hz.;
+#X text 110 1514 2\.;
+#X text 245 1514 bpf: 500Hz.;
+#X text 110 1534 3\.;
+#X text 245 1534 bpf: 1000Hz.;
+#X text 110 1554 4\.;
+#X text 245 1554 bpf: 2000Hz.;
+#X text 110 1574 5\.;
+#X text 245 1574 hpf: 4000Hz.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1624 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1627 библиотека: ceammc v0.9.8;
+#N canvas 10 1646 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.fbank5x1~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.2;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 filter \, filterbank;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1646 pd info;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 1 13 0;
+#X connect 12 2 13 0;
+#X connect 12 3 13 0;
+#X connect 12 4 13 0;
+#X connect 13 0 14 0;
+#X connect 13 2 14 1;
+#X connect 8 0 13 1;
+#X connect 11 0 12 0;

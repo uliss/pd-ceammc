@@ -2,14 +2,16 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 580 50 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 585 50 working with presets;
 #X obj 30 117 preset.float;
-#X text 200 117;
+#X text 200 117 load or store the float into a preset;
 #X obj 30 145 preset.list;
-#X text 200 145;
+#X text 200 145 loads or store the list into a preset;
 #X obj 30 173 preset.storage;
-#X text 200 173;
+#X text 200 173 preset storage controller;
 #X obj 30 201 preset.symbol;
-#X text 200 201;
+#X text 200 201 load or store the symbol into a preset;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::preset 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

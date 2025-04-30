@@ -2,18 +2,20 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 282 50 cnv 1 458 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 287 50 global named objects accessible from everywhere in PureData;
 #X obj 30 117 global.dict;
-#X text 200 117;
+#X text 200 117 global named dictionary;
 #X obj 30 145 global.float;
-#X text 200 145;
+#X text 200 145 global named float object;
 #X obj 30 173 global.int;
-#X text 200 173;
+#X text 200 173 global named integer object;
 #X obj 30 201 global.list;
-#X text 200 201;
+#X text 200 201 global named list;
 #X obj 30 229 global.mlist;
-#X text 200 229;
+#X text 200 229 global named multilevel list (MList);
 #X obj 30 257 global.set;
-#X text 200 257;
+#X text 200 257 global named set;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::global 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

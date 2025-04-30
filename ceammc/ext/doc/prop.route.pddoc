@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">separate properties from dataflow</tr>
+                <tr lang="en">separates properties from the dataflow</tr>
+                <tr lang="ru">отделяет свойства от основного потока данных</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

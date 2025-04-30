@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sync logical AND operation</tr>
+                <tr lang="ru">синхронное логическое И</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

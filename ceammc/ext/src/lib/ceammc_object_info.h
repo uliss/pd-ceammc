@@ -33,6 +33,11 @@ public:
     using Version = std::pair<uint8_t, uint8_t>;
     using ApiVersion = uint16_t;
 
+    enum DocLanguage {
+        English,
+        Russian,
+    };
+
     struct Info {
         Dict dict;
         AuthorList authors;
@@ -101,6 +106,8 @@ public:
     void addBase(t_class* c, t_newmethod creator);
     void addFlext(t_class* c);
     void addUI(t_class* c);
+
+    void setDocLanguage(DocLanguage lang);
 
     static void addAlias(const char* name, t_class* c, t_newmethod creator);
 };

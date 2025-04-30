@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">calculate bar and beat duration</tr>
+                <tr lang="en">calculates bar and beat duration</tr>
+                <tr lang="ru">вычисляет продолжительность такта и ударной доли</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,8 +32,10 @@
             <argument name="TSIG" type="symbol">init time signature value</argument>
         </arguments>
         <properties>
+            <!-- @bpm -->
             <property name="@bpm" type="atom" default="60|4bpm" units="bpm">tempo bpm
             value</property>
+            <!-- @tsig -->
             <property name="@tsig" type="symbol" default="|4/4|">time signature value</property>
         </properties>
         <inlets>

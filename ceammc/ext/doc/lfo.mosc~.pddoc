@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">multi-oscillator with various waveforms</tr>
+                <tr lang="ru">мультиосциллятор с различными формами волн</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,25 +24,35 @@
             <par>switching between waveforms is interpolated and takes 50ms.</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+            frequency</argument>
             <argument name="WAVE" type="symbol"
             enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @duty -->
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty cycle
             for pulse waveform</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
+            units="hertz">initial frequency</property>
+            <!-- @pause -->
             <property name="@pause" type="bool" default="0">pause oscillator at current
             value</property>
+            <!-- @phase -->
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
+            <!-- @wave -->
+            <property name="@wave" type="symbol" default="sin"
+            enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</property>
+            <!-- @windex -->
             <property name="@windex" type="int" minvalue="0" maxvalue="9" default="0">waveform
             index (counting from 0): sin, saw, tri, sqr, pulse, +sin, +saw, +tri, +sqr,
             +pulse.</property>
-            <property name="@wave" type="symbol" default="sin"
-            enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">outputs distribution histogram</tr>
+                <tr lang="en">outputs a list distribution histogram</tr>
+                <tr lang="ru">выводит гистограмму распределений списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,6 +30,7 @@
             bins</argument>
         </arguments>
         <properties>
+            <!-- @bins -->
             <property name="@bins" type="int" minvalue="2" default="100" maxvalue="1024">number of
             histogram bins</property>
         </properties>

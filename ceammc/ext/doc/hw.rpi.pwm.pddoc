@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">hardware PWM output for RaspberryPi</tr>
-                <tr lang="ru">аппаратный ШИМ (PWM) для RaspberryPi</tr>
+                <tr lang="en">hardware PWM output for Raspberry Pi</tr>
+                <tr lang="ru">аппаратный ШИМ (PWM) для Raspberry Pi</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -39,41 +39,49 @@
             for use with other peripherals. Be careful not to enable two peripherals on the same
             pin at the same time.</par>
         </info>
-        <methods>
-            <method name="polarity">set output polarity 
-            <param name="INVERTED" type="bool" required="true">new value. If true: polarity is
-            inverted</param></method>
-            <method name="freq">set frequency 
-            <param name="FREQ" type="float" minvalue="0" units="hertz" required="true">
-            frequency</param>
-            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty
-            cycle</param></method>
-            <method name="pwm">set period and pulse width. Expected width&lt;=pulse. 
-            <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">the whole
-            cycle period</param>
-            <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">pulse
-            width</param></method>
-            <method name="period">set period. Expected width&lt;=pulse. 
-            <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">the whole
-            cycle period</param></method>
-            <method name="width">set pulse width. Expected width&lt;=pulse. 
-            <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">pulse
-            width</param></method>
-            <method name="enable">enable PWM. By default it is disabled. 
-            <param name="ENABLE" type="bool" required="true">value</param></method>
-            <method name="duty">set duty cycle 
-            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty
-            cycle</param></method>
-        </methods>
         <arguments>
             <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">PWM channel. See
             @ch</argument>
         </arguments>
         <properties>
+            <!-- @pwm_ch -->
             <property name="@pwm_ch" type="int" default="-1" minvalue="-1" maxvalue="3"
             access="initonly">PWM channel. Valid values are: 0-3. If equals -1: no PWM channel
             selected.</property>
         </properties>
+        <methods>
+            <!-- duty -->
+            <method name="duty">set duty cycle 
+            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty
+            cycle</param></method>
+            <!-- enable -->
+            <method name="enable">enable PWM. By default it is disabled. 
+            <param name="ENABLE" type="bool" required="true">value</param></method>
+            <!-- freq -->
+            <method name="freq">set frequency 
+            <param name="FREQ" type="float" minvalue="0" units="hertz" required="true">
+            frequency</param>
+            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">duty
+            cycle</param></method>
+            <!-- period -->
+            <method name="period">set period. Expected width&lt;=pulse. 
+            <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">the whole
+            cycle period</param></method>
+            <!-- polarity -->
+            <method name="polarity">set output polarity 
+            <param name="INVERTED" type="bool" required="true">new value. If true: polarity is
+            inverted</param></method>
+            <!-- pwm -->
+            <method name="pwm">set period and pulse width. Expected width&lt;=pulse. 
+            <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">the whole
+            cycle period</param>
+            <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">pulse
+            width</param></method>
+            <!-- width -->
+            <method name="width">set pulse width. Expected width&lt;=pulse. 
+            <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">pulse
+            width</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>input messages</xinfo>

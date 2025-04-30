@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert voice music list of midi pitches</tr>
+                <tr lang="en">convert single voice music to list of MIDI pitches</tr>
+                <tr lang="ru">конвертирует одноголосную музыкальную нотацию в список нот MIDI</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -116,7 +117,7 @@
 |
 [ui.dt]
 
-/*if octave is ommited, previous note octave is used*/
+/*if octave is omitted, previous note octave is used*/
 
 [list C2 B E F G A7 C D(
 |

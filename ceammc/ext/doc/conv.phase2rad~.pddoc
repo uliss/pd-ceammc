@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert phase value [0-1] to radians [0-2π]</tr>
+                <tr lang="ru">преобразует значение фазы [0-1] в радианы [0-2π]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

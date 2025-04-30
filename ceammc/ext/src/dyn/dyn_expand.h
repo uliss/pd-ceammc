@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "dyn.expand"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn dyn_expand -scn dyn_expand_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn dyn_expand -scn dyn_expand_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __dyn_expand_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API dyn_expand_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public dyn_expand_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual dyn_expand_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -568,6 +623,7 @@ class dyn_expand : public dyn_expand_dsp {
 	float fRec0[2];
 	FAUSTFLOAT fHslider0;
 	int fSampleRate;
+	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider1;
 	float fConst2;
@@ -575,8 +631,8 @@ class dyn_expand : public dyn_expand_dsp {
 	FAUSTFLOAT fHslider2;
 	float fVec0[2];
 	float fVec1[3];
-	float fVec2[7];
-	float fVec3[15];
+	float fVec2[5];
+	float fVec3[12];
 	int IOTA0;
 	float fVec4[32];
 	float fVec5[64];
@@ -591,6 +647,8 @@ class dyn_expand : public dyn_expand_dsp {
 	FAUSTFLOAT fHbargraph0;
 	
  public:
+	dyn_expand() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/bypass1:author", "Julius Smith");
@@ -598,12 +656,13 @@ class dyn_expand : public dyn_expand_dsp {
 		m->declare("basics.lib/parallelOp:author", "Bart Brouns");
 		m->declare("basics.lib/parallelOp:copyright", "Copyright (c) 2020 Bart Brouns <bart@magnetophon.nl>");
 		m->declare("basics.lib/parallelOp:licence", "GPL-3.0");
-		m->declare("basics.lib/version", "0.8");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn dyn_expand -scn dyn_expand_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn dyn_expand -scn dyn_expand_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("compressors.lib/expanderSC_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/expanderSC_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/expander_N_chan:author", "Bart Brouns");
@@ -611,22 +670,22 @@ class dyn_expand : public dyn_expand_dsp {
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
 		m->declare("compressors.lib/peak_expansion_gain_N_chan_db:author", "Bart Brouns");
 		m->declare("compressors.lib/peak_expansion_gain_N_chan_db:license", "GPLv3");
-		m->declare("compressors.lib/version", "0.4");
+		m->declare("compressors.lib/version", "1.6.0");
 		m->declare("filename", "dyn_expand.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "dyn.expand");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.2");
+		m->declare("routes.lib/version", "1.2.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 	}
 
 	virtual int getNumInputs() {
@@ -641,7 +700,7 @@ class dyn_expand : public dyn_expand_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 1.0f / fConst0;
@@ -671,10 +730,10 @@ class dyn_expand : public dyn_expand_dsp {
 		for (int l3 = 0; l3 < 3; l3 = l3 + 1) {
 			fVec1[l3] = 0.0f;
 		}
-		for (int l4 = 0; l4 < 7; l4 = l4 + 1) {
+		for (int l4 = 0; l4 < 5; l4 = l4 + 1) {
 			fVec2[l4] = 0.0f;
 		}
-		for (int l5 = 0; l5 < 15; l5 = l5 + 1) {
+		for (int l5 = 0; l5 < 12; l5 = l5 + 1) {
 			fVec3[l5] = 0.0f;
 		}
 		IOTA0 = 0;
@@ -699,6 +758,7 @@ class dyn_expand : public dyn_expand_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -744,30 +804,25 @@ class dyn_expand : public dyn_expand_dsp {
 		int iSlow4 = int(std::floor(fSlow3)) % 2;
 		int iSlow5 = int(std::floor(0.5f * fSlow3)) % 2;
 		int iSlow6 = int(std::floor(0.25f * fSlow3)) % 2;
-		int iSlow7 = 2 * iSlow5;
-		int iSlow8 = iSlow4 + iSlow7;
-		int iSlow9 = int(std::floor(0.125f * fSlow3)) % 2;
-		int iSlow10 = 4 * iSlow6;
-		int iSlow11 = iSlow8 + iSlow10;
-		int iSlow12 = int(std::floor(0.0625f * fSlow3)) % 2;
-		int iSlow13 = 8 * iSlow9;
-		int iSlow14 = iSlow11 + iSlow13;
-		int iSlow15 = int(std::floor(0.03125f * fSlow3)) % 2;
-		int iSlow16 = 16 * iSlow12;
-		int iSlow17 = iSlow14 + iSlow16;
-		int iSlow18 = int(std::floor(0.015625f * fSlow3)) % 2;
-		int iSlow19 = 32 * iSlow15;
-		int iSlow20 = iSlow16 + iSlow13 + iSlow10 + iSlow7 + iSlow4 + iSlow19;
-		int iSlow21 = int(std::floor(0.0078125f * fSlow3)) % 2;
-		int iSlow22 = iSlow16 + iSlow13 + iSlow10 + iSlow7 + iSlow4 + iSlow19 + 64 * iSlow18;
-		float fSlow23 = float(fHslider3);
-		float fSlow24 = float(fHslider4);
-		float fSlow25 = 0.5f * fSlow24;
-		float fSlow26 = fSlow23 - fSlow25;
-		float fSlow27 = fSlow23 + fSlow25;
-		float fSlow28 = 1.0f / std::min<float>(1.1920929e-07f, 0.0f - 2.0f * fSlow24);
-		float fSlow29 = 0.001f * float(fHslider5);
-		float fSlow30 = 0.001f * float(fHslider6);
+		int iSlow7 = iSlow4 + 2 * iSlow5;
+		int iSlow8 = int(std::floor(0.125f * fSlow3)) % 2;
+		int iSlow9 = iSlow7 + 4 * iSlow6;
+		int iSlow10 = int(std::floor(0.0625f * fSlow3)) % 2;
+		int iSlow11 = iSlow9 + 8 * iSlow8;
+		int iSlow12 = int(std::floor(0.03125f * fSlow3)) % 2;
+		int iSlow13 = iSlow11 + 16 * iSlow10;
+		int iSlow14 = int(std::floor(0.015625f * fSlow3)) % 2;
+		int iSlow15 = iSlow13 + 32 * iSlow12;
+		int iSlow16 = int(std::floor(0.0078125f * fSlow3)) % 2;
+		int iSlow17 = iSlow15 + 64 * iSlow14;
+		float fSlow18 = float(fHslider3);
+		float fSlow19 = float(fHslider4);
+		float fSlow20 = 0.5f * fSlow19;
+		float fSlow21 = fSlow18 - fSlow20;
+		float fSlow22 = fSlow18 + fSlow20;
+		float fSlow23 = 1.0f / std::min<float>(1.1920929e-07f, -(2.0f * fSlow19));
+		float fSlow24 = 0.001f * float(fHslider5);
+		float fSlow25 = 0.001f * float(fHslider6);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = fRec0[1] + 0.0078125f;
@@ -789,15 +844,15 @@ class dyn_expand : public dyn_expand_dsp {
 			float fTemp9 = std::max<float>(fTemp8, fVec5[(IOTA0 - 32) & 63]);
 			fVec6[IOTA0 & 127] = fTemp9;
 			fVec7[IOTA0 & 255] = std::max<float>(fTemp9, fVec6[(IOTA0 - 64) & 127]);
-			float fTemp10 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(((iSlow4) ? fTemp3 : -3.4028235e+38f), ((iSlow5) ? fVec1[iSlow4] : -3.4028235e+38f)), ((iSlow6) ? fVec2[iSlow8] : -3.4028235e+38f)), ((iSlow9) ? fVec3[iSlow11] : -3.4028235e+38f)), ((iSlow12) ? fVec4[(IOTA0 - iSlow14) & 31] : -3.4028235e+38f)), ((iSlow15) ? fVec5[(IOTA0 - iSlow17) & 63] : -3.4028235e+38f)), ((iSlow18) ? fVec6[(IOTA0 - iSlow20) & 127] : -3.4028235e+38f)), ((iSlow21) ? fVec7[(IOTA0 - iSlow22) & 255] : -3.4028235e+38f))));
-			int iTemp11 = (fTemp10 > fSlow26) + (fTemp10 > fSlow27);
+			float fTemp10 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(((iSlow4) ? fTemp3 : -3.4028235e+38f), ((iSlow5) ? fVec1[iSlow4] : -3.4028235e+38f)), ((iSlow6) ? fVec2[iSlow7] : -3.4028235e+38f)), ((iSlow8) ? fVec3[iSlow9] : -3.4028235e+38f)), ((iSlow10) ? fVec4[(IOTA0 - iSlow11) & 31] : -3.4028235e+38f)), ((iSlow12) ? fVec5[(IOTA0 - iSlow13) & 63] : -3.4028235e+38f)), ((iSlow14) ? fVec6[(IOTA0 - iSlow15) & 127] : -3.4028235e+38f)), ((iSlow16) ? fVec7[(IOTA0 - iSlow17) & 255] : -3.4028235e+38f))));
+			int iTemp11 = (fTemp10 > fSlow21) + (fTemp10 > fSlow22);
 			int iTemp12 = fRec2[0] > 0.0f;
-			float fTemp13 = std::max<float>(fSlow1, std::fabs(fRec2[0]) * ((iTemp11 == 0) ? fTemp10 - fSlow23 : ((iTemp11 == 1) ? fSlow28 * dyn_expand_faustpower2_f(fTemp10 - fSlow27) : 0.0f))) * float(2 * iTemp12 + -1);
-			float fTemp14 = ((iTemp12) ? fSlow30 : fSlow29);
+			float fTemp13 = std::max<float>(fSlow1, std::fabs(fRec2[0]) * ((iTemp11 == 0) ? fTemp10 - fSlow18 : ((iTemp11 == 1) ? fSlow23 * dyn_expand_faustpower2_f(fTemp10 - fSlow22) : 0.0f))) * float(2 * iTemp12 + -1);
+			float fTemp14 = ((iTemp12) ? fSlow25 : fSlow24);
 			int iTemp15 = std::fabs(fTemp14) < 1.1920929e-07f;
-			float fTemp16 = ((iTemp12) ? fSlow29 : fSlow30);
+			float fTemp16 = ((iTemp12) ? fSlow24 : fSlow25);
 			int iTemp17 = std::fabs(fTemp16) < 1.1920929e-07f;
-			float fTemp18 = ((fTemp13 > fRec1[1]) ? ((iTemp17) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp17) ? 1.0f : fTemp16))) : ((iTemp15) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp15) ? 1.0f : fTemp14))));
+			float fTemp18 = ((fTemp13 > fRec1[1]) ? ((iTemp17) ? 0.0f : std::exp(-(fConst3 / ((iTemp17) ? 1.0f : fTemp16)))) : ((iTemp15) ? 0.0f : std::exp(-(fConst3 / ((iTemp15) ? 1.0f : fTemp14)))));
 			fRec1[0] = fTemp13 * (1.0f - fTemp18) + fRec1[1] * fTemp18;
 			fHbargraph0 = FAUSTFLOAT(fRec1[0]);
 			output0[i0] = FAUSTFLOAT(fTemp0 * (fRec0[0] + (1.0f - fRec0[0]) * std::pow(1e+01f, 0.05f * fRec1[0])));
@@ -806,10 +861,10 @@ class dyn_expand : public dyn_expand_dsp {
 			fVec0[1] = fVec0[0];
 			fVec1[2] = fVec1[1];
 			fVec1[1] = fVec1[0];
-			for (int j0 = 6; j0 > 0; j0 = j0 - 1) {
+			for (int j0 = 4; j0 > 0; j0 = j0 - 1) {
 				fVec2[j0] = fVec2[j0 - 1];
 			}
-			for (int j1 = 14; j1 > 0; j1 = j1 - 1) {
+			for (int j1 = 11; j1 > 0; j1 = j1 - 1) {
 				fVec3[j1] = fVec3[j1 - 1];
 			}
 			IOTA0 = IOTA0 + 1;

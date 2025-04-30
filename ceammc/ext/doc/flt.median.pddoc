@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Median control flow filter</tr>
+                <tr lang="en">median control flow filter</tr>
+                <tr lang="ru">медианный фильтр для контрольного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,6 +22,7 @@
             <par>If window size is even: mean between center elements outputed</par>
         </info>
         <properties>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="128" default="9"
             units="sample">filter windows size</property>
         </properties>

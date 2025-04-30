@@ -19,6 +19,7 @@
             <par>At this moment supports only MacOSX</par>
         </info>
         <properties>
+            <!-- @brightness -->
             <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0.313477">
             display brightness</property>
         </properties>

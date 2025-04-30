@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sequence arpeggiator</tr>
+                <tr lang="en">chord arpeggiator</tr>
+                <tr lang="ru">арпеджиатор аккордов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,6 +24,7 @@
             <argument name="CHORD" type="list">list of pitches to arpeggiate</argument>
         </arguments>
         <properties>
+            <!-- @chord -->
             <property name="@chord" type="list" default="">list of pitches to arpeggiate</property>
         </properties>
         <methods>
@@ -30,11 +32,11 @@
             <method name="asr">set arpeggiate mode and run 
             <param name="STEP" type="float" minvalue="0" units="millisecond" required="true">step
             duration</param>
-            <param name="ON_MODE" type="symbol" enum="all first last" required="true">on
+            <param name="ON_MODE" type="symbol" enum="all first last random" required="true">on
             mode</param>
             <param name="HOLD" type="int" minvalue="1" required="true">number of steps to hold
             value</param>
-            <param name="OFF_MODE" type="symbol" enum="all first last" required="true">off
+            <param name="OFF_MODE" type="symbol" enum="all first last random" required="true">off
             mode</param></method>
             <!-- off -->
             <method name="off">turn off active notes. 
@@ -67,23 +69,32 @@
         <example>
             <pdascii>
 <![CDATA[
-[asr 100 first 10 last(      [ui.dsp~]
-|
-| [asr 200 first 10 first(
+[asr 500 first 2 all #a(     /*start from first, off all at once*/
+
+ [asr 500 last 2 all #b(     /*start from last, off all at once*/
+
+  [asr 500 last 2 last #c(   /*start from last, off from last*/
+
+   [asr 500 all 2 last #d(   /*start from all, off from last*/
+
+    [asr 500 all 2 first #e( /*start from all, off from first*/
+
+     [asr 500 all 4 all #f(  /*start from all, hold 4 beat, off all*/
+
+ [reset(
+ |
+[seq.arp 60 64 67 72 76 #x]
 | |
-| |  [asr 150 all 10 last(
-| |  |
-| |  | [on( [off(
-| |  | |    |
-[seq.arp 60 64 67 79 54 80 #y]
+| [print]
 |
-[msg note] [loadmsg prog 1 12]
-|          |
-[fluid~ sf2/VintageDreamsWaves-v2.sf2]
+[msg note]
+|
+[fluid~]        [ui.dsp~]
 *|*
 [ui.hgain2~]
 |\
 [dac~]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
 ]]>
             </pdascii>
         </example>

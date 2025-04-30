@@ -1,0 +1,164 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 542 50 пиковый и RMS уровень сигнала;
+#X obj 1 1 cnv 5 765 40 empty empty ui.meter~ 20 20 0 20 -104026 -4096
+0;
+#X obj 466 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.m~] @url ui.meter~-help.pd;
+#X obj 530 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.hm~] @url ui.meter~-help.pd;
+#X obj 601 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.vm~] @url ui.meter~-help.pd;
+#X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.meter~] @url ui.meter~-help.pd;
+#X obj 205 78 cnv 1 560 100 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Each cell has 3db range. Full meter range is 39 db.;
+#X text 215 108 Values > -3db are red \, range [-12 \, -3) db is hot
+\, [-21 \, -12) db is warm \, [-30 \, -21) is tepid \, values < 30
+are cold.;
+#X text 215 148 [ui.hm~] - alias for horizontal meter;
+#X obj 50 226 lfo.tri~ 0.2;
+#X obj 194 226 phasor~ 0.2;
+#X obj 194 255 env~;
+#X obj 194 284 dbtorms;
+#X obj 50 313 ui.meter~ @size 15 120;
+#X obj 194 313 ui.hm~;
+#X obj 194 399 ui.dsp~;
+#X obj 50 442 ui.dt;
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 497 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 532 Right-click + ⌥;
+#X text 285 532 open properties dialog.;
+#X text 110 552 Right-click + ⇧;
+#X text 285 552 open object help.;
+#X text 110 572 Double-click + ⌘;
+#X text 285 572 changes slider orientation.;
+#X text 45 572 [Правка];
+#X text 110 592 Right-click + ⌥;
+#X text 285 592 open properties dialog.;
+#X text 45 592 [Правка];
+#X text 110 612 Right-click + ⇧;
+#X text 285 612 open the object help.;
+#X text 45 612 [Правка];
+#X text 110 632 Right-click;
+#X text 285 632 open Pd popup menu.;
+#X text 45 632 [Правка];
+#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 667 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 670 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 702 @interval;
+#X text 245 702 Получить/Установить refresh interval. Тип: int. Единицы:
+'ms'. Значение по умолчанию: 50\. Минимальное значение: 20\.;
+#X msg 110 744 @receive;
+#X text 245 744 Получить/Установить receive source. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 786 @send;
+#X text 245 786 Получить/Установить send destination. Тип: symbol.
+Значение по умолчанию: (null).;
+#X msg 110 828 @background_color;
+#X text 245 828 Получить/Установить element background color (list
+of red \, green \, blue values in 0-1 range). Тип: list. Значение по
+умолчанию: 0.93 0.93 0.93 1\.;
+#X msg 110 885 @border_color;
+#X text 245 885 Получить/Установить border color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
+0.6 0.6 1\.;
+#X msg 110 942 @cold_color;
+#X text 245 942 Получить/Установить extra low-level signal color <-31db
+(list of red \, green \, blue values in 0-1 range). Тип: list. Значение
+по умолчанию: 0 0.6 0 1\.;
+#X msg 110 999 @hot_color;
+#X text 245 999 Получить/Установить loud level signal color <-3db (list
+of red \, green \, blue values in 0-1 range). Тип: list. Значение по
+умолчанию: 1 0.6 0 1\.;
+#X msg 110 1056 @over_color;
+#X text 245 1056 Получить/Установить extra-loud level signal color
+>-3db (list of red \, green \, blue values in 0-1 range). Тип: list.
+Значение по умолчанию: 1 0 0 1\.;
+#X msg 110 1113 @tepid_color;
+#X text 245 1113 Получить/Установить low-level signal color <-21db
+(list of red \, green \, blue values in 0-1 range). Тип: list. Значение
+по умолчанию: 0.6 0.73 0 1\.;
+#X msg 110 1170 @warm_color;
+#X text 245 1170 Получить/Установить normal level signal color <-9db
+(list of red \, green \, blue values in 0-1 range). Тип: list. Значение
+по умолчанию: 0.85 0.85 0 1\.;
+#X msg 110 1227 @fontname;
+#X text 245 1227 Получить/Установить fontname. Тип: symbol. Значение
+по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
+Helvetica \, Monaco \, Times.;
+#X msg 110 1284 @fontsize;
+#X text 245 1284 Получить/Установить fontsize. Тип: int. Значение по
+умолчанию: 11\. Диапазон: 4\...100\.;
+#X msg 110 1326 @fontslant;
+#X text 245 1326 Получить/Установить font slant. Тип: symbol. Значение
+по умолчанию: roman. Разрешённые значения: roman \, italic.;
+#X msg 110 1368 @fontweight;
+#X text 245 1368 Получить/Установить font weight. Тип: symbol. Значение
+по умолчанию: normal. Разрешённые значения: normal \, bold.;
+#X msg 110 1410 @pinned;
+#X text 245 1410 Получить/Установить pin mode. if 1 - put element to
+the lowest level. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1452 @size;
+#X text 245 1452 Получить/Установить element size (width \, height
+pair). Тип: list. Значение по умолчанию: 15 120\.;
+#X obj 20 1504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1509 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1544 pos;
+#X text 245 1544 set UI element position. Аргументы:;
+#X obj 255 1567 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1567 X: top left x-coord. Тип: float.;
+#X obj 255 1590 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1590 Y: top right y-coord. Тип: float.;
+#X obj 20 1625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1630 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1631 1\.;
+#X text 245 1631 input signal.;
+#X obj 20 1661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1666 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1667 1\.;
+#X text 245 1667 output pair of values: rms and peak in decibels (dbfs).;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1717 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1720 библиотека: ceammc v0.9.8;
+#N canvas 10 1739 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 ui.meter~;
+#X text 10 76 категория:;
+#X text 120 76 ui;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Pierre Guillot \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 ui \, meter;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1739 pd info;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 11 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 18 0;

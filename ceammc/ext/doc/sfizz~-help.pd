@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 575 50 SFZ format sample player;
+#X text 580 50 SFZ format sample player;
 #X obj 1 1 cnv 5 765 40 empty empty sfizz~ 20 20 0 20 -104026 -4096 0;
 #X obj 575 11 ceammc/sfizz~;
 #X obj 695 11 sfizz~;
@@ -76,7 +76,7 @@ Default value: [].;
 #X obj 255 1060 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1060 VEL: MIDI velocity. Type: float. Range: 0\...127\.;
 #X msg 110 1085 bend;
-#X text 245 1085 pitchband change. Arguments are:;
+#X text 245 1085 pitchbend change. Arguments are:;
 #X obj 255 1108 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1108 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
@@ -84,7 +84,7 @@ Default value: [].;
 #X text 255 1131 VALUE: value in 0\..0x3fff range \, with 0x2000 center.
 Type: int. Range: 0\...16383\.;
 #X msg 110 1171 bend:f;
-#X text 245 1171 pitchband change. Arguments are:;
+#X text 245 1171 pitchbend change. Arguments are:;
 #X obj 255 1194 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1194 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
@@ -92,7 +92,7 @@ Type: int. Range: 0\...16383\.;
 #X text 255 1217 VALUE: value in -1\..+1 range \, with 0 center. Type:
 float. Range: -1\...1\.;
 #X msg 110 1257 bend:i;
-#X text 245 1257 pitchband change. Arguments are:;
+#X text 245 1257 pitchbend change. Arguments are:;
 #X obj 255 1280 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1280 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
@@ -165,7 +165,7 @@ release phase). Arguments are:;
 #X text 255 2024 [CHAN]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
 #X obj 255 2047 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2047 PAN: pan value \, -1: left \, 0: center \, 1): right.
+#X text 255 2047 PAN: pan value \, -1: left \, 0: center \, 1: right.
 Type: float. Range: -1\...1\.;
 #X msg 110 2087 pan:i;
 #X text 245 2087 set channel panning. Arguments are:;
@@ -191,7 +191,7 @@ channel configuration.;
 #X msg 110 2322 prog;
 #X text 245 2322 program change. Arguments are:;
 #X obj 255 2345 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2345 [CHAN=0]: MIDI channel \, if zero or ommited set for
+#X text 255 2345 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
 #X obj 255 2383 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2383 PGM: program number. Type: int. Range: 0\...16383\.;

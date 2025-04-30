@@ -1,0 +1,126 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 414 50 cnv 1 351 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 419 50 Jean-Claude Risset's harmonic arpeggio effect;
+#X obj 1 1 cnv 5 765 40 empty empty synth.risset_arp~ 20 20 0 20
+-104026 -4096 0;
+#X obj 616 11 synth.risset_arp~;
+#X obj 50 118 r $0s;
+#X floatatom 136 118 5 0 0 0 - - -;
+#X floatatom 242 118 5 0 0 0 - - -;
+#X obj 405 118 ui.sliders @size 150 80;
+#X msg 136 147 @freq \$1;
+#X msg 242 147 @detune \$1;
+#X obj 50 176 synth.risset_arp~;
+#X obj 50 205 ui.hgain2~ @size;
+#X obj 405 205 list.enumerate @from 1;
+#X obj 50 234 dac~;
+#X obj 405 234 list.repack 2;
+#X obj 50 262 ui.dsp~;
+#X msg 405 262 @harmonic\$1 \$2;
+#X obj 405 291 s $0s;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 381 @id;
+#X text 245 381 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/synth_risset_arp/PROP_NAME
+osc address \, if empty bind to /synth_risset_arp/PROP_NAME. Тип: symbol.;
+#X msg 110 453 @osc;
+#X text 245 453 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 495 @active;
+#X text 245 495 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 537 @detune;
+#X text 245 537 Получить/Установить detune percent. Тип: float. Значение
+по умолчанию: 5\. Диапазон: 0\...1000\.;
+#X msg 110 579 @freq;
+#X text 245 579 Получить/Установить base frequency. Тип: float. Значение
+по умолчанию: 100\. Диапазон: 40\...500\.;
+#X msg 110 621 @harmonic1;
+#X text 245 621 Получить/Установить 1st harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 663 @harmonic2;
+#X text 245 663 Получить/Установить 2nd harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 705 @harmonic3;
+#X text 245 705 Получить/Установить 3rd harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 747 @harmonic4;
+#X text 245 747 Получить/Установить 4th harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 789 @harmonic5;
+#X text 245 789 Получить/Установить 5th harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 831 @harmonic6;
+#X text 245 831 Получить/Установить 6th harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 873 @harmonic7;
+#X text 245 873 Получить/Установить 7th harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 915 @harmonic8;
+#X text 245 915 Получить/Установить 8th harmonic amplitude. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 957 @spread;
+#X text 245 957 Получить/Установить stereo spread. Тип: float. Значение
+по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1014 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1015 1\.;
+#X text 245 1015 control inlet.;
+#X obj 20 1045 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1050 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1051 1\.;
+#X text 245 1051;
+#X text 110 1071 2\.;
+#X text 245 1071;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1121 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1124 библиотека: ceammc v0.9.8;
+#N canvas 10 1143 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 synth.risset_arp~;
+#X text 10 76 категория:;
+#X text 120 76 synth;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Oliver Larkin \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 risset \, arpeggio;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1143 pd info;
+#X connect 5 0 8 0;
+#X connect 6 0 9 0;
+#X connect 4 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 1 11 1;
+#X connect 7 0 12 0;
+#X connect 11 0 13 0;
+#X connect 11 1 13 1;
+#X connect 12 0 14 0;
+#X connect 14 0 16 0;
+#X connect 16 0 17 0;

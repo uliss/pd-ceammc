@@ -28,7 +28,9 @@
             <argument name="RTREE" type="atom">rhythm tree</argument>
         </arguments>
         <properties>
+            <!-- @dur -->
             <property name="@dur" type="float" default="1">total pattern duration</property>
+            <!-- @rtree -->
             <property name="@rtree" type="atom" default="()">rhythm tree. (MList)</property>
         </properties>
         <inlets>

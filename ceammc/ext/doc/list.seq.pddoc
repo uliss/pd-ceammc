@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">numeric sequence list generator</tr>
+                <tr lang="en">generates a sequence of numbers in the form of a list</tr>
+                <tr lang="ru">генерирует последовательноть чисел в виде списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,12 +26,16 @@
             <argument name="STEP" type="float">sequence step</argument>
         </arguments>
         <properties>
-            <property name="@from" type="float" default="0">start value</property>
-            <property name="@to" type="float" default="1">end value</property>
-            <property name="@step" type="float" default="1">sequence step (always
-            positive)</property>
+            <!-- @closed -->
             <property name="@closed" type="flag" default="0" access="initonly">generate closed
             range sequence</property>
+            <!-- @from -->
+            <property name="@from" type="float" default="0">start value</property>
+            <!-- @step -->
+            <property name="@step" type="float" default="1">sequence step (always
+            positive)</property>
+            <!-- @to -->
+            <property name="@to" type="float" default="1">end value</property>
         </properties>
         <inlets>
             <inlet>

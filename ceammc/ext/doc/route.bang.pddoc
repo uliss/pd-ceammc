@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">separate bang messages from other types</tr>
+                <tr lang="en">separates the bang messages from others</tr>
+                <tr lang="ru">отделяет пустые события (bangs) от сообщений других типов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,6 +28,7 @@
             requests) are passed thru</par>
         </info>
         <properties>
+            <!-- @strict -->
             <property name="@strict" type="bool" default="0">strict mode. By default empty list
             treated as bang. Set to true to disable this behavior</property>
         </properties>

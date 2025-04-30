@@ -16,25 +16,35 @@
             <keywords>display gpio raspberry rotary encoder</keywords>
             <since>0.9.8</since>
         </meta>
-        <methods>
-            <method name="get">request current value output</method>
-            <method name="set">set current value without output 
-            <param name="VAL" type="float" required="true">new value</param></method>
-            <method name="reset">reset current value to @init</method>
-        </methods>
         <properties>
-            <property name="@init" type="float" default="0" access="initonly">init encoder
-            value</property>
-            <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="127">DT GPIO pin</property>
-            <property name="@min" type="float" default="-100">min encoder value</property>
-            <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
-            maxvalue="127">CLK GPIO pin</property>
+            <!-- @btn -->
             <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1"
             maxvalue="127">BTN GPIO pin</property>
-            <property name="@step" type="float" default="1">encoder step</property>
+            <!-- @clk -->
+            <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">CLK GPIO pin</property>
+            <!-- @dt -->
+            <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
+            maxvalue="127">DT GPIO pin</property>
+            <!-- @init -->
+            <property name="@init" type="float" default="0" access="initonly">init encoder
+            value</property>
+            <!-- @max -->
             <property name="@max" type="float" default="100">max encoder value</property>
+            <!-- @min -->
+            <property name="@min" type="float" default="-100">min encoder value</property>
+            <!-- @step -->
+            <property name="@step" type="float" default="1">encoder step</property>
         </properties>
+        <methods>
+            <!-- get -->
+            <method name="get">request current value output</method>
+            <!-- reset -->
+            <method name="reset">reset current value to @init</method>
+            <!-- set -->
+            <method name="set">set current value without output 
+            <param name="VAL" type="float" required="true">new value</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output current value</xinfo>

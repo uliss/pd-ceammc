@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">keyboard widget</tr>
+                <tr lang="ru">виджет клавиатуры</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,8 +33,7 @@
             <event type="left-click" editmode="false">play selected note: output [NOTE VELOCITY( on
             mouse press and [NOTE 0( on mouse release. Velocity depends on click position: lower
             position produces higher velocity</event>
-            <event type="left-click" editmode="false" keys="Shift">play/stop sustained
-            note.</event>
+            <event type="left-click" editmode="false" keys="Shift">play/stop sustained note</event>
             <event type="left-click" editmode="false" keys="Alt">release all note (send [NOTE 0(
             message for each sustained note)</event>
             <event type="drag" editmode="false">play notes under cursor and release others</event>
@@ -49,30 +49,40 @@
             key</argument>
         </arguments>
         <properties>
-            <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">number of
-            keys</property>
-            <property name="@shift" type="int" default="36" minvalue="6" maxvalue="88">MIDI pitch
-            of starting key</property>
-            <!-- common -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="433 60">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <!-- @active_color -->
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <!-- font -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @keys -->
+            <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">number of
+            keys</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @send -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @shift -->
+            <property name="@shift" type="int" default="36" minvalue="6" maxvalue="88">MIDI pitch
+            of starting key</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="433 60">element size (width, height
+            pair)</property>
         </properties>
         <methods>
             <!-- dump -->

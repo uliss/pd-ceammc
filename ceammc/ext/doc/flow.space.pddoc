@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">space in time messages received at the same logical time</tr>
+                <tr lang="en">spaces in time messages received at the same logical time</tr>
+                <tr lang="ru">распределить во времени сообщения, полученные одновременно</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -15,9 +16,6 @@
             <keywords>space</keywords>
             <since>0.9.1</since>
         </meta>
-        <info>
-            <par>first message is delayed to next scheduler time</par>
-        </info>
         <arguments>
             <argument name="DELAY" type="float" units="millisecond" minvalue="1">time space between
             messages</argument>
@@ -25,12 +23,15 @@
             message</argument>
         </arguments>
         <properties>
+            <!-- @delay -->
             <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
             time-space between messages</property>
-            <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
-            after last outputted message. After that delay output bang to second outlet</property>
+            <!-- @dev -->
             <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">random
             deviation</property>
+            <!-- @done -->
+            <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
+            after last outputted message. After that delay output bang to second outlet</property>
         </properties>
         <inlets>
             <inlet>
@@ -50,6 +51,13 @@
         <example>
             <pdascii>
 <![CDATA[
+[1, 2, 3, 4, 5(
+|
+[flow.space 250]
+|
+[ui.dt]
+
+
 [7, 2, 1, 2, 0, 2, 1, 2 #a( [reset(
 |                           |
 |   [ui.hsl @show_value 1]  |

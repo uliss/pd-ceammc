@@ -1,88 +1,88 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 514 50 Glitch synthesizer by naivesound;
+#X text 519 50 Glitch synthesizer by naivesound;
 #X obj 1 1 cnv 5 765 40 empty empty synth.glitch~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 synth.glitch~;
-#X obj 210 80 cnv 1 555 74 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 A minimal \, modern and easy-to-use synthesizer for
+#X obj 205 78 cnv 1 560 74 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 A minimal \, modern and easy-to-use synthesizer for
 Bytebeat music and not only;
-#X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 215 123 ui.link @background_color 0.98039 0.98039 0.98039
 @title              Glitch @url
 https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7f5b5;
-#X msg 50 182 @expr sin(440);
-#X obj 520 182 r~ \$0-gl;
-#X msg 50 211 byte (t>>6|t|t>>(t>>16))*10+((t>>11)&7);
-#X obj 520 211 ui.scope~ @size 150 100;
-#X msg 50 240 read sur_la_planche.glitch;
-#X obj 376 240 ui.hsl 0.25 4 @show_value 1;
-#X msg 50 269 byte ((t>>3|t^5|t<<4)<<3);
-#X msg 376 269 speed \$1;
-#X msg 50 298 @expr byte((t*5&t>>7)|(t*3&t>>10));
-#X msg 50 326 @expr w=(t>>10)&7\ \,(tri(w*220)+sin(w*220))/2;
-#X msg 50 355 reset \, byte (t*t/256)&(t>>((t/1024)%16))^t%64*(828188282217>>(t>>9&30)&t%32)*t>>18;
-#X msg 50 413 byte (t*((t>>12|t>>8)&63&t>>2));
-#X msg 414 413 reset;
-#X obj 50 442 synth.glitch~ byte(t*(42&t>>10));
-#X obj 50 470 ui.hgain~;
-#X obj 184 470 s~ \$0-gl;
-#X obj 299 470 ui.dsp~;
-#X obj 50 499 dac~;
-#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 554 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 200 @expr sin(440);
+#X obj 520 200 r~ \$0-gl;
+#X msg 50 229 byte (t>>6|t|t>>(t>>16))*10+((t>>11)&7);
+#X obj 520 229 ui.scope~ @size 150 100;
+#X msg 50 258 read sur_la_planche.glitch;
+#X obj 376 258 ui.hsl 0.25 4 @show_value 1;
+#X msg 50 287 byte ((t>>3|t^5|t<<4)<<3);
+#X msg 376 287 speed \$1;
+#X msg 50 316 @expr byte((t*5&t>>7)|(t*3&t>>10));
+#X msg 50 344 @expr w=(t>>10)&7\ \,(tri(w*220)+sin(w*220))/2;
+#X msg 50 373 reset \, byte (t*t/256)&(t>>((t/1024)%16))^t%64*(828188282217>>(t>>9&30)&t%32)*t>>18;
+#X msg 50 431 byte (t*((t>>12|t>>8)&63&t>>2));
+#X msg 414 431 reset;
+#X obj 50 460 synth.glitch~ byte(t*(42&t>>10));
+#X obj 50 488 ui.hgain~;
+#X obj 184 488 s~ \$0-gl;
+#X obj 299 488 ui.dsp~;
+#X obj 50 517 dac~;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 572 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 557 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 575 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 589 1\.;
-#X text 150 589 list;
-#X obj 246 590 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 589 EXPR: Glitch expression. Type: list.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 607 1\.;
+#X text 150 607 list;
+#X obj 246 608 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 607 EXPR: Glitch expression. Type: list.;
+#X obj 20 637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 642 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 627 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 645 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 659 @clip;
-#X text 245 659 Get/Set clip output to -1\..+1 range. Use false value
+#X msg 110 677 @clip;
+#X text 245 677 Get/Set clip output to -1\..+1 range. Use false value
 only when you are know what are you doing and at your own risk!. Type:
 bool. Default value: 1\.;
-#X msg 110 716 @expr;
-#X text 245 716 Get/Set expression. Type: list.;
-#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 761 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 110 734 @expr;
+#X text 245 734 Get/Set expression. Type: list.;
+#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 779 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 796 byte;
-#X text 245 796 set expression wrapper to byte() glitch function.;
-#X msg 110 824 read;
-#X text 245 824 read glitch synth file. Arguments are:;
-#X obj 255 847 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 847 PATH: path to file. Type: atom.;
-#X msg 110 872 reset;
-#X text 245 872 reset synth.;
-#X msg 110 900 speed;
-#X text 245 900 set global playing speed for all synth.glitch~ objects.
+#X msg 110 814 byte;
+#X text 245 814 set expression wrapper to byte() glitch function.;
+#X msg 110 842 read;
+#X text 245 842 read glitch synth file. Arguments are:;
+#X obj 255 865 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 865 PATH: path to file. Type: atom.;
+#X msg 110 890 reset;
+#X text 245 890 reset synth.;
+#X msg 110 918 speed;
+#X text 245 918 set global playing speed for all synth.glitch~ objects.
 Arguments are:;
-#X obj 255 938 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 938 SPEED: speed. Type: float.;
-#X obj 20 973 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 978 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 255 956 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 956 SPEED: speed. Type: float.;
+#X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 996 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 979 1\.;
-#X text 245 979 ...;
-#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1014 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 997 1\.;
+#X text 245 997 ...;
+#X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1032 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1015 1\.;
-#X text 245 1015 synth output.;
+#X text 110 1033 1\.;
+#X text 245 1033 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1065 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1068 library: ceammc v0.9.8;
-#N canvas 10 1087 400 290 info 0;
+#X obj 1 1083 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1086 library: ceammc v0.9.8;
+#N canvas 10 1105 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -106,7 +106,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1087 pd info;
+#X restore 10 1105 pd info;
 #X connect 8 0 10 0;
 #X connect 12 0 14 0;
 #X connect 18 0 20 0;

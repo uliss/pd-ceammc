@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">colorchooser widget</tr>
+                <tr lang="ru">виджет выбора цвета</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,44 +30,63 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@matrix" type="list" default="24 13">matrix size</property>
-            <property name="@index" type="list" default="">color position in panel</property>
-            <property name="@reverse" type="bool" default="0">matrix reversed</property>
-            <property name="@saturation" type="float" default="1" minvalue="0" maxvalue="1">
-            saturation</property>
-            <property name="@hue" type="float" default="0" minvalue="0" maxvalue="1">first
-            hue</property>
-            <property name="@lightness" type="float" default="1" minvalue="0" maxvalue="1">first
-            lightness</property>
-            <property name="@pd" type="int" access="readonly" default="0">pd color value</property>
-            <property name="@rgb" type="list" access="readonly" default="">RGB value triplet on 0-1
-            range</property>
-            <property name="@hsl" type="list" access="readonly" default="">HSL value triplet on 0-1
-            range</property>
-            <property name="@hex" type="symbol" access="readonly" default="">HEX value in format
-            #RRGGBB</property>
-            <!-- common -->
-            <property name="@presetname" type="symbol" default="(null)">preset name for using with
-            [ui.preset]</property>
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="181 105">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <!-- font -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @hex -->
+            <property name="@hex" type="symbol" access="readonly" default="">HEX value in format
+            #RRGGBB</property>
+            <!-- @hsl -->
+            <property name="@hsl" type="list" access="readonly" default="">HSL value triplet on 0-1
+            range</property>
+            <!-- @hue -->
+            <property name="@hue" type="float" default="0" minvalue="0" maxvalue="1">first
+            hue</property>
+            <!-- @index -->
+            <property name="@index" type="list" default="">color position in panel</property>
+            <!-- @lightness -->
+            <property name="@lightness" type="float" default="1" minvalue="0" maxvalue="1">first
+            lightness</property>
+            <!-- @matrix -->
+            <property name="@matrix" type="list" default="24 13">matrix size</property>
+            <!-- @pd -->
+            <property name="@pd" type="int" access="readonly" default="0">pd color value</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @presetname -->
+            <property name="@presetname" type="symbol" default="(null)">preset name for using with
+            [ui.preset]</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @reverse -->
+            <property name="@reverse" type="bool" default="0">matrix reversed</property>
+            <!-- @rgb -->
+            <property name="@rgb" type="list" access="readonly" default="">RGB value triplet on 0-1
+            range</property>
+            <!-- @saturation -->
+            <property name="@saturation" type="float" default="1" minvalue="0" maxvalue="1">
+            saturation</property>
+            <!-- @send -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="181 105">element size (width, height
+            pair)</property>
         </properties>
         <methods>
             <!-- clear -->

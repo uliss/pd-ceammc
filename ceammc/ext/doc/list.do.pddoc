@@ -7,7 +7,9 @@
                 <author>Alex Nadzharov</author>
             </authors>
             <description>
-                <tr lang="en">iterate and modify list contents via side-chain</tr>
+                <tr lang="en">iterate and modify the list contents via a side-chain</tr>
+                <tr lang="ru">итерирование и изменение содержимого списка через боковую цепь
+                обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

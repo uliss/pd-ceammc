@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">set list value at specified position</tr>
+                <tr lang="en">sets the value of the list item at the specified position</tr>
+                <tr lang="ru">устанавливает значение элемента списка в указанной позиции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,7 +22,9 @@
             <argument name="VALUE" type="atom">element value</argument>
         </arguments>
         <properties>
+            <!-- @index -->
             <property name="@index" type="int" default="0">element index</property>
+            <!-- @value -->
             <property name="@value" type="atom">element value</property>
         </properties>
         <inlets>

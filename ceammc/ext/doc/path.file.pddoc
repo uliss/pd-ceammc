@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">file input/output</tr>
+                <tr lang="ru">файловый ввод/вывод</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -16,6 +17,7 @@
             <since>0.9.5</since>
         </meta>
         <properties>
+            <!-- @path -->
             <property name="@path" type="symbol" default="">file path</property>
         </properties>
         <methods>

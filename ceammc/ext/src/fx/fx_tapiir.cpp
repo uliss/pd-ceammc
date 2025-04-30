@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
-#include <chrono>
 #include <random>
 
 CEAMMC_DEFINE_HASH(delays)
@@ -92,78 +91,111 @@ static bool is_tap_input_prop(const char* str)
         && str[9] == '\0';
 }
 
+static void setPropertyRange(Property* prop, t_float min, t_float max)
+{
+    if (prop->info().setConstraints(PropValueConstraints::CLOSED_RANGE)) {
+        if (prop->info().setRangeFloat(min, max)) {
+            if (!prop->setListCheckFn([max, min](const AtomListView& lv) {
+                    return lv.allFloatsOf([max, min](t_float v) { return min <= v && v <= max; });
+                })) {
+                LIB_ERR << "can't set list check function";
+            }
+        } else {
+            LIB_ERR << "can't set property range";
+        }
+    } else {
+        LIB_ERR << "can't set property constraints";
+    }
+}
+
 FxTapiir::FxTapiir(const PdArgs& args)
     : faust_fx_tapiir_tilde(args)
 {
     initTapGroupProps();
 
-    createCbListProperty(
-        "@outs0", [this]() -> AtomList {
+    {
+        auto prop = createCbListProperty(
+            "@outs0", [this]() -> AtomList {
             AtomList res;
             res.reserve(NUM_TAPS);
 
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_outputs_[i]->value());
             return res; },
-        [this](const AtomListView& lv) -> bool {
-            const size_t N = std::min(NUM_TAPS, lv.size());
-            for (size_t i = 0; i < N; i++) {
-                if (!tap_outputs_[i]->set(lv.subView(i, 1)))
-                    return false;
-            }
-            return true;
-        });
+            [this](const AtomListView& lv) -> bool {
+                const size_t N = std::min(NUM_TAPS, lv.size());
+                for (size_t i = 0; i < N; i++) {
+                    if (!tap_outputs_[i]->set(lv.subView(i, 1)))
+                        return false;
+                }
+                return true;
+            });
 
-    createCbListProperty(
-        "@outs1", [this]() -> AtomList {
+        setPropertyRange(prop, 0, 1);
+    }
+
+    {
+        auto prop = createCbListProperty(
+            "@outs1", [this]() -> AtomList {
             AtomList res;
             res.reserve(NUM_TAPS);
 
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_outputs_[NUM_TAPS + i]->value());
             return res; },
-        [this](const AtomListView& lv) -> bool {
-            const size_t N = std::min(NUM_TAPS, lv.size());
-            for (size_t i = 0; i < N; i++) {
-                if (!tap_outputs_[NUM_TAPS + i]->set(lv.subView(i, 1)))
-                    return false;
-            }
-            return true;
-        });
+            [this](const AtomListView& lv) -> bool {
+                const size_t N = std::min(NUM_TAPS, lv.size());
+                for (size_t i = 0; i < N; i++) {
+                    if (!tap_outputs_[NUM_TAPS + i]->set(lv.subView(i, 1)))
+                        return false;
+                }
+                return true;
+            });
 
-    createCbListProperty(
-        "@ins0", [this]() -> AtomList {
+        setPropertyRange(prop, 0, 1);
+    }
+
+    {
+        auto prop = createCbListProperty(
+            "@ins0", [this]() -> AtomList {
             AtomList res;
             res.reserve(NUM_TAPS);
 
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_inputs_[i]->value());
             return res; },
-        [this](const AtomListView& lv) -> bool {
-            const size_t N = std::min(NUM_TAPS, lv.size());
-            for (size_t i = 0; i < N; i++) {
-                if (!tap_inputs_[i]->set(lv.subView(i, 1)))
-                    return false;
-            }
-            return true;
-        });
+            [this](const AtomListView& lv) -> bool {
+                const size_t N = std::min(NUM_TAPS, lv.size());
+                for (size_t i = 0; i < N; i++) {
+                    if (!tap_inputs_[i]->set(lv.subView(i, 1)))
+                        return false;
+                }
+                return true;
+            });
 
-    createCbListProperty(
-        "@ins1", [this]() -> AtomList {
+        setPropertyRange(prop, 0, 1);
+    }
+
+    {
+        auto prop = createCbListProperty(
+            "@ins1", [this]() -> AtomList {
             AtomList res;
             res.reserve(NUM_TAPS);
 
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_inputs_[NUM_TAPS + i]->value());
             return res; },
-        [this](const AtomListView& lv) -> bool {
-            const size_t N = std::min(NUM_TAPS, lv.size());
-            for (size_t i = 0; i < N; i++) {
-                if (!tap_inputs_[NUM_TAPS + i]->set(lv.subView(i, 1)))
-                    return false;
-            }
-            return true;
-        });
+            [this](const AtomListView& lv) -> bool {
+                const size_t N = std::min(NUM_TAPS, lv.size());
+                for (size_t i = 0; i < N; i++) {
+                    if (!tap_inputs_[NUM_TAPS + i]->set(lv.subView(i, 1)))
+                        return false;
+                }
+                return true;
+            });
+
+        setPropertyRange(prop, 0, 1);
+    }
 
     createCbListProperty(
         "@delays", [this]() -> AtomList {
@@ -200,12 +232,12 @@ FxTapiir::FxTapiir(const PdArgs& args)
         })
         ->setUnitsDb();
 
-    createTapFbProp<0>();
-    createTapFbProp<1>();
-    createTapFbProp<2>();
-    createTapFbProp<3>();
-    createTapFbProp<4>();
-    createTapFbProp<5>();
+    setPropertyRange(createTapFbProp<0>(), 0, 1);
+    setPropertyRange(createTapFbProp<1>(), 0, 1);
+    setPropertyRange(createTapFbProp<2>(), 0, 1);
+    setPropertyRange(createTapFbProp<3>(), 0, 1);
+    setPropertyRange(createTapFbProp<4>(), 0, 1);
+    setPropertyRange(createTapFbProp<5>(), 0, 1);
 }
 
 void FxTapiir::m_random(t_symbol* s, const AtomListView& lv)

@@ -20,7 +20,9 @@
             <argument name="C1" type="atom">second value</argument>
         </arguments>
         <properties>
+            <!-- @c0 -->
             <property name="@c0" type="atom">first color</property>
+            <!-- @c1 -->
             <property name="@c1" type="atom">second color</property>
         </properties>
         <inlets>

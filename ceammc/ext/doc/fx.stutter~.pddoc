@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">stutter effect</tr>
+                <tr lang="ru">эффект заикания</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,16 +21,21 @@
             stutter period</argument>
         </arguments>
         <properties>
-            <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
-            units="millisecond">stutter period</property>
+            <!-- @env -->
+            <property name="@env" type="atom">stutter envelope</property>
+            <!-- @maxsize -->
             <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
             units="millisecond" access="initonly">max stutter period</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">stutter mode. If
             'fwd': play loop fragment forwards, 'back': play loop fragment backwards, 'tri': play
             loop fragment in both directions</property>
+            <!-- @speed -->
             <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">loop
             fragment playing speed</property>
-            <property name="@env" type="atom">stutter envelope</property>
+            <!-- @t -->
+            <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
+            units="millisecond">stutter period</property>
         </properties>
         <inlets>
             <inlet type="audio">

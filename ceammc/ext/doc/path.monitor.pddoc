@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">filesystem event monitor</tr>
+                <tr lang="ru">мониторинг событий файловой системы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,6 +20,7 @@
             <argument name="PATH" type="symbol">directory to monitor filesystem events</argument>
         </arguments>
         <properties>
+            <!-- @path -->
             <property name="@path" type="symbol" default="">directory to monitor filesystem
             events</property>
         </properties>

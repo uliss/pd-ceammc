@@ -28,10 +28,12 @@
             @pin</argument>
         </arguments>
         <properties>
+            <!-- @pin -->
             <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">GPIO connection pin</property>
         </properties>
         <methods>
+            <!-- poll -->
             <method name="poll">turn the sensor polling on/off 
             <param name="STATE" type="bool" required="true">poll state</param></method>
         </methods>

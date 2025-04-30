@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Jean Claude Risset's endless glissando</tr>
+                <tr lang="en">Jean-Claude Risset's endless glissando</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,15 +23,19 @@
             speed</argument>
         </arguments>
         <properties>
-            <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso
-            speed</property>
-            <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">main
-            frequency. Units: MIDI note</property>
-            <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
-            glissando range in MIDI note units</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @centroid -->
+            <property name="@centroid" type="float" minvalue="20" maxvalue="120" default="60">main
+            frequency. Units: MIDI note</property>
+            <!-- @range -->
+            <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
+            glissando range in MIDI note units</property>
+            <!-- @rate -->
+            <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso
+            speed</property>
         </properties>
         <methods>
             <!-- reset -->

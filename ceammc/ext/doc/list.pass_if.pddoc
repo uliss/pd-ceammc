@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">leave only elements accepted by predicate</tr>
+                <tr lang="en">leave only elements accepted by side-chain predicate</tr>
+                <tr lang="ru">оставляет в списке только элементы, принятые предикатом боковой цепи
+                обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,7 +25,7 @@
         </meta>
         <info>
             <par>Predicate object should accept atom and output 0 (remove element) or 1 (leave
-            element).</par>
+            element)</par>
         </info>
         <inlets>
             <inlet>

@@ -61,20 +61,21 @@ TEST_CASE("seq.arp", "[externals]")
             t.call("reset");
             REQUIRE(!t.hasOutput());
 
-            t.call("on", LA("f", 64.5));
+            t.call("on", LA("first", 64.5));
             REQUIRE(t.outputListAt(0) == LF(60, 64.5));
             REQUIRE(t.outputFloatAt(1) == 1);
 
             t.call("reset");
-            t.call("on", LA("f", 34.5, 10));
+            t.call("on", LA("first", 34.5, 10));
             REQUIRE(t.outputListAt(0) == LF(60, 34.5));
             REQUIRE(t.outputFloatAt(1) == 1);
 
             t.call("reset");
-            t.call("on", LA("f", 34.5, -1));
+            // invalid call
+            t.call("on", LA("first", 34.5, -1));
             REQUIRE(!t.hasOutput());
 
-            t.call("on", LA("f", 12));
+            t.call("on", LA("first", 12));
             REQUIRE(t.outputFloatAt(1) == 1);
             t.call("off", LA("first"));
             REQUIRE(t.outputFloatAt(1) == 0);
@@ -170,6 +171,45 @@ TEST_CASE("seq.arp", "[externals]")
             REQUIRE(t.messagesAt(1)[0] == Message(2));
             REQUIRE(t.messagesAt(1)[1] == Message(1));
             REQUIRE(t.messagesAt(1)[2] == Message(0.));
+        }
+
+        SECTION("random")
+        {
+            TExt t("seq.arp", LF(60));
+
+            t.call("on", LA("r"));
+            REQUIRE(t.messagesAt(0).size() == 1);
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 127)));
+            REQUIRE(t.messagesAt(1)[0] == Message(1));
+
+            t.call("on", LA("r"));
+            REQUIRE(!t.hasOutput());
+
+            t.call("reset");
+            REQUIRE(!t.hasOutput());
+
+            t.call("on", LA("random", 61));
+            REQUIRE(t.messagesAt(0).size() == 1);
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 61)));
+            REQUIRE(t.messagesAt(1)[0] == Message(1));
+
+            t.call("off", LA("random"));
+            REQUIRE(t.messagesAt(0).size() == 1);
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 0.)));
+            REQUIRE(t.messagesAt(1)[0] == Message(0.));
+        }
+
+        SECTION("random")
+        {
+            TExt t("seq.arp", LF(60));
+
+            t.call("asr", LA(1, "f", 1, "f"));
+            t.schedTicks(100);
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 127)));
+            REQUIRE(t.messagesAt(1)[0] == Message(1));
+            REQUIRE(t.messagesAt(0)[1] == Message(LF(60, 0.)));
+            REQUIRE(t.messagesAt(1)[1] == Message(0.));
         }
     }
 }

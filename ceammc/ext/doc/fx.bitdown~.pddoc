@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">bit downer and downsampler effect</tr>
+                <tr lang="en">a bit downer and downsampler effect</tr>
+                <tr lang="ru">понижение разрядности входного сигнала и эффект даунсемплинга</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,15 +23,19 @@
             of samples to skip</argument>
         </arguments>
         <properties>
-            <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">output
-            bits</property>
-            <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
-            units="sample">number samples to skip</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bits -->
+            <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">output
+            bits</property>
+            <!-- @bypass -->
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <!-- @downsamp -->
+            <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
+            units="sample">number samples to skip</property>
         </properties>
         <methods>
             <!-- reset -->

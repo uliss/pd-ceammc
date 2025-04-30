@@ -1,0 +1,260 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 366 50 список текстовых кнопок или текстовых переключателей;
+#X obj 1 1 cnv 5 765 40 empty empty ui.tab 20 20 0 20 -104026 -4096 0;
+#X obj 694 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.tab] @url ui.tab-help.pd;
+#X msg 50 118 append sqrt;
+#X msg 184 118 set_item 0 white_noise;
+#X msg 472 118 next;
+#X msg 69 147 insert 0 saw;
+#X msg 232 147 delete 1;
+#X msg 347 147 + 1;
+#X msg 472 147 random move;
+#X msg 88 176 erase;
+#X floatatom 165 176 5 0 0 0 - - -;
+#X obj 251 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 290 176 tri;
+#X obj 347 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 472 176 random;
+#X msg 347 205 @toggle \$1;
+#X msg 472 205 flip;
+#X obj 50 234 ui.tab @items sin tri @size 350 15 @nosave 1;
+#X obj 50 262 print;
+#X obj 126 262 ui.dt;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 352 Left-click;
+#X text 285 352 select and output current tab.;
+#X text 110 372 Mouse-move;
+#X text 285 372 highlight hover tab.;
+#X text 110 392 Right-click + ⇧;
+#X text 285 392 open object help.;
+#X text 110 412 Right-click + ⌥;
+#X text 285 412 open properties dialog.;
+#X text 110 432 Right-click;
+#X text 285 432 opens Pd popup menu.;
+#X text 45 432 [Правка];
+#X text 110 452 Right-click + ⇧;
+#X text 285 452 open object help.;
+#X text 45 452 [Правка];
+#X text 110 472 Right-click + ⌥;
+#X text 285 472 open properties dialog.;
+#X text 45 472 [Правка];
+#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 507 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 510 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 542 @items;
+#X text 245 542 Получить/Установить list of tab names. Тип: list.;
+#X msg 110 572 @orientation;
+#X text 245 572 Получить/Установить tab orientation. 1 is vertical
+\, 0 is horizontal. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 614 @receive;
+#X text 245 614 Получить/Установить receive source. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 656 @send;
+#X text 245 656 Получить/Установить send destination. Тип: symbol.
+Значение по умолчанию: (null).;
+#X msg 110 698 @toggle;
+#X text 245 698 Получить/Установить toggle mode. In toggle moe multiple
+selection is possible. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 740 @active_color;
+#X text 245 740 Получить/Установить active color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
+1 1\.;
+#X msg 110 797 @background_color;
+#X text 245 797 Получить/Установить element background color (list
+of red \, green \, blue values in 0-1 range). Тип: list. Значение по
+умолчанию: 0.93 0.93 0.93 1\.;
+#X msg 110 854 @border_color;
+#X text 245 854 Получить/Установить border color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
+0.6 0.6 1\.;
+#X msg 110 911 @hover_color;
+#X text 245 911 Получить/Установить hover color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.5
+0.5 0.5 1\.;
+#X msg 110 968 @text_color;
+#X text 245 968 Получить/Установить text color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0
+0 1\.;
+#X msg 110 1025 @fontname;
+#X text 245 1025 Получить/Установить fontname. Тип: symbol. Значение
+по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
+Helvetica \, Monaco \, Times.;
+#X msg 110 1082 @fontsize;
+#X text 245 1082 Получить/Установить fontsize. Тип: int. Значение по
+умолчанию: 11\. Диапазон: 4\...100\.;
+#X msg 110 1124 @fontslant;
+#X text 245 1124 Получить/Установить font slant. Тип: symbol. Значение
+по умолчанию: roman. Разрешённые значения: roman \, italic.;
+#X msg 110 1166 @fontweight;
+#X text 245 1166 Получить/Установить font weight. Тип: symbol. Значение
+по умолчанию: normal. Разрешённые значения: normal \, bold.;
+#X msg 110 1208 @pinned;
+#X text 245 1208 Получить/Установить pin mode. if 1 - put element to
+the lowest level. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1250 @presetname;
+#X text 245 1250 Получить/Установить preset name for using with [ui.preset].
+Тип: symbol. Значение по умолчанию: (null).;
+#X msg 110 1292 @size;
+#X text 245 1292 Получить/Установить element size (width \, height
+pair). Тип: list. Значение по умолчанию: 100 15\.;
+#X msg 110 1334 @count?;
+#X text 245 1334 (только чтение) Получить number of tabs. Тип: int.
+Значение по умолчанию: 0\.;
+#X msg 110 1376 @current?;
+#X text 245 1376 (только чтение) Получить current selected index (in
+switch mode). Тип: int. Значение по умолчанию: 0\.;
+#X msg 110 1418 @selected?;
+#X text 245 1418 (только чтение) Получить list of selected items (in
+toggle mode). Тип: list.;
+#X obj 20 1470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1475 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1510 append;
+#X text 245 1510 appends new tab item. Аргументы:;
+#X obj 255 1533 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1533 ATOMS: item name. Тип: list.;
+#X msg 110 1558 clear;
+#X text 245 1558 clears specified preset. Аргументы:;
+#X obj 255 1581 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1581 IDX: preset index. Тип: int.;
+#X msg 110 1606 delete;
+#X text 245 1606 removes item from tab. Аргументы:;
+#X obj 255 1629 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1629 IDX: removed item index. Тип: int. Минимальное значение:
+0\.;
+#X msg 110 1654 erase;
+#X text 245 1654 clears all tab menu.;
+#X msg 110 1682 flip;
+#X text 245 1682 flips radio (only in checklist mode).;
+#X msg 110 1710 insert;
+#X text 245 1710 inserts new tab item before specified position. Аргументы:;
+#X obj 255 1733 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1733 IDX: item position. Тип: int. Минимальное значение:
+0\.;
+#X obj 255 1756 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1756 ATOM: item name. Тип: atom.;
+#X msg 110 1781 interp;
+#X text 245 1781 for this object acts as *load* \, no preset interpolation
+performed.;
+#X msg 110 1821 load;
+#X text 245 1821 loads specified preset. Аргументы:;
+#X obj 255 1844 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1844 IDX: preset index. Тип: int.;
+#X msg 110 1869 next;
+#X text 245 1869 moves to next item until last item is reached (single
+mode only). Output new item.;
+#X msg 110 1909 pos;
+#X text 245 1909 set UI element position. Аргументы:;
+#X obj 255 1932 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1932 X: top left x-coord. Тип: float.;
+#X obj 255 1955 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1955 Y: top right y-coord. Тип: float.;
+#X msg 110 1980 prev;
+#X text 245 1980 moves to previous item until first item is reached
+(single mode only). Output new item.;
+#X msg 110 2020 random;
+#X text 245 2020 select random item. If called [random move( moves
+to random item (excluding the current one).;
+#X msg 110 2060 select;
+#X text 245 2060 selects specified item in tab. Аргументы:;
+#X obj 255 2083 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2083 IDX: item index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 2108 set;
+#X text 245 2108 silently sets tab state. Аргументы:;
+#X obj 255 2131 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2131 IDX: item index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 2156 set_item;
+#X text 245 2156 renames tab item. Аргументы:;
+#X obj 255 2179 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2179 IDX: item index. Тип: int. Минимальное значение: 0\.;
+#X obj 255 2202 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2202 ATOMS: item name. Тип: list.;
+#X msg 110 2227 store;
+#X text 245 2227 stores specified preset. Аргументы:;
+#X obj 255 2250 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2250 IDX: preset index. Тип: int.;
+#X msg 110 2275 + STEP;
+#X text 245 2275 moves several steps forward on a loop (single mode
+only) \, output newly selected item.;
+#X msg 110 2315 - STEP;
+#X text 245 2315 moves several step backwards on a loop (single mode
+only) \, output newly selected item.;
+#X obj 20 2365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2370 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 2371 1\.;
+#X text 150 2371 *bang*;
+#X text 245 2371 in single mode outputs tab state as list: INDEX TAB_NAME.
+In toggle mode outputs current state like: @selected 0 1 0 1 0 etc.
+and list of two values: [CHANGED_IDX CHANGED_VALUE].;
+#X text 150 2421 *float*;
+#X text 245 2421 only in single mode: change tab by index and output
+list: INDEX TAB_NAME.;
+#X text 150 2456 *any*;
+#X text 245 2456 selects item equal to given and output list: INDEX
+TAB_NAME.;
+#X obj 20 2486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2491 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 2492 1\.;
+#X text 245 2492 output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 2542 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2545 библиотека: ceammc v0.9.8;
+#X text 565 2557 смотрите также:;
+#X obj 686 2560 ui.link @background_color 0.78431 0.78431 0.78431
+@title [ui.menu] @url ui.menu-help.pd;
+#N canvas 10 2564 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 ui.tab;
+#X text 10 76 категория:;
+#X text 120 76 ui;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Pierre Guillot \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 ui \, tab;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2564 pd info;
+#X connect 15 0 17 0;
+#X connect 4 0 19 0;
+#X connect 7 0 19 0;
+#X connect 11 0 19 0;
+#X connect 12 0 19 0;
+#X connect 5 0 19 0;
+#X connect 8 0 19 0;
+#X connect 13 0 19 0;
+#X connect 14 0 19 0;
+#X connect 17 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 0;
+#X connect 16 0 19 0;
+#X connect 18 0 19 0;
+#X connect 9 0 19 0;
+#X connect 6 0 19 0;
+#X connect 10 0 19 0;

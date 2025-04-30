@@ -20,19 +20,23 @@
             <par>The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis Accelerometer) motion
             tracking device.</par>
         </info>
-        <methods>
-            <method name="poll">start/stop sensor polling 
-            <param name="VALUE" type="bool" required="true">state</param></method>
-            <method name="calibrate">calibrate the sensor. Place it still so that the Z axis is
-            pointing down.</method>
-        </methods>
         <properties>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">I²C bus</property>
+            <!-- @i2c_addr -->
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
             maxvalue="119">I2C address. The value 'default' means default device I²C address
             (0x68), value 'alt': alternative I2C address (0x69, when pin AD0 pull high).</property>
+            <!-- @i2c_bus -->
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
         </properties>
+        <methods>
+            <!-- calibrate -->
+            <method name="calibrate">calibrate the sensor. Place it still so that the Z axis is
+            pointing down.</method>
+            <!-- poll -->
+            <method name="poll">start/stop sensor polling 
+            <param name="VALUE" type="bool" required="true">state</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

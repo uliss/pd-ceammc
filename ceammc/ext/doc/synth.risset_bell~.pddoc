@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Jean Claude Risset's bell synth</tr>
+                <tr lang="en">Jean-Claude Risset's bell synth</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,17 +22,22 @@
             duration</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
-            units="hertz">base frequency</property>
-            <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">freq
-            multiplication coefficient</property>
-            <property name="@dur" type="float" minvalue="10" maxvalue="600000" default="5000"
-            units="millisecond">duration</property>
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
-            - 1: on, 0: off</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @dur -->
+            <property name="@dur" type="float" minvalue="10" maxvalue="600000" default="5000"
+            units="millisecond">duration</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
+            units="hertz">base frequency</property>
+            <!-- @gate -->
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            - 1: on, 0: off</property>
+            <!-- @pfreq -->
+            <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">freq
+            multiplication coefficient</property>
         </properties>
         <methods>
             <!-- reset -->

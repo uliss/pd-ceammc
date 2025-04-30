@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">returns window value by given window position</tr>
+                <tr lang="en">returns the value of the window function</tr>
+                <tr lang="ru">возвращает значение оконной функции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,10 +27,12 @@
             <argument name="SIZE" type="int" minvalue="16" units="sample">window size</argument>
         </arguments>
         <properties>
-            <property name="@type" type="symbol" default="hann">window type. See argument
-            description</property>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="16" default="512" units="sample">window
             size</property>
+            <!-- @type -->
+            <property name="@type" type="symbol" default="hann">window type. See argument
+            description</property>
         </properties>
         <methods>
             <!-- blackman -->

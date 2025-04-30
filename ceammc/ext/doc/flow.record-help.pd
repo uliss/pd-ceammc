@@ -1,76 +1,82 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 552 50 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 552 50 flow stream recorder/player;
+#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 580 50 control flow record/play;
 #X obj 1 1 cnv 5 765 40 empty empty flow.record 20 20 0 20 -104026
 -4096 0;
 #X obj 577 11 flow.rec;
 #X obj 660 11 flow.record;
-#X obj 50 118 ui.keyboard;
+#X obj 50 118 ui.keyboard 24;
 #X msg 107 190 stop;
 #X msg 174 190 play;
 #X msg 242 190 clear;
-#X obj 50 219 flow.record @auto 1;
-#X obj 50 248 msg note;
-#X msg 69 277 notes_off;
-#X obj 50 305 fluid~;
-#X obj 222 305 ui.dsp~;
-#X obj 50 334 ui.hgain2~;
-#X obj 50 363 dac~;
-#X obj 50 392 flow.record-speed;
-#X obj 270 392 flow.record-qlist;
-#X obj 50 421 flow.record-sync;
-#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 476 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 219 flow.record @auto 1 @r -1;
+#X obj 50 248 ui.keyboard 24;
+#X obj 50 363 ui.keyboard;
+#X msg 107 435 stop;
+#X msg 174 435 play;
+#X msg 242 435 clear;
+#X obj 50 464 flow.record @auto 1;
+#X obj 50 493 msg note;
+#X msg 69 521 notes_off;
+#X obj 50 550 fluid~;
+#X obj 222 550 ui.dsp~;
+#X obj 50 579 ui.hgain2~;
+#X obj 50 608 dac~;
+#X obj 50 637 flow.record-speed;
+#X obj 270 637 flow.record-qlist;
+#X obj 50 666 flow.record-sync;
+#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 721 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 724 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 511 @auto;
-#X text 245 511 Get/Set autostart record on first input atom. Type:
+#X msg 110 756 @auto;
+#X text 245 756 Get/Set autostart record on first input atom. Type:
 bool. Default value: 0\.;
-#X msg 110 553 @max;
-#X text 245 553 Get/Set max number of events \, if 0: no max size check.
+#X msg 110 798 @max;
+#X text 245 798 Get/Set max number of events \, if 0: no max size check.
 If @auto is set - starts playback when max size reached. Type: int.
 Default value: 256\. Range: 0\...65536\.;
-#X msg 110 610 @r;
-#X text 245 610 Get/Set number of repeats in play mode. If -1: repeat
+#X msg 110 855 @r;
+#X text 245 855 Get/Set number of repeats in play mode. If -1: repeat
 infinitely. Type: int. Default value: 1\. Min value: -1\.;
-#X msg 110 652 @speed;
-#X text 245 652 Get/Set play speed. Type: float. Default value: 1\.
+#X msg 110 897 @speed;
+#X text 245 897 Get/Set play speed. Type: float. Default value: 1\.
 Range: 0.0156\...64\.;
-#X msg 110 694 @sync;
-#X text 245 694 Get/Set use external bang pulse to sync recorded events
+#X msg 110 939 @sync;
+#X text 245 939 Get/Set use external bang pulse to sync recorded events
 with. Type: bool. Default value: 0\.;
-#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 751 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 996 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 752 1\.;
-#X text 150 752 *any*;
-#X text 245 752 input message.;
-#X text 110 772 2\.;
-#X text 150 772 *bang*;
-#X text 245 772 sync tick (when @sync 1).;
-#X text 245 792 [rec (1|0)?( - start (stop) flow record.;
-#X text 245 812 [play (1|0)?( - play (stop) recorded flow.;
-#X text 245 832 [stop (1|0)?( - stop (play) recording.;
-#X text 245 852 [clear( - remove all recorded messages.;
-#X text 245 872 [flush( - output and remove all recorded messages.;
-#X text 245 892 [qlist( - output to qlist object.;
-#X text 245 912 [length FLOAT|time( - resize recorded messages (remove
+#X text 110 997 1\.;
+#X text 150 997 *any*;
+#X text 245 997 input message.;
+#X text 110 1017 2\.;
+#X text 150 1017 *bang*;
+#X text 245 1017 sync tick (when @sync 1).;
+#X text 245 1037 [rec (1|0)?( - start (stop) flow record.;
+#X text 245 1057 [play (1|0)?( - play (stop) recorded flow.;
+#X text 245 1077 [stop (1|0)?( - stop (play) recording.;
+#X text 245 1097 [clear( - remove all recorded messages.;
+#X text 245 1117 [flush( - output and remove all recorded messages.;
+#X text 245 1137 [qlist( - output to qlist object.;
+#X text 245 1157 [length FLOAT|time( - resize recorded messages (remove
 after specified length).;
-#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 962 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1207 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 963 1\.;
-#X text 245 963 output message.;
+#X text 110 1208 1\.;
+#X text 245 1208 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1013 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1016 library: ceammc v0.9.8;
-#N canvas 10 1035 400 290 info 0;
+#X obj 1 1258 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1261 library: ceammc v0.9.8;
+#N canvas 10 1280 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -94,15 +100,20 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1035 pd info;
+#X restore 10 1280 pd info;
 #X connect 5 0 9 0;
 #X connect 6 0 9 1;
 #X connect 7 0 9 1;
 #X connect 8 0 9 1;
 #X connect 9 0 10 0;
-#X connect 10 0 12 0;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
-#X connect 12 1 14 1;
-#X connect 14 0 15 0;
-#X connect 14 1 15 1;
+#X connect 11 0 15 0;
+#X connect 12 0 15 1;
+#X connect 13 0 15 1;
+#X connect 14 0 15 1;
+#X connect 15 0 16 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 20 0;
+#X connect 18 1 20 1;
+#X connect 20 0 21 0;
+#X connect 20 1 21 1;

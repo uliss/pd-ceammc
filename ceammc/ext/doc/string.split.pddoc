@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">split string or symbol by separator</tr>
+                <tr lang="en">splits the string or symbol into the list by the separator</tr>
+                <tr lang="ru">разбивает строку или символ в список по разделителю</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,7 +33,9 @@
             To separate by space - use " " argument</argument>
         </arguments>
         <properties>
+            <!-- @sep -->
             <property name="@sep" type="symbol" default="">separator</property>
+            <!-- @sym -->
             <property name="@sym" type="flag" access="initonly">flag to output as list of Pd
             symbols</property>
         </properties>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if given lists are equal</tr>
+                <tr lang="en">list equal check</tr>
+                <tr lang="ru">проверка списков на равенство</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,6 +20,7 @@
             <argument name="PATTERN" type="list">initial value</argument>
         </arguments>
         <properties>
+            <!-- @pattern -->
             <property name="@pattern" type="list" default="">current pattern</property>
         </properties>
         <methods>

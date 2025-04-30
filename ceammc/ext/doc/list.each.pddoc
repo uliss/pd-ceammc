@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">maps each list value via external side-chain</tr>
+                <tr lang="en">maps an each list value via an external side-chain</tr>
+                <tr lang="ru">отображает каждое значение списка через внешнюю боковую цепь
+                обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,6 +31,7 @@
             property</argument>
         </arguments>
         <properties>
+            <!-- @step -->
             <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">number of
             elements outputted to rightmost outlet on each iteration</property>
         </properties>

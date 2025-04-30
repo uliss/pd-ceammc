@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">string constructor</tr>
+                <tr lang="en">constructs the string</tr>
+                <tr lang="ru">создание строки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,6 +25,7 @@
             <argument name="VALUE" type="list">initial string</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="list" default="">string value</property>
         </properties>
         <methods>

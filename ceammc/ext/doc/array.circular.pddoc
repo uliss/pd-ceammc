@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">array read/write as circular buffer</tr>
+                <tr lang="en">read/write to the array as circular buffer</tr>
+                <tr lang="ru">чтение/запись в массив, как в кольцевой буфер</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,7 +23,9 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">array redraw after change</property>
         </properties>
         <inlets>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sync addition</tr>
+                <tr lang="ru">синхронное сложение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,6 +28,7 @@
             <argument name="F" type="float">second addend</argument>
         </arguments>
         <properties>
+            <!-- @int -->
             <property name="@int" type="flag" default="0" access="initonly">operate on integers
             only</property>
         </properties>

@@ -1,0 +1,112 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 414 50 cnv 1 351 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 419 50 query the system management control in Apples;
+#X obj 1 1 cnv 5 765 40 empty empty hw.apple_smc 20 20 0 20 -104026
+-4096 0;
+#X obj 653 11 hw.apple_smc;
+#X msg 50 118 TC0P;
+#X text 107 118 cpu temp;
+#X obj 50 147 symbol;
+#X symbolatom 50 176 10 0 0 0 - - -;
+#X msg 184 176 @keys?;
+#X msg 50 205 read \$1;
+#X obj 50 234 hw.apple_smc;
+#X obj 50 262 @->;
+#X floatatom 50 291 5 0 0 0 - - -;
+#X obj 117 291 print;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 381 @keys?;
+#X text 245 381 (только чтение) Получить list of all found SMC key.
+Тип: list. Значение по умолчанию: #KEY $Adr $Num +LKS ACCL ACEN ACFP
+ACIC ACID ACIN ACLM AL! ALA0 ALA1 ALA2 ALA3 ALA4 ALA5 ALAT ALFC ALI0
+ALI1 ALP0 ALP1 ALRV ALSC ALSF ALSL ALT0 ALT1 ALTH ALV0 ALV1 AUPO B0AC
+B0AV B0Al B0Am B0Ar B0As B0At B0Au B0BI B0CT B0FC B0LI B0RI B0RM B0St
+B0TF BATP BBAD BBIN BC1V BC2V BC3V BCHA BCHB BCHF BCHG BCHL BCHO BCHP
+BCHR BCHT BCHX BCLM BCMV BEMB BFCT BILB BILO BLPT BNCM BNCR BNum BPII
+BPIT BRII BRIT BRSC BSAC BSIn BTIL BTTI BTVI BTVR BTVT BWLM CHBI CHBV
+CHGC CHGD CHGI CHGV CHLC CLK! CLKC CLKH CLKS CLKT CLSD CLWK CRCB CRCU
+DPLM ECIP ECIT EPCA EPCF EPCI EPCV EPMA EPMI EPUA EPUF EPUI EPUV EVCT
+EVMD EVRD F0Ac F0ID F0Mn F0Mt F0Mx F0Tg FMAx FNum FPDc FPhz FS! FSDc
+G3WD HBKP HBKT HBWK HDBS HDST HDSW IB0R IB0r IC0C IC0R IC0c IC0r IC1C
+IC1c ID0R ID0r IN0C IN0c IO0R IO0r KWS4 LAcN LAtN LC2D LC2E LCCN LCCQ
+LCKA LCSA LCTN LCTQ LDEN LDI2 LDS4 LDSP LDWE LKSB LS! LSCF LSDD LSDU
+LSFD LSFU LSLB LSLF LSLN LSOF LSOO LSPV LSRB LSSB LSSE LSSS LSSV LSUP
+MACA MACM MACR MOCF MOCN MOHD MOHT MOLD MOLT MOST MOTP MOVX MOVY MOVZ
+MO_X MO_Y MO_Z MSAL MSAc MSAf MSAg MSAm MSBC MSBP MSBc MSBp MSDI MSDW
+MSG3 MSLB MSLC MSLD MSLF MSLG MSLP MSLT MSPA MSPC MSPS MSPs MSSD MSSE
+MSSF MSSG MSSP MSSS MSTC MSTM MSTS MSTc MSTf MSTg MSTm MSWA MSWE MSWF
+MSWO MSWP MSWR MSWr MSXC MSXD MSXK MSXN MSXS MSXb MSXc MSXd MSXk MSXm
+MSXn MSXs MSa! MSac MSaf MSag MSam MSap MVDS MVS4 NACK NATJ NATi NOPB
+NTOK ONMI PB0R PC0C PC0R PCPC PCPG PCPL PCPT PD0R PHPC PN0C PO0R PTHC
+PZ0F PZ0S RBr REV RMde RPlt RSvn RVBF RVUF SAS! SBF SBFC SBFD SBFE
+SBFN SBFU SBS! SCIA SCII SCIL SCXC SDAF SDAS SDRd SFBR SIS! SIT! SIU!
+SMBC SMBG SMBR SMBS SMBW SPH0 SPHR SPHS SPHT SPHZ SPS! SPT! SWER Sr0P
+Sr0T Sr1P Sr1T Sw0P Sw0T Sw1P Sw1T Sw2P Sw2T Sw3P Sw3T Sw4P Sw4T TB0T
+TB1T TB2T TC0C TC0D TC0E TC0F TC0J TC0P TC1C TC2C TCFC TCGC TCSA TCTD
+TM0P TM0S TMBS TP0P TPCD TW0P Th1H Ts0P Ts0S UPRC VC0C VC0c VD0R VD0r
+VN0R VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
+#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 921 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 956 read;
+#X text 245 956 query specified SMC key. Аргументы:;
+#X obj 255 979 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 979 KEY: SMC key. Тип: symbol.;
+#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1019 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1020 1\.;
+#X text 245 1020 input.;
+#X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1055 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1056 1\.;
+#X text 245 1056 output key value.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 1106 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1109 библиотека: ceammc v0.9.8;
+#X text 437 1121 смотрите также:;
+#X obj 558 1121 hw.apple_sms;
+#X obj 660 1121 system.info;
+#N canvas 10 1128 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.apple_smc;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 motion \, sensor;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1128 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 9 0;
+#X connect 9 0 10 0;
+#X connect 8 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;

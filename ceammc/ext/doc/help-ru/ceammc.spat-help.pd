@@ -1,0 +1,93 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 488 50 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 493 50 работа с пространственным звуком;
+#X obj 30 117 hoa.2d.decoder~;
+#X text 200 117 двумерный декодер амбисоников высоких порядков;
+#X obj 30 145 hoa.2d.encoder~;
+#X text 200 145 двумерный кодировщик амбисоников высоких порядков;
+#X obj 30 173 hoa.2d.exchanger~;
+#X text 200 173 перенумерование и нормализация каналов в двумерных
+амбисониках;
+#X obj 30 213 hoa.2d.map~;
+#X text 200 213 многоканальное управление пространственными источниками
+в двумерных амбисониках;
+#X obj 30 253 hoa.2d.optim~;
+#X text 200 253 оптимизация двумерных амбисоников;
+#X obj 30 281 hoa.2d.projector~;
+#X text 200 281 декомпозиция из сферических гармоник в плоские волны;
+#X obj 30 309 hoa.2d.recomposer~;
+#X text 200 309 декомпозиция плоских двумерных волн в сферические гармоники;
+#X obj 30 337 hoa.2d.rotate~;
+#X text 200 337 вращение двумерного амбисонического звукового поля;
+#X obj 30 368 ui.link @title [hoa.2d.space] @url hoa.2d.space-help.pd;
+#X text 200 365 контроль амплитуды двумерных плоских волн;
+#X obj 30 390 hoa.2d.wider~;
+#X text 200 390 двумерная симуляция дробного амбисонического порядка;
+#X obj 30 418 hoa.3d.decoder~;
+#X text 200 418 трехмерный декодер амбисоников высоких порядков;
+#X obj 30 446 hoa.3d.encoder~;
+#X text 200 446 3D кодировщик амбисоников высоких порядков;
+#X obj 30 474 hoa.3d.exchanger~;
+#X text 200 474 перенумерование и нормализация каналов;
+#X obj 30 502 hoa.3d.map~;
+#X text 200 502 многоканальное управление пространственными источниками
+для трехмерных амбисоников;
+#X obj 30 545 ui.link @title [hoa.3d.meter~] @url
+hoa.3d.meter~-help.pd;
+#X text 200 542 трехмерный измеритель уровня звукового поля;
+#X obj 30 567 hoa.3d.optim~;
+#X text 200 567 оптимизация трехмерных амбисоников высоких порядков;
+#X obj 30 598 ui.link @title [hoa.3d.scope~] @url
+hoa.3d.scope~-help.pd;
+#X text 200 595 отображение сферических гармоник в трехмерном амбисоническом
+поле;
+#X obj 30 635 hoa.3d.wider~;
+#X text 200 635 трехмерная симуляция дробного амбисонического порядка;
+#X obj 30 663 hoa.@process;
+#X text 200 663 управление свойствами объекта [hoa.process~];
+#X obj 30 691 hoa.in;
+#X text 200 691 контрольный вход для патча \, загружаемого объектом
+[hoa.process~];
+#X obj 30 731 hoa.in~;
+#X text 200 731 сигнальный вход для патча \, загружаемого объектом
+[hoa.process~];
+#X obj 30 774 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
+#X text 200 771 GUI для пространственного размещения источников;
+#X obj 30 796 hoa.out;
+#X text 200 796 контрольный выход для патча \, загружаемого объектом
+[hoa.process~];
+#X obj 30 836 hoa.out~;
+#X text 200 836 сигнальный выход для патча \, загружаемого объектом
+[hoa.process~];
+#X obj 30 876 hoa.process~;
+#X text 200 876 загрузчик патчей для многоканальной обработки;
+#X obj 30 907 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
+#X text 200 904 отображение сферических гармоник в двумерном амбисоническом
+поле;
+#X obj 30 944 pan.cos~;
+#X text 200 944 двухканальное косинусное панорамирование равной мощности;
+#X obj 30 972 pan.linsig~;
+#X text 200 972 двухканальное линейное панорамирование управляемое
+сигналом;
+#X obj 30 1000 pan.lin~;
+#X text 200 1000 двухканальное линейное панорамирование;
+#X obj 30 1028 pan.spread~;
+#X text 200 1028 распределяет входные каналы по стереополю;
+#X obj 30 1056 pan.sqrt~;
+#X text 200 1056 двухканальное квадратичное панорамирование равной
+мощности;
+#X obj 30 1084 spat.pan4~;
+#X text 200 1084 GMEM SPAT: 4-outputs spatializer;
+#X obj 30 1112 spat.pan8~;
+#X text 200 1112 GMEM SPAT: 8-outputs spatializer;
+#X obj 30 1140 spat.zita6x8~;
+#X text 200 1140 spat with 6 inputs sources to 8 channel output;
+#X obj 30 1168 spat.zita8~;
+#X text 200 1168 8 channel reverb spatializer;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::spat 20 20 0 20 -104026
+-4096 0;
+#X obj 1 1196 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1206 library: ceammc;

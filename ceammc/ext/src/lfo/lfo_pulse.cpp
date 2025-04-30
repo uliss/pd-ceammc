@@ -3,22 +3,25 @@
 using namespace ceammc;
 
 class LfoPulse : public faust_lfo_pulse_tilde {
-    FloatProperty* freq_;
+    FloatProperty* freq_ { nullptr };
 
 public:
-    LfoPulse(const PdArgs& args)
+    explicit LfoPulse(const PdArgs& args)
         : faust_lfo_pulse_tilde(args)
         , freq_(nullptr)
     {
         createInlet();
 
-        freq_ = new FloatProperty("@initfreq", 0);
-        freq_->setInitOnly();
+        freq_ = new FloatProperty("@freq", 0);
+        freq_->setSuccessFn([this](Property*) {
+            setInitSignalValue(freq_->value());
+        });
         freq_->setUnitsHz();
-        freq_->setSuccessFn([this](Property*) { setInitSignalValue(freq_->value()); });
+        freq_->checkClosedRange(0, 1000);
+        freq_->setArgIndex(0);
         addProperty(freq_);
 
-        bindPositionalArgsToProps({ gensym("@initfreq"), gensym("@duty") });
+        bindPositionalArgToProperty(1, gensym("@duty"));
     }
 
     void onInlet(size_t n, const AtomListView&) override

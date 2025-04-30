@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert time in seconds to number of samples according to current
-                samplerate</tr>
+                <tr lang="en">converts time in seconds to number of samples according to current
+                sample rate</tr>
+                <tr lang="ru">преобразует секунды в количество семплов согласно текущей скорости
+                семплирования</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">square root function</tr>
+                <tr lang="ru">функция квадратного корня</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

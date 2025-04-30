@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 636 50 cnv 1 129 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 636 50 One track looper;
+#X obj 597 50 cnv 1 168 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 602 50 a single track looper;
 #X obj 1 1 cnv 5 765 40 empty empty fx.looper~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 fx.looper~;

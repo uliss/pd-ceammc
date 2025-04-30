@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 477 50 cnv 1 288 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 477 50 returns current screen size in pixels;
+#X text 482 50 returns current screen size in pixels;
 #X obj 1 1 cnv 5 765 40 empty empty system.screen_size 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 system.screen_size;

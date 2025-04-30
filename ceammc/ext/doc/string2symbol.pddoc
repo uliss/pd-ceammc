@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">converts string to symbol</tr>
+                <tr lang="en">converts the string into the symbol</tr>
+                <tr lang="ru">преобразует строку в символ</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

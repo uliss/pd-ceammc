@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">audio stream stereo demultiplexer</tr>
+                <tr lang="ru">демультиплексор стерео аудиопотока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,10 +30,12 @@
             stereo-pairs</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list" default="">gain coefficients per each
-            output</property>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="2" default="2" maxvalue="16"
             access="initonly">number of output stereo channels</property>
+            <!-- @value -->
+            <property name="@value" type="list" default="">gain coefficients per each
+            output</property>
         </properties>
         <inlets>
             <inlet type="audio">

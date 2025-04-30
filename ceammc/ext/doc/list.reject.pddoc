@@ -7,21 +7,20 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">remove specified element from list</tr>
+                <tr lang="en">remove specified elements from the list</tr>
+                <tr lang="ru">удаляет указанные элементы из списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list pass reject</keywords>
             <since>0.9.5</since>
-            <also>
-                <see>list.reject_if</see>
-            </also>
         </meta>
         <arguments>
             <argument name="ARGS" type="list">list of rejected values</argument>
         </arguments>
         <properties>
+            <!-- @args -->
             <property name="@args" type="list" default="">list of rejected values</property>
         </properties>
         <inlets>

@@ -1,0 +1,10 @@
+#N canvas 0 0 319 185 12;
+#X floatatom 20.0 48.8 5 0 0 0 - - -;
+#X obj 202 48 ui.dsp~;
+#X obj 20 77 lfo.impulse~ 8;
+#X obj 20 106 ui.hgain~;
+#X obj 20 135 dac~;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 4 1;

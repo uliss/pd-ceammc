@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">patch properties manager</tr>
+                <tr lang="en">get or set the patch properties</tr>
+                <tr lang="ru">получение или установка свойств патча</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -48,7 +49,7 @@
 |     |           |        |
 [patch.props               ]
 |
-[ui.display @display_type 1]
+[ui.dt]
 
 [F]          [F]
 |            |

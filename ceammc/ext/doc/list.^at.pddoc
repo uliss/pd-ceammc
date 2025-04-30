@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">on input index(es) outputs list element(s)</tr>
+                <tr lang="en">outputs elements from a predefined list based on an input list of
+                indices</tr>
+                <tr lang="ru">выводит элементы предварительно заданного списка по входящему списку
+                индексов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,18 +25,25 @@
             <argument name="VALUE" type="list">list contents</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list" default="">list contents</property>
-            <property name="@default" type="atom" default="None">default output value if element
-            was not found</property>
-            <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">methods
-            of processing of negative/invalid indexes</property>
-            <property name="@rel" type="alias">alias to @method rel. Negative index means position
-            from the end of the list</property>
+            <!-- @clip -->
             <property name="@clip" type="alias">alias to @method clip. If index &lt; 0 - return
             first element. If index greater or equal list size - return last element</property>
+            <!-- @default -->
+            <property name="@default" type="atom" default="None">default output value if element
+            was not found</property>
+            <!-- @fold -->
             <property name="@fold" type="alias">alias to @method fold. In range [0, LIST_SIZE)
             ordinal elements are returned. [LIST_SIZE, 2*LIST_SIZE) - returned in negative order
             etc.</property>
+            <!-- @method -->
+            <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">methods
+            of processing of negative/invalid indexes</property>
+            <!-- @rel -->
+            <property name="@rel" type="alias">alias to @method rel. Negative index means position
+            from the end of the list</property>
+            <!-- @value -->
+            <property name="@value" type="list" default="">list contents</property>
+            <!-- @wrap -->
             <property name="@wrap" type="alias">alias to @method wrap. In range [0, LIST_SIZE)
             ordinal elements are returned. Other indexes are wrapped by modulo division.</property>
         </properties>
@@ -56,7 +66,7 @@
 |    |
 [list.^at A B C D E F G H]
 |
-[ui.display @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

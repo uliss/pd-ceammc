@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 491 50 prepend message before received one;
+#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 450 50 inject the message before the current one;
 #X obj 1 1 cnv 5 765 40 empty empty flow.prepend 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 flow.prepend;
@@ -10,7 +10,7 @@
 #X obj 98 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 232 176 other prepend message;
-#X obj 50 205 flow.prepend @message 1 2 3;
+#X obj 50 205 flow.prepend @msg 1 2 3;
 #X obj 50 234 print;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144

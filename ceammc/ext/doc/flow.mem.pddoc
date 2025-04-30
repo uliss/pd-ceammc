@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">store data flow in memory</tr>
+                <tr lang="en">store into the memory or output the control flow messages</tr>
+                <tr lang="ru">сохраняет в памяти или выводит сообщения потока управления</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,10 +23,13 @@
             property</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" default="1" minvalue="1" maxvalue="32">number of memory
-            cells</property>
+            <!-- @free -->
             <property name="@free" type="bool" default="1">clear cell mode. If on - clear cell
             counter after zero was reached.</property>
+            <!-- @n -->
+            <property name="@n" type="int" default="1" minvalue="1" maxvalue="32">number of memory
+            cells</property>
+            <!-- @ttl -->
             <property name="@ttl" type="int" default="0" minvalue="0" maxvalue="1024">time to live
             counter. Each time you set new value its memory cell counter is set to this. Each time
             memory cell is outputted individual memory cell ttl counter (not this property!) is

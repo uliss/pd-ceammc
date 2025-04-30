@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">patcher loader for multichannel processing</tr>
+                <tr lang="ru">загрузчик патчей для многоканальной обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -52,14 +53,18 @@
             <argument name="ARGS" type="list">instance arguments</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
-            access="initonly">the order of decomposition/number of planewaves</property>
-            <property name="@patch" type="symbol" access="initonly" default="">patch
-            name</property>
-            <property name="@domain" type="symbol" access="initonly" default="harmonics"
-            enum="harmonics planewaves">process domain: harmonics or planewaves</property>
+            <!-- @args -->
             <property name="@args" type="list" access="initonly" default="">arguments passed to
             instances</property>
+            <!-- @domain -->
+            <property name="@domain" type="symbol" access="initonly" default="harmonics"
+            enum="harmonics planewaves">process domain: harmonics or planewaves</property>
+            <!-- @n -->
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
+            access="initonly">the order of decomposition/number of planewaves</property>
+            <!-- @patch -->
+            <property name="@patch" type="symbol" access="initonly" default="">patch
+            name</property>
         </properties>
         <methods>
             <!-- dump -->

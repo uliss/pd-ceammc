@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert frequency in BPM to period in seconds</tr>
+                <tr lang="en">converts the BPM tempo into a period in seconds</tr>
+                <tr lang="ru">преобразует темп BPM в период между ударными долями в секундах</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

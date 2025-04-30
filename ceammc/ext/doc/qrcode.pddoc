@@ -22,13 +22,19 @@
             <argument name="VALUE" type="symbol">initial string value</argument>
         </arguments>
         <properties>
-            <property name="@value" type="symbol" default="">string value</property>
+            <!-- @high -->
+            <property name="@high" type="alias">alias to @quality high</property>
+            <!-- @low -->
+            <property name="@low" type="alias">alias to @quality low</property>
+            <!-- @medium -->
+            <property name="@medium" type="alias">alias to @quality medium</property>
+            <!-- @quality -->
             <property name="@quality" type="symbol" enum="low medium quartile high" default="low">
             encoding quality</property>
-            <property name="@low" type="alias">alias to @quality low</property>
-            <property name="@medium" type="alias">alias to @quality medium</property>
+            <!-- @quartile -->
             <property name="@quartile" type="alias">alias to @quality quartile</property>
-            <property name="@high" type="alias">alias to @quality high</property>
+            <!-- @value -->
+            <property name="@value" type="symbol" default="">string value</property>
         </properties>
         <inlets>
             <inlet>

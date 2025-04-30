@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">get/set named property value for subpatch or abstraction</tr>
+                <tr lang="en">get/set the named property value for subpatch or abstraction</tr>
+                <tr lang="ru">получить/установить именованное значение свойства для субпатча или
+                абстракции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,8 +25,8 @@
             </aliases>
         </meta>
         <info>
-            <par>Property should be declared with [prop.declare]. Min/max limits can be set to
-            property</par>
+            <par>The property should be declared with [prop.declare]. Min/max limits can be set to
+            the property</par>
         </info>
         <arguments>
             <argument name="@NAME" type="symbol">property name</argument>

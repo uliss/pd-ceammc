@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">formats string like printf.</tr>
+                <tr lang="en">formats a string like printf function</tr>
+                <tr lang="ru">форматирует строки в стиле функции printf</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,7 +26,9 @@
             <argument name="FORMAT" type="list">format string</argument>
         </arguments>
         <properties>
+            <!-- @format -->
             <property name="@format" type="list" default="">format string</property>
+            <!-- @int -->
             <property name="@int" type="flag" default="0" access="initonly">flag for integer mode.
             If specified all floats are converted to integers. This usefull for hex and octal
             formatting</property>

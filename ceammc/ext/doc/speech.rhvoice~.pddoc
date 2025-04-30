@@ -31,16 +31,21 @@
             <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
         </info>
         <properties>
-            <property name="@voice" type="symbol" default="Anna">voice</property>
-            <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">speaking
-            rate</property>
+            <!-- @pitch -->
             <property name="@pitch" type="float" default="0" minvalue="-1" maxvalue="1">voice
             pitch</property>
-            <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">voice
-            volume</property>
+            <!-- @punct -->
             <property name="@punct" type="symbol" default="">punctuation for pronunciation. If
             'all' - pronounce all, otherwise pronounce only specified punctuation
             characters.</property>
+            <!-- @rate -->
+            <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">speaking
+            rate</property>
+            <!-- @voice -->
+            <property name="@voice" type="symbol" default="Anna">voice</property>
+            <!-- @volume -->
+            <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">voice
+            volume</property>
         </properties>
         <methods>
             <!-- clear -->
@@ -128,7 +133,6 @@
            |
            |
           [print OUT]
-
 ]]>
             </pdascii>
             <pdascii id="extra">

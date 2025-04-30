@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">pass specified values</tr>
+                <tr lang="ru">пропускает указанные значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,6 +28,7 @@
             <argument name="VALUES" type="list">atoms to pass</argument>
         </arguments>
         <properties>
+            <!-- @values -->
             <property name="@values" type="list" default="">atoms to pass</property>
         </properties>
         <inlets>
@@ -54,7 +56,7 @@
 |  |   |      | |
 [flow.pass 1 10 100 a z]
 |
-[ui.display @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

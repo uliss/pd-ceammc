@@ -1,82 +1,95 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 400 50 cnv 1 365 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 400 50 multi-channel control flow sync queue (or FIFO);
+#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 389 50 multichannel message queue with sync capabilities;
 #X obj 1 1 cnv 5 765 40 empty empty flow.queue 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flow.queue;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 174 118 ui.dsp~;
-#X obj 50 147 metro 200;
-#X obj 50 176 random.i 48 72;
-#X obj 50 205 makenote 127 180;
-#X obj 50 234 pack f f;
-#X obj 78 262 flow.queue 8 @auto_pop 1;
-#X obj 50 291 msg note;
-#X obj 174 291 msg note;
-#X obj 50 320 synth.ks~;
-#X obj 174 320 synth.ks~;
-#X obj 50 349 ui.hgain2~;
-#X obj 50 378 dac~;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 50 118 single-lane sync message queue with size=5;
+#X msg 50 147 bang \, 100 \, symbol S \, 1 2 3 \, msg A B C;
+#X obj 434 147 ui.b @label Pop;
+#X obj 50 205 flow.queue 5, f 30;
+#X obj 50 234 ui.dt;
+#X text 50 277 single-lane async message queue with size=3 \,;
+#X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 334 flow.count;
+#X floatatom 69 363 5 0 0 0 - - -;
+#X msg 242 363 bang;
+#X obj 50 392 flow.queue 3 @auto_pop 1;
+#X obj 50 421 ui.dt;
+#X obj 50 478 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 174 478 ui.dsp~;
+#X obj 50 507 metro 200;
+#X obj 50 536 random.i 48 72;
+#X obj 50 565 makenote 127 180;
+#X obj 50 594 pack f f;
+#X obj 78 622 flow.queue 8 @auto_pop 1;
+#X obj 50 651 msg note;
+#X obj 174 651 msg note;
+#X obj 50 680 synth.ks~;
+#X obj 174 680 synth.ks~;
+#X obj 50 709 ui.hgain2~;
+#X obj 50 737 dac~;
+#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 792 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 795 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 468 1\.;
-#X text 150 468 int;
-#X obj 246 469 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 468 MAX_SIZE: max queue size. Type: int. Range: 1\...1024;
-#X text 110 488 2\.;
-#X text 150 488 int;
-#X obj 246 489 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 488 N: number of lines. Type: int. Range: 1\...32;
-#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 827 1\.;
+#X text 150 827 int;
+#X obj 246 828 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 827 MAX_SIZE: max queue lane size. Type: int. Range: 1\...1024;
+#X text 110 847 2\.;
+#X text 150 847 int;
+#X obj 246 848 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 847 N: number of lanes. Type: int. Range: 1\...32;
+#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 882 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 526 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 885 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 558 @auto_pop;
-#X text 245 558 Get/Set auto pop mode. If true automatically pops oldest
+#X msg 110 917 @auto_pop;
+#X text 245 917 Get/Set auto pop mode. If true automatically pops oldest
 elements when queue is full. Type: bool. Default value: 0\.;
-#X msg 110 600 @max_size;
-#X text 245 600 Get/Set max queue size. Type: int. Default value: 32\.
-Range: 1\...1024\.;
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 657 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 110 658 1\.;
-#X text 150 658 *any*;
-#X text 245 658 1st queue input messages.;
-#X text 110 678 ....;
-#X text 150 678 *any*;
-#X text 245 678 ... queue input messages.;
-#X text 110 698 n.;
-#X text 150 698 *any*;
-#X text 245 698 n-th queue input messages.;
-#X text 110 718 n+1\.;
-#X text 150 718 *any*;
-#X text 245 718 clear: remove all elements from all queues \, output:
+#X msg 110 959 @max_size;
+#X text 245 959 Get/Set max queue lane size. Type: int. Default value:
+32\. Range: 1\...1024\.;
+#X obj 20 1011 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1016 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1017 1\.;
+#X text 150 1017 *any*;
+#X text 245 1017 1st queue input messages.;
+#X text 110 1037 ....;
+#X text 150 1037 *any*;
+#X text 245 1037 ... queue input messages.;
+#X text 110 1057 n.;
+#X text 150 1057 *any*;
+#X text 245 1057 n-th queue input messages.;
+#X text 110 1077 n+1\.;
+#X text 150 1077 *any*;
+#X text 245 1077 clear: remove all elements from all queues \, output:
 output all element from all queues \, flush: output and clear all element
 from all queues \, bang or pop: output and remove first message in
 all queues.;
-#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 798 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1152 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1157 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 799 1\.;
-#X text 245 799 1st queue output.;
-#X text 110 819 ....;
-#X text 245 819 ... queue output.;
-#X text 110 839 n.;
-#X text 245 839 n-th queue output.;
+#X text 110 1158 1\.;
+#X text 245 1158 1st queue output.;
+#X text 110 1178 ....;
+#X text 245 1178 ... queue output.;
+#X text 110 1198 n.;
+#X text 245 1198 n-th queue output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 889 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 892 library: ceammc v0.9.8;
-#N canvas 10 911 400 290 info 0;
+#X obj 1 1248 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1251 library: ceammc v0.9.8;
+#N canvas 10 1270 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,18 +113,26 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 911 pd info;
-#X connect 4 0 6 0;
-#X connect 6 0 7 0;
+#X restore 10 1270 pd info;
+#X connect 5 0 7 0;
 #X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 8 1 9 1;
-#X connect 9 0 10 0;
-#X connect 9 0 11 0;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 12 0 14 0;
-#X connect 13 0 15 0;
-#X connect 14 0 15 1;
-#X connect 15 0 16 0;
-#X connect 15 1 16 1;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 11 0 14 0;
+#X connect 13 0 14 1;
+#X connect 14 0 15 0;
+#X connect 16 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 20 1 21 1;
+#X connect 21 0 22 0;
+#X connect 21 0 23 0;
+#X connect 22 0 24 0;
+#X connect 23 0 25 0;
+#X connect 24 0 26 0;
+#X connect 25 0 27 0;
+#X connect 26 0 27 1;
+#X connect 27 0 28 0;
+#X connect 27 1 28 1;
+#X connect 6 0 7 1;

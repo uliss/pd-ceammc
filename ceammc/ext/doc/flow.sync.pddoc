@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">bus with only hot inlets</tr>
+                <tr lang="en">sync multichannel bus</tr>
+                <tr lang="ru">синхронная многоканальная шина</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,9 +28,14 @@
             leftmost</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="16">Number of
+            <argument name="N" type="int" minvalue="2" maxvalue="16">Number of
             input/outputs</argument>
         </arguments>
+        <properties>
+            <!-- @n -->
+            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2"
+            access="initonly">number of inputs/outputs</property>
+        </properties>
         <inlets dynamic="true">
             <inlet>
                 <xinfo>first inlet</xinfo>
@@ -57,11 +63,11 @@
 |   |.  |..
 [flow.sync 3]
 |  ^|   ^^|
-|   |   [ui.d @display_type 1]
+|   |   [ui.dt]
 |   |
-|   [ui.d @display_type 1]
+|   [ui.dt]
 |
-[ui.d @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

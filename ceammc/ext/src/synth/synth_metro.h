@@ -73,12 +73,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -194,14 +194,14 @@ class FAUST_API synth_metro_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,14 +221,14 @@ class FAUST_API synth_metro_dsp {
         virtual synth_metro_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -664,7 +664,7 @@ class synth_metro : public synth_metro_dsp {
 		m->declare("analyzers.lib/version", "1.2.0");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.17.1");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
 		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -900,7 +900,7 @@ class synth_metro : public synth_metro_dsp {
 			float fTemp9 = ((fTemp8 > fRec1[1]) ? fConst5 : fConst4);
 			fRec1[0] = fTemp8 * (1.0f - fTemp9) + fRec1[1] * fTemp9;
 			fRec0[0] = fConst1 * fRec0[1] - fConst2 * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec1[0])) + 6.0f, 0.0f);
-			output0[i0] = FAUSTFLOAT(fSlow0 * std::pow(1e+01f, 0.05f * fRec0[0]) * (fSlow23 * (fRec4[0] + fRec4[2] + fTemp5) + fSlow5 * (fRec2[0] + fRec2[2] + fTemp1) + fSlow14 * (fRec3[0] + fRec3[2] + fTemp3) + fSlow32 * (fRec5[0] + fRec5[2] + fTemp7)));
+			output0[i0] = FAUSTFLOAT(fSlow0 * std::pow(1e+01f, 0.05f * fRec0[0]) * (fSlow32 * (fRec5[0] + fRec5[2] + fTemp7) + fSlow23 * (fRec4[0] + fRec4[2] + fTemp5) + fSlow5 * (fRec2[0] + fRec2[2] + fTemp1) + fSlow14 * (fRec3[0] + fRec3[2] + fTemp3)));
 			fVec0[1] = fVec0[0];
 			fRec2[2] = fRec2[1];
 			fRec2[1] = fRec2[0];

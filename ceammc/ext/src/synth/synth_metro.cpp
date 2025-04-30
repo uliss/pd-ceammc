@@ -18,7 +18,7 @@ class SynthMetro : public faust_synth_metro_tilde {
     TimeSignatureProperty* tsig_ { 0 };
 
 public:
-    SynthMetro(const PdArgs& args)
+    explicit SynthMetro(const PdArgs& args)
         : faust_synth_metro_tilde(args)
         , beats_ { findUIProperty("@.down"), findUIProperty("@.on"), findUIProperty("@.off"), findUIProperty("@.mark") }
         , clock_on_([this]() {
@@ -102,15 +102,6 @@ public:
         pattern_idx_ = 0;
     }
 
-    void m_tempo(t_symbol* s, const AtomListView& lv)
-    {
-        static const args::ArgChecker chk("TEMPO:f>=0");
-        if (!chk.check(lv, this))
-            return chk.usage(this, s);
-
-        tempo_->setBpm(lv.asT<t_float>());
-    }
-
     void m_reset(t_symbol* s, const AtomListView& lv)
     {
         reset();
@@ -142,7 +133,6 @@ private:
 void setup_synth_metro_tilde()
 {
     SoundExternalFactory<SynthMetro> obj("synth.metro~", OBJECT_FACTORY_DEFAULT);
-    obj.addMethod("tempo", &SynthMetro::m_tempo);
     obj.addMethod("down", &SynthMetro::m_down);
     obj.addMethod("on", &SynthMetro::m_on);
     obj.addMethod("off", &SynthMetro::m_off);

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sequential delay/router for input flow</tr>
+                <tr lang="en">sequential delay/router for the input stream</tr>
+                <tr lang="ru">последовательный маршрутизатор с задержками для входного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -35,11 +36,13 @@
             property.</argument>
         </arguments>
         <properties>
-            <property name="@t" type="list" minvalue="0" units="millisecond" default="">delay time
-            list</property>
+            <!-- @block -->
             <property name="@block" type="bool" default="0">blocking mode. If true, discards
             incoming messages until scheduled message will output, after that is ready to accept
             the new one.</property>
+            <!-- @t -->
+            <property name="@t" type="list" minvalue="0" units="millisecond" default="">delay time
+            list</property>
         </properties>
         <methods>
             <!-- reset -->
@@ -63,6 +66,16 @@
         <example>
             <pdascii>
 <![CDATA[
+[bang( [note 60 120(
+|      |
+[flow.seqdelay 0 1000 500 1000 #i]
+|
+[ui.dt]       [ui.dt #k]
+
+       [ui.dt #j]    [ui.dt #l]
+
+[X i:1->j] [X i:2->k] [X i:3->l]
+
 [bang(              [list 0 500 120 110( /*- change pattern*/
 |                   |
 |       [T]         |  [list 0 400 100 300(

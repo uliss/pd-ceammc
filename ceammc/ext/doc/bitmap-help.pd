@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 546 50 cnv 1 219 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 546 50 binary image (2D bit matrix);
+#X text 551 50 binary image (2D bit matrix);
 #X obj 1 1 cnv 5 765 40 empty empty bitmap 20 20 0 20 -104026 -4096 0;
 #X obj 576 11 ceammc/bitmap;
 #X obj 696 11 bitmap;
@@ -167,7 +167,8 @@ NCOLS DATA...( message. Arguments are:;
 #X msg 110 2129 load;
 #X text 245 2129 load image to bitmap. Arguments are:;
 #X obj 255 2152 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2152 FILE: image path \, relative or absolute. Type: symbol.;
+#X text 255 2152 FILE: image path \, relative \, or absolute. Type:
+symbol.;
 #X obj 255 2175 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2175 [SCALE=1]: image scale. Type: float. Min value: 0\.;
 #X msg 110 2200 mirror;
@@ -208,7 +209,8 @@ right to left. Type: int.;
 #X msg 110 2606 save;
 #X text 245 2606 save bitmap to PNG file. Arguments are:;
 #X obj 255 2629 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2629 [PATH]: file name \, absolute or relative. Type: symbol.;
+#X text 255 2629 [PATH]: file name \, absolute \, or relative. Type:
+symbol.;
 #X msg 110 2654 sector;
 #X text 245 2654 draw sector. Arguments are:;
 #X obj 255 2677 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;

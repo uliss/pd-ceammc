@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Mulitchannel converter from control to audio rate</tr>
+                <tr lang="en">multichannel converter from the control signals to audio</tr>
+                <tr lang="ru">многоканальный преобразователь управляющих сигналов в звуковые</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,8 +28,10 @@
             <argument name="VALUES" type="list">init values</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="12"
             access="initonly">number of inputs/outputs</property>
+            <!-- @values -->
             <property name="@values" type="list" default="">current output values. Default:
             0</property>
         </properties>

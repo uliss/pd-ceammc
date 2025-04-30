@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 423 50 cnv 1 342 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 423 50 converts list to series of property messages;
+#X text 428 50 converts list to series of property messages;
 #X obj 1 1 cnv 5 765 40 empty empty conv.list2props 20 20 0 20 -104026
 -4096 0;
 #N canvas 534 11 250 400 aliases 0;

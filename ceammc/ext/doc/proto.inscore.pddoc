@@ -16,6 +16,7 @@
             <since>0.9.6</since>
         </meta>
         <properties>
+            <!-- @scene -->
             <property name="@scene" type="int" minvalue="0" default="0">scene id</property>
         </properties>
         <methods>

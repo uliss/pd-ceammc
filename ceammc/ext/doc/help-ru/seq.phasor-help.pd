@@ -1,0 +1,137 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 392 50 cnv 1 373 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 397 50 генератор фазора (пилы) для контрольных сигналов;
+#X obj 1 1 cnv 5 765 40 empty empty seq.phasor 20 20 0 20 -104026
+-4096 0;
+#X obj 667 11 seq.phasor;
+#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Outputs saw signal in [0\..1] or [0\..1) range.;
+#X text 215 108 Note: control rate in PureData depends on block size
+and samplerate. Do not rely on strict timing for this object \, especially
+at high frequencies!;
+#X obj 50 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 146 216 ui.dsp~;
+#X obj 270 216 ui.knob @min 0.2 @max 2;
+#X obj 50 260 metro 250;
+#X msg 270 260 @freq \$1;
+#X msg 376 260 @invert !;
+#X obj 491 260 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 288 click~;
+#X obj 270 288 seq.phasor 0.2 @on 1;
+#X obj 50 317 flt.resonbp~ 1000 40;
+#X obj 270 317 l->l 0 1 -1 1;
+#X obj 50 346 pan.cos~, f 20;
+#X obj 270 346 ui.knob @min -1 @max 1;
+#X obj 50 375 ui.hgain2~ @size 16 143;
+#X obj 50 403 dac~;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 458 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 493 1\.;
+#X text 150 493 float;
+#X obj 246 494 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 493 FREQ(Hz): frequency. Тип: float. Диапазон: 0…100;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 563 @freq;
+#X text 245 563 Получить/Установить frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...100\.;
+#X msg 110 605 @invert;
+#X text 245 605 Получить/Установить saw inversion mode. If true \,
+outputs descreasing waveform. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 647 @on;
+#X text 245 647 Turn on/off state. Тип: bool. Значение по умолчанию:
+0\.;
+#X msg 110 677 @open;
+#X text 245 677 Получить/Установить output in open [0\..1) range \,
+otherwise output range is [0\..1]. Тип: bool. Значение по умолчанию:
+0\.;
+#X msg 110 734 @steps;
+#X text 245 734 Получить/Установить numbers of steps. Тип: int. Значение
+по умолчанию: 128\. Минимальное значение: 3\.;
+#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 791 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 826 phase;
+#X text 245 826 set current phase. Аргументы:;
+#X obj 255 849 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 849 [VALUE]: new phase value. Тип: float.;
+#X msg 110 874 reset;
+#X text 245 874 reset phase and stop.;
+#X msg 110 902 rewind;
+#X text 245 902 reset phase without stopping.;
+#X msg 110 930 start;
+#X text 245 930 start from current position.;
+#X msg 110 958 stop;
+#X text 245 958 stop.;
+#X msg 110 986 tick;
+#X text 245 986 output current value and move to next.;
+#X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1029 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1030 1\.;
+#X text 150 1030 *float*;
+#X text 245 1030 1: starts output \, 0: stop.;
+#X text 110 1050 2\.;
+#X text 150 1050 *any*;
+#X text 245 1050 reset phase to 0\.;
+#X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1085 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1086 1\.;
+#X text 245 1086 float value in 0\..1 range.;
+#X text 110 1106 2\.;
+#X text 245 1106 bang after full cycle.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
+#X obj 1 1156 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1159 библиотека: ceammc v0.9.8;
+#N canvas 10 1178 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 seq.phasor;
+#X text 10 76 категория:;
+#X text 120 76 seq;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 seq \, lfo \, phasor \, saw;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1178 pd info;
+#X connect 7 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 14 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 17 0 19 0;
+#X connect 18 0 20 0;
+#X connect 18 1 20 1;
+#X connect 20 0 21 0;
+#X connect 20 1 21 1;
+#X connect 17 0 18 1;

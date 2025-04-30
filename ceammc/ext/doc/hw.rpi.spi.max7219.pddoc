@@ -21,58 +21,44 @@
             <par>Handles communication with the MAX7219 chip for 7-segmented or 8x8 LED dot matrix
             displays. Each display can be connected in series with another and controlled via a
             single connection.</par>
-            <par>Note: in case of LED dot matrix disaply only write_bits and write_reg commands
+            <par>Note: in case of LED dot matrix display only write_bits and write_reg commands
             will work as expected</par>
             <par>Note: 7-segment LED display supports only this charset:
             -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</par>
-            <par>Note: if the device address argument is -1 or ommited, requested action is aplied
+            <par>Note: if the device address argument is -1 or omitted, requested action is applied
             for all devices in a chain.</par>
         </info>
+        <arguments>
+            <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="4">number of displays
+            connected into chain</argument>
+        </arguments>
+        <properties>
+            <!-- @displays -->
+            <property name="@displays" type="int" default="1" minvalue="1" maxvalue="4"
+            access="initonly">number of displays connected into the chain</property>
+            <!-- @spi_bus -->
+            <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
+            access="initonly">SPI bus number</property>
+            <!-- @spi_cs -->
+            <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
+            access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
+        </properties>
         <methods>
             <!-- clear -->
             <method name="clear">clear display 
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
             chain</param></method>
-            <!-- write int -->
-            <method name="write int">write signed integer value into 7-segment display (no led
-            matrix support!) 
-            <param name="INT" type="int" required="true">value</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
-            If ommited or -1: write to all displays</param></method>
-            <!-- write str -->
-            <method name="write str">write string into 7-segment display (no led matrix support!) 
-            <param name="STR" type="symbol" required="true">string. maxlength: 8 chars</param>
-            <param name="DOTS" type="int" minvalue="0" maxvalue="255">dots as bit value. For ex.:
-            0b00000011 turn on a two leftmost dots</param>
-            <param name="ALIGN" type="symbol" enum="left center right" default="right">string
-            align</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
-            the chain</param></method>
-            <!-- write float -->
-            <method name="write float">write float value into 7-segment display (no led matrix
-            support!) 
-            <param name="VAL" type="float" required="true">value</param>
-            <param name="PRECISION" type="int" minvalue="0" maxvalue="7">precision after the
-            dot</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
-            If ommited or -1: write to all displays</param></method>
-            <!-- write hex -->
-            <method name="write hex">write hex unsigned integer value into 7-segment display (no
-            led matrix support!) 
-            <param name="INT" type="int" minvalue="0" required="true">value</param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
-            the chain</param></method>
+            <!-- intensity -->
+            <method name="intensity">set intensity level on the display 
+            <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">intensity
+            level</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display
+            address in the chain</param></method>
             <!-- power -->
             <method name="power">power on/off display 
             <param name="STATE" type="bool" required="true">on/off state</param></method>
             <!-- test -->
             <method name="test">test display by turning all led on 
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display
-            address in the chain</param></method>
-            <!-- intensity -->
-            <method name="intensity">set intensity level on the display 
-            <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">intencity
-            level</param>
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">target display
             address in the chain</param></method>
             <!-- write bits -->
@@ -87,7 +73,27 @@
             target display address in the chain</param>
             <param name="DATA" type="list" required="true">list of bytes. Max length:
             8</param></method>
-            <!-- write register -->
+            <!-- write float -->
+            <method name="write float">write float value into 7-segment display (no led matrix
+            support!) 
+            <param name="VAL" type="float" required="true">value</param>
+            <param name="PRECISION" type="int" minvalue="0" maxvalue="7">precision after the
+            dot</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
+            If omitted or -1: write to all displays</param></method>
+            <!-- write hex -->
+            <method name="write hex">write hex unsigned integer value into 7-segment display (no
+            led matrix support!) 
+            <param name="INT" type="int" minvalue="0" required="true">value</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
+            the chain</param></method>
+            <!-- write int -->
+            <method name="write int">write signed integer value into 7-segment display (no led
+            matrix support!) 
+            <param name="INT" type="int" required="true">value</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">display address in the chain.
+            If omitted or -1: write to all displays</param></method>
+            <!-- write reg -->
             <method name="write reg">write the max7219 register data. Lowest level of communication
             
             <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">max7219
@@ -96,19 +102,16 @@
             value</param>
             <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">target display
             address in the chain</param></method>
+            <!-- write str -->
+            <method name="write str">write string into 7-segment display (no led matrix support!) 
+            <param name="STR" type="symbol" required="true">string. maxlength: 8 chars</param>
+            <param name="DOTS" type="int" minvalue="0" maxvalue="255">dots as bit value. For ex.:
+            0b00000011 turn on a two leftmost dots</param>
+            <param name="ALIGN" type="symbol" enum="left center right" default="right">string
+            align</param>
+            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">display address in
+            the chain</param></method>
         </methods>
-        <arguments>
-            <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="8">number of displays
-            connected into chain</argument>
-        </arguments>
-        <properties>
-            <property name="@displays" type="int" default="1" minvalue="1" maxvalue="8"
-            access="initonly">number of displays connected into the chain</property>
-            <property name="@cs" type="int" default="0" minvalue="0" maxvalue="3"
-            access="initonly">CS (ChipSelect, SlaveSelect or ChipEnable) index</property>
-            <property name="@spi" type="int" default="0" minvalue="0" maxvalue="6"
-            access="initonly">SPI bus number.</property>
-        </properties>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>
@@ -144,7 +147,7 @@
 
 [hw.rpi.spi.max7219 4 #x]
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x] [X m->x] [X n->x] [X o->p0] [X p->x] [X r->x]
+[X j->x] [X k->x] [X l->x] [X m->x] [X o->p0] [X p->x]
 [X q->x]
 [hw.rpi.spi.max7219-spi]
 ]]>

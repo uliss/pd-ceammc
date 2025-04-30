@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">separate property messages from other types</tr>
+                <tr lang="en">separates property messages from other types</tr>
+                <tr lang="ru">отделяет сообщения со свойствами от других типов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

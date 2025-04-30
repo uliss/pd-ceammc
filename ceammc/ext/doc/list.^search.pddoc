@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">on input atom returns it index in list</tr>
+                <tr lang="en">outputs the indices of the found input elements in a predefined
+                list</tr>
+                <tr lang="ru">выводит индексы найденных входных элементов в предварительно заданном
+                списке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,11 +30,14 @@
             <argument name="VALUE" type="list">list contents</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list" default="">list contents</property>
-            <property name="@start" type="int" minvalue="0" default="0">search start index
-            position</property>
+            <!-- @end -->
             <property name="@end" type="int" minvalue="-1" default="-1">search end index position
             (-1 means end of list)</property>
+            <!-- @start -->
+            <property name="@start" type="int" minvalue="0" default="0">search start index
+            position</property>
+            <!-- @value -->
+            <property name="@value" type="list" default="">list contents</property>
         </properties>
         <inlets>
             <inlet>

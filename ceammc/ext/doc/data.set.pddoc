@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">container that store unique elements</tr>
+                <tr lang="en">the set: container that store only unique elements</tr>
+                <tr lang="ru">множество: контейнер, в котором хранятся только уникальные
+                элементы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,8 +28,10 @@
             <argument name="X" type="any">set elements</argument>
         </arguments>
         <properties>
+            <!-- @empty -->
             <property name="@empty" type="bool" access="readonly" default="1">1 if list is empty,
             otherwise 0</property>
+            <!-- @size -->
             <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             elements in list</property>
         </properties>

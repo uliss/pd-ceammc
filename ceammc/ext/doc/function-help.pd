@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 652 50 cnv 1 113 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 652 50 named function;
+#X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 626 50 the named function;
 #X obj 1 1 cnv 5 765 40 empty empty function 20 20 0 20 -104026 -4096
 0;
 #X obj 377 13 ui.link @background_color 0.39216 0.39216 0.39216 @title

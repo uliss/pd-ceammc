@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">hyperbolic arc sine for signals</tr>
+                <tr lang="ru">обратный гиперболической синус для сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

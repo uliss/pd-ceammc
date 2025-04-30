@@ -1,0 +1,210 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 322 50 cnv 1 443 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 327 50 драйвер для OLED дисплея на чипе ssd1306 для Raspberry
+Pi;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.display.ssd1306 20 20 0 20
+-104026 -4096 0;
+#X obj 580 11 hw.rpi.display.ssd1306;
+#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Both I²C and SPI connections are supported. I²C connection
+is not fast.;
+#X text 215 123 Note: you should send [flush( message to transfer internal
+pixel buffer to the device;
+#X text 50 216 I²C connection example:;
+#X obj 50 245 ui.hrd @nitems 4;
+#X text 203 245 click several times!;
+#X msg 50 274 brightness \$1;
+#X msg 203 274 write bytes 255 127 63 31 15 7 3 1 \, flush;
+#X msg 59 303 flush;
+#X obj 165 303 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 203 303 text HELLO\ ЦЭАМ! 3 10 \, flush;
+#X msg 59 332 clear 1;
+#X msg 165 332 invert \$1;
+#X msg 338 332 clear \, line 0 0 127 31 \, bang;
+#X obj 165 360 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 347 360 load img/test_image_128x32.png \, bang;
+#X msg 165 389 mirror \$1;
+#X obj 338 389 bitmap 128 32;
+#X obj 338 418 msg write bitmap 0 0 128;
+#X text 338 447 call flush!;
+#X obj 50 476 hw.rpi.display.ssd1306 @mode i2c @i2c_bus default;
+#X obj 50 519 ui.link @title 'I2C_connection' @url
+ceammc://img/conn_i2c_ssd1306.png;
+#X obj 50 547 ui.link @title 'SPI_connection' @url
+ceammc://img/conn_spi_ssd1306.png;
+#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 609 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 612 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 644 1\.;
+#X text 150 644 symbol;
+#X obj 246 645 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 644 MODE: display connection. See @mode. Разрешённые значения:
+i2c \, spi. Тип: symbol.;
+#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 694 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 697 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 729 @i2c_addr;
+#X text 245 729 (при инициализации) Получить/Установить I²C address.
+Also 'default' value is accepted (for addr 0x3c) and 'alt' (for addr
+0x3d). Тип: int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
+#X msg 110 801 @i2c_bus;
+#X text 245 801 (при инициализации) Получить/Установить I²C bus. Тип:
+atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
+3 \, 4 \, 5 \, 6 \, default \, none.;
+#X msg 110 858 @mode;
+#X text 245 858 (при инициализации) Получить/Установить display connection.
+Тип: symbol. Значение по умолчанию: i2c. Разрешённые значения: i2c
+\, spi.;
+#X msg 110 915 @spi_bus;
+#X text 245 915 (при инициализации) Получить/Установить SPI bus. Тип:
+int. Значение по умолчанию: -1\. Диапазон: -1\...6\.;
+#X msg 110 957 @spi_cs;
+#X text 245 957 (при инициализации) Получить/Установить CS (chip select)
+GPIO pin. Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X msg 110 1014 @spi_dc;
+#X text 245 1014 (при инициализации) Получить/Установить DC (data/command)
+GPIO pin. Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X msg 110 1071 @spi_freq;
+#X text 245 1071 (при инициализации) Получить/Установить SPI frequency.
+Тип: int. Единицы: 'Hz'. Значение по умолчанию: 1000000\. Диапазон:
+100000\...10000000\.;
+#X msg 110 1128 @spi_rs;
+#X text 245 1128 (при инициализации) Получить/Установить RS (reset)
+GPIO pin. Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...127\.;
+#X msg 110 1170 @size;
+#X text 245 1170 (при инициализации) Получить/Установить display size.
+Тип: list. Значение по умолчанию: 128 64\.;
+#X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1227 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1262 brightness;
+#X text 245 1262 set display brightness. Аргументы:;
+#X obj 255 1285 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1285 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
+Normal level is 2\. Тип: int. Разрешённые значения: 0 \, 1 \, 2 \,
+3 \, 4\.;
+#X msg 110 1340 clear;
+#X text 245 1340 clear display and optionally flush internal buffer.
+Аргументы:;
+#X obj 255 1378 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1378 [FLUSH=0]: flush internal buffer to the device. Тип:
+bool.;
+#X msg 110 1403 flush;
+#X text 245 1403 flush internal buffer to the device.;
+#X msg 110 1431 font;
+#X text 245 1431 set current font. Аргументы:;
+#X obj 255 1454 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1454 FONT: font name. Тип: symbol.;
+#X msg 110 1479 invert;
+#X text 245 1479 invert display. Аргументы:;
+#X obj 255 1502 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1502 VALUE: value. Тип: bool.;
+#X msg 110 1527 mirror;
+#X text 245 1527 mirror display. Аргументы:;
+#X obj 255 1550 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1550 VALUE: value. Тип: bool.;
+#X msg 110 1575 pixel;
+#X text 245 1575 draw pixel. Аргументы:;
+#X obj 255 1598 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1598 X: X coord (from the left). Тип: int. Минимальное
+значение: 0\.;
+#X obj 255 1636 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1636 Y: Y coord (from the top). Тип: int. Минимальное значение:
+0\.;
+#X obj 255 1674 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1674 VALUE: pixel value. Тип: bool.;
+#X msg 110 1699 rotation;
+#X text 245 1699 set display rotation. Аргументы:;
+#X obj 255 1722 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1722 [ANGLE]: rotation angle. Тип: int. Разрешённые значения:
+0 \, 90 \, 180 \, 270\.;
+#X msg 110 1762 switch_on;
+#X text 245 1762 switch on display (needed for SPI connection). Аргументы:;
+#X obj 255 1785 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1785 VALUE: value. Тип: bool.;
+#X msg 110 1810 text;
+#X text 245 1810 draw text on the display. Аргументы:;
+#X obj 255 1833 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1833 TXT: text. Тип: symbol.;
+#X obj 255 1856 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1856 X: left text X coordinate. Тип: int.;
+#X obj 255 1879 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1879 Y: top text Y coordinate. Тип: int.;
+#X msg 110 1904 write bitmap;
+#X text 245 1904 write bitmap to the display buffer. Аргументы:;
+#X obj 255 1927 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1927 X: bitmap X coordinate. Тип: int.;
+#X obj 255 1950 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1950 Y: bitmap Y coordinate. Тип: int.;
+#X obj 255 1973 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1973 WIDTH: bitmap width in pixels. Тип: int. Минимальное
+значение: 1\.;
+#X obj 255 2011 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2011 PIXELS: list of pixels (0 or 1). Тип: list.;
+#X msg 110 2036 write bytes;
+#X text 245 2036 write raw byte list to the display buffer and move
+internal cursor position. Аргументы:;
+#X obj 255 2074 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2074 BYTES: list of bytes (integers in 0\..255 range).
+Each byte describes a single column of 8 pixels in height. Тип: list.;
+#X obj 20 2124 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2129 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 2130 1\.;
+#X text 245 2130 control input.;
+#X obj 20 2160 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2165 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 2166 1\.;
+#X text 245 2166 no output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 2216 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2219 библиотека: ceammc v0.9.8;
+#N canvas 10 2238 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.rpi.display.ssd1306;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 display \, ssd1306 \, spi \, i2c \, rpi;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2238 pd info;
+#X connect 8 0 10 0;
+#X connect 13 0 16 0;
+#X connect 18 0 20 0;
+#X connect 19 0 21 0;
+#X connect 21 0 22 0;
+#X connect 12 0 24 0;
+#X connect 15 0 24 0;
+#X connect 16 0 24 0;
+#X connect 14 0 24 0;
+#X connect 20 0 24 0;
+#X connect 10 0 24 0;
+#X connect 11 0 24 0;
+#X connect 22 0 24 0;
+#X connect 17 0 21 0;

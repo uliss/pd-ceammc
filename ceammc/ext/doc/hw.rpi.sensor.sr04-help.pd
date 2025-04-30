@@ -1,81 +1,81 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 375 50 cnv 1 390 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 375 50 HC-SR04 ultrasonic ranging module for Raspberry Pi;
+#X text 380 50 HC-SR04 ultrasonic ranging module for Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.sr04 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 hw.rpi.sensor.sr04;
-#X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 **Note:** The HC-SR04 ultrasonic sensor requires a 5V
+#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 **Note:** The HC-SR04 ultrasonic sensor requires a 5V
 power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
-#X text 215 120 Therefore \, you **must** use a level converter from
+#X text 215 123 Therefore \, you **must** use a level converter from
 5V to 3.3V \, otherwise \, you could damage your Raspberry Pi!;
-#X obj 50 198 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 227 poll \$1;
-#X msg 155 227 bang;
-#X obj 50 299 hw.rpi.sensor.sr04 23 24;
-#X floatatom 50 328 5 0 0 0 - - -;
-#X obj 146 328 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 245 poll \$1;
+#X msg 155 245 bang;
+#X obj 50 317 hw.rpi.sensor.sr04 23 24;
+#X floatatom 50 346 5 0 0 0 - - -;
+#X obj 146 346 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 371 ui.link @title 'Connection_scheme' @url
+#X obj 50 389 ui.link @title 'Connection_scheme' @url
 ceammc://img/hc_sr04.png;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 454 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 468 1\.;
-#X text 150 468 int;
-#X obj 246 469 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 468 TRIG_PIN: a trigger pin GPIO number. Type: int. Range:
+#X text 110 486 1\.;
+#X text 150 486 int;
+#X obj 246 487 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 486 TRIG_PIN: a trigger pin GPIO number. Type: int. Range:
 0\...255;
-#X text 110 503 2\.;
-#X text 150 503 int;
-#X obj 246 504 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 503 ECHO_PIN: an echo pin GPIO number. Type: int. Range:
+#X text 110 521 2\.;
+#X text 150 521 int;
+#X obj 246 522 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 521 ECHO_PIN: an echo pin GPIO number. Type: int. Range:
 0\...255;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 538 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 556 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 541 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 559 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 573 @echo_pin;
-#X text 245 573 (initonly) Get/Set an echo pin GPIO number. Type: int.
+#X msg 110 591 @echo_pin;
+#X text 245 591 (initonly) Get/Set an echo pin GPIO number. Type: int.
 Default value: 27\. Range: 0\...255\.;
-#X msg 110 615 @trig_pin;
-#X text 245 615 (initonly) Get/Set a trigger pin GPIO number. Type:
+#X msg 110 633 @trig_pin;
+#X text 245 633 (initonly) Get/Set a trigger pin GPIO number. Type:
 int. Default value: 17\. Range: 0\...255\.;
-#X msg 110 657 @poll_interval;
-#X text 245 657 Get/Set poll interval. Type: int. Units: 'ms'. Default
+#X msg 110 675 @poll_interval;
+#X text 245 675 Get/Set poll interval. Type: int. Units: 'ms'. Default
 value: 20\. Range: 10\...1000\.;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 714 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 732 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 749 poll;
-#X text 245 749 turn the sensor polling on/off. Arguments are:;
-#X obj 255 772 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 772 STATE: poll state. Type: bool.;
-#X obj 20 807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 812 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 767 poll;
+#X text 245 767 turn the sensor polling on/off. Arguments are:;
+#X obj 255 790 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 790 STATE: poll state. Type: bool.;
+#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 830 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 813 1\.;
-#X text 150 813 *bang*;
-#X text 245 813 single distance measure.;
-#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 831 1\.;
+#X text 150 831 *bang*;
+#X text 245 831 single distance measure.;
+#X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 866 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 849 1\.;
-#X text 245 849 float: distance in cm.;
-#X text 110 869 2\.;
-#X text 245 869 bang: if distance can not be measured.;
+#X text 110 867 1\.;
+#X text 245 867 float: distance in cm.;
+#X text 110 887 2\.;
+#X text 245 887 bang: if distance can not be measured.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 919 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 922 library: ceammc v0.9.8;
-#N canvas 10 941 400 290 info 0;
+#X obj 1 937 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 940 library: ceammc v0.9.8;
+#N canvas 10 959 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 941 pd info;
+#X restore 10 959 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;

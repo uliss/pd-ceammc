@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">arc sine function</tr>
+                <tr lang="ru">арксинус</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">zero crossing count/rate/freq calculator</tr>
+                <tr lang="en">calculate the signal zero crossing count/rate/freq</tr>
+                <tr lang="ru">вычисление частоты/скорости/числа пересечения сигналом нулевого
+                значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,14 +21,17 @@
             </also>
         </meta>
         <properties>
+            <!-- @bs -->
             <property name="@bs" type="int" minvalue="1" default="1024" maxvalue="65536"
             units="sample" access="initonly">buffer size</property>
+            <!-- @clock -->
+            <property name="@clock" type="list" default="0" access="initonly">alias for @mode count
+            @bs 1. Output impulse at each zero crossing.</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="count rate freq" default="count">calculation
             mode: if 'count' - output number of zero crossing occurred in a period of current block
             size, if 'rate' - output zero crossing rate (zero crossing number / block size), if
             'freq' - output zero crossing frequency in hertz.</property>
-            <property name="@clock" type="list" default="0" access="initonly">alias for @mode count
-            @bs 1. Output impulse at each zero crossing.</property>
         </properties>
         <inlets>
             <inlet type="audio">

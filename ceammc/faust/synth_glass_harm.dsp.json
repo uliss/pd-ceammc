@@ -4,7 +4,7 @@
 	"version": "2.74.5.",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/Users/serge/.local/faust/share/faust/signals.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/envelopes.lib","/Users/serge/.local/faust/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/oscillators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/Users/serge/.local/faust/share/faust/reverbs.lib","/Users/serge/.local/faust/share/faust/routes.lib"],
-	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 959484,
 	"inputs": 0,
 	"outputs": 2,
@@ -12,7 +12,7 @@
 		{ "author": "Romain Michon" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.17.1" },
+		{ "basics.lib/version": "1.16.0" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.4" },
 		{ "ceammc_instruments.lib/name": "CEAMMC replacement for intruments.lib" },
@@ -37,7 +37,7 @@
 		{ "filters.lib/allpassnn:author": "Julius O. Smith III" },
 		{ "filters.lib/allpassnn:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpassnn:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -114,6 +114,8 @@
 					"shortname": "gate",
 					"address": "/synth.glass_harm/gate",
 					"meta": [
+						{ "max": "1" },
+						{ "min": "0" },
 						{ "type": "float" }
 					]
 				},

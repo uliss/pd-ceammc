@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">repack list to specified size</tr>
+                <tr lang="en">repack the list into a sequence of lists of the specified size</tr>
+                <tr lang="ru">переупаковать список в последовательность списков определенного
+                размера</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,6 +22,7 @@
             size</argument>
         </arguments>
         <properties>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="1024" default="1">output list
             size</property>
         </properties>

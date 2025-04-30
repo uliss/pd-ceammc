@@ -1,35 +1,35 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 552 50 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 552 50 calculate reciprocal number;
+#X text 557 50 calculate reciprocal number;
 #X obj 1 1 cnv 5 765 40 empty empty math.reciprocal 20 20 0 20 -104026
 -4096 0;
 #X obj 484 11 ceammc/1/x;
 #X obj 582 11 1/x;
 #X obj 630 11 math.reciprocal;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Symbols are ignored \, 0 gives NAN value;
-#X floatatom 50 143 5 0 0 0 - - -;
-#X msg 98 143 1 2 3 4 5;
-#X floatatom 261 143 5 0 0 0 - - -;
-#X obj 50 172 1/x;
-#X msg 261 172 1 \$1;
-#X obj 50 201 ui.dt;
-#X obj 261 201 /;
-#X floatatom 261 230 5 0 0 0 - - -;
-#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 267 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Symbols are ignored \, 0 gives NAN value;
+#X floatatom 50 161 5 0 0 0 - - -;
+#X msg 98 161 1 2 3 4 5;
+#X floatatom 261 161 5 0 0 0 - - -;
+#X obj 50 190 1/x;
+#X msg 261 190 1 \$1;
+#X obj 50 219 ui.dt;
+#X obj 261 219 /;
+#X floatatom 261 248 5 0 0 0 - - -;
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 268 1\.;
-#X text 150 268 *float*;
-#X text 245 268 input value.;
-#X text 150 288 *list*;
-#X text 245 288 on list input outputs a list of reciprocal values.;
-#X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 323 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 286 1\.;
+#X text 150 286 *float*;
+#X text 245 286 input value.;
+#X text 150 306 *list*;
+#X text 245 306 on list input outputs a list of reciprocal values.;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 324 1\.;
-#X text 245 324 result value.;
+#X text 110 342 1\.;
+#X text 245 342 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

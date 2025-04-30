@@ -1,89 +1,89 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 583 50 cnv 1 182 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 583 50 Part of a-chaos library;
+#X text 588 50 Part of a-chaos library;
 #X obj 1 1 cnv 5 765 40 empty empty noise.baker 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 noise.baker;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Port of Richard's chaos-baker from chaos collection;
-#X obj 50 143 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 172 metro 50;
-#X obj 395 187 ui.slider, f 100;
-#X obj 626 187 ui.slider;
-#X obj 78 316 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Port of Richard's chaos-baker from chaos collection;
+#X obj 50 161 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 190 metro 50;
+#X obj 395 205 ui.slider, f 100;
+#X obj 626 205 ui.slider;
+#X obj 78 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 242 316 reset;
-#X msg 395 316 set \$1;
-#X msg 626 316 seed \$1;
-#X obj 414 345 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 664 345 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 414 374 fold_cut \$1;
-#X msg 664 374 om \$1;
-#X floatatom 107 388 5 0 0 0 - - -;
-#X floatatom 270 388 5 0 0 0 - - -;
-#X msg 107 417 cut \$1;
-#X msg 270 417 fold \$1;
-#X obj 50 446 noise.baker 0.85;
-#X obj 50 474 ui.display;
-#X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 529 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 242 334 reset;
+#X msg 395 334 set \$1;
+#X msg 626 334 seed \$1;
+#X obj 414 363 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 664 363 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 414 392 fold_cut \$1;
+#X msg 664 392 om \$1;
+#X floatatom 107 406 5 0 0 0 - - -;
+#X floatatom 270 406 5 0 0 0 - - -;
+#X msg 107 435 cut \$1;
+#X msg 270 435 fold \$1;
+#X obj 50 464 noise.baker 0.85;
+#X obj 50 492 ui.display;
+#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 547 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 532 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 550 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 564 1\.;
-#X text 150 564 float;
-#X obj 246 565 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 564 VALUE: initial value. Type: float.;
-#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 599 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 110 582 1\.;
+#X text 150 582 float;
+#X obj 246 583 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 582 VALUE: initial value. Type: float.;
+#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 617 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 634 cut;
-#X text 245 634 Arguments are:;
-#X obj 255 657 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 657 CUT: cut value [0\..1]. Type: float.;
-#X msg 110 682 fold;
-#X text 245 682 Arguments are:;
-#X obj 255 705 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 705 FOLD: fold value [0\..1]. Type: float.;
-#X msg 110 730 fold_cut;
-#X text 245 730 Arguments are:;
-#X obj 255 753 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 753 FOLD_CUT: enable fold / cut value action. Type: int.;
-#X msg 110 778 om;
-#X text 245 778 Arguments are:;
-#X obj 255 801 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 801 OM: enables output when cut or fold value is changed.
+#X msg 110 652 cut;
+#X text 245 652 Arguments are:;
+#X obj 255 675 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 675 CUT: cut value [0\..1]. Type: float.;
+#X msg 110 700 fold;
+#X text 245 700 Arguments are:;
+#X obj 255 723 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 723 FOLD: fold value [0\..1]. Type: float.;
+#X msg 110 748 fold_cut;
+#X text 245 748 Arguments are:;
+#X obj 255 771 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 771 FOLD_CUT: enable fold / cut value action. Type: int.;
+#X msg 110 796 om;
+#X text 245 796 Arguments are:;
+#X obj 255 819 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 819 OM: enables output when cut or fold value is changed.
 Type: int.;
-#X msg 110 841 reset;
-#X text 245 841 reset state.;
-#X msg 110 869 seed;
-#X text 245 869 Arguments are:;
-#X obj 255 892 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 892 SEED: seed value. Type: float.;
-#X msg 110 917 set;
-#X text 245 917 Arguments are:;
-#X obj 255 940 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 940 SET: set to value. Type: float.;
-#X obj 20 975 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 980 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 859 reset;
+#X text 245 859 reset state.;
+#X msg 110 887 seed;
+#X text 245 887 Arguments are:;
+#X obj 255 910 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 910 SEED: seed value. Type: float.;
+#X msg 110 935 set;
+#X text 245 935 Arguments are:;
+#X obj 255 958 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 958 SET: set to value. Type: float.;
+#X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 998 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 981 1\.;
-#X text 150 981 *bang*;
-#X text 245 981 output value.;
-#X obj 20 1011 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1016 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 999 1\.;
+#X text 150 999 *bang*;
+#X text 245 999 output value.;
+#X obj 20 1029 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1034 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1017 1\.;
-#X text 245 1017 main outlet.;
+#X text 110 1035 1\.;
+#X text 245 1035 main outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1067 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1070 library: ceammc v0.9.8;
-#N canvas 10 1089 400 290 info 0;
+#X obj 1 1085 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1088 library: ceammc v0.9.8;
+#N canvas 10 1107 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1089 pd info;
+#X restore 10 1107 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;

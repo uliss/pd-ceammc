@@ -1,35 +1,35 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 560 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 560 50 get/set display properties;
+#X text 565 50 get/set display properties;
 #X obj 1 1 cnv 5 765 40 empty empty hw.display 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 hw.display;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 At this moment supports only MacOSX;
-#X obj 50 143 ui.slider @size 120 12;
-#X msg 50 172 @brightness \$1;
-#X msg 213 172 @brightness?;
-#X obj 50 201 hw.display;
-#X obj 50 230 ui.d;
-#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 285 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 At this moment supports only MacOSX;
+#X obj 50 161 ui.slider @size 120 12;
+#X msg 50 190 @brightness \$1;
+#X msg 213 190 @brightness?;
+#X obj 50 219 hw.display;
+#X obj 50 248 ui.d;
+#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 303 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 288 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 320 @brightness;
-#X text 245 320 Get/Set display brightness. Type: float. Default value:
+#X msg 110 338 @brightness;
+#X text 245 338 Get/Set display brightness. Type: float. Default value:
 0.313477\. Range: 0\...1\.;
-#X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 377 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 378 1\.;
-#X text 245 378 input.;
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 413 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 396 1\.;
+#X text 245 396 input.;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 414 1\.;
-#X text 245 414 properties output.;
+#X text 110 432 1\.;
+#X text 245 432 properties output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

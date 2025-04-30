@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">map list values by specified dictionary</tr>
+                <tr lang="ru" finished="false">Значения списка карт в указанном словаре</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,10 +23,12 @@
             <argument name="DICT" type="list">mapping dictionary, see @dict property</argument>
         </arguments>
         <properties>
-            <property name="@dict" type="list" default="[]">mapping dictionary, the syntax is [KEY:
-            VALUES...], for example: [1: "one" 2: "two" k: "map values"]</property>
+            <!-- @def -->
             <property name="@def" type="list" default="">default value to replace missing keys. If
             empty (by default), missing keys are ignored.</property>
+            <!-- @dict -->
+            <property name="@dict" type="list" default="[]">mapping dictionary, the syntax is [KEY:
+            VALUES...], for example: [1: "one" 2: "two" k: "map values"]</property>
         </properties>
         <inlets>
             <inlet>

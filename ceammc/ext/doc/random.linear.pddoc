@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">random linear distribution</tr>
+                <tr lang="ru">случайное линейное распределение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,11 +27,16 @@
             explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <properties>
-            <property name="@v0" type="float" default="0">begin of value interval</property>
-            <property name="@v1" type="float" default="1">end of value interval</property>
+            <!-- @p0 -->
             <property name="@p0" type="float" default="1">probability at begin</property>
+            <!-- @p1 -->
             <property name="@p1" type="float" default="0">probability at end</property>
+            <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @v0 -->
+            <property name="@v0" type="float" default="0">begin of value interval</property>
+            <!-- @v1 -->
+            <property name="@v1" type="float" default="1">end of value interval</property>
         </properties>
         <inlets>
             <inlet>

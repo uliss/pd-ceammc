@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">evaluates the polynomial described by the coefficients list</tr>
+                <tr lang="ru">вычисляет многочлен, описанный списком коэффициентов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,6 +20,7 @@
             <argument name="COEFFS" type="list">coefficient list</argument>
         </arguments>
         <properties>
+            <!-- @coeffs -->
             <property name="@coeffs" type="list" default="">coefficient list</property>
         </properties>
         <inlets>

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 506 50 enhanced version of vanilla ctlin;
+#X obj 493 50 cnv 1 272 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 498 50 enhanced version of vanilla [ctlin];
 #X obj 1 1 cnv 5 765 40 empty empty midi.cc 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 midi.cc;

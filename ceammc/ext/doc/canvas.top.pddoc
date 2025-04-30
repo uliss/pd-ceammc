@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">verbose information about top-level canvas</tr>
+                <tr lang="en">verbose information about top-level canvas of the object</tr>
+                <tr lang="ru">подробная информация о холсте верхнего уровня у объекта</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,23 +21,33 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@name" type="symbol" access="readonly" default="test_canvas">canvas
-            name</property>
-            <property name="@dir" type="symbol" access="readonly" default="/">canvas
-            directory</property>
-            <property name="@size" type="list" access="readonly" default="600 400">window
-            size</property>
-            <property name="@width" type="int" access="readonly" default="600">window
-            width</property>
-            <property name="@height" type="int" access="readonly" default="400">window
-            height</property>
-            <property name="@font" type="int" access="readonly" default="10">window font</property>
-            <property name="@paths" type="list" access="readonly" default="">search
-            paths</property>
-            <property name="@x" type="int" access="readonly" default="0">window x-pos</property>
-            <property name="@y" type="int" access="readonly" default="0">window y-pos</property>
+            <!-- @abs -->
             <property name="@abs" type="bool" default="1">if false: using toplevel canvas, if true:
             using abstraction canvas</property>
+            <!-- @dir -->
+            <property name="@dir" type="symbol" access="readonly" default="/">canvas
+            directory</property>
+            <!-- @font -->
+            <property name="@font" type="int" access="readonly" default="10">window font</property>
+            <!-- @height -->
+            <property name="@height" type="int" access="readonly" default="400">window
+            height</property>
+            <!-- @name -->
+            <property name="@name" type="symbol" access="readonly" default="test_canvas">canvas
+            name</property>
+            <!-- @paths -->
+            <property name="@paths" type="list" access="readonly" default="">search
+            paths</property>
+            <!-- @size -->
+            <property name="@size" type="list" access="readonly" default="600 400">window
+            size</property>
+            <!-- @width -->
+            <property name="@width" type="int" access="readonly" default="600">window
+            width</property>
+            <!-- @x -->
+            <property name="@x" type="int" access="readonly" default="0">window x-pos</property>
+            <!-- @y -->
+            <property name="@y" type="int" access="readonly" default="0">window y-pos</property>
         </properties>
         <methods>
             <!-- postscript -->

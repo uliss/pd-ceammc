@@ -8,8 +8,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">returns the sum of the previously stored list and the current one
-                then stores this sum</tr>
+                <tr lang="en">outputs and stores the list of sums between the previously stored
+                list and the current one</tr>
+                <tr lang="ru">выводит и сохраняет список сумм между ранее сохраненным списком и
+                текущим</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,21 +23,28 @@
             </also>
         </meta>
         <properties>
-            <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
-            behavior, if list have different sizes</property>
-            <property name="@min" type="alias">alias for "@oversize min" property. Truncates lists
-            to minimal common size</property>
+            <!-- @clip -->
             <property name="@clip" type="alias">alias for "@oversize min" property. Truncates lists
             to minimal common size.</property>
-            <property name="@padz" type="alias">alias for "@oversize padz" property. Pad shortest
-            list with zeroes.</property>
+            <!-- @clip -->
             <property name="@clip" type="alias">alias for "@oversize clip" property. Pad shortest
             list with last element to conform longest list</property>
-            <property name="@wrap" type="alias">alias for "@oversize wrap" property. Pad shortest
-            list with repeated values from the beginning.</property>
+            <!-- @fold -->
             <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
             list with repeated values from the end to the beginning, then back and so
             on.</property>
+            <!-- @min -->
+            <property name="@min" type="alias">alias for "@oversize min" property. Truncates lists
+            to minimal common size</property>
+            <!-- @oversize -->
+            <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
+            behavior, if list have different sizes</property>
+            <!-- @padz -->
+            <property name="@padz" type="alias">alias for "@oversize padz" property. Pad shortest
+            list with zeroes.</property>
+            <!-- @wrap -->
+            <property name="@wrap" type="alias">alias for "@oversize wrap" property. Pad shortest
+            list with repeated values from the beginning.</property>
         </properties>
         <methods>
             <!-- clear -->

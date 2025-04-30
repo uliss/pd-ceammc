@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">message duplicator</tr>
+                <tr lang="en">duplicate messages</tr>
+                <tr lang="ru">дупликатор сообщений</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,6 +26,7 @@
             <argument name="N" type="int" minvalue="0">number of repeats</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="0" default="2">number of repeats</property>
         </properties>
         <inlets>

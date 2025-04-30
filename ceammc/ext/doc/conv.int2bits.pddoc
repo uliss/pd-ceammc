@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert integer to list of bits</tr>
+                <tr lang="ru">конвертировать целое число в список битов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,9 +33,11 @@
             bit-length</argument>
         </arguments>
         <properties>
+            <!-- @rev -->
+            <property name="@rev" type="bool" default="0">reversed bit order</property>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="32" default="32">output
             bit-length</property>
-            <property name="@rev" type="bool" default="0">reversed bit order</property>
         </properties>
         <inlets>
             <inlet>

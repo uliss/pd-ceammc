@@ -18,12 +18,9 @@
 #include "ceammc_pd.h"
 #include "stk/stk/include/Stk.h"
 
-#include <algorithm>
 #include <cstdlib>
 #include <iostream>
-#include <map>
 #include <string>
-#include <vector>
 
 #ifndef STK_RAWWAVES
 #define STK_RAWWAVES "stk/rawwaves"
@@ -57,7 +54,7 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
     os << "    \"view\": \"" << to_string(pi.view()) << "\",\n";
     if (pi.hasEnumLimit())
         os << "    \"enum\": " << to_array_str(pi.enumValues()) << ",\n";
-    if (pi.isFloat()) {
+    if (pi.isFloat() || pi.isList()) {
         if (pi.hasConstraintsMin())
             os << "    \"min\": " << pi.minFloat() << ",\n";
         if (pi.hasConstraintsMax())

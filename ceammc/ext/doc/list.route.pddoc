@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">acts like [route] but for lists</tr>
+                <tr lang="en">routes the list by the first element, like [route] object</tr>
+                <tr lang="ru">маршрутизирует список по первому элементу, как объект [route]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,14 +27,18 @@
             <argument name="ARGS" type="list">list of matched atoms</argument>
         </arguments>
         <properties>
+            <!-- @args -->
             <property name="@args" type="list" access="initonly" default="">matching
             atoms</property>
-            <property name="@trim" type="flag" default="0" access="initonly">cut first element from
-            list, transform float or symbol to bang</property>
-            <property name="@simplify" type="bool" default="1">one element list simplification -
-            transform them to floats or symbols</property>
+            <!-- @as_any -->
             <property name="@as_any" type="flag" default="0" access="initonly">trim list or symbol
             selector on output</property>
+            <!-- @simplify -->
+            <property name="@simplify" type="bool" default="1">one element list simplification -
+            transform them to floats or symbols</property>
+            <!-- @trim -->
+            <property name="@trim" type="flag" default="0" access="initonly">cut first element from
+            list, transform float or symbol to bang</property>
         </properties>
         <inlets>
             <inlet>

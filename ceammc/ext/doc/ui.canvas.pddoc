@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">UI canvas for drawing</tr>
+                <tr lang="en">canvas for drawing</tr>
+                <tr lang="ru">холст для рисования</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -39,39 +40,54 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="120 60">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <!-- font -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
-            <!-- label -->
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @label -->
             <property name="@label" type="symbol" default="(null)">label text</property>
-            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
-            within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
-            outer).</property>
+            <!-- @label_align -->
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
-            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
-            label vertical align</property>
-            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
-            label snap side</property>
+            <!-- @label_color -->
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <!-- @label_inner -->
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <!-- @label_margins -->
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
+            <!-- @label_side -->
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <!-- @label_valign -->
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @send -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="120 60">element size (width, height
+            pair)</property>
         </properties>
         <methods>
             <!-- abc -->
@@ -212,21 +228,6 @@
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
-            <!-- width -->
-            <method name="width">set stroke width 
-            <param name="WIDTH" type="float" required="true">line width</param></method>
-            <!-- move_by -->
-            <method name="move_by">move current drawing point by relative offset 
-            <param name="X" type="atom" required="true">x relative offset in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
-            height</param></method>
-            <!-- move_to -->
-            <method name="move_to">move current drawing point to absolute position 
-            <param name="X" type="atom" required="true">x-coord in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
-            height</param></method>
             <!-- matrix -->
             <method name="matrix">set 2D transformation matrix 
             <param name="XX" type="atom" required="true">xx component of the affine
@@ -241,6 +242,18 @@
             transformation</param>
             <param name="Y0" type="atom" required="true">y component of the affine
             transformation</param></method>
+            <!-- move_by -->
+            <method name="move_by">move current drawing point by relative offset 
+            <param name="X" type="atom" required="true">x relative offset in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
+            height</param></method>
+            <!-- move_to -->
+            <method name="move_to">move current drawing point to absolute position 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param></method>
             <!-- musicxml -->
             <method name="musicxml">render MusicXML file 
             <param name="X" type="atom" required="true">x-coord in pixels or percents of
@@ -346,6 +359,9 @@
             <param name="Y" type="float" required="true">y offset</param></method>
             <!-- update -->
             <method name="update">updates drawed image</method>
+            <!-- width -->
+            <method name="width">set stroke width 
+            <param name="WIDTH" type="float" required="true">line width</param></method>
         </methods>
         <inlets>
             <inlet>

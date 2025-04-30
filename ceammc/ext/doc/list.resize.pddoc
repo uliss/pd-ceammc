@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">changes list size</tr>
+                <tr lang="en">changes the list size</tr>
+                <tr lang="ru">изменяет длину списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,14 +23,20 @@
             <argument name="SIZE" type="int" minvalue="0">desired list size</argument>
         </arguments>
         <properties>
-            <property name="@size" type="int" minvalue="0" default="0">output list size</property>
+            <!-- @clip -->
+            <property name="@clip" type="alias">alias for @method clip</property>
+            <!-- @fold -->
+            <property name="@fold" type="alias">alias for @method fold</property>
+            <!-- @method -->
             <property name="@method" type="symbol" enum="pad clip wrap fold" default="pad">method
             of resizing, if new size is longer then current</property>
+            <!-- @pad -->
             <property name="@pad" type="atom" default="0">pad value for pad method of
             resizing</property>
-            <property name="@clip" type="alias">alias for @method clip</property>
+            <!-- @size -->
+            <property name="@size" type="int" minvalue="0" default="0">output list size</property>
+            <!-- @wrap -->
             <property name="@wrap" type="alias">alias for @method wrap</property>
-            <property name="@fold" type="alias">alias for @method fold</property>
         </properties>
         <inlets>
             <inlet>

@@ -1,1385 +1,1385 @@
-an.onset	
-an.onset~	
-an.pitchtrack~	
-ceammc/helmholtz~	
-helmholtz~	
-an.rms~	
-an.tempo~	
-an.zero~	
-array.bpm	
-array.circular	
-array.circular~	
-array.convolve	
-array.copy	
-array.do	
-array.each	
-array.fill	
-array.grainer~	
-array.hist	
-array.histogram	
-array.ltcplay~	
-array.mean	
-array.minmax	
-array.play~	
-array.p~	
-array.plot	
-array.plot~	
-array.readwrite~	
-array.rw~	
-array.resample	
-array.r	
-array.rms	
-array.set	
-ceammc/list->array	
-list->array	
-array.stddev	
-array.stretch	
-array.sum	
-array.sum2	
-array.tramp~	
-array.variance	
-array.vplay	
-array.window	
-plot.geomspace~	
-plot.hist~	
-ceammc/hist~	
-hist~	
-plot.linspace~	
-plot.logspace~	
-plot.response~	
-bitmap	
-ceammc/bitmap	
-ceammc.search	
-chrono.datetime	
-ceammc/datetime	
-datetime	
-convolve~	
-ceammc/convolve~	
-function	
-func	
-ceammc/func	
-ceammc/function	
-function.call	
-func.call	
-gain~	
-ceammc/gain~	
-gate~	
-ceammc/gate~	
-logger	
-ceammc/logger	
-log.error	
-log.post	
-log.debug	
-log.verbose	
-log.stdout	
-log.stderr	
-matrix~	
-ceammc/matrix~	
-merge~	
-ceammc/merge~	
-metro.choice	
-metro.pattern	
-metro.random	
-metro.seq	
-metro.wchoice	
-mix~	
-ceammc/mix~	
-nsig~	
-ceammc/nsig~	
-obj.props	
-radio	
-ceammc/radio	
-split~	
-ceammc/split~	
-spring	
-ceammc/spring	
-sync	
-ceammc/sync	
-window	
-ceammc/window	
-ceammc/win	
-win	
-xdac~	
-ceammc/xdac~	
-xfade2~	
-ceammc/xfade2~	
-xfade~	
-ceammc/xfade~	
-z~	
-ceammc/z~	
-chaos.gbman0	
-chaos.gbman0~	
-chaos.jong	
-noise.jong	
-chaos.logistic	
-noise.logistic	
-chaos.std0	
-chaos.std0~	
-array.p2s	
-array.p->s	
-array.phase->sample	
-array.s2p	
-array.s->p	
-array.sample->phase	
-conv.amp2dbfs	
-ceammc/amp->dbfs	
-amp->dbfs	
-conv.amp2dbfs~	
-ceammc/amp->dbfs~	
-amp->dbfs~	
-conv.bar2ms	
-ceammc/bar->ms	
-bar->ms	
-conv.bits2bang	
-ceammc/bits->bang	
-bits->bang	
-conv.bits2int	
-ceammc/bits->int	
-bits->int	
-conv.bits2note	
-ceammc/bits->note	
-bits->note	
-conv.bits2pos	
-ceammc/bits->pos	
-bits->pos	
-conv.bpm2hz	
-ceammc/bpm->hz	
-bpm->hz	
-conv.bpm2ms	
-ceammc/bpm->ms	
-bpm->ms	
-conv.bpm2sec	
-ceammc/bpm->sec	
-bpm->sec	
-conv.car2pol	
-ceammc/car->pol	
-car->pol	
-conv.cc2amp	
-ceammc/cc->amp	
-cc->amp	
-conv.char2morse	
-ceammc/char->morse	
-char->morse	
-conv.color2rgba	
-ceammc/color->rgba	
-color->rgba	
-conv.dbfs2amp	
-ceammc/dbfs->amp	
-dbfs->amp	
-conv.dbfs2amp~	
-ceammc/dbfs->amp~	
-dbfs->amp~	
-conv.degree2key	
-ceammc/degree->key	
-degree->key	
-conv.edge2bang	
-ceammc/edge->bang	
-edge->bang	
-conv.guido2note	
-ceammc/guido->note	
-guido->note	
-conv.hex2int	
-ceammc/hex->int	
-hex->int	
-conv.hsl2rgb	
-ceammc/hsl->rgb	
-hsl->rgb	
-conv.int2bits	
-ceammc/int->bits	
-int->bits	
-conv.lab2rgb	
-ceammc/lab->rgb	
-lab->rgb	
-conv.lin2curve	
-ceammc/lin->curve	
-lin->curve	
-conv.lin2exp	
-ceammc/lin->exp	
-lin->exp	
-conv.lin2lin	
-ceammc/lin->lin	
-lin->lin	
-ceammc/l->l	
-l->l	
-conv.lin2lin~	
-ceammc/lin->lin~	
-lin->lin~	
-ceammc/l->l~	
-l->l~	
-conv.list2props	
-ceammc/list->props	
-list->props	
-ceammc/any->props	
-any->props	
-conv.midi2freq	
-ceammc/midi->freq	
-midi->freq	
-ceammc/m->f	
-m->f	
-conv.ms2bpm	
-ceammc/ms->bpm	
-ms->bpm	
-conv.ms2samp	
-ceammc/ms->samp	
-ms->samp	
-conv.ms2samp~	
-ceammc/ms->samp~	
-ms->samp~	
-conv.ms2str	
-ceammc/ms->str	
-ms->str	
-conv.note2guido	
-ceammc/note->guido	
-note->guido	
-conv.phase2rad	
-ceammc/phase->rad	
-phase->rad	
-conv.phase2rad~	
-ceammc/phase->rad~	
-phase->rad~	
-conv.pitch2midi	
-ceammc/pitch->midi	
-pitch->midi	
-conv.pol2car	
-ceammc/pol->car	
-pol->car	
-conv.rad2phase	
-ceammc/rad->phase	
-rad->phase	
-conv.rad2phase~	
-ceammc/rad->phase~	
-rad->phase~	
-conv.rgb2hex	
-ceammc/rgb->hex	
-rgb->hex	
-conv.samp2ms	
-ceammc/samp->ms	
-samp->ms	
-conv.samp2ms~	
-ceammc/samp->ms~	
-samp->ms~	
-conv.samp2sec	
-ceammc/samp->sec	
-samp->sec	
-conv.sec2bpm	
-ceammc/sec->bpm	
-sec->bpm	
-conv.sec2samp	
-ceammc/sec->samp	
-sec->samp	
-conv.sec2str	
-ceammc/sec->str	
-sec->str	
-conv.semi2ratio	
-ceammc/semi->ratio	
-semi->ratio	
-conv.sig2float~	
-ceammc/sig->float~	
-sig->float~	
-ceammc/s->f~	
-s->f~	
-conv.str2sec	
-ceammc/str->sec	
-str->sec	
-music.dur2time	
-music.d->t	
-music.voice2midi	
-music.v->m	
-color.mix	
-color.scale	
-data.bimap	
-ceammc/bimap	
-bimap	
-data.color	
-color	
-ceammc/color	
-data.copy	
-data.dict	
-ceammc/dict	
-dict	
-data.fifo	
-data.float	
-.float	
-.f	
-data.int	
-.int	
-.i	
-data.list	
-data.mlist	
-ceammc/mlist	
-mlist	
-ceammc/ml	
-ml	
-data.path	
-data.set	
-data.set2list	
-ceammc/set->list	
-set->list	
-dict.contains	
-dict.each	
-dict.from_list	
-ceammc/list->dict	
-list->dict	
-dict.get	
-dict.keys	
-dict.pass	
-dict.reject	
-dict.size	
-dict.to_list	
-ceammc/dict->list	
-dict->list	
-dict.values	
-global.bimap	
-local.bimap	
-mlist.flatten	
-rtree.to_list	
-ceammc/rtree->list	
-rtree->list	
-set.contains	
-set.diff	
-set.equal	
-set.intersect	
-set.size	
-set.symdiff	
-set.union	
-dyn.comp2~	
-dyn.comp_peak2~	
-comp.peak2~	
-dyn.comp_peak~	
-comp.peak~	
-dyn.comp_up2~	
-comp.up2~	
-dyn.comp_up~	
-comp.up~	
-dyn.comp~	
-dyn.expand2~	
-dyn.expand~	
-dyn.gate2~	
-dyn.gate~	
-dyn.limit2~	
-dyn.limit~	
-dyn.softclip~	
-env.adsr~	
-env.ar~	
-env.asr2~	
-env.asr~	
-env.concat	
-env.follow~	
-env.mix	
-env.smooth~	
-env.tscale	
-env.tshift	
-env.vscale	
-env2array	
-ceammc/env2array	
-ceammc/env->array	
-env->array	
-env2vline	
-ceammc/env2vline	
-ceammc/env->vline	
-env->vline	
-envelope	
-ceammc/envelope	
-ceammc/env	
-env	
-vline2env	
-ceammc/vline2env	
-ceammc/vline->env	
-vline->env	
-expand_env	
-ceammc/expand_env	
-flow.append	
-flow.change	
-flow.count	
-flow.delay	
-flow.del	
-flow.demultiplex	
-flow.demux	
-flow.demultiplex2~	
-flow.demux2~	
-ceammc/demux2~	
-demux2~	
-flow.demultiplex~	
-flow.demux~	
-ceammc/demux~	
-demux~	
-flow.dollar	
-flow.$$	
-flow.dup	
-flow.float	
-flow.f	
-flow.gate	
-ceammc/gate	
-gate	
-flow.greater	
-flow.>	
-flow.greater_eq	
-flow.>=	
-flow.group	
-ceammc/group	
-group	
-flow.histogram	
-flow.hist	
-flow.interval	
-flow.less	
-flow.<	
-flow.less_eq	
-flow.<=	
-flow.list2many	
-ceammc/list->many	
-list->many	
-flow.match	
-flow.mem	
-flow.multiplex	
-flow.mux	
-flow.multiplex2~	
-flow.mux2~	
-ceammc/mux2~	
-mux2~	
-flow.multiplex~	
-flow.mux~	
-ceammc/mux~	
-mux~	
-flow.once	
-ceammc/once	
-once	
-flow.pack	
-flow.pass	
-ceammc/pass	
-pass	
-flow.pass_if	
-ceammc/pass_if	
-pass_if	
-flow.pipe	
-flow.prepend	
-flow.queue	
-flow.record	
-flow.rec	
-flow.reject	
-ceammc/reject	
-reject	
-flow.!	
-flow.reject_if	
-ceammc/reject_if	
-reject_if	
-flow.ring	
-flow.>>	
-flow.route	
-flow.select	
-flow.sel	
-flow.seqdelay	
-flow.seqdel	
-flow.space	
-flow.speedlim	
-ceammc/speedlim	
-speedlim	
-flow.split	
-ceammc/split	
-split	
-flow.stack	
-flow.sync	
-flow.'	
-flow.sync_pack	
-flow.pack'	
-flow.tee~	
-ceammc/tee~	
-tee~	
-ceammc/~->	
-~->	
-replace	
-ceammc/replace	
-route.any	
-route.bang	
-route.b	
-route.cycle	
-route.data	
-route.d	
-route.float	
-route.f	
-route.list	
-route.l	
-route.prop	
-route.random	
-route.r	
-route.symbol	
-route.s	
-flt.a-weight	
-flt.biquad~	
-flt.bpf12~	
-flt.bpf24~	
-flt.bpf36e~	
-flt.bpf72e~	
-flt.c_apf	
-ceammc/apf->biquad	
-apf->biquad	
-flt.c_bpf~	
-flt.c_highshelf~	
-flt.c_hpf	
-ceammc/hpf->biquad	
-hpf->biquad	
-flt.c_hpf~	
-flt.c_lowshelf~	
-flt.c_lpf	
-ceammc/lpf->biquad	
-lpf->biquad	
-flt.c_lpf~	
-flt.c_notch	
-ceammc/notch->biquad	
-notch->biquad	
-flt.c_notch~	
-flt.c_peak~	
-flt.c_pole	
-ceammc/pole->biquad	
-pole->biquad	
-flt.dcblock2~	
-flt.dcblock~	
-flt.eq10~	
-flt.eq_peak_cq~	
-flt.eq_peak~	
-flt.fb_comb~	
-flt.fbank5x1~	
-flt.ff_comb~	
-flt.freqz	
-flt.freqz~	
-flt.highshelf~	
-flt.hpf12~	
-flt.hpf24~	
-flt.lowshelf~	
-flt.lpf12~	
-flt.lpf24~	
-flt.median	
-flt.moog_vcf~	
-flt.notch~	
-flt.resonbp~	
-flt.resonhp~	
-flt.resonlp~	
-flt.speaker~	
-fx.bitdown~	
-fx.chorus~	
-fx.dattorro~	
-fx.delay~	
-fx.sdelay~	
-fx.distortion1~	
-fx.distortion2~	
-fx.distortion3~	
-fx.distortion~	
-fx.drive~	
-fx.drone_box~	
-fx.echo2~	
-fx.echo~	
-fx.secho~	
-fx.flanger~	
-fx.freeverb2~	
-fx.freeverb~	
-fx.freqshift~	
-fx.granulator~	
-fx.greyhole~	
-fx.infrev~	
-fx.jcrev~	
-fx.looper~	
-fx.overdrive~	
-fx.pitchshift_s~	
-fx.pitchshift~	
-fx.rb_pitchshift~	
-fx.recho~	
-fx.ringmod~	
-fx.room~	
-fx.satrev~	
-fx.scramble~	
-fx.shimmer~	
-fx.stutter~	
-fx.tapiir~	
-fx.tremolo~	
-fx.vocoder~	
-fx.wahwah~	
-fx.zita_rev1~	
-global.dict	
-global.json	
-global.float	
-global.int	
-global.list	
-global.mlist	
-global.set	
-hw.apple_smc	
-hw.apple_sms	
-hw.arduino	
-hw.display	
-hw.gamepad	
-hw.kbd_light	
-hw.motu.avb	
-hw.printer	
-hw.rpi.adc.ads1115	
-hw.rpi.display.hd44780	
-hw.rpi.display.lcd1602	
-hw.rpi.display.lcd2004	
-hw.rpi.display.ssd1306	
-hw.rpi.gpio	
-hw.rpi.i2c.pca9685	
-hw.rpi.pwm.pca9685	
-hw.rpi.pwm	
-hw.rpi.rotenc	
-hw.rpi.sensor.dht11	
-hw.rpi.sensor.ir	
-hw.rpi.sensor.mpu6050	
-hw.rpi.sensor.sr04	
-hw.rpi.sensor.vl53l0x	
-hw.rpi.spi.max7219	
-hw.rpi.spi.ws2812	
-hw.serial	
-lang.faust~	
-lang.lua	
-ui.faust~	
-lfo.+pulse~	
-lfo.+saw~	
-lfo.+square~	
-lfo.+tri~	
-lfo.impulse~	
-lfo.mosc~	
-lfo.pulse~	
-lfo.saw~	
-lfo.square~	
-lfo.tri~	
-list.^at	
-list.^contains	
-list.^search	
-list.all_of	
-list.any_of	
-list.append	
-list.apply_to	
-list.at	
-list.choice	
-list.contains	
-list.convolve	
-list.conv	
-list.correlate	
-list.count	
-list.count_if	
-list.delta	
-list.distribution	
-list.do	
-list.each	
-list.enumerate	
-list.equal	
-list.first	
-list.gen	
-list.histogram	
-list.hist	
-list.insert	
-list.integrator	
-list.last	
-list.length	
-list.size	
-list.map	
-list.max	
-list.mean	
-list.average	
-list.min	
-list.none_of	
-list.normalize	
-list.pass	
-list.pass_if	
-list.filter	
-list.prepend	
-list.product	
-list.range	
-list.minmax	
-list.reduce	
-list.foldl	
-list.reject	
-list.remove	
-list.remove_if	
-list.repack	
-list.repeat	
-list.resample	
-list.r	
-list.resize	
-list.reverse	
-list.rldecode	
-list.unwrap	
-list.rlencode	
-list.wrap	
-list.rotate	
-list.<<	
-list.>>	
-list.route	
-list.rundiff	
-list.runsum	
-list.search	
-list.separate	
-list.sep	
-list.seq	
-list.set	
-list.shift	
-list.shuffle	
-list.slice	
-list.sort	
-list.sort_with	
-list.split	
-list.stretch	
-list.sum	
-list.unique	
-list.unpack	
-list.unzip	
-list.deinterleave	
-list.walk	
-list.zip	
-list.interleave	
-live.capture~	
-local.dict	
-local.json	
-local.float	
-local.int	
-local.list	
-local.mlist	
-local.set	
-math.abs	
-math.abs~	
-math.acos	
-math.acosh	
-math.acosh~	
-math.acos~	
-math.and	
-ceammc/and	
-and	
-math.approx	
-ceammc/approx	
-approx	
-math.asin	
-math.asinh	
-math.asinh~	
-math.asin~	
-math.atan	
-math.atanh	
-math.atanh~	
-math.atan~	
-math.binomial	
-math.nck	
-math.cabs~	
-ceammc/cabs~	
-cabs~	
-math.carg~	
-ceammc/carg~	
-carg~	
-math.cbrt	
-math.cbrt~	
-math.cdiv~	
-ceammc/cdiv~	
-cdiv~	
-math.ceil	
-math.ceil~	
-math.cexp~	
-ceammc/cexp~	
-cexp~	
-math.cmul~	
-ceammc/cmul~	
-cmul~	
-math.cos	
-math.cosh	
-math.cosh~	
-math.cos~	
-math.div	
-math./	
-math.e	
-math.erf	
-math.erf~	
-math.exp	
-math.exp2	
-math.exp2~	
-math.expr	
-math.exp~	
-math.floor	
-math.floor~	
-math.gamma	
-math.gamma~	
-math.gcd	
-math.inf	
-math.inf~	
-math.lcm	
-math.lgamma	
-math.lgamma~	
-math.log	
-math.log10	
-math.log10~	
-math.log2	
-math.log2~	
-math.log~	
-math.mul	
-math.*	
-math.nan	
-math.nan~	
-math.neg	
-ceammc/-x	
--x	
-math.or	
-ceammc/or	
-or	
-math.pi	
-ceammc/pi	
-pi	
-math.pi~	
-ceammc/pi~	
-pi~	
-math.polyeval	
-math.reciprocal	
-ceammc/1/x	
-1/x	
-math.reciprocal~	
-ceammc/1/x~	
-1/x~	
-math.round	
-round	
-ceammc/round	
-math.round~	
-round~	
-ceammc/round~	
-math.sign	
-math.sin	
-math.sinh	
-math.sinh~	
-math.sin~	
-math.sqrt	
-math.sqrt~	
-math.squared	
-math.^2	
-ceammc/^2	
-^2	
-math.squared~	
-math.^2~	
-ceammc/^2~	
-^2~	
-math.sync_add	
-math.+'	
-ceammc/+'	
-+'	
-math.sync_and	
-math.&&'	
-ceammc/&&'	
-&&'	
-math.sync_div	
-math./'	
-ceammc//'	
-/'	
-math.sync_eq	
-math.=='	
-ceammc/=='	
-=='	
-math.sync_ge	
-math.>='	
-ceammc/>='	
->='	
-math.sync_gt	
-math.>'	
-ceammc/>'	
->'	
-math.sync_le	
-math.<='	
-ceammc/<='	
-<='	
-math.sync_lshift	
-math.<<'	
-ceammc/<<'	
-<<'	
-math.sync_lt	
-math.<'	
-ceammc/<'	
-<'	
-math.sync_mod	
-math.%'	
-ceammc/%'	
-%'	
-math.sync_mul	
-math.*'	
-ceammc/*'	
-*'	
-math.sync_ne	
-math.!='	
-ceammc/!='	
-!='	
-math.sync_or	
-math.||'	
-ceammc/||'	
-||'	
-math.sync_rshift	
-math.>>'	
-ceammc/>>'	
->>'	
-math.sync_sub	
-math.-'	
-ceammc/-'	
--'	
-math.sync_xor	
-math.^'	
-ceammc/^'	
-^'	
-math.tan	
-math.tanh	
-math.tanh~	
-math.tan~	
-math.trunc	
-math.trunc~	
-midi.arp	
-midi.cc	
-midi.clock	
-midi.ctl2str	
-midi.ctl->str	
-midi.event2ctl	
-midi.ev->ctl	
-midi.event2note	
-midi.ev->note	
-midi.event2prg	
-midi.ev->prg	
-midi.file	
-midi.kbd	
-midi.key2str	
-midi.key->str	
-midi.modus	
-midi.note.pass	
-note.pass	
-midi.oct	
-midi.prg2str	
-midi.prg->str	
-midi.split	
-midi.sustain	
-midi.sysex	
-midi.track	
-midi.tuning	
-midi.vramp	
-midi.vrand	
-click~	
-ceammc/click~	
-fluid~	
-ceammc/fluid~	
-modplug~	
-ceammc/modplug~	
-qrcode	
-ceammc/qrcode	
-risset.gliss	
-sfizz~	
-ceammc/sfizz~	
-speech.flite	
-speech.flite~	
-speech.rhvoice~	
-ceammc/rhvoice~	
-rhvoice~	
-loadexpr	
-ceammc/loadexpr	
-msg	
-ceammc/msg	
-ceammc/m	
-m	
-ceammc/prepend	
-prepend	
-msg.after	
-msg.onclose	
-msg.onload	
-ceammc/loadmsg	
-loadmsg	
-msg.pack	
-msg.sched	
-msg.unpack	
-rhythm.euclid	
-rhythm.hexbeat	
-rhythm.lsystem	
-net.artnet.send	
-artnet.send	
-net.freesound	
-net.host2ip	
-net.host->ip	
-net.http.client	
-http.client	
-net.http.send	
-http.send	
-net.mdns	
-net.mqtt.client	
-mqtt.client	
-net.osc.receive	
-net.osc.r	
-net.osc.send	
-net.osc.s	
-net.osc.server	
-net.osc	
-net.ws.client	
-net.ws.server	
-noise.baker	
-noise.clifford	
-noise.collatz	
-noise.colored~	
-noise.crackle~	
-noise.duffing	
-noise.ginger	
-noise.henon	
-noise.henon_heilles	
-noise.henon_phase	
-noise.henonf	
-noise.ikeda	
-noise.lfreq0~	
-noise.lfreq~	
-noise.lorenz	
-noise.lyapunov	
-noise.navier_stokes	
-noise.pink~	
-noise.rossler	
-noise.stein	
-noise.torus	
-noise.verhulst	
-noise.white~	
-osc.blit~	
-osc.impulse~	
-osc.pulse~	
-osc.saw4~	
-osc.saw~	
-osc.sinfb~	
-osc.sin~	
-osc.square~	
-osc.tri~	
-canvas.active	
-ceammc/canvas.active	
-canvas.current	
-canvas.dir	
-canvas.name	
-canvas.path	
-canvas.top	
-patch.args	
-patch.deps	
-patch.tree	
-file.size	
-path.basename	
-path.dirname	
-path.exists	
-path.file	
-path.is_dir	
-path.lsdir	
-path.ls	
-path.monitor	
-path.normalize	
-path.norm	
-path.pattern	
-path.search	
-path.split	
-is_any	
-is_bang	
-is_data	
-ceammc/is_data	
-is_dict	
-ceammc/is_dict	
-is_even	
-is_file	
-ceammc/is_file	
-is_float	
-is_list	
-is_odd	
-is_pointer	
-is_prop	
-is_symbol	
-preset.float	
-preset.f	
-preset.list	
-preset.l	
-preset.storage	
-preset.symbol	
-preset.s	
-patch.props	
-prop	
-ceammc/prop	
-prop.declare	
-prop.get	
-p.get	
-prop.join	
-prop<-	
-prop.random	
-prop.route	
-prop->	
-@->	
-ceammc/prop->	
-ceammc/@->	
-prop.split	
-prop.route~	
-prop~>	
-@~>	
-ceammc/prop~>	
-ceammc/@~>	
-prop.get~	
-prop.set	
-p.set	
-proto.arturia.minilab	
-proto.feelworld	
-proto.firmata	
-proto.inscore	
-proto.ltc.in~	
-ltc.in~	
-proto.ltc.out~	
-ltc.out~	
-proto.midi	
-proto.midi.casio	
-proto.midi.cc	
-proto.midi.sysex	
-proto.moppy	
-proto.morse	
-proto.mpv	
-proto.obs	
-proto.sp.alpaca	
-proto.vlc	
-proto.whammy	
-proto.xtouch_ext	
-random.atom	
-random.a	
-random.discrete	
-random.float	
-random.f	
-random.gauss	
-random.int	
-random.i	
-random.linear	
-random.pw_const	
-random.pw_lin	
-samp.time~	
-samp.t~	
-seq.arp	
-seq.bangs	
-seq.b	
-seq.counter	
-seq.life	
-seq.matrix	
-seq.nbangs	
-seq.nb	
-seq.phasor	
-seq.toggles	
-seq.t	
-sequencer	
-ceammc/sequencer	
-ceammc/seq	
-seq	
-snd.file	
-snd.play~	
-hoa.2d.decoder~	
-hoa.decoder~	
-hoa.2d.encoder~	
-hoa.encoder~	
-hoa.2d.exchanger~	
-hoa.exchanger~	
-hoa.2d.map~	
-hoa.map~	
-hoa.2d.optim~	
-hoa.optim~	
-hoa.2d.projector~	
-hoa.projector~	
-hoa.2d.recomposer~	
-hoa.recomposer~	
-hoa.2d.rotate~	
-hoa.rotate~	
-hoa.2d.space	
-hoa.space	
-hoa.2d.wider~	
-hoa.wider~	
-hoa.3d.decoder~	
-hoa.3d.encoder~	
-hoa.3d.exchanger~	
-hoa.3d.map~	
-hoa.3d.meter~	
-hoa.3d.optim~	
-hoa.3d.scope~	
-hoa.3d.wider~	
-hoa.@process	
-hoa.in	
-hoa.in~	
-hoa.map.ui	
-hoa.out	
-hoa.out~	
-hoa.process~	
-hoa.2d.process~	
-hoa.3d.process~	
-hoa.scope~	
-hoa.2d.scope~	
-pan.cos~	
-pan.linsig~	
-pan.lin~	
-ceammc/pan~	
-pan~	
-pan.spread~	
-pan.sqrt~	
-spat.pan4~	
-ceammc/pan4~	
-pan4~	
-spat.pan8~	
-ceammc/pan8~	
-pan8~	
-spat.zita6x8~	
-spat.zita8~	
-string	
-ceammc/string	
-ceammc/str	
-str	
-string.contains	
-str.contains	
-string.ends_with	
-str.ends_with	
-string.equal	
-str.equal	
-string.format	
-str.format	
-string.join	
-str.join	
-string.length	
-str.length	
-string.match	
-str.match	
-string.remove	
-str.remove	
-string.replace	
-str.replace	
-string.split	
-str.split	
-symbol.split	
-string.starts_with	
-str.starts_with	
-string.substr	
-str.substr	
-string2symbol	
-ceammc/string2symbol	
-ceammc/str->sym	
-str->sym	
-symbol.equal	
-symbol.length	
-symbol.num_compare	
-symbol2any	
-ceammc/symbol2any	
-ceammc/sym->any	
-ceammc/str->any	
-ceammc/string2any	
-sym->any	
-str->any	
-string2any	
-symbol2intlist	
-ceammc/symbol2intlist	
-ceammc/sym->ilist	
-sym->ilist	
-noise.chua~	
-synth.bee3~	
-synth.birds~	
-synth.church_bell~	
-synth.clap~	
-synth.dubdub~	
-synth.dx7~	
-synth.eguitar~	
-synth.english_bell~	
-synth.fgrain~	
-synth.french_bell~	
-synth.german_bell~	
-synth.glass_harm~	
-synth.glitch~	
-synth.harpsichord~	
-synth.hat~	
-synth.kick2~	
-synth.kick~	
-synth.ks~	
-synth.marimba~	
-synth.metro~	
-synth.piano~	
-synth.rhodey~	
-synth.risset_arp~	
-synth.risset_bell~	
-synth.risset_tone~	
-synth.russian_bell~	
-synth.shakers~	
-synth.sitar~	
-synth.snare~	
-synth.standard_bell~	
-synth.tube_bell~	
-synth.voice_fofc~	
-synth.voice_fofs~	
-synth.wurley~	
-system.colorpanel	
-system.command	
-system.cmd	
-system.cursor	
-system.exec	
-system.exit	
-system.getenv	
-system.hostname	
-system.info	
-system.memsize	
-system.memused	
-system.screen_size	
-tl.bang	
-tl.b	
-tl.cue	
-tl.timeline	
-ceammc/timeline	
-timeline	
-tl.toggle	
-tl.t	
-tl.transport	
-ui.aview	
-ui.bang	
-ui.b	
-ui.button	
-ui.btn	
-ui.canvas	
-ui.cnv	
-ui.cmeter~	
-ui.cm~	
-hoa.2d.meter~	
-ui.colorpanel	
-ui.display	
-ui.d	
-ui.dt	
-ui.dsp~	
-ui.env	
-ui.filter	
-ui.filter~	
-ui.gain2~	
-ui.hgain2~	
-ui.vgain2~	
-ui.gain~	
-ui.hgain~	
-ui.vgain~	
-ui.icon	
-ui.incdec	
-ui.keyboard	
-ui.hk	
-ui.vkeyboard	
-ui.vk	
-ui.knob	
-ui.k	
-ui.label	
-ui.lcd	
-ui.link	
-ui.matrix	
-ui.menu	
-ui.meter~	
-ui.m~	
-ui.hm~	
-ui.vm~	
-ui.midi	
-ui.mouse_filter	
-ui.mf	
-ui.mouse_route	
-ui.mr	
-ui.number	
-ui.n	
-ui.number~	
-ui.n~	
-ui.plot~	
-ui.polar	
-ui.preset	
-ui.radio	
-ui.radio*	
-ui.hrd	
-ui.hrd*	
-ui.vrd	
-ui.vrd*	
-ui.rslider	
-ui.rsl	
-ui.scope~	
-ui.slider	
-ui.hsl	
-ui.vsl	
-ui.slider2d	
-ui.s2d	
-ui.sliders	
-ui.vsliders	
-ui.spectroscope~	
-ui.ssc~	
-ui.tab	
-ui.toggle	
-ui.t	
+an.onset	onset detector for arrays / детектор атаки для массивов
+an.onset~	the signal onset detector / детектор атаки сигнала
+an.pitchtrack~	the signal pitch tracker / отслеживает высоту сигнала
+ceammc/helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
+helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
+an.rms~	root mean square of the signal with moving-average algorithm / среднее квадратичное сигнала с алгоритмом скользящего среднего
+an.tempo~	the signal tempo detector / детектор темпа сигнала
+an.zero~	calculate the signal zero crossing count/rate/freq / вычисление частоты/скорости/числа пересечения сигналом нулевого значения
+array.bpm	BPM calculator / вычисление BPM
+array.circular	read/write to the array as circular buffer / чтение/запись в массив, как в кольцевой буфер
+array.circular~	read/write the signal into the array like in a circular buffer / чтение/запись сигнала в массив, как в кольцевой буфер
+array.convolve	FFT convolution of the array / FFT свертка массива
+array.copy	copy samples from the one array to another / копирование семплов из одного массива в другой
+array.do	iterate and modify the array content via the side-chain / обход и модификация содержимого массива через боковую цепь
+array.each	process each array elements via side-chain / обработка каждого элемента массива через боковую цепь
+array.fill	fill the array with the single value, pattern or function / заполнение массива одним значением, шаблоном или функцией
+array.grainer~	array granulator / гранулятор звуковой таблицы
+array.hist	calculate the array histogram / вычисление гистограммы массива
+array.histogram	calculate the array histogram / вычисление гистограммы массива
+array.ltcplay~	array player controlled by LTC / проигрывание звуковой таблицы, с управлением по LTC
+array.mean	calculates the array arithmetic mean value / вычисляет среднее арифметическое значение массива
+array.minmax	find minimal and max values in the array / поиск минимального и максимального значения в массиве
+array.play~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
+array.p~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
+array.plot	array data plotter / построение числовых графиков данных на массиве
+array.plot~	plot the signal on the specified array / построение графика сигнала на заданном массиве
+array.readwrite~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
+array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
+array.resample	resampling the array / пересемплирование массива
+array.r	resampling the array / пересемплирование массива
+array.rms	calculates the root mean square value for the array / вычисляет среднее квадратичное значение для массива
+array.set	set the array content from the list data / устанавливает содержание массива данными из списка
+ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
+list->array	set the array content from the list data / устанавливает содержание массива данными из списка
+array.stddev	calculates standard deviation for array values / вычисляет стандартное отклонение для значений массива
+array.stretch	the array time-stretch, pitch-shift or rate-change / растяжение во времени, изменение высоты тона или скорости у массива
+array.sum	calculates sum of array elements / вычисляет сумму элементов массива
+array.sum2	calculates sum of squares of array elements / вычисляет сумму квадратов элементов массива
+array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейного индекса для массива
+array.variance	calculates variance of array values / вычисляет дисперсию значений массива
+array.vplay	simple array player for using with the [vline~] object / простой плеер массивов для использования с объектом [vline~]
+array.window	fills the array with the window function / заполнение массива оконной функцией
+plot.geomspace~	outputs numbers spaced evenly on a log scale (a geometric progression)
+plot.hist~	calculate and output signal histogram
+ceammc/hist~	calculate and output signal histogram
+hist~	calculate and output signal histogram
+plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
+plot.logspace~	outputs numbers spaced evenly on a log scale
+plot.response~	output amp/phase freq response to impulse
+bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
+ceammc/bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
+ceammc.search	search in the [ceammc] library / поиск в библиотеке [ceammc]
+chrono.datetime	outputs the current date and time / выводит текущую дату и время
+ceammc/datetime	outputs the current date and time / выводит текущую дату и время
+datetime	outputs the current date and time / выводит текущую дату и время
+convolve~	real-time FFT convolution / свёртка FFT в реальном времени
+ceammc/convolve~	real-time FFT convolution / свёртка FFT в реальном времени
+function	the named function / именованная функция
+func	the named function / именованная функция
+ceammc/func	the named function / именованная функция
+ceammc/function	the named function / именованная функция
+function.call	calls the named function / вызывает именованную функцию
+func.call	calls the named function / вызывает именованную функцию
+gain~	multichannel signal gain / многоканальное усиление сигнала
+ceammc/gain~	multichannel signal gain / многоканальное усиление сигнала
+gate~	multichannel signal gate / многоканальный гейт для сигналов
+ceammc/gate~	multichannel signal gate / многоканальный гейт для сигналов
+logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
+ceammc/logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.error	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.post	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.debug	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.verbose	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.stdout	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.stderr	advanced data logger for Pd window / продвинутый логгер для окна Pd
+matrix~	signal routing matrix / матрица маршрутизации сигналов
+ceammc/matrix~	signal routing matrix / матрица маршрутизации сигналов
+merge~	merge audio signals / слияние аудиосигналов
+ceammc/merge~	merge audio signals / слияние аудиосигналов
+metro.choice	a metronome that randomly selects a period for each beat from a given set / метроном со случайным выбором периода при каждом ударе из заданного списка
+metro.pattern	metronome with rhythmic patterns / метроном с ритмическими паттернами
+metro.random	a metronome with a random period selection within a specified range / метроном со случайным выбором периода в указанном диапазоне
+metro.seq	a metronome that changes its period with each beat in the specified sequence / метроном изменяющий свой период при каждом ударе в указанной последовательности
+metro.wchoice	a metronome with a random selection of period at each beat from a specified list with weighted coefficients / метроном со случайным выбором периода при каждом ударе из заданного списка с весовыми коэффициентами
+mix~	multichannel signal mixer / многоканальный микшер сигналов
+ceammc/mix~	multichannel signal mixer / многоканальный микшер сигналов
+nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
+ceammc/nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
+obj.props	exctract object properties from the connected object / извлекает свойства из подключенного объекта
+radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
+ceammc/radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
+split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
+ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
+spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
+ceammc/spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
+sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
+ceammc/sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
+window	returns the value of the window function / возвращает значение оконной функции
+ceammc/window	returns the value of the window function / возвращает значение оконной функции
+ceammc/win	returns the value of the window function / возвращает значение оконной функции
+win	returns the value of the window function / возвращает значение оконной функции
+xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
+ceammc/xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
+xfade2~	multi-channel crossfade for stereo signals / многоканальный кроссфейд для стерео сигналов
+ceammc/xfade2~	multi-channel crossfade for stereo signals / многоканальный кроссфейд для стерео сигналов
+xfade~	multichannel crossfade / многоканальный кроссфейд
+ceammc/xfade~	multichannel crossfade / многоканальный кроссфейд
+z~	integer sample delay / целочисленная задержка сэмплов
+ceammc/z~	integer sample delay / целочисленная задержка сэмплов
+chaos.gbman0	Gingerbreadman map chaotic generator
+chaos.gbman0~	Gingerbreadman map chaotic generator
+chaos.jong	Peter de Jong attractor
+noise.jong	Peter de Jong attractor
+chaos.logistic	Logistic map chaotic generator
+noise.logistic	Logistic map chaotic generator
+chaos.std0	Standard map chaotic generator
+chaos.std0~	Standard map chaotic generator
+array.p2s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
+array.p->s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
+array.phase->sample	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
+array.s2p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
+array.s->p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
+array.sample->phase	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
+conv.amp2dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+ceammc/amp->dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+amp->dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+conv.amp2dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+ceammc/amp->dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+amp->dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+conv.bar2ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
+ceammc/bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
+bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
+conv.bits2bang	convert list of bits to bang events / конвертирует список битов в пустые события
+ceammc/bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
+bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
+conv.bits2int	convert list of bits to integer / преобразовать список битов в целое число
+ceammc/bits->int	convert list of bits to integer / преобразовать список битов в целое число
+bits->int	convert list of bits to integer / преобразовать список битов в целое число
+conv.bits2note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
+ceammc/bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
+bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
+conv.bits2pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+ceammc/bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+conv.bpm2hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
+ceammc/bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
+bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
+conv.bpm2ms	converts the BPM tempo into a beat period in milliseconds / преобразует темп BPM в период между ударными долями в миллисекундах
+ceammc/bpm->ms	converts the BPM tempo into a beat period in milliseconds / преобразует темп BPM в период между ударными долями в миллисекундах
+bpm->ms	converts the BPM tempo into a beat period in milliseconds / преобразует темп BPM в период между ударными долями в миллисекундах
+conv.bpm2sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
+ceammc/bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
+bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
+conv.car2pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
+ceammc/car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
+car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
+conv.cc2amp	converts from MIDI Control Change range
+ceammc/cc->amp	converts from MIDI Control Change range
+cc->amp	converts from MIDI Control Change range
+conv.char2morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+ceammc/char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+conv.color2rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
+ceammc/color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
+color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
+conv.dbfs2amp	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+ceammc/dbfs->amp	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+dbfs->amp	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+conv.dbfs2amp~	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+ceammc/dbfs->amp~	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+dbfs->amp~	convert decibel full scale to amplitude / преобразование децибел полной шкалы в амплитуду
+conv.degree2key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
+ceammc/degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
+degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
+conv.edge2bang	edge detector for numeric stream / детектор переходного для численного потока
+ceammc/edge->bang	edge detector for numeric stream / детектор переходного для численного потока
+edge->bang	edge detector for numeric stream / детектор переходного для численного потока
+conv.guido2note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+ceammc/guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
+conv.hex2int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+ceammc/hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+conv.hsl2rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
+ceammc/hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
+hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
+conv.int2bits	convert integer to list of bits / конвертировать целое число в список битов
+ceammc/int->bits	convert integer to list of bits / конвертировать целое число в список битов
+int->bits	convert integer to list of bits / конвертировать целое число в список битов
+conv.lab2rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
+ceammc/lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
+lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
+conv.lin2curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+ceammc/lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+conv.lin2exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
+ceammc/lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
+lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
+conv.lin2lin	converts from the one linear range into another / отображает один линейный диапазон в другой
+ceammc/lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
+lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
+ceammc/l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
+l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
+conv.lin2lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+conv.list2props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+ceammc/list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+ceammc/any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+conv.midi2freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+ceammc/m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
+ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
+ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
+conv.ms2samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ceammc/ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.ms2samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ceammc/ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.ms2str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
+ceammc/ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
+ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
+conv.note2guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
+ceammc/note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
+note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
+conv.phase2rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+ceammc/phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+conv.phase2rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+ceammc/phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+conv.pitch2midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
+ceammc/pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
+pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
+conv.pol2car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
+ceammc/pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
+pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
+conv.rad2phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+ceammc/rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+conv.rad2phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
+ceammc/rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
+rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
+conv.rgb2hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
+ceammc/rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
+rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
+conv.samp2ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+ceammc/samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.samp2ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+ceammc/samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.samp2sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+ceammc/samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+conv.sec2bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
+ceammc/sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
+sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
+conv.sec2samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+ceammc/sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+conv.sec2str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
+ceammc/sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
+sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
+conv.semi2ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
+ceammc/semi->ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
+semi->ratio	converts interval in semitones to frequency ratio in 12-ET / преобразует интервал в полутонах в частотное отношение в 12-ET
+conv.sig2float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+ceammc/sig->float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+sig->float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+ceammc/s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
+conv.str2sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
+ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
+str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
+music.dur2time	convert duration list to time
+music.d->t	convert duration list to time
+music.voice2midi	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
+music.v->m	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
+color.mix	color mixer
+color.scale	create color scales
+data.bimap	bidirectional map container / двунаправленное отображение
+ceammc/bimap	bidirectional map container / двунаправленное отображение
+bimap	bidirectional map container / двунаправленное отображение
+data.color	color datatype / цветовой тип данных
+color	color datatype / цветовой тип данных
+ceammc/color	color datatype / цветовой тип данных
+data.copy	makes a copy for any data type: MList, Set etc... / делает копии любых типов данных: MList, Set и т.д.
+data.dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
+ceammc/dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
+dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
+data.fifo	FIFO (First In First Out) - the queue data container / FIFO First In First Out) - контейнер данных "очередь"
+data.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
+.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
+.f	a multi-functional float object / многофункциональный объект числа с плавающей точкой
+data.int	a multi-functional integer object / многофункциональный объект целого числа
+.int	a multi-functional integer object / многофункциональный объект целого числа
+.i	a multi-functional integer object / многофункциональный объект целого числа
+data.list	the list container / cписок
+data.mlist	the multidimensional list container / многомерный список
+ceammc/mlist	the multidimensional list container / многомерный список
+mlist	the multidimensional list container / многомерный список
+ceammc/ml	the multidimensional list container / многомерный список
+ml	the multidimensional list container / многомерный список
+data.path	filesystem path datatype / тип данных: путь в файловой системе
+data.set	the set: container that store only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
+data.set2list	converts the set to the list / преобразует множество в список
+ceammc/set->list	converts the set to the list / преобразует множество в список
+set->list	converts the set to the list / преобразует множество в список
+dict.contains	check if the dictionary contains the key / проверка, содержит ли словарь указанный ключ
+dict.each	map each value in dictionary with the side-chain function / отображение каждого значения в словаре с помощью боковой цепи обработки
+dict.from_list	creates dictionary from the list / создает словарь из списка
+ceammc/list->dict	creates dictionary from the list / создает словарь из списка
+list->dict	creates dictionary from the list / создает словарь из списка
+dict.get	output the dictionary values by pre-defined key list / выводит значения словаря по предварительно заданному списку ключей
+dict.keys	output the list of dictionary keys / выводит список ключей словаря
+dict.pass	passes only specified keys in the dictionary / пропускает (фильтрует) только указанные ключи в словаре
+dict.reject	rejects specified keys from the dictionary / удаляет указанные ключи из словаря
+dict.size	output the dictionary size (number of key/value pairs) / выводит размер словаря (число пар ключ/значение)
+dict.to_list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
+ceammc/dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
+dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
+dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневого списка (MList)
+global.bimap	global bidirectional map / глобальное двунаправленное отображение
+local.bimap	local to patch bidirectional map container
+mlist.flatten	flatten nested mlist
+rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions
+ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions
+rtree->list	convert OpenMusic-like rhythm tree to list of fractions
+set.contains	checks whether the predefined element is present in the input set / проверяет, присутстует ли предварительно заданный элемент во входном множестве
+set.diff	difference between two sets / разность между множествами
+set.equal	checks if two sets are equal (contains same elements) / проверяет, равны ли два множества (содержат одинаковые элементы)
+set.intersect	intersection of sets / пересечение множеств
+set.size	outputs the number of elements in a set / выводит количество элементов в множестве
+set.symdiff	symmetric difference between two sets / симметрическая разность между двумя множествами
+set.union	union of sets / объединение множеств
+dyn.comp2~	stereo dynamic range compressor
+dyn.comp_peak2~	stereo peak feed forward compressor with channel linking
+comp.peak2~	stereo peak feed forward compressor with channel linking
+dyn.comp_peak~	mono dynamic range peak feed forward compressor
+comp.peak~	mono dynamic range peak feed forward compressor
+dyn.comp_up2~	stereo upward compressor with channel linking
+comp.up2~	stereo upward compressor with channel linking
+dyn.comp_up~	mono upward compressor
+comp.up~	mono upward compressor
+dyn.comp~	mono dynamic range compressors
+dyn.expand2~	stereo dynamic range expander with channel linking
+dyn.expand~	mono dynamic range expander
+dyn.gate2~	stereo signal gate
+dyn.gate~	mono signal gate
+dyn.limit2~	stereo 1176LN Peak Limiter
+dyn.limit~	mono 1176LN Peak Limiter
+dyn.softclip~	soft signal clip
+env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator / генератор огибающей ADSR (Attack, Decay, Sustain, Release)
+env.ar~	Attack/Release envelope generator / генератор огибающей Attack/Release
+env.asr2~	stereo Attack/Sustain/Release envelope generator / стерео генератор огибающей Attack/Sustain/Release
+env.asr~	Attack/Sustain/Release envelope generator / генератор огибающей Attack/Sustain/Release
+env.concat	envelope concatenation / конкатенация огибающих
+env.follow~	envelope follower with independent attack and release times / детектор огибающей с независимой атакой и временем отпускания
+env.mix	mix between two envelopes that contain the equal number of segments / микс между двумя огибающими, содержащими равное количество сегментов
+env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и отпусканием
+env.tscale	envelope timescale / растяжение огибающей во времени
+env.tshift	envelope time-shift (horizontal) / сдвиг огибающей по времени (по горизонтали)
+env.vscale	envelope amplitude value-scale / изменение амплитуды огибающей
+env2array	renders the envelope into the array / рендеринг огибающей в массив
+ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
+ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив
+env->array	renders the envelope into the array / рендеринг огибающей в массив
+env2vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+ceammc/env2vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+ceammc/env->vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+env->vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+envelope	envelope data type / тип данных огибающей
+ceammc/envelope	envelope data type / тип данных огибающей
+ceammc/env	envelope data type / тип данных огибающей
+env	envelope data type / тип данных огибающей
+vline2env	Converts vline messages to env
+ceammc/vline2env	Converts vline messages to env
+ceammc/vline->env	Converts vline messages to env
+vline->env	Converts vline messages to env
+expand_env	Substitute environment variables in data stream
+ceammc/expand_env	Substitute environment variables in data stream
+flow.append	append message to flow stream / добавляет сообщение в поток
+flow.change	rejects repeated input messages / удаляет повторяющиеся сообщения
+flow.count	control flow event counter / счетчик числа сообщений в управляющем потоке
+flow.delay	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
+flow.del	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
+flow.demultiplex	demultiplex of the control flow / демультиплексор управляющего потока
+flow.demux	demultiplex of the control flow / демультиплексор управляющего потока
+flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+flow.demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+ceammc/demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+flow.demultiplex~	audio stream demultiplexer / демультиплексор аудиопотока
+flow.demux~	audio stream demultiplexer / демультиплексор аудиопотока
+ceammc/demux~	audio stream demultiplexer / демультиплексор аудиопотока
+demux~	audio stream demultiplexer / демультиплексор аудиопотока
+flow.dollar	substitude the $-values / подставляет $-значения
+flow.$$	substitude the $-values / подставляет $-значения
+flow.dup	duplicate messages / дупликатор сообщений
+flow.float	pass floats
+flow.f	pass floats
+flow.gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+ceammc/gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+flow.greater	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
+flow.>	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
+flow.greater_eq	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
+flow.>=	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
+flow.group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
+ceammc/group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
+group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
+flow.histogram	histogram for numeric control flow / гистограмма для числового потока управления
+flow.hist	histogram for numeric control flow / гистограмма для числового потока управления
+flow.interval	measure the time between messages / измерение времени между сообщениями
+flow.less	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
+flow.<	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
+flow.less_eq	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
+flow.<=	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
+flow.list2many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
+ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
+list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
+flow.match	routes the control flow by the regular expression match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
+flow.mem	store into the memory or output the control flow messages / сохраняет в памяти или выводит сообщения потока управления
+flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
+flow.mux	control flow multiplexer / мультиплексор управляющего потока
+flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+flow.mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+ceammc/mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+flow.multiplex~	audio stream multiplexer / мультиплексор аудиопотока
+flow.mux~	audio stream multiplexer / мультиплексор аудиопотока
+ceammc/mux~	audio stream multiplexer / мультиплексор аудиопотока
+mux~	audio stream multiplexer / мультиплексор аудиопотока
+flow.once	pass the only message / пропускает единственное сообщение
+ceammc/once	pass the only message / пропускает единственное сообщение
+once	pass the only message / пропускает единственное сообщение
+flow.pack	packs atoms from multiple stream into the single one / упаковка атомов из нескольких потоков в один
+flow.pass	pass specified values / пропускает указанные значения
+ceammc/pass	pass specified values / пропускает указанные значения
+pass	pass specified values / пропускает указанные значения
+flow.pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
+ceammc/pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
+pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
+flow.pipe	enhanced version on the vanilla [pipe] object / усовершенствованная версия объекта [pipe]
+flow.prepend	inject the message before the current one / вставляет сообщение перед текущим
+flow.queue	multichannel message queue with sync capabilities / многоканальная очередь сообщений с возможностью синхронизации
+flow.record	control flow record/play / запись/воспроизведение управляющего потока
+flow.rec	control flow record/play / запись/воспроизведение управляющего потока
+flow.reject	reject specified values / не пропускает указанные значения
+ceammc/reject	reject specified values / не пропускает указанные значения
+reject	reject specified values / не пропускает указанные значения
+flow.!	reject specified values / не пропускает указанные значения
+flow.reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
+ceammc/reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
+reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
+flow.ring	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
+flow.>>	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
+flow.route	enhanced message router / улучшенный маршрутизатор сообщений
+flow.select	enhanced message selector / улучшенный селектор сообщений
+flow.sel	enhanced message selector / улучшенный селектор сообщений
+flow.seqdelay	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
+flow.seqdel	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
+flow.space	spaces in time messages received at the same logical time / распределить во времени сообщения, полученные одновременно
+flow.speedlim	control stream speed limiter / ограничитель скорости потока
+ceammc/speedlim	control stream speed limiter / ограничитель скорости потока
+speedlim	control stream speed limiter / ограничитель скорости потока
+flow.split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+ceammc/split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+flow.stack	message stack / стек сообщений
+flow.sync	sync multichannel bus / синхронная многоканальная шина
+flow.'	sync multichannel bus / синхронная многоканальная шина
+flow.sync_pack	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
+flow.pack'	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
+flow.tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+ceammc/tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+ceammc/~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
+replace	Replace atoms in data stream
+ceammc/replace	Replace atoms in data stream
+route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от пустых событий (bang), числовых значений, символов и списков
+route.bang	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
+route.b	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
+route.cycle	cyclic message router / циклический маршрутизатор сообщений
+route.data	separates data messages from others / отделяет сообщения с данными от других
+route.d	separates data messages from others / отделяет сообщения с данными от других
+route.float	separates float messages from others / отделяет числовые сообщения от других типов
+route.f	separates float messages from others / отделяет числовые сообщения от других типов
+route.list	separates list messages from other types / отделяет списки от сообщений других типов
+route.l	separates list messages from other types / отделяет списки от сообщений других типов
+route.prop	separates property messages from other types / отделяет сообщения со свойствами от других типов
+route.random	routes the input message into the random outlet / направляет входное сообщение в случайный выход
+route.r	routes the input message into the random outlet / направляет входное сообщение в случайный выход
+route.symbol	separates symbol messages from other types / отделяет символьные сообщения от других типов
+route.s	separates symbol messages from other types / отделяет символьные сообщения от других типов
+flt.a-weight	convert frequency to A-weight value / вычисляет А-взвешенное значение для данной частоты
+flt.biquad~	second order IIR filter / БИХ фильтр второго порядка
+flt.bpf12~	two pole band-pass Butterworth filter / двухполюсный полосовой фильтр Баттерворта
+flt.bpf24~	four pole band-pass Butterworth filter / четырехполюсный полосовой фильтр Баттерворта
+flt.bpf36e~	elliptic band-pass filter with -36db rolloff / эллиптический полосовой фильтр с -36db спадом
+flt.bpf72e~	elliptic band-pass filter with -72db rolloff / эллиптический полосовой фильтр с -72db спадом
+flt.c_apf	allpass filter coefficients calculator for [flt.biquad~] object / калькулятор коэффициентов всепропускающего фильтра для объекта [flt.biquad~]
+ceammc/apf->biquad	allpass filter coefficients calculator for [flt.biquad~] object / калькулятор коэффициентов всепропускающего фильтра для объекта [flt.biquad~]
+apf->biquad	allpass filter coefficients calculator for [flt.biquad~] object / калькулятор коэффициентов всепропускающего фильтра для объекта [flt.biquad~]
+flt.c_bpf~	BPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов полосового фильтра для [flt.biquad~]
+flt.c_highshelf~	highshelf filter coefficient calculator for [flt.biquad~] / калькулятор коэффициентов полочного фильтра высоких частот для [flt.biquad~]
+flt.c_hpf	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+ceammc/hpf->biquad	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+hpf->biquad	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+flt.c_hpf~	HPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФВЧ частот для [flt.biquad~]
+flt.c_lowshelf~	lowshelf filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов полочного фильтра низких частот для [flt.biquad~]
+flt.c_lpf	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+ceammc/lpf->biquad	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+lpf->biquad	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+flt.c_lpf~	LPF coefficients calculator for [flt.biquad~] / калькулятор коэффициентов ФНЧ для [flt.biquad~]
+flt.c_notch	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+ceammc/notch->biquad	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+notch->biquad	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+flt.c_notch~	band-reject filter coefficients calculator for [flt.biquad~] / калькулятор коэффициентов режекторного фильтра для [flt.biquad~]
+flt.c_peak~	peaking filter calculator for [flt.biquad~] / калькулятор пикового фильтра для [flt.biquad~]
+flt.c_pole	оne-pole coefficient calculator for [flt.biquad~] / калькулятор однополюсного фильтра для [flt.biquad~]
+ceammc/pole->biquad	оne-pole coefficient calculator for [flt.biquad~] / калькулятор однополюсного фильтра для [flt.biquad~]
+pole->biquad	оne-pole coefficient calculator for [flt.biquad~] / калькулятор однополюсного фильтра для [flt.biquad~]
+flt.dcblock2~	stereo DC blocker / двухканальный фильтр, блокирующий постоянную составляющую сигнала
+flt.dcblock~	mono DC blocker / одноканальный фильтр, блокирующий постоянную составляющую сигнала
+flt.eq10~	graphic 10 band equalizer / графический 10-полосный эквалайзер
+flt.eq_peak_cq~	constant-Q second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка c constant-Q
+flt.eq_peak~	second order peaking equalizer section / секция эквалайзера: пиковый фильтр второго порядка
+flt.fb_comb~	feedback comb filter / гребенчатый фильтр с обратной связью (БИХ)
+flt.fbank5x1~	5 band one octave Butterworth filterbank / 5-полосный банк однооктавных фильтров Баттерворта
+flt.ff_comb~	feed forward comb filter / гребенчатый фильтр (КИХ)
+flt.freqz	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
+flt.freqz~	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
+flt.highshelf~	gain boost|cut above some frequency / усиление или ослабление частот выше указанной
+flt.hpf12~	high-pass second order Butterworth filter / ФВЧ Баттерворта второго порядка
+flt.hpf24~	High-pass fourth order Butterworth filter / ФВЧ Баттерворта четвертого порядка
+flt.lowshelf~	gain boost|cut below some frequency / усиление или ослабление частот ниже указанной
+flt.lpf12~	Low-pass second order Butterworth filter / ФНЧ Баттерворта второго порядка
+flt.lpf24~	Low-pass fourth order Butterworth filter / ФНЧ Баттерворта четвертого порядка
+flt.median	median control flow filter / медианный фильтр для контрольного потока
+flt.moog_vcf~	Moog Voltage Controlled Filter / управляемый напряжением фильтр Муга
+flt.notch~	band-rejection filter / режекторный фильтр
+flt.resonbp~	simple resonant bandpass filter / простой резонансный полосовой фильтр
+flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
+flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
+flt.speaker~	speaker emulation band-pass filter / полосовой фильтр-эмуляция динамика
+fx.bitdown~	a bit downer and downsampler effect / понижение разрядности входного сигнала и эффект даунсемплинга
+fx.chorus~	chorus effect / хорус-эффект
+fx.dattorro~	Dattorro reverb / реверберация Dattorro
+fx.delay~	smooth delay with a feedback control / плавный дилей с контролем обратной связи
+fx.sdelay~	smooth delay with a feedback control / плавный дилей с контролем обратной связи
+fx.distortion1~	distortion #1 from Guitarix effects set / дисторшн №1 из набора эффектов Guitarix
+fx.distortion2~	distortion #2 from Guitarix effects set / дисторшн №2 из набора эффектов Guitarix
+fx.distortion3~	simple distortion #3 from Guitarix effects set / простой дисторшн №3 из набора эффектов Guitarix
+fx.distortion~	cubic nonlinearity distortion / кубический нелинейный дисторшн
+fx.drive~	Guitarix drive effect / драйв-эффект из Guitarix
+fx.drone_box~	mono sympathetic resonance generator / одноканальный симпатический резонансный генератор
+fx.echo2~	stereo echo effect / стерео эхо-эффект
+fx.echo~	enhanced echo effect / улучшенный эхо-эффект
+fx.secho~	enhanced echo effect / улучшенный эхо-эффект
+fx.flanger~	mono flanging effect / одноканальный фленжер эффект
+fx.freeverb2~	a stereo version of [fx.freeverb~] / стерео версия [fx.freeverb~]
+fx.freeverb~	commonly used open-source reverb / широко используемый ревербератор с открытым исходным кодом
+fx.freqshift~	frequency shifter or the single-sideband ring modulation / сдвиг частоты или однополосный кольцевой модулятор
+fx.granulator~	input stream granulator / гранулятор входного потока
+fx.greyhole~	a complex echo-like effect / cложный эхоподобный эффект
+fx.infrev~	port of Infinity VST plugin from "airwindows" / порт плагина Infinity VST из "airwindows"
+fx.jcrev~	Schroeder quad reverberator from 1972 / квадрофонический ревербератор Шрёдера из 1972 года
+fx.looper~	a single track looper / однодорожечный лупер
+fx.overdrive~	overdrive effect / эффект перегрузки
+fx.pitchshift_s~	signal version of [fx.pitchshift~] / сигнальная версия [fx.pitchshift~]
+fx.pitchshift~	simple pitch shifter based on 2 delay lines / простой питчшифтер на основе 2 линий задержки
+fx.rb_pitchshift~	pitchshift from the rubberband library / питчшифтер из библиотеки rubberband
+fx.recho~	reversed echo effect / обратный эффект эха
+fx.ringmod~	ring modulator effect / кольцевой модулятор
+fx.room~	Gardners room emulation algorithm / алгоритм Гарднера для эмуляции комнаты
+fx.satrev~	Schroeder reverberator from 1971 / ревербератор Шрёдера 1971 года
+fx.scramble~	scramble delayed sound fragments / скремблер задержанных звуковых фрагментов
+fx.shimmer~	shimmer reverb effect / шиммер-эффект реверберации
+fx.stutter~	stutter effect / эффект заикания
+fx.tapiir~	multi-tap delay / многоуровневая задержка
+fx.tremolo~	tremolo effect from Guitarix project / эффект тремоло от проекта Guitarix
+fx.vocoder~	simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank / простой вокодер, в котором спектр модулирующего сигнала анализируется с помощью 32-диапазонного фильтра
+fx.wahwah~	digitized CryBaby wah pedal / педаль CryBaby WahWah
+fx.zita_rev1~	zita stereo reverb / zita стерео ревербератор
+global.dict	global named dictionary / глобальный именованный словарь
+global.json	global named dictionary / глобальный именованный словарь
+global.float	global named float object / глобальной именованное число с плавающей точкой
+global.int	global named integer object / глобальной именованное целое число
+global.list	global named list / глобальный именованный список
+global.mlist	global named multilevel list (MList) / глобальный именованный многоуровневый список (MList)
+global.set	global named set / глобальное именованное множество
+hw.apple_smc	query the system management control in Apples
+hw.apple_sms	query the sudden motion sensor in Apples
+hw.arduino	Arduino device
+hw.display	get/set display properties
+hw.gamepad	gamepad controller / геймпад контроллеры
+hw.kbd_light	Get/set keyboard light on some devices
+hw.motu.avb	controls Motu AVB devices over http requests
+hw.printer	basic document printing support / базовая поддержка печати документов
+hw.rpi.adc.ads1115	driver for 16-bit ADC on ads1115 chip for Raspberry Pi / драйвер для 16-битного АЦП на чипе ads1115 для Raspberry Pi
+hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+hw.rpi.display.ssd1306	driver for OLED display on ssd1306 chip for Raspberry Pi / драйвер для OLED дисплея на чипе ssd1306 для Raspberry Pi
+hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
+hw.rpi.i2c.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.pwm.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.pwm	hardware PWM output for Raspberry Pi / аппаратный ШИМ (PWM) для Raspberry Pi
+hw.rpi.rotenc	rotary encoder for Raspberry Pi / поворотный энкодер для Raspberry Pi
+hw.rpi.sensor.dht11	digital humidity and temperature sensor (DHT11) for Raspberry Pi / цифровой датчик влажности и температуры (DHT11) для Raspberry Pi
+hw.rpi.sensor.ir	IR (infrared) sensors and protocols for Raspberry Pi / ИК (инфракрасные) датчики и протоколы для Raspberry Pi
+hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer for Raspberry Pi / MPU-6050 гироскоп и датчик ускорения для Raspberry Pi
+hw.rpi.sensor.sr04	HC-SR04 ultrasonic ranging module for Raspberry Pi / HC-SR04 ультразвуковой датчик расстояния для Raspberry Pi
+hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi / лазерный дальномер на чипе VL53L0X для Raspberry Pi
+hw.rpi.spi.max7219	LED matrix driver based on max7219 chip for Raspberry Pi / драйвер для LED матрицы на чипе max7219 для Raspberry Pi
+hw.rpi.spi.ws2812	ws2812 LED strip driver for Raspberry Pi / драйвер для светодиодной ленты ws2812 для Raspberry Pi
+hw.serial	serial port device
+lang.faust~	faust realtime compilation
+lang.lua	Lua JIT language bindings
+ui.faust~	Faust DSP programming language widget / виджет языка программирования Faust
+lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитуды в диапазоне [0,+1]
+lfo.+saw~	positive unit-amplitude low frequency saw wave / низкочастотная пилообразная волна в диапазоне [0,+1]
+lfo.+square~	positive low frequency square wave / низкочастотная квадратная волна единичной амплитуды в диапазоне [0,+1]
+lfo.+tri~	positive unit-amplitude low frequency triangle wave / низкочастотная треугольная волна единичной амплитуды в диапазоне [0,+1)
+lfo.impulse~	unit-amplitude low-frequency impulse train / низкочастотный импульсный осциллятор единичной амплитуды
+lfo.mosc~	multi-oscillator with various waveforms / мультиосциллятор с различными формами волн
+lfo.pulse~	full-range unit-amplitude low frequency pulse train / прямоугольная низкочастотная волна единичной амплитуды в диапазоне [-1,+1]
+lfo.saw~	full-range unit-amplitude low frequency saw / низкочастотная пилообразная волна в диапазоне [-1,+1]
+lfo.square~	zero-mean unit-amplitude low frequency square wave / низкочастотная квадратная волна единичной амплитуды с нулевым средним значением
+lfo.tri~	zero-mean unit-amplitude low frequency triangle wave / низкочастотная треугольная волна единичной амплитуды с нулевым средним значением
+list.^at	outputs elements from a predefined list based on an input list of indices / выводит элементы предварительно заданного списка по входящему списку индексов
+list.^contains	checks whether the predefined list contains the input element / проверяет, содержит ли предварительно заданный список входной элемент
+list.^search	outputs the indices of the found input elements in a predefined list / выводит индексы найденных входных элементов в предварительно заданном списке
+list.all_of	checks whether all elements of the list have been accepted by the predicate of the side chain processing / проверяет, все ли элементы списка были приняты предикатом боковой цепи обработки
+list.any_of	checks whether at least one list element has been accepted by the processing sidechain / проверяет, был ли принят хотя бы один элемент списка предикатом боковой цепи обработки
+list.append	append elements to the end of a list / добавляет элементы в конец списка
+list.apply_to	modifies specified list elements via a side-chain / обрабатывает указанные элементы списка через боковую церь обработки
+list.at	outputs the previously specified elements of the input list / выводит предварительно указанные элементы входящего списка
+list.choice	outputs random element from list / вывод случайного элемента из списка
+list.contains	checks if the input list contains specified elements / проверяет, содержит ли входной список предварительно указанные элементы
+list.convolve	convolution for lists / операция свертки для списков
+list.conv	convolution for lists / операция свертки для списков
+list.correlate	lists cross-correlation / взаимная корреляция между списками
+list.count	output the number of items that equal to specified value / выводить количество элементов, равных заданному значению
+list.count_if	output the number of items that satisfy to an side-chain predicate / выводит число элементов, удовлетворяющих внешнему предикату боковой цепи обработки
+list.delta	outputs and saves the list of differences between the current and the previously saved list / выводит и сохраняет список разностей между текущим и предыдущим сохраненным списком
+list.distribution	output list value distribution / выводит список распределения значений в списке
+list.do	iterate and modify the list contents via a side-chain / итерирование и изменение содержимого списка через боковую цепь обработки
+list.each	maps an each list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь обработки
+list.enumerate	enumerates list elements / нумерует элементы списка
+list.equal	list equal check / проверка списков на равенство
+list.first	output the first list element / выводит первый элемент списка
+list.gen	generates a list of the specified length via a side-chain generator / генерирует список указанной длины через генератор боковой цепи
+list.histogram	outputs a list distribution histogram / выводит гистограмму распределений списка
+list.hist	outputs a list distribution histogram / выводит гистограмму распределений списка
+list.insert	insert elements into the specified list position / вставляет элементы в указанную позицию в списке
+list.integrator	outputs and stores the list of sums between the previously stored list and the current one / выводит и сохраняет список сумм между ранее сохраненным списком и текущим
+list.last	output the last list element / выводит последний элемент списка
+list.length	output the number of elements in the list / выводит количество элементов в списке
+list.size	output the number of elements in the list / выводит количество элементов в списке
+list.map	map list values by specified dictionary
+list.max	output the largest list element / выводит самый большой элемент в списке
+list.mean	calculates the average value in a list / вычисляет среднее значение в списке
+list.average	calculates the average value in a list / вычисляет среднее значение в списке
+list.min	returns a smallest list element / возвращает наименьший элемент в списке
+list.none_of	checks if none of list elements is accepted by the predicate side-chain / проверяет, что ни один из элементов не принимается предикатом боковой цепи обработки
+list.normalize	normalizes numeric list values to get their sum equal to 1.0 / нормализует числовые значения списка, чтобы их сумма была равна единице
+list.pass	leave in list only specified elements / оставлять в списке только указанные элементы
+list.pass_if	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
+list.filter	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
+list.prepend	insert elements into a list begining / вставить элементы в начало списка
+list.product	calculates the product of all numbers in a list / вычисляет произведение всех чисел в списке
+list.range	outputs list smallest and largest elements / выводит минимальный и максимальный элемент в списке
+list.minmax	outputs list smallest and largest elements / выводит минимальный и максимальный элемент в списке
+list.reduce	transforms the list into a single value through side-chain processing / преобразование списка к единственному значению через боковую цепь обработки
+list.foldl	transforms the list into a single value through side-chain processing / преобразование списка к единственному значению через боковую цепь обработки
+list.reject	remove specified elements from the list / удаляет указанные элементы из списка
+list.remove	remove list elements at specified positions / удалить элементы списка по указанным позициям
+list.remove_if	remove list elements by the side-chain predicate / удалить элементы списка при помощи предиката боковой цепи
+list.repack	repack the list into a sequence of lists of the specified size / переупаковать список в последовательность списков определенного размера
+list.repeat	creates a list based on the repetitions of the original list / создает список на основе повторов исходного списка
+list.resample	resamples the values in the list with the specified length ratio / пересемплирует значения в списке с указанным соотношением длины
+list.r	resamples the values in the list with the specified length ratio / пересемплирует значения в списке с указанным соотношением длины
+list.resize	changes the list size / изменяет длину списка
+list.reverse	reverses the order of the elements in the list / меняет порядок элементов в списке на обратный
+list.rldecode	run-length decoding lists / декодирование повторов в списках
+list.unwrap	run-length decoding lists / декодирование повторов в списках
+list.rlencode	run-length encoding for lists / кодирование повторов в списках
+list.wrap	run-length encoding for lists / кодирование повторов в списках
+list.rotate	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
+list.<<	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
+list.>>	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
+list.route	routes the list by the first element, like [route] object / маршрутизирует список по первому элементу, как объект [route]
+list.rundiff	сomputes the difference between the adjacent elements of the input list / вычисляет разницу между соседними элементами входного списка
+list.runsum	outputs the list of positional sums which is updated upon each incoming list / выводит список позиционных сумм, который обновляется при каждом входящем списке
+list.search	outputs the positions of pre-defined elements in the input list / выводит позиции предварительно заданных элементов во входном списке
+list.separate	outputs each list item in turn as a separate message / поочередно выводит каждый элемент списка в виде отдельного сообщения
+list.sep	outputs each list item in turn as a separate message / поочередно выводит каждый элемент списка в виде отдельного сообщения
+list.seq	generates a sequence of numbers in the form of a list / генерирует последовательноть чисел в виде списка
+list.set	sets the value of the list item at the specified position / устанавливает значение элемента списка в указанной позиции
+list.shift	cyclic shift of a list by a real number with a linear Interpolation / циклический сдвиг списка на вещественное число с линейной интерполяцией
+list.shuffle	rearranges the elements of the list in a random order / переставляет элементы списка в случайном порядке
+list.slice	outputs a sublist / выводит подсписок
+list.sort	sorts the list in ascending orderr / сортирует список в порядке возрастания
+list.sort_with	sorts the list using a side processing chain / сортирует список при помощи боковой цепи обработки
+list.split	divides the list into two parts at the specified index position / разделяет список на две части по указанному индексу
+list.stretch	changes the length of the list by adjusting its values using linear interpolation / изменяет длину списка, изменяя его значения с помощью линейной интерполяции
+list.sum	calculates the sum of the elements in the list / вычисляет сумму элементов в списке
+list.unique	removes duplicates from the list / удаляет дубликаты из списка
+list.unpack	unpacks list elements into corresponding object outlets / распаковывает элементы списка в соответствующие им выходы объекта
+list.unzip	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся элементов
+list.deinterleave	unpacks the input list into N lists of interleaved elements / распаковывает входной список на N списков из чередующихся элементов
+list.walk	various algorithms for traversing elements in a list / различные алгоритмы обхода элементов в списке
+list.zip	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
+list.interleave	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
+live.capture~	record up to 32s of sound and playback the recorded sound in loop
+local.dict	local named dict object
+local.json	local named dict object
+local.float	canvas-scoped named float variable
+local.int	canvas-scoped named integer variable
+local.list	local named list object
+local.mlist	local named mlist object
+local.set	local named set object
+math.abs	absolute value function / абсолютное значение
+math.abs~	absolute value function for signals / функция абсолютного значения для сигналов
+math.acos	arc cosine function / арккосинус
+math.acosh	inverse hyperbolic cosine function / обратный гиперболический косинус
+math.acosh~	hyperbolic arc cosine for signals / обратный гиперболический косинус для сигналов
+math.acos~	arc cosine function for signals / арккосинус для сигналов
+math.and	operation AND for multiple arguments / операция И для множества аргументов
+ceammc/and	operation AND for multiple arguments / операция И для множества аргументов
+and	operation AND for multiple arguments / операция И для множества аргументов
+math.approx	checks if the input value is approximately equal to the pattern / проверить, если входное значение приблизительно равно образцу
+ceammc/approx	checks if the input value is approximately equal to the pattern / проверить, если входное значение приблизительно равно образцу
+approx	checks if the input value is approximately equal to the pattern / проверить, если входное значение приблизительно равно образцу
+math.asin	arc sine function / арксинус
+math.asinh	inverse hyperbolic sine function / обратный гиперболический синус
+math.asinh~	hyperbolic arc sine for signals / обратный гиперболической синус для сигналов
+math.asin~	arc sine for signals / арксинус для сигналов
+math.atan	arc tangent function / арктангенс
+math.atanh	inverse hyperbolic tangent function / обратный гиперболический тангенс
+math.atanh~	hyperbolic arc tangent for signals / обратный гиперболический тангенс для сигналов
+math.atan~	arc tangent for signals / арктангенс для сигналов
+math.binomial	binomial coefficient calculator / калькулятор биномиальных коэффициентов
+math.nck	binomial coefficient calculator / калькулятор биномиальных коэффициентов
+math.cabs~	magnitude of a complex signals / абсолютное значение комплексного сигнала
+ceammc/cabs~	magnitude of a complex signals / абсолютное значение комплексного сигнала
+cabs~	magnitude of a complex signals / абсолютное значение комплексного сигнала
+math.carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
+ceammc/carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
+carg~	phase angle of a complex signals / фазовый угол комплексных сигналов
+math.cbrt	cube root function / кубический корень
+math.cbrt~	cube root function for signals / кубический корень для сигналов
+math.cdiv~	division of complex signals / деление комплексных сигналов
+ceammc/cdiv~	division of complex signals / деление комплексных сигналов
+cdiv~	division of complex signals / деление комплексных сигналов
+math.ceil	round to the smallest integral value not less than input value / округление до наименьшего целого значения, которое не меньше входного
+math.ceil~	round to the smallest integral value not less than input value / округление до наименьшего целого значения, которое не менее входного
+math.cexp~	exponent of a complex signals / комплексная экспонента для сигналов
+ceammc/cexp~	exponent of a complex signals / комплексная экспонента для сигналов
+cexp~	exponent of a complex signals / комплексная экспонента для сигналов
+math.cmul~	multiplication of complex signals / умножение комплексных сигналов
+ceammc/cmul~	multiplication of complex signals / умножение комплексных сигналов
+cmul~	multiplication of complex signals / умножение комплексных сигналов
+math.cos	cosine function / функция косинуса
+math.cosh	hyperbolic cosine function / гиперболический косинус
+math.cosh~	hyperbolic cosine for signals / гиперболический косинус для сигналов
+math.cos~	cosine function / функция косинуса
+math.div	division / деление
+math./	division / деление
+math.e	mathematical constant, base of the natural logarithm / математическая константа, основание натурального логарифма
+math.erf	error function / функция ошибок
+math.erf~	error function for signals / функция ошибок для сигналов
+math.exp	base-e exponential function / экспоненциальная функция на основе числа e
+math.exp2	base-2 exponential function / экспоненциальная функция на основе 2
+math.exp2~	base-2 exponential for signal / экспоненциальная функция на основе 2 для сигналов
+math.expr	dynamic version of [expr] object / динамическая версия объекта [expr]
+math.exp~	base-e exponential function for signals / экспоненциальная функция для сигналов на основе числа e
+math.floor	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входное значение
+math.floor~	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входного значения
+math.gamma	gamma function / гамма-функция
+math.gamma~	gamma function for signals / гамма-функция для сигналов
+math.gcd	calculate the greatest common divisor / вычисляет наибольший общий делитель
+math.inf	output infinity value in the IEEE 754 standard / выводит бесконечное значение в стандарте IEEE 754
+math.inf~	output infinity value in the IEEE 754 standard / выводит бесконечное значение в стандарте IEEE 754
+math.lcm	calculates the least common multiple / вычисляет наименьшее общее кратное
+math.lgamma	natural logarithm of the absolute value of the gamma function / натуральный логарифм абсолютного значения гамма-функции
+math.lgamma~	natural logarithm of the absolute value of the gamma function for signals / натуральный логарифм абсолютного значения гамма-функции для сигналов
+math.log	natural logarithm / натуральный логарифм
+math.log10	base-10 logarithm / логарифм по основанию 10
+math.log10~	base-10 logarithm / логарифм по основанию 10
+math.log2	base-2 logarithm / логарифм по основанию 2
+math.log2~	base-2 logarithm for signals / логарифм по основанию 2 для сигналов
+math.log~	natural logarithm for signals / натуральный логарифм для сигналов
+math.mul	multiplication / умножение
+math.*	multiplication / умножение
+math.nan	Not a Number, unrepresentable value / Не число, непредставимое значение
+math.nan~	NaN signal / сигнал NaNN
+math.neg	negate function / отрицательная функция
+ceammc/-x	negate function / отрицательная функция
+-x	negate function / отрицательная функция
+math.or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
+ceammc/or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
+or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
+math.pi	mathematical constant π / математическая константа π
+ceammc/pi	mathematical constant π / математическая константа π
+pi	mathematical constant π / математическая константа π
+math.pi~	mathematical constant π / математическая константа π
+ceammc/pi~	mathematical constant π / математическая константа π
+pi~	mathematical constant π / математическая константа π
+math.polyeval	evaluates the polynomial described by the coefficients list / вычисляет многочлен, описанный списком коэффициентов
+math.reciprocal	calculate reciprocal number / вычислить обратное значение
+ceammc/1/x	calculate reciprocal number / вычислить обратное значение
+1/x	calculate reciprocal number / вычислить обратное значение
+math.reciprocal~	calculate reciprocal number for signals / вычислить обратное значение для сигналов
+ceammc/1/x~	calculate reciprocal number for signals / вычислить обратное значение для сигналов
+1/x~	calculate reciprocal number for signals / вычислить обратное значение для сигналов
+math.round	round to integral value, regardless of rounding direction / округление до ближайшего целого значения
+round	round to integral value, regardless of rounding direction / округление до ближайшего целого значения
+ceammc/round	round to integral value, regardless of rounding direction / округление до ближайшего целого значения
+math.round~	signal round / округление сигнала до ближайшего целого значения
+round~	signal round / округление сигнала до ближайшего целого значения
+ceammc/round~	signal round / округление сигнала до ближайшего целого значения
+math.sign	sign function / знаковая функция
+math.sin	sine function / функция синуса
+math.sinh	hyperbolic sine function / гиперболическая функция синуса
+math.sinh~	hyperbolic sine for signals / гиперболический синус для сигналов
+math.sin~	sine function / функция синуса
+math.sqrt	square root function / функция квадратного корня
+math.sqrt~	square root for signal / квадратный корень для сигнала
+math.squared	value square / возведение в квадрат
+math.^2	value square / возведение в квадрат
+ceammc/^2	value square / возведение в квадрат
+^2	value square / возведение в квадрат
+math.squared~	signal value square / возведение в квадрат
+math.^2~	signal value square / возведение в квадрат
+ceammc/^2~	signal value square / возведение в квадрат
+^2~	signal value square / возведение в квадрат
+math.sync_add	sync addition / синхронное сложение
+math.+'	sync addition / синхронное сложение
+ceammc/+'	sync addition / синхронное сложение
++'	sync addition / синхронное сложение
+math.sync_and	sync logical AND operation / синхронное логическое И
+math.&&'	sync logical AND operation / синхронное логическое И
+ceammc/&&'	sync logical AND operation / синхронное логическое И
+&&'	sync logical AND operation / синхронное логическое И
+math.sync_div	sync division / синхронное деление
+math./'	sync division / синхронное деление
+ceammc//'	sync division / синхронное деление
+/'	sync division / синхронное деление
+math.sync_eq	sync equal numbers check / синхронная проверка на равенство
+math.=='	sync equal numbers check / синхронная проверка на равенство
+ceammc/=='	sync equal numbers check / синхронная проверка на равенство
+=='	sync equal numbers check / синхронная проверка на равенство
+math.sync_ge	sync greater equal numbers compare / синхронная проверка на больше или равно
+math.>='	sync greater equal numbers compare / синхронная проверка на больше или равно
+ceammc/>='	sync greater equal numbers compare / синхронная проверка на больше или равно
+>='	sync greater equal numbers compare / синхронная проверка на больше или равно
+math.sync_gt	sync greater than numbers compare / синхронная проверка на большее значение
+math.>'	sync greater than numbers compare / синхронная проверка на большее значение
+ceammc/>'	sync greater than numbers compare / синхронная проверка на большее значение
+>'	sync greater than numbers compare / синхронная проверка на большее значение
+math.sync_le	sync less equal numbers compare / синхронная проверка на меньше или равно
+math.<='	sync less equal numbers compare / синхронная проверка на меньше или равно
+ceammc/<='	sync less equal numbers compare / синхронная проверка на меньше или равно
+<='	sync less equal numbers compare / синхронная проверка на меньше или равно
+math.sync_lshift	sync signed bit left shift / синхронный битовый сдвиг налево
+math.<<'	sync signed bit left shift / синхронный битовый сдвиг налево
+ceammc/<<'	sync signed bit left shift / синхронный битовый сдвиг налево
+<<'	sync signed bit left shift / синхронный битовый сдвиг налево
+math.sync_lt	sync less than numbers compare / синхронная проверка на меньшее значение
+math.<'	sync less than numbers compare / синхронная проверка на меньшее значение
+ceammc/<'	sync less than numbers compare / синхронная проверка на меньшее значение
+<'	sync less than numbers compare / синхронная проверка на меньшее значение
+math.sync_mod	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+math.%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+ceammc/%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+%'	sync remainder of modulo division (float or integer) / синхронный остаток от деления по модулю (с плавающей точкой или целое)
+math.sync_mul	sync multiplication / синхронное умножение
+math.*'	sync multiplication / синхронное умножение
+ceammc/*'	sync multiplication / синхронное умножение
+*'	sync multiplication / синхронное умножение
+math.sync_ne	sync numbers for not equality / синхронная проверка на неравенство
+math.!='	sync numbers for not equality / синхронная проверка на неравенство
+ceammc/!='	sync numbers for not equality / синхронная проверка на неравенство
+!='	sync numbers for not equality / синхронная проверка на неравенство
+math.sync_or	sync logical OR operation / синхронная логическая операция И
+math.||'	sync logical OR operation / синхронная логическая операция И
+ceammc/||'	sync logical OR operation / синхронная логическая операция И
+||'	sync logical OR operation / синхронная логическая операция И
+math.sync_rshift	sync signed bit right shift / синхронный битовый сдвиг вправо
+math.>>'	sync signed bit right shift / синхронный битовый сдвиг вправо
+ceammc/>>'	sync signed bit right shift / синхронный битовый сдвиг вправо
+>>'	sync signed bit right shift / синхронный битовый сдвиг вправо
+math.sync_sub	sync subtraction / синхронное вычитание
+math.-'	sync subtraction / синхронное вычитание
+ceammc/-'	sync subtraction / синхронное вычитание
+-'	sync subtraction / синхронное вычитание
+math.sync_xor	sync logical XOR operation / логическая операция исключающее ИЛИ
+math.^'	sync logical XOR operation / логическая операция исключающее ИЛИ
+ceammc/^'	sync logical XOR operation / логическая операция исключающее ИЛИ
+^'	sync logical XOR operation / логическая операция исключающее ИЛИ
+math.tan	tangent function / тангенс
+math.tanh	hyperbolic tangent function / гиперболический тангенс
+math.tanh~	hyperbolic tangent for signals / гиперболический тангенс для сигналов
+math.tan~	tangent function / тангенс
+math.trunc	truncate to integer value / усечение до целочисленного значения
+math.trunc~	truncate to integer value / усечение до целочисленного значения
+midi.arp	MIDI arpeggiator / MIDI арпеджиатор
+midi.cc	enhanced version of vanilla [ctlin] / усовершенствованная версия [ctlin]
+midi.clock	MIDI-clock
+midi.ctl2str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
+midi.ctl->str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
+midi.event2ctl	converts the MidiEvent message into the controller channel/value pair / конвертирует сообщение MidiEvent в пару канал/значение
+midi.ev->ctl	converts the MidiEvent message into the controller channel/value pair / конвертирует сообщение MidiEvent в пару канал/значение
+midi.event2note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
+midi.ev->note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
+midi.event2prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
+midi.ev->prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
+midi.file	the standard midi file (SMF) reader and writer / чтение и запись стандартных MIDI файлов (SMF)
+midi.kbd	computer keyboard MIDI emulator / эмулятор MIDI клавиатуры c помощью клавиатуры компьютера
+midi.key2str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
+midi.key->str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
+midi.modus	snap or skip MIDI-pitches according the specified modus / приводит или удаляет MIDI-ноты согласно указанному ладу
+midi.note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
+note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
+midi.oct	MIDI octave transposition / октавная MIDI транспозиция
+midi.prg2str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
+midi.prg->str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
+midi.split	MIDI note range splitter / разбивает MIDI ноты на диапазоны
+midi.sustain	sustain pedal emulation / эмуляция педали сустейна
+midi.sysex	output sysex input messages as a list / выводит входные sysex сообщения в виде списка
+midi.track	extracts the track from MidiFile message / извлекает трек из сообщения MidiFile
+midi.tuning	apply the tuning for notes flow / применяет настройку для нотного потока
+midi.vramp	apply crescendo or diminuendo for notes flow / применяет crescendo или diminuendo для потока нот
+midi.vrand	midi velocity randomizer / рандомизатор силы нажатия MIDI
+click~	Output single impulse on bang
+ceammc/click~	Output single impulse on bang
+fluid~	FluidSynth SoundFont 2 player
+ceammc/fluid~	FluidSynth SoundFont 2 player
+modplug~	MOD file player (using libmodplug)
+ceammc/modplug~	MOD file player (using libmodplug)
+qrcode	QR code generator
+ceammc/qrcode	QR code generator
+risset.gliss	Sheppard/Risset glissando calculator
+sfizz~	SFZ format sample player
+ceammc/sfizz~	SFZ format sample player
+speech.flite	render speech to array
+speech.flite~	render speech to array
+speech.rhvoice~	RHVoice text to speech synthesis
+ceammc/rhvoice~	RHVoice text to speech synthesis
+rhvoice~	RHVoice text to speech synthesis
+loadexpr	send message when patch loads
+ceammc/loadexpr	send message when patch loads
+msg	message constructor
+ceammc/msg	message constructor
+ceammc/m	message constructor
+m	message constructor
+ceammc/prepend	message constructor
+prepend	message constructor
+msg.after	send specified message after incoming message
+msg.onclose	send message when patch closes
+msg.onload	send message when patch loads
+ceammc/loadmsg	send message when patch loads
+loadmsg	send message when patch loads
+msg.pack	message pack
+msg.sched	message scheduler
+msg.unpack	message unpack to selector and arguments / распаковка сообщения на селектор и аргументы
+rhythm.euclid	euclid pattern generator
+rhythm.hexbeat	hexbeat pattern generator
+rhythm.lsystem	L-system pattern generator
+net.artnet.send	ArtNet DMX message sender
+artnet.send	ArtNet DMX message sender
+net.freesound	Freesound API v2 client / клиент для Freesound API v2
+net.host2ip	returns IP address by DNS name
+net.host->ip	returns IP address by DNS name
+net.http.client	HTTP client / HTTP клиент
+http.client	HTTP client / HTTP клиент
+net.http.send	HTTP request sender
+http.send	HTTP request sender
+net.mdns	MDNS service discovery / обнаружение служб MDNS
+net.mqtt.client	MQTT client / MQTT клиент
+mqtt.client	MQTT client / MQTT клиент
+net.osc.receive	OSC message listener
+net.osc.r	OSC message listener
+net.osc.send	OSC message sender
+net.osc.s	OSC message sender
+net.osc.server	OSC server control
+net.osc	OSC server control
+net.ws.client	WebSocket client / WebSocket клиент
+net.ws.server	WebSocket server / WebSocket сервер
+noise.baker	Part of a-chaos library
+noise.chua~	Chua's diode circuit
+noise.clifford	clifford attractor
+noise.collatz	collatz conjecture output
+noise.colored~	colored noise generator with an arbitrary spectral roll
+noise.crackle~	sparse noise generator
+noise.duffing	duffing attractor
+noise.ginger	Gingerbreadman map chaotic generator
+noise.henon	henon attractor
+noise.henon_heilles	Hénon–Heiles_system
+noise.henon_phase	henon phase Ddagrams
+noise.henonf	Henon phase
+noise.ikeda	Ikeda attractor
+noise.lfreq0~	sampled/held noise (piecewise constant)
+noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
+noise.lorenz	Lorenz chaos
+noise.lyapunov	lyapunov random attractor
+noise.navier_stokes	navier-stokes diff equations
+noise.pink~	Pink noise generator
+noise.rossler	Rössler attractor
+noise.stein	Stein distribution
+noise.torus	torus attractor
+noise.verhulst	verhulst distribution
+noise.white~	White noise generator
+osc.blit~	bandlimited oscillator with controllable harmonics / генератор с ограниченным спектром и управлением гармониками
+osc.impulse~	bandlimited impulse train generator / генератор импульсного сигнала с ограниченным спектром
+osc.pulse~	bandlimited pulse train oscillator / осциллятор прямоугольной волны с ограниченным спектром
+osc.saw4~	bandlimited sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
+osc.saw~	alias-free sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
+osc.sinfb~	sine oscillator with feedback / синусоидальный осциллятор с обратной связью
+osc.sin~	sine wave oscillator / синусоидальный осциллятор
+osc.square~	bandlimited square wave oscillator / осциллятор квадратной волны с ограниченным спектром
+osc.tri~	bandlimited triangle wave oscillator / осциллятор треугольной волны с ограниченным спектром
+canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
+ceammc/canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
+canvas.current	get the information about the current canvas of the object / получение информации о текущем холста объекта
+canvas.dir	outputs the current canvas directory of the object and nesting level / выводит директорию холста у объекта и его уровень вложенности
+canvas.name	output the current canvas name of the object / выводит имя текущего холста у объекта
+canvas.path	output the current canvas filesystem fullpath of the object / выводит полный путь холста в файловой системе у объекта
+canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня у объекта
+patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
+patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
+patch.tree	output the object tree of the patch / выводит дерево объектов патча
+file.size	output file size
+path.basename	outputs the filename portion of the pathname / выводит имя файла из пути к файлу
+path.dirname	outputs directory portion of pathname / выводит имя каталога файла из пути к файлу
+path.exists	checks if the given path exists / проверка существования пути
+path.file	file input/output / файловый ввод/вывод
+path.is_dir	checks if the path is a directory / проверяет, является ли путь каталогом
+path.lsdir	list directory contents / cписок содержимого каталога
+path.ls	list directory contents / cписок содержимого каталога
+path.monitor	filesystem event monitor / мониторинг событий файловой системы
+path.normalize	normalize file paths / нормализует пути файлов
+path.norm	normalize file paths / нормализует пути файлов
+path.pattern	pattern filename generator / генерирует имя файла по данному шаблону
+path.search	file search / поиск файлов
+path.split	split path into dirname and basename / разбивает путь на имя каталога и файла
+is_any	checks if the input has a general message type / проверяет, является ли входное сообщение сообщением общего типа
+is_bang	checks if the input is a *bang* / проверяет, является ли входное сообщение *bang*
+is_data	checks if the input is a *data* type / проверяет, является ли входное сообщение типом данных
+ceammc/is_data	checks if the input is a *data* type / проверяет, является ли входное сообщение типом данных
+is_dict	checks if the input message is a dictionary / проверяет, является ли входное сообщение словарём
+ceammc/is_dict	checks if the input message is a dictionary / проверяет, является ли входное сообщение словарём
+is_even	even number check / проверка входного числа на чётность
+is_file	checks if the file exists and accessible / проверка существования и доступности файла
+ceammc/is_file	checks if the file exists and accessible / проверка существования и доступности файла
+is_float	checks if the input message is a *float* / проверка, является ли входное сообщение числом с плавающей точкой
+is_list	checks if the input message is a *list* / проверка, является ли входное сообщение списком
+is_odd	input number oddity check / проверка входного числа на нечётность
+is_pointer	checks if input message is a *pointer* / проверка, является ли входное сообщение указателем
+is_prop	checks if the input message is a *property* message / проверка, является ли входное сообщение *свойством*
+is_symbol	checks if input message is a *symbol* / проверка, является ли входное сообщение *символом*
+preset.float	load or store the float into a preset / загружает или сохраняет числовое значение в пресете
+preset.f	load or store the float into a preset / загружает или сохраняет числовое значение в пресете
+preset.list	loads or store the list into a preset / загружает или сохраняет список в пресете
+preset.l	loads or store the list into a preset / загружает или сохраняет список в пресете
+preset.storage	preset storage controller / управление пресетами
+preset.symbol	load or store the symbol into a preset / загружает или сохраняет символ в пресет
+preset.s	load or store the symbol into a preset / загружает или сохраняет символ в пресет
+patch.props	get or set the patch properties / получение или установка свойств патча
+prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции
+ceammc/prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции
+prop.declare	declare the named property for a subpatch or an abstraction / объявляет именованное свойство для субпатча или абстракции
+prop.get	get the property value from connected object, subpatch or abstraction / получить значение свойства от подсоединённого объекта, субпатча или абстракции
+p.get	get the property value from connected object, subpatch or abstraction / получить значение свойства от подсоединённого объекта, субпатча или абстракции
+prop.join	inject properties into the main data flow / добавляет свойства в основной поток данных
+prop<-	inject properties into the main data flow / добавляет свойства в основной поток данных
+prop.random	property value randomizer / рандомизатор значения свойства
+prop.route	separates properties from the dataflow / отделяет свойства от основного потока данных
+prop->	separates properties from the dataflow / отделяет свойства от основного потока данных
+@->	separates properties from the dataflow / отделяет свойства от основного потока данных
+ceammc/prop->	separates properties from the dataflow / отделяет свойства от основного потока данных
+ceammc/@->	separates properties from the dataflow / отделяет свойства от основного потока данных
+prop.split	separates properties from the dataflow / отделяет свойства от основного потока данных
+prop.route~	property extractor from audio connections / отделяет свойства от аудиосоединений
+prop~>	property extractor from audio connections / отделяет свойства от аудиосоединений
+@~>	property extractor from audio connections / отделяет свойства от аудиосоединений
+ceammc/prop~>	property extractor from audio connections / отделяет свойства от аудиосоединений
+ceammc/@~>	property extractor from audio connections / отделяет свойства от аудиосоединений
+prop.get~	property extractor from audio connections / отделяет свойства от аудиосоединений
+prop.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
+p.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
+proto.arturia.minilab	simple SysEx control for Arturia MiniLab
+proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
+proto.firmata	Firmata Arduino protocol support
+proto.inscore	INScore message creator
+proto.ltc.in~	LTC decoder
+ltc.in~	LTC decoder
+proto.ltc.out~	LTC encoder
+ltc.out~	LTC encoder
+proto.midi	raw midi encoder/parser
+proto.midi.casio	Casio Privia MIDI control
+proto.midi.cc	raw midi CC encoder/parser
+proto.midi.sysex	raw midi SYSex encoder/parser
+proto.moppy	protocol for Musical flOPPY controller
+proto.morse	Morse encoder
+proto.mpv	mpv video player control
+proto.obs	WebSocket client to control OBS studio / WebSocket клиент для управления OBS studio
+proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+proto.vlc	VLC video player control over HTTP
+proto.whammy	Control for Digitech Whammy pedal
+proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
+random.atom	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
+random.a	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
+random.discrete	generate random weighted integers on the interval [0, n) / генерирует случайные взвешенные целые числа на интервале [0, n)
+random.float	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне
+random.f	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне
+random.gauss	gaussian random distribution / гауссово случайное распределение
+random.int	uniform random integer generator in the specified range / равномерный генератор случайных целых чисел в заданном диапазоне
+random.i	uniform random integer generator in the specified range / равномерный генератор случайных целых чисел в заданном диапазоне
+random.linear	random linear distribution / случайное линейное распределение
+random.pw_const	piecewise constant random distribution / кусочно-постоянное случайное распределение
+random.pw_lin	piecewise linear random distribution / кусочно-линейное случайное распределение
+samp.time~	sample counter
+samp.t~	sample counter
+seq.arp	chord arpeggiator / арпеджиатор аккордов
+seq.bangs	bang event sequencer / секвенсер пустых событий
+seq.b	bang event sequencer / секвенсер пустых событий
+seq.counter	cyclic counter / циклический счётчик
+seq.life	Conway game of life sequencer / секвенсер для игры Life Джона Конвея
+seq.matrix	sequencer control for [ui.matrix] object / секвенсер для объекта [ui.matrix]
+seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число пустых сообщений через интервалы времени
+seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число пустых сообщений через интервалы времени
+seq.phasor	control rate phasor generator / генератор фазора (пилы) для контрольных сигналов
+seq.toggles	toggle sequencer / секвенсор переключающих событий
+seq.t	toggle sequencer / секвенсор переключающих событий
+sequencer	basic sequence player / базовый секвенсер значений
+ceammc/sequencer	basic sequence player / базовый секвенсер значений
+ceammc/seq	basic sequence player / базовый секвенсер значений
+seq	basic sequence player / базовый секвенсер значений
+snd.file	Sound file loader on steroids
+snd.play~	Sound file player on steroids
+hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
+hoa.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
+hoa.2d.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
+hoa.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
+hoa.2d.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумерование и нормализация каналов в двумерных амбисониках
+hoa.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумерование и нормализация каналов в двумерных амбисониках
+hoa.2d.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
+hoa.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
+hoa.2d.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
+hoa.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
+hoa.2d.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция из сферических гармоник в плоские волны
+hoa.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция из сферических гармоник в плоские волны
+hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
+hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
+hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
+hoa.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
+hoa.2d.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
+hoa.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
+hoa.2d.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
+hoa.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
+hoa.3d.decoder~	3D decoder of higher order ambisonics / трехмерный декодер амбисоников высоких порядков
+hoa.3d.encoder~	3D encoder of higher order ambisonics / 3D кодировщик амбисоников высоких порядков
+hoa.3d.exchanger~	renumbers and normalizes the channels / перенумерование и нормализация каналов
+hoa.3d.map~	a 3D ambisonic multisource spatializer / многоканальное управление пространственными источниками для трехмерных амбисоников
+hoa.3d.meter~	multi spherical meter with sound field descriptor / трехмерный измеритель уровня звукового поля
+hoa.3d.optim~	a 3D ambisonic optimization tool / оптимизация трехмерных амбисоников высоких порядков
+hoa.3d.scope~	a 3d ambisonic harmonic scope / отображение сферических гармоник в трехмерном амбисоническом поле
+hoa.3d.wider~	a 3d fractional ambisonic order simulator / трехмерная симуляция дробного амбисонического порядка
+hoa.@process	properties manager for [hoa.process~] object / управление свойствами объекта [hoa.process~]
+hoa.in	message inlet for a patcher loaded by [hoa.process~] object / контрольный вход для патча, загружаемого объектом [hoa.process~]
+hoa.in~	signal inlet for a patcher loaded by [hoa.process~] object / сигнальный вход для патча, загружаемого объектом [hoa.process~]
+hoa.map.ui	a GUI to spatialize sources on a map / GUI для пространственного размещения источников
+hoa.out	message outlet for a patcher loaded by hoa.process~ / контрольный выход для патча, загружаемого объектом [hoa.process~]
+hoa.out~	signal inlet for a patcher loaded by hoa.process~ / сигнальный выход для патча, загружаемого объектом [hoa.process~]
+hoa.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
+hoa.2d.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
+hoa.3d.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
+hoa.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
+hoa.2d.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
+pan.cos~	two channel equal power sine/cosine panner / двухканальное косинусное панорамирование равной мощности
+pan.linsig~	two channel linear panner with the signal control / двухканальное линейное панорамирование управляемое сигналом
+pan.lin~	two channel linear panner / двухканальное линейное панорамирование
+ceammc/pan~	two channel linear panner / двухканальное линейное панорамирование
+pan~	two channel linear panner / двухканальное линейное панорамирование
+pan.spread~	spreads input channels across the stereo field / распределяет входные каналы по стереополю
+pan.sqrt~	two channel equal power square root panner / двухканальное квадратичное панорамирование равной мощности
+spat.pan4~	GMEM SPAT: 4-outputs spatializer
+ceammc/pan4~	GMEM SPAT: 4-outputs spatializer
+pan4~	GMEM SPAT: 4-outputs spatializer
+spat.pan8~	GMEM SPAT: 8-outputs spatializer
+ceammc/pan8~	GMEM SPAT: 8-outputs spatializer
+pan8~	GMEM SPAT: 8-outputs spatializer
+spat.zita6x8~	spat with 6 inputs sources to 8 channel output
+spat.zita8~	8 channel reverb spatializer
+string	constructs the string / создание строки
+ceammc/string	constructs the string / создание строки
+ceammc/str	constructs the string / создание строки
+str	constructs the string / создание строки
+string.contains	checks if the string contains specified substring / проверяет, содержит ли строка указанную подстроку
+str.contains	checks if the string contains specified substring / проверяет, содержит ли строка указанную подстроку
+string.ends_with	checks if the string ends with the specified substring / проверяет, заканчивается ли строка указанной подстрокой
+str.ends_with	checks if the string ends with the specified substring / проверяет, заканчивается ли строка указанной подстрокой
+string.equal	check strings or symbols for equality / проверка строк или символов на равенство
+str.equal	check strings or symbols for equality / проверка строк или символов на равенство
+string.format	formats a string like printf function / форматирует строки в стиле функции printf
+str.format	formats a string like printf function / форматирует строки в стиле функции printf
+string.join	joins the list into a string with the element separator / объединяет список в строку с указанным разделителем элементов
+str.join	joins the list into a string with the element separator / объединяет список в строку с указанным разделителем элементов
+string.length	number of characters in the string (with Unicode support) / количество символов в строке (с поддержкой Unicode)
+str.length	number of characters in the string (with Unicode support) / количество символов в строке (с поддержкой Unicode)
+string.match	checks if the string matches to the regular expression / проверка соответствия строки регулярному выражению
+str.match	checks if the string matches to the regular expression / проверка соответствия строки регулярному выражению
+string.remove	removes a substring from the input string / удаляет подстроку из входной строки
+str.remove	removes a substring from the input string / удаляет подстроку из входной строки
+string.replace	replace from one substring to another in the input string / замена одной строки на другую во входной строке
+str.replace	replace from one substring to another in the input string / замена одной строки на другую во входной строке
+string.split	splits the string or symbol into the list by the separator / разбивает строку или символ в список по разделителю
+str.split	splits the string or symbol into the list by the separator / разбивает строку или символ в список по разделителю
+symbol.split	splits the string or symbol into the list by the separator / разбивает строку или символ в список по разделителю
+string.starts_with	checks if the string starts with the specified substring / проверка, начинается ли строка с определенной подстроки
+str.starts_with	checks if the string starts with the specified substring / проверка, начинается ли строка с определенной подстроки
+string.substr	extract a substring from the input string / извлечение подстроки из входной строки
+str.substr	extract a substring from the input string / извлечение подстроки из входной строки
+string2symbol	converts the string into the symbol / преобразует строку в символ
+ceammc/string2symbol	converts the string into the symbol / преобразует строку в символ
+ceammc/str->sym	converts the string into the symbol / преобразует строку в символ
+str->sym	converts the string into the symbol / преобразует строку в символ
+symbol.equal	check symbols for equality
+symbol.length	number of characters in symbol (unicode supported)
+symbol.num_compare	numeric symbol compare
+symbol2any	converts symbol or string to message
+ceammc/symbol2any	converts symbol or string to message
+ceammc/sym->any	converts symbol or string to message
+ceammc/str->any	converts symbol or string to message
+ceammc/string2any	converts symbol or string to message
+sym->any	converts symbol or string to message
+str->any	converts symbol or string to message
+string2any	converts symbol or string to message
+symbol2intlist	converts symbol to list of character codes
+ceammc/symbol2intlist	converts symbol to list of character codes
+ceammc/sym->ilist	converts symbol to list of character codes
+sym->ilist	converts symbol to list of character codes
+synth.bee3~	Hammond-oid organ FM synthesis instrument
+synth.birds~	bird singing generator
+synth.church_bell~	generic church bell modal model
+synth.clap~	clap synth from faust libraries
+synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
+synth.dx7~	FAUST dx7 implementation
+synth.eguitar~	simple electric guitar model with steel strings
+synth.english_bell~	english church bell modal model
+synth.fgrain~	file granulator from STK
+synth.french_bell~	french church bell modal model
+synth.german_bell~	german church bell modal model
+synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
+synth.glitch~	Glitch synthesizer by naivesound
+synth.harpsichord~	waveguide commuted harpsichord
+synth.hat~	hi-hat synth from faust librariest
+synth.kick2~	low-kick synth from faust librariest
+synth.kick~	low-kick synth from Guitarix project
+synth.ks~	Karplus-Strong string
+synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
+synth.metro~	ready to use metronome synth
+synth.piano~	waveguide commuted piano
+synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
+synth.risset_arp~	Jean-Claude Risset's harmonic arpeggio effect
+synth.risset_bell~	Jean-Claude Risset's bell synth
+synth.risset_tone~	Jean-Claude Risset's endless glissando
+synth.russian_bell~	russian church bell modal model
+synth.shakers~	various percussion sounds from STK library
+synth.sitar~	STK sitar
+synth.snare~	Snare drum synth from Guitarix project
+synth.standard_bell~	german church bell modal model
+synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
+synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
+synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
+synth.wurley~	Wurlitzer electric piano FM synthesis instrument
+system.colorpanel	System color panel dialog popup
+system.command	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
+system.cmd	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
+system.cursor	Output cursor motion, mousewheel and button clicks
+system.exec	run external command in separate process
+system.exit	quit PureData
+system.getenv	Get system environment variables
+system.hostname	outputs system hostname
+system.info	retrieve system information: CPU and temperature / получение информации о системе: ЦПУ и температура
+system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
+system.memused	returns the process physical memory use - current and peak
+system.screen_size	returns current screen size in pixels
+tl.bang	Timeline bang (with possible delay)
+tl.b	Timeline bang (with possible delay)
+tl.cue	Timeline section
+tl.timeline	Timeline - event scheduler
+ceammc/timeline	Timeline - event scheduler
+timeline	Timeline - event scheduler
+tl.toggle	Timeline bang
+tl.t	Timeline bang
+tl.transport	Timeline transport control
+ui.aview	array view with cursor and range selection / отображение массива с курсором и выбором диапазона
+ui.bang	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
+ui.b	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
+ui.button	on/off button widget / виджет кнопки c двумя состояниями
+ui.btn	on/off button widget / виджет кнопки c двумя состояниями
+ui.canvas	canvas for drawing / холст для рисования
+ui.cnv	canvas for drawing / холст для рисования
+ui.cmeter~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
+ui.cm~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
+hoa.2d.meter~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
+ui.colorpanel	colorchooser widget / виджет выбора цвета
+ui.display	display widget / виджет дисплей
+ui.d	display widget / виджет дисплей
+ui.dt	display widget / виджет дисплей
+ui.dsp~	widget to switch DSP on or off / виджет для включения или выключения обработки звука
+ui.env	envelope editor / редактор огибающей
+ui.filter	filter widget for calculating [flt.biquad~] coefficients / виджет-калькулятор коэффициентов для фильтра [flt.biquad~]
+ui.filter~	sound filter widget / виджет звукового фильтра
+ui.gain2~	stereo gain control / контроль громкости стерео
+ui.hgain2~	stereo gain control / контроль громкости стерео
+ui.vgain2~	stereo gain control / контроль громкости стерео
+ui.gain~	gain control / контроль громкости
+ui.hgain~	gain control / контроль громкости
+ui.vgain~	gain control / контроль громкости
+ui.icon	simple icon with button capabilities / простая иконка с возможностями нажатия
+ui.incdec	value increment or decrement widget / виджет увеличения или уменьшения значения
+ui.keyboard	keyboard widget / виджет клавиатуры
+ui.hk	keyboard widget / виджет клавиатуры
+ui.vkeyboard	keyboard widget / виджет клавиатуры
+ui.vk	keyboard widget / виджет клавиатуры
+ui.knob	knob widget / виджет ручки
+ui.k	knob widget / виджет ручки
+ui.label	simple label widget / простой виджет надписи
+ui.lcd	black and white bitmap display / черно-белый растровый дисплей
+ui.link	hyperlink widget / виджет гиперссылки
+ui.matrix	toggle matrix / матрица переключателей
+ui.menu	dropdown menu / выпадающее меню
+ui.meter~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.m~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.hm~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.vm~	peak and RMS signal level / пиковый и RMS уровень сигнала
+ui.midi	incoming MIDI message viewport / окно просмотра MIDI сообщений
+ui.mouse_filter	filter mouse events from UI objects / фильтр событий мыши из UI объектов
+ui.mf	filter mouse events from UI objects / фильтр событий мыши из UI объектов
+ui.mouse_route	routes mouse events from UI objects / маршрутизация событий мыши от UI объектов
+ui.mr	routes mouse events from UI objects / маршрутизация событий мыши от UI объектов
+ui.number	number box / числовой бокс
+ui.n	number box / числовой бокс
+ui.number~	number viewport for signals / просмотр числовых значений сигнала
+ui.n~	number viewport for signals / просмотр числовых значений сигнала
+ui.plot~	signal plotter / построитель графика для сигналов
+ui.polar	2D slider in polar coordinates / 2D слайдер в полярных координатах
+ui.preset	preset manager / менеджер пресетов
+ui.radio	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.radio*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.hrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.hrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.vrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.vrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.rslider	two range slider / двухдиапазонный слайдер
+ui.rsl	two range slider / двухдиапазонный слайдер
+ui.scope~	waveform signal scope widget / виджет просмотра формы волны
+ui.slider	slider widget / виджет слайдера (ползунка)
+ui.hsl	slider widget / виджет слайдера (ползунка)
+ui.vsl	slider widget / виджет слайдера (ползунка)
+ui.slider2d	2D slider widget / 2D виджет слайдера
+ui.s2d	2D slider widget / 2D виджет слайдера
+ui.sliders	multiple slider widget / виджет многоползункового слайдера
+ui.vsliders	multiple slider widget / виджет многоползункового слайдера
+ui.spectroscope~	spectroscope widget / виджет просмотрщика спектра
+ui.ssc~	spectroscope widget / виджет просмотрщика спектра
+ui.tab	displays a list of text buttons or text toggles / список текстовых кнопок или текстовых переключателей
+ui.toggle	modern toggle widget / cовременный виджет переключателя
+ui.t	modern toggle widget / cовременный виджет переключателя

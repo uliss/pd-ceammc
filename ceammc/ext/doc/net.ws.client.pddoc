@@ -20,21 +20,29 @@
             </also>
         </meta>
         <properties>
+            <!-- @mode -->
             <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">parsing
             mode for incoming messages. If 'fudi' - interpret incoming websocket data as Pd
             messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
             convert json values to ceammc data.</property>
         </properties>
         <methods>
+            <!-- close -->
+            <method name="close">gracefully close connection (with websocket handshake)</method>
+            <!-- connect -->
+            <method name="connect">connect to websocket server 
+            <param name="URL" type="symbol" required="true">url - ws://HOST:PORT/, for ex.:
+            ws://127.0.0.1:9000/path</param></method>
+            <!-- flush -->
+            <method name="flush">flush output stream: sends all buffered messages.</method>
+            <!-- latency -->
+            <method name="latency">measure rountrip latency. Outputs: latency TIME_MSEC</method>
+            <!-- ping -->
+            <method name="ping">send ping message to server (on server answer outputs: pong DATA) 
+            <param name="DATA" type="list" required="false">list of integers in [0..255]
+            range</param></method>
             <!-- send -->
             <method name="send">send as text message 
-            <param name="ARGS" type="list" required="false">arguments</param></method>
-            <!-- send_binary -->
-            <method name="send_binary">send as binary bytes 
-            <param name="ARGS" type="list" required="false">list of integers in [0..255]
-            range</param></method>
-            <!-- send_json -->
-            <method name="send_json">send as encoded json 
             <param name="ARGS" type="list" required="false">arguments</param></method>
             <!-- send_array -->
             <method name="send_array">send as Pd array content as json array 
@@ -43,6 +51,13 @@
             default="0">array start index</param>
             <param name="LENGTH" type="int" required="false" minvalue="0" units="sample">read
             length. If not specified - read until array end.</param></method>
+            <!-- send_binary -->
+            <method name="send_binary">send as binary bytes 
+            <param name="ARGS" type="list" required="false">list of integers in [0..255]
+            range</param></method>
+            <!-- send_json -->
+            <method name="send_json">send as encoded json 
+            <param name="ARGS" type="list" required="false">arguments</param></method>
             <!-- write -->
             <method name="write">write as text message to output buffer. You have to call [flush(
             method for sending. 
@@ -56,20 +71,6 @@
             <method name="write_json">write as encoded json to output buffer. You have to call
             [flush( method for sending. 
             <param name="ARGS" type="list" required="false">arguments</param></method>
-            <!-- latency -->
-            <method name="latency">measure rountrip latency. Outputs: latency TIME_MSEC</method>
-            <!-- flush -->
-            <method name="flush">flush output stream: sends all buffered messages.</method>
-            <!-- close -->
-            <method name="close">gracefully close connection (with websocket handshake)</method>
-            <!-- ping -->
-            <method name="ping">send ping message to server (on server answer outputs: pong DATA) 
-            <param name="DATA" type="list" required="false">list of integers in [0..255]
-            range</param></method>
-            <!-- connect -->
-            <method name="connect">connect to websocket server 
-            <param name="URL" type="symbol" required="true">url - ws://HOST:PORT/, for ex.:
-            ws://127.0.0.1:9000/path</param></method>
         </methods>
         <inlets>
             <inlet>

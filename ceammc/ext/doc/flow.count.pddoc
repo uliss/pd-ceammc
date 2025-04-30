@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">control flow event counter</tr>
+                <tr lang="ru">счетчик числа сообщений в управляющем потоке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,6 +20,7 @@
             <argument name="VALUE" type="int" minvalue="0">counter init value</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="int" minvalue="0" default="0">current counter state. Can
             be set via message to second(!) inlet or [prop.set] object.</property>
         </properties>

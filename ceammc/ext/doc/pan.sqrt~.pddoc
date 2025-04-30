@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">two channel equal power square root panner</tr>
+                <tr lang="ru">двухканальное квадратичное панорамирование равной мощности</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,8 +32,10 @@
             left, 0 - center, +1 - right</argument>
         </arguments>
         <properties>
+            <!-- @pos -->
             <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">panning
             position. -1 means left, 0 - center, +1 - right</property>
+            <!-- @smooth -->
             <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
             access="initonly">smooth control signal to avoid zipping-noise</property>
         </properties>

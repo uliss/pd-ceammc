@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Zero-mean unit-amplitude low frequency square wave</tr>
+                <tr lang="en">zero-mean unit-amplitude low frequency square wave</tr>
+                <tr lang="ru">низкочастотная квадратная волна единичной амплитуды с нулевым средним
+                значением</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,16 +23,23 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+            frequency</argument>
         </arguments>
         <properties>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <property name="@pause" type="bool" default="0">pause oscillator at current
-            value</property>
-            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
-            phase</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
+            units="hertz">initial frequency</property>
+            <!-- @pause -->
+            <property name="@pause" type="bool" default="0">pause oscillator at current
+            value</property>
+            <!-- @phase -->
+            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
+            phase</property>
         </properties>
         <methods>
             <!-- reset -->

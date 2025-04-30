@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">metro sequencer</tr>
+                <tr lang="en">a metronome that changes its period with each beat in the specified
+                sequence</tr>
+                <tr lang="ru">метроном изменяющий свой период при каждом ударе в указанной
+                последовательности</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,12 +32,15 @@
             beat</argument>
         </arguments>
         <properties>
-            <property name="@pattern" type="list" default="">list of 1 and 0. Where 1 means output
-            bang on this beat</property>
-            <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
-            interval between beats</property>
+            <!-- @current -->
             <property name="@current" type="int" minvalue="0" default="0">current pattern
             index</property>
+            <!-- @interval -->
+            <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
+            interval between beats</property>
+            <!-- @pattern -->
+            <property name="@pattern" type="list" default="">list of 1 and 0. Where 1 means output
+            bang on this beat</property>
         </properties>
         <inlets>
             <inlet>

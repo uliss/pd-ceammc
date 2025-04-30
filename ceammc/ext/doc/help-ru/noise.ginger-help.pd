@@ -1,0 +1,132 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 482 50 cnv 1 283 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 487 50 Gingerbreadman map chaotic generator;
+#X obj 1 1 cnv 5 765 40 empty empty noise.ginger 20 20 0 20 -104026
+-4096 0;
+#X obj 652 11 noise.ginger;
+#X obj 205 78 cnv 1 560 124 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 A non-interpolating generator based on the difference
+equations:;
+#X text 215 123 x(n+1) = 1 - y(n) + seed * |x(n)|;
+#X text 215 148 y(n+1) = x(n);
+#X obj 215 173 ui.link @background_color 0.98039 0.98039 0.98039
+@title wiki: Gingerbreadman map @url
+https://en.wikipedia.org/wiki/Gingerbreadman_map;
+#X obj 50 250 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 279 metro 50;
+#X obj 69 322 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 184 322 5 0 0 0 - - -;
+#X msg 69 351 om \$1;
+#X msg 184 351 set \$1;
+#X msg 318 351 reset;
+#X floatatom 59 380 5 0 0 0 - - -;
+#X msg 59 409 seed \$1;
+#X floatatom 126 437 5 0 0 0 - - -;
+#X floatatom 222 437 5 0 0 0 - - -;
+#X floatatom 318 437 5 0 0 0 - - -;
+#X msg 126 466 x \$1;
+#X msg 222 466 y \$1;
+#X msg 318 466 z \$1;
+#X obj 50 495 noise.ginger 0.82 0.7 1.2;
+#X obj 50 524 ui.display;
+#X obj 270 524 ui.display;
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 579 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 614 1\.;
+#X text 150 614 float;
+#X obj 246 615 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 614 SEED: seed value \, default 0.82\. Тип: float.;
+#X text 110 634 2\.;
+#X text 150 634 float;
+#X obj 246 635 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 634 X: initial x value \, default 0.7\. Тип: float.;
+#X text 110 654 3\.;
+#X text 150 654 float;
+#X obj 246 655 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 654 Y: initial y value \, default 1.2\. Тип: float.;
+#X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 689 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 692 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 749 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 784 reset;
+#X text 245 784 reset seed \, x and y values to defaults.;
+#X msg 110 812 seed;
+#X text 245 812 set seed value and update default.;
+#X msg 110 840 set;
+#X text 245 840 set seed \, x and y values \, updates defaults.;
+#X msg 110 868 x;
+#X text 245 868 set x value and update default.;
+#X msg 110 896 y;
+#X text 245 896 set y value and update default.;
+#X obj 20 934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 939 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 940 1\.;
+#X text 150 940 *bang*;
+#X text 245 940 outputs current x/y values and generates new one.;
+#X obj 20 970 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 975 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 976 1\.;
+#X text 245 976 outputs x-value.;
+#X text 110 996 2\.;
+#X text 245 996 outputs y-value.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
+#X obj 1 1046 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1049 библиотека: ceammc v0.9.8;
+#X text 532 1061 смотрите также:;
+#X obj 653 1061 chaos.gbman0;
+#N canvas 10 1068 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 noise.ginger;
+#X text 10 76 категория:;
+#X text 120 76 noise;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 André Sier;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 chaos \, generator \, gingerbreadman;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1068 pd info;
+#X connect 9 0 10 0;
+#X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 16 0 17 0;
+#X connect 18 0 21 0;
+#X connect 19 0 22 0;
+#X connect 20 0 23 0;
+#X connect 24 0 25 0;
+#X connect 24 0 26 0;
+#X connect 17 0 24 0;
+#X connect 21 0 24 0;
+#X connect 22 0 24 0;
+#X connect 23 0 24 0;
+#X connect 13 0 24 0;
+#X connect 14 0 24 0;
+#X connect 15 0 24 0;
+#X connect 10 0 24 0;

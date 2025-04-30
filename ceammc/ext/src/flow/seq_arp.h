@@ -14,6 +14,8 @@
 #ifndef SEQ_ARP_H
 #define SEQ_ARP_H
 
+#include <random>
+
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
 using namespace ceammc;
@@ -40,6 +42,7 @@ class SeqArp : public BaseObject {
     int nactive_;
     AsrData asr_data_;
     ClockLambdaFunction asr_clock_;
+    mutable std::default_random_engine rng_;
 
 public:
     SeqArp(const PdArgs& args);
@@ -54,6 +57,10 @@ public:
 private:
     bool allOn() const { return nactive_ == on_offs_.size(); }
     bool allOff() const { return nactive_ == 0; }
+
+    bool findFirstMatchedNote(size_t from, size_t mode, bool state, size_t* idx) const;
+    void outputNoteMessage(size_t idx, t_float vel, int nactive);
+    void processOnOff(size_t mode_hash, bool state, t_float vel, int num);
 };
 
 void setup_seq_arp();

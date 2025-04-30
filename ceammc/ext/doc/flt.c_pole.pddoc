@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">One-pole coefficient calculator for biquad filter</tr>
+                <tr lang="en">оne-pole coefficient calculator for [flt.biquad~]</tr>
+                <tr lang="ru">калькулятор однополюсного фильтра для [flt.biquad~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,13 +32,18 @@
             frequency</argument>
         </arguments>
         <properties>
+            <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="1000"
             units="hertz">center frequency</property>
-            <property name="@rad" type="flag" access="initonly">use angular frequency</property>
+            <!-- @hpf -->
+            <property name="@hpf" type="alias">ti @mode hpf</property>
+            <!-- @lpf -->
+            <property name="@lpf" type="alias">to @mode lpf</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">filter
             modey</property>
-            <property name="@lpf" type="alias">to @mode lpf</property>
-            <property name="@hpf" type="alias">ti @mode hpf</property>
+            <!-- @rad -->
+            <property name="@rad" type="flag" access="initonly">use angular frequency</property>
         </properties>
         <inlets>
             <inlet>

@@ -10,7 +10,9 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">a 3d ambisonic multisource spatializer</tr>
+                <tr lang="en">a 3D ambisonic multisource spatializer</tr>
+                <tr lang="ru">многоканальное управление пространственными источниками для
+                трехмерных амбисоников</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,19 +34,33 @@
             <argument name="MODE" type="symbol" enum="car pol">coordinates mode</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
-            access="initonly">the order of decomposition</property>
-            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
-            input sources</property>
-            <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="car pol" default="pol">coordinates mode in
             signal control mode (with @nsrc 1), polar or cartesian</property>
+            <!-- @nsrc -->
+            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
+            input sources</property>
+            <!-- @order -->
+            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
+            access="initonly">the order of decomposition</property>
+            <!-- @ramp -->
+            <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
         </properties>
         <methods>
+            <!-- car -->
+            <method name="car">alias to cartesian method</method>
+            <!-- cartesian -->
+            <method name="cartesian">set source mapping in cartesian coordinates 
+            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
+            <param name="X" type="float" required="true">x coordinate</param>
+            <param name="Y" type="float" required="true">y coordinate</param>
+            <param name="Z" type="float" required="true">z coordinate</param></method>
             <!-- mute -->
             <method name="mute">mute/unmute specified source 
             <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
             <param name="STATE" type="int" required="true" enum="0 1">mute value</param></method>
+            <!-- pol -->
+            <method name="pol">alias to polar method</method>
             <!-- polar -->
             <method name="polar">set source mapping in polar coordinates 
             <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
@@ -53,16 +69,6 @@
             units="radian">azimuth angle</param>
             <param name="ELEV" type="float" required="true" minvalue="0" maxvalue="2π"
             units="radian">elevation</param></method>
-            <!-- cartesian -->
-            <method name="cartesian">set source mapping in cartesian coordinates 
-            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
-            <param name="X" type="float" required="true">x coordinate</param>
-            <param name="Y" type="float" required="true">y coordinate</param>
-            <param name="Z" type="float" required="true">z coordinate</param></method>
-            <!-- pol -->
-            <method name="pol">alias to polar method</method>
-            <!-- car -->
-            <method name="car">alias to cartesian method</method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

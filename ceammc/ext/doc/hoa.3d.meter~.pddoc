@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">multi spherical meter with sound field descriptor</tr>
+                <tr lang="ru">трехмерный измеритель уровня звукового поля</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,69 +32,96 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@channels" type="int" minvalue="1" maxvalue="64" default="4">number of
-            input channels</property>
-            <!-- common-->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="225 225">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
-            background color (list of red, green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
-            of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
-            <!-- colors -->
-            <property name="@over_color" type="list" default="1 0 0 0.8">peak overload
-            color</property>
-            <property name="@hot_color" type="list" default="1 0.6 0 0.8">color for
-            &gt;=-12db.</property>
-            <property name="@warm_color" type="list" default="0.85 0.85 0 0.8">color for
-            &gt;=-21db.</property>
-            <property name="@tepid_color" type="list" default="0.6 0.73 0 0.8">color for
-            &gt;=-30db.</property>
-            <property name="@cold_color" type="list" default="0 0.6 0 0.8">color for
-            &gt;=-39db.</property>
-            <property name="@energy_color" type="list" default="0 0 1 0.8">energy vector
-            color</property>
-            <property name="@velocity_color" type="list" default="1 0 0 0.8">velocity
-            vector</property>
-            <!-- label -->
-            <property name="@label" type="symbol" default="(null)">label text</property>
-            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
-            within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
-            outer).</property>
-            <property name="@label_align" type="symbol" enum="left center right" default="left">
-            label horizontal align</property>
-            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
-            label vertical align</property>
-            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
-            label snap side</property>
-            <property name="@label_margins" type="list" default="0 0">label offset in
-            pixels</property>
-            <!-- main -->
-            <property name="@interval" type="int" units="millisecond" minvalue="20" maxvalue="1000"
-            default="50">refresh interval</property>
-            <property name="@clockwise" type="bool" default="0">clockwise channel numbering
-            mode</property>
-            <property name="@offset" type="list" default="0 0 0">channel numbering offset for each
-            axes</property>
+            <!-- @angles -->
             <property name="@angles" type="list" default="0 90 0 -19.5 120 -19.5 240 -19.5">channel
             layout angles</property>
+            <!-- @background_color -->
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <!-- @channels -->
+            <property name="@channels" type="int" minvalue="1" maxvalue="64" default="4">number of
+            input channels</property>
+            <!-- @clockwise -->
+            <property name="@clockwise" type="bool" default="0">clockwise channel numbering
+            mode</property>
+            <!-- @cold_color -->
+            <property name="@cold_color" type="list" default="0 0.6 0 0.8">color for
+            &gt;=-39db.</property>
+            <!-- @energy_color -->
+            <property name="@energy_color" type="list" default="0 0 1 0.8">energy vector
+            color</property>
+            <!-- @fontname -->
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @hot_color -->
+            <property name="@hot_color" type="list" default="1 0.6 0 0.8">color for
+            &gt;=-12db.</property>
+            <!-- @interval -->
+            <property name="@interval" type="int" units="millisecond" minvalue="20" maxvalue="1000"
+            default="50">refresh interval</property>
+            <!-- @label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <!-- @label_align -->
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <!-- @label_color -->
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <!-- @label_inner -->
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <!-- @label_margins -->
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+            <!-- @label_side -->
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <!-- @label_valign -->
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <!-- @offset -->
+            <property name="@offset" type="list" default="0 0 0">channel numbering offset for each
+            axes</property>
+            <!-- @over_color -->
+            <property name="@over_color" type="list" default="1 0 0 0.8">peak overload
+            color</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @send -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="225 225">element size (width, height
+            pair)</property>
+            <!-- @tepid_color -->
+            <property name="@tepid_color" type="list" default="0.6 0.73 0 0.8">color for
+            &gt;=-30db.</property>
+            <!-- @vectors -->
             <property name="@vectors" type="symbol" default="energy"
             enum="both energy none velocity">vector display mode</property>
+            <!-- @velocity_color -->
+            <property name="@velocity_color" type="list" default="1 0 0 0.8">velocity
+            vector</property>
+            <!-- @view -->
             <property name="@view" type="symbol" default="top"
             enum="bottom top topnextbottom toponbottom">view mode</property>
+            <!-- @warm_color -->
+            <property name="@warm_color" type="list" default="0.85 0.85 0 0.8">color for
+            &gt;=-21db.</property>
         </properties>
         <methods>
             <!-- pos -->

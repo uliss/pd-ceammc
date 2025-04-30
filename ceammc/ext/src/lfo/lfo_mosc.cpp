@@ -6,6 +6,7 @@ using namespace ceammc;
 class LfoMosc : public faust_lfo_mosc_tilde {
     SymbolEnumProperty* wave_;
     Property* index_;
+    FloatProperty* freq_ { nullptr };
 
 public:
     explicit LfoMosc(const PdArgs& args)
@@ -14,7 +15,15 @@ public:
         , index_(property(gensym("@windex")))
     {
         createInlet();
-        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
+
+        freq_ = new FloatProperty("@freq", 0);
+        freq_->setSuccessFn([this](Property*) {
+            setInitSignalValue(freq_->value());
+        });
+        freq_->setUnitsHz();
+        freq_->setArgIndex(0);
+        freq_->checkClosedRange(0, 1000);
+        addProperty(freq_);
 
         wave_ = new SymbolEnumProperty("@wave", {
                                                     "sin",

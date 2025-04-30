@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">edge detector for numeric stream</tr>
+                <tr lang="ru">детектор переходного для численного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,11 +21,15 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @both -->
+            <property name="@both" type="alias">alias to @mode both</property>
+            <!-- @down -->
+            <property name="@down" type="alias">alias to @mode down</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="up down both" default="up">edge detection
             mode</property>
+            <!-- @up -->
             <property name="@up" type="alias">alias to @mode up</property>
-            <property name="@down" type="alias">alias to @mode down</property>
-            <property name="@both" type="alias">alias to @mode both</property>
         </properties>
         <inlets>
             <inlet>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">multiplication (on lists too)</tr>
+                <tr lang="en">multiplication</tr>
+                <tr lang="ru">умножение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="MUL" type="float">multiplicand</argument>
         </arguments>
         <properties>
+            <!-- @mul -->
             <property name="@mul" type="float" default="1">multiplicand</property>
         </properties>
         <inlets>

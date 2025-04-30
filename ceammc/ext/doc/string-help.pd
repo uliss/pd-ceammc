@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 621 50 string constructor;
+#X obj 599 50 cnv 1 166 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 604 50 constructs the string;
 #X obj 1 1 cnv 5 765 40 empty empty string 20 20 0 20 -104026 -4096 0;
 #X obj 433 11 ceammc/string;
 #X obj 552 11 ceammc/str;

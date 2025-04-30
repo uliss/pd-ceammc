@@ -1,0 +1,132 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 504 50 полосовой фильтр-эмуляция динамика;
+#X obj 1 1 cnv 5 765 40 empty empty flt.speaker~ 20 20 0 20 -104026
+-4096 0;
+#X obj 652 11 flt.speaker~;
+#X obj 205 78 cnv 1 560 115 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Low-frequency speaker model = +12 dB/octave slope breaking
+to flat near @f1\.;
+#X text 215 123 Implemented using two dc blockers in series.;
+#X text 215 148 High-frequency model = -24 dB/octave slope implemented
+using a fourth-order Butterworth lowpass.;
+#X listbox 50 241 20 0 0 0 - - -;
+#X msg 338 256 bang;
+#X text 434 256 plot response;
+#X msg 50 285 @f1 \$1 \, @f2 \$2;
+#X obj 338 285 click~;
+#X obj 50 313 flt.speaker~ 1000 4000;
+#X obj 50 342 plot.response~ @sr 1 @db 1;
+#X obj 50 371 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
+@ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
+#X obj 50 587 ui.dsp~;
+#X obj 20 637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 642 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 645 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 677 1\.;
+#X text 150 677 float;
+#X obj 246 678 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 677 F1(Hz): lower band frequency. Тип: float. Диапазон:
+20…1000;
+#X text 110 697 2\.;
+#X text 150 697 float;
+#X obj 246 698 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 697 F2(Hz): high band frequency. Тип: float. Диапазон:
+1000…20000;
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 732 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 735 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 767 @id;
+#X text 245 767 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/flt_speaker/PROP_NAME
+osc address \, if empty bind to /flt_speaker/PROP_NAME. Тип: symbol.;
+#X msg 110 839 @osc;
+#X text 245 839 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 881 @active;
+#X text 245 881 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 923 @bypass;
+#X text 245 923 Получить/Установить bypass flag. If true: bypass 'effected'
+signal. Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 965 @drywet;
+#X text 245 965 Получить/Установить proportion of mix between the original
+(dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 1022 @f1;
+#X text 245 1022 Получить/Установить lower band frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 130\. Диапазон: 20\...1000\.;
+#X msg 110 1079 @f2;
+#X text 245 1079 Получить/Установить high band frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 5000\. Диапазон: 1000\...20000\.;
+#X msg 110 1121 @gain;
+#X text 245 1121 Получить/Установить filter gain. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: -30\...30\.;
+#X obj 20 1173 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1178 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1213 reset;
+#X text 245 1213 reset filter state.;
+#X obj 20 1251 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1256 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1257 1\.;
+#X text 245 1257 input signal.;
+#X text 110 1277 2\.;
+#X text 150 1277 *float*;
+#X text 245 1277 set @f1 property.;
+#X text 110 1297 3\.;
+#X text 150 1297 *float*;
+#X text 245 1297 set @f2 property.;
+#X obj 20 1327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1332 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1333 1\.;
+#X text 245 1333 filtered signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1383 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1386 библиотека: ceammc v0.9.8;
+#X text 545 1398 смотрите также:;
+#X obj 666 1398 flt.bpf24~;
+#N canvas 10 1405 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.speaker~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.7;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 filter \, speaker \, bandpass \, bpf;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1405 pd info;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 2 15 1;
+#X connect 9 0 14 1;

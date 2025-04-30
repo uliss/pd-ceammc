@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">signal round</tr>
+                <tr lang="ru">округление сигнала до ближайшего целого значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

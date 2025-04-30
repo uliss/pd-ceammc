@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">a 3D ambisonic optimization tool</tr>
+                <tr lang="ru">оптимизация трехмерных амбисоников высоких порядков</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -38,13 +39,18 @@
             mode</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
-            access="initonly">the order of decomposition</property>
+            <!-- @basic -->
+            <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>
+            <!-- @inphase -->
+            <property name="@inphase" type="alias">alias for @mode inphase.</property>
+            <!-- @maxre -->
+            <property name="@maxre" type="alias">alias for @mode maxre.</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
             optimization mode</property>
-            <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>
-            <property name="@maxre" type="alias">alias for @mode maxre.</property>
-            <property name="@inphase" type="alias">alias for @mode inphase.</property>
+            <!-- @order -->
+            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
+            access="initonly">the order of decomposition</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

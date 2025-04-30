@@ -73,12 +73,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -194,14 +194,14 @@ class FAUST_API synth_kick_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,14 +221,14 @@ class FAUST_API synth_kick_dsp {
         virtual synth_kick_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -641,14 +641,14 @@ class synth_kick : public synth_kick_dsp {
 	float fConst8;
 	float fConst9;
 	float fConst10;
-	float fConst11;
 	float fRec8[2];
 	float fRec9[2];
 	FAUSTFLOAT fVslider2;
-	float fConst12;
+	float fConst11;
 	float fRec10[2];
 	float fRec6[2];
 	float fRec7[2];
+	float fConst12;
 	float fRec5[2];
 	float fConst13;
 	float fConst14;
@@ -659,23 +659,23 @@ class synth_kick : public synth_kick_dsp {
 	float fRec12[2];
 	float fConst16;
 	float fConst17;
-	float fRec16[2];
 	float fConst18;
 	float fConst19;
 	float fConst20;
 	float fConst21;
 	float fConst22;
-	float fConst23;
-	float fConst24;
-	int iRec19[2];
+	int iRec18[2];
 	float fVec3[2];
+	float fConst23;
+	float fRec17[2];
+	float fConst24;
 	float fConst25;
-	float fRec18[2];
 	float fConst26;
+	float fRec16[3];
+	float fVec4[2];
 	float fConst27;
 	float fConst28;
-	float fRec17[3];
-	float fVec4[2];
+	float fRec19[2];
 	float fRec15[2];
 	float fRec14[3];
 	
@@ -686,9 +686,11 @@ class synth_kick : public synth_kick_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.17.1");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_kick -scn synth_kick_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "synth_kick.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
@@ -754,28 +756,28 @@ class synth_kick : public synth_kick_dsp {
 		fConst4 = 0.0005f * fConst0;
 		fConst5 = 0.0004f * fConst0;
 		fConst6 = 1.0f / (fConst2 + 1.0f);
-		fConst7 = 1.0f - fConst2;
-		fConst8 = 6.2831855f / fConst0;
-		fConst9 = 31.415926f / fConst0;
-		fConst10 = std::sin(fConst9);
-		fConst11 = std::cos(fConst9);
-		fConst12 = 1.0f / float(int(0.02f * fConst0));
+		fConst7 = 6.2831855f / fConst0;
+		fConst8 = 31.415926f / fConst0;
+		fConst9 = std::sin(fConst8);
+		fConst10 = std::cos(fConst8);
+		fConst11 = 1.0f / float(int(0.02f * fConst0));
+		fConst12 = 1.0f - fConst2;
 		fConst13 = (fConst2 + -1.0f) / fConst1 + 1.0f;
 		fConst14 = 2.0f * (1.0f - 1.0f / synth_kick_faustpower2_f(fConst1));
 		fConst15 = 0.001f * fConst0;
-		fConst16 = 3.1415927f / fConst0;
-		fConst17 = 1.0f / float(int(0.03f * fConst0));
-		fConst18 = std::tan(1570.7964f / fConst0);
-		fConst19 = synth_kick_faustpower2_f(fConst18);
-		fConst20 = 1.0f / fConst18;
-		fConst21 = (fConst20 + 1.0f) / fConst18 + 1.0f;
-		fConst22 = 1.0f / (fConst19 * fConst21);
-		fConst23 = 1.0f / (fConst20 + 1.0f);
-		fConst24 = 1.3969838e-11f / fConst18;
-		fConst25 = 1.0f - fConst20;
-		fConst26 = 1.0f / fConst21;
-		fConst27 = (fConst20 + -1.0f) / fConst18 + 1.0f;
-		fConst28 = 2.0f * (1.0f - 1.0f / fConst19);
+		fConst16 = std::tan(1570.7964f / fConst0);
+		fConst17 = synth_kick_faustpower2_f(fConst16);
+		fConst18 = 1.0f / fConst16;
+		fConst19 = (fConst18 + 1.0f) / fConst16 + 1.0f;
+		fConst20 = 1.0f / (fConst17 * fConst19);
+		fConst21 = 1.0f / (fConst18 + 1.0f);
+		fConst22 = 1.3969838e-11f / fConst16;
+		fConst23 = 1.0f - fConst18;
+		fConst24 = 1.0f / fConst19;
+		fConst25 = (fConst18 + -1.0f) / fConst16 + 1.0f;
+		fConst26 = 2.0f * (1.0f - 1.0f / fConst17);
+		fConst27 = 3.1415927f / fConst0;
+		fConst28 = 1.0f / float(int(0.03f * fConst0));
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -838,22 +840,22 @@ class synth_kick : public synth_kick_dsp {
 			fRec12[l16] = 0.0f;
 		}
 		for (int l17 = 0; l17 < 2; l17 = l17 + 1) {
-			fRec16[l17] = 0.0f;
+			iRec18[l17] = 0;
 		}
 		for (int l18 = 0; l18 < 2; l18 = l18 + 1) {
-			iRec19[l18] = 0;
+			fVec3[l18] = 0.0f;
 		}
 		for (int l19 = 0; l19 < 2; l19 = l19 + 1) {
-			fVec3[l19] = 0.0f;
+			fRec17[l19] = 0.0f;
 		}
-		for (int l20 = 0; l20 < 2; l20 = l20 + 1) {
-			fRec18[l20] = 0.0f;
+		for (int l20 = 0; l20 < 3; l20 = l20 + 1) {
+			fRec16[l20] = 0.0f;
 		}
-		for (int l21 = 0; l21 < 3; l21 = l21 + 1) {
-			fRec17[l21] = 0.0f;
+		for (int l21 = 0; l21 < 2; l21 = l21 + 1) {
+			fVec4[l21] = 0.0f;
 		}
 		for (int l22 = 0; l22 < 2; l22 = l22 + 1) {
-			fVec4[l22] = 0.0f;
+			fRec19[l22] = 0.0f;
 		}
 		for (int l23 = 0; l23 < 2; l23 = l23 + 1) {
 			fRec15[l23] = 0.0f;
@@ -888,6 +890,8 @@ class synth_kick : public synth_kick_dsp {
 		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(1e+01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5e+01f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider2, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider2, FAUSTFLOAT(5e+01f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fCheckbox0, "max", "1");
+		ui_interface->declare(&fCheckbox0, "min", "0");
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider1, "unit", "ms");
@@ -924,16 +928,16 @@ class synth_kick : public synth_kick_dsp {
 			iRec1[0] = iTemp4 & (iRec1[1] | (fRec2[1] >= 1.0f));
 			int iTemp5 = (iTemp3 <= 0) & (fRec2[1] > 0.0f);
 			fRec2[0] = (fSlow5 * float(((iRec1[1] == 0) & iTemp4) & (fRec2[1] < 1.0f)) + fRec2[1] * (1.0f - fSlow7 * float(iTemp5))) * float((iTemp5 == 0) | (fRec2[1] >= 1e-06f));
-			fRec8[0] = fConst10 * fRec9[1] + fConst11 * fRec8[1];
+			fRec8[0] = fConst9 * fRec9[1] + fConst10 * fRec8[1];
 			float fTemp6 = float(1 - iVec0[1]);
-			fRec9[0] = fTemp6 + fConst11 * fRec9[1] - fConst10 * fRec8[1];
-			fRec10[0] = fRec10[1] + fTemp2 - fConst12 * float(fRec10[1] > 0.0f);
-			float fTemp7 = fConst8 * (19.23077f * fRec8[0] + fSlow8 * (fRec10[0] + 1.0f));
+			fRec9[0] = fTemp6 + fConst10 * fRec9[1] - fConst9 * fRec8[1];
+			fRec10[0] = fRec10[1] + fTemp2 - fConst11 * float(fRec10[1] > 0.0f);
+			float fTemp7 = fConst7 * (19.23077f * fRec8[0] + fSlow8 * (fRec10[0] + 1.0f));
 			float fTemp8 = std::sin(fTemp7);
 			float fTemp9 = std::cos(fTemp7);
 			fRec6[0] = fRec7[1] * fTemp8 + fRec6[1] * fTemp9;
 			fRec7[0] = fTemp6 + fRec7[1] * fTemp9 - fTemp8 * fRec6[1];
-			fRec5[0] = -(fConst6 * (fConst7 * fRec5[1] - (fRec6[0] + fRec6[1])));
+			fRec5[0] = fConst6 * (fRec6[0] + fRec6[1] - fConst12 * fRec5[1]);
 			fRec4[0] = fRec5[0] - fConst3 * (fConst13 * fRec4[2] + fConst14 * fRec4[1]);
 			fRec13[0] = fTemp2 + fRec13[1] - fSlow10 * float(fRec13[1] > 0.0f);
 			int iTemp10 = fRec13[0] > 0.0f;
@@ -941,19 +945,19 @@ class synth_kick : public synth_kick_dsp {
 			iRec11[0] = iTemp11 & (iRec11[1] | (fRec12[1] >= 1.0f));
 			int iTemp12 = (iTemp10 <= 0) & (fRec12[1] > 0.0f);
 			fRec12[0] = (fSlow11 * float(((iRec11[1] == 0) & iTemp11) & (fRec12[1] < 1.0f)) + fRec12[1] * (1.0f - fSlow12 * float(iTemp12))) * float((iTemp12 == 0) | (fRec12[1] >= 1e-06f));
-			fRec16[0] = fTemp2 + fRec16[1] - fConst17 * float(fRec16[1] > 0.0f);
-			float fTemp13 = std::tan(fConst16 * (5.5e+03f * fRec16[0] + 5e+02f));
-			float fTemp14 = 1.0f / fTemp13;
-			iRec19[0] = 1103515245 * iRec19[1] + 12345;
-			float fTemp15 = float(iRec19[0]);
-			fVec3[0] = fTemp15;
-			fRec18[0] = fConst23 * (fConst24 * (fTemp15 - fVec3[1]) - fConst25 * fRec18[1]);
-			fRec17[0] = fRec18[0] - fConst26 * (fConst27 * fRec17[2] + fConst28 * fRec17[1]);
-			float fTemp16 = fRec17[2] + (fRec17[0] - 2.0f * fRec17[1]);
-			fVec4[0] = fTemp16;
-			fRec15[0] = -((fRec15[1] * (1.0f - fTemp14) - fConst22 * (fTemp16 + fVec4[1])) / (fTemp14 + 1.0f));
-			float fTemp17 = (fTemp14 + 1.0f) / fTemp13 + 1.0f;
-			fRec14[0] = fRec15[0] - (fRec14[2] * ((fTemp14 + -1.0f) / fTemp13 + 1.0f) + 2.0f * fRec14[1] * (1.0f - 1.0f / synth_kick_faustpower2_f(fTemp13))) / fTemp17;
+			iRec18[0] = 1103515245 * iRec18[1] + 12345;
+			float fTemp13 = float(iRec18[0]);
+			fVec3[0] = fTemp13;
+			fRec17[0] = fConst21 * (fConst22 * (fTemp13 - fVec3[1]) - fConst23 * fRec17[1]);
+			fRec16[0] = fRec17[0] - fConst24 * (fConst25 * fRec16[2] + fConst26 * fRec16[1]);
+			float fTemp14 = fRec16[2] + (fRec16[0] - 2.0f * fRec16[1]);
+			fVec4[0] = fTemp14;
+			fRec19[0] = fTemp2 + fRec19[1] - fConst28 * float(fRec19[1] > 0.0f);
+			float fTemp15 = std::tan(fConst27 * (5.5e+03f * fRec19[0] + 5e+02f));
+			float fTemp16 = 1.0f / fTemp15;
+			fRec15[0] = (fConst20 * (fTemp14 + fVec4[1]) - fRec15[1] * (1.0f - fTemp16)) / (fTemp16 + 1.0f);
+			float fTemp17 = (fTemp16 + 1.0f) / fTemp15 + 1.0f;
+			fRec14[0] = fRec15[0] - (fRec14[2] * ((fTemp16 + -1.0f) / fTemp15 + 1.0f) + 2.0f * fRec14[1] * (1.0f - 1.0f / synth_kick_faustpower2_f(fTemp15))) / fTemp17;
 			output0[i0] = FAUSTFLOAT(0.5023773f * fRec0[0] * (fConst3 * fRec2[0] * (fRec4[2] + fRec4[0] + 2.0f * fRec4[1]) + fRec12[0] * (fRec14[2] + fRec14[0] + 2.0f * fRec14[1]) / fTemp17));
 			iVec0[1] = iVec0[0];
 			fVec1[1] = fVec1[0];
@@ -973,13 +977,13 @@ class synth_kick : public synth_kick_dsp {
 			fRec13[1] = fRec13[0];
 			iRec11[1] = iRec11[0];
 			fRec12[1] = fRec12[0];
-			fRec16[1] = fRec16[0];
-			iRec19[1] = iRec19[0];
+			iRec18[1] = iRec18[0];
 			fVec3[1] = fVec3[0];
-			fRec18[1] = fRec18[0];
-			fRec17[2] = fRec17[1];
 			fRec17[1] = fRec17[0];
+			fRec16[2] = fRec16[1];
+			fRec16[1] = fRec16[0];
 			fVec4[1] = fVec4[0];
+			fRec19[1] = fRec19[0];
 			fRec15[1] = fRec15[0];
 			fRec14[2] = fRec14[1];
 			fRec14[1] = fRec14[0];

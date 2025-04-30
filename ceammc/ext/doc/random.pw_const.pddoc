@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">piecewise constant random distribution</tr>
+                <tr lang="ru">кусочно-постоянное случайное распределение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,13 +33,17 @@
             in strictly increasing order and weights should be non-negative</argument>
         </arguments>
         <properties>
-            <property name="@v" type="list" default="">interleaved interval boundaries and boundary
-            propabilities.</property>
+            <!-- @bounds -->
             <property name="@bounds" type="list" access="readonly" default="">list of
             boundaries</property>
+            <!-- @seed -->
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @v -->
+            <property name="@v" type="list" default="">interleaved interval boundaries and boundary
+            propabilities.</property>
+            <!-- @weights -->
             <property name="@weights" type="list" access="readonly" default="">list of
             weights</property>
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

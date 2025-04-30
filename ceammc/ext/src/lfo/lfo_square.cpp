@@ -3,12 +3,22 @@
 using namespace ceammc;
 
 class LfoSquare : public faust_lfo_square_tilde {
+    FloatProperty* freq_ { nullptr };
+
 public:
     LfoSquare(const PdArgs& args)
         : faust_lfo_square_tilde(args)
     {
         createInlet();
-        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
+
+        freq_ = new FloatProperty("@freq", 0);
+        freq_->setSuccessFn([this](Property*) {
+            setInitSignalValue(freq_->value());
+        });
+        freq_->setUnitsHz();
+        freq_->checkClosedRange(0, 1000);
+        freq_->setArgIndex(0);
+        addProperty(freq_);
     }
 
     void onInlet(size_t n, const AtomListView&) override

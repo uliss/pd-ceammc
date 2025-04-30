@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">multi-channel control flow sync queue (or FIFO)</tr>
+                <tr lang="en">multichannel message queue with sync capabilities</tr>
+                <tr lang="ru">многоканальная очередь сообщений с возможностью синхронизации</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -16,15 +17,17 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument name="MAX_SIZE" type="int" minvalue="1" maxvalue="1024">max queue
+            <argument name="MAX_SIZE" type="int" minvalue="1" maxvalue="1024">max queue lane
             size</argument>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">number of lines</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="32">number of lanes</argument>
         </arguments>
         <properties>
-            <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">max
-            queue size</property>
+            <!-- @auto_pop -->
             <property name="@auto_pop" type="bool" default="0">auto pop mode. If true automatically
             pops oldest elements when queue is full</property>
+            <!-- @max_size -->
+            <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">max
+            queue lane size</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
@@ -50,6 +53,31 @@
         <example>
             <pdascii>
 <![CDATA[
+/*single-lane sync message queue with size=5*/
+
+[bang, 100, symbol S, 1 2 3, msg A B C( [ui.b #a]
+|
+|
+|
+[flow.queue 5 {w=30} #x]
+|
+[ui.dt]
+
+
+/*single-lane async message queue with size=3, */
+
+[B]
+|
+[flow.count]
+| |
+| [F]               [bang(
+|                   |.
+[flow.queue 3 @auto_pop 1]
+|
+[ui.dt]
+
+
+
 [T]          [ui.dsp~]
 |
 [metro 200]
@@ -69,6 +97,11 @@
 [ui.hgain2~   ]
 *|*
 [dac~]
+
+#a @label Pop
+#y @auto_pop 1
+[X a->x:1]
+[X b->y:3]
 ]]>
             </pdascii>
         </example>

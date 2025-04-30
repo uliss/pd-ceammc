@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">float index to outlet values as radio switch</tr>
+                <tr lang="en">upon receiving the index, the state of individual outputs is
+                established as a radio switch</tr>
+                <tr lang="ru">при поступлении индекса устанавлиет состояние отдельных выходов как
+                радиопереключатель</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,6 +28,7 @@
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="2" maxvalue="24" default="2"
             access="initonly">number of outlets</property>
         </properties>

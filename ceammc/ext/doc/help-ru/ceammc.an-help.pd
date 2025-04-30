@@ -1,0 +1,24 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 481 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 486 50 объекты для анализа свойств звука;
+#X obj 30 117 an.onset;
+#X text 200 117 детектор атаки для массивов;
+#X obj 30 145 an.onset~;
+#X text 200 145 детектор атаки сигнала;
+#X obj 30 173 an.pitchtrack~;
+#X text 200 173 отслеживает высоту сигнала;
+#X obj 30 201 an.rms~;
+#X text 200 201 среднее квадратичное сигнала с алгоритмом скользящего
+среднего;
+#X obj 30 241 an.tempo~;
+#X text 200 241 детектор темпа сигнала;
+#X obj 30 269 an.zero~;
+#X text 200 269 вычисление частоты/скорости/числа пересечения сигналом
+нулевого значения;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::an 20 20 0 20 -104026
+-4096 0;
+#X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 523 library: ceammc;

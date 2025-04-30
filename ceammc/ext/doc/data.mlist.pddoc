@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">multidimensional list container</tr>
+                <tr lang="en">the multidimensional list container</tr>
+                <tr lang="ru">многомерный список</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -37,10 +38,13 @@
             4)</argument>
         </arguments>
         <properties>
+            <!-- @empty -->
             <property name="@empty" type="bool" access="readonly" default="1">1 if list is empty,
             otherwise 0</property>
+            <!-- @size -->
             <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             elements in list</property>
+            <!-- @value -->
             <property name="@value" type="atom" default="[]">mlist value</property>
         </properties>
         <methods>

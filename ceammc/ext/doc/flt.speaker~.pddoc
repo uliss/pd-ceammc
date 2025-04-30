@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">speaker emulation band-pass filter</tr>
+                <tr lang="ru">полосовой фильтр-эмуляция динамика</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,22 +32,26 @@
             band frequency</argument>
         </arguments>
         <properties>
-            <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130"
-            units="hertz">lower band frequency</property>
-            <property name="@f2" type="float" minvalue="1000" maxvalue="20000" default="5000"
-            units="hertz">high band frequency</property>
-            <property name="@gain" type="float" minvalue="-30" maxvalue="30" default="0"
-            units="decibel">filter gain</property>
-            <!-- MIX -->
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bypass -->
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
-            <!-- common -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @f1 -->
+            <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130"
+            units="hertz">lower band frequency</property>
+            <!-- @f2 -->
+            <property name="@f2" type="float" minvalue="1000" maxvalue="20000" default="5000"
+            units="hertz">high band frequency</property>
+            <!-- @gain -->
+            <property name="@gain" type="float" minvalue="-30" maxvalue="30" default="0"
+            units="decibel">filter gain</property>
         </properties>
         <methods>
             <!-- reset -->

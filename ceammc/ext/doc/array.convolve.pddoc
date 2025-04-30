@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">array FFT convolution</tr>
+                <tr lang="en">FFT convolution of the array</tr>
+                <tr lang="ru">FFT свертка массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,8 +21,11 @@
             <argument name="IR" type="symbol">array with impulse response</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">target array</property>
+            <!-- @ir -->
             <property name="@ir" type="symbol" default="">impulse response source array</property>
+            <!-- @norm -->
             <property name="@norm" type="bool" default="0">impulse response
             normalization</property>
         </properties>

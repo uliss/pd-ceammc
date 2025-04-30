@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">make copy for any data types: MList, Set etc...</tr>
+                <tr lang="en">makes a copy for any data type: MList, Set etc...</tr>
+                <tr lang="ru">делает копии любых типов данных: MList, Set и т.д.</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">port of Infinity VST plugin from airwindows</tr>
+                <tr lang="en">port of Infinity VST plugin from "airwindows"</tr>
+                <tr lang="ru">порт плагина Infinity VST из "airwindows"</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -30,17 +31,22 @@
             between the original (dry) and 'effected' (wet) signals</argument>
         </arguments>
         <properties>
-            <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">room
-            size</property>
-            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">filter
-            coefficient</property>
+            <!-- @bypass -->
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">damping of
             the lowpass comb filter</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <!-- @filter -->
+            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">filter
+            coefficient</property>
+            <!-- @size -->
+            <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">room
+            size</property>
         </properties>
         <methods>
             <!-- reset -->

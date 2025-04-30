@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">One track looper</tr>
+                <tr lang="en">a single track looper</tr>
+                <tr lang="ru">однодорожечный лупер</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,40 +21,55 @@
             loop time</argument>
         </arguments>
         <properties>
-            <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
-            units="second">max loop time</property>
-            <property name="@length" type="float" units="second" minvalue="0" default="0"
-            access="readonly">recorded loop length</property>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">use specified array for record instead
             of internal buffer</property>
-            <property name="@play_pos" type="float" units="second" minvalue="0" default="0"
-            access="readonly">current playing position</property>
-            <property name="@play_phase" type="float" minvalue="0" maxvalue="1" default="0"
-            access="readonly">current playing phase position</property>
-            <property name="@state" type="symbol" enum="init stop record play overdub"
-            access="readonly" default="init">current state</property>
+            <!-- @capacity -->
+            <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
+            units="second">max loop time</property>
+            <!-- @dub_to_play_time -->
+            <property name="@dub_to_play_time" type="float" units="millisecond" default="20"
+            minvalue="0">record fadeout time while transition from overdub to play</property>
+            <!-- @dub_to_stop_time -->
+            <property name="@dub_to_stop_time" type="float" units="millisecond" default="20"
+            minvalue="0">fadeout time while transition from overdub to stop</property>
+            <!-- @length -->
+            <property name="@length" type="float" units="second" minvalue="0" default="0"
+            access="readonly">recorded loop length</property>
+            <!-- @loop_bang -->
             <property name="@loop_bang" type="bool" default="1">output bang on each loop
             start</property>
+            <!-- @loop_smooth -->
             <property name="@loop_smooth" type="float" units="millisecond" default="10"
             minvalue="0">time of lin fadein/fadeout applied to recorded loop for smooth
             playing</property>
-            <property name="@play_to_stop_time" type="float" units="millisecond" default="10"
-            minvalue="0">fadeout time while transition from play to stop</property>
+            <!-- @play_phase -->
+            <property name="@play_phase" type="float" minvalue="0" maxvalue="1" default="0"
+            access="readonly">current playing phase position</property>
+            <!-- @play_pos -->
+            <property name="@play_pos" type="float" units="second" minvalue="0" default="0"
+            access="readonly">current playing position</property>
+            <!-- @play_to_dub_time -->
             <property name="@play_to_dub_time" type="float" units="millisecond" default="10"
             minvalue="0">fadein time of overdub input signal while transition from play
             mode</property>
+            <!-- @play_to_stop_time -->
+            <property name="@play_to_stop_time" type="float" units="millisecond" default="10"
+            minvalue="0">fadeout time while transition from play to stop</property>
+            <!-- @rec_to_play_time -->
             <property name="@rec_to_play_time" type="float" units="millisecond" default="30"
             minvalue="0">xfade between recorded and input signal while transition from record to
             play</property>
-            <property name="@dub_to_stop_time" type="float" units="millisecond" default="20"
-            minvalue="0">fadeout time while transition from overdub to stop</property>
-            <property name="@dub_to_play_time" type="float" units="millisecond" default="20"
-            minvalue="0">record fadeout time while transition from overdub to play</property>
-            <property name="@stop_to_play_time" type="float" units="millisecond" default="10"
-            minvalue="0">fadein time of play while transition from stop</property>
+            <!-- @round -->
             <property name="@round" type="int" units="sample" default="0" minvalue="0">encrease
             loop length to be multiple of specified value. If *0* - no rounding is
             performed</property>
+            <!-- @state -->
+            <property name="@state" type="symbol" enum="init stop record play overdub"
+            access="readonly" default="init">current state</property>
+            <!-- @stop_to_play_time -->
+            <property name="@stop_to_play_time" type="float" units="millisecond" default="10"
+            minvalue="0">fadein time of play while transition from stop</property>
         </properties>
         <methods>
             <!-- adjust -->

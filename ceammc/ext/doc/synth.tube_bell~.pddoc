@@ -23,22 +23,30 @@
             <argument name="FREQ" type="float" units="hertz" minvalue="0">main frequency</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220"
-            units="hertz">frequency</property>
-            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
-            pitch</property>
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
-            - 1: on, 0: off</property>
-            <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">modulator
-            index one</property>
-            <property name="@xfade" type="int" minvalue="0" maxvalue="127" default="0">crossfade of
-            outputs</property>
-            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127" default="0">LFO
-            speed in Hz</property>
-            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127" default="0">LFO
-            delth</property>
+            <!-- @adsr -->
             <property name="@adsr" type="int" minvalue="0" maxvalue="127" default="0">ADSR 2 &amp;
             4 Target</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220"
+            units="hertz">frequency</property>
+            <!-- @gate -->
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            - 1: on, 0: off</property>
+            <!-- @lfo_depth -->
+            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127" default="0">LFO
+            delth</property>
+            <!-- @lfo_speed -->
+            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127" default="0">LFO
+            speed in Hz</property>
+            <!-- @mod -->
+            <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">modulator
+            index one</property>
+            <!-- @pitch -->
+            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
+            pitch</property>
+            <!-- @xfade -->
+            <property name="@xfade" type="int" minvalue="0" maxvalue="127" default="0">crossfade of
+            outputs</property>
         </properties>
         <methods>
             <!-- cc -->

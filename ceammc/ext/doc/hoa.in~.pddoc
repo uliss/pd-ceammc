@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">signal inlet for a patcher loaded by hoa.process~</tr>
+                <tr lang="en">signal inlet for a patcher loaded by [hoa.process~] object</tr>
+                <tr lang="ru">сигнальный вход для патча, загружаемого объектом [hoa.process~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -30,6 +31,7 @@
             <argument name="EXTRA" type="int" minvalue="0">shortcut for @extra property</argument>
         </arguments>
         <properties>
+            <!-- @extra -->
             <property name="@extra" type="int" minvalue="0" default="0">extra inlet. Extra inlet
             are added to the "normal" instance inlet and can be used to send signal to all
             instances</property>

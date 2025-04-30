@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert interval in semitones to frequency ratio in 12-ET</tr>
+                <tr lang="en">converts interval in semitones to frequency ratio in 12-ET</tr>
+                <tr lang="ru">преобразует интервал в полутонах в частотное отношение в 12-ET</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

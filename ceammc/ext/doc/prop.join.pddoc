@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">join property to main data flow</tr>
+                <tr lang="en">inject properties into the main data flow</tr>
+                <tr lang="ru">добавляет свойства в основной поток данных</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

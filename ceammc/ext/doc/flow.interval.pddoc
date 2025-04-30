@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">measure time between flow events</tr>
+                <tr lang="en">measure the time between messages</tr>
+                <tr lang="ru">измерение времени между сообщениями</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,7 +25,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output time between current and previous event in milliseconds</outlet>
+            <outlet>output time between the current and the previous message in
+            milliseconds</outlet>
         </outlets>
         <example>
             <pdascii>

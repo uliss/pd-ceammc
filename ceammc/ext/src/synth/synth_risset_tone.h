@@ -76,12 +76,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -197,14 +197,14 @@ class FAUST_API synth_risset_tone_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -224,14 +224,14 @@ class FAUST_API synth_risset_tone_dsp {
         virtual synth_risset_tone_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -723,7 +723,7 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 		m->declare("author", "Oli Larkin (contact@olilarkin.co.uk)");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.17.1");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_risset_tone -scn synth_risset_tone_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
@@ -850,19 +850,19 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 			iVec1[0] = 1;
 			int iTemp0 = 1 - iVec1[1];
 			fRec2[0] = fSlow2 + (fRec2[1] - std::floor(fSlow2 + fRec2[1]));
-			float fTemp1 = std::fmod(fRec2[0] + 0.3f, 1.0f);
+			float fTemp1 = std::fmod(fRec2[0] + 0.9f, 1.0f);
 			float fTemp2 = ((iTemp0) ? 0.0f : fRec1[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp1 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec1[0] = fTemp2 - std::floor(fTemp2);
 			float fTemp3 = 65536.0f * fTemp1;
 			int iTemp4 = int(fTemp3);
 			float fTemp5 = ftbl1synth_risset_toneSIG1[std::max<int>(0, std::min<int>(iTemp4, 65536))];
-			float fTemp6 = std::fmod(fRec2[0] + 0.1f, 1.0f);
+			float fTemp6 = std::fmod(fRec2[0] + 0.5f, 1.0f);
 			float fTemp7 = ((iTemp0) ? 0.0f : fRec4[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp6 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec4[0] = fTemp7 - std::floor(fTemp7);
 			float fTemp8 = 65536.0f * fTemp6;
 			int iTemp9 = int(fTemp8);
 			float fTemp10 = ftbl1synth_risset_toneSIG1[std::max<int>(0, std::min<int>(iTemp9, 65536))];
-			float fTemp11 = std::fmod(fRec2[0] + 0.2f, 1.0f);
+			float fTemp11 = std::fmod(fRec2[0] + 0.4f, 1.0f);
 			float fTemp12 = ((iTemp0) ? 0.0f : fRec5[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp11 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec5[0] = fTemp12 - std::floor(fTemp12);
 			float fTemp13 = 65536.0f * fTemp11;
@@ -874,25 +874,25 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 			float fTemp18 = 65536.0f * fTemp16;
 			int iTemp19 = int(fTemp18);
 			float fTemp20 = ftbl1synth_risset_toneSIG1[std::max<int>(0, std::min<int>(iTemp19, 65536))];
-			float fTemp21 = std::fmod(fRec2[0] + 0.6f, 1.0f);
+			float fTemp21 = std::fmod(fRec2[0] + 0.1f, 1.0f);
 			float fTemp22 = ((iTemp0) ? 0.0f : fRec7[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp21 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec7[0] = fTemp22 - std::floor(fTemp22);
 			float fTemp23 = 65536.0f * fTemp21;
 			int iTemp24 = int(fTemp23);
 			float fTemp25 = ftbl1synth_risset_toneSIG1[std::max<int>(0, std::min<int>(iTemp24, 65536))];
-			float fTemp26 = std::fmod(fRec2[0] + 0.7f, 1.0f);
+			float fTemp26 = std::fmod(fRec2[0] + 0.2f, 1.0f);
 			float fTemp27 = ((iTemp0) ? 0.0f : fRec8[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp26 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec8[0] = fTemp27 - std::floor(fTemp27);
 			float fTemp28 = 65536.0f * fTemp26;
 			int iTemp29 = int(fTemp28);
 			float fTemp30 = ftbl1synth_risset_toneSIG1[std::max<int>(0, std::min<int>(iTemp29, 65536))];
-			float fTemp31 = std::fmod(fRec2[0] + 0.4f, 1.0f);
+			float fTemp31 = std::fmod(fRec2[0] + 0.3f, 1.0f);
 			float fTemp32 = ((iTemp0) ? 0.0f : fRec9[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp31 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec9[0] = fTemp32 - std::floor(fTemp32);
 			float fTemp33 = 65536.0f * fTemp31;
 			int iTemp34 = int(fTemp33);
 			float fTemp35 = ftbl1synth_risset_toneSIG1[std::max<int>(0, std::min<int>(iTemp34, 65536))];
-			float fTemp36 = std::fmod(fRec2[0] + 0.5f, 1.0f);
+			float fTemp36 = std::fmod(fRec2[0] + 0.6f, 1.0f);
 			float fTemp37 = ((iTemp0) ? 0.0f : fRec10[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp36 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec10[0] = fTemp37 - std::floor(fTemp37);
 			float fTemp38 = 65536.0f * fTemp36;
@@ -904,7 +904,7 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 			float fTemp43 = 65536.0f * fTemp41;
 			int iTemp44 = int(fTemp43);
 			float fTemp45 = ftbl1synth_risset_toneSIG1[std::max<int>(0, std::min<int>(iTemp44, 65536))];
-			float fTemp46 = std::fmod(fRec2[0] + 0.9f, 1.0f);
+			float fTemp46 = std::fmod(fRec2[0] + 0.7f, 1.0f);
 			float fTemp47 = ((iTemp0) ? 0.0f : fRec12[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp46 + -1.0f) + 7.0f)) + -69.0f)));
 			fRec12[0] = fTemp47 - std::floor(fTemp47);
 			float fTemp48 = 65536.0f * fTemp46;

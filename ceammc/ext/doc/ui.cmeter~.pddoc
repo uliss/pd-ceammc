@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Multichannel circular peak and rms signal meter</tr>
+                <tr lang="en">multichannel circular signal meter</tr>
+                <tr lang="ru">многоканальный круговой измеритель уровня сигнала</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -33,47 +34,66 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@interval" type="int" units="millisecond" minvalue="20" default="100">
-            refresh interval</property>
-            <property name="@clockwise" type="bool" default="0">clockwise channel
-            numbering</property>
-            <property name="@nch" type="int" default="2" minvalue="1" maxvalue="64">number of
-            channels</property>
-            <property name="@offset" type="int" default="0" minvalue="-63" maxvalue="63">channel
-            numbering offset</property>
+            <!-- @angles -->
             <property name="@angles" type="list" default="">channel angle positions</property>
-            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
-            units="degree">source channels rotation (anticlockwise)</property>
-            <!-- common -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="120 120">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
-            <property name="@cold_color" type="list" default="0 0.6 0 1">extra low-level signal
-            color &lt;-31db (list of red, green, blue values in 0-1 range)</property>
-            <property name="@tepid_color" type="list" default="0.6 0.73 0 1">low-level signal color
-            &lt;-21db (list of red, green, blue values in 0-1 range)</property>
-            <property name="@warm_color" type="list" default="0.85 0.85 0 1">normal level signal
-            color &lt;-9db (list of red, green, blue values in 0-1 range)</property>
-            <property name="@hot_color" type="list" default="1 0.6 0 1">loud level signal color
-            &lt;-3db (list of red, green, blue values in 0-1 range)</property>
-            <property name="@over_color" type="list" default="1 0 0 1">extra-loud level signal
-            color &gt;-3db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <!-- font -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <!-- @clockwise -->
+            <property name="@clockwise" type="bool" default="0">clockwise channel
+            numbering</property>
+            <!-- @cold_color -->
+            <property name="@cold_color" type="list" default="0 0.6 0 1">extra low-level signal
+            color &lt;-31db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @hot_color -->
+            <property name="@hot_color" type="list" default="1 0.6 0 1">loud level signal color
+            &lt;-3db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @interval -->
+            <property name="@interval" type="int" units="millisecond" minvalue="20" default="100">
+            refresh interval</property>
+            <!-- @nch -->
+            <property name="@nch" type="int" default="2" minvalue="1" maxvalue="64">number of
+            channels</property>
+            <!-- @offset -->
+            <property name="@offset" type="int" default="0" minvalue="-63" maxvalue="63">channel
+            numbering offset</property>
+            <!-- @over_color -->
+            <property name="@over_color" type="list" default="1 0 0 1">extra-loud level signal
+            color &gt;-3db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @rotation -->
+            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
+            units="degree">source channels rotation (anticlockwise)</property>
+            <!-- @send -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="120 120">element size (width, height
+            pair)</property>
+            <!-- @tepid_color -->
+            <property name="@tepid_color" type="list" default="0.6 0.73 0 1">low-level signal color
+            &lt;-21db (list of red, green, blue values in 0-1 range)</property>
+            <!-- @warm_color -->
+            <property name="@warm_color" type="list" default="0.85 0.85 0 1">normal level signal
+            color &lt;-9db (list of red, green, blue values in 0-1 range)</property>
         </properties>
         <methods>
             <!-- pos -->

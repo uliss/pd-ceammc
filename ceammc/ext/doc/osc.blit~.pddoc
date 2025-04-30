@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Bandlimited impulse train oscillator</tr>
+                <tr lang="en">bandlimited oscillator with controllable harmonics</tr>
+                <tr lang="ru">генератор с ограниченным спектром и управлением гармониками</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,6 +27,7 @@
             means all available harmonics until SR/2</argument>
         </arguments>
         <properties>
+            <!-- @harmonics -->
             <property name="@harmonics" type="int" minvalue="0" default="0">number of harmonics. 0
             means all available harmonics until SR/2</property>
         </properties>

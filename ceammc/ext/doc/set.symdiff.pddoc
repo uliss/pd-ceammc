@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">symmetric difference between two sets</tr>
+                <tr lang="ru">симметрическая разность между двумя множествами</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

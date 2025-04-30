@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Walks thru the list</tr>
+                <tr lang="en">various algorithms for traversing elements in a list</tr>
+                <tr lang="ru">различные алгоритмы обхода элементов в списке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -28,26 +29,37 @@
             <argument name="VALUE" type="list">initial list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass
-            mode. See properties below for detailed information.</property>
+            <!-- @clip -->
             <property name="@clip" type="alias">clipped pass mode. When the list bounds are reached
             - min/max value repeats perpetually.</property>
-            <property name="@single" type="alias">single pass mode. When the list bounds are
-            reached - no output any more until reset.</property>
-            <property name="@loop" type="alias">@wrap alias</property>
-            <property name="@wrap" type="alias">wrap pass mode. List values are repeated in a
-            loop</property>
-            <property name="@fold" type="alias">fold pass mode. List values are repeated in a loop
-            with folding</property>
+            <!-- @direction -->
             <property name="@direction" type="bool" default="1">walking direction. "1" - forwards,
             "0" - backwards.</property>
+            <!-- @fold -->
+            <property name="@fold" type="alias">fold pass mode. List values are repeated in a loop
+            with folding</property>
+            <!-- @index -->
             <property name="@index" type="list" minvalue="0" default="0">current
             position</property>
+            <!-- @length -->
             <property name="@length" type="int" minvalue="1" default="1">output list
             length</property>
+            <!-- @loop -->
+            <property name="@loop" type="alias">@wrap alias</property>
+            <!-- @mode -->
+            <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass
+            mode. See properties below for detailed information.</property>
+            <!-- @single -->
+            <property name="@single" type="alias">single pass mode. When the list bounds are
+            reached - no output any more until reset.</property>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="0" access="readonly" default="0">current
             list size</property>
+            <!-- @value -->
             <property name="@value" type="list" default="">current list</property>
+            <!-- @wrap -->
+            <property name="@wrap" type="alias">wrap pass mode. List values are repeated in a
+            loop</property>
         </properties>
         <methods>
             <!-- current -->

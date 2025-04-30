@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">find array min and max element value</tr>
+                <tr lang="en">find minimal and max values in the array</tr>
+                <tr lang="ru">поиск минимального и максимального значения в массиве</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,6 +20,7 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
         </properties>
         <inlets>

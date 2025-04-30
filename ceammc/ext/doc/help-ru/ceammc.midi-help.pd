@@ -1,0 +1,55 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 550 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 555 50 работа с MIDI протоколом;
+#X obj 30 117 midi.arp;
+#X text 200 117 MIDI арпеджиатор;
+#X obj 30 145 midi.cc;
+#X text 200 145 усовершенствованная версия [ctlin];
+#X obj 30 173 midi.clock;
+#X text 200 173 MIDI-clock;
+#X obj 30 201 midi.ctl2str;
+#X text 200 201 преобразует номер стандартного MIDI контроллера в имя;
+#X obj 30 229 midi.event2ctl;
+#X text 200 229 конвертирует сообщение MidiEvent в пару канал/значение;
+#X obj 30 257 midi.event2note;
+#X text 200 257 конвертирует сообщение MidiEvent в пару нота/сила нажатия;
+#X obj 30 285 midi.event2prg;
+#X text 200 285 конвертирует сообщение MidiEvent в MIDI: изменение
+программы;
+#X obj 30 313 midi.file;
+#X text 200 313 чтение и запись стандартных MIDI файлов (SMF);
+#X obj 30 341 midi.kbd;
+#X text 200 341 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
+#X obj 30 369 midi.key2str;
+#X text 200 369 преобразует номер MIDI-клавиши в имя ноты в формате
+SPN;
+#X obj 30 397 midi.modus;
+#X text 200 397 приводит или удаляет MIDI-ноты согласно указанному
+ладу;
+#X obj 30 425 midi.note.pass;
+#X text 200 425 пропускает MIDI-ноты согласно вычисляемому выражению;
+#X obj 30 453 midi.oct;
+#X text 200 453 октавная MIDI транспозиция;
+#X obj 30 481 midi.prg2str;
+#X text 200 481 преобразует номер инструмента GeneralMidi в его имя;
+#X obj 30 509 midi.split;
+#X text 200 509 разбивает MIDI ноты на диапазоны;
+#X obj 30 537 midi.sustain;
+#X text 200 537 эмуляция педали сустейна;
+#X obj 30 565 midi.sysex;
+#X text 200 565 выводит входные sysex сообщения в виде списка;
+#X obj 30 593 midi.track;
+#X text 200 593 извлекает трек из сообщения MidiFile;
+#X obj 30 621 midi.tuning;
+#X text 200 621 применяет настройку для нотного потока;
+#X obj 30 649 midi.vramp;
+#X text 200 649 применяет crescendo или diminuendo для потока нот;
+#X obj 30 677 midi.vrand;
+#X text 200 677 рандомизатор силы нажатия MIDI;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::midi 20 20 0 20 -104026
+-4096 0;
+#X obj 1 705 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 715 library: ceammc;

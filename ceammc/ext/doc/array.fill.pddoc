@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">fill array with single value, pattern or function</tr>
+                <tr lang="en">fill the array with the single value, pattern or function</tr>
+                <tr lang="ru">заполнение массива одним значением, шаблоном или функцией</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,7 +23,9 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">redraw after array change</property>
         </properties>
         <methods>

@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">BPM calculator</tr>
+                <tr lang="ru">вычисление BPM</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,6 +24,7 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
         </properties>
         <inlets>

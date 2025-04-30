@@ -4,7 +4,6 @@
 #include "ceammc_log.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
-#include "ceammc_signal.h"
 
 extern "C" {
 #include "g_canvas.h"

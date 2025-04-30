@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">prepend message before received one</tr>
+                <tr lang="en">inject the message before the current one</tr>
+                <tr lang="ru">вставляет сообщение перед текущим</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="MSG" type="list">init value for prepended message</argument>
         </arguments>
         <properties>
+            <!-- @msg -->
             <property name="@msg" type="list" default="">prepended message</property>
         </properties>
         <inlets>
@@ -44,7 +46,7 @@
 |  |
 |  | [B]           [other prepend message(
 |  | |             |.
-[flow.prepend @message 1 2 3]
+[flow.prepend @msg 1 2 3]
 |
 [print]
 ]]>

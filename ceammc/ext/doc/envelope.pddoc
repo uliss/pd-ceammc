@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Envelope data type</tr>
+                <tr lang="en">envelope data type</tr>
+                <tr lang="ru">тип данных огибающей</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -47,16 +48,21 @@
             release(ms), release_curve - no sustain point</argument>
         </arguments>
         <properties>
-            <property name="@npoints" type="int" access="readonly" minvalue="0" default="0">number
-            of points</property>
+            <!-- @length -->
             <property name="@length" type="float" units="millisecond" access="readonly" default="0"
             minvalue="0">total envelope time length</property>
+            <!-- @npoints -->
+            <property name="@npoints" type="int" access="readonly" minvalue="0" default="0">number
+            of points</property>
+            <!-- @points -->
             <property name="@points" type="list" access="readonly" default="">list of point times
             (ms)</property>
-            <property name="@values" type="list" access="readonly" default="">list of point
-            values</property>
+            <!-- @stops -->
             <property name="@stops" type="list" access="readonly" default="">list of stop
             points</property>
+            <!-- @values -->
+            <property name="@values" type="list" access="readonly" default="">list of point
+            values</property>
         </properties>
         <methods>
             <!-- * -->

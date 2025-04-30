@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">truncate to integer value</tr>
+                <tr lang="ru">усечение до целочисленного значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

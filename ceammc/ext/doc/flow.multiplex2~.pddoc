@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">audio stream stereo multiplexer</tr>
+                <tr lang="ru">мультиплексор стерео аудиопотока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,6 +30,7 @@
             stereo-pairs</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="list" default="1 0">gain coefficients per each
             input</property>
         </properties>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">feed forward comb filter</tr>
+                <tr lang="ru">гребенчатый фильтр (КИХ)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,11 +32,13 @@
             signal</argument>
         </arguments>
         <properties>
-            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="1">scaling factor
-            of delayed signal</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @a -->
+            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="1">scaling factor
+            of delayed signal</property>
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
             <!-- reset -->

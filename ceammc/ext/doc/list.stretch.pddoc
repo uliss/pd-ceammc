@@ -8,7 +8,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">stretches list - changes its size with linear interpolation</tr>
+                <tr lang="en">changes the length of the list by adjusting its values using linear
+                interpolation</tr>
+                <tr lang="ru">изменяет длину списка, изменяя его значения с помощью линейной
+                интерполяции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,6 +27,7 @@
             be stretched to the new size with linear interpolation</argument>
         </arguments>
         <properties>
+            <!-- @size -->
             <property name="@size" type="int" minvalue="0" default="1">new size</property>
         </properties>
         <inlets>

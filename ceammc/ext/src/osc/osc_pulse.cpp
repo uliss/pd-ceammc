@@ -4,12 +4,23 @@
 using namespace ceammc;
 
 class OscPulse : public faust_osc_pulse_tilde {
+    FloatProperty* freq_ { nullptr };
+
 public:
-    OscPulse(const PdArgs& args)
+    explicit OscPulse(const PdArgs& args)
         : faust_osc_pulse_tilde(args)
     {
         createInlet();
-        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
+
+        freq_ = new FloatProperty("@freq", 0);
+        freq_->setSuccessFn([this](Property*) {
+            setInitSignalValue(freq_->value());
+        });
+        freq_->setUnitsHz();
+        freq_->checkClosedRange(0, samplerate() / 2);
+        freq_->setArgIndex(0);
+        addProperty(freq_);
+
         bindPositionalArgToProperty(1, gensym("@duty"));
     }
 

@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">BPF coefficient calculator for biquad filter</tr>
+                <tr lang="en">BPF coefficients calculator for [flt.biquad~]</tr>
+                <tr lang="ru">калькулятор коэффициентов полосового фильтра для [flt.biquad~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -32,13 +33,16 @@
             factory</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
-            units="hertz">center frequency</property>
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.1">quality
-            factor: @freq/BANDWIDTH</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+            units="hertz">center frequency</property>
+            <!-- @q -->
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.1">quality
+            factor: @freq/BANDWIDTH</property>
         </properties>
         <inlets>
             <inlet>

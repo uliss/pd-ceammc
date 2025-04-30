@@ -16,21 +16,294 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <property name="@freq" type="float" minvalue="0" maxvalue="480" default="130.8128"
-            units="hertz">maximum speed of whistles</property>
-            <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">midi
-            pitch</property>
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
-            (&gt;0 - play)</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1" access="readwrite">@active</property>
+            <!-- @algorithm -->
+            <property name="@algorithm" type="int" minvalue="0" maxvalue="31" default="0"
+            access="readwrite">FM algorithm number (0-based)</property>
+            <!-- @feedback -->
+            <property name="@feedback" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">@feedback</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="130.8127899169922" units="hertz"
+            access="readwrite">synth frequency</property>
+            <!-- @gain -->
+            <property name="@gain" type="float" minvalue="0.0" maxvalue="1.0"
+            default="0.800000011920929" access="readwrite">output gain</property>
+            <!-- @gate -->
+            <property name="@gate" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+            access="readwrite">note on/off signal</property>
+            <!-- @op0:L1 -->
+            <property name="@op0:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op0: Envelope Generator Level 1</property>
+            <!-- @op0:L2 -->
+            <property name="@op0:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op0: Envelope Generator Level 2</property>
+            <!-- @op0:L3 -->
+            <property name="@op0:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op0: Envelope Generator Level 3</property>
+            <!-- @op0:L4 -->
+            <property name="@op0:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op0: Envelope Generator Level 4</property>
+            <!-- @op0:R1 -->
+            <property name="@op0:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op0: Envelope Generator Rate 1</property>
+            <!-- @op0:R2 -->
+            <property name="@op0:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op0: Envelope Generator Rate 2</property>
+            <!-- @op0:R3 -->
+            <property name="@op0:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op0: Envelope Generator Rate 3</property>
+            <!-- @op0:R4 -->
+            <property name="@op0:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op0: Envelope Generator Rate 4</property>
+            <!-- @op0:detune -->
+            <property name="@op0:detune" type="float" minvalue="-10.0" maxvalue="10.0"
+            default="1.0" access="readwrite">op0: detune</property>
+            <!-- @op0:freq -->
+            <property name="@op0:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+            units="hertz" access="readwrite">op0: frequency</property>
+            <!-- @op0:level -->
+            <property name="@op0:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+            access="readwrite">op0: output level</property>
+            <!-- @op0:opMode -->
+            <property name="@op0:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+            access="readwrite">op0: opMode</property>
+            <!-- @op0:rate -->
+            <property name="@op0:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+            access="readwrite">op0: rate</property>
+            <!-- @op0:vel -->
+            <property name="@op0:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+            access="readwrite">op0: keyboard velocity sensivity</property>
+            <!-- @op1:L1 -->
+            <property name="@op1:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op1: Envelope Generator Level 1</property>
+            <!-- @op1:L2 -->
+            <property name="@op1:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op1: Envelope Generator Level 2</property>
+            <!-- @op1:L3 -->
+            <property name="@op1:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op1: Envelope Generator Level 3</property>
+            <!-- @op1:L4 -->
+            <property name="@op1:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op1: Envelope Generator Level 4</property>
+            <!-- @op1:R1 -->
+            <property name="@op1:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op1: Envelope Generator Rate 1</property>
+            <!-- @op1:R2 -->
+            <property name="@op1:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op1: Envelope Generator Rate 2</property>
+            <!-- @op1:R3 -->
+            <property name="@op1:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op1: Envelope Generator Rate 3</property>
+            <!-- @op1:R4 -->
+            <property name="@op1:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op1: Envelope Generator Rate 4</property>
+            <!-- @op1:detune -->
+            <property name="@op1:detune" type="float" minvalue="-10.0" maxvalue="10.0"
+            default="1.0" access="readwrite">op1: detune</property>
+            <!-- @op1:freq -->
+            <property name="@op1:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+            units="hertz" access="readwrite">op1: frequency</property>
+            <!-- @op1:level -->
+            <property name="@op1:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+            access="readwrite">op1: output level</property>
+            <!-- @op1:opMode -->
+            <property name="@op1:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+            access="readwrite">op1: FreqRatio or FreqFixed mode</property>
+            <!-- @op1:rate -->
+            <property name="@op1:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+            access="readwrite">op1:rate</property>
+            <!-- @op1:vel -->
+            <property name="@op1:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+            access="readwrite">op1: keyboard velocity sensivity</property>
+            <!-- @op2:L1 -->
+            <property name="@op2:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op2: Envelope Generator Level 1</property>
+            <!-- @op2:L2 -->
+            <property name="@op2:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op2: Envelope Generator Level 2</property>
+            <!-- @op2:L3 -->
+            <property name="@op2:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op2: Envelope Generator Level 3</property>
+            <!-- @op2:L4 -->
+            <property name="@op2:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op2: Envelope Generator Level 4</property>
+            <!-- @op2:R1 -->
+            <property name="@op2:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op2: Envelope Generator Rate 1</property>
+            <!-- @op2:R2 -->
+            <property name="@op2:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op2: Envelope Generator Rate 2</property>
+            <!-- @op2:R3 -->
+            <property name="@op2:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op2: Envelope Generator Rate 3</property>
+            <!-- @op2:R4 -->
+            <property name="@op2:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op2: Envelope Generator Rate 4</property>
+            <!-- @op2:detune -->
+            <property name="@op2:detune" type="float" minvalue="-10.0" maxvalue="10.0"
+            default="1.0" access="readwrite">op2: detune</property>
+            <!-- @op2:freq -->
+            <property name="@op2:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+            units="hertz" access="readwrite">op2: frequency</property>
+            <!-- @op2:level -->
+            <property name="@op2:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+            access="readwrite">op2: output level</property>
+            <!-- @op2:opMode -->
+            <property name="@op2:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+            access="readwrite">op2: FreqRatio or FreqFixed mode</property>
+            <!-- @op2:rate -->
+            <property name="@op2:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+            access="readwrite">op2: rate</property>
+            <!-- @op2:vel -->
+            <property name="@op2:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+            access="readwrite">op2: keyboard velocity sensivity</property>
+            <!-- @op3:L1 -->
+            <property name="@op3:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op3: Envelope Generator Level 1</property>
+            <!-- @op3:L2 -->
+            <property name="@op3:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op3: Envelope Generator Level 2</property>
+            <!-- @op3:L3 -->
+            <property name="@op3:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op3: Envelope Generator Level 3</property>
+            <!-- @op3:L4 -->
+            <property name="@op3:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op3: Envelope Generator Level 4</property>
+            <!-- @op3:R1 -->
+            <property name="@op3:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op3: Envelope Generator Rate 1</property>
+            <!-- @op3:R2 -->
+            <property name="@op3:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op3: Envelope Generator Rate 2</property>
+            <!-- @op3:R3 -->
+            <property name="@op3:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op3: Envelope Generator Rate 3</property>
+            <!-- @op3:R4 -->
+            <property name="@op3:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op3: Envelope Generator Rate 4</property>
+            <!-- @op3:detune -->
+            <property name="@op3:detune" type="float" minvalue="-10.0" maxvalue="10.0"
+            default="1.0" access="readwrite">op3: detune</property>
+            <!-- @op3:freq -->
+            <property name="@op3:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+            units="hertz" access="readwrite">op3: frequency</property>
+            <!-- @op3:level -->
+            <property name="@op3:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+            access="readwrite">op3: output level</property>
+            <!-- @op3:opMode -->
+            <property name="@op3:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+            access="readwrite">op3: FreqRatio or FreqFixed mode</property>
+            <!-- @op3:rate -->
+            <property name="@op3:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+            access="readwrite">op3: rate</property>
+            <!-- @op3:vel -->
+            <property name="@op3:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+            access="readwrite">op3: keyboard velocity sensivity</property>
+            <!-- @op4:L1 -->
+            <property name="@op4:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op4: Envelope Generator Level 1</property>
+            <!-- @op4:L2 -->
+            <property name="@op4:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op4: Envelope Generator Level 2</property>
+            <!-- @op4:L3 -->
+            <property name="@op4:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op4: Envelope Generator Level 3</property>
+            <!-- @op4:L4 -->
+            <property name="@op4:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op4: Envelope Generator Level 4</property>
+            <!-- @op4:R1 -->
+            <property name="@op4:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op4: Envelope Generator Rate 1</property>
+            <!-- @op4:R2 -->
+            <property name="@op4:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op4: Envelope Generator Rate 2</property>
+            <!-- @op4:R3 -->
+            <property name="@op4:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op4: Envelope Generator Rate 3</property>
+            <!-- @op4:R4 -->
+            <property name="@op4:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op4: Envelope Generator Rate 4</property>
+            <!-- @op4:detune -->
+            <property name="@op4:detune" type="float" minvalue="-10.0" maxvalue="10.0"
+            default="1.0" access="readwrite">op4: detune</property>
+            <!-- @op4:freq -->
+            <property name="@op4:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+            units="hertz" access="readwrite">op4: frequency</property>
+            <!-- @op4:level -->
+            <property name="@op4:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+            access="readwrite">op4: output level</property>
+            <!-- @op4:opMode -->
+            <property name="@op4:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+            access="readwrite">op4: FreqRatio or FreqFixed mode</property>
+            <!-- @op4:rate -->
+            <property name="@op4:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+            access="readwrite">op4: rate</property>
+            <!-- @op4:vel -->
+            <property name="@op4:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+            access="readwrite">op4: keyboard velocity sensivity</property>
+            <!-- @op5:L1 -->
+            <property name="@op5:L1" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op5: Envelope Generator Level 1</property>
+            <!-- @op5:L2 -->
+            <property name="@op5:L2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op5: Envelope Generator Level 2</property>
+            <!-- @op5:L3 -->
+            <property name="@op5:L3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op5: Envelope Generator Level 3</property>
+            <!-- @op5:L4 -->
+            <property name="@op5:L4" type="float" minvalue="0.0" maxvalue="99.0" default="0.0"
+            access="readwrite">op5: Envelope Generator Level 4</property>
+            <!-- @op5:R1 -->
+            <property name="@op5:R1" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op5: Envelope Generator Rate 1</property>
+            <!-- @op5:R2 -->
+            <property name="@op5:R2" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op5: Envelope Generator Rate 2</property>
+            <!-- @op5:R3 -->
+            <property name="@op5:R3" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op5: Envelope Generator Rate 3</property>
+            <!-- @op5:R4 -->
+            <property name="@op5:R4" type="float" minvalue="0.0" maxvalue="99.0" default="90.0"
+            access="readwrite">op5: Envelope Generator Rate 4</property>
+            <!-- @op5:detune -->
+            <property name="@op5:detune" type="float" minvalue="-10.0" maxvalue="10.0"
+            default="1.0" access="readwrite">op5: detune</property>
+            <!-- @op5:freq -->
+            <property name="@op5:freq" type="float" minvalue="0.0" maxvalue="32.0" default="1.0"
+            units="hertz" access="readwrite">op5: frequency</property>
+            <!-- @op5:level -->
+            <property name="@op5:level" type="float" minvalue="0.0" maxvalue="99.0" default="95.0"
+            access="readwrite">op5: outut level</property>
+            <!-- @op5:opMode -->
+            <property name="@op5:opMode" type="float" minvalue="0.0" maxvalue="1.0" default="0.0"
+            access="readwrite">op5: FreqRatio or FreqFixed mode</property>
+            <!-- @op5:rate -->
+            <property name="@op5:rate" type="float" minvalue="0.0" maxvalue="10.0" default="0.0"
+            access="readwrite">op5: rate</property>
+            <!-- @op5:vel -->
+            <property name="@op5:vel" type="float" minvalue="0.0" maxvalue="8.0" default="1.0"
+            access="readwrite">op5: keyboard velocity sensivity</property>
+            <!-- @pitch -->
+            <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">midi
+            pitch</property>
         </properties>
         <methods>
+            <!-- load -->
+            <method name="load">load the preset from a previously loaded sysex file 
+            <param name="IDX" type="int" minvalue="0" maxvalue="31">preset index</param></method>
             <!-- note -->
             <method name="note">note on/off message 
             <param name="NOTE" type="float" required="true">midi note</param>
             <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
             velocity</param></method>
+            <!-- read -->
+            <method name="read">reads the DX7 sysex preset file 
+            <param name="PATH" type="symbol">relative or absolute path to the DX sysex preset
+            file</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -48,13 +321,19 @@
 |
 |
 |
-[note $1 $2( [dump(
-|            |
-[synth.dx7~ ]
+|             [B]
+|             |
+[note $1 $2(  [openpanel] [ui.hrd]
+|             |           |
+|   [dump(    [read $1(   [load $1 #a(
+|   |         |
+|   |         |
+[synth.dx7~   #x]
 |
 [ui.gain~ @size 120 16]  [ui.dsp~]
 | \
 [dac~]
+[X a->x]
 ]]>
             </pdascii>
         </example>

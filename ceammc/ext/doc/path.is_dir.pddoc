@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">check if path is directory</tr>
+                <tr lang="en">checks if the path is a directory</tr>
+                <tr lang="ru">проверяет, является ли путь каталогом</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.bpf72e"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -double -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_bpf72e_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API flt_bpf72e_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public flt_bpf72e_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual flt_bpf72e_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -571,6 +626,7 @@ class flt_bpf72e : public flt_bpf72e_dsp {
  private:
 	
 	int fSampleRate;
+	double fConst0;
 	double fConst1;
 	double fConst2;
 	FAUSTFLOAT fVslider0;
@@ -579,6 +635,8 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 	double fConst4;
 	double fConst5;
 	double fConst6;
+	double fConst7;
+	double fConst8;
 	double fConst9;
 	double fConst10;
 	double fConst11;
@@ -603,9 +661,11 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 	double fRec0[5];
 	
  public:
+	flt_bpf72e() {
+	}
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0");
 		m->declare("filename", "flt_bpf72e.dsp");
 		m->declare("filters.lib/bandpass12e:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass12e:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -616,20 +676,20 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/tf2sb:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2sb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2sb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "flt.bpf72e");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 	}
 
 	virtual int getNumInputs() {
@@ -644,23 +704,23 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
+		fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
 		fConst1 = 2.0 * fConst0;
 		fConst2 = 3.141592653589793 / fConst0;
 		fConst3 = 0.499 * fConst0;
 		fConst4 = 0.5 / fConst0;
 		fConst5 = 4.0 * flt_bpf72e_faustpower2_f(fConst0);
 		fConst6 = 1.347238968908712 / fConst0;
-		double fConst7 = 1.0 / fConst0;
-		double fConst8 = flt_bpf72e_faustpower3_f(fConst7);
+		fConst7 = 1.0 / fConst0;
+		fConst8 = flt_bpf72e_faustpower3_f(fConst7);
 		fConst9 = 0.336809742227178 * fConst8;
 		fConst10 = flt_bpf72e_faustpower4_f(fConst7);
 		fConst11 = flt_bpf72e_faustpower2_f(fConst7);
-		fConst12 = 4.099829135113128 / fConst0;
-		fConst13 = 1.024957283778282 * fConst8;
-		fConst14 = 6.25930437457316 / fConst0;
-		fConst15 = 1.56482609364329 * fConst8;
-		fConst16 = 4.0 * fConst10;
+		fConst12 = 4.0 * fConst10;
+		fConst13 = 4.099829135113128 / fConst0;
+		fConst14 = 1.024957283778282 * fConst8;
+		fConst15 = 6.25930437457316 / fConst0;
+		fConst16 = 1.56482609364329 * fConst8;
 		fConst17 = 3.12965218728658 * fConst8;
 		fConst18 = 12.51860874914632 / fConst0;
 		fConst19 = 6.0 * fConst10;
@@ -695,6 +755,7 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -726,57 +787,57 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 		double fSlow3 = std::sqrt(fConst5 * std::tan(fConst2 * std::max<double>(fSlow0 * (1.0 - fSlow1), 2e+01)) * fSlow2);
 		double fSlow4 = flt_bpf72e_faustpower2_f(fSlow3);
 		double fSlow5 = fConst1 * fSlow2 - fConst4 * (fSlow4 / fSlow2);
-		double fSlow6 = fConst6 + fConst9 * fSlow4;
+		double fSlow6 = fSlow5 * (fConst6 + fConst9 * fSlow4);
 		double fSlow7 = flt_bpf72e_faustpower4_f(fSlow3);
 		double fSlow8 = fConst10 * fSlow7;
 		double fSlow9 = 8.0 * fSlow4;
 		double fSlow10 = flt_bpf72e_faustpower2_f(fSlow5);
-		double fSlow11 = fConst11 * (fSlow9 + 4.277433630829248 * fSlow10);
-		double fSlow12 = 1.0 / (fSlow5 * fSlow6 + fSlow8 + fSlow11 + 16.0);
-		double fSlow13 = fConst11 * (fSlow9 + 214.1446118182269 * fSlow10);
-		double fSlow14 = fSlow13 + 16.0;
-		double fSlow15 = fConst11 * (fSlow9 + 2.7584854579387 * fSlow10);
-		double fSlow16 = fConst12 + fConst13 * fSlow4;
-		double fSlow17 = 1.0 / (fSlow8 + fSlow15 + fSlow5 * fSlow16 + 16.0);
+		double fSlow11 = fSlow8 + fConst11 * (fSlow9 + 4.277433630829248 * fSlow10);
+		double fSlow12 = 1.0 / (fSlow6 + fSlow11 + 16.0);
+		double fSlow13 = fConst12 * fSlow7;
+		double fSlow14 = fSlow13 + -64.0;
+		double fSlow15 = fSlow5 * (fConst13 + fConst14 * fSlow4);
+		double fSlow16 = fSlow8 + fConst11 * (fSlow9 + 2.7584854579387 * fSlow10);
+		double fSlow17 = 1.0 / (fSlow15 + fSlow16 + 16.0);
 		double fSlow18 = fConst11 * (fSlow9 + 30.486925195482414 * fSlow10);
 		double fSlow19 = fSlow18 + 16.0;
-		double fSlow20 = fConst11 * (0.98116603482464 * fSlow10 + fSlow9);
-		double fSlow21 = fConst14 + fConst15 * fSlow4;
-		double fSlow22 = 1.0 / (fSlow8 + fSlow20 + fSlow5 * fSlow21 + 16.0);
+		double fSlow20 = fSlow5 * (fConst15 + fConst16 * fSlow4);
+		double fSlow21 = fSlow8 + fConst11 * (0.98116603482464 * fSlow10 + fSlow9);
+		double fSlow22 = 1.0 / (fSlow20 + fSlow21 + 16.0);
 		double fSlow23 = fConst11 * (0.00173290880222 * fSlow10 + 0.00079999997644 * fSlow4);
 		double fSlow24 = fSlow23 + 0.00159999995288;
-		double fSlow25 = fConst16 * fSlow7;
-		double fSlow26 = fConst17 * fSlow4;
-		double fSlow27 = fSlow25 + fSlow5 * (fSlow26 - fConst18) + -64.0;
-		double fSlow28 = fConst19 * fSlow7;
-		double fSlow29 = 16.0 * fSlow4;
-		double fSlow30 = fSlow28 + fConst11 * (0.0 - (1.96233206964928 * fSlow10 + fSlow29)) + 96.0;
-		double fSlow31 = fSlow25 + fSlow5 * (fConst18 - fSlow26) + -64.0;
-		double fSlow32 = fSlow8 + fSlow20 + fSlow5 * (0.0 - fSlow21) + 16.0;
-		double fSlow33 = fConst20 * fSlow7 + -0.00639999981152;
-		double fSlow34 = fConst21 * fSlow7 + fConst11 * (0.0 - (0.00346581760444 * fSlow10 + 0.00159999995288 * fSlow4)) + 0.009599999717279999;
-		double fSlow35 = fSlow23 + fConst22 * fSlow7 + 0.00159999995288;
-		double fSlow36 = fConst23 * fSlow4;
-		double fSlow37 = fSlow25 + fSlow5 * (fSlow36 - fConst24) + -64.0;
-		double fSlow38 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 5.5169709158774 * fSlow10)) + 96.0;
-		double fSlow39 = fSlow25 + fSlow5 * (fConst24 - fSlow36) + -64.0;
-		double fSlow40 = fSlow8 + fSlow15 + fSlow5 * (0.0 - fSlow16) + 16.0;
-		double fSlow41 = fSlow25 + -64.0;
-		double fSlow42 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 60.97385039096483 * fSlow10)) + 96.0;
-		double fSlow43 = fConst25 * fSlow7;
-		double fSlow44 = fSlow18 + fSlow43 + 16.0;
-		double fSlow45 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 8.554867261658496 * fSlow10)) + 96.0;
-		double fSlow46 = fConst26 * fSlow4;
-		double fSlow47 = fSlow25 + fSlow5 * (fSlow46 - fConst27) + -64.0;
-		double fSlow48 = fSlow25 + fSlow5 * (fConst27 - fSlow46) + -64.0;
-		double fSlow49 = fSlow11 + fSlow8 + fSlow5 * (0.0 - fSlow6) + 16.0;
-		double fSlow50 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 428.2892236364538 * fSlow10)) + 96.0;
-		double fSlow51 = fSlow43 + fSlow13 + 16.0;
+		double fSlow25 = fConst17 * fSlow4;
+		double fSlow26 = fSlow13 + fSlow5 * (fSlow25 - fConst18) + -64.0;
+		double fSlow27 = fConst19 * fSlow7;
+		double fSlow28 = 16.0 * fSlow4;
+		double fSlow29 = fSlow27 + (96.0 - fConst11 * (1.96233206964928 * fSlow10 + fSlow28));
+		double fSlow30 = fSlow13 + fSlow5 * (fConst18 - fSlow25) + -64.0;
+		double fSlow31 = fSlow21 + (16.0 - fSlow20);
+		double fSlow32 = fConst20 * fSlow7 + -0.00639999981152;
+		double fSlow33 = fConst21 * fSlow7 + (0.009599999717279999 - fConst11 * (0.00346581760444 * fSlow10 + 0.00159999995288 * fSlow4));
+		double fSlow34 = fSlow23 + fConst22 * fSlow7 + 0.00159999995288;
+		double fSlow35 = fConst23 * fSlow4;
+		double fSlow36 = fSlow13 + fSlow5 * (fSlow35 - fConst24) + -64.0;
+		double fSlow37 = fSlow27 + (96.0 - fConst11 * (fSlow28 + 5.5169709158774 * fSlow10));
+		double fSlow38 = fSlow13 + fSlow5 * (fConst24 - fSlow35) + -64.0;
+		double fSlow39 = fSlow16 + (16.0 - fSlow15);
+		double fSlow40 = fSlow27 + (96.0 - fConst11 * (fSlow28 + 60.97385039096483 * fSlow10));
+		double fSlow41 = fConst25 * fSlow7;
+		double fSlow42 = fSlow18 + fSlow41 + 16.0;
+		double fSlow43 = fConst26 * fSlow4;
+		double fSlow44 = fSlow13 + fSlow5 * (fSlow43 - fConst27) + -64.0;
+		double fSlow45 = fSlow27 + (96.0 - fConst11 * (fSlow28 + 8.554867261658496 * fSlow10));
+		double fSlow46 = fSlow13 + fSlow5 * (fConst27 - fSlow43) + -64.0;
+		double fSlow47 = fSlow11 + (16.0 - fSlow6);
+		double fSlow48 = fConst11 * (fSlow9 + 214.1446118182269 * fSlow10);
+		double fSlow49 = fSlow41 + fSlow48 + 16.0;
+		double fSlow50 = fSlow48 + 16.0;
+		double fSlow51 = fSlow27 + (96.0 - fConst11 * (fSlow28 + 428.2892236364538 * fSlow10));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fRec2[0] = double(input0[i0]) - fSlow22 * (fSlow27 * fRec2[1] + fSlow30 * fRec2[2] + fSlow31 * fRec2[3] + fSlow32 * fRec2[4]);
-			fRec1[0] = fSlow22 * (fSlow24 * fRec2[0] + fSlow33 * fRec2[1] + fSlow34 * fRec2[2] + fSlow33 * fRec2[3] + fSlow35 * fRec2[4]) - fSlow17 * (fSlow37 * fRec1[1] + fSlow38 * fRec1[2] + fSlow39 * fRec1[3] + fSlow40 * fRec1[4]);
-			fRec0[0] = fSlow17 * (fSlow19 * fRec1[0] + fSlow41 * fRec1[1] + fSlow42 * fRec1[2] + fSlow41 * fRec1[3] + fSlow44 * fRec1[4]) - fSlow12 * (fSlow45 * fRec0[2] + fSlow47 * fRec0[1] + fSlow48 * fRec0[3] + fSlow49 * fRec0[4]);
-			output0[i0] = FAUSTFLOAT(fSlow12 * (fSlow14 * fRec0[0] + fSlow41 * fRec0[1] + fSlow50 * fRec0[2] + fSlow41 * fRec0[3] + fSlow51 * fRec0[4]));
+			fRec2[0] = double(input0[i0]) - fSlow22 * (fSlow26 * fRec2[1] + fSlow29 * fRec2[2] + fSlow30 * fRec2[3] + fSlow31 * fRec2[4]);
+			fRec1[0] = fSlow22 * (fSlow24 * fRec2[0] + fSlow32 * fRec2[1] + fSlow33 * fRec2[2] + fSlow32 * fRec2[3] + fSlow34 * fRec2[4]) - fSlow17 * (fSlow36 * fRec1[1] + fSlow37 * fRec1[2] + fSlow38 * fRec1[3] + fSlow39 * fRec1[4]);
+			fRec0[0] = fSlow17 * (fSlow19 * fRec1[0] + fSlow14 * fRec1[1] + fSlow40 * fRec1[2] + fSlow14 * fRec1[3] + fSlow42 * fRec1[4]) - fSlow12 * (fSlow44 * fRec0[1] + fSlow45 * fRec0[2] + fSlow46 * fRec0[3] + fSlow47 * fRec0[4]);
+			output0[i0] = FAUSTFLOAT(fSlow12 * (fSlow14 * (fRec0[1] + fRec0[3]) + fSlow49 * fRec0[4] + fSlow50 * fRec0[0] + fSlow51 * fRec0[2]));
 			for (int j0 = 4; j0 > 0; j0 = j0 - 1) {
 				fRec2[j0] = fRec2[j0 - 1];
 			}

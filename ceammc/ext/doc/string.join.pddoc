@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">joins (concatenates) list to string with separator</tr>
+                <tr lang="en">joins the list into a string with the element separator</tr>
+                <tr lang="ru">объединяет список в строку с указанным разделителем элементов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,6 +27,7 @@
             <argument name="SEP" type="list">separator. For space use quotes.</argument>
         </arguments>
         <properties>
+            <!-- @sep -->
             <property name="@sep" type="list" default="">separator</property>
         </properties>
         <inlets>

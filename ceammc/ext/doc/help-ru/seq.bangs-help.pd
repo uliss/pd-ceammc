@@ -1,0 +1,158 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 576 50 cnv 1 189 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 581 50 секвенсер пустых событий;
+#X obj 1 1 cnv 5 765 40 empty empty seq.bangs 20 20 0 20 -104026 -4096
+0;
+#X obj 613 11 seq.b;
+#X obj 675 11 seq.bangs;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 126 118 stop;
+#X msg 203 118 reset;
+#X obj 50 162 seq.bangs 3 1 2 1 1 @t 480bpm @r 4;
+#X obj 309 190 route done i ed ri, f 21;
+#X obj 50 219 click~;
+#X obj 309 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 357 219 5 0 0 0 - - -;
+#X floatatom 405 219 5 0 0 0 - - -;
+#X floatatom 453 219 5 0 0 0 - - -;
+#X obj 50 248 flt.resonbp~ 1000 40;
+#X obj 309 248 ui.dsp~;
+#X obj 50 277 ui.hgain~;
+#X obj 50 305 dac~;
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 360 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 395 1\.;
+#X text 150 395 list;
+#X obj 246 396 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 395 P: sequencer pattern in beat duration units. Тип: list.;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 433 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 465 @div;
+#X text 245 465 Получить/Установить beat subdivision. Тип: int. Значение
+по умолчанию: 1\. Диапазон: 1\...64\.;
+#X msg 110 507 @dur;
+#X text 245 507 Получить/Установить whole sequence duration. (Recalculates
+@t property accordingly). Тип: float. Единицы: 'ms'. Значение по умолчанию:
+0\. Минимальное значение: 0\.;
+#X msg 110 564 @inf;
+#X text 245 564 Alias to @r -1 \, repeats infinitely.;
+#X msg 110 594 @mode;
+#X text 245 594 Получить/Установить sequencer mode. 'inc': from first
+to last \, 'dec': from last to first \, 'tri': from first to last \,
+then back. Тип: symbol. Значение по умолчанию: inc. Разрешённые значения:
+inc \, dec \, tri.;
+#X msg 110 666 @once;
+#X text 245 666 Alias to @r 1 \, play once.;
+#X msg 110 696 @p;
+#X text 245 696 Получить/Установить sequencer pattern in beat duration
+units. Тип: list.;
+#X msg 110 738 @r;
+#X text 245 738 Получить/Установить number of whole sequence repeats.
+If -1: repeat infinitely. Тип: int. Значение по умолчанию: 1\. Минимальное
+значение: -1\.;
+#X msg 110 795 @t;
+#X text 245 795 Получить/Установить time between beats. Unit values
+like 100ms or 240bpm also can be used. Тип: float. Единицы: 'ms'. Значение
+по умолчанию: 100\. Диапазон: 1\...20000\.;
+#X msg 110 852 @upbeat;
+#X text 245 852 Получить/Установить wait specified number of beats
+before sequence start. Тип: float. Значение по умолчанию: 0\. Минимальное
+значение: 0\.;
+#X msg 110 909 @i?;
+#X text 245 909 (только чтение) Получить current sequence iteration.
+Тип: int. Значение по умолчанию: 0\.;
+#X msg 110 951 @ri?;
+#X text 245 951 (только чтение) Получить current repeat iteration.
+Тип: int. Значение по умолчанию: 0\.;
+#X obj 20 1003 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1008 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1043 hexbeat;
+#X text 245 1043 set hexbeat bang pattern. Аргументы:;
+#X obj 255 1066 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1066 PATTERN: hex-string beat pattern. Тип: symbol.;
+#X msg 110 1091 reset;
+#X text 245 1091 reset all counters and stop.;
+#X msg 110 1119 rewind;
+#X text 245 1119 reset all counters without stopping.;
+#X msg 110 1147 skip;
+#X text 245 1147 skip specified number of steps. Аргументы:;
+#X obj 255 1170 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1170 N: number of steps to skip. Тип: int.;
+#X msg 110 1195 start;
+#X text 245 1195 start sequencer from current position.;
+#X msg 110 1223 stop;
+#X text 245 1223 stop sequencer.;
+#X msg 110 1251 tick;
+#X text 245 1251 output current sequence element and move to next.;
+#X obj 20 1289 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1294 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1295 1\.;
+#X text 150 1295 *bang*;
+#X text 245 1295 reset all counters and start sequencer.;
+#X text 110 1315 2\.;
+#X text 150 1315 *list*;
+#X text 245 1315 set new pattern value.;
+#X obj 20 1345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1350 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1351 1\.;
+#X text 245 1351 bang.;
+#X text 110 1371 2\.;
+#X text 245 1371 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+iteration \, [ed MS( - event duration or [done( when done.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
+#X obj 1 1436 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1439 библиотека: ceammc v0.9.8;
+#N canvas 10 1458 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 seq.bangs;
+#X text 10 76 категория:;
+#X text 120 76 seq;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 seq \, sequencer \, bang \, pattern \, rhythm;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1458 pd info;
+#X connect 5 0 8 0;
+#X connect 6 0 8 0;
+#X connect 7 0 8 0;
+#X connect 8 1 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 9 1 12 0;
+#X connect 9 2 13 0;
+#X connect 9 3 14 0;
+#X connect 10 0 15 0;
+#X connect 15 0 17 0;
+#X connect 17 0 18 0;
+#X connect 17 0 18 1;

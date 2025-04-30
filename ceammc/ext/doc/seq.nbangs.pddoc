@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output specified number of bang with time intervals</tr>
+                <tr lang="en">outputs the specified number of bangs with a time intervals</tr>
+                <tr lang="ru">выводит заданное число пустых сообщений через интервалы времени</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -28,19 +29,25 @@
             interval between bangs</argument>
         </arguments>
         <properties>
-            <property name="@dur" type="float" minvalue="0" default="0">sequence duration. Changing
-            this property also changes @t interval between bangs.</property>
-            <property name="@n" type="int" minvalue="0" default="0">number of bangs</property>
-            <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
-            units="millisecond">time interval between bangs. You could also use units values like
-            100ms or 120bpm.</property>
-            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
-            subdivision</property>
+            <!-- @accel -->
             <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">tempo
             acceleration. 1 - no acceleration, &gt;1 - speed up, &lt;1 - slow down</property>
+            <!-- @curve -->
             <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">
             acceleration curve. Values &gt;&gt;0 - slow changes, then fast encrease. Values &lt;0 -
             fast changes, then slower</property>
+            <!-- @div -->
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
+            <!-- @dur -->
+            <property name="@dur" type="float" minvalue="0" default="0">sequence duration. Changing
+            this property also changes @t interval between bangs.</property>
+            <!-- @n -->
+            <property name="@n" type="int" minvalue="0" default="0">number of bangs</property>
+            <!-- @t -->
+            <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
+            units="millisecond">time interval between bangs. You could also use units values like
+            100ms or 120bpm.</property>
         </properties>
         <methods>
             <!-- reset -->

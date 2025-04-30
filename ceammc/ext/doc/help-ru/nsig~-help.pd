@@ -1,0 +1,107 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 353 50 cnv 1 412 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 358 50 многоканальный преобразователь управляющих сигналов
+в звуковые;
+#X obj 1 1 cnv 5 765 40 empty empty nsig~ 20 20 0 20 -104026 -4096 0;
+#X obj 590 11 ceammc/nsig~;
+#X obj 703 11 nsig~;
+#X msg 50 118 3 2 1;
+#X msg 155 118 0.5 0.5;
+#X floatatom 50 147 5 0 0 0 - - -;
+#X floatatom 98 147 5 0 0 0 - - -;
+#X floatatom 146 147 5 0 0 0 - - -;
+#X obj 222 147 ui.dsp~;
+#X obj 50 176 nsig~ 3 1 2 3;
+#X obj 50 205 ui.n~;
+#X obj 98 234 ui.n~;
+#X obj 146 262 ui.n~;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 352 1\.;
+#X text 150 352 int;
+#X obj 246 353 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 352 N: number of inputs/outputs. Тип: int. Диапазон: 1…12;
+#X text 110 372 2\.;
+#X text 150 372 list;
+#X obj 246 373 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 372 VALUES: init values. Тип: list.;
+#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 407 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 410 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 442 @n;
+#X text 245 442 (при инициализации) Получить/Установить number of inputs/outputs.
+Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...12\.;
+#X msg 110 499 @values;
+#X text 245 499 Получить/Установить current output values. Default:
+0\. Тип: list.;
+#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 556 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 557 1\.;
+#X text 150 557 *float*;
+#X text 245 557 set first output value.;
+#X text 150 577 *list*;
+#X text 245 577 set list of output values.;
+#X text 110 597 ....;
+#X text 150 597 *float*;
+#X text 245 597 set ... output value.;
+#X text 110 617 n.;
+#X text 150 617 *float*;
+#X text 245 617 set n-th output value.;
+#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 652 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 653 1\.;
+#X text 245 653 first value output.;
+#X text 110 673 ....;
+#X text 245 673 ... value output.;
+#X text 110 693 n.;
+#X text 245 693 n-th value output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 1 743 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 746 библиотека: ceammc v0.9.8;
+#X text 589 758 смотрите также:;
+#X obj 710 758 sig~;
+#N canvas 10 765 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 nsig~;
+#X text 10 76 категория:;
+#X text 120 76 base;
+#X text 10 98 с версии:;
+#X text 120 98 0.9;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 sig \, list;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 765 pd info;
+#X connect 7 0 11 0;
+#X connect 8 0 11 1;
+#X connect 9 0 11 2;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;
+#X connect 11 2 14 0;
+#X connect 5 0 11 0;
+#X connect 6 0 11 0;

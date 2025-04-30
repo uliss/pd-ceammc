@@ -1,0 +1,93 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 573 50 collatz conjecture output;
+#X obj 1 1 cnv 5 765 40 empty empty noise.collatz 20 20 0 20 -104026
+-4096 0;
+#X obj 646 11 noise.collatz;
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Collatz conjecture output;
+#X obj 50 161 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 190 metro 50;
+#X obj 69 219 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 69 248 om \$1;
+#X floatatom 59 277 5 0 0 0 - - -;
+#X obj 251 277 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 59 305 offset \$1;
+#X msg 251 305 mode \$1;
+#X obj 50 348 noise.collatz;
+#X obj 50 377 ui.display;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 435 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 492 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 527 mode;
+#X text 245 527 Аргументы:;
+#X obj 255 550 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 550 MODE: mode value. 0 for Collatz \, 1 for Terras. Тип:
+int.;
+#X msg 110 575 offset;
+#X text 245 575 Аргументы:;
+#X obj 255 598 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 598 OFFSET: offset value. Тип: float.;
+#X msg 110 623 om;
+#X text 245 623 Аргументы:;
+#X obj 255 646 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 646 OM: enables output when cut or fold value is changed.
+Тип: int.;
+#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 701 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 702 1\.;
+#X text 150 702 *bang*;
+#X text 245 702 output value.;
+#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 738 1\.;
+#X text 245 738 main outlet.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
+#X obj 1 788 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 791 библиотека: ceammc v0.9.8;
+#N canvas 10 810 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 noise.collatz;
+#X text 10 76 категория:;
+#X text 120 76 noise;
+#X text 10 98 с версии:;
+#X text 120 98 0.5;
+#X text 10 120 авторы:;
+#X text 120 120 André Sier;
+#X text 10 142 лицензия:;
+#X text 120 142 %;
+#X text 10 164 ключевые слова:;
+#X text 120 164 noise;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 810 pd info;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;
+#X connect 14 0 15 0;
+#X connect 9 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 7 0 14 0;

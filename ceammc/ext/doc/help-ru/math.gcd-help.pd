@@ -1,0 +1,74 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 496 50 вычисляет наибольший общий делитель;
+#X obj 1 1 cnv 5 765 40 empty empty math.gcd 20 20 0 20 -104026 -4096
+0;
+#X obj 681 11 math.gcd;
+#X floatatom 50 118 5 0 0 0 - - -;
+#X msg 107 118 14 28;
+#X obj 50 176 math.gcd 12;
+#X floatatom 50 205 5 0 0 0 - - -;
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 277 1\.;
+#X text 150 277 int;
+#X obj 246 278 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 277 ARG2: second argument. Тип: int.;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 313 1\.;
+#X text 150 313 *int*;
+#X text 245 313 sets first argument and outputs calculated GCD value.;
+#X text 150 333 *list*;
+#X text 245 333 sets first argument and second arguments \, then output
+calculated GCD value.;
+#X text 110 368 2\.;
+#X text 150 368 *int*;
+#X text 245 368 sets second value.;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 404 1\.;
+#X text 245 404 GCD value.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 библиотека: ceammc v0.9.8;
+#X text 560 520 смотрите также:;
+#X obj 681 520 math.lcm;
+#N canvas 10 527 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 math.gcd;
+#X text 10 76 категория:;
+#X text 120 76 math;
+#X text 10 98 с версии:;
+#X text 120 98 0.3;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 math \, gcd;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 527 pd info;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;

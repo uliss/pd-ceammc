@@ -4,15 +4,15 @@
 	"version": "2.74.5.",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_dx7 -scn synth_dx7_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/dx7.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/envelopes.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/oscillators.lib"],
-	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
-	"size": 872,
+	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"size": 1032,
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/sAndH:author": "Romain Michon" },
 		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.17.1" },
+		{ "basics.lib/version": "1.16.0" },
 		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_dx7 -scn synth_dx7_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "dx7.lib/version": "1.1.0" },
 		{ "envelopes.lib/author": "GRAME" },
@@ -50,7 +50,7 @@
 					],
 					"init": 0,
 					"min": 0,
-					"max": 15,
+					"max": 31,
 					"step": 1
 				},
 				{
@@ -81,92 +81,92 @@
 				},
 				{
 					"type": "nentry",
+					"label": "op0:L1",
+					"shortname": "op0_L1",
+					"address": "/synth.dx7/op0:L1",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:L2",
+					"shortname": "op0_L2",
+					"address": "/synth.dx7/op0:L2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:L3",
+					"shortname": "op0_L3",
+					"address": "/synth.dx7/op0:L3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:L4",
+					"shortname": "op0_L4",
+					"address": "/synth.dx7/op0:L4",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:R1",
+					"shortname": "op0_R1",
+					"address": "/synth.dx7/op0:R1",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:R2",
+					"shortname": "op0_R2",
+					"address": "/synth.dx7/op0:R2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:R3",
+					"shortname": "op0_R3",
+					"address": "/synth.dx7/op0:R3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:R4",
+					"shortname": "op0_R4",
+					"address": "/synth.dx7/op0:R4",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
 					"label": "op0:detune",
 					"shortname": "op0_detune",
 					"address": "/synth.dx7/op0:detune",
 					"init": 1,
 					"min": -10,
 					"max": 10,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egL1",
-					"shortname": "op0_egL1",
-					"address": "/synth.dx7/op0:egL1",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egL2",
-					"shortname": "op0_egL2",
-					"address": "/synth.dx7/op0:egL2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egL3",
-					"shortname": "op0_egL3",
-					"address": "/synth.dx7/op0:egL3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egL4",
-					"shortname": "op0_egL4",
-					"address": "/synth.dx7/op0:egL4",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egR1",
-					"shortname": "op0_egR1",
-					"address": "/synth.dx7/op0:egR1",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egR2",
-					"shortname": "op0_egR2",
-					"address": "/synth.dx7/op0:egR2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egR3",
-					"shortname": "op0_egR3",
-					"address": "/synth.dx7/op0:egR3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:egR4",
-					"shortname": "op0_egR4",
-					"address": "/synth.dx7/op0:egR4",
-					"init": 90,
-					"min": 0,
-					"max": 99,
 					"step": 1
 				},
 				{
@@ -179,18 +179,8 @@
 					],
 					"init": 1,
 					"min": 0,
-					"max": 2,
+					"max": 32,
 					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op0:key_vel_sens",
-					"shortname": "op0_key_vel_sens",
-					"address": "/synth.dx7/op0:key_vel_sens",
-					"init": 1,
-					"min": 0,
-					"max": 8,
-					"step": 1
 				},
 				{
 					"type": "nentry",
@@ -204,9 +194,9 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op0:mode",
-					"shortname": "op0_mode",
-					"address": "/synth.dx7/op0:mode",
+					"label": "op0:opMode",
+					"shortname": "op0_opMode",
+					"address": "/synth.dx7/op0:opMode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -214,12 +204,102 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op0:rate_scale",
-					"shortname": "op0_rate_scale",
-					"address": "/synth.dx7/op0:rate_scale",
+					"label": "op0:rate",
+					"shortname": "op0_rate",
+					"address": "/synth.dx7/op0:rate",
 					"init": 0,
 					"min": 0,
 					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op0:vel",
+					"shortname": "op0_vel",
+					"address": "/synth.dx7/op0:vel",
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:L1",
+					"shortname": "op1_L1",
+					"address": "/synth.dx7/op1:L1",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:L2",
+					"shortname": "op1_L2",
+					"address": "/synth.dx7/op1:L2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:L3",
+					"shortname": "op1_L3",
+					"address": "/synth.dx7/op1:L3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:L4",
+					"shortname": "op1_L4",
+					"address": "/synth.dx7/op1:L4",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:R1",
+					"shortname": "op1_R1",
+					"address": "/synth.dx7/op1:R1",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:R2",
+					"shortname": "op1_R2",
+					"address": "/synth.dx7/op1:R2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:R3",
+					"shortname": "op1_R3",
+					"address": "/synth.dx7/op1:R3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:R4",
+					"shortname": "op1_R4",
+					"address": "/synth.dx7/op1:R4",
+					"init": 90,
+					"min": 0,
+					"max": 99,
 					"step": 1
 				},
 				{
@@ -234,86 +314,6 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op1:egL1",
-					"shortname": "op1_egL1",
-					"address": "/synth.dx7/op1:egL1",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:egL2",
-					"shortname": "op1_egL2",
-					"address": "/synth.dx7/op1:egL2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:egL3",
-					"shortname": "op1_egL3",
-					"address": "/synth.dx7/op1:egL3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:egL4",
-					"shortname": "op1_egL4",
-					"address": "/synth.dx7/op1:egL4",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:egR1",
-					"shortname": "op1_egR1",
-					"address": "/synth.dx7/op1:egR1",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:egR2",
-					"shortname": "op1_egR2",
-					"address": "/synth.dx7/op1:egR2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:egR3",
-					"shortname": "op1_egR3",
-					"address": "/synth.dx7/op1:egR3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:egR4",
-					"shortname": "op1_egR4",
-					"address": "/synth.dx7/op1:egR4",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
 					"label": "op1:freq",
 					"shortname": "op1_freq",
 					"address": "/synth.dx7/op1:freq",
@@ -322,18 +322,8 @@
 					],
 					"init": 1,
 					"min": 0,
-					"max": 2,
+					"max": 32,
 					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op1:key_vel_sens",
-					"shortname": "op1_key_vel_sens",
-					"address": "/synth.dx7/op1:key_vel_sens",
-					"init": 1,
-					"min": 0,
-					"max": 8,
-					"step": 1
 				},
 				{
 					"type": "nentry",
@@ -347,9 +337,9 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op1:mode",
-					"shortname": "op1_mode",
-					"address": "/synth.dx7/op1:mode",
+					"label": "op1:opMode",
+					"shortname": "op1_opMode",
+					"address": "/synth.dx7/op1:opMode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -357,12 +347,102 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op1:rate_scale",
-					"shortname": "op1_rate_scale",
-					"address": "/synth.dx7/op1:rate_scale",
+					"label": "op1:rate",
+					"shortname": "op1_rate",
+					"address": "/synth.dx7/op1:rate",
 					"init": 0,
 					"min": 0,
 					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:vel",
+					"shortname": "op1_vel",
+					"address": "/synth.dx7/op1:vel",
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:L1",
+					"shortname": "op2_L1",
+					"address": "/synth.dx7/op2:L1",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:L2",
+					"shortname": "op2_L2",
+					"address": "/synth.dx7/op2:L2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:L3",
+					"shortname": "op2_L3",
+					"address": "/synth.dx7/op2:L3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:L4",
+					"shortname": "op2_L4",
+					"address": "/synth.dx7/op2:L4",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:R1",
+					"shortname": "op2_R1",
+					"address": "/synth.dx7/op2:R1",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:R2",
+					"shortname": "op2_R2",
+					"address": "/synth.dx7/op2:R2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:R3",
+					"shortname": "op2_R3",
+					"address": "/synth.dx7/op2:R3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:R4",
+					"shortname": "op2_R4",
+					"address": "/synth.dx7/op2:R4",
+					"init": 90,
+					"min": 0,
+					"max": 99,
 					"step": 1
 				},
 				{
@@ -377,86 +457,6 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op2:egL1",
-					"shortname": "op2_egL1",
-					"address": "/synth.dx7/op2:egL1",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:egL2",
-					"shortname": "op2_egL2",
-					"address": "/synth.dx7/op2:egL2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:egL3",
-					"shortname": "op2_egL3",
-					"address": "/synth.dx7/op2:egL3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:egL4",
-					"shortname": "op2_egL4",
-					"address": "/synth.dx7/op2:egL4",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:egR1",
-					"shortname": "op2_egR1",
-					"address": "/synth.dx7/op2:egR1",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:egR2",
-					"shortname": "op2_egR2",
-					"address": "/synth.dx7/op2:egR2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:egR3",
-					"shortname": "op2_egR3",
-					"address": "/synth.dx7/op2:egR3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:egR4",
-					"shortname": "op2_egR4",
-					"address": "/synth.dx7/op2:egR4",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
 					"label": "op2:freq",
 					"shortname": "op2_freq",
 					"address": "/synth.dx7/op2:freq",
@@ -465,18 +465,8 @@
 					],
 					"init": 1,
 					"min": 0,
-					"max": 2,
+					"max": 32,
 					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op2:key_vel_sens",
-					"shortname": "op2_key_vel_sens",
-					"address": "/synth.dx7/op2:key_vel_sens",
-					"init": 1,
-					"min": 0,
-					"max": 8,
-					"step": 1
 				},
 				{
 					"type": "nentry",
@@ -490,9 +480,9 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op2:mode",
-					"shortname": "op2_mode",
-					"address": "/synth.dx7/op2:mode",
+					"label": "op2:opMode",
+					"shortname": "op2_opMode",
+					"address": "/synth.dx7/op2:opMode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -500,12 +490,102 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op2:rate_scale",
-					"shortname": "op2_rate_scale",
-					"address": "/synth.dx7/op2:rate_scale",
+					"label": "op2:rate",
+					"shortname": "op2_rate",
+					"address": "/synth.dx7/op2:rate",
 					"init": 0,
 					"min": 0,
 					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:vel",
+					"shortname": "op2_vel",
+					"address": "/synth.dx7/op2:vel",
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:L1",
+					"shortname": "op3_L1",
+					"address": "/synth.dx7/op3:L1",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:L2",
+					"shortname": "op3_L2",
+					"address": "/synth.dx7/op3:L2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:L3",
+					"shortname": "op3_L3",
+					"address": "/synth.dx7/op3:L3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:L4",
+					"shortname": "op3_L4",
+					"address": "/synth.dx7/op3:L4",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:R1",
+					"shortname": "op3_R1",
+					"address": "/synth.dx7/op3:R1",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:R2",
+					"shortname": "op3_R2",
+					"address": "/synth.dx7/op3:R2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:R3",
+					"shortname": "op3_R3",
+					"address": "/synth.dx7/op3:R3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:R4",
+					"shortname": "op3_R4",
+					"address": "/synth.dx7/op3:R4",
+					"init": 90,
+					"min": 0,
+					"max": 99,
 					"step": 1
 				},
 				{
@@ -520,86 +600,6 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op3:egL1",
-					"shortname": "op3_egL1",
-					"address": "/synth.dx7/op3:egL1",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:egL2",
-					"shortname": "op3_egL2",
-					"address": "/synth.dx7/op3:egL2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:egL3",
-					"shortname": "op3_egL3",
-					"address": "/synth.dx7/op3:egL3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:egL4",
-					"shortname": "op3_egL4",
-					"address": "/synth.dx7/op3:egL4",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:egR1",
-					"shortname": "op3_egR1",
-					"address": "/synth.dx7/op3:egR1",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:egR2",
-					"shortname": "op3_egR2",
-					"address": "/synth.dx7/op3:egR2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:egR3",
-					"shortname": "op3_egR3",
-					"address": "/synth.dx7/op3:egR3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:egR4",
-					"shortname": "op3_egR4",
-					"address": "/synth.dx7/op3:egR4",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
 					"label": "op3:freq",
 					"shortname": "op3_freq",
 					"address": "/synth.dx7/op3:freq",
@@ -608,18 +608,8 @@
 					],
 					"init": 1,
 					"min": 0,
-					"max": 2,
+					"max": 32,
 					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op3:key_vel_sens",
-					"shortname": "op3_key_vel_sens",
-					"address": "/synth.dx7/op3:key_vel_sens",
-					"init": 1,
-					"min": 0,
-					"max": 8,
-					"step": 1
 				},
 				{
 					"type": "nentry",
@@ -633,9 +623,9 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op3:mode",
-					"shortname": "op3_mode",
-					"address": "/synth.dx7/op3:mode",
+					"label": "op3:opMode",
+					"shortname": "op3_opMode",
+					"address": "/synth.dx7/op3:opMode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -643,12 +633,102 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op3:rate_scale",
-					"shortname": "op3_rate_scale",
-					"address": "/synth.dx7/op3:rate_scale",
+					"label": "op3:rate",
+					"shortname": "op3_rate",
+					"address": "/synth.dx7/op3:rate",
 					"init": 0,
 					"min": 0,
 					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:vel",
+					"shortname": "op3_vel",
+					"address": "/synth.dx7/op3:vel",
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:L1",
+					"shortname": "op4_L1",
+					"address": "/synth.dx7/op4:L1",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:L2",
+					"shortname": "op4_L2",
+					"address": "/synth.dx7/op4:L2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:L3",
+					"shortname": "op4_L3",
+					"address": "/synth.dx7/op4:L3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:L4",
+					"shortname": "op4_L4",
+					"address": "/synth.dx7/op4:L4",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:R1",
+					"shortname": "op4_R1",
+					"address": "/synth.dx7/op4:R1",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:R2",
+					"shortname": "op4_R2",
+					"address": "/synth.dx7/op4:R2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:R3",
+					"shortname": "op4_R3",
+					"address": "/synth.dx7/op4:R3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:R4",
+					"shortname": "op4_R4",
+					"address": "/synth.dx7/op4:R4",
+					"init": 90,
+					"min": 0,
+					"max": 99,
 					"step": 1
 				},
 				{
@@ -663,86 +743,6 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op4:egL1",
-					"shortname": "op4_egL1",
-					"address": "/synth.dx7/op4:egL1",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:egL2",
-					"shortname": "op4_egL2",
-					"address": "/synth.dx7/op4:egL2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:egL3",
-					"shortname": "op4_egL3",
-					"address": "/synth.dx7/op4:egL3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:egL4",
-					"shortname": "op4_egL4",
-					"address": "/synth.dx7/op4:egL4",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:egR1",
-					"shortname": "op4_egR1",
-					"address": "/synth.dx7/op4:egR1",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:egR2",
-					"shortname": "op4_egR2",
-					"address": "/synth.dx7/op4:egR2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:egR3",
-					"shortname": "op4_egR3",
-					"address": "/synth.dx7/op4:egR3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:egR4",
-					"shortname": "op4_egR4",
-					"address": "/synth.dx7/op4:egR4",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
 					"label": "op4:freq",
 					"shortname": "op4_freq",
 					"address": "/synth.dx7/op4:freq",
@@ -751,18 +751,8 @@
 					],
 					"init": 1,
 					"min": 0,
-					"max": 2,
+					"max": 32,
 					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op4:key_vel_sens",
-					"shortname": "op4_key_vel_sens",
-					"address": "/synth.dx7/op4:key_vel_sens",
-					"init": 1,
-					"min": 0,
-					"max": 8,
-					"step": 1
 				},
 				{
 					"type": "nentry",
@@ -776,9 +766,9 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op4:mode",
-					"shortname": "op4_mode",
-					"address": "/synth.dx7/op4:mode",
+					"label": "op4:opMode",
+					"shortname": "op4_opMode",
+					"address": "/synth.dx7/op4:opMode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -786,12 +776,102 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op4:rate_scale",
-					"shortname": "op4_rate_scale",
-					"address": "/synth.dx7/op4:rate_scale",
+					"label": "op4:rate",
+					"shortname": "op4_rate",
+					"address": "/synth.dx7/op4:rate",
 					"init": 0,
 					"min": 0,
 					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:vel",
+					"shortname": "op4_vel",
+					"address": "/synth.dx7/op4:vel",
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:L1",
+					"shortname": "op5_L1",
+					"address": "/synth.dx7/op5:L1",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:L2",
+					"shortname": "op5_L2",
+					"address": "/synth.dx7/op5:L2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:L3",
+					"shortname": "op5_L3",
+					"address": "/synth.dx7/op5:L3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:L4",
+					"shortname": "op5_L4",
+					"address": "/synth.dx7/op5:L4",
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:R1",
+					"shortname": "op5_R1",
+					"address": "/synth.dx7/op5:R1",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:R2",
+					"shortname": "op5_R2",
+					"address": "/synth.dx7/op5:R2",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:R3",
+					"shortname": "op5_R3",
+					"address": "/synth.dx7/op5:R3",
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:R4",
+					"shortname": "op5_R4",
+					"address": "/synth.dx7/op5:R4",
+					"init": 90,
+					"min": 0,
+					"max": 99,
 					"step": 1
 				},
 				{
@@ -806,86 +886,6 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op5:egL1",
-					"shortname": "op5_egL1",
-					"address": "/synth.dx7/op5:egL1",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:egL2",
-					"shortname": "op5_egL2",
-					"address": "/synth.dx7/op5:egL2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:egL3",
-					"shortname": "op5_egL3",
-					"address": "/synth.dx7/op5:egL3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:egL4",
-					"shortname": "op5_egL4",
-					"address": "/synth.dx7/op5:egL4",
-					"init": 0,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:egR1",
-					"shortname": "op5_egR1",
-					"address": "/synth.dx7/op5:egR1",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:egR2",
-					"shortname": "op5_egR2",
-					"address": "/synth.dx7/op5:egR2",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:egR3",
-					"shortname": "op5_egR3",
-					"address": "/synth.dx7/op5:egR3",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:egR4",
-					"shortname": "op5_egR4",
-					"address": "/synth.dx7/op5:egR4",
-					"init": 90,
-					"min": 0,
-					"max": 99,
-					"step": 1
-				},
-				{
-					"type": "nentry",
 					"label": "op5:freq",
 					"shortname": "op5_freq",
 					"address": "/synth.dx7/op5:freq",
@@ -894,18 +894,8 @@
 					],
 					"init": 1,
 					"min": 0,
-					"max": 2,
+					"max": 32,
 					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op5:key_vel_sens",
-					"shortname": "op5_key_vel_sens",
-					"address": "/synth.dx7/op5:key_vel_sens",
-					"init": 1,
-					"min": 0,
-					"max": 8,
-					"step": 1
 				},
 				{
 					"type": "nentry",
@@ -919,9 +909,9 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op5:mode",
-					"shortname": "op5_mode",
-					"address": "/synth.dx7/op5:mode",
+					"label": "op5:opMode",
+					"shortname": "op5_opMode",
+					"address": "/synth.dx7/op5:opMode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -929,12 +919,22 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op5:rate_scale",
-					"shortname": "op5_rate_scale",
-					"address": "/synth.dx7/op5:rate_scale",
+					"label": "op5:rate",
+					"shortname": "op5_rate",
+					"address": "/synth.dx7/op5:rate",
 					"init": 0,
 					"min": 0,
 					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:vel",
+					"shortname": "op5_vel",
+					"address": "/synth.dx7/op5:vel",
+					"init": 1,
+					"min": 0,
+					"max": 8,
 					"step": 1
 				},
 				{

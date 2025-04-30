@@ -103,6 +103,10 @@ if(APPLE)
         COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd ${PROJECT_SOURCE_DIR}/ceammc/ext/doc/template_about.pd
         USES_TERMINAL)
 
+    add_custom_target(dev_edit_about_ru
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd ${PROJECT_SOURCE_DIR}/ceammc/ext/doc/template_about_ru.pd
+        USES_TERMINAL)
+
     find_program(LLDB lldb)
     if(LLDB)
         add_custom_target(dev_lldb

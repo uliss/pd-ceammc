@@ -1,0 +1,64 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 315 50 cnv 1 450 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 320 50 преобразовать время в миллисекундах в количество семплов
+в соответствии с текущей скоростью семплирования;
+#X obj 1 1 cnv 5 765 40 empty empty conv.ms2samp~ 20 20 0 20 -104026
+-4096 0;
+#X obj 411 11 ceammc/ms->samp~;
+#X obj 553 11 ms->samp~;
+#X obj 645 11 conv.ms2samp~;
+#X msg 50 118 bang;
+#X obj 50 147 plot.linspace~ 0 1000;
+#X obj 50 176 ms->samp~;
+#X obj 50 205 ui.plot~ @size 400 170 @xlabels 1 @ylabels 1 @ymin 0
+@ymax 1000 @yauto 1 @ymin_ticks 0;
+#X obj 50 406 ui.dsp~;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 462 1\.;
+#X text 245 462 input signal.;
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 497 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 498 1\.;
+#X text 245 498 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 1 548 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 551 библиотека: ceammc v0.9.8;
+#X text 524 563 смотрите также:;
+#X obj 645 563 conv.samp2ms~;
+#N canvas 10 570 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 conv.ms2samp~;
+#X text 10 76 категория:;
+#X text 120 76 conv;
+#X text 10 98 с версии:;
+#X text 120 98 0.9;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 conv \, samp \, ms;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 570 pd info;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 7 1 9 1;

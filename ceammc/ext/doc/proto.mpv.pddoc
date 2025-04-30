@@ -23,6 +23,7 @@
             <argument name="IPC" type="symbol">path to IPC local socket</argument>
         </arguments>
         <properties>
+            <!-- @ipc -->
             <property name="@ipc" type="symbol" default="">path to IPC local socket</property>
         </properties>
         <methods>

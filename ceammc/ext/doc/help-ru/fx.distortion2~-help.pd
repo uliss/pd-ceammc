@@ -1,0 +1,135 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 459 50 cnv 1 306 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 464 50 дисторшн №2 из набора эффектов Guitarix;
+#X obj 1 1 cnv 5 765 40 empty empty fx.distortion2~ 20 20 0 20 -104026
+-4096 0;
+#X obj 630 11 fx.distortion2~;
+#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 147 expand_env;
+#X obj 50 176 readsf~;
+#X obj 69 205 ui.knob;
+#X obj 184 205 ui.knob;
+#X obj 318 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 69 262 @drive \$1;
+#X msg 184 262 @vibrato \$1;
+#X msg 318 262 @res_on_off \$1;
+#X obj 50 305 fx.distortion2~;
+#X obj 50 334 ui.gain~ @size 120 16;
+#X obj 376 334 ui.dsp~;
+#X obj 50 363 dac~;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 453 @id;
+#X text 245 453 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/fx_distortion2/PROP_NAME
+osc address \, if empty bind to /fx_distortion2/PROP_NAME. Тип: symbol.;
+#X msg 110 525 @osc;
+#X text 245 525 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 567 @active;
+#X text 245 567 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 609 @drive;
+#X text 245 609 Получить/Установить distortion amount. Тип: float.
+Значение по умолчанию: 0.64\. Диапазон: 0\...1\.;
+#X msg 110 651 @flt_on_off;
+#X text 245 651 Получить/Установить filter processing. Тип: bool. Значение
+по умолчанию: 0\.;
+#X msg 110 693 @gain;
+#X text 245 693 Получить/Установить total effect gain. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 2\. Диапазон: -10\...10\.;
+#X msg 110 735 @hp_freq;
+#X text 245 735 Получить/Установить high pass frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 130\. Диапазон: 20\...7040\.;
+#X msg 110 777 @level;
+#X text 245 777 Получить/Установить effect level. Тип: float. Значение
+по умолчанию: 0.01\. Диапазон: 0\...0.5\.;
+#X msg 110 819 @lp_freq;
+#X text 245 819 Получить/Установить low pass frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 5000\. Диапазон: 20\...12000\.;
+#X msg 110 861 @res_on_off;
+#X text 245 861 Получить/Установить resonator. Тип: bool. Значение
+по умолчанию: 0\.;
+#X msg 110 903 @sp_high_freq;
+#X text 245 903 Получить/Установить speaker emulation high frequency.
+Тип: float. Единицы: 'Hz'. Значение по умолчанию: 5000\. Диапазон:
+1000\...12000\.;
+#X msg 110 960 @sp_low_freq;
+#X text 245 960 Получить/Установить speaker emulation low frequency.
+Тип: float. Единицы: 'Hz'. Значение по умолчанию: 130\. Диапазон: 20\...1000\.;
+#X msg 110 1017 @sp_on_off;
+#X text 245 1017 Получить/Установить speaker emulation turn on/off.
+Тип: bool. Значение по умолчанию: 0\.;
+#X msg 110 1059 @trigger;
+#X text 245 1059 Получить/Установить resonator trigger. Тип: float.
+Значение по умолчанию: 0.12\. Диапазон: 0\...1\.;
+#X msg 110 1101 @vibrato;
+#X text 245 1101 Получить/Установить resonator vibration. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 20 1153 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1158 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1193 reset;
+#X text 245 1193 reset object.;
+#X obj 20 1231 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1236 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1237 1\.;
+#X text 245 1237 input signal.;
+#X obj 20 1267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1272 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1273 1\.;
+#X text 245 1273 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1323 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1326 библиотека: ceammc v0.9.8;
+#X text 267 1338 смотрите также:;
+#X obj 388 1338 fx.distortion~;
+#X obj 505 1338 fx.distortion1~;
+#X obj 630 1338 fx.distortion3~;
+#N canvas 10 1345 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 fx.distortion2~;
+#X text 10 76 категория:;
+#X text 120 76 fx;
+#X text 10 98 с версии:;
+#X text 120 98 0.7;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 fx \, distortion;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1345 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 6 0 13 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 16 0;
+#X connect 14 0 16 1;

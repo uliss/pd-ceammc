@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">MIDI arpeggiator</tr>
+                <tr lang="ru">MIDI арпеджиатор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -30,17 +31,24 @@
             between arpeggio</argument>
         </arguments>
         <properties>
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
-            units="millisecond">time between arpeggio</property>
-            <property name="@mode" type="symbol" default="up"
-            enum="up down tri up1 down1 tri1 random random1">argpeggiator mode</property>
-            <property name="@seed" type="int" default="0" minvalue="0">random seed value (to get
-            reproducible random series)</property>
+            <!-- @external -->
             <property name="@external" type="bool" default="0">use external clock</property>
+            <!-- @min_notes -->
             <property name="@min_notes" type="int" default="1" minvalue="1">number of minimal notes
             to perform arpeggio</property>
+            <!-- @mode -->
+            <property name="@mode" type="symbol" default="up"
+            enum="up down tri up1 down1 tri1 random random1">argpeggiator mode</property>
+            <!-- @on -->
             <property name="@on" type="bool" default="1">arpeggiator state: on/off</property>
+            <!-- @pass -->
             <property name="@pass" type="bool" default="0">bypass arpeggiator</property>
+            <!-- @seed -->
+            <property name="@seed" type="int" default="0" minvalue="0">random seed value (to get
+            reproducible random series)</property>
+            <!-- @t -->
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
+            units="millisecond">time between arpeggio</property>
         </properties>
         <inlets>
             <inlet>

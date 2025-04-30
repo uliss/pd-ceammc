@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">enhanced version of vanilla ctlin</tr>
+                <tr lang="en">enhanced version of vanilla [ctlin]</tr>
+                <tr lang="ru">усовершенствованная версия [ctlin]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,17 +22,22 @@
             <argument name="MAX" type="float">@max value</argument>
         </arguments>
         <properties>
+            <!-- @cc -->
             <property name="@cc" type="int" default="0" minvalue="0" maxvalue="127">controller
             number</property>
+            <!-- @ch -->
             <property name="@ch" type="int" default="0" minvalue="0" maxvalue="16">MIDI
             channel</property>
-            <property name="@min" type="float" default="0">output value at midi input ==
-            0</property>
-            <property name="@max" type="float" default="127">output value at midi input ==
-            127</property>
+            <!-- @curve -->
             <property name="@curve" type="float" default="0">output curve. If @curve&lt;0: fast
             begin, slow end, else if @curve&gt;0: slow begin, fast end, if @curve==0: linear
             speed</property>
+            <!-- @max -->
+            <property name="@max" type="float" default="127">output value at midi input ==
+            127</property>
+            <!-- @min -->
+            <property name="@min" type="float" default="0">output value at midi input ==
+            0</property>
         </properties>
         <inlets>
             <inlet>

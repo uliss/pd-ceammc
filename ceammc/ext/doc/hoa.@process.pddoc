@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">process properties manager for hoa.process~</tr>
+                <tr lang="en">properties manager for [hoa.process~] object</tr>
+                <tr lang="ru">управление свойствами объекта [hoa.process~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,18 +27,25 @@
             properties declared via [prop.declare]</par>
         </info>
         <properties>
+            <!-- @hdegree -->
             <property name="@hdegree" type="int" access="readonly" default="0">current harmonic
             degree in hoa.process~ instance (only in harmonics mode)</property>
+            <!-- @horder -->
             <property name="@horder" type="int" access="readonly" default="0">current harmonic
             order in hoa.process~ instance (only in harmonics mode)</property>
+            <!-- @index -->
             <property name="@index" type="int" access="readonly" default="0">current instance index
             starting from 0</property>
+            <!-- @order -->
             <property name="@order" type="int" access="readonly" default="0">order of parent
             hoa.process~</property>
+            <!-- @pmode -->
             <property name="@pmode" type="symbol" enum="2d 3d" access="readonly" default="">
             amibisonic mode</property>
+            <!-- @ptype -->
             <property name="@ptype" type="symbol" enum="harmonics planewaves" access="readonly"
             default="">amibisonic type</property>
+            <!-- @total -->
             <property name="@total" type="int" access="readonly" default="0">total number of
             hoa.process~ instances</property>
         </properties>

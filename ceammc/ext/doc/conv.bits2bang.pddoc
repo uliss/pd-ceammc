@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert list of bits to bang events</tr>
+                <tr lang="ru">конвертирует список битов в пустые события</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,11 +28,14 @@
             <argument name="N" type="int" minvalue="1" maxvalue="64">number of outlets</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="1" maxvalue="64" default="8"
             access="initonly">number of outlets</property>
-            <property name="@rev" type="bool" default="0">reversed bit order</property>
+            <!-- @poly -->
             <property name="@poly" type="flag" access="initonly">polyphonic mode for using with
             [clone] object</property>
+            <!-- @rev -->
+            <property name="@rev" type="bool" default="0">reversed bit order</property>
         </properties>
         <inlets>
             <inlet>

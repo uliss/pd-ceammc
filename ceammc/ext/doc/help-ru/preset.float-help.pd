@@ -1,0 +1,126 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 368 50 cnv 1 397 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 373 50 загружает или сохраняет числовое значение в пресете;
+#X obj 1 1 cnv 5 765 40 empty empty preset.float 20 20 0 20 -104026
+-4096 0;
+#X obj 570 11 preset.f;
+#X obj 653 11 preset.float;
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Named float preset entry. Can store/load up to 256 various
+float values;
+#X text 50 176 change the value;
+#X msg 107 205 store 0;
+#X msg 126 234 load 0;
+#X msg 155 263 clear 0;
+#X floatatom 50 292 5 0 0 0 - - -;
+#X obj 107 292 preset.float f1;
+#X obj 50 335 ui.hsl;
+#X msg 50 363 interp \$1;
+#X text 165 363 interpolate between first and second preset;
+#X obj 50 392 ui.preset @size 102 42;
+#X text 165 392 Shift+click to store preset;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 471 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 506 Left-click;
+#X text 285 506 open preset editor.;
+#X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 541 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 544 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 576 1\.;
+#X text 150 576 symbol;
+#X obj 246 577 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 576 ID: preset id (should be unique in most use cases).
+Тип: symbol.;
+#X text 110 611 2\.;
+#X text 150 611 float;
+#X obj 246 612 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 611 INIT: preset initial value. Тип: float.;
+#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 646 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 649 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 681 @global;
+#X text 245 681 use global path like /ID. Значение по умолчанию: 0\.;
+#X msg 110 711 @id;
+#X text 245 711 (при инициализации) Получить/Установить preset id.
+Тип: symbol.;
+#X msg 110 753 @init;
+#X text 245 753 (при инициализации) Получить/Установить init float
+value. Тип: float. Значение по умолчанию: 0\.;
+#X msg 110 795 @subpatch;
+#X text 245 795 include subpatch name to path. Значение по умолчанию:
+0\.;
+#X msg 110 825 @path?;
+#X text 245 825 (только чтение) Получить property OSC-like path that
+includes id \, abstraction name and may be subpatch name separated
+by slashes. Тип: symbol.;
+#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 897 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 932 clear;
+#X text 245 932 clear preset at specified index.;
+#X msg 110 960 interp;
+#X text 245 960 linearly interpolate between preset indexes and output.;
+#X msg 110 988 load;
+#X text 245 988 load preset value by specified index and output it.;
+#X msg 110 1016 store;
+#X text 245 1016 stores preset value at specified index.;
+#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1059 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1060 1\.;
+#X text 150 1060 *float*;
+#X text 245 1060 set preset value without output.;
+#X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1095 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1096 1\.;
+#X text 245 1096 preset float value.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title preset @url ceammc.preset-help.pd;
+#X obj 1 1146 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1149 библиотека: ceammc v0.9.8;
+#X text 312 1161 смотрите также:;
+#X obj 433 1161 preset.storage;
+#X obj 550 1161 preset.symbol;
+#X obj 660 1161 preset.list;
+#N canvas 10 1168 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 preset.float;
+#X text 10 76 категория:;
+#X text 120 76 preset;
+#X text 10 98 с версии:;
+#X text 120 98 0.4;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 preset \, storage \, float;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1168 pd info;
+#X connect 8 0 12 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 13 0 14 0;
+#X connect 14 0 16 0;
+#X connect 11 0 12 0;
+#X connect 12 0 11 0;

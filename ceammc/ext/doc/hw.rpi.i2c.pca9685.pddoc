@@ -42,11 +42,13 @@
             property</argument>
         </arguments>
         <properties>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">I²C bus</property>
+            <!-- @i2c_addr -->
             <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
             access="initonly">I²C address. Also 'default' value is accepted (for addr
             0x40)</property>
+            <!-- @i2c_bus -->
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
         </properties>
         <methods>
             <!-- const -->
@@ -56,6 +58,10 @@
             <param name="VALUE" type="bool" required="true">value</param>
             <param name="DELAY" type="float" required="false" minvalue="0" maxvalue="1">the setting
             is delayed by the given phase value.</param></method>
+            <!-- disable_prog_addr -->
+            <method name="disable_prog_addr">disable of using programmable address 
+            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
+            type</param></method>
             <!-- duty -->
             <method name="duty">set channel PWM duty cycle 
             <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
@@ -69,6 +75,9 @@
             the device is keeping all current PWM setting, but just not responds to the new
             settings. 
             <param name="STATE" type="bool" default="1">new state</param></method>
+            <!-- enable_restart_and_disable -->
+            <method name="enable_restart_and_disable">put the controller to sleep while keeping the
+            PWM register contents in preparation for a future restart</method>
             <!-- freq -->
             <method name="freq">set PWM frequency 
             <param name="FREQ" type="float" units="hertz" required="true" minvalue="24"
@@ -81,14 +90,6 @@
             <method name="polarity">set PWM inversed polarity. Applicable when OE = 0. 
             <param name="POLARITY" type="bool" required="true">polarity value: 0 - direct, 1 -
             inversed</param></method>
-            <!-- set raw -->
-            <method name="set_raw">set channel raw PWM frequency 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
-            channel. If equals to 16 means all channels</param>
-            <param name="ON" type="int" minvalue="0" maxvalue="4095" required="true">ON counter
-            time value</param>
-            <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
-            time value</param></method>
             <!-- pwidth -->
             <method name="pwidth">set channel PWM pulse width 
             <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
@@ -97,22 +98,23 @@
             units="millisecond">pulse width</param>
             <param name="PHASE" type="float" required="false" minvalue="0" maxvalue="1">phase
             offset</param></method>
+            <!-- restart -->
+            <method name="restart">re-enable the controller after a sleep with restart enabled so
+            that previously active PWM channels are restarted</method>
+            <!-- set_raw -->
+            <method name="set_raw">set channel raw PWM frequency 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
+            channel. If equals to 16 means all channels</param>
+            <param name="ON" type="int" minvalue="0" maxvalue="4095" required="true">ON counter
+            time value</param>
+            <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
+            time value</param></method>
             <!-- use_prog_addr -->
             <method name="use_prog_addr">set and use programmable address 
             <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
             type</param>
             <param name="I2C_ADDR" type="int" required="true" minvalue="7" maxvalue="119">new I²C
             address</param></method>
-            <!-- disable_prog_addr -->
-            <method name="disable_prog_addr">disable of using programmable address 
-            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
-            type</param></method>
-            <!-- restart -->
-            <method name="restart">re-enable the controller after a sleep with restart enabled so
-            that previously active PWM channels are restarted</method>
-            <!-- enable_restart_and_disable -->
-            <method name="enable_restart_and_disable">put the controller to sleep while keeping the
-            PWM register contents in preparation for a future restart</method>
         </methods>
         <inlets>
             <inlet>

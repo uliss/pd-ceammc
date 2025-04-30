@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">planewaves amp control</tr>
+                <tr lang="en">2D planewaves amplitude control</tr>
+                <tr lang="ru">контроль амплитуды двумерных плоских волн</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,9 +27,6 @@
             plane wave domain.</par>
             <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
         </info>
-        <arguments>
-            <argument name="N" type="int" minvalue="1">number of planewave channels</argument>
-        </arguments>
         <mouse>
             <event type="drag" editmode="false">change the single amp value</event>
             <event type="drag" editmode="false" keys="Shift">change the all amp values</event>
@@ -40,69 +38,95 @@
             <event type="right-click" editmode="true" keys="Shift">open object help</event>
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
+        <arguments>
+            <argument name="N" type="int" minvalue="1">number of planewave channels</argument>
+        </arguments>
         <properties>
-            <property name="@min" type="float" default="0">minimum amp value</property>
-            <property name="@max" type="float" default="1">maximum amp value</property>
-            <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">number of
-            channels</property>
-            <property name="@sp_color" type="list" default="0.27 0.43 0.54 1">space
-            color</property>
-            <property name="@pt_color" type="list" default="0 0 0 1">point color</property>
-            <!-- common-->
-            <property name="@size" type="list" default="120 120">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
-            <!-- common -->
-            <property name="@presetname" type="symbol" category="basic" default="(null)">preset
-            name for using with [ui.preset]</property>
-            <property name="@send" type="symbol" category="basic" default="(null)">send
-            destination</property>
-            <property name="@receive" type="symbol" category="basic" default="(null)">receive
-            source</property>
-            <!-- label -->
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @label -->
             <property name="@label" type="symbol" default="(null)">label text</property>
-            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
-            within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
-            outer).</property>
+            <!-- @label_align -->
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
-            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
-            label vertical align</property>
-            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
-            label snap side</property>
+            <!-- @label_color -->
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <!-- @label_inner -->
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <!-- @label_margins -->
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
+            <!-- @label_side -->
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <!-- @label_valign -->
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <!-- @max -->
+            <property name="@max" type="float" default="1">maximum amp value</property>
+            <!-- @min -->
+            <property name="@min" type="float" default="0">minimum amp value</property>
+            <!-- @nch -->
+            <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">number of
+            channels</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @presetname -->
+            <property name="@presetname" type="symbol" category="basic" default="(null)">preset
+            name for using with [ui.preset]</property>
+            <!-- @pt_color -->
+            <property name="@pt_color" type="list" default="0 0 0 1">point color</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" category="basic" default="(null)">receive
+            source</property>
+            <!-- @send -->
+            <property name="@send" type="symbol" category="basic" default="(null)">send
+            destination</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="120 120">element size (width, height
+            pair)</property>
+            <!-- @sp_color -->
+            <property name="@sp_color" type="list" default="0.27 0.43 0.54 1">space
+            color</property>
         </properties>
         <methods>
+            <!-- clear -->
+            <method name="clear" category="preset">clears specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- interp -->
+            <method name="interp">interplolates between presets 
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
+            <!-- load -->
+            <method name="load" category="preset">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
-            <!-- presets -->
-            <method name="load" category="preset">loads specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- store -->
             <method name="store" category="preset">stores specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="clear" category="preset">clears specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="interp">interplolates between presets 
-            <param name="IDX" type="float" required="true">preset fraction index</param></method>
         </methods>
         <inlets>
             <inlet>

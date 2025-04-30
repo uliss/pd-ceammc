@@ -28,6 +28,7 @@
             path to ceammc library directory</par>
         </info>
         <properties>
+            <!-- @any -->
             <property name="@any" type="flag" default="0" access="initonly">if specified - also do
             substitution in message selector</property>
         </properties>

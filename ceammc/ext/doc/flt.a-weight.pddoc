@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">convert frequency to A-weight value</tr>
+                <tr lang="ru">вычисляет А-взвешенное значение для данной частоты</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -16,6 +17,7 @@
             <since>0.9.5</since>
         </meta>
         <properties>
+            <!-- @db -->
             <property name="@db" type="flag" default="0" access="initonly">output in
             decibels</property>
         </properties>

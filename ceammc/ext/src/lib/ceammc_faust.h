@@ -14,10 +14,7 @@
 #ifndef CEAMMC_FAUST_H
 #define CEAMMC_FAUST_H
 
-#include <algorithm>
 #include <boost/lockfree/spsc_queue.hpp>
-#include <cassert>
-#include <cctype>
 #include <cstdint>
 #include <cstring>
 #include <initializer_list>
@@ -50,8 +47,8 @@ private:
     {
 #if defined(__arm64__) || defined(__aarch64__)
         asm volatile("msr fpcr, %0"
-                     :
-                     : "ri"(fpsr_aux));
+            :
+            : "ri"(fpsr_aux));
 #elif defined(__SSE__)
         // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
         // which aggressively optimises away the variable otherwise
@@ -64,7 +61,7 @@ private:
     {
 #if defined(__arm64__) || defined(__aarch64__)
         asm volatile("mrs %0, fpcr"
-                     : "=r"(fpsr));
+            : "=r"(fpsr));
 #elif defined(__SSE__)
         fpsr = static_cast<intptr_t>(_mm_getcsr());
 #endif
@@ -119,7 +116,7 @@ namespace faust {
         bool setList(const AtomListView& lv) override;
         AtomList get() const override;
         t_float value() const;
-        void setValue(t_float v, bool clip = false) const;
+        bool setValue(t_float v, bool clip = false) const;
 
         bool getFloat(t_float& res) const override;
 
@@ -205,8 +202,8 @@ namespace faust {
         void createUIProperties();
 
         // osc bind
-        void bindUIElements(const std::vector<UIElementPtr>& ui, const OscSegmentList& prefix);
-        void bindUIElement(UIElement* ui, const OscSegmentList& prefix);
+        void bindUIElements(const std::vector<UIProperty*>& ui, const OscSegmentList& prefix);
+        void bindUIElement(UIProperty* ui, const OscSegmentList& prefix);
         void unbindUIElements();
 
     private:
@@ -215,7 +212,7 @@ namespace faust {
 
     public:
         struct QueueElement {
-            UIElement* ui;
+            UIProperty* ui;
             FAUSTFLOAT value;
         };
 
@@ -230,6 +227,7 @@ namespace faust {
         SymbolProperty* id_ { nullptr }; // object id (used in OSC addressed)
         MetersData meters_;
         MetersFn clock_fn_;
+        std::vector<UIProperty*> osc_props_;
     };
 
     bool isGetAllProperties(t_symbol* s);

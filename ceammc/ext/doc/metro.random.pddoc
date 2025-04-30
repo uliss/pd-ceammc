@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">metro random bang with specified range</tr>
+                <tr lang="en">a metronome with a random period selection within a specified
+                range</tr>
+                <tr lang="ru">метроном со случайным выбором периода в указанном диапазоне</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,10 +31,13 @@
             interval</argument>
         </arguments>
         <properties>
-            <property name="@min" type="int" units="millisecond" minvalue="1" default="100">minimal
-            bang interval</property>
+            <!-- @max -->
             <property name="@max" type="int" units="millisecond" minvalue="1" default="200">maximum
             bang interval</property>
+            <!-- @min -->
+            <property name="@min" type="int" units="millisecond" minvalue="1" default="100">minimal
+            bang interval</property>
+            <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>

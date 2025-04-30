@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if string contains specified substring</tr>
+                <tr lang="en">checks if the string contains specified substring</tr>
+                <tr lang="ru">проверяет, содержит ли строка указанную подстроку</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,6 +26,7 @@
             <argument name="SUBJ" type="symbol">searched substring</argument>
         </arguments>
         <properties>
+            <!-- @subj -->
             <property name="@subj" type="symbol" default="">searched substring</property>
         </properties>
         <inlets>

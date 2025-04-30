@@ -73,12 +73,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.5."
+#define FAUSTVERSION "2.74.3"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
 #define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 5.
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -194,14 +194,14 @@ class FAUST_API synth_clap_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state.
+         * Init instance state
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state.
+         * Init instance constant state
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,14 +221,14 @@ class FAUST_API synth_clap_dsp {
         virtual synth_clap_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -645,6 +645,8 @@ class synth_clap : public synth_clap_dsp {
 	}
 	
 	void metadata(Meta* m) { 
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_clap -scn synth_clap_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("envelopes.lib/adsr:author", "Yann Orlarey and Andrey Bundin");
 		m->declare("envelopes.lib/author", "GRAME");
@@ -659,7 +661,7 @@ class synth_clap : public synth_clap_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/resonlp:author", "Julius O. Smith III");
 		m->declare("filters.lib/resonlp:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -764,6 +766,8 @@ class synth_clap : public synth_clap_dsp {
 		ui_interface->openVerticalBox("synth.clap");
 		ui_interface->declare(&fVslider0, "unit", "ms");
 		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4e+02f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fCheckbox0, "max", "1");
+		ui_interface->declare(&fCheckbox0, "min", "0");
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider1, "unit", "ms");
@@ -797,7 +801,7 @@ class synth_clap : public synth_clap_dsp {
 			float fTemp6 = 1.0f / fTemp5;
 			float fTemp7 = (fTemp6 + 0.82372326f) / fTemp5 + 1.0f;
 			fRec0[0] = 4.656613e-10f * float(iRec1[0]) * (std::max<float>(0.0f, std::min<float>(fRec2[0] / fTemp0, std::max<float>((fTemp0 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.06f)) + 1.0f, 0.0f)) * fTemp1) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp2, std::max<float>((fTemp2 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.05f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp3, std::max<float>((fTemp3 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.04f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp4, std::max<float>((fTemp4 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.02f)) + 1.0f, 0.0f)))) - (fRec0[2] * ((fTemp6 + -0.82372326f) / fTemp5 + 1.0f) + 2.0f * fRec0[1] * (1.0f - 1.0f / synth_clap_faustpower2_f(fTemp5))) / fTemp7;
-			output0[i0] = FAUSTFLOAT(tanhf((2.0f * fRec0[1] + fRec0[0] + fRec0[2]) / fTemp7));
+			output0[i0] = FAUSTFLOAT(tanhf((fRec0[2] + fRec0[0] + 2.0f * fRec0[1]) / fTemp7));
 			iRec1[1] = iRec1[0];
 			fVec0[1] = fVec0[0];
 			fRec2[1] = fRec2[0];

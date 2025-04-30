@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">value synchronization</tr>
+                <tr lang="en">synchronization of multiple values without overflowing stack
+                loops</tr>
+                <tr lang="ru">синхронизация нескольких значений без переполняющих стек петель</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,6 +29,7 @@
             values</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" minvalue="2" default="2" maxvalue="8" access="initonly">
             number of synced values</property>
         </properties>

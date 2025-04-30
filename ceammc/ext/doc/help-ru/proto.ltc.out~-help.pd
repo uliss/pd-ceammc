@@ -1,0 +1,134 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 675 50 cnv 1 90 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 680 50 LTC encoder;
+#X obj 1 1 cnv 5 765 40 empty empty proto.ltc.out~ 20 20 0 20 -104026
+-4096 0;
+#X obj 554 11 ltc.out~;
+#X obj 638 11 proto.ltc.out~;
+#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 107 118 date 83 1 11;
+#X obj 270 118 ui.hsl 0.5 4 @show_value 1;
+#X msg 126 162 time 0 4 15;
+#X msg 270 162 @speed \$1;
+#X obj 414 162 ui.dsp~;
+#X obj 69 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 146 190 seek 10sec;
+#X obj 50 219 ltc.out~;
+#X obj 107 248 ui.dt;
+#X obj 50 277 ltc.in~;
+#X obj 50 305 ui.dt;
+#X obj 184 305 ui.dt;
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 360 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 395 @filter;
+#X text 245 395 Получить/Установить output signal filtering. LTC should
+have a rise time of 40us+/-10 us. If you want a perfect square wave
+\, set to 0\. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...500\.;
+#X msg 110 467 @fps;
+#X text 245 467 Получить/Установить frames per second rate. Supported
+values are: 24 \, 25 \, 29.97 \, 30\. Тип: float. Значение по умолчанию:
+25\.;
+#X msg 110 524 @on;
+#X text 245 524 Получить/Установить encoder state. Тип: bool. Значение
+по умолчанию: 0\.;
+#X msg 110 566 @speed;
+#X text 245 566 Получить/Установить playing speed. Тип: float. Значение
+по умолчанию: 1\.;
+#X msg 110 608 @volume;
+#X text 245 608 Получить/Установить output signal level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: -3\. Диапазон: -42\...0\.;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 700 date;
+#X text 245 700 set current date. Аргументы:;
+#X obj 255 723 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 723 YEAR: year. Тип: int. Диапазон: 0…3000\.;
+#X obj 255 746 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 746 MONTH: month. Тип: int. Диапазон: 1…12\.;
+#X obj 255 769 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 769 DAY: day. Тип: int. Диапазон: 1…31\.;
+#X obj 255 792 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 792 [TIMEZONE]: timezone in +HHMM format. Тип: symbol.;
+#X msg 110 817 seek;
+#X text 245 817 time seek. Аргументы:;
+#X obj 255 840 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 840 UNIT: relative position seek. If float or int - seek
+in frames \, otherwise units are expected. Supported units are: day
+\, hour \, min \, sec. E.g.: 1day \, 3hour \, 5min \, 11sec etc. Тип:
+atom.;
+#X msg 110 910 time;
+#X text 245 910 set current time. Аргументы:;
+#X obj 255 933 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 933 HOUR: hour. Тип: int. Диапазон: 0…23\.;
+#X obj 255 956 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 956 MIN: minute. Тип: int. Диапазон: 0…59\.;
+#X obj 255 979 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 979 SEC: second. Тип: int. Диапазон: 0…59\.;
+#X obj 255 1002 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1002 [FRAME]: frame number. Тип: int. Диапазон: 0…30\.;
+#X obj 20 1037 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1042 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1043 1\.;
+#X text 150 1043 *bang*;
+#X text 245 1043 output current time to second outlet.;
+#X text 150 1063 *bool*;
+#X text 245 1063 switch on/off encoder process.;
+#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1098 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1099 1\.;
+#X text 245 1099 LTC signal.;
+#X text 110 1119 2\.;
+#X text 245 1119 list: HOUR MINUTE SECOND FRAME.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
+#X obj 1 1169 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1172 библиотека: ceammc v0.9.8;
+#X text 567 1184 смотрите также:;
+#X obj 688 1184 ltc.in~;
+#N canvas 10 1191 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 proto.ltc.out~;
+#X text 10 76 категория:;
+#X text 120 76 proto;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.7;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 parser \, ltc;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1191 pd info;
+#X connect 7 0 9 0;
+#X connect 5 0 13 0;
+#X connect 11 0 13 0;
+#X connect 6 0 13 0;
+#X connect 8 0 13 0;
+#X connect 12 0 13 0;
+#X connect 9 0 13 0;
+#X connect 13 1 14 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;

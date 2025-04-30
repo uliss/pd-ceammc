@@ -20,18 +20,26 @@
             <argument name="PATH" type="atom">See @path</argument>
         </arguments>
         <properties>
-            <property name="@norm" type="bool" default="1">normalize path</property>
-            <property name="@path" type="atom" default="">current path value</property>
+            <!-- @async -->
             <property name="@async" type="bool" default="1">use async operations</property>
+            <!-- @norm -->
+            <property name="@norm" type="bool" default="1">normalize path</property>
+            <!-- @path -->
+            <property name="@path" type="atom" default="">current path value</property>
         </properties>
         <methods>
+            <!-- exists -->
             <method name="exists">checks if path exists. Output [exists VALUE( message</method>
-            <method name="type">request path type. Output [type TYPE( message, where type is one
-            of: regular, dir, symlink, char, block, fifo, socket</method>
+            <!-- info -->
             <method name="info">request path information. Output [info DICT(</method>
-            <method name="size">request file size in bytes. Output [size BYTES(</method>
+            <!-- permissions -->
             <method name="permissions">request path permissions. Output [permissions
             VALUE(</method>
+            <!-- size -->
+            <method name="size">request file size in bytes. Output [size BYTES(</method>
+            <!-- type -->
+            <method name="type">request path type. Output [type TYPE( message, where type is one
+            of: regular, dir, symlink, char, block, fifo, socket</method>
         </methods>
         <inlets>
             <inlet>

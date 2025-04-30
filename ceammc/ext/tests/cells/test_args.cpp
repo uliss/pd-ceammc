@@ -366,6 +366,15 @@ TEST_CASE("args2", "[core]")
     SECTION("ArgCheck")
     {
         using namespace args;
+        REQUIRE(ArgChecker("i? i? i?").check(L(), nullptr));
+        REQUIRE(ArgChecker("i? i? i?").check(LF(1), nullptr));
+        REQUIRE(ArgChecker("i? i? i?").check(LF(1, 2), nullptr));
+        REQUIRE(ArgChecker("i? i? i?").check(LF(1, 2, 3), nullptr));
+    }
+
+    SECTION("ArgCheck")
+    {
+        using namespace args;
         REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE"), nullptr));
         REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "ARGS"), nullptr));
         REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "A1", "A2"), nullptr));

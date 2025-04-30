@@ -28,22 +28,29 @@
             <argument name="ARGS" type="list">execution program chain</argument>
         </arguments>
         <properties>
+            <!-- @args -->
             <property name="@args" type="list" default="">execution program chain</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" default="pd" enum="pd str lines bytes">output
             processing mode. 'pd': output each output line as Pd atom list, 'str': output whole as
             data:string, 'lines': output each output line as data:string, 'bytes': output as byte
             stream</property>
+            <!-- @pwd -->
             <property name="@pwd" type="symbol" default="">process working directory</property>
+            <!-- @stderr -->
             <property name="@stderr" type="bool" default="1">capture stderr</property>
+            <!-- @stdout -->
             <property name="@stdout" type="bool" default="1">capture stdout</property>
+            <!-- @t -->
             <property name="@t" type="int" units="msec" minvalue="5" maxvalue="500" default="100">
             period to check program output</property>
         </properties>
         <methods>
-            <!-- terminate -->
-            <method name="terminate">terminate the running process</method>
+            <!-- stdin -->
             <method name="stdin">run the program with given input values 
             <param name="ARGS" type="list" required="false">the input values</param></method>
+            <!-- terminate -->
+            <method name="terminate">terminate the running process</method>
         </methods>
         <inlets>
             <inlet>

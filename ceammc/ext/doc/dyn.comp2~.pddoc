@@ -34,27 +34,35 @@
             release time = time constant coming out of compression</argument>
         </arguments>
         <properties>
-            <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="16">compression
-            ratio (1 = no compression, &gt;1 means compression)</property>
-            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-90"
-            maxvalue="0">level threshold above which compression kicks in</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @attack -->
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">time constant when level &amp; compression going up</property>
-            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
-            maxvalue="500">release time = time constant coming out of compression</property>
+            <!-- @bypass -->
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <!-- @gain -->
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-18"
             maxvalue="18">make up gain: applied to the signal after the compression takes
             place</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <!-- @level -->
             <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
             access="readonly">current level of compression</property>
-            <!-- faust common -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @ratio -->
+            <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="16">compression
+            ratio (1 = no compression, &gt;1 means compression)</property>
+            <!-- @refresh -->
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">compression level output time interval. If 0 - no output</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
+            <!-- @release -->
+            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
+            maxvalue="500">release time = time constant coming out of compression</property>
+            <!-- @threshold -->
+            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-90"
+            maxvalue="0">level threshold above which compression kicks in</property>
         </properties>
         <methods>
             <!-- preset -->

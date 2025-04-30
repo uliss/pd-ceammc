@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">normalizes float list values to get their sum = 1.0</tr>
+                <tr lang="en">normalizes numeric list values to get their sum equal to 1.0</tr>
+                <tr lang="ru">нормализует числовые значения списка, чтобы их сумма была равна
+                единице</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,10 +23,13 @@
             <par>2. by value range - maps all values to range 0..1 lineary</par>
         </info>
         <properties>
+            <!-- @by -->
             <property name="@by" type="symbol" enum="sum range" default="sum">normalization
             mode</property>
-            <property name="@sum" type="alias">alias to @by sum</property>
+            <!-- @range -->
             <property name="@range" type="alias">alias to @by range</property>
+            <!-- @sum -->
+            <property name="@sum" type="alias">alias to @by sum</property>
         </properties>
         <inlets>
             <inlet>

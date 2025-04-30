@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">converts BPM to frequency in hertz</tr>
+                <tr lang="en">converts BPM tempo into a frequency in hertz</tr>
+                <tr lang="ru">преобразует темп BPM в частоту в герцах</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

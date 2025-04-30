@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 500 50 cnv 1 265 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 500 50 routes input flow to random outlet;
+#X obj 401 50 cnv 1 364 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 406 50 routes the input message into the random outlet;
 #X obj 1 1 cnv 5 765 40 empty empty route.random 20 20 0 20 -104026
 -4096 0;
 #X obj 578 11 route.r;

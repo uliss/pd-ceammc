@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">separate any messages from bangs, floats, symbols and lists</tr>
+                <tr lang="en">separates data messages from others</tr>
+                <tr lang="ru">отделяет сообщения с данными от других</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -28,6 +29,7 @@
             <argument name="TYPE" type="symbol">routed data type name (optional)</argument>
         </arguments>
         <properties>
+            <!-- @type -->
             <property name="@type" type="symbol" default="" access="initonly">routed data type
             name</property>
         </properties>

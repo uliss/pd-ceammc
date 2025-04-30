@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------
 name: "fx.echo"
 version: "0.3"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_echo -scn fx_echo_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_echo -scn fx_echo_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_echo_H__
@@ -44,6 +44,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -72,7 +73,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -222,23 +229,48 @@ class FAUST_API fx_echo_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -271,6 +303,8 @@ class FAUST_API decorator_dsp : public fx_echo_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -290,16 +324,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual fx_echo_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -567,6 +622,7 @@ class fx_echo : public fx_echo_dsp {
 	
 	FAUSTFLOAT fCheckbox0;
 	int fSampleRate;
+	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fConst2;
@@ -600,16 +656,19 @@ class fx_echo : public fx_echo_dsp {
 	float fRec1[2097152];
 	
  public:
+	fx_echo() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_echo -scn fx_echo_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_echo -scn fx_echo_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("compressors.lib/FFcompressor_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/FFcompressor_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
@@ -617,9 +676,9 @@ class fx_echo : public fx_echo_dsp {
 		m->declare("compressors.lib/peak_compression_gain_N_chan_db:license", "GPLv3");
 		m->declare("compressors.lib/peak_compression_gain_mono_db:author", "Bart Brouns");
 		m->declare("compressors.lib/peak_compression_gain_mono_db:license", "GPLv3");
-		m->declare("compressors.lib/version", "0.4");
+		m->declare("compressors.lib/version", "1.6.0");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.1");
+		m->declare("delays.lib/version", "1.1.0");
 		m->declare("filename", "fx_echo.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -629,7 +688,7 @@ class fx_echo : public fx_echo_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -641,21 +700,21 @@ class fx_echo : public fx_echo_dsp {
 		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "fx.echo");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.2");
+		m->declare("routes.lib/version", "1.2.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 		m->declare("version", "0.3");
 	}
 
@@ -671,7 +730,7 @@ class fx_echo : public fx_echo_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 1e+01f * fConst0;
@@ -742,6 +801,7 @@ class fx_echo : public fx_echo_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -790,23 +850,23 @@ class fx_echo : public fx_echo_dsp {
 		float fSlow3 = fConst1 * float(fHslider1);
 		float fSlow4 = 0.0441f * float(fHslider2);
 		float fSlow5 = 1.0f / float(int(fConst4 * float(fHslider3)));
-		float fSlow6 = 0.0f - fSlow5;
-		float fSlow7 = float(fHslider4);
-		float fSlow8 = float(fHslider5);
-		float fSlow9 = fSlow8 + -1.5f;
-		float fSlow10 = fSlow8 + 1.5f;
-		float fSlow11 = 0.001f * float(fHslider6);
-		int iSlow12 = std::fabs(fSlow11) < 1.1920929e-07f;
-		float fSlow13 = ((iSlow12) ? 0.0f : std::exp(0.0f - fConst5 / ((iSlow12) ? 1.0f : fSlow11)));
-		float fSlow14 = 0.001f * float(fHslider7);
-		int iSlow15 = std::fabs(fSlow14) < 1.1920929e-07f;
-		float fSlow16 = ((iSlow15) ? 0.0f : std::exp(0.0f - fConst5 / ((iSlow15) ? 1.0f : fSlow14)));
-		float fSlow17 = std::tan(fConst6 * float(fHslider8));
-		float fSlow18 = 1.0f / fSlow17;
-		float fSlow19 = 1.0f / ((fSlow18 + 0.76536685f) / fSlow17 + 1.0f);
-		float fSlow20 = fx_echo_faustpower2_f(fSlow17);
-		float fSlow21 = 1.0f / fSlow20;
-		float fSlow22 = 1.0f / ((fSlow18 + 1.847759f) / fSlow17 + 1.0f);
+		float fSlow6 = float(fHslider4);
+		float fSlow7 = float(fHslider5);
+		float fSlow8 = fSlow7 + -1.5f;
+		float fSlow9 = fSlow7 + 1.5f;
+		float fSlow10 = 0.001f * float(fHslider6);
+		int iSlow11 = std::fabs(fSlow10) < 1.1920929e-07f;
+		float fSlow12 = ((iSlow11) ? 0.0f : std::exp(-(fConst5 / ((iSlow11) ? 1.0f : fSlow10))));
+		float fSlow13 = 0.001f * float(fHslider7);
+		int iSlow14 = std::fabs(fSlow13) < 1.1920929e-07f;
+		float fSlow15 = ((iSlow14) ? 0.0f : std::exp(-(fConst5 / ((iSlow14) ? 1.0f : fSlow13))));
+		float fSlow16 = std::tan(fConst6 * float(fHslider8));
+		float fSlow17 = fx_echo_faustpower2_f(fSlow16);
+		float fSlow18 = 1.0f / fSlow16;
+		float fSlow19 = (fSlow18 + 0.76536685f) / fSlow16 + 1.0f;
+		float fSlow20 = 1.0f / (fSlow17 * fSlow19);
+		float fSlow21 = (fSlow18 + 1.847759f) / fSlow16 + 1.0f;
+		float fSlow22 = 1.0f / (fSlow17 * fSlow21);
 		float fSlow23 = std::tan(fConst6 * float(fHslider9));
 		float fSlow24 = 1.0f / fSlow23;
 		float fSlow25 = 1.0f / ((fSlow24 + 0.76536685f) / fSlow23 + 1.0f);
@@ -814,17 +874,18 @@ class fx_echo : public fx_echo_dsp {
 		float fSlow27 = (fSlow24 + -1.847759f) / fSlow23 + 1.0f;
 		float fSlow28 = 2.0f * (1.0f - 1.0f / fx_echo_faustpower2_f(fSlow23));
 		float fSlow29 = (fSlow24 + -0.76536685f) / fSlow23 + 1.0f;
-		float fSlow30 = (fSlow18 + -1.847759f) / fSlow17 + 1.0f;
-		float fSlow31 = 2.0f * (1.0f - fSlow21);
-		float fSlow32 = 0.0f - 2.0f / fSlow20;
-		float fSlow33 = (fSlow18 + -0.76536685f) / fSlow17 + 1.0f;
+		float fSlow30 = 1.0f / fSlow21;
+		float fSlow31 = (fSlow18 + -1.847759f) / fSlow16 + 1.0f;
+		float fSlow32 = 2.0f * (1.0f - 1.0f / fSlow17);
+		float fSlow33 = 1.0f / fSlow19;
+		float fSlow34 = (fSlow18 + -0.76536685f) / fSlow16 + 1.0f;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = ((iSlow0) ? 0.0f : fTemp0);
 			fRec0[0] = fSlow1 + fConst2 * fRec0[1];
 			fRec2[0] = fSlow3 + fConst2 * fRec2[1];
 			fRec7[0] = fSlow4 + fConst2 * fRec7[1];
-			float fTemp2 = ((fRec3[1] != 0.0f) ? (((fRec4[1] > 0.0f) & (fRec4[1] < 1.0f)) ? fRec3[1] : 0.0f) : (((fRec4[1] == 0.0f) & (fRec7[0] != fRec5[1])) ? fSlow5 : (((fRec4[1] == 1.0f) & (fRec7[0] != fRec6[1])) ? fSlow6 : 0.0f)));
+			float fTemp2 = ((fRec3[1] != 0.0f) ? (((fRec4[1] > 0.0f) & (fRec4[1] < 1.0f)) ? fRec3[1] : 0.0f) : (((fRec4[1] == 0.0f) & (fRec7[0] != fRec5[1])) ? fSlow5 : (((fRec4[1] == 1.0f) & (fRec7[0] != fRec6[1])) ? -fSlow5 : 0.0f)));
 			fRec3[0] = fTemp2;
 			fRec4[0] = std::max<float>(0.0f, std::min<float>(1.0f, fRec4[1] + fTemp2));
 			fRec5[0] = (((fRec4[1] >= 1.0f) & (fRec6[1] != fRec7[0])) ? fRec7[0] : fRec5[1]);
@@ -832,16 +893,16 @@ class fx_echo : public fx_echo_dsp {
 			float fTemp3 = fRec1[(IOTA0 - (int(std::min<float>(fConst3, std::max<float>(0.0f, fRec5[0]))) + 1)) & 2097151];
 			float fTemp4 = fRec2[0] * (fTemp3 + fRec4[0] * (fRec1[(IOTA0 - (int(std::min<float>(fConst3, std::max<float>(0.0f, fRec6[0]))) + 1)) & 2097151] - fTemp3));
 			float fTemp5 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fTemp4)));
-			int iTemp6 = (fTemp5 > fSlow9) + (fTemp5 > fSlow10);
-			float fTemp7 = 0.0f - fSlow7 * std::max<float>(0.0f, ((iTemp6 == 0) ? 0.0f : ((iTemp6 == 1) ? 0.16666667f * fx_echo_faustpower2_f(fTemp5 + 1.5f - fSlow8) : fTemp5 - fSlow8)));
-			float fTemp8 = ((fTemp7 > fRec8[1]) ? fSlow16 : fSlow13);
-			fRec8[0] = fTemp7 * (1.0f - fTemp8) + fRec8[1] * fTemp8;
+			int iTemp6 = (fTemp5 > fSlow8) + (fTemp5 > fSlow9);
+			float fTemp7 = std::max<float>(0.0f, ((iTemp6 == 0) ? 0.0f : ((iTemp6 == 1) ? 0.16666667f * fx_echo_faustpower2_f(fTemp5 + 1.5f - fSlow7) : fTemp5 - fSlow7)));
+			float fTemp8 = ((-(fSlow6 * fTemp7) > fRec8[1]) ? fSlow15 : fSlow12);
+			fRec8[0] = fRec8[1] * fTemp8 - fSlow6 * fTemp7 * (1.0f - fTemp8);
 			float fTemp9 = fTemp4 * std::pow(1e+01f, 0.05f * fRec8[0]);
 			fRec12[0] = fTemp9 - fSlow26 * (fSlow27 * fRec12[2] + fSlow28 * fRec12[1]);
 			fRec11[0] = fSlow26 * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) - fSlow25 * (fSlow29 * fRec11[2] + fSlow28 * fRec11[1]);
-			fRec10[0] = fSlow25 * (fRec11[2] + fRec11[0] + 2.0f * fRec11[1]) - fSlow22 * (fSlow30 * fRec10[2] + fSlow31 * fRec10[1]);
-			fRec9[0] = fSlow22 * (fSlow21 * fRec10[0] + fSlow32 * fRec10[1] + fSlow21 * fRec10[2]) - fSlow19 * (fSlow33 * fRec9[2] + fSlow31 * fRec9[1]);
-			fRec1[IOTA0 & 2097151] = fTemp1 + ((iSlow2) ? fSlow19 * (fSlow21 * fRec9[0] + fSlow32 * fRec9[1] + fSlow21 * fRec9[2]) : fTemp9);
+			fRec10[0] = fSlow25 * (fRec11[2] + fRec11[0] + 2.0f * fRec11[1]) - fSlow30 * (fSlow31 * fRec10[2] + fSlow32 * fRec10[1]);
+			fRec9[0] = fSlow22 * (fRec10[2] + (fRec10[0] - 2.0f * fRec10[1])) - fSlow33 * (fSlow34 * fRec9[2] + fSlow32 * fRec9[1]);
+			fRec1[IOTA0 & 2097151] = fTemp1 + ((iSlow2) ? fSlow20 * (fRec9[2] + (fRec9[0] - 2.0f * fRec9[1])) : fTemp9);
 			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * fRec1[IOTA0 & 2097151]));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];

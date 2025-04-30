@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">digitized CryBaby wah pedal</tr>
+                <tr lang="ru">педаль CryBaby WahWah</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,18 +22,23 @@
             automatisation speed</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @angle -->
             <property name="@angle" type="float" minvalue="0" maxvalue="1" default="0.6">pedal
             angle</property>
-            <property name="@speed" type="float" minvalue="360" maxvalue="780" default="540"
-            units="bpm">automatisation speed</property>
+            <!-- @bypass -->
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
+            <!-- @speed -->
+            <property name="@speed" type="float" minvalue="360" maxvalue="780" default="540"
+            units="bpm">automatisation speed</property>
         </properties>
         <methods>
             <!-- reset -->

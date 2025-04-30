@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.gain2~" type="gui">
         <title>ui.gain2~</title>
         <meta>
@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">UI stereo gain control</tr>
+                <tr lang="en">stereo gain control</tr>
+                <tr lang="ru">контроль громкости стерео</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -40,71 +41,99 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
-            units="decibel">maximum gain value</property>
-            <property name="@min" type="int" minvalue="-90" maxvalue="-15" default="-60"
-            units="decibel">minimal gain value</property>
-            <property name="@db" type="float" units="decibel" default="-60">gain in dbfs
-            scale</property>
+            <!-- @amp -->
             <property name="@amp" type="float" default="0">gain as amplitude ratio</property>
-            <property name="@output_value" type="bool" default="0">flag to output @db property
-            after each knob move</property>
-            <property name="@relative" type="bool" default="1">relative input mode. When set do not
-            jump to value on click.</property>
-            <property name="@show_range" type="bool" default="1">if show slider range</property>
-            <property name="@presetname" type="symbol" default="(null)">preset name for using with
-            [ui.preset]</property>
-            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
-            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="15 120">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
-            <property name="@knob_color" type="list" default="0 0.75 1 1">knob color (list of red,
-            green, blue values in 0-1 range)</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <!-- font -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <!-- @db -->
+            <property name="@db" type="float" units="decibel" default="-60">gain in dbfs
+            scale</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
-            <!-- MIDI -->
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @knob_color -->
+            <property name="@knob_color" type="list" default="0 0.75 1 1">knob color (list of red,
+            green, blue values in 0-1 range)</property>
+            <!-- @max -->
+            <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
+            units="decibel">maximum gain value</property>
+            <!-- @midi_channel -->
             <property name="@midi_channel" type="int" minvalue="0" maxvalue="255" default="0">
             binded MIDI channel. 0 means listen to all channels</property>
+            <!-- @midi_control -->
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
             binded MIDI controller number. -1 means not binded to any controller.</property>
+            <!-- @midi_pickup -->
             <property name="@midi_pickup" type="bool" default="1">pickup current value. If slider
             is binded to value, first time you should pass over this value to make binding. It
             prevents from sudden value change on first control change</property>
+            <!-- @min -->
+            <property name="@min" type="int" minvalue="-90" maxvalue="-15" default="-60"
+            units="decibel">minimal gain value</property>
+            <!-- @mouse_events -->
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <!-- @output_value -->
+            <property name="@output_value" type="bool" default="0">flag to output @db property
+            after each knob move</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @presetname -->
+            <property name="@presetname" type="symbol" default="(null)">preset name for using with
+            [ui.preset]</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @relative -->
+            <property name="@relative" type="bool" default="1">relative input mode. When set do not
+            jump to value on click.</property>
+            <!-- @send -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <!-- @show_range -->
+            <property name="@show_range" type="bool" default="1">if show slider range</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="15 120">element size (width, height
+            pair)</property>
         </properties>
         <methods>
+            <!-- + N -->
             <method name="+ N">increase current gain by N db</method>
-            <method name="- N">decrease current gain by N db</method>
+            <!-- ++ -->
             <method name="++">decrease current gain by 1 db</method>
+            <!-- - N -->
+            <method name="- N">decrease current gain by N db</method>
             <method name="--">decrease current gain by 1 db</method>
-            <method name="set N">set current gain to N db</method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- clear -->
             <method name="clear">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- interp -->
             <method name="interp">interplolates between presets 
             <param name="IDX" type="float" required="true">preset fraction index</param></method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- set N -->
+            <method name="set N">set current gain to N db</method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet type="audio">

@@ -39,38 +39,50 @@
             release time = time constant coming out of compression</argument>
         </arguments>
         <properties>
-            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">strength
-            of the compression (0 = no compression, 1 means hard limiting, &gt;1 means
-            over-compression)</property>
-            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
-            maxvalue="0">level threshold above which compression kicks in (100 dB = max
-            level)</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @attack -->
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">time constant when level &amp; compression going up</property>
-            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
-            maxvalue="500">release time = time constant coming out of compression</property>
+            <!-- @bypass -->
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <!-- @gain -->
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-18"
             maxvalue="18">make up gain: applied to the signal after the compression takes
             place</property>
+            <!-- @knee -->
             <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
             maxvalue="6">a gradual increase in gain reduction around the threshold: below
             thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
             gain reduction as without a knee, and in between there is a gradual increase in gain
             reduction</property>
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <!-- @level0 -->
+            <property name="@level0" type="float" default="0" minvalue="0" maxvalue="1"
+            access="readonly">current level of compression of first channel</property>
+            <!-- @level1 -->
+            <property name="@level1" type="float" default="0" minvalue="0" maxvalue="1"
+            access="readonly">current level of compression of second channel</property>
+            <!-- @link -->
             <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">the amount of
             linkage between the channels: 0 = each channel is independent, 1 = all channels have
             the same amount of gain reduction</property>
-            <property name="@level0" type="float" default="0" minvalue="0" maxvalue="1"
-            access="readonly">current level of compression of first channel</property>
-            <property name="@level1" type="float" default="0" minvalue="0" maxvalue="1"
-            access="readonly">current level of compression of second channel</property>
+            <!-- @refresh -->
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">compression level output time interval. If 0 - no output</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" />
+            <!-- @release -->
+            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
+            maxvalue="500">release time = time constant coming out of compression</property>
+            <!-- @strength -->
+            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">strength
+            of the compression (0 = no compression, 1 means hard limiting, &gt;1 means
+            over-compression)</property>
+            <!-- @threshold -->
+            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
+            maxvalue="0">level threshold above which compression kicks in (100 dB = max
+            level)</property>
         </properties>
         <methods>
             <!-- reset -->

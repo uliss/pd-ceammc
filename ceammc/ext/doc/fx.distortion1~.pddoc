@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">distortion #1 from Guitarix effects set</tr>
+                <tr lang="ru">дисторшн №1 из набора эффектов Guitarix</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,59 +22,77 @@
             </also>
         </meta>
         <properties>
-            <!-- speaker emulation-->
-            <property name="@sp_low_freq" type="float" units="hertz" minvalue="20" maxvalue="1000"
-            default="130">speaker emulation low frequency</property>
-            <property name="@sp_high_freq" type="float" units="hertz" default="5000"
-            minvalue="1000" maxvalue="12000">speaker emulation high frequency</property>
-            <property name="@sp_on_off" type="bool" default="0">speaker emulation turn
-            on/off</property>
-            <!-- filtering-->
-            <property name="@lp_freq" type="float" units="hertz" default="5000" minvalue="20"
-            maxvalue="12000">low pass frequency</property>
-            <property name="@hp_freq" type="float" units="hertz" default="130" minvalue="20"
-            maxvalue="7040">high pass frequency</property>
-            <property name="@flt_on_off" type="bool" default="0">filter processing</property>
-            <!-- split frequencies -->
-            <property name="@split_low_freq" type="float" units="hertz" default="250" minvalue="20"
-            maxvalue="600">low split frequency</property>
-            <property name="@split_middle_freq" type="float" units="hertz" default="650"
-            minvalue="600" maxvalue="1250">middle split frequency</property>
-            <property name="@split_high_freq" type="float" units="hertz" default="1250"
-            minvalue="1250" maxvalue="12000">high split frequency</property>
-            <!-- gain -->
-            <property name="@level" type="float" default="0.01" minvalue="0" maxvalue="0.5">effect
-            level</property>
-            <property name="@gain" type="float" units="decibel" default="2" minvalue="-10"
-            maxvalue="10">total effect gain</property>
-            <property name="@low_gain" type="float" units="decibel" default="10" minvalue="-10"
-            maxvalue="20">gain on low frequencies</property>
-            <property name="@high_gain" type="float" units="decibel" default="10" minvalue="-10"
-            maxvalue="20">gain on high frequencies</property>
-            <property name="@middle_l_gain" type="float" units="decibel" default="10"
-            minvalue="-10" maxvalue="20">gain on middle low frequencies</property>
-            <property name="@middle_h_gain" type="float" units="decibel" default="10"
-            minvalue="-10" maxvalue="20">gain on middle high frequencies</property>
-            <!-- drive -->
-            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.64">
-            distortion amount</property>
-            <property name="@low_drive" type="float" minvalue="0" maxvalue="1" default="1">
-            distortion amount on low frequencies</property>
-            <property name="@high_drive" type="float" minvalue="0" maxvalue="1" default="1">
-            distortion amount on high frequencies</property>
-            <property name="@middle_l_drive" type="float" minvalue="0" maxvalue="1" default="1">
-            distortion amount on middle low frequencies</property>
-            <property name="@middle_h_drive" type="float" minvalue="0" maxvalue="1" default="1">
-            distortion amount on middle high frequencies</property>
-            <!-- resonator -->
-            <property name="@res_on_off" type="bool" default="0">resonator</property>
-            <property name="@vibrato" type="float" default="1" minvalue="0" maxvalue="1">resonator
-            vibration</property>
-            <property name="@trigger" type="float" default="0.12" minvalue="0" maxvalue="1">
-            resonator trigger</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @drive -->
+            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.64">
+            distortion amount</property>
+            <!-- @flt_on_off -->
+            <property name="@flt_on_off" type="bool" default="0">filter processing</property>
+            <!-- @gain -->
+            <property name="@gain" type="float" units="decibel" default="2" minvalue="-10"
+            maxvalue="10">total effect gain</property>
+            <!-- @high_drive -->
+            <property name="@high_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on high frequencies</property>
+            <!-- @high_gain -->
+            <property name="@high_gain" type="float" units="decibel" default="10" minvalue="-10"
+            maxvalue="20">gain on high frequencies</property>
+            <!-- @hp_freq -->
+            <property name="@hp_freq" type="float" units="hertz" default="130" minvalue="20"
+            maxvalue="7040">high pass frequency</property>
+            <!-- @level -->
+            <property name="@level" type="float" default="0.01" minvalue="0" maxvalue="0.5">effect
+            level</property>
+            <!-- @low_drive -->
+            <property name="@low_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on low frequencies</property>
+            <!-- @low_gain -->
+            <property name="@low_gain" type="float" units="decibel" default="10" minvalue="-10"
+            maxvalue="20">gain on low frequencies</property>
+            <!-- @lp_freq -->
+            <property name="@lp_freq" type="float" units="hertz" default="5000" minvalue="20"
+            maxvalue="12000">low pass frequency</property>
+            <!-- @middle_h_drive -->
+            <property name="@middle_h_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on middle high frequencies</property>
+            <!-- @middle_h_gain -->
+            <property name="@middle_h_gain" type="float" units="decibel" default="10"
+            minvalue="-10" maxvalue="20">gain on middle high frequencies</property>
+            <!-- @middle_l_drive -->
+            <property name="@middle_l_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on middle low frequencies</property>
+            <!-- @middle_l_gain -->
+            <property name="@middle_l_gain" type="float" units="decibel" default="10"
+            minvalue="-10" maxvalue="20">gain on middle low frequencies</property>
+            <!-- @res_on_off -->
+            <property name="@res_on_off" type="bool" default="0">resonator</property>
+            <!-- @sp_high_freq -->
+            <property name="@sp_high_freq" type="float" units="hertz" default="5000"
+            minvalue="1000" maxvalue="12000">speaker emulation high frequency</property>
+            <!-- @sp_low_freq -->
+            <property name="@sp_low_freq" type="float" units="hertz" minvalue="20" maxvalue="1000"
+            default="130">speaker emulation low frequency</property>
+            <!-- @sp_on_off -->
+            <property name="@sp_on_off" type="bool" default="0">speaker emulation turn
+            on/off</property>
+            <!-- @split_high_freq -->
+            <property name="@split_high_freq" type="float" units="hertz" default="1250"
+            minvalue="1250" maxvalue="12000">high split frequency</property>
+            <!-- @split_low_freq -->
+            <property name="@split_low_freq" type="float" units="hertz" default="250" minvalue="20"
+            maxvalue="600">low split frequency</property>
+            <!-- @split_middle_freq -->
+            <property name="@split_middle_freq" type="float" units="hertz" default="650"
+            minvalue="600" maxvalue="1250">middle split frequency</property>
+            <!-- @trigger -->
+            <property name="@trigger" type="float" default="0.12" minvalue="0" maxvalue="1">
+            resonator trigger</property>
+            <!-- @vibrato -->
+            <property name="@vibrato" type="float" default="1" minvalue="0" maxvalue="1">resonator
+            vibration</property>
         </properties>
         <methods>
             <!-- reset -->

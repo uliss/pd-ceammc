@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">First-In-First-Out (FIFO) queue data container</tr>
+                <tr lang="en">FIFO (First In First Out) - the queue data container</tr>
+                <tr lang="ru">FIFO First In First Out) - контейнер данных "очередь"</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,18 +27,22 @@
             <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="SIZE" type="int" minvalue="0">if specified, creates fixed-size queue.
-            Value '0' means default size (1024)</argument>
+            <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">if specified, creates
+            fixed-size queue. See @size property</argument>
         </arguments>
         <properties>
+            <!-- @empty -->
             <property name="@empty" type="bool" access="readonly" default="1">if queue is
             empty</property>
+            <!-- @filled -->
             <property name="@filled" type="int" minvalue="0" access="readonly" default="0">current
             number of elements in queue</property>
-            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
-            queue</property>
+            <!-- @free -->
             <property name="@free" type="int" minvalue="0" access="readonly" default="32">number of
             elements you can add to queue until it full</property>
+            <!-- @size -->
+            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
+            queue</property>
         </properties>
         <methods>
             <!-- clear -->

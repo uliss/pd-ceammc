@@ -27,18 +27,24 @@
             <argument name="SUBNET" type="int" minvalue="0" maxvalue="15">ArtNet subnet</argument>
         </arguments>
         <properties>
-            <property name="@universe" type="int" default="0" minvalue="0" maxvalue="15">ArtNet
-            universe</property>
-            <property name="@subnet" type="int" default="0" minvalue="0" maxvalue="15">ArtNet
-            subnet</property>
-            <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">DMX channel
-            offset</property>
+            <!-- @ip -->
             <property name="@ip" type="symbol" default="" access="initonly">bind interface IP
             address. If empty - use first available interface.</property>
+            <!-- @offset -->
+            <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">DMX channel
+            offset</property>
+            <!-- @rate -->
             <property name="@rate" type="float" units="hertz" default="44" minvalue="1"
             maxvalue="100">send framerate</property>
+            <!-- @subnet -->
+            <property name="@subnet" type="int" default="0" minvalue="0" maxvalue="15">ArtNet
+            subnet</property>
+            <!-- @sync -->
             <property name="@sync" type="bool" default="0">send mode. If true: send frame only when
             bang is received, otherwise send frames with @rate speed with internal clock</property>
+            <!-- @universe -->
+            <property name="@universe" type="int" default="0" minvalue="0" maxvalue="15">ArtNet
+            universe</property>
         </properties>
         <methods>
             <!-- blackout -->

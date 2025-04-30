@@ -24,12 +24,15 @@
             <argument name="MSG" type="list">message prefix</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="1" default="2" maxvalue="32"
-            access="initonly">number of inlets</property>
-            <property name="@sync" type="bool" default="0">sync mode. If true: output value on each
-            inlet value change</property>
+            <!-- @msg -->
             <property name="@msg" type="list" default="">message prefix. Change value via
             [prop.set] object</property>
+            <!-- @n -->
+            <property name="@n" type="int" minvalue="1" default="2" maxvalue="32"
+            access="initonly">number of inlets</property>
+            <!-- @sync -->
+            <property name="@sync" type="bool" default="0">sync mode. If true: output value on each
+            inlet value change</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

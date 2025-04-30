@@ -4,11 +4,13 @@
         <title>fx.granulator~</title>
         <meta>
             <authors>
-                <author>Mayank Sanganeria</author>
+                <author>Lukas Hartmann</author>
+                <author>Luca Hilbrich</author>
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">simple input stream granulator</tr>
+                <tr lang="en">input stream granulator</tr>
+                <tr lang="ru">гранулятор входного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -16,16 +18,51 @@
             <keywords>fx bits granulator</keywords>
             <since>0.7</since>
         </meta>
+        <info>
+            <par>The granulator contains two lines: A and B</par>
+            <par>Input buffer size: ~3 seconds</par>
+        </info>
         <properties>
-            <property name="@density" type="int" minvalue="1" maxvalue="64" default="10">number of
-            grains</property>
-            <property name="@length" type="float" minvalue="10" maxvalue="500" default="100"
-            units="millisecond">grain length</property>
-            <property name="@delay" type="float" minvalue="0.5" maxvalue="10" default="10"
-            units="second">grain total area length</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off the dsp processing</property>
+            <!-- @delay -->
+            <property name="@delay" type="float" units="millisecond" minvalue="500" maxvalue="3000"
+            default="3000" access="readwrite">grain delay</property>
+            <!-- @density -->
+            <property name="@density" type="float" minvalue="1.0" maxvalue="16.0" default="1.0"
+            access="readwrite">number of grains</property>
+            <!-- @gainAL -->
+            <property name="@gainAL" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
+            access="readwrite">A-channel left output gain</property>
+            <!-- @gainAR -->
+            <property name="@gainAR" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
+            access="readwrite">A-channel right ouptut gain</property>
+            <!-- @gainBL -->
+            <property name="@gainBL" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
+            access="readwrite">B-channel left output gain</property>
+            <!-- @gainBR -->
+            <property name="@gainBR" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
+            access="readwrite">B-channel right output gain</property>
+            <!-- @hpfA -->
+            <property name="@hpfA" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
+            units="hertz" access="readwrite">A-channel HPF corner frequency</property>
+            <!-- @hpfB -->
+            <property name="@hpfB" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
+            units="hertz" access="readwrite">B-channel HPF corner frequency</property>
+            <!-- @pitchA -->
+            <property name="@pitchA" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
+            access="readwrite">A-channel pitch shift</property>
+            <!-- @pitchB -->
+            <property name="@pitchB" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
+            access="readwrite">B-channel pitchshift</property>
+            <!-- @size -->
+            <property name="@size" type="float" units="millisecond" minvalue="10" maxvalue="1000"
+            default="100" access="readwrite">grain size for both lines</property>
+            <!-- @spread -->
+            <property name="@spread" type="float" minvalue="0.05" maxvalue="1.0" default="0.5"
+            access="readwrite">grain spread in the input buffer</property>
         </properties>
         <methods>
             <!-- reset -->
@@ -33,29 +70,49 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>left channel</xinfo>
+                <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output</outlet>
-            <outlet type="audio">output</outlet>
+            <outlet type="audio">left output</outlet>
+            <outlet type="audio">right output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[open %CEAMMC%/guitar1.wav, 1(
+[open %CEAMMC%/sound/loop_breakbeat.flac, 1 #a(
 |
-[expand_env] [F]         [F]          [F]
-|            |           |            |
-[readsf~]    [@delay $1( [@length $1( [@density $1(
-|            |           |            |
-|            |           |            |
-|            |           |            |
-[fx.granulator~                       ]
+[expand_env] [stop( [ui.hsl #c]      [ui.hsl #e]   [ui.hsl #g]
+|            |      |                |             |
+[snd.play~ 1 #b]    [@density $1 #d( [@size $1 #f( [@delay $1 #h(
 |
-[ui.gain~ @size 120 14] [ui.dsp~]
-|\
+|                   [ui.k #k]        [ui.k #m]     [ui.hsl #o]
+|
+|                                                  [@spread $1 #p(
+|
+|                   [@hpfA $1 #l(    [@hpfB $1 #n(
+|
+|                   [ui.hsl #r]      [ui.hsl #t]
+|                   |                |
+|                   [@pitchA $1 #s(  [@pitchB $1 #u(
+|
+|
+[fx.granulator~ #x]
+*|*
+[ui.gain2~ @size 120 14] [ui.dsp~]
+*|*
 [dac~]
+
+[X b:1->a] [X d->x] [X f->x] [X h->x] [X l->x] [X k->l]
+[X m->n] [X n->x] [X o->p] [X p->x] [X s->x] [X u->x]
+#c @show_value 1 @min 1 @max 16
+#e @show_value 1 @min 10 @max 1000
+#g @show_value 1 @min 500 @max 3000
+#k @show_value 1 @min 100 @max 5000
+#m @show_value 1 @min 100 @max 5000
+#o @show_value 1 @min 0.05 @max 1
+#r @show_value 1 @min -4 @max 4
+#t @show_value 1 @min -4 @max 4
 ]]>
             </pdascii>
         </example>

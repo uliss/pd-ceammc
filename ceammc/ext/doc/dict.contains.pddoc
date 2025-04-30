@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">predicate to check if dict contains a keys</tr>
+                <tr lang="en">check if the dictionary contains the key</tr>
+                <tr lang="ru">проверка, содержит ли словарь указанный ключ</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,6 +24,7 @@
             <argument name="KEYS" type="list">checked keys</argument>
         </arguments>
         <properties>
+            <!-- @keys -->
             <property name="@keys" type="list" default="">checked keys</property>
         </properties>
         <inlets>

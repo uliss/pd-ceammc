@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">leave in list only specified elements</tr>
+                <tr lang="ru">оставлять в списке только указанные элементы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="ARGS" type="list">list of passed value</argument>
         </arguments>
         <properties>
+            <!-- @args -->
             <property name="@args" type="list" default="">list of passed value</property>
         </properties>
         <inlets>

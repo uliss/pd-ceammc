@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">routes list element with message selectors</tr>
+                <tr lang="en">routes the list element with the corresponding message</tr>
+                <tr lang="ru">маршрутизирует элемент списка с соответствующим сообщением</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

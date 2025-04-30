@@ -1,133 +1,133 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 global named mlist object;
+#X obj 485 50 cnv 1 280 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 490 50 global named multilevel list (MList);
 #X obj 1 1 cnv 5 765 40 empty empty global.mlist 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 global.mlist;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Defines global scope mlist variable \, accessed by ID
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Defines global scope mlist variable \, accessed by ID
 name;
-#X msg 50 143 (1 2 3 (a b c)) \, bang;
-#X msg 318 143 bang;
-#X obj 50 172 ml;
-#X obj 318 172 global.mlist l1;
-#X obj 50 201 global.mlist l1;
-#X obj 318 201 ui.dt;
-#X obj 50 230 ui.dt;
-#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 285 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X msg 50 161 (1 2 3 (a b c)) \, bang;
+#X msg 318 161 bang;
+#X obj 50 190 ml;
+#X obj 318 190 global.mlist l1;
+#X obj 50 219 global.mlist l1;
+#X obj 318 219 ui.dt;
+#X obj 50 248 ui.dt;
+#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 303 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 320 Left-click;
-#X text 285 320 open data editor.;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 110 338 Left-click;
+#X text 285 338 open data editor.;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 390 1\.;
-#X text 150 390 symbol;
-#X obj 246 391 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 390 ID: object ID. Type: symbol.;
-#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 425 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 408 1\.;
+#X text 150 408 symbol;
+#X obj 246 409 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 408 ID: object ID. Type: symbol.;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 443 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 428 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 446 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 460 @id;
-#X text 245 460 (initonly) Get/Set global variable id. Type: symbol.
+#X msg 110 478 @id;
+#X text 245 478 (initonly) Get/Set global variable id. Type: symbol.
 Default value: default.;
-#X msg 110 502 @empty?;
-#X text 245 502 (readonly) Get 1 if list is empty \, otherwise 0\.
+#X msg 110 520 @empty?;
+#X text 245 520 (readonly) Get 1 if list is empty \, otherwise 0\.
 Type: bool. Default value: 1\.;
-#X msg 110 544 @size?;
-#X text 245 544 (readonly) Get number of elements in list. Type: int.
+#X msg 110 562 @size?;
+#X text 245 562 (readonly) Get number of elements in list. Type: int.
 Default value: 0\. Min value: 0\.;
-#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 601 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 636 append;
-#X text 245 636 adds values to the end of the list. Arguments are:;
-#X obj 255 659 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 659 VAL: appended value. Type: atom.;
-#X msg 110 684 at;
-#X text 245 684 outputs atom at the specified position. Arguments are:;
-#X obj 255 707 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 707 IDX: position (negative indexes are supported: -1 means
+#X msg 110 654 append;
+#X text 245 654 adds values to the end of the list. Arguments are:;
+#X obj 255 677 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 677 VAL: appended value. Type: atom.;
+#X msg 110 702 at;
+#X text 245 702 outputs atom at the specified position. Arguments are:;
+#X obj 255 725 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 725 IDX: position (negative indexes are supported: -1 means
 last element). Type: int.;
-#X msg 110 747 back;
-#X text 245 747 output last list element.;
-#X msg 110 775 choose;
-#X text 245 775 choose random element in list and output it.;
-#X msg 110 803 clear;
-#X text 245 803 removes all list elements.;
-#X msg 110 831 fill;
-#X text 245 831 fills with specified value. Arguments are:;
-#X obj 255 854 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 854 VAL: fill value. Type: atom.;
-#X msg 110 879 front;
-#X text 245 879 output first list element.;
-#X msg 110 907 insert;
-#X text 245 907 inserts values to the specified position. Arguments
+#X msg 110 765 back;
+#X text 245 765 output last list element.;
+#X msg 110 793 choose;
+#X text 245 793 choose random element in list and output it.;
+#X msg 110 821 clear;
+#X text 245 821 removes all list elements.;
+#X msg 110 849 fill;
+#X text 245 849 fills with specified value. Arguments are:;
+#X obj 255 872 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 872 VAL: fill value. Type: atom.;
+#X msg 110 897 front;
+#X text 245 897 output first list element.;
+#X msg 110 925 insert;
+#X text 245 925 inserts values to the specified position. Arguments
 are:;
-#X obj 255 930 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 930 IDX: insert position. Type: int.;
-#X obj 255 953 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 953 VAL: value. Type: atom.;
-#X msg 110 978 pop;
-#X text 245 978 removes last list element.;
-#X msg 110 1006 prepend;
-#X text 245 1006 inserts values to the list beginning. Arguments are:;
-#X obj 255 1029 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1029 VAL: prepended value. Type: atom.;
-#X msg 110 1054 remove;
-#X text 245 1054 removes specified element. Arguments are:;
-#X obj 255 1077 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1077 IDX: element index. Type: int.;
-#X msg 110 1102 reverse;
-#X text 245 1102 reverses list.;
-#X msg 110 1130 set;
-#X text 245 1130 sets new list without output. Arguments are:;
-#X obj 255 1153 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1153 LIST: new list content. Type: list.;
-#X msg 110 1178 shuffle;
-#X text 245 1178 put elements in random order.;
-#X msg 110 1206 sort;
-#X text 245 1206 sorts list.;
-#X msg 110 1234 (....);
-#X text 245 1234 sets new list without output.;
-#X msg 110 1262 dump;
-#X text 245 1262 dump object info to Pd window.;
-#X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 255 948 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 948 IDX: insert position. Type: int.;
+#X obj 255 971 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 971 VAL: value. Type: atom.;
+#X msg 110 996 pop;
+#X text 245 996 removes last list element.;
+#X msg 110 1024 prepend;
+#X text 245 1024 inserts values to the list beginning. Arguments are:;
+#X obj 255 1047 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1047 VAL: prepended value. Type: atom.;
+#X msg 110 1072 remove;
+#X text 245 1072 removes specified element. Arguments are:;
+#X obj 255 1095 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1095 IDX: element index. Type: int.;
+#X msg 110 1120 reverse;
+#X text 245 1120 reverses list.;
+#X msg 110 1148 set;
+#X text 245 1148 sets new list without output. Arguments are:;
+#X obj 255 1171 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1171 LIST: new list content. Type: list.;
+#X msg 110 1196 shuffle;
+#X text 245 1196 put elements in random order.;
+#X msg 110 1224 sort;
+#X text 245 1224 sorts list.;
+#X msg 110 1252 (....);
+#X text 245 1252 sets new list without output.;
+#X msg 110 1280 dump;
+#X text 245 1280 dump object info to Pd window.;
+#X obj 20 1318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1323 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1306 1\.;
-#X text 150 1306 *bang*;
-#X text 245 1306 output list content.;
-#X text 150 1326 *data:mlist*;
-#X text 245 1326 same as list.;
-#X text 150 1346 *float*;
-#X text 245 1346 set new mlist content and output.;
-#X text 150 1366 *symbol*;
-#X text 245 1366 set new mlist content and output.;
-#X text 150 1386 *list*;
-#X text 245 1386 set new mlist content and output.;
-#X obj 20 1416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1421 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1324 1\.;
+#X text 150 1324 *bang*;
+#X text 245 1324 output list content.;
+#X text 150 1344 *data:mlist*;
+#X text 245 1344 same as list.;
+#X text 150 1364 *float*;
+#X text 245 1364 set new mlist content and output.;
+#X text 150 1384 *symbol*;
+#X text 245 1384 set new mlist content and output.;
+#X text 150 1404 *list*;
+#X text 245 1404 set new mlist content and output.;
+#X obj 20 1434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1439 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1422 1\.;
-#X text 245 1422 mlist output.;
+#X text 110 1440 1\.;
+#X text 245 1440 mlist output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 1472 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1475 library: ceammc v0.9.8;
-#X text 498 1487 see also:;
-#X obj 573 1487 data.mlist;
-#X obj 661 1487 local.mlist;
-#N canvas 10 1494 400 290 info 0;
+#X obj 1 1490 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1493 library: ceammc v0.9.8;
+#X text 498 1505 see also:;
+#X obj 573 1505 data.mlist;
+#X obj 661 1505 local.mlist;
+#N canvas 10 1512 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -151,7 +151,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1494 pd info;
+#X restore 10 1512 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

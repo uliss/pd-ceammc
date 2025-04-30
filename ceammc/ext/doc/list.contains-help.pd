@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 415 50 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 415 50 checks if input list contains specified atoms;
+#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 366 50 checks if the input list contains specified elements;
 #X obj 1 1 cnv 5 765 40 empty empty list.contains 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 list.contains;
@@ -18,7 +18,7 @@
 #X msg 165 320 0 1 2 3 4;
 #X obj 50 349 flow.pass_if;
 #X obj 213 349 list.contains 0;
-#X obj 50 378 ui.display @display_type 1;
+#X obj 50 378 ui.dt;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

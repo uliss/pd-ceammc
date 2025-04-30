@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">gaussian random distribution</tr>
+                <tr lang="ru">гауссово случайное распределение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -35,10 +36,13 @@
             <argument name="SIGMA" type="float" minvalue="0">the standard deviation</argument>
         </arguments>
         <properties>
+            <!-- @mu -->
             <property name="@mu" type="float" default="0">the mean</property>
+            <!-- @seed -->
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @sigma -->
             <property name="@sigma" type="float" minvalue="0" default="0">the standard
             deviation</property>
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

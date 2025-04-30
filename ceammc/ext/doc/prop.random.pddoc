@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">property randomizer</tr>
+                <tr lang="en">property value randomizer</tr>
+                <tr lang="ru">рандомизатор значения свойства</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,6 +26,7 @@
             <argument name="PROPS" type="list">properties names</argument>
         </arguments>
         <properties>
+            <!-- @seed -->
             <property name="@seed" type="int" default="0">random seed</property>
         </properties>
         <inlets dynamic="true">

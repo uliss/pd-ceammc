@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert GM Instrument number to name (string or symbol)</tr>
+                <tr lang="en">converts the GM Instrument number into the name</tr>
+                <tr lang="ru">преобразует номер инструмента GeneralMidi в его имя</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,10 +20,12 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
-            instead of string by default</property>
+            <!-- @family -->
             <property name="@family" type="flag" default="0" access="initonly">output family name
             instead of instrument name</property>
+            <!-- @symbol -->
+            <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
+            instead of string by default</property>
         </properties>
         <inlets>
             <inlet>

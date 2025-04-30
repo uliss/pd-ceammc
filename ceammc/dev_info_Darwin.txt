@@ -18,6 +18,7 @@ dev targets:
   * dev_pd            - copy pd executable to ./dist app folder
   * dev_edit_release  - edit release patch
   * dev_edit_about    - edit about patch
+  * dev_edit_about_ru - edit about patch (Russian)
   * dev_graph         - generate dependencies graph
 
 deploy target:

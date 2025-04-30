@@ -1,0 +1,9 @@
+#N canvas 0 0 317 242 12;
+#X text 20 48 manual bins;
+#X msg 20 77 dump;
+#X obj 20 106 flow.hist @bins -10 -5 -1 1 5 10;
+#X text 20 135 function bins;
+#X msg 20 164 dump;
+#X obj 20 192 flow.hist @bins seq(1 100 2);
+#X connect 1 0 2 0;
+#X connect 4 0 5 0;

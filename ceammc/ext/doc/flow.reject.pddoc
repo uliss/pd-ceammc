@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">reject specified values</tr>
+                <tr lang="ru">не пропускает указанные значения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -28,6 +29,7 @@
             <argument name="VALUES" type="list">list of atoms to reject</argument>
         </arguments>
         <properties>
+            <!-- @values -->
             <property name="@values" type="list" default="">atoms to reject</property>
         </properties>
         <inlets>

@@ -21,24 +21,76 @@
             <par>Note: you should send [flush( message to transfer internal pixel buffer to the
             device</par>
         </info>
+        <arguments>
+            <argument name="MODE" type="symbol" enum="i2c spi">display connection. See
+            @mode</argument>
+        </arguments>
+        <properties>
+            <!-- @i2c_addr -->
+            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
+            maxvalue="119">I²C address. Also 'default' value is accepted (for addr 0x3c) and 'alt'
+            (for addr 0x3d)</property>
+            <!-- @i2c_bus -->
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
+            <!-- @mode -->
+            <property name="@mode" type="symbol" default="i2c" enum="i2c spi" access="initonly">
+            display connection</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="128 64" access="initonly">display
+            size</property>
+            <!-- @spi_bus -->
+            <property name="@spi_bus" type="int" default="-1" minvalue="-1" maxvalue="6"
+            access="initonly">SPI bus</property>
+            <!-- @spi_cs -->
+            <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"
+            access="initonly">CS (chip select) GPIO pin</property>
+            <!-- @spi_dc -->
+            <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="127"
+            access="initonly">DC (data/command) GPIO pin</property>
+            <!-- @spi_freq -->
+            <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
+            maxvalue="10000000" access="initonly">SPI frequency</property>
+            <!-- @spi_rs -->
+            <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="127"
+            access="initonly">RS (reset) GPIO pin</property>
+        </properties>
         <methods>
-            <!-- rotation -->
-            <method name="rotation">set display rotation 
-            <param name="ANGLE" type="int" enum="0 90 180 270">rotation angle</param></method>
+            <!-- brightness -->
+            <method name="brightness">set display brightness 
+            <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">brightness level from 0
+            (lowest) to 4 (brightest). Normal level is 2.</param></method>
+            <!-- clear -->
+            <method name="clear">clear display and optionally flush internal buffer 
+            <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to
+            the device</param></method>
+            <!-- flush -->
+            <method name="flush">flush internal buffer to the device</method>
+            <!-- font -->
+            <method name="font">set current font 
+            <param name="FONT" type="symbol" required="true">font name</param></method>
             <!-- invert -->
             <method name="invert">invert display 
             <param name="VALUE" type="bool" required="true">value</param></method>
             <!-- mirror -->
             <method name="mirror">mirror display 
             <param name="VALUE" type="bool" required="true">value</param></method>
-            <!-- font -->
-            <method name="font">set current font 
-            <param name="FONT" type="symbol" required="true">font name</param></method>
-            <!-- write bytes -->
-            <method name="write bytes">write raw byte list to the display buffer and move internal
-            cursor position 
-            <param name="BYTES" type="list" required="true">list of bytes (integers in 0..255
-            range). Each byte describes a single column of 8 pixels in height</param></method>
+            <!-- pixel -->
+            <method name="pixel">draw pixel 
+            <param name="X" type="int" minvalue="0" required="true">X coord (from the left)</param>
+            <param name="Y" type="int" minvalue="0" required="true">Y coord (from the top)</param>
+            <param name="VALUE" type="bool" required="true">pixel value</param></method>
+            <!-- rotation -->
+            <method name="rotation">set display rotation 
+            <param name="ANGLE" type="int" enum="0 90 180 270">rotation angle</param></method>
+            <!-- switch_on -->
+            <method name="switch_on">switch on display (needed for SPI connection) 
+            <param name="VALUE" type="bool" required="true">value</param></method>
+            <!-- text -->
+            <method name="text">draw text on the display 
+            <param name="TXT" type="symbol" required="true">text</param>
+            <param name="X" type="int" required="true">left text X coordinate</param>
+            <param name="Y" type="int" required="true">top text Y coordinate</param></method>
             <!-- write bitmap -->
             <method name="write bitmap">write bitmap to the display buffer 
             <param name="X" type="int" required="true">bitmap X coordinate</param>
@@ -47,55 +99,12 @@
             pixels</param>
             <param name="PIXELS" type="list" required="true">list of pixels (0 or
             1)</param></method>
-            <!-- clear -->
-            <method name="clear">clear display and optionally flush internal buffer 
-            <param name="FLUSH" type="bool" default="0" required="false">flush internal buffer to
-            the device</param></method>
-            <!-- brightness -->
-            <method name="brightness">set display brightness 
-            <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">brightness level from 0
-            (lowest) to 4 (brightest). Normal level is 2.</param></method>
-            <!-- switch_on -->
-            <method name="switch_on">switch on display (needed for SPI connection) 
-            <param name="VALUE" type="bool" required="true">value</param></method>
-            <!-- flush -->
-            <method name="flush">flush internal buffer to the device</method>
-            <!-- text -->
-            <method name="text">draw text on the display 
-            <param name="TXT" type="symbol" required="true">text</param>
-            <param name="X" type="int" required="true">left text X coordinate</param>
-            <param name="Y" type="int" required="true">top text Y coordinate</param></method>
-            <!-- pixel -->
-            <method name="pixel">draw pixel 
-            <param name="X" type="int" minvalue="0" required="true">X coord (from the left)</param>
-            <param name="Y" type="int" minvalue="0" required="true">Y coord (from the top)</param>
-            <param name="VALUE" type="bool" required="true">pixel value</param></method>
+            <!-- write bytes -->
+            <method name="write bytes">write raw byte list to the display buffer and move internal
+            cursor position 
+            <param name="BYTES" type="list" required="true">list of bytes (integers in 0..255
+            range). Each byte describes a single column of 8 pixels in height</param></method>
         </methods>
-        <arguments>
-            <argument name="MODE" type="symbol" enum="i2c spi">display connection. See
-            @mode</argument>
-        </arguments>
-        <properties>
-            <property name="@mode" type="symbol" default="i2c" enum="i2c spi" access="initonly">
-            display connection</property>
-            <property name="@size" type="list" default="128 64" access="initonly">display
-            size</property>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">I²C bus</property>
-            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
-            maxvalue="119">I²C address. Also 'default' value is accepted (for addr 0x3c) and 'alt'
-            (for addr 0x3d)</property>
-            <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
-            maxvalue="10000000" access="initonly">SPI frequency</property>
-            <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"
-            access="initonly">CS (chip select) GPIO pin</property>
-            <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="127"
-            access="initonly">DC (data/command) GPIO pin</property>
-            <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="127"
-            access="initonly">RS (reset) GPIO pin</property>
-            <property name="@spi_bus" type="int" default="0" minvalue="0" maxvalue="6"
-            access="initonly">SPI bus</property>
-        </properties>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>
@@ -135,7 +144,6 @@
 #f $1
 #g 255 127 63 31 15 7 3 1, flush
 #k @nitems 4
-
 ]]>
             </pdascii>
         </example>

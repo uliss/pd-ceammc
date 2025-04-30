@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Color datatype</tr>
+                <tr lang="en">color datatype</tr>
+                <tr lang="ru">цветовой тип данных</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,6 +27,7 @@
             <argument name="VALUE" type="atom">initial value</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="atom">current color</property>
         </properties>
         <methods>

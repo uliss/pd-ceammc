@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">metro with random choice from timeset</tr>
+                <tr lang="en">a metronome that randomly selects a period for each beat from a given
+                set</tr>
+                <tr lang="ru">метроном со случайным выбором периода при каждом ударе из заданного
+                списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,9 +29,11 @@
             <argument name="TIMESET" type="list" units="millisecond">timeset (&gt;0)</argument>
         </arguments>
         <properties>
+            <!-- @seed -->
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @timeset -->
             <property name="@timeset" type="list" units="millisecond" default="">timeset
             (&gt;0)</property>
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

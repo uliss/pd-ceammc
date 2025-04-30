@@ -6,7 +6,7 @@
 #X obj 585 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
 #X obj 45 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
 #X obj 45 150 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
-#X obj 45 16 ui.bang @size 101 101 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#X obj 45 16 ui.bang @size 101 101 @receive "#0-about-in" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 60 116 cnv 3 3 50 empty empty empty 20 12 0 14 #606060 #404040 0;
 #N canvas 211 126 693 402 info 0;
 #X obj 20 20 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
@@ -41,12 +41,17 @@
 #X msg 108 88 symbol @CEAMMC_LIB_HOME@/releases;
 #X msg 147 150 @cols \$1 \, @rows \$1 \, @size 145 145;
 #X obj 108 189 msg set list;
+#X obj 107 346 s \$0-about-in;
+#X obj 107 294 loadmsg 1;
+#X obj 107 320 metro 2000;
 #X connect 1 0 5 0;
 #X connect 1 1 4 0;
 #X connect 2 0 3 0;
 #X connect 3 0 1 0;
 #X connect 4 0 0 0;
 #X connect 5 0 0 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 0;
 #X restore 476 488 pd qrcode;
 #X text 474 303 Download links:;
 #X obj 67 348 ui.link @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc_release_@CEAMMC_LIB_VERSION@.pd" @title "Release\ info\ (en)";

@@ -23,6 +23,7 @@
             us this information</par>
         </info>
         <properties>
+            <!-- @raw -->
             <property name="@raw" type="bool" default="0">raw data output mode</property>
         </properties>
         <inlets>

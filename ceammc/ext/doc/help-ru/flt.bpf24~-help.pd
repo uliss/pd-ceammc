@@ -1,0 +1,137 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 427 50 четырехполюсный полосовой фильтр Баттерворта;
+#X obj 1 1 cnv 5 765 40 empty empty flt.bpf24~ 20 20 0 20 -104026
+-4096 0;
+#X obj 666 11 flt.bpf24~;
+#X obj 205 78 cnv 1 560 114 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Band-pass filter passes frequencies within a certain
+range and rejects frequencies outside that range.;
+#X text 215 123 Butterworth filter is a type of filter designed to
+have a frequency response as flat as possible in the passband.;
+#X obj 215 163 ui.link @background_color 0.98039 0.98039 0.98039
+@title wiki: Butterworth filter @url
+https://en.wikipedia.org/wiki/Butterworth_filter;
+#X obj 50 240 ui.tab 100 500 1000 5000 10000 15000 20000 @size 300 15;
+#X msg 50 269 \$2;
+#X floatatom 50 298 5 0 0 0 - - -;
+#X floatatom 174 298 5 0 0 0 - - -;
+#X msg 251 298 bang;
+#X text 338 298 plot response;
+#X msg 50 327 @freq \$1;
+#X msg 174 327 @q \$1;
+#X obj 251 327 click~;
+#X obj 50 384 flt.bpf24~;
+#X obj 251 384 flt.bpf12~;
+#X obj 50 413 plot.response~ @sr 1;
+#X obj 251 413 plot.response~ @sr 1;
+#X obj 50 456 ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 1
+@ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200;
+#X obj 50 672 ui.dsp~;
+#X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 727 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 730 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 762 1\.;
+#X text 150 762 float;
+#X obj 246 763 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 762 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
+#X text 110 782 2\.;
+#X text 150 782 float;
+#X obj 246 783 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 782 Q: quality factory: @freq/BANDWIDTH. Тип: float. Диапазон:
+0.01…100;
+#X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 832 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 835 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 867 @id;
+#X text 245 867 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/flt_bpf24/PROP_NAME
+osc address \, if empty bind to /flt_bpf24/PROP_NAME. Тип: symbol.;
+#X msg 110 924 @osc;
+#X text 245 924 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 966 @active;
+#X text 245 966 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 1008 @freq;
+#X text 245 1008 Получить/Установить cutoff frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X msg 110 1050 @q;
+#X text 245 1050 Получить/Установить quality factor: @freq/BANDWIDTH.
+Тип: float. Значение по умолчанию: 2\. Диапазон: 0.01\...100\.;
+#X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1107 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1142 reset;
+#X text 245 1142 reset filter state.;
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1185 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 1186 1\.;
+#X text 245 1186 input signal.;
+#X text 110 1206 2\.;
+#X text 245 1206 set frequency.;
+#X text 110 1226 3\.;
+#X text 245 1226 set Q-factor.;
+#X obj 20 1256 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1261 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1262 1\.;
+#X text 245 1262 filtered signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1312 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1315 библиотека: ceammc v0.9.8;
+#X text 545 1327 смотрите также:;
+#X obj 666 1327 flt.bpf12~;
+#N canvas 10 1334 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 flt.bpf24~;
+#X text 10 76 категория:;
+#X text 120 76 flt;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Alex Nadzharov \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 filter \, biquad \, bpf;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1334 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 14 0;
+#X connect 11 0 15 0;
+#X connect 12 0 16 0;
+#X connect 17 0 19 0;
+#X connect 12 0 19 1;
+#X connect 12 0 20 1;
+#X connect 14 0 18 0;
+#X connect 14 0 17 0;
+#X connect 15 0 18 0;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 16 0 17 0;
+#X connect 18 0 20 0;
+#X connect 19 0 21 0;
+#X connect 20 0 21 1;
+#X connect 20 2 21 2;

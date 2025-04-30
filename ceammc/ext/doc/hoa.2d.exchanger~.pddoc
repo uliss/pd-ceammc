@@ -10,7 +10,8 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>
-                <tr lang="en">renumbers and normalizes the channels</tr>
+                <tr lang="en">renumbers and normalizes the channels in 2d ambisonics</tr>
+                <tr lang="ru">перенумерование и нормализация каналов в двумерных амбисониках</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,7 +26,7 @@
             </aliases>
         </meta>
         <info>
-            <par>The library default normalization is SN3D and the numbering is ACN (cf tutorials).
+            <par>The library default normalization is SN2D and the numbering is ACN (cf tutorials).
             The exchangers will always convert from or to the standard.</par>
             <a href="hoa/hoa.2d.exchanger~-help.pd">CICM documentation</a>
         </info>
@@ -38,16 +39,21 @@
             normalization</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
-            <property name="@num" type="symbol" default="ACN"
-            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</property>
-            <property name="@norm" type="symbol" default="SN2D" enum="SN2D fromMaxN toMaxN">
-            normalization</property>
-            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm
-            toMaxN</property>
+            <!-- @fromB -->
             <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm
             fromMaxN</property>
+            <!-- @norm -->
+            <property name="@norm" type="symbol" default="SN2D" enum="SN2D fromMaxN toMaxN">
+            normalization</property>
+            <!-- @num -->
+            <property name="@num" type="symbol" default="ACN"
+            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</property>
+            <!-- @order -->
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            access="initonly">the order of decomposition</property>
+            <!-- @toB -->
+            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm
+            toMaxN</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

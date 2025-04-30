@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">copy samples from one array to another</tr>
+                <tr lang="en">copy samples from the one array to another</tr>
+                <tr lang="ru">копирование семплов из одного массива в другой</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,29 +20,30 @@
             <since>0.3</since>
         </meta>
         <properties>
+            <!-- @resize -->
             <property name="@resize" type="bool" default="0">resizing of destination array on
             overflow</property>
         </properties>
         <methods>
-            <!-- copy -->
-            <method name="copy . .">copy the whole array content 
+            <!-- copy SRC DEST -->
+            <method name="copy SRC DEST">copy the whole array content 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="DST" type="symbol" required="true">the destination array</param></method>
-            <!-- copy -->
-            <method name="copy . . .">copy the array content from the specified position till the
-            end 
+            <!-- copy SRC FROM DEST -->
+            <method name="copy SRC FROM DEST">copy the array content from the specified position
+            till the end 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="FROM" type="int" required="true">source start position</param>
             <param name="DEST" type="symbol" required="true">the destination array</param></method>
-            <!-- copy -->
-            <method name="copy . . . .">copy the array content from the specified range 
+            <!-- copy SRC FROM TO DEST -->
+            <method name="copy SRC FROM TO DEST">copy the array content from the specified range 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="FROM" type="int" required="true">the source start range</param>
             <param name="TO" type="int" required="true">the source end range</param>
             <param name="DEST" type="symbol" required="true">the destination array</param></method>
-            <!-- copy -->
-            <method name="copy . . . . .">copy the array content from the specified range and to
-            the specified destination position 
+            <!-- copy SRC FROM TO DEST DEST_START -->
+            <method name="copy SRC FROM TO DEST DEST_START">copy the array content from the
+            specified range and to the specified destination position 
             <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="FROM" type="int" required="true">the source start range</param>
             <param name="TO" type="int" required="true">the source end range</param>

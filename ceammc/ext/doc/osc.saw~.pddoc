@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Alias-free sawtooth wave</tr>
+                <tr lang="en">alias-free sawtooth wave</tr>
+                <tr lang="ru">осциллятор пилообразного сигнала с ограниченным спектром</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,10 +27,17 @@
             interpolation.</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">See
+            @freq</argument>
         </arguments>
         <properties>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- @active -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
+            units="hertz">frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -54,8 +62,8 @@
 [osc.saw~ ]
 |
 [ui.gain~ @size 120 14]
-|\      |
-[dac~]  [ui.spectroscope~ @size 150 100]
+|\       |
+[dac~]   [ui.spectroscope~ @size 150 100]
 
 
 

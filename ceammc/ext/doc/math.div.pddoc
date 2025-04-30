@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">division (on lists too)</tr>
+                <tr lang="en">division</tr>
+                <tr lang="ru">деление</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="DIV" type="float">divisor</argument>
         </arguments>
         <properties>
+            <!-- @div -->
             <property name="@div" type="float" default="1">divisor</property>
         </properties>
         <inlets>

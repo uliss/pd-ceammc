@@ -1,0 +1,56 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 582 50 cnv 1 183 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 587 50 outputs system hostname;
+#X obj 1 1 cnv 5 765 40 empty empty system.hostname 20 20 0 20 -104026
+-4096 0;
+#X obj 631 11 system.hostname;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 147 system.hostname;
+#X symbolatom 50 176 20 0 0 0 - - -;
+#X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 213 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 214 1\.;
+#X text 150 214 *bang*;
+#X text 245 214 outputs hostname.;
+#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 249 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 250 1\.;
+#X text 245 250 symbol: hostname.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 библиотека: ceammc v0.9.8;
+#N canvas 10 527 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 system.hostname;
+#X text 10 76 категория:;
+#X text 120 76 system;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 system \, hostname;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 527 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;

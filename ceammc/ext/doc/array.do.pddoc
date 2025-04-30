@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">iterate and modify array content via side-chain</tr>
+                <tr lang="en">iterate and modify the array content via the side-chain</tr>
+                <tr lang="ru">обход и модификация содержимого массива через боковую цепь</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,7 +23,9 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">redraw after array change</property>
         </properties>
         <inlets>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">converts symbol pitch name to MIDI note number</tr>
+                <tr lang="en">converts SPN pitch to MIDI note number</tr>
+                <tr lang="ru">преобразует ноту в формате SPN в номер ноты MIDI</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

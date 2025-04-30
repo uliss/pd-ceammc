@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">signal NaN</tr>
+                <tr lang="en">NaN signal</tr>
+                <tr lang="ru">сигнал NaNN</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -34,10 +35,13 @@
             <par>Note: in Pd float point exceptions are disabled.</par>
         </info>
         <properties>
+            <!-- @quiet -->
+            <property name="@quiet" type="alias">alias to @type quiet</property>
+            <!-- @signal -->
+            <property name="@signal" type="alias">alias to @type signal</property>
+            <!-- @type -->
             <property name="@type" type="symbol" default="quiet" enum="quiet signal">type of
             outputed NaN: quiet or signal</property>
-            <property name="@quiet" type="alias">alias to @type quiet</property>
-            <property name="@signal" type="alias">alias to @type signal</property>
         </properties>
         <inlets>
             <inlet>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if input data has *any* type</tr>
+                <tr lang="en">checks if the input has a general message type</tr>
+                <tr lang="ru">проверяет, является ли входное сообщение сообщением общего типа</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

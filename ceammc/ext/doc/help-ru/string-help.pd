@@ -1,0 +1,105 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 644 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 649 50 создание строки;
+#X obj 1 1 cnv 5 765 40 empty empty string 20 20 0 20 -104026 -4096 0;
+#X obj 433 11 ceammc/string;
+#X obj 552 11 ceammc/str;
+#X obj 650 11 str;
+#X obj 697 11 string;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 88 118 5 0 0 0 - - -;
+#X msg 146 118 symbol ABC;
+#X obj 50 162 string 1 2 3 "a string";
+#X floatatom 309 162 5 0 0 0 - - -;
+#X obj 69 190 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 107 190 clear;
+#X msg 309 190 append \$1 \$1;
+#X obj 50 219 string;
+#X obj 50 248 ui.dt;
+#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 303 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 338 1\.;
+#X text 150 338 list;
+#X obj 246 339 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 338 VALUE: initial string. Тип: list.;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 408 @value;
+#X text 245 408 Получить/Установить string value. Тип: list.;
+#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 488 append;
+#X text 245 488 append values to the end of string.;
+#X msg 110 516 clear;
+#X text 245 516 clear string without output.;
+#X msg 110 544 set;
+#X text 245 544 set string content without output.;
+#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 587 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 588 1\.;
+#X text 150 588 *bang*;
+#X text 245 588 outputs string value.;
+#X text 150 608 *float*;
+#X text 245 608 convert float to string and outputs value.;
+#X text 150 628 *symbol*;
+#X text 245 628 convert symbol to string and outputs value.;
+#X text 150 648 *list*;
+#X text 245 648 convert list to string (separated with spaces) and
+outputs value.;
+#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 698 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 699 1\.;
+#X text 245 699 string data.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
+#X obj 1 749 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 752 библиотека: ceammc v0.9.8;
+#N canvas 10 771 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 string;
+#X text 10 76 категория:;
+#X text 120 76 string;
+#X text 10 98 с версии:;
+#X text 120 98 0.3;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 string \, data;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 771 pd info;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 11 0 14 0;
+#X connect 10 0 15 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;

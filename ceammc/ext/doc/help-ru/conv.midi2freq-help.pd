@@ -1,0 +1,105 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 381 50 продвинутое преобразование MIDI нот в частоту в Гц;
+#X obj 1 1 cnv 5 765 40 empty empty conv.midi2freq 20 20 0 20 -104026
+-4096 0;
+#N canvas 542 11 250 400 aliases 0;
+#X obj 30 40 ceammc/midi->freq;
+#X obj 30 78 midi->freq;
+#X obj 30 116 ceammc/m->f;
+#X obj 30 154 m->f;
+#X restore 542 11 pd aliases;
+#X obj 639 11 conv.midi2freq;
+#X obj 50 118 ui.keyboard;
+#X obj 50 190 f;
+#X msg 98 190 @a 415;
+#X msg 184 190 @a 440;
+#X obj 290 190 ui.menu eq just ganassi meantone kirnberger3
+pythagorean rameau valotti zarlino;
+#X msg 290 219 @t \$2;
+#X obj 50 248 m->f 442;
+#X floatatom 50 277 5 0 0 0 - - -;
+#X obj 50 305 osc~;
+#X obj 50 334 ui.gain~ @size 120 16;
+#X obj 50 363 dac~;
+#X obj 50 392 ui.dsp~;
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 482 1\.;
+#X text 150 482 float;
+#X obj 246 483 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 482 A(Hz): A pitch frequency. Тип: float. Диапазон: 200…600;
+#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 517 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 552 @a;
+#X text 245 552 Получить/Установить A pitch frequency. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 440\. Диапазон: 200\...600\.;
+#X msg 110 594 @t;
+#X text 245 594 Получить/Установить temperament. Тип: symbol. Значение
+по умолчанию: eq. Разрешённые значения: eq \, just \, ganassi \, meantone
+\, kirnberger3 \, pythagorean \, rameau \, valotti \, zarlino.;
+#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 666 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 667 1\.;
+#X text 150 667 *float*;
+#X text 245 667 input MIDI pitch.;
+#X text 150 687 *list*;
+#X text 245 687 input MIDI pitches.;
+#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 722 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 723 1\.;
+#X text 245 723 converted value.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 1 773 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 776 библиотека: ceammc v0.9.8;
+#X text 589 788 смотрите также:;
+#X obj 710 788 mtof;
+#N canvas 10 795 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 conv.midi2freq;
+#X text 10 76 категория:;
+#X text 120 76 conv;
+#X text 10 98 с версии:;
+#X text 120 98 0.6;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 conv \, freq \, midi;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 795 pd info;
+#X connect 5 0 6 0;
+#X connect 9 0 10 0;
+#X connect 6 0 11 0;
+#X connect 7 0 11 0;
+#X connect 8 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 0 15 1;

@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Scope GUI object</tr>
+                <tr lang="en">waveform signal scope widget</tr>
+                <tr lang="ru">виджет просмотра формы волны</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -33,33 +34,45 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@max" type="float" default="1">maximum (top) graph value</property>
-            <property name="@min" type="float" default="-1">minimum (bottom) graph value</property>
-            <property name="@window" type="int" minvalue="512" maxvalue="4096" default="2048">
-            window size</property>
-            <property name="@refresh" type="int" minvalue="10" maxvalue="1000" default="40"
-            units="millisecond">approximate refresh rate</property>
-            <!-- common -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="150 100">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <!-- @active_color -->
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
+            <!-- @background_color -->
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
+            <!-- @border_color -->
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <!-- font -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+            <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- @fontweight -->
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <!-- @max -->
+            <property name="@max" type="float" default="1">maximum (top) graph value</property>
+            <!-- @min -->
+            <property name="@min" type="float" default="-1">minimum (bottom) graph value</property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <!-- @receive -->
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <!-- @refresh -->
+            <property name="@refresh" type="int" minvalue="10" maxvalue="1000" default="40"
+            units="millisecond">approximate refresh rate</property>
+            <!-- @size -->
+            <property name="@size" type="list" default="150 100">element size (width, height
+            pair)</property>
+            <!-- @window -->
+            <property name="@window" type="int" minvalue="512" maxvalue="4096" default="2048">
+            window size</property>
         </properties>
         <methods>
             <!-- freeze -->

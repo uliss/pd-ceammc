@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Property extractor from audio streams</tr>
+                <tr lang="en">property extractor from audio connections</tr>
+                <tr lang="ru">отделяет свойства от аудиосоединений</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

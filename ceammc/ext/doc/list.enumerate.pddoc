@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">enumerates input list</tr>
+                <tr lang="en">enumerates list elements</tr>
+                <tr lang="ru">нумерует элементы списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -19,9 +20,11 @@
             <argument name="FROM" type="int">enumeration start index</argument>
         </arguments>
         <properties>
-            <property name="@from" type="int" default="0">enumeration start index</property>
+            <!-- @append -->
             <property name="@append" type="flag" default="0" access="initonly">put element index
             after element value</property>
+            <!-- @from -->
+            <property name="@from" type="int" default="0">enumeration start index</property>
         </properties>
         <inlets>
             <inlet>
@@ -43,7 +46,7 @@
 |    |            |
 [list.enumerate   ]
 |
-[ui.display @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

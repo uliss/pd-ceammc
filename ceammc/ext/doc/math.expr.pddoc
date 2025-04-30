@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">dynamic [expr]</tr>
+                <tr lang="en">dynamic version of [expr] object</tr>
+                <tr lang="ru">динамическая версия объекта [expr]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,6 +28,7 @@
             <argument name="EXPR" type="list">expression</argument>
         </arguments>
         <properties>
+            <!-- @expr -->
             <property name="@expr" type="list" default="">expression</property>
         </properties>
         <inlets>

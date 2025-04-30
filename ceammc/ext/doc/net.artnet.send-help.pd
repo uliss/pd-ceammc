@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 566 50 cnv 1 199 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 566 50 ArtNet DMX message sender;
+#X text 571 50 ArtNet DMX message sender;
 #X obj 1 1 cnv 5 765 40 empty empty net.artnet.send 20 20 0 20 -104026
 -4096 0;
 #X obj 526 11 artnet.send;

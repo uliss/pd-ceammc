@@ -19,15 +19,21 @@
             <argument name="SCALE" type="list">color list</argument>
         </arguments>
         <properties>
-            <property name="@scale" type="list" default="">color list</property>
+            <!-- @color -->
+            <property name="@color" type="alias">alias to @mode color</property>
+            <!-- @hex -->
+            <property name="@hex" type="alias">alias to @mode hex</property>
+            <!-- @interp -->
+            <property name="@interp" type="symbol" default="none" enum="none short long inc dec">
+            hue interpolation strategy</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" default="color" enum="color hex rgb">output mode:
             if 'color' - output as data:color type, if 'hex' - output as hex value, if 'rgb' - RGB
             list</property>
-            <property name="@color" type="alias">alias to @mode color</property>
+            <!-- @rgb -->
             <property name="@rgb" type="alias">alias to @mode rgb</property>
-            <property name="@hex" type="alias">alias to @mode hex</property>
-            <property name="@interp" type="symbol" default="none" enum="none short long inc dec">
-            hue interpolation strategy</property>
+            <!-- @scale -->
+            <property name="@scale" type="list" default="">color list</property>
         </properties>
         <inlets>
             <inlet>

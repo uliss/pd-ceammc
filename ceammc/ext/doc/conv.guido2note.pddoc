@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">convert Guido notation into MIDI and duration</tr>
+                <tr lang="en">convert the Guido notation into a MIDI pitch and duration</tr>
                 <tr lang="ru">конвертер из Guido-нотации в MIDI ноту и длительность</tr>
             </description>
             <license>GPL3 or later</license>
@@ -32,6 +32,7 @@
             90|4._bpm etc.</argument>
         </arguments>
         <properties>
+            <!-- @tempo -->
             <property name="@tempo" type="atom" default="60|4bpm" units="bpm">current
             tempo</property>
         </properties>

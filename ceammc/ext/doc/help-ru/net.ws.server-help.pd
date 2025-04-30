@@ -1,0 +1,203 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 635 50 cnv 1 130 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 640 50 WebSocket сервер;
+#X obj 1 1 cnv 5 765 40 empty empty net.ws.server 20 20 0 20 -104026
+-4096 0;
+#X obj 645 11 net.ws.server;
+#X text 50 118 you can start testing websocket client with command:
+'websocat ws://127.0.0.1:8000';
+#X msg 50 162 listen 8000;
+#X msg 203 162 stop;
+#X msg 414 162 send CLI;
+#X msg 549 162 send_binary 1 2 3;
+#X msg 69 190 ping all;
+#X msg 203 190 close *;
+#X msg 414 190 connect ws://127.0.0.1:8000;
+#X msg 69 219 send last MSG;
+#X msg 414 219 close;
+#X msg 520 219 ping;
+#X msg 69 248 send != 2 MSG;
+#X obj 414 248 net.ws.client;
+#X msg 78 277 clients;
+#X obj 414 277 ui.dt;
+#X msg 88 305 send_json all 1 2 3;
+#X obj 50 349 net.ws.server;
+#X obj 50 378 ui.dt;
+#X obj 213 378 ui.dt;
+#X obj 50 406 print SRV;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 496 @mode;
+#X text 245 496 Получить/Установить parsing mode for incoming client
+messages. If 'fudi' - interpret incoming websocket data as Pd messages
+\, if 'sym' - always interpret as symbols \, 'data' - parse ceammc
+data \, 'json' - convert json values to ceammc data. Тип: symbol. Значение
+по умолчанию: fudi. Разрешённые значения: data \, fudi \, json \, sym.;
+#X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 614 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 649 clients;
+#X text 245 649 output connected clients as list CLIENT_ID CLIENT_ADDR...
+etc.;
+#X msg 110 689 close;
+#X text 245 689 gracefully close connection with specified client(s).
+Аргументы:;
+#X obj 255 727 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 727 TARGET: client selector. If '*' or 'all' - send message
+to all clients. If 'first' - send message to first connected client.
+If 'last' - send message to last connected client. If 'id' or '=='
+- send message to client with specified ID. If 'except' or '!=' - send
+message to all client except specified. Тип: symbol. Разрешённые значения:
+* \, all \, first \, last \, id \, == \, != \, except.;
+#X obj 255 841 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 841 [ID]: client ID. Required \, if client selector is
+one of: 'id' \, '==' \, '!=' or 'except'. Тип: int.;
+#X msg 110 881 listen;
+#X text 245 881 starts/stop websocket server. Аргументы:;
+#X obj 255 904 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 904 PORT: listening port. If 0 - stops server. Тип: int.
+Минимальное значение: 0\.;
+#X obj 255 942 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 942 [ADDR]: listening address. If not specified - using
+0.0.0.0 (all network interfaces). Тип: symbol.;
+#X msg 110 982 ping;
+#X text 245 982 send ping message to specified client(s). Аргументы:;
+#X obj 255 1005 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1005 TARGET: client selector. If '*' or 'all' - send message
+to all clients. If 'first' - send message to first connected client.
+If 'last' - send message to last connected client. If 'id' or '=='
+- send message to client with specified ID. If 'except' or '!=' - send
+message to all client except specified. Тип: symbol. Разрешённые значения:
+* \, all \, first \, last \, id \, == \, != \, except.;
+#X obj 255 1119 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1119 [ID]: client ID. Required \, if client selector is
+one of: 'id' \, '==' \, '!=' or 'except'. Тип: int.;
+#X obj 255 1157 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1157 [DATA]: list of integers in [0\..255] range. Тип:
+list.;
+#X msg 110 1182 send;
+#X text 245 1182 send as text message to specified client(s). Аргументы:;
+#X obj 255 1205 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1205 TARGET: client selector. If '*' or 'all' - send message
+to all clients. If 'first' - send message to first connected client.
+If 'last' - send message to last connected client. If 'id' or '=='
+- send message to client with specified ID. If 'except' or '!=' - send
+message to all client except specified. Тип: symbol. Разрешённые значения:
+* \, all \, first \, last \, id \, == \, != \, except.;
+#X obj 255 1319 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1319 [ID]: client ID. Required \, if client selector is
+one of: 'id' \, '==' \, '!=' or 'except'. Тип: int.;
+#X obj 255 1357 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1357 [ARGS]: arguments. Тип: list.;
+#X msg 110 1382 send_binary;
+#X text 245 1382 send as binary bytes to specified client(s). Аргументы:;
+#X obj 255 1405 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1405 TARGET: client selector. If '*' or 'all' - send message
+to all clients. If 'first' - send message to first connected client.
+If 'last' - send message to last connected client. If 'id' or '=='
+- send message to client with specified ID. If 'except' or '!=' - send
+message to all client except specified. Тип: symbol. Разрешённые значения:
+* \, all \, first \, last \, id \, == \, != \, except.;
+#X obj 255 1519 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1519 [ID]: client ID. Required \, if client selector is
+one of: 'id' \, '==' \, '!=' or 'except'. Тип: int.;
+#X obj 255 1557 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1557 [DATA]: list of integers in [0\..255] range. Тип:
+list.;
+#X msg 110 1582 send_json;
+#X text 245 1582 send as encoded json to specified client(s). Аргументы:;
+#X obj 255 1605 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1605 TARGET: client selector. If '*' or 'all' - send message
+to all clients. If 'first' - send message to first connected client.
+If 'last' - send message to last connected client. If 'id' or '=='
+- send message to client with specified ID. If 'except' or '!=' - send
+message to all client except specified. Тип: symbol. Разрешённые значения:
+* \, all \, first \, last \, id \, == \, != \, except.;
+#X obj 255 1719 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1719 [ID]: client ID. Required \, if client selector is
+one of: 'id' \, '==' \, '!=' or 'except'. Тип: int.;
+#X obj 255 1757 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1757 [ARGS]: arguments. Тип: list.;
+#X msg 110 1782 shutdown;
+#X text 245 1782 abort connection with specified client(s). Аргументы:;
+#X obj 255 1805 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1805 TARGET: client selector. If '*' or 'all' - send message
+to all clients. If 'first' - send message to first connected client.
+If 'last' - send message to last connected client. If 'id' or '=='
+- send message to client with specified ID. If 'except' or '!=' - send
+message to all client except specified. Тип: symbol. Разрешённые значения:
+* \, all \, first \, last \, id \, == \, != \, except.;
+#X obj 255 1919 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1919 [ID]: client ID. Required \, if client selector is
+one of: 'id' \, '==' \, '!=' or 'except'. Тип: int.;
+#X msg 110 1959 stop;
+#X text 245 1959 stops server \, equal to [listen 0( message.;
+#X obj 20 1997 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2002 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 2003 1\.;
+#X text 245 2003 message input.;
+#X obj 20 2033 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2038 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 2039 1\.;
+#X text 245 2039 [connected( when client is connected \, [closed( when
+client closed \, [text( on text message \, [ping( on ping message from
+client \, [binary( on binary message.;
+#X text 110 2089 2\.;
+#X text 245 2089 list: CLIENT_ID CLIENT_ADDR.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
+#X obj 1 2139 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2142 библиотека: ceammc v0.9.8;
+#X text 525 2154 смотрите также:;
+#X obj 646 2154 net.ws.client;
+#N canvas 10 2161 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 net.ws.server;
+#X text 10 76 категория:;
+#X text 120 76 net;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 websocket \, net \, server;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2161 pd info;
+#X connect 16 0 18 0;
+#X connect 5 0 20 0;
+#X connect 20 0 21 0;
+#X connect 20 0 23 0;
+#X connect 20 1 22 0;
+#X connect 6 0 20 0;
+#X connect 9 0 20 0;
+#X connect 12 0 20 0;
+#X connect 15 0 20 0;
+#X connect 10 0 20 0;
+#X connect 17 0 20 0;
+#X connect 19 0 20 0;
+#X connect 11 0 16 0;
+#X connect 13 0 16 0;
+#X connect 14 0 16 0;
+#X connect 7 0 16 0;
+#X connect 8 0 16 0;

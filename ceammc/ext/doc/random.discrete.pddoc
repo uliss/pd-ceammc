@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">random weighted integers on interval [0, n)</tr>
+                <tr lang="en">generate random weighted integers on the interval [0, n)</tr>
+                <tr lang="ru">генерирует случайные взвешенные целые числа на интервале [0, n)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -30,9 +31,11 @@
             <argument name="WEIGHTS" type="list">weights (list of non-negative floats)</argument>
         </arguments>
         <properties>
+            <!-- @seed -->
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <!-- @weights -->
             <property name="@weights" type="list" default="">list of weights (non-negative
             floats)</property>
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

@@ -1,7 +1,5 @@
 #include "preset_list.h"
-#include "ceammc_factory.h"
 #include "ceammc_preset.h"
-#include "fmt/core.h"
 #include "preset_iface.h"
 
 PresetList::PresetList(const PdArgs& args)

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 384 50 converts formatted time to float value in seconds;
+#X obj 338 50 cnv 1 427 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 343 50 converts the formatted time to a float value in seconds;
 #X obj 1 1 cnv 5 765 40 empty empty conv.str2sec 20 20 0 20 -104026
 -4096 0;
 #X obj 436 11 ceammc/str->sec;

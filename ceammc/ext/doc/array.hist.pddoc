@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">calculates array histogram</tr>
+                <tr lang="en">calculate the array histogram</tr>
+                <tr lang="ru">вычисление гистограммы массива</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,11 +32,15 @@
             <argument name="MAX" type="float">maximum value</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @bins -->
             <property name="@bins" type="int" minvalue="2" maxvalue="1000" default="100">number of
             bins</property>
-            <property name="@min" type="float" default="-1">minimal value</property>
+            <!-- @max -->
             <property name="@max" type="float" default="1">maximum value</property>
+            <!-- @min -->
+            <property name="@min" type="float" default="-1">minimal value</property>
         </properties>
         <inlets>
             <inlet>

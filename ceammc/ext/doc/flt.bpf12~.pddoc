@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Two pole band-pass butterworth filter</tr>
+                <tr lang="en">two pole band-pass Butterworth filter</tr>
+                <tr lang="ru">двухполюсный полосовой фильтр Баттерворта</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -34,13 +35,16 @@
             @freq/BANDWIDTH</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
-            units="hertz">center frequency</property>
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
-            factor: @freq/BANDWIDTH</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+            units="hertz">center frequency</property>
+            <!-- @q -->
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
+            factor: @freq/BANDWIDTH</property>
         </properties>
         <methods>
             <!-- reset -->

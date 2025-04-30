@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sync signed bit right shift</tr>
+                <tr lang="ru">синхронный битовый сдвиг вправо</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

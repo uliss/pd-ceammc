@@ -8,8 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">splits list into two parts, the length of first list is specified by
-                the argument</tr>
+                <tr lang="en">divides the list into two parts at the specified index position</tr>
+                <tr lang="ru">разделяет список на две части по указанному индексу</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,6 +25,7 @@
             the second output is the size of input list - this value</argument>
         </arguments>
         <properties>
+            <!-- @at -->
             <property name="@at" type="int" minvalue="0" default="0">split point</property>
         </properties>
         <inlets>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">enhanced version on vanilla delay object</tr>
+                <tr lang="en">enhanced version of the vanilla [delay] object</tr>
+                <tr lang="ru">усовершенствованная версия объекта [delay]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -34,11 +35,13 @@
             property</argument>
         </arguments>
         <properties>
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
-            time</property>
+            <!-- @block -->
             <property name="@block" type="bool" default="0">blocking mode. If true, discards
             incoming messages until scheduled message will output, after that is ready to accept
             the new one. Otherwise acts like vanilla [del] object.</property>
+            <!-- @delay -->
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
+            time</property>
         </properties>
         <inlets>
             <inlet>
@@ -51,7 +54,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs nothing. connect to destination object(s)</outlet>
+            <outlet>delayed output</outlet>
         </outlets>
         <example>
             <pdascii>

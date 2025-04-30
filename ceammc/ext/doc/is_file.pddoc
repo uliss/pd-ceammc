@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if file exists and accessible</tr>
+                <tr lang="en">checks if the file exists and accessible</tr>
+                <tr lang="ru">проверка существования и доступности файла</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

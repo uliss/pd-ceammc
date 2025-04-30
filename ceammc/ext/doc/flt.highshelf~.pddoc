@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">gain boost|cut above some frequency</tr>
+                <tr lang="ru">усиление или ослабление частот выше указанной</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -27,13 +28,16 @@
             of boost or cut apply to the signal</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="10000">starting frequency for the shelf</property>
-            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
-            default="0">amount of boost or cut apply to the signal</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="10000">starting frequency for the shelf</property>
+            <!-- @gain -->
+            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
+            default="0">amount of boost or cut apply to the signal</property>
         </properties>
         <inlets>
             <inlet type="audio">

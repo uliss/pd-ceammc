@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Positive unit-amplitude low frequency saw wave</tr>
+                <tr lang="en">positive unit-amplitude low frequency saw wave</tr>
+                <tr lang="ru">низкочастотная пилообразная волна в диапазоне [0,+1]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,18 +22,26 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+            frequency</argument>
             <argument name="INVERT" type="bool">invert saw</argument>
         </arguments>
         <properties>
-            <property name="@invert" type="bool" default="0">wave inversion</property>
-            <property name="@pause" type="bool" default="0">pause oscillator at current
-            value</property>
-            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
-            phase</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" default="0" minvalue="0" maxvalue="1000"
+            units="hertz">initial frequency</property>
+            <!-- @invert -->
+            <property name="@invert" type="bool" default="0">wave inversion</property>
+            <!-- @pause -->
+            <property name="@pause" type="bool" default="0">pause oscillator at current
+            value</property>
+            <!-- @phase -->
+            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
+            phase</property>
         </properties>
         <methods>
             <!-- reset -->

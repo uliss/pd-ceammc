@@ -33,12 +33,16 @@
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
-            <property name="@id" type="symbol" access="initonly" default="default">local variable
-            id</property>
-            <property name="@keys" type="list" access="readonly" default="">keys of
-            dictionary</property>
+            <!-- @empty -->
             <property name="@empty" type="bool" access="readonly" default="1">1 if dict is empty,
             otherwise 0</property>
+            <!-- @id -->
+            <property name="@id" type="symbol" access="initonly" default="default">local variable
+            id</property>
+            <!-- @keys -->
+            <property name="@keys" type="list" access="readonly" default="">keys of
+            dictionary</property>
+            <!-- @size -->
             <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             entries in dictionary</property>
         </properties>

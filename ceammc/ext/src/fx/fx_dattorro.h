@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.dattorro"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_dattorro -scn fx_dattorro_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_dattorro -scn fx_dattorro_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_dattorro_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API fx_dattorro_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public fx_dattorro_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual fx_dattorro_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -616,30 +671,33 @@ class fx_dattorro : public fx_dattorro_dsp {
 	float fRec3[2];
 	
  public:
+	fx_dattorro() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_dattorro -scn fx_dattorro_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_dattorro -scn fx_dattorro_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.1");
+		m->declare("delays.lib/version", "1.1.0");
 		m->declare("filename", "fx_dattorro.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "fx.dattorro");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.2");
+		m->declare("routes.lib/version", "1.2.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 	}
 
 	virtual int getNumInputs() {
@@ -790,6 +848,7 @@ class fx_dattorro : public fx_dattorro_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -838,16 +897,16 @@ class fx_dattorro : public fx_dattorro_dsp {
 		float fSlow8 = fConst1 * float(fVslider6);
 		float fSlow9 = fConst1 * float(fVslider7);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fTemp0 = fRec0[1] + 0.0078125f;
-			float fTemp1 = fRec0[1] + -0.0078125f;
-			fRec0[0] = ((fTemp0 < fSlow0) ? fTemp0 : ((fTemp1 > fSlow0) ? fTemp1 : fSlow0));
-			float fTemp2 = 1.0f - fRec0[0];
-			float fTemp3 = float(input0[i0]);
+			float fTemp0 = float(input0[i0]);
+			float fTemp1 = fRec0[1] + 0.0078125f;
+			float fTemp2 = fRec0[1] + -0.0078125f;
+			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
+			float fTemp3 = 1.0f - fRec0[0];
 			fRec1[0] = fSlow1 + fConst2 * fRec1[1];
 			float fTemp4 = 1.0f - fRec1[0];
 			fRec13[0] = fSlow2 + fConst2 * fRec13[1];
 			float fTemp5 = float(input1[i0]);
-			float fTemp6 = fTemp3 + fTemp5;
+			float fTemp6 = fTemp0 + fTemp5;
 			fVec0[IOTA0 & 32767] = fTemp6;
 			fRec14[0] = fSlow3 + fConst2 * fRec14[1];
 			float fTemp7 = fConst0 * fRec14[0];
@@ -879,7 +938,7 @@ class fx_dattorro : public fx_dattorro_dsp {
 			float fTemp15 = fRec24[0] * fRec22[1] + fRec3[1];
 			fVec5[IOTA0 & 1023] = fTemp15;
 			fRec22[0] = fVec5[(IOTA0 - 908) & 1023];
-			float fRec23 = 0.0f - fRec24[0] * fTemp15;
+			float fRec23 = -(fRec24[0] * fTemp15);
 			fVec6[IOTA0 & 8191] = fRec23 + fRec22[1];
 			fRec20[0] = fRec21[0] * fRec20[1] + fTemp14 * fVec6[(IOTA0 - 4217) & 8191];
 			fRec25[0] = fSlow9 + fConst2 * fRec25[1];
@@ -892,7 +951,7 @@ class fx_dattorro : public fx_dattorro_dsp {
 			float fTemp17 = fRec24[0] * fRec29[1] + fRec2[1];
 			fVec9[IOTA0 & 1023] = fTemp17;
 			fRec29[0] = fVec9[(IOTA0 - 672) & 1023];
-			float fRec30 = 0.0f - fRec24[0] * fTemp17;
+			float fRec30 = -(fRec24[0] * fTemp17);
 			fVec10[IOTA0 & 8191] = fRec30 + fRec29[1];
 			fRec28[0] = fRec21[0] * fRec28[1] + fTemp14 * fVec10[(IOTA0 - 4453) & 8191];
 			float fTemp18 = fRec17[0] * fRec28[0] - fRec25[0] * fRec26[1];
@@ -901,8 +960,8 @@ class fx_dattorro : public fx_dattorro_dsp {
 			float fRec27 = fRec25[0] * fTemp18;
 			fVec12[IOTA0 & 2047] = fRec27 + fRec26[1];
 			fRec3[0] = fRec5 + fRec4[1] + fRec17[0] * fVec12[(IOTA0 - 1800) & 2047];
-			output0[i0] = FAUSTFLOAT(fTemp2 * (fTemp3 * fTemp4 + fRec1[0] * fRec2[0]) + fTemp3 * fRec0[0]);
-			output1[i0] = FAUSTFLOAT(fTemp2 * (fTemp5 * fTemp4 + fRec1[0] * fRec3[0]) + fTemp5 * fRec0[0]);
+			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0] + fTemp3 * (fTemp0 * fTemp4 + fRec1[0] * fRec2[0]));
+			output1[i0] = FAUSTFLOAT(fTemp5 * fRec0[0] + fTemp3 * (fTemp5 * fTemp4 + fRec1[0] * fRec3[0]));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec13[1] = fRec13[0];

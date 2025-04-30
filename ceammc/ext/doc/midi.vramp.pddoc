@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">apply crescendo or diminuendo for midi message flow</tr>
+                <tr lang="en">apply crescendo or diminuendo for notes flow</tr>
+                <tr lang="ru">применяет crescendo или diminuendo для потока нот</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,13 +22,17 @@
             <argument name="N" type="int" minvalue="0">number of steps</argument>
         </arguments>
         <properties>
-            <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">start
-            value</property>
-            <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">end
-            value</property>
-            <property name="@n" type="int" default="0" minvalue="0">number of steps</property>
+            <!-- @auto -->
             <property name="@auto" type="bool" default="0">auto reset mode. If true: reset to
             @start value after ramp is finished</property>
+            <!-- @from -->
+            <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">start
+            value</property>
+            <!-- @n -->
+            <property name="@n" type="int" default="0" minvalue="0">number of steps</property>
+            <!-- @to -->
+            <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">end
+            value</property>
         </properties>
         <methods>
             <!-- reset -->

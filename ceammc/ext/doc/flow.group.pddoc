@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">group input atoms in list of specified size</tr>
+                <tr lang="en">group input atoms in lists of specified size</tr>
+                <tr lang="ru">группирует входные атомы в списки указанного размера</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,7 +24,9 @@
             <argument name="BY" type="int" minvalue="1">group by this size</argument>
         </arguments>
         <properties>
+            <!-- @by -->
             <property name="@by" type="int" minvalue="1" default="1">group size</property>
+            <!-- @free -->
             <property name="@free" type="int" access="readonly" default="0" minvalue="0">free space
             left in group</property>
         </properties>

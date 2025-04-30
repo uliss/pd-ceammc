@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if string ends with specified substring</tr>
+                <tr lang="en">checks if the string ends with the specified substring</tr>
+                <tr lang="ru">проверяет, заканчивается ли строка указанной подстрокой</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,6 +26,7 @@
             <argument name="SUFFIX" type="symbol">suffix</argument>
         </arguments>
         <properties>
+            <!-- @suffix -->
             <property name="@suffix" type="symbol" default="">suffix to search</property>
         </properties>
         <inlets>

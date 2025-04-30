@@ -39,6 +39,7 @@ MOUSE_METHODS = [
     "mousewheel",
     "mouseleave",
     "rightclick",
+    "mouseup",
     ]
 
 def mouse_method2event(event: str) -> str:
@@ -59,6 +60,8 @@ def mouse_method2event(event: str) -> str:
     elif event == "mousewheel":
         return "wheel"
     elif event == "mouseleave":
+        return None
+    elif event == "mouseup":
         return None
     else:
         return event
@@ -100,6 +103,8 @@ def print_arg_template(arg):
         str += f'minvalue="{arg["min"]}" '
     if "max" in arg:
         str += f'maxvalue="{arg["max"]}" '
+    if "units" in arg:
+        str += f'units="{' '.join(arg["units"])}" '
     if "property" in arg:
         name = f'See {arg["property"]}'
 
@@ -122,12 +127,12 @@ def print_prop_template(arg):
     if "default" in arg:
         str += f'default="{arg["default"]}" '
     if "units" in arg:
-        str += f'units="{arg["units"]}" '
+        str += f'units="{' '.join(arg["units"])}" '
     if "access" in arg:
         str += f'access="{arg["access"]}" '
 
     str = str.strip()
-    cprint(f'<{str}>{name}</property>', 'white')
+    cprint(f'<{str}>{arg["name"]}</property>', 'white')
 
 
 # methods starting with @ - properties in UI objects

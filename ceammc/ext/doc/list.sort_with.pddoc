@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">sort list with user defined side-chain</tr>
+                <tr lang="en">sorts the list using a side processing chain</tr>
+                <tr lang="ru">сортирует список при помощи боковой цепи обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

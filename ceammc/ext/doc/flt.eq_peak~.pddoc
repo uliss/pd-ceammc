@@ -8,8 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">second order "peaking equalizer" section (gain boost or cut near some
-                frequency). Also called a "parametric equalizer" section.</tr>
+                <tr lang="en">second order peaking equalizer section</tr>
+                <tr lang="ru">секция эквалайзера: пиковый фильтр второго порядка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,15 +31,19 @@
             bandwidth of peak</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="1000">peak frequency</property>
-            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
-            default="0">level at fx (boost if &gt;0 or cut if &lt;0)</property>
-            <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
-            default="100">bandwidth of peak</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @bandwidth -->
+            <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
+            default="100">bandwidth of peak</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="1000">peak frequency</property>
+            <!-- @gain -->
+            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
+            default="0">level at fx (boost if &gt;0 or cut if &lt;0)</property>
         </properties>
         <inlets>
             <inlet type="audio">

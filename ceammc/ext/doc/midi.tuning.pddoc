@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">apply tuning to midi messages</tr>
+                <tr lang="en">apply the tuning for notes flow</tr>
+                <tr lang="ru">применяет настройку для нотного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -21,8 +22,10 @@
             "valotti" or "zarlino". If list: set deviation in cents per pitch</argument>
         </arguments>
         <properties>
+            <!-- @base -->
             <property name="@base" type="int" minvalue="0" maxvalue="11" default="9">base pitch (C:
             0, A: 9, etc..)</property>
+            <!-- @dev -->
             <property name="@dev" type="list" default="0 0 0 0 0 0 0 0 0 0 0 0">list of deviations
             in cents</property>
         </properties>

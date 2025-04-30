@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">set property for connected object/subpatch/abstraction</tr>
+                <tr lang="en">set the property value for connected object, subpatch or
+                abstraction</tr>
+                <tr lang="ru">устанавливает значение свойства для подключенного объекта, субпатча
+                или абстракции</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

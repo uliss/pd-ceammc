@@ -14,6 +14,7 @@
 
 #include "ceammc.h"
 #include "ceammc_config.h"
+#include "ceammc_log.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "mod_init.h"
@@ -82,6 +83,11 @@ void* ceammc_new()
     return x;
 }
 
+void ceammc_free(t_object* x)
+{
+    pd_unbind(&x->te_g.g_pd, gensym("ceammc"));
+}
+
 void ceammc_bang(t_object* x)
 {
     auto obj_list = ceammc_ext_list();
@@ -135,13 +141,32 @@ void ceammc_cords(t_object* x, t_symbol* s)
         sys_vgui("[tkcanvas_name $::focused_window] lower cord\n");
 }
 
+void ceammc_doc_lang(t_object* x, t_symbol* s)
+{
+    using namespace ceammc;
+
+    char buf[MAXPDSTRING] = { 0 };
+    auto cls = x->te_g.g_pd;
+
+    if (s == gensym("ru")) {
+        pdDebug(nullptr, "set documentation language to Russian");
+        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::Russian);
+        sprintf(buf, "help-ru/%s", class_getname(cls));
+        class_sethelpsymbol(cls, gensym(buf));
+    } else {
+        pdDebug(nullptr, "set documentation language to English");
+        ObjectInfoStorage::instance().setDocLanguage(ObjectInfoStorage::English);
+        class_sethelpsymbol(cls, gensym(class_getname(cls)));
+    }
+}
+
 void ceammc_tcl_path_init()
 {
     auto extern_dir = class_gethelpdir(ceammc_class);
     if (extern_dir)
         sys_vgui("lappend ::auto_path {%s/tcl}\n", extern_dir);
 }
-}  // namespace
+} // namespace
 
 extern "C" CEAMMC_EXTERN int ceammc_init_done()
 {
@@ -156,7 +181,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     }
 
     ceammc_class = class_new(gensym("ceammc"),
-        reinterpret_cast<t_newmethod>(ceammc_new), 0,
+        reinterpret_cast<t_newmethod>(ceammc_new),
+        reinterpret_cast<t_method>(ceammc_free),
         sizeof(t_object), CLASS_DEFAULT, A_NULL);
 
     class_addbang(ceammc_class, reinterpret_cast<t_method>(ceammc_bang));
@@ -168,6 +194,8 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         reinterpret_cast<t_method>(ceammc_postscript), gensym("postscript"), A_DEFSYMBOL, 0);
     class_addmethod(ceammc_class,
         reinterpret_cast<t_method>(ceammc_cords), gensym("cords"), A_DEFSYMBOL, 0);
+    class_addmethod(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_doc_lang), gensym("doc"), A_DEFSYMBOL, 0);
 
     auto tcl = getenv("CEAMMC_TCL");
     if (tcl && tcl[0] == '1') {

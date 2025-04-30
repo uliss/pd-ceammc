@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">robust float object</tr>
+                <tr lang="en">a multi-functional float object</tr>
+                <tr lang="ru">многофункциональный объект числа с плавающей точкой</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,6 +27,7 @@
             <argument name="VALUE" type="float">set initial value</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="float" access="readonly" default="0">current
             value</property>
         </properties>
@@ -34,7 +36,6 @@
             <method name="*">multiply to, no output</method>
             <!-- + -->
             <method name="+">add to float, no output</method>
-            <!-- - -->
             <method name="-">subtract from float, no output</method>
             <!-- / -->
             <method name="/">divide by, no output</method>

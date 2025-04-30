@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">feedback comb filter</tr>
+                <tr lang="ru">гребенчатый фильтр с обратной связью (БИХ)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,11 +32,13 @@
             sum</argument>
         </arguments>
         <properties>
-            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">scaling
-            factor of delayed signal sum</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @a -->
+            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">scaling
+            factor of delayed signal sum</property>
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
             <!-- reset -->

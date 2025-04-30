@@ -1,0 +1,409 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 582 50 cnv 1 183 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 587 50 многоуровневая задержка;
+#X obj 1 1 cnv 5 765 40 empty empty fx.tapiir~ 20 20 0 20 -104026
+-4096 0;
+#X obj 666 11 fx.tapiir~;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 414 118 list 2 4_ 4 8_ 8 16_ 16;
+#X obj 50 147 click~;
+#X msg 414 147 list 4_ 8 4_ 8 4_ 8;
+#X obj 50 176 flt.resonbp~ 1000 50;
+#X obj 414 176 music.d->t @bpm 120 1;
+#X obj 78 205 flt.resonbp~ 1700 50;
+#X obj 88 234 ui.sliders 6 @size 84 50 @min 0 @max 1;
+#X obj 251 234 ui.sliders 6 @size 84 50 @min 0 @max 1;
+#X obj 414 234 ui.sliders 6 @size 84 50 @min 50 @max 1000;
+#X obj 88 291 m @outs0;
+#X obj 251 291 m @outs1;
+#X obj 414 291 m @delays;
+#X msg 88 320 reset;
+#X msg 174 320 dump;
+#X msg 414 320 random delays 200 3000 \, random fb 0.1 0.2;
+#X msg 414 349 pingpong 250 0.7;
+#X obj 50 378 fx.tapiir~ @out0.in0 1 @out1.in1 1;
+#X obj 50 406 ui.hgain2~;
+#X obj 414 406 ui.dsp~;
+#X obj 50 435 dac~;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 490 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 525 @id;
+#X text 245 525 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/fx_tapiir/PROP_NAME
+osc address \, if empty bind to /fx_tapiir/PROP_NAME. Тип: symbol.;
+#X msg 110 582 @osc;
+#X text 245 582 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 624 @active;
+#X text 245 624 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 666 @delays;
+#X text 245 666 Получить/Установить list of all tap delays. Тип: list.
+Единицы: 'ms'. Значение по умолчанию: 0 0 0 0 0 0\.;
+#X msg 110 708 @fbs0;
+#X text 245 708 Получить/Установить list of all feedbacks to tap0\.
+Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X msg 110 750 @fbs1;
+#X text 245 750 Получить/Установить list of all feedbacks to tap1\.
+Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X msg 110 792 @fbs2;
+#X text 245 792 Получить/Установить list of all feedbacks to tap2\.
+Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X msg 110 834 @fbs3;
+#X text 245 834 Получить/Установить list of all feedbacks to tap3\.
+Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X msg 110 876 @fbs4;
+#X text 245 876 Получить/Установить list of all feedbacks to tap4\.
+Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X msg 110 918 @fbs5;
+#X text 245 918 Получить/Установить list of all feedbacks to tap5\.
+Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X msg 110 960 @gains;
+#X text 245 960 Получить/Установить list of all tap gains. Тип: list.
+Единицы: 'db'. Значение по умолчанию: 0 0 0 0 0 0\.;
+#X msg 110 1002 @ins0;
+#X text 245 1002 Получить/Установить list of all taps left channel
+input levels. Тип: list. Значение по умолчанию: 1 1 1 1 1 1\. Диапазон:
+0\...1\.;
+#X msg 110 1059 @ins1;
+#X text 245 1059 Получить/Установить list of all taps right channel
+input levels. Тип: list. Значение по умолчанию: 1 1 1 1 1 1\. Диапазон:
+0\...1\.;
+#X msg 110 1116 @out0.gain;
+#X text 245 1116 Получить/Установить left channel output gain. Тип:
+float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 1173 @out0.in0;
+#X text 245 1173 Получить/Установить input left channel level to left
+output. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1215 @out0.in1;
+#X text 245 1215 Получить/Установить input right channel level to left
+output. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1257 @out0.tap0;
+#X text 245 1257 Получить/Установить tap 0 output level to left channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1299 @out0.tap1;
+#X text 245 1299 Получить/Установить tap 1 output level to left channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1341 @out0.tap2;
+#X text 245 1341 Получить/Установить tap 2 output level to left channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1383 @out0.tap3;
+#X text 245 1383 Получить/Установить tap 3 output level to left channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1425 @out0.tap4;
+#X text 245 1425 Получить/Установить tap 4 output level to left channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1467 @out0.tap5;
+#X text 245 1467 Получить/Установить tap 5 output level to left channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1509 @out1.gain;
+#X text 245 1509 Получить/Установить right channel output gain. Тип:
+float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 1566 @out1.in0;
+#X text 245 1566 Получить/Установить input left channel level to right
+output. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1608 @out1.in1;
+#X text 245 1608 Получить/Установить input right channel level to right
+output. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1665 @out1.tap0;
+#X text 245 1665 Получить/Установить tap 0 output level to right channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1707 @out1.tap1;
+#X text 245 1707 Получить/Установить tap 1 output level to right channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1749 @out1.tap2;
+#X text 245 1749 Получить/Установить tap 2 output level to right channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1791 @out1.tap3;
+#X text 245 1791 Получить/Установить tap 3 output level to right channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1833 @out1.tap4;
+#X text 245 1833 Получить/Установить tap 4 output level to right channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1875 @out1.tap5;
+#X text 245 1875 Получить/Установить tap 5 output level to right channel.
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 1917 @outs0;
+#X text 245 1917 Получить/Установить list of all tap output levels
+to left channel. Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон:
+0\...1\.;
+#X msg 110 1974 @outs1;
+#X text 245 1974 Получить/Установить list of all tap output levels
+to right channel. Тип: list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон:
+0\...1\.;
+#X msg 110 2031 @tap0.delay;
+#X text 245 2031 Получить/Установить tap0 delay time. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\. Диапазон: 0\...5000\.;
+#X msg 110 2073 @tap0.fb0;
+#X text 245 2073 Получить/Установить tap0 feedback to tap0\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2115 @tap0.fb1;
+#X text 245 2115 Получить/Установить tap1 feedback to tap0\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2157 @tap0.fb2;
+#X text 245 2157 Получить/Установить tap2 feedback to tap0\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2199 @tap0.fb3;
+#X text 245 2199 Получить/Установить tap3 feedback to tap0\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2241 @tap0.fb4;
+#X text 245 2241 Получить/Установить tap4 feedback to tap0\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2283 @tap0.fb5;
+#X text 245 2283 Получить/Установить tap5 feedback to tap0\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2325 @tap0.gain;
+#X text 245 2325 Получить/Установить tap0 common level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 2367 @tap0.in0;
+#X text 245 2367 Получить/Установить left input level to tap0\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 2409 @tap0.in1;
+#X text 245 2409 Получить/Установить right input level to tap0\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 2451 @tap1.delay;
+#X text 245 2451 Получить/Установить tap1 delay time. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\. Диапазон: 0\...5000\.;
+#X msg 110 2493 @tap1.fb0;
+#X text 245 2493 Получить/Установить tap0 feedback to tap1\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2535 @tap1.fb1;
+#X text 245 2535 Получить/Установить tap1 feedback to tap1\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2577 @tap1.fb2;
+#X text 245 2577 Получить/Установить tap2 feedback to tap1\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2619 @tap1.fb3;
+#X text 245 2619 Получить/Установить tap3 feedback to tap1\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2661 @tap1.fb4;
+#X text 245 2661 Получить/Установить tap4 feedback to tap1\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2703 @tap1.fb5;
+#X text 245 2703 Получить/Установить tap5 feedback to tap1\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2745 @tap1.gain;
+#X text 245 2745 Получить/Установить tap1 common level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 2787 @tap1.in0;
+#X text 245 2787 Получить/Установить left input level to tap1\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 2829 @tap1.in1;
+#X text 245 2829 Получить/Установить right input level to tap1\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 2871 @tap2.delay;
+#X text 245 2871 Получить/Установить tap2 delay time. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\. Диапазон: 0\...5000\.;
+#X msg 110 2913 @tap2.fb0;
+#X text 245 2913 Получить/Установить tap0 feedback to tap2\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2955 @tap2.fb1;
+#X text 245 2955 Получить/Установить tap1 feedback to tap2\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 2997 @tap2.fb2;
+#X text 245 2997 Получить/Установить tap2 feedback to tap2\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3039 @tap2.fb3;
+#X text 245 3039 Получить/Установить tap3 feedback to tap2\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3081 @tap2.fb4;
+#X text 245 3081 Получить/Установить tap4 feedback to tap2\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3123 @tap2.fb5;
+#X text 245 3123 Получить/Установить tap5 feedback to tap2\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3165 @tap2.gain;
+#X text 245 3165 Получить/Установить tap2 common level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 3207 @tap2.in0;
+#X text 245 3207 Получить/Установить left input level to tap2\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 3249 @tap2.in1;
+#X text 245 3249 Получить/Установить right input level to tap2\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 3291 @tap3.delay;
+#X text 245 3291 Получить/Установить tap3 delay time. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\. Диапазон: 0\...5000\.;
+#X msg 110 3333 @tap3.fb0;
+#X text 245 3333 Получить/Установить tap0 feedback to tap3\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3375 @tap3.fb1;
+#X text 245 3375 Получить/Установить tap1 feedback to tap3\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3417 @tap3.fb2;
+#X text 245 3417 Получить/Установить tap2 feedback to tap3\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3459 @tap3.fb3;
+#X text 245 3459 Получить/Установить tap3 feedback to tap3\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3501 @tap3.fb4;
+#X text 245 3501 Получить/Установить tap4 feedback to tap3\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3543 @tap3.fb5;
+#X text 245 3543 Получить/Установить tap5 feedback to tap3\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3585 @tap3.gain;
+#X text 245 3585 Получить/Установить tap3 common level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 3627 @tap3.in0;
+#X text 245 3627 Получить/Установить left input level to tap3\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 3669 @tap3.in1;
+#X text 245 3669 Получить/Установить right input level to tap3\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 3711 @tap4.delay;
+#X text 245 3711 Получить/Установить tap4 delay time. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\. Диапазон: 0\...5000\.;
+#X msg 110 3753 @tap4.fb0;
+#X text 245 3753 Получить/Установить tap0 feedback to tap4\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3795 @tap4.fb1;
+#X text 245 3795 Получить/Установить tap1 feedback to tap4\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3837 @tap4.fb2;
+#X text 245 3837 Получить/Установить tap2 feedback to tap4\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3879 @tap4.fb3;
+#X text 245 3879 Получить/Установить tap3 feedback to tap4\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3921 @tap4.fb4;
+#X text 245 3921 Получить/Установить tap4 feedback to tap4\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 3963 @tap4.fb5;
+#X text 245 3963 Получить/Установить tap5 feedback to tap4\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 4005 @tap4.gain;
+#X text 245 4005 Получить/Установить tap4 common level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 4047 @tap4.in0;
+#X text 245 4047 Получить/Установить left input level to tap4\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 4089 @tap4.in1;
+#X text 245 4089 Получить/Установить right input level to tap4\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 4131 @tap5.delay;
+#X text 245 4131 Получить/Установить tap5 delay time. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\. Диапазон: 0\...5000\.;
+#X msg 110 4173 @tap5.fb0;
+#X text 245 4173 Получить/Установить tap0 feedback to tap5\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 4215 @tap5.fb1;
+#X text 245 4215 Получить/Установить tap1 feedback to tap5\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 4257 @tap5.fb2;
+#X text 245 4257 Получить/Установить tap2 feedback to tap5\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 4299 @tap5.fb3;
+#X text 245 4299 Получить/Установить tap3 feedback to tap5\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 4341 @tap5.fb4;
+#X text 245 4341 Получить/Установить tap4 feedback to tap5\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 4383 @tap5.fb5;
+#X text 245 4383 Получить/Установить tap5 feedback to tap5\. Тип: float.
+Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X msg 110 4425 @tap5.gain;
+#X text 245 4425 Получить/Установить tap5 common level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+#X msg 110 4467 @tap5.in0;
+#X text 245 4467 Получить/Установить left input level to tap5\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X msg 110 4509 @tap5.in1;
+#X text 245 4509 Получить/Установить right input level to tap5\. Тип:
+float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 20 4561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4566 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 4601 pingpong;
+#X text 245 4601 set pingpong delay values. Аргументы:;
+#X obj 255 4624 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4624 DELAY: delay time. Тип: float. Единицы: 'ms'.;
+#X obj 255 4647 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4647 FB: feedback value. Тип: float. Диапазон: 0…1\.;
+#X msg 110 4672 random;
+#X text 245 4672 randomize values. Аргументы:;
+#X obj 255 4695 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4695 TYPE: group name. If 'delays' - randomize @delays
+properties \, if 'fb' - randomize @fb* properties. Тип: symbol. Разрешённые
+значения: delays \, fb \, inputs \, outputs \, gains.;
+#X obj 255 4748 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4748 [MIN]: minimal value. Тип: float. Минимальное значение:
+0\.;
+#X obj 255 4771 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4771 [MAX]: maximum value. Тип: float. Минимальное значение:
+0\.;
+#X msg 110 4796 reset;
+#X text 245 4796 reset to initial state.;
+#X obj 20 4834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4839 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 4840 1\.;
+#X text 245 4840 left in channel.;
+#X text 110 4860 2\.;
+#X text 245 4860 right in channel.;
+#X obj 20 4890 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4895 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 4896 1\.;
+#X text 245 4896 left out channel.;
+#X text 110 4916 2\.;
+#X text 245 4916 right out channel.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 4966 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4969 библиотека: ceammc v0.9.8;
+#N canvas 10 4988 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 fx.tapiir~;
+#X text 10 76 категория:;
+#X text 120 76 fx;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.4;
+#X text 10 120 авторы:;
+#X text 120 120 Viacheslav Lotsmanov \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 fx \, delay \, tapiir;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 4988 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 8 0;
+#X connect 7 0 9 0;
+#X connect 9 0 13 0;
+#X connect 11 0 14 0;
+#X connect 13 0 16 0;
+#X connect 8 0 21 0;
+#X connect 17 0 21 0;
+#X connect 18 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 22 1;
+#X connect 22 0 24 0;
+#X connect 22 1 24 1;
+#X connect 16 0 21 0;
+#X connect 14 0 21 0;
+#X connect 12 0 15 0;
+#X connect 15 0 21 0;
+#X connect 19 0 21 0;
+#X connect 5 0 9 0;
+#X connect 20 0 21 0;
+#X connect 10 0 21 1;
+#X connect 6 0 10 0;

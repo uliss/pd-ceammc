@@ -5,39 +5,94 @@
 #X obj 425 125 route fx.granulator * .;
 #X obj 625 150 route.prop;
 #X obj 475 200 msg *;
-#X obj 425 250 route @delay @density @length default reset;
+#X obj 425 250 route @delay @density @gainAL @gainAR @gainBL @gainBR
+@hpfA @hpfB @pitchA @pitchB @size @spread default reset;
 #X obj 675 350 t b a;
-#X msg 675 375 supported messages are: @delay @density @length default reset;
+#X msg 675 375 supported messages are: @delay @density @gainAL @gainAR @gainBL @gainBR @hpfA @hpfB @pitchA @pitchB @size @spread default reset;
 #X obj 675 425 print;
 #X obj 725 425 print [gfx.granulator~] unknown message;
-#X msg 325 75 @delay 10 \, @density 10 \, @length 100 \,;
+#X msg 325 75 @delay 3000 \, @density 1 \, @gainAL 0.75 \, @gainAR 0.25 \, @gainBL 0.25 \, @gainBR 0.75 \, @hpfA 100 \, @hpfB 100 \, @pitchA 1 \, @pitchB 1 \, @size 100 \, @spread 0.5 \,;
 #X obj 25 50 t b b;
 #X msg 25 75 reset;
 #X obj 325 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;
 #X obj 700 550 outlet ctl;
-#X obj 3 202 cnv 8 198 111 empty empty empty 17 7 0 10 -174763 -1 0;
+#X obj 3 202 cnv 8 198 381 empty empty empty 17 7 0 10 -174763 -1 0;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.granulator~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
-delay(sec): @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.granulator~/slider0 @min 0.5 @max 10;
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider0 @min 500 @max 3000;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 0.5 @max 10 @digits 3;
+#X obj 145 236 ui.number @size 50 12 @min 500 @max 3000 @digits 0;
 #X msg 260 236 @delay \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label density:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.granulator~/slider1 @min 1 @max 64;
+/gui/\$1/fx.granulator~/slider1 @min 1 @max 16;
 #X obj 215 266 sync;
-#X obj 145 266 ui.number @size 50 12 @min 1 @max 64 @digits 0;
+#X obj 145 266 ui.number @size 50 12 @min 1 @max 16 @digits 0;
 #X msg 260 266 @density \$1;
-#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
-length(ms): @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.granulator~/slider2 @min 10 @max 500;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label gainAL:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider2 @min 0 @max 1;
 #X obj 215 296 sync;
-#X obj 145 296 ui.number @size 50 12 @min 10 @max 500 @digits 1;
-#X msg 260 296 @length \$1;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 296 @gainAL \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label gainAR:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider3 @min 0 @max 1;
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 326 @gainAR \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label gainBL:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider4 @min 0 @max 1;
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 356 @gainBL \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label gainBR:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider5 @min 0 @max 1;
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 386 @gainBR \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label hpfA(hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider6 @min 50 @max 10000;
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min 50 @max 10000 @digits 0;
+#X msg 260 416 @hpfA \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label hpfB(hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider7 @min 50 @max 10000;
+#X obj 215 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 50 @max 10000 @digits 0;
+#X msg 260 446 @hpfB \$1;
+#X obj 12 476 ui.slider @size 125 12 @active_scale 1 @label pitchA:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider8 @min -4 @max 4;
+#X obj 215 476 sync;
+#X obj 145 476 ui.number @size 50 12 @min -4 @max 4 @digits 3;
+#X msg 260 476 @pitchA \$1;
+#X obj 12 506 ui.slider @size 125 12 @active_scale 1 @label pitchB:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider9 @min -4 @max 4;
+#X obj 215 506 sync;
+#X obj 145 506 ui.number @size 50 12 @min -4 @max 4 @digits 3;
+#X msg 260 506 @pitchB \$1;
+#X obj 12 536 ui.slider @size 125 12 @active_scale 1 @label size(ms):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider10 @min 10 @max 1000;
+#X obj 215 536 sync;
+#X obj 145 536 ui.number @size 50 12 @min 10 @max 1000 @digits 0;
+#X msg 260 536 @size \$1;
+#X obj 12 566 ui.slider @size 125 12 @active_scale 1 @label spread:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.granulator~/slider11 @min 0.05 @max 1;
+#X obj 215 566 sync;
+#X obj 145 566 ui.number @size 50 12 @min 0.05 @max 1 @digits 4;
+#X msg 260 566 @spread \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 3 4 0;
@@ -46,16 +101,16 @@ length(ms): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 3 1 6 0;
 #X connect 3 2 6 0;
 #X connect 4 0 6 0;
-#X connect 6 5 7 0;
+#X connect 6 14 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 7 1 10 0;
 #X connect 11 0 6 0;
-#X connect 6 3 11 0;
+#X connect 6 12 11 0;
 #X connect 12 1 13 0;
 #X connect 12 0 11 0;
 #X connect 13 0 0 0;
-#X connect 6 4 12 0;
+#X connect 6 13 12 0;
 #X connect 14 0 11 0;
 #X connect 0 0 15 0;
 #X connect 0 1 16 0;
@@ -82,4 +137,67 @@ length(ms): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 28 0 31 0;
 #X connect 31 0 0 0;
 #X connect 6 2 28 0;
-#X coords 0 -1 1 1 200 116 2 2 200;
+#X connect 32 0 33 0;
+#X connect 33 0 32 0;
+#X connect 34 0 33 1;
+#X connect 33 1 34 0;
+#X connect 32 0 35 0;
+#X connect 35 0 0 0;
+#X connect 6 3 32 0;
+#X connect 36 0 37 0;
+#X connect 37 0 36 0;
+#X connect 38 0 37 1;
+#X connect 37 1 38 0;
+#X connect 36 0 39 0;
+#X connect 39 0 0 0;
+#X connect 6 4 36 0;
+#X connect 40 0 41 0;
+#X connect 41 0 40 0;
+#X connect 42 0 41 1;
+#X connect 41 1 42 0;
+#X connect 40 0 43 0;
+#X connect 43 0 0 0;
+#X connect 6 5 40 0;
+#X connect 44 0 45 0;
+#X connect 45 0 44 0;
+#X connect 46 0 45 1;
+#X connect 45 1 46 0;
+#X connect 44 0 47 0;
+#X connect 47 0 0 0;
+#X connect 6 6 44 0;
+#X connect 48 0 49 0;
+#X connect 49 0 48 0;
+#X connect 50 0 49 1;
+#X connect 49 1 50 0;
+#X connect 48 0 51 0;
+#X connect 51 0 0 0;
+#X connect 6 7 48 0;
+#X connect 52 0 53 0;
+#X connect 53 0 52 0;
+#X connect 54 0 53 1;
+#X connect 53 1 54 0;
+#X connect 52 0 55 0;
+#X connect 55 0 0 0;
+#X connect 6 8 52 0;
+#X connect 56 0 57 0;
+#X connect 57 0 56 0;
+#X connect 58 0 57 1;
+#X connect 57 1 58 0;
+#X connect 56 0 59 0;
+#X connect 59 0 0 0;
+#X connect 6 9 56 0;
+#X connect 60 0 61 0;
+#X connect 61 0 60 0;
+#X connect 62 0 61 1;
+#X connect 61 1 62 0;
+#X connect 60 0 63 0;
+#X connect 63 0 0 0;
+#X connect 6 10 60 0;
+#X connect 64 0 65 0;
+#X connect 65 0 64 0;
+#X connect 66 0 65 1;
+#X connect 65 1 66 0;
+#X connect 64 0 67 0;
+#X connect 67 0 0 0;
+#X connect 6 11 64 0;
+#X coords 0 -1 1 1 200 386 2 2 200;

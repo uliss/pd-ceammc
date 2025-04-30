@@ -20,15 +20,26 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @id -->
+            <property name="@id" type="symbol" default="pd_mqtt_client_0">client id</property>
+            <!-- @mode -->
             <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">
             parsing mode for incoming/outcoming messages. If 'fudi' - interpret data as Pd
             messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
             convert json values to ceammc data.</property>
-            <property name="@id" type="symbol" default="pd_mqtt_client_0">client id</property>
+            <!-- @qos -->
             <property name="@qos" type="int" default="0" enum="0 1 2">quality of service</property>
+            <!-- @retain -->
             <property name="@retain" type="bool" default="0">retain flag</property>
         </properties>
         <methods>
+            <!-- close -->
+            <method name="close">close MQTT connection</method>
+            <!-- connect -->
+            <method name="connect">connect to websocket server 
+            <param name="URL" type="symbol" required="true">mqtt server url, for ex.:
+            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1
+            etc.</param></method>
             <!-- publish -->
             <method name="publish">publish message to topic 
             <param name="TOPIC" type="symbol" required="true">topic</param>
@@ -39,13 +50,6 @@
             <!-- unsubscribe -->
             <method name="unsubscribe">unsubscribe from topic 
             <param name="TOPIC" type="symbol" required="true">topic</param></method>
-            <!-- close -->
-            <method name="close">close MQTT connection</method>
-            <!-- connect -->
-            <method name="connect">connect to websocket server 
-            <param name="URL" type="symbol" required="true">mqtt server url, for ex.:
-            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1
-            etc.</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">midi velocity randomizer</tr>
+                <tr lang="ru">рандомизатор силы нажатия MIDI</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,16 +21,11 @@
             <argument name="MAX" type="float">max random range</argument>
         </arguments>
         <properties>
-            <property name="@min" type="float" default="0">min random range</property>
-            <property name="@max" type="float" default="127">max random range</property>
-            <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
-            <property name="@mode" type="symbol" default="assign" enum="assign add sub">assign
-            mode. If *assign* - replace origin velocity with random new one (default), if *add* -
-            adds random value to origin velocity, if *sub* - subtract random value from origin
-            velocity.</property>
+            <!-- @add -->
             <property name="@add" type="alias">alias to @mode add</property>
-            <property name="@sub" type="alias">alias to @mode sub</property>
+            <!-- @assign -->
             <property name="@assign" type="alias">alias to @mode assign</property>
+            <!-- @dist -->
             <property name="@dist" type="symbol" default="uniform"
             enum="uniform gauss linup lindown cmin cmax cmean">random distribution. *uniform* -
             generate uniformly distributed value, *gauss* - mean=(@max+@min)/2,
@@ -37,6 +33,19 @@
             @max, *lindown* - linear distribution with prob=1 at @min and prob=0 at @max, *cmin* -
             constant @min value, *cmax* - constant @max value, *cmean* - constant (@max+@min)/2
             value</property>
+            <!-- @max -->
+            <property name="@max" type="float" default="127">max random range</property>
+            <!-- @min -->
+            <property name="@min" type="float" default="0">min random range</property>
+            <!-- @mode -->
+            <property name="@mode" type="symbol" default="assign" enum="assign add sub">assign
+            mode. If *assign* - replace origin velocity with random new one (default), if *add* -
+            adds random value to origin velocity, if *sub* - subtract random value from origin
+            velocity.</property>
+            <!-- @seed -->
+            <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
+            <!-- @sub -->
+            <property name="@sub" type="alias">alias to @mode sub</property>
         </properties>
         <inlets>
             <inlet>

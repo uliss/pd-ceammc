@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">numeric stream router, like many [moses]</tr>
+                <tr lang="en">numeric stream router by 'less' condition</tr>
+                <tr lang="ru">маршрутизатор числового потока по условию 'меньше'</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -30,6 +31,7 @@
             order</argument>
         </arguments>
         <properties>
+            <!-- @values -->
             <property name="@values" type="list" access="initonly" default="">compare values: list
             of floats in ascending order</property>
         </properties>

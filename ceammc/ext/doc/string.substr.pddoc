@@ -8,7 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">extract substring from input string</tr>
+                <tr lang="en">extract a substring from the input string</tr>
+                <tr lang="ru">извлечение подстроки из входной строки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,8 +30,10 @@
             default), means 'till string end'.</argument>
         </arguments>
         <properties>
+            <!-- @from -->
             <property name="@from" type="int" default="0">substring position. Can be negative - to
             address string from the end</property>
+            <!-- @len -->
             <property name="@len" type="int" default="-1" minvalue="-1">substring length. If equal
             to -1, substring to the end of string</property>
         </properties>

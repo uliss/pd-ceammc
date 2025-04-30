@@ -1,0 +1,102 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 381 50 создает список на основе повторов исходного списка;
+#X obj 1 1 cnv 5 765 40 empty empty list.repeat 20 20 0 20 -104026
+-4096 0;
+#X obj 661 11 list.repeat;
+#X msg 50 118 1 2 3 4 *;
+#X msg 174 118 (1 2 3) \, bang;
+#X obj 347 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 69 147 symbol A;
+#X obj 174 147 ml;
+#X obj 347 147 str a test string;
+#X msg 88 176 10;
+#X floatatom 366 176 5 0 0 0 - - -;
+#X obj 50 205 list.repeat 3;
+#X obj 50 234 ui.display @display_type 1;
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 324 1\.;
+#X text 150 324 int;
+#X obj 246 325 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 324 N: repeat times. Тип: int. Диапазон: 0…10000;
+#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 362 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 394 @n;
+#X text 245 394 Получить/Установить repeat times. Тип: int. Значение
+по умолчанию: 1\. Диапазон: 0\...10000\.;
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 452 1\.;
+#X text 150 452 *float*;
+#X text 245 452 input float. Example: input 10 outputs list - 10 x
+n times.;
+#X text 150 472 *symbol*;
+#X text 245 472 input symbol. Example: input "A" outputs list - "A"
+x n times.;
+#X text 150 507 *list*;
+#X text 245 507 input list. Example: input 1 2 3 outputs list - (1
+2 3) x n times.;
+#X text 150 542 *data*;
+#X text 245 542 input data. Output list of data repeated @times.;
+#X text 150 562 *data:mlist*;
+#X text 245 562 same as list. Example: (1 2 3) results mlist (1 2 3
+1 2 3 ...).;
+#X text 110 597 2\.;
+#X text 150 597 *int*;
+#X text 245 597 repeat count. Диапазон: 0…10000\.;
+#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 632 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 633 1\.;
+#X text 245 633 output list.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 1 683 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 686 библиотека: ceammc v0.9.8;
+#N canvas 10 705 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 list.repeat;
+#X text 10 76 категория:;
+#X text 120 76 list;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 list \, repeat;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 705 pd info;
+#X connect 5 0 8 0;
+#X connect 6 0 9 0;
+#X connect 4 0 12 0;
+#X connect 7 0 12 0;
+#X connect 10 0 12 0;
+#X connect 8 0 12 0;
+#X connect 9 0 12 0;
+#X connect 11 0 12 1;
+#X connect 12 0 13 0;

@@ -18,10 +18,6 @@
 #include "stk/stk/include/Stk.h"
 #include "json/json.hpp"
 
-extern "C" {
-#include "m_imp.h"
-}
-
 using json = nlohmann::json;
 
 #include <algorithm>

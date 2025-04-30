@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">remove elements by predicate</tr>
+                <tr lang="en">remove list elements by the side-chain predicate</tr>
+                <tr lang="ru">удалить элементы списка при помощи предиката боковой цепи</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

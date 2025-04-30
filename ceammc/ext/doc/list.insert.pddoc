@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">insert atom or list to the specified position of input list</tr>
+                <tr lang="en">insert elements into the specified list position</tr>
+                <tr lang="ru">вставляет элементы в указанную позицию в списке</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,8 +27,10 @@
             <argument name="VALUE" type="list">list content</argument>
         </arguments>
         <properties>
+            <!-- @index -->
             <property name="@index" type="int" default="0" minvalue="0">insert element
             index</property>
+            <!-- @value -->
             <property name="@value" type="list" default="">list content</property>
         </properties>
         <inlets>

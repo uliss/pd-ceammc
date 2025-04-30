@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">get number of elements in set</tr>
+                <tr lang="en">outputs the number of elements in a set</tr>
+                <tr lang="ru">выводит количество элементов в множестве</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

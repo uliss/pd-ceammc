@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">outputs filename portion of pathname</tr>
+                <tr lang="en">outputs the filename portion of the pathname</tr>
+                <tr lang="ru">выводит имя файла из пути к файлу</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

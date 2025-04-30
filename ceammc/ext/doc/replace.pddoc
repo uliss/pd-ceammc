@@ -30,7 +30,9 @@
             <argument name="TO" type="atom">replace value</argument>
         </arguments>
         <properties>
+            <!-- @from -->
             <property name="@from" type="atom" default="None">replace subject</property>
+            <!-- @to -->
             <property name="@to" type="atom" default="None">replace value</property>
         </properties>
         <inlets>

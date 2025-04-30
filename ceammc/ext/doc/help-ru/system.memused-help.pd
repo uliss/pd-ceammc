@@ -1,0 +1,68 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 315 50 cnv 1 450 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 320 50 returns the process physical memory use - current and
+peak;
+#X obj 1 1 cnv 5 765 40 empty empty system.memused 20 20 0 20 -104026
+-4096 0;
+#X obj 639 11 system.memused;
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 147 system.memused;
+#X text 174 176 in Kbytes;
+#X obj 50 190 / 1024;
+#X floatatom 50 219 12 0 0 0 - - -;
+#X floatatom 261 219 12 0 0 0 - - -;
+#X obj 20 251 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 256 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 257 1\.;
+#X text 150 257 *bang*;
+#X text 245 257 outputs memory use.;
+#X obj 20 287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 292 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 293 1\.;
+#X text 245 293 current physical memory use measured in bytes \, or
+zero if the value cannot be determined on this OS.;
+#X text 110 328 2\.;
+#X text 245 328 peak (maximum so far) physical memory use measured
+in bytes \, or zero if the value cannot be determined on this OS.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 библиотека: ceammc v0.9.8;
+#X text 517 520 смотрите также:;
+#X obj 638 520 system.memsize;
+#N canvas 10 527 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 system.memused;
+#X text 10 76 категория:;
+#X text 120 76 system;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 system \, memory;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 527 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 7 0 8 0;
+#X connect 7 0 9 0;

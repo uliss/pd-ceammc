@@ -1,0 +1,124 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 622 50 cnv 1 143 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 627 50 виджет гиперссылки;
+#X obj 1 1 cnv 5 765 40 empty empty ui.link 20 20 0 20 -104026 -4096
+0;
+#X obj 686 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.link] @url ui.link-help.pd;
+#X obj 205 78 cnv 1 560 80 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Link allows to open external URLs \, not only Pd patches
+but all kind of URL supported by your OS. If relative file path is
+given \, it searched in current directory \, then Pd doc directory
+and Pd external directories;
+#X text 50 206 [ui.link @url vu-help.pd @title VU-help];
+#X obj 50 235 ui.link @title VU-help @url vu-help.pd;
+#X text 50 264 [ui.link @url http://puredata.info @title puredata.info];
+#X obj 50 293 ui.link @title puredata.info @url http://puredata.info;
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+-49933 0;
+#X text 110 390 Left-click;
+#X text 285 390 open link target.;
+#X text 110 410 Right-click + ⌥;
+#X text 285 410 open properties dialog.;
+#X text 110 430 Right-click + ⇧;
+#X text 285 430 open object help.;
+#X text 110 450 Right-click + ⌥;
+#X text 285 450 open properties dialog.;
+#X text 45 450 [Правка];
+#X text 110 470 Right-click + ⇧;
+#X text 285 470 open the object help.;
+#X text 45 470 [Правка];
+#X text 110 490 Right-click;
+#X text 285 490 opens Pd popup menu.;
+#X text 45 490 [Правка];
+#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 525 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 528 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 560 1\.;
+#X text 150 560 symbol;
+#X obj 246 561 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 560 URL: @url property value. Тип: symbol.;
+#X text 110 580 2\.;
+#X text 150 580 symbol;
+#X obj 246 581 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 580 TITLE: @title property value. Тип: symbol.;
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 618 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 650 @title;
+#X text 245 650 Получить/Установить link title. Тип: symbol. Значение
+по умолчанию: <no title>.;
+#X msg 110 692 @url;
+#X text 245 692 Получить/Установить destination url. Тип: symbol. Значение
+по умолчанию: <no url>.;
+#X msg 110 734 @hover_color;
+#X text 245 734 Получить/Установить color when mouse pointer is over
+element (list of red \, green \, blue values in 0-1 range). Тип: list.
+Значение по умолчанию: 1 0 0.5 1\.;
+#X msg 110 791 @link_color;
+#X text 245 791 Получить/Установить link color (list of red \, green
+\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.625
+0.75 1\.;
+#X msg 110 848 @fontname;
+#X text 245 848 Получить/Установить fontname. Тип: symbol. Значение
+по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
+Helvetica \, Monaco \, Times.;
+#X msg 110 905 @fontsize;
+#X text 245 905 Получить/Установить fontsize. Тип: int. Значение по
+умолчанию: 11\. Диапазон: 4\...100\.;
+#X msg 110 947 @fontslant;
+#X text 245 947 Получить/Установить font slant. Тип: symbol. Значение
+по умолчанию: roman. Разрешённые значения: roman \, italic.;
+#X msg 110 989 @fontweight;
+#X text 245 989 Получить/Установить font weight. Тип: symbol. Значение
+по умолчанию: normal. Разрешённые значения: normal \, bold.;
+#X msg 110 1031 @pinned;
+#X text 245 1031 Получить/Установить pin mode. if 1 - put element to
+the lowest level. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 20 1083 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1088 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 110 1123 pos;
+#X text 245 1123 set UI element position. Аргументы:;
+#X obj 255 1146 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1146 X: top left x-coord. Тип: float.;
+#X obj 255 1169 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1169 Y: top right y-coord. Тип: float.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1224 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1227 библиотека: ceammc v0.9.8;
+#N canvas 10 1246 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 ui.link;
+#X text 10 76 категория:;
+#X text 120 76 ui;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 ui \, link;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1246 pd info;

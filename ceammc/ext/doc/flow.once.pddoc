@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">one message pass thru</tr>
+                <tr lang="en">pass the only message</tr>
+                <tr lang="ru">пропускает единственное сообщение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -26,6 +27,7 @@
             <argument name="PASS" type="bool">set init state</argument>
         </arguments>
         <properties>
+            <!-- @pass -->
             <property name="@pass" type="bool" default="1">open state</property>
         </properties>
         <inlets>

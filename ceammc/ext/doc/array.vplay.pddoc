@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">simple array player for using with vline~</tr>
+                <tr lang="en">simple array player for using with the [vline~] object</tr>
+                <tr lang="ru">простой плеер массивов для использования с объектом [vline~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,20 +23,28 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
-            <property name="@array" type="symbol" default="">array name</property>
-            <property name="@state" type="symbol" enum="play stop" access="readonly"
-            default="stop">player state</property>
-            <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
-            <property name="@begin" type="int" default="0" units="sample">begin position in
-            samples</property>
-            <property name="@end" type="int" default="-1" units="sample">end position in
-            samples</property>
+            <!-- @abs_begin -->
             <property name="@abs_begin" type="int" units="sample" access="readonly" default="0">
             absolute start position in samples</property>
+            <!-- @abs_end -->
             <property name="@abs_end" type="int" units="sample" access="readonly" default="0">
             absolute stop position in samples</property>
+            <!-- @array -->
+            <property name="@array" type="symbol" default="">array name</property>
+            <!-- @begin -->
+            <property name="@begin" type="int" default="0" units="sample">begin position in
+            samples</property>
+            <!-- @end -->
+            <property name="@end" type="int" default="-1" units="sample">end position in
+            samples</property>
+            <!-- @reversed -->
             <property name="@reversed" type="bool" default="0">playing backwards (if set to
             1)</property>
+            <!-- @speed -->
+            <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
+            <!-- @state -->
+            <property name="@state" type="symbol" enum="play stop" access="readonly"
+            default="stop">player state</property>
         </properties>
         <methods>
             <!-- play -->

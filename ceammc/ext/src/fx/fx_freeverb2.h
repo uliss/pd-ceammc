@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.freeverb2"
-Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.74.5. (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_freeverb2_H__
@@ -43,6 +43,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 /************************************************************************
  FAUST Architecture File
@@ -71,7 +72,13 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.53.1"
+// Version as a global string
+#define FAUSTVERSION "2.74.3"
+
+// Version as separated [major,minor,patch] values
+#define FAUSTMAJORVERSION 2
+#define FAUSTMINORVERSION 74
+#define FAUSTPATCHVERSION 3
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -221,23 +228,48 @@ class FAUST_API fx_freeverb2_dsp {
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with successive in/out audio buffers.
+         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * This method will be filled with the -ec (--external-control) option.
+         */
+        virtual void control() {}
+    
+        /**
+         * DSP instance computation to process one single frame.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write frame(inputs, inputs).
+         * The -inpl option can be used for that, but only in scalar mode for now.
+         * This method will be filled with the -os (--one-sample) option.
+         *
+         * @param inputs - the input audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         * @param outputs - the output audio buffers as an array of FAUSTFLOAT samples (eiher float, double or quad)
+         */
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) {}
+        
+        /**
+         * DSP instance computation to be called with successive in/out audio buffers.
+         *
+         * Note that by default inputs and outputs buffers are supposed to be distinct memory zones,
+         * so one cannot safely write compute(count, inputs, inputs).
+         * The -inpl compilation option can be used for that, but only in scalar mode for now.
          *
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         *
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT buffers
+         * (containing either float, double or quad samples)
          */
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) = 0;
     
         /**
-         * DSP instance computation: alternative method to be used by subclasses.
+         * Alternative DSP instance computation method for use by subclasses, incorporating an additional `date_usec` parameter,
+         * which specifies the timestamp of the first sample in the audio buffers.
          *
-         * @param date_usec - the timestamp in microsec given by audio driver.
+         * @param date_usec - the timestamp in microsec given by audio driver. By convention timestamp of -1 means 'no timestamp conversion',
+         * events already have a timestamp expressed in frames.
          * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
-         *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
@@ -270,6 +302,8 @@ class FAUST_API decorator_dsp : public fx_freeverb2_dsp {
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
         virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
+        virtual void control() { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
     
@@ -289,16 +323,37 @@ class FAUST_API dsp_factory {
     
     public:
     
+        /* Return factory name */
         virtual std::string getName() = 0;
+    
+        /* Return factory SHA key */
         virtual std::string getSHAKey() = 0;
+    
+        /* Return factory expanded DSP code */
         virtual std::string getDSPCode() = 0;
+    
+        /* Return factory compile options */
         virtual std::string getCompileOptions() = 0;
+    
+        /* Get the Faust DSP factory list of library dependancies */
         virtual std::vector<std::string> getLibraryList() = 0;
+    
+        /* Get the list of all used includes */
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
+        /* Get warning messages list for a given compilation */
+        virtual std::vector<std::string> getWarningMessages() = 0;
+    
+        /* Create a new DSP instance, to be deleted with C++ 'delete' */
         virtual fx_freeverb2_dsp* createDSPInstance() = 0;
     
+        /* Static tables initialization, possibly implemened in sub-classes*/
+        virtual void classInit(int sample_rate) {};
+    
+        /* Set a custom memory manager to be used when creating instances */
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+    
+        /* Return the currently set custom memory manager */
         virtual dsp_memory_manager* getMemoryManager() = 0;
     
 };
@@ -564,6 +619,7 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 	FAUSTFLOAT fCheckbox0;
 	float fRec0[2];
 	int fSampleRate;
+	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fConst2;
@@ -665,40 +721,43 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 	float fRec31[2];
 	
  public:
+	fx_freeverb2() {
+	}
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.8");
+		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/version", "1.16.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.1");
+		m->declare("delays.lib/version", "1.1.0");
 		m->declare("filename", "fx_freeverb2.dsp");
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpass_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpass_comb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
-		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.5");
+		m->declare("maths.lib/version", "2.8.0");
 		m->declare("name", "fx.freeverb2");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.2");
+		m->declare("platform.lib/version", "1.3.0");
 		m->declare("reverbs.lib/mono_freeverb:author", "Romain Michon");
 		m->declare("reverbs.lib/name", "Faust Reverb Library");
 		m->declare("reverbs.lib/stereo_freeverb:author", "Romain Michon");
-		m->declare("reverbs.lib/version", "0.2");
+		m->declare("reverbs.lib/version", "1.3.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.2");
+		m->declare("routes.lib/version", "1.2.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.3");
+		m->declare("signals.lib/version", "1.5.0");
 	}
 
 	virtual int getNumInputs() {
@@ -713,18 +772,18 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 1.0f / fConst0;
 		iConst4 = int(0.036666665f * fConst0);
 		iConst5 = int(0.035306122f * fConst0);
-		iConst6 = int(0.033809524f * fConst0);
-		iConst7 = int(0.0322449f * fConst0);
-		iConst8 = int(0.025306122f * fConst0);
-		iConst9 = int(0.030748298f * fConst0);
-		iConst10 = int(0.026938776f * fConst0);
-		iConst11 = int(0.028956916f * fConst0);
+		iConst6 = int(0.026938776f * fConst0);
+		iConst7 = int(0.025306122f * fConst0);
+		iConst8 = int(0.033809524f * fConst0);
+		iConst9 = int(0.0322449f * fConst0);
+		iConst10 = int(0.028956916f * fConst0);
+		iConst11 = int(0.030748298f * fConst0);
 		iConst12 = int(0.0126077095f * fConst0);
 		iConst13 = std::min<int>(1024, std::max<int>(0, iConst12 + -1));
 		iConst14 = int(0.01f * fConst0);
@@ -969,6 +1028,7 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	virtual void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -1013,7 +1073,7 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		int iSlow2 = int(float(fCheckbox1));
 		float fSlow3 = 0.001f * float(fHslider1);
 		int iSlow4 = std::fabs(fSlow3) < 1.1920929e-07f;
-		float fSlow5 = ((iSlow4) ? 0.0f : std::exp(0.0f - fConst3 / ((iSlow4) ? 1.0f : fSlow3)));
+		float fSlow5 = ((iSlow4) ? 0.0f : std::exp(-(fConst3 / ((iSlow4) ? 1.0f : fSlow3))));
 		float fSlow6 = 1.0f - fSlow5;
 		float fSlow7 = float(1 - iSlow2) * fSlow6;
 		float fSlow8 = fConst1 * float(fHslider2);
@@ -1021,30 +1081,30 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		float fSlow10 = fConst1 * float(fHslider4);
 		float fSlow11 = float(fHslider5);
 		int iSlow12 = int(fConst20 * float(fHslider6));
-		int iSlow13 = iConst11 + iSlow12;
-		int iSlow14 = iConst10 + iSlow12;
-		int iSlow15 = iConst8 + iSlow12;
+		int iSlow13 = iConst4 + iSlow12;
+		int iSlow14 = iConst11 + iSlow12;
+		int iSlow15 = iConst10 + iSlow12;
 		int iSlow16 = iConst6 + iSlow12;
-		int iSlow17 = iConst7 + iSlow12;
-		int iSlow18 = iConst9 + iSlow12;
-		int iSlow19 = iConst4 + iSlow12;
-		int iSlow20 = iConst5 + iSlow12;
+		int iSlow17 = iConst5 + iSlow12;
+		int iSlow18 = iConst8 + iSlow12;
+		int iSlow19 = iConst9 + iSlow12;
+		int iSlow20 = iConst7 + iSlow12;
 		int iSlow21 = iSlow12 + -1;
 		int iSlow22 = std::min<int>(1024, std::max<int>(0, iConst12 + iSlow21));
 		int iSlow23 = std::min<int>(1024, std::max<int>(0, iConst14 + iSlow21));
 		int iSlow24 = std::min<int>(1024, std::max<int>(0, iConst16 + iSlow21));
 		int iSlow25 = std::min<int>(1024, std::max<int>(0, iConst18 + iSlow21));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fTemp0 = fRec0[1] + 0.0078125f;
-			float fTemp1 = fRec0[1] + -0.0078125f;
-			fRec0[0] = ((fTemp0 < fSlow0) ? fTemp0 : ((fTemp1 > fSlow0) ? fTemp1 : fSlow0));
-			float fTemp2 = 1.0f - fRec0[0];
-			float fTemp3 = float(input0[i0]);
+			float fTemp0 = float(input0[i0]);
+			float fTemp1 = fRec0[1] + 0.0078125f;
+			float fTemp2 = fRec0[1] + -0.0078125f;
+			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
+			float fTemp3 = 1.0f - fRec0[0];
 			fRec1[0] = fSlow1 + fConst2 * fRec1[1];
 			float fTemp4 = 1.0f - fRec1[0];
 			fRec11[0] = fSlow7 + fSlow5 * fRec11[1];
 			float fTemp5 = float(input1[i0]);
-			float fTemp6 = fRec11[0] * (fTemp3 + fTemp5);
+			float fTemp6 = fRec11[0] * (fTemp0 + fTemp5);
 			fRec13[0] = fSlow8 + fConst2 * fRec13[1];
 			fRec12[0] = ((iSlow2) ? fSlow9 : fRec13[0]) * fSlow6 + fSlow5 * fRec12[1];
 			fRec16[0] = fSlow10 + fConst2 * fRec16[1];
@@ -1060,10 +1120,10 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 			fVec2[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec20[0];
 			fRec19[0] = fVec2[(IOTA0 - iConst6) & 8191];
 			fRec22[0] = fRec15[0] * fRec22[1] + fTemp7 * fRec21[1];
-			fVec3[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec22[0];
+			fVec3[IOTA0 & 8191] = fRec22[0] * fRec12[0] + fTemp6;
 			fRec21[0] = fVec3[(IOTA0 - iConst7) & 8191];
 			fRec24[0] = fRec15[0] * fRec24[1] + fTemp7 * fRec23[1];
-			fVec4[IOTA0 & 8191] = fRec24[0] * fRec12[0] + fTemp6;
+			fVec4[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec24[0];
 			fRec23[0] = fVec4[(IOTA0 - iConst8) & 8191];
 			fRec26[0] = fRec15[0] * fRec26[1] + fTemp7 * fRec25[1];
 			fVec5[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec26[0];
@@ -1074,23 +1134,23 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 			fRec30[0] = fRec15[0] * fRec30[1] + fTemp7 * fRec29[1];
 			fVec7[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec30[0];
 			fRec29[0] = fVec7[(IOTA0 - iConst11) & 8191];
-			float fTemp8 = fRec10[0] + fRec17[0] + fRec19[0] + fRec21[0] + 0.5f * fRec8[1] + fRec23[0] + fRec25[0] + fRec27[0] + fRec29[0];
+			float fTemp8 = 0.5f * fRec8[1] + fRec10[0] + fRec17[0] + fRec19[0] + fRec21[0] + fRec23[0] + fRec25[0] + fRec27[0] + fRec29[0];
 			fVec8[IOTA0 & 2047] = fTemp8;
 			fRec8[0] = fVec8[(IOTA0 - iConst13) & 2047];
-			float fRec9 = 0.0f - 0.5f * fTemp8;
-			float fTemp9 = fRec9 + 0.5f * fRec6[1] + fRec8[1];
+			float fRec9 = -(0.5f * fTemp8);
+			float fTemp9 = fRec8[1] + fRec9 + 0.5f * fRec6[1];
 			fVec9[IOTA0 & 2047] = fTemp9;
 			fRec6[0] = fVec9[(IOTA0 - iConst15) & 2047];
-			float fRec7 = 0.0f - 0.5f * fTemp9;
-			float fTemp10 = fRec7 + 0.5f * fRec4[1] + fRec6[1];
+			float fRec7 = -(0.5f * fTemp9);
+			float fTemp10 = fRec6[1] + fRec7 + 0.5f * fRec4[1];
 			fVec10[IOTA0 & 2047] = fTemp10;
 			fRec4[0] = fVec10[(IOTA0 - iConst17) & 2047];
-			float fRec5 = 0.0f - 0.5f * fTemp10;
-			float fTemp11 = fRec5 + 0.5f * fRec2[1] + fRec4[1];
+			float fRec5 = -(0.5f * fTemp10);
+			float fTemp11 = fRec4[1] + fRec5 + 0.5f * fRec2[1];
 			fVec11[IOTA0 & 1023] = fTemp11;
 			fRec2[0] = fVec11[(IOTA0 - iConst19) & 1023];
-			float fRec3 = 0.0f - 0.5f * fTemp11;
-			output0[i0] = FAUSTFLOAT(fTemp2 * (fTemp3 * fTemp4 + fRec1[0] * (fRec3 + fRec2[1])) + fTemp3 * fRec0[0]);
+			float fRec3 = -(0.5f * fTemp11);
+			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0] + fTemp3 * (fTemp0 * fTemp4 + fRec1[0] * (fRec3 + fRec2[1])));
 			fRec40[0] = fRec15[0] * fRec40[1] + fTemp7 * fRec39[1];
 			fVec12[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec40[0];
 			fRec39[0] = fVec12[(IOTA0 - iSlow13) & 8191];
@@ -1118,20 +1178,20 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 			float fTemp12 = fRec39[0] + fRec41[0] + fRec43[0] + fRec45[0] + fRec47[0] + fRec49[0] + fRec51[0] + fRec53[0] + 0.5f * fRec37[1];
 			fVec20[IOTA0 & 2047] = fTemp12;
 			fRec37[0] = fVec20[(IOTA0 - iSlow22) & 2047];
-			float fRec38 = 0.0f - 0.5f * fTemp12;
+			float fRec38 = -(0.5f * fTemp12);
 			float fTemp13 = fRec38 + 0.5f * fRec35[1] + fRec37[1];
 			fVec21[IOTA0 & 2047] = fTemp13;
 			fRec35[0] = fVec21[(IOTA0 - iSlow23) & 2047];
-			float fRec36 = 0.0f - 0.5f * fTemp13;
+			float fRec36 = -(0.5f * fTemp13);
 			float fTemp14 = fRec36 + 0.5f * fRec33[1] + fRec35[1];
 			fVec22[IOTA0 & 2047] = fTemp14;
 			fRec33[0] = fVec22[(IOTA0 - iSlow24) & 2047];
-			float fRec34 = 0.0f - 0.5f * fTemp14;
+			float fRec34 = -(0.5f * fTemp14);
 			float fTemp15 = fRec34 + 0.5f * fRec31[1] + fRec33[1];
 			fVec23[IOTA0 & 2047] = fTemp15;
 			fRec31[0] = fVec23[(IOTA0 - iSlow25) & 2047];
-			float fRec32 = 0.0f - 0.5f * fTemp15;
-			output1[i0] = FAUSTFLOAT(fTemp2 * (fTemp5 * fTemp4 + fRec1[0] * (fRec32 + fRec31[1])) + fTemp5 * fRec0[0]);
+			float fRec32 = -(0.5f * fTemp15);
+			output1[i0] = FAUSTFLOAT(fTemp5 * fRec0[0] + fTemp3 * (fTemp5 * fTemp4 + fRec1[0] * (fRec32 + fRec31[1])));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec11[1] = fRec11[0];

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Simple resonant highpass filter</tr>
+                <tr lang="en">simple resonant highpass filter</tr>
+                <tr lang="ru">простой резонансный ФВЧ</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,13 +26,16 @@
             <argument name="Q" type="float" minvalue="0.1" maxvalue="100">Quality factor</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="100">center frequency</property>
-            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="20">Quality
-            factor</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <!-- @active -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- @freq -->
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="100">center frequency</property>
+            <!-- @q -->
+            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="20">Quality
+            factor</property>
         </properties>
         <inlets>
             <inlet type="audio">

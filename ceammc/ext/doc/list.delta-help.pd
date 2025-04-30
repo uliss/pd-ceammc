@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 293 50 cnv 1 472 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 293 50 returns the difference between the current list of floats
-and the previous one.;
+#X obj 292 50 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 297 50 outputs and saves the list of differences between the
+current and the previously saved list;
 #X obj 1 1 cnv 5 765 40 empty empty list.delta 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 list.delta;

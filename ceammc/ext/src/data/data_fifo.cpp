@@ -11,15 +11,19 @@ constexpr size_t MAX_SIZE = 1024;
 
 DataFifo::DataFifo(const PdArgs& args)
     : DataFifoBase(args)
-    , size_(positionalConstant<DEFAULT_SIZE, MIN_SIZE, MAX_SIZE>(0))
+    , size_(DEFAULT_SIZE)
 {
     createCbBoolProperty("@empty", [this]() -> bool { return fifo_.empty(); });
     createCbIntProperty("@filled", [this]() -> int { return fifo_.size(); })
         ->checkNonNegative();
-    createCbIntProperty(
+    {
+        auto prop_size = createCbIntProperty(
         "@size", [this]() -> int { return size_; },
-        [this](int v) -> bool { clear(); size_ = v; return true; })
-        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_SIZE, MAX_SIZE);
+            [this](int v) -> bool { clear(); size_ = v; return true; });
+
+        prop_size->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_SIZE, MAX_SIZE);
+        prop_size->setArgIndex(0);
+    }
     createCbIntProperty("@free", [this]() -> int { return size_ - fifo_.size(); })
         ->checkNonNegative();
 

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">routes input flow to random outlet</tr>
+                <tr lang="en">routes the input message into the random outlet</tr>
+                <tr lang="ru">направляет входное сообщение в случайный выход</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,8 +24,10 @@
             property</argument>
         </arguments>
         <properties>
+            <!-- @n -->
             <property name="@n" type="int" default="2" minvalue="2" maxvalue="64"
             access="initonly">number of outlets</property>
+            <!-- @seed -->
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>

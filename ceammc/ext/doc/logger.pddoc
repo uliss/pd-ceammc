@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">advanced data logger</tr>
+                <tr lang="en">advanced data logger for Pd window</tr>
+                <tr lang="ru">продвинутый логгер для окна Pd</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -28,9 +29,11 @@
             <argument name="PREFIX" type="list">log message prefix</argument>
         </arguments>
         <properties>
-            <property name="@prefix" type="list" default="">log message prefix</property>
+            <!-- @active -->
             <property name="@active" type="bool" default="1">enabled/disabled logging
             state</property>
+            <!-- @prefix -->
+            <property name="@prefix" type="list" default="">log message prefix</property>
         </properties>
         <inlets>
             <inlet>

@@ -1,0 +1,117 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 473 50 Jean-Claude Risset's endless glissando;
+#X obj 1 1 cnv 5 765 40 empty empty synth.risset_tone~ 20 20 0 20
+-104026 -4096 0;
+#X obj 609 11 synth.risset_tone~;
+#X floatatom 50 118 5 0 0 0 - - -;
+#X msg 213 118 bang;
+#X obj 50 147 * 0.001;
+#X msg 50 176 @rate \$1;
+#X obj 50 205 synth.risset_tone~ 60 -0.005;
+#X obj 69 234 synth.risset_tone~ 56 -0.005;
+#X obj 88 262 synth.risset_tone~ 53 -0.005;
+#X obj 50 291 ui.hgain~;
+#X obj 213 291 ui.dsp~;
+#X obj 50 320 dac~;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 410 1\.;
+#X text 150 410 float;
+#X obj 246 411 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 CENTROID: main frequency (MIDI pitch). Тип: float.
+Диапазон: 20…120;
+#X text 110 445 2\.;
+#X text 150 445 float;
+#X obj 246 446 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 445 RATE: glissanso speed. Тип: float. Диапазон: -2…2;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 515 @id;
+#X text 245 515 (при инициализации) Получить/Установить OSC address
+id. If specified \, bind all properties to /ID/synth_risset_tone/PROP_NAME
+osc address \, if empty bind to /synth_risset_tone/PROP_NAME. Тип:
+symbol.;
+#X msg 110 587 @osc;
+#X text 245 587 (при инициализации) Получить/Установить OSC server
+name to listen. Тип: symbol.;
+#X msg 110 629 @active;
+#X text 245 629 Turn on/off dsp processing. Тип: bool. Значение по
+умолчанию: 1\.;
+#X msg 110 671 @centroid;
+#X text 245 671 Получить/Установить main frequency. Units: MIDI note.
+Тип: float. Значение по умолчанию: 60\. Диапазон: 20\...120\.;
+#X msg 110 713 @range;
+#X text 245 713 Получить/Установить glissando range in MIDI note units.
+Тип: float. Значение по умолчанию: 120\. Диапазон: 1\...120\.;
+#X msg 110 755 @rate;
+#X text 245 755 Получить/Установить glissanso speed. Тип: float. Значение
+по умолчанию: 0.01\. Диапазон: -2\...2\.;
+#X obj 20 807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 812 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 847 reset;
+#X text 245 847 reset to start position.;
+#X obj 20 885 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 890 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 891 1\.;
+#X text 150 891 *bang*;
+#X text 245 891 reset to start position.;
+#X obj 20 921 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 926 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 927 1\.;
+#X text 245 927 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 977 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 980 библиотека: ceammc v0.9.8;
+#N canvas 10 999 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 synth.risset_tone~;
+#X text 10 76 категория:;
+#X text 120 76 synth;
+#X text 10 98 с версии:;
+#X text 120 98 0.5;
+#X text 10 120 авторы:;
+#X text 120 120 Oliver Larkin \, Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 risset;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 999 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 11 0 13 1;
+#X connect 5 0 8 0;
+#X connect 5 0 9 0;
+#X connect 5 0 10 0;
+#X connect 7 0 8 0;
+#X connect 7 0 9 0;
+#X connect 7 0 10 0;

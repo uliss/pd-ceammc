@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">circular buffer for arrays</tr>
+                <tr lang="en">read/write the signal into the array like in a circular buffer</tr>
+                <tr lang="ru">чтение/запись сигнала в массив, как в кольцевой буфер</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -20,10 +21,13 @@
             <argument name="ON" type="bool">write mode</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@on" type="bool" default="1">write mode</property>
+            <!-- @interp -->
             <property name="@interp" type="int" enum="0 1 3" default="0">interpolation
             mode</property>
+            <!-- @on -->
+            <property name="@on" type="bool" default="1">write mode</property>
         </properties>
         <methods>
             <!-- resize -->

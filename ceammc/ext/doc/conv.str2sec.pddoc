@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">converts formatted time to float value in seconds</tr>
+                <tr lang="en">converts the formatted time to a float value in seconds</tr>
+                <tr lang="ru">преобразует отформатированное время в числовое значение в
+                секундах</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -23,6 +25,7 @@
             </aliases>
         </meta>
         <properties>
+            <!-- @on_err -->
             <property name="@on_err" type="float" default="-1">value returned when unrecognized
             symbol given</property>
         </properties>

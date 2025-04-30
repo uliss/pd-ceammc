@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">rejects specified keys from dict</tr>
+                <tr lang="en">rejects specified keys from the dictionary</tr>
+                <tr lang="ru">удаляет указанные ключи из словаря</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="KEYS" type="list">keys</argument>
         </arguments>
         <properties>
+            <!-- @keys -->
             <property name="@keys" type="list" default="">rejected keys</property>
         </properties>
         <inlets>
@@ -44,7 +46,7 @@
 |          |.
 [dict.reject c]
 |
-[ui.d]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

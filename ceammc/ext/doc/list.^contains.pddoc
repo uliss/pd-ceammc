@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks if input atom is found in the list</tr>
+                <tr lang="en">checks whether the predefined list contains the input element</tr>
+                <tr lang="ru">проверяет, содержит ли предварительно заданный список входной
+                элемент</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -28,6 +30,7 @@
             <argument name="VALUE" type="list">list contents</argument>
         </arguments>
         <properties>
+            <!-- @value -->
             <property name="@value" type="list" default="">list contents</property>
         </properties>
         <inlets>

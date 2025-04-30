@@ -20,21 +20,25 @@
         <info>
             <par>It can measure absolute distances up to 2m</par>
         </info>
+        <properties>
+            <!-- @i2c_addr -->
+            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
+            maxvalue="119">I²C address. The value 'default' means default device I²C address
+            (0x29)</property>
+            <!-- @i2c_bus -->
+            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+            access="initonly">I²C bus</property>
+        </properties>
         <methods>
+            <!-- address -->
             <method name="address">set sensor i2c address. Note that the address resets when the
             device is powered off 
             <param name="ADDR" type="int" minvalue="8" maxvalue="119" required="true">new i2c
             address</param></method>
+            <!-- poll -->
             <method name="poll">turn the sensor polling on/off 
             <param name="STATE" type="bool" required="true">poll state</param></method>
         </methods>
-        <properties>
-            <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">I²C bus</property>
-            <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
-            maxvalue="119">I²C address. The value 'default' means default device I²C address
-            (0x29)</property>
-        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">single distance measure</xinfo>

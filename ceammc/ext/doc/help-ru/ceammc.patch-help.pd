@@ -1,0 +1,29 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 612 50 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 617 50 работа с патчами;
+#X obj 30 117 canvas.active;
+#X text 200 117 проверяет \, активно ли окно холста объекта и расположено
+ли оно поверх других;
+#X obj 30 157 canvas.current;
+#X text 200 157 получение информации о текущем холста объекта;
+#X obj 30 185 canvas.dir;
+#X text 200 185 выводит директорию холста у объекта и его уровень вложенности;
+#X obj 30 213 canvas.name;
+#X text 200 213 выводит имя текущего холста у объекта;
+#X obj 30 241 canvas.path;
+#X text 200 241 выводит полный путь холста в файловой системе у объекта;
+#X obj 30 269 canvas.top;
+#X text 200 269 подробная информация о холсте верхнего уровня у объекта;
+#X obj 30 297 patch.args;
+#X text 200 297 получить начальные аргументы для патча или субпатча;
+#X obj 30 325 patch.deps;
+#X text 200 325 выводит зависимости патча: используемые объекты и абстракции;
+#X obj 30 353 patch.tree;
+#X text 200 353 выводит дерево объектов патча;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::patch 20 20 0 20 -104026
+-4096 0;
+#X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 523 library: ceammc;

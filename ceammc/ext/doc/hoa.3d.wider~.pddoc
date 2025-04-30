@@ -11,6 +11,7 @@
             </authors>
             <description>
                 <tr lang="en">a 3d fractional ambisonic order simulator</tr>
+                <tr lang="ru">трехмерная симуляция дробного амбисонического порядка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -29,6 +30,7 @@
             decomposition</argument>
         </arguments>
         <properties>
+            <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
             access="initonly">the order of decomposition</property>
         </properties>

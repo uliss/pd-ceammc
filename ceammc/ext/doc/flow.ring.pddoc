@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">dataflow ring buffer</tr>
+                <tr lang="en">queue router for control flow</tr>
+                <tr lang="ru">маршрутизатор в виде очереди для управляющего потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,6 +23,7 @@
             <argument name="LENGTH" type="int" minvalue="1" maxvalue="24">buffer length</argument>
         </arguments>
         <properties>
+            <!-- @length -->
             <property name="@length" type="int" default="2" minvalue="1" maxvalue="24"
             access="initonly">buffer length</property>
         </properties>

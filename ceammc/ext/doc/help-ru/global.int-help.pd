@@ -1,0 +1,110 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 504 50 глобальной именованное целое число;
+#X obj 1 1 cnv 5 765 40 empty empty global.int 20 20 0 20 -104026
+-4096 0;
+#X obj 667 11 global.int;
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Defines global scope integer variable \, accessed by
+ID name.;
+#X floatatom 50 161 5 0 0 0 - - -;
+#X msg 107 161 + 2 \, bang;
+#X msg 251 161 * 3 \, bang;
+#X msg 395 161 bang;
+#X msg 136 205 - 3 \, bang;
+#X msg 270 205 / 2 \, bang;
+#X msg 155 233 set 2;
+#X obj 50 262 global.int f1;
+#X obj 395 262 global.int f1;
+#X floatatom 50 291 5 0 0 0 - - -;
+#X floatatom 395 291 5 0 0 0 - - -;
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 331 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
+#X text 110 363 1\.;
+#X text 150 363 symbol;
+#X obj 246 364 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 363 ID: object ID. Тип: symbol.;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 401 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 433 @id;
+#X text 245 433 (при инициализации) Получить/Установить global variable
+id. Тип: symbol. Значение по умолчанию: default.;
+#X msg 110 475 @value?;
+#X text 245 475 (только чтение) Получить current value. Тип: int. Значение
+по умолчанию: 0\.;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 110 567 set;
+#X text 245 567 sets new value without output.;
+#X msg 110 595 *;
+#X text 245 595 multiply to \, no output.;
+#X msg 110 623 +;
+#X text 245 623 add to int \, no output.;
+#X msg 110 651 -;
+#X text 245 651 substruct from int \, no output.;
+#X msg 110 679 /;
+#X text 245 679 divide by \, no output.;
+#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 722 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 723 1\.;
+#X text 150 723 *bang*;
+#X text 245 723 outputs variable.;
+#X text 150 743 *float*;
+#X text 245 743 set truncated integer and outputs.;
+#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 778 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 110 779 1\.;
+#X text 245 779 int output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
+#X obj 1 829 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 832 библиотека: ceammc v0.9.8;
+#X text 532 844 смотрите также:;
+#X obj 653 844 global.float;
+#N canvas 10 851 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 global.int;
+#X text 10 76 категория:;
+#X text 120 76 global;
+#X text 10 98 с версии:;
+#X text 120 98 0.1;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 int \, global;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 851 pd info;
+#X connect 6 0 13 0;
+#X connect 7 0 13 0;
+#X connect 10 0 13 0;
+#X connect 12 0 13 0;
+#X connect 8 0 13 0;
+#X connect 11 0 13 0;
+#X connect 9 0 14 0;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;

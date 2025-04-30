@@ -7,8 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">modifies list value at specified position, filtering it via external
-                object</tr>
+                <tr lang="en">modifies specified list elements via a side-chain</tr>
+                <tr lang="ru">обрабатывает указанные элементы списка через боковую церь
+                обработки</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -24,6 +25,7 @@
             means position from end of the list. For example: '-1' means last element.</argument>
         </arguments>
         <properties>
+            <!-- @indexes -->
             <property name="@indexes" type="list" default="">applied index(es)</property>
         </properties>
         <inlets>

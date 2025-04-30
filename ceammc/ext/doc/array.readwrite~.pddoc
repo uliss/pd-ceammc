@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">array reader/writer</tr>
+                <tr lang="en">simultaneous read/write signals to the array</tr>
+                <tr lang="ru">одновременное чтение/запись сигналов в массив</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,7 +26,9 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
+            <!-- @array -->
             <property name="@array" type="symbol" default="">array name</property>
+            <!-- @mix -->
             <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">mix amount
             between read signal and written</property>
         </properties>
