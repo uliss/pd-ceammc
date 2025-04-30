@@ -11,12 +11,7 @@ fix_pdhelp() {
 
 export -f fix_pdhelp
 
-if [ -x ${PARALLEL} ]
-then
-    find "${BINDIR}/extra/ceammc" -name '*-help\.pd' | parallel -j4 fix_pdhelp {}
-else
-    find "${BINDIR}/extra/ceammc" -name '*-help\.pd' | while read file
-    do
-        fix_pdhelp $file
-    done
-fi
+find "${BINDIR}/extra/ceammc" -name '*-help\.pd' | while read file
+do
+    fix_pdhelp $file
+done
