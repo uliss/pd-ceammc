@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">metro random bang with specified range</tr>
+                <tr lang="en">a metronome with a random period selection within a specified
+                range</tr>
+                <tr lang="ru">метроном со случайным выбором периода в указанном диапазоне</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

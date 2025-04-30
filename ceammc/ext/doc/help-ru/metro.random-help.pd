@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 467 50 cnv 1 298 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 472 50 metro random bang with specified range;
+#X obj 306 50 cnv 1 459 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 311 50 метроном со случайным выбором периода в указанном диапазоне;
 #X obj 1 1 cnv 5 765 40 empty empty metro.random 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 metro.random;

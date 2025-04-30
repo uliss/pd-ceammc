@@ -7,7 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">metro with random choice from timeset</tr>
+                <tr lang="en">a metronome that randomly selects a period for each beat from a given
+                set</tr>
+                <tr lang="ru">метроном со случайным выбором периода при каждом ударе из заданного
+                списка</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

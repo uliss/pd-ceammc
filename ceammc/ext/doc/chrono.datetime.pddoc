@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">output current date and time info</tr>
+                <tr lang="en">outputs the current date and time</tr>
+                <tr lang="ru">выводит текущую дату и время</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">float value "spring"</tr>
+                <tr lang="en">behaves like a spring, bouncing back to its original state</tr>
+                <tr lang="ru">ведет себя как пружина, возвращающаяся в первоначальное
+                состояние</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

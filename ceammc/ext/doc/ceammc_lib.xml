@@ -127,85 +127,85 @@
     <entry name="bitmap" descr="binary image (2D bit matrix)" ref_view="object">
       <xi:include href="bitmap.pddoc" parse="xml"/>
     </entry>
-    <entry name="ceammc.search" descr="ceammc library search object" ref_view="object">
+    <entry name="ceammc.search" descr="search in the [ceammc] library" ref_view="object">
       <xi:include href="ceammc.search.pddoc" parse="xml"/>
     </entry>
-    <entry name="chrono.datetime" descr="output current date and time info" ref_view="object">
+    <entry name="chrono.datetime" descr="outputs the current date and time" ref_view="object">
       <xi:include href="chrono.datetime.pddoc" parse="xml"/>
     </entry>
     <entry name="convolve~" descr="real-time FFT convolution" ref_view="object">
       <xi:include href="convolve~.pddoc" parse="xml"/>
     </entry>
-    <entry name="function" descr="named function" ref_view="link">
+    <entry name="function" descr="the named function" ref_view="link">
       <xi:include href="function.pddoc" parse="xml"/>
     </entry>
-    <entry name="function.call" descr="call named function" ref_view="object">
+    <entry name="function.call" descr="calls the named function" ref_view="object">
       <xi:include href="function.call.pddoc" parse="xml"/>
     </entry>
-    <entry name="gain~" descr="multislot signal gain" ref_view="object">
+    <entry name="gain~" descr="multichannel signal gain" ref_view="object">
       <xi:include href="gain~.pddoc" parse="xml"/>
     </entry>
-    <entry name="gate~" descr="multislot signal gate" ref_view="object">
+    <entry name="gate~" descr="multichannel signal gate" ref_view="object">
       <xi:include href="gate~.pddoc" parse="xml"/>
     </entry>
-    <entry name="logger" descr="advanced data logger" ref_view="object">
+    <entry name="logger" descr="advanced data logger for Pd window" ref_view="object">
       <xi:include href="logger.pddoc" parse="xml"/>
     </entry>
     <entry name="matrix~" descr="signal routing matrix" ref_view="object">
       <xi:include href="matrix~.pddoc" parse="xml"/>
     </entry>
-    <entry name="merge~" descr="parametrized signal merge" ref_view="object">
+    <entry name="merge~" descr="merge audio signals" ref_view="object">
       <xi:include href="merge~.pddoc" parse="xml"/>
     </entry>
-    <entry name="metro.choice" descr="metro with random choice from timeset" ref_view="object">
+    <entry name="metro.choice" descr="a metronome that randomly selects a period for each beat from a given set" ref_view="object">
       <xi:include href="metro.choice.pddoc" parse="xml"/>
     </entry>
-    <entry name="metro.pattern" descr="metro with rhythmic patterns" ref_view="object">
+    <entry name="metro.pattern" descr="metronome with rhythmic patterns" ref_view="object">
       <xi:include href="metro.pattern.pddoc" parse="xml"/>
     </entry>
-    <entry name="metro.random" descr="metro random bang with specified range" ref_view="object">
+    <entry name="metro.random" descr="a metronome with a random period selection within a specified range" ref_view="object">
       <xi:include href="metro.random.pddoc" parse="xml"/>
     </entry>
-    <entry name="metro.seq" descr="metro sequencer" ref_view="object">
+    <entry name="metro.seq" descr="a metronome that changes its period with each beat in the specified sequence" ref_view="object">
       <xi:include href="metro.seq.pddoc" parse="xml"/>
     </entry>
-    <entry name="metro.wchoice" descr="metro with weighted random choice from timeset" ref_view="object">
+    <entry name="metro.wchoice" descr="a metronome with a random selection of period at each beat from a specified list with weighted coefficients" ref_view="object">
       <xi:include href="metro.wchoice.pddoc" parse="xml"/>
     </entry>
-    <entry name="mix~" descr="multislot signal mixer" ref_view="object">
+    <entry name="mix~" descr="multichannel signal mixer" ref_view="object">
       <xi:include href="mix~.pddoc" parse="xml"/>
     </entry>
-    <entry name="nsig~" descr="multichannel converter from control to audio rate" ref_view="object">
+    <entry name="nsig~" descr="multichannel converter from the control signals to audio" ref_view="object">
       <xi:include href="nsig~.pddoc" parse="xml"/>
     </entry>
-    <entry name="obj.props" descr="property extractor" ref_view="object">
+    <entry name="obj.props" descr="exctract object properties from the connected object" ref_view="object">
       <xi:include href="obj.props.pddoc" parse="xml"/>
     </entry>
-    <entry name="radio" descr="float index to outlet values as radio switch" ref_view="object">
+    <entry name="radio" descr="upon receiving the index, the state of individual outputs is established as a radio switch" ref_view="object">
       <xi:include href="radio.pddoc" parse="xml"/>
     </entry>
-    <entry name="split~" descr="parametrized signal splitter" ref_view="object">
+    <entry name="split~" descr="parametrized multichannel signal splitter" ref_view="object">
       <xi:include href="split~.pddoc" parse="xml"/>
     </entry>
-    <entry name="spring" descr="float value &quot;spring&quot;" ref_view="object">
+    <entry name="spring" descr="behaves like a spring, bouncing back to its original state" ref_view="object">
       <xi:include href="spring.pddoc" parse="xml"/>
     </entry>
-    <entry name="sync" descr="value synchronization" ref_view="object">
+    <entry name="sync" descr="synchronization of multiple values without overflowing stack loops" ref_view="object">
       <xi:include href="sync.pddoc" parse="xml"/>
     </entry>
-    <entry name="window" descr="returns window value by given window position" ref_view="object">
+    <entry name="window" descr="returns the value of the window function" ref_view="object">
       <xi:include href="window.pddoc" parse="xml"/>
     </entry>
-    <entry name="xdac~" descr="dac~ with channel ranges" ref_view="object">
+    <entry name="xdac~" descr="[dac~] with channel ranges" ref_view="object">
       <xi:include href="xdac~.pddoc" parse="xml"/>
     </entry>
-    <entry name="xfade2~" descr="multi stereo-signal crossfade" ref_view="object">
+    <entry name="xfade2~" descr="multi-channel crossfade for stereo signals" ref_view="object">
       <xi:include href="xfade2~.pddoc" parse="xml"/>
     </entry>
-    <entry name="xfade~" descr="multi signal crossfade" ref_view="object">
+    <entry name="xfade~" descr="multichannel crossfade" ref_view="object">
       <xi:include href="xfade~.pddoc" parse="xml"/>
     </entry>
-    <entry name="z~" descr="sample delay" ref_view="object">
+    <entry name="z~" descr="integer sample delay" ref_view="object">
       <xi:include href="z~.pddoc" parse="xml"/>
     </entry>
   </category>

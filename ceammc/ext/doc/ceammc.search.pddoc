@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">ceammc library search object</tr>
+                <tr lang="en">search in the [ceammc] library</tr>
+                <tr lang="ru">поиск в библиотеке [ceammc]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

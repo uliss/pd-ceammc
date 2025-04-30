@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 607 50 cnv 1 158 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 612 50 float value "spring";
+#X obj 315 50 cnv 1 450 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 320 50 behaves like a spring \, bouncing back to its original
+state;
 #X obj 1 1 cnv 5 765 40 empty empty spring 20 20 0 20 -104026 -4096 0;
 #X obj 578 11 ceammc/spring;
 #X obj 697 11 spring;

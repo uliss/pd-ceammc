@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">checks whether the predefined element is present in the input set</tr>
-                <tr lang="ru">проверяет, присутстует ли предварительно заданный элемент во входном множестве</tr>
+                <tr lang="en">checks whether the predefined element is present in the input
+                set</tr>
+                <tr lang="ru">проверяет, присутстует ли предварительно заданный элемент во входном
+                множестве</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

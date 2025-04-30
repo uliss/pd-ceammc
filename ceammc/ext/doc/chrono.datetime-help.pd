@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 511 50 output current date and time info;
+#X text 511 50 outputs the current date and time;
 #X obj 1 1 cnv 5 765 40 empty empty chrono.datetime 20 20 0 20 -104026
 -4096 0;
 #X obj 413 11 ceammc/datetime;

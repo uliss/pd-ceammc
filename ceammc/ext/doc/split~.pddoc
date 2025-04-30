@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">parametrized signal splitter</tr>
+                <tr lang="en">parametrized multichannel signal splitter</tr>
+                <tr lang="ru">параметризованный многоканальный сплиттер сигналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

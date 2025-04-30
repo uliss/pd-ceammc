@@ -49,64 +49,64 @@ plot.logspace~	outputs numbers spaced evenly on a log scale
 plot.response~	output amp/phase freq response to impulse
 bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
 ceammc/bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
-ceammc.search	ceammc library search object
-chrono.datetime	output current date and time info
-ceammc/datetime	output current date and time info
-datetime	output current date and time info
+ceammc.search	search in the [ceammc] library / поиск в библиотеке [ceammc]
+chrono.datetime	outputs the current date and time / выводит текущую дату и время
+ceammc/datetime	outputs the current date and time / выводит текущую дату и время
+datetime	outputs the current date and time / выводит текущую дату и время
 convolve~	real-time FFT convolution / свёртка FFT в реальном времени
 ceammc/convolve~	real-time FFT convolution / свёртка FFT в реальном времени
-function	named function
-func	named function
-ceammc/func	named function
-ceammc/function	named function
-function.call	call named function
-func.call	call named function
-gain~	multislot signal gain
-ceammc/gain~	multislot signal gain
-gate~	multislot signal gate
-ceammc/gate~	multislot signal gate
-logger	advanced data logger
-ceammc/logger	advanced data logger
-log.error	advanced data logger
-log.post	advanced data logger
-log.debug	advanced data logger
-log.verbose	advanced data logger
-log.stdout	advanced data logger
-log.stderr	advanced data logger
-matrix~	signal routing matrix
-ceammc/matrix~	signal routing matrix
-merge~	parametrized signal merge
-ceammc/merge~	parametrized signal merge
-metro.choice	metro with random choice from timeset
-metro.pattern	metro with rhythmic patterns
-metro.random	metro random bang with specified range
-metro.seq	metro sequencer
-metro.wchoice	metro with weighted random choice from timeset
-mix~	multislot signal mixer
-ceammc/mix~	multislot signal mixer
-nsig~	multichannel converter from control to audio rate
-ceammc/nsig~	multichannel converter from control to audio rate
-obj.props	property extractor
-radio	float index to outlet values as radio switch
-ceammc/radio	float index to outlet values as radio switch
-split~	parametrized signal splitter
-ceammc/split~	parametrized signal splitter
-spring	float value "spring"
-ceammc/spring	float value "spring"
-sync	value synchronization
-ceammc/sync	value synchronization
-window	returns window value by given window position
-ceammc/window	returns window value by given window position
-ceammc/win	returns window value by given window position
-win	returns window value by given window position
-xdac~	dac~ with channel ranges
-ceammc/xdac~	dac~ with channel ranges
-xfade2~	multi stereo-signal crossfade
-ceammc/xfade2~	multi stereo-signal crossfade
-xfade~	multi signal crossfade
-ceammc/xfade~	multi signal crossfade
-z~	sample delay
-ceammc/z~	sample delay
+function	the named function / именованная функция
+func	the named function / именованная функция
+ceammc/func	the named function / именованная функция
+ceammc/function	the named function / именованная функция
+function.call	calls the named function / вызывает именованную функцию
+func.call	calls the named function / вызывает именованную функцию
+gain~	multichannel signal gain / многоканальное усиление сигнала
+ceammc/gain~	multichannel signal gain / многоканальное усиление сигнала
+gate~	multichannel signal gate / многоканальный гейт для сигналов
+ceammc/gate~	multichannel signal gate / многоканальный гейт для сигналов
+logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
+ceammc/logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.error	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.post	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.debug	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.verbose	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.stdout	advanced data logger for Pd window / продвинутый логгер для окна Pd
+log.stderr	advanced data logger for Pd window / продвинутый логгер для окна Pd
+matrix~	signal routing matrix / матрица маршрутизации сигналов
+ceammc/matrix~	signal routing matrix / матрица маршрутизации сигналов
+merge~	merge audio signals / слияние аудиосигналов
+ceammc/merge~	merge audio signals / слияние аудиосигналов
+metro.choice	a metronome that randomly selects a period for each beat from a given set / метроном со случайным выбором периода при каждом ударе из заданного списка
+metro.pattern	metronome with rhythmic patterns / метроном с ритмическими паттернами
+metro.random	a metronome with a random period selection within a specified range / метроном со случайным выбором периода в указанном диапазоне
+metro.seq	a metronome that changes its period with each beat in the specified sequence / метроном изменяющий свой период при каждом ударе в указанной последовательности
+metro.wchoice	a metronome with a random selection of period at each beat from a specified list with weighted coefficients / метроном со случайным выбором периода при каждом ударе из заданного списка с весовыми коэффициентами
+mix~	multichannel signal mixer / многоканальный микшер сигналов
+ceammc/mix~	multichannel signal mixer / многоканальный микшер сигналов
+nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
+ceammc/nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
+obj.props	exctract object properties from the connected object / извлекает свойства из подключенного объекта
+radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
+ceammc/radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
+split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
+ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
+spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
+ceammc/spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
+sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
+ceammc/sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
+window	returns the value of the window function / возвращает значение оконной функции
+ceammc/window	returns the value of the window function / возвращает значение оконной функции
+ceammc/win	returns the value of the window function / возвращает значение оконной функции
+win	returns the value of the window function / возвращает значение оконной функции
+xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
+ceammc/xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
+xfade2~	multi-channel crossfade for stereo signals / многоканальный кроссфейд для стерео сигналов
+ceammc/xfade2~	multi-channel crossfade for stereo signals / многоканальный кроссфейд для стерео сигналов
+xfade~	multichannel crossfade / многоканальный кроссфейд
+ceammc/xfade~	multichannel crossfade / многоканальный кроссфейд
+z~	integer sample delay / целочисленная задержка сэмплов
+ceammc/z~	integer sample delay / целочисленная задержка сэмплов
 chaos.gbman0	Gingerbreadman map chaotic generator
 chaos.gbman0~	Gingerbreadman map chaotic generator
 chaos.jong	Peter de Jong attractor

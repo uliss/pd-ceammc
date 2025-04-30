@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">metro with rhythmic patterns</tr>
+                <tr lang="en">metronome with rhythmic patterns</tr>
+                <tr lang="ru">метроном с ритмическими паттернами</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
