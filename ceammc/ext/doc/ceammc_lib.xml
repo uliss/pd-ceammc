@@ -208,6 +208,7 @@
     <entry name="z~" descr="integer sample delay" ref_view="object">
       <xi:include href="z~.pddoc" parse="xml"/>
     </entry>
+    <xi:include href="ceammc_category_base.xml" parse="xml"/>
   </category>
   <category name="chaos">
     <entry name="chaos.gbman0" descr="Gingerbreadman map chaotic generator" ref_view="object">

@@ -164,6 +164,8 @@ interval;
 #X text 200 2225 многоканальный кроссфейд;
 #X obj 30 2253 z~;
 #X text 200 2253 целочисленная задержка сэмплов;
+#X obj 320 1373 cnv 1 420 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 325 1373 базовые объекты общего назначения при работе со звуком;
 #X obj 20 2281 cnv 5 58 32 empty empty chaos 4 16 0 17 -262144 -49933
 0;
 #X obj 20 2323 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -2107,4 +2109,4 @@ https://github.com/uliss/pure-data;
 https://github.com/uliss/pddoc;
 #X obj 670 27578 loadmsg 0;
 #X obj 670 27613 switch~;
-#X connect 1868 0 1869 0;
+#X connect 1870 0 1871 0;
