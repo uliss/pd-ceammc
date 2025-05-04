@@ -9,11 +9,11 @@
 #X obj 30 173 chaos.jong;
 #X text 200 173 Peter de Jong attractor;
 #X obj 30 201 chaos.logistic;
-#X text 200 201 Logistic map chaotic generator;
+#X text 200 201 logistic map chaotic generator;
 #X obj 30 229 chaos.std0;
-#X text 200 229 Standard map chaotic generator;
+#X text 200 229 standard map chaotic generator;
 #X obj 30 257 chaos.std0~;
-#X text 200 257 Standard map chaotic generator;
+#X text 200 257 standard map chaotic generator;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::chaos 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

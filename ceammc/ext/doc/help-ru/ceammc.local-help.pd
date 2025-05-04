@@ -6,17 +6,17 @@
 #X text 286 50 локальный именованные объекты \, доступные только из
 текущего холста;
 #X obj 30 117 local.dict;
-#X text 200 117 local named dict object;
+#X text 200 117 локальный для патча словарь;
 #X obj 30 145 local.float;
-#X text 200 145 canvas-scoped named float variable;
+#X text 200 145 локальное для патча именованное число с плавающей точкой;
 #X obj 30 173 local.int;
-#X text 200 173 canvas-scoped named integer variable;
+#X text 200 173 локальное для патча именованное целое число;
 #X obj 30 201 local.list;
-#X text 200 201 local named list object;
+#X text 200 201 локальный для патча именованный список;
 #X obj 30 229 local.mlist;
-#X text 200 229 local named mlist object;
+#X text 200 229 локальный для патча именованный многоуровневый список;
 #X obj 30 257 local.set;
-#X text 200 257 local named set object;
+#X text 200 257 локальное для патча именованное множество;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::local 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -80,13 +80,15 @@ hoa.3d.scope~-help.pd;
 #X text 200 1056 двухканальное квадратичное панорамирование равной
 мощности;
 #X obj 30 1084 spat.pan4~;
-#X text 200 1084 GMEM SPAT: 4-outputs spatializer;
+#X text 200 1084 GMEM SPAT: управление 4-х канальным пространственным
+звуком;
 #X obj 30 1112 spat.pan8~;
-#X text 200 1112 GMEM SPAT: 8-outputs spatializer;
+#X text 200 1112 GMEM SPAT: управление 8 канальным пространственным
+звуком;
 #X obj 30 1140 spat.zita6x8~;
-#X text 200 1140 spat with 6 inputs sources to 8 channel output;
+#X text 200 1140 Сплетение с 6 входными источниками на 8 выходных каналов;
 #X obj 30 1168 spat.zita8~;
-#X text 200 1168 8 channel reverb spatializer;
+#X text 200 1168 8-канальный реверберационный пространственизатор;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::spat 20 20 0 20 -104026
 -4096 0;
 #X obj 1 1196 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 542 50 Output single impulse on bang;
+#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 366 50 выводит единичный импульс при пустом входном событии;
 #X obj 1 1 cnv 5 765 40 empty empty click~ 20 20 0 20 -104026 -4096 0;
 #X obj 575 11 ceammc/click~;
 #X obj 695 11 click~;

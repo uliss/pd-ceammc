@@ -40,13 +40,13 @@ array.tramp~	triggered ramp index generator for the array / запускаемы
 array.variance	calculates variance of array values / вычисляет дисперсию значений массива
 array.vplay	simple array player for using with the [vline~] object / простой плеер массивов для использования с объектом [vline~]
 array.window	fills the array with the window function / заполнение массива оконной функцией
-plot.geomspace~	outputs numbers spaced evenly on a log scale (a geometric progression)
-plot.hist~	calculate and output signal histogram
-ceammc/hist~	calculate and output signal histogram
-hist~	calculate and output signal histogram
-plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
-plot.logspace~	outputs numbers spaced evenly on a log scale
-plot.response~	output amp/phase freq response to impulse
+plot.geomspace~	generates a sequence of numbers that are evenly distributed on a logarithmic scale (geometric progression) / выводит последовательность равномерно распределенных по логарифмической шкале чисел (геометрическая прогрессия)
+plot.hist~	calculates and displays the histogram of the input signal / вычисляет и выводит гистограмму входного сигнала
+ceammc/hist~	calculates and displays the histogram of the input signal / вычисляет и выводит гистограмму входного сигнала
+hist~	calculates and displays the histogram of the input signal / вычисляет и выводит гистограмму входного сигнала
+plot.linspace~	generates a sequence of numbers that are uniformly distributed within the specified interval / выводит последовательность равномерно распределенных в заданном интервале числе
+plot.logspace~	outputs numbers spaced evenly on a log scale / выводит последовательность равномерно распределенных по логарифмической шкале чисел
+plot.response~	produces the amplitude, phase, and frequency responses to the input signal / выводит амплитудный, фазовый и частотный отклики на входной сигнал
 bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
 ceammc/bitmap	binary image (2D bit matrix) / бинарное изображение (битовая 2D-матрица)
 ceammc.search	search in the [ceammc] library / поиск в библиотеке [ceammc]
@@ -108,13 +108,13 @@ ceammc/xfade~	multichannel crossfade / многоканальный кроссф
 z~	integer sample delay / целочисленная задержка сэмплов
 ceammc/z~	integer sample delay / целочисленная задержка сэмплов
 chaos.gbman0	Gingerbreadman map chaotic generator
-chaos.gbman0~	Gingerbreadman map chaotic generator
-chaos.jong	Peter de Jong attractor
-noise.jong	Peter de Jong attractor
-chaos.logistic	Logistic map chaotic generator
-noise.logistic	Logistic map chaotic generator
-chaos.std0	Standard map chaotic generator
-chaos.std0~	Standard map chaotic generator
+chaos.gbman0~	Gingerbreadman map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
+chaos.jong	Peter de Jong attractor / аттрактор Питера де Йонга
+noise.jong	Peter de Jong attractor / аттрактор Питера де Йонга
+chaos.logistic	logistic map chaotic generator / хаотический генератор на основе логистического отображения
+noise.logistic	logistic map chaotic generator / хаотический генератор на основе логистического отображения
+chaos.std0	standard map chaotic generator / хаотический генератор на основе стандартного отображения
+chaos.std0~	standard map chaotic generator / хаотический генератор на основе стандартного отображения
 array.p2s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
 array.p->s	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
 array.phase->sample	converting the array phase [0..1] to the sample index / преобразование фазы в массиве [0..1] в индекс семпла
@@ -281,12 +281,12 @@ s->f~	converts audio signal to control numeric stream / преобразует �
 conv.str2sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
 ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
 str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
-music.dur2time	convert duration list to time
-music.d->t	convert duration list to time
+music.dur2time	transforms the list of musical durations into a list of time periods / преобразование списка музыкальных длительностей в список временных периодов
+music.d->t	transforms the list of musical durations into a list of time periods / преобразование списка музыкальных длительностей в список временных периодов
 music.voice2midi	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
 music.v->m	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
-color.mix	color mixer
-color.scale	create color scales
+color.mix	color mixer / смешивание цветов
+color.scale	creation of the color scale / создание цветовой шкалы
 data.bimap	bidirectional map container / двунаправленное отображение
 ceammc/bimap	bidirectional map container / двунаправленное отображение
 bimap	bidirectional map container / двунаправленное отображение
@@ -330,11 +330,11 @@ ceammc/dict->list	converts dictionary to plain list / конвертирует �
 dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
 dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневого списка (MList)
 global.bimap	global bidirectional map / глобальное двунаправленное отображение
-local.bimap	local to patch bidirectional map container
-mlist.flatten	flatten nested mlist
-rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions
-ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions
-rtree->list	convert OpenMusic-like rhythm tree to list of fractions
+local.bimap	local the to patch bidirectional map container / локальный для патча контейнер двунаправленного отображения
+mlist.flatten	converts a multi-level list into a single-level list / преобразует многоуровневый список в одноуровневый
+rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
+ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
+rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
 set.contains	checks whether the predefined element is present in the input set / проверяет, присутстует ли предварительно заданный элемент во входном множестве
 set.diff	difference between two sets / разность между множествами
 set.equal	checks if two sets are equal (contains same elements) / проверяет, равны ли два множества (содержат одинаковые элементы)
@@ -342,23 +342,23 @@ set.intersect	intersection of sets / пересечение множеств
 set.size	outputs the number of elements in a set / выводит количество элементов в множестве
 set.symdiff	symmetric difference between two sets / симметрическая разность между двумя множествами
 set.union	union of sets / объединение множеств
-dyn.comp2~	stereo dynamic range compressor
-dyn.comp_peak2~	stereo peak feed forward compressor with channel linking
-comp.peak2~	stereo peak feed forward compressor with channel linking
-dyn.comp_peak~	mono dynamic range peak feed forward compressor
-comp.peak~	mono dynamic range peak feed forward compressor
-dyn.comp_up2~	stereo upward compressor with channel linking
-comp.up2~	stereo upward compressor with channel linking
-dyn.comp_up~	mono upward compressor
-comp.up~	mono upward compressor
-dyn.comp~	mono dynamic range compressors
-dyn.expand2~	stereo dynamic range expander with channel linking
-dyn.expand~	mono dynamic range expander
-dyn.gate2~	stereo signal gate
-dyn.gate~	mono signal gate
-dyn.limit2~	stereo 1176LN Peak Limiter
-dyn.limit~	mono 1176LN Peak Limiter
-dyn.softclip~	soft signal clip
+dyn.comp2~	stereo dynamic range compressor / стерео-компрессор
+dyn.comp_peak2~	stereo peak feed forward compressor with channel linking / пиковый стерео-компрессор прямой топологии
+comp.peak2~	stereo peak feed forward compressor with channel linking / пиковый стерео-компрессор прямой топологии
+dyn.comp_peak~	mono dynamic range peak feed forward compressor / пиковый моно-компрессор прямой топологии
+comp.peak~	mono dynamic range peak feed forward compressor / пиковый моно-компрессор прямой топологии
+dyn.comp_up2~	stereo upward compressor with channel linking / восходящий стерео-компрессор со связью каналов
+comp.up2~	stereo upward compressor with channel linking / восходящий стерео-компрессор со связью каналов
+dyn.comp_up~	mono upward compressor / восходящий моно-компрессор
+comp.up~	mono upward compressor / восходящий моно-компрессор
+dyn.comp~	mono dynamic range compressors / моно-компрессор
+dyn.expand2~	stereo dynamic range expander with channel linking / расширение динамического стерео-диапазона
+dyn.expand~	mono dynamic range expander / расширение динамического моно-диапазона
+dyn.gate2~	stereo signal gate / стерео-сигнальный гейт
+dyn.gate~	mono signal gate / моно-сигнальный гейт
+dyn.limit2~	stereo 1176LN Peak Limiter / пиковый стерео-ограничитель сигнала в схемотехнике 1176LN
+dyn.limit~	mono 1176LN Peak Limiter / пиковый моно-ограничитель сигнала в схемотехнике 1176LN
+dyn.softclip~	soft signal clip / мягкое клиппирование сигнала
 env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator / генератор огибающей ADSR (Attack, Decay, Sustain, Release)
 env.ar~	Attack/Release envelope generator / генератор огибающей Attack/Release
 env.asr2~	stereo Attack/Sustain/Release envelope generator / стерео генератор огибающей Attack/Sustain/Release
@@ -386,8 +386,8 @@ vline2env	Converts vline messages to env
 ceammc/vline2env	Converts vline messages to env
 ceammc/vline->env	Converts vline messages to env
 vline->env	Converts vline messages to env
-expand_env	Substitute environment variables in data stream
-ceammc/expand_env	Substitute environment variables in data stream
+expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
+ceammc/expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 flow.append	append message to flow stream / добавляет сообщение в поток
 flow.change	rejects repeated input messages / удаляет повторяющиеся сообщения
 flow.count	control flow event counter / счетчик числа сообщений в управляющем потоке
@@ -486,8 +486,8 @@ ceammc/tee~	extracts control messages from audio connections / извлекае�
 tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ceammc/~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
-replace	Replace atoms in data stream
-ceammc/replace	Replace atoms in data stream
+replace	replace atoms in data stream / замена атомов в потоке данных
+ceammc/replace	replace atoms in data stream / замена атомов в потоке данных
 route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от пустых событий (bang), числовых значений, символов и списков
 route.bang	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
 route.b	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
@@ -600,13 +600,13 @@ global.int	global named integer object / глобальной именованн
 global.list	global named list / глобальный именованный список
 global.mlist	global named multilevel list (MList) / глобальный именованный многоуровневый список (MList)
 global.set	global named set / глобальное именованное множество
-hw.apple_smc	query the system management control in Apples
-hw.apple_sms	query the sudden motion sensor in Apples
-hw.arduino	Arduino device
-hw.display	get/set display properties
+hw.apple_smc	query Apple system management control / запросы к системе SMC в Apple
+hw.apple_sms	query the sudden motion sensor in Apples / опрос датчика внезапного движения в Apple
+hw.arduino	Arduino device / устройство Arduino
+hw.display	get/set display properties / получение/установка свойств дисплея
 hw.gamepad	gamepad controller / геймпад контроллеры
-hw.kbd_light	Get/set keyboard light on some devices
-hw.motu.avb	controls Motu AVB devices over http requests
+hw.kbd_light	controlling the keyboard backlight on some devices / управление подсветкой клавиатуры на некоторых устройствах
+hw.motu.avb	controls Motu AVB devices over HTTP requests / управление устройствами Motu AVB по HTTP
 hw.printer	basic document printing support / базовая поддержка печати документов
 hw.rpi.adc.ads1115	driver for 16-bit ADC on ads1115 chip for Raspberry Pi / драйвер для 16-битного АЦП на чипе ads1115 для Raspberry Pi
 hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
@@ -625,9 +625,9 @@ hw.rpi.sensor.sr04	HC-SR04 ultrasonic ranging module for Raspberry Pi / HC-SR04 
 hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi / лазерный дальномер на чипе VL53L0X для Raspberry Pi
 hw.rpi.spi.max7219	LED matrix driver based on max7219 chip for Raspberry Pi / драйвер для LED матрицы на чипе max7219 для Raspberry Pi
 hw.rpi.spi.ws2812	ws2812 LED strip driver for Raspberry Pi / драйвер для светодиодной ленты ws2812 для Raspberry Pi
-hw.serial	serial port device
-lang.faust~	faust realtime compilation
-lang.lua	Lua JIT language bindings
+hw.serial	serial port device / серийный порт устройства
+lang.faust~	real-time compilation of Faust DSP Language code / компиляция кода Faust DSP Language в реальном времени
+lang.lua	Lua JIT language bindings / языковые привязки для Lua JIT
 ui.faust~	Faust DSP programming language widget / виджет языка программирования Faust
 lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитуды в диапазоне [0,+1]
 lfo.+saw~	positive unit-amplitude low frequency saw wave / низкочастотная пилообразная волна в диапазоне [0,+1]
@@ -724,14 +724,14 @@ list.deinterleave	unpacks the input list into N lists of interleaved elements / 
 list.walk	various algorithms for traversing elements in a list / различные алгоритмы обхода элементов в списке
 list.zip	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
 list.interleave	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
-live.capture~	record up to 32s of sound and playback the recorded sound in loop
-local.dict	local named dict object
-local.json	local named dict object
-local.float	canvas-scoped named float variable
-local.int	canvas-scoped named integer variable
-local.list	local named list object
-local.mlist	local named mlist object
-local.set	local named set object
+live.capture~	record up to 32 seconds of sound and playback the recorded sound in loop / запись до 32 секунд звука и его воспроизведение в петле
+local.dict	local named dict object / локальный для патча словарь
+local.json	local named dict object / локальный для патча словарь
+local.float	canvas-scoped named float variable / локальное для патча именованное число с плавающей точкой
+local.int	canvas-scoped named integer variable / локальное для патча именованное целое число
+local.list	a local named list object / локальный для патча именованный список
+local.mlist	local named Mlist object / локальный для патча именованный многоуровневый список
+local.set	local named set object / локальное для патча именованное множество
 math.abs	absolute value function / абсолютное значение
 math.abs~	absolute value function for signals / функция абсолютного значения для сигналов
 math.acos	arc cosine function / арккосинус
@@ -945,85 +945,85 @@ midi.track	extracts the track from MidiFile message / извлекает тре�
 midi.tuning	apply the tuning for notes flow / применяет настройку для нотного потока
 midi.vramp	apply crescendo or diminuendo for notes flow / применяет crescendo или diminuendo для потока нот
 midi.vrand	midi velocity randomizer / рандомизатор силы нажатия MIDI
-click~	Output single impulse on bang
-ceammc/click~	Output single impulse on bang
-fluid~	FluidSynth SoundFont 2 player
-ceammc/fluid~	FluidSynth SoundFont 2 player
-modplug~	MOD file player (using libmodplug)
-ceammc/modplug~	MOD file player (using libmodplug)
-qrcode	QR code generator
-ceammc/qrcode	QR code generator
+click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
+ceammc/click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
+fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
+ceammc/fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
+modplug~	MOD file player / плеер файлов MOD
+ceammc/modplug~	MOD file player / плеер файлов MOD
+qrcode	QR code generator / генератор QR кода
+ceammc/qrcode	QR code generator / генератор QR кода
 risset.gliss	Sheppard/Risset glissando calculator
-sfizz~	SFZ format sample player
-ceammc/sfizz~	SFZ format sample player
+sfizz~	SFZ format sample player / плеер семплов в формате SFZ
+ceammc/sfizz~	SFZ format sample player / плеер семплов в формате SFZ
 speech.flite	render speech to array
 speech.flite~	render speech to array
 speech.rhvoice~	RHVoice text to speech synthesis
 ceammc/rhvoice~	RHVoice text to speech synthesis
 rhvoice~	RHVoice text to speech synthesis
-loadexpr	send message when patch loads
-ceammc/loadexpr	send message when patch loads
-msg	message constructor
-ceammc/msg	message constructor
-ceammc/m	message constructor
-m	message constructor
-ceammc/prepend	message constructor
-prepend	message constructor
-msg.after	send specified message after incoming message
-msg.onclose	send message when patch closes
-msg.onload	send message when patch loads
-ceammc/loadmsg	send message when patch loads
-loadmsg	send message when patch loads
-msg.pack	message pack
-msg.sched	message scheduler
+loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
+ceammc/loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
+msg	message constructor / конструктор сообщений
+ceammc/msg	message constructor / конструктор сообщений
+ceammc/m	message constructor / конструктор сообщений
+m	message constructor / конструктор сообщений
+ceammc/prepend	message constructor / конструктор сообщений
+prepend	message constructor / конструктор сообщений
+msg.after	sends the specified message following the forwarded incoming message / отправляет указанное сообщение после пересланного входящего сообщения
+msg.onclose	send a message when closing a patch / отправить сообщение при закрытии патча
+msg.onload	send the specified message upon patch loading / отправить указанное сообщение при загрузе патча
+ceammc/loadmsg	send the specified message upon patch loading / отправить указанное сообщение при загрузе патча
+loadmsg	send the specified message upon patch loading / отправить указанное сообщение при загрузе патча
+msg.pack	message pack / упаковка сообщений
+msg.sched	message dispatch scheduler / планировщик отправки сообщений
 msg.unpack	message unpack to selector and arguments / распаковка сообщения на селектор и аргументы
 rhythm.euclid	euclid pattern generator
 rhythm.hexbeat	hexbeat pattern generator
 rhythm.lsystem	L-system pattern generator
-net.artnet.send	ArtNet DMX message sender
-artnet.send	ArtNet DMX message sender
+net.artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
+artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
 net.freesound	Freesound API v2 client / клиент для Freesound API v2
-net.host2ip	returns IP address by DNS name
-net.host->ip	returns IP address by DNS name
+net.host2ip	outputs IP address by DNS name / выводит IP-адрес по имени DNS
+net.host->ip	outputs IP address by DNS name / выводит IP-адрес по имени DNS
 net.http.client	HTTP client / HTTP клиент
 http.client	HTTP client / HTTP клиент
-net.http.send	HTTP request sender
-http.send	HTTP request sender
+net.http.send	HTTP request sender / отправляет HTTP запросы
+http.send	HTTP request sender / отправляет HTTP запросы
 net.mdns	MDNS service discovery / обнаружение служб MDNS
 net.mqtt.client	MQTT client / MQTT клиент
 mqtt.client	MQTT client / MQTT клиент
-net.osc.receive	OSC message listener
-net.osc.r	OSC message listener
-net.osc.send	OSC message sender
-net.osc.s	OSC message sender
-net.osc.server	OSC server control
-net.osc	OSC server control
+net.osc.receive	receiving messages from the OSC protocol / получение сообщений протокола OSC
+net.osc.r	receiving messages from the OSC protocol / получение сообщений протокола OSC
+net.osc.send	sending messages via the OSC protocol / отправка сообщений протокола OSC
+net.osc.s	sending messages via the OSC protocol / отправка сообщений протокола OSC
+net.osc.server	OSC server control / управление сервером OSC
+net.osc	OSC server control / управление сервером OSC
 net.ws.client	WebSocket client / WebSocket клиент
 net.ws.server	WebSocket server / WebSocket сервер
-noise.baker	Part of a-chaos library
-noise.chua~	Chua's diode circuit
-noise.clifford	clifford attractor
-noise.collatz	collatz conjecture output
-noise.colored~	colored noise generator with an arbitrary spectral roll
-noise.crackle~	sparse noise generator
-noise.duffing	duffing attractor
-noise.ginger	Gingerbreadman map chaotic generator
-noise.henon	henon attractor
+noise.baker	Baker map chaos generator / хаотический генератор на основе преобразования Пекаря
+noise.chua~	Chua's diode circuit / диодная схема цепи Чуа
+noise.clifford	clifford attractor / аттрактор Клиффорда
+noise.collatz	collatz conjecture output / выводит число последовательности Коллаца
+noise.colored~	colored noise generator with an arbitrary spectral roll / генератор цветного шума с произвольным наклоном спектра
+noise.crackle~	sparse noise generator / генератор разреженного шума
+noise.duffing	chaotic generator based on a Duffing oscillator / хаотический генератор на основе осциллятора Дуффинга
+noise.ginger	Gingerbreadman map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
+noise.henon	Henon map chaos attractor / хаотический генератор на основе отображения Эно
 noise.henon_heilles	Hénon–Heiles_system
-noise.henon_phase	henon phase Ddagrams
+noise.henon_phase	henon phase diagrams / фазовые диаграммы Эно
 noise.henonf	Henon phase
-noise.ikeda	Ikeda attractor
-noise.lfreq0~	sampled/held noise (piecewise constant)
-noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
-noise.lorenz	Lorenz chaos
-noise.lyapunov	lyapunov random attractor
-noise.navier_stokes	navier-stokes diff equations
-noise.pink~	Pink noise generator
-noise.rossler	Rössler attractor
-noise.stein	Stein distribution
-noise.torus	torus attractor
-noise.verhulst	verhulst distribution
-noise.white~	White noise generator
+noise.ikeda	Ikeda attractor / генератор хаоса на основе отображения Икеды
+noise.lfreq0~	sampled/held noise (piecewise constant) / семплированный/удержанный шум (кусочно постоянный)
+noise.lfreq~	[noise.lfreq0~] smoothed with no overshoot / сглаженный шум объекта [noise.lfreq0~]
+noise.lorenz	Lorenz chaos attractor / хаотический атрактор Лоренца
+noise.lyapunov	lyapunov random attractor / случайный аттрактор Ляпунова
+noise.navier_stokes	Navier-Stokes differential equations / дифференциальные уравнения Навье-Стокса
+noise.pink~	pink noise generator / генератор розового шума
+noise.rossler	Rössler attractor / аттрактор Рёсслера
+noise.stein	Stein distribution / распределение Штейна
+noise.torus	torus attractor / аттрактор в виде тора
+noise.verhulst	Verhulst distribution / распределение Ферхюльста
+noise.white~	white noise generator / генератор белого шума
 osc.blit~	bandlimited oscillator with controllable harmonics / генератор с ограниченным спектром и управлением гармониками
 osc.impulse~	bandlimited impulse train generator / генератор импульсного сигнала с ограниченным спектром
 osc.pulse~	bandlimited pulse train oscillator / осциллятор прямоугольной волны с ограниченным спектром
@@ -1043,7 +1043,7 @@ canvas.top	verbose information about top-level canvas of the object / подро
 patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
-file.size	output file size
+file.size	outputs the file size / выводит размер файла
 path.basename	outputs the filename portion of the pathname / выводит имя файла из пути к файлу
 path.dirname	outputs directory portion of pathname / выводит имя каталога файла из пути к файлу
 path.exists	checks if the given path exists / проверка существования пути
@@ -1102,26 +1102,26 @@ ceammc/@~>	property extractor from audio connections / отделяет свой
 prop.get~	property extractor from audio connections / отделяет свойства от аудиосоединений
 prop.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
 p.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
-proto.arturia.minilab	simple SysEx control for Arturia MiniLab
-proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
-proto.firmata	Firmata Arduino protocol support
-proto.inscore	INScore message creator
-proto.ltc.in~	LTC decoder
-ltc.in~	LTC decoder
-proto.ltc.out~	LTC encoder
-ltc.out~	LTC encoder
+proto.arturia.minilab	simple SysEx control for Arturia MiniLab / управление по SysEx для Arturia MiniLab
+proto.feelworld	controlling the FeelWorld LivePro L1 HDMI mixer / управление видео-микшером FeelWorld LivePro L1 HDMI
+proto.firmata	Firmata Arduino protocol support / поддержка протокола Firmata для Arduino
+proto.inscore	creation of messages for the INScore program / создание сообщений для программы INScore
+proto.ltc.in~	LTC decoder / LTC-декодер
+ltc.in~	LTC decoder / LTC-декодер
+proto.ltc.out~	LTC encoder / LTC энкодер
+ltc.out~	LTC encoder / LTC энкодер
 proto.midi	raw midi encoder/parser
-proto.midi.casio	Casio Privia MIDI control
+proto.midi.casio	Casio Privia MIDI control / управление Casio Privia MIDI
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
-proto.moppy	protocol for Musical flOPPY controller
-proto.morse	Morse encoder
-proto.mpv	mpv video player control
+proto.moppy	protocol for Musical flOPPY controller / nротокол для музыкального контроллера flOPPY
+proto.morse	Morse encoder / Морзе энкодер
+proto.mpv	MPV video player control / управление видео плеером MPV
 proto.obs	WebSocket client to control OBS studio / WebSocket клиент для управления OBS studio
-proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
-proto.vlc	VLC video player control over HTTP
-proto.whammy	Control for Digitech Whammy pedal
-proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
+proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch / парсер протокола для ножной педали на базе Arduino CEAMMC
+proto.vlc	VLC video player control over HTTP / управление видеоплеером VLC через HTTP
+proto.whammy	control for Digitech Whammy pedal / управление педалью Digitech Whammy Pedal
+proto.xtouch_ext	Behringer XTouch Extender XMidi protocol / управление Behringer XTouch XMidi
 random.atom	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
 random.a	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
 random.discrete	generate random weighted integers on the interval [0, n) / генерирует случайные взвешенные целые числа на интервале [0, n)
@@ -1133,8 +1133,8 @@ random.i	uniform random integer generator in the specified range / равном�
 random.linear	random linear distribution / случайное линейное распределение
 random.pw_const	piecewise constant random distribution / кусочно-постоянное случайное распределение
 random.pw_lin	piecewise linear random distribution / кусочно-линейное случайное распределение
-samp.time~	sample counter
-samp.t~	sample counter
+samp.time~	sample counter / счетчик семплов
+samp.t~	sample counter / счетчик семплов
 seq.arp	chord arpeggiator / арпеджиатор аккордов
 seq.bangs	bang event sequencer / секвенсер пустых событий
 seq.b	bang event sequencer / секвенсер пустых событий
@@ -1150,8 +1150,8 @@ sequencer	basic sequence player / базовый секвенсер значен
 ceammc/sequencer	basic sequence player / базовый секвенсер значений
 ceammc/seq	basic sequence player / базовый секвенсер значений
 seq	basic sequence player / базовый секвенсер значений
-snd.file	Sound file loader on steroids
-snd.play~	Sound file player on steroids
+snd.file	sound file loader with additional features / загрузчик звуковых файлов с дополнительными возможностями
+snd.play~	sound file player with additional capabilities / проигрыватель звуковых файлов с дополнительными возможностями
 hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
 hoa.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
 hoa.2d.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
@@ -1198,12 +1198,12 @@ ceammc/pan~	two channel linear panner / двухканальное линейн�
 pan~	two channel linear panner / двухканальное линейное панорамирование
 pan.spread~	spreads input channels across the stereo field / распределяет входные каналы по стереополю
 pan.sqrt~	two channel equal power square root panner / двухканальное квадратичное панорамирование равной мощности
-spat.pan4~	GMEM SPAT: 4-outputs spatializer
-ceammc/pan4~	GMEM SPAT: 4-outputs spatializer
-pan4~	GMEM SPAT: 4-outputs spatializer
-spat.pan8~	GMEM SPAT: 8-outputs spatializer
-ceammc/pan8~	GMEM SPAT: 8-outputs spatializer
-pan8~	GMEM SPAT: 8-outputs spatializer
+spat.pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х канальным пространственным звуком
+ceammc/pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х канальным пространственным звуком
+pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х канальным пространственным звуком
+spat.pan8~	GMEM SPAT: 8-outputs spatializer / GMEM SPAT: управление 8 канальным пространственным звуком
+ceammc/pan8~	GMEM SPAT: 8-outputs spatializer / GMEM SPAT: управление 8 канальным пространственным звуком
+pan8~	GMEM SPAT: 8-outputs spatializer / GMEM SPAT: управление 8 канальным пространственным звуком
 spat.zita6x8~	spat with 6 inputs sources to 8 channel output
 spat.zita8~	8 channel reverb spatializer
 string	constructs the string / создание строки

@@ -11,9 +11,9 @@
 #X obj 30 173 local.int;
 #X text 200 173 canvas-scoped named integer variable;
 #X obj 30 201 local.list;
-#X text 200 201 local named list object;
+#X text 200 201 a local named list object;
 #X obj 30 229 local.mlist;
-#X text 200 229 local named mlist object;
+#X text 200 229 local named Mlist object;
 #X obj 30 257 local.set;
 #X text 200 257 local named set object;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::local 20 20 0 20 -104026

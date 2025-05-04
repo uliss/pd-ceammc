@@ -1,14 +1,14 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 651 50 cnv 1 114 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 656 50 Arduino device;
+#X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 626 50 устройство Arduino;
 #X obj 1 1 cnv 5 765 40 empty empty hw.arduino 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 hw.arduino;
 #X obj 205 78 cnv 1 560 80 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Arduino serial port tha t supports reconnect and hotplug.
-If no properties are given tries to connect to first available and
-not opened device. If @reconnect flag is given \, waits for device
+#X text 215 83 Arduino serial port that supports reconnect and hotplug.
+If no properties are given tries to connect to the first available
+and not opened device. If @reconnect flag is given \, waits for device
 hotplug and reconnects to it.;
 #X msg 50 206 249;
 #X text 117 206 firmata version request;

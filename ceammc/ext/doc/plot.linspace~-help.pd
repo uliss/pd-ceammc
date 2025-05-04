@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 353 50 cnv 1 412 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 358 50 outputs numbers spaced evenly spaced over a specified
-interval;
+#X obj 375 50 cnv 1 390 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 380 50 generates a sequence of numbers that are uniformly distributed
+within the specified interval;
 #X obj 1 1 cnv 5 765 40 empty empty plot.linspace~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 plot.linspace~;

@@ -7,7 +7,7 @@
 #X obj 30 117 color.mix;
 #X text 200 117 color mixer;
 #X obj 30 145 color.scale;
-#X text 200 145 create color scales;
+#X text 200 145 creation of the color scale;
 #X obj 30 173 data.bimap;
 #X text 200 173 bidirectional map container;
 #X obj 30 201 data.color;
@@ -55,9 +55,9 @@
 #X obj 30 789 global.bimap;
 #X text 200 789 global bidirectional map;
 #X obj 30 817 local.bimap;
-#X text 200 817 local to patch bidirectional map container;
+#X text 200 817 local the to patch bidirectional map container;
 #X obj 30 845 mlist.flatten;
-#X text 200 845 flatten nested mlist;
+#X text 200 845 converts a multi-level list into a single-level list;
 #X obj 30 873 rtree.to_list;
 #X text 200 873 convert OpenMusic-like rhythm tree to list of fractions;
 #X obj 30 901 set.contains;

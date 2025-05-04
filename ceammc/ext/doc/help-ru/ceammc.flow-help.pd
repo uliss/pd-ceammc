@@ -5,7 +5,7 @@
 #X obj 534 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 539 50 управление потоками данных;
 #X obj 30 117 expand_env;
-#X text 200 117 Substitute environment variables in data stream;
+#X text 200 117 подставляет значения переменных среды в поток данных;
 #X obj 30 145 flow.append;
 #X text 200 145 добавляет сообщение в поток;
 #X obj 30 173 flow.change;
@@ -104,7 +104,7 @@
 #X obj 30 1425 flow.tee~;
 #X text 200 1425 извлекает управляющие сообщения из аудиосоединений;
 #X obj 30 1453 replace;
-#X text 200 1453 Replace atoms in data stream;
+#X text 200 1453 замена атомов в потоке данных;
 #X obj 30 1481 route.any;
 #X text 200 1481 отделяет сообщения общего вида от пустых событий (bang)
 \, числовых значений \, символов и списков;

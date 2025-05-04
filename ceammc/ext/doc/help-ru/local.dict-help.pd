@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 584 50 cnv 1 181 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 589 50 local named dict object;
+#X obj 551 50 cnv 1 214 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 556 50 локальный для патча словарь;
 #X obj 1 1 cnv 5 765 40 empty empty local.dict 20 20 0 20 -104026
 -4096 0;
 #X obj 571 11 local.json;

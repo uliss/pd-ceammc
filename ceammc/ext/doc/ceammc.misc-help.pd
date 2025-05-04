@@ -3,11 +3,11 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 click~;
-#X text 200 117 Output single impulse on bang;
+#X text 200 117 outputs a single impulse on a bang input;
 #X obj 30 145 fluid~;
 #X text 200 145 FluidSynth SoundFont 2 player;
 #X obj 30 173 modplug~;
-#X text 200 173 MOD file player (using libmodplug);
+#X text 200 173 MOD file player;
 #X obj 30 201 qrcode;
 #X text 200 201 QR code generator;
 #X obj 30 229 risset.gliss;

@@ -5,15 +5,16 @@
 #X obj 30 117 chaos.gbman0;
 #X text 200 117 Gingerbreadman map chaotic generator;
 #X obj 30 145 chaos.gbman0~;
-#X text 200 145 Gingerbreadman map chaotic generator;
-#X obj 30 173 chaos.jong;
-#X text 200 173 Peter de Jong attractor;
-#X obj 30 201 chaos.logistic;
-#X text 200 201 Logistic map chaotic generator;
-#X obj 30 229 chaos.std0;
-#X text 200 229 Standard map chaotic generator;
-#X obj 30 257 chaos.std0~;
-#X text 200 257 Standard map chaotic generator;
+#X text 200 145 хаотический генератор на основе отображения Пряничного
+человечка;
+#X obj 30 185 chaos.jong;
+#X text 200 185 аттрактор Питера де Йонга;
+#X obj 30 213 chaos.logistic;
+#X text 200 213 хаотический генератор на основе логистического отображения;
+#X obj 30 241 chaos.std0;
+#X text 200 241 хаотический генератор на основе стандартного отображения;
+#X obj 30 269 chaos.std0~;
+#X text 200 269 хаотический генератор на основе стандартного отображения;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::chaos 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

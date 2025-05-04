@@ -3,21 +3,22 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 loadexpr;
-#X text 200 117 send message when patch loads;
+#X text 200 117 отправить сообщение при загрузке патча;
 #X obj 30 145 msg;
-#X text 200 145 message constructor;
+#X text 200 145 конструктор сообщений;
 #X obj 30 173 msg.after;
-#X text 200 173 send specified message after incoming message;
-#X obj 30 201 msg.onclose;
-#X text 200 201 send message when patch closes;
-#X obj 30 229 msg.onload;
-#X text 200 229 send message when patch loads;
-#X obj 30 257 msg.pack;
-#X text 200 257 message pack;
-#X obj 30 285 msg.sched;
-#X text 200 285 message scheduler;
-#X obj 30 313 msg.unpack;
-#X text 200 313 распаковка сообщения на селектор и аргументы;
+#X text 200 173 отправляет указанное сообщение после пересланного входящего
+сообщения;
+#X obj 30 213 msg.onclose;
+#X text 200 213 отправить сообщение при закрытии патча;
+#X obj 30 241 msg.onload;
+#X text 200 241 отправить указанное сообщение при загрузе патча;
+#X obj 30 269 msg.pack;
+#X text 200 269 упаковка сообщений;
+#X obj 30 297 msg.sched;
+#X text 200 297 планировщик отправки сообщений;
+#X obj 30 325 msg.unpack;
+#X text 200 325 распаковка сообщения на селектор и аргументы;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::msg 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

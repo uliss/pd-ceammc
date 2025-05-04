@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 458 50 query the sudden motion sensor in Apples;
+#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 450 50 опрос датчика внезапного движения в Apple;
 #X obj 1 1 cnv 5 765 40 empty empty hw.apple_sms 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hw.apple_sms;

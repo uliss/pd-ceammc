@@ -3,8 +3,7 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 live.capture~;
-#X text 200 117 record up to 32s of sound and playback the recorded
-sound in loop;
+#X text 200 117 запись до 32 секунд звука и его воспроизведение в петле;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::live 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

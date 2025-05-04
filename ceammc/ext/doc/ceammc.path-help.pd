@@ -5,7 +5,7 @@
 #X obj 511 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 516 50 working with filesystem paths;
 #X obj 30 117 file.size;
-#X text 200 117 output file size;
+#X text 200 117 outputs the file size;
 #X obj 30 145 path.basename;
 #X text 200 145 outputs the filename portion of the pathname;
 #X obj 30 173 path.dirname;

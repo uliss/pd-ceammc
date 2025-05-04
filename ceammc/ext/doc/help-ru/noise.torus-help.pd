@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 643 50 cnv 1 122 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 648 50 torus attractor;
+#X obj 598 50 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 603 50 аттрактор в виде тора;
 #X obj 1 1 cnv 5 765 40 empty empty noise.torus 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 noise.torus;

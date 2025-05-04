@@ -106,19 +106,19 @@
     <entry name="array.window" descr="fills the array with the window function" ref_view="object">
       <xi:include href="array.window.pddoc" parse="xml"/>
     </entry>
-    <entry name="plot.geomspace~" descr="outputs numbers spaced evenly on a log scale (a geometric progression)" ref_view="object">
+    <entry name="plot.geomspace~" descr="generates a sequence of numbers that are evenly distributed on a logarithmic scale (geometric progression)" ref_view="object">
       <xi:include href="plot.geomspace~.pddoc" parse="xml"/>
     </entry>
-    <entry name="plot.hist~" descr="calculate and output signal histogram" ref_view="object">
+    <entry name="plot.hist~" descr="calculates and displays the histogram of the input signal" ref_view="object">
       <xi:include href="plot.hist~.pddoc" parse="xml"/>
     </entry>
-    <entry name="plot.linspace~" descr="outputs numbers spaced evenly spaced over a specified interval" ref_view="object">
+    <entry name="plot.linspace~" descr="generates a sequence of numbers that are uniformly distributed within the specified interval" ref_view="object">
       <xi:include href="plot.linspace~.pddoc" parse="xml"/>
     </entry>
     <entry name="plot.logspace~" descr="outputs numbers spaced evenly on a log scale" ref_view="object">
       <xi:include href="plot.logspace~.pddoc" parse="xml"/>
     </entry>
-    <entry name="plot.response~" descr="output amp/phase freq response to impulse" ref_view="object">
+    <entry name="plot.response~" descr="produces the amplitude, phase, and frequency responses to the input signal" ref_view="object">
       <xi:include href="plot.response~.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_array.xml" parse="xml"/>
@@ -220,13 +220,13 @@
     <entry name="chaos.jong" descr="Peter de Jong attractor" ref_view="object">
       <xi:include href="chaos.jong.pddoc" parse="xml"/>
     </entry>
-    <entry name="chaos.logistic" descr="Logistic map chaotic generator" ref_view="object">
+    <entry name="chaos.logistic" descr="logistic map chaotic generator" ref_view="object">
       <xi:include href="chaos.logistic.pddoc" parse="xml"/>
     </entry>
-    <entry name="chaos.std0" descr="Standard map chaotic generator" ref_view="object">
+    <entry name="chaos.std0" descr="standard map chaotic generator" ref_view="object">
       <xi:include href="chaos.std0.pddoc" parse="xml"/>
     </entry>
-    <entry name="chaos.std0~" descr="Standard map chaotic generator" ref_view="object">
+    <entry name="chaos.std0~" descr="standard map chaotic generator" ref_view="object">
       <xi:include href="chaos.std0~.pddoc" parse="xml"/>
     </entry>
   </category>
@@ -387,7 +387,7 @@
     <entry name="conv.str2sec" descr="converts the formatted time to a float value in seconds" ref_view="object">
       <xi:include href="conv.str2sec.pddoc" parse="xml"/>
     </entry>
-    <entry name="music.dur2time" descr="convert duration list to time" ref_view="object">
+    <entry name="music.dur2time" descr="transforms the list of musical durations into a list of time periods" ref_view="object">
       <xi:include href="music.dur2time.pddoc" parse="xml"/>
     </entry>
     <entry name="music.voice2midi" descr="convert single voice music to list of MIDI pitches" ref_view="object">
@@ -399,7 +399,7 @@
     <entry name="color.mix" descr="color mixer" ref_view="object">
       <xi:include href="color.mix.pddoc" parse="xml"/>
     </entry>
-    <entry name="color.scale" descr="create color scales" ref_view="object">
+    <entry name="color.scale" descr="creation of the color scale" ref_view="object">
       <xi:include href="color.scale.pddoc" parse="xml"/>
     </entry>
     <entry name="data.bimap" descr="bidirectional map container" ref_view="object">
@@ -471,10 +471,10 @@
     <entry name="global.bimap" descr="global bidirectional map" ref_view="object">
       <xi:include href="global.bimap.pddoc" parse="xml"/>
     </entry>
-    <entry name="local.bimap" descr="local to patch bidirectional map container" ref_view="object">
+    <entry name="local.bimap" descr="local the to patch bidirectional map container" ref_view="object">
       <xi:include href="local.bimap.pddoc" parse="xml"/>
     </entry>
-    <entry name="mlist.flatten" descr="flatten nested mlist" ref_view="object">
+    <entry name="mlist.flatten" descr="converts a multi-level list into a single-level list" ref_view="object">
       <xi:include href="mlist.flatten.pddoc" parse="xml"/>
     </entry>
     <entry name="rtree.to_list" descr="convert OpenMusic-like rhythm tree to list of fractions" ref_view="object">
@@ -594,7 +594,7 @@
     <xi:include href="ceammc_category_env.xml" parse="xml"/>
   </category>
   <category name="flow">
-    <entry name="expand_env" descr="Substitute environment variables in data stream" ref_view="object">
+    <entry name="expand_env" descr="substitutes environment variables in a data stream" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.append" descr="append message to flow stream" ref_view="object">
@@ -732,7 +732,7 @@
     <entry name="flow.tee~" descr="extracts control messages from audio connections" ref_view="object">
       <xi:include href="flow.tee~.pddoc" parse="xml"/>
     </entry>
-    <entry name="replace" descr="Replace atoms in data stream" ref_view="object">
+    <entry name="replace" descr="replace atoms in data stream" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>
     </entry>
     <entry name="route.any" descr="separate messages from bangs, floats, symbols and lists" ref_view="object">
@@ -1026,7 +1026,7 @@
     <xi:include href="ceammc_category_global.xml" parse="xml"/>
   </category>
   <category name="hw">
-    <entry name="hw.apple_smc" descr="query the system management control in Apples" ref_view="object">
+    <entry name="hw.apple_smc" descr="query Apple system management control" ref_view="object">
       <xi:include href="hw.apple_smc.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.apple_sms" descr="query the sudden motion sensor in Apples" ref_view="object">
@@ -1041,10 +1041,10 @@
     <entry name="hw.gamepad" descr="gamepad controller" ref_view="object">
       <xi:include href="hw.gamepad.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.kbd_light" descr="Get/set keyboard light on some devices" ref_view="object">
+    <entry name="hw.kbd_light" descr="controlling the keyboard backlight on some devices" ref_view="object">
       <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.motu.avb" descr="controls Motu AVB devices over http requests" ref_view="object">
+    <entry name="hw.motu.avb" descr="controls Motu AVB devices over HTTP requests" ref_view="object">
       <xi:include href="hw.motu.avb.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.printer" descr="basic document printing support" ref_view="object">
@@ -1098,7 +1098,7 @@
     <xi:include href="ceammc_category_hw.xml" parse="xml"/>
   </category>
   <category name="lang">
-    <entry name="lang.faust~" descr="faust realtime compilation" ref_view="link">
+    <entry name="lang.faust~" descr="real-time compilation of Faust DSP Language code" ref_view="link">
       <xi:include href="lang.faust~.pddoc" parse="xml"/>
     </entry>
     <entry name="lang.lua" descr="Lua JIT language bindings" ref_view="object">
@@ -1355,7 +1355,7 @@
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
   <category name="live">
-    <entry name="live.capture~" descr="record up to 32s of sound and playback the recorded sound in loop" ref_view="object">
+    <entry name="live.capture~" descr="record up to 32 seconds of sound and playback the recorded sound in loop" ref_view="object">
       <xi:include href="live.capture~.pddoc" parse="xml"/>
     </entry>
   </category>
@@ -1369,10 +1369,10 @@
     <entry name="local.int" descr="canvas-scoped named integer variable" ref_view="object">
       <xi:include href="local.int.pddoc" parse="xml"/>
     </entry>
-    <entry name="local.list" descr="local named list object" ref_view="object">
+    <entry name="local.list" descr="a local named list object" ref_view="object">
       <xi:include href="local.list.pddoc" parse="xml"/>
     </entry>
-    <entry name="local.mlist" descr="local named mlist object" ref_view="object">
+    <entry name="local.mlist" descr="local named Mlist object" ref_view="object">
       <xi:include href="local.mlist.pddoc" parse="xml"/>
     </entry>
     <entry name="local.set" descr="local named set object" ref_view="object">
@@ -1744,13 +1744,13 @@
     <xi:include href="ceammc_category_midi.xml" parse="xml"/>
   </category>
   <category name="misc">
-    <entry name="click~" descr="Output single impulse on bang" ref_view="object">
+    <entry name="click~" descr="outputs a single impulse on a bang input" ref_view="object">
       <xi:include href="click~.pddoc" parse="xml"/>
     </entry>
     <entry name="fluid~" descr="FluidSynth SoundFont 2 player" ref_view="object">
       <xi:include href="fluid~.pddoc" parse="xml"/>
     </entry>
-    <entry name="modplug~" descr="MOD file player (using libmodplug)" ref_view="object">
+    <entry name="modplug~" descr="MOD file player" ref_view="object">
       <xi:include href="modplug~.pddoc" parse="xml"/>
     </entry>
     <entry name="qrcode" descr="QR code generator" ref_view="object">
@@ -1773,25 +1773,25 @@
     </entry>
   </category>
   <category name="msg">
-    <entry name="loadexpr" descr="send message when patch loads" ref_view="object">
+    <entry name="loadexpr" descr="sends the message when the patch loads" ref_view="object">
       <xi:include href="loadexpr.pddoc" parse="xml"/>
     </entry>
     <entry name="msg" descr="message constructor" ref_view="object">
       <xi:include href="msg.pddoc" parse="xml"/>
     </entry>
-    <entry name="msg.after" descr="send specified message after incoming message" ref_view="object">
+    <entry name="msg.after" descr="sends the specified message following the forwarded incoming message" ref_view="object">
       <xi:include href="msg.after.pddoc" parse="xml"/>
     </entry>
-    <entry name="msg.onclose" descr="send message when patch closes" ref_view="object">
+    <entry name="msg.onclose" descr="send a message when closing a patch" ref_view="object">
       <xi:include href="msg.onclose.pddoc" parse="xml"/>
     </entry>
-    <entry name="msg.onload" descr="send message when patch loads" ref_view="object">
+    <entry name="msg.onload" descr="send the specified message upon patch loading" ref_view="object">
       <xi:include href="msg.onload.pddoc" parse="xml"/>
     </entry>
     <entry name="msg.pack" descr="message pack" ref_view="object">
       <xi:include href="msg.pack.pddoc" parse="xml"/>
     </entry>
-    <entry name="msg.sched" descr="message scheduler" ref_view="object">
+    <entry name="msg.sched" descr="message dispatch scheduler" ref_view="object">
       <xi:include href="msg.sched.pddoc" parse="xml"/>
     </entry>
     <entry name="msg.unpack" descr="message unpack to selector and arguments" ref_view="object">
@@ -1816,7 +1816,7 @@
     <entry name="net.freesound" descr="Freesound API v2 client" ref_view="object">
       <xi:include href="net.freesound.pddoc" parse="xml"/>
     </entry>
-    <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
+    <entry name="net.host2ip" descr="outputs IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>
     <entry name="net.http.client" descr="HTTP client" ref_view="object">
@@ -1831,10 +1831,10 @@
     <entry name="net.mqtt.client" descr="MQTT client" ref_view="object">
       <xi:include href="net.mqtt.client.pddoc" parse="xml"/>
     </entry>
-    <entry name="net.osc.receive" descr="OSC message listener" ref_view="object">
+    <entry name="net.osc.receive" descr="receiving messages from the OSC protocol" ref_view="object">
       <xi:include href="net.osc.receive.pddoc" parse="xml"/>
     </entry>
-    <entry name="net.osc.send" descr="OSC message sender" ref_view="object">
+    <entry name="net.osc.send" descr="sending messages via the OSC protocol" ref_view="object">
       <xi:include href="net.osc.send.pddoc" parse="xml"/>
     </entry>
     <entry name="net.osc.server" descr="OSC server control" ref_view="object">
@@ -1849,7 +1849,7 @@
     <xi:include href="ceammc_category_net.xml" parse="xml"/>
   </category>
   <category name="noise">
-    <entry name="noise.baker" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.baker" descr="Baker map chaos generator" ref_view="object">
       <xi:include href="noise.baker.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.chua~" descr="Chua's diode circuit" ref_view="object">
@@ -1867,19 +1867,19 @@
     <entry name="noise.crackle~" descr="sparse noise generator" ref_view="object">
       <xi:include href="noise.crackle~.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.duffing" descr="duffing attractor" ref_view="object">
+    <entry name="noise.duffing" descr="chaotic generator based on a Duffing oscillator" ref_view="object">
       <xi:include href="noise.duffing.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.ginger" descr="Gingerbreadman map chaotic generator" ref_view="object">
       <xi:include href="noise.ginger.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.henon" descr="henon attractor" ref_view="object">
+    <entry name="noise.henon" descr="Henon map chaos attractor" ref_view="object">
       <xi:include href="noise.henon.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.henon_heilles" descr="Hénon–Heiles_system" ref_view="object">
       <xi:include href="noise.henon_heilles.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.henon_phase" descr="henon phase Ddagrams" ref_view="object">
+    <entry name="noise.henon_phase" descr="henon phase diagrams" ref_view="object">
       <xi:include href="noise.henon_phase.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.henonf" descr="Henon phase" ref_view="object">
@@ -1891,19 +1891,19 @@
     <entry name="noise.lfreq0~" descr="sampled/held noise (piecewise constant)" ref_view="object">
       <xi:include href="noise.lfreq0~.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.lfreq~" descr="noise.lfreq0~ smoothed with no overshoot" ref_view="object">
+    <entry name="noise.lfreq~" descr="[noise.lfreq0~] smoothed with no overshoot" ref_view="object">
       <xi:include href="noise.lfreq~.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.lorenz" descr="Lorenz chaos" ref_view="object">
+    <entry name="noise.lorenz" descr="Lorenz chaos attractor" ref_view="object">
       <xi:include href="noise.lorenz.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.lyapunov" descr="lyapunov random attractor" ref_view="object">
       <xi:include href="noise.lyapunov.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.navier_stokes" descr="navier-stokes diff equations" ref_view="object">
+    <entry name="noise.navier_stokes" descr="Navier-Stokes differential equations" ref_view="object">
       <xi:include href="noise.navier_stokes.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.pink~" descr="Pink noise generator" ref_view="object">
+    <entry name="noise.pink~" descr="pink noise generator" ref_view="object">
       <xi:include href="noise.pink~.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.rossler" descr="Rössler attractor" ref_view="object">
@@ -1915,10 +1915,10 @@
     <entry name="noise.torus" descr="torus attractor" ref_view="object">
       <xi:include href="noise.torus.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.verhulst" descr="verhulst distribution" ref_view="object">
+    <entry name="noise.verhulst" descr="Verhulst distribution" ref_view="object">
       <xi:include href="noise.verhulst.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.white~" descr="White noise generator" ref_view="object">
+    <entry name="noise.white~" descr="white noise generator" ref_view="object">
       <xi:include href="noise.white~.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_noise.xml" parse="xml"/>
@@ -1984,7 +1984,7 @@
     <xi:include href="ceammc_category_patch.xml" parse="xml"/>
   </category>
   <category name="path">
-    <entry name="file.size" descr="output file size" ref_view="object">
+    <entry name="file.size" descr="outputs the file size" ref_view="object">
       <xi:include href="file.size.pddoc" parse="xml"/>
     </entry>
     <entry name="path.basename" descr="outputs the filename portion of the pathname" ref_view="object">
@@ -2110,13 +2110,13 @@
     <entry name="proto.arturia.minilab" descr="simple SysEx control for Arturia MiniLab" ref_view="object">
       <xi:include href="proto.arturia.minilab.pddoc" parse="xml"/>
     </entry>
-    <entry name="proto.feelworld" descr="protocol for FeelWorld LivePro L1 HDMI mixer" ref_view="object">
+    <entry name="proto.feelworld" descr="controlling the FeelWorld LivePro L1 HDMI mixer" ref_view="object">
       <xi:include href="proto.feelworld.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.firmata" descr="Firmata Arduino protocol support" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
-    <entry name="proto.inscore" descr="INScore message creator" ref_view="object">
+    <entry name="proto.inscore" descr="creation of messages for the INScore program" ref_view="object">
       <xi:include href="proto.inscore.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.ltc.in~" descr="LTC decoder" ref_view="object">
@@ -2143,7 +2143,7 @@
     <entry name="proto.morse" descr="Morse encoder" ref_view="object">
       <xi:include href="proto.morse.pddoc" parse="xml"/>
     </entry>
-    <entry name="proto.mpv" descr="mpv video player control" ref_view="object">
+    <entry name="proto.mpv" descr="MPV video player control" ref_view="object">
       <xi:include href="proto.mpv.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.obs" descr="WebSocket client to control OBS studio" ref_view="object">
@@ -2155,7 +2155,7 @@
     <entry name="proto.vlc" descr="VLC video player control over HTTP" ref_view="object">
       <xi:include href="proto.vlc.pddoc" parse="xml"/>
     </entry>
-    <entry name="proto.whammy" descr="Control for Digitech Whammy pedal" ref_view="object">
+    <entry name="proto.whammy" descr="control for Digitech Whammy pedal" ref_view="object">
       <xi:include href="proto.whammy.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.xtouch_ext" descr="Behringer XTouch Extender XMidi protocol" ref_view="object">
@@ -2226,10 +2226,10 @@
     <xi:include href="ceammc_category_seq.xml" parse="xml"/>
   </category>
   <category name="snd">
-    <entry name="snd.file" descr="Sound file loader on steroids" ref_view="object">
+    <entry name="snd.file" descr="sound file loader with additional features" ref_view="object">
       <xi:include href="snd.file.pddoc" parse="xml"/>
     </entry>
-    <entry name="snd.play~" descr="Sound file player on steroids" ref_view="object">
+    <entry name="snd.play~" descr="sound file player with additional capabilities" ref_view="object">
       <xi:include href="snd.play~.pddoc" parse="xml"/>
     </entry>
   </category>

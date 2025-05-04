@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 560 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 565 50 stereo 1176LN Peak Limiter;
+#X obj 323 50 cnv 1 442 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 328 50 пиковый стерео-ограничитель сигнала в схемотехнике 1176LN;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.limit2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 dyn.limit2~;

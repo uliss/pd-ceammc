@@ -65,18 +65,20 @@
 #X obj 30 885 array.window;
 #X text 200 885 заполнение массива оконной функцией;
 #X obj 30 913 plot.geomspace~;
-#X text 200 913 outputs numbers spaced evenly on a log scale (a geometric
-progression);
+#X text 200 913 выводит последовательность равномерно распределенных
+по логарифмической шкале чисел (геометрическая прогрессия);
 #X obj 30 953 plot.hist~;
-#X text 200 953 calculate and output signal histogram;
+#X text 200 953 вычисляет и выводит гистограмму входного сигнала;
 #X obj 30 981 plot.linspace~;
-#X text 200 981 outputs numbers spaced evenly spaced over a specified
-interval;
+#X text 200 981 выводит последовательность равномерно распределенных
+в заданном интервале числе;
 #X obj 30 1021 plot.logspace~;
-#X text 200 1021 outputs numbers spaced evenly on a log scale;
-#X obj 30 1049 plot.response~;
-#X text 200 1049 output amp/phase freq response to impulse;
+#X text 200 1021 выводит последовательность равномерно распределенных
+по логарифмической шкале чисел;
+#X obj 30 1061 plot.response~;
+#X text 200 1061 выводит амплитудный \, фазовый и частотный отклики
+на входной сигнал;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1077 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1087 library: ceammc;
+#X obj 1 1101 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1111 library: ceammc;

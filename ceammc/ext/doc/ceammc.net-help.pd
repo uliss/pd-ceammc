@@ -9,7 +9,7 @@
 #X obj 30 145 net.freesound;
 #X text 200 145 Freesound API v2 client;
 #X obj 30 173 net.host2ip;
-#X text 200 173 returns IP address by DNS name;
+#X text 200 173 outputs IP address by DNS name;
 #X obj 30 201 net.http.client;
 #X text 200 201 HTTP client;
 #X obj 30 229 net.http.send;
@@ -19,9 +19,9 @@
 #X obj 30 285 net.mqtt.client;
 #X text 200 285 MQTT client;
 #X obj 30 313 net.osc.receive;
-#X text 200 313 OSC message listener;
+#X text 200 313 receiving messages from the OSC protocol;
 #X obj 30 341 net.osc.send;
-#X text 200 341 OSC message sender;
+#X text 200 341 sending messages via the OSC protocol;
 #X obj 30 369 net.osc.server;
 #X text 200 369 OSC server control;
 #X obj 30 397 net.ws.client;

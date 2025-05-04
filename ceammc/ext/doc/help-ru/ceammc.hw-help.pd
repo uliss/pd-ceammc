@@ -5,19 +5,19 @@
 #X obj 397 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 402 50 работа с различными аппаратными устройствами;
 #X obj 30 117 hw.apple_smc;
-#X text 200 117 query the system management control in Apples;
+#X text 200 117 запросы к системе SMC в Apple;
 #X obj 30 145 hw.apple_sms;
-#X text 200 145 query the sudden motion sensor in Apples;
+#X text 200 145 опрос датчика внезапного движения в Apple;
 #X obj 30 173 hw.arduino;
-#X text 200 173 Arduino device;
+#X text 200 173 устройство Arduino;
 #X obj 30 201 hw.display;
-#X text 200 201 get/set display properties;
+#X text 200 201 получение/установка свойств дисплея;
 #X obj 30 229 hw.gamepad;
 #X text 200 229 геймпад контроллеры;
 #X obj 30 257 hw.kbd_light;
-#X text 200 257 Get/set keyboard light on some devices;
+#X text 200 257 управление подсветкой клавиатуры на некоторых устройствах;
 #X obj 30 285 hw.motu.avb;
-#X text 200 285 controls Motu AVB devices over http requests;
+#X text 200 285 управление устройствами Motu AVB по HTTP;
 #X obj 30 313 hw.printer;
 #X text 200 313 базовая поддержка печати документов;
 #X obj 30 341 hw.rpi.adc.ads1115;
@@ -59,7 +59,7 @@ Pi;
 #X text 200 741 драйвер для светодиодной ленты ws2812 для Raspberry
 Pi;
 #X obj 30 769 hw.serial;
-#X text 200 769 serial port device;
+#X text 200 769 серийный порт устройства;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
 #X obj 1 797 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

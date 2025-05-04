@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 473 50 protocol for Musical flOPPY controller;
+#X obj 421 50 cnv 1 344 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 426 50 nротокол для музыкального контроллера flOPPY;
 #X obj 1 1 cnv 5 765 40 empty empty proto.moppy 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 proto.moppy;

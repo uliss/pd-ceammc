@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 473 50 Get/set keyboard light on some devices;
+#X obj 377 50 cnv 1 388 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 382 50 controlling the keyboard backlight on some devices;
 #X obj 1 1 cnv 5 765 40 empty empty hw.kbd_light 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hw.kbd_light;

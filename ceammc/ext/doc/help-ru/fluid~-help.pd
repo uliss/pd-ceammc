@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 542 50 FluidSynth SoundFont 2 player;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 50 плеер для семплов FluidSynth SoundFont 2;
 #X obj 1 1 cnv 5 765 40 empty empty fluid~ 20 20 0 20 -104026 -4096 0;
 #X obj 575 11 ceammc/fluid~;
 #X obj 695 11 fluid~;

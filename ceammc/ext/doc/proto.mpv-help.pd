@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 580 50 mpv video player control;
+#X obj 574 50 cnv 1 191 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 579 50 MPV video player control;
 #X obj 1 1 cnv 5 765 40 empty empty proto.mpv 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 proto.mpv;

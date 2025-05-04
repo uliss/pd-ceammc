@@ -5,7 +5,7 @@
 #X obj 611 50 cnv 1 129 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 616 50 dataflow control;
 #X obj 30 117 expand_env;
-#X text 200 117 Substitute environment variables in data stream;
+#X text 200 117 substitutes environment variables in a data stream;
 #X obj 30 145 flow.append;
 #X text 200 145 append message to flow stream;
 #X obj 30 173 flow.change;
@@ -98,7 +98,7 @@ time;
 #X obj 30 1377 flow.tee~;
 #X text 200 1377 extracts control messages from audio connections;
 #X obj 30 1405 replace;
-#X text 200 1405 Replace atoms in data stream;
+#X text 200 1405 replace atoms in data stream;
 #X obj 30 1433 route.any;
 #X text 200 1433 separate messages from bangs \, floats \, symbols
 and lists;

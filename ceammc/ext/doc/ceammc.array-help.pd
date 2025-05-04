@@ -63,18 +63,20 @@ function;
 #X obj 30 885 array.window;
 #X text 200 885 fills the array with the window function;
 #X obj 30 913 plot.geomspace~;
-#X text 200 913 outputs numbers spaced evenly on a log scale (a geometric
-progression);
+#X text 200 913 generates a sequence of numbers that are evenly distributed
+on a logarithmic scale (geometric progression);
 #X obj 30 953 plot.hist~;
-#X text 200 953 calculate and output signal histogram;
+#X text 200 953 calculates and displays the histogram of the input
+signal;
 #X obj 30 981 plot.linspace~;
-#X text 200 981 outputs numbers spaced evenly spaced over a specified
-interval;
+#X text 200 981 generates a sequence of numbers that are uniformly
+distributed within the specified interval;
 #X obj 30 1021 plot.logspace~;
 #X text 200 1021 outputs numbers spaced evenly on a log scale;
 #X obj 30 1049 plot.response~;
-#X text 200 1049 output amp/phase freq response to impulse;
+#X text 200 1049 produces the amplitude \, phase \, and frequency responses
+to the input signal;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1077 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1087 library: ceammc;
+#X obj 1 1089 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1099 library: ceammc;

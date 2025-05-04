@@ -5,9 +5,9 @@
 #X obj 481 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 486 50 работа с различными типами данных;
 #X obj 30 117 color.mix;
-#X text 200 117 color mixer;
+#X text 200 117 смешивание цветов;
 #X obj 30 145 color.scale;
-#X text 200 145 create color scales;
+#X text 200 145 создание цветовой шкалы;
 #X obj 30 173 data.bimap;
 #X text 200 173 двунаправленное отображение;
 #X obj 30 201 data.color;
@@ -59,28 +59,29 @@
 #X obj 30 837 global.bimap;
 #X text 200 837 глобальное двунаправленное отображение;
 #X obj 30 865 local.bimap;
-#X text 200 865 local to patch bidirectional map container;
+#X text 200 865 локальный для патча контейнер двунаправленного отображения;
 #X obj 30 893 mlist.flatten;
-#X text 200 893 flatten nested mlist;
+#X text 200 893 преобразует многоуровневый список в одноуровневый;
 #X obj 30 921 rtree.to_list;
-#X text 200 921 convert OpenMusic-like rhythm tree to list of fractions;
-#X obj 30 949 set.contains;
-#X text 200 949 проверяет \, присутстует ли предварительно заданный
+#X text 200 921 преобразует OpenMusic-подобное ритмическое дерево в
+список дробей;
+#X obj 30 961 set.contains;
+#X text 200 961 проверяет \, присутстует ли предварительно заданный
 элемент во входном множестве;
-#X obj 30 989 set.diff;
-#X text 200 989 разность между множествами;
-#X obj 30 1017 set.equal;
-#X text 200 1017 проверяет \, равны ли два множества (содержат одинаковые
+#X obj 30 1001 set.diff;
+#X text 200 1001 разность между множествами;
+#X obj 30 1029 set.equal;
+#X text 200 1029 проверяет \, равны ли два множества (содержат одинаковые
 элементы);
-#X obj 30 1057 set.intersect;
-#X text 200 1057 пересечение множеств;
-#X obj 30 1085 set.size;
-#X text 200 1085 выводит количество элементов в множестве;
-#X obj 30 1113 set.symdiff;
-#X text 200 1113 симметрическая разность между двумя множествами;
-#X obj 30 1141 set.union;
-#X text 200 1141 объединение множеств;
+#X obj 30 1069 set.intersect;
+#X text 200 1069 пересечение множеств;
+#X obj 30 1097 set.size;
+#X text 200 1097 выводит количество элементов в множестве;
+#X obj 30 1125 set.symdiff;
+#X text 200 1125 симметрическая разность между двумя множествами;
+#X obj 30 1153 set.union;
+#X text 200 1153 объединение множеств;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::data 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1169 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1179 library: ceammc;
+#X obj 1 1181 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1191 library: ceammc;

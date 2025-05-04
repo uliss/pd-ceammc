@@ -116,10 +116,11 @@ in 12-ET;
 #X obj 30 1593 conv.str2sec;
 #X text 200 1593 converts the formatted time to a float value in seconds;
 #X obj 30 1621 music.dur2time;
-#X text 200 1621 convert duration list to time;
-#X obj 30 1649 music.voice2midi;
-#X text 200 1649 convert single voice music to list of MIDI pitches;
+#X text 200 1621 transforms the list of musical durations into a list
+of time periods;
+#X obj 30 1661 music.voice2midi;
+#X text 200 1661 convert single voice music to list of MIDI pitches;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1677 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1687 library: ceammc;
+#X obj 1 1689 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1699 library: ceammc;

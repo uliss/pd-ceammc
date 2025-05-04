@@ -7,11 +7,11 @@
 #X obj 30 117 proto.arturia.minilab;
 #X text 200 117 simple SysEx control for Arturia MiniLab;
 #X obj 30 145 proto.feelworld;
-#X text 200 145 protocol for FeelWorld LivePro L1 HDMI mixer;
+#X text 200 145 controlling the FeelWorld LivePro L1 HDMI mixer;
 #X obj 30 173 proto.firmata;
 #X text 200 173 Firmata Arduino protocol support;
 #X obj 30 201 proto.inscore;
-#X text 200 201 INScore message creator;
+#X text 200 201 creation of messages for the INScore program;
 #X obj 30 229 proto.ltc.in~;
 #X text 200 229 LTC decoder;
 #X obj 30 257 proto.ltc.out~;
@@ -29,7 +29,7 @@
 #X obj 30 425 proto.morse;
 #X text 200 425 Morse encoder;
 #X obj 30 453 proto.mpv;
-#X text 200 453 mpv video player control;
+#X text 200 453 MPV video player control;
 #X obj 30 481 proto.obs;
 #X text 200 481 WebSocket client to control OBS studio;
 #X obj 30 509 proto.sp.alpaca;
@@ -37,7 +37,7 @@
 #X obj 30 537 proto.vlc;
 #X text 200 537 VLC video player control over HTTP;
 #X obj 30 565 proto.whammy;
-#X text 200 565 Control for Digitech Whammy pedal;
+#X text 200 565 control for Digitech Whammy pedal;
 #X obj 30 593 proto.xtouch_ext;
 #X text 200 593 Behringer XTouch Extender XMidi protocol;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::proto 20 20 0 20 -104026

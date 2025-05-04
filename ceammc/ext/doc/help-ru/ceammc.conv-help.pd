@@ -35,7 +35,7 @@
 #X obj 30 477 conv.car2pol;
 #X text 200 477 преобразует картезианские координаты в полярные;
 #X obj 30 505 conv.cc2amp;
-#X text 200 505 Диапазон MIDI Control Change;
+#X text 200 505 Диапазон изменений MIDI Control Change;
 #X obj 30 533 conv.char2morse;
 #X text 200 533 преобразует единичный символ в код Морзе;
 #X obj 30 561 conv.color2rgba;
@@ -125,11 +125,12 @@
 #X text 200 1701 преобразует отформатированное время в числовое значение
 в секундах;
 #X obj 30 1741 music.dur2time;
-#X text 200 1741 convert duration list to time;
-#X obj 30 1769 music.voice2midi;
-#X text 200 1769 конвертирует одноголосную музыкальную нотацию в список
+#X text 200 1741 преобразование списка музыкальных длительностей в
+список временных периодов;
+#X obj 30 1781 music.voice2midi;
+#X text 200 1781 конвертирует одноголосную музыкальную нотацию в список
 нот MIDI;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1809 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1819 library: ceammc;
+#X obj 1 1821 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1831 library: ceammc;

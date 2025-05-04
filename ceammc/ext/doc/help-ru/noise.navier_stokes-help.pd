@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 545 50 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 550 50 navier-stokes diff equations;
+#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 465 50 дифференциальные уравнения Навье-Стокса;
 #X obj 1 1 cnv 5 765 40 empty empty noise.navier_stokes 20 20 0 20
 -104026 -4096 0;
 #X obj 603 11 noise.navier_stokes;
