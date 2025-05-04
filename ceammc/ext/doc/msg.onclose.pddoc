@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">send message when patch closes</tr>
+                <tr lang="en">send a message when closing a patch</tr>
+                <tr lang="ru">отправить сообщение при закрытии патча</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">FluidSynth SoundFont 2 player</tr>
+                <tr lang="ru">плеер для семплов FluidSynth SoundFont 2</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

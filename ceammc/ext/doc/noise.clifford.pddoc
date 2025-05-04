@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">clifford attractor</tr>
+                <tr lang="ru">аттрактор Клиффорда</tr>
             </description>
             <license>BSD</license>
             <library>ceammc</library>

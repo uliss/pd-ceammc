@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">raw midi CC encoder/parser</tr>
+                <tr lang="ru" finished="false">CC-кодер / парсер</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

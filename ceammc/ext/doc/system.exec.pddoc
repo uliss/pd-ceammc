@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">run external command in separate process</tr>
+                <tr lang="ru" finished="false">Запуск внешней команды в отдельном процессе</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

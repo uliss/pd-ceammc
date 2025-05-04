@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">numeric symbol compare</tr>
+                <tr lang="ru" finished="false">Цифровой символ сравнивается</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

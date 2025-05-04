@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">canvas-scoped named float variable</tr>
+                <tr lang="ru">локальное для патча именованное число с плавающей точкой</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

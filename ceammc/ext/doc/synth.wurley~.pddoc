@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Wurlitzer electric piano FM synthesis instrument</tr>
+                <tr lang="ru" finished="false">Электрический инструмент синтеза фортепиано FM</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

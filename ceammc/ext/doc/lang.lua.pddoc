@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Lua JIT language bindings</tr>
+                <tr lang="ru">языковые привязки для Lua JIT</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

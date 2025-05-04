@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">stereo dynamic range compressor</tr>
+                <tr lang="ru">стерео-компрессор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

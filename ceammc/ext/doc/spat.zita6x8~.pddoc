@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">spat with 6 inputs sources to 8 channel output</tr>
+                <tr lang="ru" finished="false">Сплетение с 6 входными источниками на 8 выходных
+                каналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">faust realtime compilation</tr>
+                <tr lang="en">real-time compilation of Faust DSP Language code</tr>
+                <tr lang="ru">компиляция кода Faust DSP Language в реальном времени</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

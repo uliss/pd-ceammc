@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">colored noise generator with an arbitrary spectral roll</tr>
+                <tr lang="ru">генератор цветного шума с произвольным наклоном спектра</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

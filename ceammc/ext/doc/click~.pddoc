@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Output single impulse on bang</tr>
+                <tr lang="en">outputs a single impulse on a bang input</tr>
+                <tr lang="ru">выводит единичный импульс при пустом входном событии</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">stereo upward compressor with channel linking</tr>
+                <tr lang="ru">восходящий стерео-компрессор со связью каналов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

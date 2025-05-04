@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">flatten nested mlist</tr>
+                <tr lang="en">converts a multi-level list into a single-level list</tr>
+                <tr lang="ru">преобразует многоуровневый список в одноуровневый</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

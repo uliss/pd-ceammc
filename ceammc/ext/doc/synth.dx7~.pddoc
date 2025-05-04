@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">FAUST dx7 implementation</tr>
+                <tr lang="ru" finished="false">Реализация FAUST dx7</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

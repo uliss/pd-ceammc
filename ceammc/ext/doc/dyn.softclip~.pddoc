@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">soft signal clip</tr>
+                <tr lang="ru">мягкое клиппирование сигнала</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Chua's diode circuit</tr>
+                <tr lang="ru">диодная схема цепи Чуа</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

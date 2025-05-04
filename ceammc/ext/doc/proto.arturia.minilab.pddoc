@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">simple SysEx control for Arturia MiniLab</tr>
+                <tr lang="ru">управление по SysEx для Arturia MiniLab</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

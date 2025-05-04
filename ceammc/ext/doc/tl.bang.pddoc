@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">Timeline bang (with possible delay)</tr>
+                <tr lang="ru" finished="false">Timeline bang (с возможной задержкой)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

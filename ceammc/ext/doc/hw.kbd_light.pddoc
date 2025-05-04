@@ -8,7 +8,9 @@
                 <author>Hans-Christoph Steiner</author>
             </authors>
             <description>
-                <tr lang="en">Get/set keyboard light on some devices</tr>
+                <tr lang="en">controlling the keyboard backlight on some devices</tr>
+                <tr lang="ru">управление подсветкой клавиатуры на некоторых
+                устройствах</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

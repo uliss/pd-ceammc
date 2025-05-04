@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">VLC video player control over HTTP</tr>
+                <tr lang="ru">управление видеоплеером VLC через HTTP</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

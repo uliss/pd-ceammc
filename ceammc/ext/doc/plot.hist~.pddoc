@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">calculate and output signal histogram</tr>
+                <tr lang="en">calculates and displays the histogram of the input signal</tr>
+                <tr lang="ru">вычисляет и выводит гистограмму входного сигнала</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

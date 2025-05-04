@@ -8,7 +8,8 @@
                 <author>André Sier</author>
             </authors>
             <description>
-                <tr lang="en">duffing attractor</tr>
+                <tr lang="en">chaotic generator based on a Duffing oscillator</tr>
+                <tr lang="ru">хаотический генератор на основе осциллятора Дуффинга</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">converts symbol or string to message</tr>
+                <tr lang="ru" finished="false">Преобразует символ или строку в сообщение</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

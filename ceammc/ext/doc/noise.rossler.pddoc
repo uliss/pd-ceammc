@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Rössler attractor</tr>
+                <tr lang="ru">аттрактор Рёсслера</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

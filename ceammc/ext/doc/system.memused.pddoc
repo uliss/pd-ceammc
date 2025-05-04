@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">returns the process physical memory use - current and peak</tr>
+                <tr lang="ru" finished="false">возвращает процесс использования физической памяти -
+                ток и пик</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

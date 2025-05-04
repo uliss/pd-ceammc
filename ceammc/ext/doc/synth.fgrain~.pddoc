@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">file granulator from STK</tr>
+                <tr lang="ru" finished="false">Файловый гранулятор от STK</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">get/set display properties</tr>
+                <tr lang="ru">получение/установка свойств дисплея</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

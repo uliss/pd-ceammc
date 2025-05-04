@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Snare drum synth from Guitarix project</tr>
+                <tr lang="ru" finished="false">Snare drum synth из проекта Guitarix</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

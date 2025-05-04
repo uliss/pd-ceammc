@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">stereo 1176LN Peak Limiter</tr>
+                <tr lang="ru">пиковый стерео-ограничитель сигнала в схемотехнике 1176LN</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

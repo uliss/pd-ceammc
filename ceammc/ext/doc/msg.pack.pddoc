@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">message pack</tr>
+                <tr lang="ru">упаковка сообщений</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

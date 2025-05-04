@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">quit PureData</tr>
+                <tr lang="ru" finished="false">Скачать PureData</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

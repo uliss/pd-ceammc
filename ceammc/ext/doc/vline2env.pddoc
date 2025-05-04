@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Converts vline messages to env</tr>
+                <tr lang="ru" finished="false">Преобразование сообщений vline в env</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">lyapunov random attractor</tr>
+                <tr lang="ru">случайный аттрактор Ляпунова</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

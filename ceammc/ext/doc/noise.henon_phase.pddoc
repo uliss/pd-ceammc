@@ -8,7 +8,8 @@
                 <author>André Sier</author>
             </authors>
             <description>
-                <tr lang="en">henon phase Ddagrams</tr>
+                <tr lang="en">henon phase diagrams</tr>
+                <tr lang="ru">фазовые диаграммы Эно</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

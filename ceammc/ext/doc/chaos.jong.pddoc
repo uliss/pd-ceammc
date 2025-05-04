@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Peter de Jong attractor</tr>
+                <tr lang="ru">аттрактор Питера де Йонга</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">Get system environment variables</tr>
+                <tr lang="ru" finished="false">Получить переменные среды системы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

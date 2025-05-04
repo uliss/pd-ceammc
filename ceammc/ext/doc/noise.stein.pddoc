@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Stein distribution</tr>
+                <tr lang="ru">распределение Штейна</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

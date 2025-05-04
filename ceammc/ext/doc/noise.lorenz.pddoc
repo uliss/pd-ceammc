@@ -9,7 +9,8 @@
                 <author>André Sier</author>
             </authors>
             <description>
-                <tr lang="en">Lorenz chaos</tr>
+                <tr lang="en">Lorenz chaos attractor</tr>
+                <tr lang="ru">хаотический атрактор Лоренца</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

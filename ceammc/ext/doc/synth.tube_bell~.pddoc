@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">STK tubular bell (orchestral chime) FM synthesis instrument</tr>
+                <tr lang="ru" finished="false">Тубулярный колокол STK (оркестровый колокол)
+                FM-синтезный инструмент</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

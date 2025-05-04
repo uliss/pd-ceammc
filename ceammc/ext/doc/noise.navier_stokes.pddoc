@@ -8,7 +8,8 @@
                 <author>André Sier</author>
             </authors>
             <description>
-                <tr lang="en">navier-stokes diff equations</tr>
+                <tr lang="en">Navier-Stokes differential equations</tr>
+                <tr lang="ru">дифференциальные уравнения Навье-Стокса</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

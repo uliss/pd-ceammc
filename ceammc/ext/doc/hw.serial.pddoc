@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">serial port device</tr>
+                <tr lang="ru">серийный порт устройства</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

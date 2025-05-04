@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">protocol parser for Arduino-based CEAMMC footswitch</tr>
+                <tr lang="ru">парсер протокола для ножной педали на базе Arduino CEAMMC</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

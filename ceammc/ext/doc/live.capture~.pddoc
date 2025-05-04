@@ -7,8 +7,9 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">record up to 32s of sound and playback the recorded sound in
+                <tr lang="en">record up to 32 seconds of sound and playback the recorded sound in
                 loop</tr>
+                <tr lang="ru">запись до 32 секунд звука и его воспроизведение в петле</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

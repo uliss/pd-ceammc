@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Arduino device</tr>
+                <tr lang="ru">устройство Arduino</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -16,8 +17,8 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Arduino serial port tha t supports reconnect and hotplug. If no properties are
-            given tries to connect to first available and not opened device. If @reconnect flag is
+            <par>Arduino serial port that supports reconnect and hotplug. If no properties are
+            given tries to connect to the first available and not opened device. If @reconnect flag is
             given, waits for device hotplug and reconnects to it.</par>
         </info>
         <arguments>

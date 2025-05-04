@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">various percussion sounds from STK library</tr>
+                <tr lang="ru" finished="false">Различные ударные звуки из библиотеки STK</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

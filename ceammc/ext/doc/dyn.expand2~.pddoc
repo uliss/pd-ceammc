@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">stereo dynamic range expander with channel linking</tr>
+                <tr lang="ru">расширение динамического стерео-диапазона</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

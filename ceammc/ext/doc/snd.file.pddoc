@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Sound file loader on steroids</tr>
+                <tr lang="en">sound file loader with additional features</tr>
+                <tr lang="ru">загрузчик звуковых файлов с дополнительными возможностями</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">query the system management control in Apples</tr>
+                <tr lang="en">query Apple system management control</tr>
+                <tr lang="ru">запросы к системе SMC в Apple</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,7 +8,8 @@
                 <author>André Sier</author>
             </authors>
             <description>
-                <tr lang="en">henon attractor</tr>
+                <tr lang="en">Henon map chaos attractor</tr>
+                <tr lang="ru">хаотический генератор на основе отображения Эно</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

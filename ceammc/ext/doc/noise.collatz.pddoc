@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">collatz conjecture output</tr>
+                <tr lang="ru">выводит число последовательности Коллаца</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

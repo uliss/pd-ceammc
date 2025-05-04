@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">sampled/held noise (piecewise constant)</tr>
+                <tr lang="ru">семплированный/удержанный шум (кусочно постоянный)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

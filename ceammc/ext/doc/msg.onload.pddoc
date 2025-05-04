@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">send message when patch loads</tr>
+                <tr lang="en">send the specified message upon patch loading</tr>
+                <tr lang="ru">отправить указанное сообщение при загрузе патча</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

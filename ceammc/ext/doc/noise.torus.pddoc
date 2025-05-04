@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">torus attractor</tr>
+                <tr lang="ru">аттрактор в виде тора</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">mono signal gate</tr>
+                <tr lang="ru">моно-сигнальный гейт</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">hexbeat pattern generator</tr>
+                <tr lang="ru" finished="false">генератор шаблонов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

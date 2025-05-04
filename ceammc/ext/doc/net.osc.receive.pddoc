@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">OSC message listener</tr>
+                <tr lang="en">receiving messages from the OSC protocol</tr>
+                <tr lang="ru">получение сообщений протокола OSC</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

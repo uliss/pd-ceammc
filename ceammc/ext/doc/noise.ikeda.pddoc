@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Ikeda attractor</tr>
+                <tr lang="ru">генератор хаоса на основе отображения Икеды</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

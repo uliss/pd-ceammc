@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">bird singing generator</tr>
+                <tr lang="ru" finished="false">генератор пения птиц</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">ready to use metronome synth</tr>
+                <tr lang="ru" finished="false">Готовы использовать метрономный синт</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

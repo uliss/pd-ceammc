@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">Timeline transport control</tr>
+                <tr lang="ru" finished="false">Контроль за транспортным временем</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

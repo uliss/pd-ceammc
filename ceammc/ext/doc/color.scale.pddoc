@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">create color scales</tr>
+                <tr lang="en">creation of the color scale</tr>
+                <tr lang="ru">создание цветовой шкалы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

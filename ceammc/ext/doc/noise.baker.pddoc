@@ -7,7 +7,8 @@
                 <author>André Sier</author>
             </authors>
             <description>
-                <tr lang="en">Part of a-chaos library</tr>
+                <tr lang="en">Baker map chaos generator</tr>
+                <tr lang="ru">хаотический генератор на основе преобразования Пекаря</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

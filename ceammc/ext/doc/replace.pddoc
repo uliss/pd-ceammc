@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Replace atoms in data stream</tr>
+                <tr lang="en">replace atoms in data stream</tr>
+                <tr lang="ru">замена атомов в потоке данных</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

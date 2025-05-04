@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">returns IP address by DNS name</tr>
+                <tr lang="en">outputs IP address by DNS name</tr>
+                <tr lang="ru">выводит IP-адрес по имени DNS</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

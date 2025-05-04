@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">HTTP request sender</tr>
+                <tr lang="ru">отправляет HTTP запросы</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

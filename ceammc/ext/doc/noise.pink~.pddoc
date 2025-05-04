@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Pink noise generator</tr>
+                <tr lang="en">pink noise generator</tr>
+                <tr lang="ru">генератор розового шума</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

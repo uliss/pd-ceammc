@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">STK Fender Rhodes electric piano FM synthesis instrument</tr>
+                <tr lang="ru" finished="false">STK Fender Rhodes - электрический инструмент синтеза
+                фортепиано FM</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

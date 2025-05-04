@@ -9,6 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">Jean-Claude Risset's endless glissando</tr>
+                <tr lang="ru" finished="false">Жан - Бесконечное глиссандо Клода Риссета</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

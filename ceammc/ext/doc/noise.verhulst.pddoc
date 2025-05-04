@@ -7,7 +7,8 @@
                 <author>André Sier</author>
             </authors>
             <description>
-                <tr lang="en">verhulst distribution</tr>
+                <tr lang="en">Verhulst distribution</tr>
+                <tr lang="ru">распределение Ферхюльста</tr>
             </description>
             <license>%</license>
             <library>ceammc</library>

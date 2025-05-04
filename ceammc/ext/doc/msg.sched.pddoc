@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">message scheduler</tr>
+                <tr lang="en">message dispatch scheduler</tr>
+                <tr lang="ru">планировщик отправки сообщений</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

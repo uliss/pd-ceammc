@@ -8,6 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">8 channel reverb spatializer</tr>
+                <tr lang="ru" finished="false">8-канальный реверберационный
+                пространственизатор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">low-kick synth from faust librariest</tr>
+                <tr lang="ru" finished="false">Низкий синт из библиотеки Фауста</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">GMEM SPAT: 4-outputs spatializer</tr>
+                <tr lang="ru">GMEM SPAT: управление 4-х канальным пространственным звуком</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -8,6 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">stereo peak feed forward compressor with channel linking</tr>
+                <tr lang="ru">пиковый стерео-компрессор прямой топологии</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
