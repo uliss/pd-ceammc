@@ -19,9 +19,11 @@
         <arguments>
             <argument name="ARRAY" type="symbol">
                 <tr lang="en">target array</tr>
+                <tr lang="ru">целевой массив</tr>
             </argument>
             <argument name="IR" type="symbol">
                 <tr lang="en">array with impulse response</tr>
+                <tr lang="ru">массив с импульсным откликом</tr>
             </argument>
         </arguments>
         <properties>

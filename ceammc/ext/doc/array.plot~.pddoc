@@ -23,12 +23,15 @@
         <arguments>
             <argument name="ARRAY" type="symbol">
                 <tr lang="en">array name</tr>
+                <tr lang="ru">имя массива</tr>
             </argument>
             <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">
                 <tr lang="en">minimal y-axis value</tr>
+                <tr lang="ru">минимальное значение y-оси</tr>
             </argument>
             <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">
                 <tr lang="en">maximum y-axis value</tr>
+                <tr lang="ru">максимальное значение y-оси</tr>
             </argument>
         </arguments>
         <properties>

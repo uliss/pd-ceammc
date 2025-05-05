@@ -22,9 +22,11 @@
         <arguments>
             <argument name="SRC" type="symbol">
                 <tr lang="en">source array</tr>
+                <tr lang="ru">исходный массив</tr>
             </argument>
             <argument name="DEST" type="symbol">
                 <tr lang="en">destination array</tr>
+                <tr lang="ru">массив результата</tr>
             </argument>
         </arguments>
         <properties>

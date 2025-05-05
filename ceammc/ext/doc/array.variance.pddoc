@@ -25,6 +25,7 @@
         <arguments>
             <argument name="ARRAY" type="symbol">
                 <tr lang="en">array name</tr>
+                <tr lang="ru">имя массива</tr>
             </argument>
         </arguments>
         <properties>

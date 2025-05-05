@@ -33,11 +33,11 @@
 #X text 110 496 1\.;
 #X text 150 496 symbol;
 #X obj 246 497 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 496 ARRAY: array name. Тип: symbol.;
+#X text 245 496 ARRAY: имя массива. Тип: symbol.;
 #X text 110 516 2\.;
 #X text 150 516 float;
 #X obj 246 517 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 516 SPEED: play speed. Тип: float.;
+#X text 245 516 SPEED: скорость воспроизведения. Тип: float.;
 #X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 551 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
