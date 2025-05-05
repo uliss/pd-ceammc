@@ -37,8 +37,8 @@
 #X text 245 597 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 639 @active;
-#X text 245 639 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 639 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 681 @cutoff;
 #X text 245 681 Получить/Установить cuttoff frequency of the strike
 generator. Тип: float. Значение по умолчанию: 7000\. Диапазон: 1000\...10000\.;

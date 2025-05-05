@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@active" type="bool" default="1">
+    <tr lang="en">on/off object dsp processing</tr>
+    <tr lang="ru">вкл/выкл. обработку сигнала объектом</tr>
+</property>

@@ -27,10 +27,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @down.freq -->
             <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000"
             units="hertz">

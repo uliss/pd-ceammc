@@ -34,8 +34,8 @@ from the bottom to the top of the bell;
 #X text 245 850 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 892 @active;
-#X text 245 892 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 892 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 934 @cutoff;
 #X text 245 934 Получить/Установить cutoff coefficent. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 6500\. Диапазон: 20\...20000\.;

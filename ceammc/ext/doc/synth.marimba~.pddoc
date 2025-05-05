@@ -21,10 +21,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">
                 <tr lang="en">cuttoff frequency of the strike generator</tr>

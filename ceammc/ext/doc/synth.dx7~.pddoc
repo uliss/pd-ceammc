@@ -19,10 +19,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1" access="readwrite">
-                <tr lang="en">@active</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @algorithm -->
             <property name="@algorithm" type="int" minvalue="0" maxvalue="31" default="0"
             access="readwrite">
