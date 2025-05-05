@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "array_circular_tilde.h"
 #include "ceammc_factory.h"
-#include "ceammc_signal.h"
 #include "ceammc_units.h"
 
 constexpr long MIN_ARAY_SIZE_SAMP = 10;
