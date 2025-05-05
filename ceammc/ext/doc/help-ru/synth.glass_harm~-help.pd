@@ -24,94 +24,94 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 482 @id;
 #X text 245 482 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
-адресам вида: /ID/synth_glass_harm/ИМЯ_СВОЙСТВА \, в противном случае
-к /synth_glass_harm/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 554 @osc;
-#X text 245 554 (при инициализации) Получить/Установить имя OSC сервера.
+для OSC адреса. Если установлен \, все свойства объекта привязываются
+к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_glass_harm/ИМЯ_СВОЙСТВА \,
+в противном случае к /synth_glass_harm/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X msg 110 569 @osc;
+#X text 245 569 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 596 @active;
-#X text 245 596 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 611 @active;
+#X text 245 611 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 638 @bow_press;
-#X text 245 638 Получить/Установить bow pressure on the instrument.
+#X msg 110 653 @bow_press;
+#X text 245 653 Получить/Установить bow pressure on the instrument.
 Тип: float. Значение по умолчанию: 0.2\. Диапазон: 0\...1\.;
-#X msg 110 680 @freq;
-#X text 245 680 Получить/Установить frequency. Тип: float. Единицы:
+#X msg 110 695 @freq;
+#X text 245 695 Получить/Установить frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 130.8128\.;
-#X msg 110 722 @gain;
-#X text 245 722 Получить/Установить base gain. Тип: float. Значение
+#X msg 110 737 @gain;
+#X text 245 737 Получить/Установить base gain. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 764 @gate;
-#X text 245 764 Получить/Установить play trigger - 1: on \, 0: off.
+#X msg 110 779 @gate;
+#X text 245 779 Получить/Установить play trigger - 1: on \, 0: off.
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 806 @integration;
-#X text 245 806 Получить/Установить integration constant. Тип: float.
+#X msg 110 821 @integration;
+#X text 245 821 Получить/Установить integration constant. Тип: float.
 Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 848 @modfreq;
-#X text 245 848 Получить/Установить frequency of the sine wave for
+#X msg 110 863 @modfreq;
+#X text 245 863 Получить/Установить frequency of the sine wave for
 the modulation of theta (works if @modetype=3). Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 220\. Диапазон: 20\...1000\.;
-#X msg 110 920 @modtype;
-#X text 245 920 Получить/Установить modulation type. 0=theta is modulated
+#X msg 110 935 @modtype;
+#X text 245 935 Получить/Установить modulation type. 0=theta is modulated
 by the incoming signal. 1=theta is modulated by the averaged incoming
 signal. 2=theta is modulated by the squared incoming signal. 3=theta
 is modulated by a sine wave of frequency @modfreq. 4=theta is modulated
 by a sine wave of frequency @freq. Тип: int. Значение по умолчанию:
 0\. Диапазон: 0\...4\.;
-#X msg 110 1038 @nonlin;
-#X text 245 1038 Получить/Установить nonlinearity factor. Тип: float.
+#X msg 110 1053 @nonlin;
+#X text 245 1053 Получить/Установить nonlinearity factor. Тип: float.
 Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 1080 @pan;
-#X text 245 1080 Получить/Установить pan angle. Тип: float. Значение
+#X msg 110 1095 @pan;
+#X text 245 1095 Получить/Установить pan angle. Тип: float. Значение
 по умолчанию: 0.6\. Диапазон: 0\...1\.;
-#X msg 110 1122 @pitch;
-#X text 245 1122 Получить/Установить midi pitch. Тип: float. Значение
+#X msg 110 1137 @pitch;
+#X text 245 1137 Получить/Установить midi pitch. Тип: float. Значение
 по умолчанию: 48\. Диапазон: 24\...96\.;
-#X msg 110 1164 @reverb_gain;
-#X text 245 1164 Получить/Установить reverb gain. Тип: float. Значение
+#X msg 110 1179 @reverb_gain;
+#X text 245 1179 Получить/Установить reverb gain. Тип: float. Значение
 по умолчанию: 0.137\. Диапазон: 0\...1\.;
-#X msg 110 1206 @room_size;
-#X text 245 1206 Получить/Установить reverb room size. Тип: float.
+#X msg 110 1221 @room_size;
+#X text 245 1221 Получить/Установить reverb room size. Тип: float.
 Значение по умолчанию: 0.36\. Диапазон: 0.005\...1\.;
-#X msg 110 1248 @strike;
-#X text 245 1248 Получить/Установить strike or bow. Тип: int. Значение
+#X msg 110 1263 @strike;
+#X text 245 1263 Получить/Установить strike or bow. Тип: int. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 1290 @width;
-#X text 245 1290 Получить/Установить spatialization width. Тип: float.
+#X msg 110 1305 @width;
+#X text 245 1305 Получить/Установить spatialization width. Тип: float.
 Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X obj 20 1342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1347 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1362 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1382 note;
-#X text 245 1382 note on/off message. Аргументы:;
-#X obj 255 1405 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1405 NOTE: midi note. Тип: float.;
-#X obj 255 1428 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1428 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X msg 110 1453 reset;
-#X text 245 1453 reset synth.;
-#X obj 20 1491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1496 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1397 note;
+#X text 245 1397 note on/off message. Аргументы:;
+#X obj 255 1420 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1420 NOTE: midi note. Тип: float.;
+#X obj 255 1443 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1443 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X msg 110 1468 reset;
+#X text 245 1468 reset synth.;
+#X obj 20 1506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1511 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1497 1\.;
-#X text 150 1497 *list*;
-#X text 245 1497 NOTE VEL.;
-#X obj 20 1527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1532 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1512 1\.;
+#X text 150 1512 *list*;
+#X text 245 1512 NOTE VEL.;
+#X obj 20 1542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1547 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1533 1\.;
-#X text 245 1533 left output.;
-#X text 110 1553 2\.;
-#X text 245 1553 right output.;
+#X text 110 1548 1\.;
+#X text 245 1548 left output.;
+#X text 110 1568 2\.;
+#X text 245 1568 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1603 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1606 библиотека: ceammc v0.9.8;
-#N canvas 10 1625 400 290 info 0;
+#X obj 1 1618 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1621 библиотека: ceammc v0.9.8;
+#N canvas 10 1640 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -135,7 +135,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1625 pd info;
+#X restore 10 1640 pd info;
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

@@ -26,68 +26,68 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 381 @id;
 #X text 245 381 (при инициализации) Получить/Установить идентификатор
-для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
-адресам вида: /ID/synth_risset_arp/ИМЯ_СВОЙСТВА \, в противном случае
-к /synth_risset_arp/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 453 @osc;
-#X text 245 453 (при инициализации) Получить/Установить имя OSC сервера.
+для OSC адреса. Если установлен \, все свойства объекта привязываются
+к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_risset_arp/ИМЯ_СВОЙСТВА \,
+в противном случае к /synth_risset_arp/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X msg 110 468 @osc;
+#X text 245 468 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 495 @active;
-#X text 245 495 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 510 @active;
+#X text 245 510 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 537 @detune;
-#X text 245 537 Получить/Установить detune percent. Тип: float. Значение
+#X msg 110 552 @detune;
+#X text 245 552 Получить/Установить detune percent. Тип: float. Значение
 по умолчанию: 5\. Диапазон: 0\...1000\.;
-#X msg 110 579 @freq;
-#X text 245 579 Получить/Установить base frequency. Тип: float. Значение
+#X msg 110 594 @freq;
+#X text 245 594 Получить/Установить base frequency. Тип: float. Значение
 по умолчанию: 100\. Диапазон: 40\...500\.;
-#X msg 110 621 @harmonic1;
-#X text 245 621 Получить/Установить 1st harmonic amplitude. Тип: float.
+#X msg 110 636 @harmonic1;
+#X text 245 636 Получить/Установить 1st harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 663 @harmonic2;
-#X text 245 663 Получить/Установить 2nd harmonic amplitude. Тип: float.
+#X msg 110 678 @harmonic2;
+#X text 245 678 Получить/Установить 2nd harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 705 @harmonic3;
-#X text 245 705 Получить/Установить 3rd harmonic amplitude. Тип: float.
+#X msg 110 720 @harmonic3;
+#X text 245 720 Получить/Установить 3rd harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 747 @harmonic4;
-#X text 245 747 Получить/Установить 4th harmonic amplitude. Тип: float.
+#X msg 110 762 @harmonic4;
+#X text 245 762 Получить/Установить 4th harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 789 @harmonic5;
-#X text 245 789 Получить/Установить 5th harmonic amplitude. Тип: float.
+#X msg 110 804 @harmonic5;
+#X text 245 804 Получить/Установить 5th harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 831 @harmonic6;
-#X text 245 831 Получить/Установить 6th harmonic amplitude. Тип: float.
+#X msg 110 846 @harmonic6;
+#X text 245 846 Получить/Установить 6th harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 873 @harmonic7;
-#X text 245 873 Получить/Установить 7th harmonic amplitude. Тип: float.
+#X msg 110 888 @harmonic7;
+#X text 245 888 Получить/Установить 7th harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 915 @harmonic8;
-#X text 245 915 Получить/Установить 8th harmonic amplitude. Тип: float.
+#X msg 110 930 @harmonic8;
+#X text 245 930 Получить/Установить 8th harmonic amplitude. Тип: float.
 Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 957 @spread;
-#X text 245 957 Получить/Установить stereo spread. Тип: float. Значение
+#X msg 110 972 @spread;
+#X text 245 972 Получить/Установить stereo spread. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1014 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1029 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1015 1\.;
-#X text 245 1015 control inlet.;
-#X obj 20 1045 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1050 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1030 1\.;
+#X text 245 1030 control inlet.;
+#X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1065 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1051 1\.;
-#X text 245 1051;
-#X text 110 1071 2\.;
-#X text 245 1071;
+#X text 110 1066 1\.;
+#X text 245 1066;
+#X text 110 1086 2\.;
+#X text 245 1086;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1121 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1124 библиотека: ceammc v0.9.8;
-#N canvas 10 1143 400 290 info 0;
+#X obj 1 1136 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1139 библиотека: ceammc v0.9.8;
+#N canvas 10 1158 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -111,7 +111,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1143 pd info;
+#X restore 10 1158 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;
 #X connect 4 0 10 0;
