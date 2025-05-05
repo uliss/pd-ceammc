@@ -171,7 +171,7 @@ stack loops;
 #X obj 30 2310 chaos.gbman0;
 #X text 200 2310 gingerbreadman map chaotic generator;
 #X obj 30 2338 chaos.gbman0~;
-#X text 200 2338 Gingerbreadman map chaotic generator;
+#X text 200 2338 gingerbreadman map chaotic generator;
 #X obj 30 2366 chaos.jong;
 #X text 200 2366 Peter de Jong attractor;
 #X obj 30 2394 chaos.logistic;
@@ -2052,7 +2052,7 @@ ui.spectroscope~-help.pd;
 #X text 20 26873 version: v0.9.8 \, license: GPL3;
 #X obj 20 26901 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 26925 ui.link @title Generated with pddoc v0.9.2 @url
+#X obj 20 26925 ui.link @title Generated with pddoc v0.10.0 @url
 https://github.com/uliss/pddoc;
 #X obj 670 26888 loadmsg 0;
 #X obj 670 26923 switch~;

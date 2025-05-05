@@ -5,7 +5,7 @@
 #X obj 30 117 chaos.gbman0;
 #X text 200 117 gingerbreadman map chaotic generator;
 #X obj 30 145 chaos.gbman0~;
-#X text 200 145 Gingerbreadman map chaotic generator;
+#X text 200 145 gingerbreadman map chaotic generator;
 #X obj 30 173 chaos.jong;
 #X text 200 173 Peter de Jong attractor;
 #X obj 30 201 chaos.logistic;
