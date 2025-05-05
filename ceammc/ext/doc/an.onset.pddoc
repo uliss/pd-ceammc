@@ -26,17 +26,21 @@
         <arguments>
             <argument name="ARRAY" type="symbol">
                 <tr lang="en">array name</tr>
+                <tr lang="ru">имя массива</tr>
             </argument>
             <argument name="BS" type="int" minvalue="64" units="sample">
                 <tr lang="en">buffer size</tr>
+                <tr lang="ru">размер буфера</tr>
             </argument>
             <argument name="METHOD" type="symbol"
             enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
 
                 <tr lang="en">detection method</tr>
+                <tr lang="ru">метод обнаружения</tr>
             </argument>
             <argument name="HS" type="int" minvalue="0" units="sample">
                 <tr lang="en">hop size (by default buffer_size/2)</tr>
+                <tr lang="ru">размер окна (по умолчанию размер_буфера/2)</tr>
             </argument>
         </arguments>
         <properties>

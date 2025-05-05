@@ -18,7 +18,8 @@
         </meta>
         <arguments>
             <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">
-                <tr lang="en">averaging frame</tr>
+                <tr lang="en">averaging window period</tr>
+                <tr lang="ru">период окна усреднения</tr>
             </argument>
         </arguments>
         <properties>
