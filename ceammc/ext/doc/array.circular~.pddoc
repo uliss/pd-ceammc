@@ -23,7 +23,8 @@
             </argument>
             <argument name="ON" type="bool">
                 <tr lang="en">write control: if true, the signal is written to the array</tr>
-                <tr lang="ru">управление записью: если истинно, производится запись сигнала в массив</tr>
+                <tr lang="ru">управление записью: если истинно, производится запись сигнала в
+                массив</tr>
             </argument>
         </arguments>
         <properties>
