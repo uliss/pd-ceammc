@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hw.arduino">
         <title>hw.arduino</title>
         <meta>
@@ -34,38 +34,52 @@
         </arguments>
         <properties>
             <!-- @connected -->
-            <property name="@connected" type="bool" access="readonly" default="0">state of
-            connection to device</property>
+            <property name="@connected" type="bool" access="readonly" default="0">
+                <tr lang="en">state of connection to device</tr>
+            </property>
             <!-- @devices -->
-            <property name="@devices" type="list" default="" access="readonly">list of found
-            Arduino devices</property>
+            <property name="@devices" type="list" default="" access="readonly">
+                <tr lang="en">list of found Arduino devices</tr>
+            </property>
             <!-- @on_connect -->
-            <property name="@on_connect" type="symbol" default="">function called every time on
-            connect</property>
+            <property name="@on_connect" type="symbol" default="">
+                <tr lang="en">function called every time on connect</tr>
+            </property>
             <!-- @port -->
-            <property name="@port" type="symbol" access="initonly" default="">name of arduino
-            serial port, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
-            MacOSX. If specified on creation tries to connect to this device only</property>
+            <property name="@port" type="symbol" access="initonly" default="">
+                <tr lang="en">name of arduino serial port, eg.: COM3 on Windows, /dev/ttyACM0 on
+                Linux and /dev/cu.usbmodem411 on MacOSX. If specified on creation tries to connect
+                to this device only</tr>
+            </property>
             <!-- @product_id -->
-            <property name="@product_id" type="int" default="0">USB device product id. If vendor
-            and product ids are specified at creation, tries to connect to devices only with such
-            properties. Note: product id is specified in decimal mode, not in hex</property>
+            <property name="@product_id" type="int" default="0">
+                <tr lang="en">USB device product id. If vendor and product ids are specified at
+                creation, tries to connect to devices only with such properties. Note: product id
+                is specified in decimal mode, not in hex</tr>
+            </property>
             <!-- @rate -->
             <property name="@rate" type="int" default="57600"
             enum="57600 110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 115200 128000 256000">
-            serial baud rate. Standard value supported by most serial ports: 110, 300, 600, 1200,
-            2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200</property>
+
+                <tr lang="en">serial baud rate. Standard value supported by most serial ports: 110,
+                300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600,
+                115200</tr>
+            </property>
             <!-- @reconnect -->
-            <property name="@reconnect" type="flag" default="0" access="initonly">enables
-            hot-pluggin</property>
+            <property name="@reconnect" type="flag" default="0" access="initonly">
+                <tr lang="en">enables hot-pluggin</tr>
+            </property>
             <!-- @serial -->
-            <property name="@serial" type="symbol" default="">USB device serial number. If
-            specified at creation, tries to connect to devices only with such serial
-            number</property>
+            <property name="@serial" type="symbol" default="">
+                <tr lang="en">USB device serial number. If specified at creation, tries to connect
+                to devices only with such serial number</tr>
+            </property>
             <!-- @vendor_id -->
-            <property name="@vendor_id" type="int" default="0">USB device vendor id. If specified
-            at creation, tries to connect to devices only with such vendor. Note: vendor id is
-            specified in decimal mode, not in hex</property>
+            <property name="@vendor_id" type="int" default="0">
+                <tr lang="en">USB device vendor id. If specified at creation, tries to connect to
+                devices only with such vendor. Note: vendor id is specified in decimal mode, not in
+                hex</tr>
+            </property>
         </properties>
         <methods>
             <!-- connect -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="logger">
         <title>logger</title>
         <meta>
@@ -32,10 +32,13 @@
         </arguments>
         <properties>
             <!-- @active -->
-            <property name="@active" type="bool" default="1">enabled/disabled logging
-            state</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">enabled/disabled logging state</tr>
+            </property>
             <!-- @prefix -->
-            <property name="@prefix" type="list" default="">log message prefix</property>
+            <property name="@prefix" type="list" default="">
+                <tr lang="en">log message prefix</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

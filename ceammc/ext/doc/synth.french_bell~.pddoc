@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.french_bell~">
         <title>synth.french_bell~</title>
         <meta>
@@ -28,31 +28,43 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @cutoff -->
             <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="4000"
-            units="hertz">strike cutoff frequency</property>
+            units="hertz">
+                <tr lang="en">strike cutoff frequency</tr>
+            </property>
             <!-- @decay_ratio -->
-            <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">decay
-            ratio</property>
+            <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">decay ratio</tr>
+            </property>
             <!-- @decay_slope -->
-            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="3">decay
-            slope</property>
+            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="3">
+                <tr lang="en">decay slope</tr>
+            </property>
             <!-- @gain -->
-            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">strike
-            gain</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">strike gain</tr>
+            </property>
             <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
-            - 1: on, 0: off</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+                <tr lang="en">play trigger - 1: on, 0: off</tr>
+            </property>
             <!-- @pos -->
-            <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">strike position
-            (0 is on the bottom)</property>
+            <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">
+                <tr lang="en">strike position (0 is on the bottom)</tr>
+            </property>
             <!-- @sharp -->
-            <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.25">strike
-            sharpness</property>
+            <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.25">
+                <tr lang="en">strike sharpness</tr>
+            </property>
             <!-- @t60 -->
             <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20"
-            units="second">time to decay to -60db level</property>
+            units="second">
+                <tr lang="en">time to decay to -60db level</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="plot.response~">
         <title>plot.response~</title>
         <meta>
@@ -29,14 +29,17 @@
         </arguments>
         <properties>
             <!-- @db -->
-            <property name="@db" type="bool" default="0">decibel mode. It true outputs amplitude in
-            decibels</property>
+            <property name="@db" type="bool" default="0">
+                <tr lang="en">decibel mode. It true outputs amplitude in decibels</tr>
+            </property>
             <!-- @n -->
-            <property name="@n" type="int" minvalue="32" maxvalue="8192" default="512">number of
-            processed samples</property>
+            <property name="@n" type="int" minvalue="32" maxvalue="8192" default="512">
+                <tr lang="en">number of processed samples</tr>
+            </property>
             <!-- @sr -->
-            <property name="@sr" type="bool" default="0">using samplerate. If true output in
-            [0..SR/2] instead of [0..pi]</property>
+            <property name="@sr" type="bool" default="0">
+                <tr lang="en">using samplerate. If true output in [0..SR/2] instead of [0..pi]</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

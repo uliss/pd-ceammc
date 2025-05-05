@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.fbank5x1~">
         <title>flt.fbank5x1~</title>
         <meta>
@@ -45,22 +45,34 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @f1000 -->
             <property name="@f1000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">third filter (bandpass) gain at 1000Hz</property>
+            units="decibel">
+                <tr lang="en">third filter (bandpass) gain at 1000Hz</tr>
+            </property>
             <!-- @f2000 -->
             <property name="@f2000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">fourth filter (bandpass) gain at 2000Hz</property>
+            units="decibel">
+                <tr lang="en">fourth filter (bandpass) gain at 2000Hz</tr>
+            </property>
             <!-- @f250 -->
             <property name="@f250" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">first filter (lowpass) gain at 250Hz</property>
+            units="decibel">
+                <tr lang="en">first filter (lowpass) gain at 250Hz</tr>
+            </property>
             <!-- @f4000 -->
             <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">fifth filter (highpass) gain at 4000Hz</property>
+            units="decibel">
+                <tr lang="en">fifth filter (highpass) gain at 4000Hz</tr>
+            </property>
             <!-- @f500 -->
             <property name="@f500" type="float" minvalue="-6" maxvalue="6" default="0"
-            units="decibel">second filter (bandpass) gain at 500Hz</property>
+            units="decibel">
+                <tr lang="en">second filter (bandpass) gain at 500Hz</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

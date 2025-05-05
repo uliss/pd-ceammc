@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="net.ws.server">
         <title>net.ws.server</title>
         <meta>
@@ -21,10 +21,11 @@
         </meta>
         <properties>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">parsing
-            mode for incoming client messages. If 'fudi' - interpret incoming websocket data as Pd
-            messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
-            convert json values to ceammc data.</property>
+            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">
+                <tr lang="en">parsing mode for incoming client messages. If 'fudi' - interpret
+                incoming websocket data as Pd messages, if 'sym' - always interpret as symbols,
+                'data' - parse ceammc data, 'json' - convert json values to ceammc data.</tr>
+            </property>
         </properties>
         <methods>
             <!-- clients -->

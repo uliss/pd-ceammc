@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.stretch">
         <title>list.stretch</title>
         <meta>
@@ -30,7 +30,9 @@
         </arguments>
         <properties>
             <!-- @size -->
-            <property name="@size" type="int" minvalue="0" default="1">new size</property>
+            <property name="@size" type="int" minvalue="0" default="1">
+                <tr lang="en">new size</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

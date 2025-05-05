@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="env2vline">
         <title>env2vline</title>
         <meta>
@@ -7,10 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">сonverts the envelope into the sequence of messages for vline
+                <tr lang="en">сonverts the envelope into the sequence of messages for [vline~]
                 object</tr>
                 <tr lang="ru">преобразует огибающую в последовательность сообщений для объекта
-                vline</tr>
+                [vline~]</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -33,8 +33,10 @@
         </info>
         <properties>
             <!-- @sync -->
-            <property name="@sync" type="bool" default="0">sync with input data. When set to 1
-            outputs envelope (as fixed) on every input data</property>
+            <property name="@sync" type="bool" default="0">
+                <tr lang="en">sync with input data. When set to 1 outputs envelope (as fixed) on
+                every input data</tr>
+            </property>
         </properties>
         <methods>
             <!-- next -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.resize">
         <title>list.resize</title>
         <meta>
@@ -26,19 +26,29 @@
         </arguments>
         <properties>
             <!-- @clip -->
-            <property name="@clip" type="alias">alias for @method clip</property>
+            <property name="@clip" type="alias">
+                <tr lang="en">alias for @method clip</tr>
+            </property>
             <!-- @fold -->
-            <property name="@fold" type="alias">alias for @method fold</property>
+            <property name="@fold" type="alias">
+                <tr lang="en">alias for @method fold</tr>
+            </property>
             <!-- @method -->
-            <property name="@method" type="symbol" enum="pad clip wrap fold" default="pad">method
-            of resizing, if new size is longer then current</property>
+            <property name="@method" type="symbol" enum="pad clip wrap fold" default="pad">
+                <tr lang="en">method of resizing, if new size is longer then current</tr>
+            </property>
             <!-- @pad -->
-            <property name="@pad" type="atom" default="0">pad value for pad method of
-            resizing</property>
+            <property name="@pad" type="atom" default="0">
+                <tr lang="en">pad value for pad method of resizing</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="int" minvalue="0" default="0">output list size</property>
+            <property name="@size" type="int" minvalue="0" default="0">
+                <tr lang="en">output list size</tr>
+            </property>
             <!-- @wrap -->
-            <property name="@wrap" type="alias">alias for @method wrap</property>
+            <property name="@wrap" type="alias">
+                <tr lang="en">alias for @method wrap</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

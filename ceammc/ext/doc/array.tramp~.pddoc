@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.tramp~">
         <title>array.tramp~</title>
         <meta>
@@ -28,17 +28,25 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @from -->
-            <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">normalized to
-            [0-1] range ramp start</property>
+            <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">
+                <tr lang="en">normalized to [0-1] range ramp start</tr>
+            </property>
             <!-- @range -->
-            <property name="@range" type="list" default="0 1">ramp range</property>
+            <property name="@range" type="list" default="0 1">
+                <tr lang="en">ramp range</tr>
+            </property>
             <!-- @speed -->
-            <property name="@speed" type="float" default="1">ramp speed</property>
+            <property name="@speed" type="float" default="1">
+                <tr lang="en">ramp speed</tr>
+            </property>
             <!-- @to -->
-            <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">normalized to
-            [0-1] range ramp end</property>
+            <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">
+                <tr lang="en">normalized to [0-1] range ramp end</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

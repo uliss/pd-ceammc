@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.freqz">
         <title>flt.freqz</title>
         <meta>
@@ -31,15 +31,22 @@
         </arguments>
         <properties>
             <!-- @a -->
-            <property name="@a" type="list" default="">denominator (poles) coefficients. 'a0'
-            always implicitly set to 1, property value set a1...an coefficients</property>
+            <property name="@a" type="list" default="">
+                <tr lang="en">denominator (poles) coefficients. 'a0' always implicitly set to 1,
+                property value set a1...an coefficients</tr>
+            </property>
             <!-- @b -->
-            <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
+            <property name="@b" type="list" default="1">
+                <tr lang="en">numerator (zeros) coefficients</tr>
+            </property>
             <!-- @db -->
-            <property name="@db" type="bool" default="0">output amp response in db scale</property>
+            <property name="@db" type="bool" default="0">
+                <tr lang="en">output amp response in db scale</tr>
+            </property>
             <!-- @n -->
-            <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">number of
-            points</property>
+            <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">
+                <tr lang="en">number of points</tr>
+            </property>
         </properties>
         <methods>
             <!-- biquad -->

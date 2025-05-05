@@ -39,12 +39,13 @@
 #X obj 735 555 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 587 @id;
-#X text 245 587 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/flt_c_notch/PROP_NAME
-osc address \, if empty bind to /flt_c_notch/PROP_NAME. Тип: symbol.;
+#X text 245 587 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/flt_c_notch/ИМЯ_СВОЙСТВА \, в противном случае к
+/flt_c_notch/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 659 @osc;
-#X text 245 659 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 659 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 701 @active;
 #X text 245 701 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

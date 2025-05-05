@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.gen">
         <title>list.gen</title>
         <meta>
@@ -32,8 +32,9 @@
         </arguments>
         <properties>
             <!-- @count -->
-            <property name="@count" type="int" minvalue="1" maxvalue="1024" default="1">length of
-            generated list</property>
+            <property name="@count" type="int" minvalue="1" maxvalue="1024" default="1">
+                <tr lang="en">length of generated list</tr>
+            </property>
         </properties>
         <methods>
             <!-- dump -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.ringmod~">
         <title>fx.ringmod~</title>
         <meta>
@@ -25,27 +25,36 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @drive -->
-            <property name="@drive" type="float" default="1" minvalue="1" maxvalue="10">overdrive
-            effect after modulator</property>
+            <property name="@drive" type="float" default="1" minvalue="1" maxvalue="10">
+                <tr lang="en">overdrive effect after modulator</tr>
+            </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
-            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
-            signal, 1 - wet</property>
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" default="150" minvalue="0.5" maxvalue="22050"
-            units="hertz">internal modulator frequency</property>
+            units="hertz">
+                <tr lang="en">internal modulator frequency</tr>
+            </property>
             <!-- @offset -->
-            <property name="@offset" type="float" default="0" minvalue="0" maxvalue="1">modulator
-            offset</property>
+            <property name="@offset" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">modulator offset</tr>
+            </property>
             <!-- @src -->
-            <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">modulator
-            source. 0: modulator from second inlet, 1: internal sinusoid oscilallator, 2: internal
-            low freq noise.</property>
+            <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">
+                <tr lang="en">modulator source. 0: modulator from second inlet, 1: internal
+                sinusoid oscilallator, 2: internal low freq noise.</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

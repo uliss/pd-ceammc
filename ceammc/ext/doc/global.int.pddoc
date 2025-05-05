@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="global.int">
         <title>global.int</title>
         <meta>
@@ -29,11 +29,13 @@
         </arguments>
         <properties>
             <!-- @id -->
-            <property name="@id" type="symbol" access="initonly" default="default">global variable
-            id</property>
+            <property name="@id" type="symbol" access="initonly" default="default">
+                <tr lang="en">global variable id</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="int" access="readonly" default="0">current
-            value</property>
+            <property name="@value" type="int" access="readonly" default="0">
+                <tr lang="en">current value</tr>
+            </property>
         </properties>
         <methods>
             <!-- * -->

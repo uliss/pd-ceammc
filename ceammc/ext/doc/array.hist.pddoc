@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.hist">
         <title>array.hist</title>
         <meta>
@@ -45,14 +45,21 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @bins -->
-            <property name="@bins" type="int" minvalue="2" maxvalue="1000" default="100">number of
-            bins</property>
+            <property name="@bins" type="int" minvalue="2" maxvalue="1000" default="100">
+                <tr lang="en">number of bins</tr>
+            </property>
             <!-- @max -->
-            <property name="@max" type="float" default="1">maximum value</property>
+            <property name="@max" type="float" default="1">
+                <tr lang="en">maximum value</tr>
+            </property>
             <!-- @min -->
-            <property name="@min" type="float" default="-1">minimal value</property>
+            <property name="@min" type="float" default="-1">
+                <tr lang="en">minimal value</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

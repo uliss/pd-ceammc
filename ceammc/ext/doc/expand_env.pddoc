@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="expand_env">
         <title>expand_env</title>
         <meta>
@@ -30,8 +30,9 @@
         </info>
         <properties>
             <!-- @any -->
-            <property name="@any" type="flag" default="0" access="initonly">if specified - also do
-            substitution in message selector</property>
+            <property name="@any" type="flag" default="0" access="initonly">
+                <tr lang="en">if specified - also do substitution in message selector</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

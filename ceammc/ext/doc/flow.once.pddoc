@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.once">
         <title>flow.once</title>
         <meta>
@@ -30,7 +30,9 @@
         </arguments>
         <properties>
             <!-- @pass -->
-            <property name="@pass" type="bool" default="1">open state</property>
+            <property name="@pass" type="bool" default="1">
+                <tr lang="en">open state</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

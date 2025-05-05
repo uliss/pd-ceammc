@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="string.format">
         <title>string.format</title>
         <meta>
@@ -29,11 +29,14 @@
         </arguments>
         <properties>
             <!-- @format -->
-            <property name="@format" type="list" default="">format string</property>
+            <property name="@format" type="list" default="">
+                <tr lang="en">format string</tr>
+            </property>
             <!-- @int -->
-            <property name="@int" type="flag" default="0" access="initonly">flag for integer mode.
-            If specified all floats are converted to integers. This usefull for hex and octal
-            formatting</property>
+            <property name="@int" type="flag" default="0" access="initonly">
+                <tr lang="en">flag for integer mode. If specified all floats are converted to
+                integers. This usefull for hex and octal formatting</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

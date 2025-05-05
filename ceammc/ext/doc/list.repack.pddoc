@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.repack">
         <title>list.repack</title>
         <meta>
@@ -24,8 +24,9 @@
         </arguments>
         <properties>
             <!-- @size -->
-            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="1">output list
-            size</property>
+            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="1">
+                <tr lang="en">output list size</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

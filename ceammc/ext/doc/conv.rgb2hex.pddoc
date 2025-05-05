@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.rgb2hex">
         <title>conv.rgb2hex</title>
         <meta>
@@ -22,17 +22,21 @@
         </meta>
         <properties>
             <!-- @float -->
-            <property name="@float" type="alias">alias to @mode float. Expected input values are in
-            [0-1] range</property>
+            <property name="@float" type="alias">
+                <tr lang="en">alias to @mode float. Expected input values are in [0-1] range</tr>
+            </property>
             <!-- @int -->
-            <property name="@int" type="alias">alias to @mode int. Expected input values are in
-            [0-255] range</property>
+            <property name="@int" type="alias">
+                <tr lang="en">alias to @mode int. Expected input values are in [0-255] range</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="int" enum="int float">input
-            mode</property>
+            <property name="@mode" type="symbol" default="int" enum="int float">
+                <tr lang="en">input mode</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="flag" access="initonly">output value on any inlet
-            change</property>
+            <property name="@sync" type="flag" access="initonly">
+                <tr lang="en">output value on any inlet change</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

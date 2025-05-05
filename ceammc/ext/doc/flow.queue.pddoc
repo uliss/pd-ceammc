@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.queue">
         <title>flow.queue</title>
         <meta>
@@ -26,11 +26,14 @@
         </arguments>
         <properties>
             <!-- @auto_pop -->
-            <property name="@auto_pop" type="bool" default="0">auto pop mode. If true automatically
-            pops oldest elements when queue is full</property>
+            <property name="@auto_pop" type="bool" default="0">
+                <tr lang="en">auto pop mode. If true automatically pops oldest elements when queue
+                is full</tr>
+            </property>
             <!-- @max_size -->
-            <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">max
-            queue lane size</property>
+            <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">
+                <tr lang="en">max queue lane size</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

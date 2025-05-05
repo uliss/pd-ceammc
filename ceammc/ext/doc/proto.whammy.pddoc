@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="proto.whammy">
         <title>proto.whammy</title>
         <meta>
@@ -26,19 +26,29 @@
         </arguments>
         <properties>
             <!-- @active -->
-            <property name="@active" type="bool" default="1">pedal state</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">pedal state</tr>
+            </property>
             <!-- @chan -->
-            <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">output Midi
-            channel</property>
+            <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">
+                <tr lang="en">output Midi channel</tr>
+            </property>
             <!-- @chords -->
-            <property name="@chords" type="alias">alias for @mode chords</property>
+            <property name="@chords" type="alias">
+                <tr lang="en">alias for @mode chords</tr>
+            </property>
             <!-- @classic -->
-            <property name="@classic" type="alias">alias for @mode classic</property>
+            <property name="@classic" type="alias">
+                <tr lang="en">alias for @mode classic</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="chords classic" default="classic">pedal mode
-            (should correspond to hardware switch on pedal)</property>
+            <property name="@mode" type="symbol" enum="chords classic" default="classic">
+                <tr lang="en">pedal mode (should correspond to hardware switch on pedal)</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
+            <property name="@seed" type="int" default="0" minvalue="0">
+                <tr lang="en">random seed</tr>
+            </property>
         </properties>
         <methods>
             <!-- next -->

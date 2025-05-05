@@ -49,12 +49,13 @@ and 'effected' (wet) signals. Тип: float. Диапазон: 0…1;
 #X obj 735 615 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 647 @id;
-#X text 245 647 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/fx_freeverb/PROP_NAME
-osc address \, if empty bind to /fx_freeverb/PROP_NAME. Тип: symbol.;
+#X text 245 647 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/fx_freeverb/ИМЯ_СВОЙСТВА \, в противном случае к
+/fx_freeverb/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 719 @osc;
-#X text 245 719 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 719 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 761 @active;
 #X text 245 761 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

@@ -2,7 +2,7 @@
 #X declare -lib ceammc;
 #X obj 331 50 cnv 1 434 38 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 336 50 преобразует огибающую в последовательность сообщений
-для объекта vline;
+для объекта [vline~];
 #X obj 1 1 cnv 5 765 40 empty empty env2vline 20 20 0 20 -104026 -4096
 0;
 #N canvas 577 11 250 400 aliases 0;

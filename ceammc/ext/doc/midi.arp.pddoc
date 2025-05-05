@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.arp">
         <title>midi.arp</title>
         <meta>
@@ -33,23 +33,35 @@
         </arguments>
         <properties>
             <!-- @external -->
-            <property name="@external" type="bool" default="0">use external clock</property>
+            <property name="@external" type="bool" default="0">
+                <tr lang="en">use external clock</tr>
+            </property>
             <!-- @min_notes -->
-            <property name="@min_notes" type="int" default="1" minvalue="1">number of minimal notes
-            to perform arpeggio</property>
+            <property name="@min_notes" type="int" default="1" minvalue="1">
+                <tr lang="en">number of minimal notes to perform arpeggio</tr>
+            </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="up"
-            enum="up down tri up1 down1 tri1 random random1">argpeggiator mode</property>
+            enum="up down tri up1 down1 tri1 random random1">
+                <tr lang="en">argpeggiator mode</tr>
+            </property>
             <!-- @on -->
-            <property name="@on" type="bool" default="1">arpeggiator state: on/off</property>
+            <property name="@on" type="bool" default="1">
+                <tr lang="en">arpeggiator state: on/off</tr>
+            </property>
             <!-- @pass -->
-            <property name="@pass" type="bool" default="0">bypass arpeggiator</property>
+            <property name="@pass" type="bool" default="0">
+                <tr lang="en">bypass arpeggiator</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" default="0" minvalue="0">random seed value (to get
-            reproducible random series)</property>
+            <property name="@seed" type="int" default="0" minvalue="0">
+                <tr lang="en">random seed value (to get reproducible random series)</tr>
+            </property>
             <!-- @t -->
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
-            units="millisecond">time between arpeggio</property>
+            units="millisecond">
+                <tr lang="en">time between arpeggio</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

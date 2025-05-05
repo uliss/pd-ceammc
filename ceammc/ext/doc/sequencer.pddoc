@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="sequencer">
         <title>sequencer</title>
         <meta>
@@ -28,37 +28,53 @@
         </arguments>
         <properties>
             <!-- @div -->
-            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
-            subdivision</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">
+                <tr lang="en">beat subdivision</tr>
+            </property>
             <!-- @dur -->
-            <property name="@dur" type="float" minvalue="0" default="0">whole sequence duration.
-            Changing this property also changes @t interval between bangs.</property>
+            <property name="@dur" type="float" minvalue="0" default="0">
+                <tr lang="en">whole sequence duration. Changing this property also changes @t
+                interval between bangs.</tr>
+            </property>
             <!-- @i -->
-            <property name="@i" type="int" access="readonly" default="0">current sequence
-            iteration</property>
+            <property name="@i" type="int" access="readonly" default="0">
+                <tr lang="en">current sequence iteration</tr>
+            </property>
             <!-- @inf -->
-            <property name="@inf" type="alias">alias to @r -1</property>
+            <property name="@inf" type="alias">
+                <tr lang="en">alias to @r -1</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
-            'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
-            back</property>
+            <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
+                <tr lang="en">sequencer mode. 'inc': from first to last, 'dec': from last to first,
+                'tri': from first to last, then back</tr>
+            </property>
             <!-- @once -->
-            <property name="@once" type="alias">alias to @r 1</property>
+            <property name="@once" type="alias">
+                <tr lang="en">alias to @r 1</tr>
+            </property>
             <!-- @r -->
-            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
-            repeats. If -1: output infinitly.</property>
+            <property name="@r" type="int" minvalue="-1" default="1">
+                <tr lang="en">number of whole sequence repeats. If -1: output infinitly.</tr>
+            </property>
             <!-- @ri -->
-            <property name="@ri" type="int" access="readonly" default="0">current repeat
-            iteration</property>
+            <property name="@ri" type="int" access="readonly" default="0">
+                <tr lang="en">current repeat iteration</tr>
+            </property>
             <!-- @t -->
             <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000"
-            units="millisecond">time interval between bangs. You could also use units values like
-            100ms or 120bpm.</property>
+            units="millisecond">
+                <tr lang="en">time interval between bangs. You could also use units values like
+                100ms or 120bpm.</tr>
+            </property>
             <!-- @upbeat -->
-            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
-            beats before sequence start</property>
+            <property name="@upbeat" type="float" default="0" minvalue="0">
+                <tr lang="en">wait specified number of beats before sequence start</tr>
+            </property>
             <!-- @v -->
-            <property name="@v" type="list" default="">sequence elements</property>
+            <property name="@v" type="list" default="">
+                <tr lang="en">sequence elements</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

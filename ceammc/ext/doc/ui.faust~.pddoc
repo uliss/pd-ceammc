@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="ui.faust~" type="gui">
         <title>ui.faust~</title>
         <meta>
@@ -35,17 +35,25 @@
         </arguments>
         <properties>
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @include -->
-            <property name="@include" type="list" default="">list of faust include
-            directories</property>
+            <property name="@include" type="list" default="">
+                <tr lang="en">list of faust include directories</tr>
+            </property>
             <!-- @load -->
-            <property name="@load" type="symbol" default="" access="initonly">initial file to load
-            after object creation</property>
+            <property name="@load" type="symbol" default="" access="initonly">
+                <tr lang="en">initial file to load after object creation</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="list" default="10 10">object size</property>
+            <property name="@size" type="list" default="10 10">
+                <tr lang="en">object size</tr>
+            </property>
             <!-- @style -->
-            <property name="@style" type="int" default="0">view style</property>
+            <property name="@style" type="int" default="0">
+                <tr lang="en">view style</tr>
+            </property>
         </properties>
         <methods>
             <!-- open -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="ceammc.search">
         <title>ceammc.search</title>
         <meta>
@@ -18,8 +18,9 @@
         </meta>
         <properties>
             <!-- @max -->
-            <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">maximum number
-            of result</property>
+            <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">
+                <tr lang="en">maximum number of result</tr>
+            </property>
         </properties>
         <methods>
             <!-- k -->

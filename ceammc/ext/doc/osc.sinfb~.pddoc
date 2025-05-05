@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="osc.sinfb~">
         <title>osc.sinfb~</title>
         <meta>
@@ -28,13 +28,18 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="6.2832" default="0">
-            oscillator feedback coefficient</property>
+                <tr lang="en">oscillator feedback coefficient</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
-            units="hertz">frequency</property>
+            units="hertz">
+                <tr lang="en">frequency</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

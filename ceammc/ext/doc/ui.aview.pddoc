@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="ui.aview" type="gui">
         <title>ui.aview</title>
         <meta>
@@ -33,90 +33,132 @@
         </mouse>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
-            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
+                <tr lang="en">element background color (list of red, green, blue values in 0-1
+                range)</tr>
+            </property>
             <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
-            of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
+                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @cursor_color -->
-            <property name="@cursor_color" type="list" default="0 0.75 1 1">cursor color (list of
-            red, green, blue values in 0-1 range)</property>
+            <property name="@cursor_color" type="list" default="0 0.75 1 1">
+                <tr lang="en">cursor color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @cursor_ms -->
-            <property name="@cursor_ms" type="float" units="millisecond" default="0">cursor
-            position in milliseconds</property>
+            <property name="@cursor_ms" type="float" units="millisecond" default="0">
+                <tr lang="en">cursor position in milliseconds</tr>
+            </property>
             <!-- @cursor_phase -->
             <property name="@cursor_phase" type="float" minvalue="0" maxvalue="1" default="0">
-            cursor position in 0-1 range</property>
+                <tr lang="en">cursor position in 0-1 range</tr>
+            </property>
             <!-- @cursor_samp -->
-            <property name="@cursor_samp" type="int" default="0" units="sample">cursor position in
-            samples</property>
+            <property name="@cursor_samp" type="int" default="0" units="sample">
+                <tr lang="en">cursor position in samples</tr>
+            </property>
             <!-- @cursor_sec -->
-            <property name="@cursor_sec" type="float" units="second" default="0">cursor position in
-            seconds</property>
+            <property name="@cursor_sec" type="float" units="second" default="0">
+                <tr lang="en">cursor position in seconds</tr>
+            </property>
             <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            enum="Courier DejaVu Helvetica Monaco Times">
+                <tr lang="en">fontname</tr>
+            </property>
             <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+                <tr lang="en">fontsize</tr>
+            </property>
             <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+                <tr lang="en">font slant</tr>
+            </property>
             <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
+                <tr lang="en">font weight</tr>
+            </property>
             <!-- @label_bottom -->
-            <property name="@label_bottom" type="symbol" default="">bottom right label if
-            @show_labels is on</property>
+            <property name="@label_bottom" type="symbol" default="">
+                <tr lang="en">bottom right label if @show_labels is on</tr>
+            </property>
             <!-- @label_top -->
-            <property name="@label_top" type="symbol" default="">top right label if @show_labels is
-            on</property>
+            <property name="@label_top" type="symbol" default="">
+                <tr lang="en">top right label if @show_labels is on</tr>
+            </property>
             <!-- @mouse_events -->
-            <property name="@mouse_events" type="bool" default="1">mouse events output mode. If on
-            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="1">
+                <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
+                @mouse_drag events</tr>
+            </property>
             <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <property name="@pinned" type="bool" default="0">
+                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+            </property>
             <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@receive" type="symbol" default="(null)">
+                <tr lang="en">receive source</tr>
+            </property>
             <!-- @select_ms -->
-            <property name="@select_ms" type="list" units="millisecond" default="">selection range
-            in milliseconds, pair of values: begin, end</property>
+            <property name="@select_ms" type="list" units="millisecond" default="">
+                <tr lang="en">selection range in milliseconds, pair of values: begin, end</tr>
+            </property>
             <!-- @select_phase -->
-            <property name="@select_phase" type="list" default="">selection range noramlized to 0-1
-            range, pair of values: begin, end</property>
+            <property name="@select_phase" type="list" default="">
+                <tr lang="en">selection range noramlized to 0-1 range, pair of values: begin,
+                end</tr>
+            </property>
             <!-- @select_samp -->
-            <property name="@select_samp" type="list" units="sample" default="">selection range in
-            samples, pair of values: begin, end</property>
+            <property name="@select_samp" type="list" units="sample" default="">
+                <tr lang="en">selection range in samples, pair of values: begin, end</tr>
+            </property>
             <!-- @select_sec -->
-            <property name="@select_sec" type="list" units="second" default="">selection range in
-            seconds, pair of values: begin, end</property>
+            <property name="@select_sec" type="list" units="second" default="">
+                <tr lang="en">selection range in seconds, pair of values: begin, end</tr>
+            </property>
             <!-- @selection_color -->
-            <property name="@selection_color" type="list" default="0 0.75 1 1">selection color
-            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@selection_color" type="list" default="0 0.75 1 1">
+                <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@send" type="symbol" default="(null)">
+                <tr lang="en">send destination</tr>
+            </property>
             <!-- @show_labels -->
-            <property name="@show_labels" type="bool" default="0">if show corner labels</property>
+            <property name="@show_labels" type="bool" default="0">
+                <tr lang="en">if show corner labels</tr>
+            </property>
             <!-- @show_rms -->
-            <property name="@show_rms" type="bool" default="0">show RMS graph</property>
+            <property name="@show_rms" type="bool" default="0">
+                <tr lang="en">show RMS graph</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="list" default="300 100">element size (width, height
-            pair)</property>
+            <property name="@size" type="list" default="300 100">
+                <tr lang="en">element size (width, height pair)</tr>
+            </property>
             <!-- @size_ms -->
             <property name="@size_ms" type="float" minvalue="0" access="readonly"
-            units="millisecond" default="0">array size in milliseconds</property>
+            units="millisecond" default="0">
+                <tr lang="en">array size in milliseconds</tr>
+            </property>
             <!-- @size_samp -->
             <property name="@size_samp" type="int" minvalue="0" access="readonly" units="sample"
-            default="0">array size in samples</property>
+            default="0">
+                <tr lang="en">array size in samples</tr>
+            </property>
             <!-- @size_sec -->
             <property name="@size_sec" type="float" minvalue="0" access="readonly" units="second"
-            default="0">array size in seconds</property>
+            default="0">
+                <tr lang="en">array size in seconds</tr>
+            </property>
             <!-- @wave_color -->
-            <property name="@wave_color" type="list" default="0.3 0.3 0.3 1">wave color (list of
-            red, green, blue values in 0-1 range)</property>
+            <property name="@wave_color" type="list" default="0.3 0.3 0.3 1">
+                <tr lang="en">wave color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
         </properties>
         <methods>
             <!-- dump -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="data.fifo">
         <title>data.fifo</title>
         <meta>
@@ -33,17 +33,21 @@
         </arguments>
         <properties>
             <!-- @empty -->
-            <property name="@empty" type="bool" access="readonly" default="1">if queue is
-            empty</property>
+            <property name="@empty" type="bool" access="readonly" default="1">
+                <tr lang="en">if queue is empty</tr>
+            </property>
             <!-- @filled -->
-            <property name="@filled" type="int" minvalue="0" access="readonly" default="0">current
-            number of elements in queue</property>
+            <property name="@filled" type="int" minvalue="0" access="readonly" default="0">
+                <tr lang="en">current number of elements in queue</tr>
+            </property>
             <!-- @free -->
-            <property name="@free" type="int" minvalue="0" access="readonly" default="32">number of
-            elements you can add to queue until it full</property>
+            <property name="@free" type="int" minvalue="0" access="readonly" default="32">
+                <tr lang="en">number of elements you can add to queue until it full</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
-            queue</property>
+            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">
+                <tr lang="en">size of queue</tr>
+            </property>
         </properties>
         <methods>
             <!-- clear -->

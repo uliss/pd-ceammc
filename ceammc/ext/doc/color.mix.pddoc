@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="color.mix">
         <title>color.mix</title>
         <meta>
@@ -26,9 +26,13 @@
         </arguments>
         <properties>
             <!-- @c0 -->
-            <property name="@c0" type="atom">first color</property>
+            <property name="@c0" type="atom">
+                <tr lang="en">first color</tr>
+            </property>
             <!-- @c1 -->
-            <property name="@c1" type="atom">second color</property>
+            <property name="@c1" type="atom">
+                <tr lang="en">second color</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

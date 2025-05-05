@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.metro~">
         <title>synth.metro~</title>
         <meta>
@@ -28,52 +28,78 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @down.freq -->
             <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000"
-            units="hertz">downbeat frequency</property>
+            units="hertz">
+                <tr lang="en">downbeat frequency</tr>
+            </property>
             <!-- @down.gain -->
             <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">downbeat gain</property>
+            units="decibel">
+                <tr lang="en">downbeat gain</tr>
+            </property>
             <!-- @down.reson -->
             <property name="@down.reson" type="float" default="50" minvalue="5" maxvalue="100">
-            downbeat resonance value (Q)</property>
+                <tr lang="en">downbeat resonance value (Q)</tr>
+            </property>
             <!-- @gain -->
             <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12"
-            units="decibel">common synth gain</property>
+            units="decibel">
+                <tr lang="en">common synth gain</tr>
+            </property>
             <!-- @mark.freq -->
             <property name="@mark.freq" type="float" default="2000" minvalue="100" maxvalue="5000"
-            units="hertz">mark sound frequency</property>
+            units="hertz">
+                <tr lang="en">mark sound frequency</tr>
+            </property>
             <!-- @mark.gain -->
             <property name="@mark.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">mark sound gain</property>
+            units="decibel">
+                <tr lang="en">mark sound gain</tr>
+            </property>
             <!-- @mark.reson -->
             <property name="@mark.reson" type="float" default="500" minvalue="5" maxvalue="500">
-            mark sound resonance value (Q)</property>
+                <tr lang="en">mark sound resonance value (Q)</tr>
+            </property>
             <!-- @off.freq -->
             <property name="@off.freq" type="float" default="500" minvalue="100" maxvalue="5000"
-            units="hertz">off-beat frequency</property>
+            units="hertz">
+                <tr lang="en">off-beat frequency</tr>
+            </property>
             <!-- @off.gain -->
             <property name="@off.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">off-beat gain</property>
+            units="decibel">
+                <tr lang="en">off-beat gain</tr>
+            </property>
             <!-- @off.reson -->
             <property name="@off.reson" type="float" default="10" minvalue="5" maxvalue="100">
-            off-beat resonance value (Q)</property>
+                <tr lang="en">off-beat resonance value (Q)</tr>
+            </property>
             <!-- @on.freq -->
             <property name="@on.freq" type="float" default="1000" minvalue="100" maxvalue="5000"
-            units="hertz">on-beat frequency</property>
+            units="hertz">
+                <tr lang="en">on-beat frequency</tr>
+            </property>
             <!-- @on.gain -->
             <property name="@on.gain" type="float" default="6" minvalue="-12" maxvalue="12"
-            units="decibel">on-beat gain</property>
+            units="decibel">
+                <tr lang="en">on-beat gain</tr>
+            </property>
             <!-- @on.reson -->
             <property name="@on.reson" type="float" default="30" minvalue="5" maxvalue="100">
-            on-beat resonance value (Q)</property>
+                <tr lang="en">on-beat resonance value (Q)</tr>
+            </property>
             <!-- @tempo -->
-            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">tempo. If beat
-            division is ommitted, using 1/4</property>
+            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">
+                <tr lang="en">tempo. If beat division is ommitted, using 1/4</tr>
+            </property>
             <!-- @tsig -->
-            <property name="@tsig" type="symbol" default="|4/4|">metronome time signature, can be
-            complex like: |1/4+15/16| etc.</property>
+            <property name="@tsig" type="symbol" default="|4/4|">
+                <tr lang="en">metronome time signature, can be complex like: |1/4+15/16| etc.</tr>
+            </property>
         </properties>
         <methods>
             <!-- down -->

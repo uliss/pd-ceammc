@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="data.set2list">
         <title>data.set2list</title>
         <meta>
@@ -29,8 +29,9 @@
         </info>
         <properties>
             <!-- @sort -->
-            <property name="@sort" type="flag" default="0" access="initonly">if specified - sort
-            output list</property>
+            <property name="@sort" type="flag" default="0" access="initonly">
+                <tr lang="en">if specified - sort output list</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

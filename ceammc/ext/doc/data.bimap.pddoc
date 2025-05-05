@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="data.bimap">
         <title>data.bimap</title>
         <meta>
@@ -34,20 +34,26 @@
         </arguments>
         <properties>
             <!-- @empty -->
-            <property name="@empty" type="bool" default="1" access="readonly">true if
-            empty</property>
+            <property name="@empty" type="bool" default="1" access="readonly">
+                <tr lang="en">true if empty</tr>
+            </property>
             <!-- @keys_left -->
-            <property name="@keys_left" type="list" default="" access="readonly">list of left map
-            keys</property>
+            <property name="@keys_left" type="list" default="" access="readonly">
+                <tr lang="en">list of left map keys</tr>
+            </property>
             <!-- @keys_right -->
-            <property name="@keys_right" type="list" default="" access="readonly">list of right map
-            keys</property>
+            <property name="@keys_right" type="list" default="" access="readonly">
+                <tr lang="en">list of right map keys</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="int" default="0" access="readonly">number of left-right
-            pairs in map</property>
+            <property name="@size" type="int" default="0" access="readonly">
+                <tr lang="en">number of left-right pairs in map</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="list" default="">value, list of pairs: LEFT_KEY1
-            RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</property>
+            <property name="@value" type="list" default="">
+                <tr lang="en">value, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2
+                etc.</tr>
+            </property>
         </properties>
         <methods>
             <!-- clear -->

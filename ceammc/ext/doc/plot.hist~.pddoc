@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="plot.hist~">
         <title>plot.hist~</title>
         <meta>
@@ -32,18 +32,25 @@
         </arguments>
         <properties>
             <!-- @clip -->
-            <property name="@clip" type="bool" default="1">clip input values into input range,
-            otherwise just ignore them</property>
+            <property name="@clip" type="bool" default="1">
+                <tr lang="en">clip input values into input range, otherwise just ignore them</tr>
+            </property>
             <!-- @max -->
-            <property name="@max" type="float" default="1">maximum input value</property>
+            <property name="@max" type="float" default="1">
+                <tr lang="en">maximum input value</tr>
+            </property>
             <!-- @min -->
-            <property name="@min" type="float" default="-1">minimal input value</property>
+            <property name="@min" type="float" default="-1">
+                <tr lang="en">minimal input value</tr>
+            </property>
             <!-- @nbins -->
-            <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">number of
-            histogram bins</property>
+            <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">
+                <tr lang="en">number of histogram bins</tr>
+            </property>
             <!-- @nsamp -->
-            <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">max
-            number of input samples</property>
+            <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">
+                <tr lang="en">max number of input samples</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

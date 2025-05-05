@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.sig2float~">
         <title>conv.sig2float~</title>
         <meta>
@@ -40,10 +40,13 @@
         <properties>
             <!-- @interval -->
             <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
-            sampling interval</property>
+                <tr lang="en">sampling interval</tr>
+            </property>
             <!-- @offset -->
             <property name="@offset" type="int" default="0" minvalue="0" maxvalue="8192"
-            units="sample">sample offset inside DSP block</property>
+            units="sample">
+                <tr lang="en">sample offset inside DSP block</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

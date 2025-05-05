@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.3d.wider~">
         <title>hoa.3d.wider~</title>
         <meta>
@@ -33,7 +33,9 @@
         <properties>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="env2array">
         <title>env2array</title>
         <meta>
@@ -31,19 +31,30 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">target array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">target array name</tr>
+            </property>
             <!-- @fit -->
-            <property name="@fit" type="alias">alias to @mode fit property</property>
+            <property name="@fit" type="alias">
+                <tr lang="en">alias to @mode fit property</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="fit resize raw" default="fit">rendering
-            mode: *fit* to array size, *resize* array to envelope length or *raw* render while
-            enough space in array</property>
+            <property name="@mode" type="symbol" enum="fit resize raw" default="fit">
+                <tr lang="en">rendering mode: *fit* to array size, *resize* array to envelope
+                length or *raw* render while enough space in array</tr>
+            </property>
             <!-- @raw -->
-            <property name="@raw" type="alias">alias to @mode raw property</property>
+            <property name="@raw" type="alias">
+                <tr lang="en">alias to @mode raw property</tr>
+            </property>
             <!-- @redraw -->
-            <property name="@redraw" type="bool" default="1">redraw after array change</property>
+            <property name="@redraw" type="bool" default="1">
+                <tr lang="en">redraw after array change</tr>
+            </property>
             <!-- @resize -->
-            <property name="@resize" type="alias">alias to @mode resize property</property>
+            <property name="@resize" type="alias">
+                <tr lang="en">alias to @mode resize property</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

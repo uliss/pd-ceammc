@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="system.command">
         <title>system.command</title>
         <meta>
@@ -31,21 +31,31 @@
         </arguments>
         <properties>
             <!-- @args -->
-            <property name="@args" type="list" default="">execution program chain</property>
+            <property name="@args" type="list" default="">
+                <tr lang="en">execution program chain</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="pd" enum="pd str lines bytes">output
-            processing mode. 'pd': output each output line as Pd atom list, 'str': output whole as
-            data:string, 'lines': output each output line as data:string, 'bytes': output as byte
-            stream</property>
+            <property name="@mode" type="symbol" default="pd" enum="pd str lines bytes">
+                <tr lang="en">output processing mode. 'pd': output each output line as Pd atom
+                list, 'str': output whole as data:string, 'lines': output each output line as
+                data:string, 'bytes': output as byte stream</tr>
+            </property>
             <!-- @pwd -->
-            <property name="@pwd" type="symbol" default="">process working directory</property>
+            <property name="@pwd" type="symbol" default="">
+                <tr lang="en">process working directory</tr>
+            </property>
             <!-- @stderr -->
-            <property name="@stderr" type="bool" default="1">capture stderr</property>
+            <property name="@stderr" type="bool" default="1">
+                <tr lang="en">capture stderr</tr>
+            </property>
             <!-- @stdout -->
-            <property name="@stdout" type="bool" default="1">capture stdout</property>
+            <property name="@stdout" type="bool" default="1">
+                <tr lang="en">capture stdout</tr>
+            </property>
             <!-- @t -->
             <property name="@t" type="int" units="msec" minvalue="5" maxvalue="500" default="100">
-            period to check program output</property>
+                <tr lang="en">period to check program output</tr>
+            </property>
         </properties>
         <methods>
             <!-- stdin -->

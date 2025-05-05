@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="net.http.send">
         <title>net.http.send</title>
         <meta>
@@ -29,17 +29,26 @@
         </arguments>
         <properties>
             <!-- @host -->
-            <property name="@host" type="symbol" default="localhost">destination host</property>
+            <property name="@host" type="symbol" default="localhost">
+                <tr lang="en">destination host</tr>
+            </property>
             <!-- @pass -->
-            <property name="@pass" type="atom" default="">Basic Auth password</property>
+            <property name="@pass" type="atom" default="">
+                <tr lang="en">Basic Auth password</tr>
+            </property>
             <!-- @port -->
             <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">
-            destination port</property>
+                <tr lang="en">destination port</tr>
+            </property>
             <!-- @timeout -->
             <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10"
-            units="second">TCP connection timeout</property>
+            units="second">
+                <tr lang="en">TCP connection timeout</tr>
+            </property>
             <!-- @user -->
-            <property name="@user" type="symbol" default="">Basic Auth user name</property>
+            <property name="@user" type="symbol" default="">
+                <tr lang="en">Basic Auth user name</tr>
+            </property>
         </properties>
         <methods>
             <!-- get -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.copy">
         <title>array.copy</title>
         <meta>
@@ -21,8 +21,9 @@
         </meta>
         <properties>
             <!-- @resize -->
-            <property name="@resize" type="bool" default="0">resizing of destination array on
-            overflow</property>
+            <property name="@resize" type="bool" default="0">
+                <tr lang="en">resizing of destination array on overflow</tr>
+            </property>
         </properties>
         <methods>
             <!-- copy SRC DEST -->

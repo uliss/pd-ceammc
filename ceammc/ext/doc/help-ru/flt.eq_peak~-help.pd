@@ -40,12 +40,13 @@ float. Диапазон: -15…15;
 #X obj 735 532 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 564 @id;
-#X text 245 564 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/flt_eq_peak/PROP_NAME
-osc address \, if empty bind to /flt_eq_peak/PROP_NAME. Тип: symbol.;
+#X text 245 564 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/flt_eq_peak/ИМЯ_СВОЙСТВА \, в противном случае к
+/flt_eq_peak/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 636 @osc;
-#X text 245 636 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 636 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 678 @active;
 #X text 245 678 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.risset_arp~">
         <title>synth.risset_arp~</title>
         <meta>
@@ -21,40 +21,53 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @detune -->
-            <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">detune
-            percent</property>
+            <property name="@detune" type="float" minvalue="0" maxvalue="1000" default="5">
+                <tr lang="en">detune percent</tr>
+            </property>
             <!-- @freq -->
-            <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">base
-            frequency</property>
+            <property name="@freq" type="float" minvalue="40" maxvalue="500" default="100">
+                <tr lang="en">base frequency</tr>
+            </property>
             <!-- @harmonic1 -->
-            <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">1st
-            harmonic amplitude</property>
+            <property name="@harmonic1" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">1st harmonic amplitude</tr>
+            </property>
             <!-- @harmonic2 -->
-            <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">2nd
-            harmonic amplitude</property>
+            <property name="@harmonic2" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">2nd harmonic amplitude</tr>
+            </property>
             <!-- @harmonic3 -->
-            <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">3rd
-            harmonic amplitude</property>
+            <property name="@harmonic3" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">3rd harmonic amplitude</tr>
+            </property>
             <!-- @harmonic4 -->
-            <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">4th
-            harmonic amplitude</property>
+            <property name="@harmonic4" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">4th harmonic amplitude</tr>
+            </property>
             <!-- @harmonic5 -->
-            <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">5th
-            harmonic amplitude</property>
+            <property name="@harmonic5" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">5th harmonic amplitude</tr>
+            </property>
             <!-- @harmonic6 -->
-            <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">6th
-            harmonic amplitude</property>
+            <property name="@harmonic6" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">6th harmonic amplitude</tr>
+            </property>
             <!-- @harmonic7 -->
-            <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">7th
-            harmonic amplitude</property>
+            <property name="@harmonic7" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">7th harmonic amplitude</tr>
+            </property>
             <!-- @harmonic8 -->
-            <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">8th
-            harmonic amplitude</property>
+            <property name="@harmonic8" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">8th harmonic amplitude</tr>
+            </property>
             <!-- @spread -->
-            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">stereo
-            spread</property>
+            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">stereo spread</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

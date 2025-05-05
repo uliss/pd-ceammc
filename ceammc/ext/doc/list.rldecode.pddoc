@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.rldecode">
         <title>list.rldecode</title>
         <meta>
@@ -30,7 +30,9 @@
         </arguments>
         <properties>
             <!-- @l -->
-            <property name="@l" type="list" default="">list of repeats</property>
+            <property name="@l" type="list" default="">
+                <tr lang="en">list of repeats</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

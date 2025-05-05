@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="proto.obs">
         <title>proto.obs</title>
         <meta>
@@ -18,13 +18,17 @@
         </meta>
         <properties>
             <!-- @host -->
-            <property name="@host" type="symbol" default="localhost">OBS studio host
-            name</property>
+            <property name="@host" type="symbol" default="localhost">
+                <tr lang="en">OBS studio host name</tr>
+            </property>
             <!-- @passwd -->
-            <property name="@passwd" type="symbol" default="">OBS studio password</property>
+            <property name="@passwd" type="symbol" default="">
+                <tr lang="en">OBS studio password</tr>
+            </property>
             <!-- @port -->
-            <property name="@port" type="int" default="4455" minvalue="1" maxvalue="32767">OBS
-            studio control port</property>
+            <property name="@port" type="int" default="4455" minvalue="1" maxvalue="32767">
+                <tr lang="en">OBS studio control port</tr>
+            </property>
         </properties>
         <methods>
             <!-- collection current get -->

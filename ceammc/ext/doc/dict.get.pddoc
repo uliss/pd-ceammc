@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="dict.get">
         <title>dict.get</title>
         <meta>
@@ -31,11 +31,14 @@
         </arguments>
         <properties>
             <!-- @default -->
-            <property name="@default" type="atom" default="null">default value when key is not
-            found in dictionary. If not specified no output is performed.</property>
+            <property name="@default" type="atom" default="null">
+                <tr lang="en">default value when key is not found in dictionary. If not specified
+                no output is performed.</tr>
+            </property>
             <!-- @keys -->
-            <property name="@keys" type="list" access="initonly" default="">extracted
-            keys</property>
+            <property name="@keys" type="list" access="initonly" default="">
+                <tr lang="en">extracted keys</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

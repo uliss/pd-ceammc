@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="data.color">
         <title>data.color</title>
         <meta>
@@ -30,7 +30,9 @@
         </arguments>
         <properties>
             <!-- @value -->
-            <property name="@value" type="atom">current color</property>
+            <property name="@value" type="atom">
+                <tr lang="en">current color</tr>
+            </property>
         </properties>
         <methods>
             <!-- alpha -->

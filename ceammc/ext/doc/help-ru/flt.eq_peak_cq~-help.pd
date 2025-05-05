@@ -39,12 +39,13 @@ constant-Q;
 #X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 534 @id;
-#X text 245 534 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/flt_eq_peak_cq/PROP_NAME
-osc address \, if empty bind to /flt_eq_peak_cq/PROP_NAME. Тип: symbol.;
+#X text 245 534 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/flt_eq_peak_cq/ИМЯ_СВОЙСТВА \, в противном случае
+к /flt_eq_peak_cq/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 606 @osc;
-#X text 245 606 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 606 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 648 @active;
 #X text 245 648 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="is_data">
         <title>is_data</title>
         <meta>
@@ -26,8 +26,9 @@
         </meta>
         <properties>
             <!-- @in_list -->
-            <property name="@in_list" type="flag" default="0" access="initonly">output '1' if list
-            contains at least one data atom</property>
+            <property name="@in_list" type="flag" default="0" access="initonly">
+                <tr lang="en">output '1' if list contains at least one data atom</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

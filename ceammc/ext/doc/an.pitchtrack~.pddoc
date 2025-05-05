@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="an.pitchtrack~">
         <title>an.pitchtrack~</title>
         <meta>
@@ -37,21 +37,28 @@
         </arguments>
         <properties>
             <!-- @bias -->
-            <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">bias which
-            favours small lags over large lags in the period detection, thereby avoiding low-octave
-            jumps</property>
+            <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">
+                <tr lang="en">bias which favours small lags over large lags in the period
+                detection, thereby avoiding low-octave jumps</tr>
+            </property>
             <!-- @fidthr -->
-            <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">min
-            fidelity threshold to report the pitch</property>
+            <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">
+                <tr lang="en">min fidelity threshold to report the pitch</tr>
+            </property>
             <!-- @framesize -->
             <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
-            units="sample">frame size in samples</property>
+            units="sample">
+                <tr lang="en">frame size in samples</tr>
+            </property>
             <!-- @maxfreq -->
             <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
-            units="hertz">max tracked frequency</property>
+            units="hertz">
+                <tr lang="en">max tracked frequency</tr>
+            </property>
             <!-- @overlap -->
-            <property name="@overlap" type="int" enum="1 2 4 8" default="1">overlap of analysis
-            frames</property>
+            <property name="@overlap" type="int" enum="1 2 4 8" default="1">
+                <tr lang="en">overlap of analysis frames</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

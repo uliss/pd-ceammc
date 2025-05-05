@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="net.osc.send">
         <title>net.osc.send</title>
         <meta>
@@ -30,19 +30,25 @@
         </arguments>
         <properties>
             <!-- @host -->
-            <property name="@host" type="symbol" default="" access="readonly">destination
-            host</property>
+            <property name="@host" type="symbol" default="" access="readonly">
+                <tr lang="en">destination host</tr>
+            </property>
             <!-- @path -->
-            <property name="@path" type="symbol" default="" access="readonly">socket filesystem
-            path (if using unix proto)</property>
+            <property name="@path" type="symbol" default="" access="readonly">
+                <tr lang="en">socket filesystem path (if using unix proto)</tr>
+            </property>
             <!-- @port -->
-            <property name="@port" type="int" default="0" access="readonly">destination
-            port</property>
+            <property name="@port" type="int" default="0" access="readonly">
+                <tr lang="en">destination port</tr>
+            </property>
             <!-- @proto -->
-            <property name="@proto" type="symbol" default="udp" access="readonly">sending
-            protocol</property>
+            <property name="@proto" type="symbol" default="udp" access="readonly">
+                <tr lang="en">sending protocol</tr>
+            </property>
             <!-- @url -->
-            <property name="@url" type="atom" default="">destination url</property>
+            <property name="@url" type="atom" default="">
+                <tr lang="en">destination url</tr>
+            </property>
         </properties>
         <methods>
             <!-- send -->

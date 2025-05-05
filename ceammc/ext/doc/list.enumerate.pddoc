@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.enumerate">
         <title>list.enumerate</title>
         <meta>
@@ -23,10 +23,13 @@
         </arguments>
         <properties>
             <!-- @append -->
-            <property name="@append" type="flag" default="0" access="initonly">put element index
-            after element value</property>
+            <property name="@append" type="flag" default="0" access="initonly">
+                <tr lang="en">put element index after element value</tr>
+            </property>
             <!-- @from -->
-            <property name="@from" type="int" default="0">enumeration start index</property>
+            <property name="@from" type="int" default="0">
+                <tr lang="en">enumeration start index</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

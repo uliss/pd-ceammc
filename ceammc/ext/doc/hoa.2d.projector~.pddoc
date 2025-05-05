@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.2d.projector~">
         <title>hoa.2d.projector~</title>
         <meta>
@@ -40,10 +40,14 @@
         <properties>
             <!-- @n -->
             <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
-            access="initonly">number of channels (planewaves)</property>
+            access="initonly">
+                <tr lang="en">number of channels (planewaves)</tr>
+            </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

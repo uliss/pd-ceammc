@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="ui.label" type="gui">
         <title>ui.label</title>
         <meta>
@@ -33,44 +33,67 @@
         </arguments>
         <properties>
             <!-- @align -->
-            <property name="@align" type="symbol" default="left" enum="left center right">text
-            align</property>
+            <property name="@align" type="symbol" default="left" enum="left center right">
+                <tr lang="en">text align</tr>
+            </property>
             <!-- @background_color -->
-            <property name="@background_color" type="list" default="1 1 1 1">element background
-            color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="1 1 1 1">
+                <tr lang="en">element background color (list of red, green, blue values in 0-1
+                range)</tr>
+            </property>
             <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            enum="Courier DejaVu Helvetica Monaco Times">
+                <tr lang="en">fontname</tr>
+            </property>
             <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" default="32" maxvalue="100">
-            fontsize</property>
+                <tr lang="en">fontsize</tr>
+            </property>
             <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+                <tr lang="en">font slant</tr>
+            </property>
             <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
+                <tr lang="en">font weight</tr>
+            </property>
             <!-- @margin_bottom -->
-            <property name="@margin_bottom" type="int" default="5">text bottom margin</property>
+            <property name="@margin_bottom" type="int" default="5">
+                <tr lang="en">text bottom margin</tr>
+            </property>
             <!-- @margin_left -->
-            <property name="@margin_left" type="int" default="5">text left margin</property>
+            <property name="@margin_left" type="int" default="5">
+                <tr lang="en">text left margin</tr>
+            </property>
             <!-- @margin_right -->
-            <property name="@margin_right" type="int" default="5">text right margin</property>
+            <property name="@margin_right" type="int" default="5">
+                <tr lang="en">text right margin</tr>
+            </property>
             <!-- @margin_top -->
-            <property name="@margin_top" type="int" default="5">text top margin</property>
+            <property name="@margin_top" type="int" default="5">
+                <tr lang="en">text top margin</tr>
+            </property>
             <!-- @pinned -->
-            <property name="@pinned" type="bool" default="1">pin mode. if 1 - put element to the
-            lowest level</property>
+            <property name="@pinned" type="bool" default="1">
+                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+            </property>
             <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@receive" type="symbol" default="(null)">
+                <tr lang="en">receive source</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="list" default="300 47">element size (width, height
-            pair)</property>
+            <property name="@size" type="list" default="300 47">
+                <tr lang="en">element size (width, height pair)</tr>
+            </property>
             <!-- @text -->
-            <property name="@text" type="list" default="Label">label text</property>
+            <property name="@text" type="list" default="Label">
+                <tr lang="en">label text</tr>
+            </property>
             <!-- @text_color -->
-            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
-            green, blue values in 0-1 range)</property>
+            <property name="@text_color" type="list" default="0 0 0 1">
+                <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
         </properties>
         <methods>
             <!-- append -->

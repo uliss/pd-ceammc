@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hw.motu.avb">
         <title>hw.motu.avb</title>
         <meta>
@@ -26,11 +26,17 @@
         </arguments>
         <properties>
             <!-- @dev -->
-            <property name="@dev" type="symbol" default="">Motu device id</property>
+            <property name="@dev" type="symbol" default="">
+                <tr lang="en">Motu device id</tr>
+            </property>
             <!-- @host -->
-            <property name="@host" type="symbol" default="localhost">Motu HTTP host</property>
+            <property name="@host" type="symbol" default="localhost">
+                <tr lang="en">Motu HTTP host</tr>
+            </property>
             <!-- @port -->
-            <property name="@port" type="int" default="1280">Motu HTTP port</property>
+            <property name="@port" type="int" default="1280">
+                <tr lang="en">Motu HTTP port</tr>
+            </property>
         </properties>
         <methods>
             <!-- comp_input_name -->

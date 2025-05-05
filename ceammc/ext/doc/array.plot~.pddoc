@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.plot~">
         <title>array.plot~</title>
         <meta>
@@ -36,16 +36,21 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @yauto -->
-            <property name="@yauto" type="bool" default="0">calculate y-axis range
-            automatically</property>
+            <property name="@yauto" type="bool" default="0">
+                <tr lang="en">calculate y-axis range automatically</tr>
+            </property>
             <!-- @ymax -->
             <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
-            minimal y-axis value</property>
+                <tr lang="en">minimal y-axis value</tr>
+            </property>
             <!-- @ymin -->
             <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
-            minimal y-axis value</property>
+                <tr lang="en">minimal y-axis value</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

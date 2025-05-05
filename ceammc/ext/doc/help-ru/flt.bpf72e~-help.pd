@@ -44,12 +44,13 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 Тип: float. Единицы: 'Hz'. Значение по умолчанию: 1000\. Диапазон:
 20\...20000\.;
 #X msg 110 625 @id;
-#X text 245 625 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/flt_bpf72e/PROP_NAME
-osc address \, if empty bind to /flt_bpf72e/PROP_NAME. Тип: symbol.;
+#X text 245 625 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/flt_bpf72e/ИМЯ_СВОЙСТВА \, в противном случае к /flt_bpf72e/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
 #X msg 110 697 @osc;
-#X text 245 697 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 697 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 739 @q;
 #X text 245 739 (при инициализации) Получить/Установить quality factor:
 @freq/BANDWIDTH. Тип: float. Значение по умолчанию: 2\. Диапазон: 0.25\...32\.;

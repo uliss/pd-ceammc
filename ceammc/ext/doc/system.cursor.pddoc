@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="system.cursor">
         <title>system.cursor</title>
         <meta>
@@ -20,15 +20,21 @@
         </meta>
         <properties>
             <!-- @clip -->
-            <property name="@clip" type="bool" default="0">clip mode. If true clip a cursor XY
-            values to the [0..1] range in normalized mode, to the window width/height relative
-            mode, otherwise to the screen width/height</property>
+            <property name="@clip" type="bool" default="0">
+                <tr lang="en">clip mode. If true clip a cursor XY values to the [0..1] range in
+                normalized mode, to the window width/height relative mode, otherwise to the screen
+                width/height</tr>
+            </property>
             <!-- @norm -->
-            <property name="@norm" type="bool" default="0">cursor x/y coordinates normalization by
-            screen (or window) width/height</property>
+            <property name="@norm" type="bool" default="0">
+                <tr lang="en">cursor x/y coordinates normalization by screen (or window)
+                width/height</tr>
+            </property>
             <!-- @relative -->
-            <property name="@relative" type="bool" default="0">relative output mode: if on output
-            coords relative to the root window, otherwise output screen coordinates</property>
+            <property name="@relative" type="bool" default="0">
+                <tr lang="en">relative output mode: if on output coords relative to the root
+                window, otherwise output screen coordinates</tr>
+            </property>
         </properties>
         <methods>
             <!-- polltime -->

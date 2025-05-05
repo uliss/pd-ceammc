@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.kbd">
         <title>midi.kdb</title>
         <meta>
@@ -29,19 +29,25 @@
         </arguments>
         <properties>
             <!-- @custom -->
-            <property name="@custom" type="atom" default="[]">custom layout (Dict data
-            type)</property>
+            <property name="@custom" type="atom" default="[]">
+                <tr lang="en">custom layout (Dict data type)</tr>
+            </property>
             <!-- @layout -->
             <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">
-            current layout</property>
+                <tr lang="en">current layout</tr>
+            </property>
             <!-- @octave -->
-            <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">output
-            octave</property>
+            <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">
+                <tr lang="en">output octave</tr>
+            </property>
             <!-- @on -->
-            <property name="@on" type="bool" default="1">on/off state</property>
+            <property name="@on" type="bool" default="1">
+                <tr lang="en">on/off state</tr>
+            </property>
             <!-- @vel -->
-            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">output
-            velocity</property>
+            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">
+                <tr lang="en">output velocity</tr>
+            </property>
         </properties>
         <methods>
             <!-- custom -->

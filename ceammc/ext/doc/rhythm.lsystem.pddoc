@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="rhythm.lsystem">
         <title>rhythm.lsystem</title>
         <meta>
@@ -23,16 +23,21 @@
         </arguments>
         <properties>
             <!-- @init -->
-            <property name="@init" type="list" default="" access="readwrite">init pattern
-            value</property>
+            <property name="@init" type="list" default="" access="readwrite">
+                <tr lang="en">init pattern value</tr>
+            </property>
             <!-- @max -->
-            <property name="@max" type="int" minvalue="1" maxvalue="32768" default="256">max
-            generated pattern length</property>
+            <property name="@max" type="int" minvalue="1" maxvalue="32768" default="256">
+                <tr lang="en">max generated pattern length</tr>
+            </property>
             <!-- @rule -->
-            <property name="@rule" type="atom">generation rule dict</property>
+            <property name="@rule" type="atom">
+                <tr lang="en">generation rule dict</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="list" default="" access="readonly">current pattern
-            value</property>
+            <property name="@value" type="list" default="" access="readonly">
+                <tr lang="en">current pattern value</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

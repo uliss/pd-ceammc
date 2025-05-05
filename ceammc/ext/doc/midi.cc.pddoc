@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.cc">
         <title>midi.cc</title>
         <meta>
@@ -29,21 +29,26 @@
         </arguments>
         <properties>
             <!-- @cc -->
-            <property name="@cc" type="int" default="0" minvalue="0" maxvalue="127">controller
-            number</property>
+            <property name="@cc" type="int" default="0" minvalue="0" maxvalue="127">
+                <tr lang="en">controller number</tr>
+            </property>
             <!-- @ch -->
-            <property name="@ch" type="int" default="0" minvalue="0" maxvalue="16">MIDI
-            channel</property>
+            <property name="@ch" type="int" default="0" minvalue="0" maxvalue="16">
+                <tr lang="en">MIDI channel</tr>
+            </property>
             <!-- @curve -->
-            <property name="@curve" type="float" default="0">output curve. If @curve&lt;0: fast
-            begin, slow end, else if @curve&gt;0: slow begin, fast end, if @curve==0: linear
-            speed</property>
+            <property name="@curve" type="float" default="0">
+                <tr lang="en">output curve. If @curve&lt;0: fast begin, slow end, else if
+                @curve&gt;0: slow begin, fast end, if @curve==0: linear speed</tr>
+            </property>
             <!-- @max -->
-            <property name="@max" type="float" default="127">output value at midi input ==
-            127</property>
+            <property name="@max" type="float" default="127">
+                <tr lang="en">output value at midi input == 127</tr>
+            </property>
             <!-- @min -->
-            <property name="@min" type="float" default="0">output value at midi input ==
-            0</property>
+            <property name="@min" type="float" default="0">
+                <tr lang="en">output value at midi input == 0</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

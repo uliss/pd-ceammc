@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.2d.optim~">
         <title>hoa.2d.optim~</title>
         <meta>
@@ -45,17 +45,26 @@
         </arguments>
         <properties>
             <!-- @basic -->
-            <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>
+            <property name="@basic" type="alias">
+                <tr lang="en">alias for @mode basic (no optimization)</tr>
+            </property>
             <!-- @inphase -->
-            <property name="@inphase" type="alias">alias for @mode inphase.</property>
+            <property name="@inphase" type="alias">
+                <tr lang="en">alias for @mode inphase.</tr>
+            </property>
             <!-- @maxre -->
-            <property name="@maxre" type="alias">alias for @mode maxre.</property>
+            <property name="@maxre" type="alias">
+                <tr lang="en">alias for @mode maxre.</tr>
+            </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
-            optimization mode</property>
+                <tr lang="en">optimization mode</tr>
+            </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

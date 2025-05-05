@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.greyhole~">
         <title>fx.greyhole~</title>
         <meta>
@@ -32,40 +32,53 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @damping -->
             <property name="@damping" type="float" minvalue="0" maxvalue="0.99" default="0">
-            controls damping of high-frequencies as the delay decays. 0 is no damping, 1 is very
-            strong damping</property>
+                <tr lang="en">controls damping of high-frequencies as the delay decays. 0 is no
+                damping, 1 is very strong damping</tr>
+            </property>
             <!-- @delaytime -->
             <property name="@delaytime" type="float" units="second" minvalue="0.001"
-            maxvalue="1.45" default="0.2">approximate delay time in seconds</property>
+            maxvalue="1.45" default="0.2">
+                <tr lang="en">approximate delay time in seconds</tr>
+            </property>
             <!-- @diffusion -->
             <property name="@diffusion" type="float" minvalue="0" maxvalue="0.99" default="0.5">
-            shape of the diffusion unit. Values greater than 0.707 produce smooth exponential
-            decay. Lower values produce a slower build-up of echoes</property>
+                <tr lang="en">shape of the diffusion unit. Values greater than 0.707 produce smooth
+                exponential decay. Lower values produce a slower build-up of echoes</tr>
+            </property>
             <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
-            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
-            wet.</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet.</tr>
+            </property>
             <!-- @feedback -->
-            <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0.9">amount
-            of feedback for the delay line</property>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0.9">
+                <tr lang="en">amount of feedback for the delay line</tr>
+            </property>
             <!-- @moddepth -->
-            <property name="@moddepth" type="float" minvalue="0" maxvalue="1" default="0.1">depth
-            of delay-line modulation. Use in combination with *@modfreq* to set amount of chorusing
-            within the structure</property>
+            <property name="@moddepth" type="float" minvalue="0" maxvalue="1" default="0.1">
+                <tr lang="en">depth of delay-line modulation. Use in combination with *@modfreq* to
+                set amount of chorusing within the structure</tr>
+            </property>
             <!-- @modfreq -->
-            <property name="@modfreq" type="float" minvalue="0" maxvalue="10" default="2">frequency
-            of delay-line modulation. Use in combination with *@moddepth* to set amount of
-            chorusing within the structure</property>
+            <property name="@modfreq" type="float" minvalue="0" maxvalue="10" default="2">
+                <tr lang="en">frequency of delay-line modulation. Use in combination with
+                *@moddepth* to set amount of chorusing within the structure</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="float" minvalue="0.5" maxvalue="3" default="1">size of
-            delay-lines within the diffusion unit, producing the impression of a larger or smaller
-            space. Values below 1 can sound quite metallic.</property>
+            <property name="@size" type="float" minvalue="0.5" maxvalue="3" default="1">
+                <tr lang="en">size of delay-lines within the diffusion unit, producing the
+                impression of a larger or smaller space. Values below 1 can sound quite
+                metallic.</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

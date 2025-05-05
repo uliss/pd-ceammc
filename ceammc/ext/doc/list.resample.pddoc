@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.resample">
         <title>list.resample</title>
         <meta>
@@ -29,8 +29,9 @@
         </arguments>
         <properties>
             <!-- @ratio -->
-            <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">resample
-            ratio (src/dest)</property>
+            <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">
+                <tr lang="en">resample ratio (src/dest)</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

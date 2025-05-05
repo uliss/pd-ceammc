@@ -40,12 +40,13 @@ even harmonics. Тип: float. Диапазон: 0…0.5;
 #X obj 735 526 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 558 @id;
-#X text 245 558 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/fx_distortion/PROP_NAME
-osc address \, if empty bind to /fx_distortion/PROP_NAME. Тип: symbol.;
+#X text 245 558 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/fx_distortion/ИМЯ_СВОЙСТВА \, в противном случае
+к /fx_distortion/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 630 @osc;
-#X text 245 630 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 630 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 672 @active;
 #X text 245 672 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

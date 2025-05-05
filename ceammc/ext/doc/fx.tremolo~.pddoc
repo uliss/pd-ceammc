@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.tremolo~">
         <title>fx.tremolo~</title>
         <meta>
@@ -28,23 +28,31 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @depth -->
-            <property name="@depth" type="float" minvalue="0" maxvalue="1" default="1">effect
-            depth</property>
+            <property name="@depth" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">effect depth</tr>
+            </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.75">
-            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
-            signal, 1 - wet</property>
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="0.1" maxvalue="50" units="hertz"
-            default="5">tremolo frequency</property>
+            default="5">
+                <tr lang="en">tremolo frequency</tr>
+            </property>
             <!-- @src -->
-            <property name="@src" type="int" minvalue="0" maxvalue="2" default="0">modulation
-            source: 0 (triangle), 1 (sin) or 2 (square)</property>
+            <property name="@src" type="int" minvalue="0" maxvalue="2" default="0">
+                <tr lang="en">modulation source: 0 (triangle), 1 (sin) or 2 (square)</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

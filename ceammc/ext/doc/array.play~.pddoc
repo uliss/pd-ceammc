@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.play~">
         <title>array.play~</title>
         <meta>
@@ -34,58 +34,80 @@
         </arguments>
         <properties>
             <!-- @amp -->
-            <property name="@amp" type="float" default="1" minvalue="0">playback
-            amplitude</property>
+            <property name="@amp" type="float" default="1" minvalue="0">
+                <tr lang="en">playback amplitude</tr>
+            </property>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @begin -->
-            <property name="@begin" type="float" default="0" units="sample">playback start
-            position. Negative value means position relative to the end of the array</property>
+            <property name="@begin" type="float" default="0" units="sample">
+                <tr lang="en">playback start position. Negative value means position relative to
+                the end of the array</tr>
+            </property>
             <!-- @cfmt -->
-            <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">clock
-            output format</property>
+            <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">
+                <tr lang="en">clock output format</tr>
+            </property>
             <!-- @clock -->
             <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20"
-            units="second">clock output period. Zero means: no clock output (by
-            default).</property>
+            units="second">
+                <tr lang="en">clock output period. Zero means: no clock output (by default).</tr>
+            </property>
             <!-- @cursor_ms -->
-            <property name="@cursor_ms" type="float" default="0" units="millisecond">current play
-            position</property>
+            <property name="@cursor_ms" type="float" default="0" units="millisecond">
+                <tr lang="en">current play position</tr>
+            </property>
             <!-- @cursor_phase -->
-            <property name="@cursor_phase" type="float" default="0">current play
-            position</property>
+            <property name="@cursor_phase" type="float" default="0">
+                <tr lang="en">current play position</tr>
+            </property>
             <!-- @cursor_samp -->
-            <property name="@cursor_samp" type="float" default="0" units="sample">current play
-            position</property>
+            <property name="@cursor_samp" type="float" default="0" units="sample">
+                <tr lang="en">current play position</tr>
+            </property>
             <!-- @cursor_sec -->
-            <property name="@cursor_sec" type="float" default="0" units="second">current play
-            position</property>
+            <property name="@cursor_sec" type="float" default="0" units="second">
+                <tr lang="en">current play position</tr>
+            </property>
             <!-- @end -->
-            <property name="@end" type="float" default="-1" units="sample">playback end position.
-            Negative value means position relative to the end of the array</property>
+            <property name="@end" type="float" default="-1" units="sample">
+                <tr lang="en">playback end position. Negative value means position relative to the
+                end of the array</tr>
+            </property>
             <!-- @interp -->
-            <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no
-            interpolation 1: linear, 3: cubic.</property>
+            <property name="@interp" type="int" enum="0 1 3" default="1">
+                <tr lang="en">interpolation type. 0: no interpolation 1: linear, 3: cubic.</tr>
+            </property>
             <!-- @loop -->
-            <property name="@loop" type="bool" default="0">samplewise loop playing mode</property>
+            <property name="@loop" type="bool" default="0">
+                <tr lang="en">samplewise loop playing mode</tr>
+            </property>
             <!-- @select_ms -->
-            <property name="@select_ms" type="list" default="0 0" units="millisecond">selection
-            range</property>
+            <property name="@select_ms" type="list" default="0 0" units="millisecond">
+                <tr lang="en">selection range</tr>
+            </property>
             <!-- @select_phase -->
-            <property name="@select_phase" type="list" default="0 0">selection range in [0, 1]
-            range</property>
+            <property name="@select_phase" type="list" default="0 0">
+                <tr lang="en">selection range in [0, 1] range</tr>
+            </property>
             <!-- @select_samp -->
-            <property name="@select_samp" type="list" default="0 0" units="sample">selection
-            range</property>
+            <property name="@select_samp" type="list" default="0 0" units="sample">
+                <tr lang="en">selection range</tr>
+            </property>
             <!-- @select_sec -->
-            <property name="@select_sec" type="list" default="0 0" units="second">selection
-            range</property>
+            <property name="@select_sec" type="list" default="0 0" units="second">
+                <tr lang="en">selection range</tr>
+            </property>
             <!-- @speed -->
-            <property name="@speed" type="float" default="1">playback speed. Negative value means
-            reversed playback</property>
+            <property name="@speed" type="float" default="1">
+                <tr lang="en">playback speed. Negative value means reversed playback</tr>
+            </property>
             <!-- @state -->
-            <property name="@state" type="int" default="0" access="readonly">playing state. 0:
-            stopped, 1: playing, 2: paused.</property>
+            <property name="@state" type="int" default="0" access="readonly">
+                <tr lang="en">playing state. 0: stopped, 1: playing, 2: paused.</tr>
+            </property>
         </properties>
         <methods>
             <!-- pause -->

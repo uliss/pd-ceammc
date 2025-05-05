@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.pipe">
         <title>flow.pipe</title>
         <meta>
@@ -30,13 +30,17 @@
         </arguments>
         <properties>
             <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
-            time</property>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
+                <tr lang="en">delay time</tr>
+            </property>
             <!-- @empty -->
-            <property name="@empty" type="bool" default="1" access="readonly">1 if pipe is empty,
-            otherwise 0.</property>
+            <property name="@empty" type="bool" default="1" access="readonly">
+                <tr lang="en">1 if pipe is empty, otherwise 0.</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="int" default="0" access="readonly">pipe size</property>
+            <property name="@size" type="int" default="0" access="readonly">
+                <tr lang="en">pipe size</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

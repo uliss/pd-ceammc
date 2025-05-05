@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.track">
         <title>midi.track</title>
         <meta>
@@ -23,25 +23,33 @@
         </arguments>
         <properties>
             <!-- @current -->
-            <property name="@current" type="int" access="readonly" default="0">current event tick
-            index</property>
+            <property name="@current" type="int" access="readonly" default="0">
+                <tr lang="en">current event tick index</tr>
+            </property>
             <!-- @join -->
-            <property name="@join" type="flag" default="0" access="initonly">join all tracks into
-            one</property>
+            <property name="@join" type="flag" default="0" access="initonly">
+                <tr lang="en">join all tracks into one</tr>
+            </property>
             <!-- @nevents -->
-            <property name="@nevents" type="int" access="readonly" default="0">number of events in
-            track</property>
+            <property name="@nevents" type="int" access="readonly" default="0">
+                <tr lang="en">number of events in track</tr>
+            </property>
             <!-- @speed -->
-            <property name="@speed" type="float" minvalue="0.01" default="1">play speed
-            factor</property>
+            <property name="@speed" type="float" minvalue="0.01" default="1">
+                <tr lang="en">play speed factor</tr>
+            </property>
             <!-- @state -->
-            <property name="@state" type="int" access="readonly" default="0" enum="0 1 2">current
-            state. 0: stopped, 1: playing, 2: paused</property>
+            <property name="@state" type="int" access="readonly" default="0" enum="0 1 2">
+                <tr lang="en">current state. 0: stopped, 1: playing, 2: paused</tr>
+            </property>
             <!-- @tempo -->
-            <property name="@tempo" type="int" access="readonly" default="120">current tempo in
-            TPQ</property>
+            <property name="@tempo" type="int" access="readonly" default="120">
+                <tr lang="en">current tempo in TPQ</tr>
+            </property>
             <!-- @track -->
-            <property name="@track" type="int" default="0" minvalue="0">track number</property>
+            <property name="@track" type="int" default="0" minvalue="0">
+                <tr lang="en">track number</tr>
+            </property>
         </properties>
         <methods>
             <!-- next -->

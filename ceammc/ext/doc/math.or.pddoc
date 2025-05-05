@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="math.or">
         <title>math.or</title>
         <meta>
@@ -31,13 +31,17 @@
         <properties>
             <!-- @n -->
             <property name="@n" type="int" access="initonly" minvalue="3" maxvalue="16"
-            default="3">number of arguments</property>
+            default="3">
+                <tr lang="en">number of arguments</tr>
+            </property>
             <!-- @state -->
-            <property name="@state" type="list" access="readonly" default="">internal logic state
-            as list of 1 and 0</property>
+            <property name="@state" type="list" access="readonly" default="">
+                <tr lang="en">internal logic state as list of 1 and 0</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="flag" default="0" access="initonly">if specified - all
-            inlets are 'hot'</property>
+            <property name="@sync" type="flag" default="0" access="initonly">
+                <tr lang="en">if specified - all inlets are 'hot'</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.max">
         <title>list.max</title>
         <meta>
@@ -26,17 +26,22 @@
         </info>
         <properties>
             <!-- @any -->
-            <property name="@any" type="alias">alias for @type any. Find greatest atom of any type.
-            Note: symbols are greater then numbers</property>
+            <property name="@any" type="alias">
+                <tr lang="en">alias for @type any. Find greatest atom of any type. Note: symbols
+                are greater then numbers</tr>
+            </property>
             <!-- @float -->
-            <property name="@float" type="alias">alias for @type float. Find max float element in
-            list</property>
+            <property name="@float" type="alias">
+                <tr lang="en">alias for @type float. Find max float element in list</tr>
+            </property>
             <!-- @symbol -->
-            <property name="@symbol" type="alias">alias for @type symbol. Find greatest symbol
-            element</property>
+            <property name="@symbol" type="alias">
+                <tr lang="en">alias for @type symbol. Find greatest symbol element</tr>
+            </property>
             <!-- @type -->
-            <property name="@type" type="symbol" enum="float symbol any" default="float">type of
-            largest element</property>
+            <property name="@type" type="symbol" enum="float symbol any" default="float">
+                <tr lang="en">type of largest element</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

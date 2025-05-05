@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="proto.vlc">
         <title>proto.vlc</title>
         <meta>
@@ -27,13 +27,17 @@
         </arguments>
         <properties>
             <!-- @host -->
-            <property name="@host" type="symbol" default="localhost">hostname on that VLC player is
-            running on</property>
+            <property name="@host" type="symbol" default="localhost">
+                <tr lang="en">hostname on that VLC player is running on</tr>
+            </property>
             <!-- @pass -->
-            <property name="@pass" type="atom" default="">VLC http password</property>
+            <property name="@pass" type="atom" default="">
+                <tr lang="en">VLC http password</tr>
+            </property>
             <!-- @port -->
-            <property name="@port" type="int" default="8080" minvalue="1" maxvalue="32768">hostname
-            on that VLC player is running on</property>
+            <property name="@port" type="int" default="8080" minvalue="1" maxvalue="32768">
+                <tr lang="en">hostname on that VLC player is running on</tr>
+            </property>
         </properties>
         <methods>
             <!-- add -->

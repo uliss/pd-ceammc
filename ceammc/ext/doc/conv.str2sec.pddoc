@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.str2sec">
         <title>conv.str2sec</title>
         <meta>
@@ -26,8 +26,9 @@
         </meta>
         <properties>
             <!-- @on_err -->
-            <property name="@on_err" type="float" default="-1">value returned when unrecognized
-            symbol given</property>
+            <property name="@on_err" type="float" default="-1">
+                <tr lang="en">value returned when unrecognized symbol given</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

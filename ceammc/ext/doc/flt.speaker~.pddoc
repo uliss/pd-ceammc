@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.speaker~">
         <title>flt.speaker~</title>
         <meta>
@@ -37,23 +37,33 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
-            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
-            wet</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet</tr>
+            </property>
             <!-- @f1 -->
             <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130"
-            units="hertz">lower band frequency</property>
+            units="hertz">
+                <tr lang="en">lower band frequency</tr>
+            </property>
             <!-- @f2 -->
             <property name="@f2" type="float" minvalue="1000" maxvalue="20000" default="5000"
-            units="hertz">high band frequency</property>
+            units="hertz">
+                <tr lang="en">high band frequency</tr>
+            </property>
             <!-- @gain -->
             <property name="@gain" type="float" minvalue="-30" maxvalue="30" default="0"
-            units="decibel">filter gain</property>
+            units="decibel">
+                <tr lang="en">filter gain</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

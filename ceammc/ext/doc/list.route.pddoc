@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.route">
         <title>list.route</title>
         <meta>
@@ -30,17 +30,22 @@
         </arguments>
         <properties>
             <!-- @args -->
-            <property name="@args" type="list" access="initonly" default="">matching
-            atoms</property>
+            <property name="@args" type="list" access="initonly" default="">
+                <tr lang="en">matching atoms</tr>
+            </property>
             <!-- @as_any -->
-            <property name="@as_any" type="flag" default="0" access="initonly">trim list or symbol
-            selector on output</property>
+            <property name="@as_any" type="flag" default="0" access="initonly">
+                <tr lang="en">trim list or symbol selector on output</tr>
+            </property>
             <!-- @simplify -->
-            <property name="@simplify" type="bool" default="1">one element list simplification -
-            transform them to floats or symbols</property>
+            <property name="@simplify" type="bool" default="1">
+                <tr lang="en">one element list simplification - transform them to floats or
+                symbols</tr>
+            </property>
             <!-- @trim -->
-            <property name="@trim" type="flag" default="0" access="initonly">cut first element from
-            list, transform float or symbol to bang</property>
+            <property name="@trim" type="flag" default="0" access="initonly">
+                <tr lang="en">cut first element from list, transform float or symbol to bang</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.convolve">
         <title>array.convolve</title>
         <meta>
@@ -28,12 +28,17 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">target array</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">target array</tr>
+            </property>
             <!-- @ir -->
-            <property name="@ir" type="symbol" default="">impulse response source array</property>
+            <property name="@ir" type="symbol" default="">
+                <tr lang="en">impulse response source array</tr>
+            </property>
             <!-- @norm -->
-            <property name="@norm" type="bool" default="0">impulse response
-            normalization</property>
+            <property name="@norm" type="bool" default="0">
+                <tr lang="en">impulse response normalization</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

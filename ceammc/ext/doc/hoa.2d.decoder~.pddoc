@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.2d.decoder~">
         <title>hoa.2d.decoder~</title>
         <meta>
@@ -50,42 +50,63 @@
         </arguments>
         <properties>
             <!-- @angles -->
-            <property name="@angles" type="list" units="degree" default="0 90 180 270">angles of
-            loudspeakers. Only available for @irregular mode.</property>
+            <property name="@angles" type="list" units="degree" default="0 90 180 270">
+                <tr lang="en">angles of loudspeakers. Only available for @irregular mode.</tr>
+            </property>
             <!-- @binaural -->
-            <property name="@binaural" type="alias">alias for @mode binaural</property>
+            <property name="@binaural" type="alias">
+                <tr lang="en">alias for @mode binaural</tr>
+            </property>
             <!-- @crop -->
             <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512"
-            default="16">crop HRIR response. Only for @binaural mode.</property>
+            default="16">
+                <tr lang="en">crop HRIR response. Only for @binaural mode.</tr>
+            </property>
             <!-- @irregular -->
-            <property name="@irregular" type="alias">alias for @mode irregular</property>
+            <property name="@irregular" type="alias">
+                <tr lang="en">alias for @mode irregular</tr>
+            </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="regular"
-            enum="regular irregular binaural">decoding mode</property>
+            enum="regular irregular binaural">
+                <tr lang="en">decoding mode</tr>
+            </property>
             <!-- @nch -->
-            <property name="@nch" type="int" minvalue="1" access="initonly" default="0">number of
-            plain waves.</property>
+            <property name="@nch" type="int" minvalue="1" access="initonly" default="0">
+                <tr lang="en">number of plain waves.</tr>
+            </property>
             <!-- @nharm -->
-            <property name="@nharm" type="int" minvalue="1" access="readonly" default="3">number of
-            circular harmonics.</property>
+            <property name="@nharm" type="int" minvalue="1" access="readonly" default="3">
+                <tr lang="en">number of circular harmonics.</tr>
+            </property>
             <!-- @offset -->
-            <property name="@offset" type="float" units="degree" default="0">rotation of
-            loudspeakers. Only available for @regular and @irregular mode.</property>
+            <property name="@offset" type="float" units="degree" default="0">
+                <tr lang="en">rotation of loudspeakers. Only available for @regular and @irregular
+                mode.</tr>
+            </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
             <!-- @pw_x -->
             <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
-            access="readonly" default="0 -1 0 1">list of plain wave x-coordinates (abscissas). -1
-            is the left of the soundfield, 0 is the center of the soundfield and 1 is the right of
-            the soundfield.</property>
+            access="readonly" default="0 -1 0 1">
+                <tr lang="en">list of plain wave x-coordinates (abscissas). -1 is the left of the
+                soundfield, 0 is the center of the soundfield and 1 is the right of the
+                soundfield.</tr>
+            </property>
             <!-- @pw_y -->
             <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
-            access="readonly" default="1 0 -1 0">list of plain wave y-coordinates (ordinatas). -1
-            is the back of the soundfield, 0 is the center of the soundfield and 1 is the front of
-            the soundfield.</property>
+            access="readonly" default="1 0 -1 0">
+                <tr lang="en">list of plain wave y-coordinates (ordinatas). -1 is the back of the
+                soundfield, 0 is the center of the soundfield and 1 is the front of the
+                soundfield.</tr>
+            </property>
             <!-- @regular -->
-            <property name="@regular" type="alias">alias for @mode regular</property>
+            <property name="@regular" type="alias">
+                <tr lang="en">alias for @mode regular</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

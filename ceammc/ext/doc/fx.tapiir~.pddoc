@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.tapiir~">
         <title>fx.tapiir~</title>
         <meta>
@@ -21,277 +21,383 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @delays -->
-            <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">list of
-            all tap delays</property>
+            <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">
+                <tr lang="en">list of all tap delays</tr>
+            </property>
             <!-- @fbs0 -->
-            <property name="@fbs0" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">list
-            of all feedbacks to tap0</property>
+            <property name="@fbs0" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all feedbacks to tap0</tr>
+            </property>
             <!-- @fbs1 -->
-            <property name="@fbs1" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">list
-            of all feedbacks to tap1</property>
+            <property name="@fbs1" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all feedbacks to tap1</tr>
+            </property>
             <!-- @fbs2 -->
-            <property name="@fbs2" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">list
-            of all feedbacks to tap2</property>
+            <property name="@fbs2" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all feedbacks to tap2</tr>
+            </property>
             <!-- @fbs3 -->
-            <property name="@fbs3" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">list
-            of all feedbacks to tap3</property>
+            <property name="@fbs3" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all feedbacks to tap3</tr>
+            </property>
             <!-- @fbs4 -->
-            <property name="@fbs4" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">list
-            of all feedbacks to tap4</property>
+            <property name="@fbs4" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all feedbacks to tap4</tr>
+            </property>
             <!-- @fbs5 -->
-            <property name="@fbs5" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">list
-            of all feedbacks to tap5</property>
+            <property name="@fbs5" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all feedbacks to tap5</tr>
+            </property>
             <!-- @gains -->
-            <property name="@gains" type="list" default="0 0 0 0 0 0" units="decibel">list of all
-            tap gains</property>
+            <property name="@gains" type="list" default="0 0 0 0 0 0" units="decibel">
+                <tr lang="en">list of all tap gains</tr>
+            </property>
             <!-- @ins0 -->
-            <property name="@ins0" type="list" default="1 1 1 1 1 1" minvalue="0" maxvalue="1">list
-            of all taps left channel input levels</property>
+            <property name="@ins0" type="list" default="1 1 1 1 1 1" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all taps left channel input levels</tr>
+            </property>
             <!-- @ins1 -->
-            <property name="@ins1" type="list" default="1 1 1 1 1 1" minvalue="0" maxvalue="1">list
-            of all taps right channel input levels</property>
+            <property name="@ins1" type="list" default="1 1 1 1 1 1" minvalue="0" maxvalue="1">
+                <tr lang="en">list of all taps right channel input levels</tr>
+            </property>
             <!-- @out0.gain -->
             <property name="@out0.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">left channel output gain</property>
+            units="decibel">
+                <tr lang="en">left channel output gain</tr>
+            </property>
             <!-- @out0.in0 -->
-            <property name="@out0.in0" type="float" default="0" minvalue="0" maxvalue="1">input
-            left channel level to left output</property>
+            <property name="@out0.in0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">input left channel level to left output</tr>
+            </property>
             <!-- @out0.in1 -->
-            <property name="@out0.in1" type="float" default="0" minvalue="0" maxvalue="1">input
-            right channel level to left output</property>
+            <property name="@out0.in1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">input right channel level to left output</tr>
+            </property>
             <!-- @out0.tap0 -->
-            <property name="@out0.tap0" type="float" default="0" minvalue="0" maxvalue="1">tap 0
-            output level to left channel</property>
+            <property name="@out0.tap0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 0 output level to left channel</tr>
+            </property>
             <!-- @out0.tap1 -->
-            <property name="@out0.tap1" type="float" default="0" minvalue="0" maxvalue="1">tap 1
-            output level to left channel</property>
+            <property name="@out0.tap1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 1 output level to left channel</tr>
+            </property>
             <!-- @out0.tap2 -->
-            <property name="@out0.tap2" type="float" default="0" minvalue="0" maxvalue="1">tap 2
-            output level to left channel</property>
+            <property name="@out0.tap2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 2 output level to left channel</tr>
+            </property>
             <!-- @out0.tap3 -->
-            <property name="@out0.tap3" type="float" default="0" minvalue="0" maxvalue="1">tap 3
-            output level to left channel</property>
+            <property name="@out0.tap3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 3 output level to left channel</tr>
+            </property>
             <!-- @out0.tap4 -->
-            <property name="@out0.tap4" type="float" default="0" minvalue="0" maxvalue="1">tap 4
-            output level to left channel</property>
+            <property name="@out0.tap4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 4 output level to left channel</tr>
+            </property>
             <!-- @out0.tap5 -->
-            <property name="@out0.tap5" type="float" default="0" minvalue="0" maxvalue="1">tap 5
-            output level to left channel</property>
+            <property name="@out0.tap5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 5 output level to left channel</tr>
+            </property>
             <!-- @out1.gain -->
             <property name="@out1.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">right channel output gain</property>
+            units="decibel">
+                <tr lang="en">right channel output gain</tr>
+            </property>
             <!-- @out1.in0 -->
-            <property name="@out1.in0" type="float" default="0" minvalue="0" maxvalue="1">input
-            left channel level to right output</property>
+            <property name="@out1.in0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">input left channel level to right output</tr>
+            </property>
             <!-- @out1.in1 -->
-            <property name="@out1.in1" type="float" default="0" minvalue="0" maxvalue="1">input
-            right channel level to right output</property>
+            <property name="@out1.in1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">input right channel level to right output</tr>
+            </property>
             <!-- @out1.tap0 -->
-            <property name="@out1.tap0" type="float" default="0" minvalue="0" maxvalue="1">tap 0
-            output level to right channel</property>
+            <property name="@out1.tap0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 0 output level to right channel</tr>
+            </property>
             <!-- @out1.tap1 -->
-            <property name="@out1.tap1" type="float" default="0" minvalue="0" maxvalue="1">tap 1
-            output level to right channel</property>
+            <property name="@out1.tap1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 1 output level to right channel</tr>
+            </property>
             <!-- @out1.tap2 -->
-            <property name="@out1.tap2" type="float" default="0" minvalue="0" maxvalue="1">tap 2
-            output level to right channel</property>
+            <property name="@out1.tap2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 2 output level to right channel</tr>
+            </property>
             <!-- @out1.tap3 -->
-            <property name="@out1.tap3" type="float" default="0" minvalue="0" maxvalue="1">tap 3
-            output level to right channel</property>
+            <property name="@out1.tap3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 3 output level to right channel</tr>
+            </property>
             <!-- @out1.tap4 -->
-            <property name="@out1.tap4" type="float" default="0" minvalue="0" maxvalue="1">tap 4
-            output level to right channel</property>
+            <property name="@out1.tap4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 4 output level to right channel</tr>
+            </property>
             <!-- @out1.tap5 -->
-            <property name="@out1.tap5" type="float" default="0" minvalue="0" maxvalue="1">tap 5
-            output level to right channel</property>
+            <property name="@out1.tap5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap 5 output level to right channel</tr>
+            </property>
             <!-- @outs0 -->
             <property name="@outs0" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
-            list of all tap output levels to left channel</property>
+                <tr lang="en">list of all tap output levels to left channel</tr>
+            </property>
             <!-- @outs1 -->
             <property name="@outs1" type="list" default="0 0 0 0 0 0" minvalue="0" maxvalue="1">
-            list of all tap output levels to right channel</property>
+                <tr lang="en">list of all tap output levels to right channel</tr>
+            </property>
             <!-- @tap0.delay -->
             <property name="@tap0.delay" type="float" default="0" minvalue="0" maxvalue="5000"
-            units="millisecond">tap0 delay time</property>
+            units="millisecond">
+                <tr lang="en">tap0 delay time</tr>
+            </property>
             <!-- @tap0.fb0 -->
-            <property name="@tap0.fb0" type="float" default="0" minvalue="0" maxvalue="1">tap0
-            feedback to tap0</property>
+            <property name="@tap0.fb0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap0 feedback to tap0</tr>
+            </property>
             <!-- @tap0.fb1 -->
-            <property name="@tap0.fb1" type="float" default="0" minvalue="0" maxvalue="1">tap1
-            feedback to tap0</property>
+            <property name="@tap0.fb1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap1 feedback to tap0</tr>
+            </property>
             <!-- @tap0.fb2 -->
-            <property name="@tap0.fb2" type="float" default="0" minvalue="0" maxvalue="1">tap2
-            feedback to tap0</property>
+            <property name="@tap0.fb2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap2 feedback to tap0</tr>
+            </property>
             <!-- @tap0.fb3 -->
-            <property name="@tap0.fb3" type="float" default="0" minvalue="0" maxvalue="1">tap3
-            feedback to tap0</property>
+            <property name="@tap0.fb3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap3 feedback to tap0</tr>
+            </property>
             <!-- @tap0.fb4 -->
-            <property name="@tap0.fb4" type="float" default="0" minvalue="0" maxvalue="1">tap4
-            feedback to tap0</property>
+            <property name="@tap0.fb4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap4 feedback to tap0</tr>
+            </property>
             <!-- @tap0.fb5 -->
-            <property name="@tap0.fb5" type="float" default="0" minvalue="0" maxvalue="1">tap5
-            feedback to tap0</property>
+            <property name="@tap0.fb5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap5 feedback to tap0</tr>
+            </property>
             <!-- @tap0.gain -->
             <property name="@tap0.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">tap0 common level</property>
+            units="decibel">
+                <tr lang="en">tap0 common level</tr>
+            </property>
             <!-- @tap0.in0 -->
-            <property name="@tap0.in0" type="float" default="1" minvalue="0" maxvalue="1">left
-            input level to tap0</property>
+            <property name="@tap0.in0" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">left input level to tap0</tr>
+            </property>
             <!-- @tap0.in1 -->
-            <property name="@tap0.in1" type="float" default="1" minvalue="0" maxvalue="1">right
-            input level to tap0</property>
+            <property name="@tap0.in1" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">right input level to tap0</tr>
+            </property>
             <!-- @tap1.delay -->
             <property name="@tap1.delay" type="float" default="0" minvalue="0" maxvalue="5000"
-            units="millisecond">tap1 delay time</property>
+            units="millisecond">
+                <tr lang="en">tap1 delay time</tr>
+            </property>
             <!-- @tap1.fb0 -->
-            <property name="@tap1.fb0" type="float" default="0" minvalue="0" maxvalue="1">tap0
-            feedback to tap1</property>
+            <property name="@tap1.fb0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap0 feedback to tap1</tr>
+            </property>
             <!-- @tap1.fb1 -->
-            <property name="@tap1.fb1" type="float" default="0" minvalue="0" maxvalue="1">tap1
-            feedback to tap1</property>
+            <property name="@tap1.fb1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap1 feedback to tap1</tr>
+            </property>
             <!-- @tap1.fb2 -->
-            <property name="@tap1.fb2" type="float" default="0" minvalue="0" maxvalue="1">tap2
-            feedback to tap1</property>
+            <property name="@tap1.fb2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap2 feedback to tap1</tr>
+            </property>
             <!-- @tap1.fb3 -->
-            <property name="@tap1.fb3" type="float" default="0" minvalue="0" maxvalue="1">tap3
-            feedback to tap1</property>
+            <property name="@tap1.fb3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap3 feedback to tap1</tr>
+            </property>
             <!-- @tap1.fb4 -->
-            <property name="@tap1.fb4" type="float" default="0" minvalue="0" maxvalue="1">tap4
-            feedback to tap1</property>
+            <property name="@tap1.fb4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap4 feedback to tap1</tr>
+            </property>
             <!-- @tap1.fb5 -->
-            <property name="@tap1.fb5" type="float" default="0" minvalue="0" maxvalue="1">tap5
-            feedback to tap1</property>
+            <property name="@tap1.fb5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap5 feedback to tap1</tr>
+            </property>
             <!-- @tap1.gain -->
             <property name="@tap1.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">tap1 common level</property>
+            units="decibel">
+                <tr lang="en">tap1 common level</tr>
+            </property>
             <!-- @tap1.in0 -->
-            <property name="@tap1.in0" type="float" default="1" minvalue="0" maxvalue="1">left
-            input level to tap1</property>
+            <property name="@tap1.in0" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">left input level to tap1</tr>
+            </property>
             <!-- @tap1.in1 -->
-            <property name="@tap1.in1" type="float" default="1" minvalue="0" maxvalue="1">right
-            input level to tap1</property>
+            <property name="@tap1.in1" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">right input level to tap1</tr>
+            </property>
             <!-- @tap2.delay -->
             <property name="@tap2.delay" type="float" default="0" minvalue="0" maxvalue="5000"
-            units="millisecond">tap2 delay time</property>
+            units="millisecond">
+                <tr lang="en">tap2 delay time</tr>
+            </property>
             <!-- @tap2.fb0 -->
-            <property name="@tap2.fb0" type="float" default="0" minvalue="0" maxvalue="1">tap0
-            feedback to tap2</property>
+            <property name="@tap2.fb0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap0 feedback to tap2</tr>
+            </property>
             <!-- @tap2.fb1 -->
-            <property name="@tap2.fb1" type="float" default="0" minvalue="0" maxvalue="1">tap1
-            feedback to tap2</property>
+            <property name="@tap2.fb1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap1 feedback to tap2</tr>
+            </property>
             <!-- @tap2.fb2 -->
-            <property name="@tap2.fb2" type="float" default="0" minvalue="0" maxvalue="1">tap2
-            feedback to tap2</property>
+            <property name="@tap2.fb2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap2 feedback to tap2</tr>
+            </property>
             <!-- @tap2.fb3 -->
-            <property name="@tap2.fb3" type="float" default="0" minvalue="0" maxvalue="1">tap3
-            feedback to tap2</property>
+            <property name="@tap2.fb3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap3 feedback to tap2</tr>
+            </property>
             <!-- @tap2.fb4 -->
-            <property name="@tap2.fb4" type="float" default="0" minvalue="0" maxvalue="1">tap4
-            feedback to tap2</property>
+            <property name="@tap2.fb4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap4 feedback to tap2</tr>
+            </property>
             <!-- @tap2.fb5 -->
-            <property name="@tap2.fb5" type="float" default="0" minvalue="0" maxvalue="1">tap5
-            feedback to tap2</property>
+            <property name="@tap2.fb5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap5 feedback to tap2</tr>
+            </property>
             <!-- @tap2.gain -->
             <property name="@tap2.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">tap2 common level</property>
+            units="decibel">
+                <tr lang="en">tap2 common level</tr>
+            </property>
             <!-- @tap2.in0 -->
-            <property name="@tap2.in0" type="float" default="1" minvalue="0" maxvalue="1">left
-            input level to tap2</property>
+            <property name="@tap2.in0" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">left input level to tap2</tr>
+            </property>
             <!-- @tap2.in1 -->
-            <property name="@tap2.in1" type="float" default="1" minvalue="0" maxvalue="1">right
-            input level to tap2</property>
+            <property name="@tap2.in1" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">right input level to tap2</tr>
+            </property>
             <!-- @tap3.delay -->
             <property name="@tap3.delay" type="float" default="0" minvalue="0" maxvalue="5000"
-            units="millisecond">tap3 delay time</property>
+            units="millisecond">
+                <tr lang="en">tap3 delay time</tr>
+            </property>
             <!-- @tap3.fb0 -->
-            <property name="@tap3.fb0" type="float" default="0" minvalue="0" maxvalue="1">tap0
-            feedback to tap3</property>
+            <property name="@tap3.fb0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap0 feedback to tap3</tr>
+            </property>
             <!-- @tap3.fb1 -->
-            <property name="@tap3.fb1" type="float" default="0" minvalue="0" maxvalue="1">tap1
-            feedback to tap3</property>
+            <property name="@tap3.fb1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap1 feedback to tap3</tr>
+            </property>
             <!-- @tap3.fb2 -->
-            <property name="@tap3.fb2" type="float" default="0" minvalue="0" maxvalue="1">tap2
-            feedback to tap3</property>
+            <property name="@tap3.fb2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap2 feedback to tap3</tr>
+            </property>
             <!-- @tap3.fb3 -->
-            <property name="@tap3.fb3" type="float" default="0" minvalue="0" maxvalue="1">tap3
-            feedback to tap3</property>
+            <property name="@tap3.fb3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap3 feedback to tap3</tr>
+            </property>
             <!-- @tap3.fb4 -->
-            <property name="@tap3.fb4" type="float" default="0" minvalue="0" maxvalue="1">tap4
-            feedback to tap3</property>
+            <property name="@tap3.fb4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap4 feedback to tap3</tr>
+            </property>
             <!-- @tap3.fb5 -->
-            <property name="@tap3.fb5" type="float" default="0" minvalue="0" maxvalue="1">tap5
-            feedback to tap3</property>
+            <property name="@tap3.fb5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap5 feedback to tap3</tr>
+            </property>
             <!-- @tap3.gain -->
             <property name="@tap3.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">tap3 common level</property>
+            units="decibel">
+                <tr lang="en">tap3 common level</tr>
+            </property>
             <!-- @tap3.in0 -->
-            <property name="@tap3.in0" type="float" default="1" minvalue="0" maxvalue="1">left
-            input level to tap3</property>
+            <property name="@tap3.in0" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">left input level to tap3</tr>
+            </property>
             <!-- @tap3.in1 -->
-            <property name="@tap3.in1" type="float" default="1" minvalue="0" maxvalue="1">right
-            input level to tap3</property>
+            <property name="@tap3.in1" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">right input level to tap3</tr>
+            </property>
             <!-- @tap4.delay -->
             <property name="@tap4.delay" type="float" default="0" minvalue="0" maxvalue="5000"
-            units="millisecond">tap4 delay time</property>
+            units="millisecond">
+                <tr lang="en">tap4 delay time</tr>
+            </property>
             <!-- @tap4.fb0 -->
-            <property name="@tap4.fb0" type="float" default="0" minvalue="0" maxvalue="1">tap0
-            feedback to tap4</property>
+            <property name="@tap4.fb0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap0 feedback to tap4</tr>
+            </property>
             <!-- @tap4.fb1 -->
-            <property name="@tap4.fb1" type="float" default="0" minvalue="0" maxvalue="1">tap1
-            feedback to tap4</property>
+            <property name="@tap4.fb1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap1 feedback to tap4</tr>
+            </property>
             <!-- @tap4.fb2 -->
-            <property name="@tap4.fb2" type="float" default="0" minvalue="0" maxvalue="1">tap2
-            feedback to tap4</property>
+            <property name="@tap4.fb2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap2 feedback to tap4</tr>
+            </property>
             <!-- @tap4.fb3 -->
-            <property name="@tap4.fb3" type="float" default="0" minvalue="0" maxvalue="1">tap3
-            feedback to tap4</property>
+            <property name="@tap4.fb3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap3 feedback to tap4</tr>
+            </property>
             <!-- @tap4.fb4 -->
-            <property name="@tap4.fb4" type="float" default="0" minvalue="0" maxvalue="1">tap4
-            feedback to tap4</property>
+            <property name="@tap4.fb4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap4 feedback to tap4</tr>
+            </property>
             <!-- @tap4.fb5 -->
-            <property name="@tap4.fb5" type="float" default="0" minvalue="0" maxvalue="1">tap5
-            feedback to tap4</property>
+            <property name="@tap4.fb5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap5 feedback to tap4</tr>
+            </property>
             <!-- @tap4.gain -->
             <property name="@tap4.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">tap4 common level</property>
+            units="decibel">
+                <tr lang="en">tap4 common level</tr>
+            </property>
             <!-- @tap4.in0 -->
-            <property name="@tap4.in0" type="float" default="1" minvalue="0" maxvalue="1">left
-            input level to tap4</property>
+            <property name="@tap4.in0" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">left input level to tap4</tr>
+            </property>
             <!-- @tap4.in1 -->
-            <property name="@tap4.in1" type="float" default="1" minvalue="0" maxvalue="1">right
-            input level to tap4</property>
+            <property name="@tap4.in1" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">right input level to tap4</tr>
+            </property>
             <!-- @tap5.delay -->
             <property name="@tap5.delay" type="float" default="0" minvalue="0" maxvalue="5000"
-            units="millisecond">tap5 delay time</property>
+            units="millisecond">
+                <tr lang="en">tap5 delay time</tr>
+            </property>
             <!-- @tap5.fb0 -->
-            <property name="@tap5.fb0" type="float" default="0" minvalue="0" maxvalue="1">tap0
-            feedback to tap5</property>
+            <property name="@tap5.fb0" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap0 feedback to tap5</tr>
+            </property>
             <!-- @tap5.fb1 -->
-            <property name="@tap5.fb1" type="float" default="0" minvalue="0" maxvalue="1">tap1
-            feedback to tap5</property>
+            <property name="@tap5.fb1" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap1 feedback to tap5</tr>
+            </property>
             <!-- @tap5.fb2 -->
-            <property name="@tap5.fb2" type="float" default="0" minvalue="0" maxvalue="1">tap2
-            feedback to tap5</property>
+            <property name="@tap5.fb2" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap2 feedback to tap5</tr>
+            </property>
             <!-- @tap5.fb3 -->
-            <property name="@tap5.fb3" type="float" default="0" minvalue="0" maxvalue="1">tap3
-            feedback to tap5</property>
+            <property name="@tap5.fb3" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap3 feedback to tap5</tr>
+            </property>
             <!-- @tap5.fb4 -->
-            <property name="@tap5.fb4" type="float" default="0" minvalue="0" maxvalue="1">tap4
-            feedback to tap5</property>
+            <property name="@tap5.fb4" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap4 feedback to tap5</tr>
+            </property>
             <!-- @tap5.fb5 -->
-            <property name="@tap5.fb5" type="float" default="0" minvalue="0" maxvalue="1">tap5
-            feedback to tap5</property>
+            <property name="@tap5.fb5" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">tap5 feedback to tap5</tr>
+            </property>
             <!-- @tap5.gain -->
             <property name="@tap5.gain" type="float" default="0" minvalue="-60" maxvalue="0"
-            units="decibel">tap5 common level</property>
+            units="decibel">
+                <tr lang="en">tap5 common level</tr>
+            </property>
             <!-- @tap5.in0 -->
-            <property name="@tap5.in0" type="float" default="1" minvalue="0" maxvalue="1">left
-            input level to tap5</property>
+            <property name="@tap5.in0" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">left input level to tap5</tr>
+            </property>
             <!-- @tap5.in1 -->
-            <property name="@tap5.in1" type="float" default="1" minvalue="0" maxvalue="1">right
-            input level to tap5</property>
+            <property name="@tap5.in1" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">right input level to tap5</tr>
+            </property>
         </properties>
         <methods>
             <!-- pingpong -->

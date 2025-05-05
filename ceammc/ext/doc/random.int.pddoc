@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="random.int">
         <title>random.int</title>
         <meta>
@@ -38,11 +38,17 @@
         </arguments>
         <properties>
             <!-- @max -->
-            <property name="@max" type="int" default="255">random range upper bound</property>
+            <property name="@max" type="int" default="255">
+                <tr lang="en">random range upper bound</tr>
+            </property>
             <!-- @min -->
-            <property name="@min" type="int" default="0">random range lower bound</property>
+            <property name="@min" type="int" default="0">
+                <tr lang="en">random range lower bound</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@seed" type="int" minvalue="0" default="0">
+                <tr lang="en">generator seed</tr>
+            </property>
         </properties>
         <methods>
             <!-- gen -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.c_pole">
         <title>flt.c_pole</title>
         <meta>
@@ -35,16 +35,25 @@
         <properties>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="1000"
-            units="hertz">center frequency</property>
+            units="hertz">
+                <tr lang="en">center frequency</tr>
+            </property>
             <!-- @hpf -->
-            <property name="@hpf" type="alias">ti @mode hpf</property>
+            <property name="@hpf" type="alias">
+                <tr lang="en">ti @mode hpf</tr>
+            </property>
             <!-- @lpf -->
-            <property name="@lpf" type="alias">to @mode lpf</property>
+            <property name="@lpf" type="alias">
+                <tr lang="en">to @mode lpf</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">filter
-            modey</property>
+            <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">
+                <tr lang="en">filter modey</tr>
+            </property>
             <!-- @rad -->
-            <property name="@rad" type="flag" access="initonly">use angular frequency</property>
+            <property name="@rad" type="flag" access="initonly">
+                <tr lang="en">use angular frequency</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

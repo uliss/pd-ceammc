@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="symbol.num_compare">
         <title>symbol.num_compare</title>
         <meta>
@@ -24,7 +24,9 @@
         </arguments>
         <properties>
             <!-- @with -->
-            <property name="@with" type="symbol" default="">symbol to compare</property>
+            <property name="@with" type="symbol" default="">
+                <tr lang="en">symbol to compare</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.eq_peak~">
         <title>flt.eq_peak~</title>
         <meta>
@@ -37,16 +37,24 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bandwidth -->
             <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
-            default="100">bandwidth of peak</property>
+            default="100">
+                <tr lang="en">bandwidth of peak</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="1000">peak frequency</property>
+            default="1000">
+                <tr lang="en">peak frequency</tr>
+            </property>
             <!-- @gain -->
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
-            default="0">level at fx (boost if &gt;0 or cut if &lt;0)</property>
+            default="0">
+                <tr lang="en">level at fx (boost if &gt;0 or cut if &lt;0)</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

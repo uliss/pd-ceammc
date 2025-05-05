@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="ui.tab" type="gui">
         <title>ui.tab</title>
         <meta>
@@ -31,62 +31,87 @@
         </mouse>
         <properties>
             <!-- @active_color -->
-            <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
-            red, green, blue values in 0-1 range)</property>
+            <property name="@active_color" type="list" default="0 0.75 1 1">
+                <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
-            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
+                <tr lang="en">element background color (list of red, green, blue values in 0-1
+                range)</tr>
+            </property>
             <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
-            of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
+                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @count -->
-            <property name="@count" type="int" default="0" access="readonly">number of
-            tabs</property>
+            <property name="@count" type="int" default="0" access="readonly">
+                <tr lang="en">number of tabs</tr>
+            </property>
             <!-- @current -->
-            <property name="@current" type="int" default="0" access="readonly">current selected
-            index (in switch mode)</property>
+            <property name="@current" type="int" default="0" access="readonly">
+                <tr lang="en">current selected index (in switch mode)</tr>
+            </property>
             <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            enum="Courier DejaVu Helvetica Monaco Times">
+                <tr lang="en">fontname</tr>
+            </property>
             <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+                <tr lang="en">fontsize</tr>
+            </property>
             <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+                <tr lang="en">font slant</tr>
+            </property>
             <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
+                <tr lang="en">font weight</tr>
+            </property>
             <!-- @hover_color -->
-            <property name="@hover_color" type="list" default="0.5 0.5 0.5 1">hover color (list of
-            red, green, blue values in 0-1 range)</property>
+            <property name="@hover_color" type="list" default="0.5 0.5 0.5 1">
+                <tr lang="en">hover color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @items -->
-            <property name="@items" type="list" default="">list of tab names</property>
+            <property name="@items" type="list" default="">
+                <tr lang="en">list of tab names</tr>
+            </property>
             <!-- @orientation -->
-            <property name="@orientation" type="bool" default="0">tab orientation. 1 is vertical, 0
-            is horizontal</property>
+            <property name="@orientation" type="bool" default="0">
+                <tr lang="en">tab orientation. 1 is vertical, 0 is horizontal</tr>
+            </property>
             <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <property name="@pinned" type="bool" default="0">
+                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+            </property>
             <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">preset name for using with
-            [ui.preset]</property>
+            <property name="@presetname" type="symbol" default="(null)">
+                <tr lang="en">preset name for using with [ui.preset]</tr>
+            </property>
             <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@receive" type="symbol" default="(null)">
+                <tr lang="en">receive source</tr>
+            </property>
             <!-- @selected -->
-            <property name="@selected" type="list" access="readonly" default="">list of selected
-            items (in toggle mode)</property>
+            <property name="@selected" type="list" access="readonly" default="">
+                <tr lang="en">list of selected items (in toggle mode)</tr>
+            </property>
             <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@send" type="symbol" default="(null)">
+                <tr lang="en">send destination</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="list" default="100 15">element size (width, height
-            pair)</property>
+            <property name="@size" type="list" default="100 15">
+                <tr lang="en">element size (width, height pair)</tr>
+            </property>
             <!-- @text_color -->
-            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
-            green, blue values in 0-1 range)</property>
+            <property name="@text_color" type="list" default="0 0 0 1">
+                <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @toggle -->
-            <property name="@toggle" type="bool" default="0">toggle mode. In toggle moe multiple
-            selection is possible</property>
+            <property name="@toggle" type="bool" default="0">
+                <tr lang="en">toggle mode. In toggle moe multiple selection is possible</tr>
+            </property>
         </properties>
         <methods>
             <!-- + STEP -->

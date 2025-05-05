@@ -439,7 +439,7 @@ of segments;
 #X text 200 5938 renders the envelope into the array;
 #X obj 30 5966 env2vline;
 #X text 200 5966 сonverts the envelope into the sequence of messages
-for vline object;
+for [vline~] object;
 #X obj 30 6006 envelope;
 #X text 200 6006 envelope data type;
 #X obj 30 6034 vline2env;
@@ -2052,7 +2052,7 @@ ui.spectroscope~-help.pd;
 #X text 20 26873 version: v0.9.8 \, license: GPL3;
 #X obj 20 26901 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 26925 ui.link @title Generated with pddoc v0.10.0 @url
+#X obj 20 26925 ui.link @title Generated with pddoc v0.11.0 @url
 https://github.com/uliss/pddoc;
 #X obj 670 26888 loadmsg 0;
 #X obj 670 26923 switch~;

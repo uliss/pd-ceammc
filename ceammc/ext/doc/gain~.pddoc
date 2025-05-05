@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="gain~">
         <title>gain~</title>
         <meta>
@@ -26,14 +26,18 @@
         </arguments>
         <properties>
             <!-- @db -->
-            <property name="@db" type="list" minvalue="-144" default="-144">gain decibel (dbfs)
-            values</property>
+            <property name="@db" type="list" minvalue="-144" default="-144">
+                <tr lang="en">gain decibel (dbfs) values</tr>
+            </property>
             <!-- @smooth_time -->
             <property name="@smooth_time" type="float" minvalue="1" default="20"
-            units="millisecond">gain change smooth time</property>
+            units="millisecond">
+                <tr lang="en">gain change smooth time</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="list" minvalue="0" default="0">gain amplitude
-            values</property>
+            <property name="@value" type="list" minvalue="0" default="0">
+                <tr lang="en">gain amplitude values</tr>
+            </property>
         </properties>
         <methods>
             <!-- + -->

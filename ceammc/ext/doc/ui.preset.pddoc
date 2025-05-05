@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="ui.preset" type="gui">
         <title>ui.preset</title>
         <meta>
@@ -40,46 +40,63 @@
         </mouse>
         <properties>
             <!-- @active_color -->
-            <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
-            red, green, blue values in 0-1 range)</property>
+            <property name="@active_color" type="list" default="0 0.75 1 1">
+                <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
-            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
+                <tr lang="en">element background color (list of red, green, blue values in 0-1
+                range)</tr>
+            </property>
             <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
-            of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
+                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @current -->
-            <property name="@current" type="int" default="-1" access="readonly">current preset
-            index</property>
+            <property name="@current" type="int" default="-1" access="readonly">
+                <tr lang="en">current preset index</tr>
+            </property>
             <!-- @empty_color -->
-            <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">empty cell color
-            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">
+                <tr lang="en">empty cell color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            enum="Courier DejaVu Helvetica Monaco Times">
+                <tr lang="en">fontname</tr>
+            </property>
             <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+                <tr lang="en">fontsize</tr>
+            </property>
             <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+                <tr lang="en">font slant</tr>
+            </property>
             <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
+                <tr lang="en">font weight</tr>
+            </property>
             <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <property name="@pinned" type="bool" default="0">
+                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+            </property>
             <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@receive" type="symbol" default="(null)">
+                <tr lang="en">receive source</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="list" default="102 42">element size (width, height
-            pair)</property>
+            <property name="@size" type="list" default="102 42">
+                <tr lang="en">element size (width, height pair)</tr>
+            </property>
             <!-- @stored_color -->
-            <property name="@stored_color" type="list" default="0.5 0.5 0.5 1">stored cell color
-            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@stored_color" type="list" default="0.5 0.5 0.5 1">
+                <tr lang="en">stored cell color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @text_color -->
-            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
-            green, blue values in 0-1 range)</property>
+            <property name="@text_color" type="list" default="0 0 0 1">
+                <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
         </properties>
         <methods>
             <!-- clear -->

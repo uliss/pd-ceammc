@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.multiplex2~">
         <title>flow.multiplex2~</title>
         <meta>
@@ -32,8 +32,9 @@
         </arguments>
         <properties>
             <!-- @value -->
-            <property name="@value" type="list" default="1 0">gain coefficients per each
-            input</property>
+            <property name="@value" type="list" default="1 0">
+                <tr lang="en">gain coefficients per each input</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">

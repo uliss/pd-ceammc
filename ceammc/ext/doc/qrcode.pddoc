@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="qrcode">
         <title>qrcode</title>
         <meta>
@@ -26,18 +26,29 @@
         </arguments>
         <properties>
             <!-- @high -->
-            <property name="@high" type="alias">alias to @quality high</property>
+            <property name="@high" type="alias">
+                <tr lang="en">alias to @quality high</tr>
+            </property>
             <!-- @low -->
-            <property name="@low" type="alias">alias to @quality low</property>
+            <property name="@low" type="alias">
+                <tr lang="en">alias to @quality low</tr>
+            </property>
             <!-- @medium -->
-            <property name="@medium" type="alias">alias to @quality medium</property>
+            <property name="@medium" type="alias">
+                <tr lang="en">alias to @quality medium</tr>
+            </property>
             <!-- @quality -->
             <property name="@quality" type="symbol" enum="low medium quartile high" default="low">
-            encoding quality</property>
+                <tr lang="en">encoding quality</tr>
+            </property>
             <!-- @quartile -->
-            <property name="@quartile" type="alias">alias to @quality quartile</property>
+            <property name="@quartile" type="alias">
+                <tr lang="en">alias to @quality quartile</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="symbol" default="">string value</property>
+            <property name="@value" type="symbol" default="">
+                <tr lang="en">string value</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

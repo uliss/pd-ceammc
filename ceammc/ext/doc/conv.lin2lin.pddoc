@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.lin2lin">
         <title>conv.lin2lin</title>
         <meta>
@@ -46,23 +46,41 @@
         <properties>
             <!-- @clip -->
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
-            noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip both).</property>
+                <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
+                both).</tr>
+            </property>
             <!-- @in_from -->
-            <property name="@in_from" type="float" default="0">begin of input range</property>
+            <property name="@in_from" type="float" default="0">
+                <tr lang="en">begin of input range</tr>
+            </property>
             <!-- @in_to -->
-            <property name="@in_to" type="float" default="127">end of input range</property>
+            <property name="@in_to" type="float" default="127">
+                <tr lang="en">end of input range</tr>
+            </property>
             <!-- @max -->
-            <property name="@max" type="alias">alias to @clip max</property>
+            <property name="@max" type="alias">
+                <tr lang="en">alias to @clip max</tr>
+            </property>
             <!-- @min -->
-            <property name="@min" type="alias">alias to @clip min</property>
+            <property name="@min" type="alias">
+                <tr lang="en">alias to @clip min</tr>
+            </property>
             <!-- @minmax -->
-            <property name="@minmax" type="alias">alias to @clip minmax</property>
+            <property name="@minmax" type="alias">
+                <tr lang="en">alias to @clip minmax</tr>
+            </property>
             <!-- @noclip -->
-            <property name="@noclip" type="alias">alias to @clip noclip</property>
+            <property name="@noclip" type="alias">
+                <tr lang="en">alias to @clip noclip</tr>
+            </property>
             <!-- @out_from -->
-            <property name="@out_from" type="float" default="0">begin of output range</property>
+            <property name="@out_from" type="float" default="0">
+                <tr lang="en">begin of output range</tr>
+            </property>
             <!-- @out_to -->
-            <property name="@out_to" type="float" default="1">end of output range</property>
+            <property name="@out_to" type="float" default="1">
+                <tr lang="en">end of output range</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

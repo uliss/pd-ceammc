@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.rotate">
         <title>list.rotate</title>
         <meta>
@@ -34,8 +34,10 @@
         </arguments>
         <properties>
             <!-- @step -->
-            <property name="@step" type="int" default="1">rotate step. Negative value change
-            rotation direction to opposite</property>
+            <property name="@step" type="int" default="1">
+                <tr lang="en">rotate step. Negative value change rotation direction to
+                opposite</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

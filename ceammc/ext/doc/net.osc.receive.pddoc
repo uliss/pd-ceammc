@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="net.osc.receive">
         <title>net.osc.receive</title>
         <meta>
@@ -36,12 +36,17 @@
         </arguments>
         <properties>
             <!-- @path -->
-            <property name="@path" type="symbol" default="">OSC listen path</property>
+            <property name="@path" type="symbol" default="">
+                <tr lang="en">OSC listen path</tr>
+            </property>
             <!-- @server -->
-            <property name="@server" type="symbol" default="default">OSC server name</property>
+            <property name="@server" type="symbol" default="default">
+                <tr lang="en">OSC server name</tr>
+            </property>
             <!-- @types -->
-            <property name="@types" type="symbol" default="none">expected OSC type
-            string</property>
+            <property name="@types" type="symbol" default="none">
+                <tr lang="en">expected OSC type string</tr>
+            </property>
         </properties>
         <methods />
         <inlets>

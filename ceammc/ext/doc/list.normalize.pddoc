@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.normalize">
         <title>list.normalize</title>
         <meta>
@@ -24,12 +24,17 @@
         </info>
         <properties>
             <!-- @by -->
-            <property name="@by" type="symbol" enum="sum range" default="sum">normalization
-            mode</property>
+            <property name="@by" type="symbol" enum="sum range" default="sum">
+                <tr lang="en">normalization mode</tr>
+            </property>
             <!-- @range -->
-            <property name="@range" type="alias">alias to @by range</property>
+            <property name="@range" type="alias">
+                <tr lang="en">alias to @by range</tr>
+            </property>
             <!-- @sum -->
-            <property name="@sum" type="alias">alias to @by sum</property>
+            <property name="@sum" type="alias">
+                <tr lang="en">alias to @by sum</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

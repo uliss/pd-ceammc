@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.edge2bang">
         <title>conv.edge2bang</title>
         <meta>
@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">edge detector for numeric stream</tr>
-                <tr lang="ru">детектор переходного для численного потока</tr>
+                <tr lang="ru">детектор перехода для численного потока</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -22,14 +22,21 @@
         </meta>
         <properties>
             <!-- @both -->
-            <property name="@both" type="alias">alias to @mode both</property>
+            <property name="@both" type="alias">
+                <tr lang="en">alias to @mode both</tr>
+            </property>
             <!-- @down -->
-            <property name="@down" type="alias">alias to @mode down</property>
+            <property name="@down" type="alias">
+                <tr lang="en">alias to @mode down</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="up down both" default="up">edge detection
-            mode</property>
+            <property name="@mode" type="symbol" enum="up down both" default="up">
+                <tr lang="en">edge detection mode</tr>
+            </property>
             <!-- @up -->
-            <property name="@up" type="alias">alias to @mode up</property>
+            <property name="@up" type="alias">
+                <tr lang="en">alias to @mode up</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

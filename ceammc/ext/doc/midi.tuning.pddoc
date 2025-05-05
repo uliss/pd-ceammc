@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.tuning">
         <title>midi.tuning</title>
         <meta>
@@ -25,11 +25,13 @@
         </arguments>
         <properties>
             <!-- @base -->
-            <property name="@base" type="int" minvalue="0" maxvalue="11" default="9">base pitch (C:
-            0, A: 9, etc..)</property>
+            <property name="@base" type="int" minvalue="0" maxvalue="11" default="9">
+                <tr lang="en">base pitch (C: 0, A: 9, etc..)</tr>
+            </property>
             <!-- @dev -->
-            <property name="@dev" type="list" default="0 0 0 0 0 0 0 0 0 0 0 0">list of deviations
-            in cents</property>
+            <property name="@dev" type="list" default="0 0 0 0 0 0 0 0 0 0 0 0">
+                <tr lang="en">list of deviations in cents</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

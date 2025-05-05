@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.less">
         <title>flow.less</title>
         <meta>
@@ -33,8 +33,9 @@
         </arguments>
         <properties>
             <!-- @values -->
-            <property name="@values" type="list" access="initonly" default="">compare values: list
-            of floats in ascending order</property>
+            <property name="@values" type="list" access="initonly" default="">
+                <tr lang="en">compare values: list of floats in ascending order</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

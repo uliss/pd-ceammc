@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="osc.pulse~">
         <title>osc.pulse~</title>
         <meta>
@@ -31,13 +31,18 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @duty -->
-            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
-            cycle</property>
+            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">
+                <tr lang="en">duty cycle</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050"
-            units="hertz">frequency</property>
+            units="hertz">
+                <tr lang="en">frequency</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

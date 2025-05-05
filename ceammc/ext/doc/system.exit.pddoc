@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="system.exit">
         <title>system.exit</title>
         <meta>
@@ -23,13 +23,17 @@
         </arguments>
         <properties>
             <!-- @auto -->
-            <property name="@auto" type="bool" default="0">close automatically, without incoming
-            call</property>
+            <property name="@auto" type="bool" default="0">
+                <tr lang="en">close automatically, without incoming call</tr>
+            </property>
             <!-- @delay -->
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">exit
-            PureData after specified delay time</property>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
+                <tr lang="en">exit PureData after specified delay time</tr>
+            </property>
             <!-- @rc -->
-            <property name="@rc" type="int" default="0">exit code</property>
+            <property name="@rc" type="int" default="0">
+                <tr lang="en">exit code</tr>
+            </property>
         </properties>
         <methods>
             <!-- exit -->

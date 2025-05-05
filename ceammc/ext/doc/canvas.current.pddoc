@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="canvas.current">
         <title>canvas.current</title>
         <meta>
@@ -22,42 +22,54 @@
         </meta>
         <properties>
             <!-- @abstraction -->
-            <property name="@abstraction" type="bool" access="readonly" default="1">1 if canvas is
-            abstraction</property>
+            <property name="@abstraction" type="bool" access="readonly" default="1">
+                <tr lang="en">1 if canvas is abstraction</tr>
+            </property>
             <!-- @args -->
-            <property name="@args" type="list" access="readonly" default="">canvas creation
-            arguments</property>
+            <property name="@args" type="list" access="readonly" default="">
+                <tr lang="en">canvas creation arguments</tr>
+            </property>
             <!-- @dir -->
-            <property name="@dir" type="symbol" access="readonly" default="/">canvas directory
-            (only if top level or abstraction)</property>
+            <property name="@dir" type="symbol" access="readonly" default="/">
+                <tr lang="en">canvas directory (only if top level or abstraction)</tr>
+            </property>
             <!-- @font -->
-            <property name="@font" type="int" access="readonly" default="10">canvas font
-            size</property>
+            <property name="@font" type="int" access="readonly" default="10">
+                <tr lang="en">canvas font size</tr>
+            </property>
             <!-- @height -->
-            <property name="@height" type="int" access="readonly" default="400">canvas height
-            (window or GOP)</property>
+            <property name="@height" type="int" access="readonly" default="400">
+                <tr lang="en">canvas height (window or GOP)</tr>
+            </property>
             <!-- @name -->
-            <property name="@name" type="symbol" access="readonly" default="test_canvas">canvas
-            name</property>
+            <property name="@name" type="symbol" access="readonly" default="test_canvas">
+                <tr lang="en">canvas name</tr>
+            </property>
             <!-- @paths -->
-            <property name="@paths" type="list" access="readonly" default="">canvas search
-            paths</property>
+            <property name="@paths" type="list" access="readonly" default="">
+                <tr lang="en">canvas search paths</tr>
+            </property>
             <!-- @root -->
-            <property name="@root" type="bool" access="readonly" default="1">1 if canvas is
-            top-level (window)</property>
+            <property name="@root" type="bool" access="readonly" default="1">
+                <tr lang="en">1 if canvas is top-level (window)</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="list" access="readonly" default="600 400">canvas
-            dimensions. If root canvas (window) return window size, if subpatch return Graph on
-            Parent size</property>
+            <property name="@size" type="list" access="readonly" default="600 400">
+                <tr lang="en">canvas dimensions. If root canvas (window) return window size, if
+                subpatch return Graph on Parent size</tr>
+            </property>
             <!-- @width -->
-            <property name="@width" type="int" access="readonly" default="600">canvas width (window
-            or GOP)</property>
+            <property name="@width" type="int" access="readonly" default="600">
+                <tr lang="en">canvas width (window or GOP)</tr>
+            </property>
             <!-- @x -->
-            <property name="@x" type="int" access="readonly" default="0">canvas x-pos (window or
-            GOP)</property>
+            <property name="@x" type="int" access="readonly" default="0">
+                <tr lang="en">canvas x-pos (window or GOP)</tr>
+            </property>
             <!-- @y -->
-            <property name="@y" type="int" access="readonly" default="0">canvas y-pos (window or
-            GOP)</property>
+            <property name="@y" type="int" access="readonly" default="0">
+                <tr lang="en">canvas y-pos (window or GOP)</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

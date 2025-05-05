@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="envelope">
         <title>envelope</title>
         <meta>
@@ -60,19 +60,25 @@
         <properties>
             <!-- @length -->
             <property name="@length" type="float" units="millisecond" access="readonly" default="0"
-            minvalue="0">total envelope time length</property>
+            minvalue="0">
+                <tr lang="en">total envelope time length</tr>
+            </property>
             <!-- @npoints -->
-            <property name="@npoints" type="int" access="readonly" minvalue="0" default="0">number
-            of points</property>
+            <property name="@npoints" type="int" access="readonly" minvalue="0" default="0">
+                <tr lang="en">number of points</tr>
+            </property>
             <!-- @points -->
-            <property name="@points" type="list" access="readonly" default="">list of point times
-            (ms)</property>
+            <property name="@points" type="list" access="readonly" default="">
+                <tr lang="en">list of point times (ms)</tr>
+            </property>
             <!-- @stops -->
-            <property name="@stops" type="list" access="readonly" default="">list of stop
-            points</property>
+            <property name="@stops" type="list" access="readonly" default="">
+                <tr lang="en">list of stop points</tr>
+            </property>
             <!-- @values -->
-            <property name="@values" type="list" access="readonly" default="">list of point
-            values</property>
+            <property name="@values" type="list" access="readonly" default="">
+                <tr lang="en">list of point values</tr>
+            </property>
         </properties>
         <methods>
             <!-- * -->

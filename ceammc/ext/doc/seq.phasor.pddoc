@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="seq.phasor">
         <title>seq.phasor</title>
         <meta>
@@ -29,18 +29,25 @@
         <properties>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
-            units="hertz">frequency</property>
+            units="hertz">
+                <tr lang="en">frequency</tr>
+            </property>
             <!-- @invert -->
-            <property name="@invert" type="bool" default="0">saw inversion mode. If true, outputs
-            descreasing waveform</property>
+            <property name="@invert" type="bool" default="0">
+                <tr lang="en">saw inversion mode. If true, outputs descreasing waveform</tr>
+            </property>
             <!-- @on -->
-            <property name="@on" type="bool" default="0">on/off state</property>
+            <property name="@on" type="bool" default="0">
+                <tr lang="en">on/off state</tr>
+            </property>
             <!-- @open -->
-            <property name="@open" type="bool" default="0">output in open [0..1) range, otherwise
-            output range is [0..1]</property>
+            <property name="@open" type="bool" default="0">
+                <tr lang="en">output in open [0..1) range, otherwise output range is [0..1]</tr>
+            </property>
             <!-- @steps -->
-            <property name="@steps" type="int" default="128" minvalue="3">numbers of
-            steps</property>
+            <property name="@steps" type="int" default="128" minvalue="3">
+                <tr lang="en">numbers of steps</tr>
+            </property>
         </properties>
         <methods>
             <!-- phase -->

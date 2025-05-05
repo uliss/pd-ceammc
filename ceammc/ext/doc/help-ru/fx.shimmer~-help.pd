@@ -38,12 +38,13 @@ band. Тип: float. Диапазон: 1…8;
 #X obj 735 527 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 559 @id;
-#X text 245 559 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/fx_shimmer/PROP_NAME
-osc address \, if empty bind to /fx_shimmer/PROP_NAME. Тип: symbol.;
+#X text 245 559 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/fx_shimmer/ИМЯ_СВОЙСТВА \, в противном случае к /fx_shimmer/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
 #X msg 110 631 @osc;
-#X text 245 631 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 631 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 673 @active;
 #X text 245 673 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

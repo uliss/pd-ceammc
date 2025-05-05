@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.clock">
         <title>midi.clock</title>
         <meta>
@@ -27,9 +27,10 @@
         </arguments>
         <properties>
             <!-- @div -->
-            <property name="@div" type="int" enum="0 4 8 16 32" default="0">clock subdivision. If
-            0: bang each incoming midi clock message, if 4: output every quoter note, 8: every
-            eight note etc.</property>
+            <property name="@div" type="int" enum="0 4 8 16 32" default="0">
+                <tr lang="en">clock subdivision. If 0: bang each incoming midi clock message, if 4:
+                output every quoter note, 8: every eight note etc.</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

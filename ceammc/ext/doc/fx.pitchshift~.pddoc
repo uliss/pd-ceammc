@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.pitchshift~">
         <title>fx.pitchshift~</title>
         <meta>
@@ -26,23 +26,32 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
-            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
-            wet.</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet.</tr>
+            </property>
             <!-- @fade -->
             <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
-            default="100">crossfade duration</property>
+            default="100">
+                <tr lang="en">crossfade duration</tr>
+            </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" minvalue="-38" maxvalue="60" default="0">
-            pitchshift in semitones</property>
+                <tr lang="en">pitchshift in semitones</tr>
+            </property>
             <!-- @window -->
             <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
-            default="200">the window size</property>
+            default="200">
+                <tr lang="en">the window size</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

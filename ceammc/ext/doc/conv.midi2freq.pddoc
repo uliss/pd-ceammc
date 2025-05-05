@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.midi2freq">
         <title>conv.midi2freq</title>
         <meta>
@@ -34,11 +34,14 @@
         <properties>
             <!-- @a -->
             <property name="@a" type="float" default="440" minvalue="200" maxvalue="600"
-            units="hertz">A pitch frequency</property>
+            units="hertz">
+                <tr lang="en">A pitch frequency</tr>
+            </property>
             <!-- @t -->
             <property name="@t" type="symbol" default="eq"
             enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
-            temperament</property>
+                <tr lang="en">temperament</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

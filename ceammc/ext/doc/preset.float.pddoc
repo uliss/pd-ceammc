@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="preset.float">
         <title>preset.float</title>
         <meta>
@@ -40,20 +40,26 @@
         </arguments>
         <properties>
             <!-- @global -->
-            <property name="@global" type="flag" default="0" access="initonly">use global path like
-            /ID</property>
+            <property name="@global" type="flag" default="0" access="initonly">
+                <tr lang="en">use global path like /ID</tr>
+            </property>
             <!-- @id -->
-            <property name="@id" type="symbol" access="initonly" default="">preset id</property>
+            <property name="@id" type="symbol" access="initonly" default="">
+                <tr lang="en">preset id</tr>
+            </property>
             <!-- @init -->
-            <property name="@init" type="float" default="0" access="initonly">init float
-            value</property>
+            <property name="@init" type="float" default="0" access="initonly">
+                <tr lang="en">init float value</tr>
+            </property>
             <!-- @path -->
-            <property name="@path" type="symbol" access="readonly" default="">property OSC-like
-            path that includes id, abstraction name and may be subpatch name separated by
-            slashes.</property>
+            <property name="@path" type="symbol" access="readonly" default="">
+                <tr lang="en">property OSC-like path that includes id, abstraction name and may be
+                subpatch name separated by slashes.</tr>
+            </property>
             <!-- @subpatch -->
-            <property name="@subpatch" type="flag" default="0" access="initonly">include subpatch
-            name to path</property>
+            <property name="@subpatch" type="flag" default="0" access="initonly">
+                <tr lang="en">include subpatch name to path</tr>
+            </property>
         </properties>
         <methods>
             <!-- clear -->

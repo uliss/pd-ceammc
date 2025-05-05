@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.append">
         <title>flow.append</title>
         <meta>
@@ -31,10 +31,13 @@
         <properties>
             <!-- @delay -->
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
-            append delay. If &lt;0 append immediately at the same logical time, if equal zero -
-            output after next DSP block.</property>
+                <tr lang="en">append delay. If &lt;0 append immediately at the same logical time,
+                if equal zero - output after next DSP block.</tr>
+            </property>
             <!-- @msg -->
-            <property name="@msg" type="list" default="">appended message</property>
+            <property name="@msg" type="list" default="">
+                <tr lang="en">appended message</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

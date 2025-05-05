@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.glitch~">
         <title>synth.glitch~</title>
         <meta>
@@ -30,10 +30,14 @@
         </arguments>
         <properties>
             <!-- @clip -->
-            <property name="@clip" type="bool" default="1">clip output to -1..+1 range. Use false
-            value only when you are know what are you doing and at your own risk!</property>
+            <property name="@clip" type="bool" default="1">
+                <tr lang="en">clip output to -1..+1 range. Use false value only when you are know
+                what are you doing and at your own risk!</tr>
+            </property>
             <!-- @expr -->
-            <property name="@expr" type="list" default="">expression</property>
+            <property name="@expr" type="list" default="">
+                <tr lang="en">expression</tr>
+            </property>
         </properties>
         <methods>
             <!-- byte -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.guido2note">
         <title>conv.guido2note</title>
         <meta>
@@ -38,8 +38,9 @@
         </arguments>
         <properties>
             <!-- @tempo -->
-            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">current
-            tempo</property>
+            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">
+                <tr lang="en">current tempo</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

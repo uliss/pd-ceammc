@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="pan.spread~">
         <title>pan.spread~</title>
         <meta>
@@ -23,20 +23,28 @@
         </arguments>
         <properties>
             <!-- @center -->
-            <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">shift
-            the centre of the distribution</property>
+            <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">
+                <tr lang="en">shift the centre of the distribution</tr>
+            </property>
             <!-- @coeffs -->
-            <property name="@coeffs" type="list" access="readonly" default="">list of gain
-            pairs</property>
+            <property name="@coeffs" type="list" access="readonly" default="">
+                <tr lang="en">list of gain pairs</tr>
+            </property>
             <!-- @compensate -->
-            <property name="@compensate" type="bool" default="0">compensate output level: divide
-            amplitude to number of input channels</property>
+            <property name="@compensate" type="bool" default="0">
+                <tr lang="en">compensate output level: divide amplitude to number of input
+                channels</tr>
+            </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="2" maxvalue="16" default="2"
-            access="initonly">number of input channels</property>
+            access="initonly">
+                <tr lang="en">number of input channels</tr>
+            </property>
             <!-- @spread -->
-            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">for @spread
-            = 0, all channels are in the centre, for 1, they have maximum distribution</property>
+            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">for @spread = 0, all channels are in the centre, for 1, they have
+                maximum distribution</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">

@@ -29,12 +29,13 @@
 #X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 504 @id;
-#X text 245 504 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/osc_square/PROP_NAME
-osc address \, if empty bind to /osc_square/PROP_NAME. Тип: symbol.;
+#X text 245 504 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/osc_square/ИМЯ_СВОЙСТВА \, в противном случае к /osc_square/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
 #X msg 110 576 @osc;
-#X text 245 576 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 576 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 618 @active;
 #X text 245 618 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

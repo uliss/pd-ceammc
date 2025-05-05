@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.range">
         <title>list.range</title>
         <meta>
@@ -28,14 +28,21 @@
         </info>
         <properties>
             <!-- @a -->
-            <property name="@a" type="alias">alias to @type any, accept all</property>
+            <property name="@a" type="alias">
+                <tr lang="en">alias to @type any, accept all</tr>
+            </property>
             <!-- @f -->
-            <property name="@f" type="alias">alias to @type float, accept only floats</property>
+            <property name="@f" type="alias">
+                <tr lang="en">alias to @type float, accept only floats</tr>
+            </property>
             <!-- @s -->
-            <property name="@s" type="alias">alias to @type symbol, accept only symbols</property>
+            <property name="@s" type="alias">
+                <tr lang="en">alias to @type symbol, accept only symbols</tr>
+            </property>
             <!-- @type -->
-            <property name="@type" type="symbol" enum="float symbol any" default="float">type of
-            accepted atoms</property>
+            <property name="@type" type="symbol" enum="float symbol any" default="float">
+                <tr lang="en">type of accepted atoms</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

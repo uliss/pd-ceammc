@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="proto.moppy">
         <title>proto.moppy</title>
         <meta>
@@ -21,13 +21,17 @@
         </info>
         <properties>
             <!-- @device -->
-            <property name="@device" type="int" default="1" minvalue="1" maxvalue="255">moppy
-            device ID</property>
+            <property name="@device" type="int" default="1" minvalue="1" maxvalue="255">
+                <tr lang="en">moppy device ID</tr>
+            </property>
             <!-- @floppy -->
-            <property name="@floppy" type="int" default="1" minvalue="1" maxvalue="16">floppy ID on
-            moppy device</property>
+            <property name="@floppy" type="int" default="1" minvalue="1" maxvalue="16">
+                <tr lang="en">floppy ID on moppy device</tr>
+            </property>
             <!-- @v -->
-            <property name="@v" type="int" default="2" enum="2 1">MOPPY protocol version</property>
+            <property name="@v" type="int" default="2" enum="2 1">
+                <tr lang="en">MOPPY protocol version</tr>
+            </property>
         </properties>
         <methods>
             <!-- bend:f -->

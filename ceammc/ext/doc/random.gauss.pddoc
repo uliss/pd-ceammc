@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="random.gauss">
         <title>random.gauss</title>
         <meta>
@@ -41,12 +41,17 @@
         </arguments>
         <properties>
             <!-- @mu -->
-            <property name="@mu" type="float" default="0">the mean</property>
+            <property name="@mu" type="float" default="0">
+                <tr lang="en">the mean</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@seed" type="int" minvalue="0" default="0">
+                <tr lang="en">generator seed</tr>
+            </property>
             <!-- @sigma -->
-            <property name="@sigma" type="float" minvalue="0" default="0">the standard
-            deviation</property>
+            <property name="@sigma" type="float" minvalue="0" default="0">
+                <tr lang="en">the standard deviation</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.insert">
         <title>list.insert</title>
         <meta>
@@ -30,10 +30,13 @@
         </arguments>
         <properties>
             <!-- @index -->
-            <property name="@index" type="int" default="0" minvalue="0">insert element
-            index</property>
+            <property name="@index" type="int" default="0" minvalue="0">
+                <tr lang="en">insert element index</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="list" default="">list content</property>
+            <property name="@value" type="list" default="">
+                <tr lang="en">list content</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

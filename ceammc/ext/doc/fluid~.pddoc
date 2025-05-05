@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fluid~">
         <title>fluid~</title>
         <meta>
@@ -35,48 +35,67 @@
         </arguments>
         <properties>
             <!-- @avoices -->
-            <property name="@avoices" type="float" default="0" access="readonly">number midi
-            channels</property>
+            <property name="@avoices" type="float" default="0" access="readonly">
+                <tr lang="en">number midi channels</tr>
+            </property>
             <!-- @bufsize -->
             <property name="@bufsize" type="float" units="sample" default="0" access="readonly">
-            internal buffer size</property>
+                <tr lang="en">internal buffer size</tr>
+            </property>
             <!-- @cpuload -->
-            <property name="@cpuload" type="float" default="0" access="readonly">current cpu
-            load</property>
+            <property name="@cpuload" type="float" default="0" access="readonly">
+                <tr lang="en">current cpu load</tr>
+            </property>
             <!-- @gain -->
-            <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
-            gain</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">
+                <tr lang="en">output gain</tr>
+            </property>
             <!-- @n -->
-            <property name="@n" type="int" default="16" access="readonly">number of active
-            voices</property>
+            <property name="@n" type="int" default="16" access="readonly">
+                <tr lang="en">number of active voices</tr>
+            </property>
             <!-- @poly -->
-            <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
-            of voices</property>
+            <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">
+                <tr lang="en">max number of voices</tr>
+            </property>
             <!-- @presets -->
-            <property name="@presets" type="list" default="" access="readonly">presets name for
-            current soundfont</property>
+            <property name="@presets" type="list" default="" access="readonly">
+                <tr lang="en">presets name for current soundfont</tr>
+            </property>
             <!-- @reverb_damp -->
-            <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
+            <property name="@reverb_damp" type="float" default="0">
+                <tr lang="en">reverberation damp</tr>
+            </property>
             <!-- @reverb_level -->
-            <property name="@reverb_level" type="float" default="0">reverberation level</property>
+            <property name="@reverb_level" type="float" default="0">
+                <tr lang="en">reverberation level</tr>
+            </property>
             <!-- @reverb_room -->
-            <property name="@reverb_room" type="float" default="0">reverberation room
-            size</property>
+            <property name="@reverb_room" type="float" default="0">
+                <tr lang="en">reverberation room size</tr>
+            </property>
             <!-- @reverb_width -->
-            <property name="@reverb_width" type="float" default="0">reverberation spread
-            width</property>
+            <property name="@reverb_width" type="float" default="0">
+                <tr lang="en">reverberation spread width</tr>
+            </property>
             <!-- @sf -->
-            <property name="@sf" type="symbol" default="default">soundfont path, you can use
-            **default** value to load default soundfont</property>
+            <property name="@sf" type="symbol" default="default">
+                <tr lang="en">soundfont path, you can use **default** value to load default
+                soundfont</tr>
+            </property>
             <!-- @soundfonts -->
-            <property name="@soundfonts" type="list" access="readonly" default="">list of found
-            soundfonts</property>
+            <property name="@soundfonts" type="list" access="readonly" default="">
+                <tr lang="en">list of found soundfonts</tr>
+            </property>
             <!-- @version -->
-            <property name="@version" type="symbol" access="readonly" default="2.3.2">FluidSynth
-            version</property>
+            <property name="@version" type="symbol" access="readonly" default="2.3.2">
+                <tr lang="en">FluidSynth version</tr>
+            </property>
             <!-- @volume -->
             <property name="@volume" type="float" minvalue="-60" maxvalue="20" default="0"
-            units="decibel">output volume (same as @gain but in db)</property>
+            units="decibel">
+                <tr lang="en">output volume (same as @gain but in db)</tr>
+            </property>
         </properties>
         <methods>
             <!-- aftertouch -->

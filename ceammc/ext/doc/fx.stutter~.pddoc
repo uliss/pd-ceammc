@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.stutter~">
         <title>fx.stutter~</title>
         <meta>
@@ -23,20 +23,28 @@
         </arguments>
         <properties>
             <!-- @env -->
-            <property name="@env" type="atom">stutter envelope</property>
+            <property name="@env" type="atom">
+                <tr lang="en">stutter envelope</tr>
+            </property>
             <!-- @maxsize -->
             <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
-            units="millisecond" access="initonly">max stutter period</property>
+            units="millisecond" access="initonly">
+                <tr lang="en">max stutter period</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">stutter mode. If
-            'fwd': play loop fragment forwards, 'back': play loop fragment backwards, 'tri': play
-            loop fragment in both directions</property>
+            <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">
+                <tr lang="en">stutter mode. If 'fwd': play loop fragment forwards, 'back': play
+                loop fragment backwards, 'tri': play loop fragment in both directions</tr>
+            </property>
             <!-- @speed -->
-            <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">loop
-            fragment playing speed</property>
+            <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">
+                <tr lang="en">loop fragment playing speed</tr>
+            </property>
             <!-- @t -->
             <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
-            units="millisecond">stutter period</property>
+            units="millisecond">
+                <tr lang="en">stutter period</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

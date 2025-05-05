@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.correlate">
         <title>list.correlate</title>
         <meta>
@@ -27,23 +27,35 @@
         </arguments>
         <properties>
             <!-- @a -->
-            <property name="@a" type="list" default="">first argument</property>
+            <property name="@a" type="list" default="">
+                <tr lang="en">first argument</tr>
+            </property>
             <!-- @b -->
-            <property name="@b" type="list" default="">second argument</property>
+            <property name="@b" type="list" default="">
+                <tr lang="en">second argument</tr>
+            </property>
             <!-- @full -->
-            <property name="@full" type="alias">alias to @mode full</property>
+            <property name="@full" type="alias">
+                <tr lang="en">alias to @mode full</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="valid same full" default="valid">output
-            mode. 'full' - output the cross-correlation at each point of overlap, with an output
-            length of (M+N-1). At the end-points of the cross-correlation, the signals do not
-            overlap completely, and boundary effects may be seen. 'valid' - output of length
-            (max(M,N)-min(M,N)+1). The cross-correlation product is only given for points where the
-            signals overlap completely. Values outside the signal boundary have no effect. 'same' -
-            output of length max(M,N). Boundary effects are still visible</property>
+            <property name="@mode" type="symbol" enum="valid same full" default="valid">
+                <tr lang="en">output mode. 'full' - output the cross-correlation at each point of
+                overlap, with an output length of (M+N-1). At the end-points of the
+                cross-correlation, the signals do not overlap completely, and boundary effects may
+                be seen. 'valid' - output of length (max(M,N)-min(M,N)+1). The cross-correlation
+                product is only given for points where the signals overlap completely. Values
+                outside the signal boundary have no effect. 'same' - output of length max(M,N).
+                Boundary effects are still visible</tr>
+            </property>
             <!-- @same -->
-            <property name="@same" type="alias">alias to @mode same</property>
+            <property name="@same" type="alias">
+                <tr lang="en">alias to @mode same</tr>
+            </property>
             <!-- @valid -->
-            <property name="@valid" type="alias">alias to @mode valid</property>
+            <property name="@valid" type="alias">
+                <tr lang="en">alias to @mode valid</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

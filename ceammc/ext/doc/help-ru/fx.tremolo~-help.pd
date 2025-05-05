@@ -38,12 +38,13 @@
 #X obj 735 439 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 471 @id;
-#X text 245 471 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/fx_tremolo/PROP_NAME
-osc address \, if empty bind to /fx_tremolo/PROP_NAME. Тип: symbol.;
+#X text 245 471 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/fx_tremolo/ИМЯ_СВОЙСТВА \, в противном случае к /fx_tremolo/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
 #X msg 110 543 @osc;
-#X text 245 543 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 543 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 585 @active;
 #X text 245 585 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

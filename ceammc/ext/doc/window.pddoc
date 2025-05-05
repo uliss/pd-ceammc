@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="window">
         <title>window</title>
         <meta>
@@ -32,11 +32,13 @@
         </arguments>
         <properties>
             <!-- @size -->
-            <property name="@size" type="int" minvalue="16" default="512" units="sample">window
-            size</property>
+            <property name="@size" type="int" minvalue="16" default="512" units="sample">
+                <tr lang="en">window size</tr>
+            </property>
             <!-- @type -->
-            <property name="@type" type="symbol" default="hann">window type. See argument
-            description</property>
+            <property name="@type" type="symbol" default="hann">
+                <tr lang="en">window type. See argument description</tr>
+            </property>
         </properties>
         <methods>
             <!-- blackman -->

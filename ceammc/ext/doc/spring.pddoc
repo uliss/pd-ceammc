@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="spring">
         <title>spring</title>
         <meta>
@@ -31,21 +31,34 @@
         <properties>
             <!-- @accel -->
             <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
-            acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin fast, then
-            slow down, &lt;0: begin slow, then speed up</property>
+                <tr lang="en">acceleration factor, 0: means linear motion (no acceleration), &gt;0:
+                begin fast, then slow down, &lt;0: begin slow, then speed up</tr>
+            </property>
             <!-- @mouse_down -->
-            <property name="@mouse_down" type="bool" default="0">internal state</property>
+            <property name="@mouse_down" type="bool" default="0">
+                <tr lang="en">internal state</tr>
+            </property>
             <!-- @mouse_drag -->
-            <property name="@mouse_drag" type="bool" default="0">internal state</property>
+            <property name="@mouse_drag" type="bool" default="0">
+                <tr lang="en">internal state</tr>
+            </property>
             <!-- @mouse_move -->
-            <property name="@mouse_move" type="bool" default="0">internal state</property>
+            <property name="@mouse_move" type="bool" default="0">
+                <tr lang="en">internal state</tr>
+            </property>
             <!-- @mouse_up -->
-            <property name="@mouse_up" type="bool" default="0">internal state</property>
+            <property name="@mouse_up" type="bool" default="0">
+                <tr lang="en">internal state</tr>
+            </property>
             <!-- @time -->
             <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500"
-            units="millisecond">time to reach target value</property>
+            units="millisecond">
+                <tr lang="en">time to reach target value</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="float" default="0">target value</property>
+            <property name="@value" type="float" default="0">
+                <tr lang="en">target value</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

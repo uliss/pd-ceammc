@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hw.rpi.sensor.mpu6050">
         <title>hw.rpi.sensor.mpu6050</title>
         <meta>
@@ -23,11 +23,15 @@
         <properties>
             <!-- @i2c_addr -->
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
-            maxvalue="119">I2C address. The value 'default' means default device I²C address
-            (0x68), value 'alt': alternative I2C address (0x69, when pin AD0 pull high).</property>
+            maxvalue="119">
+                <tr lang="en">I2C address. The value 'default' means default device I²C address
+                (0x68), value 'alt': alternative I2C address (0x69, when pin AD0 pull high).</tr>
+            </property>
             <!-- @i2c_bus -->
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
-            access="initonly">I²C bus</property>
+            access="initonly">
+                <tr lang="en">I²C bus</tr>
+            </property>
         </properties>
         <methods>
             <!-- calibrate -->

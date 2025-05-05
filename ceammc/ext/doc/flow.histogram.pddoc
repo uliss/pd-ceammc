@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.histogram">
         <title>flow.histogram</title>
         <meta>
@@ -26,16 +26,21 @@
         </arguments>
         <properties>
             <!-- @bins -->
-            <property name="@bins" type="list" default="0">bins border values</property>
+            <property name="@bins" type="list" default="0">
+                <tr lang="en">bins border values</tr>
+            </property>
             <!-- @inner_bins -->
-            <property name="@inner_bins" type="bool" default="1">output histogram inner bins
-            only</property>
+            <property name="@inner_bins" type="bool" default="1">
+                <tr lang="en">output histogram inner bins only</tr>
+            </property>
             <!-- @norm -->
-            <property name="@norm" type="bool" default="1">do the histogram
-            normalization</property>
+            <property name="@norm" type="bool" default="1">
+                <tr lang="en">do the histogram normalization</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="bool" default="1">calculate and output histogram on every
-            input value</property>
+            <property name="@sync" type="bool" default="1">
+                <tr lang="en">calculate and output histogram on every input value</tr>
+            </property>
         </properties>
         <methods>
             <!-- clear -->

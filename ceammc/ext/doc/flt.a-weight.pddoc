@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.a-weight">
         <title>flt.a-weight</title>
         <meta>
@@ -18,8 +18,9 @@
         </meta>
         <properties>
             <!-- @db -->
-            <property name="@db" type="flag" default="0" access="initonly">output in
-            decibels</property>
+            <property name="@db" type="flag" default="0" access="initonly">
+                <tr lang="en">output in decibels</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

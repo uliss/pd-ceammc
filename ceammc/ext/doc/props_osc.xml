@@ -1,3 +1,6 @@
 <?xml version="1.0"?>
-<property name="@osc" type="symbol" default="" access="initonly">OSC server name to listen</property>
+<property name="@osc" type="symbol" default="" access="initonly">
+    <tr lang="en">OSC server name to listen</tr>
+    <tr lang="ru">имя OSC сервера</tr>
+</property>
 

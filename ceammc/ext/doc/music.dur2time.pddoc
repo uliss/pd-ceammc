@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="music.dur2time">
         <title>music.dur2time</title>
         <meta>
@@ -30,9 +30,13 @@
         </info>
         <properties>
             <!-- @bpm -->
-            <property name="@bpm" type="atom" default="60|4bpm" units="bpm">tempo</property>
+            <property name="@bpm" type="atom" default="60|4bpm" units="bpm">
+                <tr lang="en">tempo</tr>
+            </property>
             <!-- @seq -->
-            <property name="@seq" type="bool" default="1">sequential durations</property>
+            <property name="@seq" type="bool" default="1">
+                <tr lang="en">sequential durations</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

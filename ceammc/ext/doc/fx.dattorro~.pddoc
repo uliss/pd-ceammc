@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.dattorro~">
         <title>fx.dattorro~</title>
         <meta>
@@ -35,39 +35,52 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bw -->
-            <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">band-width
-            filter (pre filtering)</property>
+            <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">
+                <tr lang="en">band-width filter (pre filtering)</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @damp -->
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.0005">
-            high-frequency damping. No damping = 0.0</property>
+                <tr lang="en">high-frequency damping. No damping = 0.0</tr>
+            </property>
             <!-- @ddiff1 -->
-            <property name="@ddiff1" type="float" minvalue="0" maxvalue="1" default="0.5">decay
-            diffusion factor 1</property>
+            <property name="@ddiff1" type="float" minvalue="0" maxvalue="1" default="0.5">
+                <tr lang="en">decay diffusion factor 1</tr>
+            </property>
             <!-- @ddiff2 -->
-            <property name="@ddiff2" type="float" minvalue="0" maxvalue="1" default="0.7">decay
-            diffusion factor 2</property>
+            <property name="@ddiff2" type="float" minvalue="0" maxvalue="1" default="0.7">
+                <tr lang="en">decay diffusion factor 2</tr>
+            </property>
             <!-- @decay -->
-            <property name="@decay" type="float" minvalue="0" maxvalue="1" default="0.5">decay
-            rate. Infinite decay = 1.0</property>
+            <property name="@decay" type="float" minvalue="0" maxvalue="1" default="0.5">
+                <tr lang="en">decay rate. Infinite decay = 1.0</tr>
+            </property>
             <!-- @drywet -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
-            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
-            signal, 1 - wet</property>
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet</tr>
+            </property>
             <!-- @idiff1 -->
-            <property name="@idiff1" type="float" minvalue="0" maxvalue="1" default="0.625">input
-            diffusion factor 1</property>
+            <property name="@idiff1" type="float" minvalue="0" maxvalue="1" default="0.625">
+                <tr lang="en">input diffusion factor 1</tr>
+            </property>
             <!-- @idiff2 -->
-            <property name="@idiff2" type="float" minvalue="0" maxvalue="1" default="0.75">input
-            diffusion factor 2</property>
+            <property name="@idiff2" type="float" minvalue="0" maxvalue="1" default="0.75">
+                <tr lang="en">input diffusion factor 2</tr>
+            </property>
             <!-- @predelay -->
             <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
-            units="millisecond">a delay operating on the 'wet' signal. Large values will provide
-            the impression of a larger room</property>
+            units="millisecond">
+                <tr lang="en">a delay operating on the 'wet' signal. Large values will provide the
+                impression of a larger room</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

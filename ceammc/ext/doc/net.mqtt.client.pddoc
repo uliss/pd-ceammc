@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="net.mqtt.client">
         <title>net.mqtt.client</title>
         <meta>
@@ -21,16 +21,23 @@
         </meta>
         <properties>
             <!-- @id -->
-            <property name="@id" type="symbol" default="pd_mqtt_client_0">client id</property>
+            <property name="@id" type="symbol" default="pd_mqtt_client_0">
+                <tr lang="en">client id</tr>
+            </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">
-            parsing mode for incoming/outcoming messages. If 'fudi' - interpret data as Pd
-            messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
-            convert json values to ceammc data.</property>
+                <tr lang="en">parsing mode for incoming/outcoming messages. If 'fudi' - interpret
+                data as Pd messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc
+                data, 'json' - convert json values to ceammc data.</tr>
+            </property>
             <!-- @qos -->
-            <property name="@qos" type="int" default="0" enum="0 1 2">quality of service</property>
+            <property name="@qos" type="int" default="0" enum="0 1 2">
+                <tr lang="en">quality of service</tr>
+            </property>
             <!-- @retain -->
-            <property name="@retain" type="bool" default="0">retain flag</property>
+            <property name="@retain" type="bool" default="0">
+                <tr lang="en">retain flag</tr>
+            </property>
         </properties>
         <methods>
             <!-- close -->

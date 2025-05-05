@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="plot.logspace~">
         <title>plot.logspace~</title>
         <meta>
@@ -41,27 +41,39 @@
         </arguments>
         <properties>
             <!-- @10 -->
-            <property name="@10" type="atom">alias to @base 10</property>
+            <property name="@10" type="atom">
+                <tr lang="en">alias to @base 10</tr>
+            </property>
             <!-- @2 -->
-            <property name="@2" type="atom">alias to @base 2</property>
+            <property name="@2" type="atom">
+                <tr lang="en">alias to @base 2</tr>
+            </property>
             <!-- @base -->
-            <property name="@base" type="atom" enum="10 2 e" default="10">x-axis scale
-            base</property>
+            <property name="@base" type="atom" enum="10 2 e" default="10">
+                <tr lang="en">x-axis scale base</tr>
+            </property>
             <!-- @e -->
-            <property name="@e" type="atom">alias to @base e</property>
+            <property name="@e" type="atom">
+                <tr lang="en">alias to @base e</tr>
+            </property>
             <!-- @endpoint -->
-            <property name="@endpoint" type="bool" default="1">include @stop to interval</property>
+            <property name="@endpoint" type="bool" default="1">
+                <tr lang="en">include @stop to interval</tr>
+            </property>
             <!-- @n -->
-            <property name="@n" type="int" minvalue="4" maxvalue="1024" default="100">number of
-            points</property>
+            <property name="@n" type="int" minvalue="4" maxvalue="1024" default="100">
+                <tr lang="en">number of points</tr>
+            </property>
             <!-- @start -->
-            <property name="@start" type="float" default="0">starting value of the sequence:
-            base^start</property>
+            <property name="@start" type="float" default="0">
+                <tr lang="en">starting value of the sequence: base^start</tr>
+            </property>
             <!-- @stop -->
-            <property name="@stop" type="float" default="2">the final value (base^stop) of the
-            sequence, unless @endpoint is false. In that case, @n + 1 values are spaced over the
-            interval in log-space, of which all but the last (a sequence of length @n) are
-            returned.</property>
+            <property name="@stop" type="float" default="2">
+                <tr lang="en">the final value (base^stop) of the sequence, unless @endpoint is
+                false. In that case, @n + 1 values are spaced over the interval in log-space, of
+                which all but the last (a sequence of length @n) are returned.</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

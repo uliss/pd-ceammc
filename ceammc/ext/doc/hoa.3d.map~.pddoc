@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.3d.map~">
         <title>hoa.3d.map~</title>
         <meta>
@@ -40,16 +40,23 @@
         </arguments>
         <properties>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="car pol" default="pol">coordinates mode in
-            signal control mode (with @nsrc 1), polar or cartesian</property>
+            <property name="@mode" type="symbol" enum="car pol" default="pol">
+                <tr lang="en">coordinates mode in signal control mode (with @nsrc 1), polar or
+                cartesian</tr>
+            </property>
             <!-- @nsrc -->
-            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
-            input sources</property>
+            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">
+                <tr lang="en">number of input sources</tr>
+            </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
             <!-- @ramp -->
-            <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
+            <property name="@ramp" type="float" minvalue="0" default="100">
+                <tr lang="en">ramp time</tr>
+            </property>
         </properties>
         <methods>
             <!-- car -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.window">
         <title>array.window</title>
         <meta>
@@ -27,13 +27,19 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @redraw -->
-            <property name="@redraw" type="bool" default="1">redraw after array change</property>
+            <property name="@redraw" type="bool" default="1">
+                <tr lang="en">redraw after array change</tr>
+            </property>
             <!-- @type -->
             <property name="@type" type="symbol"
             enum="tri welch hann sine rect hamming blackman nuttall blackman-harris flattop gauss"
-            default="hann">window type</property>
+            default="hann">
+                <tr lang="en">window type</tr>
+            </property>
         </properties>
         <methods>
             <!-- blackman -->

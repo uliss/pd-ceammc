@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.sustain">
         <title>midi.sustain</title>
         <meta>
@@ -27,10 +27,13 @@
         </arguments>
         <properties>
             <!-- @ctlin -->
-            <property name="@ctlin" type="bool" default="0">listen to CTL64 from MIDI
-            controller</property>
+            <property name="@ctlin" type="bool" default="0">
+                <tr lang="en">listen to CTL64 from MIDI controller</tr>
+            </property>
             <!-- @on -->
-            <property name="@on" type="bool" default="0">pedal state</property>
+            <property name="@on" type="bool" default="0">
+                <tr lang="en">pedal state</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

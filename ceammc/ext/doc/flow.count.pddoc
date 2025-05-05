@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.count">
         <title>flow.count</title>
         <meta>
@@ -23,8 +23,10 @@
         </arguments>
         <properties>
             <!-- @value -->
-            <property name="@value" type="int" minvalue="0" default="0">current counter state. Can
-            be set via message to second(!) inlet or [prop.set] object.</property>
+            <property name="@value" type="int" minvalue="0" default="0">
+                <tr lang="en">current counter state. Can be set via message to second(!) inlet or
+                [prop.set] object.</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

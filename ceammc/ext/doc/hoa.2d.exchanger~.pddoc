@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.2d.exchanger~">
         <title>hoa.2d.exchanger~</title>
         <meta>
@@ -44,20 +44,27 @@
         </arguments>
         <properties>
             <!-- @fromB -->
-            <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm
-            fromMaxN</property>
+            <property name="@fromB" type="alias">
+                <tr lang="en">alias to @num fromFurseMalham and @norm fromMaxN</tr>
+            </property>
             <!-- @norm -->
             <property name="@norm" type="symbol" default="SN2D" enum="SN2D fromMaxN toMaxN">
-            normalization</property>
+                <tr lang="en">normalization</tr>
+            </property>
             <!-- @num -->
             <property name="@num" type="symbol" default="ACN"
-            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</property>
+            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
+                <tr lang="en">numbering scheme</tr>
+            </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
             <!-- @toB -->
-            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm
-            toMaxN</property>
+            <property name="@toB" type="alias">
+                <tr lang="en">alias to @num toFurseMalham and @norm toMaxN</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

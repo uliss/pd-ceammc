@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="msg.pack">
         <title>msg.pack</title>
         <meta>
@@ -30,14 +30,18 @@
         </arguments>
         <properties>
             <!-- @msg -->
-            <property name="@msg" type="list" default="">message prefix. Change value via
-            [prop.set] object</property>
+            <property name="@msg" type="list" default="">
+                <tr lang="en">message prefix. Change value via [prop.set] object</tr>
+            </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="1" default="2" maxvalue="32"
-            access="initonly">number of inlets</property>
+            access="initonly">
+                <tr lang="en">number of inlets</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="bool" default="0">sync mode. If true: output value on each
-            inlet value change</property>
+            <property name="@sync" type="bool" default="0">
+                <tr lang="en">sync mode. If true: output value on each inlet value change</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

@@ -45,12 +45,13 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X obj 735 758 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 790 @id;
-#X text 245 790 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/flt_fb_comb/PROP_NAME
-osc address \, if empty bind to /flt_fb_comb/PROP_NAME. Тип: symbol.;
+#X text 245 790 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/flt_fb_comb/ИМЯ_СВОЙСТВА \, в противном случае к
+/flt_fb_comb/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 862 @osc;
-#X text 245 862 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 862 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 904 @a;
 #X text 245 904 Получить/Установить scaling factor of delayed signal
 sum. Тип: float. Значение по умолчанию: 0.75\. Диапазон: -1\...1\.;

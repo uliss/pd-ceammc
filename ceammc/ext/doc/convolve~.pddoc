@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="convolve~">
         <title>convolve~</title>
         <meta>
@@ -22,12 +22,17 @@
         <properties>
             <!-- @maxsize -->
             <property name="@maxsize" type="int" default="50000" maxvalue="300000" units="sample"
-            minvalue="0">max impulse response size</property>
+            minvalue="0">
+                <tr lang="en">max impulse response size</tr>
+            </property>
             <!-- @norm -->
-            <property name="@norm" type="bool" default="1">normalize impulse response</property>
+            <property name="@norm" type="bool" default="1">
+                <tr lang="en">normalize impulse response</tr>
+            </property>
             <!-- @offset -->
-            <property name="@offset" type="int" default="0" minvalue="0" units="sample">impulse
-            response (IR) offset</property>
+            <property name="@offset" type="int" default="0" minvalue="0" units="sample">
+                <tr lang="en">impulse response (IR) offset</tr>
+            </property>
         </properties>
         <methods>
             <!-- load_array -->

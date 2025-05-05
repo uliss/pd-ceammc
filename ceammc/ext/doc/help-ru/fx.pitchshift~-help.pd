@@ -37,12 +37,13 @@
 #X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 494 @id;
-#X text 245 494 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/fx_pitchshift/PROP_NAME
-osc address \, if empty bind to /fx_pitchshift/PROP_NAME. Тип: symbol.;
+#X text 245 494 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/fx_pitchshift/ИМЯ_СВОЙСТВА \, в противном случае
+к /fx_pitchshift/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 566 @osc;
-#X text 245 566 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 566 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 608 @active;
 #X text 245 608 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

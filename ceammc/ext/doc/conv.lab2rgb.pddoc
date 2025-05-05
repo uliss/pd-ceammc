@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="conv.lab2rgb">
         <title>conv.lab2rgb</title>
         <meta>
@@ -25,20 +25,25 @@
         </info>
         <properties>
             <!-- @float -->
-            <property name="@float" type="alias">alias to @mode float. Output float values in [0-1]
-            range</property>
+            <property name="@float" type="alias">
+                <tr lang="en">alias to @mode float. Output float values in [0-1] range</tr>
+            </property>
             <!-- @int -->
-            <property name="@int" type="alias">alias to @mode int. Output integer values in [0-255]
-            range</property>
+            <property name="@int" type="alias">
+                <tr lang="en">alias to @mode int. Output integer values in [0-255] range</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="int" enum="int float">output
-            mode</property>
+            <property name="@mode" type="symbol" default="int" enum="int float">
+                <tr lang="en">output mode</tr>
+            </property>
             <!-- @pack -->
-            <property name="@pack" type="flag" access="initonly">output as list (creates single
-            outlet object)</property>
+            <property name="@pack" type="flag" access="initonly">
+                <tr lang="en">output as list (creates single outlet object)</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="flag" access="initonly">output at any inlet
-            change</property>
+            <property name="@sync" type="flag" access="initonly">
+                <tr lang="en">output at any inlet change</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

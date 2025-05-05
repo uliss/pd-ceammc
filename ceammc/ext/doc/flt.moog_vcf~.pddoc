@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.moog_vcf~">
         <title>flt.moog_vcf~</title>
         <meta>
@@ -25,10 +25,13 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @res -->
-            <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
-            amount of corner-resonance</property>
+            <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">
+                <tr lang="en">normalized amount of corner-resonance</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

@@ -172,9 +172,9 @@ dbfs->amp~	convert decibel full scale to amplitude / преобразовани�
 conv.degree2key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
 ceammc/degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
 degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
-conv.edge2bang	edge detector for numeric stream / детектор переходного для численного потока
-ceammc/edge->bang	edge detector for numeric stream / детектор переходного для численного потока
-edge->bang	edge detector for numeric stream / детектор переходного для численного потока
+conv.edge2bang	edge detector for numeric stream / детектор перехода для численного потока
+ceammc/edge->bang	edge detector for numeric stream / детектор перехода для численного потока
+edge->bang	edge detector for numeric stream / детектор перехода для численного потока
 conv.guido2note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 ceammc/guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
@@ -374,10 +374,10 @@ env2array	renders the envelope into the array / рендеринг огибаю�
 ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
 ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив
 env->array	renders the envelope into the array / рендеринг огибающей в массив
-env2vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
-ceammc/env2vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
-ceammc/env->vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
-env->vline	сonverts the envelope into the sequence of messages for vline object / преобразует огибающую в последовательность сообщений для объекта vline
+env2vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
+ceammc/env2vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
+ceammc/env->vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
+env->vline	сonverts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
 envelope	envelope data type / тип данных огибающей
 ceammc/envelope	envelope data type / тип данных огибающей
 ceammc/env	envelope data type / тип данных огибающей

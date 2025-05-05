@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="snd.file">
         <title>snd.file</title>
         <meta>
@@ -22,26 +22,35 @@
         </info>
         <properties>
             <!-- @channels -->
-            <property name="@channels" type="list" access="readonly" default="">list of loaded
-            channels into each array</property>
+            <property name="@channels" type="list" access="readonly" default="">
+                <tr lang="en">list of loaded channels into each array</tr>
+            </property>
             <!-- @filename -->
-            <property name="@filename" type="list" access="readonly" default="">filename</property>
+            <property name="@filename" type="list" access="readonly" default="">
+                <tr lang="en">filename</tr>
+            </property>
             <!-- @formats -->
             <property name="@formats" type="list" access="readonly"
             default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
-            list of supported formats</property>
+
+                <tr lang="en">list of supported formats</tr>
+            </property>
             <!-- @samples -->
-            <property name="@samples" type="list" access="readonly" default="">list of number of
-            loaded samples into each array</property>
+            <property name="@samples" type="list" access="readonly" default="">
+                <tr lang="en">list of number of loaded samples into each array</tr>
+            </property>
             <!-- @smpte_fr -->
-            <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
-            framerate for SMPTE offset calculations</property>
+            <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">
+                <tr lang="en">SMPTE framerate for SMPTE offset calculations</tr>
+            </property>
             <!-- @sr -->
-            <property name="@sr" type="list" access="readonly" default="">source file
-            samplerate</property>
+            <property name="@sr" type="list" access="readonly" default="">
+                <tr lang="en">source file samplerate</tr>
+            </property>
             <!-- @verbose -->
-            <property name="@verbose" type="bool" default="0" access="initonly">verbose output to
-            Pd window</property>
+            <property name="@verbose" type="bool" default="0" access="initonly">
+                <tr lang="en">verbose output to Pd window</tr>
+            </property>
         </properties>
         <methods>
             <!-- load -->

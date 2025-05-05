@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="path.monitor">
         <title>path.monitor</title>
         <meta>
@@ -23,8 +23,9 @@
         </arguments>
         <properties>
             <!-- @path -->
-            <property name="@path" type="symbol" default="">directory to monitor filesystem
-            events</property>
+            <property name="@path" type="symbol" default="">
+                <tr lang="en">directory to monitor filesystem events</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.oct">
         <title>midi.oct</title>
         <meta>
@@ -23,18 +23,25 @@
         </arguments>
         <properties>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="transpose" enum="transpose set">octave
-            mode</property>
+            <property name="@mode" type="symbol" default="transpose" enum="transpose set">
+                <tr lang="en">octave mode</tr>
+            </property>
             <!-- @oct -->
-            <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">octave
-            transposition</property>
+            <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">
+                <tr lang="en">octave transposition</tr>
+            </property>
             <!-- @random -->
-            <property name="@random" type="list" default="">random octave range. Arguments are: MIN
-            MAX.</property>
+            <property name="@random" type="list" default="">
+                <tr lang="en">random octave range. Arguments are: MIN MAX.</tr>
+            </property>
             <!-- @set -->
-            <property name="@set" type="alias">alias to @mode set</property>
+            <property name="@set" type="alias">
+                <tr lang="en">alias to @mode set</tr>
+            </property>
             <!-- @transpose -->
-            <property name="@transpose" type="alias">alias to @mode transpose</property>
+            <property name="@transpose" type="alias">
+                <tr lang="en">alias to @mode transpose</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

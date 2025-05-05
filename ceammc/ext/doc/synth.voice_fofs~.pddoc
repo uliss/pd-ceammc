@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.voice_fofs~">
         <title>synth.voice_fofs~</title>
         <meta>
@@ -39,40 +39,61 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @attack -->
             <property name="@attack" type="float" default="30" minvalue="0" maxvalue="1000"
-            units="millisecond">attack time</property>
+            units="millisecond">
+                <tr lang="en">attack time</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440"
-            units="hertz">frequency</property>
+            units="hertz">
+                <tr lang="en">frequency</tr>
+            </property>
             <!-- @fvowel -->
-            <property name="@fvowel" type="float" default="0" maxvalue="4" minvalue="0">vowel
-            index: 0=a, 1=e, 2=i, 3=o, 4=u. Float values can be interpoltaed.</property>
+            <property name="@fvowel" type="float" default="0" maxvalue="4" minvalue="0">
+                <tr lang="en">vowel index: 0=a, 1=e, 2=i, 3=o, 4=u. Float values can be
+                interpoltaed.</tr>
+            </property>
             <!-- @gate -->
-            <property name="@gate" type="bool" default="0">synth gate (&gt;0 - play)</property>
+            <property name="@gate" type="bool" default="0">
+                <tr lang="en">synth gate (&gt;0 - play)</tr>
+            </property>
             <!-- @portamento -->
             <property name="@portamento" type="float" default="0" minvalue="0" maxvalue="4000"
-            units="millisecond">portamento time</property>
+            units="millisecond">
+                <tr lang="en">portamento time</tr>
+            </property>
             <!-- @release -->
             <property name="@release" type="float" default="50" minvalue="0" maxvalue="1000"
-            units="millisecond">release time</property>
+            units="millisecond">
+                <tr lang="en">release time</tr>
+            </property>
             <!-- @vibr_freq -->
             <property name="@vibr_freq" type="float" minvalue="1" maxvalue="10" default="6"
-            units="hertz">vibrato frequency</property>
+            units="hertz">
+                <tr lang="en">vibrato frequency</tr>
+            </property>
             <!-- @vibr_gain -->
             <property name="@vibr_gain" type="float" minvalue="0" maxvalue="1" default="0.5">
-            vibrato frequency</property>
+                <tr lang="en">vibrato frequency</tr>
+            </property>
             <!-- @voice -->
             <property name="@voice" type="symbol" default="alto"
-            enum="alto bass countertenor soprano tenor">voice type. Note: can be set by
-            corresponding index.</property>
+            enum="alto bass countertenor soprano tenor">
+                <tr lang="en">voice type. Note: can be set by corresponding index.</tr>
+            </property>
             <!-- @vowel -->
-            <property name="@vowel" type="symbol" default="a" enum="a e i o u">vowel type. Note:
-            can be set by corresponding index.</property>
+            <property name="@vowel" type="symbol" default="a" enum="a e i o u">
+                <tr lang="en">vowel type. Note: can be set by corresponding index.</tr>
+            </property>
             <!-- @wsmooth -->
             <property name="@wsmooth" type="float" default="10" minvalue="0" maxvalue="1000"
-            units="millisecond">vowel smoothing time</property>
+            units="millisecond">
+                <tr lang="en">vowel smoothing time</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="an.tempo~">
         <title>an.tempo~</title>
         <meta>
@@ -38,53 +38,78 @@
         </arguments>
         <properties>
             <!-- @active -->
-            <property name="@active" type="bool" default="1">audio processing state</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">audio processing state</tr>
+            </property>
             <!-- @bs -->
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
-            access="initonly">buffer size</property>
+            access="initonly">
+                <tr lang="en">buffer size</tr>
+            </property>
             <!-- @complex -->
-            <property name="@complex" type="alias">alias to @method complex. Complex Domain Method
-            onset detection function</property>
+            <property name="@complex" type="alias">
+                <tr lang="en">alias to @method complex. Complex Domain Method onset detection
+                function</tr>
+            </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
-            constant system delay to take back from detection time</property>
+                <tr lang="en">constant system delay to take back from detection time</tr>
+            </property>
             <!-- @energy -->
-            <property name="@energy" type="alias">alias to @method energy. Energy based onset
-            detection function</property>
+            <property name="@energy" type="alias">
+                <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
+            </property>
             <!-- @hfc -->
-            <property name="@hfc" type="alias">alias to @method hfc. High Frequency Content onset
-            detection</property>
+            <property name="@hfc" type="alias">
+                <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
+            </property>
             <!-- @hs -->
-            <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
-            means @bs/2</property>
+            <property name="@hs" type="int" minvalue="0" default="0" units="sample">
+                <tr lang="en">hop size. 0 means @bs/2</tr>
+            </property>
             <!-- @kl -->
-            <property name="@kl" type="alias">alias to @method kl. Kullback-Liebler onset detection
-            function</property>
+            <property name="@kl" type="alias">
+                <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
+            </property>
             <!-- @method -->
             <property name="@method" type="symbol"
             enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
-            default="default">onset method. Default is hfc.</property>
+            default="default">
+                <tr lang="en">onset method. Default is hfc.</tr>
+            </property>
             <!-- @mkl -->
-            <property name="@mkl" type="alias">alias to @method mkl. Modified Kullback-Liebler
-            onset detection function</property>
+            <property name="@mkl" type="alias">
+                <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
+                function</tr>
+            </property>
             <!-- @phase -->
-            <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
-            detection function</property>
+            <property name="@phase" type="alias">
+                <tr lang="en">alias to @method phase. Phase Based Method onset detection
+                function</tr>
+            </property>
             <!-- @silence -->
             <property name="@silence" type="float" units="decibel" default="-90" minvalue="-90"
-            maxvalue="0">onset detection silence threshold</property>
+            maxvalue="0">
+                <tr lang="en">onset detection silence threshold</tr>
+            </property>
             <!-- @specdiff -->
-            <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
-            method onset detection function</property>
+            <property name="@specdiff" type="alias">
+                <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
+                function</tr>
+            </property>
             <!-- @specflux -->
-            <property name="@specflux" type="alias">alias to @method specflux. Spectral
-            Flux</property>
+            <property name="@specflux" type="alias">
+                <tr lang="en">alias to @method specflux. Spectral Flux</tr>
+            </property>
             <!-- @threshold -->
-            <property name="@threshold" type="float" default="0.3">peak picking
-            threshold</property>
+            <property name="@threshold" type="float" default="0.3">
+                <tr lang="en">peak picking threshold</tr>
+            </property>
             <!-- @wphase -->
-            <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
-            onset detection function</property>
+            <property name="@wphase" type="alias">
+                <tr lang="en">alias to @method phase. Weighted Phase Deviation onset detection
+                function</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

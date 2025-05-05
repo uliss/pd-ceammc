@@ -32,12 +32,13 @@
 #X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 480 @id;
-#X text 245 480 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/fx_drone_box/PROP_NAME
-osc address \, if empty bind to /fx_drone_box/PROP_NAME. Тип: symbol.;
+#X text 245 480 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/fx_drone_box/ИМЯ_СВОЙСТВА \, в противном случае к
+/fx_drone_box/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 552 @osc;
-#X text 245 552 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 552 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 594 @active;
 #X text 245 594 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

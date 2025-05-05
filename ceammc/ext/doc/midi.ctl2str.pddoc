@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.ctl2str">
         <title>midi.ctl2str</title>
         <meta>
@@ -21,8 +21,9 @@
         </meta>
         <properties>
             <!-- @symbol -->
-            <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
-            instead of string by default</property>
+            <property name="@symbol" type="flag" default="0" access="initonly">
+                <tr lang="en">output as symbol instead of string by default</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

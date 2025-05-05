@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.histogram">
         <title>list.histogram</title>
         <meta>
@@ -32,8 +32,9 @@
         </arguments>
         <properties>
             <!-- @bins -->
-            <property name="@bins" type="int" minvalue="2" default="100" maxvalue="1024">number of
-            histogram bins</property>
+            <property name="@bins" type="int" minvalue="2" default="100" maxvalue="1024">
+                <tr lang="en">number of histogram bins</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

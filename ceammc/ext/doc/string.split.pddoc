@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="string.split">
         <title>string.split</title>
         <meta>
@@ -36,10 +36,13 @@
         </arguments>
         <properties>
             <!-- @sep -->
-            <property name="@sep" type="symbol" default="">separator</property>
+            <property name="@sep" type="symbol" default="">
+                <tr lang="en">separator</tr>
+            </property>
             <!-- @sym -->
-            <property name="@sym" type="flag" access="initonly">flag to output as list of Pd
-            symbols</property>
+            <property name="@sym" type="flag" access="initonly">
+                <tr lang="en">flag to output as list of Pd symbols</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

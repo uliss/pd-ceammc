@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="path.file">
         <title>path.file</title>
         <meta>
@@ -18,7 +18,9 @@
         </meta>
         <properties>
             <!-- @path -->
-            <property name="@path" type="symbol" default="">file path</property>
+            <property name="@path" type="symbol" default="">
+                <tr lang="en">file path</tr>
+            </property>
         </properties>
         <methods>
             <!-- close -->

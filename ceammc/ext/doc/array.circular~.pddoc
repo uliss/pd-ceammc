@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.circular~">
         <title>array.circular~</title>
         <meta>
@@ -29,12 +29,17 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @interp -->
-            <property name="@interp" type="int" enum="0 1 3" default="0">interpolation
-            mode</property>
+            <property name="@interp" type="int" enum="0 1 3" default="0">
+                <tr lang="en">interpolation mode</tr>
+            </property>
             <!-- @on -->
-            <property name="@on" type="bool" default="1">write mode</property>
+            <property name="@on" type="bool" default="1">
+                <tr lang="en">write mode</tr>
+            </property>
         </properties>
         <methods>
             <!-- resize -->

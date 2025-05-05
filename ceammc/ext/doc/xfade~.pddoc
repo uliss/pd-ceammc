@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="xfade~">
         <title>xfade~</title>
         <meta>
@@ -34,21 +34,30 @@
         </arguments>
         <properties>
             <!-- @lin -->
-            <property name="@lin" type="alias">alias to @type lin</property>
+            <property name="@lin" type="alias">
+                <tr lang="en">alias to @type lin</tr>
+            </property>
             <!-- @n -->
             <property name="@n" type="int" default="2" access="initonly" minvalue="2"
-            maxvalue="16">number of xfade inputs</property>
+            maxvalue="16">
+                <tr lang="en">number of xfade inputs</tr>
+            </property>
             <!-- @pow -->
-            <property name="@pow" type="alias">alias to @type pow</property>
+            <property name="@pow" type="alias">
+                <tr lang="en">alias to @type pow</tr>
+            </property>
             <!-- @smooth -->
             <property name="@smooth" type="float" minvalue="1" default="20" units="millisecond">
-            signal change smooth time</property>
+                <tr lang="en">signal change smooth time</tr>
+            </property>
             <!-- @type -->
-            <property name="@type" type="symbol" enum="lin pow" default="pow">fade curve type:
-            linear or power</property>
+            <property name="@type" type="symbol" enum="lin pow" default="pow">
+                <tr lang="en">fade curve type: linear or power</tr>
+            </property>
             <!-- @x -->
-            <property name="@x" type="float" default="0">crossfade property. Valid value in
-            [0..N-1] range.</property>
+            <property name="@x" type="float" default="0">
+                <tr lang="en">crossfade property. Valid value in [0..N-1] range.</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">

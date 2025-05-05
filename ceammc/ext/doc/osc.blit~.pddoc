@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="osc.blit~">
         <title>osc.blit~</title>
         <meta>
@@ -31,8 +31,9 @@
         </arguments>
         <properties>
             <!-- @harmonics -->
-            <property name="@harmonics" type="int" minvalue="0" default="0">number of harmonics. 0
-            means all available harmonics until SR/2</property>
+            <property name="@harmonics" type="int" minvalue="0" default="0">
+                <tr lang="en">number of harmonics. 0 means all available harmonics until SR/2</tr>
+            </property>
         </properties>
         <inlets>
             <inlet type="audio">

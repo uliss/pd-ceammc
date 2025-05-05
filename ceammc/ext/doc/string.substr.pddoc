@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="string.substr">
         <title>string.substr</title>
         <meta>
@@ -35,11 +35,14 @@
         </arguments>
         <properties>
             <!-- @from -->
-            <property name="@from" type="int" default="0">substring position. Can be negative - to
-            address string from the end</property>
+            <property name="@from" type="int" default="0">
+                <tr lang="en">substring position. Can be negative - to address string from the
+                end</tr>
+            </property>
             <!-- @len -->
-            <property name="@len" type="int" default="-1" minvalue="-1">substring length. If equal
-            to -1, substring to the end of string</property>
+            <property name="@len" type="int" default="-1" minvalue="-1">
+                <tr lang="en">substring length. If equal to -1, substring to the end of string</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

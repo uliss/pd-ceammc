@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="metro.wchoice">
         <title>metro.wchoice</title>
         <meta>
@@ -30,19 +30,25 @@
         </arguments>
         <properties>
             <!-- @calc_w -->
-            <property name="@calc_w" type="list" default="1" access="readonly">normalized list of
-            probabilities</property>
+            <property name="@calc_w" type="list" default="1" access="readonly">
+                <tr lang="en">normalized list of probabilities</tr>
+            </property>
             <!-- @init -->
-            <property name="@init" type="list" default="" access="initonly">intermixed list of time
-            and weights values</property>
+            <property name="@init" type="list" default="" access="initonly">
+                <tr lang="en">intermixed list of time and weights values</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@seed" type="int" minvalue="0" default="0">
+                <tr lang="en">generator seed</tr>
+            </property>
             <!-- @t -->
-            <property name="@t" type="list" units="millisecond" default="">timeset
-            (&gt;0)</property>
+            <property name="@t" type="list" units="millisecond" default="">
+                <tr lang="en">timeset (&gt;0)</tr>
+            </property>
             <!-- @w -->
-            <property name="@w" type="list" default="">weight list, float or percent
-            values</property>
+            <property name="@w" type="list" default="">
+                <tr lang="en">weight list, float or percent values</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

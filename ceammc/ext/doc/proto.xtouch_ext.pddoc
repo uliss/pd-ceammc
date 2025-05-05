@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="proto.xtouch_ext">
         <title>proto.xtouch_ext</title>
         <meta>
@@ -27,12 +27,17 @@
         <properties>
             <!-- @n -->
             <property name="@n" type="int" access="initonly" minvalue="1" maxvalue="32"
-            default="2">number of scenes</property>
+            default="2">
+                <tr lang="en">number of scenes</tr>
+            </property>
             <!-- @proto -->
-            <property name="@proto" type="symbol" default="xmidi" enum="hui mcu xmidi">connection
-            protocol</property>
+            <property name="@proto" type="symbol" default="xmidi" enum="hui mcu xmidi">
+                <tr lang="en">connection protocol</tr>
+            </property>
             <!-- @scene -->
-            <property name="@scene" type="int" minvalue="0" default="0">current scene</property>
+            <property name="@scene" type="int" minvalue="0" default="0">
+                <tr lang="en">current scene</tr>
+            </property>
         </properties>
         <methods>
             <!-- fader -->

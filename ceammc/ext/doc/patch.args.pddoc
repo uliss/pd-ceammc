@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="patch.args">
         <title>patch.args</title>
         <meta>
@@ -28,8 +28,9 @@
         </arguments>
         <properties>
             <!-- @from -->
-            <property name="@from" type="int" minvalue="0" default="0">starting args
-            index</property>
+            <property name="@from" type="int" minvalue="0" default="0">
+                <tr lang="en">starting args index</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -35,12 +35,13 @@ noise \, and 1 violet/azure noise. Тип: float. Диапазон: -1…1;
 #X obj 735 624 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 656 @id;
-#X text 245 656 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/noise_colored/PROP_NAME
-osc address \, if empty bind to /noise_colored/PROP_NAME. Тип: symbol.;
+#X text 245 656 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/noise_colored/ИМЯ_СВОЙСТВА \, в противном случае
+к /noise_colored/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 728 @osc;
-#X text 245 728 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 728 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 770 @active;
 #X text 245 770 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

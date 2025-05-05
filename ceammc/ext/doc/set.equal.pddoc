@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="set.equal">
         <title>set.equal</title>
         <meta>
@@ -26,8 +26,9 @@
         </arguments>
         <properties>
             <!-- @subj -->
-            <property name="@subj" type="list" default="Set()">right set elements of
-            data:Set</property>
+            <property name="@subj" type="list" default="Set()">
+                <tr lang="en">right set elements of data:Set</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.drive~">
         <title>fx.drive~</title>
         <meta>
@@ -25,13 +25,17 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @drive -->
-            <property name="@drive" type="float" minvalue="1" maxvalue="10" default="1">drive
-            coefficient</property>
+            <property name="@drive" type="float" minvalue="1" maxvalue="10" default="1">
+                <tr lang="en">drive coefficient</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

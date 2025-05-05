@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="random.atom">
         <title>random.atom</title>
         <meta>
@@ -37,14 +37,22 @@
         </arguments>
         <properties>
             <!-- @nonrep -->
-            <property name="@nonrep" type="bool" default="0">generate non-repeated adjacent values
-            (note: distribution will changed!)</property>
+            <property name="@nonrep" type="bool" default="0">
+                <tr lang="en">generate non-repeated adjacent values (note: distribution will
+                changed!)</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@seed" type="int" minvalue="0" default="0">
+                <tr lang="en">generator seed</tr>
+            </property>
             <!-- @value -->
-            <property name="@value" type="list" default="">list of atoms</property>
+            <property name="@value" type="list" default="">
+                <tr lang="en">list of atoms</tr>
+            </property>
             <!-- @w -->
-            <property name="@w" type="list" default="">list of atom weights</property>
+            <property name="@w" type="list" default="">
+                <tr lang="en">list of atom weights</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

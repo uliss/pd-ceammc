@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="live.capture~">
         <title>live.capture~</title>
         <meta>
@@ -21,21 +21,33 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @attack -->
             <property name="@attack" type="float" units="millisecond" minvalue="0"
-            maxvalue="100000" default="50">rec envelope attack time</property>
+            maxvalue="100000" default="50">
+                <tr lang="en">rec envelope attack time</tr>
+            </property>
             <!-- @gain -->
             <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
-            units="decibel">playing gain</property>
+            units="decibel">
+                <tr lang="en">playing gain</tr>
+            </property>
             <!-- @gate -->
-            <property name="@gate" type="bool" default="0">start/stop recording</property>
+            <property name="@gate" type="bool" default="0">
+                <tr lang="en">start/stop recording</tr>
+            </property>
             <!-- @release -->
             <property name="@release" type="float" units="millisecond" minvalue="0"
-            maxvalue="100000" default="50">rec envelope release time</property>
+            maxvalue="100000" default="50">
+                <tr lang="en">rec envelope release time</tr>
+            </property>
             <!-- @sustain -->
             <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
-            default="100">rec envelope sustain level - percent from trigger signal</property>
+            default="100">
+                <tr lang="en">rec envelope sustain level - percent from trigger signal</tr>
+            </property>
         </properties>
         <methods>
             <!-- div -->

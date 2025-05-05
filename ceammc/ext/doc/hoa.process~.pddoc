@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.process~">
         <title>hoa.process~</title>
         <meta>
@@ -61,17 +61,23 @@
         </arguments>
         <properties>
             <!-- @args -->
-            <property name="@args" type="list" access="initonly" default="">arguments passed to
-            instances</property>
+            <property name="@args" type="list" access="initonly" default="">
+                <tr lang="en">arguments passed to instances</tr>
+            </property>
             <!-- @domain -->
             <property name="@domain" type="symbol" access="initonly" default="harmonics"
-            enum="harmonics planewaves">process domain: harmonics or planewaves</property>
+            enum="harmonics planewaves">
+                <tr lang="en">process domain: harmonics or planewaves</tr>
+            </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
-            access="initonly">the order of decomposition/number of planewaves</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition/number of planewaves</tr>
+            </property>
             <!-- @patch -->
-            <property name="@patch" type="symbol" access="initonly" default="">patch
-            name</property>
+            <property name="@patch" type="symbol" access="initonly" default="">
+                <tr lang="en">patch name</tr>
+            </property>
         </properties>
         <methods>
             <!-- dump -->

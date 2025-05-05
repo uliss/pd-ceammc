@@ -30,12 +30,13 @@
 #X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 439 @id;
-#X text 245 439 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/spat_zita6x8/PROP_NAME
-osc address \, if empty bind to /spat_zita6x8/PROP_NAME. Тип: symbol.;
+#X text 245 439 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/spat_zita6x8/ИМЯ_СВОЙСТВА \, в противном случае к
+/spat_zita6x8/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 511 @osc;
-#X text 245 511 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 511 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 553 @a0;
 #X text 245 553 Получить/Установить 1st source panning position. Тип:
 float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;

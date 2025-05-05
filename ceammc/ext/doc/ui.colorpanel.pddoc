@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="ui.colorpanel" type="gui">
         <title>ui.colorpanel</title>
         <meta>
@@ -31,62 +31,91 @@
         </mouse>
         <properties>
             <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
-            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
+                <tr lang="en">element background color (list of red, green, blue values in 0-1
+                range)</tr>
+            </property>
             <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
-            of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
+                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @fontname -->
             <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            enum="Courier DejaVu Helvetica Monaco Times">
+                <tr lang="en">fontname</tr>
+            </property>
             <!-- @fontsize -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-            fontsize</property>
+                <tr lang="en">fontsize</tr>
+            </property>
             <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+                <tr lang="en">font slant</tr>
+            </property>
             <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
+                <tr lang="en">font weight</tr>
+            </property>
             <!-- @hex -->
-            <property name="@hex" type="symbol" access="readonly" default="">HEX value in format
-            #RRGGBB</property>
+            <property name="@hex" type="symbol" access="readonly" default="">
+                <tr lang="en">HEX value in format #RRGGBB</tr>
+            </property>
             <!-- @hsl -->
-            <property name="@hsl" type="list" access="readonly" default="">HSL value triplet on 0-1
-            range</property>
+            <property name="@hsl" type="list" access="readonly" default="">
+                <tr lang="en">HSL value triplet on 0-1 range</tr>
+            </property>
             <!-- @hue -->
-            <property name="@hue" type="float" default="0" minvalue="0" maxvalue="1">first
-            hue</property>
+            <property name="@hue" type="float" default="0" minvalue="0" maxvalue="1">
+                <tr lang="en">first hue</tr>
+            </property>
             <!-- @index -->
-            <property name="@index" type="list" default="">color position in panel</property>
+            <property name="@index" type="list" default="">
+                <tr lang="en">color position in panel</tr>
+            </property>
             <!-- @lightness -->
-            <property name="@lightness" type="float" default="1" minvalue="0" maxvalue="1">first
-            lightness</property>
+            <property name="@lightness" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">first lightness</tr>
+            </property>
             <!-- @matrix -->
-            <property name="@matrix" type="list" default="24 13">matrix size</property>
+            <property name="@matrix" type="list" default="24 13">
+                <tr lang="en">matrix size</tr>
+            </property>
             <!-- @pd -->
-            <property name="@pd" type="int" access="readonly" default="0">pd color value</property>
+            <property name="@pd" type="int" access="readonly" default="0">
+                <tr lang="en">pd color value</tr>
+            </property>
             <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
-            lowest level</property>
+            <property name="@pinned" type="bool" default="0">
+                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
+            </property>
             <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">preset name for using with
-            [ui.preset]</property>
+            <property name="@presetname" type="symbol" default="(null)">
+                <tr lang="en">preset name for using with [ui.preset]</tr>
+            </property>
             <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@receive" type="symbol" default="(null)">
+                <tr lang="en">receive source</tr>
+            </property>
             <!-- @reverse -->
-            <property name="@reverse" type="bool" default="0">matrix reversed</property>
+            <property name="@reverse" type="bool" default="0">
+                <tr lang="en">matrix reversed</tr>
+            </property>
             <!-- @rgb -->
-            <property name="@rgb" type="list" access="readonly" default="">RGB value triplet on 0-1
-            range</property>
+            <property name="@rgb" type="list" access="readonly" default="">
+                <tr lang="en">RGB value triplet on 0-1 range</tr>
+            </property>
             <!-- @saturation -->
             <property name="@saturation" type="float" default="1" minvalue="0" maxvalue="1">
-            saturation</property>
+                <tr lang="en">saturation</tr>
+            </property>
             <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@send" type="symbol" default="(null)">
+                <tr lang="en">send destination</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="list" default="181 105">element size (width, height
-            pair)</property>
+            <property name="@size" type="list" default="181 105">
+                <tr lang="en">element size (width, height pair)</tr>
+            </property>
         </properties>
         <methods>
             <!-- clear -->

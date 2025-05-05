@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.risset_bell~">
         <title>synth.risset_bell~</title>
         <meta>
@@ -28,19 +28,27 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @dur -->
             <property name="@dur" type="float" minvalue="10" maxvalue="600000" default="5000"
-            units="millisecond">duration</property>
+            units="millisecond">
+                <tr lang="en">duration</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
-            units="hertz">base frequency</property>
+            units="hertz">
+                <tr lang="en">base frequency</tr>
+            </property>
             <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
-            - 1: on, 0: off</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+                <tr lang="en">play trigger - 1: on, 0: off</tr>
+            </property>
             <!-- @pfreq -->
-            <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">freq
-            multiplication coefficient</property>
+            <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">
+                <tr lang="en">freq multiplication coefficient</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

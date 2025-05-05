@@ -60,12 +60,13 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 735 739 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 771 @id;
-#X text 245 771 (при инициализации) Получить/Установить OSC address
-id. If specified \, bind all properties to /ID/dyn_comp_peak2/PROP_NAME
-osc address \, if empty bind to /dyn_comp_peak2/PROP_NAME. Тип: symbol.;
+#X text 245 771 (при инициализации) Получить/Установить идентификатор
+для OSC адреса. Если указан \, привязывает все свойства объекта к OSC
+адресам вида: /ID/dyn_comp_peak2/ИМЯ_СВОЙСТВА \, в противном случае
+к /dyn_comp_peak2/ИМЯ_СВОЙСТВА. Тип: symbol.;
 #X msg 110 843 @osc;
-#X text 245 843 (при инициализации) Получить/Установить OSC server
-name to listen. Тип: symbol.;
+#X text 245 843 (при инициализации) Получить/Установить имя OSC сервера.
+Тип: symbol.;
 #X msg 110 885 @active;
 #X text 245 885 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;

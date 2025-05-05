@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.multiplex">
         <title>flow.multiplex</title>
         <meta>
@@ -32,8 +32,10 @@
         </arguments>
         <properties>
             <!-- @index -->
-            <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">input index,
-            can be set only with [prop.set] object or via rightmost inlet</property>
+            <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">
+                <tr lang="en">input index, can be set only with [prop.set] object or via rightmost
+                inlet</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="math.pi">
         <title>math.pi</title>
         <meta>
@@ -35,7 +35,9 @@
         </arguments>
         <properties>
             <!-- @k -->
-            <property name="@k" type="float" default="1" access="initonly">multiplier</property>
+            <property name="@k" type="float" default="1" access="initonly">
+                <tr lang="en">multiplier</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

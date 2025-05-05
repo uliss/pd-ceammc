@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="dict.contains">
         <title>dict.contains</title>
         <meta>
@@ -27,7 +27,9 @@
         </arguments>
         <properties>
             <!-- @keys -->
-            <property name="@keys" type="list" default="">checked keys</property>
+            <property name="@keys" type="list" default="">
+                <tr lang="en">checked keys</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

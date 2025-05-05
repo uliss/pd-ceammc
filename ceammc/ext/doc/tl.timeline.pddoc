@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="tl.timeline">
         <title>tl.timeline</title>
         <meta>
@@ -39,32 +39,46 @@
         <properties>
             <!-- @current -->
             <property name="@current" type="float" access="readonly" units="millisecond"
-            default="0">current time</property>
+            default="0">
+                <tr lang="en">current time</tr>
+            </property>
             <!-- @current_sec -->
             <property name="@current_sec" type="float" access="readonly" units="second"
-            default="0">current time</property>
+            default="0">
+                <tr lang="en">current time</tr>
+            </property>
             <!-- @events -->
-            <property name="@events" type="list" access="readonly" default="end">list of event
-            names in chronological order</property>
+            <property name="@events" type="list" access="readonly" default="end">
+                <tr lang="en">list of event names in chronological order</tr>
+            </property>
             <!-- @is_running -->
-            <property name="@is_running" type="bool" access="readonly" default="0">if timeline is
-            running</property>
+            <property name="@is_running" type="bool" access="readonly" default="0">
+                <tr lang="en">if timeline is running</tr>
+            </property>
             <!-- @length -->
             <property name="@length" type="float" minvalue="0" access="initonly" default="60"
-            units="second">timeline length</property>
+            units="second">
+                <tr lang="en">timeline length</tr>
+            </property>
             <!-- @loop -->
-            <property name="@loop" type="bool" default="0">loop mode</property>
+            <property name="@loop" type="bool" default="0">
+                <tr lang="en">loop mode</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="fixed inf" default="fixed">timeline mode. If
-            timeline is fixed, when reached, it outputs *end* event and stops after that. Infinite
-            timeline never stops by itself. Fixed timeline can have @loop property for
-            repeats</property>
+            <property name="@mode" type="symbol" enum="fixed inf" default="fixed">
+                <tr lang="en">timeline mode. If timeline is fixed, when reached, it outputs *end*
+                event and stops after that. Infinite timeline never stops by itself. Fixed timeline
+                can have @loop property for repeats</tr>
+            </property>
             <!-- @phase -->
             <property name="@phase" type="float" access="readonly" minvalue="0" maxvalue="1"
-            default="0">current phase in [0-1) range</property>
+            default="0">
+                <tr lang="en">current phase in [0-1) range</tr>
+            </property>
             <!-- @size -->
-            <property name="@size" type="int" access="readonly" default="1" minvalue="0">number of
-            events in timeline</property>
+            <property name="@size" type="int" access="readonly" default="1" minvalue="0">
+                <tr lang="en">number of events in timeline</tr>
+            </property>
         </properties>
         <methods>
             <!-- add -->

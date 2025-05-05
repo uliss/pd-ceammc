@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="midi.vrand">
         <title>midi.vrand</title>
         <meta>
@@ -26,30 +26,44 @@
         </arguments>
         <properties>
             <!-- @add -->
-            <property name="@add" type="alias">alias to @mode add</property>
+            <property name="@add" type="alias">
+                <tr lang="en">alias to @mode add</tr>
+            </property>
             <!-- @assign -->
-            <property name="@assign" type="alias">alias to @mode assign</property>
+            <property name="@assign" type="alias">
+                <tr lang="en">alias to @mode assign</tr>
+            </property>
             <!-- @dist -->
             <property name="@dist" type="symbol" default="uniform"
-            enum="uniform gauss linup lindown cmin cmax cmean">random distribution. *uniform* -
-            generate uniformly distributed value, *gauss* - mean=(@max+@min)/2,
-            sigma=(@max-@max)/3, *linup* - linear distribution with prob=0 at @min and prob=1 at
-            @max, *lindown* - linear distribution with prob=1 at @min and prob=0 at @max, *cmin* -
-            constant @min value, *cmax* - constant @max value, *cmean* - constant (@max+@min)/2
-            value</property>
+            enum="uniform gauss linup lindown cmin cmax cmean">
+                <tr lang="en">random distribution. *uniform* - generate uniformly distributed
+                value, *gauss* - mean=(@max+@min)/2, sigma=(@max-@max)/3, *linup* - linear
+                distribution with prob=0 at @min and prob=1 at @max, *lindown* - linear
+                distribution with prob=1 at @min and prob=0 at @max, *cmin* - constant @min value,
+                *cmax* - constant @max value, *cmean* - constant (@max+@min)/2 value</tr>
+            </property>
             <!-- @max -->
-            <property name="@max" type="float" default="127">max random range</property>
+            <property name="@max" type="float" default="127">
+                <tr lang="en">max random range</tr>
+            </property>
             <!-- @min -->
-            <property name="@min" type="float" default="0">min random range</property>
+            <property name="@min" type="float" default="0">
+                <tr lang="en">min random range</tr>
+            </property>
             <!-- @mode -->
-            <property name="@mode" type="symbol" default="assign" enum="assign add sub">assign
-            mode. If *assign* - replace origin velocity with random new one (default), if *add* -
-            adds random value to origin velocity, if *sub* - subtract random value from origin
-            velocity.</property>
+            <property name="@mode" type="symbol" default="assign" enum="assign add sub">
+                <tr lang="en">assign mode. If *assign* - replace origin velocity with random new
+                one (default), if *add* - adds random value to origin velocity, if *sub* - subtract
+                random value from origin velocity.</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
+            <property name="@seed" type="int" default="0" minvalue="0">
+                <tr lang="en">random seed</tr>
+            </property>
             <!-- @sub -->
-            <property name="@sub" type="alias">alias to @mode sub</property>
+            <property name="@sub" type="alias">
+                <tr lang="en">alias to @mode sub</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

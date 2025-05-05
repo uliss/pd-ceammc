@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
-<property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind all properties to /ID/$obj/PROP_NAME osc address, if empty bind to
-            /$obj/PROP_NAME.</property>
+<property name="@id" type="symbol" default="" access="initonly">
+    <tr lang="en">OSC address id. If specified, bind all properties to /ID/$obj/PROP_NAME osc address,
+    if empty bind to /$obj/PROP_NAME</tr>
+    <tr lang="ru">идентификатор для OSC адреса. Если указан, привязывает все свойства объекта к OSC адресам вида: /ID/$obj/ИМЯ_СВОЙСТВА,
+    в противном случае к /$obj/ИМЯ_СВОЙСТВА</tr>
+</property>
 
 

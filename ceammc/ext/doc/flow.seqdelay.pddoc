@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flow.seqdelay">
         <title>flow.seqdelay</title>
         <meta>
@@ -38,12 +38,14 @@
         </arguments>
         <properties>
             <!-- @block -->
-            <property name="@block" type="bool" default="0">blocking mode. If true, discards
-            incoming messages until scheduled message will output, after that is ready to accept
-            the new one.</property>
+            <property name="@block" type="bool" default="0">
+                <tr lang="en">blocking mode. If true, discards incoming messages until scheduled
+                message will output, after that is ready to accept the new one.</tr>
+            </property>
             <!-- @t -->
-            <property name="@t" type="list" minvalue="0" units="millisecond" default="">delay time
-            list</property>
+            <property name="@t" type="list" minvalue="0" units="millisecond" default="">
+                <tr lang="en">delay time list</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

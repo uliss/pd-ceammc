@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="metro.pattern">
         <title>metro.pattern</title>
         <meta>
@@ -27,14 +27,17 @@
         </arguments>
         <properties>
             <!-- @current -->
-            <property name="@current" type="int" minvalue="0" default="0">current pattern
-            index</property>
+            <property name="@current" type="int" minvalue="0" default="0">
+                <tr lang="en">current pattern index</tr>
+            </property>
             <!-- @pattern -->
-            <property name="@pattern" type="list" default="">time intervals (in ms) performed in a
-            loop</property>
+            <property name="@pattern" type="list" default="">
+                <tr lang="en">time intervals (in ms) performed in a loop</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="bool" default="0">sync mode - change pattern after full
-            cycle</property>
+            <property name="@sync" type="bool" default="0">
+                <tr lang="en">sync mode - change pattern after full cycle</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

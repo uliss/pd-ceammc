@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.median">
         <title>flt.median</title>
         <meta>
@@ -24,7 +24,9 @@
         <properties>
             <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="128" default="9"
-            units="sample">filter windows size</property>
+            units="sample">
+                <tr lang="en">filter windows size</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

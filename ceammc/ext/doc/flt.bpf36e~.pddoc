@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="flt.bpf36e~">
         <title>flt.bpf36e~</title>
         <meta>
@@ -37,13 +37,19 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
-            maxvalue="20000" access="initonly">cutoff frequency</property>
+            maxvalue="20000" access="initonly">
+                <tr lang="en">cutoff frequency</tr>
+            </property>
             <!-- @q -->
             <property name="@q" type="float" minvalue="0.25" maxvalue="32" default="2"
-            access="initonly">quality factor: @freq/BANDWIDTH</property>
+            access="initonly">
+                <tr lang="en">quality factor: @freq/BANDWIDTH</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

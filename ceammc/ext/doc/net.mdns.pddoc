@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="net.mdns">
         <title>net.mdns</title>
         <meta>
@@ -27,11 +27,14 @@
         </info>
         <properties>
             <!-- @fullname -->
-            <property name="@fullname" type="bool" default="1">if true: output full instance name
-            (with service and domain suffix), for ex.: 'THE_SERVICE._xx.local.' format</property>
+            <property name="@fullname" type="bool" default="1">
+                <tr lang="en">if true: output full instance name (with service and domain suffix),
+                for ex.: 'THE_SERVICE._xx.local.' format</tr>
+            </property>
             <!-- @ip -->
-            <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">restrict addresses by
-            type</property>
+            <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">
+                <tr lang="en">restrict addresses by type</tr>
+            </property>
         </properties>
         <methods>
             <!-- ifaces -->

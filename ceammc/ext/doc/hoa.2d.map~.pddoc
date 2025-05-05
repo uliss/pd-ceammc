@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.2d.map~">
         <title>hoa.2d.map~</title>
         <meta>
@@ -43,17 +43,24 @@
         </arguments>
         <properties>
             <!-- @mode -->
-            <property name="@mode" type="symbol" enum="pol car" default="pol">signal control mode
-            (with nsrc=1). If 'pol': second and third signal inlets are treated as radius and angle
-            values, if 'car': as X and Y coordinates</property>
+            <property name="@mode" type="symbol" enum="pol car" default="pol">
+                <tr lang="en">signal control mode (with nsrc=1). If 'pol': second and third signal
+                inlets are treated as radius and angle values, if 'car': as X and Y
+                coordinates</tr>
+            </property>
             <!-- @nsrc -->
-            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
-            input sources</property>
+            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">
+                <tr lang="en">number of input sources</tr>
+            </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
             <!-- @ramp -->
-            <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
+            <property name="@ramp" type="float" minvalue="0" default="100">
+                <tr lang="en">ramp time</tr>
+            </property>
         </properties>
         <methods>
             <!-- car -->

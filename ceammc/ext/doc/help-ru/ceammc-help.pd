@@ -232,7 +232,7 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 #X obj 30 3143 conv.degree2key;
 #X text 200 3143 преобразует номер ступени лада в номер клавиши;
 #X obj 30 3171 conv.edge2bang;
-#X text 200 3171 детектор переходного для численного потока;
+#X text 200 3171 детектор перехода для численного потока;
 #X obj 30 3199 conv.guido2note;
 #X text 200 3199 конвертер из Guido-нотации в MIDI ноту и длительность;
 #X obj 30 3227 conv.hex2int;
@@ -460,7 +460,7 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 #X text 200 6214 рендеринг огибающей в массив;
 #X obj 30 6242 env2vline;
 #X text 200 6242 преобразует огибающую в последовательность сообщений
-для объекта vline;
+для объекта [vline~];
 #X obj 30 6282 envelope;
 #X text 200 6282 тип данных огибающей;
 #X obj 30 6310 vline2env;
@@ -2126,7 +2126,7 @@ ui.spectroscope~-help.pd;
 #X text 20 27731 version: v0.9.8 \, license: GPL3;
 #X obj 20 27759 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 27783 ui.link @title Generated with pddoc v0.10.0 @url
+#X obj 20 27783 ui.link @title Generated with pddoc v0.11.0 @url
 https://github.com/uliss/pddoc;
 #X obj 670 27746 loadmsg 0;
 #X obj 670 27781 switch~;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="msg.unpack">
         <title>msg.unpack</title>
         <meta>
@@ -28,7 +28,9 @@
         <properties>
             <!-- @n -->
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="32"
-            access="initonly">number of outputs</property>
+            access="initonly">
+                <tr lang="en">number of outputs</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hw.rpi.sensor.sr04">
         <title>hw.rpi.sensor.sr04</title>
         <meta>
@@ -33,13 +33,19 @@
         <properties>
             <!-- @echo_pin -->
             <property name="@echo_pin" type="int" default="27" minvalue="0" maxvalue="255"
-            access="initonly">an echo pin GPIO number</property>
+            access="initonly">
+                <tr lang="en">an echo pin GPIO number</tr>
+            </property>
             <!-- @poll_interval -->
             <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
-            units="msec">poll interval</property>
+            units="msec">
+                <tr lang="en">poll interval</tr>
+            </property>
             <!-- @trig_pin -->
             <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
-            access="initonly">a trigger pin GPIO number</property>
+            access="initonly">
+                <tr lang="en">a trigger pin GPIO number</tr>
+            </property>
         </properties>
         <methods>
             <!-- poll -->

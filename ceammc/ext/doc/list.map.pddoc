@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.map">
         <title>list.map</title>
         <meta>
@@ -26,11 +26,15 @@
         </arguments>
         <properties>
             <!-- @def -->
-            <property name="@def" type="list" default="">default value to replace missing keys. If
-            empty (by default), missing keys are ignored.</property>
+            <property name="@def" type="list" default="">
+                <tr lang="en">default value to replace missing keys. If empty (by default), missing
+                keys are ignored.</tr>
+            </property>
             <!-- @dict -->
-            <property name="@dict" type="list" default="[]">mapping dictionary, the syntax is [KEY:
-            VALUES...], for example: [1: "one" 2: "two" k: "map values"]</property>
+            <property name="@dict" type="list" default="[]">
+                <tr lang="en">mapping dictionary, the syntax is [KEY: VALUES...], for example: [1:
+                "one" 2: "two" k: "map values"]</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="random.pw_const">
         <title>random.pw_const</title>
         <meta>
@@ -36,16 +36,21 @@
         </arguments>
         <properties>
             <!-- @bounds -->
-            <property name="@bounds" type="list" access="readonly" default="">list of
-            boundaries</property>
+            <property name="@bounds" type="list" access="readonly" default="">
+                <tr lang="en">list of boundaries</tr>
+            </property>
             <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@seed" type="int" minvalue="0" default="0">
+                <tr lang="en">generator seed</tr>
+            </property>
             <!-- @v -->
-            <property name="@v" type="list" default="">interleaved interval boundaries and boundary
-            propabilities.</property>
+            <property name="@v" type="list" default="">
+                <tr lang="en">interleaved interval boundaries and boundary propabilities.</tr>
+            </property>
             <!-- @weights -->
-            <property name="@weights" type="list" access="readonly" default="">list of
-            weights</property>
+            <property name="@weights" type="list" access="readonly" default="">
+                <tr lang="en">list of weights</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

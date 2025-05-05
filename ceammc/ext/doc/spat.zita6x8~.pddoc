@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="spat.zita6x8~">
         <title>spat.zita6x8~</title>
         <meta>
@@ -21,103 +21,153 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @a0 -->
-            <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">1st source
-            panning position</property>
+            <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">
+                <tr lang="en">1st source panning position</tr>
+            </property>
             <!-- @a1 -->
-            <property name="@a1" type="float" minvalue="0" default="0" maxvalue="1">2nd source
-            panning position</property>
+            <property name="@a1" type="float" minvalue="0" default="0" maxvalue="1">
+                <tr lang="en">2nd source panning position</tr>
+            </property>
             <!-- @a2 -->
-            <property name="@a2" type="float" minvalue="0" default="0" maxvalue="1">3rd source
-            panning position</property>
+            <property name="@a2" type="float" minvalue="0" default="0" maxvalue="1">
+                <tr lang="en">3rd source panning position</tr>
+            </property>
             <!-- @a3 -->
-            <property name="@a3" type="float" minvalue="0" default="0" maxvalue="1">4th source
-            panning position</property>
+            <property name="@a3" type="float" minvalue="0" default="0" maxvalue="1">
+                <tr lang="en">4th source panning position</tr>
+            </property>
             <!-- @a4 -->
-            <property name="@a4" type="float" minvalue="0" default="0" maxvalue="1">5th source
-            panning position</property>
+            <property name="@a4" type="float" minvalue="0" default="0" maxvalue="1">
+                <tr lang="en">5th source panning position</tr>
+            </property>
             <!-- @a5 -->
-            <property name="@a5" type="float" minvalue="0" default="0" maxvalue="1">6th source
-            panning position</property>
+            <property name="@a5" type="float" minvalue="0" default="0" maxvalue="1">
+                <tr lang="en">6th source panning position</tr>
+            </property>
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @dry0 -->
             <property name="@dry0" type="float" minvalue="-60" maxvalue="0" default="-3"
-            units="decibel">1st source direct sound level</property>
+            units="decibel">
+                <tr lang="en">1st source direct sound level</tr>
+            </property>
             <!-- @dry1 -->
             <property name="@dry1" type="float" minvalue="-60" maxvalue="0" default="-3"
-            units="decibel">2nd source direct sound level</property>
+            units="decibel">
+                <tr lang="en">2nd source direct sound level</tr>
+            </property>
             <!-- @dry2 -->
             <property name="@dry2" type="float" minvalue="-60" maxvalue="0" default="-3"
-            units="decibel">3rd source direct sound level</property>
+            units="decibel">
+                <tr lang="en">3rd source direct sound level</tr>
+            </property>
             <!-- @dry3 -->
             <property name="@dry3" type="float" minvalue="-60" maxvalue="0" default="-3"
-            units="decibel">4th source direct sound level</property>
+            units="decibel">
+                <tr lang="en">4th source direct sound level</tr>
+            </property>
             <!-- @dry4 -->
             <property name="@dry4" type="float" minvalue="-60" maxvalue="0" default="-3"
-            units="decibel">5th source direct sound level</property>
+            units="decibel">
+                <tr lang="en">5th source direct sound level</tr>
+            </property>
             <!-- @dry5 -->
             <property name="@dry5" type="float" minvalue="-60" maxvalue="0" default="-3"
-            units="decibel">6th source direct sound level</property>
+            units="decibel">
+                <tr lang="en">6th source direct sound level</tr>
+            </property>
             <!-- @r0 -->
-            <property name="@r0" type="float" minvalue="0" maxvalue="1" default="1">1st source
-            distance from circle center</property>
+            <property name="@r0" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">1st source distance from circle center</tr>
+            </property>
             <!-- @r1 -->
-            <property name="@r1" type="float" minvalue="0" maxvalue="1" default="1">2nd source
-            distance from circle center</property>
+            <property name="@r1" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">2nd source distance from circle center</tr>
+            </property>
             <!-- @r2 -->
-            <property name="@r2" type="float" minvalue="0" maxvalue="1" default="1">3rd source
-            distance from circle center</property>
+            <property name="@r2" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">3rd source distance from circle center</tr>
+            </property>
             <!-- @r3 -->
-            <property name="@r3" type="float" minvalue="0" maxvalue="1" default="1">4th source
-            distance from circle center</property>
+            <property name="@r3" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">4th source distance from circle center</tr>
+            </property>
             <!-- @r4 -->
-            <property name="@r4" type="float" minvalue="0" maxvalue="1" default="1">5th source
-            distance from circle center</property>
+            <property name="@r4" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">5th source distance from circle center</tr>
+            </property>
             <!-- @r5 -->
-            <property name="@r5" type="float" minvalue="0" maxvalue="1" default="1">6th source
-            distance from circle center</property>
+            <property name="@r5" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">6th source distance from circle center</tr>
+            </property>
             <!-- @t0 -->
             <property name="@t0" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">1st source reverb time (in seconds) to decay 60dB in low and
-            mid-frequency band</property>
+            units="second">
+                <tr lang="en">1st source reverb time (in seconds) to decay 60dB in low and
+                mid-frequency band</tr>
+            </property>
             <!-- @t1 -->
             <property name="@t1" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">2nd source reverb time (in seconds) to decay 60dB in low and
-            mid-frequency band</property>
+            units="second">
+                <tr lang="en">2nd source reverb time (in seconds) to decay 60dB in low and
+                mid-frequency band</tr>
+            </property>
             <!-- @t2 -->
             <property name="@t2" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">3rd source reverb time (in seconds) to decay 60dB in low and
-            mid-frequency band</property>
+            units="second">
+                <tr lang="en">3rd source reverb time (in seconds) to decay 60dB in low and
+                mid-frequency band</tr>
+            </property>
             <!-- @t3 -->
             <property name="@t3" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">4th source reverb time (in seconds) to decay 60dB in low and
-            mid-frequency band</property>
+            units="second">
+                <tr lang="en">4th source reverb time (in seconds) to decay 60dB in low and
+                mid-frequency band</tr>
+            </property>
             <!-- @t4 -->
             <property name="@t4" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">5th source reverb time (in seconds) to decay 60dB in low and
-            mid-frequency band</property>
+            units="second">
+                <tr lang="en">5th source reverb time (in seconds) to decay 60dB in low and
+                mid-frequency band</tr>
+            </property>
             <!-- @t5 -->
             <property name="@t5" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">6th source reverb time (in seconds) to decay 60dB in low and
-            mid-frequency band</property>
+            units="second">
+                <tr lang="en">6th source reverb time (in seconds) to decay 60dB in low and
+                mid-frequency band</tr>
+            </property>
             <!-- @wet0 -->
             <property name="@wet0" type="float" minvalue="-60" maxvalue="0" default="-8"
-            units="decibel">1st source reverb sound level</property>
+            units="decibel">
+                <tr lang="en">1st source reverb sound level</tr>
+            </property>
             <!-- @wet1 -->
             <property name="@wet1" type="float" minvalue="-60" maxvalue="0" default="-8"
-            units="decibel">2nd source reverb sound level</property>
+            units="decibel">
+                <tr lang="en">2nd source reverb sound level</tr>
+            </property>
             <!-- @wet2 -->
             <property name="@wet2" type="float" minvalue="-60" maxvalue="0" default="-8"
-            units="decibel">3rd source reverb sound level</property>
+            units="decibel">
+                <tr lang="en">3rd source reverb sound level</tr>
+            </property>
             <!-- @wet3 -->
             <property name="@wet3" type="float" minvalue="-60" maxvalue="0" default="-8"
-            units="decibel">4th source reverb sound level</property>
+            units="decibel">
+                <tr lang="en">4th source reverb sound level</tr>
+            </property>
             <!-- @wet4 -->
             <property name="@wet4" type="float" minvalue="-60" maxvalue="0" default="-8"
-            units="decibel">5th source reverb sound level</property>
+            units="decibel">
+                <tr lang="en">5th source reverb sound level</tr>
+            </property>
             <!-- @wet5 -->
             <property name="@wet5" type="float" minvalue="-60" maxvalue="0" default="-8"
-            units="decibel">6th source reverb sound level</property>
+            units="decibel">
+                <tr lang="en">6th source reverb sound level</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

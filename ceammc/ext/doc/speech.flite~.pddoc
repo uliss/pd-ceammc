@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="speech.flite~">
         <title>speech.flite~</title>
         <meta>
@@ -24,14 +24,17 @@
         </info>
         <properties>
             <!-- @pitch -->
-            <property name="@pitch" type="float" default="-1">voice pitch (-1 - default
-            value)</property>
+            <property name="@pitch" type="float" default="-1">
+                <tr lang="en">voice pitch (-1 - default value)</tr>
+            </property>
             <!-- @speed -->
-            <property name="@speed" type="float" minvalue="0.5" maxvalue="4" default="1">speaking
-            speed</property>
+            <property name="@speed" type="float" minvalue="0.5" maxvalue="4" default="1">
+                <tr lang="en">speaking speed</tr>
+            </property>
             <!-- @voice -->
-            <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">default
-            voice</property>
+            <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">
+                <tr lang="en">default voice</tr>
+            </property>
         </properties>
         <methods>
             <!-- stop -->

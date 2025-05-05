@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="bitmap">
         <title>bitmap</title>
         <meta>
@@ -37,10 +37,14 @@
         <properties>
             <!-- @h -->
             <property name="@h" type="int" default="8" minvalue="1" maxvalue="256"
-            access="initonly">bitmap height in pixels</property>
+            access="initonly">
+                <tr lang="en">bitmap height in pixels</tr>
+            </property>
             <!-- @w -->
             <property name="@w" type="int" default="8" minvalue="1" maxvalue="256"
-            access="initonly">bitmap width in pixels</property>
+            access="initonly">
+                <tr lang="en">bitmap width in pixels</tr>
+            </property>
         </properties>
         <methods>
             <!-- arc -->

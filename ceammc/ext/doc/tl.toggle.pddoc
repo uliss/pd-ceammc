@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="tl.toggle">
         <title>tl.toggle</title>
         <meta>
@@ -29,7 +29,9 @@
         </info>
         <properties>
             <!-- @cue -->
-            <property name="@cue" type="symbol" access="readonly" default="">related cue</property>
+            <property name="@cue" type="symbol" access="readonly" default="">
+                <tr lang="en">related cue</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

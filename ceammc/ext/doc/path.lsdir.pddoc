@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="path.lsdir">
         <title>path.lsdir</title>
         <meta>
@@ -26,10 +26,13 @@
         </arguments>
         <properties>
             <!-- @match -->
-            <property name="@match" type="symbol" default="">match mask: for example *.wav for all
-            wav files</property>
+            <property name="@match" type="symbol" default="">
+                <tr lang="en">match mask: for example *.wav for all wav files</tr>
+            </property>
             <!-- @path -->
-            <property name="@path" type="list" default="">current path</property>
+            <property name="@path" type="list" default="">
+                <tr lang="en">current path</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

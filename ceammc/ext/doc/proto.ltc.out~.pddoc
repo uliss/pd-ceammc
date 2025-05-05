@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="proto.ltc.out~">
         <title>proto.ltc.out~</title>
         <meta>
@@ -24,19 +24,27 @@
         </meta>
         <properties>
             <!-- @filter -->
-            <property name="@filter" type="float" default="0" minvalue="0" maxvalue="500">output
-            signal filtering. LTC should have a rise time of 40us+/-10 us. If you want a perfect
-            square wave, set to 0</property>
+            <property name="@filter" type="float" default="0" minvalue="0" maxvalue="500">
+                <tr lang="en">output signal filtering. LTC should have a rise time of 40us+/-10 us.
+                If you want a perfect square wave, set to 0</tr>
+            </property>
             <!-- @fps -->
-            <property name="@fps" type="float" default="25">frames per second rate. Supported
-            values are: 24, 25, 29.97, 30.</property>
+            <property name="@fps" type="float" default="25">
+                <tr lang="en">frames per second rate. Supported values are: 24, 25, 29.97, 30.</tr>
+            </property>
             <!-- @on -->
-            <property name="@on" type="bool" default="0">encoder state</property>
+            <property name="@on" type="bool" default="0">
+                <tr lang="en">encoder state</tr>
+            </property>
             <!-- @speed -->
-            <property name="@speed" type="float" default="1">playing speed</property>
+            <property name="@speed" type="float" default="1">
+                <tr lang="en">playing speed</tr>
+            </property>
             <!-- @volume -->
             <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0"
-            units="decibel">output signal level</property>
+            units="decibel">
+                <tr lang="en">output signal level</tr>
+            </property>
         </properties>
         <methods>
             <!-- date -->

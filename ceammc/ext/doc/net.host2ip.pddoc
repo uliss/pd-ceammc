@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="net.host2ip">
         <title>net.host2ip</title>
         <meta>
@@ -26,12 +26,17 @@
         </arguments>
         <properties>
             <!-- @ipv4 -->
-            <property name="@ipv4" type="alias">shortcut for @type ipv4</property>
+            <property name="@ipv4" type="alias">
+                <tr lang="en">shortcut for @type ipv4</tr>
+            </property>
             <!-- @ipv6 -->
-            <property name="@ipv6" type="alias">shortcut for @type ipv6</property>
+            <property name="@ipv6" type="alias">
+                <tr lang="en">shortcut for @type ipv6</tr>
+            </property>
             <!-- @type -->
-            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP
-            type</property>
+            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">
+                <tr lang="en">result IP type</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

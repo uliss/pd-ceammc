@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="math.sync_ne">
         <title>math.sync_ne</title>
         <meta>
@@ -31,8 +31,10 @@
         </arguments>
         <properties>
             <!-- @epsilon -->
-            <property name="@epsilon" type="float" default="0" minvalue="0">compare epsilon. If not
-            zero calculates expession: !(-epsilon &lt; abs(A-B) &lt; +epsilon)</property>
+            <property name="@epsilon" type="float" default="0" minvalue="0">
+                <tr lang="en">compare epsilon. If not zero calculates expession: !(-epsilon &lt;
+                abs(A-B) &lt; +epsilon)</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

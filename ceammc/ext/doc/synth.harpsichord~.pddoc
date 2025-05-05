@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.harpsichord~">
         <title>synth.harpsichord~</title>
         <meta>
@@ -21,41 +21,54 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" units="hertz" default="130.8128">
-            frequency</property>
+                <tr lang="en">frequency</tr>
+            </property>
             <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
-            - 1: on, 0: off</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+                <tr lang="en">play trigger - 1: on, 0: off</tr>
+            </property>
             <!-- @modfreq -->
             <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220"
-            units="hertz">frequency of the sine wave for the modulation of theta (works if
-            @modetype=3)</property>
+            units="hertz">
+                <tr lang="en">frequency of the sine wave for the modulation of theta (works if
+                @modetype=3)</tr>
+            </property>
             <!-- @modtype -->
-            <property name="@modtype" type="int" minvalue="0" maxvalue="4" default="0">modulation
-            type. 0=theta is modulated by the incoming signal. 1=theta is modulated by the averaged
-            incoming signal. 2=theta is modulated by the squared incoming signal. 3=theta is
-            modulated by a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave of
-            frequency @freq</property>
+            <property name="@modtype" type="int" minvalue="0" maxvalue="4" default="0">
+                <tr lang="en">modulation type. 0=theta is modulated by the incoming signal. 1=theta
+                is modulated by the averaged incoming signal. 2=theta is modulated by the squared
+                incoming signal. 3=theta is modulated by a sine wave of frequency @modfreq. 4=theta
+                is modulated by a sine wave of frequency @freq</tr>
+            </property>
             <!-- @nonlin -->
             <property name="@nonlin" type="float" minvalue="0" maxvalue="1" default="0">
-            nonlinearity factor</property>
+                <tr lang="en">nonlinearity factor</tr>
+            </property>
             <!-- @pan -->
-            <property name="@pan" type="float" minvalue="0" maxvalue="1" default="0.6">pan
-            angle</property>
+            <property name="@pan" type="float" minvalue="0" maxvalue="1" default="0.6">
+                <tr lang="en">pan angle</tr>
+            </property>
             <!-- @pitch -->
-            <property name="@pitch" type="float" minvalue="12" maxvalue="96" default="48">midi
-            pitch</property>
+            <property name="@pitch" type="float" minvalue="12" maxvalue="96" default="48">
+                <tr lang="en">midi pitch</tr>
+            </property>
             <!-- @reverb_gain -->
             <property name="@reverb_gain" type="float" minvalue="0" maxvalue="1" default="0.137">
-            reverb gain</property>
+                <tr lang="en">reverb gain</tr>
+            </property>
             <!-- @room_size -->
             <property name="@room_size" type="float" minvalue="0.005" maxvalue="1" default="0.36">
-            reverb room size</property>
+                <tr lang="en">reverb room size</tr>
+            </property>
             <!-- @width -->
             <property name="@width" type="float" minvalue="0" maxvalue="1" default="0.5">
-            spatialization width</property>
+                <tr lang="en">spatialization width</tr>
+            </property>
         </properties>
         <methods>
             <!-- note -->

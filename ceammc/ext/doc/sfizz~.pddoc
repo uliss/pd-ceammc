@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="sfizz~">
         <title>sfizz~</title>
         <meta>
@@ -31,29 +31,39 @@
         </arguments>
         <properties>
             <!-- @avoices -->
-            <property name="@avoices" type="int" default="0" access="readonly">number midi
-            channels</property>
+            <property name="@avoices" type="int" default="0" access="readonly">
+                <tr lang="en">number midi channels</tr>
+            </property>
             <!-- @cc_labels -->
-            <property name="@cc_labels" type="atom" access="readonly" default="[]">dict of
-            controller labels</property>
+            <property name="@cc_labels" type="atom" access="readonly" default="[]">
+                <tr lang="en">dict of controller labels</tr>
+            </property>
             <!-- @freq -->
-            <property name="@freq" type="float" default="440" units="hertz">A4 standard
-            tuning</property>
+            <property name="@freq" type="float" default="440" units="hertz">
+                <tr lang="en">A4 standard tuning</tr>
+            </property>
             <!-- @gain -->
-            <property name="@gain" type="float" minvalue="0" maxvalue="16" default="0.429">output
-            gain (same as @value but in amp units)</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="16" default="0.429">
+                <tr lang="en">output gain (same as @value but in amp units)</tr>
+            </property>
             <!-- @key_labels -->
-            <property name="@key_labels" type="atom" access="readonly" default="[]">dict of control
-            key labels</property>
+            <property name="@key_labels" type="atom" access="readonly" default="[]">
+                <tr lang="en">dict of control key labels</tr>
+            </property>
             <!-- @poly -->
-            <property name="@poly" type="int" minvalue="1" maxvalue="256" default="64">max number
-            of voices</property>
+            <property name="@poly" type="int" minvalue="1" maxvalue="256" default="64">
+                <tr lang="en">max number of voices</tr>
+            </property>
             <!-- @sf -->
-            <property name="@sf" type="symbol" default="">soundfont path or builtin waveform name:
-            #sine, #tri, #saw, #square, #noise</property>
+            <property name="@sf" type="symbol" default="">
+                <tr lang="en">soundfont path or builtin waveform name: #sine, #tri, #saw, #square,
+                #noise</tr>
+            </property>
             <!-- @volume -->
             <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35"
-            units="decibel">output volume (same as @gain but in db)</property>
+            units="decibel">
+                <tr lang="en">output volume (same as @gain but in db)</tr>
+            </property>
         </properties>
         <methods>
             <!-- aftertouch -->

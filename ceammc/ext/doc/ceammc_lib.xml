@@ -582,7 +582,7 @@
     <entry name="env2array" descr="renders the envelope into the array" ref_view="object">
       <xi:include href="env2array.pddoc" parse="xml"/>
     </entry>
-    <entry name="env2vline" descr="сonverts the envelope into the sequence of messages for vline object" ref_view="object">
+    <entry name="env2vline" descr="сonverts the envelope into the sequence of messages for [vline~] object" ref_view="object">
       <xi:include href="env2vline.pddoc" parse="xml"/>
     </entry>
     <entry name="envelope" descr="envelope data type" ref_view="object">

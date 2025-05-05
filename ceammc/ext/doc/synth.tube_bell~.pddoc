@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="synth.tube_bell~">
         <title>synth.tube_bell~</title>
         <meta>
@@ -27,29 +27,38 @@
         </arguments>
         <properties>
             <!-- @adsr -->
-            <property name="@adsr" type="int" minvalue="0" maxvalue="127" default="0">ADSR 2 &amp;
-            4 Target</property>
+            <property name="@adsr" type="int" minvalue="0" maxvalue="127" default="0">
+                <tr lang="en">ADSR 2 &amp; 4 Target</tr>
+            </property>
             <!-- @freq -->
             <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220"
-            units="hertz">frequency</property>
+            units="hertz">
+                <tr lang="en">frequency</tr>
+            </property>
             <!-- @gate -->
-            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
-            - 1: on, 0: off</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
+                <tr lang="en">play trigger - 1: on, 0: off</tr>
+            </property>
             <!-- @lfo_depth -->
-            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127" default="0">LFO
-            delth</property>
+            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127" default="0">
+                <tr lang="en">LFO delth</tr>
+            </property>
             <!-- @lfo_speed -->
-            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127" default="0">LFO
-            speed in Hz</property>
+            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127" default="0">
+                <tr lang="en">LFO speed in Hz</tr>
+            </property>
             <!-- @mod -->
-            <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">modulator
-            index one</property>
+            <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">
+                <tr lang="en">modulator index one</tr>
+            </property>
             <!-- @pitch -->
-            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
-            pitch</property>
+            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">
+                <tr lang="en">midi pitch</tr>
+            </property>
             <!-- @xfade -->
-            <property name="@xfade" type="int" minvalue="0" maxvalue="127" default="0">crossfade of
-            outputs</property>
+            <property name="@xfade" type="int" minvalue="0" maxvalue="127" default="0">
+                <tr lang="en">crossfade of outputs</tr>
+            </property>
         </properties>
         <methods>
             <!-- cc -->

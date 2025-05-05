@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="proto.midi.casio">
         <title>proto.midi.casio</title>
         <meta>
@@ -22,8 +22,9 @@
         </info>
         <properties>
             <!-- @model -->
-            <property name="@model" type="symbol" default="px160" enum="px160">device
-            model</property>
+            <property name="@model" type="symbol" default="px160" enum="px160">
+                <tr lang="en">device model</tr>
+            </property>
         </properties>
         <methods>
             <!-- chorus -->

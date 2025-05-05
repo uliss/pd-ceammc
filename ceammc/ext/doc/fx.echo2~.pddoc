@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.echo2~">
         <title>fx.echo2~</title>
         <meta>
@@ -32,26 +32,34 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="10" maxvalue="5000" units="millisecond"
-            default="500">echo time</property>
+            default="500">
+                <tr lang="en">echo time</tr>
+            </property>
             <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
-            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
-            wet</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet</tr>
+            </property>
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
-            feedback coefficient</property>
+                <tr lang="en">feedback coefficient</tr>
+            </property>
             <!-- @stereo -->
-            <property name="@stereo" type="float" minvalue="0" maxvalue="1" default="1">The stereo
-            parameter controls the amount of stereo spread. For stereo=0 you get a plain delay,
-            without crosstalk between the channels. For stereo=1 you get a pure ping-pong delay
-            where the echos from the left first appear on the right channel and vice
-            versa</property>
+            <property name="@stereo" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">The stereo parameter controls the amount of stereo spread. For
+                stereo=0 you get a plain delay, without crosstalk between the channels. For
+                stereo=1 you get a pure ping-pong delay where the echos from the left first appear
+                on the right channel and vice versa</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

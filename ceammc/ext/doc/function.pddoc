@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="function" type="gui">
         <title>function</title>
         <meta>
@@ -31,8 +31,9 @@
         </arguments>
         <properties>
             <!-- @name -->
-            <property name="@name" type="symbol" default="" access="initonly">function name, should
-            be unique and non-empty</property>
+            <property name="@name" type="symbol" default="" access="initonly">
+                <tr lang="en">function name, should be unique and non-empty</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

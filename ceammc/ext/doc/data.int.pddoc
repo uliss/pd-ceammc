@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="data.int">
         <title>data.int</title>
         <meta>
@@ -30,8 +30,9 @@
         </arguments>
         <properties>
             <!-- @value -->
-            <property name="@value" type="int" access="readonly" default="0">current
-            value</property>
+            <property name="@value" type="int" access="readonly" default="0">
+                <tr lang="en">current value</tr>
+            </property>
         </properties>
         <methods>
             <!-- * -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="list.zip">
         <title>list.zip</title>
         <meta>
@@ -34,30 +34,42 @@
         </arguments>
         <properties>
             <!-- @clip -->
-            <property name="@clip" type="alias">alias for "@oversize clip" property. Pad shortest
-            list with last element to conform longest list</property>
+            <property name="@clip" type="alias">
+                <tr lang="en">alias for "@oversize clip" property. Pad shortest list with last
+                element to conform longest list</tr>
+            </property>
             <!-- @fold -->
-            <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
-            list with repeated values from the end to the beginning, then back and so
-            on.</property>
+            <property name="@fold" type="alias">
+                <tr lang="en">alias for "@oversize fold" property. Pad shortest list with repeated
+                values from the end to the beginning, then back and so on.</tr>
+            </property>
             <!-- @lists -->
-            <property name="@lists" type="list" access="readonly" default="">input data list: list
-            of data:mlist</property>
+            <property name="@lists" type="list" access="readonly" default="">
+                <tr lang="en">input data list: list of data:mlist</tr>
+            </property>
             <!-- @method -->
             <property name="@method" type="symbol" enum="min pad clip wrap fold" default="min">
-            behavior, if list have different sizes</property>
+                <tr lang="en">behavior, if list have different sizes</tr>
+            </property>
             <!-- @min -->
-            <property name="@min" type="alias">alias for "@oversize min" property. Truncates lists
-            to minimal common size</property>
+            <property name="@min" type="alias">
+                <tr lang="en">alias for "@oversize min" property. Truncates lists to minimal common
+                size</tr>
+            </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="2" maxvalue="20" default="2"
-            access="initonly">number of inputs</property>
+            access="initonly">
+                <tr lang="en">number of inputs</tr>
+            </property>
             <!-- @pad -->
-            <property name="@pad" type="atom" default="0">pad value for pad method of
-            resizing</property>
+            <property name="@pad" type="atom" default="0">
+                <tr lang="en">pad value for pad method of resizing</tr>
+            </property>
             <!-- @wrap -->
-            <property name="@wrap" type="alias">alias for "@oversize wrap" property. Pad shortest
-            list with repeated values from the beginning.</property>
+            <property name="@wrap" type="alias">
+                <tr lang="en">alias for "@oversize wrap" property. Pad shortest list with repeated
+                values from the beginning.</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet>

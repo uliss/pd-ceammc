@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.grainer~">
         <title>array.grainer~</title>
         <meta>
@@ -37,17 +37,23 @@
         </arguments>
         <properties>
             <!-- @array -->
-            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@array" type="symbol" default="">
+                <tr lang="en">array name</tr>
+            </property>
             <!-- @prob -->
-            <property name="@prob" type="float" default="1" minvalue="0" maxvalue="1">grain start
-            probability in internal or external sync mode. ('int' or 'ext')</property>
+            <property name="@prob" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">grain start probability in internal or external sync mode. ('int' or
+                'ext')</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="symbol" default="none" enum="none int ext">grain sync
-            mode. If 'none': start grains right after they are finished, if 'int': start grains
-            after specified interval (@tsync).</property>
+            <property name="@sync" type="symbol" default="none" enum="none int ext">
+                <tr lang="en">grain sync mode. If 'none': start grains right after they are
+                finished, if 'int': start grains after specified interval (@tsync).</tr>
+            </property>
             <!-- @tsync -->
             <property name="@tsync" type="float" default="50" minvalue="1" units="millisecond">
-            grain sync interval</property>
+                <tr lang="en">grain sync interval</tr>
+            </property>
         </properties>
         <methods>
             <!-- align -->

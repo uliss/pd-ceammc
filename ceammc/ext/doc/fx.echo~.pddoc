@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.echo~">
         <title>fx.echo~</title>
         <meta>
@@ -38,46 +38,67 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @bypass -->
-            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
-            'effected' signal.</property>
+            <property name="@bypass" type="bool" default="0">
+                <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
+            </property>
             <!-- @c_attack -->
             <property name="@c_attack" type="float" minvalue="0.1" maxvalue="100" default="10"
-            units="millisecond">feedback compression attack time</property>
+            units="millisecond">
+                <tr lang="en">feedback compression attack time</tr>
+            </property>
             <!-- @c_release -->
             <property name="@c_release" type="float" minvalue="1" maxvalue="500" default="50"
-            units="millisecond">feedback compression release time</property>
+            units="millisecond">
+                <tr lang="en">feedback compression release time</tr>
+            </property>
             <!-- @c_thresh -->
             <property name="@c_thresh" type="float" minvalue="-60" maxvalue="0" default="0"
-            units="decibel">feedback compression threshold level</property>
+            units="decibel">
+                <tr lang="en">feedback compression threshold level</tr>
+            </property>
             <!-- @compress -->
             <property name="@compress" type="float" minvalue="0" maxvalue="1" default="0.5">
-            feedback compression factor. 0: means no compression, 1: limit feedback
-            level.</property>
+                <tr lang="en">feedback compression factor. 0: means no compression, 1: limit
+                feedback level.</tr>
+            </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="10" maxvalue="10000" units="millisecond"
-            default="500">echo time</property>
+            default="500">
+                <tr lang="en">echo time</tr>
+            </property>
             <!-- @drywet -->
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
-            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
-            wet</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals. 0 - dry signal, 1 - wet</tr>
+            </property>
             <!-- @f_hpf -->
             <property name="@f_hpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="300">feedback high-pass filter cutoff frequency</property>
+            default="300">
+                <tr lang="en">feedback high-pass filter cutoff frequency</tr>
+            </property>
             <!-- @f_lpf -->
             <property name="@f_lpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
-            default="9000">feedback low-pass filter cutoff frequency</property>
+            default="9000">
+                <tr lang="en">feedback low-pass filter cutoff frequency</tr>
+            </property>
             <!-- @feedback -->
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
-            feedback coefficient</property>
+                <tr lang="en">feedback coefficient</tr>
+            </property>
             <!-- @filter -->
-            <property name="@filter" type="bool" default="0">if true - apply filter to feedback
-            signal</property>
+            <property name="@filter" type="bool" default="0">
+                <tr lang="en">if true - apply filter to feedback signal</tr>
+            </property>
             <!-- @smooth -->
             <property name="@smooth" type="float" default="50" minvalue="0" maxvalue="500"
-            units="millisecond">interpolation time on delay time change, that prevents click and
-            transpose, if equal to 0 produces artifacts on delay change</property>
+            units="millisecond">
+                <tr lang="en">interpolation time on delay time change, that prevents click and
+                transpose, if equal to 0 produces artifacts on delay change</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

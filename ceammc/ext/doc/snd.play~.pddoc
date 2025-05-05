@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="snd.play~">
         <title>snd.play~</title>
         <meta>
@@ -30,39 +30,52 @@
         </arguments>
         <properties>
             <!-- @begin -->
-            <property name="@begin" type="atom" default="0" units="sample sec msec smpte">start
-            playing position</property>
+            <property name="@begin" type="atom" default="0" units="sample sec msec smpte">
+                <tr lang="en">start playing position</tr>
+            </property>
             <!-- @end -->
-            <property name="@end" type="atom" default="-1" units="sample sec msec smpte">end
-            playing position</property>
+            <property name="@end" type="atom" default="-1" units="sample sec msec smpte">
+                <tr lang="en">end playing position</tr>
+            </property>
             <!-- @loop -->
-            <property name="@loop" type="bool" default="0">play in the loop</property>
+            <property name="@loop" type="bool" default="0">
+                <tr lang="en">play in the loop</tr>
+            </property>
             <!-- @n -->
             <property name="@n" type="int" access="initonly" default="2" minvalue="1"
-            maxvalue="32">number of output channels</property>
+            maxvalue="32">
+                <tr lang="en">number of output channels</tr>
+            </property>
             <!-- @name -->
-            <property name="@name" type="symbol" default="">absolute or relative to patch soundfile
-            name</property>
+            <property name="@name" type="symbol" default="">
+                <tr lang="en">absolute or relative to patch soundfile name</tr>
+            </property>
             <!-- @on_err -->
-            <property name="@on_err" type="symbol" default="">the error send destination. For
-            example, if soundfile was not found, the message [not_found( will be send to this
-            global name</property>
+            <property name="@on_err" type="symbol" default="">
+                <tr lang="en">the error send destination. For example, if soundfile was not found,
+                the message [not_found( will be send to this global name</tr>
+            </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" default="1" minvalue="0.25" maxvalue="4">
-            pitch-shift correction. Used only if @stretch mode enabled.</property>
+                <tr lang="en">pitch-shift correction. Used only if @stretch mode enabled.</tr>
+            </property>
             <!-- @speed -->
-            <property name="@speed" type="float" default="1" minvalue="0.25" maxvalue="4">playing
-            speed. If @stretch mode is disabled (default): changes playing speed (also with pitch
-            change respectively) in real time. If @stretch mode is enabled: can only change speed
-            (without pitch change) only on the next playing cycle</property>
+            <property name="@speed" type="float" default="1" minvalue="0.25" maxvalue="4">
+                <tr lang="en">playing speed. If @stretch mode is disabled (default): changes
+                playing speed (also with pitch change respectively) in real time. If @stretch mode
+                is enabled: can only change speed (without pitch change) only on the next playing
+                cycle</tr>
+            </property>
             <!-- @stretch -->
-            <property name="@stretch" type="bool" default="0">stretch mode. If true: use
-            timestretch and pitch-shifting</property>
+            <property name="@stretch" type="bool" default="0">
+                <tr lang="en">stretch mode. If true: use timestretch and pitch-shifting</tr>
+            </property>
             <!-- @sync -->
-            <property name="@sync" type="symbol" default="now" enum="now defer wait">sync mode.
-            'now': immediately starts playing (abort previous) after receiving start message.
-            'defer': wait until previous playing will be done, that starts new. 'wait': do not
-            playing until previous playing will not finished</property>
+            <property name="@sync" type="symbol" default="now" enum="now defer wait">
+                <tr lang="en">sync mode. 'now': immediately starts playing (abort previous) after
+                receiving start message. 'defer': wait until previous playing will be done, that
+                starts new. 'wait': do not playing until previous playing will not finished</tr>
+            </property>
         </properties>
         <methods>
             <!-- ff -->

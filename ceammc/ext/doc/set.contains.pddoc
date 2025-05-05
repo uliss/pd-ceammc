@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="set.contains">
         <title>set.contains</title>
         <meta>
@@ -28,7 +28,9 @@
         </arguments>
         <properties>
             <!-- @subj -->
-            <property name="@subj" type="atom" default="null">searched element</property>
+            <property name="@subj" type="atom" default="null">
+                <tr lang="en">searched element</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

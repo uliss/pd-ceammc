@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="random.discrete">
         <title>random.discrete</title>
         <meta>
@@ -34,10 +34,13 @@
         </arguments>
         <properties>
             <!-- @seed -->
-            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@seed" type="int" minvalue="0" default="0">
+                <tr lang="en">generator seed</tr>
+            </property>
             <!-- @weights -->
-            <property name="@weights" type="list" default="">list of weights (non-negative
-            floats)</property>
+            <property name="@weights" type="list" default="">
+                <tr lang="en">list of weights (non-negative floats)</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

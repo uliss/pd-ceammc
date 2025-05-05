@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hw.rpi.spi.ws2812">
         <title>hw.rpi.spi.ws2812</title>
         <meta>
@@ -22,18 +22,25 @@
         </info>
         <properties>
             <!-- @clear -->
-            <property name="@clear" type="bool" default="1">turn off all pixels when the object is
-            deleted</property>
+            <property name="@clear" type="bool" default="1">
+                <tr lang="en">turn off all pixels when the object is deleted</tr>
+            </property>
             <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
-            access="initonly">number of leds in the strip</property>
+            access="initonly">
+                <tr lang="en">number of leds in the strip</tr>
+            </property>
             <!-- @spi_bus -->
             <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
-            access="initonly">spi bus number</property>
+            access="initonly">
+                <tr lang="en">spi bus number</tr>
+            </property>
             <!-- @spi_cs -->
             <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
-            access="initonly">spi CS (chip select/enable). In most cases you don't need to set this
-            property, because LED strips are not using CS pin.</property>
+            access="initonly">
+                <tr lang="en">spi CS (chip select/enable). In most cases you don't need to set this
+                property, because LED strips are not using CS pin.</tr>
+            </property>
         </properties>
         <methods>
             <!-- brightness -->

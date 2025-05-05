@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="hoa.2d.recomposer~">
         <title>hoa.2d.recomposer~</title>
         <meta>
@@ -47,28 +47,40 @@
         </arguments>
         <properties>
             <!-- @fisheye -->
-            <property name="@fisheye" type="alias" access="initonly">alias for @mode
-            fisheye</property>
+            <property name="@fisheye" type="alias" access="initonly">
+                <tr lang="en">alias for @mode fisheye</tr>
+            </property>
             <!-- @fixe -->
-            <property name="@fixe" type="alias" access="initonly">alias for @mode fixe</property>
+            <property name="@fixe" type="alias" access="initonly">
+                <tr lang="en">alias for @mode fixe</tr>
+            </property>
             <!-- @free -->
-            <property name="@free" type="alias" access="initonly">alias for @mode free</property>
+            <property name="@free" type="alias" access="initonly">
+                <tr lang="en">alias for @mode free</tr>
+            </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="fixe fisheye free" default="free"
-            access="initonly">recomposition mode. There is three modes: *fixe* - simply recomposes
-            a plane wave decomposition into circular harmonics. *fisheye* - allows you to perform
-            an operation similar to the visual "fisheye" effect by distorsion of the sound field
-            perspective to the front of the scene. *free* - allows you to change the angles and the
-            widening value for each channels.</property>
+            access="initonly">
+                <tr lang="en">recomposition mode. There is three modes: *fixe* - simply recomposes
+                a plane wave decomposition into circular harmonics. *fisheye* - allows you to
+                perform an operation similar to the visual "fisheye" effect by distorsion of the
+                sound field perspective to the front of the scene. *free* - allows you to change
+                the angles and the widening value for each channels.</tr>
+            </property>
             <!-- @n -->
             <property name="@n" type="int" minvalue="0" maxvalue="128" default="0"
-            access="initonly">number of channels (planewaves). '0' means
-            auto-calculation.</property>
+            access="initonly">
+                <tr lang="en">number of channels (planewaves). '0' means auto-calculation.</tr>
+            </property>
             <!-- @order -->
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="initonly">the order of decomposition</property>
+            access="initonly">
+                <tr lang="en">the order of decomposition</tr>
+            </property>
             <!-- @ramp -->
-            <property name="@ramp" type="float" default="100" minvalue="0">ramp time</property>
+            <property name="@ramp" type="float" default="100" minvalue="0">
+                <tr lang="en">ramp time</tr>
+            </property>
         </properties>
         <methods>
             <!-- angles -->

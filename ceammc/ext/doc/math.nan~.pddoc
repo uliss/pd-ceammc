@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="math.nan~">
         <title>math.nan~</title>
         <meta>
@@ -36,12 +36,17 @@
         </info>
         <properties>
             <!-- @quiet -->
-            <property name="@quiet" type="alias">alias to @type quiet</property>
+            <property name="@quiet" type="alias">
+                <tr lang="en">alias to @type quiet</tr>
+            </property>
             <!-- @signal -->
-            <property name="@signal" type="alias">alias to @type signal</property>
+            <property name="@signal" type="alias">
+                <tr lang="en">alias to @type signal</tr>
+            </property>
             <!-- @type -->
-            <property name="@type" type="symbol" default="quiet" enum="quiet signal">type of
-            outputed NaN: quiet or signal</property>
+            <property name="@type" type="symbol" default="quiet" enum="quiet signal">
+                <tr lang="en">type of outputed NaN: quiet or signal</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

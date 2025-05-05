@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="array.resample">
         <title>array.resample</title>
         <meta>
@@ -31,25 +31,42 @@
         </arguments>
         <properties>
             <!-- @best -->
-            <property name="@best" type="alias">alias to @quality best</property>
+            <property name="@best" type="alias">
+                <tr lang="en">alias to @quality best</tr>
+            </property>
             <!-- @dest -->
-            <property name="@dest" type="symbol" default="">destination array</property>
+            <property name="@dest" type="symbol" default="">
+                <tr lang="en">destination array</tr>
+            </property>
             <!-- @fast -->
-            <property name="@fast" type="alias">alias to @quality fast</property>
+            <property name="@fast" type="alias">
+                <tr lang="en">alias to @quality fast</tr>
+            </property>
             <!-- @high -->
-            <property name="@high" type="alias">alias to @quality high</property>
+            <property name="@high" type="alias">
+                <tr lang="en">alias to @quality high</tr>
+            </property>
             <!-- @low -->
-            <property name="@low" type="alias">alias to @quality low</property>
+            <property name="@low" type="alias">
+                <tr lang="en">alias to @quality low</tr>
+            </property>
             <!-- @medium -->
-            <property name="@medium" type="alias">alias to @quality medium</property>
+            <property name="@medium" type="alias">
+                <tr lang="en">alias to @quality medium</tr>
+            </property>
             <!-- @quality -->
             <property name="@quality" type="symbol" enum="high fast low medium best"
-            default="high">resample quality</property>
+            default="high">
+                <tr lang="en">resample quality</tr>
+            </property>
             <!-- @ratio -->
-            <property name="@ratio" type="float" minvalue="0" default="0">resample ratio
-            (src/dest)</property>
+            <property name="@ratio" type="float" minvalue="0" default="0">
+                <tr lang="en">resample ratio (src/dest)</tr>
+            </property>
             <!-- @src -->
-            <property name="@src" type="symbol" default="">source array</property>
+            <property name="@src" type="symbol" default="">
+                <tr lang="en">source array</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="fx.granulator~">
         <title>fx.granulator~</title>
         <meta>
@@ -26,43 +26,69 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off the dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off the dsp processing</tr>
+            </property>
             <!-- @delay -->
             <property name="@delay" type="float" units="millisecond" minvalue="500" maxvalue="3000"
-            default="3000" access="readwrite">grain delay</property>
+            default="3000" access="readwrite">
+                <tr lang="en">grain delay</tr>
+            </property>
             <!-- @density -->
             <property name="@density" type="float" minvalue="1.0" maxvalue="16.0" default="1.0"
-            access="readwrite">number of grains</property>
+            access="readwrite">
+                <tr lang="en">number of grains</tr>
+            </property>
             <!-- @gainAL -->
             <property name="@gainAL" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
-            access="readwrite">A-channel left output gain</property>
+            access="readwrite">
+                <tr lang="en">A-channel left output gain</tr>
+            </property>
             <!-- @gainAR -->
             <property name="@gainAR" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
-            access="readwrite">A-channel right ouptut gain</property>
+            access="readwrite">
+                <tr lang="en">A-channel right ouptut gain</tr>
+            </property>
             <!-- @gainBL -->
             <property name="@gainBL" type="float" minvalue="0.0" maxvalue="1.0" default="0.25"
-            access="readwrite">B-channel left output gain</property>
+            access="readwrite">
+                <tr lang="en">B-channel left output gain</tr>
+            </property>
             <!-- @gainBR -->
             <property name="@gainBR" type="float" minvalue="0.0" maxvalue="1.0" default="0.75"
-            access="readwrite">B-channel right output gain</property>
+            access="readwrite">
+                <tr lang="en">B-channel right output gain</tr>
+            </property>
             <!-- @hpfA -->
             <property name="@hpfA" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
-            units="hertz" access="readwrite">A-channel HPF corner frequency</property>
+            units="hertz" access="readwrite">
+                <tr lang="en">A-channel HPF corner frequency</tr>
+            </property>
             <!-- @hpfB -->
             <property name="@hpfB" type="float" minvalue="50.0" maxvalue="10000.0" default="100.0"
-            units="hertz" access="readwrite">B-channel HPF corner frequency</property>
+            units="hertz" access="readwrite">
+                <tr lang="en">B-channel HPF corner frequency</tr>
+            </property>
             <!-- @pitchA -->
             <property name="@pitchA" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
-            access="readwrite">A-channel pitch shift</property>
+            access="readwrite">
+                <tr lang="en">A-channel pitch shift</tr>
+            </property>
             <!-- @pitchB -->
             <property name="@pitchB" type="float" minvalue="-4.0" maxvalue="4.0" default="1.0"
-            access="readwrite">B-channel pitchshift</property>
+            access="readwrite">
+                <tr lang="en">B-channel pitchshift</tr>
+            </property>
             <!-- @size -->
             <property name="@size" type="float" units="millisecond" minvalue="10" maxvalue="1000"
-            default="100" access="readwrite">grain size for both lines</property>
+            default="100" access="readwrite">
+                <tr lang="en">grain size for both lines</tr>
+            </property>
             <!-- @spread -->
             <property name="@spread" type="float" minvalue="0.05" maxvalue="1.0" default="0.5"
-            access="readwrite">grain spread in the input buffer</property>
+            access="readwrite">
+                <tr lang="en">grain spread in the input buffer</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="sync">
         <title>sync</title>
         <meta>
@@ -32,7 +32,8 @@
         <properties>
             <!-- @n -->
             <property name="@n" type="int" minvalue="2" default="2" maxvalue="8" access="initonly">
-            number of synced values</property>
+                <tr lang="en">number of synced values</tr>
+            </property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

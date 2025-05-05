@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="speech.rhvoice~">
         <title>speech.rhvoice~</title>
         <meta>
@@ -33,20 +33,26 @@
         </info>
         <properties>
             <!-- @pitch -->
-            <property name="@pitch" type="float" default="0" minvalue="-1" maxvalue="1">voice
-            pitch</property>
+            <property name="@pitch" type="float" default="0" minvalue="-1" maxvalue="1">
+                <tr lang="en">voice pitch</tr>
+            </property>
             <!-- @punct -->
-            <property name="@punct" type="symbol" default="">punctuation for pronunciation. If
-            'all' - pronounce all, otherwise pronounce only specified punctuation
-            characters.</property>
+            <property name="@punct" type="symbol" default="">
+                <tr lang="en">punctuation for pronunciation. If 'all' - pronounce all, otherwise
+                pronounce only specified punctuation characters.</tr>
+            </property>
             <!-- @rate -->
-            <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">speaking
-            rate</property>
+            <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">
+                <tr lang="en">speaking rate</tr>
+            </property>
             <!-- @voice -->
-            <property name="@voice" type="symbol" default="Anna">voice</property>
+            <property name="@voice" type="symbol" default="Anna">
+                <tr lang="en">voice</tr>
+            </property>
             <!-- @volume -->
-            <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">voice
-            volume</property>
+            <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">
+                <tr lang="en">voice volume</tr>
+            </property>
         </properties>
         <methods>
             <!-- clear -->

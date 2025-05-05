@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="chrono.datetime">
         <title>chrono.datetime</title>
         <meta>
@@ -22,7 +22,9 @@
         </meta>
         <properties>
             <!-- @utc -->
-            <property name="@utc" type="bool" default="0">output in UTC format</property>
+            <property name="@utc" type="bool" default="0">
+                <tr lang="en">output in UTC format</tr>
+            </property>
         </properties>
         <inlets>
             <inlet>

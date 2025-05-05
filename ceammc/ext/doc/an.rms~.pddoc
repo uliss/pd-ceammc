@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="an.rms~">
         <title>an.rms~</title>
         <meta>
@@ -26,10 +26,14 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
             <!-- @active -->
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@active" type="bool" default="1">
+                <tr lang="en">on/off dsp processing</tr>
+            </property>
             <!-- @period -->
             <property name="@period" type="float" minvalue="1" maxvalue="1000" default="200"
-            units="millisecond">averaging frame</property>
+            units="millisecond">
+                <tr lang="en">averaging frame</tr>
+            </property>
         </properties>
         <methods>
             <!-- reset -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.10">
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.11">
     <object name="data.path">
         <title>data.path</title>
         <meta>
@@ -23,11 +23,17 @@
         </arguments>
         <properties>
             <!-- @async -->
-            <property name="@async" type="bool" default="1">use async operations</property>
+            <property name="@async" type="bool" default="1">
+                <tr lang="en">use async operations</tr>
+            </property>
             <!-- @norm -->
-            <property name="@norm" type="bool" default="1">normalize path</property>
+            <property name="@norm" type="bool" default="1">
+                <tr lang="en">normalize path</tr>
+            </property>
             <!-- @path -->
-            <property name="@path" type="atom" default="">current path value</property>
+            <property name="@path" type="atom" default="">
+                <tr lang="en">current path value</tr>
+            </property>
         </properties>
         <methods>
             <!-- exists -->
