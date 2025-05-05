@@ -8,7 +8,8 @@
             </authors>
             <description>
                 <tr lang="en">converts the symbol into a list of character codes</tr>
-                <tr lang="ru">преобразует символьный тип в список кодов составляющих его символов</tr>
+                <tr lang="ru">преобразует символьный тип в список кодов составляющих его
+                символов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

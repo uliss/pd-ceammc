@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">generates a sequence of numbers that are uniformly distributed within the specified interval</tr>
-                <tr lang="ru">выводит последовательность равномерно распределенных в заданном интервале числе</tr>
+                <tr lang="en">generates a sequence of numbers that are uniformly distributed within
+                the specified interval</tr>
+                <tr lang="ru">выводит последовательность равномерно распределенных в заданном
+                интервале числе</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

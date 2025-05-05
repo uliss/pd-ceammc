@@ -9,7 +9,8 @@
             <description>
                 <tr lang="en">simple marimba physical model implementing a single tone bar
                 connected to tube</tr>
-                <tr lang="ru">простая физическая модель маримбы, реализующая звуковой брусок, соединенный с трубой</tr>
+                <tr lang="ru">простая физическая модель маримбы, реализующая звуковой брусок,
+                соединенный с трубой</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

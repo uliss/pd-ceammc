@@ -7,8 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">transforms the list of musical durations into a list of time periods</tr>
-                <tr lang="ru">преобразование списка музыкальных длительностей в список временных периодов</tr>
+                <tr lang="en">transforms the list of musical durations into a list of time
+                periods</tr>
+                <tr lang="ru">преобразование списка музыкальных длительностей в список временных
+                периодов</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

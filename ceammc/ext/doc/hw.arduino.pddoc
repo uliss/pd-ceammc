@@ -18,8 +18,8 @@
         </meta>
         <info>
             <par>Arduino serial port that supports reconnect and hotplug. If no properties are
-            given tries to connect to the first available and not opened device. If @reconnect flag is
-            given, waits for device hotplug and reconnects to it.</par>
+            given tries to connect to the first available and not opened device. If @reconnect flag
+            is given, waits for device hotplug and reconnects to it.</par>
         </info>
         <arguments>
             <argument name="PORT" type="symbol">serial port name, eg.: COM3 on Windows,

@@ -7,9 +7,10 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">generates a sequence of numbers that are evenly distributed on a logarithmic scale (geometric progression)</tr>
-                <tr lang="ru">выводит последовательность равномерно распределенных по логарифмической шкале
-                чисел (геометрическая прогрессия)</tr>
+                <tr lang="en">generates a sequence of numbers that are evenly distributed on a
+                logarithmic scale (geometric progression)</tr>
+                <tr lang="ru">выводит последовательность равномерно распределенных по
+                логарифмической шкале чисел (геометрическая прогрессия)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

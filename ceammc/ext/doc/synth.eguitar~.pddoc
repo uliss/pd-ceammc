@@ -8,8 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">simple electric guitar model with steel strings</tr>
-                <tr lang="ru">простая модель электрогитары со стальными
-                струнами</tr>
+                <tr lang="ru">простая модель электрогитары со стальными струнами</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

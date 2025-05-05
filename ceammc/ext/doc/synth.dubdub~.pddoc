@@ -9,8 +9,8 @@
             <description>
                 <tr lang="en">simple synth based on a sawtooth wave filtered by a resonant
                 lowpass</tr>
-                <tr lang="ru">простой синтезатор на основе пилообразной волны,
-                фильтруемой резонансным фильтром нижних частот</tr>
+                <tr lang="ru">простой синтезатор на основе пилообразной волны, фильтруемой
+                резонансным фильтром нижних частот</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
