@@ -31,12 +31,16 @@
             <a href="hoa/hoa.2d.exchanger~-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
-            decomposition</argument>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
+                <tr lang="en">the order of decomposition</tr>
+            </argument>
             <argument name="NUM" type="symbol"
-            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</argument>
+            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
+                <tr lang="en">numbering scheme</tr>
+            </argument>
             <argument name="NORM" type="symbol" enum="SN2D fromMaxN toMaxN">
-            normalization</argument>
+                <tr lang="en">normalization</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @fromB -->

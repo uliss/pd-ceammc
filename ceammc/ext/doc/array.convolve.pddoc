@@ -17,8 +17,12 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="ARRAY" type="symbol">target array</argument>
-            <argument name="IR" type="symbol">array with impulse response</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">target array</tr>
+            </argument>
+            <argument name="IR" type="symbol">
+                <tr lang="en">array with impulse response</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

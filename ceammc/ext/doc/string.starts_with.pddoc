@@ -23,7 +23,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="PREFIX" type="symbol">prefix</argument>
+            <argument name="PREFIX" type="symbol">
+                <tr lang="en">prefix</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @prefix -->

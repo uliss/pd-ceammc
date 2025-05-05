@@ -26,8 +26,12 @@
             <par>Examples: (1 1 1) - triplet, (2 1) - swing</par>
         </info>
         <arguments>
-            <argument name="DUR" type="float">total pattern duration</argument>
-            <argument name="RTREE" type="atom">rhythm tree</argument>
+            <argument name="DUR" type="float">
+                <tr lang="en">total pattern duration</tr>
+            </argument>
+            <argument name="RTREE" type="atom">
+                <tr lang="en">rhythm tree</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @dur -->

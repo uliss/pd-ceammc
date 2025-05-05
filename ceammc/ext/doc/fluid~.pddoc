@@ -29,7 +29,9 @@
             <event type="left-click" editmode="false" keys="Shift+Alt">panic (reset synth)</event>
         </mouse>
         <arguments>
-            <argument name="SF" type="symbol">soundfont path</argument>
+            <argument name="SF" type="symbol">
+                <tr lang="en">soundfont path</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @avoices -->

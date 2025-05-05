@@ -32,8 +32,9 @@
             <event type="left-click" editmode="false">sample immediately</event>
         </mouse>
         <arguments>
-            <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">sampling
-            interval</argument>
+            <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">
+                <tr lang="en">sampling interval</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @interval -->

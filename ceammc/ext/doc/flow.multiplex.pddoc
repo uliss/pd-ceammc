@@ -23,10 +23,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="24">number of multiplexed
-            inputs</argument>
-            <argument name="INDEX" type="int" minvalue="0" maxvalue="23">default input
-            index</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">
+                <tr lang="en">number of multiplexed inputs</tr>
+            </argument>
+            <argument name="INDEX" type="int" minvalue="0" maxvalue="23">
+                <tr lang="en">default input index</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @index -->

@@ -39,10 +39,18 @@
             <par>===</par>
         </info>
         <arguments>
-            <argument name="A" type="float">a value (optional)</argument>
-            <argument name="B" type="float">b value (optional)</argument>
-            <argument name="X" type="float">x value (optional)</argument>
-            <argument name="Y" type="float">y value (optional)</argument>
+            <argument name="A" type="float">
+                <tr lang="en">a value (optional)</tr>
+            </argument>
+            <argument name="B" type="float">
+                <tr lang="en">b value (optional)</tr>
+            </argument>
+            <argument name="X" type="float">
+                <tr lang="en">x value (optional)</tr>
+            </argument>
+            <argument name="Y" type="float">
+                <tr lang="en">y value (optional)</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- a -->

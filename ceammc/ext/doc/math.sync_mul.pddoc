@@ -22,7 +22,9 @@
             <since>0.8</since>
         </meta>
         <arguments>
-            <argument name="MUL" type="float">multiplicand</argument>
+            <argument name="MUL" type="float">
+                <tr lang="en">multiplicand</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @int -->

@@ -17,7 +17,9 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="GAIN" type="float" minvalue="1" maxvalue="5">input gain</argument>
+            <argument name="GAIN" type="float" minvalue="1" maxvalue="5">
+                <tr lang="en">input gain</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

@@ -25,7 +25,9 @@
             <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="X" type="any">set elements</argument>
+            <argument name="X" type="any">
+                <tr lang="en">set elements</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @empty -->

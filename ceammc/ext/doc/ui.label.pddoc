@@ -27,7 +27,9 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <arguments>
-            <argument name="TEXT" type="list">label text</argument>
+            <argument name="TEXT" type="list">
+                <tr lang="en">label text</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @align -->

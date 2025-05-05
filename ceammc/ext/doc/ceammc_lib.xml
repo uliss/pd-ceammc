@@ -211,7 +211,7 @@
     <xi:include href="ceammc_category_base.xml" parse="xml"/>
   </category>
   <category name="chaos">
-    <entry name="chaos.gbman0" descr="Gingerbreadman map chaotic generator" ref_view="object">
+    <entry name="chaos.gbman0" descr="gingerbreadman map chaotic generator" ref_view="object">
       <xi:include href="chaos.gbman0.pddoc" parse="xml"/>
     </entry>
     <entry name="chaos.gbman0~" descr="Gingerbreadman map chaotic generator" ref_view="object">

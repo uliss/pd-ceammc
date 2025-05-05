@@ -18,10 +18,12 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="8" units="second">time
-            to decay 60dB in low-frequency band</argument>
-            <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="8" units="second">time
-            to decay 60dB in mid-frequency band</argument>
+            <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="8" units="second">
+                <tr lang="en">time to decay 60dB in low-frequency band</tr>
+            </argument>
+            <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="8" units="second">
+                <tr lang="en">time to decay 60dB in mid-frequency band</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

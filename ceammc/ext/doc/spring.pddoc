@@ -21,9 +21,12 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VALUE" type="float">target value</argument>
+            <argument name="VALUE" type="float">
+                <tr lang="en">target value</tr>
+            </argument>
             <argument name="TIME" type="float" minvalue="50" maxvalue="5000" units="millisecond">
-            time to reach the target value</argument>
+                <tr lang="en">time to reach the target value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @accel -->

@@ -25,16 +25,21 @@
             conventional term for this is an "allpass-complementary filter bank"</par>
         </info>
         <arguments>
-            <argument name="F250" type="float" units="decibel" minvalue="-6" maxvalue="6">@f250
-            property init value</argument>
-            <argument name="F500" type="float" units="decibel" minvalue="-6" maxvalue="6">@f500
-            property init value</argument>
-            <argument name="F1000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f1000
-            property init value</argument>
-            <argument name="F2000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f2000
-            property init value</argument>
-            <argument name="F4000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f4000
-            property init value</argument>
+            <argument name="F250" type="float" units="decibel" minvalue="-6" maxvalue="6">
+                <tr lang="en">@f250 property init value</tr>
+            </argument>
+            <argument name="F500" type="float" units="decibel" minvalue="-6" maxvalue="6">
+                <tr lang="en">@f500 property init value</tr>
+            </argument>
+            <argument name="F1000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+                <tr lang="en">@f1000 property init value</tr>
+            </argument>
+            <argument name="F2000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+                <tr lang="en">@f2000 property init value</tr>
+            </argument>
+            <argument name="F4000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+                <tr lang="en">@f4000 property init value</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

@@ -17,7 +17,9 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="PATTERN" type="list">initial value</argument>
+            <argument name="PATTERN" type="list">
+                <tr lang="en">initial value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @pattern -->

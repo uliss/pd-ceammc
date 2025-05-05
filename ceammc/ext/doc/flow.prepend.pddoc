@@ -20,7 +20,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="MSG" type="list">init value for prepended message</argument>
+            <argument name="MSG" type="list">
+                <tr lang="en">init value for prepended message</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @msg -->

@@ -38,8 +38,9 @@
             direction.</par>
         </info>
         <arguments>
-            <argument name="I2C_BUS" type="atom" enum="1 2 3 4 5 6 default none">See @i2c_bus
-            property</argument>
+            <argument name="I2C_BUS" type="atom" enum="1 2 3 4 5 6 default none">
+                <tr lang="en">See @i2c_bus property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @i2c_addr -->

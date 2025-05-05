@@ -24,8 +24,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="URL" type="atom">OSC server url (like
-            osc.udp://localhost:12345)</argument>
+            <argument name="URL" type="atom">
+                <tr lang="en">OSC server url (like osc.udp://localhost:12345)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @host -->

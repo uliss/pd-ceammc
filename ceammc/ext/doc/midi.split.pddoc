@@ -20,7 +20,9 @@
             <par>Split midi note messages at specified pitch values</par>
         </info>
         <arguments>
-            <argument name="NOTES" type="list">list of note values (split points)</argument>
+            <argument name="NOTES" type="list">
+                <tr lang="en">list of note values (split points)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @points -->

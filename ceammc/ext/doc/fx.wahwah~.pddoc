@@ -17,9 +17,12 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">pedal angle</argument>
+            <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">pedal angle</tr>
+            </argument>
             <argument name="SPEED" type="float" minvalue="360" maxvalue="780" units="bpm">
-            automatisation speed</argument>
+                <tr lang="en">automatisation speed</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

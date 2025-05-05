@@ -30,7 +30,9 @@
             object.</par>
         </info>
         <arguments>
-            <argument name="INDEX" type="int" minvalue="1">outlet index</argument>
+            <argument name="INDEX" type="int" minvalue="1">
+                <tr lang="en">outlet index</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @index -->

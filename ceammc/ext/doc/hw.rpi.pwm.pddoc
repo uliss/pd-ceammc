@@ -40,8 +40,9 @@
             pin at the same time.</par>
         </info>
         <arguments>
-            <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">PWM channel. See
-            @ch</argument>
+            <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">
+                <tr lang="en">PWM channel. See @ch</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @pwm_ch -->

@@ -20,9 +20,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="0">number of steps</argument>
-            <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">time
-            interval between steps or bpm</argument>
+            <argument name="N" type="int" minvalue="0">
+                <tr lang="en">number of steps</tr>
+            </argument>
+            <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">
+                <tr lang="en">time interval between steps or bpm</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @div -->

@@ -36,8 +36,12 @@
             <event type="right-click" editmode="true">open Pd popup menu</event>
         </mouse>
         <arguments>
-            <argument name="ROW" type="int" minvalue="1" maxvalue="64">matrix rows</argument>
-            <argument name="COL" type="int" minvalue="1" maxvalue="64">matrix columns</argument>
+            <argument name="ROW" type="int" minvalue="1" maxvalue="64">
+                <tr lang="en">matrix rows</tr>
+            </argument>
+            <argument name="COL" type="int" minvalue="1" maxvalue="64">
+                <tr lang="en">matrix columns</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @active_color -->

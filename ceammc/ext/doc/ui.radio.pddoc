@@ -39,8 +39,9 @@
             <event type="right-click" editmode="0">show context menu</event>
         </mouse>
         <arguments>
-            <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">number of
-            cells</argument>
+            <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">
+                <tr lang="en">number of cells</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @active_color -->

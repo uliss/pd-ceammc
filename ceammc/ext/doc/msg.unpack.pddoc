@@ -21,7 +21,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">number of outputs</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="32">
+                <tr lang="en">number of outputs</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

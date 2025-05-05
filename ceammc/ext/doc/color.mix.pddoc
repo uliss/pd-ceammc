@@ -17,8 +17,12 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="C0" type="atom">first color</argument>
-            <argument name="C1" type="atom">second value</argument>
+            <argument name="C0" type="atom">
+                <tr lang="en">first color</tr>
+            </argument>
+            <argument name="C1" type="atom">
+                <tr lang="en">second value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @c0 -->

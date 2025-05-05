@@ -23,9 +23,12 @@
             <event type="left-click" editmode="false" keys="Alt">send blackout message</event>
         </mouse>
         <arguments>
-            <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="15">ArtNet
-            universe</argument>
-            <argument name="SUBNET" type="int" minvalue="0" maxvalue="15">ArtNet subnet</argument>
+            <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="15">
+                <tr lang="en">ArtNet universe</tr>
+            </argument>
+            <argument name="SUBNET" type="int" minvalue="0" maxvalue="15">
+                <tr lang="en">ArtNet subnet</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @ip -->

@@ -31,9 +31,12 @@
             <event type="left-click" editmode="false">open preset editor</event>
         </mouse>
         <arguments>
-            <argument name="ID" type="symbol">preset id (should be unique in most use
-            cases)</argument>
-            <argument name="INIT" type="symbol">preset initial value</argument>
+            <argument name="ID" type="symbol">
+                <tr lang="en">preset id (should be unique in most use cases)</tr>
+            </argument>
+            <argument name="INIT" type="symbol">
+                <tr lang="en">preset initial value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @global -->

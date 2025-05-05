@@ -24,7 +24,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VALUE" type="float">set initial value</argument>
+            <argument name="VALUE" type="float">
+                <tr lang="en">set initial value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @value -->

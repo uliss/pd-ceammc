@@ -26,7 +26,9 @@
             then output it.</par>
         </info>
         <arguments>
-            <argument name="VALUE" type="list">initial list</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">initial list</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

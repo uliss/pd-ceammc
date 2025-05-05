@@ -28,7 +28,9 @@
             explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
-            <argument name="WEIGHTS" type="list">weights (list of non-negative floats)</argument>
+            <argument name="WEIGHTS" type="list">
+                <tr lang="en">weights (list of non-negative floats)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @seed -->

@@ -26,8 +26,9 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="NSAMP" type="int" minvalue="8" maxvalue="32768">@nsamp
-            property</argument>
+            <argument name="NSAMP" type="int" minvalue="8" maxvalue="32768">
+                <tr lang="en">@nsamp property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

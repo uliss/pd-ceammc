@@ -20,7 +20,9 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="MUL" type="float">multiplicand</argument>
+            <argument name="MUL" type="float">
+                <tr lang="en">multiplicand</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @mul -->

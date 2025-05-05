@@ -17,7 +17,9 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="HEX" type="symbol">init pattern value</argument>
+            <argument name="HEX" type="symbol">
+                <tr lang="en">init pattern value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @hex -->

@@ -27,8 +27,9 @@
             <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">if specified, creates
-            fixed-size queue. See @size property</argument>
+            <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">
+                <tr lang="en">if specified, creates fixed-size queue. See @size property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @empty -->

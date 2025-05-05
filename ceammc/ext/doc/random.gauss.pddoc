@@ -32,8 +32,12 @@
             explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
-            <argument name="MU" type="float">the mean</argument>
-            <argument name="SIGMA" type="float" minvalue="0">the standard deviation</argument>
+            <argument name="MU" type="float">
+                <tr lang="en">the mean</tr>
+            </argument>
+            <argument name="SIGMA" type="float" minvalue="0">
+                <tr lang="en">the standard deviation</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @mu -->

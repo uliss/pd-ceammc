@@ -26,7 +26,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="VALUES" type="list">list of atoms to reject</argument>
+            <argument name="VALUES" type="list">
+                <tr lang="en">list of atoms to reject</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @values -->

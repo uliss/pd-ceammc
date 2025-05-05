@@ -20,7 +20,9 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="DIV" type="float">divisor</argument>
+            <argument name="DIV" type="float">
+                <tr lang="en">divisor</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @div -->

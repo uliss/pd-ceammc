@@ -18,9 +18,12 @@
             <since>0.7</since>
         </meta>
         <arguments>
-            <argument name="BITS" type="int" minvalue="1" maxvalue="16">number of bits</argument>
-            <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">number
-            of samples to skip</argument>
+            <argument name="BITS" type="int" minvalue="1" maxvalue="16">
+                <tr lang="en">number of bits</tr>
+            </argument>
+            <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">
+                <tr lang="en">number of samples to skip</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

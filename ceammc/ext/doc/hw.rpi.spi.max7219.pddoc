@@ -29,8 +29,9 @@
             for all devices in a chain.</par>
         </info>
         <arguments>
-            <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="4">number of displays
-            connected into chain</argument>
+            <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="4">
+                <tr lang="en">number of displays connected into chain</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @displays -->

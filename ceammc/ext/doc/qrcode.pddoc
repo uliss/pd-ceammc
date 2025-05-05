@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VALUE" type="symbol">initial string value</argument>
+            <argument name="VALUE" type="symbol">
+                <tr lang="en">initial string value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @high -->

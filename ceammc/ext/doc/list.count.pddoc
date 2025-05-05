@@ -20,7 +20,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="PATTERN" type="atom">count pattern value</argument>
+            <argument name="PATTERN" type="atom">
+                <tr lang="en">count pattern value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @pattern -->

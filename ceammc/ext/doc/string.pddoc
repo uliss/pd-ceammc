@@ -22,7 +22,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VALUE" type="list">initial string</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">initial string</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @value -->

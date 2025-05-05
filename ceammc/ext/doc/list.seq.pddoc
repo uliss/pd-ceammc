@@ -21,9 +21,15 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FROM" type="float">start value</argument>
-            <argument name="TO" type="float">end value</argument>
-            <argument name="STEP" type="float">sequence step</argument>
+            <argument name="FROM" type="float">
+                <tr lang="en">start value</tr>
+            </argument>
+            <argument name="TO" type="float">
+                <tr lang="en">end value</tr>
+            </argument>
+            <argument name="STEP" type="float">
+                <tr lang="en">sequence step</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @closed -->

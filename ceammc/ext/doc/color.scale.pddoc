@@ -17,7 +17,9 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="SCALE" type="list">color list</argument>
+            <argument name="SCALE" type="list">
+                <tr lang="en">color list</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @color -->

@@ -21,9 +21,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
-            frequency</argument>
-            <argument name="Q" type="float" minvalue="0.1" maxvalue="300">Q</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+                <tr lang="en">center frequency</tr>
+            </argument>
+            <argument name="Q" type="float" minvalue="0.1" maxvalue="300">
+                <tr lang="en">Q</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

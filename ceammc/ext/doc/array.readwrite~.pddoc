@@ -23,7 +23,9 @@
             <par>Performes these array operations in order: read, write, output</par>
         </info>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

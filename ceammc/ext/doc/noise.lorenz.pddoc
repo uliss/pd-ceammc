@@ -25,13 +25,27 @@
             <a href="https://en.wikipedia.org/wiki/Lorenz_system">wiki: Lorenz system</a>
         </info>
         <arguments>
-            <argument name="X" type="float">x value (optional)</argument>
-            <argument name="Y" type="float">y value (optional)</argument>
-            <argument name="Z" type="float">z value (optional)</argument>
-            <argument name="A" type="float">a value (optional)</argument>
-            <argument name="R" type="float">r value (optional)</argument>
-            <argument name="C" type="float">c value (optional)</argument>
-            <argument name="DT" type="float">dt value (optional)</argument>
+            <argument name="X" type="float">
+                <tr lang="en">x value (optional)</tr>
+            </argument>
+            <argument name="Y" type="float">
+                <tr lang="en">y value (optional)</tr>
+            </argument>
+            <argument name="Z" type="float">
+                <tr lang="en">z value (optional)</tr>
+            </argument>
+            <argument name="A" type="float">
+                <tr lang="en">a value (optional)</tr>
+            </argument>
+            <argument name="R" type="float">
+                <tr lang="en">r value (optional)</tr>
+            </argument>
+            <argument name="C" type="float">
+                <tr lang="en">c value (optional)</tr>
+            </argument>
+            <argument name="DT" type="float">
+                <tr lang="en">dt value (optional)</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- a -->

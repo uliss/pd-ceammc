@@ -17,9 +17,12 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="0.1" maxvalue="50" units="hertz">tremolo
-            frequency</argument>
-            <argument name="DEPTH" type="float" minvalue="0" maxvalue="1">effect depth</argument>
+            <argument name="FREQ" type="float" minvalue="0.1" maxvalue="50" units="hertz">
+                <tr lang="en">tremolo frequency</tr>
+            </argument>
+            <argument name="DEPTH" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">effect depth</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

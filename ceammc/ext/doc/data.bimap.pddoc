@@ -27,8 +27,10 @@
             <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="VALUE" type="list">initial value, list of pairs: LEFT_KEY1 RIGHT_KEY1
-            LEFT_KEY2 RIGHT_KEY2 etc.</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">initial value, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2
+                RIGHT_KEY2 etc.</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @empty -->

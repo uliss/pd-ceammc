@@ -21,7 +21,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="CHORD" type="list">list of pitches to arpeggiate</argument>
+            <argument name="CHORD" type="list">
+                <tr lang="en">list of pitches to arpeggiate</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @chord -->

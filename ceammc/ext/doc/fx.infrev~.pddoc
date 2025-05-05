@@ -26,9 +26,13 @@
             <a href="https://www.airwindows.com/infinity/">More info</a>
         </info>
         <arguments>
-            <argument name="SIZE" type="float" minvalue="0" maxvalue="1">room size</argument>
-            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">proportion of mix
-            between the original (dry) and 'effected' (wet) signals</argument>
+            <argument name="SIZE" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">room size</tr>
+            </argument>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
+                signals</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @bypass -->

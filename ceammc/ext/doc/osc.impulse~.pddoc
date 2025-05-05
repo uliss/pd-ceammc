@@ -23,8 +23,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050.0" units="hertz">See
-            @freq</argument>
+            <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050.0" units="hertz">
+                <tr lang="en">See @freq</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

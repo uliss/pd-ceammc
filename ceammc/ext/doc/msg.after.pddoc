@@ -26,9 +26,12 @@
             message is resetted</par>
         </info>
         <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">message
-            delay</argument>
-            <argument name="MSG" type="list">message arguments</argument>
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+                <tr lang="en">message delay</tr>
+            </argument>
+            <argument name="MSG" type="list">
+                <tr lang="en">message arguments</tr>
+            </argument>
         </arguments>
         <inlets>
             <inlet>

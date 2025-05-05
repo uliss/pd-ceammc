@@ -23,7 +23,9 @@
             <wiki name="Standard_deviation">Standard deviation</wiki>
         </info>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

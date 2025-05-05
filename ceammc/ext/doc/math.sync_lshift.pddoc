@@ -25,7 +25,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SHIFT" type="int">shift amount</argument>
+            <argument name="SHIFT" type="int">
+                <tr lang="en">shift amount</tr>
+            </argument>
         </arguments>
         <inlets>
             <inlet>

@@ -28,9 +28,12 @@
             of the synthesized voice to be realistic.</par>
         </info>
         <arguments>
-            <argument name="VOICE" type="symbol" enum="alto bass countertenor soprano tenor">voice
-            type</argument>
-            <argument name="VOWEL" type="symbol" enum="a e i o u">vowel</argument>
+            <argument name="VOICE" type="symbol" enum="alto bass countertenor soprano tenor">
+                <tr lang="en">voice type</tr>
+            </argument>
+            <argument name="VOWEL" type="symbol" enum="a e i o u">
+                <tr lang="en">vowel</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

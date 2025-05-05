@@ -20,8 +20,12 @@
             <par>Default keyboard layout is QWERTY, but you can specify custom one</par>
         </info>
         <arguments>
-            <argument name="LAYOUT" type="symbol" enum="qwerty names custom">layout name</argument>
-            <argument name="ON" type="bool">init on/off state</argument>
+            <argument name="LAYOUT" type="symbol" enum="qwerty names custom">
+                <tr lang="en">layout name</tr>
+            </argument>
+            <argument name="ON" type="bool">
+                <tr lang="en">init on/off state</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @custom -->

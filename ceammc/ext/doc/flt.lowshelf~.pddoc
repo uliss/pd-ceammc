@@ -22,10 +22,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">corner
-            frequency for the shelf</argument>
-            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">amount
-            of boost or cut apply to the signal</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+                <tr lang="en">corner frequency for the shelf</tr>
+            </argument>
+            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">
+                <tr lang="en">amount of boost or cut apply to the signal</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

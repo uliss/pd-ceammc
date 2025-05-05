@@ -23,8 +23,10 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SHIFT" type="float">shift amount. Float values cause linear
-            interpolation. Can be negative.</argument>
+            <argument name="SHIFT" type="float">
+                <tr lang="en">shift amount. Float values cause linear interpolation. Can be
+                negative.</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @shift -->

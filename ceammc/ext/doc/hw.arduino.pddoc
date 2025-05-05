@@ -22,11 +22,15 @@
             is given, waits for device hotplug and reconnects to it.</par>
         </info>
         <arguments>
-            <argument name="PORT" type="symbol">serial port name, eg.: COM3 on Windows,
-            /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</argument>
+            <argument name="PORT" type="symbol">
+                <tr lang="en">serial port name, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
+                /dev/cu.usbmodem411 on MacOSX</tr>
+            </argument>
             <argument name="RATE" type="int"
             enum="110 115200 1200 128000 14400 19200 2400 256000 300 38400 4800 56000 57600 600 9600">
-            serial baud rate</argument>
+
+                <tr lang="en">serial baud rate</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @connected -->

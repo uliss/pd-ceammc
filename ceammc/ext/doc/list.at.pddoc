@@ -31,7 +31,9 @@
             indexes are wrapped by modulo division.</par>
         </info>
         <arguments>
-            <argument name="INDEX" type="list">single or multiple elements position</argument>
+            <argument name="INDEX" type="list">
+                <tr lang="en">single or multiple elements position</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

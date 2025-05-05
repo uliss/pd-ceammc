@@ -27,8 +27,9 @@
             possible.</par>
         </info>
         <arguments>
-            <argument name="STEP" type="int" minvalue="1" maxvalue="1024">see @step
-            property</argument>
+            <argument name="STEP" type="int" minvalue="1" maxvalue="1024">
+                <tr lang="en">see @step property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @step -->

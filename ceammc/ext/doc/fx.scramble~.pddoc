@@ -20,10 +20,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ1" type="float" minvalue="0.25" maxvalue="50" units="hertz">left
-            channel scramble frequency</argument>
-            <argument name="FREQ2" type="float" minvalue="0.25" maxvalue="50" units="hertz">right
-            channel scramble frequency</argument>
+            <argument name="FREQ1" type="float" minvalue="0.25" maxvalue="50" units="hertz">
+                <tr lang="en">left channel scramble frequency</tr>
+            </argument>
+            <argument name="FREQ2" type="float" minvalue="0.25" maxvalue="50" units="hertz">
+                <tr lang="en">right channel scramble frequency</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

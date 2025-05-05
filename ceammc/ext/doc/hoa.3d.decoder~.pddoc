@@ -29,10 +29,15 @@
             <a href="hoa/hoa.3d.decoder~-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">the order of
-            decomposition</argument>
-            <argument name="MODE" type="symbol" enum="binaural regular">decoding mode</argument>
-            <argument name="NCH" type="int">number of loud speakers</argument>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">
+                <tr lang="en">the order of decomposition</tr>
+            </argument>
+            <argument name="MODE" type="symbol" enum="binaural regular">
+                <tr lang="en">decoding mode</tr>
+            </argument>
+            <argument name="NCH" type="int">
+                <tr lang="en">number of loud speakers</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @angles -->

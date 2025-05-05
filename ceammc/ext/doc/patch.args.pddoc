@@ -22,7 +22,9 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="FROM" type="int" minvalue="0">starting args index</argument>
+            <argument name="FROM" type="int" minvalue="0">
+                <tr lang="en">starting args index</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @from -->

@@ -26,8 +26,9 @@
             <par>Numbers thar are *less* then last argument are passed to N+1 inlet</par>
         </info>
         <arguments>
-            <argument name="VALUES" type="list">compare values: list of floats in descending
-            order</argument>
+            <argument name="VALUES" type="list">
+                <tr lang="en">compare values: list of floats in descending order</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @values -->

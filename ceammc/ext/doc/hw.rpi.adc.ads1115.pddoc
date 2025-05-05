@@ -26,7 +26,9 @@
             <par>- @fsr 256mv, range +-0.256V, 1-bit: 0.0078125mV</par>
         </info>
         <arguments>
-            <argument name="MODE" type="symbol" enum="diff single">See @mode</argument>
+            <argument name="MODE" type="symbol" enum="diff single">
+                <tr lang="en">See @mode</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @fsr -->

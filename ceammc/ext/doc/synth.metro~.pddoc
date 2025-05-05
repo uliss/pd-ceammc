@@ -17,8 +17,12 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="TEMPO" type="atom" units="bpm">tempo in beats per minute</argument>
-            <argument name="TSIG" type="symbol">time signature</argument>
+            <argument name="TEMPO" type="atom" units="bpm">
+                <tr lang="en">tempo in beats per minute</tr>
+            </argument>
+            <argument name="TSIG" type="symbol">
+                <tr lang="en">time signature</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

@@ -17,12 +17,15 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="60" units="second">time
-            (in seconds) to decay 60dB in low-frequency band</argument>
-            <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="60" units="second">time
-            (in seconds) to decay 60dB in mid-frequency band</argument>
-            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">ratio between source
-            signal (dry) and processed signal (wet)</argument>
+            <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="60" units="second">
+                <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
+            </argument>
+            <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="60" units="second">
+                <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
+            </argument>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">ratio between source signal (dry) and processed signal (wet)</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

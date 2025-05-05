@@ -21,8 +21,9 @@
             @freq impulses per second</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">average
-            frequency of noise impulses per second</argument>
+            <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">
+                <tr lang="en">average frequency of noise impulses per second</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

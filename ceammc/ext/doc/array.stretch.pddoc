@@ -23,8 +23,12 @@
             arrays. Copies time-stretched data from source to destination array</par>
         </info>
         <arguments>
-            <argument name="SRC" type="symbol">source array</argument>
-            <argument name="DEST" type="symbol">destination array</argument>
+            <argument name="SRC" type="symbol">
+                <tr lang="en">source array</tr>
+            </argument>
+            <argument name="DEST" type="symbol">
+                <tr lang="en">destination array</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @aalength -->

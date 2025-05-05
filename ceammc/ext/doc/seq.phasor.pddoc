@@ -23,7 +23,8 @@
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">
-            frequency</argument>
+                <tr lang="en">frequency</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @freq -->

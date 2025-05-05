@@ -23,7 +23,9 @@
             <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="VALUE" type="list">initial list values</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">initial list values</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @empty -->

@@ -23,8 +23,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
-            <argument name="SPEED" type="float">play speed</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
+            <argument name="SPEED" type="float">
+                <tr lang="en">play speed</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @amp -->

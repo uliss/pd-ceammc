@@ -28,9 +28,15 @@
             1969</par>
         </info>
         <arguments>
-            <argument name="K" type="float">k value, default 1</argument>
-            <argument name="X" type="float">initial x value, default 0.5</argument>
-            <argument name="Y" type="float">initial y value, default 0</argument>
+            <argument name="K" type="float">
+                <tr lang="en">k value, default 1</tr>
+            </argument>
+            <argument name="X" type="float">
+                <tr lang="en">initial x value, default 0.5</tr>
+            </argument>
+            <argument name="Y" type="float">
+                <tr lang="en">initial y value, default 0</tr>
+            </argument>
         </arguments>
         <properties />
         <methods />

@@ -18,7 +18,9 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="CMP" type="symbol">compare symbol</argument>
+            <argument name="CMP" type="symbol">
+                <tr lang="en">compare symbol</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @cmp -->

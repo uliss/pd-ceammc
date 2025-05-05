@@ -29,7 +29,9 @@
             the property</par>
         </info>
         <arguments>
-            <argument name="@NAME" type="symbol">property name</argument>
+            <argument name="@NAME" type="symbol">
+                <tr lang="en">property name</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- default -->

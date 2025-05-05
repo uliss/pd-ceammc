@@ -43,8 +43,9 @@
             <event type="drag" editmode="false" keys="Shift">snap value to the center</event>
         </mouse>
         <arguments>
-            <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">number of
-            sliders</argument>
+            <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">
+                <tr lang="en">number of sliders</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @auto_count -->

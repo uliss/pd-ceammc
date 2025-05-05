@@ -21,8 +21,9 @@
             <a href="https://www.videolan.org/vlc">videolan.org</a>
         </info>
         <arguments>
-            <argument name="HOST" type="symbol">hostname on that VLC player is running
-            on</argument>
+            <argument name="HOST" type="symbol">
+                <tr lang="en">hostname on that VLC player is running on</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @host -->

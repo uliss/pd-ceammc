@@ -73,7 +73,7 @@
 #X obj 30 1001 list.length;
 #X text 200 1001 выводит количество элементов в списке;
 #X obj 30 1029 list.map;
-#X text 200 1029 Значения списка карт в указанном словаре;
+#X text 200 1029 map list values by specified dictionary;
 #X obj 30 1057 list.max;
 #X text 200 1057 выводит самый большой элемент в списке;
 #X obj 30 1085 list.mean;

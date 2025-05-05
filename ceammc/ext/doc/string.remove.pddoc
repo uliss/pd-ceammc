@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="STR" type="symbol">substring to remove</argument>
+            <argument name="STR" type="symbol">
+                <tr lang="en">substring to remove</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @all -->

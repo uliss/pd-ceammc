@@ -17,8 +17,9 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="RES" type="float" minvalue="0" maxvalue="1">normalized amount of
-            corner-resonance</argument>
+            <argument name="RES" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">normalized amount of corner-resonance</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

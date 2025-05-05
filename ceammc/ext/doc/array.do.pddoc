@@ -20,7 +20,9 @@
             <since>0.3</since>
         </meta>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

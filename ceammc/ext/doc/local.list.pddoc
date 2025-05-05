@@ -28,8 +28,12 @@
             <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="ID" type="symbol">object ID</argument>
-            <argument name="VALUE" type="list">initial values</argument>
+            <argument name="ID" type="symbol">
+                <tr lang="en">object ID</tr>
+            </argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">initial values</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @empty -->

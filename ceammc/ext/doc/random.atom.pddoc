@@ -31,7 +31,9 @@
             <par>Note: when @nonrep property is set, distribution is not uniform or weighted.</par>
         </info>
         <arguments>
-            <argument name="VALUE" type="list">list of atoms</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">list of atoms</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @nonrep -->

@@ -18,7 +18,9 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="WITH" type="symbol">symbol to compare</argument>
+            <argument name="WITH" type="symbol">
+                <tr lang="en">symbol to compare</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @with -->

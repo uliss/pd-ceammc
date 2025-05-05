@@ -22,7 +22,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="V" type="list">sequence elements</argument>
+            <argument name="V" type="list">
+                <tr lang="en">sequence elements</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @div -->

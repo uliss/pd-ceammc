@@ -17,8 +17,9 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="DOT" type="float" units="millisecond" minvalue="5" maxvalue="1000">dot
-            length</argument>
+            <argument name="DOT" type="float" units="millisecond" minvalue="5" maxvalue="1000">
+                <tr lang="en">dot length</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @dot -->

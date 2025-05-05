@@ -29,8 +29,9 @@
             bang was scheduled by @delay property - it canceled</par>
         </info>
         <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">timeline
-            length</argument>
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+                <tr lang="en">timeline length</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @cue -->

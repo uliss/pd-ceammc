@@ -26,9 +26,15 @@
             <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
         </info>
         <arguments>
-            <argument name="SEED" type="float">seed value, default 0.82</argument>
-            <argument name="X" type="float">initial x value, default 0.7</argument>
-            <argument name="Y" type="float">initial y value, default 1.2</argument>
+            <argument name="SEED" type="float">
+                <tr lang="en">seed value, default 0.82</tr>
+            </argument>
+            <argument name="X" type="float">
+                <tr lang="en">initial x value, default 0.7</tr>
+            </argument>
+            <argument name="Y" type="float">
+                <tr lang="en">initial y value, default 1.2</tr>
+            </argument>
         </arguments>
         <properties />
         <methods>

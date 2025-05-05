@@ -18,8 +18,9 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="PITCH" type="float" minvalue="36" maxvalue="60">drone MIDI
-            pitch</argument>
+            <argument name="PITCH" type="float" minvalue="36" maxvalue="60">
+                <tr lang="en">drone MIDI pitch</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

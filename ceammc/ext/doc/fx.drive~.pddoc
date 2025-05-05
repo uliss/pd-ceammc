@@ -17,8 +17,9 @@
             <since>0.7</since>
         </meta>
         <arguments>
-            <argument name="DRIVE" type="float" minvalue="1" maxvalue="10">drive
-            coefficient</argument>
+            <argument name="DRIVE" type="float" minvalue="1" maxvalue="10">
+                <tr lang="en">drive coefficient</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

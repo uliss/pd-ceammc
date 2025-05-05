@@ -21,7 +21,9 @@
             <par>Rendering is performed in separate thread.</par>
         </info>
         <arguments>
-            <argument name="ARRAY" type="symbol">destination array name render to</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">destination array name render to</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

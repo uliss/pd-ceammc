@@ -28,8 +28,9 @@
             right.</par>
         </info>
         <arguments>
-            <argument name="STEP" type="int">rotate step. Negative step changes rotation
-            direction</argument>
+            <argument name="STEP" type="int">
+                <tr lang="en">rotate step. Negative step changes rotation direction</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @step -->

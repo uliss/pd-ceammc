@@ -34,7 +34,9 @@
             event length is 60 (100-40)</par>
         </info>
         <arguments>
-            <argument name="P" type="list">sequencer pattern in beat duration units</argument>
+            <argument name="P" type="list">
+                <tr lang="en">sequencer pattern in beat duration units</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @div -->

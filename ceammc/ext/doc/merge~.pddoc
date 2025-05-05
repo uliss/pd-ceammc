@@ -26,7 +26,9 @@
             <par>mostly syntax sugar for clear schemes, but can be used in dynamic pathing</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="64">number of inputs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="64">
+                <tr lang="en">number of inputs</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

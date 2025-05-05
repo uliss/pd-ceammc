@@ -23,7 +23,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SUBLIST" type="list">list for @sublist mode</argument>
+            <argument name="SUBLIST" type="list">
+                <tr lang="en">list for @sublist mode</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @all_of -->

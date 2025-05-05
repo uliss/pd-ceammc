@@ -24,8 +24,9 @@
             <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
         </info>
         <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">init @delay
-            property</argument>
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+                <tr lang="en">init @delay property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @delay -->

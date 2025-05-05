@@ -20,7 +20,9 @@
             <par>Only basic support at this moment</par>
         </info>
         <arguments>
-            <argument name="DEV" type="symbol">Motu device id</argument>
+            <argument name="DEV" type="symbol">
+                <tr lang="en">Motu device id</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @dev -->

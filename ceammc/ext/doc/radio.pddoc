@@ -25,7 +25,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">
+                <tr lang="en">number of outlets</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

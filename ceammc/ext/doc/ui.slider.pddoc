@@ -47,8 +47,12 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <arguments>
-            <argument name="MIN" type="float">min value</argument>
-            <argument name="MAX" type="float">max value</argument>
+            <argument name="MIN" type="float">
+                <tr lang="en">min value</tr>
+            </argument>
+            <argument name="MAX" type="float">
+                <tr lang="en">max value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @active_scale -->

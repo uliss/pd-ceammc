@@ -24,9 +24,15 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="PATH" type="symbol">OSC path to listen</argument>
-            <argument name="SERVER" type="symbol">OSC server name</argument>
-            <argument name="TYPES" type="symbol">expected OSC type string</argument>
+            <argument name="PATH" type="symbol">
+                <tr lang="en">OSC path to listen</tr>
+            </argument>
+            <argument name="SERVER" type="symbol">
+                <tr lang="en">OSC server name</tr>
+            </argument>
+            <argument name="TYPES" type="symbol">
+                <tr lang="en">expected OSC type string</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @path -->

@@ -18,7 +18,8 @@
         </meta>
         <arguments>
             <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
-            stutter period</argument>
+                <tr lang="en">stutter period</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @env -->

@@ -22,7 +22,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="VALUE" type="list">list contents</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">list contents</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

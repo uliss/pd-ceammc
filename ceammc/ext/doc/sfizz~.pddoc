@@ -24,8 +24,10 @@
             <event type="left-click" editmode="false" keys="Alt">all notes off</event>
         </mouse>
         <arguments>
-            <argument name="SF" type="symbol">soundfont path or builtin waveform name: #sine, #tri,
-            #saw, #square, #noise</argument>
+            <argument name="SF" type="symbol">
+                <tr lang="en">soundfont path or builtin waveform name: #sine, #tri, #saw, #square,
+                #noise</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @avoices -->

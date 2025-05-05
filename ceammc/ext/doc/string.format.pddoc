@@ -23,7 +23,9 @@
             <par>This format modifiers are supported: %d, %u, %i, %o, %x, %X, %s, %e, %E.</par>
         </info>
         <arguments>
-            <argument name="FORMAT" type="list">format string</argument>
+            <argument name="FORMAT" type="list">
+                <tr lang="en">format string</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @format -->

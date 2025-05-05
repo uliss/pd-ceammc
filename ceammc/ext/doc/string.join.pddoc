@@ -24,7 +24,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SEP" type="list">separator. For space use quotes.</argument>
+            <argument name="SEP" type="list">
+                <tr lang="en">separator. For space use quotes.</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @sep -->

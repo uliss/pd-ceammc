@@ -24,13 +24,20 @@
             <a href="https://aubio.org/">https://aubio.org</a>
         </info>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
-            <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
+            <argument name="BS" type="int" minvalue="64" units="sample">
+                <tr lang="en">buffer size</tr>
+            </argument>
             <argument name="METHOD" type="symbol"
             enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
-            detection method</argument>
-            <argument name="HS" type="int" minvalue="0" units="sample">hop size (by default
-            buffer_size/2)</argument>
+
+                <tr lang="en">detection method</tr>
+            </argument>
+            <argument name="HS" type="int" minvalue="0" units="sample">
+                <tr lang="en">hop size (by default buffer_size/2)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

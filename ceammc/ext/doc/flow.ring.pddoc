@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="LENGTH" type="int" minvalue="1" maxvalue="24">buffer length</argument>
+            <argument name="LENGTH" type="int" minvalue="1" maxvalue="24">
+                <tr lang="en">buffer length</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @length -->

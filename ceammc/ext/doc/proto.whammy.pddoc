@@ -17,9 +17,12 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="MODE" type="symbol" enum="chords classic">pedal mode (should correspond
-            to hardware switch on pedal)</argument>
-            <argument name="ACTIVE" type="bool">pedal initial state</argument>
+            <argument name="MODE" type="symbol" enum="chords classic">
+                <tr lang="en">pedal mode (should correspond to hardware switch on pedal)</tr>
+            </argument>
+            <argument name="ACTIVE" type="bool">
+                <tr lang="en">pedal initial state</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @active -->

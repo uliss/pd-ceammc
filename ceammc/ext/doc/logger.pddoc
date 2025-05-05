@@ -26,7 +26,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="PREFIX" type="list">log message prefix</argument>
+            <argument name="PREFIX" type="list">
+                <tr lang="en">log message prefix</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @active -->

@@ -31,16 +31,19 @@
             <a href="hoa/hoa.2d.recomposer~-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
-            decomposition.</argument>
-            <argument name="N" type="int" minvalue="0" maxvalue="128">number of channels. '0' means
-            auto-calculation.</argument>
-            <argument name="MODE" type="symbol" enum="fixe fisheye free">recomposition mode. There
-            is three modes: *fixe* - simply recomposes a plane wave decomposition into circular
-            harmonics. *fisheye* - allows you to perform an operation similar to the visual
-            "fisheye" effect by distorsion of the sound field perspective to the front of the
-            scene. *free* - allows you to change the angles and the widening value for each
-            channels.</argument>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
+                <tr lang="en">the order of decomposition.</tr>
+            </argument>
+            <argument name="N" type="int" minvalue="0" maxvalue="128">
+                <tr lang="en">number of channels. '0' means auto-calculation.</tr>
+            </argument>
+            <argument name="MODE" type="symbol" enum="fixe fisheye free">
+                <tr lang="en">recomposition mode. There is three modes: *fixe* - simply recomposes
+                a plane wave decomposition into circular harmonics. *fisheye* - allows you to
+                perform an operation similar to the visual "fisheye" effect by distorsion of the
+                sound field perspective to the front of the scene. *free* - allows you to change
+                the angles and the widening value for each channels.</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @fisheye -->

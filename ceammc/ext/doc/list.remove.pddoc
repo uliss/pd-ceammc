@@ -20,8 +20,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="INDEXES" type="list">list of indexes to remove. Negative indexes are
-            also supported</argument>
+            <argument name="INDEXES" type="list">
+                <tr lang="en">list of indexes to remove. Negative indexes are also supported</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @indexes -->

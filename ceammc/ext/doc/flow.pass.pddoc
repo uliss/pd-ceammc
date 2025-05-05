@@ -25,7 +25,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="VALUES" type="list">atoms to pass</argument>
+            <argument name="VALUES" type="list">
+                <tr lang="en">atoms to pass</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @values -->

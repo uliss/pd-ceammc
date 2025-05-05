@@ -17,7 +17,9 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="INIT" type="list">init pattern</argument>
+            <argument name="INIT" type="list">
+                <tr lang="en">init pattern</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @init -->

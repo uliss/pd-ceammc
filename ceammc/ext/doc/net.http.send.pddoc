@@ -20,9 +20,12 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="HOST" type="symbol">destination host</argument>
-            <argument name="PORT" type="int" minvalue="1" maxvalue="32768">destination
-            port</argument>
+            <argument name="HOST" type="symbol">
+                <tr lang="en">destination host</tr>
+            </argument>
+            <argument name="PORT" type="int" minvalue="1" maxvalue="32768">
+                <tr lang="en">destination port</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @host -->

@@ -24,10 +24,12 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">OSC server name (for using with other
-            objects)</argument>
-            <argument name="URL" type="atom">OSC server url (like udp:12345), see @url
-            property</argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">OSC server name (for using with other objects)</tr>
+            </argument>
+            <argument name="URL" type="atom">
+                <tr lang="en">OSC server url (like udp:12345), see @url property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @auto_start -->

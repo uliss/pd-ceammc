@@ -27,7 +27,9 @@
             <par>Different arguments order then in [list.^contains]</par>
         </info>
         <arguments>
-            <argument name="VALUE" type="list">list contents</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">list contents</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @value -->

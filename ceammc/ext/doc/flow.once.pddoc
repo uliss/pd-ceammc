@@ -24,7 +24,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="PASS" type="bool">set init state</argument>
+            <argument name="PASS" type="bool">
+                <tr lang="en">set init state</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @pass -->

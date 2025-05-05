@@ -25,7 +25,7 @@
 #X obj 30 369 flow.dup;
 #X text 200 369 дупликатор сообщений;
 #X obj 30 397 flow.float;
-#X text 200 397 плавать;
+#X text 200 397 pass floats;
 #X obj 30 425 flow.gate;
 #X text 200 425 шлюз для потока сообщений. аналог объекта [spigot];
 #X obj 30 453 flow.greater;

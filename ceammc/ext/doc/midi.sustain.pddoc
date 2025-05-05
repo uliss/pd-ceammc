@@ -21,7 +21,9 @@
             <par>when pedal is off: output all sustained notes off</par>
         </info>
         <arguments>
-            <argument name="ON" type="bool">initial state</argument>
+            <argument name="ON" type="bool">
+                <tr lang="en">initial state</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @ctlin -->

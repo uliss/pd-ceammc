@@ -29,8 +29,10 @@
             Pd symbols use @sym flag or use alias [symbol.split]</par>
         </info>
         <arguments>
-            <argument name="SEP" type="symbol">separator. If nonspecified - separate by every char.
-            To separate by space - use " " argument</argument>
+            <argument name="SEP" type="symbol">
+                <tr lang="en">separator. If nonspecified - separate by every char. To separate by
+                space - use " " argument</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @sep -->

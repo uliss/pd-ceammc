@@ -25,7 +25,9 @@
             <par>The pipe symbol should be separated by whitespaces.</par>
         </info>
         <arguments>
-            <argument name="ARGS" type="list">execution program chain</argument>
+            <argument name="ARGS" type="list">
+                <tr lang="en">execution program chain</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @args -->

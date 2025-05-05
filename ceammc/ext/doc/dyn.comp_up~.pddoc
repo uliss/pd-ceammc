@@ -29,14 +29,20 @@
             compression</a>
         </info>
         <arguments>
-            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="1">compression strength
-            (0: no compression, 1: increase level by @range db.)</argument>
+            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">compression strength (0: no compression, 1: increase level by @range
+                db.)</tr>
+            </argument>
             <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
-            level threshold above which compression kicks in</argument>
+                <tr lang="en">level threshold above which compression kicks in</tr>
+            </argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
-            attack time = time constant when level &amp; compression going up</argument>
+                <tr lang="en">attack time = time constant when level &amp; compression going
+                up</tr>
+            </argument>
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
-            release time = time constant coming out of compression</argument>
+                <tr lang="en">release time = time constant coming out of compression</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

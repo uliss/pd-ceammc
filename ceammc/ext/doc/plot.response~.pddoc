@@ -23,7 +23,9 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="32" maxvalue="8192">@n property</argument>
+            <argument name="N" type="int" minvalue="32" maxvalue="8192">
+                <tr lang="en">@n property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @db -->

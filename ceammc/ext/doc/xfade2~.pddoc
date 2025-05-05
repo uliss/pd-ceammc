@@ -27,10 +27,13 @@
             signals, [1-2) between second and third etc.</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">number of signal inputs stereo
-            pairs</argument>
-            <argument name="X" type="float">crossfade init value. Valid value in [0..N-1] range.
-            See @x property</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="16">
+                <tr lang="en">number of signal inputs stereo pairs</tr>
+            </argument>
+            <argument name="X" type="float">
+                <tr lang="en">crossfade init value. Valid value in [0..N-1] range. See @x
+                property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @lin -->

@@ -23,7 +23,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SUBJ" type="symbol">searched substring</argument>
+            <argument name="SUBJ" type="symbol">
+                <tr lang="en">searched substring</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @subj -->

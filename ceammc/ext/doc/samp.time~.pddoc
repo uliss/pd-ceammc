@@ -20,8 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="STATE" type="int" enum="0 1">initial counter state: on or
-            off</argument>
+            <argument name="STATE" type="int" enum="0 1">
+                <tr lang="en">initial counter state: on or off</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- reset -->

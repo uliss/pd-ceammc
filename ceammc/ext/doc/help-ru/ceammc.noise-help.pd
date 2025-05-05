@@ -24,11 +24,11 @@
 #X obj 30 353 noise.henon;
 #X text 200 353 хаотический генератор на основе отображения Эно;
 #X obj 30 381 noise.henon_heilles;
-#X text 200 381 Hénon-Heiles_system;
+#X text 200 381 Hénon–Heiles_system;
 #X obj 30 409 noise.henon_phase;
 #X text 200 409 фазовые диаграммы Эно;
 #X obj 30 437 noise.henonf;
-#X text 200 437 Фаза Хенона;
+#X text 200 437 Henon phase;
 #X obj 30 465 noise.ikeda;
 #X text 200 465 генератор хаоса на основе отображения Икеды;
 #X obj 30 493 noise.lfreq0~;

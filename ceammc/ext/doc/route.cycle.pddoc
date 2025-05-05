@@ -25,10 +25,15 @@
             property requests) are passed thru</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="64">number of outlets</argument>
-            <argument name="OFFSET" type="int" minvalue="-64" maxvalue="64">start
-            position</argument>
-            <argument name="STEP" type="int">cycle step</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="64">
+                <tr lang="en">number of outlets</tr>
+            </argument>
+            <argument name="OFFSET" type="int" minvalue="-64" maxvalue="64">
+                <tr lang="en">start position</tr>
+            </argument>
+            <argument name="STEP" type="int">
+                <tr lang="en">cycle step</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @index -->

@@ -24,8 +24,12 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">message selector</argument>
-            <argument name="X" type="any">message content</argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">message selector</tr>
+            </argument>
+            <argument name="X" type="any">
+                <tr lang="en">message content</tr>
+            </argument>
         </arguments>
         <inlets>
             <inlet>

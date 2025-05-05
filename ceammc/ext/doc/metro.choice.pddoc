@@ -26,7 +26,9 @@
             <par>Random distribution: uniform</par>
         </info>
         <arguments>
-            <argument name="TIMESET" type="list" units="millisecond">timeset (&gt;0)</argument>
+            <argument name="TIMESET" type="list" units="millisecond">
+                <tr lang="en">timeset (&gt;0)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @seed -->

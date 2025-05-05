@@ -21,11 +21,15 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
-            <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">minimal y-axis
-            value</argument>
-            <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">maximum y-axis
-            value</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
+            <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">
+                <tr lang="en">minimal y-axis value</tr>
+            </argument>
+            <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">
+                <tr lang="en">maximum y-axis value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

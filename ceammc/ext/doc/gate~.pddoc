@@ -20,9 +20,12 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="64">number of
-            inputs/outputs</argument>
-            <argument name="INIT" type="bool">initial open/close state for all slots</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="64">
+                <tr lang="en">number of inputs/outputs</tr>
+            </argument>
+            <argument name="INIT" type="bool">
+                <tr lang="en">initial open/close state for all slots</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @init -->

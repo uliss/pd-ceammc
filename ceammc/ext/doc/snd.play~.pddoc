@@ -21,10 +21,12 @@
             resampling</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">number of output
-            channels</argument>
-            <argument name="NAME" type="symbol">absolute or relative to patch sound file
-            name</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="32">
+                <tr lang="en">number of output channels</tr>
+            </argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">absolute or relative to patch sound file name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @begin -->

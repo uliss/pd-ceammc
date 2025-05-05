@@ -22,9 +22,13 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="TYPE" type="symbol">window name: blackman, blackman-harris, flattop,
-            gauss, hamming, hann, nuttall, rect, sine, tri, welch</argument>
-            <argument name="SIZE" type="int" minvalue="16" units="sample">window size</argument>
+            <argument name="TYPE" type="symbol">
+                <tr lang="en">window name: blackman, blackman-harris, flattop, gauss, hamming,
+                hann, nuttall, rect, sine, tri, welch</tr>
+            </argument>
+            <argument name="SIZE" type="int" minvalue="16" units="sample">
+                <tr lang="en">window size</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @size -->

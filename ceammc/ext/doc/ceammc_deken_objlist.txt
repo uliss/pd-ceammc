@@ -107,7 +107,7 @@ xfade~	multichannel crossfade / многоканальный кроссфейд
 ceammc/xfade~	multichannel crossfade / многоканальный кроссфейд
 z~	integer sample delay / целочисленная задержка сэмплов
 ceammc/z~	integer sample delay / целочисленная задержка сэмплов
-chaos.gbman0	Gingerbreadman map chaotic generator
+chaos.gbman0	gingerbreadman map chaotic generator
 chaos.gbman0~	Gingerbreadman map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
 chaos.jong	Peter de Jong attractor / аттрактор Питера де Йонга
 noise.jong	Peter de Jong attractor / аттрактор Питера де Йонга

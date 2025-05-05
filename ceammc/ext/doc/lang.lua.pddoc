@@ -24,8 +24,12 @@
             <event type="left-click" editmode="0">open Lua code in the editor</event>
         </mouse>
         <arguments>
-            <argument name="IN" type="int" minvalue="1" maxvalue="16">number of inputs</argument>
-            <argument name="OUT" type="int" minvalue="1" maxvalue="16">number of outputs</argument>
+            <argument name="IN" type="int" minvalue="1" maxvalue="16">
+                <tr lang="en">number of inputs</tr>
+            </argument>
+            <argument name="OUT" type="int" minvalue="1" maxvalue="16">
+                <tr lang="en">number of outputs</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @in -->

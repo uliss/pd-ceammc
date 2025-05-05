@@ -21,8 +21,10 @@
             </also>
         </meta>
         <arguments>
-            <argument name="AT" type="int" minvalue="0">size of first list. The size of the list on
-            the second output is the size of input list - this value</argument>
+            <argument name="AT" type="int" minvalue="0">
+                <tr lang="en">size of first list. The size of the list on the second output is the
+                size of input list - this value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @at -->

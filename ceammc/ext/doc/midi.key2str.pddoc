@@ -20,7 +20,9 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="TONALITY" type="list">initial tomality</argument>
+            <argument name="TONALITY" type="list">
+                <tr lang="en">initial tomality</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @symbol -->

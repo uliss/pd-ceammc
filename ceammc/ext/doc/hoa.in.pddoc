@@ -29,7 +29,9 @@
             object.</par>
         </info>
         <arguments>
-            <argument name="INDEX" type="int" minvalue="1">shortcut for @index property</argument>
+            <argument name="INDEX" type="int" minvalue="1">
+                <tr lang="en">shortcut for @index property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @index -->

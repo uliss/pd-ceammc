@@ -17,7 +17,9 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="FILENAME" type="symbol">initial MIDI filename</argument>
+            <argument name="FILENAME" type="symbol">
+                <tr lang="en">initial MIDI filename</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @filename -->

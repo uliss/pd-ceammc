@@ -30,12 +30,24 @@
             Attractors</a>
         </info>
         <arguments>
-            <argument name="A" type="float">a-value (default 1.4)</argument>
-            <argument name="B" type="float">b-value (default -2.3)</argument>
-            <argument name="C" type="float">c-value (default 2.4)</argument>
-            <argument name="D" type="float">d-value (default -2.1)</argument>
-            <argument name="X" type="float">x init value (default 0)</argument>
-            <argument name="Y" type="float">y init value (default 0)</argument>
+            <argument name="A" type="float">
+                <tr lang="en">a-value (default 1.4)</tr>
+            </argument>
+            <argument name="B" type="float">
+                <tr lang="en">b-value (default -2.3)</tr>
+            </argument>
+            <argument name="C" type="float">
+                <tr lang="en">c-value (default 2.4)</tr>
+            </argument>
+            <argument name="D" type="float">
+                <tr lang="en">d-value (default -2.1)</tr>
+            </argument>
+            <argument name="X" type="float">
+                <tr lang="en">x init value (default 0)</tr>
+            </argument>
+            <argument name="Y" type="float">
+                <tr lang="en">y init value (default 0)</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- a -->

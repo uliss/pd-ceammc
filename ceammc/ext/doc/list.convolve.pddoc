@@ -24,7 +24,9 @@
             the convolution</par>
         </info>
         <arguments>
-            <argument name="B" type="list">second argument values</argument>
+            <argument name="B" type="list">
+                <tr lang="en">second argument values</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @a -->

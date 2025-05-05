@@ -17,9 +17,12 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="SIZE" type="float" minvalue="0" maxvalue="3">echo time</argument>
-            <argument name="FB" type="float" minvalue="0" maxvalue="1">feedback
-            coefficient</argument>
+            <argument name="SIZE" type="float" minvalue="0" maxvalue="3">
+                <tr lang="en">echo time</tr>
+            </argument>
+            <argument name="FB" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">feedback coefficient</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

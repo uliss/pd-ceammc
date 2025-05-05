@@ -23,10 +23,18 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="START" type="float" minvalue="0">@start property</argument>
-            <argument name="STOP" type="float" minvalue="0">@stop property</argument>
-            <argument name="N" type="int" minvalue="4" maxvalue="1024">@n property</argument>
-            <argument name="BASE" type="atom" enum="10 2 e">x-axis scale base</argument>
+            <argument name="START" type="float" minvalue="0">
+                <tr lang="en">@start property</tr>
+            </argument>
+            <argument name="STOP" type="float" minvalue="0">
+                <tr lang="en">@stop property</tr>
+            </argument>
+            <argument name="N" type="int" minvalue="4" maxvalue="1024">
+                <tr lang="en">@n property</tr>
+            </argument>
+            <argument name="BASE" type="atom" enum="10 2 e">
+                <tr lang="en">x-axis scale base</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @10 -->

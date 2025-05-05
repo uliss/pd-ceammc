@@ -22,9 +22,11 @@
         </meta>
         <arguments>
             <argument name="DELAY" type="float" minvalue="10" maxvalue="5000" units="millisecond">
-            echo time</argument>
-            <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="0.99">feedback
-            coefficient</argument>
+                <tr lang="en">echo time</tr>
+            </argument>
+            <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="0.99">
+                <tr lang="en">feedback coefficient</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

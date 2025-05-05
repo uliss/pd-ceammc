@@ -23,7 +23,9 @@
             <par>Output incoming message specified number of times</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="0">number of repeats</argument>
+            <argument name="N" type="int" minvalue="0">
+                <tr lang="en">number of repeats</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

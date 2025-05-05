@@ -35,7 +35,9 @@
             <event type="right-click" editmode="true" keys="Alt">open the properties dialog</event>
         </mouse>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
+            <argument name="ORDER" type="int" minvalue="1">
+                <tr lang="en">the order of decomposition</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @background_color -->

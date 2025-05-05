@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 chaos.gbman0;
-#X text 200 117 Gingerbreadman map chaotic generator;
+#X text 200 117 gingerbreadman map chaotic generator;
 #X obj 30 145 chaos.gbman0~;
 #X text 200 145 хаотический генератор на основе отображения Пряничного
 человечка;

@@ -20,9 +20,15 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FROM" type="int">@from property</argument>
-            <argument name="TO" type="int">@to property</argument>
-            <argument name="STEP" type="int" minvalue="0">@step property</argument>
+            <argument name="FROM" type="int">
+                <tr lang="en">@from property</tr>
+            </argument>
+            <argument name="TO" type="int">
+                <tr lang="en">@to property</tr>
+            </argument>
+            <argument name="STEP" type="int" minvalue="0">
+                <tr lang="en">@step property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @from -->

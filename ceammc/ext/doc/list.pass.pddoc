@@ -20,7 +20,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="ARGS" type="list">list of passed value</argument>
+            <argument name="ARGS" type="list">
+                <tr lang="en">list of passed value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @args -->

@@ -18,7 +18,8 @@
         </meta>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
-            frequency</argument>
+                <tr lang="en">frequency</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

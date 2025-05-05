@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="PATH" type="list">init directory value</argument>
+            <argument name="PATH" type="list">
+                <tr lang="en">init directory value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @match -->

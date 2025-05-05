@@ -21,8 +21,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">property name without @ (should be unique for
-            current canvas)</argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">property name without @ (should be unique for current canvas)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @b -->

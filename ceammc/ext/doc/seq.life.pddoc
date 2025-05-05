@@ -21,9 +21,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="ROWS" type="int" minvalue="1" maxvalue="64">number of rows</argument>
-            <argument name="COLS" type="int" minvalue="1" maxvalue="64">number of
-            columns</argument>
+            <argument name="ROWS" type="int" minvalue="1" maxvalue="64">
+                <tr lang="en">number of rows</tr>
+            </argument>
+            <argument name="COLS" type="int" minvalue="1" maxvalue="64">
+                <tr lang="en">number of columns</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @cols -->

@@ -29,8 +29,9 @@
             <event type="right-click" editmode="true" keys="Shift">open object help</event>
         </mouse>
         <arguments>
-            <argument name="LOAD" type="symbol">initial file to load after object
-            creation</argument>
+            <argument name="LOAD" type="symbol">
+                <tr lang="en">initial file to load after object creation</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @active -->

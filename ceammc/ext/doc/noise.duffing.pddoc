@@ -32,10 +32,18 @@
             <par>The following shows a "typical" segment of (x,y) values.</par>
         </info>
         <arguments>
-            <argument name="A" type="float">a value (default 0.25), optional</argument>
-            <argument name="B" type="float">b value (default 0.3), optional</argument>
-            <argument name="W" type="float">w value (default 1.0), optional</argument>
-            <argument name="DT" type="float">dt value (default 0.01), optional</argument>
+            <argument name="A" type="float">
+                <tr lang="en">a value (default 0.25), optional</tr>
+            </argument>
+            <argument name="B" type="float">
+                <tr lang="en">b value (default 0.3), optional</tr>
+            </argument>
+            <argument name="W" type="float">
+                <tr lang="en">w value (default 1.0), optional</tr>
+            </argument>
+            <argument name="DT" type="float">
+                <tr lang="en">dt value (default 0.01), optional</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- a -->

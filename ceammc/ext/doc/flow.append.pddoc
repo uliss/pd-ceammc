@@ -24,7 +24,9 @@
             quote it with double-quotes</par>
         </info>
         <arguments>
-            <argument name="MSG" type="list">init value for appended message</argument>
+            <argument name="MSG" type="list">
+                <tr lang="en">init value for appended message</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @delay -->

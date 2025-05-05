@@ -21,8 +21,9 @@
             <par>Windows: supports only PDF files.</par>
         </info>
         <arguments>
-            <argument name="NAME" type="symbol">printer name, if empty - use default system
-            printer.</argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">printer name, if empty - use default system printer.</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @name -->

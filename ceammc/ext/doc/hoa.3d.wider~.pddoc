@@ -26,8 +26,9 @@
             <a href="hoa/hoa.3d.wider~-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">the order of
-            decomposition</argument>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">
+                <tr lang="en">the order of decomposition</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @order -->

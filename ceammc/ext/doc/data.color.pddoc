@@ -24,7 +24,9 @@
             <event type="left-click" editmode="false">open color chooser popup</event>
         </mouse>
         <arguments>
-            <argument name="VALUE" type="atom">initial value</argument>
+            <argument name="VALUE" type="atom">
+                <tr lang="en">initial value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @value -->

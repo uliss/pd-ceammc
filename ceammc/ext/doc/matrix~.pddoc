@@ -20,10 +20,12 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="INPUTS" type="int" minvalue="2" maxvalue="16">number of matrix inputs
-            (columns)</argument>
-            <argument name="OUTPUTS" type="int" minvalue="2" maxvalue="16">number of matrix outputs
-            (rows)</argument>
+            <argument name="INPUTS" type="int" minvalue="2" maxvalue="16">
+                <tr lang="en">number of matrix inputs (columns)</tr>
+            </argument>
+            <argument name="OUTPUTS" type="int" minvalue="2" maxvalue="16">
+                <tr lang="en">number of matrix outputs (rows)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @inputs -->

@@ -27,7 +27,9 @@
             <par>this object allows to get relative access to array</par>
         </info>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

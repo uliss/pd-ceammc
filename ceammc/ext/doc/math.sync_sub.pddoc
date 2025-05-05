@@ -25,7 +25,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="F" type="float">subtrahend</argument>
+            <argument name="F" type="float">
+                <tr lang="en">subtrahend</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @int -->

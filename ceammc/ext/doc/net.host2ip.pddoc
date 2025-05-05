@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="TYPE" type="symbol" enum="ipv4 ipv6">result IP type</argument>
+            <argument name="TYPE" type="symbol" enum="ipv4 ipv6">
+                <tr lang="en">result IP type</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @ipv4 -->

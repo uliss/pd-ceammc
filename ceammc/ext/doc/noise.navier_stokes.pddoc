@@ -32,12 +32,24 @@
             &lt; &lt;reyn&gt; &lt; R2. With 28.73 &lt; R1 &gt; 29.0 and R2 ± = 33.43.</par>
         </info>
         <arguments>
-            <argument name="A" type="float">a value (optional)</argument>
-            <argument name="B" type="float">b value (optional)</argument>
-            <argument name="C" type="float">c value (optional)</argument>
-            <argument name="D" type="float">d value (optional)</argument>
-            <argument name="R" type="float">r value (optional)</argument>
-            <argument name="DT" type="float">dt value (optional)</argument>
+            <argument name="A" type="float">
+                <tr lang="en">a value (optional)</tr>
+            </argument>
+            <argument name="B" type="float">
+                <tr lang="en">b value (optional)</tr>
+            </argument>
+            <argument name="C" type="float">
+                <tr lang="en">c value (optional)</tr>
+            </argument>
+            <argument name="D" type="float">
+                <tr lang="en">d value (optional)</tr>
+            </argument>
+            <argument name="R" type="float">
+                <tr lang="en">r value (optional)</tr>
+            </argument>
+            <argument name="DT" type="float">
+                <tr lang="en">dt value (optional)</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- a -->

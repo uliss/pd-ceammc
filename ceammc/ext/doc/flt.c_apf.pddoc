@@ -36,8 +36,9 @@
             <wiki name="All-pass_filter">Allpass filter</wiki>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="22050">center
-            frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="22050">
+                <tr lang="en">center frequency</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @freq -->

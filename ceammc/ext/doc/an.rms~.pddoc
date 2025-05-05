@@ -18,7 +18,8 @@
         </meta>
         <arguments>
             <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">
-            averaging frame</argument>
+                <tr lang="en">averaging frame</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

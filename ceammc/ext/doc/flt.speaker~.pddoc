@@ -26,10 +26,12 @@
             Butterworth lowpass.</par>
         </info>
         <arguments>
-            <argument name="F1" type="float" units="hertz" minvalue="20" maxvalue="1000">lower band
-            frequency</argument>
-            <argument name="F2" type="float" minvalue="1000" maxvalue="20000" units="hertz">high
-            band frequency</argument>
+            <argument name="F1" type="float" units="hertz" minvalue="20" maxvalue="1000">
+                <tr lang="en">lower band frequency</tr>
+            </argument>
+            <argument name="F2" type="float" minvalue="1000" maxvalue="20000" units="hertz">
+                <tr lang="en">high band frequency</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

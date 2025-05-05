@@ -24,7 +24,9 @@
             <wiki name="Root_mean_square">Root mean square</wiki>
         </info>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

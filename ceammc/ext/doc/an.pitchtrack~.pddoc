@@ -30,8 +30,9 @@
             function (SNAC)</par>
         </info>
         <arguments>
-            <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">frame
-            size in samples</argument>
+            <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">
+                <tr lang="en">frame size in samples</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @bias -->

@@ -25,7 +25,9 @@
             <par>Array access: array1[$f]</par>
         </info>
         <arguments>
-            <argument name="EXPR" type="list">expression</argument>
+            <argument name="EXPR" type="list">
+                <tr lang="en">expression</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @expr -->

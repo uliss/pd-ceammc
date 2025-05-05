@@ -21,7 +21,9 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="PATTERN" type="list">list of time intervals (in ms)</argument>
+            <argument name="PATTERN" type="list">
+                <tr lang="en">list of time intervals (in ms)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @current -->

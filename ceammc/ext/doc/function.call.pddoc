@@ -23,7 +23,9 @@
             <since>0.3</since>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">function name</argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">function name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @name -->

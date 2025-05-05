@@ -17,9 +17,15 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument name="FROM" type="int">start value</argument>
-            <argument name="TO" type="int">end value</argument>
-            <argument name="R" type="int" minvalue="-1">number of repeats</argument>
+            <argument name="FROM" type="int">
+                <tr lang="en">start value</tr>
+            </argument>
+            <argument name="TO" type="int">
+                <tr lang="en">end value</tr>
+            </argument>
+            <argument name="R" type="int" minvalue="-1">
+                <tr lang="en">number of repeats</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @fold -->

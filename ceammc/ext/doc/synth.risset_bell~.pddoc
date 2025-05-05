@@ -17,10 +17,12 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="1" maxvalue="10000">main
-            frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="1" maxvalue="10000">
+                <tr lang="en">main frequency</tr>
+            </argument>
             <argument name="DUR" type="float" units="millisecond" minvalue="10" maxvalue="600000">
-            duration</argument>
+                <tr lang="en">duration</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

@@ -25,7 +25,9 @@
             <par>You can use path-like expression, to get nested keys: /x/y/foo.</par>
         </info>
         <arguments>
-            <argument name="KEYS" type="list">keys</argument>
+            <argument name="KEYS" type="list">
+                <tr lang="en">keys</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @default -->

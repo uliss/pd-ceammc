@@ -29,7 +29,9 @@
             console.</par>
         </info>
         <arguments>
-            <argument name="V" type="int" enum="0 1">second value</argument>
+            <argument name="V" type="int" enum="0 1">
+                <tr lang="en">second value</tr>
+            </argument>
         </arguments>
         <inlets>
             <inlet>

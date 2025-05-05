@@ -17,7 +17,9 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="PATH" type="symbol">directory to monitor filesystem events</argument>
+            <argument name="PATH" type="symbol">
+                <tr lang="en">directory to monitor filesystem events</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @path -->

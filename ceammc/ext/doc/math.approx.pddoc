@@ -24,8 +24,12 @@
             <par>checks if |x - pattern| &lt;= |epsilon|</par>
         </info>
         <arguments>
-            <argument name="VALUE" type="float">compare pattern</argument>
-            <argument name="EPSILON" type="float">compare epsilon</argument>
+            <argument name="VALUE" type="float">
+                <tr lang="en">compare pattern</tr>
+            </argument>
+            <argument name="EPSILON" type="float">
+                <tr lang="en">compare epsilon</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @epsilon -->

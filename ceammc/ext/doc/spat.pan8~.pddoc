@@ -24,10 +24,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">panning
-            radius</argument>
-            <argument name="ANGLE" type="float" minvalue="0" maxvalue="2π" units="radian">circle
-            panning position in radians</argument>
+            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">panning radius</tr>
+            </argument>
+            <argument name="ANGLE" type="float" minvalue="0" maxvalue="2π" units="radian">
+                <tr lang="en">circle panning position in radians</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

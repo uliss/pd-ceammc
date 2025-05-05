@@ -24,7 +24,9 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="3" maxvalue="16">number of arguments</argument>
+            <argument name="N" type="int" minvalue="3" maxvalue="16">
+                <tr lang="en">number of arguments</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

@@ -30,8 +30,9 @@
             occured between input and output.</par>
         </info>
         <arguments>
-            <argument name="PATHS" type="list">list of paths, can be quoted to handle
-            whitespace.</argument>
+            <argument name="PATHS" type="list">
+                <tr lang="en">list of paths, can be quoted to handle whitespace.</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @async -->

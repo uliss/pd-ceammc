@@ -20,7 +20,9 @@
             <par>Port of Richard's chaos-baker from chaos collection</par>
         </info>
         <arguments>
-            <argument name="VALUE" type="float">initial value</argument>
+            <argument name="VALUE" type="float">
+                <tr lang="en">initial value</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- cut -->

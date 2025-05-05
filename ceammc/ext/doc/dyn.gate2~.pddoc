@@ -24,14 +24,19 @@
             <par>NOTE: the input level measured as sum of two input signals</par>
         </info>
         <arguments>
-            <argument name="THRESHOLD" type="float" units="decibel" minvalue="-90" maxvalue="0">dB
-            level threshold above which gate opens</argument>
+            <argument name="THRESHOLD" type="float" units="decibel" minvalue="-90" maxvalue="0">
+                <tr lang="en">dB level threshold above which gate opens</tr>
+            </argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0" maxvalue="500">
-            attack time = time constant (ms) for gate to open</argument>
-            <argument name="HOLD" type="float" units="millisecond" minvalue="1" maxvalue="500">hold
-            time = time (ms) gate stays open after signal level &lt; threshold</argument>
+                <tr lang="en">attack time = time constant (ms) for gate to open</tr>
+            </argument>
+            <argument name="HOLD" type="float" units="millisecond" minvalue="1" maxvalue="500">
+                <tr lang="en">hold time = time (ms) gate stays open after signal level &lt;
+                threshold</tr>
+            </argument>
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
-            release time = time constant (ms) for gate to close</argument>
+                <tr lang="en">release time = time constant (ms) for gate to close</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

@@ -28,8 +28,9 @@
             leftmost</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">Number of
-            input/outputs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="16">
+                <tr lang="en">Number of input/outputs</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

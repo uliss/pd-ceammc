@@ -20,8 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="64">number of outlets. See @n
-            property</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="64">
+                <tr lang="en">number of outlets. See @n property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

@@ -24,7 +24,9 @@
             Glitch</a>
         </info>
         <arguments>
-            <argument name="EXPR" type="list">Glitch expression</argument>
+            <argument name="EXPR" type="list">
+                <tr lang="en">Glitch expression</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

@@ -17,7 +17,9 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="0" maxvalue="10000">repeat times</argument>
+            <argument name="N" type="int" minvalue="0" maxvalue="10000">
+                <tr lang="en">repeat times</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

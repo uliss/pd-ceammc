@@ -21,7 +21,9 @@
             <a href="https://mpv.io/">mpv.io</a>
         </info>
         <arguments>
-            <argument name="IPC" type="symbol">path to IPC local socket</argument>
+            <argument name="IPC" type="symbol">
+                <tr lang="en">path to IPC local socket</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @ipc -->

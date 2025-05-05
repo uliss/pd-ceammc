@@ -28,7 +28,9 @@
             <par>l₀[0], l₁[0], ..., lₓ[0], ..., l₀[M-1] l₁[M-1] ... lₓ[M-1]</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="20">number of inputs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="20">
+                <tr lang="en">number of inputs</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

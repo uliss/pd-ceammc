@@ -21,7 +21,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="KEYS" type="list">checked keys</argument>
+            <argument name="KEYS" type="list">
+                <tr lang="en">checked keys</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @keys -->

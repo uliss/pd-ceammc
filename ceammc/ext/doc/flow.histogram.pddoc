@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="RANGE" type="list">FROM TO NUM_BINS?</argument>
+            <argument name="RANGE" type="list">
+                <tr lang="en">FROM TO NUM_BINS?</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @bins -->

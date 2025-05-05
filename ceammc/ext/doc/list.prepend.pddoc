@@ -23,7 +23,9 @@
             <par>Works with data atoms</par>
         </info>
         <arguments>
-            <argument name="VALUE" type="list">prepend values</argument>
+            <argument name="VALUE" type="list">
+                <tr lang="en">prepend values</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @value -->

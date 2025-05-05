@@ -31,11 +31,15 @@
             <a href="hoa/hoa.2d.map~-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
-            decomposition</argument>
-            <argument name="NSRC" type="int" minvalue="1">number of sources</argument>
-            <argument name="MODE" type="symbol" enum="pol car">mode in signal control mode (with
-            nsrc=1)</argument>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
+                <tr lang="en">the order of decomposition</tr>
+            </argument>
+            <argument name="NSRC" type="int" minvalue="1">
+                <tr lang="en">number of sources</tr>
+            </argument>
+            <argument name="MODE" type="symbol" enum="pol car">
+                <tr lang="en">mode in signal control mode (with nsrc=1)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @mode -->

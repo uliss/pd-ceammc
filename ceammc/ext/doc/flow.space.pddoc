@@ -17,10 +17,12 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument name="DELAY" type="float" units="millisecond" minvalue="1">time space between
-            messages</argument>
-            <argument name="DONE" type="int" minvalue="0">time space = N*space after last outputted
-            message</argument>
+            <argument name="DELAY" type="float" units="millisecond" minvalue="1">
+                <tr lang="en">time space between messages</tr>
+            </argument>
+            <argument name="DONE" type="int" minvalue="0">
+                <tr lang="en">time space = N*space after last outputted message</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @delay -->

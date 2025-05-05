@@ -23,10 +23,12 @@
             could damage your Raspberry Pi!</par>
         </info>
         <arguments>
-            <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">a trigger pin GPIO
-            number</argument>
-            <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">an echo pin GPIO
-            number</argument>
+            <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">
+                <tr lang="en">a trigger pin GPIO number</tr>
+            </argument>
+            <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">
+                <tr lang="en">an echo pin GPIO number</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @echo_pin -->

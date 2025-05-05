@@ -17,9 +17,13 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="INDEX" type="int">element position. Negative indexes are supported. -1
-            means last element</argument>
-            <argument name="VALUE" type="atom">element value</argument>
+            <argument name="INDEX" type="int">
+                <tr lang="en">element position. Negative indexes are supported. -1 means last
+                element</tr>
+            </argument>
+            <argument name="VALUE" type="atom">
+                <tr lang="en">element value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @index -->

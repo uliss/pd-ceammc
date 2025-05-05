@@ -46,11 +46,18 @@
             <event type="left-click" editmode="false">open process patch window</event>
         </mouse>
         <arguments>
-            <argument name="N" type="int" minvalue="0">the order of decomposition</argument>
-            <argument name="PATCH" type="symbol">patch name</argument>
-            <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">process domain:
-            harmonics or planewaves</argument>
-            <argument name="ARGS" type="list">instance arguments</argument>
+            <argument name="N" type="int" minvalue="0">
+                <tr lang="en">the order of decomposition</tr>
+            </argument>
+            <argument name="PATCH" type="symbol">
+                <tr lang="en">patch name</tr>
+            </argument>
+            <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">
+                <tr lang="en">process domain: harmonics or planewaves</tr>
+            </argument>
+            <argument name="ARGS" type="list">
+                <tr lang="en">instance arguments</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @args -->

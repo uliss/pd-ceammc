@@ -26,8 +26,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">number of output
-            stereo-pairs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="16">
+                <tr lang="en">number of output stereo-pairs</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

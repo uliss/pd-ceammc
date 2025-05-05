@@ -17,8 +17,9 @@
             <since>0.9.2</since>
         </meta>
         <arguments>
-            <argument name="DELAY" type="float" minvalue="0" units="millisecond">exit delay
-            time</argument>
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">
+                <tr lang="en">exit delay time</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @auto -->

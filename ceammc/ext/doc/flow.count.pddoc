@@ -17,7 +17,9 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="VALUE" type="int" minvalue="0">counter init value</argument>
+            <argument name="VALUE" type="int" minvalue="0">
+                <tr lang="en">counter init value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @value -->

@@ -28,8 +28,9 @@
             <a href="https://en.wikipedia.org/wiki/Comb_filter">wiki: Comb filter</a>
         </info>
         <arguments>
-            <argument name="A" type="float" minvalue="-1" maxvalue="1">scaling factor of delayed
-            sum</argument>
+            <argument name="A" type="float" minvalue="-1" maxvalue="1">
+                <tr lang="en">scaling factor of delayed sum</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

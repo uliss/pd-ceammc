@@ -18,8 +18,9 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="PITCH" type="float" minvalue="-38" maxvalue="60">pitch shift in
-            semitones</argument>
+            <argument name="PITCH" type="float" minvalue="-38" maxvalue="60">
+                <tr lang="en">pitch shift in semitones</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

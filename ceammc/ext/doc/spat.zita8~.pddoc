@@ -17,10 +17,12 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">@radius
-            property</argument>
-            <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">@angle
-            property</argument>
+            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">@radius property</tr>
+            </argument>
+            <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">@angle property</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

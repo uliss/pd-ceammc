@@ -26,10 +26,18 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="IN_FROM" type="float">begin of input range</argument>
-            <argument name="IN_TO" type="float">end of input range</argument>
-            <argument name="OUT_FROM" type="float">begin of output range</argument>
-            <argument name="OUT_TO" type="float">end of input output</argument>
+            <argument name="IN_FROM" type="float">
+                <tr lang="en">begin of input range</tr>
+            </argument>
+            <argument name="IN_TO" type="float">
+                <tr lang="en">end of input range</tr>
+            </argument>
+            <argument name="OUT_FROM" type="float">
+                <tr lang="en">begin of output range</tr>
+            </argument>
+            <argument name="OUT_TO" type="float">
+                <tr lang="en">end of input output</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

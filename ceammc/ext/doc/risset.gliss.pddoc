@@ -17,8 +17,9 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="BASE" type="float" units="semitone" minvalue="10" maxvalue="100">base
-            pitch</argument>
+            <argument name="BASE" type="float" units="semitone" minvalue="10" maxvalue="100">
+                <tr lang="en">base pitch</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @ampexp -->

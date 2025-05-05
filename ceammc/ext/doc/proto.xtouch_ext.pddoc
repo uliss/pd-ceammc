@@ -20,8 +20,9 @@
             <par>Behringer XTouch Extender XMidi</par>
         </info>
         <arguments>
-            <argument name="PROTO" type="symbol" enum="hui mcu xmidi">connection
-            protocol</argument>
+            <argument name="PROTO" type="symbol" enum="hui mcu xmidi">
+                <tr lang="en">connection protocol</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

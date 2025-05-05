@@ -21,7 +21,9 @@
             exact</par>
         </info>
         <arguments>
-            <argument name="DIV" type="int" enum="0 4 8 16 32">@div clock subdivision</argument>
+            <argument name="DIV" type="int" enum="0 4 8 16 32">
+                <tr lang="en">@div clock subdivision</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @div -->

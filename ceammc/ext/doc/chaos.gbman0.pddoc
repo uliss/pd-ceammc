@@ -7,7 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Gingerbreadman map chaotic generator</tr>
+                <tr lang="en">gingerbreadman map chaotic generator</tr>
+                <tr lang="ru" finished="false">Карта Джинджербродмана Хаотический генератор</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -25,8 +26,12 @@
             <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
         </info>
         <arguments>
-            <argument name="X" type="float">initial x value, default 1.2</argument>
-            <argument name="Y" type="float">initial y value, default 2.1</argument>
+            <argument name="X" type="float">
+                <tr lang="en">initial x value, default 1.2</tr>
+            </argument>
+            <argument name="Y" type="float">
+                <tr lang="en">initial y value, default 2.1</tr>
+            </argument>
         </arguments>
         <properties />
         <methods />

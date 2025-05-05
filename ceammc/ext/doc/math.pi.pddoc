@@ -29,7 +29,9 @@
             its diameter, commonly approximated as 3.14159.</par>
         </info>
         <arguments>
-            <argument name="K" type="float">multiplier. default is 1</argument>
+            <argument name="K" type="float">
+                <tr lang="en">multiplier. default is 1</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @k -->

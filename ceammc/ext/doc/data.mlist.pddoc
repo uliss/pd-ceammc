@@ -34,8 +34,9 @@
             <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="VALUE" type="atom">initial list values in (). For example: (1 2 3 (1 2)
-            4)</argument>
+            <argument name="VALUE" type="atom">
+                <tr lang="en">initial list values in (). For example: (1 2 3 (1 2) 4)</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @empty -->

@@ -20,7 +20,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SUBJ" type="list">right set elements</argument>
+            <argument name="SUBJ" type="list">
+                <tr lang="en">right set elements</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @subj -->

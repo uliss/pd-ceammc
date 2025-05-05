@@ -17,8 +17,9 @@
             <since>0.9.8</since>
         </meta>
         <arguments>
-            <argument name="PIN" type="int" minvalue="-1" maxvalue="127">GPIO connection pin. See
-            @pin</argument>
+            <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
+                <tr lang="en">GPIO connection pin. See @pin</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @pin -->

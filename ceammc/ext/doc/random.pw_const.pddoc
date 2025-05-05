@@ -28,9 +28,11 @@
             explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
-            <argument name="V" type="list">interleaved interval boundaries and boundary
-            propabilities. Note: number of arguments should be odd and &gt;=5. Boundaries should be
-            in strictly increasing order and weights should be non-negative</argument>
+            <argument name="V" type="list">
+                <tr lang="en">interleaved interval boundaries and boundary propabilities. Note:
+                number of arguments should be odd and &gt;=5. Boundaries should be in strictly
+                increasing order and weights should be non-negative</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @bounds -->

@@ -22,7 +22,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SUBJ" type="atom">searched element</argument>
+            <argument name="SUBJ" type="atom">
+                <tr lang="en">searched element</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @subj -->

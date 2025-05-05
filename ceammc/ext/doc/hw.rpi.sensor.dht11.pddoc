@@ -24,8 +24,9 @@
             measurement error</par>
         </info>
         <arguments>
-            <argument name="PIN" type="int" minvalue="-1" maxvalue="127">GPIO pin to connect. See
-            @pin</argument>
+            <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
+                <tr lang="en">GPIO pin to connect. See @pin</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @pin -->

@@ -24,10 +24,12 @@
             range to very low levels. It is the opposite of a band-pass filter.</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
-            frequency</argument>
-            <argument name="WIDTH" type="float" units="hertz" minvalue="1" maxvalue="10000">band
-            width (approximate)</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+                <tr lang="en">center frequency</tr>
+            </argument>
+            <argument name="WIDTH" type="float" units="hertz" minvalue="1" maxvalue="10000">
+                <tr lang="en">band width (approximate)</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

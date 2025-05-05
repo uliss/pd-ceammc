@@ -29,8 +29,12 @@
             <par>By default converts from [0..127] to [0..1]</par>
         </info>
         <arguments>
-            <argument name="FROM" type="float">start value of output range</argument>
-            <argument name="TO" type="float">end value of output range</argument>
+            <argument name="FROM" type="float">
+                <tr lang="en">start value of output range</tr>
+            </argument>
+            <argument name="TO" type="float">
+                <tr lang="en">end value of output range</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @from -->

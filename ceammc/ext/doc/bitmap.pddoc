@@ -27,10 +27,12 @@
             window</event>
         </mouse>
         <arguments>
-            <argument name="W" type="int" minvalue="1" maxvalue="256">bitmap width in pixels, see
-            @w</argument>
-            <argument name="H" type="int" minvalue="1" maxvalue="256">bitmap height in pixels, see
-            @h</argument>
+            <argument name="W" type="int" minvalue="1" maxvalue="256">
+                <tr lang="en">bitmap width in pixels, see @w</tr>
+            </argument>
+            <argument name="H" type="int" minvalue="1" maxvalue="256">
+                <tr lang="en">bitmap height in pixels, see @h</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @h -->

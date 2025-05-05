@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="16">
+                <tr lang="en">number of inputs</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @db -->

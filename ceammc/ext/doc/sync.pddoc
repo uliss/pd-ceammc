@@ -25,8 +25,9 @@
             prevents infinite loops</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="8">number of synchronized
-            values</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="8">
+                <tr lang="en">number of synchronized values</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @n -->

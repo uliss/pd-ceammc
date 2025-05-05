@@ -25,7 +25,9 @@
             the sets and not in their intersection</par>
         </info>
         <arguments>
-            <argument name="ARGS" type="any">right set elements</argument>
+            <argument name="ARGS" type="any">
+                <tr lang="en">right set elements</tr>
+            </argument>
         </arguments>
         <inlets>
             <inlet>

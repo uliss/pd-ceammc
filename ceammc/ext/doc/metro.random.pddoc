@@ -25,10 +25,12 @@
             <par>Random distribution: uniform</par>
         </info>
         <arguments>
-            <argument name="MIN" type="int" units="millisecond" minvalue="1">minimal bang
-            interval</argument>
-            <argument name="MAX" type="int" units="millisecond" minvalue="1">maximum bang
-            interval</argument>
+            <argument name="MIN" type="int" units="millisecond" minvalue="1">
+                <tr lang="en">minimal bang interval</tr>
+            </argument>
+            <argument name="MAX" type="int" units="millisecond" minvalue="1">
+                <tr lang="en">maximum bang interval</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @max -->

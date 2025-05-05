@@ -25,7 +25,9 @@
             l¹( etc...</par>
         </info>
         <arguments>
-            <argument name="SEL" type="list">list of selectors</argument>
+            <argument name="SEL" type="list">
+                <tr lang="en">list of selectors</tr>
+            </argument>
         </arguments>
         <inlets>
             <inlet>

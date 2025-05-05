@@ -25,7 +25,9 @@
             (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="4" maxvalue="1024">number of points</argument>
+            <argument name="N" type="int" minvalue="4" maxvalue="1024">
+                <tr lang="en">number of points</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @a -->

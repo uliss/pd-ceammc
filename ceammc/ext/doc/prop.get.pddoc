@@ -31,7 +31,9 @@
             <event type="left-click" editmode="false">get properties</event>
         </mouse>
         <arguments>
-            <argument name="PROPS" type="list">property names</argument>
+            <argument name="PROPS" type="list">
+                <tr lang="en">property names</tr>
+            </argument>
         </arguments>
         <inlets>
             <inlet>

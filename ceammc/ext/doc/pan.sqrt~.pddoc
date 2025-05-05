@@ -28,8 +28,9 @@
             drops in the middle. [pan.sqrt~] solves this.</par>
         </info>
         <arguments>
-            <argument name="POS" type="float" minvalue="-1" maxvalue="1">panning position. -1 means
-            left, 0 - center, +1 - right</argument>
+            <argument name="POS" type="float" minvalue="-1" maxvalue="1">
+                <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @pos -->

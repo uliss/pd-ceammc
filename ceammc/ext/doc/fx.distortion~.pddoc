@@ -17,10 +17,12 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="DRIVE" type="float" minvalue="0" maxvalue="1">distortion
-            amount</argument>
-            <argument name="OFFSET" type="float" minvalue="0" maxvalue="0.5">constant added before
-            nonlinearity to give even harmonics</argument>
+            <argument name="DRIVE" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">distortion amount</tr>
+            </argument>
+            <argument name="OFFSET" type="float" minvalue="0" maxvalue="0.5">
+                <tr lang="en">constant added before nonlinearity to give even harmonics</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

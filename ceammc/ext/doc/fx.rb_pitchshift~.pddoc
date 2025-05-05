@@ -18,7 +18,8 @@
         </meta>
         <arguments>
             <argument name="TRANSPOSE" type="float" minvalue="-24" units="semitone" maxvalue="24">
-            transposition in semitones</argument>
+                <tr lang="en">transposition in semitones</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @detector -->

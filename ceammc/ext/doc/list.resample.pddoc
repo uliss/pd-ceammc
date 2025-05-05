@@ -23,8 +23,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="RATIO" type="float" minvalue="0" maxvalue="100">resample
-            ratio</argument>
+            <argument name="RATIO" type="float" minvalue="0" maxvalue="100">
+                <tr lang="en">resample ratio</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @ratio -->

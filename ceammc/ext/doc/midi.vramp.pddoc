@@ -17,9 +17,15 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument name="FROM" type="int" maxvalue="127" minvalue="0">start value</argument>
-            <argument name="TO" type="int" maxvalue="127" minvalue="0">end value</argument>
-            <argument name="N" type="int" minvalue="0">number of steps</argument>
+            <argument name="FROM" type="int" maxvalue="127" minvalue="0">
+                <tr lang="en">start value</tr>
+            </argument>
+            <argument name="TO" type="int" maxvalue="127" minvalue="0">
+                <tr lang="en">end value</tr>
+            </argument>
+            <argument name="N" type="int" minvalue="0">
+                <tr lang="en">number of steps</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @auto -->

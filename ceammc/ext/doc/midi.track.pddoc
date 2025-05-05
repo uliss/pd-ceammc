@@ -17,7 +17,9 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="TRACK" type="int" minvalue="0">init track number</argument>
+            <argument name="TRACK" type="int" minvalue="0">
+                <tr lang="en">init track number</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @current -->

@@ -26,10 +26,18 @@
             <par>Values outside of range @min...@max are ignored</par>
         </info>
         <arguments>
-            <argument name="ARRAY" type="symbol">array name</argument>
-            <argument name="BINS" type="int" minvalue="2" maxvalue="1000">number of bins</argument>
-            <argument name="MIN" type="float">minimal value</argument>
-            <argument name="MAX" type="float">maximum value</argument>
+            <argument name="ARRAY" type="symbol">
+                <tr lang="en">array name</tr>
+            </argument>
+            <argument name="BINS" type="int" minvalue="2" maxvalue="1000">
+                <tr lang="en">number of bins</tr>
+            </argument>
+            <argument name="MIN" type="float">
+                <tr lang="en">minimal value</tr>
+            </argument>
+            <argument name="MAX" type="float">
+                <tr lang="en">maximum value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

@@ -25,7 +25,9 @@
             <since>0.3</since>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">function name, should be unique</argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">function name, should be unique</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @name -->

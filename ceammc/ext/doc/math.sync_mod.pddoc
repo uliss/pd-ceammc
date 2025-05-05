@@ -29,7 +29,9 @@
             <par>on division by zero outputs nothing: just put error message into console</par>
         </info>
         <arguments>
-            <argument name="DIV" type="float">modulo divisor</argument>
+            <argument name="DIV" type="float">
+                <tr lang="en">modulo divisor</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @int -->

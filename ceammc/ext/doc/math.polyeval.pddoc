@@ -17,7 +17,9 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="COEFFS" type="list">coefficient list</argument>
+            <argument name="COEFFS" type="list">
+                <tr lang="en">coefficient list</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @coeffs -->

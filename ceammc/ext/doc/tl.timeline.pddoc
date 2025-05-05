@@ -32,8 +32,9 @@
             "end" event, but last user event)</par>
         </info>
         <arguments>
-            <argument name="LENGTH" type="float" minvalue="0" units="second">timeline
-            length</argument>
+            <argument name="LENGTH" type="float" minvalue="0" units="second">
+                <tr lang="en">timeline length</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @current -->

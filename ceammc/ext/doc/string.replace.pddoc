@@ -23,8 +23,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FROM" type="symbol">substring for replace</argument>
-            <argument name="TO" type="symbol">substring to replace</argument>
+            <argument name="FROM" type="symbol">
+                <tr lang="en">substring for replace</tr>
+            </argument>
+            <argument name="TO" type="symbol">
+                <tr lang="en">substring to replace</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @all -->

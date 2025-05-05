@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="BY" type="int" minvalue="1">group by this size</argument>
+            <argument name="BY" type="int" minvalue="1">
+                <tr lang="en">group by this size</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @by -->

@@ -24,12 +24,24 @@
             <par>where a, b, c, d are variables that define each attractor.</par>
         </info>
         <arguments>
-            <argument name="X" type="float">x value (optional)</argument>
-            <argument name="Y" type="float">y value (optional)</argument>
-            <argument name="A" type="float">a value (optional)</argument>
-            <argument name="B" type="float">b value (optional)</argument>
-            <argument name="C" type="float">c value (optional)</argument>
-            <argument name="D" type="float">d value (optional)</argument>
+            <argument name="X" type="float">
+                <tr lang="en">x value (optional)</tr>
+            </argument>
+            <argument name="Y" type="float">
+                <tr lang="en">y value (optional)</tr>
+            </argument>
+            <argument name="A" type="float">
+                <tr lang="en">a value (optional)</tr>
+            </argument>
+            <argument name="B" type="float">
+                <tr lang="en">b value (optional)</tr>
+            </argument>
+            <argument name="C" type="float">
+                <tr lang="en">c value (optional)</tr>
+            </argument>
+            <argument name="D" type="float">
+                <tr lang="en">d value (optional)</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- a -->

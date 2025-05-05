@@ -27,8 +27,12 @@
             arguments.</par>
         </info>
         <arguments>
-            <argument name="FROM" type="atom">replace subject</argument>
-            <argument name="TO" type="atom">replace value</argument>
+            <argument name="FROM" type="atom">
+                <tr lang="en">replace subject</tr>
+            </argument>
+            <argument name="TO" type="atom">
+                <tr lang="en">replace value</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @from -->

@@ -34,7 +34,9 @@
             https://beltoforion.de/en/muparser/features.php#idDef1</a>
         </info>
         <arguments>
-            <argument name="EXPR" type="list">init expression</argument>
+            <argument name="EXPR" type="list">
+                <tr lang="en">init expression</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @expr -->

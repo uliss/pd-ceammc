@@ -35,17 +35,27 @@
             negatively curved) &gt;0 (convex, positively curved)</par>
         </info>
         <arguments>
-            <argument name="adsr" type="list">ADSR envelope: attack(ms), decay(ms), sustain(%),
-            release(ms)</argument>
-            <argument name="asr" type="list">ASR envelope: attack(ms), release(ms) - with sustain
-            stop point</argument>
-            <argument name="ar" type="list">AR envelope: attack(ms), release(ms)</argument>
-            <argument name="eadsr" type="list">exponential ADSR envelope: attack(ms), attack_curve,
-            decay(ms), decay_curve, sustain(%), release(ms), release_curve</argument>
-            <argument name="easr" type="list">exponential ASR envelope: attack(ms), attack_curve,
-            release(ms), release_curve - with sustain stop point</argument>
-            <argument name="ear" type="list">exponential ASR envelope: attack(ms), attack_curve,
-            release(ms), release_curve - no sustain point</argument>
+            <argument name="adsr" type="list">
+                <tr lang="en">ADSR envelope: attack(ms), decay(ms), sustain(%), release(ms)</tr>
+            </argument>
+            <argument name="asr" type="list">
+                <tr lang="en">ASR envelope: attack(ms), release(ms) - with sustain stop point</tr>
+            </argument>
+            <argument name="ar" type="list">
+                <tr lang="en">AR envelope: attack(ms), release(ms)</tr>
+            </argument>
+            <argument name="eadsr" type="list">
+                <tr lang="en">exponential ADSR envelope: attack(ms), attack_curve, decay(ms),
+                decay_curve, sustain(%), release(ms), release_curve</tr>
+            </argument>
+            <argument name="easr" type="list">
+                <tr lang="en">exponential ASR envelope: attack(ms), attack_curve, release(ms),
+                release_curve - with sustain stop point</tr>
+            </argument>
+            <argument name="ear" type="list">
+                <tr lang="en">exponential ASR envelope: attack(ms), attack_curve, release(ms),
+                release_curve - no sustain point</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @length -->

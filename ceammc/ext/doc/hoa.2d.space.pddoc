@@ -39,7 +39,9 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <arguments>
-            <argument name="N" type="int" minvalue="1">number of planewave channels</argument>
+            <argument name="N" type="int" minvalue="1">
+                <tr lang="en">number of planewave channels</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @background_color -->

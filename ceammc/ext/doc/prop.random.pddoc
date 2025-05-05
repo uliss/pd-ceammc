@@ -22,8 +22,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SEED" type="int">init random seed</argument>
-            <argument name="PROPS" type="list">properties names</argument>
+            <argument name="SEED" type="int">
+                <tr lang="en">init random seed</tr>
+            </argument>
+            <argument name="PROPS" type="list">
+                <tr lang="en">properties names</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @seed -->

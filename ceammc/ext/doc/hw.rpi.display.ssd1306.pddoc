@@ -22,8 +22,9 @@
             device</par>
         </info>
         <arguments>
-            <argument name="MODE" type="symbol" enum="i2c spi">display connection. See
-            @mode</argument>
+            <argument name="MODE" type="symbol" enum="i2c spi">
+                <tr lang="en">display connection. See @mode</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @i2c_addr -->

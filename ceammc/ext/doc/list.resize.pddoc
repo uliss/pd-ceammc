@@ -20,7 +20,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SIZE" type="int" minvalue="0">desired list size</argument>
+            <argument name="SIZE" type="int" minvalue="0">
+                <tr lang="en">desired list size</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @clip -->

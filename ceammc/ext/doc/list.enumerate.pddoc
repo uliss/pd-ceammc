@@ -17,7 +17,9 @@
             <since>0.3</since>
         </meta>
         <arguments>
-            <argument name="FROM" type="int">enumeration start index</argument>
+            <argument name="FROM" type="int">
+                <tr lang="en">enumeration start index</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @append -->

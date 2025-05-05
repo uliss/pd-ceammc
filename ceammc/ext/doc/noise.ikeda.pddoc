@@ -31,12 +31,24 @@
             <a href="https://en.wikipedia.org/wiki/Ikeda_map">wiki: Ikeda map</a>
         </info>
         <arguments>
-            <argument name="A" type="float">a value (optional)</argument>
-            <argument name="B" type="float">b value (optional)</argument>
-            <argument name="K" type="float">k value (optional)</argument>
-            <argument name="P" type="float">p value (optional)</argument>
-            <argument name="NX" type="float">nx value (optional)</argument>
-            <argument name="NY" type="float">ny value (optional)</argument>
+            <argument name="A" type="float">
+                <tr lang="en">a value (optional)</tr>
+            </argument>
+            <argument name="B" type="float">
+                <tr lang="en">b value (optional)</tr>
+            </argument>
+            <argument name="K" type="float">
+                <tr lang="en">k value (optional)</tr>
+            </argument>
+            <argument name="P" type="float">
+                <tr lang="en">p value (optional)</tr>
+            </argument>
+            <argument name="NX" type="float">
+                <tr lang="en">nx value (optional)</tr>
+            </argument>
+            <argument name="NY" type="float">
+                <tr lang="en">ny value (optional)</tr>
+            </argument>
         </arguments>
         <methods>
             <!-- a -->

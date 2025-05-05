@@ -25,7 +25,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="F" type="float">second addend</argument>
+            <argument name="F" type="float">
+                <tr lang="en">second addend</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @int -->

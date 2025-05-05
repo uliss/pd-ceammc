@@ -23,9 +23,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">initial
-            frequency</argument>
-            <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">
+                <tr lang="en">initial frequency</tr>
+            </argument>
+            <argument name="DUTY" type="float" minvalue="0" maxvalue="1">
+                <tr lang="en">duty cycle</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

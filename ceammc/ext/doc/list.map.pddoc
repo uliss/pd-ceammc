@@ -20,7 +20,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="DICT" type="list">mapping dictionary, see @dict property</argument>
+            <argument name="DICT" type="list">
+                <tr lang="en">mapping dictionary, see @dict property</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @def -->

@@ -29,10 +29,12 @@
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
-            frequency</argument>
-            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">quality factory:
-            @freq/BANDWIDTH</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
+                <tr lang="en">center frequency</tr>
+            </argument>
+            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">
+                <tr lang="en">quality factory: @freq/BANDWIDTH</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

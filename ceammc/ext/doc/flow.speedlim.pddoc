@@ -27,8 +27,9 @@
             After this interval expiried goes to opened state</par>
         </info>
         <arguments>
-            <argument name="LIMIT" type="int" minvalue="0" units="millisecond">limit
-            time</argument>
+            <argument name="LIMIT" type="int" minvalue="0" units="millisecond">
+                <tr lang="en">limit time</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @limit -->

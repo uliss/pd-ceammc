@@ -21,10 +21,13 @@
             </also>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="0">default frequency (440hz
-            if not specified)</argument>
-            <argument name="HARMONICS" type="int" minvalue="0">number of harmonics. Missing or 0
-            means all available harmonics until SR/2</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0">
+                <tr lang="en">default frequency (440hz if not specified)</tr>
+            </argument>
+            <argument name="HARMONICS" type="int" minvalue="0">
+                <tr lang="en">number of harmonics. Missing or 0 means all available harmonics until
+                SR/2</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @harmonics -->

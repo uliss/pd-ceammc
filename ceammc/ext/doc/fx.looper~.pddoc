@@ -17,8 +17,9 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="CAPACITY" type="float" units="second" minvalue="0" maxvalue="120">max
-            loop time</argument>
+            <argument name="CAPACITY" type="float" units="second" minvalue="0" maxvalue="120">
+                <tr lang="en">max loop time</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @array -->

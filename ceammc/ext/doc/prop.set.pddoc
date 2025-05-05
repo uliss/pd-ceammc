@@ -32,7 +32,9 @@
             <par>Note: you can connect to *any* destination inlet</par>
         </info>
         <arguments>
-            <argument name="PROPS" type="list">property names</argument>
+            <argument name="PROPS" type="list">
+                <tr lang="en">property names</tr>
+            </argument>
         </arguments>
         <inlets dynamic="true">
             <inlet number="1">

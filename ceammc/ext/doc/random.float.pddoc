@@ -33,8 +33,10 @@
             <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">wiki: Mersenne Twister</a>
         </info>
         <arguments>
-            <argument name="ARG" type="list">@min=ARG[0], @max=ARG[1], in case of signle arg:
-            @min=0, @max=ARG[0]</argument>
+            <argument name="ARG" type="list">
+                <tr lang="en">@min=ARG[0], @max=ARG[1], in case of signle arg: @min=0,
+                @max=ARG[0]</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @max -->

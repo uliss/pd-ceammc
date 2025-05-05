@@ -21,8 +21,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="ARGS" type="list">message. Comma separated messages are
-            supported</argument>
+            <argument name="ARGS" type="list">
+                <tr lang="en">message. Comma separated messages are supported</tr>
+            </argument>
         </arguments>
         <inlets />
         <outlets>

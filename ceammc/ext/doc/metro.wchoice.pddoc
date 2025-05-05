@@ -23,8 +23,10 @@
             <since>0.9.7</since>
         </meta>
         <arguments>
-            <argument name="INIT" type="list">TIME and WEIGHT list in format: T0 W1... Weight
-            values can be floats or percent</argument>
+            <argument name="INIT" type="list">
+                <tr lang="en">TIME and WEIGHT list in format: T0 W1... Weight values can be floats
+                or percent</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @calc_w -->

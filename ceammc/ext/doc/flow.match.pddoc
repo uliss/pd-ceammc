@@ -26,8 +26,9 @@
             <a href="https://github.com/google/re2">Regexp library: RE2</a>
         </info>
         <arguments>
-            <argument name="PATTERNS" type="list" required="true">list of regular
-            expressions</argument>
+            <argument name="PATTERNS" type="list" required="true">
+                <tr lang="en">list of regular expressions</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @cut -->

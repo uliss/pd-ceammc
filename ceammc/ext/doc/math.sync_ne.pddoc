@@ -25,7 +25,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="F" type="float">second number</argument>
+            <argument name="F" type="float">
+                <tr lang="en">second number</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @epsilon -->

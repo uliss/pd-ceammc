@@ -21,7 +21,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">environment variable name</argument>
+            <argument name="NAME" type="symbol">
+                <tr lang="en">environment variable name</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @name -->

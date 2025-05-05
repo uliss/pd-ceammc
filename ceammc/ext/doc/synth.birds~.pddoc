@@ -18,10 +18,12 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="SPEED" type="float" minvalue="120" maxvalue="480">maximum speed of
-            whistles if @auto enabled</argument>
+            <argument name="SPEED" type="float" minvalue="120" maxvalue="480">
+                <tr lang="en">maximum speed of whistles if @auto enabled</tr>
+            </argument>
             <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100" units="percent">
-            whistles probability if @auto enabled</argument>
+                <tr lang="en">whistles probability if @auto enabled</tr>
+            </argument>
         </arguments>
         <properties>
             <xi:include href="props_osc.xml" />

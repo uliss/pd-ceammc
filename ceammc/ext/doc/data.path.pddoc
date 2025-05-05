@@ -17,7 +17,9 @@
             <since>0.9.8</since>
         </meta>
         <arguments>
-            <argument name="PATH" type="atom">See @path</argument>
+            <argument name="PATH" type="atom">
+                <tr lang="en">See @path</tr>
+            </argument>
         </arguments>
         <properties>
             <!-- @async -->
