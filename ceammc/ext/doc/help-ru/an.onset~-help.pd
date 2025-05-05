@@ -29,20 +29,20 @@ specflux kl mkl;
 #X text 110 430 1\.;
 #X text 150 430 int;
 #X obj 246 431 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 430 BS(samp): buffer size. Тип: int. Минимальное значение:
+#X text 245 430 BS(samp): размер буфера. Тип: int. Минимальное значение:
 64\.;
 #X text 110 450 2\.;
 #X text 150 450 symbol;
 #X obj 246 451 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 450 METHOD: detection method. Разрешённые значения: centroid
+#X text 245 450 METHOD: метод обнаружения. Разрешённые значения: centroid
 \, complex \, complexdomain \, decrease \, default \, energy \, hfc
 \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \, specdiff
 \, specflux \, spread \, wphase. Тип: symbol.;
 #X text 110 515 3\.;
 #X text 150 515 int;
 #X obj 246 516 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 515 HS(samp): hop size (by default buffer_size/2). Тип:
-int. Минимальное значение: 0\.;
+#X text 245 515 HS(samp): размер окна (по умолчанию размер_буфера/2).
+Тип: int. Минимальное значение: 0\.;
 #X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 565 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

@@ -38,20 +38,20 @@ specflux kl mkl;
 #X text 110 635 1\.;
 #X text 150 635 int;
 #X obj 246 636 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 635 BS(samp): buffer size. Тип: int. Минимальное значение:
+#X text 245 635 BS(samp): размер буфера. Тип: int. Минимальное значение:
 64\.;
 #X text 110 655 2\.;
 #X text 150 655 symbol;
 #X obj 246 656 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 655 METHOD: onset detection method. Разрешённые значения:
+#X text 245 655 METHOD: метод обнаружения атаки. Разрешённые значения:
 centroid \, complex \, complexdomain \, decrease \, default \, energy
 \, hfc \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \,
 specdiff \, specflux \, spread \, wphase. Тип: symbol.;
 #X text 110 720 3\.;
 #X text 150 720 int;
 #X obj 246 721 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 720 HS(samp): hop size (by default buffer_size/2). Тип:
-int. Минимальное значение: 0\.;
+#X text 245 720 HS(samp): размер окна (по умолчанию размер_буфера/2).
+Тип: int. Минимальное значение: 0\.;
 #X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 770 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

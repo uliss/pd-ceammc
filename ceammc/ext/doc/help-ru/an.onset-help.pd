@@ -51,24 +51,24 @@
 #X text 110 621 1\.;
 #X text 150 621 symbol;
 #X obj 246 622 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 621 ARRAY: array name. Тип: symbol.;
+#X text 245 621 ARRAY: имя массива. Тип: symbol.;
 #X text 110 641 2\.;
 #X text 150 641 int;
 #X obj 246 642 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 641 BS(samp): buffer size. Тип: int. Минимальное значение:
+#X text 245 641 BS(samp): размер буфера. Тип: int. Минимальное значение:
 64\.;
 #X text 110 661 3\.;
 #X text 150 661 symbol;
 #X obj 246 662 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 661 METHOD: detection method. Разрешённые значения: centroid
+#X text 245 661 METHOD: метод обнаружения. Разрешённые значения: centroid
 \, complex \, complexdomain \, decrease \, default \, energy \, hfc
 \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \, specdiff
 \, specflux \, spread \, wphase. Тип: symbol.;
 #X text 110 726 4\.;
 #X text 150 726 int;
 #X obj 246 727 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 726 HS(samp): hop size (by default buffer_size/2). Тип:
-int. Минимальное значение: 0\.;
+#X text 245 726 HS(samp): размер окна (по умолчанию размер_буфера/2).
+Тип: int. Минимальное значение: 0\.;
 #X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 776 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

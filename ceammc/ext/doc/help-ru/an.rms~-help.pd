@@ -21,7 +21,7 @@
 #X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 PERIOD(ms): averaging window period. Тип: float. Диапазон:
+#X text 245 352 PERIOD(ms): период окна усреднения. Тип: float. Диапазон:
 1…1000;
 #X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 402 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
