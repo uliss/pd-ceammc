@@ -23,16 +23,21 @@
         <arguments>
             <argument name="THRESHOLD" type="float" units="decibel" minvalue="-90" maxvalue="0">
                 <tr lang="en">dB level threshold above which gate opens</tr>
+                <tr lang="ru">пороговый уровень дБ, выше которого открывается гейт</tr>
             </argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0" maxvalue="500">
                 <tr lang="en">attack time = time constant (ms) for gate to open</tr>
+                <tr lang="ru">время атаки = постоянная времени (ms) для открытия гейта</tr>
             </argument>
             <argument name="HOLD" type="float" units="millisecond" minvalue="1" maxvalue="500">
                 <tr lang="en">hold time = time (ms) gate stays open after signal level &lt;
                 threshold</tr>
+                <tr lang="ru">время удержания = время (ms), которое гейт остается открытым после
+                уровня сигнала &lt; порог</tr>
             </argument>
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
                 <tr lang="en">release time = time constant (ms) for gate to close</tr>
+                <tr lang="ru">время освобождения = постоянная времени (ms) для закрытия гейта</tr>
             </argument>
         </arguments>
         <properties>

@@ -44,7 +44,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 150 506 float;
 #X obj 246 507 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 506 STRENGTH: expander strength (0: no expanding \, 10:
-almost gating.). Type: float. Range: 0\...10;
+almost gating). Type: float. Range: 0\...10;
 #X text 110 541 2\.;
 #X text 150 541 float;
 #X obj 246 542 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;

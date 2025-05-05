@@ -26,16 +26,20 @@
         </info>
         <arguments>
             <argument name="STRENGTH" type="float" minvalue="0" maxvalue="10">
-                <tr lang="en">expander strength (0: no expanding, 10: almost gating.)</tr>
+                <tr lang="en">expander strength (0: no expanding, 10: almost gating)</tr>
+                <tr lang="ru">сила экспандера (0: без расширения, 10: практически гейт)</tr>
             </argument>
             <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
                 <tr lang="en">level threshold below which expander kicks in</tr>
+                <tr lang="ru">пороговый уровень, ниже которого срабатывает экспандер</tr>
             </argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
                 <tr lang="en">attack time = time constant when expander is turning on</tr>
+                <tr lang="ru">время атаки - время включения экспандера</tr>
             </argument>
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
                 <tr lang="en">release time = time constant coming out of expanding</tr>
+                <tr lang="ru">время спада - время выключения экспандера</tr>
             </argument>
         </arguments>
         <properties>

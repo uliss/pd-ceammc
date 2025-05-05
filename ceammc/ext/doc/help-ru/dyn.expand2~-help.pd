@@ -43,23 +43,23 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 110 506 1\.;
 #X text 150 506 float;
 #X obj 246 507 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 506 STRENGTH: expander strength (0: no expanding \, 10:
-almost gating.). Тип: float. Диапазон: 0…10;
+#X text 245 506 STRENGTH: сила экспандера (0: без расширения \, 10:
+практически гейт). Тип: float. Диапазон: 0…10;
 #X text 110 541 2\.;
 #X text 150 541 float;
 #X obj 246 542 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 541 THRESHOLD(db): level threshold below which expander
-kicks in. Тип: float. Диапазон: -60…0;
+#X text 245 541 THRESHOLD(db): пороговый уровень \, ниже которого срабатывает
+экспандер. Тип: float. Диапазон: -60…0;
 #X text 110 576 3\.;
 #X text 150 576 float;
 #X obj 246 577 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 576 ATTACK(ms): attack time = time constant when expander
-is turning on. Тип: float. Диапазон: 0.1…100;
+#X text 245 576 ATTACK(ms): время атаки - время включения экспандера.
+Тип: float. Диапазон: 0.1…100;
 #X text 110 611 4\.;
 #X text 150 611 float;
 #X obj 246 612 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 611 RELEASE(ms): release time = time constant coming out
-of expanding. Тип: float. Диапазон: 1…500;
+#X text 245 611 RELEASE(ms): время спада - время выключения экспандера.
+Тип: float. Диапазон: 1…500;
 #X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 661 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

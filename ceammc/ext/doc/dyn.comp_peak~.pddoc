@@ -32,16 +32,25 @@
             <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">
                 <tr lang="en">compression strength (0: no compression, 1: hard limiting, &gt;1:
                 overcompression)</tr>
+                <tr lang="ru">сила компрессии (0: без компрессии, 1: жесткое ограничение, &gt;1:
+                перекомпрессия)</tr>
             </argument>
             <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
                 <tr lang="en">level threshold above which compression kicks in</tr>
+                <tr lang="ru">пороговый уровень, выше которого начинается компрессия</tr>
             </argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
-                <tr lang="en">attack time = time constant when level &amp; compression going
-                up</tr>
+                <tr lang="en">attack time - the time that elapses between exceeding the threshold
+                and when the compression ratio is reached</tr>
+                <tr lang="ru">время, которое проходит между превышением порогового значения и
+                моментом достижения заданного уровня компрессии</tr>
             </argument>
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
-                <tr lang="en">release time = time constant coming out of compression</tr>
+                <tr lang="en">release time - the time of decay that elapses between when the input
+                signal level drops below the threshold and when the compressor stops attenuating
+                the signal</tr>
+                <tr lang="ru">время спада, которое проходит между тем, как уровень входного сигнала
+                упал ниже порога, и моментом, когда компрессор перестаёт ослаблять сигнал</tr>
             </argument>
         </arguments>
         <properties>

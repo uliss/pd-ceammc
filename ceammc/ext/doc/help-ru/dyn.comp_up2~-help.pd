@@ -44,13 +44,13 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 110 536 1\.;
 #X text 150 536 float;
 #X obj 246 537 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 536 STRENGTH: compression strength (0: no compression \,
-1: increase level by @range db.). Тип: float. Диапазон: 0…1;
+#X text 245 536 STRENGTH: сила компрессии (0: без компрессии \, 1:
+повышение уровня на @range децибел). Тип: float. Диапазон: 0…1;
 #X text 110 571 2\.;
 #X text 150 571 float;
 #X obj 246 572 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 571 THRESHOLD(db): level threshold above which compression
-kicks in. Тип: float. Диапазон: -60…0;
+#X text 245 571 THRESHOLD(db): пороговый уровень \, ниже которого начинается
+компрессия. Тип: float. Диапазон: -60…0;
 #X text 110 606 3\.;
 #X text 150 606 float;
 #X obj 246 607 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -59,8 +59,8 @@ kicks in. Тип: float. Диапазон: -60…0;
 #X text 110 641 4\.;
 #X text 150 641 float;
 #X obj 246 642 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 641 RELEASE(ms): release time = time constant coming out
-of compression. Тип: float. Диапазон: 1…500;
+#X text 245 641 RELEASE(ms): время спада - время выхода из компрессии
+после превышения порогового уровня. Тип: float. Диапазон: 1…500;
 #X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 691 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
