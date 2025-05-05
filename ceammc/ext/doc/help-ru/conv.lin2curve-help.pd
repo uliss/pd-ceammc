@@ -35,23 +35,23 @@ the output range may include zero. If the input exceeds the input range
 #X text 110 499 1\.;
 #X text 150 499 float;
 #X obj 246 500 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 499 IN_FROM: begin of input range. Тип: float.;
+#X text 245 499 IN_FROM: начало входного диапазона. Тип: float.;
 #X text 110 519 2\.;
 #X text 150 519 float;
 #X obj 246 520 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 519 IN_TO: end of input range. Тип: float.;
+#X text 245 519 IN_TO: конец входного диапазона. Тип: float.;
 #X text 110 539 3\.;
 #X text 150 539 float;
 #X obj 246 540 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 539 OUT_FROM: begin of output range. Тип: float.;
+#X text 245 539 OUT_FROM: начало выходного диапазона. Тип: float.;
 #X text 110 559 4\.;
 #X text 150 559 float;
 #X obj 246 560 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 559 OUT_TO: end of output range. Тип: float.;
+#X text 245 559 OUT_TO: конец выходного диапазона. Тип: float.;
 #X text 110 579 5\.;
 #X text 150 579 float;
 #X obj 246 580 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 579 CURVE: curve shape. Тип: float.;
+#X text 245 579 CURVE: форма кривой. Тип: float.;
 #X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 614 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

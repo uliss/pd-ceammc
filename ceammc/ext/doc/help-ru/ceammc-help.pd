@@ -219,7 +219,7 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 #X obj 30 2963 conv.car2pol;
 #X text 200 2963 преобразует картезианские координаты в полярные;
 #X obj 30 2991 conv.cc2amp;
-#X text 200 2991 converts from MIDI Control Change range;
+#X text 200 2991 конвертирует из диапазона MIDI Control Change;
 #X obj 30 3019 conv.char2morse;
 #X text 200 3019 преобразует единичный символ в код Морзе;
 #X obj 30 3047 conv.color2rgba;

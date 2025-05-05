@@ -36,7 +36,7 @@
 #X text 110 337 4\.;
 #X text 150 337 float;
 #X obj 246 338 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 337 OUT_TO: end of input output. Type: float.;
+#X text 245 337 OUT_TO: end of input range. Type: float.;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 372 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

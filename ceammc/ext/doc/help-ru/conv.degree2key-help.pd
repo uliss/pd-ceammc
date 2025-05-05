@@ -31,8 +31,8 @@
 #X text 110 554 1\.;
 #X text 150 554 symbol;
 #X obj 246 555 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 554 SCALE: scale name. Разрешённые значения: aeolian \,
-ahirbhairav \, ajam \, atharKurd \, augmented \, augmented2 \, bartok
+#X text 245 554 SCALE: название гаммы. Разрешённые значения: aeolian
+\, ahirbhairav \, ajam \, atharKurd \, augmented \, augmented2 \, bartok
 \, bastanikar \, bayati \, bhairav \, chinese \, chromatic \, chromatic24
 \, diminished \, diminished2 \, dorian \, egyptian \, enigmatic \,
 farahfaza \, gong \, hex_aeolian \, hex_dorian \, hex_major6 \, hex_major7

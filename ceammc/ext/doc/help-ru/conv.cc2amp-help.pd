@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 465 50 converts from MIDI Control Change range;
+#X obj 415 50 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 420 50 конвертирует из диапазона MIDI Control Change;
 #X obj 1 1 cnv 5 765 40 empty empty conv.cc2amp 20 20 0 20 -104026
 -4096 0;
 #X obj 457 11 ceammc/cc->amp;
@@ -24,11 +24,12 @@
 #X text 110 320 1\.;
 #X text 150 320 float;
 #X obj 246 321 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 320 FROM: start value of output range. Тип: float.;
+#X text 245 320 FROM: начальное значение выходного диапазона. Тип:
+float.;
 #X text 110 340 2\.;
 #X text 150 340 float;
 #X obj 246 341 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 340 TO: end value of output range. Тип: float.;
+#X text 245 340 TO: конечное значение выходного диапазона. Тип: float.;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

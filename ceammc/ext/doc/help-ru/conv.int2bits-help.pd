@@ -30,7 +30,7 @@ https://en.wikipedia.org/wiki/Two%27s_complement;
 #X text 110 492 1\.;
 #X text 150 492 int;
 #X obj 246 493 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 492 SIZE: output bit-length. Тип: int. Диапазон: 1…32;
+#X text 245 492 SIZE: выходная длина в битах. Тип: int. Диапазон: 1…32;
 #X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 527 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

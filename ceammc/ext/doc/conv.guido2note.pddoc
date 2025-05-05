@@ -28,8 +28,11 @@
         </info>
         <arguments>
             <argument name="TEMPO" type="atom" units="bpm">
-                <tr lang="en">current tempo, if float - treat as quarter-per-minute, if symbol -
-                bpm format expected, for example: 120bpm, 60|1/8_bpm, 90|4._bpm etc.</tr>
+                <tr lang="en">current tempo, if number - treat as quarter-per-minute, if symbol -
+                BPM format is expected, for example: 120bpm, 60|1/8_bpm, 90|4._bpm etc.</tr>
+                <tr lang="ru">текущий темп, если число - рассматривать как
+                четверть в минуту, если символ - ожидается формат BPM, например: 120bpm (120 четвертных ударов в минуту),
+                60|1/8_bpm (60 восьмых ударов в минуту), 90|4._bpm (90 ударов в минуту, длительностью четверть с точкой) и т.д.</tr>
             </argument>
         </arguments>
         <properties>

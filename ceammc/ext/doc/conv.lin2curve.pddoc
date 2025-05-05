@@ -32,18 +32,23 @@
         <arguments>
             <argument name="IN_FROM" type="float">
                 <tr lang="en">begin of input range</tr>
+                <tr lang="ru">начало входного диапазона</tr>
             </argument>
             <argument name="IN_TO" type="float">
                 <tr lang="en">end of input range</tr>
+                <tr lang="ru">конец входного диапазона</tr>
             </argument>
             <argument name="OUT_FROM" type="float">
                 <tr lang="en">begin of output range</tr>
+                <tr lang="ru">начало выходного диапазона</tr>
             </argument>
             <argument name="OUT_TO" type="float">
                 <tr lang="en">end of output range</tr>
+                <tr lang="ru">конец выходного диапазона</tr>
             </argument>
             <argument name="CURVE" type="float">
                 <tr lang="en">curve shape</tr>
+                <tr lang="ru">форма кривой</tr>
             </argument>
         </arguments>
         <properties>

@@ -28,6 +28,7 @@
         <arguments>
             <argument name="A" type="float" minvalue="200" maxvalue="600" units="hertz">
                 <tr lang="en">A pitch frequency</tr>
+                <tr lang="ru">частота звука</tr>
             </argument>
         </arguments>
         <properties>

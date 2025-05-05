@@ -27,6 +27,7 @@
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="64">
                 <tr lang="en">number of outlets</tr>
+                <tr lang="ru">количество выходов</tr>
             </argument>
         </arguments>
         <properties>

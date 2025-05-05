@@ -31,7 +31,7 @@
 #X text 110 379 1\.;
 #X text 150 379 float;
 #X obj 246 380 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 379 INTERVAL(ms): sampling interval. Тип: float. Минимальное
+#X text 245 379 INTERVAL(ms): интервал выборки. Тип: float. Минимальное
 значение: -1\.;
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144

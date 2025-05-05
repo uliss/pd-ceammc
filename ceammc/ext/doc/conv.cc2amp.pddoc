@@ -8,8 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">converts from MIDI Control Change range</tr>
-                <!-- old: Диапазон MIDI Control Change -->
-                <tr lang="ru" finished="false">Диапазон изменений MIDI Control Change</tr>
+                <tr lang="ru">конвертирует из диапазона MIDI Control Change</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
@@ -31,9 +30,11 @@
         <arguments>
             <argument name="FROM" type="float">
                 <tr lang="en">start value of output range</tr>
+                <tr lang="ru">начальное значение выходного диапазона</tr>
             </argument>
             <argument name="TO" type="float">
                 <tr lang="en">end value of output range</tr>
+                <tr lang="ru">конечное значение выходного диапазона</tr>
             </argument>
         </arguments>
         <properties>

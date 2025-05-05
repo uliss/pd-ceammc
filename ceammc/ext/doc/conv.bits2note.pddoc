@@ -27,7 +27,8 @@
         </info>
         <arguments>
             <argument name="KEYS" type="list">
-                <tr lang="en">list of note keys</tr>
+                <tr lang="en">list of note values</tr>
+                <tr lang="ru">список нотных значений</tr>
             </argument>
         </arguments>
         <properties>

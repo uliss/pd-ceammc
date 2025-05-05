@@ -29,10 +29,12 @@
         </info>
         <arguments>
             <argument name="BPM" type="atom" units="bpm">
-                <tr lang="en">init tempo BPM value</tr>
+                <tr lang="en">initial tempo value</tr>
+                <tr lang="ru">начальное значение темпа</tr>
             </argument>
             <argument name="TSIG" type="symbol">
-                <tr lang="en">init time signature value</tr>
+                <tr lang="en">initial time signature value</tr>
+                <tr lang="ru">начальное значение тактового размера</tr>
             </argument>
         </arguments>
         <properties>

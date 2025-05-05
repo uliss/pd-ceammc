@@ -34,6 +34,7 @@
         <arguments>
             <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">
                 <tr lang="en">sampling interval</tr>
+                <tr lang="ru">интервал выборки</tr>
             </argument>
         </arguments>
         <properties>

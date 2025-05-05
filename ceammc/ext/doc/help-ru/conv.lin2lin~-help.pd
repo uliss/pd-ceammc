@@ -24,19 +24,19 @@
 #X text 110 295 1\.;
 #X text 150 295 float;
 #X obj 246 296 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 295 IN_FROM: begin of input range. Тип: float.;
+#X text 245 295 IN_FROM: начало входного диапазона. Тип: float.;
 #X text 110 315 2\.;
 #X text 150 315 float;
 #X obj 246 316 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 315 IN_TO: end of input range. Тип: float.;
+#X text 245 315 IN_TO: конец входного диапазона. Тип: float.;
 #X text 110 335 3\.;
 #X text 150 335 float;
 #X obj 246 336 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 335 OUT_FROM: begin of output range. Тип: float.;
+#X text 245 335 OUT_FROM: начало выходного диапазона. Тип: float.;
 #X text 110 355 4\.;
 #X text 150 355 float;
 #X obj 246 356 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 355 OUT_TO: end of input output. Тип: float.;
+#X text 245 355 OUT_TO: конец выходного диапазона. Тип: float.;
 #X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 390 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

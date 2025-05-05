@@ -31,6 +31,7 @@
         <arguments>
             <argument name="SIZE" type="int" minvalue="1" maxvalue="32">
                 <tr lang="en">output bit-length</tr>
+                <tr lang="ru">выходная длина в битах</tr>
             </argument>
         </arguments>
         <properties>

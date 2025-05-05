@@ -154,9 +154,9 @@ bpm->sec	converts the BPM tempo into a period in seconds / преобразуе�
 conv.car2pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
 ceammc/car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
 car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
-conv.cc2amp	converts from MIDI Control Change range
-ceammc/cc->amp	converts from MIDI Control Change range
-cc->amp	converts from MIDI Control Change range
+conv.cc2amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
+ceammc/cc->amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
+cc->amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
 conv.char2morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
 ceammc/char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
 char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе

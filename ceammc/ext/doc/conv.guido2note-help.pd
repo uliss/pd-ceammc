@@ -43,8 +43,8 @@ a1/16 g1/16 f/4;
 #X text 110 653 1\.;
 #X text 150 653 atom;
 #X obj 246 654 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 653 TEMPO(bpm): current tempo \, if float - treat as quarter-per-minute
-\, if symbol - bpm format expected \, for example: 120bpm \, 60|1/8_bpm
+#X text 245 653 TEMPO(bpm): current tempo \, if number - treat as quarter-per-minute
+\, if symbol - BPM format is expected \, for example: 120bpm \, 60|1/8_bpm
 \, 90|4\._bpm etc. Type: atom.;
 #X obj 20 713 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 718 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144

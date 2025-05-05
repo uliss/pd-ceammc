@@ -35,7 +35,7 @@
 #X obj 30 477 conv.car2pol;
 #X text 200 477 преобразует картезианские координаты в полярные;
 #X obj 30 505 conv.cc2amp;
-#X text 200 505 converts from MIDI Control Change range;
+#X text 200 505 конвертирует из диапазона MIDI Control Change;
 #X obj 30 533 conv.char2morse;
 #X text 200 533 преобразует единичный символ в код Морзе;
 #X obj 30 561 conv.color2rgba;
