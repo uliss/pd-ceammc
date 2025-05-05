@@ -1,8 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 308 50 cnv 1 457 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 313 50 returns the size of physical memory (RAM) in bytes round
-to float data type.;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 381 50 возвращает размер физической памяти (ОЗУ) в байтах;
 #X obj 1 1 cnv 5 765 40 empty empty system.memsize 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 system.memsize;

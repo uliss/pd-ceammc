@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">french church bell modal model</tr>
-                <tr lang="ru" finished="false">Французская модель церковного колокола</tr>
+                <tr lang="ru">модовый синтез модели французского церковного колокола</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

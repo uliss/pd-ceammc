@@ -7,9 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Simple formant/vocal synthesizer with FOF-smooth filterbank.</tr>
-                <tr lang="ru" finished="false">Простой формант/вокальный синтезатор с FOF-гладким
-                фильтрбанком.</tr>
+                <tr lang="en">simple formant/vocal synthesizer with FOF-smooth filterbank.</tr>
+                <tr lang="ru">простой формантный/вокальный синтезатор со сглаженным банком фильтров FOF</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

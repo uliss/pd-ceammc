@@ -7,13 +7,14 @@
 #X obj 30 117 symbol.equal;
 #X text 200 117 check symbols for equality;
 #X obj 30 145 symbol.length;
-#X text 200 145 number of characters in symbol (unicode supported);
-#X obj 30 173 symbol.num_compare;
-#X text 200 173 numeric symbol compare;
-#X obj 30 201 symbol2any;
-#X text 200 201 converts symbol or string to message;
-#X obj 30 229 symbol2intlist;
-#X text 200 229 converts symbol to list of character codes;
+#X text 200 145 outputs the number of characters in a symbol (unicode
+supported);
+#X obj 30 185 symbol.num_compare;
+#X text 200 185 numeric symbol compare;
+#X obj 30 213 symbol2any;
+#X text 200 213 converts symbol or string into a message;
+#X obj 30 241 symbol2intlist;
+#X text 200 241 converts the symbol into a list of character codes;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::symbol 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

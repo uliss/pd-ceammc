@@ -8,9 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">number of characters in symbol (unicode supported)</tr>
-                <tr lang="ru" finished="false">Количество символов в символе (поддерживается
-                Unicode)</tr>
+                <tr lang="en">outputs the number of characters in a symbol (unicode supported)</tr>
+                <tr lang="ru">выводит число символов в символьном типе (с поддержкой Unicode)</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

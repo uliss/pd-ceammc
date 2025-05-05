@@ -9,7 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">check symbols for equality</tr>
-                <tr lang="ru" finished="false">Проверьте символы равенства</tr>
+                <tr lang="ru">проверка символов на равенство</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

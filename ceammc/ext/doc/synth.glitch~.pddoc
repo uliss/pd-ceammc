@@ -8,8 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Glitch synthesizer by naivesound</tr>
-                <tr lang="ru" finished="false">Синтезатор Glitch от NaiveSound</tr>
+                <tr lang="en">glitch synthesizer by naivesound</tr>
+                <tr lang="ru">глитч-синтезатор от naivesound</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

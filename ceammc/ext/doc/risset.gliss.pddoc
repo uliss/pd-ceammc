@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Sheppard/Risset glissando calculator</tr>
-                <tr lang="ru" finished="false">Калькулятор Sheppard/Risset glissando</tr>
+                <tr lang="ru">калькулятор для глиссандо Шеппарда/Риссе</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

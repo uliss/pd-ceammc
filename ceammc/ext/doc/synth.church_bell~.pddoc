@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">generic church bell modal model</tr>
-                <tr lang="ru" finished="false">Модальная модель церковного колокола</tr>
+                <tr lang="ru">модовая модель церковного колокола</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

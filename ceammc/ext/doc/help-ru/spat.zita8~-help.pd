@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 544 50 cnv 1 221 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 549 50 8 channel reverb spatializer;
+#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 450 50 8-канальная пространственная реверберация;
 #X obj 1 1 cnv 5 765 40 empty empty spat.zita8~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 spat.zita8~;

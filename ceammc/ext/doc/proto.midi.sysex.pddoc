@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">raw midi SYSex encoder/parser</tr>
-                <tr lang="ru" finished="false">Обсуждение Midi SYSex Encoder/Parser</tr>
+                <tr lang="ru">декодер/энкодер исходных сообщений MIDI SYSex</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

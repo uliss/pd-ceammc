@@ -8,9 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">nonlinear banded waveguide modeled Glass Harmonica</tr>
-                <tr lang="ru" finished="false">нелинейный волновод смоделированный Glass
-                Harmonica</tr>
+                <tr lang="en">nonlinear banded waveguide modeled glass harmonica</tr>
+                <tr lang="ru">нелинейная волноводная модель стеклянной гармоники</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

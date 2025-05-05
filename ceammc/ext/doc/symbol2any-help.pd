@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 488 50 converts symbol or string to message;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 50 converts symbol or string into a message;
 #X obj 1 1 cnv 5 765 40 empty empty symbol2any 20 20 0 20 -104026
 -4096 0;
 #N canvas 570 11 250 400 aliases 0;

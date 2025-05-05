@@ -8,8 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Get system environment variables</tr>
-                <tr lang="ru" finished="false">Получить переменные среды системы</tr>
+                <tr lang="en">output system environment variables</tr>
+                <tr lang="ru">выводит системные переменные окружения</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

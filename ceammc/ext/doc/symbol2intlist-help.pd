@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 443 50 converts symbol to list of character codes;
+#X obj 377 50 cnv 1 388 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 382 50 converts the symbol into a list of character codes;
 #X obj 1 1 cnv 5 765 40 empty empty symbol2intlist 20 20 0 20 -104026
 -4096 0;
 #N canvas 542 11 250 400 aliases 0;

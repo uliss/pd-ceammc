@@ -5,15 +5,15 @@
 #X obj 588 50 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 593 50 работа с таймлайном;
 #X obj 30 117 tl.bang;
-#X text 200 117 Timeline bang (с возможной задержкой);
+#X text 200 117 выводит пустое событие временной шкалы;
 #X obj 30 148 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 200 145 График времени;
+#X text 200 145 определяет секцию на временной шкале;
 #X obj 30 170 tl.timeline;
-#X text 200 170 Timeline - планировщик событий;
+#X text 200 170 планировщик событий временной шкалы;
 #X obj 30 198 tl.toggle;
-#X text 200 198 Таймлайн взрыв;
+#X text 200 198 переключатель на временной шкале;
 #X obj 30 226 tl.transport;
-#X text 200 226 Контроль за транспортным временем;
+#X text 200 226 управление временной шкалой;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::tl 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

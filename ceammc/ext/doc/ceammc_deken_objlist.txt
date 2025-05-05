@@ -382,10 +382,10 @@ envelope	envelope data type / тип данных огибающей
 ceammc/envelope	envelope data type / тип данных огибающей
 ceammc/env	envelope data type / тип данных огибающей
 env	envelope data type / тип данных огибающей
-vline2env	Converts vline messages to env
-ceammc/vline2env	Converts vline messages to env
-ceammc/vline->env	Converts vline messages to env
-vline->env	Converts vline messages to env
+vline2env	сonverts vline messages to Env / преобразование сообщений vline для Env
+ceammc/vline2env	сonverts vline messages to Env / преобразование сообщений vline для Env
+ceammc/vline->env	сonverts vline messages to Env / преобразование сообщений vline для Env
+vline->env	сonverts vline messages to Env / преобразование сообщений vline для Env
 expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 ceammc/expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 flow.append	append message to flow stream / добавляет сообщение в поток
@@ -953,14 +953,14 @@ modplug~	MOD file player / плеер файлов MOD
 ceammc/modplug~	MOD file player / плеер файлов MOD
 qrcode	QR code generator / генератор QR кода
 ceammc/qrcode	QR code generator / генератор QR кода
-risset.gliss	Sheppard/Risset glissando calculator
+risset.gliss	Sheppard/Risset glissando calculator / калькулятор для глиссандо Шеппарда/Риссе
 sfizz~	SFZ format sample player / плеер семплов в формате SFZ
 ceammc/sfizz~	SFZ format sample player / плеер семплов в формате SFZ
-speech.flite	render speech to array
-speech.flite~	render speech to array
-speech.rhvoice~	RHVoice text to speech synthesis
-ceammc/rhvoice~	RHVoice text to speech synthesis
-rhvoice~	RHVoice text to speech synthesis
+speech.flite	render speech to array / рендеринг синтезатора речи в массив
+speech.flite~	Flite text to speech synthesis / синтезатор речи Flite
+speech.rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
+ceammc/rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
+rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
 loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
 ceammc/loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
 msg	message constructor / конструктор сообщений
@@ -977,9 +977,9 @@ loadmsg	send the specified message upon patch loading / отправить ук�
 msg.pack	message pack / упаковка сообщений
 msg.sched	message dispatch scheduler / планировщик отправки сообщений
 msg.unpack	message unpack to selector and arguments / распаковка сообщения на селектор и аргументы
-rhythm.euclid	euclid pattern generator
-rhythm.hexbeat	hexbeat pattern generator
-rhythm.lsystem	L-system pattern generator
+rhythm.euclid	euclid pattern generator / генератор эвклидовых паттернов
+rhythm.hexbeat	hexbeat pattern generator / генератор ритмического паттерна по шестнадцатиричным значениям
+rhythm.lsystem	L-system pattern generator / генератор ритмического рисунка на основе L-систем
 net.artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
 artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
 net.freesound	Freesound API v2 client / клиент для Freesound API v2
@@ -1110,10 +1110,10 @@ proto.ltc.in~	LTC decoder / LTC-декодер
 ltc.in~	LTC decoder / LTC-декодер
 proto.ltc.out~	LTC encoder / LTC энкодер
 ltc.out~	LTC encoder / LTC энкодер
-proto.midi	raw midi encoder/parser
+proto.midi	raw midi encoder/parser / декодер/энкодер исходных сообщений MIDI
 proto.midi.casio	Casio Privia MIDI control / управление Casio Privia MIDI
-proto.midi.cc	raw midi CC encoder/parser
-proto.midi.sysex	raw midi SYSex encoder/parser
+proto.midi.cc	raw midi CC encoder/parser / декодер/энкодер исходных сообщений MIDI СС
+proto.midi.sysex	raw midi SYSex encoder/parser / декодер/энкодер исходных сообщений MIDI SYSex
 proto.moppy	protocol for Musical flOPPY controller / nротокол для музыкального контроллера flOPPY
 proto.morse	Morse encoder / Морзе энкодер
 proto.mpv	MPV video player control / управление видео плеером MPV
@@ -1204,8 +1204,8 @@ pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х к
 spat.pan8~	GMEM SPAT: 8-outputs spatializer / GMEM SPAT: управление 8 канальным пространственным звуком
 ceammc/pan8~	GMEM SPAT: 8-outputs spatializer / GMEM SPAT: управление 8 канальным пространственным звуком
 pan8~	GMEM SPAT: 8-outputs spatializer / GMEM SPAT: управление 8 канальным пространственным звуком
-spat.zita6x8~	spat with 6 inputs sources to 8 channel output
-spat.zita8~	8 channel reverb spatializer
+spat.zita6x8~	spat with 6 inputs sources to 8 channel output / управление пространственным звуком с 6 входными источниками на 8 выходных каналов
+spat.zita8~	8 channel reverb spatializer / 8-канальная пространственная реверберация
 string	constructs the string / создание строки
 ceammc/string	constructs the string / создание строки
 ceammc/str	constructs the string / создание строки
@@ -1239,76 +1239,76 @@ string2symbol	converts the string into the symbol / преобразует ст�
 ceammc/string2symbol	converts the string into the symbol / преобразует строку в символ
 ceammc/str->sym	converts the string into the symbol / преобразует строку в символ
 str->sym	converts the string into the symbol / преобразует строку в символ
-symbol.equal	check symbols for equality
-symbol.length	number of characters in symbol (unicode supported)
-symbol.num_compare	numeric symbol compare
-symbol2any	converts symbol or string to message
-ceammc/symbol2any	converts symbol or string to message
-ceammc/sym->any	converts symbol or string to message
-ceammc/str->any	converts symbol or string to message
-ceammc/string2any	converts symbol or string to message
-sym->any	converts symbol or string to message
-str->any	converts symbol or string to message
-string2any	converts symbol or string to message
-symbol2intlist	converts symbol to list of character codes
-ceammc/symbol2intlist	converts symbol to list of character codes
-ceammc/sym->ilist	converts symbol to list of character codes
-sym->ilist	converts symbol to list of character codes
-synth.bee3~	Hammond-oid organ FM synthesis instrument
-synth.birds~	bird singing generator
-synth.church_bell~	generic church bell modal model
-synth.clap~	clap synth from faust libraries
-synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
-synth.dx7~	FAUST dx7 implementation
-synth.eguitar~	simple electric guitar model with steel strings
-synth.english_bell~	english church bell modal model
-synth.fgrain~	file granulator from STK
-synth.french_bell~	french church bell modal model
-synth.german_bell~	german church bell modal model
-synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
-synth.glitch~	Glitch synthesizer by naivesound
-synth.harpsichord~	waveguide commuted harpsichord
-synth.hat~	hi-hat synth from faust librariest
-synth.kick2~	low-kick synth from faust librariest
-synth.kick~	low-kick synth from Guitarix project
-synth.ks~	Karplus-Strong string
-synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
-synth.metro~	ready to use metronome synth
-synth.piano~	waveguide commuted piano
-synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
-synth.risset_arp~	Jean-Claude Risset's harmonic arpeggio effect
-synth.risset_bell~	Jean-Claude Risset's bell synth
-synth.risset_tone~	Jean-Claude Risset's endless glissando
-synth.russian_bell~	russian church bell modal model
-synth.shakers~	various percussion sounds from STK library
-synth.sitar~	STK sitar
-synth.snare~	Snare drum synth from Guitarix project
-synth.standard_bell~	german church bell modal model
-synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
-synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
-synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
-synth.wurley~	Wurlitzer electric piano FM synthesis instrument
-system.colorpanel	System color panel dialog popup
+symbol.equal	check symbols for equality / проверка символов на равенство
+symbol.length	outputs the number of characters in a symbol (unicode supported) / выводит число символов в символьном типе (с поддержкой Unicode)
+symbol.num_compare	numeric symbol compare / цифровое сравнение символов
+symbol2any	converts symbol or string into a message / преобразует символ или строку в сообщение
+ceammc/symbol2any	converts symbol or string into a message / преобразует символ или строку в сообщение
+ceammc/sym->any	converts symbol or string into a message / преобразует символ или строку в сообщение
+ceammc/str->any	converts symbol or string into a message / преобразует символ или строку в сообщение
+ceammc/string2any	converts symbol or string into a message / преобразует символ или строку в сообщение
+sym->any	converts symbol or string into a message / преобразует символ или строку в сообщение
+str->any	converts symbol or string into a message / преобразует символ или строку в сообщение
+string2any	converts symbol or string into a message / преобразует символ или строку в сообщение
+symbol2intlist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
+ceammc/symbol2intlist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
+ceammc/sym->ilist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
+sym->ilist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
+synth.bee3~	Hammond-oid organ FM synthesis instrument / FM-синтезатор в духе органа Хэммонда
+synth.birds~	bird singing generator / генератор пения птиц
+synth.church_bell~	generic church bell modal model / модовая модель церковного колокола
+synth.clap~	clap synth from Faust libraries / синтезатор хлопка ладонями на основе библиотеки языка Faust
+synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass / простой синтезатор на основе пилообразной волны, фильтруемой резонансным фильтром нижних частот
+synth.dx7~	dx7 implementation from Faust libraries / реализация синтезатора DX7 из библиотеки Faust
+synth.eguitar~	simple electric guitar model with steel strings / простая модель электрогитары со стальными струнами
+synth.english_bell~	english church bell modal model / модовый синтез модели английского церковного колокола
+synth.fgrain~	file granulator from STK libraries / файловый гранулятор из библиотеки STK
+synth.french_bell~	french church bell modal model / модовый синтез модели французского церковного колокола
+synth.german_bell~	german church bell modal model / модовый синтез немецкой модели колокола
+synth.glass_harm~	nonlinear banded waveguide modeled glass harmonica / нелинейная волноводная модель стеклянной гармоники
+synth.glitch~	glitch synthesizer by naivesound / глитч-синтезатор от naivesound
+synth.harpsichord~	waveguide commuted harpsichord / синтезатор клавесина на основе техники волноводного синтеза
+synth.hat~	hi-hat synth from Faust libraries / синтезатор хай-хэта из библиотеки Faust
+synth.kick2~	low-kick synth from Faust libraries / синтезатор бочки из библиотеки Faust
+synth.kick~	low-kick synth from Guitarix project / синтезатор бочки из проекта Guitarix
+synth.ks~	Karplus-Strong string / синтезатор колебаний струны по алгоритму Каплуса-Стронга
+synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube / простая физическая модель маримбы, реализующая звуковой брусок, соединенный с трубой
+synth.metro~	ready to use metronome synth / готовый к использованию синтезатор метронома
+synth.piano~	waveguide commuted piano / фортепиано на основе техники связанного волноводного синтеза
+synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument / FM-синтезатор в стиле Fender Rhodes piano из библиотеки STK
+synth.risset_arp~	Jean-Claude Risset's harmonic arpeggio effect / эффект арпеджио Жан-Клода Риссе
+synth.risset_bell~	Jean-Claude Risset's bell synth / колокол Жан-Клода Риссе
+synth.risset_tone~	Jean-Claude Risset's endless glissando / бесконечное глиссандо Жан-Клода Риссе
+synth.russian_bell~	russian church bell modal model / модовый синтез модели русского церковного колокола
+synth.shakers~	various percussion sounds from STK library / различные перкуссионные звуки из библиотеки STK
+synth.sitar~	STK sitar / синтезатор ситара из библиотеки STK
+synth.snare~	snare drum synth from Guitarix project / синтезатор малого барабана из проекта Guitarix
+synth.standard_bell~	standart bell modal model / модовый синтез стандартной модели колокола
+synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument / FM-синтезатор оркестрового колокола из библиотеки STK
+synth.voice_fofc~	simple formant/vocal synthesizer with FOF-cycle filterbank. / простой формантный/вокальный синтезатор с банком фильтров FOF-цикла.
+synth.voice_fofs~	simple formant/vocal synthesizer with FOF-smooth filterbank. / простой формантный/вокальный синтезатор со сглаженным банком фильтров FOF
+synth.wurley~	Wurlitzer electric piano FM synthesis instrument / FM-синтезатор электро-фортепиано в стиле Wurlitzer
+system.colorpanel	system color panel dialog popup / системный диалог выбора цвета
 system.command	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
 system.cmd	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
-system.cursor	Output cursor motion, mousewheel and button clicks
-system.exec	run external command in separate process
-system.exit	quit PureData
-system.getenv	Get system environment variables
-system.hostname	outputs system hostname
+system.cursor	outputs the cursor motion, mousewheel and button clicks / выводит положение курсора, нажатия кнопок мыши и колеса прокрутки
+system.exec	run the external command in a separate process / запуск внешней команды в отдельном процессе
+system.exit	quit PureData / завершает PureData
+system.getenv	output system environment variables / выводит системные переменные окружения
+system.hostname	outputs system hostname / выводит имя хоста системы
 system.info	retrieve system information: CPU and temperature / получение информации о системе: ЦПУ и температура
-system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
-system.memused	returns the process physical memory use - current and peak
-system.screen_size	returns current screen size in pixels
-tl.bang	Timeline bang (with possible delay)
-tl.b	Timeline bang (with possible delay)
-tl.cue	Timeline section
-tl.timeline	Timeline - event scheduler
-ceammc/timeline	Timeline - event scheduler
-timeline	Timeline - event scheduler
-tl.toggle	Timeline bang
-tl.t	Timeline bang
-tl.transport	Timeline transport control
+system.memsize	returns the size of physical memory (RAM) in bytes / возвращает размер физической памяти (ОЗУ) в байтах
+system.memused	outputs the process physical memory usage - current and peak / выводит использование физической памяти процессом - текущее и пиковое
+system.screen_size	outputs the current screen size in pixels / выводит размер активного экрана в пикселях
+tl.bang	outputs a timeline bang / выводит пустое событие временной шкалы
+tl.b	outputs a timeline bang / выводит пустое событие временной шкалы
+tl.cue	defines the timeline section / определяет секцию на временной шкале
+tl.timeline	timeline event scheduler / планировщик событий временной шкалы
+ceammc/timeline	timeline event scheduler / планировщик событий временной шкалы
+timeline	timeline event scheduler / планировщик событий временной шкалы
+tl.toggle	timeline toggle / переключатель на временной шкале
+tl.t	timeline toggle / переключатель на временной шкале
+tl.transport	timeline transport control / управление временной шкалой
 ui.aview	array view with cursor and range selection / отображение массива с курсором и выбором диапазона
 ui.bang	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
 ui.b	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)

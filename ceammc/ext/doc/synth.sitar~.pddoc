@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">STK sitar</tr>
-                <tr lang="ru" finished="false">STK ситара</tr>
+                <tr lang="ru">синтезатор ситара из библиотеки STK</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Converts vline messages to env</tr>
-                <tr lang="ru" finished="false">Преобразование сообщений vline в env</tr>
+                <tr lang="en">сonverts vline messages to Env</tr>
+                <tr lang="ru">преобразование сообщений vline для Env</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

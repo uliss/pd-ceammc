@@ -9,7 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">waveguide commuted piano</tr>
-                <tr lang="ru" finished="false">Waveguide коммутируемое фортепиано</tr>
+                <tr lang="ru">фортепиано на основе техники связанного волноводного синтеза</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

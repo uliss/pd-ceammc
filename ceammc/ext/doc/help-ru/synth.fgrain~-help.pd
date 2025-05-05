@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 574 50 cnv 1 191 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 579 50 file granulator from STK;
+#X obj 474 50 cnv 1 291 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 479 50 файловый гранулятор из библиотеки STK;
 #X obj 1 1 cnv 5 765 40 empty empty synth.fgrain~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 synth.fgrain~;

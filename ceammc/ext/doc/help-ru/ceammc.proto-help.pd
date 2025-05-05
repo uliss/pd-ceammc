@@ -18,13 +18,13 @@
 #X obj 30 257 proto.ltc.out~;
 #X text 200 257 LTC энкодер;
 #X obj 30 285 proto.midi;
-#X text 200 285 Сырой миди-кодер/парсер;
+#X text 200 285 декодер/энкодер исходных сообщений MIDI;
 #X obj 30 313 proto.midi.casio;
 #X text 200 313 управление Casio Privia MIDI;
 #X obj 30 341 proto.midi.cc;
-#X text 200 341 CC-кодер / парсер;
+#X text 200 341 декодер/энкодер исходных сообщений MIDI СС;
 #X obj 30 369 proto.midi.sysex;
-#X text 200 369 Обсуждение Midi SYSex Encoder/Parser;
+#X text 200 369 декодер/энкодер исходных сообщений MIDI SYSex;
 #X obj 30 397 proto.moppy;
 #X text 200 397 nротокол для музыкального контроллера flOPPY;
 #X obj 30 425 proto.morse;

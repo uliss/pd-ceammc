@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 378 50 cnv 1 387 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 383 50 number of characters in symbol (unicode supported);
+#X obj 346 50 cnv 1 419 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 351 50 выводит число символов в символьном типе (с поддержкой
+Unicode);
 #X obj 1 1 cnv 5 765 40 empty empty symbol.length 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 symbol.length;

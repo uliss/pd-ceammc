@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">hi-hat synth from faust librariest</tr>
-                <tr lang="ru" finished="false">hi-hat synth из библиотеки Фауста</tr>
+                <tr lang="en">hi-hat synth from Faust libraries</tr>
+                <tr lang="ru">синтезатор хай-хэта из библиотеки Faust</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

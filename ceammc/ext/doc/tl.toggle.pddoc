@@ -8,8 +8,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">Timeline bang</tr>
-                <tr lang="ru" finished="false">Таймлайн взрыв</tr>
+                <tr lang="en">timeline toggle</tr>
+                <tr lang="ru">переключатель на временной шкале</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

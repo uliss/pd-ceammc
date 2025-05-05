@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 574 50 cnv 1 191 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 579 50 waveguide commuted piano;
+#X obj 299 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 304 50 фортепиано на основе техники связанного волноводного
+синтеза;
 #X obj 1 1 cnv 5 765 40 empty empty synth.piano~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 synth.piano~;

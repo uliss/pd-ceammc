@@ -7,10 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">returns the size of physical memory (RAM) in bytes round to float
-                data type.</tr>
-                <tr lang="ru" finished="false">возвращает размер физической памяти (ОЗУ) в байтах,
-                округляя до плавающего типа данных.</tr>
+                <tr lang="en">returns the size of physical memory (RAM) in bytes</tr>
+                <tr lang="ru">возвращает размер физической памяти (ОЗУ) в байтах</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

@@ -11,15 +11,15 @@
 #X obj 30 201 qrcode;
 #X text 200 201 генератор QR кода;
 #X obj 30 229 risset.gliss;
-#X text 200 229 Калькулятор Sheppard/Risset glissando;
+#X text 200 229 калькулятор для глиссандо Шеппарда/Риссе;
 #X obj 30 257 sfizz~;
 #X text 200 257 плеер семплов в формате SFZ;
 #X obj 30 285 speech.flite;
-#X text 200 285 Отправить речь в массив;
+#X text 200 285 рендеринг синтезатора речи в массив;
 #X obj 30 313 speech.flite~;
-#X text 200 313 Отправить речь в массив;
+#X text 200 313 синтезатор речи Flite;
 #X obj 30 341 speech.rhvoice~;
-#X text 200 341 RHVoice для синтеза речи;
+#X text 200 341 синтезатор речи RHVoice;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::misc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

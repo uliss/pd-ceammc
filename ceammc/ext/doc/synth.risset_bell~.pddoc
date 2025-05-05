@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Jean-Claude Risset's bell synth</tr>
-                <tr lang="ru" finished="false">Жан - Колокольня Клода Риссета</tr>
+                <tr lang="ru">колокол Жан-Клода Риссе</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

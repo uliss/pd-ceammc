@@ -17,7 +17,7 @@
 #X obj 30 285 speech.flite;
 #X text 200 285 render speech to array;
 #X obj 30 313 speech.flite~;
-#X text 200 313 render speech to array;
+#X text 200 313 Flite text to speech synthesis;
 #X obj 30 341 speech.rhvoice~;
 #X text 200 341 RHVoice text to speech synthesis;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::misc 20 20 0 20 -104026

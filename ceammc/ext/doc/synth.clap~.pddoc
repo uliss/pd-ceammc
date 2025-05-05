@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">clap synth from faust libraries</tr>
-                <tr lang="ru" finished="false">clap synth из библиотек фауста</tr>
+                <tr lang="en">clap synth from Faust libraries</tr>
+                <tr lang="ru">синтезатор хлопка ладонями на основе библиотеки языка Faust</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

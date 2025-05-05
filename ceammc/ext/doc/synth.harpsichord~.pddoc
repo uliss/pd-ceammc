@@ -9,7 +9,7 @@
             </authors>
             <description>
                 <tr lang="en">waveguide commuted harpsichord</tr>
-                <tr lang="ru" finished="false">волновод коммутированный клавесин</tr>
+                <tr lang="ru">синтезатор клавесина на основе техники волноводного синтеза</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

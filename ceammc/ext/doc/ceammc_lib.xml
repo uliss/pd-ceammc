@@ -588,7 +588,7 @@
     <entry name="envelope" descr="envelope data type" ref_view="object">
       <xi:include href="envelope.pddoc" parse="xml"/>
     </entry>
-    <entry name="vline2env" descr="Converts vline messages to env" ref_view="object">
+    <entry name="vline2env" descr="сonverts vline messages to Env" ref_view="object">
       <xi:include href="vline2env.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_env.xml" parse="xml"/>
@@ -1765,7 +1765,7 @@
     <entry name="speech.flite" descr="render speech to array" ref_view="object">
       <xi:include href="speech.flite.pddoc" parse="xml"/>
     </entry>
-    <entry name="speech.flite~" descr="render speech to array" ref_view="object">
+    <entry name="speech.flite~" descr="Flite text to speech synthesis" ref_view="object">
       <xi:include href="speech.flite~.pddoc" parse="xml"/>
     </entry>
     <entry name="speech.rhvoice~" descr="RHVoice text to speech synthesis" ref_view="object">
@@ -2390,16 +2390,16 @@
     <entry name="symbol.equal" descr="check symbols for equality" ref_view="object">
       <xi:include href="symbol.equal.pddoc" parse="xml"/>
     </entry>
-    <entry name="symbol.length" descr="number of characters in symbol (unicode supported)" ref_view="object">
+    <entry name="symbol.length" descr="outputs the number of characters in a symbol (unicode supported)" ref_view="object">
       <xi:include href="symbol.length.pddoc" parse="xml"/>
     </entry>
     <entry name="symbol.num_compare" descr="numeric symbol compare" ref_view="object">
       <xi:include href="symbol.num_compare.pddoc" parse="xml"/>
     </entry>
-    <entry name="symbol2any" descr="converts symbol or string to message" ref_view="object">
+    <entry name="symbol2any" descr="converts symbol or string into a message" ref_view="object">
       <xi:include href="symbol2any.pddoc" parse="xml"/>
     </entry>
-    <entry name="symbol2intlist" descr="converts symbol to list of character codes" ref_view="object">
+    <entry name="symbol2intlist" descr="converts the symbol into a list of character codes" ref_view="object">
       <xi:include href="symbol2intlist.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_symbol.xml" parse="xml"/>
@@ -2414,13 +2414,13 @@
     <entry name="synth.church_bell~" descr="generic church bell modal model" ref_view="object">
       <xi:include href="synth.church_bell~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.clap~" descr="clap synth from faust libraries" ref_view="object">
+    <entry name="synth.clap~" descr="clap synth from Faust libraries" ref_view="object">
       <xi:include href="synth.clap~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.dubdub~" descr="simple synth based on a sawtooth wave filtered by a resonant lowpass" ref_view="object">
       <xi:include href="synth.dubdub~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.dx7~" descr="FAUST dx7 implementation" ref_view="object">
+    <entry name="synth.dx7~" descr="dx7 implementation from Faust libraries" ref_view="object">
       <xi:include href="synth.dx7~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.eguitar~" descr="simple electric guitar model with steel strings" ref_view="object">
@@ -2429,7 +2429,7 @@
     <entry name="synth.english_bell~" descr="english church bell modal model" ref_view="object">
       <xi:include href="synth.english_bell~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
+    <entry name="synth.fgrain~" descr="file granulator from STK libraries" ref_view="object">
       <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.french_bell~" descr="french church bell modal model" ref_view="object">
@@ -2438,19 +2438,19 @@
     <entry name="synth.german_bell~" descr="german church bell modal model" ref_view="object">
       <xi:include href="synth.german_bell~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.glass_harm~" descr="nonlinear banded waveguide modeled Glass Harmonica" ref_view="object">
+    <entry name="synth.glass_harm~" descr="nonlinear banded waveguide modeled glass harmonica" ref_view="object">
       <xi:include href="synth.glass_harm~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.glitch~" descr="Glitch synthesizer by naivesound" ref_view="object">
+    <entry name="synth.glitch~" descr="glitch synthesizer by naivesound" ref_view="object">
       <xi:include href="synth.glitch~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.harpsichord~" descr="waveguide commuted harpsichord" ref_view="object">
       <xi:include href="synth.harpsichord~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.hat~" descr="hi-hat synth from faust librariest" ref_view="object">
+    <entry name="synth.hat~" descr="hi-hat synth from Faust libraries" ref_view="object">
       <xi:include href="synth.hat~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.kick2~" descr="low-kick synth from faust librariest" ref_view="object">
+    <entry name="synth.kick2~" descr="low-kick synth from Faust libraries" ref_view="object">
       <xi:include href="synth.kick2~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.kick~" descr="low-kick synth from Guitarix project" ref_view="object">
@@ -2489,19 +2489,19 @@
     <entry name="synth.sitar~" descr="STK sitar" ref_view="object">
       <xi:include href="synth.sitar~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.snare~" descr="Snare drum synth from Guitarix project" ref_view="object">
+    <entry name="synth.snare~" descr="snare drum synth from Guitarix project" ref_view="object">
       <xi:include href="synth.snare~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.standard_bell~" descr="german church bell modal model" ref_view="object">
+    <entry name="synth.standard_bell~" descr="standart bell modal model" ref_view="object">
       <xi:include href="synth.standard_bell~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.tube_bell~" descr="STK tubular bell (orchestral chime) FM synthesis instrument" ref_view="object">
       <xi:include href="synth.tube_bell~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.voice_fofc~" descr="Simple formant/vocal synthesizer with FOF-cycle filterbank." ref_view="object">
+    <entry name="synth.voice_fofc~" descr="simple formant/vocal synthesizer with FOF-cycle filterbank." ref_view="object">
       <xi:include href="synth.voice_fofc~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.voice_fofs~" descr="Simple formant/vocal synthesizer with FOF-smooth filterbank." ref_view="object">
+    <entry name="synth.voice_fofs~" descr="simple formant/vocal synthesizer with FOF-smooth filterbank." ref_view="object">
       <xi:include href="synth.voice_fofs~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.wurley~" descr="Wurlitzer electric piano FM synthesis instrument" ref_view="object">
@@ -2510,22 +2510,22 @@
     <xi:include href="ceammc_category_synth.xml" parse="xml"/>
   </category>
   <category name="system">
-    <entry name="system.colorpanel" descr="System color panel dialog popup" ref_view="object">
+    <entry name="system.colorpanel" descr="system color panel dialog popup" ref_view="object">
       <xi:include href="system.colorpanel.pddoc" parse="xml"/>
     </entry>
     <entry name="system.command" descr="run commands with pipes on Unix and Windows" ref_view="object">
       <xi:include href="system.command.pddoc" parse="xml"/>
     </entry>
-    <entry name="system.cursor" descr="Output cursor motion, mousewheel and button clicks" ref_view="object">
+    <entry name="system.cursor" descr="outputs the cursor motion, mousewheel and button clicks" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>
-    <entry name="system.exec" descr="run external command in separate process" ref_view="object">
+    <entry name="system.exec" descr="run the external command in a separate process" ref_view="object">
       <xi:include href="system.exec.pddoc" parse="xml"/>
     </entry>
     <entry name="system.exit" descr="quit PureData" ref_view="object">
       <xi:include href="system.exit.pddoc" parse="xml"/>
     </entry>
-    <entry name="system.getenv" descr="Get system environment variables" ref_view="object">
+    <entry name="system.getenv" descr="output system environment variables" ref_view="object">
       <xi:include href="system.getenv.pddoc" parse="xml"/>
     </entry>
     <entry name="system.hostname" descr="outputs system hostname" ref_view="object">
@@ -2534,30 +2534,30 @@
     <entry name="system.info" descr="retrieve system information: CPU and temperature" ref_view="object">
       <xi:include href="system.info.pddoc" parse="xml"/>
     </entry>
-    <entry name="system.memsize" descr="returns the size of physical memory (RAM) in bytes round to float data type." ref_view="object">
+    <entry name="system.memsize" descr="returns the size of physical memory (RAM) in bytes" ref_view="object">
       <xi:include href="system.memsize.pddoc" parse="xml"/>
     </entry>
-    <entry name="system.memused" descr="returns the process physical memory use - current and peak" ref_view="object">
+    <entry name="system.memused" descr="outputs the process physical memory usage - current and peak" ref_view="object">
       <xi:include href="system.memused.pddoc" parse="xml"/>
     </entry>
-    <entry name="system.screen_size" descr="returns current screen size in pixels" ref_view="object">
+    <entry name="system.screen_size" descr="outputs the current screen size in pixels" ref_view="object">
       <xi:include href="system.screen_size.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="tl">
-    <entry name="tl.bang" descr="Timeline bang (with possible delay)" ref_view="object">
+    <entry name="tl.bang" descr="outputs a timeline bang" ref_view="object">
       <xi:include href="tl.bang.pddoc" parse="xml"/>
     </entry>
-    <entry name="tl.cue" descr="Timeline section" ref_view="link">
+    <entry name="tl.cue" descr="defines the timeline section" ref_view="link">
       <xi:include href="tl.cue.pddoc" parse="xml"/>
     </entry>
-    <entry name="tl.timeline" descr="Timeline - event scheduler" ref_view="object">
+    <entry name="tl.timeline" descr="timeline event scheduler" ref_view="object">
       <xi:include href="tl.timeline.pddoc" parse="xml"/>
     </entry>
-    <entry name="tl.toggle" descr="Timeline bang" ref_view="object">
+    <entry name="tl.toggle" descr="timeline toggle" ref_view="object">
       <xi:include href="tl.toggle.pddoc" parse="xml"/>
     </entry>
-    <entry name="tl.transport" descr="Timeline transport control" ref_view="object">
+    <entry name="tl.transport" descr="timeline transport control" ref_view="object">
       <xi:include href="tl.transport.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_tl.xml" parse="xml"/>

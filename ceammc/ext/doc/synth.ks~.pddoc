@@ -8,7 +8,7 @@
             </authors>
             <description>
                 <tr lang="en">Karplus-Strong string</tr>
-                <tr lang="ru" finished="false">Карпло - Сильная струна</tr>
+                <tr lang="ru">синтезатор колебаний струны по алгоритму Каплуса-Стронга</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>

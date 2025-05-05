@@ -7,8 +7,8 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>
-                <tr lang="en">render speech to array</tr>
-                <tr lang="ru" finished="false">Отправить речь в массив</tr>
+                <tr lang="en">Flite text to speech synthesis</tr>
+                <tr lang="ru">синтезатор речи Flite</tr>
             </description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
