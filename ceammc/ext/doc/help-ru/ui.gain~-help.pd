@@ -90,8 +90,8 @@ each knob move. Тип: bool. Значение по умолчанию: 0\.;
 #X text 245 1145 Получить/Установить relative input mode. When set
 do not jump to value on click. Тип: bool. Значение по умолчанию: 1\.;
 #X msg 110 1187 @send;
-#X text 245 1187 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
+#X text 245 1187 Получить/Установить адрес отправки сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 1229 @show_range;
 #X text 245 1229 Получить/Установить if show slider range. Тип: bool.
 Значение по умолчанию: 1\.;

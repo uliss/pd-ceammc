@@ -41,6 +41,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @angles -->
             <property name="@angles" type="list" default="">
                 <tr lang="en">channel angle positions</tr>
@@ -76,15 +78,10 @@
                 <tr lang="en">extra-loud level signal color &gt;-3db (list of red, green, blue
                 values in 0-1 range)</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @rotation -->
             <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
             units="degree">
                 <tr lang="en">source channels rotation (anticlockwise)</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="120 120">

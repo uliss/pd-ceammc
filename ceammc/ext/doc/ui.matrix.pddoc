@@ -52,6 +52,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @cols -->
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">
                 <tr lang="en">number of matrix columns</tr>
@@ -75,14 +77,9 @@
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @rows -->
             <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">
                 <tr lang="en">number of matrix rows</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="105 53">

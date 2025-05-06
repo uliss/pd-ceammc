@@ -372,8 +372,8 @@ values: toggle \, button \, bang.;
 #X text 245 5169 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
 #X msg 110 5211 @send;
-#X text 245 5211 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 5211 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 5253 @active_color;
 #X text 245 5253 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;

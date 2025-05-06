@@ -47,6 +47,7 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @current -->
             <property name="@current" type="int" default="-1" access="readonly">
                 <tr lang="en">current preset index</tr>
@@ -55,7 +56,6 @@
             <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">
                 <tr lang="en">empty cell color (list of red, green, blue values in 0-1 range)</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @size -->
             <property name="@size" type="list" default="102 42">
                 <tr lang="en">object size (width, height pair)</tr>

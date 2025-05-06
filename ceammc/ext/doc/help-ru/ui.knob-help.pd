@@ -88,87 +88,87 @@ symbol. Значение по умолчанию: (null).;
 #X text 245 977 Получить/Установить scale mode. Linear or logarithmic.
 Тип: symbol. Значение по умолчанию: linear. Разрешённые значения: linear
 \, log.;
-#X msg 110 1034 @show_range;
-#X text 245 1034 Получить/Установить show knob range. Тип: bool. Значение
+#X msg 110 1034 @send;
+#X text 245 1034 Получить/Установить адрес отправки сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
+#X msg 110 1076 @show_range;
+#X text 245 1076 Получить/Установить show knob range. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 1076 @show_value;
-#X text 245 1076 Получить/Установить show value. Тип: bool. Значение
+#X msg 110 1118 @show_value;
+#X text 245 1118 Получить/Установить show value. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 1118 @value;
-#X text 245 1118 Получить/Установить current value. Тип: float. Значение
+#X msg 110 1160 @value;
+#X text 245 1160 Получить/Установить current value. Тип: float. Значение
 по умолчанию: 0\.;
-#X msg 110 1160 @midi_channel;
-#X text 245 1160 Получить/Установить binded MIDI channel. 0 means listen
+#X msg 110 1202 @midi_channel;
+#X text 245 1202 Получить/Установить binded MIDI channel. 0 means listen
 to all channels. Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...16\.;
-#X msg 110 1217 @midi_control;
-#X text 245 1217 Получить/Установить binded MIDI controller number.
+#X msg 110 1259 @midi_control;
+#X text 245 1259 Получить/Установить binded MIDI controller number.
 -1 means not binded to any controller. Тип: int. Значение по умолчанию:
 -1\. Диапазон: -1\...127\.;
-#X msg 110 1274 @midi_pickup;
-#X text 245 1274 Получить/Установить pickup current value. If slider
+#X msg 110 1316 @midi_pickup;
+#X text 245 1316 Получить/Установить pickup current value. If slider
 is binded to value \, first time you should pass over this value to
 make binding. It prevents from sudden value change on first control
 change. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 1361 @background_color;
-#X text 245 1361 Получить/Установить цвета фона у объекта (список из
+#X msg 110 1403 @background_color;
+#X text 245 1403 Получить/Установить цвета фона у объекта (список из
 красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
 Значение по умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 110 1418 @border_color;
-#X text 245 1418 Получить/Установить цвет границы объекта (список из
+#X msg 110 1460 @border_color;
+#X text 245 1460 Получить/Установить цвет границы объекта (список из
 красного \, зеленого и синего цветов в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0.6 0.6 0.6 1\.;
-#X msg 110 1475 @knob_color;
-#X text 245 1475 Получить/Установить knob color (list of red \, green
+#X msg 110 1517 @knob_color;
+#X text 245 1517 Получить/Установить knob color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
 1 1\.;
-#X msg 110 1532 @scale_color;
-#X text 245 1532 Получить/Установить scale color (list of red \, green
+#X msg 110 1574 @scale_color;
+#X text 245 1574 Получить/Установить scale color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6
 0.6 0.6 1\.;
-#X msg 110 1589 @label;
-#X text 245 1589 Получить/Установить текст ярлыка. Тип: symbol. Значение
+#X msg 110 1631 @label;
+#X text 245 1631 Получить/Установить текст ярлыка. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 1631 @label_align;
-#X text 245 1631 Получить/Установить горизонтальное выравнивание ярлыка.
+#X msg 110 1673 @label_align;
+#X text 245 1673 Получить/Установить горизонтальное выравнивание ярлыка.
 Тип: symbol. Значение по умолчанию: left. Разрешённые значения: left
 \, center \, right.;
-#X msg 110 1688 @label_inner;
-#X text 245 1688 Получить/Установить положение ярлыка (1 - внутри \,
+#X msg 110 1730 @label_inner;
+#X text 245 1730 Получить/Установить положение ярлыка (1 - внутри \,
 0 - снаружи объекта). Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1730 @label_margins;
-#X text 245 1730 Получить/Установить отступы ярлыка в пикселях по осям
+#X msg 110 1772 @label_margins;
+#X text 245 1772 Получить/Установить отступы ярлыка в пикселях по осям
 X и Y. Тип: list. Значение по умолчанию: 0 0\.;
-#X msg 110 1772 @label_side;
-#X text 245 1772 Получить/Установить сторона прикрепления ярлыка. Тип:
+#X msg 110 1814 @label_side;
+#X text 245 1814 Получить/Установить сторона прикрепления ярлыка. Тип:
 symbol. Значение по умолчанию: top. Разрешённые значения: left \, top
 \, right \, bottom.;
-#X msg 110 1829 @label_valign;
-#X text 245 1829 Получить/Установить вертикальное выравнивание ярлыка.
+#X msg 110 1871 @label_valign;
+#X text 245 1871 Получить/Установить вертикальное выравнивание ярлыка.
 Тип: symbol. Значение по умолчанию: top. Разрешённые значения: top
 \, center \, bottom.;
-#X msg 110 1886 @fontname;
-#X text 245 1886 Получить/Установить имя шрифта. Тип: symbol. Значение
+#X msg 110 1928 @fontname;
+#X text 245 1928 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
-#X msg 110 1943 @fontsize;
-#X text 245 1943 Получить/Установить размер шрифта. Тип: int. Значение
+#X msg 110 1985 @fontsize;
+#X text 245 1985 Получить/Установить размер шрифта. Тип: int. Значение
 по умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 1985 @fontslant;
-#X text 245 1985 Получить/Установить наклон шрифта. Тип: symbol. Значение
+#X msg 110 2027 @fontslant;
+#X text 245 2027 Получить/Установить наклон шрифта. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 2027 @fontweight;
-#X text 245 2027 Получить/Установить толщину шрифта. Тип: symbol. Значение
+#X msg 110 2069 @fontweight;
+#X text 245 2069 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 2069 @pinned;
-#X text 245 2069 Получить/Установить режим закрепления. Если 1 - помещает
+#X msg 110 2111 @pinned;
+#X text 245 2111 Получить/Установить режим закрепления. Если 1 - помещает
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 2126 @presetname;
-#X text 245 2126 Получить/Установить preset name for using with [ui.preset].
+#X msg 110 2168 @presetname;
+#X text 245 2168 Получить/Установить preset name for using with [ui.preset].
 Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 2168 @send;
-#X text 245 2168 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
 #X msg 110 2210 @size;
 #X text 245 2210 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 40 40\.;

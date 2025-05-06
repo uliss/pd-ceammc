@@ -47,6 +47,7 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @auto_size -->
             <property name="@auto_size" type="bool" default="1">
                 <tr lang="en">flag if automatically resize contents to feet incoming message</tr>
@@ -77,7 +78,6 @@
             <property name="@hex_width" type="int" default="2" minvalue="0" maxvalue="16">
                 <tr lang="en">hex output format width</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @size -->
             <property name="@size" type="list" default="80 18">
                 <tr lang="en">object size (width, height pair)</tr>

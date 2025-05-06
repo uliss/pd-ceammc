@@ -48,6 +48,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @background_color -->
             <property name="@background_color" type="list" default="1 1 1 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
@@ -80,11 +82,6 @@
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
-            </property>
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
         </properties>
         <methods>

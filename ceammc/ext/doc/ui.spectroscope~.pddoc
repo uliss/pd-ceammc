@@ -42,11 +42,11 @@
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_label_color.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @log_scale -->
             <property name="@log_scale" type="bool" default="0">
                 <tr lang="en">display in log scale</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @refresh -->
             <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100"
             units="millisecond">

@@ -47,8 +47,8 @@ value: (null).;
 #X text 245 640 Get/Set number of rows. Type: int. Default value: 8\.
 Range: 2\...128\.;
 #X msg 110 682 @send;
-#X text 245 682 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 682 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 724 @background_color;
 #X text 245 724 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;

@@ -56,8 +56,8 @@ int. Default value: 100\. Range: 10\...1024\.;
 #X text 245 802 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
 #X msg 110 844 @send;
-#X text 245 844 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 844 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 886 @value;
 #X text 245 886 Get/Set current menu item value. Type: atom.;
 #X msg 110 916 @active_color;

@@ -56,9 +56,9 @@
 #X msg 110 631 @receive;
 #X text 245 631 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 673 @send;
-#X text 245 673 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X msg 110 673 @receive;
+#X text 245 673 Get/Set source of message receive. Type: symbol. Default
+value: (null).;
 #X msg 110 715 @value;
 #X text 245 715 Get/Set widget logical value. Type: int. Default value:
 0\. Allowed values: 0 \, 1\.;

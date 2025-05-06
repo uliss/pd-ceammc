@@ -49,14 +49,11 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @bind -->
             <property name="@bind" type="list" default="">
                 <tr lang="en">MIDI/keyboard bind expression</tr>
-            </property>
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 15">

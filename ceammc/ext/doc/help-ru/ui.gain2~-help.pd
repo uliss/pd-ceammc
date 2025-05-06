@@ -82,8 +82,8 @@ symbol. Значение по умолчанию: (null).;
 #X text 245 986 Получить/Установить relative input mode. When set do
 not jump to value on click. Тип: bool. Значение по умолчанию: 1\.;
 #X msg 110 1028 @send;
-#X text 245 1028 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
+#X text 245 1028 Получить/Установить адрес отправки сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 1070 @show_range;
 #X text 245 1070 Получить/Установить if show slider range. Тип: bool.
 Значение по умолчанию: 1\.;

@@ -45,6 +45,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @midi_channel -->
             <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
                 <tr lang="en">binded MIDI channel. 0 means listen to all channels</tr>
@@ -65,11 +67,6 @@
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
-            </property>
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 15">

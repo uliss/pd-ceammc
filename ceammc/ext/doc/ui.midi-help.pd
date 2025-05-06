@@ -46,9 +46,9 @@ Default value: 1\.;
 #X msg 110 585 @receive;
 #X text 245 585 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 627 @send;
-#X text 245 627 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X msg 110 627 @receive;
+#X text 245 627 Get/Set source of message receive. Type: symbol. Default
+value: (null).;
 #X msg 110 669 @sysex;
 #X text 245 669 Get/Set if show sysex events. Type: bool. Default value:
 1\.;

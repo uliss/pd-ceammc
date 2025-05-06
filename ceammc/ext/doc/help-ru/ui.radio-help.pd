@@ -81,9 +81,9 @@ outputs @mouse_down and @mouse_drag events. Тип: bool. Значение по
 #X msg 110 809 @receive;
 #X text 245 809 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 851 @send;
-#X text 245 851 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
+#X msg 110 851 @receive;
+#X text 245 851 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 893 @value;
 #X text 245 893 Получить/Установить widget value (float or list). Тип:
 list.;

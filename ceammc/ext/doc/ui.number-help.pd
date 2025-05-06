@@ -73,9 +73,9 @@ react to all supported events. Type: bool. Default value: 0\.;
 #X msg 110 924 @receive;
 #X text 245 924 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 966 @send;
-#X text 245 966 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X msg 110 966 @receive;
+#X text 245 966 Get/Set source of message receive. Type: symbol. Default
+value: (null).;
 #X msg 110 1008 @value;
 #X text 245 1008 Get/Set widget value. Type: float. Default value:
 0\.;

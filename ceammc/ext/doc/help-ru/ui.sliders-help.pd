@@ -96,9 +96,9 @@ outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 #X msg 110 1154 @receive;
 #X text 245 1154 Получить/Установить источник получения сообщений.
 Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1196 @send;
-#X text 245 1196 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
+#X msg 110 1196 @receive;
+#X text 245 1196 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1238 @show_lines;
 #X text 245 1238 Получить/Установить if show slider ruler lines. Тип:
 bool. Значение по умолчанию: 0\.;

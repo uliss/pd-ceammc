@@ -52,6 +52,8 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @bind_x -->
             <property name="@bind_x" type="list" default="">
                 <tr lang="en">MIDI/keyboard bind expression for x-axis movement</tr>
@@ -68,11 +70,6 @@
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
-            </property>
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @show_grid -->
             <property name="@show_grid" type="bool" default="0">

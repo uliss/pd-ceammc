@@ -47,8 +47,8 @@ symbol. Значение по умолчанию: (null).;
 #X text 245 640 Получить/Установить number of rows. Тип: int. Значение
 по умолчанию: 8\. Диапазон: 2\...128\.;
 #X msg 110 682 @send;
-#X text 245 682 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
+#X text 245 682 Получить/Установить адрес отправки сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 724 @background_color;
 #X text 245 724 Получить/Установить element background color (list
 of red \, green \, blue values in 0-1 range). Тип: list. Значение по

@@ -79,8 +79,8 @@ Range: 5\...88\.;
 #X text 245 928 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
 #X msg 110 970 @send;
-#X text 245 970 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 970 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 1012 @shift;
 #X text 245 1012 Get/Set MIDI pitch of starting key. Type: int. Default
 value: 36\. Range: 6\...88\.;

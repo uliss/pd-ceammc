@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@send" type="symbol" default="(null)">
+    <tr lang="en">address for sending messages</tr>
+    <tr lang="ru">адрес отправки сообщений</tr>
+</property>

@@ -48,6 +48,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @amp -->
             <property name="@amp" type="float" default="0">
                 <tr lang="en">gain as amplitude ratio</tr>
@@ -98,14 +100,9 @@
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @relative -->
             <property name="@relative" type="bool" default="1">
                 <tr lang="en">relative input mode. When set do not jump to value on click.</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @show_range -->
             <property name="@show_range" type="bool" default="1">

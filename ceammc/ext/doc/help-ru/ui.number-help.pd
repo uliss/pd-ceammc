@@ -74,9 +74,9 @@ events. If false: react to all supported events. Тип: bool. Значение
 #X msg 110 963 @receive;
 #X text 245 963 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 1005 @send;
-#X text 245 1005 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
+#X msg 110 1005 @receive;
+#X text 245 1005 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1047 @value;
 #X text 245 1047 Получить/Установить widget value. Тип: float. Значение
 по умолчанию: 0\.;

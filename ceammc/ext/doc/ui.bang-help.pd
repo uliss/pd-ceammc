@@ -47,8 +47,8 @@
 #X text 245 538 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
 #X msg 110 580 @send;
-#X text 245 580 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 580 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 622 @active_color;
 #X text 245 622 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;

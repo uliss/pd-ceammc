@@ -36,6 +36,8 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @background_color -->
             <property name="@background_color" type="list" default="1 1 1 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
@@ -49,14 +51,9 @@
             <property name="@pixels" type="int" default="64" access="readonly">
                 <tr lang="en">number of pixels</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @rows -->
             <property name="@rows" type="int" minvalue="2" maxvalue="128" default="8">
                 <tr lang="en">number of rows</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="64 64">

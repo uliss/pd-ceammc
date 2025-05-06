@@ -61,6 +61,8 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @auto_count -->
             <property name="@auto_count" type="bool" default="0">
                 <tr lang="en">if set numbers of sliders equal to input list length</tr>
@@ -95,14 +97,9 @@
             <property name="@range" type="float" access="readonly" default="1">
                 <tr lang="en">value range</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @select_color -->
             <property name="@select_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @show_lines -->
             <property name="@show_lines" type="bool" default="0">

@@ -89,8 +89,8 @@ value: (null).;
 #X text 245 1145 Get/Set relative input mode. When set do not jump
 to value on click. Type: bool. Default value: 1\.;
 #X msg 110 1187 @send;
-#X text 245 1187 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 1187 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 1229 @show_range;
 #X text 245 1229 Get/Set if show slider range. Type: bool. Default
 value: 1\.;

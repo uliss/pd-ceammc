@@ -51,8 +51,8 @@ value: (null).;
 #X text 245 765 Get/Set frequency scale. Type: symbol. Default value:
 lin. Allowed values: lin \, log \, rad.;
 #X msg 110 807 @send;
-#X text 245 807 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 807 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 849 @type;
 #X text 245 849 Get/Set frequency scale. Type: symbol. Default value:
 lpf. Allowed values: lpf \, hpf \, bpf \, bpfq \, lowshelf \, highshelf

@@ -98,8 +98,8 @@ begin \, end. Type: list. Units: 'samp'.;
 #X text 245 1440 Get/Set selection range in seconds \, pair of values:
 begin \, end. Type: list. Units: 'sec'.;
 #X msg 110 1482 @send;
-#X text 245 1482 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 1482 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 1524 @show_rms;
 #X text 245 1524 Get/Set show RMS graph. Type: bool. Default value:
 0\.;

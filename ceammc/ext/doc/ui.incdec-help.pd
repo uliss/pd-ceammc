@@ -59,8 +59,8 @@ Type: list.;
 #X text 245 675 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
 #X msg 110 717 @send;
-#X text 245 717 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 717 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 759 @step;
 #X text 245 759 Get/Set increment step. Type: float. Default value:
 1\. Min value: 0\.;

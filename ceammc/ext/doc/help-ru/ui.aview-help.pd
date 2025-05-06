@@ -99,8 +99,8 @@ pair of values: begin \, end. Тип: list. Единицы: 'samp'.;
 #X text 245 1440 Получить/Установить selection range in seconds \,
 pair of values: begin \, end. Тип: list. Единицы: 'sec'.;
 #X msg 110 1482 @send;
-#X text 245 1482 Получить/Установить send destination. Тип: symbol.
-Значение по умолчанию: (null).;
+#X text 245 1482 Получить/Установить адрес отправки сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 1524 @show_rms;
 #X text 245 1524 Получить/Установить show RMS graph. Тип: bool. Значение
 по умолчанию: 0\.;

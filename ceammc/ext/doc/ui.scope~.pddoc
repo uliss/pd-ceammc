@@ -42,6 +42,7 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum (top) graph value</tr>
@@ -50,7 +51,6 @@
             <property name="@min" type="float" default="-1">
                 <tr lang="en">minimum (bottom) graph value</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @refresh -->
             <property name="@refresh" type="int" minvalue="10" maxvalue="1000" default="40"
             units="millisecond">

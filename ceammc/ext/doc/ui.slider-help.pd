@@ -95,12 +95,12 @@ Type: bool. Default value: 0\.;
 #X msg 110 1074 @receive;
 #X text 245 1074 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 1116 @scale;
-#X text 245 1116 Get/Set scale mode. Linear or logarithmic. Type: symbol.
+#X msg 110 1116 @receive;
+#X text 245 1116 Get/Set source of message receive. Type: symbol. Default
+value: (null).;
+#X msg 110 1158 @scale;
+#X text 245 1158 Get/Set scale mode. Linear or logarithmic. Type: symbol.
 Default value: linear. Allowed values: linear \, log.;
-#X msg 110 1158 @send;
-#X text 245 1158 Get/Set send destination. Type: symbol. Default value:
-(null).;
 #X msg 110 1200 @show_value;
 #X text 245 1200 Get/Set show value (in horizontal mode only). Type:
 bool. Default value: 0\.;

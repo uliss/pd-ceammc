@@ -42,6 +42,8 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @angle -->
             <property name="@angle" type="float" default="0">
                 <tr lang="en">angle</tr>
@@ -75,11 +77,6 @@
             <!-- @radius -->
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">radius</tr>
-            </property>
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="100 100">

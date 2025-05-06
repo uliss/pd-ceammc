@@ -33,6 +33,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @active_color -->
             <property name="@active_color" type="list" default="0.63 0.88 0 1">
                 <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
@@ -56,11 +58,6 @@
             <!-- @program -->
             <property name="@program" type="bool" default="1">
                 <tr lang="en">if show program change events</tr>
-            </property>
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="180 15">

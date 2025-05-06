@@ -40,6 +40,7 @@
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
@@ -97,10 +98,6 @@
             <!-- @selection_color -->
             <property name="@selection_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">selection color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @show_labels -->
             <property name="@show_labels" type="bool" default="0">

@@ -66,6 +66,8 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @active_scale -->
             <property name="@active_scale" type="bool" default="0">
                 <tr lang="en">if should draw active scale</tr>
@@ -106,7 +108,6 @@
             <property name="@presetname" type="symbol" category="basic" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @scale -->
             <property name="@scale" type="symbol" default="linear" enum="linear log">
                 <tr lang="en">scale mode. Linear or logarithmic.</tr>
@@ -114,10 +115,6 @@
             <!-- @scale_color -->
             <property name="@scale_color" type="list" category="color" default="0.6 0.6 0.6 1">
                 <tr lang="en">scale color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" category="basic" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @show_range -->
             <property name="@show_range" type="bool" default="0">

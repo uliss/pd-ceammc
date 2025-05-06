@@ -37,6 +37,7 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @mode -->
             <property name="@mode" type="symbol" default="lines" enum="lines bars">
                 <tr lang="en">draw mode</tr>
@@ -61,7 +62,6 @@
             <property name="@plot_color3" type="list" default="1 0.75 0 1">
                 <tr lang="en">fourth color (list of red, green, blue values in 0-1 range)</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @size -->
             <property name="@size" type="list" default="200 200">
                 <tr lang="en">object size (width, height pair)</tr>

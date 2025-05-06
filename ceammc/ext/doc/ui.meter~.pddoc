@@ -45,6 +45,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @cold_color -->
             <property name="@cold_color" type="list" default="0 0.6 0 1">
                 <tr lang="en">extra low-level signal color &lt;-31db (list of red, green, blue
@@ -63,11 +65,6 @@
             <property name="@over_color" type="list" default="1 0 0 1">
                 <tr lang="en">extra-loud level signal color &gt;-3db (list of red, green, blue
                 values in 0-1 range)</tr>
-            </property>
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 120">

@@ -55,10 +55,7 @@
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
-            </property>
+            <xi:include href="props_ui_send.xml" />
             <!-- @size -->
             <property name="@size" type="list" default="120 60">
                 <tr lang="en">object size (width, height pair)</tr>

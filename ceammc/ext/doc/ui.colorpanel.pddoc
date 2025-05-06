@@ -37,6 +37,8 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @hex -->
             <property name="@hex" type="symbol" access="readonly" default="">
                 <tr lang="en">HEX value in format #RRGGBB</tr>
@@ -69,7 +71,6 @@
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
-            <xi:include href="props_ui_receive.xml" />
             <!-- @reverse -->
             <property name="@reverse" type="bool" default="0">
                 <tr lang="en">matrix reversed</tr>
@@ -81,10 +82,6 @@
             <!-- @saturation -->
             <property name="@saturation" type="float" default="1" minvalue="0" maxvalue="1">
                 <tr lang="en">saturation</tr>
-            </property>
-            <!-- @send -->
-            <property name="@send" type="symbol" default="(null)">
-                <tr lang="en">send destination</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="181 105">

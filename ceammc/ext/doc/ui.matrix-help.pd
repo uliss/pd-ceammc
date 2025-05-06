@@ -83,8 +83,8 @@ value: (null).;
 #X text 245 1057 Get/Set number of matrix rows. Type: int. Default
 value: 4\. Range: 1\...64\.;
 #X msg 110 1099 @send;
-#X text 245 1099 Get/Set send destination. Type: symbol. Default value:
-(null).;
+#X text 245 1099 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 1141 @active_color;
 #X text 245 1141 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
