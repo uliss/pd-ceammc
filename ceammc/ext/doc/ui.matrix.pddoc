@@ -49,10 +49,7 @@
                 <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
             </property>
             <xi:include href="props_background_color.xml" />
-            <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
-                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
+            <xi:include href="props_border_color.xml" />
             <!-- @cols -->
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">
                 <tr lang="en">number of matrix columns</tr>

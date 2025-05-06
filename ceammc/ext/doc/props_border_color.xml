@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<property name="@border_color" type="list" default="0.6 0.6 0.6 1">
+    <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
+    <tr lang="ru">цвет границы объекта (список из красного, зеленого и синего цветов в [0..1] диапазоне)</tr>
+</property>
+
+

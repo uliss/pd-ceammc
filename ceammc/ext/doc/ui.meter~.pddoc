@@ -39,10 +39,7 @@
         </mouse>
         <properties>
             <xi:include href="props_background_color.xml" />
-            <!-- @border_color -->
-            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
-                <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
+            <xi:include href="props_border_color.xml" />
             <!-- @cold_color -->
             <property name="@cold_color" type="list" default="0 0.6 0 1">
                 <tr lang="en">extra low-level signal color &lt;-31db (list of red, green, blue
