@@ -22,25 +22,26 @@
 #X text 110 316 2\.;
 #X text 150 316 symbol;
 #X obj 246 317 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 316 PORT: serial device or port name \, eg.: COM3 on Windows
-\, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. Тип: symbol.;
+#X text 245 316 PORT: последовательное устройство или название порта
+\, например: COM3 на Windows \, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411
+на MacOSX. Тип: symbol.;
 #X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 381 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 384 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 416 @port;
-#X text 245 416 Получить/Установить name of serial port \, eg.: COM3
-on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX.
-Тип: symbol.;
+#X text 245 416 Получить/Установить последовательное устройство или
+название порта: COM3 на Windows \, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411
+на MacOSX. Тип: symbol.;
 #X msg 110 473 @rate;
-#X text 245 473 Получить/Установить serial baud rate. Тип: int. Значение
+#X text 245 473 Получить/Установить скорость передачи. Тип: int. Значение
 по умолчанию: 57600\. Разрешённые значения: 110 \, 300 \, 600 \, 1200
 \, 2400 \, 4800 \, 9600 \, 14400 \, 19200 \, 38400 \, 56000 \, 57600
 \, 115200 \, 128000 \, 256000\.;
 #X msg 110 560 @devices?;
-#X text 245 560 (только чтение) Получить list of found serial devices.
-Тип: list.;
+#X text 245 560 (только чтение) Получить список найденных серийных
+устройств. Тип: list.;
 #X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 617 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

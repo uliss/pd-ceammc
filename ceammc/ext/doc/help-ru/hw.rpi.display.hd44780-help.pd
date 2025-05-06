@@ -39,7 +39,7 @@ ceammc://img/conn_ws2812.png;
 Values 'default' (for addr 0x27) \, 'alt' (for addr 0x3f) are also
 accepted. Тип: int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
 #X msg 110 605 @i2c_bus;
-#X text 245 605 (при инициализации) Получить/Установить I²C bus. Тип:
+#X text 245 605 (при инициализации) Получить/Установить шина I²C. Тип:
 atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
 3 \, 4 \, 5 \, 6 \, default \, none.;
 #X msg 110 662 @rows;

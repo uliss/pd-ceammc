@@ -23,7 +23,7 @@
             <!-- @brightness -->
             <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0.313477">
                 <tr lang="en">display brightness</tr>
-                <tr lang="ru" finished="false">отображать яркость</tr>
+                <tr lang="ru">яркость дисплея</tr>
             </property>
         </properties>
         <inlets>

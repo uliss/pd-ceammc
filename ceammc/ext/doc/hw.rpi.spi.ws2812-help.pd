@@ -29,17 +29,17 @@ ceammc://img/conn_ws2812.png;
 #X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 504 @spi_bus;
-#X text 245 504 (initonly) Get/Set spi bus number. Type: int. Default
+#X text 245 504 (initonly) Get/Set SPI bus number. Type: int. Default
 value: -1\. Range: -1\...6\.;
 #X msg 110 546 @spi_cs;
-#X text 245 546 (initonly) Get/Set spi CS (chip select/enable). In
+#X text 245 546 (initonly) Get/Set SPI CS (chip select/enable). In
 most cases you don't need to set this property \, because LED strips
 are not using CS pin. Type: int. Default value: 0\. Range: 0\...3\.;
 #X msg 110 633 @size;
 #X text 245 633 (initonly) Get/Set number of leds in the strip. Type:
 int. Default value: 16\. Range: 1\...4096\.;
 #X msg 110 675 @clear;
-#X text 245 675 Get/Set turn off all pixels when the object is deleted.
+#X text 245 675 Get/Set turn off all pixels when an object is removed.
 Type: bool. Default value: 1\.;
 #X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 732 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144

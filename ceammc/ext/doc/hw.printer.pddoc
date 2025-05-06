@@ -22,9 +22,10 @@
         </info>
         <arguments>
             <argument name="NAME" type="symbol">
-                <tr lang="en">printer name, if empty - use default system printer.</tr>
-                <tr lang="ru" finished="false">Имя принтера, если пусто - используйте системный
-                принтер по умолчанию.</tr>
+                <tr lang="en">printer name. If not specified, it uses the default system
+                printer.</tr>
+                <tr lang="ru">имя принтера. Если не указано - использует системный принтер по
+                умолчанию</tr>
             </argument>
         </arguments>
         <properties>

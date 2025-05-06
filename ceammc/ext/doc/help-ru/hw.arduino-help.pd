@@ -34,81 +34,84 @@ on Linux and /dev/cu.usbmodem411 on MacOSX. Тип: symbol.;
 #X text 110 544 2\.;
 #X text 150 544 int;
 #X obj 246 545 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 544 RATE: serial baud rate. Разрешённые значения: 110 \,
-115200 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000 \, 300
-\, 38400 \, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Тип: int.;
+#X text 245 544 RATE: cкорость передачи данных. Разрешённые значения:
+110 \, 115200 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000
+\, 300 \, 38400 \, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Тип: int.;
 #X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 609 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 612 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 644 @port;
-#X text 245 644 (при инициализации) Получить/Установить name of arduino
-serial port \, eg.: COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411
-on MacOSX. If specified on creation tries to connect to this device
-only. Тип: symbol.;
-#X msg 110 731 @reconnect;
-#X text 245 731 enables hot-pluggin. Значение по умолчанию: 0\.;
-#X msg 110 761 @on_connect;
-#X text 245 761 Получить/Установить function called every time on connect.
-Тип: symbol.;
-#X msg 110 803 @product_id;
-#X text 245 803 Получить/Установить USB device product id. If vendor
-and product ids are specified at creation \, tries to connect to devices
-only with such properties. Note: product id is specified in decimal
-mode \, not in hex. Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 906 @rate;
-#X text 245 906 Получить/Установить serial baud rate. Standard value
-supported by most serial ports: 110 \, 300 \, 600 \, 1200 \, 2400 \,
-4800 \, 9600 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600
-\, 115200\. Тип: int. Значение по умолчанию: 57600\. Разрешённые значения:
-57600 \, 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \, 9600 \, 14400
-\, 19200 \, 38400 \, 56000 \, 115200 \, 128000 \, 256000\.;
-#X msg 110 1024 @serial;
-#X text 245 1024 Получить/Установить USB device serial number. If specified
-at creation \, tries to connect to devices only with such serial number.
-Тип: symbol.;
-#X msg 110 1081 @vendor_id;
-#X text 245 1081 Получить/Установить USB device vendor id. If specified
-at creation \, tries to connect to devices only with such vendor. Note:
-vendor id is specified in decimal mode \, not in hex. Тип: int. Значение
-по умолчанию: 0\.;
-#X msg 110 1168 @connected?;
-#X text 245 1168 (только чтение) Получить state of connection to device.
+#X text 245 644 (при инициализации) Получить/Установить name of Arduino
+serial port or device \, eg.: COM3 on Windows \, /dev/ttyACM0 on Linux
+and /dev/cu.usbmodem411 on MacOSX. If the property is specified \,
+it attempts to connect only to that device. Тип: symbol.;
+#X msg 110 747 @reconnect;
+#X text 245 747 переподключение к устройству после потери соединения.
+Значение по умолчанию: 0\.;
+#X msg 110 789 @on_connect;
+#X text 245 789 Получить/Установить вызываемая после каждого подключении
+функция. Тип: symbol.;
+#X msg 110 831 @product_id;
+#X text 245 831 Получить/Установить идентификатор USB Product ID. Если
+указаны идентификаторы производителя и продукта \, то пытается подключится
+только к устройствам с такими свойствами. Примечание: чтобы указать
+идентификатор в шестнадцатеричном формате не забудьте добавить префикс
+0x. Тип: int. Значение по умолчанию: 0\.;
+#X msg 110 949 @rate;
+#X text 245 949 Получить/Установить cкорость передачи данных. Стандартные
+значениz \, поддерживаемые большинством последовательных портов: 110
+\, 300 \, 600 \, 1200 \, 2400 \, 4800 \, 9600 \, 14400 \, 19200 \,
+28800 \, 38400 \, 56000 \, 57600 \, 115200\. Тип: int. Значение по
+умолчанию: 57600\. Разрешённые значения: 57600 \, 110 \, 300 \, 600
+\, 1200 \, 2400 \, 4800 \, 9600 \, 14400 \, 19200 \, 38400 \, 56000
+\, 115200 \, 128000 \, 256000\.;
+#X msg 110 1082 @serial;
+#X text 245 1082 Получить/Установить Серийный номер устройства USB.
+Если указан \, пытается подключиться к устройствам только с таким серийным
+номером. Тип: symbol.;
+#X msg 110 1139 @vendor_id;
+#X text 245 1139 Получить/Установить идентификатор поставщика USB-устройств.
+Если указан \, пытается подключиться к устройствам только с таким поставщиком.
+Примечание: чтобы указать идентификатор в шестнадцатеричном формате
+не забудьте добавить префикс 0x. Тип: int. Значение по умолчанию: 0\.;
+#X msg 110 1242 @connected?;
+#X text 245 1242 (только чтение) Получить состояние соединения с устройством.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1210 @devices?;
-#X text 245 1210 (только чтение) Получить list of found Arduino devices.
-Тип: list.;
-#X obj 20 1262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1267 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 110 1284 @devices?;
+#X text 245 1284 (только чтение) Получить cписок найденных устройств
+Arduino. Тип: list.;
+#X obj 20 1336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1341 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1302 connect;
-#X text 245 1302 manually connect to device.;
-#X msg 110 1330 disconnect;
-#X text 245 1330 disconnect from device.;
-#X obj 20 1368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1373 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1376 connect;
+#X text 245 1376 manually connect to device.;
+#X msg 110 1404 disconnect;
+#X text 245 1404 disconnect from device.;
+#X obj 20 1442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1447 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1374 1\.;
-#X text 150 1374 *float*;
-#X text 245 1374 sends float value in byte range [0-255] to arduino
+#X text 110 1448 1\.;
+#X text 150 1448 *float*;
+#X text 245 1448 sends float value in byte range [0-255] to arduino
 device.;
-#X text 150 1394 *list*;
-#X text 245 1394 sends list of floats in byte range [0-255] to arduino
+#X text 150 1468 *list*;
+#X text 245 1468 sends list of floats in byte range [0-255] to arduino
 device.;
-#X obj 20 1424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1429 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1503 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1430 1\.;
-#X text 245 1430 outputs received byte from arduino.;
+#X text 110 1504 1\.;
+#X text 245 1504 outputs received byte from arduino.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1480 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1483 библиотека: ceammc v0.9.8;
-#N canvas 10 1502 400 290 info 0;
+#X obj 1 1554 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1557 библиотека: ceammc v0.9.8;
+#N canvas 10 1576 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -132,7 +135,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1502 pd info;
+#X restore 10 1576 pd info;
 #X connect 6 0 11 0;
 #X connect 8 0 11 0;
 #X connect 10 0 11 0;

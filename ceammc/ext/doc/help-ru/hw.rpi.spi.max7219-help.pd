@@ -53,7 +53,7 @@ and write_reg commands will work as expected;
 #X text 110 859 1\.;
 #X text 150 859 int;
 #X obj 246 860 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 859 DISPLAYS: number of displays connected into chain.
+#X text 245 859 DISPLAYS: количество дисплеев \, подключенных по цепочке.
 Тип: int. Диапазон: 1…4;
 #X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 909 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
@@ -61,16 +61,16 @@ and write_reg commands will work as expected;
 #X obj 735 912 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 944 @displays;
-#X text 245 944 (при инициализации) Получить/Установить number of displays
-connected into the chain. Тип: int. Значение по умолчанию: 1\. Диапазон:
-1\...4\.;
+#X text 245 944 (при инициализации) Получить/Установить количество
+дисплеев \, подключенных по цепочке. Тип: int. Значение по умолчанию:
+1\. Диапазон: 1\...4\.;
 #X msg 110 1001 @spi_bus;
-#X text 245 1001 (при инициализации) Получить/Установить SPI bus number.
-Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...6\.;
+#X text 245 1001 (при инициализации) Получить/Установить номер шины
+SPI. Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...6\.;
 #X msg 110 1043 @spi_cs;
-#X text 245 1043 (при инициализации) Получить/Установить CS (ChipSelect
-\, SlaveSelect or ChipEnable) index. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...3\.;
+#X text 245 1043 (при инициализации) Получить/Установить индекс пина
+CS (ChipSelect \, SlaveSelect или ChipEnable). Тип: int. Значение по
+умолчанию: 0\. Диапазон: 0\...3\.;
 #X obj 20 1110 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1115 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

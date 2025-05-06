@@ -23,29 +23,29 @@
         <properties>
             <!-- @clear -->
             <property name="@clear" type="bool" default="1">
-                <tr lang="en">turn off all pixels when the object is deleted</tr>
-                <tr lang="ru" finished="false">Выключите все пиксели, когда объект удален.</tr>
+                <tr lang="en">turn off all pixels when an object is removed</tr>
+                <tr lang="ru">выключать все пиксели при удалении объекта</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
             access="initonly">
                 <tr lang="en">number of leds in the strip</tr>
-                <tr lang="ru" finished="false">Количество лидов в полосе</tr>
+                <tr lang="ru">количество светодиодов в ленте</tr>
             </property>
             <!-- @spi_bus -->
             <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
             access="initonly">
-                <tr lang="en">spi bus number</tr>
-                <tr lang="ru" finished="false">автобусный номер</tr>
+                <tr lang="en">SPI bus number</tr>
+                <tr lang="ru">номер шины SPI</tr>
             </property>
             <!-- @spi_cs -->
             <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
             access="initonly">
-                <tr lang="en">spi CS (chip select/enable). In most cases you don't need to set this
+                <tr lang="en">SPI CS (chip select/enable). In most cases you don't need to set this
                 property, because LED strips are not using CS pin.</tr>
-                <tr lang="ru" finished="false">Spi CS (выбор / включение чипа). В большинстве
-                случаев вам не нужно устанавливать это свойство, потому что светодиодные полоски не
-                используют штифт CS.</tr>
+                <tr lang="ru">SPI CS (chip select/enable) индекс. В большинстве случаев вам не
+                нужно устанавливать это свойство, потому что светодиодные ленты не используют пин
+                CS</tr>
             </property>
         </properties>
         <methods>

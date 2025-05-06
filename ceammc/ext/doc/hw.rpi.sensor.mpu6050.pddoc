@@ -24,17 +24,17 @@
             <!-- @i2c_addr -->
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
             maxvalue="119">
-                <tr lang="en">I2C address. The value 'default' means default device I²C address
+                <tr lang="en">I²C address. The value 'default' means default device I²C address
                 (0x68), value 'alt': alternative I2C address (0x69, when pin AD0 pull high).</tr>
-                <tr lang="ru" finished="false">Адрес I2C. Значение «по умолчанию» означает адрес
-                I2C устройства по умолчанию (0x68), значение «alt»: альтернативный адрес I2C (0x69,
-                когда значение AD0 тянет высоко).</tr>
+                <tr lang="ru">Адрес I²C. Значение «default» означает адрес I²C устройства по
+                умолчанию (0x68), значение «alt»: альтернативный адрес I2C (0x69, когда пин AD0
+                подтянут наверх).</tr>
             </property>
             <!-- @i2c_bus -->
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">
                 <tr lang="en">I²C bus</tr>
-                <tr lang="ru" finished="false">I2C автобус</tr>
+                <tr lang="ru">шина I²C</tr>
             </property>
         </properties>
         <methods>

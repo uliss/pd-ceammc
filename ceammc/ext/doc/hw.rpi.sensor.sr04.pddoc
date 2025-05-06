@@ -25,11 +25,11 @@
         <arguments>
             <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">
                 <tr lang="en">a trigger pin GPIO number</tr>
-                <tr lang="ru" finished="false">Триггерный значок GPIO номер</tr>
+                <tr lang="ru">триггерный пин GPIO</tr>
             </argument>
             <argument name="ECHO_PIN" type="int" minvalue="0" maxvalue="255">
                 <tr lang="en">an echo pin GPIO number</tr>
-                <tr lang="ru" finished="false">Echo PIN GPIO номер</tr>
+                <tr lang="ru">эхо пин GPIO</tr>
             </argument>
         </arguments>
         <properties>
@@ -37,19 +37,19 @@
             <property name="@echo_pin" type="int" default="27" minvalue="0" maxvalue="255"
             access="initonly">
                 <tr lang="en">an echo pin GPIO number</tr>
-                <tr lang="ru" finished="false">Echo PIN GPIO номер</tr>
+                <tr lang="ru">эхо пин GPIO</tr>
             </property>
             <!-- @poll_interval -->
             <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
             units="msec">
                 <tr lang="en">poll interval</tr>
-                <tr lang="ru" finished="false">интервал между опросами</tr>
+                <tr lang="ru">интервал между измерениями</tr>
             </property>
             <!-- @trig_pin -->
             <property name="@trig_pin" type="int" default="17" minvalue="0" maxvalue="255"
             access="initonly">
                 <tr lang="en">a trigger pin GPIO number</tr>
-                <tr lang="ru" finished="false">Триггерный значок GPIO номер</tr>
+                <tr lang="ru">триггерный пин GPIO</tr>
             </property>
         </properties>
         <methods>

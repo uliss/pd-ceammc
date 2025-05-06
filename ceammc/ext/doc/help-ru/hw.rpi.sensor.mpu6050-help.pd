@@ -28,12 +28,12 @@ ceammc://img/conn_mpu6050.png;
 #X obj 735 544 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 576 @i2c_addr;
-#X text 245 576 (при инициализации) Получить/Установить I2C address.
-The value 'default' means default device I²C address (0x68) \, value
-'alt': alternative I2C address (0x69 \, when pin AD0 pull high). Тип:
-int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
+#X text 245 576 (при инициализации) Получить/Установить Адрес I²C.
+Значение «default» означает адрес I²C устройства по умолчанию (0x68)
+\, значение «alt»: альтернативный адрес I2C (0x69 \, когда пин AD0
+подтянут наверх). Тип: int. Значение по умолчанию: -1\. Диапазон: -4\...119\.;
 #X msg 110 679 @i2c_bus;
-#X text 245 679 (при инициализации) Получить/Установить I²C bus. Тип:
+#X text 245 679 (при инициализации) Получить/Установить шина I²C. Тип:
 atom. Значение по умолчанию: none. Разрешённые значения: 1 \, 2 \,
 3 \, 4 \, 5 \, 6 \, default \, none.;
 #X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

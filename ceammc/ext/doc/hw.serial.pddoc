@@ -26,30 +26,29 @@
             <argument name="PORT" type="symbol">
                 <tr lang="en">serial device or port name, eg.: COM3 on Windows, /dev/ttyACM0 on
                 Linux and /dev/cu.usbmodem411 on MacOSX</tr>
-                <tr lang="ru" finished="false">последовательное устройство или название порта,
-                например: COM3 на Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на
-                MacOSX</tr>
+                <tr lang="ru">последовательное устройство или название порта, например: COM3 на
+                Windows, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @devices -->
             <property name="@devices" type="list" access="readonly" default="">
                 <tr lang="en">list of found serial devices</tr>
-                <tr lang="ru" finished="false">Список найденных серийных устройств</tr>
+                <tr lang="ru">список найденных серийных устройств</tr>
             </property>
             <!-- @port -->
             <property name="@port" type="symbol" default="">
                 <tr lang="en">name of serial port, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and
                 /dev/cu.usbmodem411 on MacOSX</tr>
-                <tr lang="ru" finished="false">COM3 на Windows, /dev/ttyACM0 на Linux и
-                /dev/cu.usbmodem411 на MacOSX</tr>
+                <tr lang="ru">последовательное устройство или название порта: COM3 на Windows,
+                /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX</tr>
             </property>
             <!-- @rate -->
             <property name="@rate" type="int" default="57600"
             enum="110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 57600 115200 128000 256000">
 
                 <tr lang="en">serial baud rate</tr>
-                <tr lang="ru" finished="false">серийный бауд</tr>
+                <tr lang="ru">скорость передачи</tr>
             </property>
         </properties>
         <methods>

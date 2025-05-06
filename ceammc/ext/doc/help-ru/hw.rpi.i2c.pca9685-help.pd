@@ -45,7 +45,7 @@ ceammc://img/info_pca9685.jpg;
 #X text 110 884 1\.;
 #X text 150 884 atom;
 #X obj 246 885 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 884 I2C_BUS: See @i2c_bus property. Разрешённые значения:
+#X text 245 884 I2C_BUS: См. @i2c_bus свойство. Разрешённые значения:
 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none. Тип: atom.;
 #X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 934 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144

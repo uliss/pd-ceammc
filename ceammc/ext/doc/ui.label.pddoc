@@ -38,16 +38,6 @@
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
-            <property name="@pinned" type="bool" default="1">
-                <tr lang="en">pin mode. If set to 1, it places the element at the furthest level
-                on the canvas behind other elements</tr>
-                <tr lang="ru">режим закрепления. Если 1 -
-                помещает элемент на самый дальний уровень на холсте за другими элементам</tr>
-            </property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="32">
-                <tr lang="en">font size</tr>
-                <tr lang="ru">размер шрифта</tr>
-            </property>
             <!-- @align -->
             <property name="@align" type="symbol" default="left" enum="left center right">
                 <tr lang="en">text align</tr>
@@ -56,6 +46,11 @@
             <property name="@background_color" type="list" default="1 1 1 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
+            </property>
+            <!-- @fontsize -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="32">
+                <tr lang="en">font size</tr>
+                <tr lang="ru">размер шрифта</tr>
             </property>
             <!-- @margin_bottom -->
             <property name="@margin_bottom" type="int" default="5">
@@ -72,6 +67,13 @@
             <!-- @margin_top -->
             <property name="@margin_top" type="int" default="5">
                 <tr lang="en">text top margin</tr>
+            </property>
+            <!-- @pinned -->
+            <property name="@pinned" type="bool" default="1">
+                <tr lang="en">pin mode. If set to 1, it places the element at the furthest level on
+                the canvas behind other elements</tr>
+                <tr lang="ru">режим закрепления. Если 1 - помещает элемент на самый дальний уровень
+                на холсте за другими элементам</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="300 47">

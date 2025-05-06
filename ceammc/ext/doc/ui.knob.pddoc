@@ -31,7 +31,7 @@
             slowly)</event>
             <event type="wheel" editmode="false">change the knob value (with ⇧ change
             slowly)</event>
-            <event type="left-click" editmode="false" empty="true"/>
+            <event type="left-click" editmode="false" empty="true" />
             <event type="double-click" editmode="false">set knob to the middle position</event>
             <event type="double-click" editmode="false" keys="Shift">toggle MIDI-learn mode (red
             border displayed)</event>

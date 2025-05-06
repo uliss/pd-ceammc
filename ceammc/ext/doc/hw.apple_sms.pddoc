@@ -27,7 +27,7 @@
             <!-- @raw -->
             <property name="@raw" type="bool" default="0">
                 <tr lang="en">raw data output mode</tr>
-                <tr lang="ru" finished="false">режим вывода необработанных данных</tr>
+                <tr lang="ru">режим вывода необработанных данных</tr>
             </property>
         </properties>
         <inlets>

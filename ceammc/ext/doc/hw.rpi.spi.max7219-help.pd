@@ -53,16 +53,16 @@ and write_reg commands will work as expected;
 #X text 110 859 1\.;
 #X text 150 859 int;
 #X obj 246 860 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 859 DISPLAYS: number of displays connected into chain.
-Type: int. Range: 1\...4;
+#X text 245 859 DISPLAYS: the number of displays connected in a daisy
+chain. Type: int. Range: 1\...4;
 #X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 909 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 912 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 944 @displays;
-#X text 245 944 (initonly) Get/Set number of displays connected into
-the chain. Type: int. Default value: 1\. Range: 1\...4\.;
+#X text 245 944 (initonly) Get/Set the number of displays connected
+in a daisy chain. Type: int. Default value: 1\. Range: 1\...4\.;
 #X msg 110 986 @spi_bus;
 #X text 245 986 (initonly) Get/Set SPI bus number. Type: int. Default
 value: -1\. Range: -1\...6\.;

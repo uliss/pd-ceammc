@@ -26,7 +26,7 @@
         <arguments>
             <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
                 <tr lang="en">GPIO pin to connect. See @pin</tr>
-                <tr lang="ru" finished="false">GPIO pin для подключения. См. @pin</tr>
+                <tr lang="ru">GPIO пин для подключения. См. @pin</tr>
             </argument>
         </arguments>
         <properties>
@@ -34,7 +34,7 @@
             <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">
                 <tr lang="en">GPIO connection pin</tr>
-                <tr lang="ru" finished="false">PIN соединения GPIO</tr>
+                <tr lang="ru">пин соединения GPIO</tr>
             </property>
         </properties>
         <methods>

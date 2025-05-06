@@ -31,7 +31,7 @@
             ENTER or TAB key to finish. ESCAPE undo input, BACKSPACE removes last character.</par>
         </info>
         <mouse>
-            <event type="left-click" editmode="false" empty="true"/>
+            <event type="left-click" editmode="false" empty="true" />
             <event type="drag" editmode="0">change the number</event>
             <event type="drag" editmode="0" keys="Cmd">change the number value fast</event>
             <event type="drag" editmode="0" keys="Shift">change the number value slowly</event>

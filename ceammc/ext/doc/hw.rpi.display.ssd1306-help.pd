@@ -41,7 +41,7 @@ ceammc://img/conn_spi_ssd1306.png;
 #X text 110 644 1\.;
 #X text 150 644 symbol;
 #X obj 246 645 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 644 MODE: display connection. See @mode. Allowed values:
+#X text 245 644 MODE: display connection mode. See @mode. Allowed values:
 i2c \, spi. Type: symbol.;
 #X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 694 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
@@ -56,7 +56,7 @@ value: -1\. Range: -4\...119\.;
 #X text 245 786 (initonly) Get/Set I²C bus. Type: atom. Default value:
 none. Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
 #X msg 110 828 @mode;
-#X text 245 828 (initonly) Get/Set display connection. Type: symbol.
+#X text 245 828 (initonly) Get/Set display connection mode. Type: symbol.
 Default value: i2c. Allowed values: i2c \, spi.;
 #X msg 110 870 @spi_bus;
 #X text 245 870 (initonly) Get/Set SPI bus. Type: int. Default value:

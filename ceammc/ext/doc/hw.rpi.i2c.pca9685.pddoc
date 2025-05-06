@@ -40,7 +40,7 @@
         <arguments>
             <argument name="I2C_BUS" type="atom" enum="1 2 3 4 5 6 default none">
                 <tr lang="en">See @i2c_bus property</tr>
-                <tr lang="ru" finished="false">См. @i2c_bus property</tr>
+                <tr lang="ru">См. @i2c_bus свойство</tr>
             </argument>
         </arguments>
         <properties>
@@ -48,14 +48,14 @@
             <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
             access="initonly">
                 <tr lang="en">I²C address. Also 'default' value is accepted (for addr 0x40)</tr>
-                <tr lang="ru" finished="false">Адрес I2C. Также принимается значение «по умолчанию»
-                (для добавления 0x40)</tr>
+                <tr lang="ru" finished="false">Адрес I²C. Также принимается значение «default» (для
+                адреса 0x40)</tr>
             </property>
             <!-- @i2c_bus -->
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">
                 <tr lang="en">I²C bus</tr>
-                <tr lang="ru" finished="false">I2C автобус</tr>
+                <tr lang="ru" finished="false">шина I²C</tr>
             </property>
         </properties>
         <methods>

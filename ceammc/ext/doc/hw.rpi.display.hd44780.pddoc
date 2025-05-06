@@ -29,14 +29,14 @@
             maxvalue="119">
                 <tr lang="en">I²C address. Values 'default' (for addr 0x27), 'alt' (for addr 0x3f)
                 are also accepted</tr>
-                <tr lang="ru" finished="false">Адрес I2C. Также принимаются значения «по умолчанию»
-                (для добавления 0x27), «альт» (для добавления 0x3f).</tr>
+                <tr lang="ru" finished="false">Адрес I²C. Также принимаются значения «default» (для
+                адреса 0x27), «alt» (для адреса 0x3f).</tr>
             </property>
             <!-- @i2c_bus -->
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">
                 <tr lang="en">I²C bus</tr>
-                <tr lang="ru" finished="false">I2C автобус</tr>
+                <tr lang="ru">шина I²C</tr>
             </property>
             <!-- @rows -->
             <property name="@rows" type="int" default="1" enum="1 2 4" access="initonly">
