@@ -44,59 +44,59 @@ calculations to pause between grains. Тип: int. Единицы: 'ms'. Зна�
 #X text 245 637 Получить/Установить offset parameter that controls
 grain pointer jumps between enveloped grain segments. Тип: int. Единицы:
 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 709 @gramp;
-#X text 245 709 Получить/Установить grain ramp. For values of @gramp
+#X msg 110 724 @gramp;
+#X text 245 724 Получить/Установить grain ramp. For values of @gramp
 greater than zero \, a linear envelope will be applied to each grain.
 If @gramp = 100 \, the resultant grain "window" is triangular while
 @gramp = 50 produces a trapezoidal window. Тип: int. Единицы: '%'.
 Значение по умолчанию: 50\. Диапазон: 1\...100\.;
-#X msg 110 812 @random;
-#X text 245 812 Получить/Установить factor used when setting individual
+#X msg 110 842 @random;
+#X text 245 842 Получить/Установить factor used when setting individual
 grain parameters. This random factor is applied when all grain state
 durations are calculated. If set to 0.0 \, no randomness occurs. When
 @random=0.5 \, a grain segment of length duration will be randomly
 augmented by up to +-duration seconds (i.e. \, a 30 millisecond length
 will be augmented by an extra length of up to +15 or -15 milliseconds).
 Тип: float. Значение по умолчанию: 0.1\. Диапазон: 0\...0.97\.;
-#X msg 110 945 @stretch;
-#X text 245 945 Получить/Установить stretch factor used for grain playback
+#X msg 110 990 @stretch;
+#X text 245 990 Получить/Установить stretch factor used for grain playback
 (1 - 1000). Granular synthesis allows for time-stetching without affecting
 the original pitch of a sound. A stretch factor of 4 will produce a
 resulting sound of length 4 times the orignal sound. The default parameter
 of 1 produces no stretching. Тип: int. Значение по умолчанию: 1\. Диапазон:
 1\...1000\.;
-#X msg 110 1063 @voices;
-#X text 245 1063 Получить/Установить number of simultaneous grain "voices"
+#X msg 110 1123 @voices;
+#X text 245 1123 Получить/Установить number of simultaneous grain "voices"
 to use. Тип: int. Значение по умолчанию: 1\. Диапазон: 0\...200\.;
-#X obj 20 1130 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1135 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1190 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1195 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1170 open;
-#X text 245 1170 open a monophonic soundfile to be "granulated". Only
+#X msg 110 1230 open;
+#X text 245 1230 open a monophonic soundfile to be "granulated". Only
 WAV and AIFF formats are supported. Аргументы:;
-#X obj 255 1208 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1208 [PATH]: path to file. Тип: symbol.;
-#X msg 110 1233 reset;
-#X text 245 1233 reset the file pointer and all existing grains to
+#X obj 255 1268 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1268 [PATH]: path to file. Тип: symbol.;
+#X msg 110 1293 reset;
+#X text 245 1293 reset the file pointer and all existing grains to
 the file start.;
-#X obj 20 1283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1288 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1348 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1289 1\.;
-#X text 245 1289 control inlet.;
-#X obj 20 1319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1324 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1349 1\.;
+#X text 245 1349 control inlet.;
+#X obj 20 1379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1384 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1325 1\.;
-#X text 245 1325;
+#X text 110 1385 1\.;
+#X text 245 1385;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1375 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1378 библиотека: ceammc v0.9.8;
-#N canvas 10 1397 400 290 info 0;
+#X obj 1 1435 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1438 библиотека: ceammc v0.9.8;
+#N canvas 10 1457 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -120,7 +120,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1397 pd info;
+#X restore 10 1457 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 8 0 10 0;

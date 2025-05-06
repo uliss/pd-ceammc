@@ -37,104 +37,104 @@ ceammc://img/conn_ws2812.png;
 select/enable). In most cases you don't need to set this property \,
 because LED strips are not using CS pin. Тип: int. Значение по умолчанию:
 0\. Диапазон: 0\...3\.;
-#X msg 110 618 @size;
-#X text 245 618 (при инициализации) Получить/Установить number of leds
+#X msg 110 633 @size;
+#X text 245 633 (при инициализации) Получить/Установить number of leds
 in the strip. Тип: int. Значение по умолчанию: 16\. Диапазон: 1\...4096\.;
-#X msg 110 675 @clear;
-#X text 245 675 Получить/Установить turn off all pixels when the object
+#X msg 110 690 @clear;
+#X text 245 690 Получить/Установить turn off all pixels when the object
 is deleted. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 732 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 747 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 767 brightness;
-#X text 245 767 set pixel brightness. Аргументы:;
-#X obj 255 790 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 790 LEVEL: brightness level. Тип: int. Диапазон: 0…255\.;
-#X msg 110 815 clear;
-#X text 245 815 turn off all pixels.;
-#X msg 110 843 fill;
-#X text 245 843 fill all pixels with the RGB color. Аргументы:;
-#X obj 255 866 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 866 R: red color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 889 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 889 G: greed color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 912 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 912 B: blue color component. Тип: int. Диапазон: 0…255\.;
-#X msg 110 937 flush;
-#X text 245 937 flush all pixels to the strip.;
-#X msg 110 965 fx;
-#X text 245 965 apply color generator function. Аргументы:;
-#X obj 255 988 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 988 NAME: function name. Тип: symbol. Разрешённые значения:
+#X msg 110 782 brightness;
+#X text 245 782 set pixel brightness. Аргументы:;
+#X obj 255 805 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 805 LEVEL: brightness level. Тип: int. Диапазон: 0…255\.;
+#X msg 110 830 clear;
+#X text 245 830 turn off all pixels.;
+#X msg 110 858 fill;
+#X text 245 858 fill all pixels with the RGB color. Аргументы:;
+#X obj 255 881 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 881 R: red color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 904 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 904 G: greed color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 927 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 927 B: blue color component. Тип: int. Диапазон: 0…255\.;
+#X msg 110 952 flush;
+#X text 245 952 flush all pixels to the strip.;
+#X msg 110 980 fx;
+#X text 245 980 apply color generator function. Аргументы:;
+#X obj 255 1003 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1003 NAME: function name. Тип: symbol. Разрешённые значения:
 rainbow.;
-#X obj 255 1026 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1026 [ARG]: function param. Тип: float. Диапазон: 0…1\.;
-#X obj 255 1049 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1049 [BEGIN]: range start. Тип: int.;
-#X obj 255 1072 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1072 [LENGTH]: range length. Тип: int. Минимальное значение:
+#X obj 255 1041 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1041 [ARG]: function param. Тип: float. Диапазон: 0…1\.;
+#X obj 255 1064 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1064 [BEGIN]: range start. Тип: int.;
+#X obj 255 1087 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1087 [LENGTH]: range length. Тип: int. Минимальное значение:
 0\.;
-#X msg 110 1097 rotate;
-#X text 245 1097 shift all pixel by specified amount. Аргументы:;
-#X obj 255 1120 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1120 SHIFT: shift amount. Тип: int.;
-#X msg 110 1145 set;
-#X text 245 1145 set single pixel color. Аргументы:;
-#X obj 255 1168 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1168 R: red color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 1191 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1191 G: greed color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 1214 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1214 B: blue color component. Тип: int. Диапазон: 0…255\.;
-#X msg 110 1239 set_range;
-#X text 245 1239 set pixel range to the specified color. Аргументы:;
-#X obj 255 1262 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1262 BEGIN: range start. Тип: int. Минимальное значение:
+#X msg 110 1112 rotate;
+#X text 245 1112 shift all pixel by specified amount. Аргументы:;
+#X obj 255 1135 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1135 SHIFT: shift amount. Тип: int.;
+#X msg 110 1160 set;
+#X text 245 1160 set single pixel color. Аргументы:;
+#X obj 255 1183 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1183 R: red color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 1206 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1206 G: greed color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 1229 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1229 B: blue color component. Тип: int. Диапазон: 0…255\.;
+#X msg 110 1254 set_range;
+#X text 245 1254 set pixel range to the specified color. Аргументы:;
+#X obj 255 1277 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1277 BEGIN: range start. Тип: int. Минимальное значение:
 0\.;
-#X obj 255 1285 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1285 LENGTH: range length. Тип: int. Минимальное значение:
+#X obj 255 1300 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1300 LENGTH: range length. Тип: int. Минимальное значение:
 1\.;
-#X obj 255 1308 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1308 R: red color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 1331 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1331 G: greed color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 1354 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1354 B: blue color component. Тип: int. Диапазон: 0…255\.;
-#X msg 110 1379 set_slice;
-#X text 245 1379 set pixel slice to the specified color. Аргументы:;
-#X obj 255 1402 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1402 BEGIN: range start. Тип: int. Минимальное значение:
+#X obj 255 1323 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1323 R: red color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 1346 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1346 G: greed color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 1369 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1369 B: blue color component. Тип: int. Диапазон: 0…255\.;
+#X msg 110 1394 set_slice;
+#X text 245 1394 set pixel slice to the specified color. Аргументы:;
+#X obj 255 1417 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1417 BEGIN: range start. Тип: int. Минимальное значение:
 0\.;
-#X obj 255 1425 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1425 END: range end. Тип: int. Минимальное значение: 0\.;
-#X obj 255 1448 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1448 STEP: slice step. Тип: int. Минимальное значение:
+#X obj 255 1440 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1440 END: range end. Тип: int. Минимальное значение: 0\.;
+#X obj 255 1463 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1463 STEP: slice step. Тип: int. Минимальное значение:
 1\.;
-#X obj 255 1471 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1471 R: red color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 1494 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1494 G: greed color component. Тип: int. Диапазон: 0…255\.;
-#X obj 255 1517 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1517 B: blue color component. Тип: int. Диапазон: 0…255\.;
-#X obj 20 1552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1557 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 255 1486 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1486 R: red color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 1509 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1509 G: greed color component. Тип: int. Диапазон: 0…255\.;
+#X obj 255 1532 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1532 B: blue color component. Тип: int. Диапазон: 0…255\.;
+#X obj 20 1567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1572 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1558 1\.;
-#X text 150 1558 *bang*;
-#X text 245 1558 flush pixels to the strip.;
-#X obj 20 1588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1593 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1573 1\.;
+#X text 150 1573 *bang*;
+#X text 245 1573 flush pixels to the strip.;
+#X obj 20 1603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1608 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1594 1\.;
-#X text 245 1594 no output.;
+#X text 110 1609 1\.;
+#X text 245 1609 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1644 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1647 библиотека: ceammc v0.9.8;
-#N canvas 10 1666 400 290 info 0;
+#X obj 1 1659 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1662 библиотека: ceammc v0.9.8;
+#N canvas 10 1681 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -158,7 +158,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1666 pd info;
+#X restore 10 1681 pd info;
 #X connect 6 0 8 0;
 #X connect 8 0 10 0;
 #X connect 10 0 12 0;

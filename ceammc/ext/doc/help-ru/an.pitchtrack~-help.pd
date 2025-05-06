@@ -41,34 +41,34 @@ Normalized AutoCorrelation function (SNAC);
 #X text 245 477 Получить/Установить bias which favours small lags over
 large lags in the period detection \, thereby avoiding low-octave jumps.
 Тип: float. Значение по умолчанию: 0.2\. Диапазон: 0\...1\.;
-#X msg 110 549 @fidthr;
-#X text 245 549 Получить/Установить min fidelity threshold to report
+#X msg 110 564 @fidthr;
+#X text 245 564 Получить/Установить min fidelity threshold to report
 the pitch. Тип: float. Значение по умолчанию: 0.95\. Диапазон: 0\...1\.;
-#X msg 110 606 @framesize;
-#X text 245 606 Получить/Установить frame size in samples. Тип: int.
+#X msg 110 621 @framesize;
+#X text 245 621 Получить/Установить frame size in samples. Тип: int.
 Единицы: 'samp'. Значение по умолчанию: 1024\. Разрешённые значения:
 128 \, 256 \, 512 \, 1024 \, 2048\.;
-#X msg 110 663 @maxfreq;
-#X text 245 663 Получить/Установить max tracked frequency. Тип: float.
+#X msg 110 678 @maxfreq;
+#X text 245 678 Получить/Установить max tracked frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 1500\. Диапазон: 10\...10000\.;
-#X msg 110 720 @overlap;
-#X text 245 720 Получить/Установить overlap of analysis frames. Тип:
+#X msg 110 735 @overlap;
+#X text 245 735 Получить/Установить overlap of analysis frames. Тип:
 int. Значение по умолчанию: 1\. Разрешённые значения: 1 \, 2 \, 4 \,
 8\.;
-#X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 777 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 792 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 778 1\.;
-#X text 245 778 input signal.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 813 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 793 1\.;
+#X text 245 793 input signal.;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 828 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 814 1\.;
-#X text 245 814 output signal.;
-#X text 110 834 2\.;
-#X text 245 834 output frequency in Hz.;
-#X text 110 854 3\.;
-#X text 245 854 track fidelity: a value between 0 and 1 \, indicating
+#X text 110 829 1\.;
+#X text 245 829 output signal.;
+#X text 110 849 2\.;
+#X text 245 849 output frequency in Hz.;
+#X text 110 869 3\.;
+#X text 245 869 track fidelity: a value between 0 and 1 \, indicating
 to which extent the input signal is periodic. A fidelity of ~0.95 can
 be considered to indicate a periodic signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -76,12 +76,12 @@ be considered to indicate a periodic signal.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 934 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 937 библиотека: ceammc v0.9.8;
-#X text 493 949 смотрите также:;
-#X obj 614 949 sigmund~;
-#X obj 688 949 fiddle~;
-#N canvas 10 956 400 290 info 0;
+#X obj 1 949 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 952 библиотека: ceammc v0.9.8;
+#X text 493 964 смотрите также:;
+#X obj 614 964 sigmund~;
+#X obj 688 964 fiddle~;
+#N canvas 10 971 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -105,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 956 pd info;
+#X restore 10 971 pd info;
 #X connect 8 0 12 0;
 #X connect 10 0 12 1;
 #X connect 11 0 13 0;

@@ -44,46 +44,46 @@ float. Диапазон: 0…2π;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/spat_pan4/ИМЯ_СВОЙСТВА \, в противном
 случае к /spat_pan4/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 673 @osc;
-#X text 245 673 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 688 @osc;
+#X text 245 688 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 715 @active;
-#X text 245 715 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 730 @active;
+#X text 245 730 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 757 @angle;
-#X text 245 757 Получить/Установить panning position in radians. Тип:
+#X msg 110 772 @angle;
+#X text 245 772 Получить/Установить panning position in radians. Тип:
 float. Единицы: 'rad'. Значение по умолчанию: 0\. Диапазон: 0\...2π.;
-#X msg 110 799 @radius;
-#X text 245 799 Получить/Установить distance from circle center. Тип:
+#X msg 110 814 @radius;
+#X text 245 814 Получить/Установить distance from circle center. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 856 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 866 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 871 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 857 1\.;
-#X text 245 857 input signal.;
-#X text 150 877 *list*;
-#X text 245 877 set radius and angle.;
-#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 912 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 872 1\.;
+#X text 245 872 input signal.;
+#X text 150 892 *list*;
+#X text 245 892 set radius and angle.;
+#X obj 20 922 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 927 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 913 1\.;
-#X text 245 913 1st output channel.;
-#X text 110 933 2\.;
-#X text 245 933 2nd output channel.;
-#X text 110 953 3\.;
-#X text 245 953 3rd output channel.;
-#X text 110 973 4\.;
-#X text 245 973 4th output channel.;
+#X text 110 928 1\.;
+#X text 245 928 1st output channel.;
+#X text 110 948 2\.;
+#X text 245 948 2nd output channel.;
+#X text 110 968 3\.;
+#X text 245 968 3rd output channel.;
+#X text 110 988 4\.;
+#X text 245 988 4th output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1023 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1026 библиотека: ceammc v0.9.8;
-#X text 582 1038 смотрите также:;
-#X obj 703 1038 pan8~;
-#N canvas 10 1045 400 290 info 0;
+#X obj 1 1038 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1041 библиотека: ceammc v0.9.8;
+#X text 582 1053 смотрите также:;
+#X obj 703 1053 pan8~;
+#N canvas 10 1060 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1045 pd info;
+#X restore 10 1060 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 8 0 11 0;

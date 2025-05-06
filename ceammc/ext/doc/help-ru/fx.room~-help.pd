@@ -43,60 +43,60 @@
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_room/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_room/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 601 @osc;
-#X text 245 601 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 616 @osc;
+#X text 245 616 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 643 @active;
-#X text 245 643 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 658 @active;
+#X text 245 658 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 685 @bypass;
-#X text 245 685 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 700 @bypass;
+#X text 245 700 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 727 @drywet;
-#X text 245 727 Получить/Установить proportion of mix between the original
+#X msg 110 742 @drywet;
+#X text 245 742 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 784 @fb;
-#X text 245 784 Получить/Установить feedback coefficient. Тип: float.
+#X msg 110 799 @fb;
+#X text 245 799 Получить/Установить feedback coefficient. Тип: float.
 Значение по умолчанию: 0.3\. Диапазон: 0\...1\.;
-#X msg 110 826 @hfdamp;
-#X text 245 826 Получить/Установить damping factor for high frequencies.
+#X msg 110 841 @hfdamp;
+#X text 245 841 Получить/Установить damping factor for high frequencies.
 Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 868 @predelay;
-#X text 245 868 Получить/Установить pre delay. Тип: float. Единицы:
+#X msg 110 883 @predelay;
+#X text 245 883 Получить/Установить pre delay. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 20\. Диапазон: 1\...200\.;
-#X msg 110 910 @size;
-#X text 245 910 Получить/Установить room size (0: no room \, 1: small
+#X msg 110 925 @size;
+#X text 245 925 Получить/Установить room size (0: no room \, 1: small
 \, 2: medium \, 3: large). Non-integer values are interpolated betweed
 neighbours \, for example 1.3 is interpoltation between first and second
 room size with 0.3 ratio. Тип: float. Значение по умолчанию: 1\. Диапазон:
 0\...3\.;
-#X obj 20 1007 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1012 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1038 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1043 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1047 reset;
-#X text 245 1047 reset to initial state.;
-#X obj 20 1085 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1090 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1078 reset;
+#X text 245 1078 reset to initial state.;
+#X obj 20 1116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1121 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1091 1\.;
-#X text 245 1091 input signal.;
-#X text 110 1111 2\.;
-#X text 150 1111 *float*;
-#X text 245 1111 set room size.;
-#X obj 20 1141 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1146 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1122 1\.;
+#X text 245 1122 input signal.;
+#X text 110 1142 2\.;
+#X text 150 1142 *float*;
+#X text 245 1142 set room size.;
+#X obj 20 1172 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1177 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1147 1\.;
-#X text 245 1147 output signal.;
+#X text 110 1178 1\.;
+#X text 245 1178 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1197 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1200 библиотека: ceammc v0.9.8;
-#N canvas 10 1219 400 290 info 0;
+#X obj 1 1228 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1231 библиотека: ceammc v0.9.8;
+#N canvas 10 1250 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -120,7 +120,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1219 pd info;
+#X restore 10 1250 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

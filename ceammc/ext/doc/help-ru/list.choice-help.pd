@@ -27,29 +27,29 @@
 every time output value at new list position \, do not repeat choosed
 position twice at adjacent events. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 555 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 570 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 556 1\.;
-#X text 150 556 *list*;
-#X text 245 556 Input list.;
-#X text 150 576 *data*;
-#X text 245 576 Input mlist.;
-#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 611 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 571 1\.;
+#X text 150 571 *list*;
+#X text 245 571 Input list.;
+#X text 150 591 *data*;
+#X text 245 591 Input mlist.;
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 626 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 612 1\.;
-#X text 245 612 random list element.;
+#X text 110 627 1\.;
+#X text 245 627 random list element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 662 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 665 библиотека: ceammc v0.9.8;
-#X text 548 677 смотрите также:;
-#X obj 669 677 random.int;
-#N canvas 10 684 400 290 info 0;
+#X obj 1 677 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 680 библиотека: ceammc v0.9.8;
+#X text 548 692 смотрите также:;
+#X obj 669 692 random.int;
+#N canvas 10 699 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -73,7 +73,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 684 pd info;
+#X restore 10 699 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 1;
 #X connect 6 0 7 0;

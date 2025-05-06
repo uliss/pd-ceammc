@@ -37,24 +37,24 @@ object;
 to the "normal" instance inlet and can be used to send signal to all
 instances. Тип: int. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
-#X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 540 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 541 1\.;
-#X text 245 541 output signal in the corresponding hoa.process~ object's
+#X text 110 556 1\.;
+#X text 245 556 output signal in the corresponding hoa.process~ object's
 signal outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 606 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 609 библиотека: ceammc v0.9.8;
-#X text 442 621 смотрите также:;
-#X obj 563 621 hoa.out;
-#X obj 629 621 hoa.in;
-#X obj 688 621 hoa.in~;
-#N canvas 10 628 400 290 info 0;
+#X obj 1 621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 624 библиотека: ceammc v0.9.8;
+#X text 442 636 смотрите также:;
+#X obj 563 636 hoa.out;
+#X obj 629 636 hoa.in;
+#X obj 688 636 hoa.in~;
+#N canvas 10 643 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -79,7 +79,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 628 pd info;
+#X restore 10 643 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 10 1;
 #X connect 10 0 11 0;

@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.voice_fofc~ 20 20 0 20
 -104026 -4096 0;
 #X obj 616 11 synth.voice_fofc~;
-#X obj 205 78 cnv 1 560 215 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 78 cnv 1 560 230 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 83 Simple formant/vocal synthesizer based on a source/filter
 model. The source is just a periodic impulse and the "filter" is a
 bank of FOF filters.;
@@ -13,113 +13,113 @@ bank of FOF filters.;
 to go smoothly from one vowel to another. Voice type can be selected
 but must correspond to the frequency range of the synthesized voice
 to be realistic.;
-#X text 215 208 A cycle of 12 FOF filters with sample-and-hold is used
+#X text 215 223 A cycle of 12 FOF filters with sample-and-hold is used
 so that the fof filter parameters can be varied in realtime.;
-#X text 215 248 This technique is more robust but more computationally
+#X text 215 263 This technique is more robust but more computationally
 expensive than FofSmooth;
-#X obj 50 341 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 370 @gate \$1;
-#X obj 69 399 ui.tab alto bass countertenor soprano tenor @size 360
+#X obj 50 356 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 385 @gate \$1;
+#X obj 69 414 ui.tab alto bass countertenor soprano tenor @size 360
 17;
-#X msg 69 428 @voice \$1;
-#X msg 194 428 random move;
-#X floatatom 88 457 5 0 0 0 - - -;
-#X obj 194 457 ui.tab a e i o u;
-#X obj 386 457 ui.hsl 0 40 @show_value 1;
-#X msg 88 485 @freq \$1;
-#X msg 194 485 @vowel \$1;
-#X msg 386 485 @wsmooth \$1;
-#X obj 50 514 synth.voice_fofc~ bass @freq 120;
-#X obj 50 543 flt.lpf24~ 4500;
-#X obj 50 572 ui.gain~ @size 120 16;
-#X obj 290 572 ui.dsp~;
-#X obj 50 601 dac~;
-#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 656 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 69 443 @voice \$1;
+#X msg 194 443 random move;
+#X floatatom 88 472 5 0 0 0 - - -;
+#X obj 194 472 ui.tab a e i o u;
+#X obj 386 472 ui.hsl 0 40 @show_value 1;
+#X msg 88 500 @freq \$1;
+#X msg 194 500 @vowel \$1;
+#X msg 386 500 @wsmooth \$1;
+#X obj 50 529 synth.voice_fofc~ bass @freq 120;
+#X obj 50 558 flt.lpf24~ 4500;
+#X obj 50 587 ui.gain~ @size 120 16;
+#X obj 290 587 ui.dsp~;
+#X obj 50 616 dac~;
+#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 671 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 659 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 674 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 691 1\.;
-#X text 150 691 symbol;
-#X obj 246 692 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 691 VOICE: voice type. Allowed values: alto \, bass \,
+#X text 110 706 1\.;
+#X text 150 706 symbol;
+#X obj 246 707 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 706 VOICE: voice type. Allowed values: alto \, bass \,
 countertenor \, soprano \, tenor. Type: symbol.;
-#X text 110 726 2\.;
-#X text 150 726 symbol;
-#X obj 246 727 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 726 VOWEL: vowel. Allowed values: a \, e \, i \, o \, u.
+#X text 110 741 2\.;
+#X text 150 741 symbol;
+#X obj 246 742 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 741 VOWEL: vowel. Allowed values: a \, e \, i \, o \, u.
 Type: symbol.;
-#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 761 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 776 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 764 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 779 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 796 @id;
-#X text 245 796 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 811 @id;
+#X text 245 811 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_voice_fofc/PROP_NAME osc address \,
 if empty bind to /synth_voice_fofc/PROP_NAME. Type: symbol.;
-#X msg 110 853 @osc;
-#X text 245 853 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 868 @osc;
+#X text 245 868 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 883 @active;
-#X text 245 883 Turn on/off object dsp processing. Type: bool. Default
+#X msg 110 898 @active;
+#X text 245 898 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
-#X msg 110 925 @attack;
-#X text 245 925 Get/Set attack time. Type: float. Units: 'ms'. Default
+#X msg 110 940 @attack;
+#X text 245 940 Get/Set attack time. Type: float. Units: 'ms'. Default
 value: 30\. Range: 0\...1000\.;
-#X msg 110 967 @freq;
-#X text 245 967 Get/Set frequency. Type: float. Units: 'Hz'. Default
+#X msg 110 982 @freq;
+#X text 245 982 Get/Set frequency. Type: float. Units: 'Hz'. Default
 value: 440\. Range: 20\...20000.0\.;
-#X msg 110 1009 @fvowel;
-#X text 245 1009 Get/Set vowel index: 0=a \, 1=e \, 2=i \, 3=o \, 4=u.
+#X msg 110 1024 @fvowel;
+#X text 245 1024 Get/Set vowel index: 0=a \, 1=e \, 2=i \, 3=o \, 4=u.
 Float values can be interpoltaed. Type: float. Default value: 0\. Range:
 0\...4\.;
-#X msg 110 1066 @gate;
-#X text 245 1066 Get/Set synth gate (>0 - play). Type: bool. Default
+#X msg 110 1081 @gate;
+#X text 245 1081 Get/Set synth gate (>0 - play). Type: bool. Default
 value: 0\.;
-#X msg 110 1108 @portamento;
-#X text 245 1108 Get/Set portamento time. Type: float. Units: 'ms'.
+#X msg 110 1123 @portamento;
+#X text 245 1123 Get/Set portamento time. Type: float. Units: 'ms'.
 Default value: 0\. Range: 0\...4000\.;
-#X msg 110 1150 @release;
-#X text 245 1150 Get/Set release time. Type: float. Units: 'ms'. Default
+#X msg 110 1165 @release;
+#X text 245 1165 Get/Set release time. Type: float. Units: 'ms'. Default
 value: 50\. Range: 0\...1000\.;
-#X msg 110 1192 @vibr_freq;
-#X text 245 1192 Get/Set vibrato frequency. Type: float. Units: 'Hz'.
+#X msg 110 1207 @vibr_freq;
+#X text 245 1207 Get/Set vibrato frequency. Type: float. Units: 'Hz'.
 Default value: 6\. Range: 1\...10\.;
-#X msg 110 1234 @vibr_gain;
-#X text 245 1234 Get/Set vibrato frequency. Type: float. Default value:
+#X msg 110 1249 @vibr_gain;
+#X text 245 1249 Get/Set vibrato frequency. Type: float. Default value:
 0.5\. Range: 0\...1\.;
-#X msg 110 1276 @voice;
-#X text 245 1276 Get/Set voice type. Note: can be set by corresponding
+#X msg 110 1291 @voice;
+#X text 245 1291 Get/Set voice type. Note: can be set by corresponding
 index. Type: symbol. Default value: alto. Allowed values: alto \, bass
 \, countertenor \, soprano \, tenor.;
-#X msg 110 1333 @vowel;
-#X text 245 1333 Get/Set vowel type. Note: can be set by corresponding
+#X msg 110 1348 @vowel;
+#X text 245 1348 Get/Set vowel type. Note: can be set by corresponding
 index. Type: symbol. Default value: a. Allowed values: a \, e \, i
 \, o \, u.;
-#X msg 110 1390 @wsmooth;
-#X text 245 1390 Get/Set vowel smoothing time. Type: float. Units:
+#X msg 110 1405 @wsmooth;
+#X text 245 1405 Get/Set vowel smoothing time. Type: float. Units:
 'ms'. Default value: 10\. Range: 0\...1000\.;
-#X obj 20 1442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1447 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1462 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1448 1\.;
-#X text 245 1448 control input.;
-#X obj 20 1478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1483 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1463 1\.;
+#X text 245 1463 control input.;
+#X obj 20 1493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1498 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1484 1\.;
-#X text 245 1484 synth output.;
+#X text 110 1499 1\.;
+#X text 245 1499 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1534 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1537 library: ceammc v0.9.8;
-#X text 541 1549 see also:;
-#X obj 616 1549 synth.voice_fofs~;
-#N canvas 10 1556 400 290 info 0;
+#X obj 1 1549 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1552 library: ceammc v0.9.8;
+#X text 541 1564 see also:;
+#X obj 616 1564 synth.voice_fofs~;
+#N canvas 10 1571 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -143,7 +143,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1556 pd info;
+#X restore 10 1571 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;
 #X connect 13 0 15 0;

@@ -42,55 +42,55 @@
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_tremolo/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_tremolo/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 543 @osc;
-#X text 245 543 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 558 @osc;
+#X text 245 558 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 585 @active;
-#X text 245 585 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 600 @active;
+#X text 245 600 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 627 @bypass;
-#X text 245 627 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 642 @bypass;
+#X text 245 642 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 669 @depth;
-#X text 245 669 Получить/Установить effect depth. Тип: float. Значение
+#X msg 110 684 @depth;
+#X text 245 684 Получить/Установить effect depth. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 711 @drywet;
-#X text 245 711 Получить/Установить proportion of mix between the original
+#X msg 110 726 @drywet;
+#X text 245 726 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 0.75\. Диапазон: 0\...1\.;
-#X msg 110 768 @freq;
-#X text 245 768 Получить/Установить tremolo frequency. Тип: float.
+#X msg 110 783 @freq;
+#X text 245 783 Получить/Установить tremolo frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 5\. Диапазон: 0.1\...50\.;
-#X msg 110 810 @src;
-#X text 245 810 Получить/Установить modulation source: 0 (triangle)
+#X msg 110 825 @src;
+#X text 245 825 Получить/Установить modulation source: 0 (triangle)
 \, 1 (sin) or 2 (square). Тип: int. Значение по умолчанию: 0\. Диапазон:
 0\...2\.;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 882 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 897 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 917 reset;
-#X text 245 917 reset to initial state.;
-#X obj 20 955 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 960 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 932 reset;
+#X text 245 932 reset to initial state.;
+#X obj 20 970 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 975 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 961 1\.;
-#X text 245 961 input signal.;
-#X text 110 981 2\.;
-#X text 150 981 *float*;
-#X text 245 981 set frequency (Hz).;
-#X obj 20 1011 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1016 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 976 1\.;
+#X text 245 976 input signal.;
+#X text 110 996 2\.;
+#X text 150 996 *float*;
+#X text 245 996 set frequency (Hz).;
+#X obj 20 1026 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1031 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1017 1\.;
-#X text 245 1017 output signal.;
+#X text 110 1032 1\.;
+#X text 245 1032 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1067 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1070 библиотека: ceammc v0.9.8;
-#N canvas 10 1089 400 290 info 0;
+#X obj 1 1082 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1085 библиотека: ceammc v0.9.8;
+#N canvas 10 1104 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -114,7 +114,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1089 pd info;
+#X restore 10 1104 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 9 0;
 #X connect 6 0 10 0;

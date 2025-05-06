@@ -43,83 +43,83 @@ only delayed repeats.;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_echo/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_echo/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 587 @osc;
-#X text 245 587 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 602 @osc;
+#X text 245 602 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 629 @active;
-#X text 245 629 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 644 @active;
+#X text 245 644 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 671 @bypass;
-#X text 245 671 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 686 @bypass;
+#X text 245 686 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 713 @c_attack;
-#X text 245 713 Получить/Установить feedback compression attack time.
+#X msg 110 728 @c_attack;
+#X text 245 728 Получить/Установить feedback compression attack time.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: 0.1\...100\.;
-#X msg 110 770 @c_release;
-#X text 245 770 Получить/Установить feedback compression release time.
+#X msg 110 785 @c_release;
+#X text 245 785 Получить/Установить feedback compression release time.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 1\...500\.;
-#X msg 110 827 @c_thresh;
-#X text 245 827 Получить/Установить feedback compression threshold
+#X msg 110 842 @c_thresh;
+#X text 245 842 Получить/Установить feedback compression threshold
 level. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
 -60\...0\.;
-#X msg 110 884 @compress;
-#X text 245 884 Получить/Установить feedback compression factor. 0:
+#X msg 110 899 @compress;
+#X text 245 899 Получить/Установить feedback compression factor. 0:
 means no compression \, 1: limit feedback level. Тип: float. Значение
 по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 941 @delay;
-#X text 245 941 Получить/Установить echo time. Тип: float. Единицы:
+#X msg 110 956 @delay;
+#X text 245 956 Получить/Установить echo time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 500\. Диапазон: 10\...10000\.;
-#X msg 110 983 @drywet;
-#X text 245 983 Получить/Установить proportion of mix between the original
+#X msg 110 998 @drywet;
+#X text 245 998 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 1040 @f_hpf;
-#X text 245 1040 Получить/Установить feedback high-pass filter cutoff
+#X msg 110 1055 @f_hpf;
+#X text 245 1055 Получить/Установить feedback high-pass filter cutoff
 frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию: 300\.
 Диапазон: 20\...20000\.;
-#X msg 110 1097 @f_lpf;
-#X text 245 1097 Получить/Установить feedback low-pass filter cutoff
+#X msg 110 1112 @f_lpf;
+#X text 245 1112 Получить/Установить feedback low-pass filter cutoff
 frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию: 9000\.
 Диапазон: 20\...20000\.;
-#X msg 110 1154 @feedback;
-#X text 245 1154 Получить/Установить feedback coefficient. Тип: float.
+#X msg 110 1169 @feedback;
+#X text 245 1169 Получить/Установить feedback coefficient. Тип: float.
 Значение по умолчанию: 0.3\. Диапазон: 0\...0.99\.;
-#X msg 110 1196 @filter;
-#X text 245 1196 Получить/Установить if true - apply filter to feedback
+#X msg 110 1211 @filter;
+#X text 245 1211 Получить/Установить if true - apply filter to feedback
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1238 @smooth;
-#X text 245 1238 Получить/Установить interpolation time on delay time
+#X msg 110 1253 @smooth;
+#X text 245 1253 Получить/Установить interpolation time on delay time
 change \, that prevents click and transpose \, if equal to 0 produces
 artifacts on delay change. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 50\. Диапазон: 0\...500\.;
-#X obj 20 1320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1325 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1355 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1360 reset;
-#X text 245 1360 reset to initial state.;
-#X obj 20 1398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1403 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1390 reset;
+#X text 245 1390 reset to initial state.;
+#X obj 20 1428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1433 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1404 1\.;
-#X text 245 1404 input signal.;
-#X text 110 1424 2\.;
-#X text 150 1424 *float*;
-#X text 245 1424 set delay time.;
-#X obj 20 1454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1459 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1434 1\.;
+#X text 245 1434 input signal.;
+#X text 110 1454 2\.;
+#X text 150 1454 *float*;
+#X text 245 1454 set delay time.;
+#X obj 20 1484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1489 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1460 1\.;
-#X text 245 1460 output signal.;
+#X text 110 1490 1\.;
+#X text 245 1490 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1510 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1513 библиотека: ceammc v0.9.8;
-#X text 545 1525 смотрите также:;
-#X obj 666 1525 fx.sdelay~;
-#N canvas 10 1532 400 290 info 0;
+#X obj 1 1540 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1543 библиотека: ceammc v0.9.8;
+#X text 545 1555 смотрите также:;
+#X obj 666 1555 fx.sdelay~;
+#N canvas 10 1562 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -143,7 +143,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1532 pd info;
+#X restore 10 1562 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

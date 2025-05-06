@@ -37,134 +37,134 @@ If 'fudi' - interpret incoming websocket data as Pd messages \, if
 'sym' - always interpret as symbols \, 'data' - parse ceammc data \,
 'json' - convert json values to ceammc data. Type: symbol. Default
 value: fudi. Allowed values: data \, fudi \, json \, sym.;
-#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 598 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 614 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 633 clients;
-#X text 245 633 output connected clients as list CLIENT_ID CLIENT_ADDR...
+#X msg 110 649 clients;
+#X text 245 649 output connected clients as list CLIENT_ID CLIENT_ADDR...
 etc.;
-#X msg 110 673 close;
-#X text 245 673 gracefully close connection with specified client(s).
+#X msg 110 689 close;
+#X text 245 689 gracefully close connection with specified client(s).
 Arguments are:;
-#X obj 255 711 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 711 TARGET: client selector. If '*' or 'all' - send message
+#X obj 255 727 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 727 TARGET: client selector. If '*' or 'all' - send message
 to all clients. If 'first' - send message to first connected client.
 If 'last' - send message to last connected client. If 'id' or '=='
 - send message to client with specified ID. If 'except' or '!=' - send
 message to all client except specified. Type: symbol. Allowed values:
 * \, all \, first \, last \, id \, == \, != \, except.;
-#X obj 255 825 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 825 [ID]: client ID. Required \, if client selector is
+#X obj 255 856 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 856 [ID]: client ID. Required \, if client selector is
 one of: 'id' \, '==' \, '!=' or 'except'. Type: int.;
-#X msg 110 865 listen;
-#X text 245 865 starts/stop websocket server. Arguments are:;
-#X obj 255 888 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 888 PORT: listening port. If 0 - stops server. Type: int.
+#X msg 110 896 listen;
+#X text 245 896 starts/stop websocket server. Arguments are:;
+#X obj 255 919 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 919 PORT: listening port. If 0 - stops server. Type: int.
 Min value: 0\.;
-#X obj 255 926 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 926 [ADDR]: listening address. If not specified - using
+#X obj 255 957 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 957 [ADDR]: listening address. If not specified - using
 0.0.0.0 (all network interfaces). Type: symbol.;
-#X msg 110 966 ping;
-#X text 245 966 send ping message to specified client(s). Arguments
+#X msg 110 997 ping;
+#X text 245 997 send ping message to specified client(s). Arguments
 are:;
-#X obj 255 989 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 989 TARGET: client selector. If '*' or 'all' - send message
+#X obj 255 1020 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1020 TARGET: client selector. If '*' or 'all' - send message
 to all clients. If 'first' - send message to first connected client.
 If 'last' - send message to last connected client. If 'id' or '=='
 - send message to client with specified ID. If 'except' or '!=' - send
 message to all client except specified. Type: symbol. Allowed values:
 * \, all \, first \, last \, id \, == \, != \, except.;
-#X obj 255 1103 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1103 [ID]: client ID. Required \, if client selector is
+#X obj 255 1149 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1149 [ID]: client ID. Required \, if client selector is
 one of: 'id' \, '==' \, '!=' or 'except'. Type: int.;
-#X obj 255 1141 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1141 [DATA]: list of integers in [0\..255] range. Type:
+#X obj 255 1187 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1187 [DATA]: list of integers in [0\..255] range. Type:
 list.;
-#X msg 110 1166 send;
-#X text 245 1166 send as text message to specified client(s). Arguments
+#X msg 110 1212 send;
+#X text 245 1212 send as text message to specified client(s). Arguments
 are:;
-#X obj 255 1189 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1189 TARGET: client selector. If '*' or 'all' - send message
+#X obj 255 1235 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1235 TARGET: client selector. If '*' or 'all' - send message
 to all clients. If 'first' - send message to first connected client.
 If 'last' - send message to last connected client. If 'id' or '=='
 - send message to client with specified ID. If 'except' or '!=' - send
 message to all client except specified. Type: symbol. Allowed values:
 * \, all \, first \, last \, id \, == \, != \, except.;
-#X obj 255 1303 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1303 [ID]: client ID. Required \, if client selector is
+#X obj 255 1364 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1364 [ID]: client ID. Required \, if client selector is
 one of: 'id' \, '==' \, '!=' or 'except'. Type: int.;
-#X obj 255 1341 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1341 [ARGS]: arguments. Type: list.;
-#X msg 110 1366 send_binary;
-#X text 245 1366 send as binary bytes to specified client(s). Arguments
+#X obj 255 1402 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1402 [ARGS]: arguments. Type: list.;
+#X msg 110 1427 send_binary;
+#X text 245 1427 send as binary bytes to specified client(s). Arguments
 are:;
-#X obj 255 1389 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1389 TARGET: client selector. If '*' or 'all' - send message
+#X obj 255 1450 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1450 TARGET: client selector. If '*' or 'all' - send message
 to all clients. If 'first' - send message to first connected client.
 If 'last' - send message to last connected client. If 'id' or '=='
 - send message to client with specified ID. If 'except' or '!=' - send
 message to all client except specified. Type: symbol. Allowed values:
 * \, all \, first \, last \, id \, == \, != \, except.;
-#X obj 255 1503 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1503 [ID]: client ID. Required \, if client selector is
+#X obj 255 1579 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1579 [ID]: client ID. Required \, if client selector is
 one of: 'id' \, '==' \, '!=' or 'except'. Type: int.;
-#X obj 255 1541 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1541 [DATA]: list of integers in [0\..255] range. Type:
+#X obj 255 1617 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1617 [DATA]: list of integers in [0\..255] range. Type:
 list.;
-#X msg 110 1566 send_json;
-#X text 245 1566 send as encoded json to specified client(s). Arguments
+#X msg 110 1642 send_json;
+#X text 245 1642 send as encoded json to specified client(s). Arguments
 are:;
-#X obj 255 1589 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1589 TARGET: client selector. If '*' or 'all' - send message
+#X obj 255 1665 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1665 TARGET: client selector. If '*' or 'all' - send message
 to all clients. If 'first' - send message to first connected client.
 If 'last' - send message to last connected client. If 'id' or '=='
 - send message to client with specified ID. If 'except' or '!=' - send
 message to all client except specified. Type: symbol. Allowed values:
 * \, all \, first \, last \, id \, == \, != \, except.;
-#X obj 255 1703 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1703 [ID]: client ID. Required \, if client selector is
+#X obj 255 1794 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1794 [ID]: client ID. Required \, if client selector is
 one of: 'id' \, '==' \, '!=' or 'except'. Type: int.;
-#X obj 255 1741 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1741 [ARGS]: arguments. Type: list.;
-#X msg 110 1766 shutdown;
-#X text 245 1766 abort connection with specified client(s). Arguments
+#X obj 255 1832 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1832 [ARGS]: arguments. Type: list.;
+#X msg 110 1857 shutdown;
+#X text 245 1857 abort connection with specified client(s). Arguments
 are:;
-#X obj 255 1789 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1789 TARGET: client selector. If '*' or 'all' - send message
+#X obj 255 1880 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1880 TARGET: client selector. If '*' or 'all' - send message
 to all clients. If 'first' - send message to first connected client.
 If 'last' - send message to last connected client. If 'id' or '=='
 - send message to client with specified ID. If 'except' or '!=' - send
 message to all client except specified. Type: symbol. Allowed values:
 * \, all \, first \, last \, id \, == \, != \, except.;
-#X obj 255 1903 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1903 [ID]: client ID. Required \, if client selector is
+#X obj 255 2009 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2009 [ID]: client ID. Required \, if client selector is
 one of: 'id' \, '==' \, '!=' or 'except'. Type: int.;
-#X msg 110 1943 stop;
-#X text 245 1943 stops server \, equal to [listen 0( message.;
-#X obj 20 1981 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1986 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 2049 stop;
+#X text 245 2049 stops server \, equal to [listen 0( message.;
+#X obj 20 2087 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2092 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1987 1\.;
-#X text 245 1987 message input.;
-#X obj 20 2017 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2022 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2093 1\.;
+#X text 245 2093 message input.;
+#X obj 20 2123 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2128 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2023 1\.;
-#X text 245 2023 [connected( when client is connected \, [closed( when
+#X text 110 2129 1\.;
+#X text 245 2129 [connected( when client is connected \, [closed( when
 client closed \, [text( on text message \, [ping( on ping message from
 client \, [binary( on binary message.;
-#X text 110 2073 2\.;
-#X text 245 2073 list: CLIENT_ID CLIENT_ADDR.;
+#X text 110 2179 2\.;
+#X text 245 2179 list: CLIENT_ID CLIENT_ADDR.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 2123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2126 library: ceammc v0.9.8;
-#X text 571 2138 see also:;
-#X obj 646 2138 net.ws.client;
-#N canvas 10 2145 400 290 info 0;
+#X obj 1 2229 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2232 library: ceammc v0.9.8;
+#X text 571 2244 see also:;
+#X obj 646 2244 net.ws.client;
+#N canvas 10 2251 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -188,7 +188,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2145 pd info;
+#X restore 10 2251 pd info;
 #X connect 16 0 18 0;
 #X connect 5 0 20 0;
 #X connect 20 0 21 0;

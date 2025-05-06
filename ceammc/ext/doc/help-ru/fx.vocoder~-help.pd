@@ -24,46 +24,46 @@
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_vocoder/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_vocoder/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 453 @osc;
-#X text 245 453 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 468 @osc;
+#X text 245 468 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 495 @active;
-#X text 245 495 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 510 @active;
+#X text 245 510 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 537 @attack;
-#X text 245 537 Получить/Установить attack time. Тип: float. Единицы:
+#X msg 110 552 @attack;
+#X text 245 552 Получить/Установить attack time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 5\. Диапазон: 0.1\...100\.;
-#X msg 110 579 @bwratio;
-#X text 245 579 Получить/Установить coefficient to adjust the bandwidth
+#X msg 110 594 @bwratio;
+#X text 245 594 Получить/Установить coefficient to adjust the bandwidth
 of each band. Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0.1\...2\.;
-#X msg 110 636 @release;
-#X text 245 636 Получить/Установить release time. Тип: float. Единицы:
+#X msg 110 651 @release;
+#X text 245 651 Получить/Установить release time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 5\. Диапазон: 0.1\...100\.;
-#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 693 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 708 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 728 reset;
-#X text 245 728 reset object.;
-#X obj 20 766 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 771 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 743 reset;
+#X text 245 743 reset object.;
+#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 786 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 772 1\.;
-#X text 245 772 modulation signal.;
-#X text 110 792 2\.;
-#X text 245 792 excitation/carrier signal.;
-#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 827 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 787 1\.;
+#X text 245 787 modulation signal.;
+#X text 110 807 2\.;
+#X text 245 807 excitation/carrier signal.;
+#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 842 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 828 1\.;
-#X text 245 828;
+#X text 110 843 1\.;
+#X text 245 843;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 878 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 881 библиотека: ceammc v0.9.8;
-#N canvas 10 900 400 290 info 0;
+#X obj 1 893 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 896 библиотека: ceammc v0.9.8;
+#N canvas 10 915 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,7 +87,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 900 pd info;
+#X restore 10 915 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

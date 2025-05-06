@@ -48,27 +48,27 @@ in the input list is not multiple of number of outputs. Тип: symbol.
 with specified value \, if number of elements in the input list is
 not multiple of number of outputs. Тип: atom. Значение по умолчанию:
 0\.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 765 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 751 1\.;
-#X text 150 751 *list*;
-#X text 245 751 input list.;
-#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 786 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 766 1\.;
+#X text 150 766 *list*;
+#X text 245 766 input list.;
+#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 801 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 787 1\.;
-#X text 245 787 unzipped list.;
+#X text 110 802 1\.;
+#X text 245 802 unzipped list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 837 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 840 библиотека: ceammc v0.9.8;
-#X text 561 852 смотрите также:;
-#X obj 682 852 list.zip;
-#N canvas 10 859 400 290 info 0;
+#X obj 1 852 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 855 библиотека: ceammc v0.9.8;
+#X text 561 867 смотрите также:;
+#X obj 682 867 list.zip;
+#N canvas 10 874 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -92,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 859 pd info;
+#X restore 10 874 pd info;
 #X connect 9 0 14 0;
 #X connect 11 0 14 0;
 #X connect 10 0 14 0;

@@ -48,45 +48,45 @@ prob=1 at @min and prob=0 at @max \, *cmin* - constant @min value \,
 *cmax* - constant @max value \, *cmean* - constant (@max+@min)/2 value.
 Тип: symbol. Значение по умолчанию: uniform. Разрешённые значения:
 uniform \, gauss \, linup \, lindown \, cmin \, cmax \, cmean.;
-#X msg 110 708 @max;
-#X text 245 708 Получить/Установить max random range. Тип: float. Значение
+#X msg 110 723 @max;
+#X text 245 723 Получить/Установить max random range. Тип: float. Значение
 по умолчанию: 127\.;
-#X msg 110 750 @min;
-#X text 245 750 Получить/Установить min random range. Тип: float. Значение
+#X msg 110 765 @min;
+#X text 245 765 Получить/Установить min random range. Тип: float. Значение
 по умолчанию: 0\.;
-#X msg 110 792 @mode;
-#X text 245 792 Получить/Установить assign mode. If *assign* - replace
+#X msg 110 807 @mode;
+#X text 245 807 Получить/Установить assign mode. If *assign* - replace
 origin velocity with random new one (default) \, if *add* - adds random
 value to origin velocity \, if *sub* - subtract random value from origin
 velocity. Тип: symbol. Значение по умолчанию: assign. Разрешённые значения:
 assign \, add \, sub.;
-#X msg 110 879 @seed;
-#X text 245 879 Получить/Установить random seed. Тип: int. Значение
+#X msg 110 910 @seed;
+#X text 245 910 Получить/Установить random seed. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 921 @sub;
-#X text 245 921 Alias to @mode sub.;
-#X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 966 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 952 @sub;
+#X text 245 952 Alias to @mode sub.;
+#X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 997 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 967 1\.;
-#X text 150 967 *float*;
-#X text 245 967 note value.;
-#X text 150 987 *list*;
-#X text 245 987 NOTE VELOCITY [DUR] list.;
-#X obj 20 1017 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1022 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 998 1\.;
+#X text 150 998 *float*;
+#X text 245 998 note value.;
+#X text 150 1018 *list*;
+#X text 245 1018 NOTE VELOCITY [DUR] list.;
+#X obj 20 1048 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1053 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1023 1\.;
-#X text 245 1023 outputs NOTE VELOCITY [DUR] list with randomized VELOCITY
+#X text 110 1054 1\.;
+#X text 245 1054 outputs NOTE VELOCITY [DUR] list with randomized VELOCITY
 value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1088 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1091 библиотека: ceammc v0.9.8;
-#N canvas 10 1110 400 290 info 0;
+#X obj 1 1119 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1122 библиотека: ceammc v0.9.8;
+#N canvas 10 1141 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1110 pd info;
+#X restore 10 1141 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

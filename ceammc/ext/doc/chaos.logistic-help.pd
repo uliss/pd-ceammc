@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 513 11 noise.logistic;
 #X obj 639 11 chaos.logistic;
-#X obj 205 78 cnv 1 560 604 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 78 cnv 1 560 619 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 83 A non-interpolating generator based on the difference
 equations:;
 #X text 215 123 x[n+1] = λ * x[n] * (1 - x[n]);
@@ -25,97 +25,97 @@ around that value for some time.;
 #X text 215 362 • With λ between 3 and 1 + √6 ≈ 3.44949 \, from almost
 all initial conditions the population will approach permanent oscillations
 between two values. These two values are dependent on λ.;
-#X text 215 432 • With λ between 3.44949 and 3.54409 (approximately)
+#X text 215 447 • With λ between 3.44949 and 3.54409 (approximately)
 \, from almost all initial conditions the population will approach
 permanent oscillations among four values.;
-#X text 215 487 • With λ increasing beyond 3.54409 \, from almost all
+#X text 215 502 • With λ increasing beyond 3.54409 \, from almost all
 initial conditions the population will approach oscillations among
 8 values \, then 16 \, 32 \, etc.;
-#X text 215 542 • At λ ≈ 3.56995 is the onset of chaos \, at the end
+#X text 215 557 • At λ ≈ 3.56995 is the onset of chaos \, at the end
 of the period-doubling cascade.;
-#X text 215 582 • Most values of r beyond 3.56995 exhibit chaotic behavior
+#X text 215 597 • Most values of r beyond 3.56995 exhibit chaotic behavior
 \, but there are still certain isolated ranges of r that show non-chaotic
 behavior.;
-#X text 215 637 Beyond λ = 4 \, almost all initial values eventually
+#X text 215 652 Beyond λ = 4 \, almost all initial values eventually
 leave the interval [0 \, 1] and diverge.;
-#X obj 50 730 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 395 730 r~ logistic;
-#X obj 50 759 metro.random 60 100;
-#X floatatom 280 759 5 0 0 0 - - -;
-#X obj 395 759 ui.scope~ @size 360 100;
-#X msg 50 788 3;
-#X msg 174 788 reset;
-#X msg 280 788 lambda \$1;
-#X obj 50 817 list.gen;
-#X obj 174 817 chaos.logistic 0.777 3.97;
-#X obj 50 846 l->l -1 1 20 600 @clip minmax;
-#X obj 50 874 list.unpack 3;
-#X obj 50 903 sig~;
-#X obj 184 903 * 400;
-#X obj 270 903 / 250;
-#X obj 184 932 sig~;
-#X msg 270 932 @res \$1;
-#X obj 50 961 osc~;
-#X obj 184 961 lop~ 2;
-#X obj 50 990 flt.moog_vcf~;
-#X obj 50 1018 clip~ -1 1;
-#X obj 50 1047 ui.hgain~;
-#X obj 194 1047 s~ logistic;
-#X obj 405 1047 ui.dsp~;
-#X obj 50 1076 dac~;
-#X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1131 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 745 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 395 745 r~ logistic;
+#X obj 50 774 metro.random 60 100;
+#X floatatom 280 774 5 0 0 0 - - -;
+#X obj 395 774 ui.scope~ @size 360 100;
+#X msg 50 803 3;
+#X msg 174 803 reset;
+#X msg 280 803 lambda \$1;
+#X obj 50 832 list.gen;
+#X obj 174 832 chaos.logistic 0.777 3.97;
+#X obj 50 861 l->l -1 1 20 600 @clip minmax;
+#X obj 50 889 list.unpack 3;
+#X obj 50 918 sig~;
+#X obj 184 918 * 400;
+#X obj 270 918 / 250;
+#X obj 184 947 sig~;
+#X msg 270 947 @res \$1;
+#X obj 50 976 osc~;
+#X obj 184 976 lop~ 2;
+#X obj 50 1005 flt.moog_vcf~;
+#X obj 50 1033 clip~ -1 1;
+#X obj 50 1062 ui.hgain~;
+#X obj 194 1062 s~ logistic;
+#X obj 405 1062 ui.dsp~;
+#X obj 50 1091 dac~;
+#X obj 20 1141 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1146 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1134 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 1149 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 1166 1\.;
-#X text 150 1166 float;
-#X obj 246 1167 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1166 INIT: x init value (default 0.777). Type: float.;
-#X text 110 1186 2\.;
-#X text 150 1186 float;
-#X obj 246 1187 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1186 LAMBDA: lambda value (default 3.9). Type: float.;
-#X obj 20 1216 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1221 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 110 1181 1\.;
+#X text 150 1181 float;
+#X obj 246 1182 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1181 INIT: x init value (default 0.777). Type: float.;
+#X text 110 1201 2\.;
+#X text 150 1201 float;
+#X obj 246 1202 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1201 LAMBDA: lambda value (default 3.9). Type: float.;
+#X obj 20 1231 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1236 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1256 lambda;
-#X text 245 1256 set lambda value.;
-#X msg 110 1284 om;
-#X text 245 1284 set output mode. Arguments are:;
-#X obj 255 1307 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1307 BOOL: output mode. If 1: outputs new generated value
+#X msg 110 1271 lambda;
+#X text 245 1271 set lambda value.;
+#X msg 110 1299 om;
+#X text 245 1299 set output mode. Arguments are:;
+#X obj 255 1322 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1322 BOOL: output mode. If 1: outputs new generated value
 after lambda or seed method call \, if 0 - change values without output.
 Default is 0\. Type: int.;
-#X msg 110 1362 reset;
-#X text 245 1362 set to initial state.;
-#X msg 110 1390 seed;
-#X text 245 1390 set init value \, updates init value.;
-#X msg 110 1418 set;
-#X text 245 1418 set init value and lambda value and updates init value.;
-#X obj 20 1456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1461 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1377 reset;
+#X text 245 1377 set to initial state.;
+#X msg 110 1405 seed;
+#X text 245 1405 set init value \, updates init value.;
+#X msg 110 1433 set;
+#X text 245 1433 set init value and lambda value and updates init value.;
+#X obj 20 1471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1476 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1462 1\.;
-#X text 150 1462 *bang*;
-#X text 245 1462 generate and output new value.;
-#X text 150 1482 *float*;
-#X text 245 1482 set x-value and if output mode is 1 outputs new value.;
-#X obj 20 1512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1517 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1477 1\.;
+#X text 150 1477 *bang*;
+#X text 245 1477 generate and output new value.;
+#X text 150 1497 *float*;
+#X text 245 1497 set x-value and if output mode is 1 outputs new value.;
+#X obj 20 1527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1532 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1518 1\.;
-#X text 245 1518 new generated x-value.;
+#X text 110 1533 1\.;
+#X text 245 1533 new generated x-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1568 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1571 library: ceammc v0.9.8;
-#X text 592 1583 see also:;
-#X obj 667 1583 chaos.std0;
-#N canvas 10 1590 400 290 info 0;
+#X obj 1 1583 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1586 library: ceammc v0.9.8;
+#X text 592 1598 see also:;
+#X obj 667 1598 chaos.std0;
+#N canvas 10 1605 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -139,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1590 pd info;
+#X restore 10 1605 pd info;
 #X connect 19 0 21 0;
 #X connect 20 0 23 0;
 #X connect 21 0 24 0;

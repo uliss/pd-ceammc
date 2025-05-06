@@ -47,44 +47,44 @@
 default) acts like vanilla select: output bang on match or full unmatched
 message to last outlet. If true always outputs full matched message
 to corresponding outlet. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 740 @msg;
-#X text 245 740 Получить/Установить output this message on match \,
+#X msg 110 756 @msg;
+#X text 245 756 Получить/Установить output this message on match \,
 instead of bang. Тип: list.;
-#X msg 110 782 @v;
-#X text 245 782 Alias to @keep_value 1\.;
-#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 827 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 798 @v;
+#X text 245 798 Alias to @keep_value 1\.;
+#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 843 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 828 1\.;
-#X text 150 828 *float*;
-#X text 245 828 check float for matches.;
-#X text 150 848 *symbol*;
-#X text 245 848 check symbol for matches.;
-#X text 150 868 *list*;
-#X text 245 868 check first list element for matches.;
-#X text 150 888 *any*;
-#X text 245 888 check message selector for matches.;
-#X obj 20 918 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 923 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 844 1\.;
+#X text 150 844 *float*;
+#X text 245 844 check float for matches.;
+#X text 150 864 *symbol*;
+#X text 245 864 check symbol for matches.;
+#X text 150 884 *list*;
+#X text 245 884 check first list element for matches.;
+#X text 150 904 *any*;
+#X text 245 904 check message selector for matches.;
+#X obj 20 934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 939 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 924 1\.;
-#X text 245 924 first matched output: bang or full message.;
-#X text 110 944 ....;
-#X text 245 944 ... matched output: bang or full message.;
-#X text 110 964 n.;
-#X text 245 964 nth matched output: bang or full message.;
-#X text 110 984 n+1\.;
-#X text 245 984 unmatched message.;
+#X text 110 940 1\.;
+#X text 245 940 first matched output: bang or full message.;
+#X text 110 960 ....;
+#X text 245 960 ... matched output: bang or full message.;
+#X text 110 980 n.;
+#X text 245 980 nth matched output: bang or full message.;
+#X text 110 1000 n+1\.;
+#X text 245 1000 unmatched message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1034 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1037 библиотека: ceammc v0.9.8;
-#X text 546 1049 смотрите также:;
-#X obj 667 1049 flow.match;
-#N canvas 10 1056 400 290 info 0;
+#X obj 1 1050 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1053 библиотека: ceammc v0.9.8;
+#X text 546 1065 смотрите также:;
+#X obj 667 1065 flow.match;
+#N canvas 10 1072 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1056 pd info;
+#X restore 10 1072 pd info;
 #X connect 13 0 16 0;
 #X connect 16 0 20 0;
 #X connect 17 0 20 0;

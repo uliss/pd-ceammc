@@ -37,61 +37,61 @@
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_scramble/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_scramble/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 544 @osc;
-#X text 245 544 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 559 @osc;
+#X text 245 559 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 586 @active;
-#X text 245 586 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 601 @active;
+#X text 245 601 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 628 @bypass;
-#X text 245 628 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 643 @bypass;
+#X text 245 643 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 670 @dev;
-#X text 245 670 Получить/Установить scramble freq deviation. Тип: float.
+#X msg 110 685 @dev;
+#X text 245 685 Получить/Установить scramble freq deviation. Тип: float.
 Значение по умолчанию: 0.25\. Диапазон: 0\...1\.;
-#X msg 110 712 @drywet;
-#X text 245 712 Получить/Установить proportion of mix between the original
+#X msg 110 727 @drywet;
+#X text 245 727 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 769 @feedback;
-#X text 245 769 Получить/Установить feedback coefficient. Тип: float.
+#X msg 110 784 @feedback;
+#X text 245 784 Получить/Установить feedback coefficient. Тип: float.
 Значение по умолчанию: 0.25\. Диапазон: 0\...0.99\.;
-#X msg 110 811 @freq1;
-#X text 245 811 Получить/Установить left channel scramble frequency.
+#X msg 110 826 @freq1;
+#X text 245 826 Получить/Установить left channel scramble frequency.
 Тип: float. Единицы: 'Hz'. Значение по умолчанию: 7\. Диапазон: 0.25\...50\.;
-#X msg 110 868 @freq2;
-#X text 245 868 Получить/Установить right channel scramble frequency.
+#X msg 110 883 @freq2;
+#X text 245 883 Получить/Установить right channel scramble frequency.
 Тип: float. Единицы: 'Hz'. Значение по умолчанию: 5\. Диапазон: 0.25\...50\.;
-#X msg 110 925 @range;
-#X text 245 925 Получить/Установить scramble delay amount. Тип: float.
+#X msg 110 940 @range;
+#X text 245 940 Получить/Установить scramble delay amount. Тип: float.
 Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 982 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 997 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 1017 reset;
-#X text 245 1017 reset to initial state.;
-#X obj 20 1055 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1060 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1032 reset;
+#X text 245 1032 reset to initial state.;
+#X obj 20 1070 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1075 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1061 1\.;
-#X text 245 1061 input signal.;
-#X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1096 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1076 1\.;
+#X text 245 1076 input signal.;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1111 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1097 1\.;
-#X text 245 1097 left output signal.;
-#X text 110 1117 2\.;
-#X text 245 1117 right output signal.;
+#X text 110 1112 1\.;
+#X text 245 1112 left output signal.;
+#X text 110 1132 2\.;
+#X text 245 1132 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1167 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1170 библиотека: ceammc v0.9.8;
-#X text 553 1182 смотрите также:;
-#X obj 674 1182 fx.delay~;
-#N canvas 10 1189 400 290 info 0;
+#X obj 1 1182 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1185 библиотека: ceammc v0.9.8;
+#X text 553 1197 смотрите также:;
+#X obj 674 1197 fx.delay~;
+#N canvas 10 1204 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -115,7 +115,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1189 pd info;
+#X restore 10 1204 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

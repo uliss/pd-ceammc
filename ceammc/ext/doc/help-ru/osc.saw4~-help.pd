@@ -37,45 +37,45 @@ suppression. 4nd order interpolation.;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/osc_saw4/ИМЯ_СВОЙСТВА \, в противном
 случае к /osc_saw4/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 668 @osc;
-#X text 245 668 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 683 @osc;
+#X text 245 683 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 710 @active;
-#X text 245 710 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 725 @active;
+#X text 245 725 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 752 @freq;
-#X text 245 752 Получить/Установить frequency. Тип: float. Единицы:
+#X msg 110 767 @freq;
+#X text 245 767 Получить/Установить frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...22050\.;
-#X msg 110 794 @phase;
-#X text 245 794 Получить/Установить phase. Тип: float. Значение по
+#X msg 110 809 @phase;
+#X text 245 809 Получить/Установить phase. Тип: float. Значение по
 умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 851 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 866 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 852 1\.;
-#X text 150 852 *float*;
-#X text 245 852 frequency in Hz.;
-#X text 110 872 2\.;
-#X text 150 872 *bang*;
-#X text 245 872 reset phase.;
-#X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 907 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 867 1\.;
+#X text 150 867 *float*;
+#X text 245 867 frequency in Hz.;
+#X text 110 887 2\.;
+#X text 150 887 *bang*;
+#X text 245 887 reset phase.;
+#X obj 20 917 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 922 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 908 1\.;
-#X text 245 908 output signal.;
+#X text 110 923 1\.;
+#X text 245 923 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 958 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 961 библиотека: ceammc v0.9.8;
-#X text 316 973 смотрите также:;
-#X obj 437 973 osc.saw~;
-#X obj 511 973 osc.tri~;
-#X obj 585 973 osc.square~;
-#X obj 681 973 lfo.tri~;
-#N canvas 10 980 400 290 info 0;
+#X obj 1 973 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 976 библиотека: ceammc v0.9.8;
+#X text 316 988 смотрите также:;
+#X obj 437 988 osc.saw~;
+#X obj 511 988 osc.tri~;
+#X obj 585 988 osc.square~;
+#X obj 681 988 lfo.tri~;
+#N canvas 10 995 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 980 pd info;
+#X restore 10 995 pd info;
 #X connect 6 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;

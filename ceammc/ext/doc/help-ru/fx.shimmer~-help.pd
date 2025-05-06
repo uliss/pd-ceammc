@@ -42,86 +42,86 @@ band. Тип: float. Диапазон: 1…8;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_shimmer/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_shimmer/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 631 @osc;
-#X text 245 631 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 646 @osc;
+#X text 245 646 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 673 @active;
-#X text 245 673 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 688 @active;
+#X text 245 688 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 715 @bypass;
-#X text 245 715 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 730 @bypass;
+#X text 245 730 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 757 @control;
-#X text 245 757 Получить/Установить envelope follower to pitch shifter
+#X msg 110 772 @control;
+#X text 245 772 Получить/Установить envelope follower to pitch shifter
 influence coefficient. Тип: float. Значение по умолчанию: 0.5\. Диапазон:
 0\...1\.;
-#X msg 110 814 @damp_hf;
-#X text 245 814 Получить/Установить Frequency (Hz) at which the high-frequency
+#X msg 110 829 @damp_hf;
+#X text 245 829 Получить/Установить Frequency (Hz) at which the high-frequency
 T60 is half the middle-band's T60\. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 6000\. Диапазон: 1500\...47040\.;
-#X msg 110 886 @decay_low;
-#X text 245 886 Получить/Установить time (in seconds) to decay 60dB
+#X msg 110 916 @decay_low;
+#X text 245 916 Получить/Установить time (in seconds) to decay 60dB
 in low-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 3\. Диапазон: 1\...8\.;
-#X msg 110 943 @decay_mid;
-#X text 245 943 Получить/Установить time (in seconds) to decay 60dB
+#X msg 110 973 @decay_mid;
+#X text 245 973 Получить/Установить time (in seconds) to decay 60dB
 in mid-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 2\. Диапазон: 1\...8\.;
-#X msg 110 1000 @depth;
-#X text 245 1000 Получить/Установить pitchshift modulation amplitude.
+#X msg 110 1030 @depth;
+#X text 245 1030 Получить/Установить pitchshift modulation amplitude.
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 1042 @drywet;
-#X text 245 1042 Получить/Установить proportion of mix between the
+#X msg 110 1072 @drywet;
+#X text 245 1072 Получить/Установить proportion of mix between the
 original (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 -
 wet. Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 1099 @envelope;
-#X text 245 1099 Получить/Установить amplitude-envelope time-constant
+#X msg 110 1129 @envelope;
+#X text 245 1129 Получить/Установить amplitude-envelope time-constant
 going down. Тип: float. Единицы: 'sec'. Значение по умолчанию: 1\.
 Диапазон: 0.1\...3\.;
-#X msg 110 1156 @freq_low;
-#X text 245 1156 Получить/Установить Crossover frequency (Hz) separating
+#X msg 110 1186 @freq_low;
+#X text 245 1186 Получить/Установить Crossover frequency (Hz) separating
 low and middle frequencies. Тип: float. Единицы: 'Hz'. Значение по
 умолчанию: 200\. Диапазон: 50\...1000\.;
-#X msg 110 1213 @mode;
-#X text 245 1213 Получить/Установить correlation between pitchshift.
+#X msg 110 1243 @mode;
+#X text 245 1243 Получить/Установить correlation between pitchshift.
 Тип: int. Значение по умолчанию: 0\. Диапазон: -3\...3\.;
-#X msg 110 1255 @ps_drywet;
-#X text 245 1255 Получить/Установить proportion of mix between original
+#X msg 110 1285 @ps_drywet;
+#X text 245 1285 Получить/Установить proportion of mix between original
 and pitchshift signal in shimmer feedback. Тип: float. Значение по
 умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 1312 @shift;
-#X text 245 1312 Получить/Установить frequency shifting. Тип: float.
+#X msg 110 1342 @shift;
+#X text 245 1342 Получить/Установить frequency shifting. Тип: float.
 Единицы: 'semitone'. Значение по умолчанию: 12\. Диапазон: -12\...12\.;
-#X msg 110 1354 @speed;
-#X text 245 1354 Получить/Установить pitchshift modulation frequency.
+#X msg 110 1384 @speed;
+#X text 245 1384 Получить/Установить pitchshift modulation frequency.
 Тип: float. Единицы: 'Hz'. Значение по умолчанию: 0.1\. Диапазон: 0.1\...10\.;
-#X obj 20 1421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1426 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1456 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1461 reset;
-#X text 245 1461 reset to initial state.;
-#X obj 20 1499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1504 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1491 reset;
+#X text 245 1491 reset to initial state.;
+#X obj 20 1529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1505 1\.;
-#X text 245 1505 input signal.;
-#X text 110 1525 2\.;
-#X text 245 1525 input signal.;
-#X obj 20 1555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1560 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1535 1\.;
+#X text 245 1535 input signal.;
+#X text 110 1555 2\.;
+#X text 245 1555 input signal.;
+#X obj 20 1585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1590 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1561 1\.;
-#X text 245 1561 output signal.;
-#X text 110 1581 2\.;
-#X text 245 1581 output signal.;
+#X text 110 1591 1\.;
+#X text 245 1591 output signal.;
+#X text 110 1611 2\.;
+#X text 245 1611 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1631 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1634 библиотека: ceammc v0.9.8;
-#N canvas 10 1653 400 290 info 0;
+#X obj 1 1661 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1664 библиотека: ceammc v0.9.8;
+#N canvas 10 1683 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,7 +145,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1653 pd info;
+#X restore 10 1683 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

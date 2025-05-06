@@ -74,33 +74,33 @@ piano \, epiano \, strings \, bass \, organ \, vibr \, harps.;
 \, for 'epiano': 0|1|fm|2|3|60 \, for 'strings': 0|1 \, for 'bass':
 0 \, for 'organ': pipe|jass|elec1|elec2|0\..3 \, for 'vibr' and 'haprs':
 0\. Тип: atom.;
-#X msg 110 1086 rev_time;
-#X text 245 1086 set reverb time. Аргументы:;
-#X obj 255 1109 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1109 AMOUNT: reverb time. Тип: int. Диапазон: 0…127\.;
-#X msg 110 1134 rev_type;
-#X text 245 1134 set reverb type. Аргументы:;
-#X obj 255 1157 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1157 TYPE: reverb type. For PX160 - 1: room \, 2: default
+#X msg 110 1102 rev_time;
+#X text 245 1102 set reverb time. Аргументы:;
+#X obj 255 1125 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1125 AMOUNT: reverb time. Тип: int. Диапазон: 0…127\.;
+#X msg 110 1150 rev_type;
+#X text 245 1150 set reverb type. Аргументы:;
+#X obj 255 1173 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1173 TYPE: reverb type. For PX160 - 1: room \, 2: default
 (hall) \, 3: hall2 \, 4: stadium. Тип: int. Диапазон: 1…4\.;
-#X obj 20 1207 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1212 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1223 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1228 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1213 1\.;
-#X text 245 1213 control messages.;
-#X obj 20 1243 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1248 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1229 1\.;
+#X text 245 1229 control messages.;
+#X obj 20 1259 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1264 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1249 1\.;
-#X text 245 1249 float: raw midi output.;
+#X text 110 1265 1\.;
+#X text 245 1265 float: raw midi output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1299 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1302 библиотека: ceammc v0.9.8;
-#N canvas 10 1321 400 290 info 0;
+#X obj 1 1315 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1318 библиотека: ceammc v0.9.8;
+#N canvas 10 1337 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -124,7 +124,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1321 pd info;
+#X restore 10 1337 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 13 0;
 #X connect 11 0 13 1;

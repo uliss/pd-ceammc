@@ -5,82 +5,82 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.hpf24~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 flt.hpf24~;
-#X obj 205 78 cnv 1 560 144 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 78 cnv 1 560 159 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 83 A high-pass filter is an electronic filter that passes
 signals with a frequency higher than a certain cutoff frequency and
 attenuates signals with frequencies lower than the cutoff frequency.;
-#X text 215 153 Butterworth filter is a type of filter designed to
+#X text 215 168 Butterworth filter is a type of filter designed to
 have a frequency response as flat as possible in the passband.;
-#X obj 215 193 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 215 208 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Butterworth filter @url
 https://en.wikipedia.org/wiki/Butterworth_filter;
-#X obj 50 270 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 299 metro 10;
-#X obj 155 299 ui.hsl;
-#X obj 50 328 click~;
-#X obj 155 328 lin->lin 0 1 500 15000;
-#X obj 50 357 *~ 100;
-#X msg 155 357 @freq \$1;
-#X obj 50 386 flt.hpf24~ 5000;
-#X obj 50 414 ui.spectroscope~ @size 400 120;
-#X obj 50 558 ui.dsp~;
-#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 613 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 285 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 314 metro 10;
+#X obj 155 314 ui.hsl;
+#X obj 50 343 click~;
+#X obj 155 343 lin->lin 0 1 500 15000;
+#X obj 50 372 *~ 100;
+#X msg 155 372 @freq \$1;
+#X obj 50 401 flt.hpf24~ 5000;
+#X obj 50 429 ui.spectroscope~ @size 400 120;
+#X obj 50 573 ui.dsp~;
+#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 628 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 616 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 631 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 648 1\.;
-#X text 150 648 float;
-#X obj 246 649 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 648 FREQ(Hz): cutoff frequency. Type: float. Range: 20\...20000;
-#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 683 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 663 1\.;
+#X text 150 663 float;
+#X obj 246 664 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 663 FREQ(Hz): cutoff frequency. Type: float. Range: 20\...20000;
+#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 698 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 686 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 701 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 718 @id;
-#X text 245 718 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 733 @id;
+#X text 245 733 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_hpf24/PROP_NAME osc address \, if empty
 bind to /flt_hpf24/PROP_NAME. Type: symbol.;
-#X msg 110 775 @osc;
-#X text 245 775 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 790 @osc;
+#X text 245 790 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 805 @active;
-#X text 245 805 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 820 @active;
+#X text 245 820 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 835 @freq;
-#X text 245 835 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
+#X msg 110 850 @freq;
+#X text 245 850 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
 Default value: 10000\. Range: 20\...20000\.;
-#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 892 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 907 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 927 reset;
-#X text 245 927 reset filter state.;
-#X obj 20 965 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 970 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 110 942 reset;
+#X text 245 942 reset filter state.;
+#X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 971 1\.;
-#X text 245 971 input signal.;
-#X text 110 991 2\.;
-#X text 150 991 *float*;
-#X text 245 991 set frequency.;
-#X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1026 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 986 1\.;
+#X text 245 986 input signal.;
+#X text 110 1006 2\.;
+#X text 150 1006 *float*;
+#X text 245 1006 set frequency.;
+#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1041 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1027 1\.;
-#X text 245 1027 filtered signal.;
+#X text 110 1042 1\.;
+#X text 245 1042 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1077 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1080 library: ceammc v0.9.8;
-#X text 413 1092 see also:;
-#X obj 488 1092 flt.hpf12~;
-#X obj 577 1092 flt.lpf12~;
-#X obj 666 1092 flt.c_hpf~;
-#N canvas 10 1099 400 290 info 0;
+#X obj 1 1092 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1095 library: ceammc v0.9.8;
+#X text 413 1107 see also:;
+#X obj 488 1107 flt.hpf12~;
+#X obj 577 1107 flt.lpf12~;
+#X obj 666 1107 flt.c_hpf~;
+#N canvas 10 1114 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1099 pd info;
+#X restore 10 1114 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

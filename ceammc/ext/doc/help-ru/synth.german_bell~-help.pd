@@ -31,60 +31,60 @@ from the bottom to the top of the bell;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_german_bell/ИМЯ_СВОЙСТВА \,
 в противном случае к /synth_german_bell/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 880 @osc;
-#X text 245 880 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 896 @osc;
+#X text 245 896 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 922 @active;
-#X text 245 922 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 938 @active;
+#X text 245 938 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 964 @cutoff;
-#X text 245 964 Получить/Установить strike cutoff frequency. Тип: float.
+#X msg 110 980 @cutoff;
+#X text 245 980 Получить/Установить strike cutoff frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 4000\. Диапазон: 20\...20000\.;
-#X msg 110 1021 @decay_ratio;
-#X text 245 1021 Получить/Установить decay ratio. Тип: float. Значение
+#X msg 110 1037 @decay_ratio;
+#X text 245 1037 Получить/Установить decay ratio. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 1063 @decay_slope;
-#X text 245 1063 Получить/Установить decay slope. Тип: float. Значение
+#X msg 110 1079 @decay_slope;
+#X text 245 1079 Получить/Установить decay slope. Тип: float. Значение
 по умолчанию: 3\. Диапазон: 0\...10\.;
-#X msg 110 1105 @gain;
-#X text 245 1105 Получить/Установить strike gain. Тип: float. Значение
+#X msg 110 1121 @gain;
+#X text 245 1121 Получить/Установить strike gain. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 1147 @gate;
-#X text 245 1147 Получить/Установить play trigger - 1: on \, 0: off.
+#X msg 110 1163 @gate;
+#X text 245 1163 Получить/Установить play trigger - 1: on \, 0: off.
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 1189 @pos;
-#X text 245 1189 Получить/Установить strike position (0 is on the bottom).
+#X msg 110 1205 @pos;
+#X text 245 1205 Получить/Установить strike position (0 is on the bottom).
 Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...6\.;
-#X msg 110 1231 @sharp;
-#X text 245 1231 Получить/Установить strike sharpness. Тип: float.
+#X msg 110 1247 @sharp;
+#X text 245 1247 Получить/Установить strike sharpness. Тип: float.
 Значение по умолчанию: 0.25\. Диапазон: 0.01\...5\.;
-#X msg 110 1273 @t60;
-#X text 245 1273 Получить/Установить time to decay to -60db level.
+#X msg 110 1289 @t60;
+#X text 245 1289 Получить/Установить time to decay to -60db level.
 Тип: float. Единицы: 'sec'. Значение по умолчанию: 20\. Диапазон: 0.1\...30\.;
-#X obj 20 1340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1345 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1361 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1380 reset;
-#X text 245 1380 reset synth.;
-#X obj 20 1418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1423 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1396 reset;
+#X text 245 1396 reset synth.;
+#X obj 20 1434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1439 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1424 1\.;
-#X text 150 1424 *bang*;
-#X text 245 1424 play.;
-#X obj 20 1454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1459 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1440 1\.;
+#X text 150 1440 *bang*;
+#X text 245 1440 play.;
+#X obj 20 1470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1475 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1460 1\.;
-#X text 245 1460 output signal.;
+#X text 110 1476 1\.;
+#X text 245 1476 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1510 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1513 библиотека: ceammc v0.9.8;
-#N canvas 10 1532 400 290 info 0;
+#X obj 1 1526 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1529 библиотека: ceammc v0.9.8;
+#N canvas 10 1548 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1532 pd info;
+#X restore 10 1548 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

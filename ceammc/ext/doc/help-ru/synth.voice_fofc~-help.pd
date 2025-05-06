@@ -6,7 +6,7 @@ FOF-цикла.;
 #X obj 1 1 cnv 5 765 40 empty empty synth.voice_fofc~ 20 20 0 20
 -104026 -4096 0;
 #X obj 616 11 synth.voice_fofc~;
-#X obj 205 93 cnv 1 560 215 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 93 cnv 1 560 230 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 98 Simple formant/vocal synthesizer based on a source/filter
 model. The source is just a periodic impulse and the "filter" is a
 bank of FOF filters.;
@@ -14,114 +14,114 @@ bank of FOF filters.;
 to go smoothly from one vowel to another. Voice type can be selected
 but must correspond to the frequency range of the synthesized voice
 to be realistic.;
-#X text 215 223 A cycle of 12 FOF filters with sample-and-hold is used
+#X text 215 238 A cycle of 12 FOF filters with sample-and-hold is used
 so that the fof filter parameters can be varied in realtime.;
-#X text 215 263 This technique is more robust but more computationally
+#X text 215 278 This technique is more robust but more computationally
 expensive than FofSmooth;
-#X obj 50 356 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 385 @gate \$1;
-#X obj 69 414 ui.tab alto bass countertenor soprano tenor @size 360
+#X obj 50 371 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 400 @gate \$1;
+#X obj 69 429 ui.tab alto bass countertenor soprano tenor @size 360
 17;
-#X msg 69 443 @voice \$1;
-#X msg 194 443 random move;
-#X floatatom 88 472 5 0 0 0 - - -;
-#X obj 194 472 ui.tab a e i o u;
-#X obj 386 472 ui.hsl 0 40 @show_value 1;
-#X msg 88 500 @freq \$1;
-#X msg 194 500 @vowel \$1;
-#X msg 386 500 @wsmooth \$1;
-#X obj 50 529 synth.voice_fofc~ bass @freq 120;
-#X obj 50 558 flt.lpf24~ 4500;
-#X obj 50 587 ui.gain~ @size 120 16;
-#X obj 290 587 ui.dsp~;
-#X obj 50 616 dac~;
-#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 671 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 69 458 @voice \$1;
+#X msg 194 458 random move;
+#X floatatom 88 487 5 0 0 0 - - -;
+#X obj 194 487 ui.tab a e i o u;
+#X obj 386 487 ui.hsl 0 40 @show_value 1;
+#X msg 88 515 @freq \$1;
+#X msg 194 515 @vowel \$1;
+#X msg 386 515 @wsmooth \$1;
+#X obj 50 544 synth.voice_fofc~ bass @freq 120;
+#X obj 50 573 flt.lpf24~ 4500;
+#X obj 50 602 ui.gain~ @size 120 16;
+#X obj 290 602 ui.dsp~;
+#X obj 50 631 dac~;
+#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 686 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 674 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 689 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 706 1\.;
-#X text 150 706 symbol;
-#X obj 246 707 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 706 VOICE: voice type. Разрешённые значения: alto \, bass
+#X text 110 721 1\.;
+#X text 150 721 symbol;
+#X obj 246 722 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 721 VOICE: voice type. Разрешённые значения: alto \, bass
 \, countertenor \, soprano \, tenor. Тип: symbol.;
-#X text 110 741 2\.;
-#X text 150 741 symbol;
-#X obj 246 742 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 741 VOWEL: vowel. Разрешённые значения: a \, e \, i \,
+#X text 110 756 2\.;
+#X text 150 756 symbol;
+#X obj 246 757 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 756 VOWEL: vowel. Разрешённые значения: a \, e \, i \,
 o \, u. Тип: symbol.;
-#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 791 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 806 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 794 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 809 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 826 @id;
-#X text 245 826 (при инициализации) Получить/Установить идентификатор
+#X msg 110 841 @id;
+#X text 245 841 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_voice_fofc/ИМЯ_СВОЙСТВА \,
 в противном случае к /synth_voice_fofc/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 913 @osc;
-#X text 245 913 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 944 @osc;
+#X text 245 944 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 955 @active;
-#X text 245 955 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 986 @active;
+#X text 245 986 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 997 @attack;
-#X text 245 997 Получить/Установить attack time. Тип: float. Единицы:
+#X msg 110 1028 @attack;
+#X text 245 1028 Получить/Установить attack time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 30\. Диапазон: 0\...1000\.;
-#X msg 110 1039 @freq;
-#X text 245 1039 Получить/Установить frequency. Тип: float. Единицы:
+#X msg 110 1070 @freq;
+#X text 245 1070 Получить/Установить frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 440\. Диапазон: 20\...20000.0\.;
-#X msg 110 1081 @fvowel;
-#X text 245 1081 Получить/Установить vowel index: 0=a \, 1=e \, 2=i
+#X msg 110 1112 @fvowel;
+#X text 245 1112 Получить/Установить vowel index: 0=a \, 1=e \, 2=i
 \, 3=o \, 4=u. Float values can be interpoltaed. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...4\.;
-#X msg 110 1138 @gate;
-#X text 245 1138 Получить/Установить synth gate (>0 - play). Тип: bool.
+#X msg 110 1169 @gate;
+#X text 245 1169 Получить/Установить synth gate (>0 - play). Тип: bool.
 Значение по умолчанию: 0\.;
-#X msg 110 1180 @portamento;
-#X text 245 1180 Получить/Установить portamento time. Тип: float. Единицы:
+#X msg 110 1211 @portamento;
+#X text 245 1211 Получить/Установить portamento time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 0\. Диапазон: 0\...4000\.;
-#X msg 110 1222 @release;
-#X text 245 1222 Получить/Установить release time. Тип: float. Единицы:
+#X msg 110 1253 @release;
+#X text 245 1253 Получить/Установить release time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 50\. Диапазон: 0\...1000\.;
-#X msg 110 1264 @vibr_freq;
-#X text 245 1264 Получить/Установить vibrato frequency. Тип: float.
+#X msg 110 1295 @vibr_freq;
+#X text 245 1295 Получить/Установить vibrato frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 6\. Диапазон: 1\...10\.;
-#X msg 110 1306 @vibr_gain;
-#X text 245 1306 Получить/Установить vibrato frequency. Тип: float.
+#X msg 110 1337 @vibr_gain;
+#X text 245 1337 Получить/Установить vibrato frequency. Тип: float.
 Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 1348 @voice;
-#X text 245 1348 Получить/Установить voice type. Note: can be set by
+#X msg 110 1379 @voice;
+#X text 245 1379 Получить/Установить voice type. Note: can be set by
 corresponding index. Тип: symbol. Значение по умолчанию: alto. Разрешённые
 значения: alto \, bass \, countertenor \, soprano \, tenor.;
-#X msg 110 1420 @vowel;
-#X text 245 1420 Получить/Установить vowel type. Note: can be set by
+#X msg 110 1466 @vowel;
+#X text 245 1466 Получить/Установить vowel type. Note: can be set by
 corresponding index. Тип: symbol. Значение по умолчанию: a. Разрешённые
 значения: a \, e \, i \, o \, u.;
-#X msg 110 1477 @wsmooth;
-#X text 245 1477 Получить/Установить vowel smoothing time. Тип: float.
+#X msg 110 1523 @wsmooth;
+#X text 245 1523 Получить/Установить vowel smoothing time. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: 0\...1000\.;
-#X obj 20 1544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1549 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1595 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1550 1\.;
-#X text 245 1550 control input.;
-#X obj 20 1580 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1585 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1596 1\.;
+#X text 245 1596 control input.;
+#X obj 20 1626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1631 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1586 1\.;
-#X text 245 1586 synth output.;
+#X text 110 1632 1\.;
+#X text 245 1632 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1636 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1639 библиотека: ceammc v0.9.8;
-#X text 495 1651 смотрите также:;
-#X obj 616 1651 synth.voice_fofs~;
-#N canvas 10 1658 400 290 info 0;
+#X obj 1 1682 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1685 библиотека: ceammc v0.9.8;
+#X text 495 1697 смотрите также:;
+#X obj 616 1697 synth.voice_fofs~;
+#N canvas 10 1704 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,7 +145,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1658 pd info;
+#X restore 10 1704 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;
 #X connect 13 0 15 0;

@@ -5,72 +5,72 @@
 #X obj 1 1 cnv 5 765 40 empty empty pan.sqrt~ 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 pan.sqrt~;
-#X obj 205 78 cnv 1 560 150 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 78 cnv 1 560 166 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 83 Two channel equal power panner. About is about 3dB center
 reduction. With linear panning ([pan.lin~]) the signal is lowered as
 it approaches center using a straight line from (+-)1 (left or right)
 to 0 (center) for a 6dB reduction in the middle.;
-#X text 215 168 A problem inherent to linear panning is that the perceived
+#X text 215 184 A problem inherent to linear panning is that the perceived
 volume of the signal drops in the middle. [pan.sqrt~] solves this.;
-#X obj 50 276 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
+#X obj 50 292 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
-#X obj 146 305 lin->lin 0 127 -1 1;
-#X obj 50 334 sig~ 1;
-#X floatatom 146 334 5 0 0 0 - - -;
-#X obj 50 363 pan.sqrt~;
-#X obj 50 392 env~;
-#X obj 136 392 env~;
-#X floatatom 50 420 5 0 0 0 - - -;
-#X floatatom 136 420 5 0 0 0 - - -;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 457 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 146 321 lin->lin 0 127 -1 1;
+#X obj 50 350 sig~ 1;
+#X floatatom 146 350 5 0 0 0 - - -;
+#X obj 50 379 pan.sqrt~;
+#X obj 50 408 env~;
+#X obj 136 408 env~;
+#X floatatom 50 436 5 0 0 0 - - -;
+#X floatatom 136 436 5 0 0 0 - - -;
+#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 473 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 460 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 476 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 492 1\.;
-#X text 150 492 float;
-#X obj 246 493 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 492 POS: panning position. -1 means left \, 0 - center
+#X text 110 508 1\.;
+#X text 150 508 float;
+#X obj 246 509 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 508 POS: panning position. -1 means left \, 0 - center
 \, +1 - right. Тип: float. Диапазон: -1…1;
-#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 542 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 558 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 545 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 561 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 577 @smooth;
-#X text 245 577 (при инициализации) Получить/Установить smooth control
+#X msg 110 593 @smooth;
+#X text 245 593 (при инициализации) Получить/Установить smooth control
 signal to avoid zipping-noise. Тип: int. Значение по умолчанию: 20\.
 Диапазон: 0\...100\.;
-#X msg 110 634 @pos;
-#X text 245 634 Получить/Установить panning position. -1 means left
+#X msg 110 650 @pos;
+#X text 245 650 Получить/Установить panning position. -1 means left
 \, 0 - center \, +1 - right. Тип: float. Значение по умолчанию: 0\.
 Диапазон: -1\...1\.;
-#X obj 20 701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 706 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 722 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 707 1\.;
-#X text 245 707 input signal.;
-#X text 110 727 2\.;
-#X text 150 727 *float*;
-#X text 245 727 pan position. Диапазон: -1…1\.;
-#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 762 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 723 1\.;
+#X text 245 723 input signal.;
+#X text 110 743 2\.;
+#X text 150 743 *float*;
+#X text 245 743 pan position. Диапазон: -1…1\.;
+#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 778 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 763 1\.;
-#X text 245 763 left output channel.;
-#X text 110 783 2\.;
-#X text 245 783 right output channel.;
+#X text 110 779 1\.;
+#X text 245 779 left output channel.;
+#X text 110 799 2\.;
+#X text 245 799 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 833 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 836 библиотека: ceammc v0.9.8;
-#X text 486 848 смотрите также:;
-#X obj 607 848 pan.lin~;
-#X obj 681 848 pan.cos~;
-#N canvas 10 855 400 290 info 0;
+#X obj 1 849 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 852 библиотека: ceammc v0.9.8;
+#X text 486 864 смотрите также:;
+#X obj 607 864 pan.lin~;
+#X obj 681 864 pan.cos~;
+#N canvas 10 871 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 855 pd info;
+#X restore 10 871 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 1;

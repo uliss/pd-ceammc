@@ -7,7 +7,7 @@
 #X obj 441 11 ceammc/timeline;
 #X obj 575 11 timeline;
 #X obj 659 11 tl.timeline;
-#X obj 205 78 cnv 1 560 175 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 78 cnv 1 560 190 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 83 With timeline you can schedule your events and start/pause/stop/move
 time;
 #X text 215 123 This time formats for event are supported: *clock format*
@@ -17,148 +17,148 @@ sec \, 30.5s. Note: spaces are ignored.;
 can't be removed. Events are referred by name or by index. Negative
 indexes are supported: -1 means last event (not "end" event \, but
 last user event);
-#X msg 50 301 add 5.4 sec;
-#X msg 213 301 add middle 10s;
-#X msg 405 301 add last 5s before end;
-#X obj 59 330 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 59 359 metro 100;
-#X msg 59 388 @current?;
-#X msg 98 417 start;
-#X msg 174 417 pause;
-#X msg 251 417 stop;
-#X obj 318 417 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 318 445 @loop \$1;
-#X obj 50 474 tl.timeline 20 @loop 1;
-#X obj 50 503 prop-> @current, f 20;
-#X obj 50 532 sel 0 1 2 begin end;
-#X obj 290 532 / 1000;
-#X obj 50 561 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 316 add 5.4 sec;
+#X msg 213 316 add middle 10s;
+#X msg 405 316 add last 5s before end;
+#X obj 59 345 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 59 374 metro 100;
+#X msg 59 403 @current?;
+#X msg 98 432 start;
+#X msg 174 432 pause;
+#X msg 251 432 stop;
+#X obj 318 432 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 318 460 @loop \$1;
+#X obj 50 489 tl.timeline 20 @loop 1;
+#X obj 50 518 prop-> @current, f 20;
+#X obj 50 547 sel 0 1 2 begin end;
+#X obj 290 547 / 1000;
+#X obj 50 576 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 88 561 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 88 576 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 126 561 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 126 576 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 184 561 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 184 576 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 251 561 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 251 576 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 290 561 sec->str @symbol @ms;
-#X symbolatom 290 589 15 0 0 0 - - -;
-#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 626 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 290 576 sec->str @symbol @ms;
+#X symbolatom 290 604 15 0 0 0 - - -;
+#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 641 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 629 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 644 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 661 1\.;
-#X text 150 661 float;
-#X obj 246 662 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 661 LENGTH(sec): timeline length. Тип: float. Минимальное
+#X text 110 676 1\.;
+#X text 150 676 float;
+#X obj 246 677 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 676 LENGTH(sec): timeline length. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 711 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 726 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 714 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 729 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 746 @length;
-#X text 245 746 (при инициализации) Получить/Установить timeline length.
+#X msg 110 761 @length;
+#X text 245 761 (при инициализации) Получить/Установить timeline length.
 Тип: float. Единицы: 'sec'. Значение по умолчанию: 60\. Минимальное
 значение: 0\.;
-#X msg 110 803 @loop;
-#X text 245 803 Получить/Установить loop mode. Тип: bool. Значение
+#X msg 110 818 @loop;
+#X text 245 818 Получить/Установить loop mode. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 845 @mode;
-#X text 245 845 Получить/Установить timeline mode. If timeline is fixed
+#X msg 110 860 @mode;
+#X text 245 860 Получить/Установить timeline mode. If timeline is fixed
 \, when reached \, it outputs *end* event and stops after that. Infinite
 timeline never stops by itself. Fixed timeline can have @loop property
 for repeats. Тип: symbol. Значение по умолчанию: fixed. Разрешённые
 значения: fixed \, inf.;
-#X msg 110 932 @current?;
-#X text 245 932 (только чтение) Получить current time. Тип: float.
+#X msg 110 963 @current?;
+#X text 245 963 (только чтение) Получить current time. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 0\.;
-#X msg 110 974 @current_sec?;
-#X text 245 974 (только чтение) Получить current time. Тип: float.
+#X msg 110 1005 @current_sec?;
+#X text 245 1005 (только чтение) Получить current time. Тип: float.
 Единицы: 'sec'. Значение по умолчанию: 0\.;
-#X msg 110 1016 @events?;
-#X text 245 1016 (только чтение) Получить list of event names in chronological
+#X msg 110 1047 @events?;
+#X text 245 1047 (только чтение) Получить list of event names in chronological
 order. Тип: list. Значение по умолчанию: end.;
-#X msg 110 1058 @is_running?;
-#X text 245 1058 (только чтение) Получить if timeline is running. Тип:
+#X msg 110 1089 @is_running?;
+#X text 245 1089 (только чтение) Получить if timeline is running. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1100 @phase?;
-#X text 245 1100 (только чтение) Получить current phase in [0-1) range.
+#X msg 110 1131 @phase?;
+#X text 245 1131 (только чтение) Получить current phase in [0-1) range.
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 1142 @size?;
-#X text 245 1142 (только чтение) Получить number of events in timeline.
+#X msg 110 1173 @size?;
+#X text 245 1173 (только чтение) Получить number of events in timeline.
 Тип: int. Значение по умолчанию: 1\. Минимальное значение: 0\.;
-#X obj 20 1194 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1199 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1230 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1234 add;
-#X text 245 1234 add event to timeline. You can use simple syntax like
+#X msg 110 1265 add;
+#X text 245 1265 add event to timeline. You can use simple syntax like
 [add 10.1 sec( to create event with default name \, or use advanced:
 [add myEvent 510ms before end(. Аргументы:;
-#X obj 255 1287 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1287 [NAME=eventN]: event name (if ommitted \, autogenerated
+#X obj 255 1318 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1318 [NAME=eventN]: event name (if ommitted \, autogenerated
 name is used: event1 \, event2 etc.). Тип: symbol.;
-#X obj 255 1325 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1325 [TIME]: event time: see *info* section. Тип: list.;
-#X obj 255 1348 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1348 [relative]: create relative event before or after
+#X obj 255 1356 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1356 [TIME]: event time: see *info* section. Тип: list.;
+#X obj 255 1379 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1379 [relative]: create relative event before or after
 target event. Тип: symbol. Разрешённые значения: before \, after.;
-#X obj 255 1386 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1386 [REL_EVENT]: relative event name. Тип: symbol.;
-#X msg 110 1411 clear;
-#X text 245 1411 remove all timeline events.;
-#X msg 110 1439 pause;
-#X text 245 1439 stops timeline at current position.;
-#X msg 110 1467 remove;
-#X text 245 1467 remove event by given index or name. [remove event1(
+#X obj 255 1417 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1417 [REL_EVENT]: relative event name. Тип: symbol.;
+#X msg 110 1442 clear;
+#X text 245 1442 remove all timeline events.;
+#X msg 110 1470 pause;
+#X text 245 1470 stops timeline at current position.;
+#X msg 110 1498 remove;
+#X text 245 1498 remove event by given index or name. [remove event1(
 or [remove 3(. Аргументы:;
-#X obj 255 1505 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1505 [NAME|IDX]: event name or index. Тип: atom.;
-#X msg 110 1530 remove_at;
-#X text 245 1530 remove event at specified time. Аргументы:;
-#X obj 255 1553 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1553 [TIME]: time in supported format. See *info* section.
+#X obj 255 1536 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1536 [NAME|IDX]: event name or index. Тип: atom.;
+#X msg 110 1561 remove_at;
+#X text 245 1561 remove event at specified time. Аргументы:;
+#X obj 255 1584 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1584 [TIME]: time in supported format. See *info* section.
 Тип: list.;
-#X msg 110 1593 reset;
-#X text 245 1593 reset timeline (call only when stopped).;
-#X msg 110 1621 start;
-#X text 245 1621 start timeline from current position.;
-#X msg 110 1649 stop;
-#X text 245 1649 stops timeline and reset current position to the beginning.;
-#X msg 110 1677 to_event;
-#X text 245 1677 move time to specified event. Аргументы:;
-#X obj 255 1700 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1700 [NAME|IDX]: event or index. Тип: atom.;
-#X msg 110 1725 to_time;
-#X text 245 1725 move time to time. Аргументы:;
-#X obj 255 1748 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1748 [TIME]: time in supported format. See *info* section.
+#X msg 110 1624 reset;
+#X text 245 1624 reset timeline (call only when stopped).;
+#X msg 110 1652 start;
+#X text 245 1652 start timeline from current position.;
+#X msg 110 1680 stop;
+#X text 245 1680 stops timeline and reset current position to the beginning.;
+#X msg 110 1708 to_event;
+#X text 245 1708 move time to specified event. Аргументы:;
+#X obj 255 1731 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1731 [NAME|IDX]: event or index. Тип: atom.;
+#X msg 110 1756 to_time;
+#X text 245 1756 move time to time. Аргументы:;
+#X obj 255 1779 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1779 [TIME]: time in supported format. See *info* section.
 Тип: list.;
-#X obj 20 1798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1803 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1834 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1804 1\.;
-#X text 150 1804 *float*;
-#X text 245 1804 control inlet. Non-zero value starts timeline \, zero
+#X text 110 1835 1\.;
+#X text 150 1835 *float*;
+#X text 245 1835 control inlet. Non-zero value starts timeline \, zero
 - stops.;
-#X obj 20 1834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1839 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1865 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1870 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1840 1\.;
-#X text 245 1840 list: event index \, event name \, current event time.;
+#X text 110 1871 1\.;
+#X text 245 1871 list: event index \, event name \, current event time.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 1890 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1893 библиотека: ceammc v0.9.8;
-#X text 573 1905 смотрите также:;
-#X obj 694 1908 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1924 библиотека: ceammc v0.9.8;
+#X text 573 1936 смотрите также:;
+#X obj 694 1939 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
-#N canvas 10 1912 400 290 info 0;
+#N canvas 10 1943 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -182,7 +182,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1912 pd info;
+#X restore 10 1943 pd info;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
 #X connect 19 0 20 0;

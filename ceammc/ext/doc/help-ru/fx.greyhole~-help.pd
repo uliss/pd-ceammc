@@ -5,102 +5,102 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.greyhole~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 fx.greyhole~;
-#X obj 205 78 cnv 1 560 120 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 78 cnv 1 560 136 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 83 A complex echo-like effect \, inspired by the classic
 Eventide effect of a similar name. The effect consists of a diffuser
 (like a mini-reverb \, structurally similar to the one used in JPverb)
 connected in a feedback system with a long \, modulated delay-line.
 Excels at producing spacey washes of sound.;
-#X text 215 168 Developed as part of the DEIND project.;
-#X msg 50 246 1000 1000 0 \, 300 300 1000 \, 3000 500 1300 \, 0 100 1400;
-#X obj 50 275 vline~;
-#X obj 50 304 osc.saw~;
-#X obj 50 333 fx.greyhole~;
-#X obj 213 333 ui.hsl;
-#X obj 50 376 *~;
-#X obj 126 376 *~;
-#X obj 50 419 dac~;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 215 184 Developed as part of the DEIND project.;
+#X msg 50 262 1000 1000 0 \, 300 300 1000 \, 3000 500 1300 \, 0 100 1400;
+#X obj 50 291 vline~;
+#X obj 50 320 osc.saw~;
+#X obj 50 349 fx.greyhole~;
+#X obj 213 349 ui.hsl;
+#X obj 50 392 *~;
+#X obj 126 392 *~;
+#X obj 50 435 dac~;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 490 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 509 @id;
-#X text 245 509 (при инициализации) Получить/Установить идентификатор
+#X msg 110 525 @id;
+#X text 245 525 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_greyhole/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_greyhole/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 581 @osc;
-#X text 245 581 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 612 @osc;
+#X text 245 612 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 623 @active;
-#X text 245 623 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 654 @active;
+#X text 245 654 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 665 @bypass;
-#X text 245 665 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 696 @bypass;
+#X text 245 696 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 707 @damping;
-#X text 245 707 Получить/Установить controls damping of high-frequencies
+#X msg 110 738 @damping;
+#X text 245 738 Получить/Установить controls damping of high-frequencies
 as the delay decays. 0 is no damping \, 1 is very strong damping. Тип:
 float. Значение по умолчанию: 0\. Диапазон: 0\...0.99\.;
-#X msg 110 764 @delaytime;
-#X text 245 764 Получить/Установить approximate delay time in seconds.
+#X msg 110 795 @delaytime;
+#X text 245 795 Получить/Установить approximate delay time in seconds.
 Тип: float. Единицы: 'sec'. Значение по умолчанию: 0.2\. Диапазон:
 0.001\...1.45\.;
-#X msg 110 821 @diffusion;
-#X text 245 821 Получить/Установить shape of the diffusion unit. Values
+#X msg 110 852 @diffusion;
+#X text 245 852 Получить/Установить shape of the diffusion unit. Values
 greater than 0.707 produce smooth exponential decay. Lower values produce
 a slower build-up of echoes. Тип: float. Значение по умолчанию: 0.5\.
 Диапазон: 0\...0.99\.;
-#X msg 110 893 @drywet;
-#X text 245 893 Получить/Установить proportion of mix between the original
+#X msg 110 939 @drywet;
+#X text 245 939 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 950 @feedback;
-#X text 245 950 Получить/Установить amount of feedback for the delay
+#X msg 110 996 @feedback;
+#X text 245 996 Получить/Установить amount of feedback for the delay
 line. Тип: float. Значение по умолчанию: 0.9\. Диапазон: 0\...1\.;
-#X msg 110 992 @moddepth;
-#X text 245 992 Получить/Установить depth of delay-line modulation.
+#X msg 110 1038 @moddepth;
+#X text 245 1038 Получить/Установить depth of delay-line modulation.
 Use in combination with *@modfreq* to set amount of chorusing within
 the structure. Тип: float. Значение по умолчанию: 0.1\. Диапазон: 0\...1\.;
-#X msg 110 1064 @modfreq;
-#X text 245 1064 Получить/Установить frequency of delay-line modulation.
+#X msg 110 1125 @modfreq;
+#X text 245 1125 Получить/Установить frequency of delay-line modulation.
 Use in combination with *@moddepth* to set amount of chorusing within
 the structure. Тип: float. Значение по умолчанию: 2\. Диапазон: 0\...10\.;
-#X msg 110 1136 @size;
-#X text 245 1136 Получить/Установить size of delay-lines within the
+#X msg 110 1212 @size;
+#X text 245 1212 Получить/Установить size of delay-lines within the
 diffusion unit \, producing the impression of a larger or smaller space.
 Values below 1 can sound quite metallic. Тип: float. Значение по умолчанию:
 1\. Диапазон: 0.5\...3\.;
-#X obj 20 1218 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1223 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1314 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1258 reset;
-#X text 245 1258 reset to initial state.;
-#X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1301 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1349 reset;
+#X text 245 1349 reset to initial state.;
+#X obj 20 1387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1392 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1302 1\.;
-#X text 245 1302 left channel.;
-#X text 110 1322 2\.;
-#X text 245 1322 right channel.;
-#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1357 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1393 1\.;
+#X text 245 1393 left channel.;
+#X text 110 1413 2\.;
+#X text 245 1413 right channel.;
+#X obj 20 1443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1448 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1358 1\.;
-#X text 245 1358 output signal.;
-#X text 110 1378 2\.;
-#X text 245 1378 output signal.;
+#X text 110 1449 1\.;
+#X text 245 1449 output signal.;
+#X text 110 1469 2\.;
+#X text 245 1469 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1428 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1431 библиотека: ceammc v0.9.8;
-#X text 524 1443 смотрите также:;
-#X obj 645 1443 fx.freeverb2~;
-#N canvas 10 1450 400 290 info 0;
+#X obj 1 1519 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1522 библиотека: ceammc v0.9.8;
+#X text 524 1534 смотрите также:;
+#X obj 645 1534 fx.freeverb2~;
+#N canvas 10 1541 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -124,7 +124,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1450 pd info;
+#X restore 10 1541 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;

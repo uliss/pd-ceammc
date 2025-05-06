@@ -44,49 +44,49 @@ even harmonics. Тип: float. Диапазон: 0…0.5;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_distortion/ИМЯ_СВОЙСТВА \, в
 противном случае к /fx_distortion/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 645 @osc;
-#X text 245 645 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 661 @osc;
+#X text 245 661 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 687 @active;
-#X text 245 687 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 703 @active;
+#X text 245 703 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 729 @bypass;
-#X text 245 729 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 745 @bypass;
+#X text 245 745 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 771 @drive;
-#X text 245 771 Получить/Установить distortion amount. Тип: float.
+#X msg 110 787 @drive;
+#X text 245 787 Получить/Установить distortion amount. Тип: float.
 Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X msg 110 813 @drywet;
-#X text 245 813 Получить/Установить proportion of mix between the original
+#X msg 110 829 @drywet;
+#X text 245 829 Получить/Установить proportion of mix between the original
 (dry) and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X msg 110 870 @offset;
-#X text 245 870 Получить/Установить constant added before nonlinearity
+#X msg 110 886 @offset;
+#X text 245 886 Получить/Установить constant added before nonlinearity
 to give even harmonics. Тип: float. Значение по умолчанию: 0\. Диапазон:
 0\...0.5\.;
-#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 942 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 958 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 977 reset;
-#X text 245 977 reset object.;
-#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1020 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 993 reset;
+#X text 245 993 reset object.;
+#X obj 20 1031 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1036 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1021 1\.;
-#X text 245 1021 input signal.;
-#X obj 20 1051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1056 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1037 1\.;
+#X text 245 1037 input signal.;
+#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1072 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1057 1\.;
-#X text 245 1057 output signal.;
+#X text 110 1073 1\.;
+#X text 245 1073 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1107 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1110 библиотека: ceammc v0.9.8;
-#N canvas 10 1129 400 290 info 0;
+#X obj 1 1123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1126 библиотека: ceammc v0.9.8;
+#N canvas 10 1145 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1129 pd info;
+#X restore 10 1145 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 11 0;

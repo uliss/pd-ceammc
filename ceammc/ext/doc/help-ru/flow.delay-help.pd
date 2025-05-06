@@ -6,87 +6,87 @@
 -4096 0;
 #X obj 584 11 flow.del;
 #X obj 667 11 flow.delay;
-#X obj 205 78 cnv 1 560 160 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 78 cnv 1 560 175 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 83 Delay any incoming message by specified time. If @block=0
 acts like vanilla [delay] if new message has arrived while delay time
 is not expired \, old message is discarded and new delay time is set
 from current moment.;
-#X text 215 153 Zero delay time means output message on next Pd runloop
+#X text 215 168 Zero delay time means output message on next Pd runloop
 iteration (as soon as possible);
-#X text 215 193 Note: @delay property can be set only via right inlet
+#X text 215 208 Note: @delay property can be set only via right inlet
 or [prop.set] object;
-#X msg 50 286 @freq 1000;
-#X msg 174 286 @freq 2000;
-#X obj 50 315 t a;
-#X obj 69 344 flow.del 100;
-#X obj 50 373 t b a;
-#X obj 50 402 click~;
-#X obj 50 430 flt.resonbp~;
-#X obj 50 459 ui.hgain~;
-#X obj 50 488 dac~;
-#X msg 50 517 @msg 400;
-#X msg 155 517 300;
-#X msg 222 517 0;
-#X text 251 517 change delay time;
-#X obj 155 546 prop.set @delay;
-#X floatatom 328 546 5 0 0 0 - - -;
-#X text 366 546 the same;
-#X obj 50 574 flow.delay 1000;
-#X obj 50 603 ui.display @display_type 1;
-#X msg 50 632 1 2;
-#X text 98 632 zero time;
-#X obj 50 661 unpack f f;
-#X obj 126 689 flow.del 0;
-#X obj 50 718 print Z;
-#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 773 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 301 @freq 1000;
+#X msg 174 301 @freq 2000;
+#X obj 50 330 t a;
+#X obj 69 359 flow.del 100;
+#X obj 50 388 t b a;
+#X obj 50 417 click~;
+#X obj 50 445 flt.resonbp~;
+#X obj 50 474 ui.hgain~;
+#X obj 50 503 dac~;
+#X msg 50 532 @msg 400;
+#X msg 155 532 300;
+#X msg 222 532 0;
+#X text 251 532 change delay time;
+#X obj 155 561 prop.set @delay;
+#X floatatom 328 561 5 0 0 0 - - -;
+#X text 366 561 the same;
+#X obj 50 589 flow.delay 1000;
+#X obj 50 618 ui.display @display_type 1;
+#X msg 50 647 1 2;
+#X text 98 647 zero time;
+#X obj 50 676 unpack f f;
+#X obj 126 704 flow.del 0;
+#X obj 50 733 print Z;
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 788 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 776 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 791 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 808 1\.;
-#X text 150 808 float;
-#X obj 246 809 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 808 DELAY(ms): init @delay property. Тип: float. Минимальное
+#X text 110 823 1\.;
+#X text 150 823 float;
+#X obj 246 824 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 823 DELAY(ms): init @delay property. Тип: float. Минимальное
 значение: 0\.;
-#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 858 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 873 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 861 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 876 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 893 @block;
-#X text 245 893 Получить/Установить blocking mode. If true \, discards
+#X msg 110 908 @block;
+#X text 245 908 Получить/Установить blocking mode. If true \, discards
 incoming messages until scheduled message will output \, after that
 is ready to accept the new one. Otherwise acts like vanilla [del] object.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 965 @delay;
-#X text 245 965 Получить/Установить delay time. Тип: float. Единицы:
+#X msg 110 995 @delay;
+#X text 245 995 Получить/Установить delay time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 1017 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1022 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1047 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1052 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1023 1\.;
-#X text 245 1023 incoming message.;
-#X text 110 1043 2\.;
-#X text 150 1043 *bang*;
-#X text 245 1043 reset (stop) current delay.;
-#X text 150 1063 *float*;
-#X text 245 1063 set delay time. Минимальное значение: 0\.;
-#X text 245 1083 [reset( - resets delay.;
-#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1118 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1053 1\.;
+#X text 245 1053 incoming message.;
+#X text 110 1073 2\.;
+#X text 150 1073 *bang*;
+#X text 245 1073 reset (stop) current delay.;
+#X text 150 1093 *float*;
+#X text 245 1093 set delay time. Минимальное значение: 0\.;
+#X text 245 1113 [reset( - resets delay.;
+#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1148 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1119 1\.;
-#X text 245 1119 delayed output.;
+#X text 110 1149 1\.;
+#X text 245 1149 delayed output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1169 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1172 библиотека: ceammc v0.9.8;
-#X text 582 1184 смотрите также:;
-#X obj 703 1184 delay;
-#N canvas 10 1191 400 290 info 0;
+#X obj 1 1199 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1202 библиотека: ceammc v0.9.8;
+#X text 582 1214 смотрите также:;
+#X obj 703 1214 delay;
+#N canvas 10 1221 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1191 pd info;
+#X restore 10 1221 pd info;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

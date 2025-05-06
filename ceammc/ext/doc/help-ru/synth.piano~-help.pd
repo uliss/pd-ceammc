@@ -24,77 +24,77 @@
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_piano/ИМЯ_СВОЙСТВА \, в противном
 случае к /synth_piano/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 540 @osc;
-#X text 245 540 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 555 @osc;
+#X text 245 555 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 582 @active;
-#X text 245 582 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 597 @active;
+#X text 245 597 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 624 @brightness;
-#X text 245 624 Получить/Установить brightness. Тип: float. Значение
+#X msg 110 639 @brightness;
+#X text 245 639 Получить/Установить brightness. Тип: float. Значение
 по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 666 @detuning;
-#X text 245 666 Получить/Установить detuning factor. Тип: float. Значение
+#X msg 110 681 @detuning;
+#X text 245 681 Получить/Установить detuning factor. Тип: float. Значение
 по умолчанию: 0.1\. Диапазон: 0\...1\.;
-#X msg 110 708 @freq;
-#X text 245 708 Получить/Установить frequency. Тип: float. Единицы:
+#X msg 110 723 @freq;
+#X text 245 723 Получить/Установить frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 130.8128\.;
-#X msg 110 750 @gate;
-#X text 245 750 Получить/Установить play trigger - 1: on \, 0: off.
+#X msg 110 765 @gate;
+#X text 245 765 Получить/Установить play trigger - 1: on \, 0: off.
 Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X msg 110 792 @hammer_hardness;
-#X text 245 792 Получить/Установить hammer hardness. Тип: float. Значение
+#X msg 110 807 @hammer_hardness;
+#X text 245 807 Получить/Установить hammer hardness. Тип: float. Значение
 по умолчанию: 0.1\. Диапазон: 0\...1\.;
-#X msg 110 834 @pan;
-#X text 245 834 Получить/Установить pan angle. Тип: float. Значение
+#X msg 110 849 @pan;
+#X text 245 849 Получить/Установить pan angle. Тип: float. Значение
 по умолчанию: 0.6\. Диапазон: 0\...1\.;
-#X msg 110 876 @pitch;
-#X text 245 876 Получить/Установить midi pitch. Тип: float. Значение
+#X msg 110 891 @pitch;
+#X text 245 891 Получить/Установить midi pitch. Тип: float. Значение
 по умолчанию: 48\. Диапазон: 21\...108\.;
-#X msg 110 918 @reverb_gain;
-#X text 245 918 Получить/Установить reverb gain. Тип: float. Значение
+#X msg 110 933 @reverb_gain;
+#X text 245 933 Получить/Установить reverb gain. Тип: float. Значение
 по умолчанию: 0.137\. Диапазон: 0\...1\.;
-#X msg 110 960 @room_size;
-#X text 245 960 Получить/Установить reverb room size. Тип: float. Значение
+#X msg 110 975 @room_size;
+#X text 245 975 Получить/Установить reverb room size. Тип: float. Значение
 по умолчанию: 0.36\. Диапазон: 0.005\...1\.;
-#X msg 110 1002 @stiffness;
-#X text 245 1002 Получить/Установить stiffness factor. Тип: float.
+#X msg 110 1017 @stiffness;
+#X text 245 1017 Получить/Установить stiffness factor. Тип: float.
 Значение по умолчанию: 0.28\. Диапазон: 0\...1\.;
-#X msg 110 1044 @width;
-#X text 245 1044 Получить/Установить spatialization width. Тип: float.
+#X msg 110 1059 @width;
+#X text 245 1059 Получить/Установить spatialization width. Тип: float.
 Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
-#X obj 20 1096 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1101 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1111 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1116 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1136 note;
-#X text 245 1136 note on/off message. Аргументы:;
-#X obj 255 1159 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1159 NOTE: midi note. Тип: float.;
-#X obj 255 1182 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1182 VEL: velocity. Тип: float. Диапазон: 0…127\.;
-#X msg 110 1207 reset;
-#X text 245 1207 reset synth.;
-#X obj 20 1245 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1250 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1151 note;
+#X text 245 1151 note on/off message. Аргументы:;
+#X obj 255 1174 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1174 NOTE: midi note. Тип: float.;
+#X obj 255 1197 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1197 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X msg 110 1222 reset;
+#X text 245 1222 reset synth.;
+#X obj 20 1260 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1265 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1251 1\.;
-#X text 150 1251 *list*;
-#X text 245 1251 NOTE VEL.;
-#X obj 20 1281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1286 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1266 1\.;
+#X text 150 1266 *list*;
+#X text 245 1266 NOTE VEL.;
+#X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1301 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1287 1\.;
-#X text 245 1287 left output.;
-#X text 110 1307 2\.;
-#X text 245 1307 right output.;
+#X text 110 1302 1\.;
+#X text 245 1302 left output.;
+#X text 110 1322 2\.;
+#X text 245 1322 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1357 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1360 библиотека: ceammc v0.9.8;
-#N canvas 10 1379 400 290 info 0;
+#X obj 1 1372 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1375 библиотека: ceammc v0.9.8;
+#N canvas 10 1394 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1379 pd info;
+#X restore 10 1394 pd info;
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

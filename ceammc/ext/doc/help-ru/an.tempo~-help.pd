@@ -47,89 +47,89 @@ specflux kl mkl;
 centroid \, complex \, complexdomain \, decrease \, default \, energy
 \, hfc \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \,
 specdiff \, specflux \, spread \, wphase. Тип: symbol.;
-#X text 110 720 3\.;
-#X text 150 720 int;
-#X obj 246 721 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 720 HS(samp): размер окна (по умолчанию размер_буфера/2).
+#X text 110 735 3\.;
+#X text 150 735 int;
+#X obj 246 736 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 735 HS(samp): размер окна (по умолчанию размер_буфера/2).
 Тип: int. Минимальное значение: 0\.;
-#X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 770 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 785 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 773 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 788 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 805 @bs;
-#X text 245 805 (при инициализации) Получить/Установить buffer size.
+#X msg 110 820 @bs;
+#X text 245 820 (при инициализации) Получить/Установить buffer size.
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Минимальное
 значение: 64\.;
-#X msg 110 862 @active;
-#X text 245 862 Получить/Установить audio processing state. Тип: bool.
+#X msg 110 877 @active;
+#X text 245 877 Получить/Установить audio processing state. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 904 @complex;
-#X text 245 904 Alias to @method complex. Complex Domain Method onset
+#X msg 110 919 @complex;
+#X text 245 919 Alias to @method complex. Complex Domain Method onset
 detection function.;
-#X msg 110 946 @delay;
-#X text 245 946 Получить/Установить constant system delay to take back
+#X msg 110 961 @delay;
+#X text 245 961 Получить/Установить constant system delay to take back
 from detection time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 0\. Минимальное значение: 0\.;
-#X msg 110 1003 @energy;
-#X text 245 1003 Alias to @method energy. Energy based onset detection
+#X msg 110 1018 @energy;
+#X text 245 1018 Alias to @method energy. Energy based onset detection
 function.;
-#X msg 110 1045 @hfc;
-#X text 245 1045 Alias to @method hfc. High Frequency Content onset
+#X msg 110 1060 @hfc;
+#X text 245 1060 Alias to @method hfc. High Frequency Content onset
 detection.;
-#X msg 110 1075 @hs;
-#X text 245 1075 Получить/Установить hop size. 0 means @bs/2\. Тип:
+#X msg 110 1090 @hs;
+#X text 245 1090 Получить/Установить hop size. 0 means @bs/2\. Тип:
 int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
-#X msg 110 1132 @kl;
-#X text 245 1132 Alias to @method kl. Kullback-Liebler onset detection
+#X msg 110 1147 @kl;
+#X text 245 1147 Alias to @method kl. Kullback-Liebler onset detection
 function.;
-#X msg 110 1174 @method;
-#X text 245 1174 Получить/Установить onset method. Default is hfc.
+#X msg 110 1189 @method;
+#X text 245 1189 Получить/Установить onset method. Default is hfc.
 Тип: symbol. Значение по умолчанию: default. Разрешённые значения:
 specflux \, phase \, energy \, hfc \, kl \, complex \, default \, specdiff
 \, wphase \, rolloff \, spread \, kurtosis \, skewness \, complexdomain
 \, decrease \, slope \, centroid.;
-#X msg 110 1261 @mkl;
-#X text 245 1261 Alias to @method mkl. Modified Kullback-Liebler onset
+#X msg 110 1292 @mkl;
+#X text 245 1292 Alias to @method mkl. Modified Kullback-Liebler onset
 detection function.;
-#X msg 110 1303 @phase;
-#X text 245 1303 Alias to @method phase. Phase Based Method onset detection
+#X msg 110 1334 @phase;
+#X text 245 1334 Alias to @method phase. Phase Based Method onset detection
 function.;
-#X msg 110 1345 @silence;
-#X text 245 1345 Получить/Установить onset detection silence threshold.
+#X msg 110 1376 @silence;
+#X text 245 1376 Получить/Установить onset detection silence threshold.
 Тип: float. Единицы: 'db'. Значение по умолчанию: -90\. Диапазон: -90\...0\.;
-#X msg 110 1402 @specdiff;
-#X text 245 1402 Alias to @method specdiff. Spectral difference method
+#X msg 110 1433 @specdiff;
+#X text 245 1433 Alias to @method specdiff. Spectral difference method
 onset detection function.;
-#X msg 110 1444 @specflux;
-#X text 245 1444 Alias to @method specflux. Spectral Flux.;
-#X msg 110 1474 @threshold;
-#X text 245 1474 Получить/Установить peak picking threshold. Тип: float.
+#X msg 110 1475 @specflux;
+#X text 245 1475 Alias to @method specflux. Spectral Flux.;
+#X msg 110 1505 @threshold;
+#X text 245 1505 Получить/Установить peak picking threshold. Тип: float.
 Значение по умолчанию: 0.3\.;
-#X msg 110 1516 @wphase;
-#X text 245 1516 Alias to @method phase. Weighted Phase Deviation onset
+#X msg 110 1547 @wphase;
+#X text 245 1547 Alias to @method phase. Weighted Phase Deviation onset
 detection function.;
-#X obj 20 1568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1573 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1604 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1574 1\.;
-#X text 245 1574 input signal.;
-#X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1609 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1605 1\.;
+#X text 245 1605 input signal.;
+#X obj 20 1635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1640 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1610 1\.;
-#X text 245 1610 float: BPM value.;
-#X text 110 1630 2\.;
-#X text 245 1630 float: detection confidence.;
+#X text 110 1641 1\.;
+#X text 245 1641 float: BPM value.;
+#X text 110 1661 2\.;
+#X text 245 1661 float: detection confidence.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 1680 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1683 библиотека: ceammc v0.9.8;
-#N canvas 10 1702 400 290 info 0;
+#X obj 1 1711 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1714 библиотека: ceammc v0.9.8;
+#N canvas 10 1733 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -153,7 +153,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1702 pd info;
+#X restore 10 1733 pd info;
 #X connect 7 0 8 0;
 #X connect 10 0 13 0;
 #X connect 11 0 15 0;

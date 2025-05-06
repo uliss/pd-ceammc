@@ -50,41 +50,41 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/flt_bpf36e/ИМЯ_СВОЙСТВА \, в противном
 случае к /flt_bpf36e/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 899 @osc;
-#X text 245 899 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 914 @osc;
+#X text 245 914 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 941 @q;
-#X text 245 941 (при инициализации) Получить/Установить quality factor:
+#X msg 110 956 @q;
+#X text 245 956 (при инициализации) Получить/Установить quality factor:
 @freq/BANDWIDTH. Тип: float. Значение по умолчанию: 2\. Диапазон: 0.25\...32\.;
-#X msg 110 998 @active;
-#X text 245 998 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 1013 @active;
+#X text 245 1013 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1055 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1070 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1090 reset;
-#X text 245 1090 reset filter state.;
-#X obj 20 1128 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1133 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1105 reset;
+#X text 245 1105 reset filter state.;
+#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1148 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1134 1\.;
-#X text 245 1134 input signal.;
-#X obj 20 1164 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1169 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1149 1\.;
+#X text 245 1149 input signal.;
+#X obj 20 1179 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1184 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1170 1\.;
-#X text 245 1170 filtered signal.;
+#X text 110 1185 1\.;
+#X text 245 1185 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1220 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1223 библиотека: ceammc v0.9.8;
-#X text 449 1235 смотрите также:;
-#X obj 570 1235 flt.bpf72e~;
-#X obj 666 1235 flt.bpf24~;
-#N canvas 10 1242 400 290 info 0;
+#X obj 1 1235 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1238 библиотека: ceammc v0.9.8;
+#X text 449 1250 смотрите также:;
+#X obj 570 1250 flt.bpf72e~;
+#X obj 666 1250 flt.bpf24~;
+#N canvas 10 1257 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1242 pd info;
+#X restore 10 1257 pd info;
 #X connect 8 0 10 0;
 #X connect 11 0 13 0;
 #X connect 8 0 13 1;

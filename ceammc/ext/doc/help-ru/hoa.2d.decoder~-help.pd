@@ -90,39 +90,39 @@ available for @regular and @irregular mode. Тип: float. Единицы: 'deg'
 (abscissas). -1 is the left of the soundfield \, 0 is the center of
 the soundfield and 1 is the right of the soundfield. Тип: list. Единицы:
 'rad'. Значение по умолчанию: 0 -1 0 1\. Диапазон: -1\...1\.;
-#X msg 110 1320 @pw_y?;
-#X text 245 1320 (только чтение) Получить list of plain wave y-coordinates
+#X msg 110 1336 @pw_y?;
+#X text 245 1336 (только чтение) Получить list of plain wave y-coordinates
 (ordinatas). -1 is the back of the soundfield \, 0 is the center of
 the soundfield and 1 is the front of the soundfield. Тип: list. Единицы:
 'rad'. Значение по умолчанию: 1 0 -1 0\. Диапазон: -1\...1\.;
-#X obj 20 1417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1422 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1454 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1423 1\.;
-#X text 245 1423 first input harmonic.;
-#X text 110 1443 ....;
-#X text 245 1443 ... input harmonic.;
-#X text 110 1463 n.;
-#X text 245 1463 n-th input harmonic.;
-#X obj 20 1493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1498 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1455 1\.;
+#X text 245 1455 first input harmonic.;
+#X text 110 1475 ....;
+#X text 245 1475 ... input harmonic.;
+#X text 110 1495 n.;
+#X text 245 1495 n-th input harmonic.;
+#X obj 20 1525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1530 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1499 1\.;
-#X text 245 1499 first loudspeaker output.;
-#X text 110 1519 ....;
-#X text 245 1519 ... loudspeaker output.;
-#X text 110 1539 n.;
-#X text 245 1539 n-th loudspeaker output.;
+#X text 110 1531 1\.;
+#X text 245 1531 first loudspeaker output.;
+#X text 110 1551 ....;
+#X text 245 1551 ... loudspeaker output.;
+#X text 110 1571 n.;
+#X text 245 1571 n-th loudspeaker output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1589 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1592 библиотека: ceammc v0.9.8;
-#X text 531 1604 смотрите также:;
-#X obj 652 1604 hoa.encoder~;
-#N canvas 10 1611 400 290 info 0;
+#X obj 1 1621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1624 библиотека: ceammc v0.9.8;
+#X text 531 1636 смотрите также:;
+#X obj 652 1636 hoa.encoder~;
+#N canvas 10 1643 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -147,7 +147,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1611 pd info;
+#X restore 10 1643 pd info;
 #X connect 13 0 15 0;
 #X connect 14 0 16 0;
 #X connect 15 0 17 0;

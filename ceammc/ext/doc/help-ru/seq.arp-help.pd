@@ -66,47 +66,47 @@ all \, first \, last \, random.;
 list \, if =last turn off last inactive note in chord list \, if =all
 turn off all active notes. Тип: symbol. Разрешённые значения: first
 \, last \, all \, random.;
-#X obj 255 972 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 972 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
+#X obj 255 987 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 987 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
 значение: 1\.;
-#X msg 110 1012 on;
-#X text 245 1012 turn on inactive notes. Аргументы:;
-#X obj 255 1035 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1035 [MODE]: if =first play first inactive note in chord
+#X msg 110 1027 on;
+#X text 245 1027 turn on inactive notes. Аргументы:;
+#X obj 255 1050 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1050 [MODE]: if =first play first inactive note in chord
 list \, if =last play last inactive note in chord list \, if =all play
 all inactive notes. Тип: symbol. Разрешённые значения: first \, last
 \, all \, random.;
-#X obj 255 1103 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1103 [VEL=127]: note velocity. Тип: float. Диапазон: 1…127\.;
-#X obj 255 1126 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1126 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
+#X obj 255 1133 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1133 [VEL=127]: note velocity. Тип: float. Диапазон: 1…127\.;
+#X obj 255 1156 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1156 [NUM=1]: number of notes to turn on. Тип: int. Минимальное
 значение: 1\.;
-#X msg 110 1166 reset;
-#X text 245 1166 reset all notes to off without output.;
-#X obj 20 1204 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1209 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1196 reset;
+#X text 245 1196 reset all notes to off without output.;
+#X obj 20 1234 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1239 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1210 1\.;
-#X text 150 1210 *bang*;
-#X text 245 1210 play one note in sequence (same as [on( message).;
-#X obj 20 1240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1245 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1240 1\.;
+#X text 150 1240 *bang*;
+#X text 245 1240 play one note in sequence (same as [on( message).;
+#X obj 20 1270 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1275 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1246 1\.;
-#X text 245 1246 list: pitch vel.;
-#X text 110 1266 2\.;
-#X text 245 1266 float: number of active notes.;
+#X text 110 1276 1\.;
+#X text 245 1276 list: pitch vel.;
+#X text 110 1296 2\.;
+#X text 245 1296 float: number of active notes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1316 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1319 библиотека: ceammc v0.9.8;
-#X text 531 1331 смотрите также:;
-#X obj 652 1331 seq.b;
-#X obj 704 1331 seq.t;
-#N canvas 10 1338 400 290 info 0;
+#X obj 1 1346 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1349 библиотека: ceammc v0.9.8;
+#X text 531 1361 смотрите также:;
+#X obj 652 1361 seq.b;
+#X obj 704 1361 seq.t;
+#N canvas 10 1368 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -130,7 +130,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1338 pd info;
+#X restore 10 1368 pd info;
 #X connect 16 0 17 0;
 #X connect 17 0 18 0;
 #X connect 17 0 19 0;

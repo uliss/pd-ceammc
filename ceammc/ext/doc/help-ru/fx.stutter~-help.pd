@@ -41,35 +41,35 @@ period. Тип: float. Единицы: 'ms'. Значение по умолча�
 fragment forwards \, 'back': play loop fragment backwards \, 'tri':
 play loop fragment in both directions. Тип: symbol. Значение по умолчанию:
 fwd. Разрешённые значения: fwd \, back \, tri.;
-#X msg 110 596 @speed;
-#X text 245 596 Получить/Установить loop fragment playing speed. Тип:
+#X msg 110 612 @speed;
+#X text 245 612 Получить/Установить loop fragment playing speed. Тип:
 float. Значение по умолчанию: 1\. Диапазон: 0.25\...4\.;
-#X msg 110 638 @t;
-#X text 245 638 Получить/Установить stutter period. Тип: float. Единицы:
+#X msg 110 654 @t;
+#X text 245 654 Получить/Установить stutter period. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 50\. Диапазон: 1\...1000\.;
-#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 695 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 711 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 696 1\.;
-#X text 245 696 input signal.;
-#X text 110 716 2\.;
-#X text 150 716 *bang*;
-#X text 245 716 turn on effect for 3 periods.;
-#X text 150 736 *float*;
-#X text 245 736 1: turn on \, 0: turn off.;
-#X obj 20 766 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 771 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 712 1\.;
+#X text 245 712 input signal.;
+#X text 110 732 2\.;
+#X text 150 732 *bang*;
+#X text 245 732 turn on effect for 3 periods.;
+#X text 150 752 *float*;
+#X text 245 752 1: turn on \, 0: turn off.;
+#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 787 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 772 1\.;
-#X text 245 772 output.;
+#X text 110 788 1\.;
+#X text 245 788 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 822 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 825 библиотека: ceammc v0.9.8;
-#N canvas 10 844 400 290 info 0;
+#X obj 1 838 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 841 библиотека: ceammc v0.9.8;
+#N canvas 10 860 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -93,7 +93,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 844 pd info;
+#X restore 10 860 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 7 0 10 0;

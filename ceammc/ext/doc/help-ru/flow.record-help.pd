@@ -38,46 +38,46 @@ atom. Тип: bool. Значение по умолчанию: 0\.;
 #X text 245 798 Получить/Установить max number of events \, if 0: no
 max size check. If @auto is set - starts playback when max size reached.
 Тип: int. Значение по умолчанию: 256\. Диапазон: 0\...65536\.;
-#X msg 110 870 @r;
-#X text 245 870 Получить/Установить number of repeats in play mode.
+#X msg 110 885 @r;
+#X text 245 885 Получить/Установить number of repeats in play mode.
 If -1: repeat infinitely. Тип: int. Значение по умолчанию: 1\. Минимальное
 значение: -1\.;
-#X msg 110 927 @speed;
-#X text 245 927 Получить/Установить play speed. Тип: float. Значение
+#X msg 110 942 @speed;
+#X text 245 942 Получить/Установить play speed. Тип: float. Значение
 по умолчанию: 1\. Диапазон: 0.0156\...64\.;
-#X msg 110 969 @sync;
-#X text 245 969 Получить/Установить use external bang pulse to sync
+#X msg 110 984 @sync;
+#X text 245 984 Получить/Установить use external bang pulse to sync
 recorded events with. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1026 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1041 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1027 1\.;
-#X text 150 1027 *any*;
-#X text 245 1027 input message.;
-#X text 110 1047 2\.;
-#X text 150 1047 *bang*;
-#X text 245 1047 sync tick (when @sync 1).;
-#X text 245 1067 [rec (1|0)?( - start (stop) flow record.;
-#X text 245 1087 [play (1|0)?( - play (stop) recorded flow.;
-#X text 245 1107 [stop (1|0)?( - stop (play) recording.;
-#X text 245 1127 [clear( - remove all recorded messages.;
-#X text 245 1147 [flush( - output and remove all recorded messages.;
-#X text 245 1167 [qlist( - output to qlist object.;
-#X text 245 1187 [length FLOAT|time( - resize recorded messages (remove
+#X text 110 1042 1\.;
+#X text 150 1042 *any*;
+#X text 245 1042 input message.;
+#X text 110 1062 2\.;
+#X text 150 1062 *bang*;
+#X text 245 1062 sync tick (when @sync 1).;
+#X text 245 1082 [rec (1|0)?( - start (stop) flow record.;
+#X text 245 1102 [play (1|0)?( - play (stop) recorded flow.;
+#X text 245 1122 [stop (1|0)?( - stop (play) recording.;
+#X text 245 1142 [clear( - remove all recorded messages.;
+#X text 245 1162 [flush( - output and remove all recorded messages.;
+#X text 245 1182 [qlist( - output to qlist object.;
+#X text 245 1202 [length FLOAT|time( - resize recorded messages (remove
 after specified length).;
-#X obj 20 1232 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1237 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1247 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1252 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1238 1\.;
-#X text 245 1238 output message.;
+#X text 110 1253 1\.;
+#X text 245 1253 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1288 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1291 библиотека: ceammc v0.9.8;
-#N canvas 10 1310 400 290 info 0;
+#X obj 1 1303 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1306 библиотека: ceammc v0.9.8;
+#N canvas 10 1325 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1310 pd info;
+#X restore 10 1325 pd info;
 #X connect 5 0 9 0;
 #X connect 6 0 9 1;
 #X connect 7 0 9 1;

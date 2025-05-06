@@ -62,80 +62,80 @@ signal (wet). Тип: float. Диапазон: 0…1;
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_zita_rev1/ИМЯ_СВОЙСТВА \, в противном
 случае к /fx_zita_rev1/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 853 @osc;
-#X text 245 853 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 868 @osc;
+#X text 245 868 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 895 @active;
-#X text 245 895 Turn on/off dsp processing. Тип: bool. Значение по
+#X msg 110 910 @active;
+#X text 245 910 Turn on/off dsp processing. Тип: bool. Значение по
 умолчанию: 1\.;
-#X msg 110 937 @bypass;
-#X text 245 937 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 952 @bypass;
+#X text 245 952 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 979 @damp_hf;
-#X text 245 979 Получить/Установить Frequency (Hz) at which the high-frequency
+#X msg 110 994 @damp_hf;
+#X text 245 994 Получить/Установить Frequency (Hz) at which the high-frequency
 T60 is half the middle-band's T60\. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 6000\. Диапазон: 1500\...47040\.;
-#X msg 110 1051 @decay_low;
-#X text 245 1051 Получить/Установить time (in seconds) to decay 60dB
+#X msg 110 1081 @decay_low;
+#X text 245 1081 Получить/Установить time (in seconds) to decay 60dB
 in low-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 3\. Диапазон: 1\...60\.;
-#X msg 110 1108 @decay_mid;
-#X text 245 1108 Получить/Установить time (in seconds) to decay 60dB
+#X msg 110 1138 @decay_mid;
+#X text 245 1138 Получить/Установить time (in seconds) to decay 60dB
 in mid-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 2\. Диапазон: 1\...60\.;
-#X msg 110 1165 @drywet;
-#X text 245 1165 Получить/Установить Ratio between source signal (dry)
+#X msg 110 1195 @drywet;
+#X text 245 1195 Получить/Установить Ratio between source signal (dry)
 and processed signal (wet). Тип: float. Значение по умолчанию: 1\.
 Диапазон: 0\...1\.;
-#X msg 110 1222 @fr_ldecay;
-#X text 245 1222 Получить/Установить time (in seconds) to decay 60dB
+#X msg 110 1252 @fr_ldecay;
+#X text 245 1252 Получить/Установить time (in seconds) to decay 60dB
 in low-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 40\. Диапазон: 0\...60\.;
-#X msg 110 1279 @fr_mdecay;
-#X text 245 1279 Получить/Установить time (in seconds) to decay 60dB
+#X msg 110 1309 @fr_mdecay;
+#X text 245 1309 Получить/Установить time (in seconds) to decay 60dB
 in mid-frequency band. Тип: float. Единицы: 'sec'. Значение по умолчанию:
 40\. Диапазон: 0\...60\.;
-#X msg 110 1336 @fr_time;
-#X text 245 1336 Получить/Установить length of freeze tail. Тип: float.
+#X msg 110 1366 @fr_time;
+#X text 245 1366 Получить/Установить length of freeze tail. Тип: float.
 Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 0\...1000\.;
-#X msg 110 1393 @freeze;
-#X text 245 1393 Получить/Установить freeze reverberation tail. Тип:
+#X msg 110 1423 @freeze;
+#X text 245 1423 Получить/Установить freeze reverberation tail. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1435 @freq_low;
-#X text 245 1435 Получить/Установить Crossover frequency (Hz) separating
+#X msg 110 1465 @freq_low;
+#X text 245 1465 Получить/Установить Crossover frequency (Hz) separating
 low and middle frequencies. Тип: float. Единицы: 'Hz'. Значение по
 умолчанию: 200\. Диапазон: 50\...1000\.;
-#X msg 110 1492 @predelay;
-#X text 245 1492 Получить/Установить a delay operating on the 'wet'
+#X msg 110 1522 @predelay;
+#X text 245 1522 Получить/Установить a delay operating on the 'wet'
 signal. Large values will provide the impression of a larger room.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: 40\. Диапазон: 0\...100\.;
-#X obj 20 1574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1579 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1624 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1614 reset;
-#X text 245 1614 same as reset.;
-#X obj 20 1652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1657 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1659 reset;
+#X text 245 1659 same as reset.;
+#X obj 20 1697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1702 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1658 1\.;
-#X text 245 1658 left channel.;
-#X text 110 1678 2\.;
-#X text 245 1678 right channel.;
-#X obj 20 1708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1703 1\.;
+#X text 245 1703 left channel.;
+#X text 110 1723 2\.;
+#X text 245 1723 right channel.;
+#X obj 20 1753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1758 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1714 1\.;
-#X text 245 1714 output left.;
-#X text 110 1734 2\.;
-#X text 245 1734 output right.;
+#X text 110 1759 1\.;
+#X text 245 1759 output left.;
+#X text 110 1779 2\.;
+#X text 245 1779 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1784 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1787 библиотека: ceammc v0.9.8;
-#N canvas 10 1806 400 290 info 0;
+#X obj 1 1829 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1832 библиотека: ceammc v0.9.8;
+#N canvas 10 1851 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -159,7 +159,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1806 pd info;
+#X restore 10 1851 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;

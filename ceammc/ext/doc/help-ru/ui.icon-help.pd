@@ -327,16 +327,16 @@ notifications \, open_with \, pause \, pause_circle_filled \, pause_circle_outli
 \, undo \, videocam \, visibility \, visibility_off \, volume_down
 \, volume_mute \, volume_off \, volume_up \, zoom_in \, zoom_out. Тип:
 symbol.;
-#X obj 20 4535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4540 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 4550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4555 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 4543 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 4558 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 4575 @enabled;
-#X text 245 4575 Получить/Установить enabled property. Тип: bool. Значение
+#X msg 110 4590 @enabled;
+#X text 245 4590 Получить/Установить enabled property. Тип: bool. Значение
 по умолчанию: 1\.;
-#X msg 110 4617 @icon;
-#X text 245 4617 Получить/Установить icon name. Тип: symbol. Значение
+#X msg 110 4632 @icon;
+#X text 245 4632 Получить/Установить icon name. Тип: symbol. Значение
 по умолчанию: help. Разрешённые значения: add \, add_circle \, add_circle_outline
 \, add_to_queue \, alarm \, alarm_off \, alarm_on \, album \, arrow_down
 \, arrow_left \, arrow_right \, arrow_up \, audio \, backspace \, block
@@ -360,99 +360,99 @@ pause_circle_filled \, pause_circle_outline \, play \, play_circle_filled
 \, timeline \, touch_app \, trending_flat \, undo \, videocam \, visibility
 \, visibility_off \, volume_down \, volume_mute \, volume_off \, volume_up
 \, zoom_in \, zoom_out.;
-#X msg 110 5006 @icon_size;
-#X text 245 5006 Получить/Установить icons size. Тип: int. Значение
+#X msg 110 5036 @icon_size;
+#X text 245 5036 Получить/Установить icons size. Тип: int. Значение
 по умолчанию: 24\. Разрешённые значения: 18 \, 24 \, 36 \, 48\.;
-#X msg 110 5048 @mode;
-#X text 245 5048 Получить/Установить the output mode. In the bang mode
+#X msg 110 5078 @mode;
+#X text 245 5078 Получить/Установить the output mode. In the bang mode
 - outputs the bang on mouse down. In the button mode outputs 1 on mouse
 down and 0 on mouse up. In the toggle mode outputs 1/0 on mouse down
 \, like vanilla toggle object. Тип: symbol. Значение по умолчанию:
 button. Разрешённые значения: toggle \, button \, bang.;
-#X msg 110 5151 @receive;
-#X text 245 5151 Получить/Установить receive source. Тип: symbol. Значение
+#X msg 110 5196 @receive;
+#X text 245 5196 Получить/Установить receive source. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 5193 @send;
-#X text 245 5193 Получить/Установить send destination. Тип: symbol.
+#X msg 110 5238 @send;
+#X text 245 5238 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;
-#X msg 110 5235 @active_color;
-#X text 245 5235 Получить/Установить active color (list of red \, green
+#X msg 110 5280 @active_color;
+#X text 245 5280 Получить/Установить active color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
 1 1\.;
-#X msg 110 5292 @background_color;
-#X text 245 5292 Получить/Установить element background color (list
+#X msg 110 5337 @background_color;
+#X text 245 5337 Получить/Установить element background color (list
 of red \, green \, blue values in 0-1 range). Тип: list. Значение по
 умолчанию: 1 1 1 1\.;
-#X msg 110 5349 @border_color;
-#X text 245 5349 Получить/Установить border color (list of red \, green
+#X msg 110 5394 @border_color;
+#X text 245 5394 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 1 1
 1 1\.;
-#X msg 110 5406 @fontname;
-#X text 245 5406 Получить/Установить fontname. Тип: symbol. Значение
+#X msg 110 5451 @fontname;
+#X text 245 5451 Получить/Установить fontname. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Helvetica \, Monaco
 \, Courier \, Times \, DejaVu.;
-#X msg 110 5463 @fontsize;
-#X text 245 5463 Получить/Установить fontsize. Тип: int. Значение по
+#X msg 110 5508 @fontsize;
+#X text 245 5508 Получить/Установить fontsize. Тип: int. Значение по
 умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 5505 @fontslant;
-#X text 245 5505 Получить/Установить font slant. Тип: symbol. Значение
+#X msg 110 5550 @fontslant;
+#X text 245 5550 Получить/Установить font slant. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 5547 @fontweight;
-#X text 245 5547 Получить/Установить font weight. Тип: symbol. Значение
+#X msg 110 5592 @fontweight;
+#X text 245 5592 Получить/Установить font weight. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 5589 @pinned;
-#X text 245 5589 Получить/Установить pin mode. if 1 - put element to
+#X msg 110 5634 @pinned;
+#X text 245 5634 Получить/Установить pin mode. if 1 - put element to
 the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 5631 @presetname;
-#X text 245 5631 Получить/Установить preset name for using with [ui.preset].
+#X msg 110 5676 @presetname;
+#X text 245 5676 Получить/Установить preset name for using with [ui.preset].
 Тип: symbol. Значение по умолчанию: (null).;
-#X obj 20 5683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5688 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 5728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5733 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 5723 clear;
-#X text 245 5723 clears specified preset. Аргументы:;
-#X obj 255 5746 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5746 IDX: preset index. Тип: int.;
-#X msg 110 5771 interp;
-#X text 245 5771 for this object acts as *load* \, no interpolation
+#X msg 110 5768 clear;
+#X text 245 5768 clears specified preset. Аргументы:;
+#X obj 255 5791 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5791 IDX: preset index. Тип: int.;
+#X msg 110 5816 interp;
+#X text 245 5816 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 5799 load;
-#X text 245 5799 loads specified preset. Аргументы:;
-#X obj 255 5822 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5822 IDX: preset index. Тип: int.;
-#X msg 110 5847 pos;
-#X text 245 5847 set UI element position. Аргументы:;
-#X obj 255 5870 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5870 X: top left x-coord. Тип: float.;
-#X obj 255 5893 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5893 Y: top right y-coord. Тип: float.;
-#X msg 110 5918 set;
-#X text 245 5918 sets icon name.;
-#X msg 110 5946 store;
-#X text 245 5946 stores specified preset. Аргументы:;
-#X obj 255 5969 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5969 IDX: preset index. Тип: int.;
-#X obj 20 6004 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 6009 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 5844 load;
+#X text 245 5844 loads specified preset. Аргументы:;
+#X obj 255 5867 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5867 IDX: preset index. Тип: int.;
+#X msg 110 5892 pos;
+#X text 245 5892 set UI element position. Аргументы:;
+#X obj 255 5915 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5915 X: top left x-coord. Тип: float.;
+#X obj 255 5938 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5938 Y: top right y-coord. Тип: float.;
+#X msg 110 5963 set;
+#X text 245 5963 sets icon name.;
+#X msg 110 5991 store;
+#X text 245 5991 stores specified preset. Аргументы:;
+#X obj 255 6014 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 6014 IDX: preset index. Тип: int.;
+#X obj 20 6049 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 6054 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 6010 1\.;
-#X text 245 6010 (hidden inlet!) see @mode property.;
-#X obj 20 6040 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 6045 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 6055 1\.;
+#X text 245 6055 (hidden inlet!) see @mode property.;
+#X obj 20 6085 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 6090 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 6046 1\.;
-#X text 245 6046 (hidden outlet!) see @mode property.;
+#X text 110 6091 1\.;
+#X text 245 6091 (hidden outlet!) see @mode property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 6096 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 6099 библиотека: ceammc v0.9.8;
-#X text 565 6111 смотрите также:;
-#X obj 686 6114 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 6141 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 6144 библиотека: ceammc v0.9.8;
+#X text 565 6156 смотрите также:;
+#X obj 686 6159 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.bang] @url ui.bang-help.pd;
-#N canvas 10 6118 400 290 info 0;
+#N canvas 10 6163 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -476,7 +476,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 6118 pd info;
+#X restore 10 6163 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 11 0 15 0;

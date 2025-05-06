@@ -29,74 +29,74 @@
 #X text 245 395 Получить/Установить output signal filtering. LTC should
 have a rise time of 40us+/-10 us. If you want a perfect square wave
 \, set to 0\. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...500\.;
-#X msg 110 467 @fps;
-#X text 245 467 Получить/Установить frames per second rate. Supported
+#X msg 110 482 @fps;
+#X text 245 482 Получить/Установить frames per second rate. Supported
 values are: 24 \, 25 \, 29.97 \, 30\. Тип: float. Значение по умолчанию:
 25\.;
-#X msg 110 524 @on;
-#X text 245 524 Получить/Установить encoder state. Тип: bool. Значение
+#X msg 110 539 @on;
+#X text 245 539 Получить/Установить encoder state. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 566 @speed;
-#X text 245 566 Получить/Установить playing speed. Тип: float. Значение
+#X msg 110 581 @speed;
+#X text 245 581 Получить/Установить playing speed. Тип: float. Значение
 по умолчанию: 1\.;
-#X msg 110 608 @volume;
-#X text 245 608 Получить/Установить output signal level. Тип: float.
+#X msg 110 623 @volume;
+#X text 245 623 Получить/Установить output signal level. Тип: float.
 Единицы: 'db'. Значение по умолчанию: -3\. Диапазон: -42\...0\.;
-#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 665 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 680 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 700 date;
-#X text 245 700 set current date. Аргументы:;
-#X obj 255 723 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 723 YEAR: year. Тип: int. Диапазон: 0…3000\.;
-#X obj 255 746 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 746 MONTH: month. Тип: int. Диапазон: 1…12\.;
-#X obj 255 769 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 769 DAY: day. Тип: int. Диапазон: 1…31\.;
-#X obj 255 792 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 792 [TIMEZONE]: timezone in +HHMM format. Тип: symbol.;
-#X msg 110 817 seek;
-#X text 245 817 time seek. Аргументы:;
-#X obj 255 840 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 840 UNIT: relative position seek. If float or int - seek
+#X msg 110 715 date;
+#X text 245 715 set current date. Аргументы:;
+#X obj 255 738 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 738 YEAR: year. Тип: int. Диапазон: 0…3000\.;
+#X obj 255 761 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 761 MONTH: month. Тип: int. Диапазон: 1…12\.;
+#X obj 255 784 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 784 DAY: day. Тип: int. Диапазон: 1…31\.;
+#X obj 255 807 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 807 [TIMEZONE]: timezone in +HHMM format. Тип: symbol.;
+#X msg 110 832 seek;
+#X text 245 832 time seek. Аргументы:;
+#X obj 255 855 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 855 UNIT: relative position seek. If float or int - seek
 in frames \, otherwise units are expected. Supported units are: day
 \, hour \, min \, sec. E.g.: 1day \, 3hour \, 5min \, 11sec etc. Тип:
 atom.;
-#X msg 110 910 time;
-#X text 245 910 set current time. Аргументы:;
-#X obj 255 933 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 933 HOUR: hour. Тип: int. Диапазон: 0…23\.;
-#X obj 255 956 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 956 MIN: minute. Тип: int. Диапазон: 0…59\.;
-#X obj 255 979 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 979 SEC: second. Тип: int. Диапазон: 0…59\.;
-#X obj 255 1002 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1002 [FRAME]: frame number. Тип: int. Диапазон: 0…30\.;
-#X obj 20 1037 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1042 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 940 time;
+#X text 245 940 set current time. Аргументы:;
+#X obj 255 963 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 963 HOUR: hour. Тип: int. Диапазон: 0…23\.;
+#X obj 255 986 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 986 MIN: minute. Тип: int. Диапазон: 0…59\.;
+#X obj 255 1009 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1009 SEC: second. Тип: int. Диапазон: 0…59\.;
+#X obj 255 1032 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1032 [FRAME]: frame number. Тип: int. Диапазон: 0…30\.;
+#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1072 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1043 1\.;
-#X text 150 1043 *bang*;
-#X text 245 1043 output current time to second outlet.;
-#X text 150 1063 *bool*;
-#X text 245 1063 switch on/off encoder process.;
-#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1098 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1073 1\.;
+#X text 150 1073 *bang*;
+#X text 245 1073 output current time to second outlet.;
+#X text 150 1093 *bool*;
+#X text 245 1093 switch on/off encoder process.;
+#X obj 20 1123 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1128 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1099 1\.;
-#X text 245 1099 LTC signal.;
-#X text 110 1119 2\.;
-#X text 245 1119 list: HOUR MINUTE SECOND FRAME.;
+#X text 110 1129 1\.;
+#X text 245 1129 LTC signal.;
+#X text 110 1149 2\.;
+#X text 245 1149 list: HOUR MINUTE SECOND FRAME.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1169 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1172 библиотека: ceammc v0.9.8;
-#X text 567 1184 смотрите также:;
-#X obj 688 1184 ltc.in~;
-#N canvas 10 1191 400 290 info 0;
+#X obj 1 1199 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1202 библиотека: ceammc v0.9.8;
+#X text 567 1214 смотрите также:;
+#X obj 688 1214 ltc.in~;
+#N canvas 10 1221 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -120,7 +120,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1191 pd info;
+#X restore 10 1221 pd info;
 #X connect 7 0 9 0;
 #X connect 5 0 13 0;
 #X connect 11 0 13 0;
