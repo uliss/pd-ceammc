@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
-    <tr lang="en">MIDI channel binding. If set to 0, it binds to all channels</tr>
-    <tr lang="ru">привязанный канал MIDI. Если установлен в 0 - привязка ко всем каналам</tr>
+<property name="@midi_channel" type="int" minvalue="0" maxvalue="255" default="0">
+    <tr lang="en">MIDI channel binding. If set to 0, it binds to all channels.
+    The values in the range [1..16] are mapped to the channels of the first Pd MIDI device,
+    [17..32] to the channels of the second, and so on.</tr>
+    <tr lang="ru">привязанный канал MIDI. Если установлен в 0 - привязка ко всем каналам.
+    Значения в диапазоне [1..16] привязываются к каналам первого Pd MIDI устройства,
+    [17..32] - к каналам второго и т.д.</tr>
 </property>
 
 
