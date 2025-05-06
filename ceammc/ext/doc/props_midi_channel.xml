@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
+    <tr lang="en">MIDI channel binding. If set to 0, it binds to all channels</tr>
+    <tr lang="ru">привязанный канал MIDI. Если установлен в 0 - привязка ко всем каналам</tr>
+</property>
+
+

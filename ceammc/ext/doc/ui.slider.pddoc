@@ -70,6 +70,8 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_midi_channel.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @active_scale -->
             <property name="@active_scale" type="bool" default="0">
                 <tr lang="en">if should draw active scale</tr>
@@ -81,10 +83,6 @@
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum slider value</tr>
-            </property>
-            <!-- @midi_channel -->
-            <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
-                <tr lang="en">binded MIDI channel. 0 means listen to all channels</tr>
             </property>
             <!-- @midi_control -->
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
@@ -109,10 +107,6 @@
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @scale -->
             <property name="@scale" type="symbol" default="linear" enum="linear log">

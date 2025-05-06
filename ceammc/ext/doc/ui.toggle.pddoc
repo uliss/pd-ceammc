@@ -46,11 +46,9 @@
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_receive.xml" />
-            <!-- @midi_channel -->
-            <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
-                <tr lang="en">binded MIDI channel. 0 means listen to all channels</tr>
-            </property>
+            <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_midi_channel.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @midi_control -->
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
                 <tr lang="en">binded MIDI controller number. -1 means not binded to any
@@ -63,10 +61,6 @@
             <!-- @on_value -->
             <property name="@on_value" type="float" default="1">
                 <tr lang="en">output on value</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 15">

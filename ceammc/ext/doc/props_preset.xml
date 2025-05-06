@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<property name="@presetname" type="symbol" default="(null)">
+    <tr lang="en">preset name for using with [ui.preset] or [preset.storage] objects</tr>
+    <tr lang="ru">имя пресета для использования с объектами [ui.preset] или [preset.storage]</tr>
+</property>
+
+

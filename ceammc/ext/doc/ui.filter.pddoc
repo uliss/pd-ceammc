@@ -42,6 +42,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @freq -->
             <property name="@freq" type="float" default="1000" minvalue="0" maxvalue="20000">
                 <tr lang="en">filter frequency</tr>
@@ -72,10 +73,6 @@
             <!-- @plot_color -->
             <property name="@plot_color" type="list" default="0 0 0 1">
                 <tr lang="en">knob color</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @q -->
             <property name="@q" type="float" default="0.7071" minvalue="0.0156" maxvalue="64">

@@ -53,6 +53,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @digits -->
             <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="9">
                 <tr lang="en">number of digits. If -1 - no fixed digits used</tr>
@@ -69,10 +70,6 @@
             <!-- @min -->
             <property name="@min" type="float" default="-inf">
                 <tr lang="en">minimum value</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="53 15">

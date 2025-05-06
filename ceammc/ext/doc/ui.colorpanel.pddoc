@@ -37,6 +37,7 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_preset.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_send.xml" />
             <!-- @hex -->
@@ -66,10 +67,6 @@
             <!-- @pd -->
             <property name="@pd" type="int" access="readonly" default="0">
                 <tr lang="en">pd color value</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @reverse -->
             <property name="@reverse" type="bool" default="0">

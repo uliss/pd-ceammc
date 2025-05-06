@@ -94,67 +94,67 @@ normal. Allowed values: normal \, bold.;
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
 #X msg 110 1197 @presetname;
-#X text 245 1197 Get/Set preset name for using with [ui.preset]. Type:
-symbol. Default value: (null).;
-#X msg 110 1239 @size;
-#X text 245 1239 Get/Set object size (width \, height pair). Type:
+#X text 245 1197 Get/Set preset name for using with [ui.preset] or
+[preset.storage] objects. Type: symbol. Default value: (null).;
+#X msg 110 1254 @size;
+#X text 245 1254 Get/Set object size (width \, height pair). Type:
 list. Default value: 15 20\.;
-#X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1296 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1311 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1331 clear;
-#X text 245 1331 clears specified preset. Arguments are:;
-#X obj 255 1354 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1354 IDX: preset index. Type: int.;
-#X msg 110 1379 dec;
-#X text 245 1379 decrements widget with output.;
-#X msg 110 1407 inc;
-#X text 245 1407 increments widget with output.;
-#X msg 110 1435 interp;
-#X text 245 1435 for this object acts as *load* \, no interpolation
+#X msg 110 1346 clear;
+#X text 245 1346 clears specified preset. Arguments are:;
+#X obj 255 1369 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1369 IDX: preset index. Type: int.;
+#X msg 110 1394 dec;
+#X text 245 1394 decrements widget with output.;
+#X msg 110 1422 inc;
+#X text 245 1422 increments widget with output.;
+#X msg 110 1450 interp;
+#X text 245 1450 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1463 load;
-#X text 245 1463 loads specified preset. Arguments are:;
-#X obj 255 1486 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1486 IDX: preset index. Type: int.;
-#X msg 110 1511 pos;
-#X text 245 1511 set UI element position. Arguments are:;
-#X obj 255 1534 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1534 X: top left x-coord. Type: float.;
-#X obj 255 1557 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1557 Y: top right y-coord. Type: float.;
-#X msg 110 1582 set;
-#X text 245 1582 set widget value with no output. Arguments are:;
-#X obj 255 1605 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1605 VAL: value. Type: float.;
-#X msg 110 1630 store;
-#X text 245 1630 stores specified preset. Arguments are:;
-#X obj 255 1653 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1653 IDX: preset index. Type: int.;
-#X obj 20 1688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1693 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1478 load;
+#X text 245 1478 loads specified preset. Arguments are:;
+#X obj 255 1501 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1501 IDX: preset index. Type: int.;
+#X msg 110 1526 pos;
+#X text 245 1526 set UI element position. Arguments are:;
+#X obj 255 1549 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1549 X: top left x-coord. Type: float.;
+#X obj 255 1572 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1572 Y: top right y-coord. Type: float.;
+#X msg 110 1597 set;
+#X text 245 1597 set widget value with no output. Arguments are:;
+#X obj 255 1620 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1620 VAL: value. Type: float.;
+#X msg 110 1645 store;
+#X text 245 1645 stores specified preset. Arguments are:;
+#X obj 255 1668 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1668 IDX: preset index. Type: int.;
+#X obj 20 1703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1708 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1694 1\.;
-#X text 150 1694 *bang*;
-#X text 245 1694 outputs current widget value.;
-#X text 150 1714 *float*;
-#X text 245 1714 change widget value and output it.;
-#X obj 20 1744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1749 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1709 1\.;
+#X text 150 1709 *bang*;
+#X text 245 1709 outputs current widget value.;
+#X text 150 1729 *float*;
+#X text 245 1729 change widget value and output it.;
+#X obj 20 1759 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1764 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1750 1\.;
-#X text 245 1750 output value.;
+#X text 110 1765 1\.;
+#X text 245 1765 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1800 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1803 library: ceammc v0.9.8;
-#X text 597 1815 see also:;
-#X obj 672 1818 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1815 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1818 library: ceammc v0.9.8;
+#X text 597 1830 see also:;
+#X obj 672 1833 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 1822 400 290 info 0;
+#N canvas 10 1837 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -178,7 +178,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1822 pd info;
+#X restore 10 1837 pd info;
 #X connect 7 0 10 0;
 #X connect 4 0 12 0;
 #X connect 5 0 12 0;

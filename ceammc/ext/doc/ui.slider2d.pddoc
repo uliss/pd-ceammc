@@ -54,6 +54,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @bind_x -->
             <property name="@bind_x" type="list" default="">
                 <tr lang="en">MIDI/keyboard bind expression for x-axis movement</tr>
@@ -66,10 +67,6 @@
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @show_grid -->
             <property name="@show_grid" type="bool" default="0">

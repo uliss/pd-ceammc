@@ -63,6 +63,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @auto_count -->
             <property name="@auto_count" type="bool" default="0">
                 <tr lang="en">if set numbers of sliders equal to input list length</tr>
@@ -88,10 +89,6 @@
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @range -->
             <property name="@range" type="float" access="readonly" default="1">

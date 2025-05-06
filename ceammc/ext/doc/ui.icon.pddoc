@@ -50,6 +50,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @background_color -->
             <property name="@background_color" type="list" default="1 1 1 1">
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
@@ -78,10 +79,6 @@
                 <tr lang="en">the output mode. In the bang mode - outputs the bang on mouse down.
                 In the button mode outputs 1 on mouse down and 0 on mouse up. In the toggle mode
                 outputs 1/0 on mouse down, like vanilla toggle object.</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
         </properties>
         <methods>

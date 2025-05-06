@@ -41,6 +41,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @count -->
             <property name="@count" type="int" access="readonly" default="0">
                 <tr lang="en">number of menu items</tr>
@@ -60,10 +61,6 @@
             <!-- @open -->
             <property name="@open" type="bool" default="0">
                 <tr lang="en">opened state</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="100 16">

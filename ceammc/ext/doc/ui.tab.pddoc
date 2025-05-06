@@ -40,6 +40,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @count -->
             <property name="@count" type="int" default="0" access="readonly">
                 <tr lang="en">number of tabs</tr>
@@ -59,10 +60,6 @@
             <!-- @orientation -->
             <property name="@orientation" type="bool" default="0">
                 <tr lang="en">tab orientation. 1 is vertical, 0 is horizontal</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @selected -->
             <property name="@selected" type="list" access="readonly" default="">

@@ -44,6 +44,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @angle -->
             <property name="@angle" type="float" default="0">
                 <tr lang="en">angle</tr>
@@ -65,10 +66,6 @@
             <property name="@positive" type="bool" default="0">
                 <tr lang="en">use positive output angle range. For example: [0..360) when using
                 degrees, otherwise using [-180..180) range.</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @radians -->
             <property name="@radians" type="bool" default="0">

@@ -160,118 +160,119 @@ Helvetica \, Monaco \, Times.;
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
 #X msg 110 2087 @presetname;
-#X text 245 2087 Получить/Установить preset name for using with [ui.preset].
-Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 2129 @size;
-#X text 245 2129 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X text 245 2087 Получить/Установить имя пресета для использования
+с объектами [ui.preset] или [preset.storage]. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 2144 @size;
+#X text 245 2144 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 150 100\.;
-#X msg 110 2171 @range?;
-#X text 245 2171 (только чтение) Получить value range. Тип: float.
+#X msg 110 2186 @range?;
+#X text 245 2186 (только чтение) Получить value range. Тип: float.
 Значение по умолчанию: 1\.;
-#X msg 110 2213 @value?;
-#X text 245 2213 (только чтение) Получить sliders value. Тип: list.;
-#X obj 20 2253 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2258 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 110 2228 @value?;
+#X text 245 2228 (только чтение) Получить sliders value. Тип: list.;
+#X obj 20 2268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2273 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 2293 clear;
-#X text 245 2293 clears specified preset. Аргументы:;
-#X obj 255 2316 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2316 IDX: preset index. Тип: int.;
-#X msg 110 2341 fill;
-#X text 245 2341 fill sliders value with specified value without output.;
-#X msg 110 2369 get slider N;
-#X text 245 2369 get specified slider value. Аргументы:;
-#X obj 255 2392 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2392 N: slider position \, starting from 0\. Тип: int.
+#X msg 110 2308 clear;
+#X text 245 2308 clears specified preset. Аргументы:;
+#X obj 255 2331 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2331 IDX: preset index. Тип: int.;
+#X msg 110 2356 fill;
+#X text 245 2356 fill sliders value with specified value without output.;
+#X msg 110 2384 get slider N;
+#X text 245 2384 get specified slider value. Аргументы:;
+#X obj 255 2407 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2407 N: slider position \, starting from 0\. Тип: int.
 Минимальное значение: 0\.;
-#X msg 110 2432 interp;
-#X text 245 2432 interplolates between presets. Аргументы:;
-#X obj 255 2455 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2455 IDX: preset fraction index. Тип: float.;
-#X msg 110 2480 lindown;
-#X text 245 2480 fill sliders with decreasing values without output.;
-#X msg 110 2508 linup;
-#X text 245 2508 fill sliders with increasing values without output.;
-#X msg 110 2536 load;
-#X text 245 2536 loads specified preset. Аргументы:;
-#X obj 255 2559 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2559 IDX: preset index. Тип: int.;
-#X msg 110 2584 pos;
-#X text 245 2584 set UI element position. Аргументы:;
-#X obj 255 2607 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2607 X: top left x-coord. Тип: float.;
-#X obj 255 2630 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2630 Y: top right y-coord. Тип: float.;
-#X msg 110 2655 random;
-#X text 245 2655 fill sliders with random values without output.;
-#X msg 110 2683 select;
-#X text 245 2683 draws specified slider with select color. Аргументы:;
-#X obj 255 2706 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2706 N: slider index \, starting from 0\. Тип: int. Минимальное
+#X msg 110 2447 interp;
+#X text 245 2447 interplolates between presets. Аргументы:;
+#X obj 255 2470 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2470 IDX: preset fraction index. Тип: float.;
+#X msg 110 2495 lindown;
+#X text 245 2495 fill sliders with decreasing values without output.;
+#X msg 110 2523 linup;
+#X text 245 2523 fill sliders with increasing values without output.;
+#X msg 110 2551 load;
+#X text 245 2551 loads specified preset. Аргументы:;
+#X obj 255 2574 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2574 IDX: preset index. Тип: int.;
+#X msg 110 2599 pos;
+#X text 245 2599 set UI element position. Аргументы:;
+#X obj 255 2622 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2622 X: top left x-coord. Тип: float.;
+#X obj 255 2645 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2645 Y: top right y-coord. Тип: float.;
+#X msg 110 2670 random;
+#X text 245 2670 fill sliders with random values without output.;
+#X msg 110 2698 select;
+#X text 245 2698 draws specified slider with select color. Аргументы:;
+#X obj 255 2721 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2721 N: slider index \, starting from 0\. Тип: int. Минимальное
 значение: 0\.;
-#X msg 110 2746 set;
-#X text 245 2746 sets sliders values without output. Аргументы:;
-#X obj 255 2769 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2769 [VALUES]: slider values. Тип: list.;
-#X msg 110 2794 set slider N V;
-#X text 245 2794 sets specified slider value. Аргументы:;
-#X obj 255 2817 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2817 N: slider position \, starting from 0\. Тип: int.
+#X msg 110 2761 set;
+#X text 245 2761 sets sliders values without output. Аргументы:;
+#X obj 255 2784 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2784 [VALUES]: slider values. Тип: list.;
+#X msg 110 2809 set slider N V;
+#X text 245 2809 sets specified slider value. Аргументы:;
+#X obj 255 2832 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2832 N: slider position \, starting from 0\. Тип: int.
 Минимальное значение: 0\.;
-#X obj 255 2855 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2855 V: slider value. Тип: float.;
-#X msg 110 2880 store;
-#X text 245 2880 stores specified preset. Аргументы:;
-#X obj 255 2903 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2903 IDX: preset index. Тип: int.;
-#X msg 110 2928 *;
-#X text 245 2928 multiply each slider without output. Аргументы:;
-#X obj 255 2951 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2951 V: multiplied value. Тип: float.;
-#X msg 110 2976 +;
-#X text 245 2976 add value to every slider without output. Аргументы:;
-#X obj 255 2999 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2999 V: added value. Тип: float.;
-#X msg 110 3024 ++;
-#X text 245 3024 increment all sliders without output.;
-#X msg 110 3052 -;
-#X text 245 3052 subtract value from every slider without output. Аргументы:;
-#X obj 255 3075 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3075 V: subtracted value. Тип: float.;
-#X msg 110 3100 --;
-#X text 245 3100 decrement all sliders without output.;
-#X msg 110 3128 /;
-#X text 245 3128 divide each slider without output. Аргументы:;
-#X obj 255 3151 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3151 V: denominator value. Тип: float.;
-#X msg 110 3176 dump;
-#X text 245 3176 dumps all object info to Pd console window.;
-#X obj 20 3214 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3219 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 255 2870 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2870 V: slider value. Тип: float.;
+#X msg 110 2895 store;
+#X text 245 2895 stores specified preset. Аргументы:;
+#X obj 255 2918 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2918 IDX: preset index. Тип: int.;
+#X msg 110 2943 *;
+#X text 245 2943 multiply each slider without output. Аргументы:;
+#X obj 255 2966 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2966 V: multiplied value. Тип: float.;
+#X msg 110 2991 +;
+#X text 245 2991 add value to every slider without output. Аргументы:;
+#X obj 255 3014 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3014 V: added value. Тип: float.;
+#X msg 110 3039 ++;
+#X text 245 3039 increment all sliders without output.;
+#X msg 110 3067 -;
+#X text 245 3067 subtract value from every slider without output. Аргументы:;
+#X obj 255 3090 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3090 V: subtracted value. Тип: float.;
+#X msg 110 3115 --;
+#X text 245 3115 decrement all sliders without output.;
+#X msg 110 3143 /;
+#X text 245 3143 divide each slider without output. Аргументы:;
+#X obj 255 3166 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3166 V: denominator value. Тип: float.;
+#X msg 110 3191 dump;
+#X text 245 3191 dumps all object info to Pd console window.;
+#X obj 20 3229 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3234 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 3220 1\.;
-#X text 150 3220 *bang*;
-#X text 245 3220 outputs sliders position.;
-#X text 150 3240 *list*;
-#X text 245 3240 sets slider values and output them.;
-#X obj 20 3270 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3275 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 3235 1\.;
+#X text 150 3235 *bang*;
+#X text 245 3235 outputs sliders position.;
+#X text 150 3255 *list*;
+#X text 245 3255 sets slider values and output them.;
+#X obj 20 3285 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3290 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 3276 1\.;
-#X text 245 3276 list of slider values.;
+#X text 110 3291 1\.;
+#X text 245 3291 list of slider values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 3326 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3329 библиотека: ceammc v0.9.8;
-#X text 468 3341 смотрите также:;
-#X obj 589 3344 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 3341 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3344 библиотека: ceammc v0.9.8;
+#X text 468 3356 смотрите также:;
+#X obj 589 3359 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider] @url ui.slider-help.pd;
-#X obj 672 3344 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 3359 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.preset] @url ui.preset-help.pd;
-#N canvas 10 3348 400 290 info 0;
+#N canvas 10 3363 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -295,7 +296,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 3348 pd info;
+#X restore 10 3363 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 8 0 12 0;

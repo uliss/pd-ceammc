@@ -54,6 +54,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @cols -->
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">
                 <tr lang="en">number of matrix columns</tr>
@@ -72,10 +73,6 @@
             <property name="@current_row" type="int" minvalue="-1" default="-1">
                 <tr lang="en">current row index. -1 if not specified. This property is not saved in
                 patch</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @rows -->
             <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">

@@ -50,6 +50,8 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_send.xml" />
+            <xi:include href="props_midi_channel.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @amp -->
             <property name="@amp" type="float" default="0">
                 <tr lang="en">gain as amplitude ratio</tr>
@@ -66,10 +68,6 @@
             <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
             units="decibel">
                 <tr lang="en">maximum gain value</tr>
-            </property>
-            <!-- @midi_channel -->
-            <property name="@midi_channel" type="int" minvalue="0" maxvalue="255" default="0">
-                <tr lang="en">binded MIDI channel. 0 means listen to all channels</tr>
             </property>
             <!-- @midi_control -->
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
@@ -95,10 +93,6 @@
             <!-- @output_value -->
             <property name="@output_value" type="bool" default="0">
                 <tr lang="en">flag to output @db property after each knob move</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @relative -->
             <property name="@relative" type="bool" default="1">

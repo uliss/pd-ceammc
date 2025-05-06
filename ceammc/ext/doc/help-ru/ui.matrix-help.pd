@@ -119,154 +119,155 @@ Helvetica \, Monaco \, Times.;
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
 #X msg 110 1609 @presetname;
-#X text 245 1609 Получить/Установить preset name for using with [ui.preset].
-Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1651 @size;
-#X text 245 1651 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X text 245 1609 Получить/Установить имя пресета для использования
+с объектами [ui.preset] или [preset.storage]. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 1666 @size;
+#X text 245 1666 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 105 53\.;
-#X obj 20 1703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1708 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1718 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1723 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1743 clear;
-#X text 245 1743 clears specified preset. Аргументы:;
-#X obj 255 1766 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1766 IDX: preset index. Тип: int.;
-#X msg 110 1791 flip;
-#X text 245 1791 flips all matrix cells.;
-#X msg 110 1819 flip R C;
-#X text 245 1819 flips single cell. Аргументы:;
-#X obj 255 1842 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1842 R: row index. Тип: int. Минимальное значение: 0\.;
-#X obj 255 1865 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1865 C: column index. Тип: int. Минимальное значение: 0\.;
-#X msg 110 1890 flip col N;
-#X text 245 1890 flips cells in specified column. Аргументы:;
-#X obj 255 1913 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1913 N: column index. Тип: int. Минимальное значение: 0\.;
-#X msg 110 1938 flip row N;
-#X text 245 1938 flips cells in specified row. Аргументы:;
-#X obj 255 1961 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1961 N: row index. Тип: int. Минимальное значение: 0\.;
-#X msg 110 1986 get cell R C;
-#X text 245 1986 outputs single cell value as message [cell ROW COL
+#X msg 110 1758 clear;
+#X text 245 1758 clears specified preset. Аргументы:;
+#X obj 255 1781 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1781 IDX: preset index. Тип: int.;
+#X msg 110 1806 flip;
+#X text 245 1806 flips all matrix cells.;
+#X msg 110 1834 flip R C;
+#X text 245 1834 flips single cell. Аргументы:;
+#X obj 255 1857 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1857 R: row index. Тип: int. Минимальное значение: 0\.;
+#X obj 255 1880 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1880 C: column index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 1905 flip col N;
+#X text 245 1905 flips cells in specified column. Аргументы:;
+#X obj 255 1928 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1928 N: column index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 1953 flip row N;
+#X text 245 1953 flips cells in specified row. Аргументы:;
+#X obj 255 1976 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1976 N: row index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 2001 get cell R C;
+#X text 245 2001 outputs single cell value as message [cell ROW COL
 VALUE(. Аргументы:;
-#X obj 255 2024 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2024 R: row index. Тип: int. Минимальное значение: 0\.;
-#X obj 255 2047 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2047 C: column index. Тип: int. Минимальное значение: 0\.;
-#X msg 110 2072 get cells;
-#X text 245 2072 output all cells as separate messages [cell R C VALUE(.;
-#X msg 110 2100 get col N;
-#X text 245 2100 outputs column cells as message [col N V0 V1\...(.
+#X obj 255 2039 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2039 R: row index. Тип: int. Минимальное значение: 0\.;
+#X obj 255 2062 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2062 C: column index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 2087 get cells;
+#X text 245 2087 output all cells as separate messages [cell R C VALUE(.;
+#X msg 110 2115 get col N;
+#X text 245 2115 outputs column cells as message [col N V0 V1\...(.
 Аргументы:;
-#X obj 255 2123 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2123 N: column index. Тип: int. Минимальное значение: 0\.;
-#X msg 110 2148 get cols;
-#X text 245 2148 output all columns as separate messages [col N V0
+#X obj 255 2138 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2138 N: column index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 2163 get cols;
+#X text 245 2163 output all columns as separate messages [col N V0
 V1\...(.;
-#X msg 110 2176 get list;
-#X text 245 2176 output all cell values as list \, row by raw. [0 1
+#X msg 110 2191 get list;
+#X text 245 2191 output all cell values as list \, row by raw. [0 1
 1 1 0\...(.;
-#X msg 110 2204 get matrix;
-#X text 245 2204 output as matrix [matrix NROWS NCOLS DATA...(.;
-#X msg 110 2232 get row N;
-#X text 245 2232 outputs row cells as message [row N V0 V1\...(. Аргументы:;
-#X obj 255 2255 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2255 N: row index. Тип: int. Минимальное значение: 0\.;
-#X msg 110 2280 get rows;
-#X text 245 2280 output all rows as separate messages [row N V0 V1\...(.;
-#X msg 110 2308 interp;
-#X text 245 2308 for this object acts as *load* \, no interpolation
+#X msg 110 2219 get matrix;
+#X text 245 2219 output as matrix [matrix NROWS NCOLS DATA...(.;
+#X msg 110 2247 get row N;
+#X text 245 2247 outputs row cells as message [row N V0 V1\...(. Аргументы:;
+#X obj 255 2270 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2270 N: row index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 2295 get rows;
+#X text 245 2295 output all rows as separate messages [row N V0 V1\...(.;
+#X msg 110 2323 interp;
+#X text 245 2323 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 2336 load;
-#X text 245 2336 loads specified preset. Аргументы:;
-#X obj 255 2359 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2359 IDX: preset index. Тип: int.;
-#X msg 110 2384 pos;
-#X text 245 2384 set UI element position. Аргументы:;
-#X obj 255 2407 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2407 X: top left x-coord. Тип: float.;
-#X obj 255 2430 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2430 Y: top right y-coord. Тип: float.;
-#X msg 110 2455 random;
-#X text 245 2455 fill matrix random and output.;
-#X msg 110 2483 read;
-#X text 245 2483 Аргументы:;
-#X obj 255 2506 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2506 [FNAME]: read matrix values from text file (space
+#X msg 110 2351 load;
+#X text 245 2351 loads specified preset. Аргументы:;
+#X obj 255 2374 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2374 IDX: preset index. Тип: int.;
+#X msg 110 2399 pos;
+#X text 245 2399 set UI element position. Аргументы:;
+#X obj 255 2422 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2422 X: top left x-coord. Тип: float.;
+#X obj 255 2445 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2445 Y: top right y-coord. Тип: float.;
+#X msg 110 2470 random;
+#X text 245 2470 fill matrix random and output.;
+#X msg 110 2498 read;
+#X text 245 2498 Аргументы:;
+#X obj 255 2521 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2521 [FNAME]: read matrix values from text file (space
 separated). If fname argument is not specified opens file chooser dialog.
 Тип: symbol.;
-#X msg 110 2561 reset;
-#X text 245 2561 uncheck all matrix cells. No output.;
-#X msg 110 2589 set col N ...;
-#X text 245 2589 set specified column without output. Аргументы:;
-#X obj 255 2612 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2612 N: column index. Тип: int. Минимальное значение: 0\.;
-#X obj 255 2635 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2635 ...: cell values (1 - checked \, 0 - unchecked). Тип:
+#X msg 110 2576 reset;
+#X text 245 2576 uncheck all matrix cells. No output.;
+#X msg 110 2604 set col N ...;
+#X text 245 2604 set specified column without output. Аргументы:;
+#X obj 255 2627 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2627 N: column index. Тип: int. Минимальное значение: 0\.;
+#X obj 255 2650 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2650 ...: cell values (1 - checked \, 0 - unchecked). Тип:
 list.;
-#X msg 110 2660 set list ...;
-#X text 245 2660 set matrix data without output. Аргументы:;
-#X obj 255 2683 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2683 ...: cell values (1 - checked \, 0 - unchecked) \,
+#X msg 110 2675 set list ...;
+#X text 245 2675 set matrix data without output. Аргументы:;
+#X obj 255 2698 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2698 ...: cell values (1 - checked \, 0 - unchecked) \,
 row by row. Тип: list.;
-#X msg 110 2723 set matrix R C ...;
-#X text 245 2723 set matrix without output. Аргументы:;
-#X obj 255 2746 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2746 R: number of rows in matrix. Тип: int. Минимальное
+#X msg 110 2738 set matrix R C ...;
+#X text 245 2738 set matrix without output. Аргументы:;
+#X obj 255 2761 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2761 R: number of rows in matrix. Тип: int. Минимальное
 значение: 1\.;
-#X obj 255 2784 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2784 C: number of columns in matrix. Тип: int. Минимальное
+#X obj 255 2799 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2799 C: number of columns in matrix. Тип: int. Минимальное
 значение: 1\.;
-#X obj 255 2822 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2822 ...: cell values (1 - checked \, 0 - unchecked). Тип:
+#X obj 255 2837 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2837 ...: cell values (1 - checked \, 0 - unchecked). Тип:
 list.;
-#X msg 110 2847 set row N ...;
-#X text 245 2847 set specified row without output. Аргументы:;
-#X obj 255 2870 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2870 N: row index. Тип: int. Минимальное значение: 0\.;
-#X obj 255 2893 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2893 ...: cell values (1 - checked \, 0 - unchecked). Тип:
+#X msg 110 2862 set row N ...;
+#X text 245 2862 set specified row without output. Аргументы:;
+#X obj 255 2885 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2885 N: row index. Тип: int. Минимальное значение: 0\.;
+#X obj 255 2908 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2908 ...: cell values (1 - checked \, 0 - unchecked). Тип:
 list.;
-#X msg 110 2918 store;
-#X text 245 2918 stores specified preset. Аргументы:;
-#X obj 255 2941 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2941 IDX: preset index. Тип: int.;
-#X msg 110 2966 write;
-#X text 245 2966 Аргументы:;
-#X obj 255 2989 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2989 [FNAME]: write matrix values to text file (space separated).
+#X msg 110 2933 store;
+#X text 245 2933 stores specified preset. Аргументы:;
+#X obj 255 2956 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2956 IDX: preset index. Тип: int.;
+#X msg 110 2981 write;
+#X text 245 2981 Аргументы:;
+#X obj 255 3004 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3004 [FNAME]: write matrix values to text file (space separated).
 If fname argument is not specified opens file chooser dialog. Тип:
 symbol.;
-#X msg 110 3044 dump;
-#X text 245 3044 dumps all object info to Pd console window.;
-#X obj 20 3082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3087 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 3059 dump;
+#X text 245 3059 dumps all object info to Pd console window.;
+#X obj 20 3097 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3102 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 3088 1\.;
-#X text 150 3088 *bang*;
-#X text 245 3088 output all cells. Same as [get cells(.;
-#X text 150 3108 *list*;
-#X text 245 3108 sets matrix state. Input format: 0 and 1 \, row by
+#X text 110 3103 1\.;
+#X text 150 3103 *bang*;
+#X text 245 3103 output all cells. Same as [get cells(.;
+#X text 150 3123 *list*;
+#X text 245 3123 sets matrix state. Input format: 0 and 1 \, row by
 row.;
-#X obj 20 3138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3143 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 3153 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3158 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 3144 1\.;
-#X text 245 3144 output.;
+#X text 110 3159 1\.;
+#X text 245 3159 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 3194 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3197 библиотека: ceammc v0.9.8;
-#X text 475 3209 смотрите также:;
-#X obj 596 3212 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 3209 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3212 библиотека: ceammc v0.9.8;
+#X text 475 3224 смотрите также:;
+#X obj 596 3227 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.radio] @url ui.radio-help.pd;
-#X obj 672 3212 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 3227 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.toggle] @url ui.toggle-help.pd;
-#N canvas 10 3216 400 290 info 0;
+#N canvas 10 3231 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -290,7 +291,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 3216 pd info;
+#X restore 10 3231 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;
 #X connect 9 0 17 0;

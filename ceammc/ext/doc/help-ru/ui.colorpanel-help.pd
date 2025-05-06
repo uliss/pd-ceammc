@@ -89,76 +89,77 @@ Helvetica \, Monaco \, Times.;
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
 #X msg 110 1245 @presetname;
-#X text 245 1245 Получить/Установить preset name for using with [ui.preset].
-Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1287 @size;
-#X text 245 1287 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X text 245 1245 Получить/Установить имя пресета для использования
+с объектами [ui.preset] или [preset.storage]. Тип: symbol. Значение
+по умолчанию: (null).;
+#X msg 110 1302 @size;
+#X text 245 1302 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 181 105\.;
-#X msg 110 1329 @hex?;
-#X text 245 1329 (только чтение) Получить HEX value in format #RRGGBB.
+#X msg 110 1344 @hex?;
+#X text 245 1344 (только чтение) Получить HEX value in format #RRGGBB.
 Тип: symbol.;
-#X msg 110 1371 @hsl?;
-#X text 245 1371 (только чтение) Получить HSL value triplet on 0-1
+#X msg 110 1386 @hsl?;
+#X text 245 1386 (только чтение) Получить HSL value triplet on 0-1
 range. Тип: list.;
-#X msg 110 1413 @pd?;
-#X text 245 1413 (только чтение) Получить pd color value. Тип: int.
+#X msg 110 1428 @pd?;
+#X text 245 1428 (только чтение) Получить pd color value. Тип: int.
 Значение по умолчанию: 0\.;
-#X msg 110 1455 @rgb?;
-#X text 245 1455 (только чтение) Получить RGB value triplet on 0-1
+#X msg 110 1470 @rgb?;
+#X text 245 1470 (только чтение) Получить RGB value triplet on 0-1
 range. Тип: list.;
-#X obj 20 1507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1512 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1527 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1547 clear;
-#X text 245 1547 clears specified preset. Аргументы:;
-#X obj 255 1570 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1570 IDX: preset index. Тип: int.;
-#X msg 110 1595 interp;
-#X text 245 1595 for this object acts as *load* \, no interpolation
+#X msg 110 1562 clear;
+#X text 245 1562 clears specified preset. Аргументы:;
+#X obj 255 1585 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1585 IDX: preset index. Тип: int.;
+#X msg 110 1610 interp;
+#X text 245 1610 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1623 load;
-#X text 245 1623 loads specified preset. Аргументы:;
-#X obj 255 1646 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1646 IDX: preset index. Тип: int.;
-#X msg 110 1671 pos;
-#X text 245 1671 set UI element position. Аргументы:;
-#X obj 255 1694 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1694 X: top left x-coord. Тип: float.;
-#X obj 255 1717 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1717 Y: top right y-coord. Тип: float.;
-#X msg 110 1742 set;
-#X text 245 1742 set widget value with no output. Аргументы:;
-#X obj 255 1765 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1765 COL: column index. Тип: int.;
-#X obj 255 1788 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1788 ROW: row index. Тип: int.;
-#X msg 110 1813 store;
-#X text 245 1813 stores specified preset. Аргументы:;
-#X obj 255 1836 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1836 IDX: preset index. Тип: int.;
-#X obj 20 1871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1876 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1638 load;
+#X text 245 1638 loads specified preset. Аргументы:;
+#X obj 255 1661 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1661 IDX: preset index. Тип: int.;
+#X msg 110 1686 pos;
+#X text 245 1686 set UI element position. Аргументы:;
+#X obj 255 1709 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1709 X: top left x-coord. Тип: float.;
+#X obj 255 1732 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1732 Y: top right y-coord. Тип: float.;
+#X msg 110 1757 set;
+#X text 245 1757 set widget value with no output. Аргументы:;
+#X obj 255 1780 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1780 COL: column index. Тип: int.;
+#X obj 255 1803 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1803 ROW: row index. Тип: int.;
+#X msg 110 1828 store;
+#X text 245 1828 stores specified preset. Аргументы:;
+#X obj 255 1851 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1851 IDX: preset index. Тип: int.;
+#X obj 20 1886 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1891 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1877 1\.;
-#X text 150 1877 *bang*;
-#X text 245 1877 outputs current widget value.;
-#X obj 20 1907 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1912 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1892 1\.;
+#X text 150 1892 *bang*;
+#X text 245 1892 outputs current widget value.;
+#X obj 20 1922 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1927 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1913 1\.;
-#X text 245 1913 output values: @pd COLOR \, @rgb in range [0-1] \,
+#X text 110 1928 1\.;
+#X text 245 1928 output values: @pd COLOR \, @rgb in range [0-1] \,
 @hsl in range [0-1] \, @hex.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1978 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1981 библиотека: ceammc v0.9.8;
-#X text 551 1993 смотрите также:;
-#X obj 672 1996 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1996 библиотека: ceammc v0.9.8;
+#X text 551 2008 смотрите также:;
+#X obj 672 2011 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 2000 400 290 info 0;
+#N canvas 10 2015 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -182,7 +183,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2000 pd info;
+#X restore 10 2015 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

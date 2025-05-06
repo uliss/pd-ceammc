@@ -95,8 +95,8 @@ Default value: (null).;
 #X text 245 1229 Get/Set if show slider range. Type: bool. Default
 value: 1\.;
 #X msg 110 1259 @midi_channel;
-#X text 245 1259 Get/Set binded MIDI channel. 0 means listen to all
-channels. Type: int. Default value: 0\. Range: 0\...255\.;
+#X text 245 1259 Get/Set MIDI channel binding. If set to 0 \, it binds
+to all channels. Type: int. Default value: 0\. Range: 0\...16\.;
 #X msg 110 1301 @midi_control;
 #X text 245 1301 Get/Set binded MIDI controller number. -1 means not
 binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
@@ -132,66 +132,66 @@ normal. Allowed values: normal \, bold.;
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
 #X msg 110 1811 @presetname;
-#X text 245 1811 Get/Set preset name for using with [ui.preset]. Type:
-symbol. Default value: (null).;
-#X msg 110 1853 @size;
-#X text 245 1853 Get/Set object size (width \, height pair). Type:
+#X text 245 1811 Get/Set preset name for using with [ui.preset] or
+[preset.storage] objects. Type: symbol. Default value: (null).;
+#X msg 110 1868 @size;
+#X text 245 1868 Get/Set object size (width \, height pair). Type:
 list. Default value: 15 120\.;
-#X obj 20 1905 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1910 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1920 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1925 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1945 clear;
-#X text 245 1945 clears specified preset. Arguments are:;
-#X obj 255 1968 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1968 IDX: preset index. Type: int.;
-#X msg 110 1993 interp;
-#X text 245 1993 interplolates between presets. Arguments are:;
-#X obj 255 2016 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2016 IDX: preset fraction index. Type: float.;
-#X msg 110 2041 load;
-#X text 245 2041 loads specified preset. Arguments are:;
-#X obj 255 2064 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2064 IDX: preset index. Type: int.;
-#X msg 110 2089 pos;
-#X text 245 2089 set UI element position. Arguments are:;
-#X obj 255 2112 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2112 X: top left x-coord. Type: float.;
-#X obj 255 2135 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2135 Y: top right y-coord. Type: float.;
-#X msg 110 2160 set N;
-#X text 245 2160 set current gain to N db.;
-#X msg 110 2188 store;
-#X text 245 2188 stores specified preset. Arguments are:;
-#X obj 255 2211 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2211 IDX: preset index. Type: int.;
-#X msg 110 2236 + N;
-#X text 245 2236 increase current gain by N db.;
-#X msg 110 2264 ++;
-#X text 245 2264 decrease current gain by 1 db.;
-#X msg 110 2292 - N;
-#X text 245 2292 decrease current gain by N db.;
-#X msg 110 2320 --;
-#X text 245 2320 decrease current gain by 1 db.;
-#X obj 20 2358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2363 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1960 clear;
+#X text 245 1960 clears specified preset. Arguments are:;
+#X obj 255 1983 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1983 IDX: preset index. Type: int.;
+#X msg 110 2008 interp;
+#X text 245 2008 interplolates between presets. Arguments are:;
+#X obj 255 2031 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2031 IDX: preset fraction index. Type: float.;
+#X msg 110 2056 load;
+#X text 245 2056 loads specified preset. Arguments are:;
+#X obj 255 2079 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2079 IDX: preset index. Type: int.;
+#X msg 110 2104 pos;
+#X text 245 2104 set UI element position. Arguments are:;
+#X obj 255 2127 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2127 X: top left x-coord. Type: float.;
+#X obj 255 2150 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2150 Y: top right y-coord. Type: float.;
+#X msg 110 2175 set N;
+#X text 245 2175 set current gain to N db.;
+#X msg 110 2203 store;
+#X text 245 2203 stores specified preset. Arguments are:;
+#X obj 255 2226 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2226 IDX: preset index. Type: int.;
+#X msg 110 2251 + N;
+#X text 245 2251 increase current gain by N db.;
+#X msg 110 2279 ++;
+#X text 245 2279 decrease current gain by 1 db.;
+#X msg 110 2307 - N;
+#X text 245 2307 decrease current gain by N db.;
+#X msg 110 2335 --;
+#X text 245 2335 decrease current gain by 1 db.;
+#X obj 20 2373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2378 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2364 1\.;
-#X text 245 2364 input signal.;
-#X text 150 2384 *bang*;
-#X text 245 2384 output current gain @db property.;
-#X obj 20 2414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2419 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2379 1\.;
+#X text 245 2379 input signal.;
+#X text 150 2399 *bang*;
+#X text 245 2399 output current gain @db property.;
+#X obj 20 2429 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2434 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2420 1\.;
-#X text 245 2420 output signal.;
+#X text 110 2435 1\.;
+#X text 245 2435 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2470 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2473 library: ceammc v0.9.8;
-#N canvas 10 2492 400 290 info 0;
+#X obj 1 2485 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2488 library: ceammc v0.9.8;
+#N canvas 10 2507 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -215,7 +215,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2492 pd info;
+#X restore 10 2507 pd info;
 #X connect 8 0 16 0;
 #X connect 9 0 16 0;
 #X connect 15 0 16 0;

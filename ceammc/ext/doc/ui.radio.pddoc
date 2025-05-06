@@ -54,6 +54,7 @@
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
             <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_preset.xml" />
             <!-- @mode -->
             <property name="@mode" type="bool" default="0">
                 <tr lang="en">check list mode. If true acts as checklist</tr>
@@ -66,10 +67,6 @@
             <!-- @nitems -->
             <property name="@nitems" type="int" default="8" minvalue="2" maxvalue="128">
                 <tr lang="en">number of items</tr>
-            </property>
-            <!-- @presetname -->
-            <property name="@presetname" type="symbol" default="(null)">
-                <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="120 15">
