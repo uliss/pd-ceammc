@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<property name="@fontslant" type="symbol" enum="roman italic" default="roman">
+    <tr lang="en">font slant</tr>
+    <tr lang="ru">наклон шрифта</tr>
+</property>
+

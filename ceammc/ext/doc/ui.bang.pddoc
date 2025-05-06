@@ -43,10 +43,7 @@
             <xi:include href="props_border_color.xml" />
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
-            <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
-                <tr lang="en">font slant</tr>
-            </property>
+            <xi:include href="props_fontslant.xml" />
             <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
                 <tr lang="en">font weight</tr>
