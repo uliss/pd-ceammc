@@ -24,16 +24,7 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <!-- @background_color -->
-            <property name="@background_color" type="list" default="1 1 1 1">
-                <tr lang="en">element background color (list of red, green, blue values in 0-1
-                range)</tr>
-            </property>
             <xi:include href="props_border_color.xml" />
-            <!-- @cols -->
-            <property name="@cols" type="int" minvalue="2" maxvalue="128" default="8">
-                <tr lang="en">number of columns</tr>
-            </property>
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
@@ -45,6 +36,15 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <!-- @background_color -->
+            <property name="@background_color" type="list" default="1 1 1 1">
+                <tr lang="en">element background color (list of red, green, blue values in 0-1
+                range)</tr>
+            </property>
+            <!-- @cols -->
+            <property name="@cols" type="int" minvalue="2" maxvalue="128" default="8">
+                <tr lang="en">number of columns</tr>
+            </property>
             <!-- @pixels -->
             <property name="@pixels" type="int" default="64" access="readonly">
                 <tr lang="en">number of pixels</tr>
@@ -63,8 +63,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="64 64">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
         </properties>
         <methods>

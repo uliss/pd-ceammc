@@ -33,6 +33,13 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_label.xml" />
+            <xi:include href="props_label_align.xml" />
+            <xi:include href="props_label_inner.xml" />
+            <xi:include href="props_label_margins.xml" />
+            <xi:include href="props_label_side.xml" />
+            <xi:include href="props_label_valign.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @freq -->
             <property name="@freq" type="float" default="1000" minvalue="0" maxvalue="20000">
                 <tr lang="en">filter frequency</tr>
@@ -55,18 +62,11 @@
                 <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4
                 0.1</tr>
             </property>
-            <xi:include href="props_label.xml" />
-            <xi:include href="props_label_align.xml" />
-            <xi:include href="props_label_inner.xml" />
-            <xi:include href="props_label_margins.xml" />
-            <xi:include href="props_label_side.xml" />
-            <xi:include href="props_label_valign.xml" />
             <!-- @mouse_events -->
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @plot_color -->
             <property name="@plot_color" type="list" default="0 0 0 1">
                 <tr lang="en">knob color</tr>
@@ -93,8 +93,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="300 100">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @type -->
             <property name="@type" type="symbol" default="lpf"

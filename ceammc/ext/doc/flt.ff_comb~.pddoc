@@ -35,11 +35,11 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @a -->
             <property name="@a" type="float" minvalue="-1" maxvalue="1" default="1">
                 <tr lang="en">scaling factor of delayed signal</tr>
             </property>
-            <xi:include href="props_active.xml" />
         </properties>
         <methods>
             <!-- reset -->

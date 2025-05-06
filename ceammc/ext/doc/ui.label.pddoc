@@ -32,6 +32,11 @@
             </argument>
         </arguments>
         <properties>
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @align -->
             <property name="@align" type="symbol" default="left" enum="left center right">
                 <tr lang="en">text align</tr>
@@ -41,10 +46,6 @@
                 <tr lang="en">element background color (list of red, green, blue values in 0-1
                 range)</tr>
             </property>
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
             <!-- @margin_bottom -->
             <property name="@margin_bottom" type="int" default="5">
                 <tr lang="en">text bottom margin</tr>
@@ -61,15 +62,14 @@
             <property name="@margin_top" type="int" default="5">
                 <tr lang="en">text top margin</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="300 47">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @text -->
             <property name="@text" type="list" default="Label">

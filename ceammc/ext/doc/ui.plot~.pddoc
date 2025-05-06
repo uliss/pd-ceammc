@@ -36,6 +36,7 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @mode -->
             <property name="@mode" type="symbol" default="lines" enum="lines bars">
                 <tr lang="en">draw mode</tr>
@@ -44,7 +45,6 @@
             <property name="@n" type="int" minvalue="1" maxvalue="4" default="1">
                 <tr lang="en">number of inputs</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @plot_color0 -->
             <property name="@plot_color0" type="list" default="0 0.75 1 1">
                 <tr lang="en">first plot color (list of red, green, blue values in 0-1 range)</tr>
@@ -67,8 +67,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="200 200">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @xlabels -->
             <property name="@xlabels" type="bool" default="0">

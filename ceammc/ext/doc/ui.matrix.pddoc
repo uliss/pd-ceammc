@@ -47,6 +47,11 @@
             <xi:include href="props_active_color.xml" />
             <xi:include href="props_background_color.xml" />
             <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @cols -->
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">
                 <tr lang="en">number of matrix columns</tr>
@@ -66,11 +71,6 @@
                 <tr lang="en">current row index. -1 if not specified. This property is not saved in
                 patch</tr>
             </property>
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
-            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
@@ -89,8 +89,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="105 53">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
         </properties>
         <methods>

@@ -34,14 +34,15 @@
             <xi:include href="props_active_color.xml" />
             <xi:include href="props_background_color.xml" />
             <xi:include href="props_border_color.xml" />
-            <!-- @count -->
-            <property name="@count" type="int" access="readonly" default="0">
-                <tr lang="en">number of menu items</tr>
-            </property>
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
+            <!-- @count -->
+            <property name="@count" type="int" access="readonly" default="0">
+                <tr lang="en">number of menu items</tr>
+            </property>
             <!-- @index -->
             <property name="@index" type="int" default="-1">
                 <tr lang="en">current menu item index</tr>
@@ -58,7 +59,6 @@
             <property name="@open" type="bool" default="0">
                 <tr lang="en">opened state</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
@@ -73,8 +73,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="100 16">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @text_color -->
             <property name="@text_color" type="list" default="0 0 0 1">

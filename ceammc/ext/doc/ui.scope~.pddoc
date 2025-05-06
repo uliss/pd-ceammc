@@ -41,6 +41,7 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum (top) graph value</tr>
@@ -49,7 +50,6 @@
             <property name="@min" type="float" default="-1">
                 <tr lang="en">minimum (bottom) graph value</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>
@@ -61,8 +61,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="150 100">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @window -->
             <property name="@window" type="int" minvalue="512" maxvalue="4096" default="2048">

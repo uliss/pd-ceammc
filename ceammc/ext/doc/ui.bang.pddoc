@@ -36,10 +36,6 @@
         <properties>
             <xi:include href="props_active_color.xml" />
             <xi:include href="props_background_color.xml" />
-            <!-- @bind -->
-            <property name="@bind" type="list" default="">
-                <tr lang="en">MIDI/keyboard bind expression</tr>
-            </property>
             <xi:include href="props_border_color.xml" />
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
@@ -53,6 +49,10 @@
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
+            <!-- @bind -->
+            <property name="@bind" type="list" default="">
+                <tr lang="en">MIDI/keyboard bind expression</tr>
+            </property>
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>

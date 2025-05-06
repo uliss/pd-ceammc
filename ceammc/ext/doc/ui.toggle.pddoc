@@ -44,6 +44,7 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @midi_channel -->
             <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
                 <tr lang="en">binded MIDI channel. 0 means listen to all channels</tr>
@@ -61,7 +62,6 @@
             <property name="@on_value" type="float" default="1">
                 <tr lang="en">output on value</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
@@ -76,8 +76,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 15">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="int" default="0" enum="0 1">

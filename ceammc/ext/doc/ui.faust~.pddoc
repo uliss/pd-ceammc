@@ -48,8 +48,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="10 10">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @style -->
             <property name="@style" type="int" default="0">

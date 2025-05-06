@@ -58,11 +58,11 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @keys -->
             <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">
                 <tr lang="en">number of keys</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>
@@ -77,8 +77,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="433 60">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
         </properties>
         <methods>

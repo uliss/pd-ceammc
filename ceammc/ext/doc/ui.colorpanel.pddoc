@@ -36,6 +36,7 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @hex -->
             <property name="@hex" type="symbol" access="readonly" default="">
                 <tr lang="en">HEX value in format #RRGGBB</tr>
@@ -64,7 +65,6 @@
             <property name="@pd" type="int" access="readonly" default="0">
                 <tr lang="en">pd color value</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>

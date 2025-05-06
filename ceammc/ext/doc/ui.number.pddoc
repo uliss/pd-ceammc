@@ -46,6 +46,11 @@
             <xi:include href="props_active_color.xml" />
             <xi:include href="props_background_color.xml" />
             <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @digits -->
             <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="9">
                 <tr lang="en">number of digits. If -1 - no fixed digits used</tr>
@@ -55,10 +60,6 @@
                 <tr lang="en">interaction mode. If true: react only to received Pd messages, but do
                 not react to mouse/keyboard events. If false: react to all supported events.</tr>
             </property>
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
             <!-- @max -->
             <property name="@max" type="float" default="+inf">
                 <tr lang="en">maximum value</tr>
@@ -67,7 +68,6 @@
             <property name="@min" type="float" default="-inf">
                 <tr lang="en">minimum value</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
@@ -82,8 +82,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="53 15">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @text_color -->
             <property name="@text_color" type="list" default="0 0 0 1">

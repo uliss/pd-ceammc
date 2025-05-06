@@ -32,12 +32,17 @@
             <event type="right-click" editmode="true">opens Pd popup menu</event>
         </mouse>
         <properties>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
             </property>
-            <xi:include href="props_background_color.xml" />
-            <xi:include href="props_border_color.xml" />
             <!-- @cursor_color -->
             <property name="@cursor_color" type="list" default="0 0.75 1 1">
                 <tr lang="en">cursor color (list of red, green, blue values in 0-1 range)</tr>
@@ -58,10 +63,6 @@
             <property name="@cursor_sec" type="float" units="second" default="0">
                 <tr lang="en">cursor position in seconds</tr>
             </property>
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
             <!-- @label_bottom -->
             <property name="@label_bottom" type="symbol" default="">
                 <tr lang="en">bottom right label if @show_labels is on</tr>
@@ -75,7 +76,6 @@
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>

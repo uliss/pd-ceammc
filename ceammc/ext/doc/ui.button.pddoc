@@ -39,6 +39,7 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @off_value -->
             <property name="@off_value" type="float" default="0">
                 <tr lang="en">off value</tr>
@@ -47,7 +48,6 @@
             <property name="@on_value" type="float" default="1">
                 <tr lang="en">on value</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>

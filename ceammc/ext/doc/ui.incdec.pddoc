@@ -29,11 +29,17 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
+            <xi:include href="props_background_color.xml" />
+            <xi:include href="props_border_color.xml" />
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
+            <xi:include href="props_fontslant.xml" />
+            <xi:include href="props_fontweight.xml" />
+            <xi:include href="props_pinned.xml" />
             <!-- @arrow_color -->
             <property name="@arrow_color" type="list" default="0.6 0.6 0.6 1">
                 <tr lang="en">arrow color (list of red, green, blue values in 0-1 range)</tr>
             </property>
-            <xi:include href="props_background_color.xml" />
             <!-- @bind_down -->
             <property name="@bind_down" type="list" default="">
                 <tr lang="en">MIDI/keyboard bind expression for down action</tr>
@@ -42,11 +48,6 @@
             <property name="@bind_up" type="list" default="">
                 <tr lang="en">MIDI/keyboard bind expression for up action</tr>
             </property>
-            <xi:include href="props_border_color.xml" />
-            <xi:include href="props_fontname.xml" />
-            <xi:include href="props_fontsize.xml" />
-            <xi:include href="props_fontslant.xml" />
-            <xi:include href="props_fontweight.xml" />
             <!-- @max -->
             <property name="@max" type="float" default="8192">
                 <tr lang="en">maximum inc value</tr>
@@ -55,7 +56,6 @@
             <property name="@min" type="float" default="-8192">
                 <tr lang="en">minimum inc value</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
@@ -70,8 +70,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 20">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @step -->
             <property name="@step" type="float" default="1" minvalue="0">

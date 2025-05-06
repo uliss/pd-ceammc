@@ -29,20 +29,8 @@
             <event type="wheel" editmode="false" keys="Shift">change precisely radius coord</event>
         </mouse>
         <properties>
-            <!-- @angle -->
-            <property name="@angle" type="float" default="0">
-                <tr lang="en">angle</tr>
-            </property>
             <xi:include href="props_background_color.xml" />
             <xi:include href="props_border_color.xml" />
-            <!-- @clockwise -->
-            <property name="@clockwise" type="bool" default="1">
-                <tr lang="en">clockwise positive direction</tr>
-            </property>
-            <!-- @direction -->
-            <property name="@direction" type="symbol" default="N" enum="N W S E">
-                <tr lang="en">zero-angle direction</tr>
-            </property>
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
@@ -53,12 +41,24 @@
             <xi:include href="props_label_margins.xml" />
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
+            <xi:include href="props_pinned.xml" />
+            <!-- @angle -->
+            <property name="@angle" type="float" default="0">
+                <tr lang="en">angle</tr>
+            </property>
+            <!-- @clockwise -->
+            <property name="@clockwise" type="bool" default="1">
+                <tr lang="en">clockwise positive direction</tr>
+            </property>
+            <!-- @direction -->
+            <property name="@direction" type="symbol" default="N" enum="N W S E">
+                <tr lang="en">zero-angle direction</tr>
+            </property>
             <!-- @mouse_events -->
             <property name="@mouse_events" type="bool" default="0">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @positive -->
             <property name="@positive" type="bool" default="0">
                 <tr lang="en">use positive output angle range. For example: [0..360) when using
@@ -86,8 +86,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="100 100">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
         </properties>
         <methods>

@@ -53,26 +53,27 @@
             </argument>
         </arguments>
         <properties>
-            <!-- @active_scale -->
-            <property name="@active_scale" type="bool" default="0">
-                <tr lang="en">if should draw active scale</tr>
-            </property>
             <xi:include href="props_background_color.xml" />
             <xi:include href="props_border_color.xml" />
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
-            <!-- @knob_color -->
-            <property name="@knob_color" type="list" category="color" default="0 0.75 1 1">
-                <tr lang="en">knob color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
             <xi:include href="props_label.xml" />
             <xi:include href="props_label_align.xml" />
             <xi:include href="props_label_inner.xml" />
             <xi:include href="props_label_margins.xml" />
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
+            <xi:include href="props_pinned.xml" />
+            <!-- @active_scale -->
+            <property name="@active_scale" type="bool" default="0">
+                <tr lang="en">if should draw active scale</tr>
+            </property>
+            <!-- @knob_color -->
+            <property name="@knob_color" type="list" category="color" default="0 0.75 1 1">
+                <tr lang="en">knob color (list of red, green, blue values in 0-1 range)</tr>
+            </property>
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum knob value</tr>
@@ -101,7 +102,6 @@
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
             </property>
-            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" category="basic" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
@@ -132,8 +132,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" category="basic" default="40 40">
-            <tr lang="en">object size (width, height pair)</tr>
-            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="float" default="0">
