@@ -68,9 +68,9 @@ selection is possible. Тип: bool. Значение по умолчанию: 0
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
 1 1\.;
 #X msg 110 797 @background_color;
-#X text 245 797 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
+#X text 245 797 Получить/Установить цвета фона у объекта (список из
+красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
+Значение по умолчанию: 0.93 0.93 0.93 1\.;
 #X msg 110 854 @border_color;
 #X text 245 854 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6

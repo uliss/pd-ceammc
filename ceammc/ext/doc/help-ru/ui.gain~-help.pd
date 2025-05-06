@@ -108,9 +108,9 @@ is binded to value \, first time you should pass over this value to
 make binding. It prevents from sudden value change on first control
 change. Тип: bool. Значение по умолчанию: 1\.;
 #X msg 110 1472 @background_color;
-#X text 245 1472 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
+#X text 245 1472 Получить/Установить цвета фона у объекта (список из
+красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
+Значение по умолчанию: 0.93 0.93 0.93 1\.;
 #X msg 110 1529 @border_color;
 #X text 245 1529 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6

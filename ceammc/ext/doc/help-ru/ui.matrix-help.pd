@@ -90,9 +90,9 @@ This property is not saved in patch. Тип: int. Значение по умол
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
 1 1\.;
 #X msg 110 1198 @background_color;
-#X text 245 1198 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
+#X text 245 1198 Получить/Установить цвета фона у объекта (список из
+красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
+Значение по умолчанию: 0.93 0.93 0.93 1\.;
 #X msg 110 1255 @border_color;
 #X text 245 1255 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6

@@ -106,9 +106,9 @@ bool. Значение по умолчанию: 0\.;
 #X text 245 1280 Получить/Установить if show slider range. Тип: bool.
 Значение по умолчанию: 1\.;
 #X msg 110 1322 @background_color;
-#X text 245 1322 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
+#X text 245 1322 Получить/Установить цвета фона у объекта (список из
+красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
+Значение по умолчанию: 0.93 0.93 0.93 1\.;
 #X msg 110 1379 @border_color;
 #X text 245 1379 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6

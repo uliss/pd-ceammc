@@ -105,9 +105,9 @@ pair of values: begin \, end. Тип: list. Единицы: 'sec'.;
 #X text 245 1524 Получить/Установить show RMS graph. Тип: bool. Значение
 по умолчанию: 0\.;
 #X msg 110 1566 @background_color;
-#X text 245 1566 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
+#X text 245 1566 Получить/Установить цвета фона у объекта (список из
+красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
+Значение по умолчанию: 0.93 0.93 0.93 1\.;
 #X msg 110 1623 @border_color;
 #X text 245 1623 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6

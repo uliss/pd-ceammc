@@ -75,9 +75,9 @@ outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 #X msg 110 981 @value;
 #X text 245 981 Получить/Установить current slider value. Тип: list.;
 #X msg 110 1011 @background_color;
-#X text 245 1011 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
+#X text 245 1011 Получить/Установить цвета фона у объекта (список из
+красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
+Значение по умолчанию: 0.93 0.93 0.93 1\.;
 #X msg 110 1068 @border_color;
 #X text 245 1068 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6

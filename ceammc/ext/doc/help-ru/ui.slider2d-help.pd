@@ -90,9 +90,9 @@ outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 #X text 245 1190 Получить/Установить slider y-value. Тип: float. Значение
 по умолчанию: 0\.;
 #X msg 110 1232 @background_color;
-#X text 245 1232 Получить/Установить element background color (list
-of red \, green \, blue values in 0-1 range). Тип: list. Значение по
-умолчанию: 0.93 0.93 0.93 1\.;
+#X text 245 1232 Получить/Установить цвета фона у объекта (список из
+красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
+Значение по умолчанию: 0.93 0.93 0.93 1\.;
 #X msg 110 1289 @border_color;
 #X text 245 1289 Получить/Установить border color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.6

@@ -33,11 +33,7 @@
             <property name="@arrow_color" type="list" default="0.6 0.6 0.6 1">
                 <tr lang="en">arrow color (list of red, green, blue values in 0-1 range)</tr>
             </property>
-            <!-- @background_color -->
-            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-                <tr lang="en">element background color (list of red, green, blue values in 0-1
-                range)</tr>
-            </property>
+            <xi:include href="props_background_color.xml" />
             <!-- @bind_down -->
             <property name="@bind_down" type="list" default="">
                 <tr lang="en">MIDI/keyboard bind expression for down action</tr>

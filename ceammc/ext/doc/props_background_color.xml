@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<property name="@background_color" type="list" default="0.93 0.93 0.93 1">
+    <tr lang="en">element background color (list of red, green, blue values in 0-1
+    range)</tr>
+    <tr lang="ru">цвета фона у объекта (список из красного, зеленого и синего значений в диапазоне [0..1])</tr>
+</property>
