@@ -31,172 +31,170 @@ input \, BACKSPACE removes last character.;
 #X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 470 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 505 Left-click;
-#X text 285 505 no action.;
-#X text 110 525 Mouse-drag;
-#X text 285 525 change the number.;
-#X text 110 545 Mouse-drag + ⌘;
-#X text 285 545 change the number value fast.;
-#X text 110 565 Mouse-drag + ⇧;
-#X text 285 565 change the number value slowly.;
-#X text 110 585 Double-click;
-#X text 285 585 edit the current value.;
-#X text 110 605 Right-click + ⌥;
-#X text 285 605 open the properties dialog.;
-#X text 110 625 Right-click + ⇧;
-#X text 285 625 open the object help.;
-#X text 110 645 Right-click + ⌥;
-#X text 285 645 open the properties dialog.;
+#X text 110 505 Mouse-drag;
+#X text 285 505 change the number.;
+#X text 110 525 Mouse-drag + ⌘;
+#X text 285 525 change the number value fast.;
+#X text 110 545 Mouse-drag + ⇧;
+#X text 285 545 change the number value slowly.;
+#X text 110 565 Double-click;
+#X text 285 565 edit the current value.;
+#X text 110 585 Right-click + ⌥;
+#X text 285 585 open the properties dialog.;
+#X text 110 605 Right-click + ⇧;
+#X text 285 605 open the object help.;
+#X text 110 625 Right-click + ⌥;
+#X text 285 625 open the properties dialog.;
+#X text 45 625 [Правка];
+#X text 110 645 Right-click + ⇧;
+#X text 285 645 open the object help.;
 #X text 45 645 [Правка];
-#X text 110 665 Right-click + ⇧;
-#X text 285 665 open the object help.;
+#X text 110 665 Right-click;
+#X text 285 665 open the Pd popup menu.;
 #X text 45 665 [Правка];
-#X text 110 685 Right-click;
-#X text 285 685 open the Pd popup menu.;
-#X text 45 685 [Правка];
-#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 720 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 700 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 723 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 703 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 755 @digits;
-#X text 245 755 Получить/Установить number of digits. If -1 - no fixed
+#X msg 110 735 @digits;
+#X text 245 735 Получить/Установить number of digits. If -1 - no fixed
 digits used. Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...9\.;
-#X msg 110 812 @display_only;
-#X text 245 812 Получить/Установить interaction mode. If true: react
+#X msg 110 792 @display_only;
+#X text 245 792 Получить/Установить interaction mode. If true: react
 only to received Pd messages \, but do not react to mouse/keyboard
 events. If false: react to all supported events. Тип: bool. Значение
 по умолчанию: 0\.;
-#X msg 110 899 @max;
-#X text 245 899 Получить/Установить maximum value. Тип: float. Значение
+#X msg 110 879 @max;
+#X text 245 879 Получить/Установить maximum value. Тип: float. Значение
 по умолчанию: +inf.;
-#X msg 110 941 @min;
-#X text 245 941 Получить/Установить minimum value. Тип: float. Значение
+#X msg 110 921 @min;
+#X text 245 921 Получить/Установить minimum value. Тип: float. Значение
 по умолчанию: -inf.;
-#X msg 110 983 @receive;
-#X text 245 983 Получить/Установить источник получения сообщений. Тип:
+#X msg 110 963 @receive;
+#X text 245 963 Получить/Установить источник получения сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 1025 @send;
-#X text 245 1025 Получить/Установить адрес отправки сообщений. Тип:
+#X msg 110 1005 @send;
+#X text 245 1005 Получить/Установить адрес отправки сообщений. Тип:
 symbol. Значение по умолчанию: (null).;
-#X msg 110 1067 @value;
-#X text 245 1067 Получить/Установить widget value. Тип: float. Значение
+#X msg 110 1047 @value;
+#X text 245 1047 Получить/Установить widget value. Тип: float. Значение
 по умолчанию: 0\.;
-#X msg 110 1109 @active_color;
-#X text 245 1109 Получить/Установить цвет активного элемента (список
+#X msg 110 1089 @active_color;
+#X text 245 1089 Получить/Установить цвет активного элемента (список
 из красного \, зеленого и синего цвета в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0 0.75 1 1\.;
-#X msg 110 1166 @background_color;
-#X text 245 1166 Получить/Установить цвета фона у объекта (список из
+#X msg 110 1146 @background_color;
+#X text 245 1146 Получить/Установить цвета фона у объекта (список из
 красного \, зеленого и синего значений в диапазоне [0\..1]). Тип: list.
 Значение по умолчанию: 0.93 0.93 0.93 1\.;
-#X msg 110 1223 @border_color;
-#X text 245 1223 Получить/Установить цвет границы объекта (список из
+#X msg 110 1203 @border_color;
+#X text 245 1203 Получить/Установить цвет границы объекта (список из
 красного \, зеленого и синего цветов в [0\..1] диапазоне). Тип: list.
 Значение по умолчанию: 0.6 0.6 0.6 1\.;
-#X msg 110 1280 @text_color;
-#X text 245 1280 Получить/Установить text color (list of red \, green
+#X msg 110 1260 @text_color;
+#X text 245 1260 Получить/Установить text color (list of red \, green
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0
 0 1\.;
-#X msg 110 1337 @fontname;
-#X text 245 1337 Получить/Установить имя шрифта. Тип: symbol. Значение
+#X msg 110 1317 @fontname;
+#X text 245 1317 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
-#X msg 110 1394 @fontsize;
-#X text 245 1394 Получить/Установить размер шрифта. Тип: int. Значение
+#X msg 110 1374 @fontsize;
+#X text 245 1374 Получить/Установить размер шрифта. Тип: int. Значение
 по умолчанию: 11\. Диапазон: 4\...100\.;
-#X msg 110 1436 @fontslant;
-#X text 245 1436 Получить/Установить наклон шрифта. Тип: symbol. Значение
+#X msg 110 1416 @fontslant;
+#X text 245 1416 Получить/Установить наклон шрифта. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
-#X msg 110 1478 @fontweight;
-#X text 245 1478 Получить/Установить толщину шрифта. Тип: symbol. Значение
+#X msg 110 1458 @fontweight;
+#X text 245 1458 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
-#X msg 110 1520 @pinned;
-#X text 245 1520 Получить/Установить режим закрепления. Если 1 - помещает
+#X msg 110 1500 @pinned;
+#X text 245 1500 Получить/Установить режим закрепления. Если 1 - помещает
 элемент на самый дальний уровень на холсте за другими элементам. Тип:
 bool. Значение по умолчанию: 0\.;
-#X msg 110 1577 @presetname;
-#X text 245 1577 Получить/Установить имя пресета для использования
+#X msg 110 1557 @presetname;
+#X text 245 1557 Получить/Установить имя пресета для использования
 с объектами [ui.preset] или [preset.storage]. Тип: symbol. Значение
 по умолчанию: (null).;
-#X msg 110 1634 @size;
-#X text 245 1634 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+#X msg 110 1614 @size;
+#X text 245 1614 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
 Тип: list. Значение по умолчанию: 53 15\.;
-#X obj 20 1686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1691 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1671 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1726 clear;
-#X text 245 1726 clears specified preset. Аргументы:;
-#X obj 255 1749 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1749 IDX: preset index. Тип: int.;
-#X msg 110 1774 interp;
-#X text 245 1774 interplolates between presets. Аргументы:;
-#X obj 255 1797 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1797 IDX: preset fraction index. Тип: float.;
-#X msg 110 1822 load;
-#X text 245 1822 loads specified preset. Аргументы:;
-#X obj 255 1845 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1845 IDX: preset index. Тип: int.;
-#X msg 110 1870 pos;
-#X text 245 1870 set UI element position. Аргументы:;
-#X obj 255 1893 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1893 X: top left x-coord. Тип: float.;
-#X obj 255 1916 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1916 Y: top right y-coord. Тип: float.;
-#X msg 110 1941 set;
-#X text 245 1941 sets slider value without output. Аргументы:;
-#X obj 255 1964 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1964 V: new value. Тип: float.;
-#X msg 110 1989 store;
-#X text 245 1989 stores specified preset. Аргументы:;
-#X obj 255 2012 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2012 IDX: preset index. Тип: int.;
-#X msg 110 2037 *;
-#X text 245 2037 multiply slider value without output. Аргументы:;
-#X obj 255 2060 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2060 V: multiplied value. Тип: float.;
-#X msg 110 2085 +;
-#X text 245 2085 add value to slider without output. Аргументы:;
-#X obj 255 2108 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2108 V: added value. Тип: float.;
-#X msg 110 2133 ++;
-#X text 245 2133 increment slider value without output.;
-#X msg 110 2161 -;
-#X text 245 2161 subtract value from slider without output. Аргументы:;
-#X obj 255 2184 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2184 V: subtracted value. Тип: float.;
-#X msg 110 2209 --;
-#X text 245 2209 decrement slider value without output.;
-#X msg 110 2237 /;
-#X text 245 2237 divide slider value without output. Аргументы:;
-#X obj 255 2260 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2260 V: denominator value. Тип: float.;
-#X obj 20 2295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2300 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1706 clear;
+#X text 245 1706 clears specified preset. Аргументы:;
+#X obj 255 1729 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1729 IDX: preset index. Тип: int.;
+#X msg 110 1754 interp;
+#X text 245 1754 interplolates between presets. Аргументы:;
+#X obj 255 1777 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1777 IDX: preset fraction index. Тип: float.;
+#X msg 110 1802 load;
+#X text 245 1802 loads specified preset. Аргументы:;
+#X obj 255 1825 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1825 IDX: preset index. Тип: int.;
+#X msg 110 1850 pos;
+#X text 245 1850 set UI element position. Аргументы:;
+#X obj 255 1873 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1873 X: top left x-coord. Тип: float.;
+#X obj 255 1896 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1896 Y: top right y-coord. Тип: float.;
+#X msg 110 1921 set;
+#X text 245 1921 sets slider value without output. Аргументы:;
+#X obj 255 1944 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1944 V: new value. Тип: float.;
+#X msg 110 1969 store;
+#X text 245 1969 stores specified preset. Аргументы:;
+#X obj 255 1992 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1992 IDX: preset index. Тип: int.;
+#X msg 110 2017 *;
+#X text 245 2017 multiply slider value without output. Аргументы:;
+#X obj 255 2040 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2040 V: multiplied value. Тип: float.;
+#X msg 110 2065 +;
+#X text 245 2065 add value to slider without output. Аргументы:;
+#X obj 255 2088 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2088 V: added value. Тип: float.;
+#X msg 110 2113 ++;
+#X text 245 2113 increment slider value without output.;
+#X msg 110 2141 -;
+#X text 245 2141 subtract value from slider without output. Аргументы:;
+#X obj 255 2164 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2164 V: subtracted value. Тип: float.;
+#X msg 110 2189 --;
+#X text 245 2189 decrement slider value without output.;
+#X msg 110 2217 /;
+#X text 245 2217 divide slider value without output. Аргументы:;
+#X obj 255 2240 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2240 V: denominator value. Тип: float.;
+#X obj 20 2275 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2280 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2301 1\.;
-#X text 150 2301 *bang*;
-#X text 245 2301 outputs current value.;
-#X text 150 2321 *float*;
-#X text 245 2321 input value.;
-#X text 150 2341 *list*;
-#X text 245 2341 first element converted to float.;
-#X obj 20 2371 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2376 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2281 1\.;
+#X text 150 2281 *bang*;
+#X text 245 2281 outputs current value.;
+#X text 150 2301 *float*;
+#X text 245 2301 input value.;
+#X text 150 2321 *list*;
+#X text 245 2321 first element converted to float.;
+#X obj 20 2351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2356 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2377 1\.;
-#X text 245 2377 number value.;
+#X text 110 2357 1\.;
+#X text 245 2357 number value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2427 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2430 библиотека: ceammc v0.9.8;
-#X text 544 2442 смотрите также:;
-#X obj 665 2445 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2407 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2410 библиотека: ceammc v0.9.8;
+#X text 544 2422 смотрите также:;
+#X obj 665 2425 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number~] @url ui.number~-help.pd;
-#N canvas 10 2449 400 290 info 0;
+#N canvas 10 2429 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -220,7 +218,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2449 pd info;
+#X restore 10 2429 pd info;
 #X connect 8 0 17 0;
 #X connect 9 0 17 0;
 #X connect 13 0 17 0;

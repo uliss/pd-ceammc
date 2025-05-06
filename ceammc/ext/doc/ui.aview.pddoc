@@ -17,6 +17,7 @@
             <since>0.6</since>
         </meta>
         <mouse>
+            <event type="move" editmode="false" empty="true"/>
             <event type="left-click" editmode="false">move view cursor under mouse pointer</event>
             <event type="left-click" editmode="false" keys="Ctrl">starts range selection</event>
             <event type="left-click" editmode="false" keys="Alt">edit selection nearest

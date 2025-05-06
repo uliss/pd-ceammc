@@ -30,6 +30,7 @@
             <par>[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</par>
         </info>
         <mouse>
+            <event type="move" editmode="false" empty="true"/>
             <event type="left-click" editmode="false">play selected note: output [NOTE VELOCITY( on
             mouse press and [NOTE 0( on mouse release. Velocity depends on click position: lower
             position produces higher velocity</event>
