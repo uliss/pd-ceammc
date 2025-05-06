@@ -89,36 +89,37 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1233 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1275 @pinned;
-#X text 245 1275 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1317 @size;
-#X text 245 1317 Получить/Установить element size (width \, height
+#X text 245 1275 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 110 1332 @size;
+#X text 245 1332 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 150 100\.;
-#X obj 20 1369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1374 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1389 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1409 pos;
-#X text 245 1409 set UI element position. Аргументы:;
-#X obj 255 1432 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1432 X: top left x-coord. Тип: float.;
-#X obj 255 1455 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1455 Y: top right y-coord. Тип: float.;
-#X obj 20 1490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1495 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1424 pos;
+#X text 245 1424 set UI element position. Аргументы:;
+#X obj 255 1447 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1447 X: top left x-coord. Тип: float.;
+#X obj 255 1470 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1470 Y: top right y-coord. Тип: float.;
+#X obj 20 1505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1510 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1496 1\.;
-#X text 245 1496 signal input.;
+#X text 110 1511 1\.;
+#X text 245 1511 signal input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1546 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1549 библиотека: ceammc v0.9.8;
-#X text 551 1561 смотрите также:;
-#X obj 672 1564 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1561 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1564 библиотека: ceammc v0.9.8;
+#X text 551 1576 смотрите также:;
+#X obj 672 1579 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.scope~] @url ui.scope~-help.pd;
-#N canvas 10 1568 400 290 info 0;
+#N canvas 10 1583 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -142,7 +143,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1568 pd info;
+#X restore 10 1583 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;
 #X connect 7 0 14 0;
