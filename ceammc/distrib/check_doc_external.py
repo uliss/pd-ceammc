@@ -35,11 +35,12 @@ MOUSE_METHODS = [
     "droptext",
     "mousedown",
     "mousedrag",
-    "mousemove",
-    "mousewheel",
+    "mouseenter",
     "mouseleave",
-    "rightclick",
+    "mousemove",
     "mouseup",
+    "mousewheel",
+    "rightclick",
     ]
 
 def mouse_method2event(event: str) -> str:
