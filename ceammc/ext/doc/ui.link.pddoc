@@ -41,10 +41,7 @@
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-            </property>
+            <xi:include href="props_fontweight.xml" />
             <!-- @hover_color -->
             <property name="@hover_color" type="list" default="1 0 0.5 1">
                 <tr lang="en">color when mouse pointer is over element (list of red, green, blue

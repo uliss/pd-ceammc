@@ -61,10 +61,7 @@
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-            </property>
+            <xi:include href="props_fontweight.xml" />
             <!-- @label_bottom -->
             <property name="@label_bottom" type="symbol" default="">
                 <tr lang="en">bottom right label if @show_labels is on</tr>

@@ -82,7 +82,7 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1104 Получить/Установить наклон шрифта. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
 #X msg 110 1146 @fontweight;
-#X text 245 1146 Получить/Установить font weight. Тип: symbol. Значение
+#X text 245 1146 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1188 @pinned;
 #X text 245 1188 Получить/Установить pin mode. if 1 - put element to

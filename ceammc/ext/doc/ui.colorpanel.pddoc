@@ -35,10 +35,7 @@
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-            </property>
+            <xi:include href="props_fontweight.xml" />
             <!-- @hex -->
             <property name="@hex" type="symbol" access="readonly" default="">
                 <tr lang="en">HEX value in format #RRGGBB</tr>

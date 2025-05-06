@@ -57,10 +57,7 @@
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-            </property>
+            <xi:include href="props_fontweight.xml" />
             <!-- @keys -->
             <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">
                 <tr lang="en">number of keys</tr>

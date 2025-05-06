@@ -32,10 +32,7 @@
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-            </property>
+            <xi:include href="props_fontweight.xml" />
             <!-- @freq -->
             <property name="@freq" type="float" default="1000" minvalue="0" maxvalue="20000">
                 <tr lang="en">filter frequency</tr>

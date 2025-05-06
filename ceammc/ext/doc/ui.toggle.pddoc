@@ -43,10 +43,7 @@
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-            </property>
+            <xi:include href="props_fontweight.xml" />
             <!-- @midi_channel -->
             <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">
                 <tr lang="en">binded MIDI channel. 0 means listen to all channels</tr>

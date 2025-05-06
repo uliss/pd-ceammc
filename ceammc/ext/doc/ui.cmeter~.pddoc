@@ -52,10 +52,7 @@
             <xi:include href="props_fontname.xml" />
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
-            <!-- @fontweight -->
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
-                <tr lang="en">font weight</tr>
-            </property>
+            <xi:include href="props_fontweight.xml" />
             <!-- @hot_color -->
             <property name="@hot_color" type="list" default="1 0.6 0 1">
                 <tr lang="en">loud level signal color &lt;-3db (list of red, green, blue values in
