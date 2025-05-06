@@ -95,9 +95,9 @@ min \, max.;
 #X msg 110 1130 @receive;
 #X text 245 1130 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 1172 @receive;
-#X text 245 1172 Get/Set source of message receive. Type: symbol. Default
-value: (null).;
+#X msg 110 1172 @send;
+#X text 245 1172 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 1214 @show_lines;
 #X text 245 1214 Get/Set if show slider ruler lines. Type: bool. Default
 value: 0\.;

@@ -39,7 +39,7 @@
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <xi:include href="props_preset.xml" />
             <!-- @count -->
             <property name="@count" type="int" default="0" access="readonly">

@@ -68,9 +68,9 @@ Default value: 0\.;
 #X msg 110 897 @receive;
 #X text 245 897 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 939 @receive;
-#X text 245 939 Get/Set source of message receive. Type: symbol. Default
-value: (null).;
+#X msg 110 939 @send;
+#X text 245 939 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 981 @value;
 #X text 245 981 Get/Set current slider value. Type: list.;
 #X msg 110 1011 @background_color;

@@ -56,9 +56,9 @@ value: 50\. Min value: 20\.;
 #X msg 110 744 @receive;
 #X text 245 744 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 786 @receive;
-#X text 245 786 Get/Set source of message receive. Type: symbol. Default
-value: (null).;
+#X msg 110 786 @send;
+#X text 245 786 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 828 @background_color;
 #X text 245 828 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93

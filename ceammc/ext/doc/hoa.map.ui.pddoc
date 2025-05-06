@@ -27,6 +27,7 @@
         </info>
         <mouse>
             <event type="wheel" editmode="false" keys="Alt">zoom the view</event>
+            <event type="left-click" editmode="false">no action</event>
             <event type="drag" editmode="false">move selected source or group</event>
             <event type="right-click" editmode="false">opens the popup menu for adding/remove
             sources</event>

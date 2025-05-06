@@ -57,9 +57,9 @@ Type: bool. Default value: 0\.;
 #X msg 110 614 @receive;
 #X text 245 614 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 656 @receive;
-#X text 245 656 Get/Set source of message receive. Type: symbol. Default
-value: (null).;
+#X msg 110 656 @send;
+#X text 245 656 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 698 @toggle;
 #X text 245 698 Get/Set toggle mode. In toggle moe multiple selection
 is possible. Type: bool. Default value: 0\.;

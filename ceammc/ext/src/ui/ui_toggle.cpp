@@ -216,7 +216,7 @@ void UIToggle::setup()
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIToggle::prop_value_off_, _("Main"));
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIToggle::prop_midi_chn, "MIDI");
-    obj.setPropertyRange("midi_channel", 0, 16);
+    obj.setPropertyRange("midi_channel", 0, 255);
     obj.addProperty("midi_control", _("MIDI control"), -1, &UIToggle::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", -1, 127);
 }

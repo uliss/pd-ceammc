@@ -23,173 +23,175 @@ groups.;
 -49933 0;
 #X text 110 537 Mouse-wheel + ⌥;
 #X text 285 537 zoom the view.;
-#X text 110 557 Mouse-drag;
-#X text 285 557 move selected source or group.;
-#X text 110 577 Right-click;
-#X text 285 577 opens the popup menu for adding/remove sources.;
-#X text 110 597 Right-click + ⇧;
-#X text 285 597 open the object help.;
-#X text 110 617 Right-click + ⌥;
-#X text 285 617 open the properties dialog.;
-#X text 110 637 Right-click;
-#X text 285 637 opens the Pd popup menu.;
-#X text 61 637 [Edit];
-#X text 110 657 Right-click + ⇧;
-#X text 285 657 open the object help.;
+#X text 110 557 Left-click;
+#X text 285 557 no action.;
+#X text 110 577 Mouse-drag;
+#X text 285 577 move selected source or group.;
+#X text 110 597 Right-click;
+#X text 285 597 opens the popup menu for adding/remove sources.;
+#X text 110 617 Right-click + ⇧;
+#X text 285 617 open the object help.;
+#X text 110 637 Right-click + ⌥;
+#X text 285 637 open the properties dialog.;
+#X text 110 657 Right-click;
+#X text 285 657 opens the Pd popup menu.;
 #X text 61 657 [Edit];
-#X text 110 677 Right-click + ⌥;
-#X text 285 677 open the properties dialog.;
+#X text 110 677 Right-click + ⇧;
+#X text 285 677 open the object help.;
 #X text 61 677 [Edit];
-#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 712 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 110 697 Right-click + ⌥;
+#X text 285 697 open the properties dialog.;
+#X text 61 697 [Edit];
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 732 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 715 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 735 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 747 @mapname;
-#X text 245 747 Get/Set widget name to link them between. Type: symbol.
+#X msg 110 767 @mapname;
+#X text 245 767 Get/Set widget name to link them between. Type: symbol.
 Default value: (null).;
-#X msg 110 789 @outputmode;
-#X text 245 789 Get/Set output mode. Type: symbol. Default value: polar.
+#X msg 110 809 @outputmode;
+#X text 245 809 Get/Set output mode. Type: symbol. Default value: polar.
 Allowed values: polar \, cartesian.;
-#X msg 110 831 @receive;
-#X text 245 831 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 851 @receive;
+#X text 245 851 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 861 @send;
-#X text 245 861 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 881 @send;
+#X text 245 881 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 903 @view;
-#X text 245 903 Get/Set coordinate view. Type: symbol. Default value:
+#X msg 110 923 @view;
+#X text 245 923 Get/Set coordinate view. Type: symbol. Default value:
 xy. Allowed values: xy \, xz \, yz.;
-#X msg 110 945 @zoom;
-#X text 245 945 Get/Set zoom factor. Type: float. Default value: 0.35\.
+#X msg 110 965 @zoom;
+#X text 245 965 Get/Set zoom factor. Type: float. Default value: 0.35\.
 Range: 0.01\...1\.;
-#X msg 110 987 @background_color;
-#X text 245 987 Get/Set element background color (list of red \, green
+#X msg 110 1007 @background_color;
+#X text 245 1007 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1044 @border_color;
-#X text 245 1044 Get/Set border color (list of red \, green \, blue
+#X msg 110 1064 @border_color;
+#X text 245 1064 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1086 @label_color;
-#X text 245 1086 Get/Set label color in RGB format within 0-1 range
+#X msg 110 1106 @label_color;
+#X text 245 1106 Get/Set label color in RGB format within 0-1 range
 \, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 1128 @selection_color;
-#X text 245 1128 Get/Set selection color (list of red \, green \, blue
+#X msg 110 1148 @selection_color;
+#X text 245 1148 Get/Set selection color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1170 @label;
-#X text 245 1170 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 1200 @label_align;
-#X text 245 1200 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 1190 @label;
+#X text 245 1190 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 1220 @label_align;
+#X text 245 1220 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 1242 @label_inner;
-#X text 245 1242 Get/Set label position (1 - inner \, 0 - outer). Type:
+#X msg 110 1262 @label_inner;
+#X text 245 1262 Get/Set label position (1 - inner \, 0 - outer). Type:
 bool. Default value: 0\.;
-#X msg 110 1284 @label_margins;
-#X text 245 1284 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 1304 @label_margins;
+#X text 245 1304 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 1326 @label_side;
-#X text 245 1326 Get/Set label snap side. Type: symbol. Default value:
+#X msg 110 1346 @label_side;
+#X text 245 1346 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 1368 @label_valign;
-#X text 245 1368 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 1388 @label_valign;
+#X text 245 1388 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 1410 @fontname;
-#X text 245 1410 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 1430 @fontname;
+#X text 245 1430 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1452 @fontsize;
-#X text 245 1452 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1472 @fontsize;
+#X text 245 1472 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1494 @fontslant;
-#X text 245 1494 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1514 @fontslant;
+#X text 245 1514 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1536 @fontweight;
-#X text 245 1536 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1556 @fontweight;
+#X text 245 1556 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1578 @pinned;
-#X text 245 1578 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1598 @pinned;
+#X text 245 1598 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1620 @presetname;
-#X text 245 1620 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1640 @presetname;
+#X text 245 1640 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 1662 @size;
-#X text 245 1662 Get/Set element size (width \, height pair). Type:
+#X msg 110 1682 @size;
+#X text 245 1682 Get/Set element size (width \, height pair). Type:
 list. Default value: 225 225\.;
-#X obj 20 1714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1719 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1739 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1754 clear;
-#X text 245 1754 clears specified preset. Arguments are:;
-#X obj 255 1777 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1777 IDX: preset index. Type: int.;
-#X msg 110 1802 clear_all;
-#X text 245 1802 remove all sources from map.;
-#X msg 110 1830 group;
-#X text 245 1830 group operations. Arguments are:;
-#X obj 255 1853 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1853 IDX: group index. Type: int.;
-#X obj 255 1876 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1876 ACTION: action. Type: symbol. Allowed values: set
+#X msg 110 1774 clear;
+#X text 245 1774 clears specified preset. Arguments are:;
+#X obj 255 1797 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1797 IDX: preset index. Type: int.;
+#X msg 110 1822 clear_all;
+#X text 245 1822 remove all sources from map.;
+#X msg 110 1850 group;
+#X text 245 1850 group operations. Arguments are:;
+#X obj 255 1873 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1873 IDX: group index. Type: int.;
+#X obj 255 1896 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1896 ACTION: action. Type: symbol. Allowed values: set
 \, polar \, pol \, azimuth \, elevation \, cartesian \, car \, abscissa
 \, ordinate \, height \, relpolar \, relradius \, relazimuth \, relelevation
 \, mute \, remove \, description \, color.;
-#X obj 255 1959 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1959 [ARGS]: action arguments. Type: list.;
-#X msg 110 1984 info;
-#X text 245 1984 outputs info to 3rd outlet.;
-#X msg 110 2012 interp;
-#X text 245 2012 for this object acts as *load* \, no interpolation
+#X obj 255 1979 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1979 [ARGS]: action arguments. Type: list.;
+#X msg 110 2004 info;
+#X text 245 2004 outputs info to 3rd outlet.;
+#X msg 110 2032 interp;
+#X text 245 2032 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 2040 load;
-#X text 245 2040 loads specified preset. Arguments are:;
-#X obj 255 2063 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2063 IDX: preset index. Type: int.;
-#X msg 110 2088 pos;
-#X text 245 2088 set UI element position. Arguments are:;
-#X obj 255 2111 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2111 X: top left x-coord. Type: float.;
-#X obj 255 2134 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2134 Y: top right y-coord. Type: float.;
-#X msg 110 2159 set;
-#X text 245 2159 sets toggle state without output.;
-#X msg 110 2187 source;
-#X text 245 2187 source operations. Arguments are:;
-#X obj 255 2210 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2210 IDX: source index. Type: int.;
-#X obj 255 2233 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2233 ACTION: action. Type: symbol. Allowed values: polar
+#X msg 110 2060 load;
+#X text 245 2060 loads specified preset. Arguments are:;
+#X obj 255 2083 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2083 IDX: preset index. Type: int.;
+#X msg 110 2108 pos;
+#X text 245 2108 set UI element position. Arguments are:;
+#X obj 255 2131 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2131 X: top left x-coord. Type: float.;
+#X obj 255 2154 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2154 Y: top right y-coord. Type: float.;
+#X msg 110 2179 set;
+#X text 245 2179 sets toggle state without output.;
+#X msg 110 2207 source;
+#X text 245 2207 source operations. Arguments are:;
+#X obj 255 2230 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2230 IDX: source index. Type: int.;
+#X obj 255 2253 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2253 ACTION: action. Type: symbol. Allowed values: polar
 \, pol \, azimuth \, elevation \, cartesian \, car \, abscissa \, ordinate
 \, height \, mute \, remove \, description \, color.;
-#X obj 255 2286 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2286 [ARGS]: action arguments. Type: list.;
-#X msg 110 2311 store;
-#X text 245 2311 stores specified preset. Arguments are:;
-#X obj 255 2334 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2334 IDX: preset index. Type: int.;
-#X msg 110 2359 dump;
-#X text 245 2359 dumps all object info to Pd console window.;
-#X obj 20 2397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2402 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 255 2306 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2306 [ARGS]: action arguments. Type: list.;
+#X msg 110 2331 store;
+#X text 245 2331 stores specified preset. Arguments are:;
+#X obj 255 2354 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2354 IDX: preset index. Type: int.;
+#X msg 110 2379 dump;
+#X text 245 2379 dumps all object info to Pd console window.;
+#X obj 20 2417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2422 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2403 1\.;
-#X text 150 2403 *bang*;
-#X text 245 2403 output group and source info.;
-#X obj 20 2433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2438 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2423 1\.;
+#X text 150 2423 *bang*;
+#X text 245 2423 output group and source info.;
+#X obj 20 2453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2458 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2439 1\.;
-#X text 245 2439 source output.;
-#X text 110 2459 2\.;
-#X text 245 2459 group output.;
-#X text 110 2479 3\.;
-#X text 245 2479 info output.;
+#X text 110 2459 1\.;
+#X text 245 2459 source output.;
+#X text 110 2479 2\.;
+#X text 245 2479 group output.;
+#X text 110 2499 3\.;
+#X text 245 2499 info output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2529 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2532 library: ceammc v0.9.8;
-#N canvas 10 2551 400 290 info 0;
+#X obj 1 2549 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2552 library: ceammc v0.9.8;
+#N canvas 10 2571 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -214,7 +216,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2551 pd info;
+#X restore 10 2571 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 8 1 10 0;

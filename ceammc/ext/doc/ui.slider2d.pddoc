@@ -53,7 +53,7 @@
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <xi:include href="props_preset.xml" />
             <!-- @bind_x -->
             <property name="@bind_x" type="list" default="">

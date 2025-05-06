@@ -96,13 +96,13 @@ outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 #X msg 110 1098 @receive;
 #X text 245 1098 Получить/Установить источник получения сообщений.
 Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1140 @receive;
-#X text 245 1140 Получить/Установить источник получения сообщений.
-Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1182 @scale;
-#X text 245 1182 Получить/Установить scale mode. Linear or logarithmic.
+#X msg 110 1140 @scale;
+#X text 245 1140 Получить/Установить scale mode. Linear or logarithmic.
 Тип: symbol. Значение по умолчанию: linear. Разрешённые значения: linear
 \, log.;
+#X msg 110 1197 @send;
+#X text 245 1197 Получить/Установить адрес отправки сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 1239 @show_value;
 #X text 245 1239 Получить/Установить show value (in horizontal mode
 only). Тип: bool. Значение по умолчанию: 0\.;

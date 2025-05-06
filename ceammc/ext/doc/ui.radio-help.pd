@@ -80,9 +80,9 @@ and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 794 @receive;
 #X text 245 794 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 836 @receive;
-#X text 245 836 Get/Set source of message receive. Type: symbol. Default
-value: (null).;
+#X msg 110 836 @send;
+#X text 245 836 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 878 @value;
 #X text 245 878 Get/Set widget value (float or list). Type: list.;
 #X msg 110 908 @active_color;

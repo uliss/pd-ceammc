@@ -61,9 +61,9 @@ Type: list.;
 #X msg 110 812 @receive;
 #X text 245 812 Get/Set source of message receive. Type: symbol. Default
 value: (null).;
-#X msg 110 854 @receive;
-#X text 245 854 Get/Set source of message receive. Type: symbol. Default
-value: (null).;
+#X msg 110 854 @send;
+#X text 245 854 Get/Set address for sending messages. Type: symbol.
+Default value: (null).;
 #X msg 110 896 @show_grid;
 #X text 245 896 Get/Set if show grid. Type: bool. Default value: 0\.;
 #X msg 110 926 @show_range;

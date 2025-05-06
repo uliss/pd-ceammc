@@ -34,7 +34,7 @@
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <!-- @active_color -->
             <property name="@active_color" type="list" default="0.63 0.88 0 1">
                 <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>

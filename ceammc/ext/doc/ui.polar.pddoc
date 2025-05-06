@@ -43,7 +43,7 @@
             <xi:include href="props_label_valign.xml" />
             <xi:include href="props_pinned.xml" />
             <xi:include href="props_ui_receive.xml" />
-            <xi:include href="props_ui_receive.xml" />
+            <xi:include href="props_ui_send.xml" />
             <xi:include href="props_preset.xml" />
             <!-- @angle -->
             <property name="@angle" type="float" default="0">
