@@ -32,10 +32,7 @@
             <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <!-- @active_color -->
-            <property name="@active_color" type="list" default="0 0.75 1 1">
-                <tr lang="en">active color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
+            <xi:include href="props_active_color.xml" />
             <xi:include href="props_background_color.xml" />
             <xi:include href="props_border_color.xml" />
             <!-- @fontname -->

@@ -64,8 +64,8 @@ Type: bool. Default value: 0\.;
 #X text 245 686 Get/Set toggle mode. In toggle moe multiple selection
 is possible. Type: bool. Default value: 0\.;
 #X msg 110 728 @active_color;
-#X text 245 728 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X text 245 728 Get/Set element active color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 770 @background_color;
 #X text 245 770 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93

@@ -61,8 +61,8 @@ Default value: -1\.;
 #X text 245 926 Get/Set window size. Type: int. Default value: 2048\.
 Range: 512\...4096\.;
 #X msg 110 968 @active_color;
-#X text 245 968 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X text 245 968 Get/Set element active color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1010 @background_color;
 #X text 245 1010 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93

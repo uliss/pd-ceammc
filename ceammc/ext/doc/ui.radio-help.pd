@@ -86,8 +86,8 @@ and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 866 @value;
 #X text 245 866 Get/Set widget value (float or list). Type: list.;
 #X msg 110 896 @active_color;
-#X text 245 896 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X text 245 896 Get/Set element active color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 938 @background_color;
 #X text 245 938 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93

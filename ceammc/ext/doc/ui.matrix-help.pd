@@ -86,8 +86,8 @@ value: 4\. Range: 1\...64\.;
 #X text 245 1087 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 1129 @active_color;
-#X text 245 1129 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X text 245 1129 Get/Set element active color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1171 @background_color;
 #X text 245 1171 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93

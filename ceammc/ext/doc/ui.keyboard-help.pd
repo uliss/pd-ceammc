@@ -85,8 +85,8 @@ Range: 5\...88\.;
 #X text 245 1000 Get/Set MIDI pitch of starting key. Type: int. Default
 value: 36\. Range: 6\...88\.;
 #X msg 110 1042 @active_color;
-#X text 245 1042 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X text 245 1042 Get/Set element active color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1084 @border_color;
 #X text 245 1084 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;

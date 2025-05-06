@@ -61,8 +61,8 @@ int. Default value: 100\. Range: 10\...1024\.;
 #X msg 110 874 @value;
 #X text 245 874 Get/Set current menu item value. Type: atom.;
 #X msg 110 904 @active_color;
-#X text 245 904 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X text 245 904 Get/Set element active color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 946 @background_color;
 #X text 245 946 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93

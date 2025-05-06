@@ -41,8 +41,8 @@ value: 50\. Range: 20\...1000\.;
 #X text 245 487 Get/Set float precision. Type: int. Default value:
 6\. Range: 0\...16\.;
 #X msg 110 529 @active_color;
-#X text 245 529 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X text 245 529 Get/Set element active color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 571 @background_color;
 #X text 245 571 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.3 0.3 0.3

@@ -41,9 +41,9 @@
 #X text 245 487 Получить/Установить float precision. Тип: int. Значение
 по умолчанию: 6\. Диапазон: 0\...16\.;
 #X msg 110 529 @active_color;
-#X text 245 529 Получить/Установить active color (list of red \, green
-\, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75
-1 1\.;
+#X text 245 529 Получить/Установить цвет активного элемента (список
+из красного \, зеленого и синего цвета в [0\..1] диапазоне). Тип: list.
+Значение по умолчанию: 0 0.75 1 1\.;
 #X msg 110 586 @background_color;
 #X text 245 586 Получить/Установить element background color (list
 of red \, green \, blue values in 0-1 range). Тип: list. Значение по

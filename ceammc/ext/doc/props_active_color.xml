@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<property name="@active_color" type="list" default="0 0.75 1 1">
+    <tr lang="en">element active color (list of red, green, blue values in 0-1 range)</tr>
+    <tr lang="ru">цвет активного элемента (список из красного, зеленого и синего цвета в [0..1] диапазоне)</tr>
+</property>
+
+
