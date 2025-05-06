@@ -70,10 +70,7 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>

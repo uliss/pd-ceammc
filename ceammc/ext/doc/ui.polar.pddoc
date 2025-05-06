@@ -58,10 +58,7 @@
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
             </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @positive -->
             <property name="@positive" type="bool" default="0">
                 <tr lang="en">use positive output angle range. For example: [0..360) when using

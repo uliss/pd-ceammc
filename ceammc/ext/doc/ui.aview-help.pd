@@ -141,62 +141,63 @@ Allowed values: roman \, italic.;
 #X text 245 1995 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
 #X msg 110 2037 @pinned;
-#X text 245 2037 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0\.;
-#X msg 110 2079 @size;
-#X text 245 2079 Get/Set element size (width \, height pair). Type:
+#X text 245 2037 Get/Set pin mode. If set to 1 \, it places the element
+at the furthest level on the canvas behind other elements. Type: bool.
+Default value: 0\.;
+#X msg 110 2094 @size;
+#X text 245 2094 Get/Set element size (width \, height pair). Type:
 list. Default value: 300 100\.;
-#X msg 110 2121 @size_ms?;
-#X text 245 2121 (readonly) Get array size in milliseconds. Type: float.
+#X msg 110 2136 @size_ms?;
+#X text 245 2136 (readonly) Get array size in milliseconds. Type: float.
 Units: 'ms'. Default value: 0\. Min value: 0\.;
-#X msg 110 2163 @size_samp?;
-#X text 245 2163 (readonly) Get array size in samples. Type: int. Units:
+#X msg 110 2178 @size_samp?;
+#X text 245 2178 (readonly) Get array size in samples. Type: int. Units:
 'samp'. Default value: 0\. Min value: 0\.;
-#X msg 110 2205 @size_sec?;
-#X text 245 2205 (readonly) Get array size in seconds. Type: float.
+#X msg 110 2220 @size_sec?;
+#X text 245 2220 (readonly) Get array size in seconds. Type: float.
 Units: 'sec'. Default value: 0\. Min value: 0\.;
-#X obj 20 2257 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2262 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 2272 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2277 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 2297 pos;
-#X text 245 2297 set UI element position. Arguments are:;
-#X obj 255 2320 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2320 X: top left x-coord. Type: float.;
-#X obj 255 2343 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2343 Y: top right y-coord. Type: float.;
-#X msg 110 2368 select;
-#X text 245 2368 set selection. Arguments are:;
-#X obj 255 2391 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2391 BEGIN: selection start in samples. Type: int.;
-#X obj 255 2414 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2414 END: selection end in samples. Type: int.;
-#X msg 110 2439 update;
-#X text 245 2439 redraws view.;
-#X msg 110 2467 dump;
-#X text 245 2467 dumps all object info to Pd console window.;
-#X obj 20 2505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2510 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 2312 pos;
+#X text 245 2312 set UI element position. Arguments are:;
+#X obj 255 2335 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2335 X: top left x-coord. Type: float.;
+#X obj 255 2358 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2358 Y: top right y-coord. Type: float.;
+#X msg 110 2383 select;
+#X text 245 2383 set selection. Arguments are:;
+#X obj 255 2406 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2406 BEGIN: selection start in samples. Type: int.;
+#X obj 255 2429 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2429 END: selection end in samples. Type: int.;
+#X msg 110 2454 update;
+#X text 245 2454 redraws view.;
+#X msg 110 2482 dump;
+#X text 245 2482 dumps all object info to Pd console window.;
+#X obj 20 2520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2525 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2511 1\.;
-#X text 150 2511 *bang*;
-#X text 245 2511 output current cursor positions: @cursor_samp \, @cursor_phase
+#X text 110 2526 1\.;
+#X text 150 2526 *bang*;
+#X text 245 2526 output current cursor positions: @cursor_samp \, @cursor_phase
 \, @cursor_ms \, @cursor_sec and selection (if selected): @select_samp
 \, @select_phase \, @select_ms \, @select_sec \, @begin \, @end.;
-#X text 150 2591 *float*;
-#X text 245 2591 move cursor to specified sample position.;
-#X obj 20 2621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2626 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 150 2606 *float*;
+#X text 245 2606 move cursor to specified sample position.;
+#X obj 20 2636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2641 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2627 1\.;
-#X text 245 2627 output.;
+#X text 110 2642 1\.;
+#X text 245 2642 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2677 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2680 library: ceammc v0.9.8;
-#N canvas 10 2699 400 290 info 0;
+#X obj 1 2692 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2695 library: ceammc v0.9.8;
+#N canvas 10 2714 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -220,7 +221,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2699 pd info;
+#X restore 10 2714 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

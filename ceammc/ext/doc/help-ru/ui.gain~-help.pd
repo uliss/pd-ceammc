@@ -133,69 +133,70 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1784 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1826 @pinned;
-#X text 245 1826 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1868 @presetname;
-#X text 245 1868 Получить/Установить preset name for using with [ui.preset].
+#X text 245 1826 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 110 1883 @presetname;
+#X text 245 1883 Получить/Установить preset name for using with [ui.preset].
 Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1910 @size;
-#X text 245 1910 Получить/Установить element size (width \, height
+#X msg 110 1925 @size;
+#X text 245 1925 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 15 120\.;
-#X obj 20 1962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1967 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1977 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1982 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 2002 clear;
-#X text 245 2002 clears specified preset. Аргументы:;
-#X obj 255 2025 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2025 IDX: preset index. Тип: int.;
-#X msg 110 2050 interp;
-#X text 245 2050 interplolates between presets. Аргументы:;
-#X obj 255 2073 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2073 IDX: preset fraction index. Тип: float.;
-#X msg 110 2098 load;
-#X text 245 2098 loads specified preset. Аргументы:;
-#X obj 255 2121 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2121 IDX: preset index. Тип: int.;
-#X msg 110 2146 pos;
-#X text 245 2146 set UI element position. Аргументы:;
-#X obj 255 2169 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2169 X: top left x-coord. Тип: float.;
-#X obj 255 2192 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2192 Y: top right y-coord. Тип: float.;
-#X msg 110 2217 set N;
-#X text 245 2217 set current gain to N db.;
-#X msg 110 2245 store;
-#X text 245 2245 stores specified preset. Аргументы:;
-#X obj 255 2268 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2268 IDX: preset index. Тип: int.;
-#X msg 110 2293 + N;
-#X text 245 2293 increase current gain by N db.;
-#X msg 110 2321 ++;
-#X text 245 2321 decrease current gain by 1 db.;
-#X msg 110 2349 - N;
-#X text 245 2349 decrease current gain by N db.;
-#X msg 110 2377 --;
-#X text 245 2377 decrease current gain by 1 db.;
-#X obj 20 2415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2420 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 2017 clear;
+#X text 245 2017 clears specified preset. Аргументы:;
+#X obj 255 2040 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2040 IDX: preset index. Тип: int.;
+#X msg 110 2065 interp;
+#X text 245 2065 interplolates between presets. Аргументы:;
+#X obj 255 2088 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2088 IDX: preset fraction index. Тип: float.;
+#X msg 110 2113 load;
+#X text 245 2113 loads specified preset. Аргументы:;
+#X obj 255 2136 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2136 IDX: preset index. Тип: int.;
+#X msg 110 2161 pos;
+#X text 245 2161 set UI element position. Аргументы:;
+#X obj 255 2184 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2184 X: top left x-coord. Тип: float.;
+#X obj 255 2207 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2207 Y: top right y-coord. Тип: float.;
+#X msg 110 2232 set N;
+#X text 245 2232 set current gain to N db.;
+#X msg 110 2260 store;
+#X text 245 2260 stores specified preset. Аргументы:;
+#X obj 255 2283 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2283 IDX: preset index. Тип: int.;
+#X msg 110 2308 + N;
+#X text 245 2308 increase current gain by N db.;
+#X msg 110 2336 ++;
+#X text 245 2336 decrease current gain by 1 db.;
+#X msg 110 2364 - N;
+#X text 245 2364 decrease current gain by N db.;
+#X msg 110 2392 --;
+#X text 245 2392 decrease current gain by 1 db.;
+#X obj 20 2430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2435 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2421 1\.;
-#X text 245 2421 input signal.;
-#X text 150 2441 *bang*;
-#X text 245 2441 output current gain @db property.;
-#X obj 20 2471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2476 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2436 1\.;
+#X text 245 2436 input signal.;
+#X text 150 2456 *bang*;
+#X text 245 2456 output current gain @db property.;
+#X obj 20 2486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2491 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2477 1\.;
-#X text 245 2477 output signal.;
+#X text 110 2492 1\.;
+#X text 245 2492 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2527 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2530 библиотека: ceammc v0.9.8;
-#N canvas 10 2549 400 290 info 0;
+#X obj 1 2542 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2545 библиотека: ceammc v0.9.8;
+#N canvas 10 2564 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -219,7 +220,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2549 pd info;
+#X restore 10 2564 pd info;
 #X connect 8 0 16 0;
 #X connect 9 0 16 0;
 #X connect 15 0 16 0;

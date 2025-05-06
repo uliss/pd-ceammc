@@ -79,25 +79,26 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1004 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1046 @pinned;
-#X text 245 1046 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 1098 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1103 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X text 245 1046 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1118 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1138 pos;
-#X text 245 1138 set UI element position. Аргументы:;
-#X obj 255 1161 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1161 X: top left x-coord. Тип: float.;
-#X obj 255 1184 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1184 Y: top right y-coord. Тип: float.;
+#X msg 110 1153 pos;
+#X text 245 1153 set UI element position. Аргументы:;
+#X obj 255 1176 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1176 X: top left x-coord. Тип: float.;
+#X obj 255 1199 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1199 Y: top right y-coord. Тип: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1239 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1242 библиотека: ceammc v0.9.8;
-#N canvas 10 1261 400 290 info 0;
+#X obj 1 1254 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1257 библиотека: ceammc v0.9.8;
+#N canvas 10 1276 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -121,4 +122,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1261 pd info;
+#X restore 10 1276 pd info;

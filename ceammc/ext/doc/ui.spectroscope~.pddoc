@@ -45,10 +45,7 @@
             <property name="@log_scale" type="bool" default="0">
                 <tr lang="en">display in log scale</tr>
             </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>

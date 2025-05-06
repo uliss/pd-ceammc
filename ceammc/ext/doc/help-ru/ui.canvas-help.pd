@@ -118,399 +118,400 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1789 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1831 @pinned;
-#X text 245 1831 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1873 @size;
-#X text 245 1873 Получить/Установить element size (width \, height
+#X text 245 1831 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 110 1888 @size;
+#X text 245 1888 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 120 60\.;
-#X obj 20 1925 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1930 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1940 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1945 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1965 abc;
-#X text 245 1965 draw music in ABC notation. Аргументы:;
-#X obj 255 1988 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1988 X: left-coord in pixel or percents of width. Тип:
+#X msg 110 1980 abc;
+#X text 245 1980 draw music in ABC notation. Аргументы:;
+#X obj 255 2003 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2003 X: left-coord in pixel or percents of width. Тип:
 atom.;
-#X obj 255 2011 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2011 Y: top-coord in pixel or percents of height. Тип:
+#X obj 255 2026 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2026 Y: top-coord in pixel or percents of height. Тип:
 atom.;
-#X obj 255 2034 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2034 MUSIC: ABC notation. Тип: list.;
-#X msg 110 2059 arc;
-#X text 245 2059 draw arc. Аргументы:;
-#X obj 255 2082 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2082 XC: x-center coord in pixel or percents of width.
+#X obj 255 2049 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2049 MUSIC: ABC notation. Тип: list.;
+#X msg 110 2074 arc;
+#X text 245 2074 draw arc. Аргументы:;
+#X obj 255 2097 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2097 XC: x-center coord in pixel or percents of width.
 Тип: atom.;
-#X obj 255 2105 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2105 YC: y-center coord in pixel or percents of height.
+#X obj 255 2120 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2120 YC: y-center coord in pixel or percents of height.
 Тип: atom.;
-#X obj 255 2128 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2128 RC: radius in pixel or percents of width. Тип: atom.;
-#X obj 255 2151 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2151 A0: start angle in degrees or radians. Тип: atom.;
-#X obj 255 2174 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2174 A1: end angle in degrees or radians. Тип: atom.;
-#X msg 110 2199 arrow;
-#X text 245 2199 creates arrow shape. Аргументы:;
-#X obj 255 2222 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2222 X0: x-coord of start point in pixel or percents of
+#X obj 255 2143 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2143 RC: radius in pixel or percents of width. Тип: atom.;
+#X obj 255 2166 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2166 A0: start angle in degrees or radians. Тип: atom.;
+#X obj 255 2189 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2189 A1: end angle in degrees or radians. Тип: atom.;
+#X msg 110 2214 arrow;
+#X text 245 2214 creates arrow shape. Аргументы:;
+#X obj 255 2237 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2237 X0: x-coord of start point in pixel or percents of
 width. Тип: atom.;
-#X obj 255 2260 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2260 Y0: y-coord of start point in pixel or percents of
+#X obj 255 2275 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2275 Y0: y-coord of start point in pixel or percents of
 height. Тип: atom.;
-#X obj 255 2298 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2298 X1: x-coord of target point in pixel or percents of
+#X obj 255 2313 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2313 X1: x-coord of target point in pixel or percents of
 width. Тип: atom.;
-#X obj 255 2336 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2336 Y1: y-coord of target point in pixel or percents of
+#X obj 255 2351 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2351 Y1: y-coord of target point in pixel or percents of
 height. Тип: atom.;
-#X obj 255 2374 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2374 [START]: start shape. Тип: symbol. Разрешённые значения:
+#X obj 255 2389 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2389 [START]: start shape. Тип: symbol. Разрешённые значения:
 A \, a \, V \, v \, X \, x \, T \, t \, O \, o \, n.;
-#X obj 255 2412 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2412 [END]: end shape. Тип: symbol. Разрешённые значения:
+#X obj 255 2427 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2427 [END]: end shape. Тип: symbol. Разрешённые значения:
 A \, a \, V \, v \, X \, x \, T \, t \, O \, o \, n.;
-#X msg 110 2452 bg;
-#X text 245 2452 draws background. Аргументы:;
-#X obj 255 2475 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2475 [COLOR]: background color. Тип: list.;
-#X msg 110 2500 circle;
-#X text 245 2500 create circle shape. Аргументы:;
-#X obj 255 2523 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2523 X: x-coord. Тип: float.;
-#X obj 255 2546 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2546 Y: y-coord. Тип: float.;
-#X obj 255 2569 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2569 RADIUS: radius. Тип: float.;
-#X msg 110 2594 clear;
-#X text 245 2594 clear image.;
-#X msg 110 2622 close_path;
-#X text 245 2622 close path and its subpaths.;
-#X msg 110 2650 color;
-#X text 245 2650 set current color. Аргументы:;
-#X obj 255 2673 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2673 DATA: RGB \, RGBA float list or hex or named color.
+#X msg 110 2467 bg;
+#X text 245 2467 draws background. Аргументы:;
+#X obj 255 2490 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2490 [COLOR]: background color. Тип: list.;
+#X msg 110 2515 circle;
+#X text 245 2515 create circle shape. Аргументы:;
+#X obj 255 2538 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2538 X: x-coord. Тип: float.;
+#X obj 255 2561 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2561 Y: y-coord. Тип: float.;
+#X obj 255 2584 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2584 RADIUS: radius. Тип: float.;
+#X msg 110 2609 clear;
+#X text 245 2609 clear image.;
+#X msg 110 2637 close_path;
+#X text 245 2637 close path and its subpaths.;
+#X msg 110 2665 color;
+#X text 245 2665 set current color. Аргументы:;
+#X obj 255 2688 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2688 DATA: RGB \, RGBA float list or hex or named color.
 Тип: list.;
-#X msg 110 2698 crestore;
-#X text 245 2698 restore previously saved context (pen type \, width
+#X msg 110 2713 crestore;
+#X text 245 2713 restore previously saved context (pen type \, width
 \, color \, matrix etc.).;
-#X msg 110 2738 csave;
-#X text 245 2738 save current drawing context (pen type \, width \,
+#X msg 110 2753 csave;
+#X text 245 2753 save current drawing context (pen type \, width \,
 color \, matrix etc.).;
-#X msg 110 2778 curve;
-#X text 245 2778 create bezier-curve shape. Аргументы:;
-#X obj 255 2801 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2801 X0: x0-coord in pixels or percents of width. Тип:
+#X msg 110 2793 curve;
+#X text 245 2793 create bezier-curve shape. Аргументы:;
+#X obj 255 2816 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2816 X0: x0-coord in pixels or percents of width. Тип:
 atom.;
-#X obj 255 2824 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2824 Y0: y0-coord in pixels or percents of height. Тип:
+#X obj 255 2839 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2839 Y0: y0-coord in pixels or percents of height. Тип:
 atom.;
-#X obj 255 2847 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2847 X1: x1-coord in pixels or percents of width. Тип:
+#X obj 255 2862 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2862 X1: x1-coord in pixels or percents of width. Тип:
 atom.;
-#X obj 255 2870 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2870 Y1: y1-coord in pixels or percents of height. Тип:
+#X obj 255 2885 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2885 Y1: y1-coord in pixels or percents of height. Тип:
 atom.;
-#X obj 255 2893 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2893 X2: x2-coord in pixels or percents of width. Тип:
+#X obj 255 2908 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2908 X2: x2-coord in pixels or percents of width. Тип:
 atom.;
-#X obj 255 2916 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2916 Y2: y2-coord in pixels or percents of height. Тип:
+#X obj 255 2931 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2931 Y2: y2-coord in pixels or percents of height. Тип:
 atom.;
-#X obj 255 2939 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2939 X3: x3-coord in pixels or percents of width. Тип:
+#X obj 255 2954 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2954 X3: x3-coord in pixels or percents of width. Тип:
 atom.;
-#X obj 255 2962 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2962 Y4: y3-coord in pixels or percents of height. Тип:
+#X obj 255 2977 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2977 Y4: y3-coord in pixels or percents of height. Тип:
 atom.;
-#X msg 110 2987 dash;
-#X text 245 2987 set line dash pattern. Аргументы:;
-#X obj 255 3010 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3010 PATTERN: line dash pattern. If empty - reset to solid
+#X msg 110 3002 dash;
+#X text 245 3002 set line dash pattern. Аргументы:;
+#X obj 255 3025 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3025 PATTERN: line dash pattern. If empty - reset to solid
 shape. Тип: list.;
-#X msg 110 3050 ellipse;
-#X text 245 3050 draw ellipse. Аргументы:;
-#X obj 255 3073 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3073 X: left-coord in pixel or percents of width. Тип:
+#X msg 110 3065 ellipse;
+#X text 245 3065 draw ellipse. Аргументы:;
+#X obj 255 3088 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3088 X: left-coord in pixel or percents of width. Тип:
 atom.;
-#X obj 255 3096 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3096 Y: top-coord in pixel or percents of height. Тип:
+#X obj 255 3111 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3111 Y: top-coord in pixel or percents of height. Тип:
 atom.;
-#X obj 255 3119 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3119 WIDTH: width. Тип: atom.;
-#X obj 255 3142 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3142 HEIGHT: height. Тип: atom.;
-#X msg 110 3167 fill;
-#X text 245 3167 fill shape with color. Аргументы:;
-#X obj 255 3190 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3190 COLOR: fill color. Тип: atom.;
-#X obj 255 3213 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3213 [PRESERVE]: preserve path after fill. You can call
+#X obj 255 3134 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3134 WIDTH: width. Тип: atom.;
+#X obj 255 3157 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3157 HEIGHT: height. Тип: atom.;
+#X msg 110 3182 fill;
+#X text 245 3182 fill shape with color. Аргументы:;
+#X obj 255 3205 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3205 COLOR: fill color. Тип: atom.;
+#X obj 255 3228 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3228 [PRESERVE]: preserve path after fill. You can call
 stroke method after that. Тип: atom. Разрешённые значения: preserve
 \, 1\.;
-#X msg 110 3268 font;
-#X text 245 3268 set current font. Аргументы:;
-#X obj 255 3291 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3291 FONT: font family. Тип: symbol.;
-#X obj 255 3314 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3314 [SIZE]: font size. Тип: float.;
-#X msg 110 3339 font_size;
-#X text 245 3339 set current font size. Аргументы:;
-#X obj 255 3362 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3362 X: font size. Тип: float.;
-#X msg 110 3387 icon;
-#X text 245 3387 draw named icon. Pass ? as single argument to dump
+#X msg 110 3283 font;
+#X text 245 3283 set current font. Аргументы:;
+#X obj 255 3306 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3306 FONT: font family. Тип: symbol.;
+#X obj 255 3329 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3329 [SIZE]: font size. Тип: float.;
+#X msg 110 3354 font_size;
+#X text 245 3354 set current font size. Аргументы:;
+#X obj 255 3377 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3377 X: font size. Тип: float.;
+#X msg 110 3402 icon;
+#X text 245 3402 draw named icon. Pass ? as single argument to dump
 all icons to Pd window. Аргументы:;
-#X obj 255 3425 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3425 X: left-coord in pixel or percents of width. Тип:
+#X obj 255 3440 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3440 X: left-coord in pixel or percents of width. Тип:
 atom.;
-#X obj 255 3448 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3448 Y: top-coord in pixel or percents of height. Тип:
+#X obj 255 3463 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3463 Y: top-coord in pixel or percents of height. Тип:
 atom.;
-#X obj 255 3471 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3471 SIZE: font size. Тип: float.;
-#X obj 255 3494 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3494 ICON: icon name. See https://fonts.google.com/icons
+#X obj 255 3486 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3486 SIZE: font size. Тип: float.;
+#X obj 255 3509 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3509 ICON: icon name. See https://fonts.google.com/icons
 for full list. Тип: symbol.;
-#X msg 110 3534 image;
-#X text 245 3534 draws image. Note: only PNG images are supported!.
+#X msg 110 3549 image;
+#X text 245 3549 draws image. Note: only PNG images are supported!.
 Аргументы:;
-#X obj 255 3557 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3557 X: left-coord in pixel or percents of width. Тип:
+#X obj 255 3572 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3572 X: left-coord in pixel or percents of width. Тип:
 atom.;
-#X obj 255 3580 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3580 Y: top-coord in pixel or percents of height. Тип:
+#X obj 255 3595 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3595 Y: top-coord in pixel or percents of height. Тип:
 atom.;
-#X obj 255 3603 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3603 PATH: path to image file \, full or relative to patch.
+#X obj 255 3618 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3618 PATH: path to image file \, full or relative to patch.
 Тип: symbol.;
-#X obj 255 3641 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3641 [SCALE]: image scale. Тип: float. Минимальное значение:
+#X obj 255 3656 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3656 [SCALE]: image scale. Тип: float. Минимальное значение:
 0\.;
-#X msg 110 3666 line;
-#X text 245 3666 create line shape. Аргументы:;
-#X obj 255 3689 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3689 X0: x0-coord in pixels or percents of width. Тип:
+#X msg 110 3681 line;
+#X text 245 3681 create line shape. Аргументы:;
+#X obj 255 3704 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3704 X0: x0-coord in pixels or percents of width. Тип:
 atom.;
-#X obj 255 3712 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3712 Y0: y0-coord in pixels or percents of height. Тип:
+#X obj 255 3727 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3727 Y0: y0-coord in pixels or percents of height. Тип:
 atom.;
-#X obj 255 3735 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3735 X1: x1-coord in pixels or percents of width. Тип:
+#X obj 255 3750 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3750 X1: x1-coord in pixels or percents of width. Тип:
 atom.;
-#X obj 255 3758 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3758 Y1: y1-coord in pixels or percents of height. Тип:
+#X obj 255 3773 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3773 Y1: y1-coord in pixels or percents of height. Тип:
 atom.;
-#X msg 110 3783 line_cap;
-#X text 245 3783 set line cap. Аргументы:;
-#X obj 255 3806 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3806 X: line cap. Тип: symbol. Разрешённые значения: butt
+#X msg 110 3798 line_cap;
+#X text 245 3798 set line cap. Аргументы:;
+#X obj 255 3821 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3821 X: line cap. Тип: symbol. Разрешённые значения: butt
 \, round \, square.;
-#X msg 110 3846 line_to;
-#X text 245 3846 add line segment to line shape. Аргументы:;
-#X obj 255 3869 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3869 X: x-coord in pixels or percents of width. Тип: atom.;
-#X obj 255 3892 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3892 Y: y-coord in pixels or percents of height. Тип: atom.;
-#X msg 110 3917 matrix;
-#X text 245 3917 set 2D transformation matrix. Аргументы:;
-#X obj 255 3940 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3940 XX: xx component of the affine transformation. Тип:
+#X msg 110 3861 line_to;
+#X text 245 3861 add line segment to line shape. Аргументы:;
+#X obj 255 3884 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3884 X: x-coord in pixels or percents of width. Тип: atom.;
+#X obj 255 3907 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3907 Y: y-coord in pixels or percents of height. Тип: atom.;
+#X msg 110 3932 matrix;
+#X text 245 3932 set 2D transformation matrix. Аргументы:;
+#X obj 255 3955 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3955 XX: xx component of the affine transformation. Тип:
 atom.;
-#X obj 255 3963 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3963 YX: yx component of the affine transformation. Тип:
+#X obj 255 3978 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3978 YX: yx component of the affine transformation. Тип:
 atom.;
-#X obj 255 3986 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3986 XY: xy component of the affine transformation. Тип:
+#X obj 255 4001 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4001 XY: xy component of the affine transformation. Тип:
 atom.;
-#X obj 255 4009 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4009 YY: yy component of the affine transformation. Тип:
+#X obj 255 4024 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4024 YY: yy component of the affine transformation. Тип:
 atom.;
-#X obj 255 4032 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4032 X0: x component of the affine transformation. Тип:
+#X obj 255 4047 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4047 X0: x component of the affine transformation. Тип:
 atom.;
-#X obj 255 4055 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4055 Y0: y component of the affine transformation. Тип:
+#X obj 255 4070 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4070 Y0: y component of the affine transformation. Тип:
 atom.;
-#X msg 110 4080 move_by;
-#X text 245 4080 move current drawing point by relative offset. Аргументы:;
-#X obj 255 4103 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4103 X: x relative offset in pixels or percents of width.
+#X msg 110 4095 move_by;
+#X text 245 4095 move current drawing point by relative offset. Аргументы:;
+#X obj 255 4118 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4118 X: x relative offset in pixels or percents of width.
 Тип: atom.;
-#X obj 255 4141 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4141 Y: y relative offset in pixels or percents of height.
+#X obj 255 4156 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4156 Y: y relative offset in pixels or percents of height.
 Тип: atom.;
-#X msg 110 4181 move_to;
-#X text 245 4181 move current drawing point to absolute position. Аргументы:;
-#X obj 255 4204 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4204 X: x-coord in pixels or percents of width. Тип: atom.;
-#X obj 255 4227 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4227 Y: y-coord in pixels or percents of height. Тип: atom.;
-#X msg 110 4252 musicxml;
-#X text 245 4252 render MusicXML file. Аргументы:;
-#X obj 255 4275 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4275 X: x-coord in pixels or percents of width. Тип: atom.;
-#X obj 255 4298 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4298 Y: y-coord in pixels or percents of height. Тип: atom.;
-#X obj 255 4321 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4321 FILE: absolute or relative to patch filepath of MusicXML
+#X msg 110 4196 move_to;
+#X text 245 4196 move current drawing point to absolute position. Аргументы:;
+#X obj 255 4219 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4219 X: x-coord in pixels or percents of width. Тип: atom.;
+#X obj 255 4242 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4242 Y: y-coord in pixels or percents of height. Тип: atom.;
+#X msg 110 4267 musicxml;
+#X text 245 4267 render MusicXML file. Аргументы:;
+#X obj 255 4290 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4290 X: x-coord in pixels or percents of width. Тип: atom.;
+#X obj 255 4313 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4313 Y: y-coord in pixels or percents of height. Тип: atom.;
+#X obj 255 4336 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4336 FILE: absolute or relative to patch filepath of MusicXML
 file. Тип: symbol.;
-#X msg 110 4361 new_path;
-#X text 245 4361 starts new path.;
-#X msg 110 4389 new_subpath;
-#X text 245 4389 starts new subpath \, means no line connection between
+#X msg 110 4376 new_path;
+#X text 245 4376 starts new path.;
+#X msg 110 4404 new_subpath;
+#X text 245 4404 starts new subpath \, means no line connection between
 last point and new subpath shape.;
-#X msg 110 4429 polar;
-#X text 245 4429 creates polar grid. Аргументы:;
-#X obj 255 4452 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4452 X: x-coord of center in pixel or percents of width.
+#X msg 110 4444 polar;
+#X text 245 4444 creates polar grid. Аргументы:;
+#X obj 255 4467 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4467 X: x-coord of center in pixel or percents of width.
 Тип: atom.;
-#X obj 255 4490 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4490 Y: y-coord of center in pixel or percents of height.
+#X obj 255 4505 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4505 Y: y-coord of center in pixel or percents of height.
 Тип: atom.;
-#X obj 255 4528 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4528 [ADIV]: number of divisions of 90 degree angle. Тип:
+#X obj 255 4543 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4543 [ADIV]: number of divisions of 90 degree angle. Тип:
 int. Минимальное значение: 0\.;
-#X obj 255 4566 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4566 [NC]: number of circles. Тип: int. Минимальное значение:
+#X obj 255 4581 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4581 [NC]: number of circles. Тип: int. Минимальное значение:
 0\.;
-#X obj 255 4589 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4589 [CDIST]: circle distance. Тип: int. Минимальное значение:
+#X obj 255 4604 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4604 [CDIST]: circle distance. Тип: int. Минимальное значение:
 1\.;
-#X msg 110 4614 polygon;
-#X text 245 4614 create polygon shape. Аргументы:;
-#X obj 255 4637 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4637 X0: x0-coord in pixel or percents of width. Тип: atom.;
-#X obj 255 4660 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4660 Y0: y0-coord in pixel or percents of height. Тип:
+#X msg 110 4629 polygon;
+#X text 245 4629 create polygon shape. Аргументы:;
+#X obj 255 4652 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4652 X0: x0-coord in pixel or percents of width. Тип: atom.;
+#X obj 255 4675 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4675 Y0: y0-coord in pixel or percents of height. Тип:
 atom.;
-#X obj 255 4683 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4683 X...: x...-coord in pixel or percents of width. Тип:
+#X obj 255 4698 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4698 X...: x...-coord in pixel or percents of width. Тип:
 atom.;
-#X obj 255 4706 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4706 Y...: y...-coord in pixel or percents of height. Тип:
+#X obj 255 4721 cnv 1 35 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4721 Y...: y...-coord in pixel or percents of height. Тип:
 atom.;
-#X obj 255 4729 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4729 XN: xn-coord in pixel or percents of width. Тип: atom.;
-#X obj 255 4752 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4752 YN: yn-coord in pixel or percents of height. Тип:
+#X obj 255 4744 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4744 XN: xn-coord in pixel or percents of width. Тип: atom.;
+#X obj 255 4767 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4767 YN: yn-coord in pixel or percents of height. Тип:
 atom.;
-#X msg 110 4777 pos;
-#X text 245 4777 set UI element position. Аргументы:;
-#X obj 255 4800 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4800 X: top left x-coord. Тип: float.;
-#X obj 255 4823 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4823 Y: top right y-coord. Тип: float.;
-#X msg 110 4848 qrcode;
-#X text 245 4848 create QR-code shape. Аргументы:;
-#X obj 255 4871 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4871 X: left-coord in pixel or percents of width. Тип:
+#X msg 110 4792 pos;
+#X text 245 4792 set UI element position. Аргументы:;
+#X obj 255 4815 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4815 X: top left x-coord. Тип: float.;
+#X obj 255 4838 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4838 Y: top right y-coord. Тип: float.;
+#X msg 110 4863 qrcode;
+#X text 245 4863 create QR-code shape. Аргументы:;
+#X obj 255 4886 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4886 X: left-coord in pixel or percents of width. Тип:
 atom.;
-#X obj 255 4894 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4894 Y: top-coord in pixel or percents of height. Тип:
+#X obj 255 4909 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4909 Y: top-coord in pixel or percents of height. Тип:
 atom.;
-#X obj 255 4917 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4917 PIXEL: pixel size. Тип: int. Минимальное значение:
+#X obj 255 4932 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4932 PIXEL: pixel size. Тип: int. Минимальное значение:
 1\.;
-#X obj 255 4940 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4940 TEXT: message. Тип: symbol.;
-#X msg 110 4965 rect;
-#X text 245 4965 create rectangle shape. Аргументы:;
-#X obj 255 4988 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4988 X: x-coord in pixels or percents of width. Тип: atom.;
-#X obj 255 5011 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5011 Y: y-coord in pixels or percents of height. Тип: atom.;
-#X obj 255 5034 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5034 W: width in pixels or percents of width. Тип: atom.;
-#X obj 255 5057 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5057 H: height in pixels or percents of height. Тип: atom.;
-#X msg 110 5082 rotate;
-#X text 245 5082 clock-wise rotatation of draw origin. Аргументы:;
-#X obj 255 5105 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5105 X: rotation angle. Тип: float. Единицы: 'deg'.;
-#X msg 110 5130 rpolygon;
-#X text 245 5130 create polygon shape. Аргументы:;
-#X obj 255 5153 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5153 X: x-coord of center in pixel or percents of width.
+#X obj 255 4955 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4955 TEXT: message. Тип: symbol.;
+#X msg 110 4980 rect;
+#X text 245 4980 create rectangle shape. Аргументы:;
+#X obj 255 5003 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5003 X: x-coord in pixels or percents of width. Тип: atom.;
+#X obj 255 5026 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5026 Y: y-coord in pixels or percents of height. Тип: atom.;
+#X obj 255 5049 cnv 1 16 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5049 W: width in pixels or percents of width. Тип: atom.;
+#X obj 255 5072 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5072 H: height in pixels or percents of height. Тип: atom.;
+#X msg 110 5097 rotate;
+#X text 245 5097 clock-wise rotatation of draw origin. Аргументы:;
+#X obj 255 5120 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5120 X: rotation angle. Тип: float. Единицы: 'deg'.;
+#X msg 110 5145 rpolygon;
+#X text 245 5145 create polygon shape. Аргументы:;
+#X obj 255 5168 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5168 X: x-coord of center in pixel or percents of width.
 Тип: atom.;
-#X obj 255 5191 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5191 Y: y-coord of center in pixel or percents of height.
+#X obj 255 5206 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5206 Y: y-coord of center in pixel or percents of height.
 Тип: atom.;
-#X obj 255 5229 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5229 N: number of vertexes. Тип: int.;
-#X obj 255 5252 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5252 R: polygon radius. Тип: float.;
-#X msg 110 5277 scale;
-#X text 245 5277 scale current draw matrix. Аргументы:;
-#X obj 255 5300 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5300 X: x. Тип: float.;
-#X obj 255 5323 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5323 [Y]: y. If omitted \, uses X-value to scale same in
+#X obj 255 5244 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5244 N: number of vertexes. Тип: int.;
+#X obj 255 5267 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5267 R: polygon radius. Тип: float.;
+#X msg 110 5292 scale;
+#X text 245 5292 scale current draw matrix. Аргументы:;
+#X obj 255 5315 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5315 X: x. Тип: float.;
+#X obj 255 5338 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5338 [Y]: y. If omitted \, uses X-value to scale same in
 both directions. Тип: float.;
-#X msg 110 5363 star;
-#X text 245 5363 create star shape. Аргументы:;
-#X obj 255 5386 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5386 X: x-coord of center in pixel or percents of width.
+#X msg 110 5378 star;
+#X text 245 5378 create star shape. Аргументы:;
+#X obj 255 5401 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5401 X: x-coord of center in pixel or percents of width.
 Тип: atom.;
-#X obj 255 5424 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5424 Y: y-coord of center in pixel or percents of height.
+#X obj 255 5439 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5439 Y: y-coord of center in pixel or percents of height.
 Тип: atom.;
-#X obj 255 5462 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5462 N: number of vertexes. Тип: int.;
-#X obj 255 5485 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5485 [R]: star radius. Тип: float. Минимальное значение:
+#X obj 255 5477 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5477 N: number of vertexes. Тип: int.;
+#X obj 255 5500 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5500 [R]: star radius. Тип: float. Минимальное значение:
 0\.;
-#X obj 255 5508 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5508 [STEP]: connection step. If omitted step is auto-calculated.
+#X obj 255 5523 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5523 [STEP]: connection step. If omitted step is auto-calculated.
 Тип: int. Минимальное значение: 1\.;
-#X msg 110 5548 stroke;
-#X text 245 5548 stroke shape with color. Аргументы:;
-#X obj 255 5571 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5571 COLOR: stroke color. Тип: atom.;
-#X obj 255 5594 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5594 [PRESERVE]: preserve path after stroke. Тип: atom.
+#X msg 110 5563 stroke;
+#X text 245 5563 stroke shape with color. Аргументы:;
+#X obj 255 5586 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5586 COLOR: stroke color. Тип: atom.;
+#X obj 255 5609 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5609 [PRESERVE]: preserve path after stroke. Тип: atom.
 Разрешённые значения: preserve \, 1\.;
-#X msg 110 5634 text;
-#X text 245 5634 set current text shape. Аргументы:;
-#X obj 255 5657 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5657 X: x-coord in pixels or percents of width. Тип: atom.;
-#X obj 255 5680 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5680 Y: y-coord in pixels or percents of height. Тип: atom.;
-#X obj 255 5703 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5703 TXT: text content. Тип: list.;
-#X msg 110 5728 translate;
-#X text 245 5728 translate draw origin. Аргументы:;
-#X obj 255 5751 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5751 X: x offset. Тип: float.;
-#X obj 255 5774 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5774 Y: y offset. Тип: float.;
-#X msg 110 5799 update;
-#X text 245 5799 updates drawed image.;
-#X msg 110 5827 width;
-#X text 245 5827 set stroke width. Аргументы:;
-#X obj 255 5850 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5850 WIDTH: line width. Тип: float.;
-#X msg 110 5875 dump;
-#X text 245 5875 dumps all object info to Pd console window.;
-#X obj 20 5913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5918 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 5649 text;
+#X text 245 5649 set current text shape. Аргументы:;
+#X obj 255 5672 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5672 X: x-coord in pixels or percents of width. Тип: atom.;
+#X obj 255 5695 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5695 Y: y-coord in pixels or percents of height. Тип: atom.;
+#X obj 255 5718 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5718 TXT: text content. Тип: list.;
+#X msg 110 5743 translate;
+#X text 245 5743 translate draw origin. Аргументы:;
+#X obj 255 5766 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5766 X: x offset. Тип: float.;
+#X obj 255 5789 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5789 Y: y offset. Тип: float.;
+#X msg 110 5814 update;
+#X text 245 5814 updates drawed image.;
+#X msg 110 5842 width;
+#X text 245 5842 set stroke width. Аргументы:;
+#X obj 255 5865 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 5865 WIDTH: line width. Тип: float.;
+#X msg 110 5890 dump;
+#X text 245 5890 dumps all object info to Pd console window.;
+#X obj 20 5928 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5933 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 5919 1\.;
-#X text 245 5919 draw commands.;
-#X obj 20 5949 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5954 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 5934 1\.;
+#X text 245 5934 draw commands.;
+#X obj 20 5964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5969 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 5955 1\.;
-#X text 245 5955 message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT
+#X text 110 5970 1\.;
+#X text 245 5970 message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT
 MOD_SHIFT MOD_CMD.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 6020 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 6023 библиотека: ceammc v0.9.8;
-#N canvas 10 6042 400 290 info 0;
+#X obj 1 6035 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 6038 библиотека: ceammc v0.9.8;
+#N canvas 10 6057 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -534,7 +535,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 6042 pd info;
+#X restore 10 6057 pd info;
 #X connect 11 0 23 0;
 #X connect 13 0 23 0;
 #X connect 15 0 23 0;

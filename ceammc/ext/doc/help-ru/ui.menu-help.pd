@@ -91,108 +91,109 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1297 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1339 @pinned;
-#X text 245 1339 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1381 @presetname;
-#X text 245 1381 Получить/Установить preset name for using with [ui.preset].
+#X text 245 1339 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 110 1396 @presetname;
+#X text 245 1396 Получить/Установить preset name for using with [ui.preset].
 Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1423 @size;
-#X text 245 1423 Получить/Установить element size (width \, height
+#X msg 110 1438 @size;
+#X text 245 1438 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 100 16\.;
-#X msg 110 1465 @count?;
-#X text 245 1465 (только чтение) Получить number of menu items. Тип:
+#X msg 110 1480 @count?;
+#X text 245 1480 (только чтение) Получить number of menu items. Тип:
 int. Значение по умолчанию: 0\.;
-#X msg 110 1507 @title?;
-#X text 245 1507 (только чтение) Получить current element text. Тип:
+#X msg 110 1522 @title?;
+#X text 245 1522 (только чтение) Получить current element text. Тип:
 symbol.;
-#X obj 20 1547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1552 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1562 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1567 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1587 append;
-#X text 245 1587 appends new menu item. Аргументы:;
-#X obj 255 1610 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1610 ATOMS: item name. Тип: list.;
-#X msg 110 1635 clear;
-#X text 245 1635 clears specified preset. Аргументы:;
-#X obj 255 1658 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1658 IDX: preset index. Тип: int.;
-#X msg 110 1683 delete;
-#X text 245 1683 removes item from menu. Аргументы:;
-#X obj 255 1706 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1706 IDX: removed item index. Тип: int. Минимальное значение:
+#X msg 110 1602 append;
+#X text 245 1602 appends new menu item. Аргументы:;
+#X obj 255 1625 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1625 ATOMS: item name. Тип: list.;
+#X msg 110 1650 clear;
+#X text 245 1650 clears specified preset. Аргументы:;
+#X obj 255 1673 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1673 IDX: preset index. Тип: int.;
+#X msg 110 1698 delete;
+#X text 245 1698 removes item from menu. Аргументы:;
+#X obj 255 1721 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1721 IDX: removed item index. Тип: int. Минимальное значение:
 0\.;
-#X msg 110 1731 erase;
-#X text 245 1731 clears all items menu.;
-#X msg 110 1759 file_glob;
-#X text 245 1759 fill menu with filenames. Аргументы:;
-#X obj 255 1782 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1782 PATTERN: filename pattern \, like * (all files) \,
+#X msg 110 1746 erase;
+#X text 245 1746 clears all items menu.;
+#X msg 110 1774 file_glob;
+#X text 245 1774 fill menu with filenames. Аргументы:;
+#X obj 255 1797 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1797 PATTERN: filename pattern \, like * (all files) \,
 *.wav (all wav files) etc. Тип: symbol.;
-#X obj 255 1820 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1820 [DIR]: search directory. If omitted - search in patch
+#X obj 255 1835 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1835 [DIR]: search directory. If omitted - search in patch
 directory. Performs tilde (~) expansion to home directory. To elide
 long filenames see @max_length property. Тип: symbol.;
-#X msg 110 1875 insert;
-#X text 245 1875 inserts new menu item before specified position. Аргументы:;
-#X obj 255 1898 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1898 IDX: item position. Тип: int. Минимальное значение:
+#X msg 110 1890 insert;
+#X text 245 1890 inserts new menu item before specified position. Аргументы:;
+#X obj 255 1913 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1913 IDX: item position. Тип: int. Минимальное значение:
 0\.;
-#X obj 255 1921 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1921 ATOM: item name. Тип: atom.;
-#X msg 110 1946 interp;
-#X text 245 1946 for this object acts as *load* \, no preset interpolation
+#X obj 255 1936 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1936 ATOM: item name. Тип: atom.;
+#X msg 110 1961 interp;
+#X text 245 1961 for this object acts as *load* \, no preset interpolation
 performed.;
-#X msg 110 1986 load;
-#X text 245 1986 loads specified preset. Аргументы:;
-#X obj 255 2009 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2009 IDX: preset index. Тип: int.;
-#X msg 110 2034 pos;
-#X text 245 2034 set UI element position. Аргументы:;
-#X obj 255 2057 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2057 X: top left x-coord. Тип: float.;
-#X obj 255 2080 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2080 Y: top right y-coord. Тип: float.;
-#X msg 110 2105 set;
-#X text 245 2105 silently sets menu state. Аргументы:;
-#X obj 255 2128 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2128 IDX: item index. Тип: int. Минимальное значение: 0\.;
-#X msg 110 2153 set_item;
-#X text 245 2153 renames menu item. Аргументы:;
-#X obj 255 2176 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2176 IDX: item index. Тип: int. Минимальное значение: 0\.;
-#X obj 255 2199 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2199 ATOM: item name. Тип: list.;
-#X msg 110 2224 store;
-#X text 245 2224 stores specified preset. Аргументы:;
-#X obj 255 2247 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2247 IDX: preset index. Тип: int.;
-#X obj 20 2282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2287 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 2001 load;
+#X text 245 2001 loads specified preset. Аргументы:;
+#X obj 255 2024 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2024 IDX: preset index. Тип: int.;
+#X msg 110 2049 pos;
+#X text 245 2049 set UI element position. Аргументы:;
+#X obj 255 2072 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2072 X: top left x-coord. Тип: float.;
+#X obj 255 2095 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2095 Y: top right y-coord. Тип: float.;
+#X msg 110 2120 set;
+#X text 245 2120 silently sets menu state. Аргументы:;
+#X obj 255 2143 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2143 IDX: item index. Тип: int. Минимальное значение: 0\.;
+#X msg 110 2168 set_item;
+#X text 245 2168 renames menu item. Аргументы:;
+#X obj 255 2191 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2191 IDX: item index. Тип: int. Минимальное значение: 0\.;
+#X obj 255 2214 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2214 ATOM: item name. Тип: list.;
+#X msg 110 2239 store;
+#X text 245 2239 stores specified preset. Аргументы:;
+#X obj 255 2262 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2262 IDX: preset index. Тип: int.;
+#X obj 20 2297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2302 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2288 1\.;
-#X text 150 2288 *bang*;
-#X text 245 2288 outputs current menu state as list: INDEX ITEM_NAME.;
-#X text 150 2308 *float*;
-#X text 245 2308 change menu state and output list: INDEX ITEM_NAME.;
-#X text 150 2328 *any*;
-#X text 245 2328 selects item equal to given and output list: INDEX
+#X text 110 2303 1\.;
+#X text 150 2303 *bang*;
+#X text 245 2303 outputs current menu state as list: INDEX ITEM_NAME.;
+#X text 150 2323 *float*;
+#X text 245 2323 change menu state and output list: INDEX ITEM_NAME.;
+#X text 150 2343 *any*;
+#X text 245 2343 selects item equal to given and output list: INDEX
 ITEM_NAME.;
-#X obj 20 2358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2363 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 2373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2378 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2364 1\.;
-#X text 245 2364 output.;
+#X text 110 2379 1\.;
+#X text 245 2379 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2414 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2417 библиотека: ceammc v0.9.8;
-#X text 558 2429 смотрите также:;
-#X obj 679 2432 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2429 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2432 библиотека: ceammc v0.9.8;
+#X text 558 2444 смотрите также:;
+#X obj 679 2447 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.radio] @url ui.radio-help.pd;
-#N canvas 10 2436 400 290 info 0;
+#N canvas 10 2451 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -216,7 +217,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2436 pd info;
+#X restore 10 2451 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

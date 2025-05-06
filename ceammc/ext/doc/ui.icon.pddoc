@@ -76,10 +76,7 @@
                 In the button mode outputs 1 on mouse down and 0 on mouse up. In the toggle mode
                 outputs 1/0 on mouse down, like vanilla toggle object.</tr>
             </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @presetname -->
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>

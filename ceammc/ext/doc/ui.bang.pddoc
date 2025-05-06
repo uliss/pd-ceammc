@@ -45,7 +45,6 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
-
             <xi:include href="props_label.xml" />
             <xi:include href="props_label_align.xml" />
             <xi:include href="props_label_color.xml" />
@@ -53,11 +52,7 @@
             <xi:include href="props_label_margins.xml" />
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
-
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @receive -->
             <property name="@receive" type="symbol" default="(null)">
                 <tr lang="en">receive source</tr>

@@ -44,10 +44,7 @@
             <xi:include href="props_label_margins.xml" />
             <xi:include href="props_label_side.xml" />
             <xi:include href="props_label_valign.xml" />
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @pixels -->
             <property name="@pixels" type="int" default="64" access="readonly">
                 <tr lang="en">number of pixels</tr>

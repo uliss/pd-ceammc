@@ -66,10 +66,7 @@
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
             </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @plot_color -->
             <property name="@plot_color" type="list" default="0 0 0 1">
                 <tr lang="en">knob color</tr>

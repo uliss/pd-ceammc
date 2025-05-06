@@ -96,50 +96,51 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1323 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1365 @pinned;
-#X text 245 1365 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 1407 @size;
-#X text 245 1407 Получить/Установить element size (width \, height
+#X text 245 1365 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 110 1422 @size;
+#X text 245 1422 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 300 47\.;
-#X obj 20 1459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1464 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1479 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1499 append;
-#X text 245 1499 appends to @text end.;
-#X msg 110 1527 clear;
-#X text 245 1527 clear label text and clear @text property.;
-#X msg 110 1555 pos;
-#X text 245 1555 set UI element position. Аргументы:;
-#X obj 255 1578 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1578 X: top left x-coord. Тип: float.;
-#X obj 255 1601 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1601 Y: top right y-coord. Тип: float.;
-#X msg 110 1626 prepend;
-#X text 245 1626 insert into beginning of @text.;
-#X obj 20 1664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1669 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1514 append;
+#X text 245 1514 appends to @text end.;
+#X msg 110 1542 clear;
+#X text 245 1542 clear label text and clear @text property.;
+#X msg 110 1570 pos;
+#X text 245 1570 set UI element position. Аргументы:;
+#X obj 255 1593 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1593 X: top left x-coord. Тип: float.;
+#X obj 255 1616 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1616 Y: top right y-coord. Тип: float.;
+#X msg 110 1641 prepend;
+#X text 245 1641 insert into beginning of @text.;
+#X obj 20 1679 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1684 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1670 1\.;
-#X text 150 1670 *float*;
-#X text 245 1670 [hidden inlet] set the label text to the given float
+#X text 110 1685 1\.;
+#X text 150 1685 *float*;
+#X text 245 1685 [hidden inlet] set the label text to the given float
 without changing @text property.;
-#X text 150 1705 *symbol*;
-#X text 245 1705 [hidden inlet] set the label text without changing
+#X text 150 1720 *symbol*;
+#X text 245 1720 [hidden inlet] set the label text without changing
 @text property.;
-#X text 150 1740 *list*;
-#X text 245 1740 [hidden inlet] set the label text to the given list
+#X text 150 1755 *list*;
+#X text 245 1755 [hidden inlet] set the label text to the given list
 separated by spaces without changing @text property.;
-#X text 150 1775 *any*;
-#X text 245 1775 [hidden inlet] set the label text to the given message
+#X text 150 1790 *any*;
+#X text 245 1790 [hidden inlet] set the label text to the given message
 separated by spaces without changing @text property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1840 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1843 библиотека: ceammc v0.9.8;
-#N canvas 10 1862 400 290 info 0;
+#X obj 1 1855 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1858 библиотека: ceammc v0.9.8;
+#N canvas 10 1877 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -163,7 +164,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1862 pd info;
+#X restore 10 1877 pd info;
 #X connect 7 0 8 0;
 #X connect 11 0 17 0;
 #X connect 12 0 17 0;

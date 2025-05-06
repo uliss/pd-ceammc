@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<property name="@pinned" type="bool" default="0">
+    <tr lang="en">pin mode. If set to 1, it places the element at the furthest level
+    on the canvas behind other elements</tr>
+    <tr lang="ru">режим закрепления. Если 1 -
+    помещает элемент на самый дальний уровень на холсте за другими элементам</tr>
+</property>

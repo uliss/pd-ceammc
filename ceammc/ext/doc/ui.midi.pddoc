@@ -48,10 +48,7 @@
             <property name="@notes" type="bool" default="1">
                 <tr lang="en">if show note on/off events</tr>
             </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @pitchwheel -->
             <property name="@pitchwheel" type="bool" default="1">
                 <tr lang="en">if show pitch wheel events</tr>

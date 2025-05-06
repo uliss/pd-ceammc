@@ -136,45 +136,46 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1977 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 2019 @pinned;
-#X text 245 2019 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 2061 @size;
-#X text 245 2061 Получить/Установить element size (width \, height
+#X text 245 2019 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 110 2076 @size;
+#X text 245 2076 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 200 200\.;
-#X obj 20 2113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2118 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 2128 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2133 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 2153 plot;
-#X text 245 2153 Same as bang: plot default number of samples.;
-#X msg 110 2181 pos;
-#X text 245 2181 set UI element position. Аргументы:;
-#X obj 255 2204 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2204 X: top left x-coord. Тип: float.;
-#X obj 255 2227 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2227 Y: top right y-coord. Тип: float.;
-#X obj 20 2262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2267 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 2168 plot;
+#X text 245 2168 Same as bang: plot default number of samples.;
+#X msg 110 2196 pos;
+#X text 245 2196 set UI element position. Аргументы:;
+#X obj 255 2219 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2219 X: top left x-coord. Тип: float.;
+#X obj 255 2242 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2242 Y: top right y-coord. Тип: float.;
+#X obj 20 2277 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2282 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 2268 1\.;
-#X text 245 2268 input signal.;
-#X text 110 2288 2\.;
-#X text 150 2288 *bang*;
-#X text 245 2288 plot default number of samples.;
-#X text 150 2308 *float*;
-#X text 245 2308 plot specified number of samples.;
-#X obj 20 2338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2343 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 2283 1\.;
+#X text 245 2283 input signal.;
+#X text 110 2303 2\.;
+#X text 150 2303 *bang*;
+#X text 245 2303 plot default number of samples.;
+#X text 150 2323 *float*;
+#X text 245 2323 plot specified number of samples.;
+#X obj 20 2353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2358 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2384 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2387 библиотека: ceammc v0.9.8;
-#X text 538 2399 смотрите также:;
-#X obj 659 2399 array.plot~;
-#N canvas 10 2406 400 290 info 0;
+#X obj 1 2399 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2402 библиотека: ceammc v0.9.8;
+#X text 538 2414 смотрите также:;
+#X obj 659 2414 array.plot~;
+#N canvas 10 2421 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -198,7 +199,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2406 pd info;
+#X restore 10 2421 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 5 0 7 0;

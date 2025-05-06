@@ -83,79 +83,80 @@ Allowed values: roman \, italic.;
 #X text 245 1080 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
 #X msg 110 1122 @pinned;
-#X text 245 1122 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0\.;
-#X msg 110 1164 @presetname;
-#X text 245 1164 Get/Set preset name for using with [ui.preset]. Type:
+#X text 245 1122 Get/Set pin mode. If set to 1 \, it places the element
+at the furthest level on the canvas behind other elements. Type: bool.
+Default value: 0\.;
+#X msg 110 1179 @presetname;
+#X text 245 1179 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 1206 @size;
-#X text 245 1206 Get/Set element size (width \, height pair). Type:
+#X msg 110 1221 @size;
+#X text 245 1221 Get/Set element size (width \, height pair). Type:
 list. Default value: 181 105\.;
-#X msg 110 1248 @hex?;
-#X text 245 1248 (readonly) Get HEX value in format #RRGGBB. Type:
+#X msg 110 1263 @hex?;
+#X text 245 1263 (readonly) Get HEX value in format #RRGGBB. Type:
 symbol.;
-#X msg 110 1278 @hsl?;
-#X text 245 1278 (readonly) Get HSL value triplet on 0-1 range. Type:
+#X msg 110 1293 @hsl?;
+#X text 245 1293 (readonly) Get HSL value triplet on 0-1 range. Type:
 list.;
-#X msg 110 1308 @pd?;
-#X text 245 1308 (readonly) Get pd color value. Type: int. Default
+#X msg 110 1323 @pd?;
+#X text 245 1323 (readonly) Get pd color value. Type: int. Default
 value: 0\.;
-#X msg 110 1338 @rgb?;
-#X text 245 1338 (readonly) Get RGB value triplet on 0-1 range. Type:
+#X msg 110 1353 @rgb?;
+#X text 245 1353 (readonly) Get RGB value triplet on 0-1 range. Type:
 list.;
-#X obj 20 1378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1383 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1398 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1418 clear;
-#X text 245 1418 clears specified preset. Arguments are:;
-#X obj 255 1441 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1441 IDX: preset index. Type: int.;
-#X msg 110 1466 interp;
-#X text 245 1466 for this object acts as *load* \, no interpolation
+#X msg 110 1433 clear;
+#X text 245 1433 clears specified preset. Arguments are:;
+#X obj 255 1456 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1456 IDX: preset index. Type: int.;
+#X msg 110 1481 interp;
+#X text 245 1481 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1494 load;
-#X text 245 1494 loads specified preset. Arguments are:;
-#X obj 255 1517 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1517 IDX: preset index. Type: int.;
-#X msg 110 1542 pos;
-#X text 245 1542 set UI element position. Arguments are:;
-#X obj 255 1565 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1565 X: top left x-coord. Type: float.;
-#X obj 255 1588 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1588 Y: top right y-coord. Type: float.;
-#X msg 110 1613 set;
-#X text 245 1613 set widget value with no output. Arguments are:;
-#X obj 255 1636 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1636 COL: column index. Type: int.;
-#X obj 255 1659 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1659 ROW: row index. Type: int.;
-#X msg 110 1684 store;
-#X text 245 1684 stores specified preset. Arguments are:;
-#X obj 255 1707 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1707 IDX: preset index. Type: int.;
-#X obj 20 1742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1747 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1509 load;
+#X text 245 1509 loads specified preset. Arguments are:;
+#X obj 255 1532 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1532 IDX: preset index. Type: int.;
+#X msg 110 1557 pos;
+#X text 245 1557 set UI element position. Arguments are:;
+#X obj 255 1580 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1580 X: top left x-coord. Type: float.;
+#X obj 255 1603 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1603 Y: top right y-coord. Type: float.;
+#X msg 110 1628 set;
+#X text 245 1628 set widget value with no output. Arguments are:;
+#X obj 255 1651 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1651 COL: column index. Type: int.;
+#X obj 255 1674 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1674 ROW: row index. Type: int.;
+#X msg 110 1699 store;
+#X text 245 1699 stores specified preset. Arguments are:;
+#X obj 255 1722 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1722 IDX: preset index. Type: int.;
+#X obj 20 1757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1762 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1748 1\.;
-#X text 150 1748 *bang*;
-#X text 245 1748 outputs current widget value.;
-#X obj 20 1778 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1783 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1763 1\.;
+#X text 150 1763 *bang*;
+#X text 245 1763 outputs current widget value.;
+#X obj 20 1793 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1798 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1784 1\.;
-#X text 245 1784 output values: @pd COLOR \, @rgb in range [0-1] \,
+#X text 110 1799 1\.;
+#X text 245 1799 output values: @pd COLOR \, @rgb in range [0-1] \,
 @hsl in range [0-1] \, @hex.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1849 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1852 library: ceammc v0.9.8;
-#X text 597 1864 see also:;
-#X obj 672 1867 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1864 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1867 library: ceammc v0.9.8;
+#X text 597 1879 see also:;
+#X obj 672 1882 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 1871 400 290 info 0;
+#N canvas 10 1886 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -179,7 +180,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1871 pd info;
+#X restore 10 1886 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

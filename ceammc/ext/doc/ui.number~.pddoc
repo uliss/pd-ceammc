@@ -54,10 +54,7 @@
             units="millisecond">
                 <tr lang="en">refresh interval</tr>
             </property>
-            <!-- @pinned -->
-            <property name="@pinned" type="bool" default="0">
-                <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-            </property>
+            <xi:include href="props_pinned.xml" />
             <!-- @precision -->
             <property name="@precision" type="int" minvalue="0" maxvalue="16" default="6">
                 <tr lang="en">float precision</tr>

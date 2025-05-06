@@ -93,70 +93,71 @@ Helvetica \, Monaco \, Times.;
 #X text 245 1167 Получить/Установить толщину шрифта. Тип: symbol. Значение
 по умолчанию: normal. Разрешённые значения: normal \, bold.;
 #X msg 110 1209 @pinned;
-#X text 245 1209 Получить/Установить pin mode. if 1 - put element to
-the lowest level. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1251 @presetname;
-#X text 245 1251 Получить/Установить preset name for using with [ui.preset].
+#X text 245 1209 Получить/Установить режим закрепления. Если 1 - помещает
+элемент на самый дальний уровень на холсте за другими элементам. Тип:
+bool. Значение по умолчанию: 0\.;
+#X msg 110 1266 @presetname;
+#X text 245 1266 Получить/Установить preset name for using with [ui.preset].
 Тип: symbol. Значение по умолчанию: (null).;
-#X msg 110 1293 @size;
-#X text 245 1293 Получить/Установить element size (width \, height
+#X msg 110 1308 @size;
+#X text 245 1308 Получить/Установить element size (width \, height
 pair). Тип: list. Значение по умолчанию: 15 20\.;
-#X obj 20 1345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1350 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1365 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1385 clear;
-#X text 245 1385 clears specified preset. Аргументы:;
-#X obj 255 1408 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1408 IDX: preset index. Тип: int.;
-#X msg 110 1433 dec;
-#X text 245 1433 decrements widget with output.;
-#X msg 110 1461 inc;
-#X text 245 1461 increments widget with output.;
-#X msg 110 1489 interp;
-#X text 245 1489 for this object acts as *load* \, no interpolation
+#X msg 110 1400 clear;
+#X text 245 1400 clears specified preset. Аргументы:;
+#X obj 255 1423 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1423 IDX: preset index. Тип: int.;
+#X msg 110 1448 dec;
+#X text 245 1448 decrements widget with output.;
+#X msg 110 1476 inc;
+#X text 245 1476 increments widget with output.;
+#X msg 110 1504 interp;
+#X text 245 1504 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1517 load;
-#X text 245 1517 loads specified preset. Аргументы:;
-#X obj 255 1540 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1540 IDX: preset index. Тип: int.;
-#X msg 110 1565 pos;
-#X text 245 1565 set UI element position. Аргументы:;
-#X obj 255 1588 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1588 X: top left x-coord. Тип: float.;
-#X obj 255 1611 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1611 Y: top right y-coord. Тип: float.;
-#X msg 110 1636 set;
-#X text 245 1636 set widget value with no output. Аргументы:;
-#X obj 255 1659 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1659 VAL: value. Тип: float.;
-#X msg 110 1684 store;
-#X text 245 1684 stores specified preset. Аргументы:;
-#X obj 255 1707 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1707 IDX: preset index. Тип: int.;
-#X obj 20 1742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1747 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1532 load;
+#X text 245 1532 loads specified preset. Аргументы:;
+#X obj 255 1555 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1555 IDX: preset index. Тип: int.;
+#X msg 110 1580 pos;
+#X text 245 1580 set UI element position. Аргументы:;
+#X obj 255 1603 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1603 X: top left x-coord. Тип: float.;
+#X obj 255 1626 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1626 Y: top right y-coord. Тип: float.;
+#X msg 110 1651 set;
+#X text 245 1651 set widget value with no output. Аргументы:;
+#X obj 255 1674 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1674 VAL: value. Тип: float.;
+#X msg 110 1699 store;
+#X text 245 1699 stores specified preset. Аргументы:;
+#X obj 255 1722 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1722 IDX: preset index. Тип: int.;
+#X obj 20 1757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1762 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1748 1\.;
-#X text 150 1748 *bang*;
-#X text 245 1748 outputs current widget value.;
-#X text 150 1768 *float*;
-#X text 245 1768 change widget value and output it.;
-#X obj 20 1798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1803 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1763 1\.;
+#X text 150 1763 *bang*;
+#X text 245 1763 outputs current widget value.;
+#X text 150 1783 *float*;
+#X text 245 1783 change widget value and output it.;
+#X obj 20 1813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1818 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1804 1\.;
-#X text 245 1804 output value.;
+#X text 110 1819 1\.;
+#X text 245 1819 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1854 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1857 библиотека: ceammc v0.9.8;
-#X text 551 1869 смотрите также:;
-#X obj 672 1872 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1872 библиотека: ceammc v0.9.8;
+#X text 551 1884 смотрите также:;
+#X obj 672 1887 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 1876 400 290 info 0;
+#N canvas 10 1891 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -180,7 +181,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1876 pd info;
+#X restore 10 1891 pd info;
 #X connect 7 0 10 0;
 #X connect 4 0 12 0;
 #X connect 5 0 12 0;
