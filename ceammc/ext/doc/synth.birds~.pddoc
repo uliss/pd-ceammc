@@ -28,10 +28,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @auto -->
             <property name="@auto" type="bool" default="0">
                 <tr lang="en">auto playing mode</tr>

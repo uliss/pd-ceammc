@@ -24,10 +24,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @drive -->
             <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.64">
                 <tr lang="en">distortion amount</tr>

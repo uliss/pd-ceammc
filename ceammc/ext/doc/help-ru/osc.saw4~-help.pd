@@ -41,8 +41,8 @@ suppression. 4nd order interpolation.;
 #X text 245 683 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 725 @active;
-#X text 245 725 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 725 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 767 @freq;
 #X text 245 767 Получить/Установить frequency. Тип: float. Единицы:
 'Hz'. Значение по умолчанию: 0\. Диапазон: 0\...22050\.;

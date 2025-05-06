@@ -34,10 +34,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @bw -->
             <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">
                 <tr lang="en">band-width filter (pre filtering)</tr>

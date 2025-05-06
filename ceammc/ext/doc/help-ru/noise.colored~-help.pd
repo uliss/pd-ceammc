@@ -43,8 +43,8 @@ noise \, and 1 violet/azure noise. Тип: float. Диапазон: -1…1;
 #X text 245 774 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 816 @active;
-#X text 245 816 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 816 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 858 @alpha;
 #X text 245 858 Получить/Установить slope of roll-off \, between -1
 and 1\. -1 corresponds to brown/red noise \, -1/2 pink noise \, 0 white

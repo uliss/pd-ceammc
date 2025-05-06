@@ -20,10 +20,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @delays -->
             <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">
                 <tr lang="en">list of all tap delays</tr>

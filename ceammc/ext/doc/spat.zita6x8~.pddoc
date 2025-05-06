@@ -20,6 +20,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @a0 -->
             <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">1st source panning position</tr>
@@ -43,10 +44,6 @@
             <!-- @a5 -->
             <property name="@a5" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">6th source panning position</tr>
-            </property>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
             </property>
             <!-- @dry0 -->
             <property name="@dry0" type="float" minvalue="-60" maxvalue="0" default="-3"

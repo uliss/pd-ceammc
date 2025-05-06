@@ -44,69 +44,69 @@ bind to /spat_zita8/PROP_NAME. Type: symbol.;
 #X text 245 586 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 616 @active;
-#X text 245 616 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 646 @angle;
-#X text 245 646 Get/Set source panning position. Type: float. Default
+#X text 245 616 Turn on/off object dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 658 @angle;
+#X text 245 658 Get/Set source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 688 @decay_low;
-#X text 245 688 Get/Set time (in seconds) to decay 60dB in low-frequency
+#X msg 110 700 @decay_low;
+#X text 245 700 Get/Set time (in seconds) to decay 60dB in low-frequency
 band. Type: float. Units: 'sec'. Default value: 3\. Range: 1\...60\.;
-#X msg 110 745 @decay_mid;
-#X text 245 745 Get/Set time (in seconds) to decay 60dB in mid-frequency
+#X msg 110 757 @decay_mid;
+#X text 245 757 Get/Set time (in seconds) to decay 60dB in mid-frequency
 band. Type: float. Units: 'sec'. Default value: 2\. Range: 1\...60\.;
-#X msg 110 802 @delay;
-#X text 245 802 Get/Set a delay of 20 to 100 ms operating on the 'wet'
+#X msg 110 814 @delay;
+#X text 245 814 Get/Set a delay of 20 to 100 ms operating on the 'wet'
 signal. Large values will provide the impression of a larger room.
 Type: float. Units: 'ms'. Default value: 60\. Range: 20\...100\.;
-#X msg 110 889 @dump_hf;
-#X text 245 889 Get/Set Frequency (Hz) at which the high-frequency
+#X msg 110 901 @dump_hf;
+#X text 245 901 Get/Set Frequency (Hz) at which the high-frequency
 T60 is half the middle-band's T60\. Type: float. Units: 'Hz'. Default
 value: 6000\. Range: 1500\...47040\.;
-#X msg 110 946 @freq_low;
-#X text 245 946 Get/Set Crossover frequency (Hz) separating low and
+#X msg 110 958 @freq_low;
+#X text 245 958 Get/Set Crossover frequency (Hz) separating low and
 middle frequencies. Type: float. Units: 'Hz'. Default value: 200\.
 Range: 50\...1000\.;
-#X msg 110 1003 @radius;
-#X text 245 1003 Get/Set source distance from circle center. Type:
+#X msg 110 1015 @radius;
+#X text 245 1015 Get/Set source distance from circle center. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X obj 20 1055 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1060 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1072 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1095 reset;
-#X text 245 1095 reset spat and reverb.;
-#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1138 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1107 reset;
+#X text 245 1107 reset spat and reverb.;
+#X obj 20 1145 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1150 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1139 1\.;
-#X text 245 1139 input.;
-#X obj 20 1169 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1174 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1151 1\.;
+#X text 245 1151 input.;
+#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1186 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1175 1\.;
-#X text 245 1175 1st output.;
-#X text 110 1195 2\.;
-#X text 245 1195 2dn output.;
-#X text 110 1215 3\.;
-#X text 245 1215 3rd output.;
-#X text 110 1235 4\.;
-#X text 245 1235 4th output.;
-#X text 110 1255 5\.;
-#X text 245 1255 5th output.;
-#X text 110 1275 6\.;
-#X text 245 1275 6th output.;
-#X text 110 1295 7\.;
-#X text 245 1295 7th output.;
-#X text 110 1315 8\.;
-#X text 245 1315 8th output.;
+#X text 110 1187 1\.;
+#X text 245 1187 1st output.;
+#X text 110 1207 2\.;
+#X text 245 1207 2dn output.;
+#X text 110 1227 3\.;
+#X text 245 1227 3rd output.;
+#X text 110 1247 4\.;
+#X text 245 1247 4th output.;
+#X text 110 1267 5\.;
+#X text 245 1267 5th output.;
+#X text 110 1287 6\.;
+#X text 245 1287 6th output.;
+#X text 110 1307 7\.;
+#X text 245 1307 7th output.;
+#X text 110 1327 8\.;
+#X text 245 1327 8th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1365 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1368 library: ceammc v0.9.8;
-#N canvas 10 1387 400 290 info 0;
+#X obj 1 1377 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1380 library: ceammc v0.9.8;
+#N canvas 10 1399 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -130,7 +130,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1387 pd info;
+#X restore 10 1399 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 5 0 9 0;

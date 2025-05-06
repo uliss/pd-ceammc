@@ -23,10 +23,7 @@
             <par>outputs random numbers between -1 and 1 at signal rate.</par>
         </info>
         <properties>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
         </properties>
         <outlets>
             <outlet type="audio">output signal</outlet>

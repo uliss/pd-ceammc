@@ -55,8 +55,8 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 #X text 245 754 (при инициализации) Получить/Установить quality factor:
 @freq/BANDWIDTH. Тип: float. Значение по умолчанию: 2\. Диапазон: 0.25\...32\.;
 #X msg 110 811 @active;
-#X text 245 811 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 811 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 868 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

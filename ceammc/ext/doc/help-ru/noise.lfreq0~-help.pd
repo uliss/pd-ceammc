@@ -38,8 +38,8 @@
 #X text 245 668 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 710 @active;
-#X text 245 710 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 710 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 752 @freq;
 #X text 245 752 Получить/Установить noise generation freq. New random
 number every int(SR/freq). Тип: float. Единицы: 'Hz'. Значение по умолчанию:

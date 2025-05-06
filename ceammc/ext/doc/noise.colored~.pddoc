@@ -31,10 +31,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @alpha -->
             <property name="@alpha" type="float" minvalue="-1" maxvalue="1" default="0">
                 <tr lang="en">slope of roll-off, between -1 and 1. -1 corresponds to brown/red

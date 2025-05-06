@@ -62,7 +62,7 @@ specdiff \, specflux \, spread \, wphase. Тип: symbol.;
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Минимальное
 значение: 64\.;
 #X msg 110 877 @active;
-#X text 245 877 Получить/Установить audio processing state. Тип: bool.
+#X text 245 877 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
 #X msg 110 919 @complex;
 #X text 245 919 Alias to @method complex. Complex Domain Method onset

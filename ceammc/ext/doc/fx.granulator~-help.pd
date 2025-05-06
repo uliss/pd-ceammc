@@ -45,7 +45,7 @@ empty bind to /fx_granulator/PROP_NAME. Type: symbol.;
 #X text 245 636 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 666 @active;
-#X text 245 666 Turn on/off the dsp processing. Type: bool. Default
+#X text 245 666 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
 #X msg 110 708 @delay;
 #X text 245 708 Get/Set grain delay. Type: float. Units: 'ms'. Default

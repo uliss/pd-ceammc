@@ -51,7 +51,7 @@ int. Min value: 0;
 #X text 245 615 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
 Default value: 1024\. Min value: 64\.;
 #X msg 110 657 @active;
-#X text 245 657 Get/Set audio processing state. Type: bool. Default
+#X text 245 657 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
 #X msg 110 699 @awhitening;
 #X text 245 699 Get/Set adaptive whitening. Type: bool. Default value:

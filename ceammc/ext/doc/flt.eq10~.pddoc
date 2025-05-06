@@ -25,10 +25,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @f1000 -->
             <property name="@f1000" type="float" minvalue="-70" maxvalue="10" default="0"
             units="decibel">

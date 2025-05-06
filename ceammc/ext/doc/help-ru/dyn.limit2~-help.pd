@@ -25,8 +25,8 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X obj 735 373 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 405 @active;
-#X text 245 405 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 405 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 462 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

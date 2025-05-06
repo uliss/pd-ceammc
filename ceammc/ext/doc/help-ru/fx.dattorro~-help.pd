@@ -56,8 +56,8 @@ and 'effected' (wet) signals. Тип: float. Диапазон: 0…1;
 #X text 245 757 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 799 @active;
-#X text 245 799 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 799 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 841 @bw;
 #X text 245 841 Получить/Установить band-width filter (pre filtering).
 Тип: float. Значение по умолчанию: 0.9995\. Диапазон: 0\...1\.;

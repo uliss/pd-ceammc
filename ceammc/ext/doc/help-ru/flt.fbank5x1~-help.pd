@@ -66,8 +66,8 @@ an "allpass-complementary filter bank";
 #X text 245 1005 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 1047 @active;
-#X text 245 1047 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 1047 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 1089 @f1000;
 #X text 245 1089 Получить/Установить third filter (bandpass) gain at
 1000Hz. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:

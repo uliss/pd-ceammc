@@ -34,10 +34,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @angle -->
             <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π"
             units="radian">

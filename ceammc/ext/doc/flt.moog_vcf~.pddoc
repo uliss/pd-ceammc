@@ -24,10 +24,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @res -->
             <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">
                 <tr lang="en">normalized amount of corner-resonance</tr>

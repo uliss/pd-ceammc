@@ -42,8 +42,8 @@
 #X text 245 596 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 638 @active;
-#X text 245 638 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 638 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 680 @bypass;
 #X text 245 680 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;

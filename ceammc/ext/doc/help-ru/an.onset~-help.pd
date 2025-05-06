@@ -53,7 +53,7 @@ specflux kl mkl;
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Минимальное
 значение: 64\.;
 #X msg 110 672 @active;
-#X text 245 672 Получить/Установить audio processing state. Тип: bool.
+#X text 245 672 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
 #X msg 110 714 @awhitening;
 #X text 245 714 Получить/Установить adaptive whitening. Тип: bool.

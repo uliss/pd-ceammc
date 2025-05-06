@@ -68,8 +68,8 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 245 889 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 931 @active;
-#X text 245 931 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 931 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 973 @attack;
 #X text 245 973 Получить/Установить time constant when level & compression
 going up. Тип: float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон:

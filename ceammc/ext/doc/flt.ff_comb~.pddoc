@@ -39,10 +39,7 @@
             <property name="@a" type="float" minvalue="-1" maxvalue="1" default="1">
                 <tr lang="en">scaling factor of delayed signal</tr>
             </property>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
-            </property>
+            <xi:include href="props_active.xml" />
         </properties>
         <methods>
             <!-- reset -->

@@ -57,8 +57,8 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X text 245 954 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 996 @active;
-#X text 245 996 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 996 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 1038 @freq;
 #X text 245 1038 Получить/Установить cutoff frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;

@@ -19,6 +19,7 @@
         <properties>
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
+            <xi:include href="props_active.xml" />
             <!-- @C1 -->
             <property name="@C1" type="float" default="5.5" minvalue="5.2" maxvalue="6">
                 <tr lang="en">C1 capacity in nF</tr>
@@ -34,10 +35,6 @@
             <!-- @R -->
             <property name="@R" type="float" default="1.6" minvalue="1.252" maxvalue="1.7">
                 <tr lang="en">R resistance in kOhm</tr>
-            </property>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">on/off dsp processing</tr>
             </property>
             <!-- @gate -->
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">

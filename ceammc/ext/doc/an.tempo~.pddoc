@@ -37,10 +37,7 @@
             </argument>
         </arguments>
         <properties>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">audio processing state</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @bs -->
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
             access="initonly">

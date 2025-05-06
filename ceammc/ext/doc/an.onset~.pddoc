@@ -40,10 +40,7 @@
             </argument>
         </arguments>
         <properties>
-            <!-- @active -->
-            <property name="@active" type="bool" default="1">
-                <tr lang="en">audio processing state</tr>
-            </property>
+            <xi:include href="props_active.xml" />
             <!-- @awhitening -->
             <property name="@awhitening" type="bool" default="0">
                 <tr lang="en">adaptive whitening</tr>

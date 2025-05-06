@@ -55,8 +55,8 @@
 #X text 245 673 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
 #X msg 110 715 @active;
-#X text 245 715 Turn on/off dsp processing. Тип: bool. Значение по
-умолчанию: 1\.;
+#X text 245 715 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+Значение по умолчанию: 1\.;
 #X msg 110 757 @attack;
 #X text 245 757 Получить/Установить attack time = time constant (ms)
 for gate to open. Тип: float. Единицы: 'ms'. Значение по умолчанию:
