@@ -97,12 +97,12 @@ events. If false: react to all supported events. Тип: bool. Значение
 \, blue values in 0-1 range). Тип: list. Значение по умолчанию: 0 0
 0 1\.;
 #X msg 110 1317 @fontname;
-#X text 245 1317 Получить/Установить fontname. Тип: symbol. Значение
+#X text 245 1317 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
 #X msg 110 1374 @fontsize;
-#X text 245 1374 Получить/Установить fontsize. Тип: int. Значение по
-умолчанию: 11\. Диапазон: 4\...100\.;
+#X text 245 1374 Получить/Установить размер шрифта. Тип: int. Значение
+по умолчанию: 11\. Диапазон: 4\...100\.;
 #X msg 110 1416 @fontslant;
 #X text 245 1416 Получить/Установить font slant. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;

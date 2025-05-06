@@ -102,12 +102,12 @@ This property is not saved in patch. Тип: int. Значение по умол
 red \, green \, blue values in 0-1 range). Тип: list. Значение по умолчанию:
 1 0.75 0 1\.;
 #X msg 110 1369 @fontname;
-#X text 245 1369 Получить/Установить fontname. Тип: symbol. Значение
+#X text 245 1369 Получить/Установить имя шрифта. Тип: symbol. Значение
 по умолчанию: Helvetica. Разрешённые значения: Courier \, DejaVu \,
 Helvetica \, Monaco \, Times.;
 #X msg 110 1426 @fontsize;
-#X text 245 1426 Получить/Установить fontsize. Тип: int. Значение по
-умолчанию: 11\. Диапазон: 4\...100\.;
+#X text 245 1426 Получить/Установить размер шрифта. Тип: int. Значение
+по умолчанию: 11\. Диапазон: 4\...100\.;
 #X msg 110 1468 @fontslant;
 #X text 245 1468 Получить/Установить font slant. Тип: symbol. Значение
 по умолчанию: roman. Разрешённые значения: roman \, italic.;
