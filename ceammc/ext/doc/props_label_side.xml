@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+    <tr lang="en">label attachment side</tr>
+    <tr lang="ru">сторона прикрепления ярлыка</tr>
+</property>

@@ -60,8 +60,9 @@
 #X text 245 709 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 751 @label_color;
-#X text 245 751 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
+#X text 245 751 Get/Set label color (list of red \, green \, blue \,
+alpha values within [0\..1] range). Type: list. Default value: 0 0
+0 1\.;
 #X msg 110 793 @label;
 #X text 245 793 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 823 @label_align;
@@ -71,11 +72,11 @@ value: left. Allowed values: left \, center \, right.;
 #X text 245 865 Get/Set label position (1 - inner \, 0 - outer). Type:
 bool. Default value: 0\.;
 #X msg 110 907 @label_margins;
-#X text 245 907 Get/Set label offset in pixels. Type: list. Default
+#X text 245 907 Get/Set label X Y offset in pixels. Type: list. Default
 value: 0 0\.;
 #X msg 110 949 @label_side;
-#X text 245 949 Get/Set label snap side. Type: symbol. Default value:
-top. Allowed values: left \, top \, right \, bottom.;
+#X text 245 949 Get/Set label attachment side. Type: symbol. Default
+value: top. Allowed values: left \, top \, right \, bottom.;
 #X msg 110 991 @label_valign;
 #X text 245 991 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;

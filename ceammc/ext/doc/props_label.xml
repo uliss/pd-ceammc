@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<property name="@label" type="symbol" default="(null)">
+    <tr lang="en">label text</tr>
+    <tr lang="ru">текст ярлыка</tr>
+</property>
+

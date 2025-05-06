@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@label_margins" type="list" default="0 0">
+    <tr lang="en">label X Y offset in pixels</tr>
+    <tr lang="ru">отступы ярлыка в пикселях по осям X и Y</tr>
+</property>

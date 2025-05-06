@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@label_inner" type="bool" default="0">
+    <tr lang="en">label position (1 - inner, 0 - outer)</tr>
+    <tr lang="ru">положение ярлыка (1 - внутри, 0 - снаружи объекта)</tr>
+</property>

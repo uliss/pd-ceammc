@@ -40,10 +40,7 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
-            <!-- @label_color -->
-            <property name="@label_color" type="list" default="0 0 0 1">
-                <tr lang="en">label color (list of red, green, blue values in 0-1 range)</tr>
-            </property>
+            <xi:include href="props_label_color.xml" />
             <!-- @log_scale -->
             <property name="@log_scale" type="bool" default="0">
                 <tr lang="en">display in log scale</tr>

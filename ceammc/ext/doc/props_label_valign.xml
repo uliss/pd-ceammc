@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+    <tr lang="en">label vertical align</tr>
+    <tr lang="ru">вертикальное выравнивание ярлыка</tr>
+</property>

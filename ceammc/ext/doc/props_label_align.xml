@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<property name="@label_align" type="symbol" enum="left center right" default="left">
+    <tr lang="en">label horizontal align</tr>
+    <tr lang="ru">горизонтальное выравнивание ярлыка</tr>
+</property>
+

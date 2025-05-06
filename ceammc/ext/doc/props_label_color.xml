@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@label_color" type="list" default="0 0 0 1">
+    <tr lang="en">label color (list of red, green, blue, alpha values within [0..1] range)</tr>
+    <tr lang="ru">цвет ярлыка (список из красного, зеленого, синего и прозрачного значений в диапазоне [0..1])</tr>
+</property>

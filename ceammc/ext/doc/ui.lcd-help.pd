@@ -55,143 +55,140 @@ Range: 2\...128\.;
 #X msg 110 754 @border_color;
 #X text 245 754 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 796 @label_color;
-#X text 245 796 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 838 @label;
-#X text 245 838 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 868 @label_align;
-#X text 245 868 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 796 @label;
+#X text 245 796 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 826 @label_align;
+#X text 245 826 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 910 @label_inner;
-#X text 245 910 Get/Set label position (1 - inner \, 0 - outer). Type:
+#X msg 110 868 @label_inner;
+#X text 245 868 Get/Set label position (1 - inner \, 0 - outer). Type:
 bool. Default value: 0\.;
-#X msg 110 952 @label_margins;
-#X text 245 952 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 910 @label_margins;
+#X text 245 910 Get/Set label X Y offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 994 @label_side;
-#X text 245 994 Get/Set label snap side. Type: symbol. Default value:
-top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 1036 @label_valign;
-#X text 245 1036 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 952 @label_side;
+#X text 245 952 Get/Set label attachment side. Type: symbol. Default
+value: top. Allowed values: left \, top \, right \, bottom.;
+#X msg 110 994 @label_valign;
+#X text 245 994 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 1078 @fontname;
-#X text 245 1078 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 110 1036 @fontname;
+#X text 245 1036 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1120 @fontsize;
-#X text 245 1120 Get/Set font size. Type: int. Default value: 11\.
+#X msg 110 1078 @fontsize;
+#X text 245 1078 Get/Set font size. Type: int. Default value: 11\.
 Range: 4\...100\.;
-#X msg 110 1162 @fontslant;
-#X text 245 1162 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1120 @fontslant;
+#X text 245 1120 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1204 @fontweight;
-#X text 245 1204 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1162 @fontweight;
+#X text 245 1162 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1246 @pinned;
-#X text 245 1246 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1204 @pinned;
+#X text 245 1204 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1288 @size;
-#X text 245 1288 Get/Set element size (width \, height pair). Type:
+#X msg 110 1246 @size;
+#X text 245 1246 Get/Set element size (width \, height pair). Type:
 list. Default value: 64 64\.;
-#X msg 110 1330 @pixels?;
-#X text 245 1330 (readonly) Get number of pixels. Type: int. Default
+#X msg 110 1288 @pixels?;
+#X text 245 1288 (readonly) Get number of pixels. Type: int. Default
 value: 64\.;
-#X obj 20 1382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1387 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1345 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1422 clear;
-#X text 245 1422 clear display.;
-#X msg 110 1450 draw down;
-#X text 245 1450 moves draw cursor down along y-asis ans draw single
+#X msg 110 1380 clear;
+#X text 245 1380 clear display.;
+#X msg 110 1408 draw down;
+#X text 245 1408 moves draw cursor down along y-asis ans draw single
 pixel. Arguments are:;
-#X obj 255 1488 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1488 [YOFF]: y-offset. If omitted: 1\. Type: int.;
-#X msg 110 1513 draw left;
-#X text 245 1513 moves draw cursor left along x-asis ans draw single
+#X obj 255 1446 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1446 [YOFF]: y-offset. If omitted: 1\. Type: int.;
+#X msg 110 1471 draw left;
+#X text 245 1471 moves draw cursor left along x-asis ans draw single
 pixel. Arguments are:;
-#X obj 255 1551 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1551 [XOFF]: x-offset. If omitted: 1\. Type: int.;
-#X msg 110 1576 draw right;
-#X text 245 1576 moves cursor right along x-asis ans draw single pixel.
+#X obj 255 1509 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1509 [XOFF]: x-offset. If omitted: 1\. Type: int.;
+#X msg 110 1534 draw right;
+#X text 245 1534 moves cursor right along x-asis ans draw single pixel.
 Arguments are:;
-#X obj 255 1614 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1614 [XOFF]: x-offset. If omitted: 1\. Type: int.;
-#X msg 110 1639 draw set;
-#X text 245 1639 set drawing value. Arguments are:;
-#X obj 255 1662 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1662 VALUE: draw pixel value (1: black \, 0: white). Type:
+#X obj 255 1572 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1572 [XOFF]: x-offset. If omitted: 1\. Type: int.;
+#X msg 110 1597 draw set;
+#X text 245 1597 set drawing value. Arguments are:;
+#X obj 255 1620 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1620 VALUE: draw pixel value (1: black \, 0: white). Type:
 bool.;
-#X msg 110 1687 draw up;
-#X text 245 1687 moves draw cursor up along y-asis ans draw single
+#X msg 110 1645 draw up;
+#X text 245 1645 moves draw cursor up along y-asis ans draw single
 pixel. Arguments are:;
-#X obj 255 1725 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1725 [YOFF]: y-offset. If omitted: 1\. Type: int.;
-#X msg 110 1750 invert;
-#X text 245 1750 invert display.;
-#X msg 110 1778 pos;
-#X text 245 1778 set UI element position. Arguments are:;
-#X obj 255 1801 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1801 X: top left x-coord. Type: float.;
-#X obj 255 1824 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1824 Y: top right y-coord. Type: float.;
-#X msg 110 1849 set;
-#X text 245 1849 set display content. Arguments are:;
-#X obj 255 1872 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1872 PIXELS: pixel values. Type: list.;
-#X msg 110 1897 set col;
-#X text 245 1897 set column content. Arguments are:;
-#X obj 255 1920 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1920 N: column index. Type: int.;
-#X obj 255 1943 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1943 PIXELS: column pixel values. Type: list.;
-#X msg 110 1968 set cursor;
-#X text 245 1968 set draw cursor point. Arguments are:;
-#X obj 255 1991 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1991 X: X-position (from left). Type: int.;
-#X obj 255 2014 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2014 Y: Y-position (from top). Type: int.;
-#X msg 110 2039 set matrix;
-#X text 245 2039 set matrix data. Arguments are:;
-#X obj 255 2062 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2062 NROWS: matrix row number. Type: int.;
-#X obj 255 2085 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2085 NCOLS: matrix column numbers. Type: int.;
-#X obj 255 2108 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2108 VALUES: pixel values. Type: list.;
-#X msg 110 2133 set pixel;
-#X text 245 2133 set single pixel. Arguments are:;
-#X obj 255 2156 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2156 X: X-position (from left). Type: int.;
-#X obj 255 2179 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2179 Y: Y-position (from top). Type: int.;
-#X obj 255 2202 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2202 VALUE: pixel value. Type: bool.;
-#X msg 110 2227 set row;
-#X text 245 2227 set row content. Arguments are:;
-#X obj 255 2250 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2250 N: row index. Type: int.;
-#X obj 255 2273 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2273 PIXELS: row pixel values. Type: list.;
-#X msg 110 2298 dump;
-#X text 245 2298 dumps all object info to Pd console window.;
-#X obj 20 2336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2341 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 255 1683 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1683 [YOFF]: y-offset. If omitted: 1\. Type: int.;
+#X msg 110 1708 invert;
+#X text 245 1708 invert display.;
+#X msg 110 1736 pos;
+#X text 245 1736 set UI element position. Arguments are:;
+#X obj 255 1759 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1759 X: top left x-coord. Type: float.;
+#X obj 255 1782 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1782 Y: top right y-coord. Type: float.;
+#X msg 110 1807 set;
+#X text 245 1807 set display content. Arguments are:;
+#X obj 255 1830 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1830 PIXELS: pixel values. Type: list.;
+#X msg 110 1855 set col;
+#X text 245 1855 set column content. Arguments are:;
+#X obj 255 1878 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1878 N: column index. Type: int.;
+#X obj 255 1901 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1901 PIXELS: column pixel values. Type: list.;
+#X msg 110 1926 set cursor;
+#X text 245 1926 set draw cursor point. Arguments are:;
+#X obj 255 1949 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1949 X: X-position (from left). Type: int.;
+#X obj 255 1972 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1972 Y: Y-position (from top). Type: int.;
+#X msg 110 1997 set matrix;
+#X text 245 1997 set matrix data. Arguments are:;
+#X obj 255 2020 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2020 NROWS: matrix row number. Type: int.;
+#X obj 255 2043 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2043 NCOLS: matrix column numbers. Type: int.;
+#X obj 255 2066 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2066 VALUES: pixel values. Type: list.;
+#X msg 110 2091 set pixel;
+#X text 245 2091 set single pixel. Arguments are:;
+#X obj 255 2114 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2114 X: X-position (from left). Type: int.;
+#X obj 255 2137 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2137 Y: Y-position (from top). Type: int.;
+#X obj 255 2160 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2160 VALUE: pixel value. Type: bool.;
+#X msg 110 2185 set row;
+#X text 245 2185 set row content. Arguments are:;
+#X obj 255 2208 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2208 N: row index. Type: int.;
+#X obj 255 2231 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2231 PIXELS: row pixel values. Type: list.;
+#X msg 110 2256 dump;
+#X text 245 2256 dumps all object info to Pd console window.;
+#X obj 20 2294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2299 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2342 1\.;
-#X text 245 2342 command input.;
-#X obj 20 2372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2377 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2300 1\.;
+#X text 245 2300 command input.;
+#X obj 20 2330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2335 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2378 1\.;
-#X text 245 2378 ...;
+#X text 110 2336 1\.;
+#X text 245 2336 ...;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2428 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2431 library: ceammc v0.9.8;
-#N canvas 10 2450 400 290 info 0;
+#X obj 1 2386 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2389 library: ceammc v0.9.8;
+#N canvas 10 2408 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -215,7 +212,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2450 pd info;
+#X restore 10 2408 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

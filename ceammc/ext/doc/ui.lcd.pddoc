@@ -38,35 +38,12 @@
             <xi:include href="props_fontsize.xml" />
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
-            <!-- @label -->
-            <property name="@label" type="symbol" default="(null)">
-                <tr lang="en">label text</tr>
-            </property>
-            <!-- @label_align -->
-            <property name="@label_align" type="symbol" enum="left center right" default="left">
-                <tr lang="en">label horizontal align</tr>
-            </property>
-            <!-- @label_color -->
-            <property name="@label_color" type="list" default="0 0 0 1">
-                <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4
-                0.1</tr>
-            </property>
-            <!-- @label_inner -->
-            <property name="@label_inner" type="bool" default="0">
-                <tr lang="en">label position (1 - inner, 0 - outer).</tr>
-            </property>
-            <!-- @label_margins -->
-            <property name="@label_margins" type="list" default="0 0">
-                <tr lang="en">label offset in pixels</tr>
-            </property>
-            <!-- @label_side -->
-            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
-                <tr lang="en">label snap side</tr>
-            </property>
-            <!-- @label_valign -->
-            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
-                <tr lang="en">label vertical align</tr>
-            </property>
+            <xi:include href="props_label.xml" />
+            <xi:include href="props_label_align.xml" />
+            <xi:include href="props_label_inner.xml" />
+            <xi:include href="props_label_margins.xml" />
+            <xi:include href="props_label_side.xml" />
+            <xi:include href="props_label_valign.xml" />
             <!-- @pinned -->
             <property name="@pinned" type="bool" default="0">
                 <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
