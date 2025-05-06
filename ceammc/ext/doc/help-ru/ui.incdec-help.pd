@@ -56,8 +56,8 @@ up action. Тип: list.;
 #X text 245 645 Получить/Установить minimum inc value. Тип: float.
 Значение по умолчанию: -8192\.;
 #X msg 110 687 @receive;
-#X text 245 687 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 687 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 729 @send;
 #X text 245 729 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;

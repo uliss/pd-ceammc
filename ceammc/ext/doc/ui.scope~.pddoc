@@ -50,10 +50,7 @@
             <property name="@min" type="float" default="-1">
                 <tr lang="en">minimum (bottom) graph value</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @refresh -->
             <property name="@refresh" type="int" minvalue="10" maxvalue="1000" default="40"
             units="millisecond">

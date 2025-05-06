@@ -76,10 +76,7 @@
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="0">
                 <tr lang="en">radius</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @send -->
             <property name="@send" type="symbol" default="(null)">
                 <tr lang="en">send destination</tr>

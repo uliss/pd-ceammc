@@ -69,74 +69,74 @@ Allowed values: left \, center \, right.;
 #X text 245 906 Get/Set text top margin. Type: int. Default value:
 5\.;
 #X msg 110 936 @receive;
-#X text 245 936 Get/Set receive source. Type: symbol. Default value:
-(null).;
-#X msg 110 966 @text;
-#X text 245 966 Get/Set label text. Type: list. Default value: Label.;
-#X msg 110 996 @background_color;
-#X text 245 996 Get/Set element background color (list of red \, green
+#X text 245 936 Get/Set source of message receive. Type: symbol. Default
+value: (null).;
+#X msg 110 978 @text;
+#X text 245 978 Get/Set label text. Type: list. Default value: Label.;
+#X msg 110 1008 @background_color;
+#X text 245 1008 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
-#X msg 110 1038 @text_color;
-#X text 245 1038 Get/Set text color (list of red \, green \, blue values
+#X msg 110 1050 @text_color;
+#X text 245 1050 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 1080 @fontname;
-#X text 245 1080 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 110 1092 @fontname;
+#X text 245 1092 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1122 @fontsize;
-#X text 245 1122 Get/Set font size. Type: int. Default value: 11\.
+#X msg 110 1134 @fontsize;
+#X text 245 1134 Get/Set font size. Type: int. Default value: 11\.
 Range: 4\...100\.;
-#X msg 110 1164 @fontslant;
-#X text 245 1164 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1176 @fontslant;
+#X text 245 1176 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1206 @fontweight;
-#X text 245 1206 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1218 @fontweight;
+#X text 245 1218 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1248 @pinned;
-#X text 245 1248 Get/Set pin mode. If set to 1 \, it places the element
+#X msg 110 1260 @pinned;
+#X text 245 1260 Get/Set pin mode. If set to 1 \, it places the element
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X msg 110 1305 @size;
-#X text 245 1305 Get/Set object size (width \, height pair). Type:
+#X msg 110 1317 @size;
+#X text 245 1317 Get/Set object size (width \, height pair). Type:
 list. Default value: 300 47\.;
-#X obj 20 1357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1362 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1374 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1397 append;
-#X text 245 1397 appends to @text end.;
-#X msg 110 1425 clear;
-#X text 245 1425 clear label text and clear @text property.;
-#X msg 110 1453 pos;
-#X text 245 1453 set UI element position. Arguments are:;
-#X obj 255 1476 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1476 X: top left x-coord. Type: float.;
-#X obj 255 1499 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1499 Y: top right y-coord. Type: float.;
-#X msg 110 1524 prepend;
-#X text 245 1524 insert into beginning of @text.;
-#X obj 20 1562 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1567 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1409 append;
+#X text 245 1409 appends to @text end.;
+#X msg 110 1437 clear;
+#X text 245 1437 clear label text and clear @text property.;
+#X msg 110 1465 pos;
+#X text 245 1465 set UI element position. Arguments are:;
+#X obj 255 1488 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1488 X: top left x-coord. Type: float.;
+#X obj 255 1511 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1511 Y: top right y-coord. Type: float.;
+#X msg 110 1536 prepend;
+#X text 245 1536 insert into beginning of @text.;
+#X obj 20 1574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1579 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1568 1\.;
-#X text 150 1568 *float*;
-#X text 245 1568 [hidden inlet] set the label text to the given float
+#X text 110 1580 1\.;
+#X text 150 1580 *float*;
+#X text 245 1580 [hidden inlet] set the label text to the given float
 without changing @text property.;
-#X text 150 1603 *symbol*;
-#X text 245 1603 [hidden inlet] set the label text without changing
+#X text 150 1615 *symbol*;
+#X text 245 1615 [hidden inlet] set the label text without changing
 @text property.;
-#X text 150 1638 *list*;
-#X text 245 1638 [hidden inlet] set the label text to the given list
+#X text 150 1650 *list*;
+#X text 245 1650 [hidden inlet] set the label text to the given list
 separated by spaces without changing @text property.;
-#X text 150 1673 *any*;
-#X text 245 1673 [hidden inlet] set the label text to the given message
+#X text 150 1685 *any*;
+#X text 245 1685 [hidden inlet] set the label text to the given message
 separated by spaces without changing @text property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1738 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1741 library: ceammc v0.9.8;
-#N canvas 10 1760 400 290 info 0;
+#X obj 1 1750 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1753 library: ceammc v0.9.8;
+#N canvas 10 1772 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -160,7 +160,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1760 pd info;
+#X restore 10 1772 pd info;
 #X connect 7 0 8 0;
 #X connect 11 0 17 0;
 #X connect 12 0 17 0;

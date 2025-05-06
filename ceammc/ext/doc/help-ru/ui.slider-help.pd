@@ -94,8 +94,8 @@ to value. Тип: bool. Значение по умолчанию: 0\.;
 outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 Значение по умолчанию: 0\.;
 #X msg 110 1098 @receive;
-#X text 245 1098 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 1098 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1140 @scale;
 #X text 245 1140 Получить/Установить scale mode. Linear or logarithmic.
 Тип: symbol. Значение по умолчанию: linear. Разрешённые значения: linear

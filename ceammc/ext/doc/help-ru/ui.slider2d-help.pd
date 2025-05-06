@@ -60,8 +60,8 @@ y-axis movement. Тип: list.;
 outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 Значение по умолчанию: 0\.;
 #X msg 110 812 @receive;
-#X text 245 812 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 812 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 854 @send;
 #X text 245 854 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;

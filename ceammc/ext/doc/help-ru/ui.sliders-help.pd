@@ -94,8 +94,8 @@ to input list length. Тип: bool. Значение по умолчанию: 0\
 outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 Значение по умолчанию: 0\.;
 #X msg 110 1154 @receive;
-#X text 245 1154 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 1154 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1196 @send;
 #X text 245 1196 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;

@@ -39,6 +39,7 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
+            <xi:include href="props_ui_receive.xml" />
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
@@ -75,10 +76,6 @@
             <property name="@mouse_events" type="bool" default="1">
                 <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
                 @mouse_drag events</tr>
-            </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
             </property>
             <!-- @select_ms -->
             <property name="@select_ms" type="list" units="millisecond" default="">

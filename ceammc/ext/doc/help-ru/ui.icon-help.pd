@@ -370,8 +370,8 @@ down and 0 on mouse up. In the toggle mode outputs 1/0 on mouse down
 \, like vanilla toggle object. Тип: symbol. Значение по умолчанию:
 button. Разрешённые значения: toggle \, button \, bang.;
 #X msg 110 5196 @receive;
-#X text 245 5196 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 5196 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 5238 @send;
 #X text 245 5238 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;

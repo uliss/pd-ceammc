@@ -55,8 +55,8 @@
 #X text 245 572 Получить/Установить tab orientation. 1 is vertical
 \, 0 is horizontal. Тип: bool. Значение по умолчанию: 0\.;
 #X msg 110 614 @receive;
-#X text 245 614 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 614 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 656 @send;
 #X text 245 656 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;

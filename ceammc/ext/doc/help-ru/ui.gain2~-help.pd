@@ -76,8 +76,8 @@ outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 #X text 245 902 Получить/Установить flag to output @db property after
 each knob move. Тип: bool. Значение по умолчанию: 0\.;
 #X msg 110 944 @receive;
-#X text 245 944 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 944 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 986 @relative;
 #X text 245 986 Получить/Установить relative input mode. When set do
 not jump to value on click. Тип: bool. Значение по умолчанию: 1\.;

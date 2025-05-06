@@ -35,10 +35,7 @@
             <xi:include href="props_fontslant.xml" />
             <xi:include href="props_fontweight.xml" />
             <xi:include href="props_pinned.xml" />
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @send -->
             <property name="@send" type="symbol" default="(null)">
                 <tr lang="en">send destination</tr>

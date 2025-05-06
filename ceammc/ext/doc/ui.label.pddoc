@@ -62,10 +62,7 @@
             <property name="@margin_top" type="int" default="5">
                 <tr lang="en">text top margin</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @size -->
             <property name="@size" type="list" default="300 47">
                 <tr lang="en">object size (width, height pair)</tr>

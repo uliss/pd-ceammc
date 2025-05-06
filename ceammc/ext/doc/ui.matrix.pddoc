@@ -75,10 +75,7 @@
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @rows -->
             <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">
                 <tr lang="en">number of matrix rows</tr>

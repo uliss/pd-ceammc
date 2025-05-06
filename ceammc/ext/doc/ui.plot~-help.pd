@@ -51,125 +51,125 @@ Allowed values: lines \, bars.;
 #X text 245 780 Get/Set number of inputs. Type: int. Default value:
 1\. Range: 1\...4\.;
 #X msg 110 822 @receive;
-#X text 245 822 Get/Set receive source. Type: symbol. Default value:
-(null).;
-#X msg 110 852 @xmaj_grid;
-#X text 245 852 Get/Set draw major grid lines on x-axis. Type: bool.
+#X text 245 822 Get/Set source of message receive. Type: symbol. Default
+value: (null).;
+#X msg 110 864 @xmaj_grid;
+#X text 245 864 Get/Set draw major grid lines on x-axis. Type: bool.
 Default value: 1\.;
-#X msg 110 894 @xmaj_ticks;
-#X text 245 894 Get/Set draw minor ticks on x-axis. Type: bool. Default
+#X msg 110 906 @xmaj_ticks;
+#X text 245 906 Get/Set draw minor ticks on x-axis. Type: bool. Default
 value: 1\.;
-#X msg 110 936 @xmin_grid;
-#X text 245 936 Get/Set draw minor grid lines on x-axis. Type: bool.
+#X msg 110 948 @xmin_grid;
+#X text 245 948 Get/Set draw minor grid lines on x-axis. Type: bool.
 Default value: 0\.;
-#X msg 110 978 @xmin_ticks;
-#X text 245 978 Get/Set draw minor ticks on x-axis. Type: bool. Default
+#X msg 110 990 @xmin_ticks;
+#X text 245 990 Get/Set draw minor ticks on x-axis. Type: bool. Default
 value: 1\.;
-#X msg 110 1020 @yauto;
-#X text 245 1020 Get/Set calculate y-axis range automatically. Type:
+#X msg 110 1032 @yauto;
+#X text 245 1032 Get/Set calculate y-axis range automatically. Type:
 bool. Default value: 0\.;
-#X msg 110 1062 @ymaj_grid;
-#X text 245 1062 Get/Set draw major grid lines on y-axis. Type: bool.
+#X msg 110 1074 @ymaj_grid;
+#X text 245 1074 Get/Set draw major grid lines on y-axis. Type: bool.
 Default value: 1\.;
-#X msg 110 1104 @ymaj_ticks;
-#X text 245 1104 Get/Set draw minor ticks on y-axis. Type: bool. Default
+#X msg 110 1116 @ymaj_ticks;
+#X text 245 1116 Get/Set draw minor ticks on y-axis. Type: bool. Default
 value: 1\.;
-#X msg 110 1146 @ymax;
-#X text 245 1146 Get/Set minimal y-axis value. Type: float. Default
+#X msg 110 1158 @ymax;
+#X text 245 1158 Get/Set minimal y-axis value. Type: float. Default
 value: 1\. Range: -1024\...1024\.;
-#X msg 110 1188 @ymin;
-#X text 245 1188 Get/Set minimal y-axis value. Type: float. Default
+#X msg 110 1200 @ymin;
+#X text 245 1200 Get/Set minimal y-axis value. Type: float. Default
 value: -1\. Range: -1024\...1024\.;
-#X msg 110 1230 @ymin_grid;
-#X text 245 1230 Get/Set draw minor grid lines on y-axis. Type: bool.
+#X msg 110 1242 @ymin_grid;
+#X text 245 1242 Get/Set draw minor grid lines on y-axis. Type: bool.
 Default value: 0\.;
-#X msg 110 1272 @ymin_ticks;
-#X text 245 1272 Get/Set draw minor ticks on y-axis. Type: bool. Default
+#X msg 110 1284 @ymin_ticks;
+#X text 245 1284 Get/Set draw minor ticks on y-axis. Type: bool. Default
 value: 1\.;
-#X msg 110 1314 @background_color;
-#X text 245 1314 Get/Set element background color (list of red \, green
+#X msg 110 1326 @background_color;
+#X text 245 1326 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1371 @border_color;
-#X text 245 1371 Get/Set border color (list of red \, green \, blue
+#X msg 110 1383 @border_color;
+#X text 245 1383 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1413 @plot_color0;
-#X text 245 1413 Get/Set first plot color (list of red \, green \,
+#X msg 110 1425 @plot_color0;
+#X text 245 1425 Get/Set first plot color (list of red \, green \,
 blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1455 @plot_color1;
-#X text 245 1455 Get/Set second color (list of red \, green \, blue
+#X msg 110 1467 @plot_color1;
+#X text 245 1467 Get/Set second color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.75 0 1 1\.;
-#X msg 110 1497 @plot_color2;
-#X text 245 1497 Get/Set third color (list of red \, green \, blue
+#X msg 110 1509 @plot_color2;
+#X text 245 1509 Get/Set third color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 1 0 0.75 1\.;
-#X msg 110 1539 @plot_color3;
-#X text 245 1539 Get/Set fourth color (list of red \, green \, blue
+#X msg 110 1551 @plot_color3;
+#X text 245 1551 Get/Set fourth color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 1 0.75 0 1\.;
-#X msg 110 1581 @xlabels;
-#X text 245 1581 Get/Set draw labels on x-axis. Type: bool. Default
+#X msg 110 1593 @xlabels;
+#X text 245 1593 Get/Set draw labels on x-axis. Type: bool. Default
 value: 0\.;
-#X msg 110 1611 @xlabels;
-#X text 245 1611 Get/Set draw labels on x-axis. Type: bool. Default
+#X msg 110 1623 @xlabels;
+#X text 245 1623 Get/Set draw labels on x-axis. Type: bool. Default
 value: 0\.;
-#X msg 110 1641 @xlabels;
-#X text 245 1641 Get/Set draw labels on x-axis. Type: bool. Default
+#X msg 110 1653 @xlabels;
+#X text 245 1653 Get/Set draw labels on x-axis. Type: bool. Default
 value: 0\.;
-#X msg 110 1671 @ylabels;
-#X text 245 1671 Get/Set draw labels on y-axis. Type: bool. Default
+#X msg 110 1683 @ylabels;
+#X text 245 1683 Get/Set draw labels on y-axis. Type: bool. Default
 value: 0\.;
-#X msg 110 1701 @fontname;
-#X text 245 1701 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 110 1713 @fontname;
+#X text 245 1713 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1743 @fontsize;
-#X text 245 1743 Get/Set font size. Type: int. Default value: 11\.
+#X msg 110 1755 @fontsize;
+#X text 245 1755 Get/Set font size. Type: int. Default value: 11\.
 Range: 4\...100\.;
-#X msg 110 1785 @fontslant;
-#X text 245 1785 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1797 @fontslant;
+#X text 245 1797 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1827 @fontweight;
-#X text 245 1827 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1839 @fontweight;
+#X text 245 1839 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1869 @pinned;
-#X text 245 1869 Get/Set pin mode. If set to 1 \, it places the element
+#X msg 110 1881 @pinned;
+#X text 245 1881 Get/Set pin mode. If set to 1 \, it places the element
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X msg 110 1926 @size;
-#X text 245 1926 Get/Set object size (width \, height pair). Type:
+#X msg 110 1938 @size;
+#X text 245 1938 Get/Set object size (width \, height pair). Type:
 list. Default value: 200 200\.;
-#X obj 20 1978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1983 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1990 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1995 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 2018 plot;
-#X text 245 2018 Same as bang: plot default number of samples.;
-#X msg 110 2046 pos;
-#X text 245 2046 set UI element position. Arguments are:;
-#X obj 255 2069 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2069 X: top left x-coord. Type: float.;
-#X obj 255 2092 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2092 Y: top right y-coord. Type: float.;
-#X obj 20 2127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2132 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 2030 plot;
+#X text 245 2030 Same as bang: plot default number of samples.;
+#X msg 110 2058 pos;
+#X text 245 2058 set UI element position. Arguments are:;
+#X obj 255 2081 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2081 X: top left x-coord. Type: float.;
+#X obj 255 2104 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2104 Y: top right y-coord. Type: float.;
+#X obj 20 2139 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2144 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 2133 1\.;
-#X text 245 2133 input signal.;
-#X text 110 2153 2\.;
-#X text 150 2153 *bang*;
-#X text 245 2153 plot default number of samples.;
-#X text 150 2173 *float*;
-#X text 245 2173 plot specified number of samples.;
-#X obj 20 2203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2208 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 2145 1\.;
+#X text 245 2145 input signal.;
+#X text 110 2165 2\.;
+#X text 150 2165 *bang*;
+#X text 245 2165 plot default number of samples.;
+#X text 150 2185 *float*;
+#X text 245 2185 plot specified number of samples.;
+#X obj 20 2215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2220 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2252 library: ceammc v0.9.8;
-#X text 584 2264 see also:;
-#X obj 659 2264 array.plot~;
-#N canvas 10 2271 400 290 info 0;
+#X obj 1 2261 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2264 library: ceammc v0.9.8;
+#X text 584 2276 see also:;
+#X obj 659 2276 array.plot~;
+#N canvas 10 2283 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -193,7 +193,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2271 pd info;
+#X restore 10 2283 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 5 0 7 0;

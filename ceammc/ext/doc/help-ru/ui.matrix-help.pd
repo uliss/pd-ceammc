@@ -77,8 +77,8 @@ specified. This property is not saved in patch. Тип: int. Значение
 This property is not saved in patch. Тип: int. Значение по умолчанию:
 -1\. Минимальное значение: -1\.;
 #X msg 110 1015 @receive;
-#X text 245 1015 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 1015 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1057 @rows;
 #X text 245 1057 Получить/Установить number of matrix rows. Тип: int.
 Значение по умолчанию: 4\. Диапазон: 1\...64\.;

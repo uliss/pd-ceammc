@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<property name="@receive" type="symbol" default="(null)">
+    <tr lang="en">source of message receive</tr>
+    <tr lang="ru">источник получения сообщений</tr>
+</property>

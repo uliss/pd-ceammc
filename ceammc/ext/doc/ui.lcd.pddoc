@@ -49,10 +49,7 @@
             <property name="@pixels" type="int" default="64" access="readonly">
                 <tr lang="en">number of pixels</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @rows -->
             <property name="@rows" type="int" minvalue="2" maxvalue="128" default="8">
                 <tr lang="en">number of rows</tr>

@@ -79,10 +79,7 @@
             <property name="@q" type="float" default="0.7071" minvalue="0.0156" maxvalue="64">
                 <tr lang="en">quality factor</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @scale -->
             <property name="@scale" type="symbol" default="lin" enum="lin log rad">
                 <tr lang="en">frequency scale</tr>

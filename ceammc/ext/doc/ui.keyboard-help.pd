@@ -76,72 +76,72 @@ note).;
 #X text 245 886 Get/Set number of keys. Type: int. Default value: 61\.
 Range: 5\...88\.;
 #X msg 110 928 @receive;
-#X text 245 928 Get/Set receive source. Type: symbol. Default value:
+#X text 245 928 Get/Set source of message receive. Type: symbol. Default
+value: (null).;
+#X msg 110 970 @send;
+#X text 245 970 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 958 @send;
-#X text 245 958 Get/Set send destination. Type: symbol. Default value:
-(null).;
-#X msg 110 1000 @shift;
-#X text 245 1000 Get/Set MIDI pitch of starting key. Type: int. Default
+#X msg 110 1012 @shift;
+#X text 245 1012 Get/Set MIDI pitch of starting key. Type: int. Default
 value: 36\. Range: 6\...88\.;
-#X msg 110 1042 @active_color;
-#X text 245 1042 Get/Set element active color (list of red \, green
+#X msg 110 1054 @active_color;
+#X text 245 1054 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1084 @border_color;
-#X text 245 1084 Get/Set border color (list of red \, green \, blue
+#X msg 110 1096 @border_color;
+#X text 245 1096 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1126 @fontname;
-#X text 245 1126 Get/Set font name. Type: symbol. Default value: Helvetica.
+#X msg 110 1138 @fontname;
+#X text 245 1138 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1168 @fontsize;
-#X text 245 1168 Get/Set font size. Type: int. Default value: 11\.
+#X msg 110 1180 @fontsize;
+#X text 245 1180 Get/Set font size. Type: int. Default value: 11\.
 Range: 4\...100\.;
-#X msg 110 1210 @fontslant;
-#X text 245 1210 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1222 @fontslant;
+#X text 245 1222 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1252 @fontweight;
-#X text 245 1252 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1264 @fontweight;
+#X text 245 1264 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1294 @pinned;
-#X text 245 1294 Get/Set pin mode. If set to 1 \, it places the element
+#X msg 110 1306 @pinned;
+#X text 245 1306 Get/Set pin mode. If set to 1 \, it places the element
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X msg 110 1351 @size;
-#X text 245 1351 Get/Set object size (width \, height pair). Type:
+#X msg 110 1363 @size;
+#X text 245 1363 Get/Set object size (width \, height pair). Type:
 list. Default value: 433 60\.;
-#X obj 20 1403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1408 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1420 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1443 pos;
-#X text 245 1443 set UI element position. Arguments are:;
-#X obj 255 1466 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1466 X: top left x-coord. Type: float.;
-#X obj 255 1489 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1489 Y: top right y-coord. Type: float.;
-#X msg 110 1514 dump;
-#X text 245 1514 dumps all object info to Pd console window.;
-#X obj 20 1552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1557 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 110 1455 pos;
+#X text 245 1455 set UI element position. Arguments are:;
+#X obj 255 1478 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1478 X: top left x-coord. Type: float.;
+#X obj 255 1501 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1501 Y: top right y-coord. Type: float.;
+#X msg 110 1526 dump;
+#X text 245 1526 dumps all object info to Pd console window.;
+#X obj 20 1564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1569 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1558 1\.;
-#X text 245 1558 control inlet.;
-#X obj 20 1588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1593 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 1570 1\.;
+#X text 245 1570 control inlet.;
+#X obj 20 1600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1605 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1594 1\.;
-#X text 245 1594 list from two elements: MIDI pitch \, MIDI velocity.
+#X text 110 1606 1\.;
+#X text 245 1606 list from two elements: MIDI pitch \, MIDI velocity.
 Velocity depends from key press position.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1659 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1662 library: ceammc v0.9.8;
-#X text 597 1674 see also:;
-#X obj 672 1677 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1671 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1674 library: ceammc v0.9.8;
+#X text 597 1686 see also:;
+#X obj 672 1689 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.preset] @url ui.preset-help.pd;
-#N canvas 10 1681 400 290 info 0;
+#N canvas 10 1693 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -165,7 +165,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1681 pd info;
+#X restore 10 1693 pd info;
 #X connect 10 0 11 0;
 #X connect 11 0 13 0;
 #X connect 13 0 14 0;

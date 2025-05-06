@@ -57,10 +57,7 @@
             <property name="@program" type="bool" default="1">
                 <tr lang="en">if show program change events</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @send -->
             <property name="@send" type="symbol" default="(null)">
                 <tr lang="en">send destination</tr>

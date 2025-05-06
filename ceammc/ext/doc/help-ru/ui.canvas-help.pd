@@ -66,8 +66,8 @@ MOD_CMD(.;
 #X obj 735 1064 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 1096 @receive;
-#X text 245 1096 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 1096 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1138 @send;
 #X text 245 1138 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;

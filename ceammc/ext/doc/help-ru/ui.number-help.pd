@@ -72,8 +72,8 @@ events. If false: react to all supported events. Тип: bool. Значение
 #X text 245 921 Получить/Установить minimum value. Тип: float. Значение
 по умолчанию: -inf.;
 #X msg 110 963 @receive;
-#X text 245 963 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 963 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 1005 @send;
 #X text 245 1005 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;

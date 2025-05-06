@@ -46,8 +46,8 @@ outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 #X text 245 696 Получить/Установить quality factor. Тип: float. Значение
 по умолчанию: 0.7071\. Диапазон: 0.0156\...64\.;
 #X msg 110 738 @receive;
-#X text 245 738 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 738 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 780 @scale;
 #X text 245 780 Получить/Установить frequency scale. Тип: symbol. Значение
 по умолчанию: lin. Разрешённые значения: lin \, log \, rad.;

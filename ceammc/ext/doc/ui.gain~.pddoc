@@ -98,10 +98,7 @@
             <property name="@presetname" type="symbol" default="(null)">
                 <tr lang="en">preset name for using with [ui.preset]</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @relative -->
             <property name="@relative" type="bool" default="1">
                 <tr lang="en">relative input mode. When set do not jump to value on click</tr>

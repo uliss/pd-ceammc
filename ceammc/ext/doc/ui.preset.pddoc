@@ -55,10 +55,7 @@
             <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">
                 <tr lang="en">empty cell color (list of red, green, blue values in 0-1 range)</tr>
             </property>
-            <!-- @receive -->
-            <property name="@receive" type="symbol" default="(null)">
-                <tr lang="en">receive source</tr>
-            </property>
+            <xi:include href="props_ui_receive.xml" />
             <!-- @size -->
             <property name="@size" type="list" default="102 42">
                 <tr lang="en">object size (width, height pair)</tr>

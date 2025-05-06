@@ -84,8 +84,8 @@ float. Единицы: 'sec'. Значение по умолчанию: 0\.;
 outputs @mouse_down \, @mouse_up and @mouse_drag events. Тип: bool.
 Значение по умолчанию: 1\.;
 #X msg 110 1272 @receive;
-#X text 245 1272 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 1272 Получить/Установить источник получения сообщений.
+Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1314 @select_ms;
 #X text 245 1314 Получить/Установить selection range in milliseconds
 \, pair of values: begin \, end. Тип: list. Единицы: 'ms'.;

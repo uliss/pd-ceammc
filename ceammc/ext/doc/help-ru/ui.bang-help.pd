@@ -45,8 +45,8 @@
 #X text 245 508 Получить/Установить MIDI/keyboard bind expression.
 Тип: list.;
 #X msg 110 538 @receive;
-#X text 245 538 Получить/Установить receive source. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 245 538 Получить/Установить источник получения сообщений. Тип:
+symbol. Значение по умолчанию: (null).;
 #X msg 110 580 @send;
 #X text 245 580 Получить/Установить send destination. Тип: symbol.
 Значение по умолчанию: (null).;
