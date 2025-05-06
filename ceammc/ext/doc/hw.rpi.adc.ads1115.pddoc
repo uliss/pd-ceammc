@@ -28,6 +28,7 @@
         <arguments>
             <argument name="MODE" type="symbol" enum="diff single">
                 <tr lang="en">See @mode</tr>
+                <tr lang="ru" finished="false">См. @mode</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,27 +36,33 @@
             <property name="@fsr" type="symbol" default="6144mv" access="initonly"
             enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">
                 <tr lang="en">full-scale input range</tr>
+                <tr lang="ru" finished="false">Полномасштабный диапазон ввода</tr>
             </property>
             <!-- @i2c_addr -->
             <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
             maxvalue="119">
                 <tr lang="en">I²C address. Also 'default' value is accepted (for addr ???) and
                 'alt' (for addr ???)</tr>
+                <tr lang="ru" finished="false">Адрес I2C. Также принимается значение «по умолчанию»
+                (для добавления ???) и «alt» (для добавления ????)</tr>
             </property>
             <!-- @i2c_bus -->
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">
                 <tr lang="en">I²C bus</tr>
+                <tr lang="ru" finished="false">I2C автобус</tr>
             </property>
             <!-- @in_max -->
             <property name="@in_max" type="float" minvalue="0.0" maxvalue="6144.0" default="5000.0"
             access="readwrite">
                 <tr lang="en">input maximum value in millivolts</tr>
+                <tr lang="ru" finished="false">Максимальное входное значение в милливольтах</tr>
             </property>
             <!-- @in_min -->
             <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0"
             access="readwrite">
                 <tr lang="en">input minimal value in millivolts</tr>
+                <tr lang="ru" finished="false">минимальное значение в милливольтах</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="single" enum="diff single"
@@ -63,24 +70,32 @@
                 <tr lang="en">measure mode. If 'single' - measure level between A0, A1, A2, A3 and
                 GND. If 'diff' - diff measure between A0 and A1, A0 and A3, A1 and A3, A2 and
                 A3.</tr>
+                <tr lang="ru" finished="false">Режим измерения. Если "один" - уровень измерения
+                между A0, A1, A2, A3 и GND. Если "дифф" - дифф мера между А0 и А1, А0 и А3, А1 и
+                А3, А2 и А3.</tr>
             </property>
             <!-- @norm -->
             <property name="@norm" type="bool" default="0" access="readwrite">
                 <tr lang="en">normalization. If 1: normalize output into specified by @out_min
                 @out_max range.</tr>
+                <tr lang="ru" finished="false">нормализация. Если 1: нормализовать выход в заданном
+                @out_min @out_max диапазоне.</tr>
             </property>
             <!-- @out_max -->
             <property name="@out_max" type="float" default="1.0" access="readwrite">
                 <tr lang="en">output max value</tr>
+                <tr lang="ru" finished="false">выходное максимальное значение</tr>
             </property>
             <!-- @out_min -->
             <property name="@out_min" type="float" default="0.0" access="readwrite">
                 <tr lang="en">output minimum value</tr>
+                <tr lang="ru" finished="false">выходное минимальное значение</tr>
             </property>
             <!-- @poll_time -->
             <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0"
             units="millisecond" access="initonly">
                 <tr lang="en">polling measure time</tr>
+                <tr lang="ru" finished="false">Время проведения опроса</tr>
             </property>
         </properties>
         <methods>

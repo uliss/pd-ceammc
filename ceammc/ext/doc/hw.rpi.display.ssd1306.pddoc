@@ -24,6 +24,7 @@
         <arguments>
             <argument name="MODE" type="symbol" enum="i2c spi">
                 <tr lang="en">display connection. See @mode</tr>
+                <tr lang="ru" finished="false">Дисплейное соединение. См. @mode</tr>
             </argument>
         </arguments>
         <properties>
@@ -32,44 +33,54 @@
             maxvalue="119">
                 <tr lang="en">I²C address. Also 'default' value is accepted (for addr 0x3c) and
                 'alt' (for addr 0x3d)</tr>
+                <tr lang="ru" finished="false">Адрес I2C. Также принимается значение «по умолчанию»
+                (для добавления 0x3c) и «альт» (для добавления 0x3d).</tr>
             </property>
             <!-- @i2c_bus -->
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">
                 <tr lang="en">I²C bus</tr>
+                <tr lang="ru" finished="false">I2C автобус</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="i2c" enum="i2c spi" access="initonly">
                 <tr lang="en">display connection</tr>
+                <tr lang="ru" finished="false">отображение соединения</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="128 64" access="initonly">
                 <tr lang="en">display size</tr>
+                <tr lang="ru" finished="false">размер дисплея</tr>
             </property>
             <!-- @spi_bus -->
             <property name="@spi_bus" type="int" default="-1" minvalue="-1" maxvalue="6"
             access="initonly">
                 <tr lang="en">SPI bus</tr>
+                <tr lang="ru" finished="false">Автобус SPI</tr>
             </property>
             <!-- @spi_cs -->
             <property name="@spi_cs" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">
                 <tr lang="en">CS (chip select) GPIO pin</tr>
+                <tr lang="ru" finished="false">CS (Chip Select) GPIO pin</tr>
             </property>
             <!-- @spi_dc -->
             <property name="@spi_dc" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">
                 <tr lang="en">DC (data/command) GPIO pin</tr>
+                <tr lang="ru" finished="false">DC (данные/команды) GPIO pin</tr>
             </property>
             <!-- @spi_freq -->
             <property name="@spi_freq" type="int" default="1000000" units="hertz" minvalue="100000"
             maxvalue="10000000" access="initonly">
                 <tr lang="en">SPI frequency</tr>
+                <tr lang="ru" finished="false">Частота SPI</tr>
             </property>
             <!-- @spi_rs -->
             <property name="@spi_rs" type="int" default="-1" minvalue="-1" maxvalue="127"
             access="initonly">
                 <tr lang="en">RS (reset) GPIO pin</tr>
+                <tr lang="ru" finished="false">RS (перезагрузка) GPIO pin</tr>
             </property>
         </properties>
         <methods>

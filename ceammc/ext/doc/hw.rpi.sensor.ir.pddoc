@@ -19,6 +19,7 @@
         <arguments>
             <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
                 <tr lang="en">GPIO connection pin. See @pin</tr>
+                <tr lang="ru" finished="false">Пин соединения GPIO. См. @pin</tr>
             </argument>
         </arguments>
         <properties>
@@ -26,11 +27,14 @@
             <property name="@pin" type="int" default="-1" access="initonly" minvalue="-1"
             maxvalue="127">
                 <tr lang="en">connection GPIO pin</tr>
+                <tr lang="ru" finished="false">соединение GPIO pin</tr>
             </property>
             <!-- @proto -->
             <property name="@proto" type="symbol" default="NEC">
                 <tr lang="en">protocol name. You should switch off/on pollling to take effect after
                 chaning this property</tr>
+                <tr lang="ru" finished="false">Название протокола. Вы должны отключить / включить
+                опросник, чтобы вступить в силу после загона этого имущества</tr>
             </property>
         </properties>
         <methods>

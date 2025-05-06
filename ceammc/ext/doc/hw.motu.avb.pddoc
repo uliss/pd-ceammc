@@ -22,20 +22,24 @@
         <arguments>
             <argument name="DEV" type="symbol">
                 <tr lang="en">Motu device id</tr>
+                <tr lang="ru" finished="false">Устройство Motu ID</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @dev -->
             <property name="@dev" type="symbol" default="">
                 <tr lang="en">Motu device id</tr>
+                <tr lang="ru" finished="false">Устройство Motu ID</tr>
             </property>
             <!-- @host -->
             <property name="@host" type="symbol" default="localhost">
                 <tr lang="en">Motu HTTP host</tr>
+                <tr lang="ru" finished="false">Motu HTTP-хост</tr>
             </property>
             <!-- @port -->
             <property name="@port" type="int" default="1280">
                 <tr lang="en">Motu HTTP port</tr>
+                <tr lang="ru" finished="false">Motu HTTP порт</tr>
             </property>
         </properties>
         <methods>

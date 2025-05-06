@@ -26,11 +26,14 @@
             maxvalue="119">
                 <tr lang="en">I²C address. The value 'default' means default device I²C address
                 (0x29)</tr>
+                <tr lang="ru" finished="false">Адрес I2C. Значение «по умолчанию» означает адрес
+                I2C устройства по умолчанию (0x29)</tr>
             </property>
             <!-- @i2c_bus -->
             <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
             access="initonly">
                 <tr lang="en">I²C bus</tr>
+                <tr lang="ru" finished="false">I2C автобус</tr>
             </property>
         </properties>
         <methods>

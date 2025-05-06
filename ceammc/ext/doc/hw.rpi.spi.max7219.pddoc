@@ -31,6 +31,7 @@
         <arguments>
             <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="4">
                 <tr lang="en">number of displays connected into chain</tr>
+                <tr lang="ru" finished="false">Количество дисплеев, подключенных к цепочке</tr>
             </argument>
         </arguments>
         <properties>
@@ -38,16 +39,19 @@
             <property name="@displays" type="int" default="1" minvalue="1" maxvalue="4"
             access="initonly">
                 <tr lang="en">number of displays connected into the chain</tr>
+                <tr lang="ru" finished="false">Количество дисплеев, подключенных к цепи</tr>
             </property>
             <!-- @spi_bus -->
             <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
             access="initonly">
                 <tr lang="en">SPI bus number</tr>
+                <tr lang="ru" finished="false">Номер автобуса SPI</tr>
             </property>
             <!-- @spi_cs -->
             <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0"
             access="initonly">
                 <tr lang="en">CS (ChipSelect, SlaveSelect or ChipEnable) index</tr>
+                <tr lang="ru" finished="false">CS (ChipSelect, SlaveSelect или ChipEnable)</tr>
             </property>
         </properties>
         <methods>

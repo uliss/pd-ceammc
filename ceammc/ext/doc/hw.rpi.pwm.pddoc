@@ -42,6 +42,7 @@
         <arguments>
             <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">
                 <tr lang="en">PWM channel. See @ch</tr>
+                <tr lang="ru" finished="false">Канал PWM. См.</tr>
             </argument>
         </arguments>
         <properties>
@@ -50,6 +51,8 @@
             access="initonly">
                 <tr lang="en">PWM channel. Valid values are: 0-3. If equals -1: no PWM channel
                 selected.</tr>
+                <tr lang="ru" finished="false">Канал PWM. Действительные значения: 0-3. Если равно
+                -1: канал PWM не выбран.</tr>
             </property>
         </properties>
         <methods>

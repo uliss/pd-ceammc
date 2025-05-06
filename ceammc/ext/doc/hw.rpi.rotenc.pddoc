@@ -21,32 +21,39 @@
             <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1"
             maxvalue="127">
                 <tr lang="en">BTN GPIO pin</tr>
+                <tr lang="ru" finished="false">Пин BTN GPIO</tr>
             </property>
             <!-- @clk -->
             <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1"
             maxvalue="127">
                 <tr lang="en">CLK GPIO pin</tr>
+                <tr lang="ru" finished="false">CLK GPIO pin</tr>
             </property>
             <!-- @dt -->
             <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1"
             maxvalue="127">
                 <tr lang="en">DT GPIO pin</tr>
+                <tr lang="ru" finished="false">Пин DT GPIO</tr>
             </property>
             <!-- @init -->
             <property name="@init" type="float" default="0" access="initonly">
                 <tr lang="en">init encoder value</tr>
+                <tr lang="ru" finished="false">значение кодера init</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="float" default="100">
                 <tr lang="en">max encoder value</tr>
+                <tr lang="ru" finished="false">максимальное значение кодера</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="float" default="-100">
                 <tr lang="en">min encoder value</tr>
+                <tr lang="ru" finished="false">значение кодера мин</tr>
             </property>
             <!-- @step -->
             <property name="@step" type="float" default="1">
                 <tr lang="en">encoder step</tr>
+                <tr lang="ru" finished="false">шаг кодирования</tr>
             </property>
         </properties>
         <methods>

@@ -23,12 +23,16 @@
         <arguments>
             <argument name="NAME" type="symbol">
                 <tr lang="en">printer name, if empty - use default system printer.</tr>
+                <tr lang="ru" finished="false">Имя принтера, если пусто - используйте системный
+                принтер по умолчанию.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @name -->
             <property name="@name" type="symbol" default="">
                 <tr lang="en">printer name, if empty - use default system printer</tr>
+                <tr lang="ru" finished="false">Имя принтера, если пусто - используйте системный
+                принтер по умолчанию</tr>
             </property>
         </properties>
         <methods>

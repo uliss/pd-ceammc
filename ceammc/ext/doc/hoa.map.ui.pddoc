@@ -26,7 +26,7 @@
             <a href="hoa/hoa.map-help.pd">CICM documentation</a>
         </info>
         <mouse>
-            <event type="move" editmode="false" empty="true"/>
+            <event type="move" editmode="false" empty="true" />
             <event type="wheel" editmode="false" keys="Alt">zoom the view</event>
             <event type="left-click" editmode="false">no action</event>
             <event type="drag" editmode="false">move selected source or group</event>
