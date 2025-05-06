@@ -63,6 +63,8 @@ def mouse_method2event(event: str) -> str:
         return None
     elif event == "mouseup":
         return None
+    elif event == "mouseenter":
+        return None
     else:
         return event
 
