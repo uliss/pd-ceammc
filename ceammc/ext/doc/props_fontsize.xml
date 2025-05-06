@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+    <tr lang="en">font size</tr>
+    <tr lang="ru">размер шрифта</tr>
+</property>
+

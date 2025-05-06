@@ -108,11 +108,11 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X text 245 1373 Get/Set knob color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1415 @fontname;
-#X text 245 1415 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X text 245 1415 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1457 @fontsize;
-#X text 245 1457 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
+#X text 245 1457 Get/Set font size. Type: int. Default value: 11\.
+Range: 4\...100\.;
 #X msg 110 1499 @fontslant;
 #X text 245 1499 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;

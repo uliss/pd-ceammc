@@ -129,11 +129,11 @@ symbol.;
 #X text 245 1839 Get/Set if show corner labels. Type: bool. Default
 value: 0\.;
 #X msg 110 1869 @fontname;
-#X text 245 1869 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X text 245 1869 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1911 @fontsize;
-#X text 245 1911 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
+#X text 245 1911 Get/Set font size. Type: int. Default value: 11\.
+Range: 4\...100\.;
 #X msg 110 1953 @fontslant;
 #X text 245 1953 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;

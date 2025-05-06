@@ -59,14 +59,8 @@
             enum="Courier DejaVu Helvetica Monaco Times">
                 <tr lang="en">fontname</tr>
             </property>
-            <!-- @fontsize -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-                <tr lang="en">fontsize</tr>
-            </property>
-            <!-- @fontslant -->
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
-                <tr lang="en">font slant</tr>
-            </property>
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
             <!-- @fontweight -->
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
                 <tr lang="en">font weight</tr>

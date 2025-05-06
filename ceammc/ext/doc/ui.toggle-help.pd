@@ -79,11 +79,11 @@ binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
 #X text 245 943 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 985 @fontname;
-#X text 245 985 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X text 245 985 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1027 @fontsize;
-#X text 245 1027 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
+#X text 245 1027 Get/Set font size. Type: int. Default value: 11\.
+Range: 4\...100\.;
 #X msg 110 1069 @fontslant;
 #X text 245 1069 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;

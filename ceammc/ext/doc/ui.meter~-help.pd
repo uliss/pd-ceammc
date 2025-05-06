@@ -87,11 +87,11 @@ of red \, green \, blue values in 0-1 range). Type: list. Default value:
 \, green \, blue values in 0-1 range). Type: list. Default value: 0.85
 0.85 0 1\.;
 #X msg 110 1200 @fontname;
-#X text 245 1200 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X text 245 1200 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1242 @fontsize;
-#X text 245 1242 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
+#X text 245 1242 Get/Set font size. Type: int. Default value: 11\.
+Range: 4\...100\.;
 #X msg 110 1284 @fontslant;
 #X text 245 1284 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<property name="@fontname" type="symbol" default="Helvetica" enum="Courier DejaVu Helvetica Monaco Times">
+    <tr lang="en">font name</tr>
+    <tr lang="ru">имя шрифта</tr>
+</property>
+

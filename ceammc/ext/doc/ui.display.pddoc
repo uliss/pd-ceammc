@@ -64,15 +64,8 @@
                 <tr lang="en">number of digits after floating point. If -1: skip trailing zeroes,
                 if 0 - output as integers</tr>
             </property>
-            <!-- @fontname -->
-            <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">
-                <tr lang="en">fontname</tr>
-            </property>
-            <!-- @fontsize -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-                <tr lang="en">fontsize</tr>
-            </property>
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
             <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
                 <tr lang="en">font slant</tr>

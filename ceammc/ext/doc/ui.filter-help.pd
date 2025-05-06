@@ -88,11 +88,11 @@ top. Allowed values: left \, top \, right \, bottom.;
 #X text 245 1279 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
 #X msg 110 1321 @fontname;
-#X text 245 1321 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X text 245 1321 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1363 @fontsize;
-#X text 245 1363 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
+#X text 245 1363 Get/Set font size. Type: int. Default value: 11\.
+Range: 4\...100\.;
 #X msg 110 1405 @fontslant;
 #X text 245 1405 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;

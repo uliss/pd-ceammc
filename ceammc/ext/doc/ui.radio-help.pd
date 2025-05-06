@@ -96,11 +96,11 @@ and @mouse_drag events. Type: bool. Default value: 0\.;
 #X text 245 995 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1037 @fontname;
-#X text 245 1037 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X text 245 1037 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1079 @fontsize;
-#X text 245 1079 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
+#X text 245 1079 Get/Set font size. Type: int. Default value: 11\.
+Range: 4\...100\.;
 #X msg 110 1121 @fontslant;
 #X text 245 1121 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;

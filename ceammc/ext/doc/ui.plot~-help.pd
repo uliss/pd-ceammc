@@ -118,11 +118,11 @@ value: 0\.;
 #X text 245 1671 Get/Set draw labels on y-axis. Type: bool. Default
 value: 0\.;
 #X msg 110 1701 @fontname;
-#X text 245 1701 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X text 245 1701 Get/Set font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1743 @fontsize;
-#X text 245 1743 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
+#X text 245 1743 Get/Set font size. Type: int. Default value: 11\.
+Range: 4\...100\.;
 #X msg 110 1785 @fontslant;
 #X text 245 1785 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;

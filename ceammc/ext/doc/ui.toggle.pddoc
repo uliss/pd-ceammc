@@ -40,15 +40,8 @@
             <xi:include href="props_active_color.xml" />
             <xi:include href="props_background_color.xml" />
             <xi:include href="props_border_color.xml" />
-            <!-- @fontname -->
-            <property name="@fontname" type="symbol" default="Helvetica"
-            enum="Courier DejaVu Helvetica Monaco Times">
-                <tr lang="en">fontname</tr>
-            </property>
-            <!-- @fontsize -->
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-                <tr lang="en">fontsize</tr>
-            </property>
+            <xi:include href="props_fontname.xml" />
+            <xi:include href="props_fontsize.xml" />
             <!-- @fontslant -->
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
                 <tr lang="en">font slant</tr>
