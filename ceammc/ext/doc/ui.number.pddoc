@@ -82,7 +82,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="53 15">
-                <tr lang="en">element size (width, height pair)</tr>
+            <tr lang="en">object size (width, height pair)</tr>
+            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @text_color -->
             <property name="@text_color" type="list" default="0 0 0 1">

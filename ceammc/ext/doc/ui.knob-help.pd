@@ -158,7 +158,7 @@ symbol. Default value: (null).;
 #X text 245 1949 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 1991 @size;
-#X text 245 1991 Get/Set element size (width \, height pair). Type:
+#X text 245 1991 Get/Set object size (width \, height pair). Type:
 list. Default value: 40 40\.;
 #X obj 20 2043 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2048 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144

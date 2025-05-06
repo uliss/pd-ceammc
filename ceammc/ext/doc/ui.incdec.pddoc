@@ -70,7 +70,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 20">
-                <tr lang="en">element size (width, height pair)</tr>
+            <tr lang="en">object size (width, height pair)</tr>
+            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @step -->
             <property name="@step" type="float" default="1" minvalue="0">

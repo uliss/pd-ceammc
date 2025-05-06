@@ -74,7 +74,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="15 120">
-                <tr lang="en">element size (width, height pair)</tr>
+            <tr lang="en">object size (width, height pair)</tr>
+            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @tepid_color -->
             <property name="@tepid_color" type="list" default="0.6 0.73 0 1">

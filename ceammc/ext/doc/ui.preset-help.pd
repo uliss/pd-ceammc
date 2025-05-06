@@ -85,7 +85,7 @@ normal. Allowed values: normal \, bold.;
 at the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
 #X msg 110 1302 @size;
-#X text 245 1302 Get/Set element size (width \, height pair). Type:
+#X text 245 1302 Get/Set object size (width \, height pair). Type:
 list. Default value: 102 42\.;
 #X msg 110 1344 @current?;
 #X text 245 1344 (readonly) Get current preset index. Type: int. Default

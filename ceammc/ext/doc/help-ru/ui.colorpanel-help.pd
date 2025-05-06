@@ -92,8 +92,8 @@ bool. Значение по умолчанию: 0\.;
 #X text 245 1245 Получить/Установить preset name for using with [ui.preset].
 Тип: symbol. Значение по умолчанию: (null).;
 #X msg 110 1287 @size;
-#X text 245 1287 Получить/Установить element size (width \, height
-pair). Тип: list. Значение по умолчанию: 181 105\.;
+#X text 245 1287 Получить/Установить размер объекта (пара: ШИРИНА ВЫСОТА).
+Тип: list. Значение по умолчанию: 181 105\.;
 #X msg 110 1329 @hex?;
 #X text 245 1329 (только чтение) Получить HEX value in format #RRGGBB.
 Тип: symbol.;

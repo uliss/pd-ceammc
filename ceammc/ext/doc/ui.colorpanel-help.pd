@@ -90,7 +90,7 @@ Default value: 0\.;
 #X text 245 1179 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1221 @size;
-#X text 245 1221 Get/Set element size (width \, height pair). Type:
+#X text 245 1221 Get/Set object size (width \, height pair). Type:
 list. Default value: 181 105\.;
 #X msg 110 1263 @hex?;
 #X text 245 1263 (readonly) Get HEX value in format #RRGGBB. Type:

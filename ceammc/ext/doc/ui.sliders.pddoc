@@ -117,7 +117,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="150 100">
-                <tr lang="en">element size (width, height pair)</tr>
+            <tr lang="en">object size (width, height pair)</tr>
+            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @slider_color -->
             <property name="@slider_color" type="list" default="0.75 0.75 0.75 1">

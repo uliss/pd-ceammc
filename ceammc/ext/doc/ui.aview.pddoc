@@ -115,7 +115,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="300 100">
-                <tr lang="en">element size (width, height pair)</tr>
+                <tr lang="en">object size (width, height pair)</tr>
+                <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @size_ms -->
             <property name="@size_ms" type="float" minvalue="0" access="readonly"

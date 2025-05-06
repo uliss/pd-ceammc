@@ -102,7 +102,7 @@ Default value: 0\.;
 #X text 245 1485 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1527 @size;
-#X text 245 1527 Get/Set element size (width \, height pair). Type:
+#X text 245 1527 Get/Set object size (width \, height pair). Type:
 list. Default value: 100 100\.;
 #X obj 20 1579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1584 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144

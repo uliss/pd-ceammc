@@ -79,7 +79,8 @@
             </property>
             <!-- @size -->
             <property name="@size" type="list" default="120 15">
-                <tr lang="en">element size (width, height pair)</tr>
+            <tr lang="en">object size (width, height pair)</tr>
+            <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
             </property>
             <!-- @value -->
             <property name="@value" type="list" default="">
