@@ -25,6 +25,10 @@
                 <tr lang="en">parsing mode for incoming messages. If 'fudi' - interpret incoming
                 websocket data as Pd messages, if 'sym' - always interpret as symbols, 'data' -
                 parse ceammc data, 'json' - convert json values to ceammc data.</tr>
+                <tr lang="ru" finished="false">Режим разбора для входящих сообщений. Если «fudi» —
+                интерпретировать входящие данные websocket как Pd-сообщения, если «sym» — всегда
+                интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
+                преобразовывать значения json в данные ceammc.</tr>
             </property>
         </properties>
         <methods>

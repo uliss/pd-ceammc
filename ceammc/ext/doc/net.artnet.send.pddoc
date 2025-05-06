@@ -25,9 +25,11 @@
         <arguments>
             <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="15">
                 <tr lang="en">ArtNet universe</tr>
+                <tr lang="ru" finished="false">Вселенная ArtNet</tr>
             </argument>
             <argument name="SUBNET" type="int" minvalue="0" maxvalue="15">
                 <tr lang="en">ArtNet subnet</tr>
+                <tr lang="ru" finished="false">Подсеть ArtNet</tr>
             </argument>
         </arguments>
         <properties>
@@ -35,28 +37,37 @@
             <property name="@ip" type="symbol" default="" access="initonly">
                 <tr lang="en">bind interface IP address. If empty - use first available
                 interface.</tr>
+                <tr lang="ru" finished="false">Связать IP-адрес интерфейса. Если пуст - используйте
+                первый доступный интерфейс.</tr>
             </property>
             <!-- @offset -->
             <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">
                 <tr lang="en">DMX channel offset</tr>
+                <tr lang="ru" finished="false">Смещение канала DMX</tr>
             </property>
             <!-- @rate -->
             <property name="@rate" type="float" units="hertz" default="44" minvalue="1"
             maxvalue="100">
                 <tr lang="en">send framerate</tr>
+                <tr lang="ru" finished="false">посылать кадры</tr>
             </property>
             <!-- @subnet -->
             <property name="@subnet" type="int" default="0" minvalue="0" maxvalue="15">
                 <tr lang="en">ArtNet subnet</tr>
+                <tr lang="ru" finished="false">Подсеть ArtNet</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="bool" default="0">
                 <tr lang="en">send mode. If true: send frame only when bang is received, otherwise
                 send frames with @rate speed with internal clock</tr>
+                <tr lang="ru" finished="false">Отправь сигнал. Если верно: отправляйте кадр только
+                тогда, когда получен взрыв, в противном случае отправляйте кадры со скоростью @rate
+                с внутренними часами.</tr>
             </property>
             <!-- @universe -->
             <property name="@universe" type="int" default="0" minvalue="0" maxvalue="15">
                 <tr lang="en">ArtNet universe</tr>
+                <tr lang="ru" finished="false">Вселенная ArtNet</tr>
             </property>
         </properties>
         <methods>

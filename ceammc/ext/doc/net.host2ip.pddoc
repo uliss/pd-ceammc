@@ -22,20 +22,24 @@
         <arguments>
             <argument name="TYPE" type="symbol" enum="ipv4 ipv6">
                 <tr lang="en">result IP type</tr>
+                <tr lang="ru" finished="false">Результат IP типа</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @ipv4 -->
             <property name="@ipv4" type="alias">
                 <tr lang="en">shortcut for @type ipv4</tr>
+                <tr lang="ru" finished="false">Обсуждение @type ipv4</tr>
             </property>
             <!-- @ipv6 -->
             <property name="@ipv6" type="alias">
                 <tr lang="en">shortcut for @type ipv6</tr>
+                <tr lang="ru" finished="false">Обсуждение @type ipv6</tr>
             </property>
             <!-- @type -->
             <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">
                 <tr lang="en">result IP type</tr>
+                <tr lang="ru" finished="false">Результат IP типа</tr>
             </property>
         </properties>
         <inlets>

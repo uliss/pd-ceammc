@@ -22,32 +22,39 @@
         <arguments>
             <argument name="HOST" type="symbol">
                 <tr lang="en">destination host</tr>
+                <tr lang="ru" finished="false">место назначения</tr>
             </argument>
             <argument name="PORT" type="int" minvalue="1" maxvalue="32768">
                 <tr lang="en">destination port</tr>
+                <tr lang="ru" finished="false">порт назначения</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @host -->
             <property name="@host" type="symbol" default="localhost">
                 <tr lang="en">destination host</tr>
+                <tr lang="ru" finished="false">место назначения</tr>
             </property>
             <!-- @pass -->
             <property name="@pass" type="atom" default="">
                 <tr lang="en">Basic Auth password</tr>
+                <tr lang="ru" finished="false">Базовый пароль Auth</tr>
             </property>
             <!-- @port -->
             <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">
                 <tr lang="en">destination port</tr>
+                <tr lang="ru" finished="false">порт назначения</tr>
             </property>
             <!-- @timeout -->
             <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10"
             units="second">
                 <tr lang="en">TCP connection timeout</tr>
+                <tr lang="ru" finished="false">Время подключения TCP</tr>
             </property>
             <!-- @user -->
             <property name="@user" type="symbol" default="">
                 <tr lang="en">Basic Auth user name</tr>
+                <tr lang="ru" finished="false">Основное имя пользователя Auth</tr>
             </property>
         </properties>
         <methods>

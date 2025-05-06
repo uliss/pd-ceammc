@@ -26,44 +26,56 @@
         <arguments>
             <argument name="NAME" type="symbol">
                 <tr lang="en">OSC server name (for using with other objects)</tr>
+                <tr lang="ru" finished="false">Название сервера OSC (для использования с другими
+                объектами)</tr>
             </argument>
             <argument name="URL" type="atom">
                 <tr lang="en">OSC server url (like udp:12345), see @url property</tr>
+                <tr lang="ru" finished="false">URL сервера OSC (например, udp:12345), см.</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @auto_start -->
             <property name="@auto_start" type="bool" default="1">
                 <tr lang="en">automatically start on creation</tr>
+                <tr lang="ru" finished="false">Автоматическое начало создания</tr>
             </property>
             <!-- @dump -->
             <property name="@dump" type="bool" default="0">
                 <tr lang="en">dump incoming messages to Pd window</tr>
+                <tr lang="ru" finished="false">Отправка входящих сообщений в окно Pd</tr>
             </property>
             <!-- @host -->
             <property name="@host" type="symbol" default="" access="readonly">
                 <tr lang="en">OSC server host</tr>
+                <tr lang="ru" finished="false">хост сервера SC</tr>
             </property>
             <!-- @name -->
             <property name="@name" type="symbol" default="default" access="initonly">
                 <tr lang="en">OSC server name</tr>
+                <tr lang="ru" finished="false">Название сервера SC</tr>
             </property>
             <!-- @path -->
             <property name="@path" type="symbol" default="" access="readonly">
                 <tr lang="en">OSC server local socket path</tr>
+                <tr lang="ru" finished="false">Сервер локального сокетного пути</tr>
             </property>
             <!-- @port -->
             <property name="@port" type="int" default="9000" access="readonly">
                 <tr lang="en">OSC server port</tr>
+                <tr lang="ru" finished="false">Серверный порт SC</tr>
             </property>
             <!-- @proto -->
             <property name="@proto" type="symbol" default="udp" access="readonly">
                 <tr lang="en">OSC server proto (udp or tcp)</tr>
+                <tr lang="ru" finished="false">Прото-сервер OSC (udp или tcp)</tr>
             </property>
             <!-- @url -->
             <property name="@url" type="atom" default="udp:9000" access="initonly">
                 <tr lang="en">OSC server url in form: PROTO:PORT (udp:12345) or just PORT, or
                 osc.PROTO://:PORT (for ex. osc.tcp://:9001)</tr>
+                <tr lang="ru" finished="false">URL сервера OSC по форме: PROTO:PORT (udp:12345) или
+                просто PORT, или osc.PROTO://:PORT (для ex. osc.tcp://:9001)</tr>
             </property>
         </properties>
         <methods>

@@ -26,28 +26,36 @@
         <arguments>
             <argument name="URL" type="atom">
                 <tr lang="en">OSC server url (like osc.udp://localhost:12345)</tr>
+                <tr lang="ru" finished="false">URL сервера OSC (например,
+                osc.udp://localhost:12345)</tr>
             </argument>
         </arguments>
         <properties>
             <!-- @host -->
             <property name="@host" type="symbol" default="" access="readonly">
                 <tr lang="en">destination host</tr>
+                <tr lang="ru" finished="false">место назначения</tr>
             </property>
             <!-- @path -->
             <property name="@path" type="symbol" default="" access="readonly">
                 <tr lang="en">socket filesystem path (if using unix proto)</tr>
+                <tr lang="ru" finished="false">путь файловой системы сокет (при использовании UNIX
+                Proto)</tr>
             </property>
             <!-- @port -->
             <property name="@port" type="int" default="0" access="readonly">
                 <tr lang="en">destination port</tr>
+                <tr lang="ru" finished="false">порт назначения</tr>
             </property>
             <!-- @proto -->
             <property name="@proto" type="symbol" default="udp" access="readonly">
                 <tr lang="en">sending protocol</tr>
+                <tr lang="ru" finished="false">Отправка протокола</tr>
             </property>
             <!-- @url -->
             <property name="@url" type="atom" default="">
                 <tr lang="en">destination url</tr>
+                <tr lang="ru" finished="false">пункт назначения url</tr>
             </property>
         </properties>
         <methods>

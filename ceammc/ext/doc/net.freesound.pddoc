@@ -33,14 +33,17 @@
             <!-- @oauth_file -->
             <property name="@oauth_file" type="symbol" default="" access="initonly">
                 <tr lang="en">path to file with OAuth2 ID/secret, one per line</tr>
+                <tr lang="ru" finished="false">путь к файлу с OAuth2 ID/secret, один на строку</tr>
             </property>
             <!-- @oauth_id -->
             <property name="@oauth_id" type="symbol" default="" access="initonly">
                 <tr lang="en">Freesound OAuth2 ID</tr>
+                <tr lang="ru" finished="false">Фризунд OAuth2 ID</tr>
             </property>
             <!-- @oauth_secret -->
             <property name="@oauth_secret" type="symbol" default="" access="initonly">
                 <tr lang="en">Freesound OAuth2 secret</tr>
+                <tr lang="ru" finished="false">Тайна Freesound OAuth2</tr>
             </property>
         </properties>
         <methods>
