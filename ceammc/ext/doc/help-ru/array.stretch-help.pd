@@ -63,82 +63,86 @@ source to destination array;
 #X obj 735 757 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 789 @aalength;
-#X text 245 789 Получить/Установить pitch transposer anti-alias filter
-length. Тип: int. Значение по умолчанию: 64\. Диапазон: 8\...128\.;
+#X text 245 789 Получить/Установить длина фильтра для борьбы со сверткой
+спектра. Тип: int. Значение по умолчанию: 64\. Диапазон: 8\...128\.;
 #X msg 110 846 @antialias;
-#X text 245 846 Получить/Установить use of anti-alias filter. Anti-alias
-filter is used to prevent folding of high frequencies when transposing
-the sample rate with interpolation. Тип: bool. Значение по умолчанию:
-0\.;
-#X msg 110 933 @dest;
-#X text 245 933 Получить/Установить destination array. Тип: symbol.;
-#X msg 110 963 @overlap;
-#X text 245 963 Получить/Установить Overlap length in milliseconds.
-When the chopped sound sequences are mixed back together \, to form
-a continuous sound stream \, this parameter defines over how long period
-the two consecutive sequences are let to overlap each other. Increasing
-this value increases computational burden & vice versa. Тип: int. Единицы:
-'ms'. Значение по умолчанию: 8\. Диапазон: 0\...100\.;
-#X msg 110 1096 @pitch;
-#X text 245 1096 Получить/Установить relative pitch change while keeping
-the original tempo. Тип: float. Единицы: 'semitone'. Значение по умолчанию:
-0\.;
-#X msg 110 1153 @rate;
-#X text 245 1153 Получить/Установить playback rate - changes both tempo
-and pitch together as if a vinyl disc was played at different RPM rate.
-Тип: float. Значение по умолчанию: 1\. Диапазон: 0.1\...2\.;
-#X msg 110 1240 @seekwindow;
-#X text 245 1240 Получить/Установить Seeking window default length
-in milliseconds for algorithm that finds the best possible overlapping
-location. This determines from how wide window the algorithm may look
-for an optimal joining location when mixing the sound sequences back
-together. The bigger this window setting is \, the higher the possibility
-to find a better mixing position will become \, but at the same time
-large values may cause a "drifting" artifact because consequent sequences
-will be taken at more uneven intervals. If there's a disturbing artifact
-that sounds as if a constant frequency was drifting around \, try reducing
-this setting. Increasing this value increases computational burden
-& vice versa. Giving *0* value for the seek window length sets automatic
-parameter value according to tempo setting (recommended). Тип: int.
-Единицы: 'ms'. Значение по умолчанию: 0\. Диапазон: 0\...100\.;
-#X msg 110 1508 @sequence;
-#X text 245 1508 Получить/Установить Default length of a single processing
-sequence \, in milliseconds. This determines to how long sequences
-the original sound is chopped in the time-stretch algorithm. The larger
-this value is \, the lesser sequences are used in processing. In principle
-a bigger value sounds better when slowing down tempo \, but worse when
-increasing tempo and vice versa. Increasing this value reduces computational
-burden & vice versa. Giving *0* value for the sequence length sets
-automatic parameter value according to tempo setting (recommended).
-Тип: int. Единицы: 'ms'. Значение по умолчанию: 0\. Диапазон: 0\...100\.;
-#X msg 110 1701 @speech;
-#X text 245 1701 Получить/Установить optimize for speech sound source.
+#X text 245 846 Получить/Установить использовать фильтр для борьбы
+со сверткой спектра. Этот фильтр используется для предотвращения сворачивания
+высоких частот при транспозиции частоты семплирования с интерполяцией.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 1743 @src;
-#X text 245 1743 Получить/Установить source array. Тип: symbol.;
-#X msg 110 1773 @tempo;
-#X text 245 1773 Получить/Установить relative tempo change without
-affecting the sound pitch. Тип: float. Единицы: '%'. Значение по умолчанию:
-0\. Диапазон: -50\...100\.;
-#X obj 20 1840 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1845 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 949 @dest;
+#X text 245 949 Получить/Установить массив назначения. Тип: symbol.;
+#X msg 110 979 @overlap;
+#X text 245 979 Получить/Установить длительность перекрытия. Когда
+отдельные небольшие куски звуковых последовательностей смешиваются
+вместе \, образуя непрерывный звуковой поток \, этот параметр определяет
+\, в течение какого периода два последовательных фрейма могут перекрывать
+друг друга. Увеличение этого значения увеличивает вычислительную нагрузку
+и наоборот. Тип: int. Единицы: 'ms'. Значение по умолчанию: 8\. Диапазон:
+0\...100\.;
+#X msg 110 1127 @pitch;
+#X text 245 1127 Получить/Установить относительное изменение высоты
+звука при сохранении первоначального темпа. Тип: float. Единицы: 'semitone'.
+Значение по умолчанию: 0\.;
+#X msg 110 1184 @rate;
+#X text 245 1184 Получить/Установить скорость воспроизведения - изменяет
+как темп \, так и высоту звука вместе \, как если бы виниловый диск
+воспроизводился с разной скоростью RPM. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0.1\...2\.;
+#X msg 110 1271 @seekwindow;
+#X text 245 1271 Получить/Установить поиск длины окна по умолчанию
+для алгоритма \, который находит наилучшее местоположения перекрытие.
+Определяет \, в насколько широком окне алгоритм может искать оптимальное
+место соединения при смешивании звуковых последовательностей вместе.
+Чем больше это окно \, тем выше будет возможность найти лучшее положение
+смешивания \, но в то же время большие значения могут вызвать «дрейфующий»
+артефакт \, потому что последующие последовательности будут приниматься
+со все более неравными интервалами. Если есть нежелательный артефакт
+\, звучащий так \, как будто постоянная частота дрейфует \, попробуйте
+уменьшить эту настройку. Увеличение этого значения увеличивает вычислительную
+нагрузку и наоборот. Указывая значение *0* для длины окна поиска устанавливает
+автоматическое значение параметра в соответствии с настройкой темпа
+(рекомендуется). Тип: int. Единицы: 'ms'. Значение по умолчанию: 0\.
+Диапазон: 0\...100\.;
+#X msg 110 1555 @sequence;
+#X text 245 1555 Получить/Установить длина по умолчанию последовательности
+обработки в миллисекундах. Определяет \, насколько длинные последовательности
+исходного звука измельчаются в алгоритме растяжения времени. Чем больше
+это значение \, тем меньшие последовательности используются в обработке.
+В принципе \, большее значение звучит лучше при замедлении темпа \,
+но хуже при увеличении темпа и наоборот. Увеличение этого значения
+снижает вычислительную нагрузку и наоборот. Указывая значение *0* для
+длины последовательности устанавливает автоматическое значение параметра
+в соответствии с настройками темпа (рекомендуется). Тип: int. Единицы:
+'ms'. Значение по умолчанию: 0\. Диапазон: 0\...100\.;
+#X msg 110 1763 @speech;
+#X text 245 1763 Получить/Установить оптимизация для речи. Тип: bool.
+Значение по умолчанию: 0\.;
+#X msg 110 1805 @src;
+#X text 245 1805 Получить/Установить исходный массив. Тип: symbol.;
+#X msg 110 1835 @tempo;
+#X text 245 1835 Получить/Установить относительное изменение темпа
+без влияния на высоту звука. Тип: float. Единицы: '%'. Значение по
+умолчанию: 0\. Диапазон: -50\...100\.;
+#X obj 20 1902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1907 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1846 1\.;
-#X text 150 1846 *bang*;
-#X text 245 1846 starts processing.;
-#X obj 20 1876 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1881 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1908 1\.;
+#X text 150 1908 *bang*;
+#X text 245 1908 starts processing.;
+#X obj 20 1938 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1943 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1882 1\.;
-#X text 245 1882 float value - number of result samples.;
+#X text 110 1944 1\.;
+#X text 245 1944 float value - number of result samples.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1932 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1935 библиотека: ceammc v0.9.8;
-#N canvas 10 1954 400 290 info 0;
+#X obj 1 1994 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1997 библиотека: ceammc v0.9.8;
+#N canvas 10 2016 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -162,7 +166,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1954 pd info;
+#X restore 10 2016 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;

@@ -33,48 +33,48 @@
             <!-- @best -->
             <property name="@best" type="alias">
                 <tr lang="en">alias to @quality best</tr>
-                <tr lang="ru" finished="false">Исполнитель: @quality Best</tr>
+                <tr lang="ru">сокращение для @quality best</tr>
             </property>
             <!-- @dest -->
             <property name="@dest" type="symbol" default="">
                 <tr lang="en">destination array</tr>
-                <tr lang="ru" finished="false">пункт назначения</tr>
+                <tr lang="ru">массив назначения</tr>
             </property>
             <!-- @fast -->
             <property name="@fast" type="alias">
                 <tr lang="en">alias to @quality fast</tr>
-                <tr lang="ru" finished="false">Исполнитель: @quality Fast</tr>
+                <tr lang="ru">сокращение для @quality fast</tr>
             </property>
             <!-- @high -->
             <property name="@high" type="alias">
                 <tr lang="en">alias to @quality high</tr>
-                <tr lang="ru" finished="false">Исполнитель: @quality high</tr>
+                <tr lang="ru">сокращение для @quality high</tr>
             </property>
             <!-- @low -->
             <property name="@low" type="alias">
                 <tr lang="en">alias to @quality low</tr>
-                <tr lang="ru" finished="false">Оригинальное название: Quality Low</tr>
+                <tr lang="ru">сокращение для @quality low</tr>
             </property>
             <!-- @medium -->
             <property name="@medium" type="alias">
                 <tr lang="en">alias to @quality medium</tr>
-                <tr lang="ru" finished="false">Источник: @quality medium</tr>
+                <tr lang="ru">сокращение для @quality medium</tr>
             </property>
             <!-- @quality -->
             <property name="@quality" type="symbol" enum="high fast low medium best"
             default="high">
                 <tr lang="en">resample quality</tr>
-                <tr lang="ru" finished="false">качество образцов</tr>
+                <tr lang="ru">качество ресемплинга</tr>
             </property>
             <!-- @ratio -->
             <property name="@ratio" type="float" minvalue="0" default="0">
                 <tr lang="en">resample ratio (src/dest)</tr>
-                <tr lang="ru" finished="false">Соотношение повторных образцов (src/dest)</tr>
+                <tr lang="ru">соотношение ресемплинга (src/dest)</tr>
             </property>
             <!-- @src -->
             <property name="@src" type="symbol" default="">
                 <tr lang="en">source array</tr>
-                <tr lang="ru" finished="false">источник</tr>
+                <tr lang="ru">исходный массив</tr>
             </property>
         </properties>
         <inlets>

@@ -34,12 +34,12 @@
 #X obj 735 459 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 491 @array;
-#X text 245 491 Получить/Установить array name. Тип: symbol.;
+#X text 245 491 Получить/Установить имя массива. Тип: symbol.;
 #X msg 110 521 @redraw;
-#X text 245 521 Получить/Установить redraw after array change. Тип:
-bool. Значение по умолчанию: 1\.;
+#X text 245 521 Получить/Установить перерисовать после изменения массива.
+Тип: bool. Значение по умолчанию: 1\.;
 #X msg 110 563 @type;
-#X text 245 563 Получить/Установить window type. Тип: symbol. Значение
+#X text 245 563 Получить/Установить тип окна. Тип: symbol. Значение
 по умолчанию: hann. Разрешённые значения: tri \, welch \, hann \, sine
 \, rect \, hamming \, blackman \, nuttall \, blackman-harris \, flattop
 \, gauss.;
@@ -67,7 +67,8 @@ bool. Значение по умолчанию: 1\.;
 #X msg 110 952 resize;
 #X text 245 952 resize specified array to given size. Аргументы:;
 #X obj 255 975 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 975 [N]: new size. Тип: int. Минимальное значение: 0\.;
+#X text 255 975 [N]: новый размер. Тип: int. Минимальное значение:
+0\.;
 #X msg 110 1000 sine;
 #X text 245 1000 generate sine window.;
 #X msg 110 1028 tri;

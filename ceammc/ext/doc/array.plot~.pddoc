@@ -38,22 +38,22 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
-                <tr lang="ru" finished="false">имя массива</tr>
+                <tr lang="ru">имя массива</tr>
             </property>
             <!-- @yauto -->
             <property name="@yauto" type="bool" default="0">
                 <tr lang="en">calculate y-axis range automatically</tr>
-                <tr lang="ru" finished="false">Вычислить диапазон y-оси автоматически</tr>
+                <tr lang="ru">вычислить диапазон y-оси автоматически</tr>
             </property>
             <!-- @ymax -->
             <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
                 <tr lang="en">minimal y-axis value</tr>
-                <tr lang="ru" finished="false">Минимальное значение y-оси</tr>
+                <tr lang="ru">минимальное значение y-оси</tr>
             </property>
             <!-- @ymin -->
             <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
                 <tr lang="en">minimal y-axis value</tr>
-                <tr lang="ru" finished="false">Минимальное значение y-оси</tr>
+                <tr lang="ru">минимальное значение y-оси</tr>
             </property>
         </properties>
         <inlets>

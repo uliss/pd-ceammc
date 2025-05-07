@@ -41,7 +41,7 @@
 #X msg 110 487 @array;
 #X text 245 487 Get/Set array name. Type: symbol.;
 #X msg 110 517 @nan;
-#X text 245 517 Get/Set value to replace nan on plot. Type: float.
+#X text 245 517 Get/Set value to replace NaN on plot. Type: float.
 Default value: +inf.;
 #X msg 110 559 @yauto;
 #X text 245 559 Get/Set calculate y-axis range automatically. Type:

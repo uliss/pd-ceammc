@@ -41,26 +41,26 @@
 #X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 453 @best;
-#X text 245 453 Alias to @quality best.;
+#X text 245 453 Сокращение для @quality best.;
 #X msg 110 483 @dest;
-#X text 245 483 Получить/Установить destination array. Тип: symbol.;
+#X text 245 483 Получить/Установить массив назначения. Тип: symbol.;
 #X msg 110 513 @fast;
-#X text 245 513 Alias to @quality fast.;
+#X text 245 513 Сокращение для @quality fast.;
 #X msg 110 543 @high;
-#X text 245 543 Alias to @quality high.;
+#X text 245 543 Сокращение для @quality high.;
 #X msg 110 573 @low;
-#X text 245 573 Alias to @quality low.;
+#X text 245 573 Сокращение для @quality low.;
 #X msg 110 603 @medium;
-#X text 245 603 Alias to @quality medium.;
+#X text 245 603 Сокращение для @quality medium.;
 #X msg 110 633 @quality;
-#X text 245 633 Получить/Установить resample quality. Тип: symbol.
+#X text 245 633 Получить/Установить качество ресемплинга. Тип: symbol.
 Значение по умолчанию: high. Разрешённые значения: high \, fast \,
 low \, medium \, best.;
 #X msg 110 690 @ratio;
-#X text 245 690 Получить/Установить resample ratio (src/dest). Тип:
-float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
+#X text 245 690 Получить/Установить соотношение ресемплинга (src/dest).
+Тип: float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
 #X msg 110 732 @src;
-#X text 245 732 Получить/Установить source array. Тип: symbol.;
+#X text 245 732 Получить/Установить исходный массив. Тип: symbol.;
 #X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 777 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

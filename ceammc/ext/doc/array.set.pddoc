@@ -33,18 +33,18 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
-                <tr lang="ru" finished="false">имя массива</tr>
+                <tr lang="ru">имя массива</tr>
             </property>
             <!-- @normalize -->
             <property name="@normalize" type="flag" default="0" access="initonly">
                 <tr lang="en">scale input values to fit them in [0, 1] range</tr>
-                <tr lang="ru" finished="false">масштабировать входные значения, чтобы вписать их в
+                <tr lang="ru">масштабировать входные значения, чтобы вместить их в
                 [0, 1] диапазон</tr>
             </property>
             <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">
                 <tr lang="en">redraw array view</tr>
-                <tr lang="ru" finished="false">перерисовать массив</tr>
+                <tr lang="ru">перерисовать массив</tr>
             </property>
         </properties>
         <inlets>

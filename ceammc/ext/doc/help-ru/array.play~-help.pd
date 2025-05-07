@@ -109,51 +109,53 @@ float. Значение по умолчанию: 1\. Минимальное зн
 #X msg 110 1575 pause;
 #X text 245 1575 pause/resume playback. Аргументы:;
 #X obj 255 1598 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1598 [anonym=1]: if true: pause \, else resume playing.
-Тип: int. Разрешённые значения: 0 \, 1\.;
+#X text 255 1598 [anonym=1]: если истинно: ставит на паузу \, иначе
+возобновляет воспроизведение. Тип: int. Разрешённые значения: 0 \,
+1\.;
 #X msg 110 1638 play;
 #X text 245 1638 start playback from current play position.;
 #X msg 110 1666 range;
 #X text 245 1666 set @begin and @end property. Аргументы:;
 #X obj 255 1689 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1689 BEGIN: begin position. If float value given: interpret
-as phase in [0\..1] range. Otherwise unit value expected. Examples:
-10ms \, 5% \, 4sec \, 20samp etc. Тип: atom.;
-#X obj 255 1742 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1742 END: end position. Value type same as for first argument.
-Тип: atom.;
-#X msg 110 1782 stop;
-#X text 245 1782 stop playback and reset play position.;
-#X obj 20 1820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1825 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 255 1689 BEGIN: начальная позиция. Если дано числовое значение:
+интерпретировать как фазу в [0\..1] диапазоне. В противном случае ожидается
+значение с единицами времени. Примеры: 10ms \, 5% \, 4sec \, 20samp
+и т.д. Тип: atom.;
+#X obj 255 1772 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1772 END: конечная позиция. Тип значения \, аналогичный
+первому аргументу. Тип: atom.;
+#X msg 110 1812 stop;
+#X text 245 1812 stop playback and reset play position.;
+#X obj 20 1850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1826 1\.;
-#X text 150 1826 *bang*;
-#X text 245 1826 resets play position and starts playback.;
-#X text 150 1846 *float*;
-#X text 245 1846 starts playback from the specified sample. Negative
+#X text 110 1856 1\.;
+#X text 150 1856 *bang*;
+#X text 245 1856 resets play position and starts playback.;
+#X text 150 1876 *float*;
+#X text 245 1876 starts playback from the specified sample. Negative
 offsets are also supported: -10 means play last 10 samples of array
 till the end.;
-#X obj 20 1906 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1911 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1941 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1912 1\.;
-#X text 245 1912 played signal.;
-#X text 110 1932 2\.;
-#X text 245 1932 output current playing position according to @cfmt
+#X text 110 1942 1\.;
+#X text 245 1942 played signal.;
+#X text 110 1962 2\.;
+#X text 245 1962 output current playing position according to @cfmt
 property. By default output seconds.;
-#X text 110 1967 3\.;
-#X text 245 1967 output bang when finished.;
+#X text 110 1997 3\.;
+#X text 245 1997 output bang when finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 2017 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2020 библиотека: ceammc v0.9.8;
-#X text 560 2032 смотрите также:;
-#X obj 681 2032 tabplay~;
-#N canvas 10 2039 400 290 info 0;
+#X obj 1 2047 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2050 библиотека: ceammc v0.9.8;
+#X text 560 2062 смотрите также:;
+#X obj 681 2062 tabplay~;
+#N canvas 10 2069 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -177,7 +179,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2039 pd info;
+#X restore 10 2069 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
