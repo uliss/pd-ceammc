@@ -105,15 +105,15 @@
             <property name="@method" type="symbol"
             enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
             default="default">
-                <tr lang="en">onset method. Default is hfc.</tr>
-                <tr lang="ru" finished="false">Метод начала. По умолчанию hfc.</tr>
+                <tr lang="en">onset detection method</tr>
+                <tr lang="ru">метод детекции атаки</tr>
             </property>
             <!-- @mkl -->
             <property name="@mkl" type="alias">
                 <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
                 function</tr>
-                <tr lang="ru" finished="false">псевдоним @method mkl. Модифицированная функция
-                обнаружения начала Kullback-Liebler</tr>
+                <tr lang="ru">псевдоним для @method mkl. Модифицированная функция
+                обнаружения атаки Kullback-Liebler</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="alias">
@@ -132,7 +132,7 @@
             <property name="@specdiff" type="alias">
                 <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
                 function</tr>
-                <tr lang="ru" finished="false">псевдоним @method specdiff. Функция обнаружения
+                <tr lang="ru" finished="false">псевдоним для @method specdiff. Функция обнаружения
                 начала спектральной разности</tr>
             </property>
             <!-- @specflux -->
@@ -144,8 +144,8 @@
             <!-- @speedlim -->
             <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
                 <tr lang="en">minimum interval between two consecutive onsets</tr>
-                <tr lang="ru" finished="false">Минимальный интервал между двумя последовательными
-                наступлениями</tr>
+                <tr lang="ru">минимальный интервал между двумя последовательными
+                атаками</tr>
             </property>
             <!-- @threshold -->
             <property name="@threshold" type="float" default="0.058">

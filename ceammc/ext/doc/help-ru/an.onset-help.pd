@@ -109,14 +109,14 @@ detection.;
 #X text 245 1240 Alias to @method kl. Kullback-Liebler onset detection
 function.;
 #X msg 110 1282 @method;
-#X text 245 1282 Получить/Установить onset method. Default is hfc.
-Тип: symbol. Значение по умолчанию: default. Разрешённые значения:
-specflux \, phase \, energy \, hfc \, kl \, complex \, default \, specdiff
-\, wphase \, rolloff \, spread \, kurtosis \, skewness \, complexdomain
-\, decrease \, slope \, centroid.;
+#X text 245 1282 Получить/Установить метод детекции атаки. Тип: symbol.
+Значение по умолчанию: default. Разрешённые значения: specflux \, phase
+\, energy \, hfc \, kl \, complex \, default \, specdiff \, wphase
+\, rolloff \, spread \, kurtosis \, skewness \, complexdomain \, decrease
+\, slope \, centroid.;
 #X msg 110 1385 @mkl;
-#X text 245 1385 Alias to @method mkl. Modified Kullback-Liebler onset
-detection function.;
+#X text 245 1385 Псевдоним для @method mkl. Модифицированная функция
+обнаружения атаки Kullback-Liebler.;
 #X msg 110 1427 @phase;
 #X text 245 1427 Alias to @method phase. Phase Based Method onset detection
 function.;
@@ -129,9 +129,9 @@ onset detection function.;
 #X msg 110 1568 @specflux;
 #X text 245 1568 Alias to @method specflux. Spectral Flux.;
 #X msg 110 1598 @speedlim;
-#X text 245 1598 Получить/Установить minimum interval between two consecutive
-onsets. Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Минимальное
-значение: 1\.;
+#X text 245 1598 Получить/Установить минимальный интервал между двумя
+последовательными атаками. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+50\. Минимальное значение: 1\.;
 #X msg 110 1655 @threshold;
 #X text 245 1655 Получить/Установить peak picking threshold. Тип: float.
 Значение по умолчанию: 0.058\.;

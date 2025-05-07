@@ -36,63 +36,63 @@
             <!-- @amp -->
             <property name="@amp" type="float" default="1" minvalue="0">
                 <tr lang="en">playback amplitude</tr>
-                <tr lang="ru" finished="false">амплитуда воспроизведения</tr>
+                <tr lang="ru">амплитуда воспроизведения</tr>
             </property>
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
-                <tr lang="ru" finished="false">имя массива</tr>
+                <tr lang="ru">имя массива</tr>
             </property>
             <!-- @begin -->
             <property name="@begin" type="float" default="0" units="sample">
                 <tr lang="en">playback start position. Negative value means position relative to
                 the end of the array</tr>
-                <tr lang="ru" finished="false">Позиция начала воспроизведения. Отрицательное
+                <tr lang="ru">позиция начала воспроизведения. Отрицательное
                 значение означает положение относительно конца массива</tr>
             </property>
             <!-- @cfmt -->
             <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">
                 <tr lang="en">clock output format</tr>
-                <tr lang="ru" finished="false">выходной формат часов</tr>
+                <tr lang="ru">выходной формат времени</tr>
             </property>
             <!-- @clock -->
             <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20"
             units="second">
                 <tr lang="en">clock output period. Zero means: no clock output (by default).</tr>
-                <tr lang="ru" finished="false">Время выхода часов. Zero означает: отсутствие вывода
-                часов (по умолчанию).</tr>
+                <tr lang="ru">период вывода значения времени. Ноль означает: отсутствие вывода
+                времени (по умолчанию).</tr>
             </property>
             <!-- @cursor_ms -->
             <property name="@cursor_ms" type="float" default="0" units="millisecond">
                 <tr lang="en">current play position</tr>
-                <tr lang="ru" finished="false">Текущая игровая позиция</tr>
+                <tr lang="ru">текущая позиция воспроизведения</tr>
             </property>
             <!-- @cursor_phase -->
             <property name="@cursor_phase" type="float" default="0">
                 <tr lang="en">current play position</tr>
-                <tr lang="ru" finished="false">Текущая игровая позиция</tr>
+                <tr lang="ru">текущая позиция воспроизведения</tr>
             </property>
             <!-- @cursor_samp -->
             <property name="@cursor_samp" type="float" default="0" units="sample">
                 <tr lang="en">current play position</tr>
-                <tr lang="ru" finished="false">Текущая игровая позиция</tr>
+                <tr lang="ru">текущая позиция воспроизведения</tr>
             </property>
             <!-- @cursor_sec -->
             <property name="@cursor_sec" type="float" default="0" units="second">
                 <tr lang="en">current play position</tr>
-                <tr lang="ru" finished="false">Текущая игровая позиция</tr>
+                <tr lang="ru">текущая позиция воспроизведения</tr>
             </property>
             <!-- @end -->
             <property name="@end" type="float" default="-1" units="sample">
                 <tr lang="en">playback end position. Negative value means position relative to the
                 end of the array</tr>
-                <tr lang="ru" finished="false">Положение конца воспроизведения. Отрицательное
+                <tr lang="ru">позиция конца воспроизведения. Отрицательное
                 значение означает положение относительно конца массива</tr>
             </property>
             <!-- @interp -->
             <property name="@interp" type="int" enum="0 1 3" default="1">
                 <tr lang="en">interpolation type. 0: no interpolation 1: linear, 3: cubic.</tr>
-                <tr lang="ru" finished="false">Тип интерполяции. 0: нет интерполяции 1: линейная,
+                <tr lang="ru">тип интерполяции. 0: без интерполяции 1: линейная,
                 3: кубическая.</tr>
             </property>
             <!-- @loop -->
@@ -103,7 +103,7 @@
             <!-- @select_ms -->
             <property name="@select_ms" type="list" default="0 0" units="millisecond">
                 <tr lang="en">selection range</tr>
-                <tr lang="ru" finished="false">диапазон выбора</tr>
+                <tr lang="ru">диапазон выбора</tr>
             </property>
             <!-- @select_phase -->
             <property name="@select_phase" type="list" default="0 0">
@@ -113,24 +113,24 @@
             <!-- @select_samp -->
             <property name="@select_samp" type="list" default="0 0" units="sample">
                 <tr lang="en">selection range</tr>
-                <tr lang="ru" finished="false">диапазон выбора</tr>
+                <tr lang="ru">диапазон выбора</tr>
             </property>
             <!-- @select_sec -->
             <property name="@select_sec" type="list" default="0 0" units="second">
                 <tr lang="en">selection range</tr>
-                <tr lang="ru" finished="false">диапазон выбора</tr>
+                <tr lang="ru">диапазон выбора</tr>
             </property>
             <!-- @speed -->
             <property name="@speed" type="float" default="1">
                 <tr lang="en">playback speed. Negative value means reversed playback</tr>
-                <tr lang="ru" finished="false">Скорость воспроизведения. Отрицательное значение
+                <tr lang="ru">скорость воспроизведения. Отрицательное значение
                 означает обратное воспроизведение</tr>
             </property>
             <!-- @state -->
             <property name="@state" type="int" default="0" access="readonly">
                 <tr lang="en">playing state. 0: stopped, 1: playing, 2: paused.</tr>
-                <tr lang="ru" finished="false">Играть в государство. 0: остановился, 1: играл, 2:
-                остановился.</tr>
+                <tr lang="ru">состояние воспроизведения. 0: остановка, 1: воспроизведение, 2:
+                пауза</tr>
             </property>
         </properties>
         <methods>

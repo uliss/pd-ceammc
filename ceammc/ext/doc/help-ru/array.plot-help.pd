@@ -41,7 +41,7 @@
 #X obj 735 485 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 517 @array;
-#X text 245 517 Получить/Установить array name. Тип: symbol.;
+#X text 245 517 Получить/Установить имя массива. Тип: symbol.;
 #X msg 110 547 @nan;
 #X text 245 547 Получить/Установить value to replace nan on plot. Тип:
 float. Значение по умолчанию: +inf.;

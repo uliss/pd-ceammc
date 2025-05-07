@@ -104,11 +104,10 @@ detection.;
 #X text 245 1183 Alias to @method kl. Kullback-Liebler onset detection
 function.;
 #X msg 110 1225 @method;
-#X text 245 1225 Get/Set onset method. Default is hfc. Type: symbol.
-Default value: default. Allowed values: specflux \, phase \, energy
-\, hfc \, kl \, complex \, default \, specdiff \, wphase \, rolloff
-\, spread \, kurtosis \, skewness \, complexdomain \, decrease \, slope
-\, centroid.;
+#X text 245 1225 Get/Set onset detection method. Type: symbol. Default
+value: default. Allowed values: specflux \, phase \, energy \, hfc
+\, kl \, complex \, default \, specdiff \, wphase \, rolloff \, spread
+\, kurtosis \, skewness \, complexdomain \, decrease \, slope \, centroid.;
 #X msg 110 1312 @mkl;
 #X text 245 1312 Alias to @method mkl. Modified Kullback-Liebler onset
 detection function.;

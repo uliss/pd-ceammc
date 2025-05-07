@@ -26,12 +26,12 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
-                <tr lang="ru" finished="false">имя массива</tr>
+                <tr lang="ru">имя массива</tr>
             </property>
             <!-- @fps -->
             <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">
                 <tr lang="en">expected LTC stream framerate</tr>
-                <tr lang="ru" finished="false">ожидаемый LTC поток кадров</tr>
+                <tr lang="ru">ожидаемый скорость потока кадров LTC</tr>
             </property>
         </properties>
         <inlets>

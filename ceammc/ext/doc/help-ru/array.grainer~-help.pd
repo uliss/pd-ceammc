@@ -47,7 +47,7 @@
 #X obj 735 899 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 931 @array;
-#X text 245 931 Получить/Установить array name. Тип: symbol.;
+#X text 245 931 Получить/Установить имя массива. Тип: symbol.;
 #X msg 110 961 @prob;
 #X text 245 961 Получить/Установить grain start probability in internal
 or external sync mode. ('int' or 'ext'). Тип: float. Значение по умолчанию:

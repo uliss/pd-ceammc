@@ -28,7 +28,7 @@
 #X text 245 568 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
 Default value: 1024\. Range: 1\...65536\.;
 #X msg 110 610 @clock;
-#X text 245 610 (initonly) Get/Set alias for @mode count @bs 1\. Output
+#X text 245 610 (initonly) Get/Set alias for @mode count @bs 1\. Outputs
 impulse at each zero crossing. Type: list. Default value: 0\.;
 #X msg 110 652 @mode;
 #X text 245 652 Get/Set calculation mode: if 'count' - output number

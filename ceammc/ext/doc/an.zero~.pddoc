@@ -25,14 +25,14 @@
             <property name="@bs" type="int" minvalue="1" default="1024" maxvalue="65536"
             units="sample" access="initonly">
                 <tr lang="en">buffer size</tr>
-                <tr lang="ru" finished="false">размер буфера</tr>
+                <tr lang="ru">размер буфера</tr>
             </property>
             <!-- @clock -->
             <property name="@clock" type="list" default="0" access="initonly">
-                <tr lang="en">alias for @mode count @bs 1. Output impulse at each zero
-                crossing.</tr>
-                <tr lang="ru" finished="false">alias for @mode count @bs 1. Выходной импульс при
-                каждом пересечении нуля.</tr>
+                <tr lang="en">alias for @mode count @bs 1. Outputs impulse at each zero
+                crossing</tr>
+                <tr lang="ru">сокращение для @mode count @bs 1. Выводит импульс при
+                каждом пересечении нуля</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="count rate freq" default="count">

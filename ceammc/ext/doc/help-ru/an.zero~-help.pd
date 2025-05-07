@@ -26,13 +26,13 @@
 #X obj 735 536 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 568 @bs;
-#X text 245 568 (при инициализации) Получить/Установить buffer size.
+#X text 245 568 (при инициализации) Получить/Установить размер буфера.
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Диапазон:
 1\...65536\.;
 #X msg 110 625 @clock;
-#X text 245 625 (при инициализации) Получить/Установить alias for @mode
-count @bs 1\. Output impulse at each zero crossing. Тип: list. Значение
-по умолчанию: 0\.;
+#X text 245 625 (при инициализации) Получить/Установить сокращение
+для @mode count @bs 1\. Выводит импульс при каждом пересечении нуля.
+Тип: list. Значение по умолчанию: 0\.;
 #X msg 110 682 @mode;
 #X text 245 682 Получить/Установить calculation mode: if 'count' -
 output number of zero crossing occurred in a period of current block
