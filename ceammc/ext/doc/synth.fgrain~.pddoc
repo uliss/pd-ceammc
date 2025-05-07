@@ -66,7 +66,9 @@
             <!-- open -->
             <method name="open">open a monophonic soundfile to be "granulated". Only WAV and AIFF
             formats are supported. 
-            <param name="PATH" type="symbol">path to file</param></method>
+            <param name="PATH" type="symbol">
+                <tr lang="en">path to file</tr>
+            </param></method>
             <!-- reset -->
             <method name="reset">reset the file pointer and all existing grains to the file
             start</method>

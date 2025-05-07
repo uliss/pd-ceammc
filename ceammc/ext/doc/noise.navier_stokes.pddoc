@@ -54,38 +54,53 @@
         <methods>
             <!-- a -->
             <method name="a">
-                <param name="A" type="float" required="true">a value</param>
+                <param name="A" type="float" required="true">
+                    <tr lang="en">a value</tr>
+                </param>
             </method>
             <!-- b -->
             <method name="b">
-                <param name="B" type="float" required="true">b value</param>
+                <param name="B" type="float" required="true">
+                    <tr lang="en">b value</tr>
+                </param>
             </method>
             <!-- c -->
             <method name="c">
-                <param name="C" type="float" required="true">c value</param>
+                <param name="C" type="float" required="true">
+                    <tr lang="en">c value</tr>
+                </param>
             </method>
             <!-- d -->
             <method name="d">
-                <param name="D" type="float" required="true">d value</param>
+                <param name="D" type="float" required="true">
+                    <tr lang="en">d value</tr>
+                </param>
             </method>
             <!-- dt -->
             <method name="dt">
-                <param name="DT" type="float" required="true">dt value</param>
+                <param name="DT" type="float" required="true">
+                    <tr lang="en">dt value</tr>
+                </param>
             </method>
             <!-- om -->
             <method name="om">
-                <param name="OM" type="int" required="true">enables output when cut or fold value
-                is changed</param>
+                <param name="OM" type="int" required="true">
+                    <tr lang="en">enables output when cut or fold value is changed</tr>
+                </param>
             </method>
             <!-- r -->
             <method name="r">
-                <param name="R" type="float" required="true">r value</param>
+                <param name="R" type="float" required="true">
+                    <tr lang="en">r value</tr>
+                </param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- set -->
             <method name="set">
-                <param name="SET" type="float" required="true">set to value</param>
+                <param name="SET" type="float" required="true">
+                    <tr lang="en">set to value</tr>
+                </param>
             </method>
         </methods>
         <inlets>

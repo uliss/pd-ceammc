@@ -51,19 +51,28 @@
             <method name="close">close MQTT connection</method>
             <!-- connect -->
             <method name="connect">connect to websocket server 
-            <param name="URL" type="symbol" required="true">mqtt server url, for ex.:
-            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1
-            etc.</param></method>
+            <param name="URL" type="symbol" required="true">
+                <tr lang="en">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
+                tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 etc.</tr>
+            </param></method>
             <!-- publish -->
             <method name="publish">publish message to topic 
-            <param name="TOPIC" type="symbol" required="true">topic</param>
-            <param name="ARGS" type="list" required="false">content</param></method>
+            <param name="TOPIC" type="symbol" required="true">
+                <tr lang="en">topic</tr>
+            </param>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">content</tr>
+            </param></method>
             <!-- subscribe -->
             <method name="subscribe">subscribe to topic 
-            <param name="TOPIC" type="symbol" required="true">topic</param></method>
+            <param name="TOPIC" type="symbol" required="true">
+                <tr lang="en">topic</tr>
+            </param></method>
             <!-- unsubscribe -->
             <method name="unsubscribe">unsubscribe from topic 
-            <param name="TOPIC" type="symbol" required="true">topic</param></method>
+            <param name="TOPIC" type="symbol" required="true">
+                <tr lang="en">topic</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

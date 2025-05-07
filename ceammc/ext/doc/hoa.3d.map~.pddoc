@@ -63,24 +63,44 @@
             <method name="car">alias to cartesian method</method>
             <!-- cartesian -->
             <method name="cartesian">set source mapping in cartesian coordinates 
-            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
-            <param name="X" type="float" required="true">x coordinate</param>
-            <param name="Y" type="float" required="true">y coordinate</param>
-            <param name="Z" type="float" required="true">z coordinate</param></method>
+            <param name="IDX" type="int" required="true" minvalue="1">
+                <tr lang="en">source index. 1-based</tr>
+            </param>
+            <param name="X" type="float" required="true">
+                <tr lang="en">x coordinate</tr>
+            </param>
+            <param name="Y" type="float" required="true">
+                <tr lang="en">y coordinate</tr>
+            </param>
+            <param name="Z" type="float" required="true">
+                <tr lang="en">z coordinate</tr>
+            </param></method>
             <!-- mute -->
             <method name="mute">mute/unmute specified source 
-            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
-            <param name="STATE" type="int" required="true" enum="0 1">mute value</param></method>
+            <param name="IDX" type="int" required="true" minvalue="1">
+                <tr lang="en">source index. 1-based</tr>
+            </param>
+            <param name="STATE" type="int" required="true" enum="0 1">
+                <tr lang="en">mute value</tr>
+            </param></method>
             <!-- pol -->
             <method name="pol">alias to polar method</method>
             <!-- polar -->
             <method name="polar">set source mapping in polar coordinates 
-            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
-            <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">radius</param>
+            <param name="IDX" type="int" required="true" minvalue="1">
+                <tr lang="en">source index. 1-based</tr>
+            </param>
+            <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">
+                <tr lang="en">radius</tr>
+            </param>
             <param name="AZIM" type="float" required="true" minvalue="0" maxvalue="2π"
-            units="radian">azimuth angle</param>
+            units="radian">
+                <tr lang="en">azimuth angle</tr>
+            </param>
             <param name="ELEV" type="float" required="true" minvalue="0" maxvalue="2π"
-            units="radian">elevation</param></method>
+            units="radian">
+                <tr lang="en">elevation</tr>
+            </param></method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

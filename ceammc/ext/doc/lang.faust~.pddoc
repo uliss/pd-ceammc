@@ -46,16 +46,19 @@
             <method name="open">open editor window</method>
             <!-- read -->
             <method name="read">read Faust code from file and compile it. 
-            <param name="FILE" type="symbol" required="true">file path, absolute or relative to
-            patch, include directories</param></method>
+            <param name="FILE" type="symbol" required="true">
+                <tr lang="en">file path, absolute or relative to patch, include directories</tr>
+            </param></method>
             <!-- reset -->
             <method name="reset">reset object state</method>
             <!-- write -->
             <method name="write">write Faust code to file. 
-            <param name="FILE" type="symbol" required="true">file path, absolute or relative to
-            patch</param>
-            <param name="@force" type="property" required="false">overwrite existing
-            files</param></method>
+            <param name="FILE" type="symbol" required="true">
+                <tr lang="en">file path, absolute or relative to patch</tr>
+            </param>
+            <param name="@force" type="property" required="false">
+                <tr lang="en">overwrite existing files</tr>
+            </param></method>
         </methods>
         <inlets dynamic="true">
             <inlet number="1">

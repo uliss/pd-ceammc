@@ -42,17 +42,21 @@
         <methods>
             <!-- add -->
             <method name="add">add URI to playlist 
-            <param name="URI" type="symbol" required="true">resource URI (file:// or http:// or
-            camera://)</param></method>
+            <param name="URI" type="symbol" required="true">
+                <tr lang="en">resource URI (file:// or http:// or camera://)</tr>
+            </param></method>
             <!-- browse -->
             <method name="browse">browse resource 
-            <param name="URI" type="symbol" required="true">resource URI
-            (file:///path)</param></method>
+            <param name="URI" type="symbol" required="true">
+                <tr lang="en">resource URI (file:///path)</tr>
+            </param></method>
             <!-- clear -->
             <method name="clear">clear playlist</method>
             <!-- delete -->
             <method name="delete">delete item from playlist 
-            <param name="ID" type="int">playlist entry id</param></method>
+            <param name="ID" type="int">
+                <tr lang="en">playlist entry id</tr>
+            </param></method>
             <!-- fs -->
             <method name="fs">toggle VLC fullscreen mode</method>
             <!-- loop -->
@@ -61,7 +65,9 @@
             <method name="next">go to the next entry on the playlist</method>
             <!-- pause -->
             <method name="pause">pause/resume playback 
-            <param name="VAL" type="int" enum="0 1">1 or omitted: pause, 0: resume</param></method>
+            <param name="VAL" type="int" enum="0 1">
+                <tr lang="en">1 or omitted: pause, 0: resume</tr>
+            </param></method>
             <!-- play -->
             <method name="play">start playback</method>
             <!-- playlist -->
@@ -70,16 +76,19 @@
             <method name="prev">go to the previous entry on the playlist</method>
             <!-- seek -->
             <method name="seek">seek playback position 
-            <param name="TIME" type="atom" required="true">absolute time position (int value in
-            seconds or 00h:00m:00s) or relative offset (+val, -val)</param></method>
+            <param name="TIME" type="atom" required="true">
+                <tr lang="en">absolute time position (int value in seconds or 00h:00m:00s) or
+                relative offset (+val, -val)</tr>
+            </param></method>
             <!-- status -->
             <method name="status">request playback status. Output as dict to second outlet</method>
             <!-- stop -->
             <method name="stop">stop playback</method>
             <!-- volume -->
             <method name="volume">set playing volume 
-            <param name="VAL" type="atom" required="true">absolute value in percent or relative
-            change +VOL or -VOL</param></method>
+            <param name="VAL" type="atom" required="true">
+                <tr lang="en">absolute value in percent or relative change +VOL or -VOL</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

@@ -96,7 +96,8 @@
             <!-- preset -->
             <method name="preset">choose predefined preset 
             <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
-            name</param></method>
+                <tr lang="en">name</tr>
+            </param></method>
             <!-- reset -->
             <method name="reset">reset to initial state</method>
         </methods>

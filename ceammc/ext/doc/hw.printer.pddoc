@@ -39,14 +39,19 @@
         <methods>
             <!-- choose -->
             <method name="choose">choose printer by index 
-            <param name="IDX" type="int" minvalue="0">printer index in device list</param></method>
+            <param name="IDX" type="int" minvalue="0">
+                <tr lang="en">printer index in device list</tr>
+            </param></method>
             <!-- devices -->
             <method name="devices">list printers</method>
             <!-- print -->
             <method name="print">print file 
-            <param name="FILE" type="symbol" required="true">file to print</param>
-            <param name="@landscape" type="bool" required="false">print in landscape
-            mode</param></method>
+            <param name="FILE" type="symbol" required="true">
+                <tr lang="en">file to print</tr>
+            </param>
+            <param name="@landscape" type="bool" required="false">
+                <tr lang="en">print in landscape mode</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

@@ -52,7 +52,9 @@
         <methods>
             <!-- custom -->
             <method name="custom">set custom 
-            <param name="KEYSTR" type="symbol" required="true">key string</param></method>
+            <param name="KEYSTR" type="symbol" required="true">
+                <tr lang="en">key string</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

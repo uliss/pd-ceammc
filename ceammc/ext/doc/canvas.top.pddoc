@@ -66,8 +66,9 @@
         <methods>
             <!-- postscript -->
             <method name="postscript">save patch to postscript 
-            <param name="FNAME" type="symbol" required="false">file. If not specified patch name
-            used with .ps extension</param></method>
+            <param name="FNAME" type="symbol" required="false">
+                <tr lang="en">file. If not specified patch name used with .ps extension</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

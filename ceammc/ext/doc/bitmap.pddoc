@@ -49,48 +49,86 @@
         <methods>
             <!-- arc -->
             <method name="arc">draw arc 
-            <param name="X" type="int" required="true">x coord</param>
-            <param name="Y" type="int" required="true">y coord</param>
-            <param name="D" type="int" required="true">diameter</param>
-            <param name="START" type="int" required="true" units="degree">start angle. 0 -
-            top</param>
-            <param name="LEN" type="int" required="true" units="degree">arc length,
-            counter-clockwise</param>
-            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
-            the arc center, not the top-left corner</param></method>
+            <param name="X" type="int" required="true">
+                <tr lang="en">x coord</tr>
+            </param>
+            <param name="Y" type="int" required="true">
+                <tr lang="en">y coord</tr>
+            </param>
+            <param name="D" type="int" required="true">
+                <tr lang="en">diameter</tr>
+            </param>
+            <param name="START" type="int" required="true" units="degree">
+                <tr lang="en">start angle. 0 - top</tr>
+            </param>
+            <param name="LEN" type="int" required="true" units="degree">
+                <tr lang="en">arc length, counter-clockwise</tr>
+            </param>
+            <param name="CENTER" type="bool" required="false" default="0">
+                <tr lang="en">if 1: set coordinate of the arc center, not the top-left corner</tr>
+            </param></method>
             <!-- circle -->
             <method name="circle">draw circle 
-            <param name="X" type="int" required="true">x coord</param>
-            <param name="Y" type="int" required="true">y coord</param>
-            <param name="D" type="int" required="true">diameter</param>
-            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
-            the circle center, not the top-left corner</param></method>
+            <param name="X" type="int" required="true">
+                <tr lang="en">x coord</tr>
+            </param>
+            <param name="Y" type="int" required="true">
+                <tr lang="en">y coord</tr>
+            </param>
+            <param name="D" type="int" required="true">
+                <tr lang="en">diameter</tr>
+            </param>
+            <param name="CENTER" type="bool" required="false" default="0">
+                <tr lang="en">if 1: set coordinate of the circle center, not the top-left
+                corner</tr>
+            </param></method>
             <!-- clear -->
             <method name="clear">clear bitmap (set all pixels to 0)</method>
             <!-- column -->
             <method name="column">draw column 
-            <param name="COL" type="int" required="true">column</param>
-            <param name="H" type="int" required="true">column height, can be negative(!), to draw
-            in opposite direction</param>
-            <param name="DY" type="int" required="true">y offset</param></method>
+            <param name="COL" type="int" required="true">
+                <tr lang="en">column</tr>
+            </param>
+            <param name="H" type="int" required="true">
+                <tr lang="en">column height, can be negative(!), to draw in opposite direction</tr>
+            </param>
+            <param name="DY" type="int" required="true">
+                <tr lang="en">y offset</tr>
+            </param></method>
             <!-- ellipse -->
             <method name="ellipse">draw ellipse 
-            <param name="X" type="int" required="true">x coord</param>
-            <param name="Y" type="int" required="true">y coord</param>
-            <param name="W" type="int" required="true">width</param>
-            <param name="H" type="int" required="true">height</param>
-            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
-            the ellipse center, not the top-left corner</param></method>
+            <param name="X" type="int" required="true">
+                <tr lang="en">x coord</tr>
+            </param>
+            <param name="Y" type="int" required="true">
+                <tr lang="en">y coord</tr>
+            </param>
+            <param name="W" type="int" required="true">
+                <tr lang="en">width</tr>
+            </param>
+            <param name="H" type="int" required="true">
+                <tr lang="en">height</tr>
+            </param>
+            <param name="CENTER" type="bool" required="false" default="0">
+                <tr lang="en">if 1: set coordinate of the ellipse center, not the top-left
+                corner</tr>
+            </param></method>
             <!-- fill -->
             <method name="fill">set all pixels to value 
-            <param name="V" type="int" default="0">value</param></method>
+            <param name="V" type="int" default="0">
+                <tr lang="en">value</tr>
+            </param></method>
             <!-- fill_color -->
             <method name="fill_color">set fill color 
-            <param name="COLOR" type="int">fill color (0, 1 or -1 if no color)</param></method>
+            <param name="COLOR" type="int">
+                <tr lang="en">fill color (0, 1 or -1 if no color)</tr>
+            </param></method>
             <!-- font -->
             <method name="font">set font 
             <param name="NAME" type="symbol" required="true"
-            enum="FONT_4X6 FONT_5X7 FONT_5X8 FONT_6X10 FONT_6X9">font name</param></method>
+            enum="FONT_4X6 FONT_5X7 FONT_5X8 FONT_6X10 FONT_6X9">
+                <tr lang="en">font name</tr>
+            </param></method>
             <!-- get list -->
             <method name="get list">output content as list</method>
             <!-- get matrix -->
@@ -99,110 +137,203 @@
             <!-- get submatrix -->
             <method name="get submatrix">output submatrix bitmap content as: [matrix NROWS NCOLS
             DATA...( message 
-            <param name="NROWS" type="int" required="true">matrix number of rows</param>
-            <param name="NCOLS" type="int" required="true">matrix number of columns</param>
-            <param name="AT_ROW" type="int" required="true">row position</param>
-            <param name="AT_COL" type="int" required="true">columns position</param></method>
+            <param name="NROWS" type="int" required="true">
+                <tr lang="en">matrix number of rows</tr>
+            </param>
+            <param name="NCOLS" type="int" required="true">
+                <tr lang="en">matrix number of columns</tr>
+            </param>
+            <param name="AT_ROW" type="int" required="true">
+                <tr lang="en">row position</tr>
+            </param>
+            <param name="AT_COL" type="int" required="true">
+                <tr lang="en">columns position</tr>
+            </param></method>
             <!-- hshift -->
             <method name="hshift">horizontal shift (rotate) 
-            <param name="V" type="int" required="true">number of pixels to shift</param></method>
+            <param name="V" type="int" required="true">
+                <tr lang="en">number of pixels to shift</tr>
+            </param></method>
             <!-- invert -->
             <method name="invert">invert all pixel values</method>
             <!-- line -->
             <method name="line">draw line 
-            <param name="X0" type="int" required="true">x0 coord</param>
-            <param name="Y0" type="int" required="true">y0 coord</param>
-            <param name="X1" type="int" required="true">x1 coord</param>
-            <param name="Y1" type="int" required="true">y1 coord</param></method>
+            <param name="X0" type="int" required="true">
+                <tr lang="en">x0 coord</tr>
+            </param>
+            <param name="Y0" type="int" required="true">
+                <tr lang="en">y0 coord</tr>
+            </param>
+            <param name="X1" type="int" required="true">
+                <tr lang="en">x1 coord</tr>
+            </param>
+            <param name="Y1" type="int" required="true">
+                <tr lang="en">y1 coord</tr>
+            </param></method>
             <!-- load -->
             <method name="load">load image to bitmap 
-            <param name="FILE" type="symbol" required="true">image path, relative, or
-            absolute</param>
-            <param name="SCALE" type="float" minvalue="0" default="1">image scale</param></method>
+            <param name="FILE" type="symbol" required="true">
+                <tr lang="en">image path, relative, or absolute</tr>
+            </param>
+            <param name="SCALE" type="float" minvalue="0" default="1">
+                <tr lang="en">image scale</tr>
+            </param></method>
             <!-- mirror -->
             <method name="mirror">mirror bitmap 
-            <param name="AXIS" type="symbol" enum="x y" required="true">mirror
-            axis</param></method>
+            <param name="AXIS" type="symbol" enum="x y" required="true">
+                <tr lang="en">mirror axis</tr>
+            </param></method>
             <!-- pixel -->
             <method name="pixel">set pixel 
-            <param name="X" type="int" required="true">x coord</param>
-            <param name="Y" type="int" required="true">y coord</param>
-            <param name="VAL" type="bool" required="false" default="1">new pixel
-            value</param></method>
+            <param name="X" type="int" required="true">
+                <tr lang="en">x coord</tr>
+            </param>
+            <param name="Y" type="int" required="true">
+                <tr lang="en">y coord</tr>
+            </param>
+            <param name="VAL" type="bool" required="false" default="1">
+                <tr lang="en">new pixel value</tr>
+            </param></method>
             <!-- rect -->
             <method name="rect">draw rect 
-            <param name="X" type="int" required="true">x coord</param>
-            <param name="Y" type="int" required="true">y coord</param>
-            <param name="W" type="int" required="true">width</param>
-            <param name="H" type="int" required="true">height</param>
-            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
-            the rect center, not the top-left corner</param></method>
+            <param name="X" type="int" required="true">
+                <tr lang="en">x coord</tr>
+            </param>
+            <param name="Y" type="int" required="true">
+                <tr lang="en">y coord</tr>
+            </param>
+            <param name="W" type="int" required="true">
+                <tr lang="en">width</tr>
+            </param>
+            <param name="H" type="int" required="true">
+                <tr lang="en">height</tr>
+            </param>
+            <param name="CENTER" type="bool" required="false" default="0">
+                <tr lang="en">if 1: set coordinate of the rect center, not the top-left corner</tr>
+            </param></method>
             <!-- row -->
             <method name="row">draw draw 
-            <param name="ROW" type="int" required="true">row</param>
-            <param name="W" type="int" required="true">row width, can be negative(!), to draw in
-            opposite right to left</param>
-            <param name="DX" type="int" required="true">x offset</param></method>
+            <param name="ROW" type="int" required="true">
+                <tr lang="en">row</tr>
+            </param>
+            <param name="W" type="int" required="true">
+                <tr lang="en">row width, can be negative(!), to draw in opposite right to left</tr>
+            </param>
+            <param name="DX" type="int" required="true">
+                <tr lang="en">x offset</tr>
+            </param></method>
             <!-- save -->
             <method name="save">save bitmap to PNG file 
-            <param name="PATH" type="symbol">file name, absolute, or relative</param></method>
+            <param name="PATH" type="symbol">
+                <tr lang="en">file name, absolute, or relative</tr>
+            </param></method>
             <!-- sector -->
             <method name="sector">draw sector 
-            <param name="X" type="int" required="true">x coord</param>
-            <param name="Y" type="int" required="true">y coord</param>
-            <param name="D" type="int" required="true">diameter</param>
-            <param name="START" type="int" required="true" units="degree">start angle. 0 -
-            top</param>
-            <param name="LEN" type="int" required="true" units="degree">arc length,
-            counter-clockwise</param>
-            <param name="CENTER" type="bool" required="false" default="0">if 1: set coordinate of
-            the sector center, not the top-left corner</param></method>
+            <param name="X" type="int" required="true">
+                <tr lang="en">x coord</tr>
+            </param>
+            <param name="Y" type="int" required="true">
+                <tr lang="en">y coord</tr>
+            </param>
+            <param name="D" type="int" required="true">
+                <tr lang="en">diameter</tr>
+            </param>
+            <param name="START" type="int" required="true" units="degree">
+                <tr lang="en">start angle. 0 - top</tr>
+            </param>
+            <param name="LEN" type="int" required="true" units="degree">
+                <tr lang="en">arc length, counter-clockwise</tr>
+            </param>
+            <param name="CENTER" type="bool" required="false" default="0">
+                <tr lang="en">if 1: set coordinate of the sector center, not the top-left
+                corner</tr>
+            </param></method>
             <!-- set list -->
             <method name="set list">set bitmap content from list 
-            <param name="DATA" type="list" required="true">list of 0 and 1</param></method>
+            <param name="DATA" type="list" required="true">
+                <tr lang="en">list of 0 and 1</tr>
+            </param></method>
             <!-- set matrix -->
             <method name="set matrix">set matrix data 
-            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of
-            rows</param>
-            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of
-            columns</param>
-            <param name="DATA" type="list" required="true">data</param></method>
+            <param name="NROWS" type="int" minvalue="1" required="true">
+                <tr lang="en">matrix number of rows</tr>
+            </param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">
+                <tr lang="en">matrix number of columns</tr>
+            </param>
+            <param name="DATA" type="list" required="true">
+                <tr lang="en">data</tr>
+            </param></method>
             <!-- set matrix_at -->
             <method name="set matrix_at">set matrix data at specified position 
-            <param name="NROWS" type="int" minvalue="1" required="true">matrix number of
-            rows</param>
-            <param name="NCOLS" type="int" minvalue="1" required="true">matrix number of
-            columns</param>
-            <param name="AT_ROW" type="int" required="true">row position</param>
-            <param name="AT_COL" type="int" required="true">columns position</param>
-            <param name="DATA" type="list" required="true">data</param></method>
+            <param name="NROWS" type="int" minvalue="1" required="true">
+                <tr lang="en">matrix number of rows</tr>
+            </param>
+            <param name="NCOLS" type="int" minvalue="1" required="true">
+                <tr lang="en">matrix number of columns</tr>
+            </param>
+            <param name="AT_ROW" type="int" required="true">
+                <tr lang="en">row position</tr>
+            </param>
+            <param name="AT_COL" type="int" required="true">
+                <tr lang="en">columns position</tr>
+            </param>
+            <param name="DATA" type="list" required="true">
+                <tr lang="en">data</tr>
+            </param></method>
             <!-- stroke_color -->
             <method name="stroke_color">set stroke color 
-            <param name="COLOR" type="int">stroke color (0 or 1)</param></method>
+            <param name="COLOR" type="int">
+                <tr lang="en">stroke color (0 or 1)</tr>
+            </param></method>
             <!-- stroke_width -->
             <method name="stroke_width">set stroke width 
-            <param name="W" type="int" minvalue="0" required="true">new width</param></method>
+            <param name="W" type="int" minvalue="0" required="true">
+                <tr lang="en">new width</tr>
+            </param></method>
             <!-- text -->
             <method name="text">draw text 
-            <param name="X" type="int" required="true">left x-coord</param>
-            <param name="Y" type="int" required="true">bottom y-coord</param>
-            <param name="TXT" type="symbol" required="true">text</param></method>
+            <param name="X" type="int" required="true">
+                <tr lang="en">left x-coord</tr>
+            </param>
+            <param name="Y" type="int" required="true">
+                <tr lang="en">bottom y-coord</tr>
+            </param>
+            <param name="TXT" type="symbol" required="true">
+                <tr lang="en">text</tr>
+            </param></method>
             <!-- text_color -->
             <method name="text_color">set text color 
-            <param name="COLOR" type="int">fill color (0, 1 or -1 if no color)</param></method>
+            <param name="COLOR" type="int">
+                <tr lang="en">fill color (0, 1 or -1 if no color)</tr>
+            </param></method>
             <!-- triangle -->
             <method name="triangle">draw triangle 
-            <param name="X0" type="int" required="true">x0 coord</param>
-            <param name="Y0" type="int" required="true">y0 coord</param>
-            <param name="X1" type="int" required="true">x1 coord</param>
-            <param name="Y1" type="int" required="true">y1 coord</param>
-            <param name="X2" type="int" required="true">x2 coord</param>
-            <param name="Y2" type="int" required="true">y2 coord</param></method>
+            <param name="X0" type="int" required="true">
+                <tr lang="en">x0 coord</tr>
+            </param>
+            <param name="Y0" type="int" required="true">
+                <tr lang="en">y0 coord</tr>
+            </param>
+            <param name="X1" type="int" required="true">
+                <tr lang="en">x1 coord</tr>
+            </param>
+            <param name="Y1" type="int" required="true">
+                <tr lang="en">y1 coord</tr>
+            </param>
+            <param name="X2" type="int" required="true">
+                <tr lang="en">x2 coord</tr>
+            </param>
+            <param name="Y2" type="int" required="true">
+                <tr lang="en">y2 coord</tr>
+            </param></method>
             <!-- view -->
             <method name="view">opens bitmap view window</method>
             <!-- vshift -->
             <method name="vshift">vertical shift 
-            <param name="V" type="int" required="true">number of pixels to shift</param></method>
+            <param name="V" type="int" required="true">
+                <tr lang="en">number of pixels to shift</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

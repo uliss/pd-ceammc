@@ -112,17 +112,20 @@
         <methods>
             <!-- pause -->
             <method name="pause">pause/resume playback 
-            <param type="int" enum="0 1" default="1">if true: pause, else resume
-            playing</param></method>
+            <param type="int" enum="0 1" default="1">
+                <tr lang="en">if true: pause, else resume playing</tr>
+            </param></method>
             <!-- play -->
             <method name="play">start playback from current play position</method>
             <!-- range -->
             <method name="range">set @begin and @end property 
-            <param name="BEGIN" type="atom" required="true">begin position. If float value given:
-            interpret as phase in [0..1] range. Otherwise unit value expected. Examples: 10ms, 5%,
-            4sec, 20samp etc.</param>
-            <param name="END" type="atom" required="true">end position. Value type same as for
-            first argument</param></method>
+            <param name="BEGIN" type="atom" required="true">
+                <tr lang="en">begin position. If float value given: interpret as phase in [0..1]
+                range. Otherwise unit value expected. Examples: 10ms, 5%, 4sec, 20samp etc.</tr>
+            </param>
+            <param name="END" type="atom" required="true">
+                <tr lang="en">end position. Value type same as for first argument</tr>
+            </param></method>
             <!-- stop -->
             <method name="stop">stop playback and reset play position</method>
         </methods>

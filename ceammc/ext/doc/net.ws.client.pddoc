@@ -36,46 +36,63 @@
             <method name="close">gracefully close connection (with websocket handshake)</method>
             <!-- connect -->
             <method name="connect">connect to websocket server 
-            <param name="URL" type="symbol" required="true">url - ws://HOST:PORT/, for ex.:
-            ws://127.0.0.1:9000/path</param></method>
+            <param name="URL" type="symbol" required="true">
+                <tr lang="en">url - ws://HOST:PORT/, for ex.: ws://127.0.0.1:9000/path</tr>
+            </param></method>
             <!-- flush -->
             <method name="flush">flush output stream: sends all buffered messages.</method>
             <!-- latency -->
             <method name="latency">measure rountrip latency. Outputs: latency TIME_MSEC</method>
             <!-- ping -->
             <method name="ping">send ping message to server (on server answer outputs: pong DATA) 
-            <param name="DATA" type="list" required="false">list of integers in [0..255]
-            range</param></method>
+            <param name="DATA" type="list" required="false">
+                <tr lang="en">list of integers in [0..255] range</tr>
+            </param></method>
             <!-- send -->
             <method name="send">send as text message 
-            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">arguments</tr>
+            </param></method>
             <!-- send_array -->
             <method name="send_array">send as Pd array content as json array 
-            <param name="ARR" type="symbol" required="true">array name</param>
+            <param name="ARR" type="symbol" required="true">
+                <tr lang="en">array name</tr>
+            </param>
             <param name="START" type="int" required="false" minvalue="0" units="sample"
-            default="0">array start index</param>
-            <param name="LENGTH" type="int" required="false" minvalue="0" units="sample">read
-            length. If not specified - read until array end.</param></method>
+            default="0">
+                <tr lang="en">array start index</tr>
+            </param>
+            <param name="LENGTH" type="int" required="false" minvalue="0" units="sample">
+                <tr lang="en">read length. If not specified - read until array end.</tr>
+            </param></method>
             <!-- send_binary -->
             <method name="send_binary">send as binary bytes 
-            <param name="ARGS" type="list" required="false">list of integers in [0..255]
-            range</param></method>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">list of integers in [0..255] range</tr>
+            </param></method>
             <!-- send_json -->
             <method name="send_json">send as encoded json 
-            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">arguments</tr>
+            </param></method>
             <!-- write -->
             <method name="write">write as text message to output buffer. You have to call [flush(
             method for sending. 
-            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">arguments</tr>
+            </param></method>
             <!-- write_binary -->
             <method name="write_binary">write as binary bytes to output buffer. You have to call
             [flush( method for sending. 
-            <param name="ARGS" type="list" required="false">list of integers in [0..255]
-            range</param></method>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">list of integers in [0..255] range</tr>
+            </param></method>
             <!-- write_json -->
             <method name="write_json">write as encoded json to output buffer. You have to call
             [flush( method for sending. 
-            <param name="ARGS" type="list" required="false">arguments</param></method>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">arguments</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

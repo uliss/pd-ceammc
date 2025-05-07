@@ -22,43 +22,65 @@
         <methods>
             <!-- download -->
             <method name="download">download file 
-            <param name="URL" type="symbol" required="true">download URL</param>
-            <param name="FILE" type="symbol" required="false">save filename. If not specified, use
-            HTTP document filename</param>
-            <param name="@PARAMS" type="list" required="false">see get method
-            parameters</param></method>
+            <param name="URL" type="symbol" required="true">
+                <tr lang="en">download URL</tr>
+            </param>
+            <param name="FILE" type="symbol" required="false">
+                <tr lang="en">save filename. If not specified, use HTTP document filename</tr>
+            </param>
+            <param name="@PARAMS" type="list" required="false">
+                <tr lang="en">see get method parameters</tr>
+            </param></method>
             <!-- get -->
             <method name="get">send GET request 
-            <param name="URL" type="symbol" required="true">request URL</param>
-            <param name="@header" type="list" required="false">additional http header: @header NAME
-            VALUE</param>
-            <param name="@form" type="list" required="false">form key-value pair: @form KEY VALUE.
-            For application/x-www-form-urlencoded MIME type.</param>
-            <param name="@auth" type="list" required="false">basic auth username/password: @auth
-            USER PASS</param>
-            <param name="@css" type="list" required="false">apply CSS selector to the request body:
-            @css SEL OUTPUT_TYPE, where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href',
-            'none'. 'html' - returns selected elenent HTML content, 'inner' - returns inner HTML
-            content, without element surrounding tags, 'text' returns element text without tags,
-            'href' - return href attribute of selected element, 'none' - returns empty
-            string</param>
-            <param name="@strip_ws" type="symbol" required="false">replace multiple
-            whitespaces/newlines/tabs with single space</param>
-            <param name="@json" type="symbol" required="false">parse result as Json and output it
-            as data:Dict()</param></method>
+            <param name="URL" type="symbol" required="true">
+                <tr lang="en">request URL</tr>
+            </param>
+            <param name="@header" type="list" required="false">
+                <tr lang="en">additional http header: @header NAME VALUE</tr>
+            </param>
+            <param name="@form" type="list" required="false">
+                <tr lang="en">form key-value pair: @form KEY VALUE. For
+                application/x-www-form-urlencoded MIME type.</tr>
+            </param>
+            <param name="@auth" type="list" required="false">
+                <tr lang="en">basic auth username/password: @auth USER PASS</tr>
+            </param>
+            <param name="@css" type="list" required="false">
+                <tr lang="en">apply CSS selector to the request body: @css SEL OUTPUT_TYPE, where
+                OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href', 'none'. 'html' - returns
+                selected elenent HTML content, 'inner' - returns inner HTML content, without
+                element surrounding tags, 'text' returns element text without tags, 'href' - return
+                href attribute of selected element, 'none' - returns empty string</tr>
+            </param>
+            <param name="@strip_ws" type="symbol" required="false">
+                <tr lang="en">replace multiple whitespaces/newlines/tabs with single space</tr>
+            </param>
+            <param name="@json" type="symbol" required="false">
+                <tr lang="en">parse result as Json and output it as data:Dict()</tr>
+            </param></method>
             <!-- post -->
             <method name="post">send POST request 
-            <param name="URL" type="symbol" required="true">request URL</param>
-            <param name="@PARAMS" type="list" required="false">see get method
-            parameters</param></method>
+            <param name="URL" type="symbol" required="true">
+                <tr lang="en">request URL</tr>
+            </param>
+            <param name="@PARAMS" type="list" required="false">
+                <tr lang="en">see get method parameters</tr>
+            </param></method>
             <!-- upload -->
             <method name="upload">updload file for the form 
-            <param name="URL" type="symbol" required="true">upload URL</param>
-            <param name="FILE" type="symbol" required="true">upload file path in the
-            filesystem</param>
-            <param name="FORM_KEY" type="symbol" required="true">form entry key</param>
-            <param name="@PARAMS" type="list" required="false">see get method
-            parameters</param></method>
+            <param name="URL" type="symbol" required="true">
+                <tr lang="en">upload URL</tr>
+            </param>
+            <param name="FILE" type="symbol" required="true">
+                <tr lang="en">upload file path in the filesystem</tr>
+            </param>
+            <param name="FORM_KEY" type="symbol" required="true">
+                <tr lang="en">form entry key</tr>
+            </param>
+            <param name="@PARAMS" type="list" required="false">
+                <tr lang="en">see get method parameters</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

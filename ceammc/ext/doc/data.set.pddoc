@@ -42,17 +42,23 @@
         <methods>
             <!-- add -->
             <method name="add">add values to the set 
-            <param name="VAL" type="list" required="true">added values</param></method>
+            <param name="VAL" type="list" required="true">
+                <tr lang="en">added values</tr>
+            </param></method>
             <!-- choose -->
             <method name="choose">choose random element and output it</method>
             <!-- clear -->
             <method name="clear">removes all set elements</method>
             <!-- remove -->
             <method name="remove">remove elements from the set 
-            <param name="VAL" type="list" required="true">elements</param></method>
+            <param name="VAL" type="list" required="true">
+                <tr lang="en">elements</tr>
+            </param></method>
             <!-- set -->
             <method name="set">sets new set content without output 
-            <param name="LIST" type="list" required="true">new set content</param></method>
+            <param name="LIST" type="list" required="true">
+                <tr lang="en">new set content</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

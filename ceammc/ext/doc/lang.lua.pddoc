@@ -46,14 +46,22 @@
         <methods>
             <!-- call -->
             <method name="call">call lua function 
-            <param name="FN" type="symbol" required="true">function name</param>
-            <param name="ARGS" type="list">function arguments</param></method>
+            <param name="FN" type="symbol" required="true">
+                <tr lang="en">function name</tr>
+            </param>
+            <param name="ARGS" type="list">
+                <tr lang="en">function arguments</tr>
+            </param></method>
             <!-- eval -->
             <method name="eval">eval lua code 
-            <param name="CODE" type="list" required="true">lua code</param></method>
+            <param name="CODE" type="list" required="true">
+                <tr lang="en">lua code</tr>
+            </param></method>
             <!-- load -->
             <method name="load">load lua file and eval it 
-            <param name="PATH" type="list" required="true">path to lua file</param></method>
+            <param name="PATH" type="list" required="true">
+                <tr lang="en">path to lua file</tr>
+            </param></method>
             <!-- quit -->
             <method name="quit">abort lua script execution</method>
         </methods>

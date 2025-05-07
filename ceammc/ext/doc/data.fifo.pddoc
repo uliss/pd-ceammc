@@ -58,8 +58,10 @@
             <method name="pop">outputs and removes first values in queue</method>
             <!-- resize -->
             <method name="resize">
-                <param type="int" minvalue="0">changes queue size. All previous values (if any) are
-                silently removed</param>
+                <param type="int" minvalue="0">
+                    <tr lang="en">changes queue size. All previous values (if any) are silently
+                    removed</tr>
+                </param>
             </method>
         </methods>
         <inlets>

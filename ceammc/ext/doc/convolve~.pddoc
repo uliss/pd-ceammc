@@ -37,15 +37,20 @@
         <methods>
             <!-- load_array -->
             <method name="load_array">load IR from array 
-            <param name="ARRAY" type="symbol" required="true">array name</param></method>
+            <param name="ARRAY" type="symbol" required="true">
+                <tr lang="en">array name</tr>
+            </param></method>
             <!-- load_file -->
             <method name="load_file">load IR from specified file (resamples if required from file
             samplerate to runtime samplerate) 
-            <param name="FILE" type="atom" required="true">file name, relative or
-            absolute</param></method>
+            <param name="FILE" type="atom" required="true">
+                <tr lang="en">file name, relative or absolute</tr>
+            </param></method>
             <!-- set -->
             <method name="set">set IR from list 
-            <param name="LIST" type="float" required="true">IR data</param></method>
+            <param name="LIST" type="float" required="true">
+                <tr lang="en">IR data</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet type="audio">

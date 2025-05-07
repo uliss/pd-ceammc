@@ -21,18 +21,23 @@
             <method name="activesense">send Active Sense realtime message (0xFE)</method>
             <!-- aftertouch -->
             <method name="aftertouch">send After Touch (Mono) message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">midi
-            channel</param>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+                <tr lang="en">midi channel</tr>
+            </param>
             <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
-            velocity</param></method>
+                <tr lang="en">velocity</tr>
+            </param></method>
             <!-- cc -->
             <method name="cc">send Control Change message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">midi
-            channel</param>
-            <param name="CTL" type="int" minvalue="0" maxvalue="127" required="true">control
-            number</param>
-            <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">control
-            value</param></method>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+                <tr lang="en">midi channel</tr>
+            </param>
+            <param name="CTL" type="int" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">control number</tr>
+            </param>
+            <param name="VAL" type="int" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">control value</tr>
+            </param></method>
             <!-- clock -->
             <method name="clock">send Timing Clock realtime message (0xF8)</method>
             <!-- continue -->
@@ -41,73 +46,96 @@
             <method name="note">alias to [noteon(</method>
             <!-- noteoff -->
             <method name="noteoff">send Note Off message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">midi
-            channel</param>
-            <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">midi
-            note</param>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+                <tr lang="en">midi channel</tr>
+            </param>
+            <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">midi note</tr>
+            </param>
             <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
-            velocity</param></method>
+                <tr lang="en">velocity</tr>
+            </param></method>
             <!-- noteon -->
             <method name="noteon">send Note On message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">midi
-            channel</param>
-            <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">midi
-            note</param>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+                <tr lang="en">midi channel</tr>
+            </param>
+            <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">midi note</tr>
+            </param>
             <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
-            velocity</param></method>
+                <tr lang="en">velocity</tr>
+            </param></method>
             <!-- notes_off -->
             <method name="notes_off">send All Notes Off message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">midi channel.
-            if missing or -1: send to all channels</param></method>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+                <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+            </param></method>
             <!-- panic -->
             <method name="panic">send All Notes Off message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">midi channel.
-            if missing or -1: send to all channels</param></method>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+                <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+            </param></method>
             <!-- pitchwheel -->
             <method name="pitchwheel">send Pitch Wheel message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">midi
-            channel</param>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+                <tr lang="en">midi channel</tr>
+            </param>
             <param name="VAL" type="int" minvalue="-8192" maxvalue="8191" required="true">
-            value</param></method>
+                <tr lang="en">value</tr>
+            </param></method>
             <!-- polytouch -->
             <method name="polytouch">send After Touch (Poly) message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">midi
-            channel</param>
-            <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">midi
-            note</param>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+                <tr lang="en">midi channel</tr>
+            </param>
+            <param name="NOTE" type="int" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">midi note</tr>
+            </param>
             <param name="VEL" type="int" minvalue="0" maxvalue="127" required="true">
-            velocity</param></method>
+                <tr lang="en">velocity</tr>
+            </param></method>
             <!-- program -->
             <method name="program">send Program Change message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">midi
-            channel</param>
-            <param name="N" type="int" minvalue="0" maxvalue="127" required="true">program
-            number</param></method>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="true">
+                <tr lang="en">midi channel</tr>
+            </param>
+            <param name="N" type="int" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">program number</tr>
+            </param></method>
             <!-- raw -->
             <method name="raw">send raw midi bytes 
-            <param name="DATA" type="list" required="true">raw midi data: integers in [0-127] range
-            or hex values: Ox3F etc.</param></method>
+            <param name="DATA" type="list" required="true">
+                <tr lang="en">raw midi data: integers in [0-127] range or hex values: Ox3F
+                etc.</tr>
+            </param></method>
             <!-- songpos -->
             <method name="songpos">send Song Position Pointer message (0xF2) 
-            <param name="IDX" type="int" minvalue="0" required="true">position</param>
-            <param name="DUR" type="int" enum="1 2 4 8 16" default="16" required="false">position
-            duration. By default is sixteen note.</param></method>
+            <param name="IDX" type="int" minvalue="0" required="true">
+                <tr lang="en">position</tr>
+            </param>
+            <param name="DUR" type="int" enum="1 2 4 8 16" default="16" required="false">
+                <tr lang="en">position duration. By default is sixteen note.</tr>
+            </param></method>
             <!-- songsel -->
             <method name="songsel">send Song Select message (0xF3) 
-            <param name="IDX" type="int" minvalue="0" maxvalue="127" required="true">song
-            index</param></method>
+            <param name="IDX" type="int" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">song index</tr>
+            </param></method>
             <!-- sound_off -->
             <method name="sound_off">send All Sound Off message 
-            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">midi channel.
-            if missing or -1: send to all channels</param></method>
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">
+                <tr lang="en">midi channel. if missing or -1: send to all channels</tr>
+            </param></method>
             <!-- start -->
             <method name="start">send Start realtime message (0xFA)</method>
             <!-- stop -->
             <method name="stop">send Stop realtime message (0xFC)</method>
             <!-- sysex -->
             <method name="sysex">send SysEx message (0xF0) 
-            <param name="BYTES" type="list" minvalue="0" maxvalue="127" required="true">sysex
-            message body</param></method>
+            <param name="BYTES" type="list" minvalue="0" maxvalue="127" required="true">
+                <tr lang="en">sysex message body</tr>
+            </param></method>
             <!-- sysreset -->
             <method name="sysreset">send System Reset realtime message (0xFF)</method>
             <!-- tick -->
@@ -115,10 +143,13 @@
             <!-- timecode -->
             <method name="timecode">send midi timecode as series of MTC quarter frame messages
             (0xF1) 
-            <param name="TIME" type="atom" required="true">time value. Various formats can be used:
-            100sec, 1h, 20.5min or 01:12:34.11.</param>
+            <param name="TIME" type="atom" required="true">
+                <tr lang="en">time value. Various formats can be used: 100sec, 1h, 20.5min or
+                01:12:34.11.</tr>
+            </param>
             <param name="FPS" type="float" enum="24 25 29.97 30" required="true">
-            framerate</param></method>
+                <tr lang="en">framerate</tr>
+            </param></method>
             <!-- tunerequest -->
             <method name="tunerequest">send Tune Request message (0xF6)</method>
         </methods>

@@ -101,11 +101,15 @@
         <methods>
             <!-- measure -->
             <method name="measure">single measure request 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="3">the channel to measure. If
-            omitted: perform measure on all channels</param></method>
+            <param name="CHAN" type="int" minvalue="0" maxvalue="3">
+                <tr lang="en">the channel to measure. If omitted: perform measure on all
+                channels</tr>
+            </param></method>
             <!-- poll -->
             <method name="poll">set polling turn on/off 
-            <param name="STATE" type="bool" required="true">poll state</param></method>
+            <param name="STATE" type="bool" required="true">
+                <tr lang="en">poll state</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

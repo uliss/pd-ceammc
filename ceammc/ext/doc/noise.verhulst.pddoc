@@ -36,22 +36,29 @@
         <methods>
             <!-- lambda -->
             <method name="lambda">
-                <param name="LAMBDA" type="float" required="true">lambda value</param>
+                <param name="LAMBDA" type="float" required="true">
+                    <tr lang="en">lambda value</tr>
+                </param>
             </method>
             <!-- om -->
             <method name="om">
-                <param name="OM" type="int" required="true">enables output when cut or fold value
-                is changed</param>
+                <param name="OM" type="int" required="true">
+                    <tr lang="en">enables output when cut or fold value is changed</tr>
+                </param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- seed -->
             <method name="seed">
-                <param name="SEED" type="float" required="true">seed value</param>
+                <param name="SEED" type="float" required="true">
+                    <tr lang="en">seed value</tr>
+                </param>
             </method>
             <!-- set -->
             <method name="set">
-                <param name="SET" type="float" required="true">set to value</param>
+                <param name="SET" type="float" required="true">
+                    <tr lang="en">set to value</tr>
+                </param>
             </method>
         </methods>
         <inlets>

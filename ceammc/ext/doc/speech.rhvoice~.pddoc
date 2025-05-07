@@ -59,8 +59,9 @@
             <method name="clear">clear TTS queue</method>
             <!-- read -->
             <method name="read">read TTS file (text or SSML) 
-            <param name="FILE" type="symbol" required="true">absolute or relative path to the
-            file</param></method>
+            <param name="FILE" type="symbol" required="true">
+                <tr lang="en">absolute or relative path to the file</tr>
+            </param></method>
             <!-- ssml -->
             <method name="ssml">speak SSML text markup</method>
             <!-- stop -->

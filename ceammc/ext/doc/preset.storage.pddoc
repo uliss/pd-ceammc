@@ -39,8 +39,9 @@
             <!-- interp -->
             <method name="interp">loads linearry interpolated value between preset, for example:
             1.5 means load interpolated value between preset 1 and 2. 
-            <param name="IDX" type="float" required="true">preset interpolation
-            index</param></method>
+            <param name="IDX" type="float" required="true">
+                <tr lang="en">preset interpolation index</tr>
+            </param></method>
             <!-- load -->
             <method name="load">load preset by index, if no index specified use 0</method>
             <!-- read -->

@@ -52,7 +52,9 @@
         <methods>
             <!-- phase -->
             <method name="phase">set current phase 
-            <param name="VALUE" type="float">new phase value</param></method>
+            <param name="VALUE" type="float">
+                <tr lang="en">new phase value</tr>
+            </param></method>
             <!-- reset -->
             <method name="reset">reset phase and stop</method>
             <!-- rewind -->

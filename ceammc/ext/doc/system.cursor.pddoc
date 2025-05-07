@@ -40,7 +40,9 @@
             <!-- polltime -->
             <method name="polltime">sets global cursor polling time 
             <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
-            required="true">polling time</param></method>
+            required="true">
+                <tr lang="en">polling time</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

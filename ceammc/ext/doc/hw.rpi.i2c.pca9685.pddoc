@@ -61,68 +61,92 @@
         <methods>
             <!-- const -->
             <method name="const">set channel constant value 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
-            channel. If equals to 16 means all channels</param>
-            <param name="VALUE" type="bool" required="true">value</param>
-            <param name="DELAY" type="float" required="false" minvalue="0" maxvalue="1">the setting
-            is delayed by the given phase value.</param></method>
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
+                <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+            </param>
+            <param name="VALUE" type="bool" required="true">
+                <tr lang="en">value</tr>
+            </param>
+            <param name="DELAY" type="float" required="false" minvalue="0" maxvalue="1">
+                <tr lang="en">the setting is delayed by the given phase value.</tr>
+            </param></method>
             <!-- disable_prog_addr -->
             <method name="disable_prog_addr">disable of using programmable address 
-            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
-            type</param></method>
+            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">
+                <tr lang="en">prog address type</tr>
+            </param></method>
             <!-- duty -->
             <method name="duty">set channel PWM duty cycle 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
-            channel. If equals to 16 means all channels</param>
-            <param name="DUTY" type="float" required="true" minvalue="-1" maxvalue="1">duty cycle
-            value</param>
-            <param name="PHASE" type="float" required="false" minvalue="-1" maxvalue="1">phase
-            offset</param></method>
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
+                <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+            </param>
+            <param name="DUTY" type="float" required="true" minvalue="-1" maxvalue="1">
+                <tr lang="en">duty cycle value</tr>
+            </param>
+            <param name="PHASE" type="float" required="false" minvalue="-1" maxvalue="1">
+                <tr lang="en">phase offset</tr>
+            </param></method>
             <!-- enable -->
             <method name="enable">enable/disable the device. The disabled state is equal to sleep,
             the device is keeping all current PWM setting, but just not responds to the new
             settings. 
-            <param name="STATE" type="bool" default="1">new state</param></method>
+            <param name="STATE" type="bool" default="1">
+                <tr lang="en">new state</tr>
+            </param></method>
             <!-- enable_restart_and_disable -->
             <method name="enable_restart_and_disable">put the controller to sleep while keeping the
             PWM register contents in preparation for a future restart</method>
             <!-- freq -->
             <method name="freq">set PWM frequency 
             <param name="FREQ" type="float" units="hertz" required="true" minvalue="24"
-            maxvalue="2048">new frequency</param></method>
+            maxvalue="2048">
+                <tr lang="en">new frequency</tr>
+            </param></method>
             <!-- period -->
             <method name="period">set PWM period 
             <param name="PERIOD" type="float" units="millisecond" required="true" minvalue="0.5"
-            maxvalue="40">new frequency</param></method>
+            maxvalue="40">
+                <tr lang="en">new frequency</tr>
+            </param></method>
             <!-- polarity -->
             <method name="polarity">set PWM inversed polarity. Applicable when OE = 0. 
-            <param name="POLARITY" type="bool" required="true">polarity value: 0 - direct, 1 -
-            inversed</param></method>
+            <param name="POLARITY" type="bool" required="true">
+                <tr lang="en">polarity value: 0 - direct, 1 - inversed</tr>
+            </param></method>
             <!-- pwidth -->
             <method name="pwidth">set channel PWM pulse width 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
-            channel. If equals to 16 means all channels</param>
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
+                <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+            </param>
             <param name="WIDTH" type="float" required="true" minvalue="0.5" maxvalue="40"
-            units="millisecond">pulse width</param>
-            <param name="PHASE" type="float" required="false" minvalue="0" maxvalue="1">phase
-            offset</param></method>
+            units="millisecond">
+                <tr lang="en">pulse width</tr>
+            </param>
+            <param name="PHASE" type="float" required="false" minvalue="0" maxvalue="1">
+                <tr lang="en">phase offset</tr>
+            </param></method>
             <!-- restart -->
             <method name="restart">re-enable the controller after a sleep with restart enabled so
             that previously active PWM channels are restarted</method>
             <!-- set_raw -->
             <method name="set_raw">set channel raw PWM frequency 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">device PWM
-            channel. If equals to 16 means all channels</param>
-            <param name="ON" type="int" minvalue="0" maxvalue="4095" required="true">ON counter
-            time value</param>
-            <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">OFF counter
-            time value</param></method>
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" required="true">
+                <tr lang="en">device PWM channel. If equals to 16 means all channels</tr>
+            </param>
+            <param name="ON" type="int" minvalue="0" maxvalue="4095" required="true">
+                <tr lang="en">ON counter time value</tr>
+            </param>
+            <param name="OFF" type="int" minvalue="0" maxvalue="4095" required="true">
+                <tr lang="en">OFF counter time value</tr>
+            </param></method>
             <!-- use_prog_addr -->
             <method name="use_prog_addr">set and use programmable address 
-            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">prog address
-            type</param>
-            <param name="I2C_ADDR" type="int" required="true" minvalue="7" maxvalue="119">new I²C
-            address</param></method>
+            <param name="TYPE" type="atom" enum="1 2 3 all" required="true">
+                <tr lang="en">prog address type</tr>
+            </param>
+            <param name="I2C_ADDR" type="int" required="true" minvalue="7" maxvalue="119">
+                <tr lang="en">new I²C address</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

@@ -89,24 +89,38 @@
         <methods>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">preset index</tr>
+            </param></method>
             <!-- interp -->
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">preset index</tr>
+            </param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <param name="X" type="float" required="true">
+                <tr lang="en">top left x-coord</tr>
+            </param>
+            <param name="Y" type="float" required="true">
+                <tr lang="en">top right y-coord</tr>
+            </param></method>
             <!-- set -->
             <method name="set">set widget value with no output 
-            <param name="COL" type="int" required="true">column index</param>
-            <param name="ROW" type="int" required="true">row index</param></method>
+            <param name="COL" type="int" required="true">
+                <tr lang="en">column index</tr>
+            </param>
+            <param name="ROW" type="int" required="true">
+                <tr lang="en">row index</tr>
+            </param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">preset index</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

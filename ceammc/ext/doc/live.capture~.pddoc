@@ -49,7 +49,9 @@
         <methods>
             <!-- div -->
             <method name="div">set rec division 
-            <param name="N" type="int" minvalue="1" maxvalue="8">value</param></method>
+            <param name="N" type="int" minvalue="1" maxvalue="8">
+                <tr lang="en">value</tr>
+            </param></method>
             <!-- record -->
             <method name="record">start record</method>
             <!-- reset -->

@@ -102,7 +102,9 @@
         <methods>
             <!-- adjust -->
             <method name="adjust">increase loop length 
-            <param name="DELTA" type="float" units="sample">loop length delta</param></method>
+            <param name="DELTA" type="float" units="sample">
+                <tr lang="en">loop length delta</tr>
+            </param></method>
             <!-- clear -->
             <method name="clear">clear loop data and stops playing</method>
             <!-- overdub -->
@@ -117,8 +119,9 @@
             <method name="record">start loop record</method>
             <!-- smooth -->
             <method name="smooth">
-                <param name="TIME" type="float" units="millisecond">apply linear fadein/fadeout to
-                loop</param>
+                <param name="TIME" type="float" units="millisecond">
+                    <tr lang="en">apply linear fadein/fadeout to loop</tr>
+                </param>
             </method>
             <!-- stop -->
             <method name="stop">stop played loop</method>

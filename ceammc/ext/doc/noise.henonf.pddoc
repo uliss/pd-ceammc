@@ -37,34 +37,47 @@
         <methods>
             <!-- a -->
             <method name="a">
-                <param name="A" type="float" required="true">a value</param>
+                <param name="A" type="float" required="true">
+                    <tr lang="en">a value</tr>
+                </param>
             </method>
             <!-- b -->
             <method name="b">
-                <param name="B" type="float" required="true">b value</param>
+                <param name="B" type="float" required="true">
+                    <tr lang="en">b value</tr>
+                </param>
             </method>
             <!-- dt -->
             <method name="dt">
-                <param name="DT" type="float" required="true">dt value</param>
+                <param name="DT" type="float" required="true">
+                    <tr lang="en">dt value</tr>
+                </param>
             </method>
             <!-- om -->
             <method name="om">
-                <param name="OM" type="int" required="true">enables output when cut or fold value
-                is changed</param>
+                <param name="OM" type="int" required="true">
+                    <tr lang="en">enables output when cut or fold value is changed</tr>
+                </param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- set -->
             <method name="set">
-                <param name="SET" type="float" required="true">set to value</param>
+                <param name="SET" type="float" required="true">
+                    <tr lang="en">set to value</tr>
+                </param>
             </method>
             <!-- x -->
             <method name="x">
-                <param name="X" type="float" required="true">x value</param>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">x value</tr>
+                </param>
             </method>
             <!-- y -->
             <method name="y">
-                <param name="Y" type="float" required="true">y value</param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">y value</tr>
+                </param>
             </method>
         </methods>
         <inlets>

@@ -63,7 +63,9 @@
             <method name="reset">reset current value to @init</method>
             <!-- set -->
             <method name="set">set current value without output 
-            <param name="VAL" type="float" required="true">new value</param></method>
+            <param name="VAL" type="float" required="true">
+                <tr lang="en">new value</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

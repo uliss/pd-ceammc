@@ -44,8 +44,9 @@
         <methods>
             <!-- resize -->
             <method name="resize">resize target array 
-            <param name="SZ" type="int" minvalue="10" units="sample" required="true">new
-            size</param></method>
+            <param name="SZ" type="int" minvalue="10" units="sample" required="true">
+                <tr lang="en">new size</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet type="audio">

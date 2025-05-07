@@ -40,8 +40,9 @@
             <method name="reverse">reverse output channels order</method>
             <!-- rotate -->
             <method name="rotate">rotate output channels counter clockwise 
-            <param name="N" type="int" required="true">number of rotation steps, can be
-            negative</param></method>
+            <param name="N" type="int" required="true">
+                <tr lang="en">number of rotation steps, can be negative</tr>
+            </param></method>
             <!-- shuffle -->
             <method name="shuffle">shuffle output channels order</method>
             <!-- side2circle -->

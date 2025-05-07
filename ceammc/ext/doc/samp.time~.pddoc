@@ -29,7 +29,9 @@
             <method name="reset">reset sample counter to 0</method>
             <!-- set -->
             <method name="set">set current value 
-            <param name="VAL" type="float" default="0">new counter value</param></method>
+            <param name="VAL" type="float" default="0">
+                <tr lang="en">new counter value</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet type="audio">

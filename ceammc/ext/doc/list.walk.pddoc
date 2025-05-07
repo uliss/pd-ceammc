@@ -85,13 +85,17 @@
             <method name="dump">dump internal object state to Pd console window</method>
             <!-- next -->
             <method name="next">
-                <param name="STEP" type="int" default="1">moves to next element with optional given
-                step and outputs it</param>
+                <param name="STEP" type="int" default="1">
+                    <tr lang="en">moves to next element with optional given step and outputs
+                    it</tr>
+                </param>
             </method>
             <!-- prev -->
             <method name="prev">
-                <param name="STEP" type="int" default="1">moves to previous element with optional
-                given step and outputs it</param>
+                <param name="STEP" type="int" default="1">
+                    <tr lang="en">moves to previous element with optional given step and outputs
+                    it</tr>
+                </param>
             </method>
             <!-- reset -->
             <method name="reset">sets current position to 0</method>

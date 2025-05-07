@@ -96,8 +96,12 @@
             <method name="clear">clear label text and clear @text property</method>
             <!-- pos -->
             <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <param name="X" type="float" required="true">
+                <tr lang="en">top left x-coord</tr>
+            </param>
+            <param name="Y" type="float" required="true">
+                <tr lang="en">top right y-coord</tr>
+            </param></method>
             <!-- prepend -->
             <method name="prepend">insert into beginning of @text</method>
         </methods>

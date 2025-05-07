@@ -54,8 +54,9 @@
             <method name="access code">exchange application authorization code to temp *access*
             token that will be used for every request. Note: you can do it only once, otherwise you
             need to get another application authorization code from Freesite site. 
-            <param name="CODE" type="symbol" required="true">application auth code. Copy it from
-            from Freesound webpage!</param></method>
+            <param name="CODE" type="symbol" required="true">
+                <tr lang="en">application auth code. Copy it from from Freesound webpage!</tr>
+            </param></method>
             <!-- access load -->
             <method name="access load">load temp *access* token (not OAuth id/secret!) from the
             special file from the current patch directory</method>
@@ -64,27 +65,42 @@
             special file in the current patch directory</method>
             <!-- download -->
             <method name="download">download Freesound file 
-            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
-            result, for examples)</param></method>
+            <param name="ID" type="int" required="true">
+                <tr lang="en">Freesound soundfile ID (get it from search result, for examples)</tr>
+            </param></method>
             <!-- load -->
             <method name="load">load Freesound file into Pd arrays 
-            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
-            result, for examples)</param>
-            <param name="@array" type="symbol" required="true">array name</param>
-            <param name="@norm" type="bool" required="false">normalize sound</param></method>
+            <param name="ID" type="int" required="true">
+                <tr lang="en">Freesound soundfile ID (get it from search result, for examples)</tr>
+            </param>
+            <param name="@array" type="symbol" required="true">
+                <tr lang="en">array name</tr>
+            </param>
+            <param name="@norm" type="bool" required="false">
+                <tr lang="en">normalize sound</tr>
+            </param></method>
             <!-- me -->
             <method name="me">get and output user information</method>
             <!-- search -->
             <method name="search">perform search 
-            <param name="@p" type="int" required="false" minvalue="1">search page number</param>
-            <param name="@n" type="int" required="false" minvalue="1">number of results</param>
-            <param name="@fields" type="symbol" required="false">requested fields</param>
-            <param name="@sort" type="symbol" required="false">sort methods: "score",
-            "duration_desc", "duration_asc", "created_desc", "created_asc", "downloads_desc",
-            "downloads_asc", "rating_desc", "rating_asc"</param>
-            <param name="@filter" type="symbol" required="false">filter expression, for example:
-            @filter type mp3. See
-            https://freesound.org/docs/api/resources_apiv2.html</param></method>
+            <param name="@p" type="int" required="false" minvalue="1">
+                <tr lang="en">search page number</tr>
+            </param>
+            <param name="@n" type="int" required="false" minvalue="1">
+                <tr lang="en">number of results</tr>
+            </param>
+            <param name="@fields" type="symbol" required="false">
+                <tr lang="en">requested fields</tr>
+            </param>
+            <param name="@sort" type="symbol" required="false">
+                <tr lang="en">sort methods: "score", "duration_desc", "duration_asc",
+                "created_desc", "created_asc", "downloads_desc", "downloads_asc", "rating_desc",
+                "rating_asc"</tr>
+            </param>
+            <param name="@filter" type="symbol" required="false">
+                <tr lang="en">filter expression, for example: @filter type mp3. See
+                https://freesound.org/docs/api/resources_apiv2.html</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

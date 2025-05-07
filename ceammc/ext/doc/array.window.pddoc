@@ -62,7 +62,9 @@
             <method name="rect">generate rectangular window</method>
             <!-- resize -->
             <method name="resize">resize specified array to given size 
-            <param name="N" type="int" minvalue="0">new size</param></method>
+            <param name="N" type="int" minvalue="0">
+                <tr lang="en">new size</tr>
+            </param></method>
             <!-- sine -->
             <method name="sine">generate sine window</method>
             <!-- tri -->

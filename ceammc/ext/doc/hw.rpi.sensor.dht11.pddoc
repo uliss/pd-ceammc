@@ -40,7 +40,9 @@
         <methods>
             <!-- poll -->
             <method name="poll">turn the sensor polling on/off 
-            <param name="STATE" type="bool" required="true">poll state</param></method>
+            <param name="STATE" type="bool" required="true">
+                <tr lang="en">poll state</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

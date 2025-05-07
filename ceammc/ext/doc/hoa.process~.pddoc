@@ -87,7 +87,9 @@
             on/off all instances, on IDX 0|1 - turn on/off specified instance.</method>
             <!-- open -->
             <method name="open">open Pd window for specified instance 
-            <param name="IDX" type="int" required="true">instance index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">instance index</tr>
+            </param></method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

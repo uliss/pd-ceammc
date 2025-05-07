@@ -45,37 +45,49 @@
             <!-- register -->
             <method name="register">register MDNS service instance. Instance will be available with
             DNS name NAME.local 
-            <param name="SERVICE" type="symbol" required="true">service name, for example:
-            _osc._tcp, or alias: #osc</param>
-            <param name="NAME" type="symbol" required="true">instance name, for example:
-            MY_SUPER_SERVER</param>
-            <param name="PORT" type="int" minvalue="0" required="true">instance port</param>
-            <param name="PROPS" type="list" required="false">list of text props (TXT record), for
-            example: @prop1 FOO @prop2 BOO will have TXT records prop1=FOO
-            prop2=BAR</param></method>
+            <param name="SERVICE" type="symbol" required="true">
+                <tr lang="en">service name, for example: _osc._tcp, or alias: #osc</tr>
+            </param>
+            <param name="NAME" type="symbol" required="true">
+                <tr lang="en">instance name, for example: MY_SUPER_SERVER</tr>
+            </param>
+            <param name="PORT" type="int" minvalue="0" required="true">
+                <tr lang="en">instance port</tr>
+            </param>
+            <param name="PROPS" type="list" required="false">
+                <tr lang="en">list of text props (TXT record), for example: @prop1 FOO @prop2 BOO
+                will have TXT records prop1=FOO prop2=BAR</tr>
+            </param></method>
             <!-- resolve -->
             <method name="resolve">does mDNS name resolving: get service information: host, ip,
             port etc by SERVICE type and INSTANCE name 
-            <param name="SERVICE" type="symbol" required="true">service name, for example:
-            _osc._tcp, or alias: #osc or #http</param>
-            <param name="NAME" type="symbol" required="true">instance name, for example:
-            MY_SUPER_SERVER</param></method>
+            <param name="SERVICE" type="symbol" required="true">
+                <tr lang="en">service name, for example: _osc._tcp, or alias: #osc or #http</tr>
+            </param>
+            <param name="NAME" type="symbol" required="true">
+                <tr lang="en">instance name, for example: MY_SUPER_SERVER</tr>
+            </param></method>
             <!-- subscribe -->
             <method name="subscribe">subscribe to service events: add, remove and resolve 
-            <param name="SERVICE" type="symbol" required="true">service name, for example:
-            _osc._tcp, or alias: #osc or #all</param>
-            <param name="ON" type="bool" required="false" default="true">if true: subscribe, false:
-            unsubscribe</param></method>
+            <param name="SERVICE" type="symbol" required="true">
+                <tr lang="en">service name, for example: _osc._tcp, or alias: #osc or #all</tr>
+            </param>
+            <param name="ON" type="bool" required="false" default="true">
+                <tr lang="en">if true: subscribe, false: unsubscribe</tr>
+            </param></method>
             <!-- unregister -->
             <method name="unregister">manually unregister service instance. 
-            <param name="SERVICE" type="symbol" required="true">service name, for example:
-            _osc._tcp, or alias: #osc</param>
-            <param name="NAME" type="symbol" required="true">instance name, for example:
-            MY_SUPER_SERVER</param></method>
+            <param name="SERVICE" type="symbol" required="true">
+                <tr lang="en">service name, for example: _osc._tcp, or alias: #osc</tr>
+            </param>
+            <param name="NAME" type="symbol" required="true">
+                <tr lang="en">instance name, for example: MY_SUPER_SERVER</tr>
+            </param></method>
             <!-- unsubscribe -->
             <method name="unsubscribe">unsubscribe from specified service events 
-            <param name="SERVICE" type="symbol" required="true">service name, for example:
-            _osc._tcp, or alias: #osc or #all</param></method>
+            <param name="SERVICE" type="symbol" required="true">
+                <tr lang="en">service name, for example: _osc._tcp, or alias: #osc or #all</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

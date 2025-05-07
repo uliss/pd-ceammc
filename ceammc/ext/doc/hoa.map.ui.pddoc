@@ -139,18 +139,26 @@
         <methods>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">preset index</tr>
+            </param></method>
             <!-- clear_all -->
             <method name="clear_all">remove all sources from map</method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
             <!-- group -->
             <method name="group">group operations 
-            <param name="IDX" type="int" required="true">group index</param>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">group index</tr>
+            </param>
             <param name="ACTION" type="symbol"
             enum="set polar pol azimuth elevation cartesian car abscissa ordinate height relpolar relradius relazimuth relelevation mute remove description color"
-            required="true">action</param>
-            <param name="ARGS" type="list" required="false">action arguments</param></method>
+            required="true">
+                <tr lang="en">action</tr>
+            </param>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">action arguments</tr>
+            </param></method>
             <!-- info -->
             <method name="info">outputs info to 3rd outlet</method>
             <!-- interp -->
@@ -158,23 +166,37 @@
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">preset index</tr>
+            </param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <param name="X" type="float" required="true">
+                <tr lang="en">top left x-coord</tr>
+            </param>
+            <param name="Y" type="float" required="true">
+                <tr lang="en">top right y-coord</tr>
+            </param></method>
             <!-- set -->
             <method name="set">sets toggle state without output</method>
             <!-- source -->
             <method name="source">source operations 
-            <param name="IDX" type="int" required="true">source index</param>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">source index</tr>
+            </param>
             <param name="ACTION" type="symbol"
             enum="polar pol azimuth elevation cartesian car abscissa ordinate height mute remove description color"
-            required="true">action</param>
-            <param name="ARGS" type="list" required="false">action arguments</param></method>
+            required="true">
+                <tr lang="en">action</tr>
+            </param>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">action arguments</tr>
+            </param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">preset index</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

@@ -55,11 +55,14 @@
         <methods>
             <!-- append -->
             <method name="append">adds values to the end of the list 
-            <param name="VAL" type="atom" required="true">appended value</param></method>
+            <param name="VAL" type="atom" required="true">
+                <tr lang="en">appended value</tr>
+            </param></method>
             <!-- at -->
             <method name="at">outputs atom at the specified position 
-            <param name="IDX" type="int" required="true">position (negative indexes are supported:
-            -1 means last element)</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">position (negative indexes are supported: -1 means last element)</tr>
+            </param></method>
             <!-- back -->
             <method name="back">output last list element</method>
             <!-- choose -->
@@ -70,26 +73,38 @@
             <method name="dump">dump object info to Pd window</method>
             <!-- fill -->
             <method name="fill">fills with specified value 
-            <param name="VAL" type="atom" required="true">fill value</param></method>
+            <param name="VAL" type="atom" required="true">
+                <tr lang="en">fill value</tr>
+            </param></method>
             <!-- front -->
             <method name="front">output first list element</method>
             <!-- insert -->
             <method name="insert">inserts values to the specified position 
-            <param name="IDX" type="int" required="true">insert position</param>
-            <param name="VAL" type="atom" required="true">value</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">insert position</tr>
+            </param>
+            <param name="VAL" type="atom" required="true">
+                <tr lang="en">value</tr>
+            </param></method>
             <!-- pop -->
             <method name="pop">removes last list element</method>
             <!-- prepend -->
             <method name="prepend">inserts values to the list beginning 
-            <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <param name="VAL" type="atom" required="true">
+                <tr lang="en">prepended value</tr>
+            </param></method>
             <!-- remove -->
             <method name="remove">removes specified element 
-            <param name="IDX" type="int" required="true">element index</param></method>
+            <param name="IDX" type="int" required="true">
+                <tr lang="en">element index</tr>
+            </param></method>
             <!-- reverse -->
             <method name="reverse">reverses list</method>
             <!-- set -->
             <method name="set">sets new list without output 
-            <param name="LIST" type="list" required="true">new list content</param></method>
+            <param name="LIST" type="list" required="true">
+                <tr lang="en">new list content</tr>
+            </param></method>
             <!-- shuffle -->
             <method name="shuffle">put elements in random order</method>
             <!-- sort -->

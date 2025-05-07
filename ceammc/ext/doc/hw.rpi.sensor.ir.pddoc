@@ -40,7 +40,9 @@
         <methods>
             <!-- poll -->
             <method name="poll">start/stop IR sensor polling 
-            <param name="VALUE" type="bool" required="true">state</param></method>
+            <param name="VALUE" type="bool" required="true">
+                <tr lang="en">state</tr>
+            </param></method>
         </methods>
         <inlets>
             <inlet>

@@ -60,7 +60,9 @@
         <methods>
             <!-- stdin -->
             <method name="stdin">run the program with given input values 
-            <param name="ARGS" type="list" required="false">the input values</param></method>
+            <param name="ARGS" type="list" required="false">
+                <tr lang="en">the input values</tr>
+            </param></method>
             <!-- terminate -->
             <method name="terminate">terminate the running process</method>
         </methods>
