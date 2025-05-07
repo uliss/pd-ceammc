@@ -98,8 +98,8 @@ function.;
 #X text 245 1111 Alias to @method hfc. High Frequency Content onset
 detection.;
 #X msg 110 1141 @hs;
-#X text 245 1141 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
-'samp'. Default value: 0\. Min value: 0\.;
+#X text 245 1141 Get/Set hop size. If set to 0 means @bs/2\. Type:
+int. Units: 'samp'. Default value: 0\. Min value: 0\.;
 #X msg 110 1183 @kl;
 #X text 245 1183 Alias to @method kl. Kullback-Liebler onset detection
 function.;

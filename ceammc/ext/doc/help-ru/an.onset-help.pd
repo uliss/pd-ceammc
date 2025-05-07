@@ -92,73 +92,73 @@ Method.;
 сжатия \, 0 для отключения. Тип: float. Значение по умолчанию: 1\.
 Минимальное значение: 0\.;
 #X msg 110 1054 @delay;
-#X text 245 1054 Получить/Установить constant system delay to take
-back from detection time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
-49.9093\. Минимальное значение: 0\.;
+#X text 245 1054 Получить/Установить постоянная задержка времени обнаружения.
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 49.9093\. Минимальное
+значение: 0\.;
 #X msg 110 1111 @energy;
-#X text 245 1111 Alias to @method energy. Energy based onset detection
-function.;
+#X text 245 1111 Сокращение для @method energy. Energy based функция
+обнаружения атаки.;
 #X msg 110 1153 @hfc;
-#X text 245 1153 Alias to @method hfc. High Frequency Content onset
-detection.;
-#X msg 110 1183 @hs;
-#X text 245 1183 Получить/Установить Размер окна. 0 означает @bs/2\.
-Тип: int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
-0\.;
-#X msg 110 1240 @kl;
-#X text 245 1240 Alias to @method kl. Kullback-Liebler onset detection
-function.;
-#X msg 110 1282 @method;
-#X text 245 1282 Получить/Установить метод детекции атаки. Тип: symbol.
+#X text 245 1153 Сокращение для @method hfc. High Frequency Content
+функция обнаружения атаки.;
+#X msg 110 1195 @hs;
+#X text 245 1195 Получить/Установить размер окна. Если установлено
+в 0 \, означает @bs/2\. Тип: int. Единицы: 'samp'. Значение по умолчанию:
+0\. Минимальное значение: 0\.;
+#X msg 110 1252 @kl;
+#X text 245 1252 Сокращение для @method kl. Функция обнаружения атаки
+Kullback-Liebler.;
+#X msg 110 1294 @method;
+#X text 245 1294 Получить/Установить метод детекции атаки. Тип: symbol.
 Значение по умолчанию: default. Разрешённые значения: specflux \, phase
 \, energy \, hfc \, kl \, complex \, default \, specdiff \, wphase
 \, rolloff \, spread \, kurtosis \, skewness \, complexdomain \, decrease
 \, slope \, centroid.;
-#X msg 110 1385 @mkl;
-#X text 245 1385 Псевдоним для @method mkl. Модифицированная функция
+#X msg 110 1397 @mkl;
+#X text 245 1397 Псевдоним для @method mkl. Модифицированная функция
 обнаружения атаки Kullback-Liebler.;
-#X msg 110 1427 @phase;
-#X text 245 1427 Alias to @method phase. Phase Based Method onset detection
-function.;
-#X msg 110 1469 @silence;
-#X text 245 1469 Получить/Установить onset detection silence threshold.
+#X msg 110 1439 @phase;
+#X text 245 1439 Сокращение для @method phase. Функции обнаружения
+атаки Phase Based Method.;
+#X msg 110 1481 @silence;
+#X text 245 1481 Получить/Установить порог тишины для обнаружения атаки.
 Тип: float. Единицы: 'db'. Значение по умолчанию: -70\. Диапазон: -80\...0\.;
-#X msg 110 1526 @specdiff;
-#X text 245 1526 Alias to @method specdiff. Spectral difference method
-onset detection function.;
-#X msg 110 1568 @specflux;
-#X text 245 1568 Alias to @method specflux. Spectral Flux.;
-#X msg 110 1598 @speedlim;
-#X text 245 1598 Получить/Установить минимальный интервал между двумя
+#X msg 110 1538 @specdiff;
+#X text 245 1538 Сокращение для @method specdiff. Метод спектральной
+разности для обнаружения атаки.;
+#X msg 110 1580 @specflux;
+#X text 245 1580 Сокращение для @method specflux. Spectral Flux функция.;
+#X msg 110 1610 @speedlim;
+#X text 245 1610 Получить/Установить минимальный интервал между двумя
 последовательными атаками. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 50\. Минимальное значение: 1\.;
-#X msg 110 1655 @threshold;
-#X text 245 1655 Получить/Установить peak picking threshold. Тип: float.
+#X msg 110 1667 @threshold;
+#X text 245 1667 Получить/Установить пиковый порог выбора. Тип: float.
 Значение по умолчанию: 0.058\.;
-#X msg 110 1697 @wphase;
-#X text 245 1697 Alias to @method phase. Weighted Phase Deviation onset
-detection function.;
-#X obj 20 1749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1754 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1709 @wphase;
+#X text 245 1709 Сокращение для @method phase. Weighted Phase Deviation
+функция.;
+#X obj 20 1761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1766 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1755 1\.;
-#X text 150 1755 *bang*;
-#X text 245 1755 analyze array.;
-#X obj 20 1785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1790 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1767 1\.;
+#X text 150 1767 *bang*;
+#X text 245 1767 analyze array.;
+#X obj 20 1797 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1802 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1791 1\.;
-#X text 245 1791 output list of detected onsets.;
+#X text 110 1803 1\.;
+#X text 245 1803 output list of detected onsets.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 1841 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1844 библиотека: ceammc v0.9.8;
-#X text 552 1856 смотрите также:;
-#X obj 673 1856 an.onset~;
-#N canvas 10 1863 400 290 info 0;
+#X obj 1 1853 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1856 библиотека: ceammc v0.9.8;
+#X text 552 1868 смотрите также:;
+#X obj 673 1868 an.onset~;
+#N canvas 10 1875 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -182,7 +182,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1863 pd info;
+#X restore 10 1875 pd info;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

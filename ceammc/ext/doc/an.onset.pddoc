@@ -75,31 +75,27 @@
             <property name="@delay" type="float" minvalue="0" default="49.9093"
             units="millisecond">
                 <tr lang="en">constant system delay to take back from detection time</tr>
-                <tr lang="ru" finished="false">постоянная задержка системы для возврата от времени
-                обнаружения</tr>
+                <tr lang="ru">постоянная задержка времени обнаружения</tr>
             </property>
             <!-- @energy -->
             <property name="@energy" type="alias">
                 <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
-                <tr lang="ru" finished="false">Название: @method energy Энергия на основе функции
-                обнаружения начала</tr>
+                <tr lang="ru">сокращение для @method energy. Energy based функция обнаружения атаки</tr>
             </property>
             <!-- @hfc -->
             <property name="@hfc" type="alias">
                 <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
-                <tr lang="ru" finished="false">@method hfc. Высокочастотное обнаружение
-                контента</tr>
+                <tr lang="ru">сокращение для @method hfc. High Frequency Content функция обнаружения атаки</tr>
             </property>
             <!-- @hs -->
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">
-                <tr lang="en">hop size. 0 means @bs/2</tr>
-                <tr lang="ru">Размер окна. 0 означает @bs/2</tr>
+                <tr lang="en">hop size. If set to 0 means @bs/2</tr>
+                <tr lang="ru">размер окна. Если установлено в 0, означает @bs/2</tr>
             </property>
             <!-- @kl -->
             <property name="@kl" type="alias">
                 <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
-                <tr lang="ru" finished="false">псевдоним @method kl. Кулончик - Функция обнаружения
-                начала Liebler</tr>
+                <tr lang="ru">сокращение для @method kl. Функция обнаружения атаки Kullback-Liebler</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol"
@@ -119,27 +115,26 @@
             <property name="@phase" type="alias">
                 <tr lang="en">alias to @method phase. Phase Based Method onset detection
                 function</tr>
-                <tr lang="ru" finished="false">Называется @method phase. Фазовый метод функции
-                обнаружения начала</tr>
+                <tr lang="ru">сокращение для @method phase. Функции
+                обнаружения атаки Phase Based Method</tr>
             </property>
             <!-- @silence -->
             <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
             maxvalue="0">
                 <tr lang="en">onset detection silence threshold</tr>
-                <tr lang="ru" finished="false">Порог тишины обнаружения начала</tr>
+                <tr lang="ru">порог тишины для обнаружения атаки</tr>
             </property>
             <!-- @specdiff -->
             <property name="@specdiff" type="alias">
                 <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
                 function</tr>
-                <tr lang="ru" finished="false">псевдоним для @method specdiff. Функция обнаружения
-                начала спектральной разности</tr>
+                <tr lang="ru">сокращение для @method specdiff. Метод спектральной разности для обнаружения
+                атаки</tr>
             </property>
             <!-- @specflux -->
             <property name="@specflux" type="alias">
                 <tr lang="en">alias to @method specflux. Spectral Flux</tr>
-                <tr lang="ru" finished="false">Оригинальное название: @method specflux Спектральный
-                поток</tr>
+                <tr lang="ru">сокращение для @method specflux. Spectral Flux функция</tr>
             </property>
             <!-- @speedlim -->
             <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
@@ -150,14 +145,13 @@
             <!-- @threshold -->
             <property name="@threshold" type="float" default="0.058">
                 <tr lang="en">peak picking threshold</tr>
-                <tr lang="ru" finished="false">пиковый порог выбора</tr>
+                <tr lang="ru">пиковый порог выбора</tr>
             </property>
             <!-- @wphase -->
             <property name="@wphase" type="alias">
                 <tr lang="en">alias to @method phase. Weighted Phase Deviation onset detection
                 function</tr>
-                <tr lang="ru" finished="false">Называется @method phase. Функция обнаружения начала
-                отклонения фазы</tr>
+                <tr lang="ru">сокращение для @method phase. Weighted Phase Deviation функция</tr>
             </property>
         </properties>
         <inlets>
