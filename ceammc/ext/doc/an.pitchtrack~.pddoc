@@ -46,25 +46,25 @@
             </property>
             <!-- @fidthr -->
             <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">
-                <tr lang="en">min fidelity threshold to report the pitch</tr>
+                <tr lang="en">minimal fidelity threshold to report the pitch</tr>
                 <tr lang="ru" finished="false">Мин порог верности, чтобы сообщить о шаге</tr>
             </property>
             <!-- @framesize -->
             <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
             units="sample">
-                <tr lang="en">frame size in samples</tr>
-                <tr lang="ru" finished="false">размер рамы в образцах</tr>
+                <tr lang="en">frame size</tr>
+                <tr lang="ru">размер окна</tr>
             </property>
             <!-- @maxfreq -->
             <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
             units="hertz">
                 <tr lang="en">max tracked frequency</tr>
-                <tr lang="ru" finished="false">Максимальная отслеживаемая частота</tr>
+                <tr lang="ru">максимальная отслеживаемая частота</tr>
             </property>
             <!-- @overlap -->
             <property name="@overlap" type="int" enum="1 2 4 8" default="1">
                 <tr lang="en">overlap of analysis frames</tr>
-                <tr lang="ru" finished="false">перекрытие рамок анализа</tr>
+                <tr lang="ru">перекрытие окон при анализе</tr>
             </property>
         </properties>
         <inlets>
