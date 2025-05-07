@@ -42,9 +42,9 @@ outlet;
 #X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 635 @keys;
-#X text 245 635 (initonly) Get/Set list of mapped keys. Type: list.;
+#X text 245 635 (initonly) Get/Set list of notes. Type: list.;
 #X msg 110 665 @poly;
-#X text 245 665 polyphonic mode. (for using with [clone] object). Default
+#X text 245 665 polyphonic mode for using with [clone] object. Default
 value: 0\.;
 #X msg 110 707 @mode;
 #X text 245 707 Get/Set mode for repeated notes. If 'off' - send note

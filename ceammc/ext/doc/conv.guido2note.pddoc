@@ -40,7 +40,7 @@
             <!-- @tempo -->
             <property name="@tempo" type="atom" default="60|4bpm" units="bpm">
                 <tr lang="en">current tempo</tr>
-                <tr lang="ru" finished="false">текущий темп</tr>
+                <tr lang="ru">текущий темп</tr>
             </property>
         </properties>
         <inlets>

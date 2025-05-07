@@ -29,10 +29,10 @@
         <properties>
             <!-- @sym -->
             <property name="@sym" type="bool" default="0">
-                <tr lang="en">symbol output mode. If on - output as list of dots and dashes,
-                otherwise as 0 and 1.</tr>
-                <tr lang="ru" finished="false">Режим вывода символов. Если на - вывод как список
-                точек и тире, иначе как 0 и 1.</tr>
+                <tr lang="en">symbol output mode. If 1: output as list of dots and dashes,
+                otherwise as list of 0 and 1.</tr>
+                <tr lang="ru">режим вывода символов. Если 1: выводит в виде списка
+                точек и тире, в противном случае как список 0 и 1.</tr>
             </property>
         </properties>
         <inlets>

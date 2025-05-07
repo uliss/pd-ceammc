@@ -34,28 +34,29 @@
         <properties>
             <!-- @keys -->
             <property name="@keys" type="list" default="" access="initonly">
-                <tr lang="en">list of mapped keys</tr>
-                <tr lang="ru" finished="false">Список картированных ключей</tr>
+                <tr lang="en">list of notes</tr>
+                <tr lang="ru">список нотных значений</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="off" enum="off tie raw">
                 <tr lang="en">mode for repeated notes. If 'off' - send note off before
                 retriggering, if 'tie' - ignore repeated events, if 'raw' - always send on/off
                 events</tr>
-                <tr lang="ru" finished="false">Режим для повторных заметок. Если «выключено» —
-                отошлите записку перед перезапуском, если «связано» — проигнорируйте повторяющиеся
-                события, если «сыро» — всегда отправляйте события включения/выключения.</tr>
+                <tr lang="ru">режим для повторяющихся нот. Если «off» —
+                отсылает событие выключения ноты перед повторной нотой,
+                если «tie» — игнорирует повторяющиеся ноты,
+                если «raw» — всегда отправлять события включения/выключения.</tr>
             </property>
             <!-- @poly -->
             <property name="@poly" type="flag" default="0" access="initonly">
-                <tr lang="en">polyphonic mode. (for using with [clone] object)</tr>
-                <tr lang="ru" finished="false">полифонический режим. (для использования с
-                [клоновым] объектом)</tr>
+                <tr lang="en">polyphonic mode for using with [clone] object</tr>
+                <tr lang="ru">полифонический режим для использования с
+                [clone] объектом</tr>
             </property>
             <!-- @vel -->
             <property name="@vel" type="float" minvalue="0" maxvalue="127" default="90">
                 <tr lang="en">output velocity</tr>
-                <tr lang="ru" finished="false">выходная скорость</tr>
+                <tr lang="ru">выходная сила нажатия ноты</tr>
             </property>
         </properties>
         <inlets>

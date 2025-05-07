@@ -41,12 +41,12 @@
             <!-- @bpm -->
             <property name="@bpm" type="atom" default="60|4bpm" units="bpm">
                 <tr lang="en">tempo bpm value</tr>
-                <tr lang="ru" finished="false">темп bpm значение</tr>
+                <tr lang="ru">значение темпа</tr>
             </property>
             <!-- @tsig -->
             <property name="@tsig" type="symbol" default="|4/4|">
                 <tr lang="en">time signature value</tr>
-                <tr lang="ru" finished="false">время подписи значение</tr>
+                <tr lang="ru">значение тактового размера</tr>
             </property>
         </properties>
         <inlets>

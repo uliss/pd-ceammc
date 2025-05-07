@@ -36,11 +36,11 @@ float.;
 #X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 410 @from;
-#X text 245 410 Получить/Установить start value of output range. Тип:
-float. Значение по умолчанию: 0\.;
+#X text 245 410 Получить/Установить начальное значение выходного диапазона.
+Тип: float. Значение по умолчанию: 0\.;
 #X msg 110 452 @to;
-#X text 245 452 Получить/Установить end value of output range. Тип:
-float. Значение по умолчанию: 1\.;
+#X text 245 452 Получить/Установить конечное значение выходного диапазона.
+Тип: float. Значение по умолчанию: 1\.;
 #X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 509 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

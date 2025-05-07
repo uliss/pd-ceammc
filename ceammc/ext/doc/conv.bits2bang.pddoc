@@ -35,18 +35,17 @@
             <property name="@n" type="int" minvalue="1" maxvalue="64" default="8"
             access="initonly">
                 <tr lang="en">number of outlets</tr>
-                <tr lang="ru" finished="false">количество торговых точек</tr>
+                <tr lang="ru">количество выходов</tr>
             </property>
             <!-- @poly -->
             <property name="@poly" type="flag" access="initonly">
                 <tr lang="en">polyphonic mode for using with [clone] object</tr>
-                <tr lang="ru" finished="false">полифонический режим для использования с [клонным]
-                объектом</tr>
+                <tr lang="ru" >полифонический режим для использования с объектом [clone]</tr>
             </property>
             <!-- @rev -->
             <property name="@rev" type="bool" default="0">
                 <tr lang="en">reversed bit order</tr>
-                <tr lang="ru" finished="false">Обратный порядок битов</tr>
+                <tr lang="ru">обратный порядок битов</tr>
             </property>
         </properties>
         <inlets>

@@ -24,22 +24,23 @@
             <!-- @both -->
             <property name="@both" type="alias">
                 <tr lang="en">alias to @mode both</tr>
-                <tr lang="ru" finished="false">Обсуждение @mode Both</tr>
+                <tr lang="ru">сокращение для @mode both</tr>
             </property>
             <!-- @down -->
             <property name="@down" type="alias">
                 <tr lang="en">alias to @mode down</tr>
-                <tr lang="ru" finished="false">Исполнитель: @mode Down</tr>
+                <tr lang="ru">сокращение для @mode down</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="up down both" default="up">
                 <tr lang="en">edge detection mode</tr>
-                <tr lang="ru" finished="false">режим обнаружения края</tr>
+                <tr lang="ru">режим обнаружения края. Если 'up': выводит bang при изменении входного значения с низкого на высокое,
+                если 'down': с высокого на низкое, 'both': в обоих случаях</tr>
             </property>
             <!-- @up -->
             <property name="@up" type="alias">
                 <tr lang="en">alias to @mode up</tr>
-                <tr lang="ru" finished="false">Исполнитель: @mode Up</tr>
+                <tr lang="ru">сокращение для @mode up</tr>
             </property>
         </properties>
         <inlets>

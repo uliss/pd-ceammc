@@ -19,7 +19,7 @@ rightmost \, this can be changed with @rev property;
 #X obj 735 274 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 306 @rev;
-#X text 245 306 Получить/Установить reversed bit order. Тип: bool.
+#X text 245 306 Получить/Установить обратный порядок битов. Тип: bool.
 Значение по умолчанию: 0\.;
 #X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 363 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
