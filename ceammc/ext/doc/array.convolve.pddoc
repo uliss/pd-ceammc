@@ -35,12 +35,12 @@
             <!-- @ir -->
             <property name="@ir" type="symbol" default="">
                 <tr lang="en">impulse response source array</tr>
-                <tr lang="ru" finished="false">Источник импульсного ответа</tr>
+                <tr lang="ru">массив с импульсным откликом</tr>
             </property>
             <!-- @norm -->
             <property name="@norm" type="bool" default="0">
                 <tr lang="en">impulse response normalization</tr>
-                <tr lang="ru" finished="false">нормализация импульсной реакции</tr>
+                <tr lang="ru">нормализация импульсного отклика</tr>
             </property>
         </properties>
         <inlets>

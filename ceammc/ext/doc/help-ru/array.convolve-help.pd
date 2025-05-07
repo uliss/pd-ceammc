@@ -39,10 +39,10 @@
 #X msg 110 496 @array;
 #X text 245 496 Получить/Установить целевой массив. Тип: symbol.;
 #X msg 110 526 @ir;
-#X text 245 526 Получить/Установить impulse response source array.
-Тип: symbol.;
+#X text 245 526 Получить/Установить массив с импульсным откликом. Тип:
+symbol.;
 #X msg 110 568 @norm;
-#X text 245 568 Получить/Установить impulse response normalization.
+#X text 245 568 Получить/Установить нормализация импульсного отклика.
 Тип: bool. Значение по умолчанию: 0\.;
 #X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 625 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
