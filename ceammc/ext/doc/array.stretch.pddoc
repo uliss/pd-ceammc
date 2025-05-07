@@ -36,16 +36,21 @@
             <!-- @aalength -->
             <property name="@aalength" type="int" minvalue="8" maxvalue="128" default="64">
                 <tr lang="en">pitch transposer anti-alias filter length</tr>
+                <tr lang="ru" finished="false">длина фильтра против алиев</tr>
             </property>
             <!-- @antialias -->
             <property name="@antialias" type="bool" default="0">
                 <tr lang="en">use of anti-alias filter. Anti-alias filter is used to prevent
                 folding of high frequencies when transposing the sample rate with
                 interpolation.</tr>
+                <tr lang="ru" finished="false">Использование антиалиевого фильтра. Антисемит Фильтр
+                алии используется для предотвращения сворачивания высоких частот при переносе
+                частоты выборки с интерполяцией.</tr>
             </property>
             <!-- @dest -->
             <property name="@dest" type="symbol" default="">
                 <tr lang="en">destination array</tr>
+                <tr lang="ru" finished="false">пункт назначения</tr>
             </property>
             <!-- @overlap -->
             <property name="@overlap" type="int" units="millisecond" minvalue="0" maxvalue="100"
@@ -54,15 +59,24 @@
                 mixed back together, to form a continuous sound stream, this parameter defines over
                 how long period the two consecutive sequences are let to overlap each other.
                 Increasing this value increases computational burden &amp; vice versa.</tr>
+                <tr lang="ru" finished="false">Длина наклона в миллисекундах. Когда измельченные
+                звуковые последовательности смешиваются вместе, образуя непрерывный звуковой поток,
+                этот параметр определяет, в течение какого периода две последовательные
+                последовательности могут перекрывать друг друга. Увеличение этого значения
+                увеличивает вычислительную нагрузку и наоборот.</tr>
             </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" default="0" units="semitone">
                 <tr lang="en">relative pitch change while keeping the original tempo</tr>
+                <tr lang="ru" finished="false">относительное изменение шага при сохранении
+                первоначального темпа</tr>
             </property>
             <!-- @rate -->
             <property name="@rate" type="float" minvalue="0.1" maxvalue="2" default="1">
                 <tr lang="en">playback rate - changes both tempo and pitch together as if a vinyl
                 disc was played at different RPM rate</tr>
+                <tr lang="ru" finished="false">Скорость воспроизведения - изменяет как темп, так и
+                шаг вместе, как если бы виниловый диск воспроизводился с разной скоростью RPM</tr>
             </property>
             <!-- @seekwindow -->
             <property name="@seekwindow" type="int" units="millisecond" minvalue="0" maxvalue="100"
@@ -78,6 +92,18 @@
                 this value increases computational burden &amp; vice versa. Giving *0* value for
                 the seek window length sets automatic parameter value according to tempo setting
                 (recommended)</tr>
+                <tr lang="ru" finished="false">Поиск длины окна по умолчанию в миллисекундах для
+                алгоритма, который находит наилучшее возможное перекрытие местоположения. Это
+                определяет, из какого широкого окна алгоритм может искать оптимальное место
+                соединения при смешивании звуковых последовательностей вместе. Чем больше это окно,
+                тем выше будет возможность найти лучшее положение смешивания, но в то же время
+                большие значения могут вызвать «дрейфующий» артефакт, потому что последующие
+                последовательности будут приниматься с более неравными интервалами. Если есть
+                тревожный артефакт, который звучит так, как будто постоянная частота дрейфует,
+                попробуйте уменьшить эту настройку. Увеличение этого значения увеличивает
+                вычислительную нагрузку и наоборот. Давая значение *0* для длины окна поиска
+                устанавливает автоматическое значение параметра в соответствии с настройкой темпа
+                (рекомендуется)</tr>
             </property>
             <!-- @sequence -->
             <property name="@sequence" type="int" units="millisecond" default="0" minvalue="0"
@@ -89,19 +115,31 @@
                 increasing tempo and vice versa. Increasing this value reduces computational burden
                 &amp; vice versa. Giving *0* value for the sequence length sets automatic parameter
                 value according to tempo setting (recommended).</tr>
+                <tr lang="ru" finished="false">Длина по умолчанию одной последовательности
+                обработки в миллисекундах. Это определяет, как долго последовательности исходного
+                звука измельчаются в алгоритме растяжения времени. Чем больше это значение, тем
+                меньше последовательности используются в обработке. В принципе, большее значение
+                звучит лучше при замедлении темпа, но хуже при увеличении темпа и наоборот.
+                Увеличение этого значения снижает вычислительную нагрузку и наоборот. Давая
+                значение *0* для длины последовательности устанавливает автоматическое значение
+                параметра в соответствии с настройками темпа (рекомендуется).</tr>
             </property>
             <!-- @speech -->
             <property name="@speech" type="bool" default="0">
                 <tr lang="en">optimize for speech sound source</tr>
+                <tr lang="ru" finished="false">Оптимизация источника звука речи</tr>
             </property>
             <!-- @src -->
             <property name="@src" type="symbol" default="">
                 <tr lang="en">source array</tr>
+                <tr lang="ru" finished="false">источник</tr>
             </property>
             <!-- @tempo -->
             <property name="@tempo" type="float" units="percent" minvalue="-50" maxvalue="100"
             default="0">
                 <tr lang="en">relative tempo change without affecting the sound pitch</tr>
+                <tr lang="ru" finished="false">относительное изменение темпа без влияния на
+                звук</tr>
             </property>
         </properties>
         <inlets>

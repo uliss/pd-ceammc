@@ -75,21 +75,22 @@
 #X obj 735 794 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 826 @bs;
-#X text 245 826 (при инициализации) Получить/Установить buffer size.
+#X text 245 826 (при инициализации) Получить/Установить размер буфера.
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Минимальное
 значение: 64\.;
 #X msg 110 883 @array;
-#X text 245 883 Получить/Установить name of analyzed array. Тип: symbol.;
+#X text 245 883 Получить/Установить имя анализируемого массива. Тип:
+symbol.;
 #X msg 110 913 @awhitening;
-#X text 245 913 Получить/Установить adaptive whitening. Тип: bool.
-Значение по умолчанию: 0\.;
+#X text 245 913 Получить/Установить адаптивное «отбеливание». Тип:
+bool. Значение по умолчанию: 0\.;
 #X msg 110 955 @complex;
-#X text 245 955 Alias to @method complex. Complex Domain Method onset
-detection function.;
+#X text 245 955 Сокращение для @method complex. Функция Complex Domain
+Method.;
 #X msg 110 997 @compression;
-#X text 245 997 Получить/Установить lambda logarithmic compression
-factor \, 0 to disable. Тип: float. Значение по умолчанию: 1\. Минимальное
-значение: 0\.;
+#X text 245 997 Получить/Установить лямбда логарифмический коэффициент
+сжатия \, 0 для отключения. Тип: float. Значение по умолчанию: 1\.
+Минимальное значение: 0\.;
 #X msg 110 1054 @delay;
 #X text 245 1054 Получить/Установить constant system delay to take
 back from detection time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
@@ -101,8 +102,8 @@ function.;
 #X text 245 1153 Alias to @method hfc. High Frequency Content onset
 detection.;
 #X msg 110 1183 @hs;
-#X text 245 1183 Получить/Установить hop size. 0 means @bs/2\. Тип:
-int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
+#X text 245 1183 Получить/Установить Размер окна. 0 означает @bs/2\.
+Тип: int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
 #X msg 110 1240 @kl;
 #X text 245 1240 Alias to @method kl. Kullback-Liebler onset detection

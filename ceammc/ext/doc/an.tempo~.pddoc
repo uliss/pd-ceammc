@@ -42,70 +42,95 @@
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
             access="initonly">
                 <tr lang="en">buffer size</tr>
+                <tr lang="ru" finished="false">размер буфера</tr>
             </property>
             <!-- @complex -->
             <property name="@complex" type="alias">
                 <tr lang="en">alias to @method complex. Complex Domain Method onset detection
                 function</tr>
+                <tr lang="ru" finished="false">@method complex. Сложная функция обнаружения
+                домена</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
                 <tr lang="en">constant system delay to take back from detection time</tr>
+                <tr lang="ru" finished="false">постоянная задержка системы для возврата от времени
+                обнаружения</tr>
             </property>
             <!-- @energy -->
             <property name="@energy" type="alias">
                 <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
+                <tr lang="ru" finished="false">Название: @method energy Энергия на основе функции
+                обнаружения начала</tr>
             </property>
             <!-- @hfc -->
             <property name="@hfc" type="alias">
                 <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
+                <tr lang="ru" finished="false">@method hfc. Высокочастотное обнаружение
+                контента</tr>
             </property>
             <!-- @hs -->
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">
                 <tr lang="en">hop size. 0 means @bs/2</tr>
+                <tr lang="ru" finished="false">Размер прыжка. 0 означает @bs/2</tr>
             </property>
             <!-- @kl -->
             <property name="@kl" type="alias">
                 <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
+                <tr lang="ru" finished="false">псевдоним @method kl. Кулончик - Функция обнаружения
+                начала Liebler</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol"
             enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
             default="default">
                 <tr lang="en">onset method. Default is hfc.</tr>
+                <tr lang="ru" finished="false">Метод начала. По умолчанию hfc.</tr>
             </property>
             <!-- @mkl -->
             <property name="@mkl" type="alias">
                 <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
                 function</tr>
+                <tr lang="ru" finished="false">псевдоним @method mkl. Модифицированная функция
+                обнаружения начала Kullback-Liebler</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="alias">
                 <tr lang="en">alias to @method phase. Phase Based Method onset detection
                 function</tr>
+                <tr lang="ru" finished="false">Называется @method phase. Фазовый метод функции
+                обнаружения начала</tr>
             </property>
             <!-- @silence -->
             <property name="@silence" type="float" units="decibel" default="-90" minvalue="-90"
             maxvalue="0">
                 <tr lang="en">onset detection silence threshold</tr>
+                <tr lang="ru" finished="false">Порог тишины обнаружения начала</tr>
             </property>
             <!-- @specdiff -->
             <property name="@specdiff" type="alias">
                 <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
                 function</tr>
+                <tr lang="ru" finished="false">псевдоним @method specdiff. Функция обнаружения
+                начала спектральной разности</tr>
             </property>
             <!-- @specflux -->
             <property name="@specflux" type="alias">
                 <tr lang="en">alias to @method specflux. Spectral Flux</tr>
+                <tr lang="ru" finished="false">Оригинальное название: @method specflux Спектральный
+                поток</tr>
             </property>
             <!-- @threshold -->
             <property name="@threshold" type="float" default="0.3">
                 <tr lang="en">peak picking threshold</tr>
+                <tr lang="ru" finished="false">пиковый порог выбора</tr>
             </property>
             <!-- @wphase -->
             <property name="@wphase" type="alias">
                 <tr lang="en">alias to @method phase. Weighted Phase Deviation onset detection
                 function</tr>
+                <tr lang="ru" finished="false">Называется @method phase. Функция обнаружения начала
+                отклонения фазы</tr>
             </property>
         </properties>
         <inlets>

@@ -47,18 +47,22 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </property>
             <!-- @bins -->
             <property name="@bins" type="int" minvalue="2" maxvalue="1000" default="100">
                 <tr lang="en">number of bins</tr>
+                <tr lang="ru" finished="false">количество бункеров</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="float" default="1">
                 <tr lang="en">maximum value</tr>
+                <tr lang="ru" finished="false">максимальное значение</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="float" default="-1">
                 <tr lang="en">minimal value</tr>
+                <tr lang="ru" finished="false">Минимальная ценность</tr>
             </property>
         </properties>
         <inlets>

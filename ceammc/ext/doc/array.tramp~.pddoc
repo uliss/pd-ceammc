@@ -30,22 +30,27 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </property>
             <!-- @from -->
             <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">
                 <tr lang="en">normalized to [0-1] range ramp start</tr>
+                <tr lang="ru" finished="false">Нормализованный до [0-1] диапазона рампы</tr>
             </property>
             <!-- @range -->
             <property name="@range" type="list" default="0 1">
                 <tr lang="en">ramp range</tr>
+                <tr lang="ru" finished="false">рампа</tr>
             </property>
             <!-- @speed -->
             <property name="@speed" type="float" default="1">
                 <tr lang="en">ramp speed</tr>
+                <tr lang="ru" finished="false">скорость</tr>
             </property>
             <!-- @to -->
             <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">
                 <tr lang="en">normalized to [0-1] range ramp end</tr>
+                <tr lang="ru" finished="false">Нормализованный до [0-1] конца диапазона</tr>
             </property>
         </properties>
         <inlets>

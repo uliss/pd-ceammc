@@ -38,8 +38,8 @@ symbol.;
 #X text 245 524 Turn on/off object dsp processing. Type: bool. Default
 value: 1\.;
 #X msg 110 566 @period;
-#X text 245 566 Get/Set averaging frame. Type: float. Units: 'ms'.
-Default value: 200\. Range: 1\...1000\.;
+#X text 245 566 Get/Set averaging window period. Type: float. Units:
+'ms'. Default value: 200\. Range: 1\...1000\.;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

@@ -25,11 +25,14 @@
             <property name="@bs" type="int" minvalue="1" default="1024" maxvalue="65536"
             units="sample" access="initonly">
                 <tr lang="en">buffer size</tr>
+                <tr lang="ru" finished="false">размер буфера</tr>
             </property>
             <!-- @clock -->
             <property name="@clock" type="list" default="0" access="initonly">
                 <tr lang="en">alias for @mode count @bs 1. Output impulse at each zero
                 crossing.</tr>
+                <tr lang="ru" finished="false">alias for @mode count @bs 1. Выходной импульс при
+                каждом пересечении нуля.</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="count rate freq" default="count">
@@ -37,6 +40,10 @@
                 occurred in a period of current block size, if 'rate' - output zero crossing rate
                 (zero crossing number / block size), if 'freq' - output zero crossing frequency in
                 hertz.</tr>
+                <tr lang="ru" finished="false">Режим расчета: если "счет" - выходное число нулевого
+                пересечения произошло в период текущего размера блока, если "скорость" - выходной
+                нулевой коэффициент пересечения (ноль пересечения номер/размер блока), если "freq"
+                - выход нулевой частоты пересечения в герц.</tr>
             </property>
         </properties>
         <inlets>

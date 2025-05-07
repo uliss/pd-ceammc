@@ -36,6 +36,7 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </property>
         </properties>
         <inlets>

@@ -29,10 +29,12 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </property>
             <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">
                 <tr lang="en">redraw after array change</tr>
+                <tr lang="ru" finished="false">Перерисовать после изменения массива</tr>
             </property>
         </properties>
         <methods>
@@ -40,74 +42,96 @@
             <method name="fill">fill all array with specified value or pattern 
             <param name="@from" type="int">
                 <tr lang="en">fill range begin index. If not specified set to 0.</tr>
+                <tr lang="ru" finished="false">Диапазон заполнения начинается с индекса. Если не
+                указано 0.</tr>
             </param>
             <param name="@to" type="int">
                 <tr lang="en">fill range end index. Can be negative - to address from array end.
                 For example: -1 means till last element (not including). If not specified set to
                 array length.</tr>
+                <tr lang="ru" finished="false">Заполните конечный индекс. Может быть отрицательным
+                - для адресации с конца массива. Например: -1 означает до последнего элемента (не
+                включая). Если не указана установленная длина массива.</tr>
             </param>
             <param name="VAL1" type="float" required="true">
                 <tr lang="en">value 1</tr>
+                <tr lang="ru" finished="false">ценность 1 1</tr>
             </param>
             <param name="VAL..." type="float">
                 <tr lang="en">other values..</tr>
+                <tr lang="ru" finished="false">Другие ценности...</tr>
             </param></method>
             <!-- gauss -->
             <method name="gauss">fill all array with random value with normal (gauss) distribution 
             <param name="MEAN" type="float" default="0">
                 <tr lang="en">mean value</tr>
+                <tr lang="ru" finished="false">Средняя стоимость</tr>
             </param>
             <param name="SIGMA" type="float" default="1" minvalue="0">
                 <tr lang="en">standard deviation</tr>
+                <tr lang="ru" finished="false">стандартное отклонение</tr>
             </param></method>
             <!-- pulse -->
             <method name="pulse">fill all array with pulse wave 
             <param name="T" type="float" required="true" minvalue="1" units="sample">
                 <tr lang="en">wave period</tr>
+                <tr lang="ru" finished="false">волновой период</tr>
             </param>
             <param name="A" type="float" default="1">
                 <tr lang="en">wave amplitude</tr>
+                <tr lang="ru" finished="false">волновая амплитуда</tr>
             </param>
             <param name="D" type="float" default="0.5" minvalue="0.001" maxvalue="0.999">
                 <tr lang="en">duty cycle</tr>
+                <tr lang="ru" finished="false">дежурный цикл</tr>
             </param></method>
             <!-- saw -->
             <method name="saw">fill all array with saw wave 
             <param name="T" type="float" required="true" minvalue="1" units="sample">
                 <tr lang="en">wave period</tr>
+                <tr lang="ru" finished="false">волновой период</tr>
             </param>
             <param name="A" type="float" default="1">
                 <tr lang="en">wave amplitude</tr>
+                <tr lang="ru" finished="false">волновая амплитуда</tr>
             </param>
             <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">wave phase</tr>
+                <tr lang="ru" finished="false">волновая фаза</tr>
             </param></method>
             <!-- sin -->
             <method name="sin">fill all array with sine wave 
             <param name="T" type="float" minvalue="0" required="true" units="sample">
                 <tr lang="en">wave period. Should be &gt;0</tr>
+                <tr lang="ru" finished="false">Период волн. Должен быть &gt;0</tr>
             </param>
             <param name="A" type="float" default="1">
                 <tr lang="en">amplitude</tr>
+                <tr lang="ru" finished="false">амплитуда</tr>
             </param>
             <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">phase in 0...1 range</tr>
+                <tr lang="ru" finished="false">Фаза в диапазоне 0...1</tr>
             </param></method>
             <!-- tri -->
             <method name="tri">fill all array with triangle wave 
             <param name="T" type="float" required="true" minvalue="1" units="sample">
                 <tr lang="en">wave period</tr>
+                <tr lang="ru" finished="false">волновой период</tr>
             </param>
             <param name="AMP" type="float" default="1">
                 <tr lang="en">wave amplitude</tr>
+                <tr lang="ru" finished="false">волновая амплитуда</tr>
             </param></method>
             <!-- uniform -->
             <method name="uniform">fill all array with random value with uniform distribution 
             <param name="A" type="float" default="0">
                 <tr lang="en">min value</tr>
+                <tr lang="ru" finished="false">минимальная стоимость</tr>
             </param>
             <param name="B" type="float" default="1">
                 <tr lang="en">max value</tr>
+                <tr lang="ru" finished="false">максимальное значение</tr>
             </param></method>
         </methods>
         <inlets>

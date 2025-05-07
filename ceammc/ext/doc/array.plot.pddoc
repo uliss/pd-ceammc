@@ -37,22 +37,27 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </property>
             <!-- @nan -->
             <property name="@nan" type="float" default="+inf">
                 <tr lang="en">value to replace nan on plot</tr>
+                <tr lang="ru" finished="false">Значение для замены няни на участке</tr>
             </property>
             <!-- @yauto -->
             <property name="@yauto" type="bool" default="1">
                 <tr lang="en">calculate y-axis range automatically</tr>
+                <tr lang="ru" finished="false">Вычислить диапазон y-оси автоматически</tr>
             </property>
             <!-- @ymax -->
             <property name="@ymax" type="float" minvalue="-2048" maxvalue="2048" default="1">
                 <tr lang="en">maximum y-axis value</tr>
+                <tr lang="ru" finished="false">Максимальное значение y-оси</tr>
             </property>
             <!-- @ymin -->
             <property name="@ymin" type="float" minvalue="-2048" maxvalue="2048" default="-1">
                 <tr lang="en">minimal y-axis value</tr>
+                <tr lang="ru" finished="false">Минимальное значение y-оси</tr>
             </property>
         </properties>
         <inlets>

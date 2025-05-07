@@ -29,10 +29,12 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru">имя массива</tr>
             </property>
             <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">
                 <tr lang="en">array redraw after change</tr>
+                <tr lang="ru">перерисовка массива после изменения</tr>
             </property>
         </properties>
         <inlets>

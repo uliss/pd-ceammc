@@ -30,10 +30,10 @@
 #X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 390 @array;
-#X text 245 390 Получить/Установить array name. Тип: symbol.;
+#X text 245 390 Получить/Установить имя массива. Тип: symbol.;
 #X msg 110 420 @redraw;
-#X text 245 420 Получить/Установить array redraw after change. Тип:
-bool. Значение по умолчанию: 1\.;
+#X text 245 420 Получить/Установить перерисовка массива после изменения.
+Тип: bool. Значение по умолчанию: 1\.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

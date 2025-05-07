@@ -32,10 +32,13 @@
             <!-- @array -->
             <property name="@array" type="symbol" default="">
                 <tr lang="en">array name</tr>
+                <tr lang="ru" finished="false">имя массива</tr>
             </property>
             <!-- @mix -->
             <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">
                 <tr lang="en">mix amount between read signal and written</tr>
+                <tr lang="ru" finished="false">количество смеси между прочитанным сигналом и
+                написанным</tr>
             </property>
         </properties>
         <methods>

@@ -33,39 +33,48 @@
             <!-- @best -->
             <property name="@best" type="alias">
                 <tr lang="en">alias to @quality best</tr>
+                <tr lang="ru" finished="false">Исполнитель: @quality Best</tr>
             </property>
             <!-- @dest -->
             <property name="@dest" type="symbol" default="">
                 <tr lang="en">destination array</tr>
+                <tr lang="ru" finished="false">пункт назначения</tr>
             </property>
             <!-- @fast -->
             <property name="@fast" type="alias">
                 <tr lang="en">alias to @quality fast</tr>
+                <tr lang="ru" finished="false">Исполнитель: @quality Fast</tr>
             </property>
             <!-- @high -->
             <property name="@high" type="alias">
                 <tr lang="en">alias to @quality high</tr>
+                <tr lang="ru" finished="false">Исполнитель: @quality high</tr>
             </property>
             <!-- @low -->
             <property name="@low" type="alias">
                 <tr lang="en">alias to @quality low</tr>
+                <tr lang="ru" finished="false">Оригинальное название: Quality Low</tr>
             </property>
             <!-- @medium -->
             <property name="@medium" type="alias">
                 <tr lang="en">alias to @quality medium</tr>
+                <tr lang="ru" finished="false">Источник: @quality medium</tr>
             </property>
             <!-- @quality -->
             <property name="@quality" type="symbol" enum="high fast low medium best"
             default="high">
                 <tr lang="en">resample quality</tr>
+                <tr lang="ru" finished="false">качество образцов</tr>
             </property>
             <!-- @ratio -->
             <property name="@ratio" type="float" minvalue="0" default="0">
                 <tr lang="en">resample ratio (src/dest)</tr>
+                <tr lang="ru" finished="false">Соотношение повторных образцов (src/dest)</tr>
             </property>
             <!-- @src -->
             <property name="@src" type="symbol" default="">
                 <tr lang="en">source array</tr>
+                <tr lang="ru" finished="false">источник</tr>
             </property>
         </properties>
         <inlets>

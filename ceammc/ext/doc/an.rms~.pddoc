@@ -29,7 +29,8 @@
             <!-- @period -->
             <property name="@period" type="float" minvalue="1" maxvalue="1000" default="200"
             units="millisecond">
-                <tr lang="en">averaging frame</tr>
+                <tr lang="en">averaging window period</tr>
+                <tr lang="ru">период окна усреднения</tr>
             </property>
         </properties>
         <methods>
