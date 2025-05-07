@@ -56,8 +56,8 @@ test_canvas.;
 #X msg 110 750 postscript;
 #X text 245 750 save patch to postscript. Arguments are:;
 #X obj 255 773 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 773 [FNAME]: file. If not specified patch name used with
-.ps extension. Type: symbol.;
+#X text 255 773 [FNAME]: file name. If not specified \, the patch name
+with the extension .ps is used. Type: symbol.;
 #X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 828 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

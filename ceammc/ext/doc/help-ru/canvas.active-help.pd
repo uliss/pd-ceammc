@@ -20,7 +20,7 @@
 #X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 324 @abs;
-#X text 245 324 Получить/Установить use canvas for abstractions. Тип:
+#X text 245 324 Получить/Установить проверка внутри абстракции. Тип:
 bool. Значение по умолчанию: 0\.;
 #X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 381 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933

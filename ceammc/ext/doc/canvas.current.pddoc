@@ -24,65 +24,65 @@
             <!-- @abstraction -->
             <property name="@abstraction" type="bool" access="readonly" default="1">
                 <tr lang="en">1 if canvas is abstraction</tr>
-                <tr lang="ru" finished="false">1 если холст является абстракцией</tr>
+                <tr lang="ru">1 если холст является абстракцией</tr>
             </property>
             <!-- @args -->
             <property name="@args" type="list" access="readonly" default="">
                 <tr lang="en">canvas creation arguments</tr>
-                <tr lang="ru" finished="false">Аргументы о создании холста</tr>
+                <tr lang="ru">аргументы при создании холста</tr>
             </property>
             <!-- @dir -->
             <property name="@dir" type="symbol" access="readonly" default="/">
                 <tr lang="en">canvas directory (only if top level or abstraction)</tr>
-                <tr lang="ru" finished="false">каталог холста (только если верхний уровень или
+                <tr lang="ru">директория холста (только если холст верхнего уровеня или
                 абстракция)</tr>
             </property>
             <!-- @font -->
             <property name="@font" type="int" access="readonly" default="10">
                 <tr lang="en">canvas font size</tr>
-                <tr lang="ru" finished="false">размер шрифта canvas</tr>
+                <tr lang="ru">размер шрифта у холста</tr>
             </property>
             <!-- @height -->
             <property name="@height" type="int" access="readonly" default="400">
                 <tr lang="en">canvas height (window or GOP)</tr>
-                <tr lang="ru" finished="false">высота холста (окно или GOP)</tr>
+                <tr lang="ru">высота холста (окна или GOP)</tr>
             </property>
             <!-- @name -->
             <property name="@name" type="symbol" access="readonly" default="test_canvas">
                 <tr lang="en">canvas name</tr>
-                <tr lang="ru" finished="false">название холста</tr>
+                <tr lang="ru">имя холста</tr>
             </property>
             <!-- @paths -->
             <property name="@paths" type="list" access="readonly" default="">
                 <tr lang="en">canvas search paths</tr>
-                <tr lang="ru" finished="false">Поисковые пути canvas</tr>
+                <tr lang="ru">поисковые пути у холста</tr>
             </property>
             <!-- @root -->
             <property name="@root" type="bool" access="readonly" default="1">
                 <tr lang="en">1 if canvas is top-level (window)</tr>
-                <tr lang="ru" finished="false">1 если холст верхнего уровня (окно)</tr>
+                <tr lang="ru">1 если холст верхнего уровня (окно)</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" access="readonly" default="600 400">
                 <tr lang="en">canvas dimensions. If root canvas (window) return window size, if
                 subpatch return Graph on Parent size</tr>
-                <tr lang="ru" finished="false">Размеры холста. Если корневой холст (окно)
-                возвращает размер окна, если субпатч возвращает графу на родительский размер</tr>
+                <tr lang="ru">размер холста. Если корневой холст (окно) возвращает размер окна,
+                если субпатч возвращает размер Graph on Parent</tr>
             </property>
             <!-- @width -->
             <property name="@width" type="int" access="readonly" default="600">
                 <tr lang="en">canvas width (window or GOP)</tr>
-                <tr lang="ru" finished="false">Ширина холста (окно или GOP)</tr>
+                <tr lang="ru">ширина холста (окна или GOP)</tr>
             </property>
             <!-- @x -->
             <property name="@x" type="int" access="readonly" default="0">
                 <tr lang="en">canvas x-pos (window or GOP)</tr>
-                <tr lang="ru" finished="false">Canvas x-pos (окно или GOP)</tr>
+                <tr lang="ru">x-позиция холста (окна или GOP)</tr>
             </property>
             <!-- @y -->
             <property name="@y" type="int" access="readonly" default="0">
                 <tr lang="en">canvas y-pos (window or GOP)</tr>
-                <tr lang="ru" finished="false">Canvas y-pos (окно или GOP)</tr>
+                <tr lang="ru">y-позиция холста (окна или GOP)</tr>
             </property>
         </properties>
         <inlets>
