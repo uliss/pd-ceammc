@@ -67,7 +67,7 @@ Default value: 50\. Min value: 1\.;
 #X text 245 1197 align grain(s) to onset. Arguments are:;
 #X obj 255 1220 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1220 [SUBJ]: if '*' or omitted: align all grains \, if
-'.': align finished grains only \, if float: align grain with corresponding
+'.': align finished grains only \, if number: align grain with corresponding
 #id \, if symbol: align grains with corresponding tag. Type: atom.;
 #X msg 110 1305 append;
 #X text 245 1305 append several grains. Arguments are:;
@@ -130,9 +130,9 @@ are:;
 #X text 255 2005 [N]: number of permutations. If N>0 results N-th next
 permutation \, N<0 - N-th previous permutation. Type: int. Range: -16\...16\.;
 #X obj 255 2058 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2058 [TAG]: if '*' or omitted: reverse positions of all
-grains \, if '.': reverse positions of finished grains only \, otherwise
-reverse grains with corresponding tag. Type: symbol.;
+#X text 255 2058 [TAG]: if '*' or omitted: permutates all grains \,
+if '.': permutate positions of finished grains only \, otherwise permutates
+grains with corresponding tag. Type: symbol.;
 #X msg 110 2113 reverse;
 #X text 245 2113 reverse grain positions (@ta and @tb) values. Arguments
 are:;
