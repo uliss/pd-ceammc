@@ -42,8 +42,9 @@ Normalized AutoCorrelation function (SNAC);
 large lags in the period detection \, thereby avoiding low-octave jumps.
 Тип: float. Значение по умолчанию: 0.2\. Диапазон: 0\...1\.;
 #X msg 110 564 @fidthr;
-#X text 245 564 Получить/Установить minimal fidelity threshold to report
-the pitch. Тип: float. Значение по умолчанию: 0.95\. Диапазон: 0\...1\.;
+#X text 245 564 Получить/Установить минимальный порог качества \, чтобы
+сообщить об определенной высоте. Тип: float. Значение по умолчанию:
+0.95\. Диапазон: 0\...1\.;
 #X msg 110 621 @framesize;
 #X text 245 621 Получить/Установить размер окна. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 1024\. Разрешённые значения: 128 \,
