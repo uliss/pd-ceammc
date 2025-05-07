@@ -56,43 +56,55 @@
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
                 <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
                 both).</tr>
+                <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip
+                floor) minmax (clip both).</tr>
             </property>
             <!-- @curve -->
             <property name="@curve" type="float" default="-4">
                 <tr lang="en">0 (linear) &lt;0 (concave, negatively curved) &gt;0 (convex,
                 positively curved)</tr>
+                <tr lang="ru" finished="false">0 (линейный) &lt;0 (вогнутый, отрицательно
+                изогнутый) &gt;0 (выпуклый, положительно изогнутый)</tr>
             </property>
             <!-- @in_from -->
             <property name="@in_from" type="float" default="0">
                 <tr lang="en">begin of input range</tr>
+                <tr lang="ru" finished="false">начало входного диапазона</tr>
             </property>
             <!-- @in_to -->
             <property name="@in_to" type="float" default="127">
                 <tr lang="en">end of input range</tr>
+                <tr lang="ru" finished="false">конец входного диапазона</tr>
             </property>
             <!-- @max -->
             <property name="@max" type="alias">
                 <tr lang="en">alias to @clip max</tr>
+                <tr lang="ru" finished="false">Исполнитель: @clip max</tr>
             </property>
             <!-- @min -->
             <property name="@min" type="alias">
                 <tr lang="en">alias to @clip min</tr>
+                <tr lang="ru" finished="false">Исполнитель: @clip Min</tr>
             </property>
             <!-- @minmax -->
             <property name="@minmax" type="alias">
                 <tr lang="en">alias to @clip minmax</tr>
+                <tr lang="ru" finished="false">Исполнитель: @clip Minmax</tr>
             </property>
             <!-- @noclip -->
             <property name="@noclip" type="alias">
                 <tr lang="en">alias to @clip noclip</tr>
+                <tr lang="ru" finished="false">Исполнитель: @clip noclip</tr>
             </property>
             <!-- @out_from -->
             <property name="@out_from" type="float" default="0">
                 <tr lang="en">begin of output range</tr>
+                <tr lang="ru" finished="false">начало выходного диапазона</tr>
             </property>
             <!-- @out_to -->
             <property name="@out_to" type="float" default="1">
                 <tr lang="en">end of output range</tr>
+                <tr lang="ru" finished="false">предельный выходной диапазон</tr>
             </property>
         </properties>
         <inlets>

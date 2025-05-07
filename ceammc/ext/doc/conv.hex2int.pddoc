@@ -24,6 +24,7 @@
             <!-- @strict -->
             <property name="@strict" type="flag" access="initonly">
                 <tr lang="en">ignore parsing error</tr>
+                <tr lang="ru" finished="false">Игнорировать ошибку парсинга</tr>
             </property>
         </properties>
         <inlets>

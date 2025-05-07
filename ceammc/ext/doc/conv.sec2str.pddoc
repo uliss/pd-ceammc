@@ -27,11 +27,14 @@
             <!-- @ms -->
             <property name="@ms" type="flag" default="0" access="initonly">
                 <tr lang="en">output milliseconds</tr>
+                <tr lang="ru" finished="false">выход миллисекунд</tr>
             </property>
             <!-- @symbol -->
             <property name="@symbol" type="flag" default="0" access="initonly">
                 <tr lang="en">if specified - output formatted time as symbol, otherwise as
                 string.</tr>
+                <tr lang="ru" finished="false">Если указано - выходное отформатированное время как
+                символ, иначе как строка.</tr>
             </property>
         </properties>
         <inlets>

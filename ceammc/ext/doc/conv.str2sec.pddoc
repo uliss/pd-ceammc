@@ -28,6 +28,8 @@
             <!-- @on_err -->
             <property name="@on_err" type="float" default="-1">
                 <tr lang="en">value returned when unrecognized symbol given</tr>
+                <tr lang="ru" finished="false">значение возвращается, когда непризнанный
+                символ</tr>
             </property>
         </properties>
         <inlets>

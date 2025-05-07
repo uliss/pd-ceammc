@@ -31,6 +31,8 @@
             <property name="@sym" type="bool" default="0">
                 <tr lang="en">symbol output mode. If on - output as list of dots and dashes,
                 otherwise as 0 and 1.</tr>
+                <tr lang="ru" finished="false">Режим вывода символов. Если на - вывод как список
+                точек и тире, иначе как 0 и 1.</tr>
             </property>
         </properties>
         <inlets>

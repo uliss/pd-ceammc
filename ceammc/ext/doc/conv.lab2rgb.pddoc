@@ -27,22 +27,30 @@
             <!-- @float -->
             <property name="@float" type="alias">
                 <tr lang="en">alias to @mode float. Output float values in [0-1] range</tr>
+                <tr lang="ru" finished="false">Оригинальное название: Mode Float. Значения
+                выходного поплавка в [0-1] диапазоне</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="alias">
                 <tr lang="en">alias to @mode int. Output integer values in [0-255] range</tr>
+                <tr lang="ru" finished="false">@mode int. Вывод целых чисел в диапазоне
+                [0-255]</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="int" enum="int float">
                 <tr lang="en">output mode</tr>
+                <tr lang="ru" finished="false">выходной режим</tr>
             </property>
             <!-- @pack -->
             <property name="@pack" type="flag" access="initonly">
                 <tr lang="en">output as list (creates single outlet object)</tr>
+                <tr lang="ru" finished="false">вывод в виде списка (создает единый выходной
+                объект)</tr>
             </property>
             <!-- @sync -->
             <property name="@sync" type="flag" access="initonly">
                 <tr lang="en">output at any inlet change</tr>
+                <tr lang="ru" finished="false">выход при любом входном изменении</tr>
             </property>
         </properties>
         <inlets>

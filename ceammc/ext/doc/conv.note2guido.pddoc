@@ -28,9 +28,12 @@
             <method name="note">
                 <param name="PITCH" type="int" required="true">
                     <tr lang="en">note pitch (pitch &lt;0 treated as rest)</tr>
+                    <tr lang="ru" finished="false">нота шаг (pitch &lt;0 рассматривается как
+                    отдых)</tr>
                 </param>
                 <param name="DUR" type="float" required="true">
                     <tr lang="en">note duration</tr>
+                    <tr lang="ru" finished="false">отметка продолжительность</tr>
                 </param>
             </method>
         </methods>

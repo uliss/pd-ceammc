@@ -41,10 +41,12 @@
             <!-- @from -->
             <property name="@from" type="float" default="0">
                 <tr lang="en">start value of output range</tr>
+                <tr lang="ru" finished="false">начальное значение диапазона выпуска</tr>
             </property>
             <!-- @to -->
             <property name="@to" type="float" default="1">
                 <tr lang="en">end value of output range</tr>
+                <tr lang="ru" finished="false">конечная стоимость выходного диапазона</tr>
             </property>
         </properties>
         <inlets>

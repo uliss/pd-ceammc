@@ -41,11 +41,13 @@
             <!-- @interval -->
             <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
                 <tr lang="en">sampling interval</tr>
+                <tr lang="ru" finished="false">интервал выборки</tr>
             </property>
             <!-- @offset -->
             <property name="@offset" type="int" default="0" minvalue="0" maxvalue="8192"
             units="sample">
                 <tr lang="en">sample offset inside DSP block</tr>
+                <tr lang="ru" finished="false">Смещение образца внутри блока DSP</tr>
             </property>
         </properties>
         <inlets>

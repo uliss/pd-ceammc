@@ -24,18 +24,22 @@
             <!-- @both -->
             <property name="@both" type="alias">
                 <tr lang="en">alias to @mode both</tr>
+                <tr lang="ru" finished="false">Обсуждение @mode Both</tr>
             </property>
             <!-- @down -->
             <property name="@down" type="alias">
                 <tr lang="en">alias to @mode down</tr>
+                <tr lang="ru" finished="false">Исполнитель: @mode Down</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="up down both" default="up">
                 <tr lang="en">edge detection mode</tr>
+                <tr lang="ru" finished="false">режим обнаружения края</tr>
             </property>
             <!-- @up -->
             <property name="@up" type="alias">
                 <tr lang="en">alias to @mode up</tr>
+                <tr lang="ru" finished="false">Исполнитель: @mode Up</tr>
             </property>
         </properties>
         <inlets>

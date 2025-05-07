@@ -28,6 +28,9 @@
             <property name="@positive" type="bool" default="0">
                 <tr lang="en">output in positive range. If true output is in [0..2π) range,
                 otherwise output range is [-π..+π]</tr>
+                <tr lang="ru" finished="false">выход в положительном диапазоне. Если истинный выход
+                находится в [0,2π] диапазоне, в противном случае выходной диапазон является
+                [-π..+π].</tr>
             </property>
         </properties>
         <inlets>

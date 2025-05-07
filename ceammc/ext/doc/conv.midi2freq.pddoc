@@ -36,11 +36,13 @@
             <property name="@a" type="float" default="440" minvalue="200" maxvalue="600"
             units="hertz">
                 <tr lang="en">A pitch frequency</tr>
+                <tr lang="ru" finished="false">частота звука</tr>
             </property>
             <!-- @t -->
             <property name="@t" type="symbol" default="eq"
             enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
                 <tr lang="en">temperament</tr>
+                <tr lang="ru" finished="false">темперамент</tr>
             </property>
         </properties>
         <inlets>
