@@ -31,11 +31,11 @@ Default value: 1024\. Range: 1\...65536\.;
 #X text 245 610 (initonly) Get/Set alias for @mode count @bs 1\. Outputs
 impulse at each zero crossing. Type: list. Default value: 0\.;
 #X msg 110 652 @mode;
-#X text 245 652 Get/Set calculation mode: if 'count' - output number
-of zero crossing occurred in a period of current block size \, if 'rate'
-- output zero crossing rate (zero crossing number / block size) \,
-if 'freq' - output zero crossing frequency in hertz. Type: symbol.
-Default value: count. Allowed values: count \, rate \, freq.;
+#X text 245 652 Get/Set calculation mode: if 'count' - outputs the
+number of zero crossing occurred in a period of current block size
+\, if 'rate' - outputs zero crossing rate (zero crossing number / block
+size) \, if 'freq' - outputs zero crossing frequency in hertz. Type:
+symbol. Default value: count. Allowed values: count \, rate \, freq.;
 #X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 785 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

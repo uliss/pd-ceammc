@@ -34,10 +34,10 @@
 для @mode count @bs 1\. Выводит импульс при каждом пересечении нуля.
 Тип: list. Значение по умолчанию: 0\.;
 #X msg 110 682 @mode;
-#X text 245 682 Получить/Установить calculation mode: if 'count' -
-output number of zero crossing occurred in a period of current block
-size \, if 'rate' - output zero crossing rate (zero crossing number
-/ block size) \, if 'freq' - output zero crossing frequency in hertz.
+#X text 245 682 Получить/Установить режим вывода: если "count" - выводит
+число пересечения нуля в пределах текущего размера блока \, если "rate"
+- выводит скорость пересечения нуля (число пересечений за блок / размер
+блока) \, если "freq" - выводит частоту пересечения нуля в Герцах.
 Тип: symbol. Значение по умолчанию: count. Разрешённые значения: count
 \, rate \, freq.;
 #X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

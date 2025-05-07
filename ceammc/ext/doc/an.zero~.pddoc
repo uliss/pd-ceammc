@@ -36,14 +36,14 @@
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="count rate freq" default="count">
-                <tr lang="en">calculation mode: if 'count' - output number of zero crossing
-                occurred in a period of current block size, if 'rate' - output zero crossing rate
-                (zero crossing number / block size), if 'freq' - output zero crossing frequency in
-                hertz.</tr>
-                <tr lang="ru" finished="false">Режим расчета: если "счет" - выходное число нулевого
-                пересечения произошло в период текущего размера блока, если "скорость" - выходной
-                нулевой коэффициент пересечения (ноль пересечения номер/размер блока), если "freq"
-                - выход нулевой частоты пересечения в герц.</tr>
+                <tr lang="en">calculation mode: if 'count' - outputs the number of zero crossing
+                occurred in a period of current block size, if 'rate' - outputs zero crossing rate
+                (zero crossing number / block size), if 'freq' - outputs zero crossing frequency in
+                hertz</tr>
+                <tr lang="ru">режим вывода: если "count" - выводит число пересечения нуля
+                в пределах текущего размера блока, если "rate" - выводит
+                скорость пересечения нуля (число пересечений за блок / размер блока), если "freq"
+                - выводит частоту пересечения нуля в Герцах</tr>
             </property>
         </properties>
         <inlets>
