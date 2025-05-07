@@ -48,9 +48,9 @@
                 <tr lang="en">fill range end index. Can be negative - to address from array end.
                 For example: -1 means till last element (not including). If not specified set to
                 array length.</tr>
-                <tr lang="ru">конечный индекс заполнения. Может быть отрицательным
-                - для адресации с конца массива. Например: -1 означает последний элемент (не
-                включая). Если не указана заполняет массив до конца.</tr>
+                <tr lang="ru">конечный индекс заполнения. Может быть отрицательным - для адресации
+                с конца массива. Например: -1 означает последний элемент (не включая). Если не
+                указана заполняет массив до конца.</tr>
             </param>
             <param name="VAL1" type="float" required="true">
                 <tr lang="en">value 1</tr>

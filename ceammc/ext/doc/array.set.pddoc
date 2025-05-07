@@ -38,8 +38,8 @@
             <!-- @normalize -->
             <property name="@normalize" type="flag" default="0" access="initonly">
                 <tr lang="en">scale input values to fit them in [0, 1] range</tr>
-                <tr lang="ru">масштабировать входные значения, чтобы вместить их в
-                [0, 1] диапазон</tr>
+                <tr lang="ru">масштабировать входные значения, чтобы вместить их в [0, 1]
+                диапазон</tr>
             </property>
             <!-- @redraw -->
             <property name="@redraw" type="bool" default="1">

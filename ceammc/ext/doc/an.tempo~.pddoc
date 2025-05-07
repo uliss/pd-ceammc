@@ -63,7 +63,8 @@
             <!-- @hfc -->
             <property name="@hfc" type="alias">
                 <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
-                <tr lang="ru">сокращение @method hfc. Метод на основе высокочастотного содержимого</tr>
+                <tr lang="ru">сокращение @method hfc. Метод на основе высокочастотного
+                содержимого</tr>
             </property>
             <!-- @hs -->
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">
@@ -73,7 +74,8 @@
             <!-- @kl -->
             <property name="@kl" type="alias">
                 <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
-                <tr lang="ru">псевдоним для @method kl. Функция обнаружения атаки Kullback-Liebler</tr>
+                <tr lang="ru">псевдоним для @method kl. Функция обнаружения атаки
+                Kullback-Liebler</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol"
@@ -86,14 +88,15 @@
             <property name="@mkl" type="alias">
                 <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
                 function</tr>
-                <tr lang="ru">псевдоним @method mkl. Модифицированная функция
-                обнаружения начала Kullback-Liebler</tr>
+                <tr lang="ru">псевдоним @method mkl. Модифицированная функция обнаружения начала
+                Kullback-Liebler</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="alias">
                 <tr lang="en">alias to @method phase. Phase Based Method onset detection
                 function</tr>
-                <tr lang="ru">сокращение для @method phase. Метод обнаружения атаки на основе фазы.</tr>
+                <tr lang="ru">сокращение для @method phase. Метод обнаружения атаки на основе
+                фазы.</tr>
             </property>
             <!-- @silence -->
             <property name="@silence" type="float" units="decibel" default="-90" minvalue="-90"
@@ -105,8 +108,8 @@
             <property name="@specdiff" type="alias">
                 <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
                 function</tr>
-                <tr lang="ru">сокращение для @method specdiff. Функция обнаружения
-                атаки по спектральной разности</tr>
+                <tr lang="ru">сокращение для @method specdiff. Функция обнаружения атаки по
+                спектральной разности</tr>
             </property>
             <!-- @specflux -->
             <property name="@specflux" type="alias">

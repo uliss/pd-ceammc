@@ -80,12 +80,14 @@
             <!-- @energy -->
             <property name="@energy" type="alias">
                 <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
-                <tr lang="ru">сокращение для @method energy. Energy based функция обнаружения атаки</tr>
+                <tr lang="ru">сокращение для @method energy. Energy based функция обнаружения
+                атаки</tr>
             </property>
             <!-- @hfc -->
             <property name="@hfc" type="alias">
                 <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
-                <tr lang="ru">сокращение для @method hfc. High Frequency Content функция обнаружения атаки</tr>
+                <tr lang="ru">сокращение для @method hfc. High Frequency Content функция
+                обнаружения атаки</tr>
             </property>
             <!-- @hs -->
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">
@@ -95,7 +97,8 @@
             <!-- @kl -->
             <property name="@kl" type="alias">
                 <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
-                <tr lang="ru">сокращение для @method kl. Функция обнаружения атаки Kullback-Liebler</tr>
+                <tr lang="ru">сокращение для @method kl. Функция обнаружения атаки
+                Kullback-Liebler</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol"
@@ -108,15 +111,15 @@
             <property name="@mkl" type="alias">
                 <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
                 function</tr>
-                <tr lang="ru">псевдоним для @method mkl. Модифицированная функция
-                обнаружения атаки Kullback-Liebler</tr>
+                <tr lang="ru">псевдоним для @method mkl. Модифицированная функция обнаружения атаки
+                Kullback-Liebler</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="alias">
                 <tr lang="en">alias to @method phase. Phase Based Method onset detection
                 function</tr>
-                <tr lang="ru">сокращение для @method phase. Функции
-                обнаружения атаки Phase Based Method</tr>
+                <tr lang="ru">сокращение для @method phase. Функции обнаружения атаки Phase Based
+                Method</tr>
             </property>
             <!-- @silence -->
             <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
@@ -128,8 +131,8 @@
             <property name="@specdiff" type="alias">
                 <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
                 function</tr>
-                <tr lang="ru">сокращение для @method specdiff. Метод спектральной разности для обнаружения
-                атаки</tr>
+                <tr lang="ru">сокращение для @method specdiff. Метод спектральной разности для
+                обнаружения атаки</tr>
             </property>
             <!-- @specflux -->
             <property name="@specflux" type="alias">
@@ -139,8 +142,7 @@
             <!-- @speedlim -->
             <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
                 <tr lang="en">minimum interval between two consecutive onsets</tr>
-                <tr lang="ru">минимальный интервал между двумя последовательными
-                атаками</tr>
+                <tr lang="ru">минимальный интервал между двумя последовательными атаками</tr>
             </property>
             <!-- @threshold -->
             <property name="@threshold" type="float" default="0.058">

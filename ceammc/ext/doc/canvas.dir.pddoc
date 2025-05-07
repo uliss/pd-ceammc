@@ -28,6 +28,10 @@
                 this object was not created inside an abstraction, and abstraction directory if it
                 was. If false: output topmost parent canvas directory even this object was create
                 inside the abstrction subpatch.</tr>
+                <tr lang="ru" finished="false">Режим абстракции. Если верно: вывод верхнего
+                родительского каталога холста, если этот объект не был создан внутри абстракции, и
+                каталог абстракции, если он был. Если ложно: вывод верхнего родительского каталога
+                холста, даже этот объект был создан внутри подпатча абстракции.</tr>
             </property>
         </properties>
         <inlets>

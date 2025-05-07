@@ -47,7 +47,8 @@
             <!-- @fidthr -->
             <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">
                 <tr lang="en">minimal fidelity threshold to report the pitch</tr>
-                <tr lang="ru">минимальный порог качества, чтобы сообщить об определенной высоте</tr>
+                <tr lang="ru">минимальный порог качества, чтобы сообщить об определенной
+                высоте</tr>
             </property>
             <!-- @framesize -->
             <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"

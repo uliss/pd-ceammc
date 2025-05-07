@@ -55,55 +55,53 @@
             <!-- @overlap -->
             <property name="@overlap" type="int" units="millisecond" minvalue="0" maxvalue="100"
             default="8">
-                <tr lang="en">overlap length. When the chopped sound sequences are
-                mixed back together, to form a continuous sound stream, this parameter defines over
-                how long period the two consecutive sequences are let to overlap each other.
-                Increasing this value increases computational burden &amp; vice versa.</tr>
-                <tr lang="ru">длительность перекрытия. Когда отдельные небольшие куски
-                звуковых последовательностей смешиваются вместе, образуя непрерывный звуковой поток,
-                этот параметр определяет, в течение какого периода два последовательных
-                фрейма могут перекрывать друг друга. Увеличение этого значения
-                увеличивает вычислительную нагрузку и наоборот.</tr>
+                <tr lang="en">overlap length. When the chopped sound sequences are mixed back
+                together, to form a continuous sound stream, this parameter defines over how long
+                period the two consecutive sequences are let to overlap each other. Increasing this
+                value increases computational burden &amp; vice versa.</tr>
+                <tr lang="ru">длительность перекрытия. Когда отдельные небольшие куски звуковых
+                последовательностей смешиваются вместе, образуя непрерывный звуковой поток, этот
+                параметр определяет, в течение какого периода два последовательных фрейма могут
+                перекрывать друг друга. Увеличение этого значения увеличивает вычислительную
+                нагрузку и наоборот.</tr>
             </property>
             <!-- @pitch -->
             <property name="@pitch" type="float" default="0" units="semitone">
                 <tr lang="en">relative pitch change while keeping the original tempo</tr>
-                <tr lang="ru">относительное изменение высоты звука при сохранении
-                первоначального темпа</tr>
+                <tr lang="ru">относительное изменение высоты звука при сохранении первоначального
+                темпа</tr>
             </property>
             <!-- @rate -->
             <property name="@rate" type="float" minvalue="0.1" maxvalue="2" default="1">
                 <tr lang="en">playback rate - changes both tempo and pitch together as if a vinyl
                 disc was played at different RPM rate</tr>
-                <tr lang="ru">скорость воспроизведения - изменяет как темп, так и
-                высоту звука вместе, как если бы виниловый диск воспроизводился с разной скоростью RPM</tr>
+                <tr lang="ru">скорость воспроизведения - изменяет как темп, так и высоту звука
+                вместе, как если бы виниловый диск воспроизводился с разной скоростью RPM</tr>
             </property>
             <!-- @seekwindow -->
             <property name="@seekwindow" type="int" units="millisecond" minvalue="0" maxvalue="100"
             default="0">
-                <tr lang="en">Seeking window default length for algorithm that
-                finds the best possible overlapping location. This determines from how wide window
-                the algorithm may look for an optimal joining location when mixing the sound
-                sequences back together. The bigger this window setting is, the higher the
-                possibility to find a better mixing position will become, but at the same time
-                large values may cause a "drifting" artifact because consequent sequences will be
-                taken at more uneven intervals. If there's a disturbing artifact that sounds as if
-                a constant frequency was drifting around, try reducing this setting. Increasing
-                this value increases computational burden &amp; vice versa. Giving *0* value for
-                the seek window length sets automatic parameter value according to tempo setting
-                (recommended)</tr>
-                <tr lang="ru">поиск длины окна по умолчанию для
-                алгоритма, который находит наилучшее местоположения перекрытие. Определяет,
-                в насколько широком окне алгоритм может искать оптимальное место
-                соединения при смешивании звуковых последовательностей вместе. Чем больше это окно,
-                тем выше будет возможность найти лучшее положение смешивания, но в то же время
-                большие значения могут вызвать «дрейфующий» артефакт, потому что последующие
-                последовательности будут приниматься со все более неравными интервалами. Если есть
-                нежелательный артефакт, звучащий так, как будто постоянная частота дрейфует,
-                попробуйте уменьшить эту настройку. Увеличение этого значения увеличивает
-                вычислительную нагрузку и наоборот. Указывая значение *0* для длины окна поиска
-                устанавливает автоматическое значение параметра в соответствии с настройкой темпа
-                (рекомендуется)</tr>
+                <tr lang="en">Seeking window default length for algorithm that finds the best
+                possible overlapping location. This determines from how wide window the algorithm
+                may look for an optimal joining location when mixing the sound sequences back
+                together. The bigger this window setting is, the higher the possibility to find a
+                better mixing position will become, but at the same time large values may cause a
+                "drifting" artifact because consequent sequences will be taken at more uneven
+                intervals. If there's a disturbing artifact that sounds as if a constant frequency
+                was drifting around, try reducing this setting. Increasing this value increases
+                computational burden &amp; vice versa. Giving *0* value for the seek window length
+                sets automatic parameter value according to tempo setting (recommended)</tr>
+                <tr lang="ru">поиск длины окна по умолчанию для алгоритма, который находит
+                наилучшее местоположения перекрытие. Определяет, в насколько широком окне алгоритм
+                может искать оптимальное место соединения при смешивании звуковых
+                последовательностей вместе. Чем больше это окно, тем выше будет возможность найти
+                лучшее положение смешивания, но в то же время большие значения могут вызвать
+                «дрейфующий» артефакт, потому что последующие последовательности будут приниматься
+                со все более неравными интервалами. Если есть нежелательный артефакт, звучащий так,
+                как будто постоянная частота дрейфует, попробуйте уменьшить эту настройку.
+                Увеличение этого значения увеличивает вычислительную нагрузку и наоборот. Указывая
+                значение *0* для длины окна поиска устанавливает автоматическое значение параметра
+                в соответствии с настройкой темпа (рекомендуется)</tr>
             </property>
             <!-- @sequence -->
             <property name="@sequence" type="int" units="millisecond" default="0" minvalue="0"
@@ -116,13 +114,13 @@
                 &amp; vice versa. Giving *0* value for the sequence length sets automatic parameter
                 value according to tempo setting (recommended).</tr>
                 <tr lang="ru">длина по умолчанию последовательности обработки в миллисекундах.
-                Определяет, насколько длинные последовательности исходного
-                звука измельчаются в алгоритме растяжения времени. Чем больше это значение, тем
-                меньшие последовательности используются в обработке. В принципе, большее значение
-                звучит лучше при замедлении темпа, но хуже при увеличении темпа и наоборот.
-                Увеличение этого значения снижает вычислительную нагрузку и наоборот. Указывая
-                значение *0* для длины последовательности устанавливает автоматическое значение
-                параметра в соответствии с настройками темпа (рекомендуется).</tr>
+                Определяет, насколько длинные последовательности исходного звука измельчаются в
+                алгоритме растяжения времени. Чем больше это значение, тем меньшие
+                последовательности используются в обработке. В принципе, большее значение звучит
+                лучше при замедлении темпа, но хуже при увеличении темпа и наоборот. Увеличение
+                этого значения снижает вычислительную нагрузку и наоборот. Указывая значение *0*
+                для длины последовательности устанавливает автоматическое значение параметра в
+                соответствии с настройками темпа (рекомендуется).</tr>
             </property>
             <!-- @speech -->
             <property name="@speech" type="bool" default="0">

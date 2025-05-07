@@ -23,8 +23,7 @@
             <!-- @resize -->
             <property name="@resize" type="bool" default="0">
                 <tr lang="en">resize the destination array on overflow</tr>
-                <tr lang="ru">изменять размера массива назначения при
-                переполнении</tr>
+                <tr lang="ru">изменять размера массива назначения при переполнении</tr>
             </property>
         </properties>
         <methods>

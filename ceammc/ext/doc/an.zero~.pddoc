@@ -31,8 +31,8 @@
             <property name="@clock" type="list" default="0" access="initonly">
                 <tr lang="en">alias for @mode count @bs 1. Outputs impulse at each zero
                 crossing</tr>
-                <tr lang="ru">сокращение для @mode count @bs 1. Выводит импульс при
-                каждом пересечении нуля</tr>
+                <tr lang="ru">сокращение для @mode count @bs 1. Выводит импульс при каждом
+                пересечении нуля</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="count rate freq" default="count">
@@ -40,10 +40,10 @@
                 occurred in a period of current block size, if 'rate' - outputs zero crossing rate
                 (zero crossing number / block size), if 'freq' - outputs zero crossing frequency in
                 hertz</tr>
-                <tr lang="ru">режим вывода: если "count" - выводит число пересечения нуля
-                в пределах текущего размера блока, если "rate" - выводит
-                скорость пересечения нуля (число пересечений за блок / размер блока), если "freq"
-                - выводит частоту пересечения нуля в Герцах</tr>
+                <tr lang="ru">режим вывода: если "count" - выводит число пересечения нуля в
+                пределах текущего размера блока, если "rate" - выводит скорость пересечения нуля
+                (число пересечений за блок / размер блока), если "freq" - выводит частоту
+                пересечения нуля в Герцах</tr>
             </property>
         </properties>
         <inlets>

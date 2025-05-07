@@ -25,42 +25,53 @@
             <property name="@abs" type="bool" default="1">
                 <tr lang="en">if false: using toplevel canvas, if true: using abstraction
                 canvas</tr>
+                <tr lang="ru" finished="false">Если ложно: используя холст верхнего уровня, если
+                верно: используя холст абстракции</tr>
             </property>
             <!-- @dir -->
             <property name="@dir" type="symbol" access="readonly" default="/">
                 <tr lang="en">canvas directory</tr>
+                <tr lang="ru" finished="false">каталог canvas</tr>
             </property>
             <!-- @font -->
             <property name="@font" type="int" access="readonly" default="10">
                 <tr lang="en">window font</tr>
+                <tr lang="ru" finished="false">оконный шрифт</tr>
             </property>
             <!-- @height -->
             <property name="@height" type="int" access="readonly" default="400">
                 <tr lang="en">window height</tr>
+                <tr lang="ru" finished="false">высота окна</tr>
             </property>
             <!-- @name -->
             <property name="@name" type="symbol" access="readonly" default="test_canvas">
                 <tr lang="en">canvas name</tr>
+                <tr lang="ru" finished="false">название холста</tr>
             </property>
             <!-- @paths -->
             <property name="@paths" type="list" access="readonly" default="">
                 <tr lang="en">search paths</tr>
+                <tr lang="ru" finished="false">Пути поиска</tr>
             </property>
             <!-- @size -->
             <property name="@size" type="list" access="readonly" default="600 400">
                 <tr lang="en">window size</tr>
+                <tr lang="ru" finished="false">размер окна</tr>
             </property>
             <!-- @width -->
             <property name="@width" type="int" access="readonly" default="600">
                 <tr lang="en">window width</tr>
+                <tr lang="ru" finished="false">ширина окна</tr>
             </property>
             <!-- @x -->
             <property name="@x" type="int" access="readonly" default="0">
                 <tr lang="en">window x-pos</tr>
+                <tr lang="ru" finished="false">окно x-pos</tr>
             </property>
             <!-- @y -->
             <property name="@y" type="int" access="readonly" default="0">
                 <tr lang="en">window y-pos</tr>
+                <tr lang="ru" finished="false">окно y-pos</tr>
             </property>
         </properties>
         <methods>
@@ -68,6 +79,8 @@
             <method name="postscript">save patch to postscript 
             <param name="FNAME" type="symbol" required="false">
                 <tr lang="en">file. If not specified patch name used with .ps extension</tr>
+                <tr lang="ru" finished="false">Файл. Если не указано имя патча, используемого с
+                расширением .ps</tr>
             </param></method>
         </methods>
         <inlets>

@@ -28,6 +28,7 @@
             <!-- @abs -->
             <property name="@abs" type="bool" default="0">
                 <tr lang="en">use canvas for abstractions</tr>
+                <tr lang="ru" finished="false">Использование холста для абстракций</tr>
             </property>
         </properties>
         <inlets>
