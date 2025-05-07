@@ -29,8 +29,8 @@
 #X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 496 @resize;
-#X text 245 496 Get/Set resizing of destination array on overflow.
-Type: bool. Default value: 0\.;
+#X text 245 496 Get/Set resize the destination array on overflow. Type:
+bool. Default value: 0\.;
 #X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 553 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
@@ -46,7 +46,7 @@ till the end. Arguments are:;
 #X obj 255 697 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 697 SRC: the source array. Type: symbol.;
 #X obj 255 720 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 720 FROM: source start position. Type: int.;
+#X text 255 720 FROM: the source array start position. Type: int.;
 #X obj 255 743 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 743 DEST: the destination array. Type: symbol.;
 #X msg 110 768 copy SRC FROM TO DEST;

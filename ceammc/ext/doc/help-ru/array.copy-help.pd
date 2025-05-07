@@ -29,8 +29,8 @@
 #X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 496 @resize;
-#X text 245 496 Получить/Установить resizing of destination array on
-overflow. Тип: bool. Значение по умолчанию: 0\.;
+#X text 245 496 Получить/Установить изменять размера массива назначения
+при переполнении. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 553 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
@@ -46,7 +46,7 @@ till the end. Аргументы:;
 #X obj 255 697 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 697 SRC: исходный массив. Тип: symbol.;
 #X obj 255 720 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 720 FROM: source start position. Тип: int.;
+#X text 255 720 FROM: начальная позиция в исходном массиве. Тип: int.;
 #X obj 255 743 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 743 DEST: массив назначения. Тип: symbol.;
 #X msg 110 768 copy SRC FROM TO DEST;
@@ -54,9 +54,9 @@ till the end. Аргументы:;
 #X obj 255 791 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 791 SRC: исходный массив. Тип: symbol.;
 #X obj 255 814 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 814 FROM: the source start range. Тип: int.;
+#X text 255 814 FROM: начало диапазона в исходном массиве. Тип: int.;
 #X obj 255 837 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 837 TO: the source end range. Тип: int.;
+#X text 255 837 TO: конец диапазона в исходном массиве. Тип: int.;
 #X obj 255 860 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 860 DEST: массив назначения. Тип: symbol.;
 #X msg 110 885 copy SRC FROM TO DEST DEST_START;
@@ -65,13 +65,14 @@ to the specified destination position. Аргументы:;
 #X obj 255 923 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 923 SRC: исходный массив. Тип: symbol.;
 #X obj 255 946 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 946 FROM: the source start range. Тип: int.;
+#X text 255 946 FROM: начало диапазона в исходном массиве. Тип: int.;
 #X obj 255 969 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 969 TO: the source end range. Тип: int.;
+#X text 255 969 TO: конец диапазона в исходном массиве. Тип: int.;
 #X obj 255 992 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 992 DEST: массив назначения. Тип: symbol.;
 #X obj 255 1015 cnv 1 75 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1015 DEST_FROM: the destination start position. Тип: int.;
+#X text 255 1015 DEST_FROM: начальная позиция в массиве назначения.
+Тип: int.;
 #X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1055 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

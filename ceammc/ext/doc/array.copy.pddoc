@@ -22,8 +22,8 @@
         <properties>
             <!-- @resize -->
             <property name="@resize" type="bool" default="0">
-                <tr lang="en">resizing of destination array on overflow</tr>
-                <tr lang="ru" finished="false">изменение размера массива назначения при
+                <tr lang="en">resize the destination array on overflow</tr>
+                <tr lang="ru">изменять размера массива назначения при
                 переполнении</tr>
             </property>
         </properties>
@@ -46,8 +46,8 @@
                 <tr lang="ru">исходный массив</tr>
             </param>
             <param name="FROM" type="int" required="true">
-                <tr lang="en">source start position</tr>
-                <tr lang="ru" finished="false">Источник стартовой позиции</tr>
+                <tr lang="en">the source array start position</tr>
+                <tr lang="ru">начальная позиция в исходном массиве</tr>
             </param>
             <param name="DEST" type="symbol" required="true">
                 <tr lang="en">the destination array</tr>
@@ -61,11 +61,11 @@
             </param>
             <param name="FROM" type="int" required="true">
                 <tr lang="en">the source start range</tr>
-                <tr lang="ru" finished="false">Источник стартового диапазона</tr>
+                <tr lang="ru">начало диапазона в исходном массиве</tr>
             </param>
             <param name="TO" type="int" required="true">
                 <tr lang="en">the source end range</tr>
-                <tr lang="ru" finished="false">конечный диапазон источника</tr>
+                <tr lang="ru">конец диапазона в исходном массиве</tr>
             </param>
             <param name="DEST" type="symbol" required="true">
                 <tr lang="en">the destination array</tr>
@@ -80,11 +80,11 @@
             </param>
             <param name="FROM" type="int" required="true">
                 <tr lang="en">the source start range</tr>
-                <tr lang="ru" finished="false">Источник стартового диапазона</tr>
+                <tr lang="ru">начало диапазона в исходном массиве</tr>
             </param>
             <param name="TO" type="int" required="true">
                 <tr lang="en">the source end range</tr>
-                <tr lang="ru" finished="false">конечный диапазон источника</tr>
+                <tr lang="ru">конец диапазона в исходном массиве</tr>
             </param>
             <param name="DEST" type="symbol" required="true">
                 <tr lang="en">the destination array</tr>
@@ -92,7 +92,7 @@
             </param>
             <param name="DEST_FROM" type="int" required="true">
                 <tr lang="en">the destination start position</tr>
-                <tr lang="ru" finished="false">Место старта назначения</tr>
+                <tr lang="ru">начальная позиция в массиве назначения</tr>
             </param></method>
         </methods>
         <inlets>
