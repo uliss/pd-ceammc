@@ -47,34 +47,34 @@
 #X obj 20 665 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 110 700 blackman;
-#X text 245 700 generate blackman window.;
+#X text 245 700 создать окно Blackman.;
 #X msg 110 728 blackman-harris;
-#X text 245 728 generate blackman-harris window.;
+#X text 245 728 создать окно Blackman Harris.;
 #X msg 110 756 fit;
 #X text 245 756 fit array y-bounds to 0\..1 range.;
 #X msg 110 784 flattop;
-#X text 245 784 generate flattop window.;
+#X text 245 784 генерировать окно FlatTop.;
 #X msg 110 812 gauss;
-#X text 245 812 generate gauss window.;
+#X text 245 812 cоздать окно Gauss.;
 #X msg 110 840 hamming;
-#X text 245 840 generate hamming window.;
+#X text 245 840 cоздать окно Hamming.;
 #X msg 110 868 hann;
-#X text 245 868 generate hann window.;
+#X text 245 868 cоздать окно Hann.;
 #X msg 110 896 nuttall;
-#X text 245 896 generate nuttall window.;
+#X text 245 896 cоздать окно Nuttall.;
 #X msg 110 924 rect;
-#X text 245 924 generate rectangular window.;
+#X text 245 924 генерировать прямоугольное окно.;
 #X msg 110 952 resize;
 #X text 245 952 изменить размер массива на указанный. Аргументы:;
 #X obj 255 975 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 975 [N]: новый размер. Тип: int. Минимальное значение:
 0\.;
 #X msg 110 1000 sine;
-#X text 245 1000 generate sine window.;
+#X text 245 1000 генерировать синусоидальное окно.;
 #X msg 110 1028 tri;
-#X text 245 1028 generate triangular window.;
+#X text 245 1028 генерировать треугольное окно.;
 #X msg 110 1056 welch;
-#X text 245 1056 generate welch window.;
+#X text 245 1056 генерировать окно Уэлча.;
 #X obj 20 1094 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1099 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

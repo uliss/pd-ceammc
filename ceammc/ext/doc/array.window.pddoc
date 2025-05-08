@@ -49,14 +49,14 @@
             <method name="blackman">
                 <info>
                     <tr lang="en">generate blackman window</tr>
-                    <tr lang="ru" finished="false">Создать окно Blackman</tr>
+                    <tr lang="ru">создать окно Blackman</tr>
                 </info>
             </method>
             <!-- blackman-harris -->
             <method name="blackman-harris">
                 <info>
                     <tr lang="en">generate blackman-harris window</tr>
-                    <tr lang="ru" finished="false">Создать окно Blackman Harris</tr>
+                    <tr lang="ru">создать окно Blackman Harris</tr>
                 </info>
             </method>
             <!-- fit -->
@@ -70,42 +70,42 @@
             <method name="flattop">
                 <info>
                     <tr lang="en">generate flattop window</tr>
-                    <tr lang="ru" finished="false">генерировать плоское окно</tr>
+                    <tr lang="ru">генерировать окно FlatTop</tr>
                 </info>
             </method>
             <!-- gauss -->
             <method name="gauss">
                 <info>
                     <tr lang="en">generate gauss window</tr>
-                    <tr lang="ru" finished="false">Создать окно Gauss</tr>
+                    <tr lang="ru">cоздать окно Gauss</tr>
                 </info>
             </method>
             <!-- hamming -->
             <method name="hamming">
                 <info>
                     <tr lang="en">generate hamming window</tr>
-                    <tr lang="ru" finished="false">Создать окно Hamming</tr>
+                    <tr lang="ru">cоздать окно Hamming</tr>
                 </info>
             </method>
             <!-- hann -->
             <method name="hann">
                 <info>
                     <tr lang="en">generate hann window</tr>
-                    <tr lang="ru" finished="false">Создать окно Hann</tr>
+                    <tr lang="ru">cоздать окно Hann</tr>
                 </info>
             </method>
             <!-- nuttall -->
             <method name="nuttall">
                 <info>
                     <tr lang="en">generate nuttall window</tr>
-                    <tr lang="ru" finished="false">Создать окно Nuttall</tr>
+                    <tr lang="ru">cоздать окно Nuttall</tr>
                 </info>
             </method>
             <!-- rect -->
             <method name="rect">
                 <info>
                     <tr lang="en">generate rectangular window</tr>
-                    <tr lang="ru" finished="false">генерировать прямоугольное окно</tr>
+                    <tr lang="ru">генерировать прямоугольное окно</tr>
                 </info>
             </method>
             <!-- resize -->
@@ -123,21 +123,21 @@
             <method name="sine">
                 <info>
                     <tr lang="en">generate sine window</tr>
-                    <tr lang="ru" finished="false">генерировать синусовое окно</tr>
+                    <tr lang="ru">генерировать синусоидальное окно</tr>
                 </info>
             </method>
             <!-- tri -->
             <method name="tri">
                 <info>
                     <tr lang="en">generate triangular window</tr>
-                    <tr lang="ru" finished="false">генерировать треугольное окно</tr>
+                    <tr lang="ru">генерировать треугольное окно</tr>
                 </info>
             </method>
             <!-- welch -->
             <method name="welch">
                 <info>
                     <tr lang="en">generate welch window</tr>
-                    <tr lang="ru" finished="false">генерировать сварочное окно</tr>
+                    <tr lang="ru">генерировать окно Уэлча</tr>
                 </info>
             </method>
         </methods>
