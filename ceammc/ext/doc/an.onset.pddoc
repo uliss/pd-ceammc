@@ -67,7 +67,7 @@
             <property name="@complex" type="alias">
                 <tr lang="en">alias to @method complex. Complex Domain Method onset detection
                 function</tr>
-                <tr lang="ru">сокращение для @method complex. Функция Complex Domain Method</tr>
+                <tr lang="ru">сокращение для @method complex. Метод Complex Domain</tr>
             </property>
             <!-- @compression -->
             <property name="@compression" type="float" minvalue="0" default="1">

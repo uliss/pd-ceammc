@@ -47,70 +47,67 @@
             <!-- @awhitening -->
             <property name="@awhitening" type="bool" default="0">
                 <tr lang="en">adaptive whitening</tr>
-                <tr lang="ru" finished="false">Адаптивное отбеливание</tr>
+                <tr lang="ru">адаптивное «отбеливание»</tr>
             </property>
             <!-- @bs -->
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
             access="initonly">
                 <tr lang="en">buffer size</tr>
-                <tr lang="ru" finished="false">размер буфера</tr>
+                <tr lang="ru">размер буфера</tr>
             </property>
             <!-- @complex -->
             <property name="@complex" type="alias">
                 <tr lang="en">alias to @method complex. Complex Domain Method onset detection
                 function</tr>
-                <tr lang="ru" finished="false">@method complex. Сложная функция обнаружения
-                домена</tr>
+                <tr lang="ru">сокращение для @method complex. Метод Complex Domain</tr>
             </property>
             <!-- @compression -->
             <property name="@compression" type="float" minvalue="0" default="1">
                 <tr lang="en">lambda logarithmic compression factor, 0 to disable</tr>
-                <tr lang="ru" finished="false">лямбда логарифмический коэффициент сжатия, 0 для
-                отключения</tr>
+                <tr lang="ru">лямбда логарифмический коэффициент сжатия, 0 для отключения</tr>
             </property>
             <!-- @delay -->
             <property name="@delay" type="float" minvalue="0" default="49.9093"
             units="millisecond">
                 <tr lang="en">constant system delay to take back from detection time</tr>
-                <tr lang="ru" finished="false">постоянная задержка системы для возврата от времени
-                обнаружения</tr>
+                <tr lang="ru">постоянная задержка времени обнаружения</tr>
             </property>
             <!-- @energy -->
             <property name="@energy" type="alias">
                 <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
-                <tr lang="ru" finished="false">Название: @method energy Энергия на основе функции
-                обнаружения начала</tr>
+                <tr lang="ru">сокращение для @method energy. Energy based функция обнаружения
+                атаки</tr>
             </property>
             <!-- @hfc -->
             <property name="@hfc" type="alias">
                 <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
-                <tr lang="ru" finished="false">@method hfc. Высокочастотное обнаружение
-                контента</tr>
+                <tr lang="ru">сокращение для @method hfc. High Frequency Content функция
+                обнаружения атаки</tr>
             </property>
             <!-- @hs -->
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">
                 <tr lang="en">hop size. 0 means @bs/2</tr>
-                <tr lang="ru" finished="false">Размер прыжка. 0 означает @bs/2</tr>
+                <tr lang="ru">размер окна. 0 означает @bs/2</tr>
             </property>
             <!-- @kl -->
             <property name="@kl" type="alias">
                 <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
-                <tr lang="ru" finished="false">псевдоним @method kl. Кулончик - Функция обнаружения
-                начала Liebler</tr>
+                <tr lang="ru">сокращение для @method kl. Функция обнаружения атаки
+                Kullback-Liebler</tr>
             </property>
             <!-- @method -->
             <property name="@method" type="symbol"
             enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
             default="default">
                 <tr lang="en">onset method. Default is hfc.</tr>
-                <tr lang="ru" finished="false">Метод начала. По умолчанию hfc.</tr>
+                <tr lang="ru">метод детекции атаки. По умолчанию hfc.</tr>
             </property>
             <!-- @mkl -->
             <property name="@mkl" type="alias">
                 <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
                 function</tr>
-                <tr lang="ru" finished="false">псевдоним @method mkl. Модифицированная функция
-                обнаружения начала Kullback-Liebler</tr>
+                <tr lang="ru">сокращение для @method mkl. Модифицированная функция
+                обнаружения атаки Kullback-Liebler</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="alias">
@@ -141,8 +138,7 @@
             <!-- @speedlim -->
             <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
                 <tr lang="en">minimum interval between two consecutive onsets</tr>
-                <tr lang="ru" finished="false">Минимальный интервал между двумя последовательными
-                наступлениями</tr>
+                <tr lang="ru">минимальный интервал между двумя последовательными атаками</tr>
             </property>
             <!-- @threshold -->
             <property name="@threshold" type="float" default="0.058">

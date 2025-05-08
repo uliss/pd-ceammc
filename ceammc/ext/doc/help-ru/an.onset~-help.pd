@@ -49,48 +49,47 @@ specflux kl mkl;
 #X obj 735 583 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 615 @bs;
-#X text 245 615 (при инициализации) Получить/Установить buffer size.
+#X text 245 615 (при инициализации) Получить/Установить размер буфера.
 Тип: int. Единицы: 'samp'. Значение по умолчанию: 1024\. Минимальное
 значение: 64\.;
 #X msg 110 672 @active;
 #X text 245 672 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
 #X msg 110 714 @awhitening;
-#X text 245 714 Получить/Установить adaptive whitening. Тип: bool.
-Значение по умолчанию: 0\.;
+#X text 245 714 Получить/Установить адаптивное «отбеливание». Тип:
+bool. Значение по умолчанию: 0\.;
 #X msg 110 756 @complex;
-#X text 245 756 Alias to @method complex. Complex Domain Method onset
-detection function.;
-#X msg 110 798 @compression;
-#X text 245 798 Получить/Установить lambda logarithmic compression
-factor \, 0 to disable. Тип: float. Значение по умолчанию: 1\. Минимальное
+#X text 245 756 Сокращение для @method complex. Метод Complex Domain.;
+#X msg 110 786 @compression;
+#X text 245 786 Получить/Установить лямбда логарифмический коэффициент
+сжатия \, 0 для отключения. Тип: float. Значение по умолчанию: 1\.
+Минимальное значение: 0\.;
+#X msg 110 843 @delay;
+#X text 245 843 Получить/Установить постоянная задержка времени обнаружения.
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 49.9093\. Минимальное
 значение: 0\.;
-#X msg 110 855 @delay;
-#X text 245 855 Получить/Установить constant system delay to take back
-from detection time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
-49.9093\. Минимальное значение: 0\.;
-#X msg 110 912 @energy;
-#X text 245 912 Alias to @method energy. Energy based onset detection
-function.;
-#X msg 110 954 @hfc;
-#X text 245 954 Alias to @method hfc. High Frequency Content onset
-detection.;
+#X msg 110 900 @energy;
+#X text 245 900 Сокращение для @method energy. Energy based функция
+обнаружения атаки.;
+#X msg 110 942 @hfc;
+#X text 245 942 Сокращение для @method hfc. High Frequency Content
+функция обнаружения атаки.;
 #X msg 110 984 @hs;
-#X text 245 984 Получить/Установить hop size. 0 means @bs/2\. Тип:
-int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
+#X text 245 984 Получить/Установить размер окна. 0 означает @bs/2\.
+Тип: int. Единицы: 'samp'. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
 #X msg 110 1041 @kl;
-#X text 245 1041 Alias to @method kl. Kullback-Liebler onset detection
-function.;
+#X text 245 1041 Сокращение для @method kl. Функция обнаружения атаки
+Kullback-Liebler.;
 #X msg 110 1083 @method;
-#X text 245 1083 Получить/Установить onset method. Default is hfc.
-Тип: symbol. Значение по умолчанию: default. Разрешённые значения:
+#X text 245 1083 Получить/Установить метод детекции атаки. По умолчанию
+hfc. Тип: symbol. Значение по умолчанию: default. Разрешённые значения:
 specflux \, phase \, energy \, hfc \, kl \, complex \, default \, specdiff
 \, wphase \, rolloff \, spread \, kurtosis \, skewness \, complexdomain
 \, decrease \, slope \, centroid.;
 #X msg 110 1186 @mkl;
-#X text 245 1186 Alias to @method mkl. Modified Kullback-Liebler onset
-detection function.;
+#X text 245 1186 Сокращение для @method mkl. Модифицированная функция
+обнаружения атаки Kullback-Liebler.;
 #X msg 110 1228 @phase;
 #X text 245 1228 Alias to @method phase. Phase Based Method onset detection
 function.;
@@ -103,9 +102,9 @@ onset detection function.;
 #X msg 110 1369 @specflux;
 #X text 245 1369 Alias to @method specflux. Spectral Flux.;
 #X msg 110 1399 @speedlim;
-#X text 245 1399 Получить/Установить minimum interval between two consecutive
-onsets. Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Минимальное
-значение: 1\.;
+#X text 245 1399 Получить/Установить минимальный интервал между двумя
+последовательными атаками. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+50\. Минимальное значение: 1\.;
 #X msg 110 1456 @threshold;
 #X text 245 1456 Получить/Установить peak picking threshold. Тип: float.
 Значение по умолчанию: 0.058\.;
