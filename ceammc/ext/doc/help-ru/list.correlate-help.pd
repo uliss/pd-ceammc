@@ -5,37 +5,38 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.correlate 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 list.correlate;
-#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X msg 50 146 1 2 3 1 2 3 1 2 3;
-#X obj 136 175 ui.hrd 4;
-#X obj 50 204 list.>> 0;
-#X obj 50 233 list.correlate 2 4 6;
-#X obj 50 262 list.normalize @range;
-#X obj 50 290 ui.sliders @auto_count 1;
-#X text 50 362 ...;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Note: may perform slowly in large lists because it does
+not use the FFT to compute the convolution;
+#X msg 50 176 1 2 3 1 2 3 1 2 3;
+#X obj 136 205 ui.hrd 4;
+#X obj 50 234 list.>> 0;
+#X obj 50 263 list.correlate 2 4 6;
+#X obj 50 292 list.normalize @range;
+#X obj 50 320 ui.sliders @auto_count 1;
+#X text 50 392 ...;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 444 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 417 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 447 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 449 1\.;
-#X text 150 449 list;
-#X obj 246 450 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 449 B: second argument values. Тип: list.;
-#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 484 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 479 1\.;
+#X text 150 479 list;
+#X obj 246 480 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 479 B: second argument values. Тип: list.;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 487 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 519 @a;
-#X text 245 519 Получить/Установить first argument. Тип: list.;
-#X msg 110 549 @b;
-#X text 245 549 Получить/Установить second argument. Тип: list.;
-#X msg 110 579 @full;
-#X text 245 579 Alias to @mode full.;
-#X msg 110 609 @mode;
-#X text 245 609 Получить/Установить output mode. 'full' - output the
+#X msg 110 549 @a;
+#X text 245 549 Получить/Установить first argument. Тип: list.;
+#X msg 110 579 @b;
+#X text 245 579 Получить/Установить second argument. Тип: list.;
+#X msg 110 609 @full;
+#X text 245 609 Alias to @mode full.;
+#X msg 110 639 @mode;
+#X text 245 639 Получить/Установить output mode. 'full' - output the
 cross-correlation at each point of overlap \, with an output length
 of (M+N-1). At the end-points of the cross-correlation \, the signals
 do not overlap completely \, and boundary effects may be seen. 'valid'
@@ -45,32 +46,32 @@ Values outside the signal boundary have no effect. 'same' - output
 of length max(M \, N). Boundary effects are still visible. Тип: symbol.
 Значение по умолчанию: valid. Разрешённые значения: valid \, same \,
 full.;
-#X msg 110 802 @same;
-#X text 245 802 Alias to @mode same.;
-#X msg 110 832 @valid;
-#X text 245 832 Alias to @mode valid.;
-#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 877 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 832 @same;
+#X text 245 832 Alias to @mode same.;
+#X msg 110 862 @valid;
+#X text 245 862 Alias to @mode valid.;
+#X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 907 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 878 1\.;
-#X text 150 878 *list*;
-#X text 245 878 calculate cross-correlation and output.;
-#X text 110 898 2\.;
-#X text 150 898 *list*;
-#X text 245 898 set second argument (@b property).;
-#X obj 20 928 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 933 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 908 1\.;
+#X text 150 908 *list*;
+#X text 245 908 calculate cross-correlation and output.;
+#X text 110 928 2\.;
+#X text 150 928 *list*;
+#X text 245 928 set second argument (@b property).;
+#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 963 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 934 1\.;
-#X text 245 934 list: output result.;
+#X text 110 964 1\.;
+#X text 245 964 list: output result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 984 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 987 библиотека: ceammc v0.9.8;
-#N canvas 10 1006 400 290 info 0;
+#X obj 1 1014 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1017 библиотека: ceammc v0.9.8;
+#N canvas 10 1036 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1006 pd info;
+#X restore 10 1036 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;
 #X connect 8 0 9 0;

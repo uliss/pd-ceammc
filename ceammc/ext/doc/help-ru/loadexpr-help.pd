@@ -6,48 +6,48 @@
 0;
 #X obj 548 11 ceammc/loadexpr;
 #X obj 682 11 loadexpr;
-#X obj 205 78 cnv 1 560 30 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X text 215 93;
-#X text 50 156 click me!;
-#X obj 50 185 loadexpr symbol "with space" \, pi() \, mtof(60 61) \,
+#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 like [loadmsg] \, but support expression calls and datatype;
+#X text 215 108 Click on object sends message again;
+#X text 50 186 click me!;
+#X obj 50 215 loadexpr symbol "with space" \, pi() \, mtof(60 61) \,
 \[a: 1 2 3 b: 4 5 6\];
-#X obj 126 243 flow.space 50;
-#X obj 50 272 print;
-#X obj 126 272 ui.dt @auto_size 0;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 327 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 126 273 flow.space 50;
+#X obj 50 302 print;
+#X obj 126 302 ui.dt @auto_size 0;
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 357 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 362 Left-click;
-#X text 285 362 output again.;
-#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 397 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 110 392 Left-click;
+#X text 285 392 output again.;
+#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 427 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 400 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 432 1\.;
-#X text 150 432 list;
-#X obj 246 433 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 432 ARGS: message. Comma separated messages are supported.
+#X text 110 462 1\.;
+#X text 150 462 list;
+#X obj 246 463 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 462 ARGS: message. Comma separated messages are supported.
 Тип: list.;
-#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 482 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 512 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 508 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 538 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 509 1\.;
-#X text 245 509 message output.;
+#X text 110 539 1\.;
+#X text 245 539 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 559 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 562 библиотека: ceammc v0.9.8;
-#X text 568 574 смотрите также:;
-#X obj 689 574 loadmsg;
-#N canvas 10 581 400 290 info 0;
+#X obj 1 589 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 592 библиотека: ceammc v0.9.8;
+#X text 568 604 смотрите также:;
+#X obj 689 604 loadmsg;
+#N canvas 10 611 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -71,7 +71,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 581 pd info;
+#X restore 10 611 pd info;
 #X connect 9 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

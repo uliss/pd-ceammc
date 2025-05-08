@@ -6,28 +6,29 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.floor 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 math.floor;
-#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98;
-#X text 215 108;
-#X text 215 118;
-#X text 215 128;
-#X floatatom 50 191 5 0 0 0 - - -;
-#X msg 117 191 2.3 3.8 5.5 -2.3 -3.8 -5.5;
-#X obj 50 220 math.floor;
-#X obj 50 249 ui.dt;
-#X obj 20 299 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 304 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 93 cnv 1 560 125 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 The floor() functions return the largest integral value
+less than or equal to x.;
+#X text 215 138 Special values:;
+#X text 215 163 floor(+-0) returns +-0\.;
+#X text 215 188 floor(+-infinity) returns +-infinity.;
+#X floatatom 50 266 5 0 0 0 - - -;
+#X msg 117 266 2.3 3.8 5.5 -2.3 -3.8 -5.5;
+#X obj 50 295 math.floor;
+#X obj 50 324 ui.dt;
+#X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 379 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 305 1\.;
-#X text 150 305 *float*;
-#X text 245 305 input value.;
-#X text 150 325 *list*;
-#X text 245 325 apply to all numeric values.;
-#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 360 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 380 1\.;
+#X text 150 380 *float*;
+#X text 245 380 input value.;
+#X text 150 400 *list*;
+#X text 245 400 apply to all numeric values.;
+#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 435 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 361 1\.;
-#X text 245 361 result value.;
+#X text 110 436 1\.;
+#X text 245 436 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

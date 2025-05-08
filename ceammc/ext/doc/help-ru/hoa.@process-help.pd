@@ -5,84 +5,85 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.@process 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hoa.@process;
-#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X msg 50 146 open 0;
-#X msg 136 146 open 1;
-#X msg 222 146 open 2;
-#X msg 347 146 @*? \, @index? @order? @total? @hdegree? @horder?;
-#X msg 366 175 @freq? \, #1 @freq 1000 \, @freq?;
-#X msg 386 204 #0 @freq 740 \, #2 @freq 300;
-#X msg 405 233 #0 @freq 200 \, #1 @freq 600 \, #2 @freq 500;
-#X msg 482 262 3;
-#X obj 482 290 list.gen;
-#X obj 606 290 random.int 100 1000;
-#X text 261 319 click me;
-#X obj 482 319 list.do;
-#X msg 606 319 #\$2 @freq \$1;
-#X obj 50 348 hoa.process~ 3 hoa/hoa_prop_example1 planewaves "@freq"
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 With [hoa.@process] you can get [hoa.process~] instance
+properties and get/set properties declared via [prop.declare];
+#X msg 50 176 open 0;
+#X msg 136 176 open 1;
+#X msg 222 176 open 2;
+#X msg 347 176 @*? \, @index? @order? @total? @hdegree? @horder?;
+#X msg 366 205 @freq? \, #1 @freq 1000 \, @freq?;
+#X msg 386 234 #0 @freq 740 \, #2 @freq 300;
+#X msg 405 263 #0 @freq 200 \, #1 @freq 600 \, #2 @freq 500;
+#X msg 482 292 3;
+#X obj 482 320 list.gen;
+#X obj 606 320 random.int 100 1000;
+#X text 261 349 click me;
+#X obj 482 349 list.do;
+#X msg 606 349 #\$2 @freq \$1;
+#X obj 50 378 hoa.process~ 3 hoa/hoa_prop_example1 planewaves "@freq"
 250, f 60;
-#X obj 50 406 ui.hgain~;
-#X obj 184 406 ui.dsp~;
-#X obj 472 406 print;
-#X obj 50 434 dac~;
-#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 436 ui.hgain~;
+#X obj 184 436 ui.dsp~;
+#X obj 472 436 print;
+#X obj 50 464 dac~;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 519 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 492 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 524 @hdegree?;
-#X text 245 524 (только чтение) Получить current harmonic degree in
+#X msg 110 554 @hdegree?;
+#X text 245 554 (только чтение) Получить current harmonic degree in
 hoa.process~ instance (only in harmonics mode). Тип: int. Значение
 по умолчанию: 0\.;
-#X msg 110 581 @horder?;
-#X text 245 581 (только чтение) Получить current harmonic order in
+#X msg 110 611 @horder?;
+#X text 245 611 (только чтение) Получить current harmonic order in
 hoa.process~ instance (only in harmonics mode). Тип: int. Значение
 по умолчанию: 0\.;
-#X msg 110 638 @index?;
-#X text 245 638 (только чтение) Получить current instance index starting
+#X msg 110 668 @index?;
+#X text 245 668 (только чтение) Получить current instance index starting
 from 0\. Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 680 @order?;
-#X text 245 680 (только чтение) Получить order of parent hoa.process~.
+#X msg 110 710 @order?;
+#X text 245 710 (только чтение) Получить order of parent hoa.process~.
 Тип: int. Значение по умолчанию: 0\.;
-#X msg 110 722 @pmode?;
-#X text 245 722 (только чтение) Получить amibisonic mode. Тип: symbol.
+#X msg 110 752 @pmode?;
+#X text 245 752 (только чтение) Получить amibisonic mode. Тип: symbol.
 Разрешённые значения: 2d \, 3d.;
-#X msg 110 764 @ptype?;
-#X text 245 764 (только чтение) Получить amibisonic type. Тип: symbol.
+#X msg 110 794 @ptype?;
+#X text 245 794 (только чтение) Получить amibisonic type. Тип: symbol.
 Разрешённые значения: harmonics \, planewaves.;
-#X msg 110 806 @total?;
-#X text 245 806 (только чтение) Получить total number of hoa.process~
+#X msg 110 836 @total?;
+#X text 245 836 (только чтение) Получить total number of hoa.process~
 instances. Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 863 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 888 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 893 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 864 1\.;
-#X text 245 864 set or request properties.;
-#X text 150 884 *bang*;
-#X text 245 884 if harmonics mode output list: @order @hdegree @horder
+#X text 110 894 1\.;
+#X text 245 894 set or request properties.;
+#X text 150 914 *bang*;
+#X text 245 914 if harmonics mode output list: @order @hdegree @horder
 \, in planewaves: @order @index @index.;
-#X text 150 919 *float*;
-#X text 245 919 pass float message thru.;
-#X text 150 939 *symbol*;
-#X text 245 939 pass symbol message thru.;
-#X text 150 959 *list*;
-#X text 245 959 pass list message thru.;
-#X obj 20 989 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 994 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 110 995 1\.;
-#X text 245 995 outputs properties.;
+#X text 150 949 *float*;
+#X text 245 949 pass float message thru.;
+#X text 150 969 *symbol*;
+#X text 245 969 pass symbol message thru.;
+#X text 150 989 *list*;
+#X text 245 989 pass list message thru.;
+#X obj 20 1019 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1024 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 110 1025 1\.;
+#X text 245 1025 outputs properties.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1045 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1048 библиотека: ceammc v0.9.8;
-#X text 531 1060 смотрите также:;
-#X obj 652 1060 hoa.process~;
-#N canvas 10 1067 400 290 info 0;
+#X obj 1 1075 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1078 библиотека: ceammc v0.9.8;
+#X text 531 1090 смотрите также:;
+#X obj 652 1090 hoa.process~;
+#N canvas 10 1097 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1067 pd info;
+#X restore 10 1097 pd info;
 #X connect 13 0 14 0;
 #X connect 14 0 17 0;
 #X connect 6 0 19 0;

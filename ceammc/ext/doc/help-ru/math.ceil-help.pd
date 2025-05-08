@@ -6,28 +6,29 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.ceil 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.ceil;
-#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98;
-#X text 215 108;
-#X text 215 118;
-#X text 215 128;
-#X floatatom 50 191 5 0 0 0 - - -;
-#X msg 117 191 2.3 3.8 5.5 -2.3 -3.8 -5.5;
-#X obj 50 220 math.ceil;
-#X floatatom 50 249 5 0 0 0 - - -;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 93 cnv 1 560 125 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 The ceil() function return the smallest integral value
+greater than or equal to input value.;
+#X text 215 138 Special values:;
+#X text 215 163 ceil(+-0) returns +-0\.;
+#X text 215 188 ceil(+-infinity) returns +-infinity.;
+#X floatatom 50 266 5 0 0 0 - - -;
+#X msg 117 266 2.3 3.8 5.5 -2.3 -3.8 -5.5;
+#X obj 50 295 math.ceil;
+#X floatatom 50 324 5 0 0 0 - - -;
+#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 361 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 287 1\.;
-#X text 150 287 *float*;
-#X text 245 287 input value.;
-#X text 150 307 *list*;
-#X text 245 307 apply to all numeric values.;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 362 1\.;
+#X text 150 362 *float*;
+#X text 245 362 input value.;
+#X text 150 382 *list*;
+#X text 245 382 apply to all numeric values.;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 417 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 343 1\.;
-#X text 245 343 result value.;
+#X text 110 418 1\.;
+#X text 245 418 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

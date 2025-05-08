@@ -5,40 +5,43 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.erf 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 math.erf;
-#X obj 205 78 cnv 1 560 30 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X text 215 93;
-#X msg 50 156 bang;
+#X obj 205 78 cnv 1 560 105 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 In statistics \, for non-negative values of x \, the
+error function has the following interpretation:;
+#X text 215 123 for a random variable Y that is normally distributed
+with mean 0 and variance 1/2 \, erf x is the probability that Y falls
+in the range [−x \, x];
+#X msg 50 231 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ERF 100 float 0;
 #X coords 0 1 100 -1 320 140 1;
-#X restore 270 156 graph;
-#X obj 50 185 list.seq -4 4 0.025;
-#X obj 50 214 math.erf;
-#X obj 50 243 list->array ERF;
-#X obj 20 328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 333 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X restore 270 231 graph;
+#X obj 50 260 list.seq -4 4 0.025;
+#X obj 50 289 math.erf;
+#X obj 50 318 list->array ERF;
+#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 408 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 334 1\.;
-#X text 150 334 *float*;
-#X text 245 334 input value.;
-#X text 150 354 *list*;
-#X text 245 354 apply to all numeric values.;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 409 1\.;
+#X text 150 409 *float*;
+#X text 245 409 input value.;
+#X text 150 429 *list*;
+#X text 245 429 apply to all numeric values.;
+#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 464 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 390 1\.;
-#X text 245 390 result value.;
+#X text 110 465 1\.;
+#X text 245 465 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 552 520 смотрите также:;
-#X obj 673 520 math.erf~;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 515 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 518 библиотека: ceammc v0.9.8;
+#X text 552 530 смотрите также:;
+#X obj 673 530 math.erf~;
+#N canvas 10 537 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -62,7 +65,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
+#X restore 10 537 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;

@@ -5,54 +5,55 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.in~ 20 20 0 20 -104026 -4096
 0;
 #X obj 688 11 hoa.in~;
-#X obj 205 93 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98;
-#X msg 50 161 open 0;
-#X msg 165 161 open 1;
-#X floatatom 376 161 5 0 0 0 - - -;
-#X obj 50 190 sig~ 0.5;
-#X obj 213 190 sig~ 1;
-#X obj 376 190 sig~ 3;
-#X obj 50 219 hoa.process~ 2 hoa/hoa_in_example3 planewaves;
-#X obj 50 248 ui.n~;
-#X obj 376 248 ui.n~;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98 defines a signal inlet for a patcher loaded by a hoa.process~
+object;
+#X msg 50 191 open 0;
+#X msg 165 191 open 1;
+#X floatatom 376 191 5 0 0 0 - - -;
+#X obj 50 220 sig~ 0.5;
+#X obj 213 220 sig~ 1;
+#X obj 376 220 sig~ 3;
+#X obj 50 249 hoa.process~ 2 hoa/hoa_in_example3 planewaves;
+#X obj 50 278 ui.n~;
+#X obj 376 278 ui.n~;
+#X obj 20 328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 333 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 336 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 338 1\.;
-#X text 150 338 int;
-#X obj 246 339 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 338 EXTRA: shortcut for @extra property. Тип: int. Минимальное
+#X text 110 368 1\.;
+#X text 150 368 int;
+#X obj 246 369 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 368 EXTRA: shortcut for @extra property. Тип: int. Минимальное
 значение: 0\.;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 388 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 391 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 423 @extra;
-#X text 245 423 Получить/Установить extra inlet. Extra inlet are added
+#X msg 110 453 @extra;
+#X text 245 453 Получить/Установить extra inlet. Extra inlet are added
 to the "normal" instance inlet and can be used to send signal to all
 instances. Тип: int. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
-#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 525 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 526 1\.;
-#X text 245 526 output signal from a hoa.process~ object's inlet.;
+#X text 110 556 1\.;
+#X text 245 556 output signal from a hoa.process~ object's inlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 579 библиотека: ceammc v0.9.8;
-#X text 435 591 смотрите также:;
-#X obj 556 591 hoa.in;
-#X obj 615 591 hoa.out;
-#X obj 681 591 hoa.out~;
-#N canvas 10 598 400 290 info 0;
+#X obj 1 606 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 609 библиотека: ceammc v0.9.8;
+#X text 435 621 смотрите также:;
+#X obj 556 621 hoa.in;
+#X obj 615 621 hoa.out;
+#X obj 681 621 hoa.out~;
+#N canvas 10 628 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -77,7 +78,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 598 pd info;
+#X restore 10 628 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 10 0 12 1;

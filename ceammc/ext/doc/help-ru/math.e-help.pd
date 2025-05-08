@@ -4,23 +4,24 @@
 #X text 319 50 математическая константа \, основание натурального логарифма;
 #X obj 1 1 cnv 5 765 40 empty empty math.e 20 20 0 20 -104026 -4096 0;
 #X obj 695 11 math.e;
-#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X obj 50 146 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 It is approximately equal to 2.71828 \, and is the limit
+of (1 + 1/n)^n as n approaches infinity.;
+#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 175 math.e;
-#X floatatom 50 204 10 0 0 0 - - -;
-#X obj 20 236 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 241 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 205 math.e;
+#X floatatom 50 234 10 0 0 0 - - -;
+#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 271 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 242 1\.;
-#X text 150 242 *bang*;
-#X text 245 242 outputs value.;
-#X obj 20 272 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 277 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 272 1\.;
+#X text 150 272 *bang*;
+#X text 245 272 outputs value.;
+#X obj 20 302 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 307 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 278 1\.;
-#X text 245 278 output value.;
+#X text 110 308 1\.;
+#X text 245 308 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

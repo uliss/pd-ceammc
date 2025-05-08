@@ -7,28 +7,30 @@
 #X obj 495 11 round;
 #X obj 555 11 ceammc/round;
 #X obj 667 11 math.round;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X text 215 93;
-#X text 215 103;
-#X text 215 113;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X msg 98 176 2.3 3.8 5.5 -2.3 -3.8 -5.5;
-#X obj 50 205 math.round;
-#X obj 50 234 ui.dt;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 78 cnv 1 560 140 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 The round() functions return the integral value nearest
+to x rounding half-way cases away from zero \, regardless of the current
+rounding direction.;
+#X text 215 138 Special values:;
+#X text 215 163 round(+-0) returns +-0\.;
+#X text 215 188 round(+-infinity) returns +-infinity.;
+#X floatatom 50 266 5 0 0 0 - - -;
+#X msg 98 266 2.3 3.8 5.5 -2.3 -3.8 -5.5;
+#X obj 50 295 math.round;
+#X obj 50 324 ui.dt;
+#X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 379 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 290 1\.;
-#X text 150 290 *float*;
-#X text 245 290 input value.;
-#X text 150 310 *list*;
-#X text 245 310 apply to all numeric values.;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 380 1\.;
+#X text 150 380 *float*;
+#X text 245 380 input value.;
+#X text 150 400 *list*;
+#X text 245 400 apply to all numeric values.;
+#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 435 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 346 1\.;
-#X text 245 346 result value.;
+#X text 110 436 1\.;
+#X text 245 436 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -5,67 +5,69 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.biquad~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 flt.biquad~;
-#X obj 205 78 cnv 1 560 54 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X text 215 93;
-#X obj 215 103 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 205 78 cnv 1 560 114 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Digital biquad filter is a second-order recursive linear
+filter \, containing two poles and two zeros.;
+#X text 215 123 transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 +
+a1*z⁻¹ + a2*z⁻²);
+#X obj 215 163 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Digital biquad             filter @url
 https://en.wikipedia.org/wiki/Digital_biquad_filter;
-#X msg 50 180 bang;
-#X msg 146 180 0.5 0 0.5;
-#X msg 261 180 0.5 0 0 -0.5 0.25;
-#X msg 453 180 0.5 0.5;
-#X obj 50 209 click~;
-#X obj 146 209 nsig~ 5 0.5 0.5;
-#X obj 50 267 flt.biquad~;
-#X obj 50 296 plot.response~;
-#X obj 50 324 ui.plot~ @size 400 165 @n 2 @ymin -1.6 @ymax 1.6
+#X msg 50 240 bang;
+#X msg 146 240 0.5 0 0.5;
+#X msg 261 240 0.5 0 0 -0.5 0.25;
+#X msg 453 240 0.5 0.5;
+#X obj 50 269 click~;
+#X obj 146 269 nsig~ 5 0.5 0.5;
+#X obj 50 327 flt.biquad~;
+#X obj 50 356 plot.response~;
+#X obj 50 384 ui.plot~ @size 400 165 @n 2 @ymin -1.6 @ymax 1.6
 @ylabels 1 @xlabels 1 @ymin_ticks 0;
-#X obj 50 497 ui.dsp~;
-#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 552 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 557 ui.dsp~;
+#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 612 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 555 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 615 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 587 @active;
-#X text 245 587 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 647 @active;
+#X text 245 647 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X obj 20 639 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 644 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 704 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 679 reset;
-#X text 245 679 reset filter state.;
-#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 722 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 739 reset;
+#X text 245 739 reset filter state.;
+#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 782 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 723 1\.;
-#X text 245 723 input signal.;
-#X text 110 743 2\.;
-#X text 245 743 b0\.;
-#X text 110 763 3\.;
-#X text 245 763 b1\.;
-#X text 110 783 4\.;
-#X text 245 783 b2\.;
-#X text 110 803 5\.;
-#X text 245 803 a1\.;
-#X text 110 823 6\.;
-#X text 245 823 a2\.;
-#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 858 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 783 1\.;
+#X text 245 783 input signal.;
+#X text 110 803 2\.;
+#X text 245 803 b0\.;
+#X text 110 823 3\.;
+#X text 245 823 b1\.;
+#X text 110 843 4\.;
+#X text 245 843 b2\.;
+#X text 110 863 5\.;
+#X text 245 863 a1\.;
+#X text 110 883 6\.;
+#X text 245 883 a2\.;
+#X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 918 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 859 1\.;
-#X text 245 859 filtered signal.;
+#X text 110 919 1\.;
+#X text 245 919 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 909 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 912 библиотека: ceammc v0.9.8;
-#X text 456 924 смотрите также:;
-#X obj 577 924 flt.c_bpf~;
-#X obj 666 924 flt.c_hpf~;
-#N canvas 10 931 400 290 info 0;
+#X obj 1 969 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 972 библиотека: ceammc v0.9.8;
+#X text 456 984 смотрите также:;
+#X obj 577 984 flt.c_bpf~;
+#X obj 666 984 flt.c_hpf~;
+#N canvas 10 991 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +91,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 931 pd info;
+#X restore 10 991 pd info;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;
 #X connect 10 0 13 0;

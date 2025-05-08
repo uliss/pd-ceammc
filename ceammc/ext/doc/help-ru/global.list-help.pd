@@ -5,135 +5,136 @@
 #X obj 1 1 cnv 5 765 40 empty empty global.list 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 global.list;
-#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X msg 50 146 list a b c;
-#X msg 184 146 set 3 2 1;
-#X msg 78 175 1 2 3;
-#X obj 309 175 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Defines global scope list variable \, accessed by ID
+name.;
+#X msg 50 161 list a b c;
+#X msg 184 161 set 3 2 1;
+#X msg 78 190 1 2 3;
+#X obj 309 190 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 204 global.list id;
-#X obj 309 204 global.list id;
-#X obj 50 233 ui.dt;
-#X obj 309 233 ui.dt;
-#X obj 50 262 global.list-pd;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 50 219 global.list id;
+#X obj 309 219 global.list id;
+#X obj 50 248 ui.dt;
+#X obj 309 248 ui.dt;
+#X obj 50 277 global.list-pd;
+#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 332 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 352 Left-click;
-#X text 285 352 open data editor.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 110 367 Left-click;
+#X text 285 367 open data editor.;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 422 1\.;
-#X text 150 422 symbol;
-#X obj 246 423 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 422 ID: object ID. Тип: symbol.;
-#X text 110 442 2\.;
-#X text 150 442 list;
-#X obj 246 443 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 442 VALUE: initial values. Тип: list.;
-#X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 477 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 437 1\.;
+#X text 150 437 symbol;
+#X obj 246 438 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 437 ID: object ID. Тип: symbol.;
+#X text 110 457 2\.;
+#X text 150 457 list;
+#X obj 246 458 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 457 VALUE: initial values. Тип: list.;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 492 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 480 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 495 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 512 @id;
-#X text 245 512 (при инициализации) Получить/Установить global variable
+#X msg 110 527 @id;
+#X text 245 527 (при инициализации) Получить/Установить global variable
 id. Тип: symbol. Значение по умолчанию: default.;
-#X msg 110 554 @value;
-#X text 245 554 Получить/Установить current value. Тип: list.;
-#X msg 110 584 @empty?;
-#X text 245 584 (только чтение) Получить 1 if list is empty \, otherwise
+#X msg 110 569 @value;
+#X text 245 569 Получить/Установить current value. Тип: list.;
+#X msg 110 599 @empty?;
+#X text 245 599 (только чтение) Получить 1 if list is empty \, otherwise
 0\. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 626 @size?;
-#X text 245 626 (только чтение) Получить number of elements in list.
+#X msg 110 641 @size?;
+#X text 245 641 (только чтение) Получить number of elements in list.
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 683 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 698 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 718 append;
-#X text 245 718 adds values to the end of the list. Аргументы:;
-#X obj 255 741 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 741 VAL: appended value. Тип: atom.;
-#X msg 110 766 at;
-#X text 245 766 outputs atom at the specified position. Аргументы:;
-#X obj 255 789 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 789 IDX: position (negative indexes are supported: -1 means
+#X msg 110 733 append;
+#X text 245 733 adds values to the end of the list. Аргументы:;
+#X obj 255 756 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 756 VAL: appended value. Тип: atom.;
+#X msg 110 781 at;
+#X text 245 781 outputs atom at the specified position. Аргументы:;
+#X obj 255 804 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 804 IDX: position (negative indexes are supported: -1 means
 last element). Тип: int.;
-#X msg 110 829 back;
-#X text 245 829 output last list element.;
-#X msg 110 857 choose;
-#X text 245 857 choose random element in list and output it.;
-#X msg 110 885 clear;
-#X text 245 885 removes all list elements.;
-#X msg 110 913 fill;
-#X text 245 913 fills with specified value. Аргументы:;
-#X obj 255 936 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 936 VAL: fill value. Тип: atom.;
-#X msg 110 961 front;
-#X text 245 961 output first list element.;
-#X msg 110 989 insert;
-#X text 245 989 inserts values to the specified position. Аргументы:;
-#X obj 255 1012 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1012 IDX: insert position. Тип: int.;
-#X obj 255 1035 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1035 VAL: value. Тип: atom.;
-#X msg 110 1060 pop;
-#X text 245 1060 removes last list element.;
-#X msg 110 1088 prepend;
-#X text 245 1088 inserts values to the list beginning. Аргументы:;
-#X obj 255 1111 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1111 VAL: prepended value. Тип: atom.;
-#X msg 110 1136 remove;
-#X text 245 1136 removes specified element. Аргументы:;
-#X obj 255 1159 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1159 IDX: element index. Тип: int.;
-#X msg 110 1184 reverse;
-#X text 245 1184 reverses list.;
-#X msg 110 1212 set;
-#X text 245 1212 sets new list without output. Аргументы:;
-#X obj 255 1235 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1235 LIST: new list content. Тип: list.;
-#X msg 110 1260 shuffle;
-#X text 245 1260 put elements in random order.;
-#X msg 110 1288 sort;
-#X text 245 1288 sorts list.;
-#X msg 110 1316 dump;
-#X text 245 1316 dump object info to Pd window.;
-#X obj 20 1354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1359 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 844 back;
+#X text 245 844 output last list element.;
+#X msg 110 872 choose;
+#X text 245 872 choose random element in list and output it.;
+#X msg 110 900 clear;
+#X text 245 900 removes all list elements.;
+#X msg 110 928 fill;
+#X text 245 928 fills with specified value. Аргументы:;
+#X obj 255 951 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 951 VAL: fill value. Тип: atom.;
+#X msg 110 976 front;
+#X text 245 976 output first list element.;
+#X msg 110 1004 insert;
+#X text 245 1004 inserts values to the specified position. Аргументы:;
+#X obj 255 1027 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1027 IDX: insert position. Тип: int.;
+#X obj 255 1050 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1050 VAL: value. Тип: atom.;
+#X msg 110 1075 pop;
+#X text 245 1075 removes last list element.;
+#X msg 110 1103 prepend;
+#X text 245 1103 inserts values to the list beginning. Аргументы:;
+#X obj 255 1126 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1126 VAL: prepended value. Тип: atom.;
+#X msg 110 1151 remove;
+#X text 245 1151 removes specified element. Аргументы:;
+#X obj 255 1174 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1174 IDX: element index. Тип: int.;
+#X msg 110 1199 reverse;
+#X text 245 1199 reverses list.;
+#X msg 110 1227 set;
+#X text 245 1227 sets new list without output. Аргументы:;
+#X obj 255 1250 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1250 LIST: new list content. Тип: list.;
+#X msg 110 1275 shuffle;
+#X text 245 1275 put elements in random order.;
+#X msg 110 1303 sort;
+#X text 245 1303 sorts list.;
+#X msg 110 1331 dump;
+#X text 245 1331 dump object info to Pd window.;
+#X obj 20 1369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1374 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1360 1\.;
-#X text 150 1360 *bang*;
-#X text 245 1360 output list content.;
-#X text 150 1380 *float*;
-#X text 245 1380 outputs list element at specified position. Negative
+#X text 110 1375 1\.;
+#X text 150 1375 *bang*;
+#X text 245 1375 output list content.;
+#X text 150 1395 *float*;
+#X text 245 1395 outputs list element at specified position. Negative
 indexes are supported.;
-#X text 150 1415 *symbol*;
-#X text 245 1415 set new list with single symbol element and output.;
-#X text 150 1435 *list*;
-#X text 245 1435 set new list content and output.;
-#X text 150 1455 *data:mlist*;
-#X text 245 1455 same as list.;
-#X obj 20 1485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1490 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 150 1430 *symbol*;
+#X text 245 1430 set new list with single symbol element and output.;
+#X text 150 1450 *list*;
+#X text 245 1450 set new list content and output.;
+#X text 150 1470 *data:mlist*;
+#X text 245 1470 same as list.;
+#X obj 20 1500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1505 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1491 1\.;
-#X text 245 1491 list output.;
+#X text 110 1506 1\.;
+#X text 245 1506 list output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 1541 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1544 библиотека: ceammc v0.9.8;
-#X text 444 1556 смотрите также:;
-#X obj 565 1556 global.float;
-#X obj 667 1556 global.int;
-#N canvas 10 1563 400 290 info 0;
+#X obj 1 1556 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1559 библиотека: ceammc v0.9.8;
+#X text 444 1571 смотрите также:;
+#X obj 565 1571 global.float;
+#X obj 667 1571 global.int;
+#N canvas 10 1578 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -157,7 +158,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1563 pd info;
+#X restore 10 1578 pd info;
 #X connect 6 0 10 0;
 #X connect 8 0 10 0;
 #X connect 7 0 10 0;

@@ -5,95 +5,95 @@
 #X obj 1 1 cnv 5 765 40 empty empty local.set 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 local.set;
-#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X obj 50 146 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Defines local scope set variable \, accessed by ID name;
+#X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 107 146 1 2 3;
-#X floatatom 184 146 5 0 0 0 - - -;
-#X msg 222 146 clear;
-#X msg 328 146 bang;
-#X obj 50 204 local.set s1;
-#X obj 328 204 local.set s1;
-#X obj 50 233 ui.display @display_type 1;
-#X obj 328 233 ui.display @display_type 1;
-#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 288 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X msg 107 161 1 2 3;
+#X floatatom 184 161 5 0 0 0 - - -;
+#X msg 222 161 clear;
+#X msg 328 161 bang;
+#X obj 50 219 local.set s1;
+#X obj 328 219 local.set s1;
+#X obj 50 248 ui.display @display_type 1;
+#X obj 328 248 ui.display @display_type 1;
+#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 303 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 110 323 Left-click;
-#X text 285 323 open data editor.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 358 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 110 338 Left-click;
+#X text 285 338 open data editor.;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 393 1\.;
-#X text 150 393 symbol;
-#X obj 246 394 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 393 ID: object ID. Тип: symbol.;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 428 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 408 1\.;
+#X text 150 408 symbol;
+#X obj 246 409 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 408 ID: object ID. Тип: symbol.;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 443 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 446 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 463 @id;
-#X text 245 463 (при инициализации) Получить/Установить local variable
+#X msg 110 478 @id;
+#X text 245 478 (при инициализации) Получить/Установить local variable
 id. Тип: symbol. Значение по умолчанию: default.;
-#X msg 110 505 @empty?;
-#X text 245 505 (только чтение) Получить 1 if list is empty \, otherwise
+#X msg 110 520 @empty?;
+#X text 245 520 (только чтение) Получить 1 if list is empty \, otherwise
 0\. Тип: bool. Значение по умолчанию: 1\.;
-#X msg 110 547 @size?;
-#X text 245 547 (только чтение) Получить number of elements in list.
+#X msg 110 562 @size?;
+#X text 245 562 (только чтение) Получить number of elements in list.
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 604 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 639 add;
-#X text 245 639 add values to the set. Аргументы:;
-#X obj 255 662 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 662 VAL: added values. Тип: list.;
-#X msg 110 687 choose;
-#X text 245 687 choose random element and output it.;
-#X msg 110 715 clear;
-#X text 245 715 removes all set elements.;
-#X msg 110 743 remove;
-#X text 245 743 remove elements from the set. Аргументы:;
-#X obj 255 766 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 766 VAL: elements. Тип: list.;
-#X msg 110 791 set;
-#X text 245 791 sets new set content without output. Аргументы:;
-#X obj 255 814 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 814 LIST: new set content. Тип: list.;
-#X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 854 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 654 add;
+#X text 245 654 add values to the set. Аргументы:;
+#X obj 255 677 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 677 VAL: added values. Тип: list.;
+#X msg 110 702 choose;
+#X text 245 702 choose random element and output it.;
+#X msg 110 730 clear;
+#X text 245 730 removes all set elements.;
+#X msg 110 758 remove;
+#X text 245 758 remove elements from the set. Аргументы:;
+#X obj 255 781 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 781 VAL: elements. Тип: list.;
+#X msg 110 806 set;
+#X text 245 806 sets new set content without output. Аргументы:;
+#X obj 255 829 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 829 LIST: new set content. Тип: list.;
+#X obj 20 864 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 869 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 855 1\.;
-#X text 150 855 *bang*;
-#X text 245 855 output set content.;
-#X text 150 875 *float*;
-#X text 245 875 adds new element to set \, no output.;
-#X text 150 895 *symbol*;
-#X text 245 895 adds new element to set \, no output.;
-#X text 150 915 *list*;
-#X text 245 915 adds new elements to set \, no output.;
-#X text 150 935 *data:set*;
-#X text 245 935 set new set content and output.;
-#X obj 20 965 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 970 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 870 1\.;
+#X text 150 870 *bang*;
+#X text 245 870 output set content.;
+#X text 150 890 *float*;
+#X text 245 890 adds new element to set \, no output.;
+#X text 150 910 *symbol*;
+#X text 245 910 adds new element to set \, no output.;
+#X text 150 930 *list*;
+#X text 245 930 adds new elements to set \, no output.;
+#X text 150 950 *data:set*;
+#X text 245 950 set new set content and output.;
+#X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 971 1\.;
-#X text 245 971 set output.;
+#X text 110 986 1\.;
+#X text 245 986 set output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title local @url ceammc.local-help.pd;
-#X obj 1 1021 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1024 библиотека: ceammc v0.9.8;
-#X text 473 1036 смотрите также:;
-#X obj 594 1036 data.set;
-#X obj 667 1036 global.set;
-#N canvas 10 1043 400 290 info 0;
+#X obj 1 1036 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1039 библиотека: ceammc v0.9.8;
+#X text 473 1051 смотрите также:;
+#X obj 594 1051 data.set;
+#X obj 667 1051 global.set;
+#N canvas 10 1058 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -117,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1043 pd info;
+#X restore 10 1058 pd info;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;

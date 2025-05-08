@@ -22,6 +22,7 @@
         <info>
             <par>
                 <tr lang="en">Onset detector based on aubio library</tr>
+                <tr lang="ru">Детектор атаки на основе библиотеки aubio</tr>
             </par>
             <a href="https://aubio.org/">https://aubio.org</a>
         </info>

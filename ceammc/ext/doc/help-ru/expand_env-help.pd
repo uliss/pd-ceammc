@@ -6,63 +6,65 @@
 -4096 0;
 #X obj 518 11 ceammc/expand_env;
 #X obj 667 11 expand_env;
-#X obj 205 78 cnv 1 560 30 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X text 215 93;
-#X obj 50 156 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Environment variable %HOME% will be replaced by home
+user directory under UNIX;
+#X text 215 123 Some special variables defined: %DOC% - path to PureData
+doc directory \, %CEAMMC% - path to ceammc library directory;
+#X obj 50 216 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 88 156 5 0 0 0 - - -;
-#X msg 136 156 symbol user:%USER%;
-#X msg 338 156 list current shell: %SHELL%;
-#X msg 165 185 doc: %DOC%;
-#X msg 366 185 doc: %CEAMMC%;
-#X msg 194 214 %DOC%;
-#X msg 386 214 home: %HOME%;
-#X obj 50 243 expand_env;
-#X obj 50 272 ui.display @display_type 1;
-#X msg 50 343 %CEAMMC%;
-#X obj 50 372 expand_env @any;
-#X obj 50 401 symbol;
-#X symbolatom 50 430 70 0 0 0 - - -;
-#X obj 50 459 print;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 514 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X floatatom 88 216 5 0 0 0 - - -;
+#X msg 136 216 symbol user:%USER%;
+#X msg 338 216 list current shell: %SHELL%;
+#X msg 165 245 doc: %DOC%;
+#X msg 366 245 doc: %CEAMMC%;
+#X msg 194 274 %DOC%;
+#X msg 386 274 home: %HOME%;
+#X obj 50 303 expand_env;
+#X obj 50 332 ui.display @display_type 1;
+#X msg 50 403 %CEAMMC%;
+#X obj 50 432 expand_env @any;
+#X obj 50 461 symbol;
+#X symbolatom 50 490 70 0 0 0 - - -;
+#X obj 50 519 print;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 574 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 577 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 549 @any;
-#X text 245 549 if specified - also do substitution in message selector.
+#X msg 110 609 @any;
+#X text 245 609 if specified - also do substitution in message selector.
 Значение по умолчанию: 0\.;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 606 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 666 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 607 1\.;
-#X text 150 607 *bang*;
-#X text 245 607 passed.;
-#X text 150 627 *float*;
-#X text 245 627 passed.;
-#X text 150 647 *symbol*;
-#X text 245 647 expand variable inside symbol string.;
-#X text 150 667 *list*;
-#X text 245 667 expand variables inside each list symbol.;
-#X text 150 687 *any*;
-#X text 245 687 expand variables inside each list symbol \, more over
+#X text 110 667 1\.;
+#X text 150 667 *bang*;
+#X text 245 667 passed.;
+#X text 150 687 *float*;
+#X text 245 687 passed.;
+#X text 150 707 *symbol*;
+#X text 245 707 expand variable inside symbol string.;
+#X text 150 727 *list*;
+#X text 245 727 expand variables inside each list symbol.;
+#X text 150 747 *any*;
+#X text 245 747 expand variables inside each list symbol \, more over
 \, if @any argument was used - expand in message selector.;
-#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 737 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 797 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 738 1\.;
-#X text 245 738 output data stream.;
+#X text 110 798 1\.;
+#X text 245 798 output data stream.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 788 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 791 библиотека: ceammc v0.9.8;
-#X text 569 803 смотрите также:;
-#X obj 690 803 replace;
-#N canvas 10 810 400 290 info 0;
+#X obj 1 848 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 851 библиотека: ceammc v0.9.8;
+#X text 569 863 смотрите также:;
+#X obj 690 863 replace;
+#N canvas 10 870 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 810 pd info;
+#X restore 10 870 pd info;
 #X connect 8 0 16 0;
 #X connect 9 0 16 0;
 #X connect 10 0 16 0;

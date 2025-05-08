@@ -6,83 +6,84 @@
 -104026 -4096 0;
 #X obj 531 11 array.rw~;
 #X obj 623 11 array.readwrite~;
-#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X obj 50 146 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 Performes these array operations in order: read \, write
+\, output;
+#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 165 146 msg.onload symbol %CEAMMC%/guitar1.wav;
+#X obj 165 176 msg.onload symbol %CEAMMC%/guitar1.wav;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array arw 100 float 0;
 #X coords 0 1 100 -1 200 140 1;
-#X restore 558 146 graph;
-#X obj 50 175 openpanel;
-#X obj 165 175 expand_env;
-#X msg 50 204 load \$1 to arw @resize @resample;
-#X obj 50 233 snd.file;
-#X obj 261 233 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 262 phasor~ 0.22;
-#X obj 261 262 metro.random 1000 1500;
-#X obj 50 290 expr~ $v1*120000;
-#X obj 261 290 t b b b;
-#X obj 69 319 r~ arw;
-#X obj 261 319 random.f;
-#X obj 366 319 random.i 400 1000;
-#X obj 261 348 pack f f;
-#X obj 261 377 vline~;
-#X obj 376 377 random.i 120000;
-#X msg 98 406 redraw;
-#X obj 261 406 *~;
-#X obj 50 434 array.rw~ arw;
-#X obj 69 463 s~ arw;
-#X obj 50 492 ui.hgain~;
-#X obj 50 521 dac~;
-#X obj 299 521 ui.dsp~;
-#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 576 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 558 176 graph;
+#X obj 50 205 openpanel;
+#X obj 165 205 expand_env;
+#X msg 50 234 load \$1 to arw @resize @resample;
+#X obj 50 263 snd.file;
+#X obj 261 263 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 292 phasor~ 0.22;
+#X obj 261 292 metro.random 1000 1500;
+#X obj 50 320 expr~ $v1*120000;
+#X obj 261 320 t b b b;
+#X obj 69 349 r~ arw;
+#X obj 261 349 random.f;
+#X obj 366 349 random.i 400 1000;
+#X obj 261 378 pack f f;
+#X obj 261 407 vline~;
+#X obj 376 407 random.i 120000;
+#X msg 98 436 redraw;
+#X obj 261 436 *~;
+#X obj 50 464 array.rw~ arw;
+#X obj 69 493 s~ arw;
+#X obj 50 522 ui.hgain~;
+#X obj 50 551 dac~;
+#X obj 299 551 ui.dsp~;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 606 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 579 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 609 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 611 1\.;
-#X text 150 611 symbol;
-#X obj 246 612 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 611 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 646 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 641 1\.;
+#X text 150 641 symbol;
+#X obj 246 642 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 641 ARRAY: имя массива. Тип: symbol.;
+#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 676 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 649 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 679 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 681 @array;
-#X text 245 681 Получить/Установить имя массива. Тип: symbol.;
-#X msg 110 711 @mix;
-#X text 245 711 Получить/Установить микс между прочитанным сигналом
+#X msg 110 711 @array;
+#X text 245 711 Получить/Установить имя массива. Тип: symbol.;
+#X msg 110 741 @mix;
+#X text 245 741 Получить/Установить микс между прочитанным сигналом
 и записанным. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 783 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 813 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 818 redraw;
-#X text 245 818 redraw array.;
-#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 861 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 848 redraw;
+#X text 245 848 redraw array.;
+#X obj 20 886 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 891 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 862 1\.;
-#X text 245 862 reading index.;
-#X text 110 882 2\.;
-#X text 245 882 signal to write.;
-#X text 110 902 3\.;
-#X text 245 902 write index.;
-#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 937 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 892 1\.;
+#X text 245 892 reading index.;
+#X text 110 912 2\.;
+#X text 245 912 signal to write.;
+#X text 110 932 3\.;
+#X text 245 932 write index.;
+#X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 967 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 938 1\.;
-#X text 245 938 output.;
+#X text 110 968 1\.;
+#X text 245 968 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 988 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 991 библиотека: ceammc v0.9.8;
-#N canvas 10 1010 400 290 info 0;
+#X obj 1 1018 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1021 библиотека: ceammc v0.9.8;
+#N canvas 10 1040 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -106,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1010 pd info;
+#X restore 10 1040 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;
 #X connect 10 0 12 0;

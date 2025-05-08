@@ -5,55 +5,56 @@
 #X obj 1 1 cnv 5 765 40 empty empty msg.sched 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 msg.sched;
-#X obj 205 78 cnv 1 560 30 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83;
-#X text 215 93;
-#X msg 50 156 @freq 100 \, @gate 1 \, 400 @freq 800 \, 600 @freq 200 \, 750 @gate 0;
-#X obj 50 214 msg.sched;
-#X obj 50 243 synth.dubdub~;
-#X obj 50 272 ui.hgain~;
-#X obj 203 272 ui.dsp~;
-#X obj 50 300 dac~;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 78 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83 First element of input list considered as delay time
+in milliseconds.;
+#X text 215 123 Other messages passed 'as is' immediately.;
+#X msg 50 201 @freq 100 \, @gate 1 \, 400 @freq 800 \, 600 @freq 200 \, 750 @gate 0;
+#X obj 50 259 msg.sched;
+#X obj 50 288 synth.dubdub~;
+#X obj 50 317 ui.hgain~;
+#X obj 203 317 ui.dsp~;
+#X obj 50 345 dac~;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 356 1\.;
-#X text 150 356 *bang*;
-#X text 245 356 immediately output bang.;
-#X text 150 376 *float*;
-#X text 245 376 immediately output float.;
-#X text 150 396 *symbol*;
-#X text 245 396 immediately output symbol.;
-#X text 150 416 *list*;
-#X text 245 416 If first element is a float it considered as delay
+#X text 110 401 1\.;
+#X text 150 401 *bang*;
+#X text 245 401 immediately output bang.;
+#X text 150 421 *float*;
+#X text 245 421 immediately output float.;
+#X text 150 441 *symbol*;
+#X text 245 441 immediately output symbol.;
+#X text 150 461 *list*;
+#X text 245 461 If first element is a float it considered as delay
 time in millisecond. If this delay time is >0: output left elements
 after this delay time. If delay time is <0 \, output left elements
 immediately. If delay time is ==0 \, output left elements with shortest
 possible delay (on next scheduler block). If first element not a float
 \, output whole list immediately.;
-#X text 150 542 *any*;
-#X text 245 542 immediately output any.;
-#X text 110 562 2\.;
-#X text 150 562 *bang*;
-#X text 245 562 clear scheduled messages.;
-#X text 150 582 *any*;
-#X text 245 582 reset: clear scheduled messages \, flush: output and
+#X text 150 587 *any*;
+#X text 245 587 immediately output any.;
+#X text 110 607 2\.;
+#X text 150 607 *bang*;
+#X text 245 607 clear scheduled messages.;
+#X text 150 627 *any*;
+#X text 245 627 reset: clear scheduled messages \, flush: output and
 clear.;
-#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 617 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 662 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 618 1\.;
-#X text 245 618 message output.;
+#X text 110 663 1\.;
+#X text 245 663 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 668 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 671 библиотека: ceammc v0.9.8;
-#X text 553 683 смотрите также:;
-#X obj 674 683 msg.after;
-#N canvas 10 690 400 290 info 0;
+#X obj 1 713 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 716 библиотека: ceammc v0.9.8;
+#X text 553 728 смотрите также:;
+#X obj 674 728 msg.after;
+#N canvas 10 735 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -77,7 +78,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 690 pd info;
+#X restore 10 735 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;
