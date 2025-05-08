@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="1.12"
+VERSION="1.14"
 
 for x in "$@" 
 do
