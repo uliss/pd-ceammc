@@ -23,8 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>Numbers that are *less* or *equal* then last argument are passed to the N-th
-            inlet</par>
+            <par>
+                <tr lang="en">Numbers that are *less* or *equal* then last argument are passed to
+                the N-th inlet</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUES" type="list">

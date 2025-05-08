@@ -27,8 +27,10 @@
             </aliases>
         </meta>
         <info>
-            <par>[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical radio, [ui.hrd*]
-            alias for horizontal radio checklist.</par>
+            <par>
+                <tr lang="en">[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical
+                radio, [ui.hrd*] alias for horizontal radio checklist.</tr>
+            </par>
         </info>
         <mouse>
             <event type="double-click" editmode="true" keys="Cmd">changes slider

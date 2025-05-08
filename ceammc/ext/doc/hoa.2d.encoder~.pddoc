@@ -26,8 +26,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Creates the circular harmonics of a signal depending of a given order and a
-            position on a circle given in radians (θ).</par>
+            <par>
+                <tr lang="en">Creates the circular harmonics of a signal depending of a given order
+                and a position on a circle given in radians (θ).</tr>
+            </par>
             <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
         </info>
         <arguments>

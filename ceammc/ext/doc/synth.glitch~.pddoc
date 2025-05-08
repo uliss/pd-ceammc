@@ -18,8 +18,10 @@
             <since>0.9.1</since>
         </meta>
         <info>
-            <par>A minimal, modern and easy-to-use synthesizer for Bytebeat music and not
-            only</par>
+            <par>
+                <tr lang="en">A minimal, modern and easy-to-use synthesizer for Bytebeat music and
+                not only</tr>
+            </par>
             <a href="https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7f5b5">
             Glitch</a>
         </info>

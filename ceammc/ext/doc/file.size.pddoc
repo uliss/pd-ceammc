@@ -17,8 +17,10 @@
             <since>0.9.4</since>
         </meta>
         <info>
-            <par>Note: by default filesize request performed asynchronously, so there's a (usually)
-            short delay between input and output</par>
+            <par>
+                <tr lang="en">Note: by default filesize request performed asynchronously, so
+                there's a (usually) short delay between input and output</tr>
+            </par>
         </info>
         <properties>
             <!-- @async -->

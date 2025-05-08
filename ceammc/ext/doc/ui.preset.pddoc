@@ -22,11 +22,18 @@
             </also>
         </meta>
         <info>
-            <par>Saves presets value of UI objects that have @presetname property. Can handle UI
-            objects only on the save canvas, no subpatches or abstractions are supported.</par>
-            <par>NOTE: if no UI widgets with @presetname on canvas - *Shift-click* is
-            disabled.</par>
-            <par>Active slot is highlighted, available slots are dark gray</par>
+            <par>
+                <tr lang="en">Saves presets value of UI objects that have @presetname property. Can
+                handle UI objects only on the save canvas, no subpatches or abstractions are
+                supported.</tr>
+            </par>
+            <par>
+                <tr lang="en">NOTE: if no UI widgets with @presetname on canvas - *Shift-click* is
+                disabled.</tr>
+            </par>
+            <par>
+                <tr lang="en">Active slot is highlighted, available slots are dark gray</tr>
+            </par>
         </info>
         <mouse>
             <event type="move" editmode="false">highlight the slot under the cursor</event>

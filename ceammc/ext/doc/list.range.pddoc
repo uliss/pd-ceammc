@@ -24,7 +24,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: if @type = any, numbers are smaller then symbols</par>
+            <par>
+                <tr lang="en">Note: if @type = any, numbers are smaller then symbols</tr>
+            </par>
         </info>
         <properties>
             <!-- @a -->

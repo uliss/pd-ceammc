@@ -17,8 +17,13 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>Renders floats, symbols and list to wavetables using flite TTS engine.</par>
-            <par>Rendering is performed in separate thread.</par>
+            <par>
+                <tr lang="en">Renders floats, symbols and list to wavetables using flite TTS
+                engine.</tr>
+            </par>
+            <par>
+                <tr lang="en">Rendering is performed in separate thread.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARRAY" type="symbol">

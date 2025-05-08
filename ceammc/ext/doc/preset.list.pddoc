@@ -25,7 +25,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Named list preset entry. Can store/load up to 256 various lists</par>
+            <par>
+                <tr lang="en">Named list preset entry. Can store/load up to 256 various lists</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open preset editor</event>

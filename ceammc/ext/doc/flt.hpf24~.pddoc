@@ -23,11 +23,15 @@
             </also>
         </meta>
         <info>
-            <par>A high-pass filter is an electronic filter that passes signals with a frequency
-            higher than a certain cutoff frequency and attenuates signals with frequencies lower
-            than the cutoff frequency.</par>
-            <par>Butterworth filter is a type of filter designed to have a frequency response as
-            flat as possible in the passband.</par>
+            <par>
+                <tr lang="en">A high-pass filter is an electronic filter that passes signals with a
+                frequency higher than a certain cutoff frequency and attenuates signals with
+                frequencies lower than the cutoff frequency.</tr>
+            </par>
+            <par>
+                <tr lang="en">Butterworth filter is a type of filter designed to have a frequency
+                response as flat as possible in the passband.</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <arguments>

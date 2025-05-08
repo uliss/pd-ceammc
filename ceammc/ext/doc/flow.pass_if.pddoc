@@ -24,9 +24,13 @@
             </also>
         </meta>
         <info>
-            <par>conditional value pass according to *predicate* side-chain. *predicate* should
-            accept value and ouput 0 or 1, for value passing.</par>
-            <par>[&gt;=] [is_even] [is_list] - examples of predicates.</par>
+            <par>
+                <tr lang="en">conditional value pass according to *predicate* side-chain.
+                *predicate* should accept value and ouput 0 or 1, for value passing.</tr>
+            </par>
+            <par>
+                <tr lang="en">[&gt;=] [is_even] [is_list] - examples of predicates.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

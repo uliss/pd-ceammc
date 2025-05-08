@@ -20,7 +20,10 @@
             </also>
         </meta>
         <info>
-            <par>Speaks floats, symbols and list to wavetables using flite TTS engine.</par>
+            <par>
+                <tr lang="en">Speaks floats, symbols and list to wavetables using flite TTS
+                engine.</tr>
+            </par>
         </info>
         <properties>
             <!-- @pitch -->

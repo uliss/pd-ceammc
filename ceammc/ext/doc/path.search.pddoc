@@ -20,14 +20,27 @@
             </also>
         </meta>
         <info>
-            <par>Searches file by name in user specified or PureData system paths.</par>
-            <par>Outputs first found file.</par>
-            <par>Search order: 1. user defined paths (@path property), 2. current patch directory,
-            3. PureData system path, 4. home directory.</par>
-            <par>Absolute paths processed before relative.</par>
-            <par>Home directory can be specified with '~' symbol.</par>
-            <par>Note: by default search request is performed asynchronously, so a delay will
-            occured between input and output.</par>
+            <par>
+                <tr lang="en">Searches file by name in user specified or PureData system
+                paths.</tr>
+            </par>
+            <par>
+                <tr lang="en">Outputs first found file.</tr>
+            </par>
+            <par>
+                <tr lang="en">Search order: 1. user defined paths (@path property), 2. current
+                patch directory, 3. PureData system path, 4. home directory.</tr>
+            </par>
+            <par>
+                <tr lang="en">Absolute paths processed before relative.</tr>
+            </par>
+            <par>
+                <tr lang="en">Home directory can be specified with '~' symbol.</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: by default search request is performed asynchronously, so a
+                delay will occured between input and output.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="PATHS" type="list">

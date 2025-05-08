@@ -21,8 +21,12 @@
             </also>
         </meta>
         <info>
-            <par>Returns item position in list or -1 if not found.</par>
-            <par>If several items are specified returns list of positions.</par>
+            <par>
+                <tr lang="en">Returns item position in list or -1 if not found.</tr>
+            </par>
+            <par>
+                <tr lang="en">If several items are specified returns list of positions.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

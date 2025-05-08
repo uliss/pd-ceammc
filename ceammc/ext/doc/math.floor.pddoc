@@ -23,11 +23,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The floor() functions return the largest integral value less than or equal to
-            x.</par>
-            <par>Special values:</par>
-            <par>floor(+-0) returns +-0.</par>
-            <par>floor(+-infinity) returns +-infinity.</par>
+            <par>
+                <tr lang="en">The floor() functions return the largest integral value less than or
+                equal to x.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">floor(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">floor(+-infinity) returns +-infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

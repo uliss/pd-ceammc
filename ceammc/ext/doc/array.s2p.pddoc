@@ -24,7 +24,9 @@
             </aliases>
         </meta>
         <info>
-            <par>with this object you can get relative position in array</par>
+            <par>
+                <tr lang="en">with this object you can get relative position in array</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARRAY" type="symbol">

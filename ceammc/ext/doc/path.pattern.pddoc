@@ -17,18 +17,43 @@
             <since>0.9.5</since>
         </meta>
         <info>
-            <par>Note: generate NEW filename (checks that generated filename not exists)</par>
-            <par>### sequence is replaced with number</par>
-            <par>Following variables in pattern expanded:</par>
-            <par>• %YEAR% - current year (4-digits)</par>
-            <par>• %MONTH% - current month (2-digits)</par>
-            <par>• %DAY% - current day (2-digits)</par>
-            <par>• %HOUR% - current hour (2-digits)</par>
-            <par>• %MIN% - current minute (2-digits)</par>
-            <par>• %SEC% - current second (2-digits)</par>
-            <par>• %TIME% - current time: %HOUR%-%MIN%-%SEC%</par>
-            <par>• %DATE% - current date: %YEAR%-%MONTH%-%DAY%</par>
-            <par>• %NOW% - current datetime: %DATE%_%TIME%</par>
+            <par>
+                <tr lang="en">Note: generate NEW filename (checks that generated filename not
+                exists)</tr>
+            </par>
+            <par>
+                <tr lang="en">### sequence is replaced with number</tr>
+            </par>
+            <par>
+                <tr lang="en">Following variables in pattern expanded:</tr>
+            </par>
+            <par>
+                <tr lang="en">• %YEAR% - current year (4-digits)</tr>
+            </par>
+            <par>
+                <tr lang="en">• %MONTH% - current month (2-digits)</tr>
+            </par>
+            <par>
+                <tr lang="en">• %DAY% - current day (2-digits)</tr>
+            </par>
+            <par>
+                <tr lang="en">• %HOUR% - current hour (2-digits)</tr>
+            </par>
+            <par>
+                <tr lang="en">• %MIN% - current minute (2-digits)</tr>
+            </par>
+            <par>
+                <tr lang="en">• %SEC% - current second (2-digits)</tr>
+            </par>
+            <par>
+                <tr lang="en">• %TIME% - current time: %HOUR%-%MIN%-%SEC%</tr>
+            </par>
+            <par>
+                <tr lang="en">• %DATE% - current date: %YEAR%-%MONTH%-%DAY%</tr>
+            </par>
+            <par>
+                <tr lang="en">• %NOW% - current datetime: %DATE%_%TIME%</tr>
+            </par>
         </info>
         <arguments>
             <argument name="PATTERN" type="symbol">

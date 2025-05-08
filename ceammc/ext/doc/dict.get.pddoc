@@ -22,7 +22,9 @@
             </also>
         </meta>
         <info>
-            <par>You can use path-like expression, to get nested keys: /x/y/foo.</par>
+            <par>
+                <tr lang="en">You can use path-like expression, to get nested keys: /x/y/foo.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="KEYS" type="list">

@@ -23,11 +23,16 @@
             </also>
         </meta>
         <info>
-            <par>A low-pass filter is a filter that passes signals with a frequency lower than a
-            certain cutoff frequency and attenuates signals with frequencies higher than the cutoff
-            frequency. A low-pass filter is the complement of a high-pass filter.</par>
-            <par>Butterworth filter is a type of filter designed to have a frequency response as
-            flat as possible in the passband.</par>
+            <par>
+                <tr lang="en">A low-pass filter is a filter that passes signals with a frequency
+                lower than a certain cutoff frequency and attenuates signals with frequencies
+                higher than the cutoff frequency. A low-pass filter is the complement of a
+                high-pass filter.</tr>
+            </par>
+            <par>
+                <tr lang="en">Butterworth filter is a type of filter designed to have a frequency
+                response as flat as possible in the passband.</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <arguments>

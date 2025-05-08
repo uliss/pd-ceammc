@@ -22,9 +22,11 @@
             </also>
         </meta>
         <info>
-            <par>Each @step elements are passed via righmost outlet to extenal object, that suppose
-            to return it back to rightmost inlet. So various mapping and filtering are
-            possible.</par>
+            <par>
+                <tr lang="en">Each @step elements are passed via righmost outlet to extenal object,
+                that suppose to return it back to rightmost inlet. So various mapping and filtering
+                are possible.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="STEP" type="int" minvalue="1" maxvalue="1024">

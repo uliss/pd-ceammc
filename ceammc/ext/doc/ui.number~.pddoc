@@ -24,7 +24,9 @@
             </also>
         </meta>
         <info>
-            <par>Shows one sample from input block via specified interval</par>
+            <par>
+                <tr lang="en">Shows one sample from input block via specified interval</tr>
+            </par>
         </info>
         <mouse>
             <event type="right-click" editmode="false" keys="Alt">open the properties

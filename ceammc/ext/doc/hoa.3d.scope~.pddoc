@@ -21,7 +21,9 @@
             <since>0.9.7</since>
         </meta>
         <info>
-            <par>displays the circular harmonics of an ambisonic sound field</par>
+            <par>
+                <tr lang="en">displays the circular harmonics of an ambisonic sound field</tr>
+            </par>
         </info>
         <mouse>
             <event type="right-click" editmode="false" keys="Shift">open the object help</event>

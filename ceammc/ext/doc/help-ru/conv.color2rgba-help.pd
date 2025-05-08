@@ -8,75 +8,74 @@
 #X obj 371 11 ceammc/color->rgba;
 #X obj 526 11 color->rgba;
 #X obj 631 11 conv.color2rgba;
-#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Supported named colors are: black blue cyan gold gray
-green lime magenta navy olive orange pink purple red white yellow;
-#X obj 50 191 ui.menu black blue cyan gold gray green lime magenta
+#X obj 205 93 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98;
+#X obj 50 161 ui.menu black blue cyan gold gray green lime magenta
 navy olive orange pink purple red white yellow;
-#X msg 69 220 #FF3399;
-#X msg 203 220 #39F;
-#X msg 309 220 #444A;
-#X listbox 98 249 20 0 0 0 - - -;
-#X msg 357 249 symbol green;
-#X msg 50 278 \$2;
-#X msg 98 278 \$1;
-#X msg 146 278 @float;
-#X msg 261 278 @int;
-#X symbolatom 357 278 10 0 0 0 - - -;
-#X obj 50 307 color->rgba @float;
-#X obj 357 307 color->rgba @pack;
-#X floatatom 50 335 5 0 0 0 - - -;
-#X floatatom 98 335 5 0 0 0 - - -;
-#X floatatom 146 335 5 0 0 0 - - -;
-#X floatatom 194 335 5 0 0 0 - - -;
-#X obj 357 335 ui.dt;
-#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 390 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X msg 69 190 #FF3399;
+#X msg 203 190 #39F;
+#X msg 309 190 #444A;
+#X listbox 98 219 20 0 0 0 - - -;
+#X msg 357 219 symbol green;
+#X msg 50 248 \$2;
+#X msg 98 248 \$1;
+#X msg 146 248 @float;
+#X msg 261 248 @int;
+#X symbolatom 357 248 10 0 0 0 - - -;
+#X obj 50 277 color->rgba @float;
+#X obj 357 277 color->rgba @pack;
+#X floatatom 50 305 5 0 0 0 - - -;
+#X floatatom 98 305 5 0 0 0 - - -;
+#X floatatom 146 305 5 0 0 0 - - -;
+#X floatatom 194 305 5 0 0 0 - - -;
+#X obj 357 305 ui.dt;
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 360 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 393 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 425 @pack;
-#X text 245 425 выводит в виде списка в первый выход.;
-#X msg 110 455 @float;
-#X text 245 455 Сокращение для @mode float. Выходные значения в диапазоне
+#X msg 110 395 @pack;
+#X text 245 395 выводит в виде списка в первый выход.;
+#X msg 110 425 @float;
+#X text 245 425 Сокращение для @mode float. Выходные значения в диапазоне
 [0-1].;
-#X msg 110 497 @int;
-#X text 245 497 Сокращение для @mode int. Выходные значения в диапазоне
+#X msg 110 467 @int;
+#X text 245 467 Сокращение для @mode int. Выходные значения в диапазоне
 [0-255].;
-#X msg 110 539 @mode;
-#X text 245 539 Получить/Установить выходной режим. Тип: symbol. Значение
+#X msg 110 509 @mode;
+#X text 245 509 Получить/Установить выходной режим. Тип: symbol. Значение
 по умолчанию: int. Разрешённые значения: int \, float.;
-#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 596 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 597 1\.;
-#X text 150 597 *symbol*;
-#X text 245 597 color name or hex value in full (#RRGGBB or #RRGGBBAA)
+#X text 110 567 1\.;
+#X text 150 567 *symbol*;
+#X text 245 567 color name or hex value in full (#RRGGBB or #RRGGBBAA)
 or short (#RGB or #RGBA) format.;
-#X text 150 632 *any*;
-#X text 245 632 use message selector as color name.;
-#X text 150 652 *data:color*;
-#X text 245 652 Color data.;
-#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 687 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 602 *any*;
+#X text 245 602 use message selector as color name.;
+#X text 150 622 *data:color*;
+#X text 245 622 Color data.;
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 657 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 688 1\.;
-#X text 245 688 list if @pack flag specified or int[0-255] or float[0-1]:
+#X text 110 658 1\.;
+#X text 245 658 list if @pack flag specified or int[0-255] or float[0-1]:
 red channel value.;
-#X text 110 723 2\.;
-#X text 245 723 int[0-255] or float[0-1]: green channel value.;
-#X text 110 743 3\.;
-#X text 245 743 int[0-255] or float[0-1]: blue channel value.;
-#X text 110 763 4\.;
-#X text 245 763 int[0-255] or float[0-1]: alpha channel value.;
+#X text 110 693 2\.;
+#X text 245 693 int[0-255] or float[0-1]: green channel value.;
+#X text 110 713 3\.;
+#X text 245 713 int[0-255] or float[0-1]: blue channel value.;
+#X text 110 733 4\.;
+#X text 245 733 int[0-255] or float[0-1]: alpha channel value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 813 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 816 библиотека: ceammc v0.9.8;
-#N canvas 10 835 400 290 info 0;
+#X obj 1 783 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 786 библиотека: ceammc v0.9.8;
+#N canvas 10 805 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 835 pd info;
+#X restore 10 805 pd info;
 #X connect 8 0 14 0;
 #X connect 12 0 15 0;
 #X connect 13 0 18 0;

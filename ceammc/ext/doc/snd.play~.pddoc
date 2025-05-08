@@ -17,8 +17,10 @@
             <since>0.9.7</since>
         </meta>
         <info>
-            <par>Supports variable speed playing, pausing, seeking, time-stretching and
-            resampling</par>
+            <par>
+                <tr lang="en">Supports variable speed playing, pausing, seeking, time-stretching
+                and resampling</tr>
+            </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="32">

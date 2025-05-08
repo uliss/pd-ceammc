@@ -5,61 +5,59 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.freqz~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 flt.freqz~;
-#X obj 205 78 cnv 1 560 95 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Given the M-order numerator b and N-order denominator
-a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ)
-= (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ);
-#X msg 50 221 bang;
-#X obj 50 250 plot.linspace~ 0 3.14159 @pi;
-#X msg 78 279 @b 0.5 -0.5;
-#X msg 213 279 @b 0.5 0 0.5;
-#X msg 357 279 @b 0.5 0 -0.5;
-#X obj 510 279 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 510 308 @db \$1;
-#X obj 50 337 flt.freqz~ @b 0.5 0.5;
-#X obj 50 380 ui.plot~ @ymin -2 @ymax 2 @yauto 1 @xlabels 1 @ylabels 1
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X msg 50 146 bang;
+#X obj 50 175 plot.linspace~ 0 3.14159 @pi;
+#X msg 78 204 @b 0.5 -0.5;
+#X msg 213 204 @b 0.5 0 0.5;
+#X msg 357 204 @b 0.5 0 -0.5;
+#X obj 510 204 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 510 233 @db \$1;
+#X obj 50 262 flt.freqz~ @b 0.5 0.5;
+#X obj 50 305 ui.plot~ @ymin -2 @ymax 2 @yauto 1 @xlabels 1 @ylabels 1
 @size 450 260 @xmaj_ticks 0 @xmin_ticks 0 @xmin_grid 1 @ymaj_ticks 0
 @ymin_ticks 0 @n 2;
-#X obj 50 653 ui.dsp~;
-#X obj 20 703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 708 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 578 ui.dsp~;
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 633 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 711 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 636 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 743 @a;
-#X text 245 743 Получить/Установить denominator (poles) coefficients.
+#X msg 110 668 @a;
+#X text 245 668 Получить/Установить denominator (poles) coefficients.
 'a0' always implicitly set to 1 \, property value set a1\...an coefficients.
 Тип: list.;
-#X msg 110 800 @b;
-#X text 245 800 Получить/Установить numerator (zeros) coefficients.
+#X msg 110 725 @b;
+#X text 245 725 Получить/Установить numerator (zeros) coefficients.
 Тип: list. Значение по умолчанию: 1\.;
-#X msg 110 842 @db;
-#X text 245 842 Получить/Установить output amp response in db scale.
+#X msg 110 767 @db;
+#X text 245 767 Получить/Установить output amp response in db scale.
 Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 884 @sr;
-#X text 245 884 Получить/Установить normalize using current samplerate.
+#X msg 110 809 @sr;
+#X text 245 809 Получить/Установить normalize using current samplerate.
 Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 941 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 866 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 942 1\.;
-#X text 245 942 input frequency in radians [0 \, π] or in hertz [0
+#X text 110 867 1\.;
+#X text 245 867 input frequency in radians [0 \, π] or in hertz [0
 sr/2] if @sr property is true.;
-#X obj 20 987 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 992 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 917 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 993 1\.;
-#X text 245 993 amplitude frequency response signal.;
-#X text 110 1013 2\.;
-#X text 245 1013 phase frequency response signal.;
+#X text 110 918 1\.;
+#X text 245 918 amplitude frequency response signal.;
+#X text 110 938 2\.;
+#X text 245 938 phase frequency response signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1063 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1066 библиотека: ceammc v0.9.8;
-#N canvas 10 1085 400 290 info 0;
+#X obj 1 988 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 991 библиотека: ceammc v0.9.8;
+#N canvas 10 1010 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,7 +82,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1085 pd info;
+#X restore 10 1010 pd info;
 #X connect 6 0 7 0;
 #X connect 11 0 12 0;
 #X connect 7 0 13 0;

@@ -25,8 +25,10 @@
             </aliases>
         </meta>
         <info>
-            <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
-            its diameter, commonly approximated as 3.14159.</par>
+            <par>
+                <tr lang="en">The number PI is a mathematical constant, the ratio of a circle's
+                circumference to its diameter, commonly approximated as 3.14159.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="K" type="float">

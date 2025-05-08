@@ -20,12 +20,20 @@
             </also>
         </meta>
         <info>
-            <par>A non-interpolating generator based on the difference equations:</par>
-            <par>y(n+1) = (y(n) + k * sin(x(n))) % 2pi</par>
-            <par>x(n+1) = (x(n) + y(n+1)) % 2pi</par>
+            <par>
+                <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+            </par>
+            <par>
+                <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) % 2pi</tr>
+            </par>
+            <par>
+                <tr lang="en">x(n+1) = (x(n) + y(n+1)) % 2pi</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
-            <par>The properties of chaos of the standard map were established by Boris Chirikov in
-            1969</par>
+            <par>
+                <tr lang="en">The properties of chaos of the standard map were established by Boris
+                Chirikov in 1969</tr>
+            </par>
         </info>
         <arguments>
             <argument name="X" type="float">

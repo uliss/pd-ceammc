@@ -22,8 +22,12 @@
             </aliases>
         </meta>
         <info>
-            <par>rhythm tree is structure to define complex rhythmic patterns</par>
-            <par>Examples: (1 1 1) - triplet, (2 1) - swing</par>
+            <par>
+                <tr lang="en">rhythm tree is structure to define complex rhythmic patterns</tr>
+            </par>
+            <par>
+                <tr lang="en">Examples: (1 1 1) - triplet, (2 1) - swing</tr>
+            </par>
         </info>
         <arguments>
             <argument name="DUR" type="float">

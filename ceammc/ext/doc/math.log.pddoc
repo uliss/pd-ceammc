@@ -20,12 +20,24 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Computes the value of the natural logarithm of argument x.</par>
-            <par>Special values:</par>
-            <par>log(+-0) return -infinity</par>
-            <par>log(1) return +0.</par>
-            <par>log(x) return a NaN</par>
-            <par>log(+infinity) return +infinity.</par>
+            <par>
+                <tr lang="en">Computes the value of the natural logarithm of argument x.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">log(+-0) return -infinity</tr>
+            </par>
+            <par>
+                <tr lang="en">log(1) return +0.</tr>
+            </par>
+            <par>
+                <tr lang="en">log(x) return a NaN</tr>
+            </par>
+            <par>
+                <tr lang="en">log(+infinity) return +infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

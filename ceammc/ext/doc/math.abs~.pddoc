@@ -20,7 +20,10 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>The abs() function computes the absolute value of the float input.</par>
+            <par>
+                <tr lang="en">The abs() function computes the absolute value of the float
+                input.</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

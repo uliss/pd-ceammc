@@ -22,10 +22,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The coshf() function computes the hyperbolic cosine of input value.</par>
-            <par>Special values:</par>
-            <par>cosh(+-0) returns 1.</par>
-            <par>cosh(+-infinity) returns +infinity.</par>
+            <par>
+                <tr lang="en">The coshf() function computes the hyperbolic cosine of input
+                value.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">cosh(+-0) returns 1.</tr>
+            </par>
+            <par>
+                <tr lang="en">cosh(+-infinity) returns +infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

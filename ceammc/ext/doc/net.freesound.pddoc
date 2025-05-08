@@ -17,14 +17,23 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>1) create Freesound API credentials at:</par>
+            <par>
+                <tr lang="en">1) create Freesound API credentials at:</tr>
+            </par>
             <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
-            <par>2) save this id/secret pair into the file if using @oauth_file property or set
-            @oauth_id/@oauth_secret properties explicitly or enter it with the editor</par>
-            <par>3) [access auth( get a temporal application code from the Freesound website (valid
-            for ~24 hours)</par>
-            <par>4) [access code CODE( exchange this application code to the internal secret access
-            token</par>
+            <par>
+                <tr lang="en">2) save this id/secret pair into the file if using @oauth_file
+                property or set @oauth_id/@oauth_secret properties explicitly or enter it with the
+                editor</tr>
+            </par>
+            <par>
+                <tr lang="en">3) [access auth( get a temporal application code from the Freesound
+                website (valid for ~24 hours)</tr>
+            </par>
+            <par>
+                <tr lang="en">4) [access code CODE( exchange this application code to the internal
+                secret access token</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open id/secret editor</event>

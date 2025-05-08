@@ -22,21 +22,21 @@
             </aliases>
         </meta>
         <info>
-            <par>Supported named colors are: black blue cyan gold gray green lime magenta navy
-            olive orange pink purple red white yellow</par>
+            <par>
+                <tr lang="en">Supported named colors are: black blue cyan gold gray green lime
+                magenta navy olive orange pink purple red white yellow</tr>
+            </par>
         </info>
         <properties>
             <!-- @float -->
             <property name="@float" type="alias">
                 <tr lang="en">alias to @mode float. Output values in [0-1] range</tr>
-                <tr lang="ru">сокращение для @mode float. Выходные значения в диапазоне
-                [0-1]</tr>
+                <tr lang="ru">сокращение для @mode float. Выходные значения в диапазоне [0-1]</tr>
             </property>
             <!-- @int -->
             <property name="@int" type="alias">
                 <tr lang="en">alias to @mode int. Output values in [0-255] range</tr>
-                <tr lang="ru">сокращение для @mode int. Выходные значения в диапазоне
-                [0-255]</tr>
+                <tr lang="ru">сокращение для @mode int. Выходные значения в диапазоне [0-255]</tr>
             </property>
             <!-- @mode -->
             <property name="@mode" type="symbol" default="int" enum="int float">

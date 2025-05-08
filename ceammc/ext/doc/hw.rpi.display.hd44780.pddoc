@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: display can be configured in single line mode.</par>
+            <par>
+                <tr lang="en">Note: display can be configured in single line mode.</tr>
+            </par>
         </info>
         <properties>
             <!-- @i2c_addr -->

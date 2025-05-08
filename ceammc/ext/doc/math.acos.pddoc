@@ -23,11 +23,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The acos() function computes the principle value of the arc cosine of input value.
-            The result is in the range [0, pi].</par>
-            <par>Special values:</par>
-            <par>acos(1) returns +0.</par>
-            <par>acos(x) returns a NAN.</par>
+            <par>
+                <tr lang="en">The acos() function computes the principle value of the arc cosine of
+                input value. The result is in the range [0, pi].</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">acos(1) returns +0.</tr>
+            </par>
+            <par>
+                <tr lang="en">acos(x) returns a NAN.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

@@ -24,8 +24,10 @@
             </also>
         </meta>
         <info>
-            <par>Decodes an ambisonics soundfield for several loudspeakers configuration or for
-            headphones.</par>
+            <par>
+                <tr lang="en">Decodes an ambisonics soundfield for several loudspeakers
+                configuration or for headphones.</tr>
+            </par>
             <a href="hoa/hoa.3d.decoder~-help.pd">CICM documentation</a>
         </info>
         <arguments>

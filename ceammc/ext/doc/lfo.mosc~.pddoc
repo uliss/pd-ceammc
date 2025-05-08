@@ -21,7 +21,9 @@
             </also>
         </meta>
         <info>
-            <par>switching between waveforms is interpolated and takes 50ms.</par>
+            <par>
+                <tr lang="en">switching between waveforms is interpolated and takes 50ms.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="1000">

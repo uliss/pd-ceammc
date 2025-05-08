@@ -17,7 +17,9 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Port of Richard's chaos-baker from chaos collection</par>
+            <par>
+                <tr lang="en">Port of Richard's chaos-baker from chaos collection</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUE" type="float">

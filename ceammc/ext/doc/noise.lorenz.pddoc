@@ -19,9 +19,15 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Lorenz chaos by Heuns method - extra accuracy</par>
-            <par>sigma replaced with a</par>
-            <par>b replaced with c</par>
+            <par>
+                <tr lang="en">Lorenz chaos by Heuns method - extra accuracy</tr>
+            </par>
+            <par>
+                <tr lang="en">sigma replaced with a</tr>
+            </par>
+            <par>
+                <tr lang="en">b replaced with c</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Lorenz_system">wiki: Lorenz system</a>
         </info>
         <arguments>

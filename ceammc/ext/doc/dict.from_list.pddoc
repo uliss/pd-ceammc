@@ -24,8 +24,11 @@
             </aliases>
         </meta>
         <info>
-            <par>Convertion depends on property @step, which means a length of key/value pair.
-            First element of the pair becames a key, and other elements becames value.</par>
+            <par>
+                <tr lang="en">Convertion depends on property @step, which means a length of
+                key/value pair. First element of the pair becames a key, and other elements becames
+                value.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="STEP" type="int" minvalue="2">

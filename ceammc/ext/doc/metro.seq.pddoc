@@ -23,7 +23,9 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Easy way to build beat machines</par>
+            <par>
+                <tr lang="en">Easy way to build beat machines</tr>
+            </par>
         </info>
         <arguments>
             <argument name="INTERVAL" type="float" units="millisecond" minvalue="0">

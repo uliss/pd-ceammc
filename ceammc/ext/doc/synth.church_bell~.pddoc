@@ -17,11 +17,17 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>Modeled after T. Rossing and R. Perrin, Vibrations of Bells, Applied Acoustics 2,
-            1987</par>
-            <par>Model height is 301 mm</par>
-            <par>This model contains 7 excitation positions going linearly from the bottom to the
-            top of the bell</par>
+            <par>
+                <tr lang="en">Modeled after T. Rossing and R. Perrin, Vibrations of Bells, Applied
+                Acoustics 2, 1987</tr>
+            </par>
+            <par>
+                <tr lang="en">Model height is 301 mm</tr>
+            </par>
+            <par>
+                <tr lang="en">This model contains 7 excitation positions going linearly from the
+                bottom to the top of the bell</tr>
+            </par>
         </info>
         <properties>
             <xi:include href="props_osc.xml" />

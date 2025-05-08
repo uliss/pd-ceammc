@@ -17,8 +17,10 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>This class implements a simple 4 operator topology, also referred to as algorithm
-            8 of the TX81Z</par>
+            <par>
+                <tr lang="en">This class implements a simple 4 operator topology, also referred to
+                as algorithm 8 of the TX81Z</tr>
+            </par>
         </info>
         <properties>
             <!-- @adsr -->

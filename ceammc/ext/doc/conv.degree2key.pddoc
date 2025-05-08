@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: some scales are not for eq12 temperament</par>
+            <par>
+                <tr lang="en">Note: some scales are not for eq12 temperament</tr>
+            </par>
         </info>
         <arguments>
             <argument name="SCALE" type="symbol"

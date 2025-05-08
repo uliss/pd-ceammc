@@ -5,62 +5,62 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.insert 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.insert;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Works with data atoms;
-#X msg 50 161 1 2 3 4;
-#X msg 78 190 list D E F;
-#X floatatom 213 190 5 0 0 0 - - -;
-#X obj 50 233 list.insert A B C @index 1;
-#X obj 50 262 ui.display @display_type 1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X msg 50 146 1 2 3 4;
+#X msg 78 175 list D E F;
+#X floatatom 213 175 5 0 0 0 - - -;
+#X obj 50 218 list.insert A B C @index 1;
+#X obj 50 247 ui.display @display_type 1;
+#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 302 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 305 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 352 1\.;
-#X text 150 352 list;
-#X obj 246 353 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 VALUE: list content. Тип: list.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 337 1\.;
+#X text 150 337 list;
+#X obj 246 338 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 337 VALUE: list content. Тип: list.;
+#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 372 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 422 @index;
-#X text 245 422 Получить/Установить insert element index. Тип: int.
+#X msg 110 407 @index;
+#X text 245 407 Получить/Установить insert element index. Тип: int.
 Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X msg 110 464 @value;
-#X text 245 464 Получить/Установить list content. Тип: list.;
-#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 509 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 449 @value;
+#X text 245 449 Получить/Установить list content. Тип: list.;
+#X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 494 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 510 1\.;
-#X text 150 510 *list*;
-#X text 245 510 input list.;
-#X text 150 530 *data:mlist*;
-#X text 245 530 input mlist.;
-#X text 110 550 2\.;
-#X text 150 550 *list*;
-#X text 245 550 set inserted atom or list.;
-#X text 110 570 3\.;
-#X text 150 570 *float*;
-#X text 245 570 set insert position.;
-#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 605 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 495 1\.;
+#X text 150 495 *list*;
+#X text 245 495 input list.;
+#X text 150 515 *data:mlist*;
+#X text 245 515 input mlist.;
+#X text 110 535 2\.;
+#X text 150 535 *list*;
+#X text 245 535 set inserted atom or list.;
+#X text 110 555 3\.;
+#X text 150 555 *float*;
+#X text 245 555 set insert position.;
+#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 590 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 606 1\.;
-#X text 245 606 output result list or mlist.;
+#X text 110 591 1\.;
+#X text 245 591 output result list or mlist.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 656 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 659 библиотека: ceammc v0.9.8;
-#X text 438 671 смотрите также:;
-#X obj 559 671 list.append;
-#X obj 653 671 list.prepend;
-#N canvas 10 678 400 290 info 0;
+#X obj 1 641 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 644 библиотека: ceammc v0.9.8;
+#X text 438 656 смотрите также:;
+#X obj 559 656 list.append;
+#X obj 653 656 list.prepend;
+#N canvas 10 663 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,7 +84,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 678 pd info;
+#X restore 10 663 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 9 1;
 #X connect 8 0 9 2;

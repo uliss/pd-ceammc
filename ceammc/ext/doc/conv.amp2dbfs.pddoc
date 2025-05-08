@@ -24,7 +24,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: amplitude value 0 is converted to -144 db (24-bit range)</par>
+            <par>
+                <tr lang="en">Note: amplitude value 0 is converted to -144 db (24-bit range)</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

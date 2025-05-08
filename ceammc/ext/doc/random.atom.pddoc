@@ -24,11 +24,23 @@
             </aliases>
         </meta>
         <info>
-            <par>Choose random atom from specified list (with weights) and output it.</par>
-            <par>If no weights specified, choose elements with random uniform distribution.</par>
-            <par>Use @seed property to get reproducible sequences. If @seed property was not
-            explicitly set or specified, uses generator initialized with current time.</par>
-            <par>Note: when @nonrep property is set, distribution is not uniform or weighted.</par>
+            <par>
+                <tr lang="en">Choose random atom from specified list (with weights) and output
+                it.</tr>
+            </par>
+            <par>
+                <tr lang="en">If no weights specified, choose elements with random uniform
+                distribution.</tr>
+            </par>
+            <par>
+                <tr lang="en">Use @seed property to get reproducible sequences. If @seed property
+                was not explicitly set or specified, uses generator initialized with current
+                time.</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: when @nonrep property is set, distribution is not uniform or
+                weighted.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">

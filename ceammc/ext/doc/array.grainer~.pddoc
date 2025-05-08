@@ -17,17 +17,39 @@
             <since>0.9.2</since>
         </meta>
         <info>
-            <par>Grain properties:</par>
-            <par>@at - grain position in source array (in samples)</par>
-            <par>@l - grain length (in samples)</par>
-            <par>@amp - grain amplitude in 0..256 range</par>
-            <par>@s - grain speed in -10..10 range</par>
-            <par>@p - grain pan in 0..1 range</par>
-            <par>@w - grain window: rect, tri or hann</par>
-            <par>@tb - time before grain start (in samples)</par>
-            <par>@ta - time after grain done (in samples)</par>
-            <par>@r - grain number of repeats (-1: infinite)</par>
-            <par>@tag - grain tag</par>
+            <par>
+                <tr lang="en">Grain properties:</tr>
+            </par>
+            <par>
+                <tr lang="en">@at - grain position in source array (in samples)</tr>
+            </par>
+            <par>
+                <tr lang="en">@l - grain length (in samples)</tr>
+            </par>
+            <par>
+                <tr lang="en">@amp - grain amplitude in 0..256 range</tr>
+            </par>
+            <par>
+                <tr lang="en">@s - grain speed in -10..10 range</tr>
+            </par>
+            <par>
+                <tr lang="en">@p - grain pan in 0..1 range</tr>
+            </par>
+            <par>
+                <tr lang="en">@w - grain window: rect, tri or hann</tr>
+            </par>
+            <par>
+                <tr lang="en">@tb - time before grain start (in samples)</tr>
+            </par>
+            <par>
+                <tr lang="en">@ta - time after grain done (in samples)</tr>
+            </par>
+            <par>
+                <tr lang="en">@r - grain number of repeats (-1: infinite)</tr>
+            </par>
+            <par>
+                <tr lang="en">@tag - grain tag</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARRAY" type="symbol">

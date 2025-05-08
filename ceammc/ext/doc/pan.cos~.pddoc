@@ -21,8 +21,11 @@
             </also>
         </meta>
         <info>
-            <par>Two channel equal power panner. The center pan position is boosted by 3 dB
-            compared to linear panning, and the total power at every pan position is 0 dB.</par>
+            <par>
+                <tr lang="en">Two channel equal power panner. The center pan position is boosted by
+                3 dB compared to linear panning, and the total power at every pan position is 0
+                dB.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="POS" type="float" minvalue="-1" maxvalue="1">

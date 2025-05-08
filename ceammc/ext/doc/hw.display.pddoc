@@ -17,7 +17,9 @@
             <since>0.7.1</since>
         </meta>
         <info>
-            <par>At this moment supports only MacOSX</par>
+            <par>
+                <tr lang="en">At this moment supports only MacOSX</tr>
+            </par>
         </info>
         <properties>
             <!-- @brightness -->

@@ -25,7 +25,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Named symbol preset entry. Can store/load up to 256 various symbol values</par>
+            <par>
+                <tr lang="en">Named symbol preset entry. Can store/load up to 256 various symbol
+                values</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open preset editor</event>

@@ -24,7 +24,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Simple knob widget with default range 0-1.</par>
+            <par>
+                <tr lang="en">Simple knob widget with default range 0-1.</tr>
+            </par>
         </info>
         <mouse>
             <event type="drag" editmode="false">change the knob value (with ⇧ change

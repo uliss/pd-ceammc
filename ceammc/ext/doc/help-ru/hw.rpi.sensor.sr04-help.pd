@@ -6,76 +6,74 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.sr04 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 hw.rpi.sensor.sr04;
-#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 **Note:** The HC-SR04 ultrasonic sensor requires a 5V
-power supply \, but the Raspberry Pi's GPIO inputs operate at 3.3V.;
-#X text 215 123 Therefore \, you **must** use a level converter from
-5V to 3.3V \, otherwise \, you could damage your Raspberry Pi!;
-#X obj 50 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 245 poll \$1;
-#X msg 155 245 bang;
-#X obj 50 317 hw.rpi.sensor.sr04 23 24;
-#X floatatom 50 346 5 0 0 0 - - -;
-#X obj 146 346 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 30 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X text 215 93;
+#X obj 50 156 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 185 poll \$1;
+#X msg 155 185 bang;
+#X obj 50 257 hw.rpi.sensor.sr04 23 24;
+#X floatatom 50 286 5 0 0 0 - - -;
+#X obj 146 286 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 389 ui.link @title 'Connection_scheme' @url
+#X obj 50 329 ui.link @title 'Connection_scheme' @url
 ceammc://img/hc_sr04.png;
-#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 451 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 391 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 454 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 394 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 486 1\.;
-#X text 150 486 int;
-#X obj 246 487 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 486 TRIG_PIN: триггерный пин GPIO. Тип: int. Диапазон:
+#X text 110 426 1\.;
+#X text 150 426 int;
+#X obj 246 427 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 426 TRIG_PIN: триггерный пин GPIO. Тип: int. Диапазон:
 0…255;
-#X text 110 506 2\.;
-#X text 150 506 int;
-#X obj 246 507 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 506 ECHO_PIN: эхо пин GPIO. Тип: int. Диапазон: 0…255;
-#X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 541 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 446 2\.;
+#X text 150 446 int;
+#X obj 246 447 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 446 ECHO_PIN: эхо пин GPIO. Тип: int. Диапазон: 0…255;
+#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 481 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 544 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 484 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 576 @echo_pin;
-#X text 245 576 (при инициализации) Получить/Установить эхо пин GPIO.
+#X msg 110 516 @echo_pin;
+#X text 245 516 (при инициализации) Получить/Установить эхо пин GPIO.
 Тип: int. Значение по умолчанию: 27\. Диапазон: 0\...255\.;
-#X msg 110 618 @trig_pin;
-#X text 245 618 (при инициализации) Получить/Установить триггерный
+#X msg 110 558 @trig_pin;
+#X text 245 558 (при инициализации) Получить/Установить триггерный
 пин GPIO. Тип: int. Значение по умолчанию: 17\. Диапазон: 0\...255\.;
-#X msg 110 660 @poll_interval;
-#X text 245 660 Получить/Установить интервал между измерениями. Тип:
+#X msg 110 600 @poll_interval;
+#X text 245 600 Получить/Установить интервал между измерениями. Тип:
 int. Единицы: 'ms'. Значение по умолчанию: 20\. Диапазон: 10\...1000\.;
-#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 732 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 667 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 672 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 767 poll;
-#X text 245 767 turn the sensor polling on/off. Аргументы:;
-#X obj 255 790 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 790 STATE: poll state. Тип: bool.;
-#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 830 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 707 poll;
+#X text 245 707 turn the sensor polling on/off. Аргументы:;
+#X obj 255 730 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 730 STATE: poll state. Тип: bool.;
+#X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 770 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 831 1\.;
-#X text 150 831 *bang*;
-#X text 245 831 single distance measure.;
-#X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 866 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 771 1\.;
+#X text 150 771 *bang*;
+#X text 245 771 single distance measure.;
+#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 806 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 867 1\.;
-#X text 245 867 float: distance in cm.;
-#X text 110 887 2\.;
-#X text 245 887 bang: if distance can not be measured.;
+#X text 110 807 1\.;
+#X text 245 807 float: distance in cm.;
+#X text 110 827 2\.;
+#X text 245 827 bang: if distance can not be measured.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 937 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 940 библиотека: ceammc v0.9.8;
-#N canvas 10 959 400 290 info 0;
+#X obj 1 877 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 880 библиотека: ceammc v0.9.8;
+#N canvas 10 899 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 959 pd info;
+#X restore 10 899 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;

@@ -5,65 +5,63 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.3d.wider~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 hoa.3d.wider~;
-#X obj 205 78 cnv 1 560 89 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 hoa.3d.wider~ can be used to wide the diffusion of a
-localised sound. The order depending signals are weighted and appear
-in a logarithmic way to have linear changes.;
-#X obj 215 138 ui.link @background_color 0.98039 0.98039 0.98039
-@title CICM documentation @url hoa/hoa.3d.wider~-help.pd;
-#X obj 50 215 lfo.square~ 1;
-#X obj 50 244 ui.gain~ @size 120 14;
-#X obj 280 244 ui.knob;
-#X obj 50 273 hoa.3d.encoder~ 2, f 24;
-#X obj 50 302 hoa.3d.wider~ 2, f 24;
-#X obj 50 331 hoa.3d.scope~ @order 2 @size 171 171;
-#X obj 50 518 ui.dsp~;
-#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 573 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 44 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 215 93 ui.link @background_color 0.98039 0.98039 0.98039 @title
+CICM documentation @url hoa/hoa.3d.wider~-help.pd;
+#X obj 50 170 lfo.square~ 1;
+#X obj 50 199 ui.gain~ @size 120 14;
+#X obj 280 199 ui.knob;
+#X obj 50 228 hoa.3d.encoder~ 2, f 24;
+#X obj 50 257 hoa.3d.wider~ 2, f 24;
+#X obj 50 286 hoa.3d.scope~ @order 2 @size 171 171;
+#X obj 50 473 ui.dsp~;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 528 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 576 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 608 1\.;
-#X text 150 608 int;
-#X obj 246 609 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 608 ORDER: the order of decomposition. Тип: int. Диапазон:
+#X text 110 563 1\.;
+#X text 150 563 int;
+#X obj 246 564 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 563 ORDER: the order of decomposition. Тип: int. Диапазон:
 1…10;
-#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 643 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 598 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 646 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 601 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 678 @order;
-#X text 245 678 (при инициализации) Получить/Установить the order of
+#X msg 110 633 @order;
+#X text 245 633 (при инициализации) Получить/Установить the order of
 decomposition. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 705 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 751 1\.;
-#X text 245 751 first input signal.;
-#X text 110 771 ....;
-#X text 245 771 ... input signal.;
-#X text 110 791 n.;
-#X text 245 791 n-th input signal.;
-#X text 110 811 n+1\.;
-#X text 245 811 widening signal in [0-1] range.;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 846 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 706 1\.;
+#X text 245 706 first input signal.;
+#X text 110 726 ....;
+#X text 245 726 ... input signal.;
+#X text 110 746 n.;
+#X text 245 746 n-th input signal.;
+#X text 110 766 n+1\.;
+#X text 245 766 widening signal in [0-1] range.;
+#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 801 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 847 1\.;
-#X text 245 847 first circular harmonics output.;
-#X text 110 867 ....;
-#X text 245 867 ... circular harmonics output.;
-#X text 110 887 n.;
-#X text 245 887 n-th circular harmonics output.;
+#X text 110 802 1\.;
+#X text 245 802 first circular harmonics output.;
+#X text 110 822 ....;
+#X text 245 822 ... circular harmonics output.;
+#X text 110 842 n.;
+#X text 245 842 n-th circular harmonics output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 937 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 940 библиотека: ceammc v0.9.8;
-#N canvas 10 959 400 290 info 0;
+#X obj 1 892 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 895 библиотека: ceammc v0.9.8;
+#N canvas 10 914 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -88,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 959 pd info;
+#X restore 10 914 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;

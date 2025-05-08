@@ -17,11 +17,21 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Clifford Attractors</par>
-            <par>Attributed to Cliff Pickover</par>
-            <par>x[n+1] = sin(a*y[n]) + c*cos(a*x[n])</par>
-            <par>y[n+1] = sin(b*x[n]) + d*cos(b*y[n])</par>
-            <par>where a, b, c, d are variables that define each attractor.</par>
+            <par>
+                <tr lang="en">Clifford Attractors</tr>
+            </par>
+            <par>
+                <tr lang="en">Attributed to Cliff Pickover</tr>
+            </par>
+            <par>
+                <tr lang="en">x[n+1] = sin(a*y[n]) + c*cos(a*x[n])</tr>
+            </par>
+            <par>
+                <tr lang="en">y[n+1] = sin(b*x[n]) + d*cos(b*y[n])</tr>
+            </par>
+            <par>
+                <tr lang="en">where a, b, c, d are variables that define each attractor.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="X" type="float">

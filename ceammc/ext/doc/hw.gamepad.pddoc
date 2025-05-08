@@ -17,10 +17,16 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2, select,
-            start, mode, lthumb, rthumb, up, down, left, right, unknown.</par>
-            <par>button events: pressed, released, repeated, changed</par>
-            <par>axis names: lstickx, lsticky, rstickx, rsticky, leftz, rightz</par>
+            <par>
+                <tr lang="en">button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2,
+                select, start, mode, lthumb, rthumb, up, down, left, right, unknown.</tr>
+            </par>
+            <par>
+                <tr lang="en">button events: pressed, released, repeated, changed</tr>
+            </par>
+            <par>
+                <tr lang="en">axis names: lstickx, lsticky, rstickx, rsticky, leftz, rightz</tr>
+            </par>
         </info>
         <methods>
             <!-- devices -->

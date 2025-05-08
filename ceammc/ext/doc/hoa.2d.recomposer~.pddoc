@@ -26,8 +26,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Recomposes a plane wave decomposition into circular harmonics. There's three
-            modes, fixe (default), fisheye and free.</par>
+            <par>
+                <tr lang="en">Recomposes a plane wave decomposition into circular harmonics.
+                There's three modes, fixe (default), fisheye and free.</tr>
+            </par>
             <a href="hoa/hoa.2d.recomposer~-help.pd">CICM documentation</a>
         </info>
         <arguments>

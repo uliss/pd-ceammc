@@ -24,8 +24,10 @@
             </also>
         </meta>
         <info>
-            <par>Note: output list is not sorted by default. You can use @sort flag to get sorted
-            output</par>
+            <par>
+                <tr lang="en">Note: output list is not sorted by default. You can use @sort flag to
+                get sorted output</tr>
+            </par>
         </info>
         <properties>
             <!-- @sort -->

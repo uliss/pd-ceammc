@@ -17,7 +17,9 @@
             <since>0.9.3</since>
         </meta>
         <info>
-            <par>MPV video player control</par>
+            <par>
+                <tr lang="en">MPV video player control</tr>
+            </par>
             <a href="https://mpv.io/">mpv.io</a>
         </info>
         <arguments>

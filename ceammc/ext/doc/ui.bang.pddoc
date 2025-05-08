@@ -23,7 +23,9 @@
             </also>
         </meta>
         <info>
-            <par>Bang on steroids: bind to MIDI and keyboard</par>
+            <par>
+                <tr lang="en">Bang on steroids: bind to MIDI and keyboard</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">outputs bang on mouse down</event>

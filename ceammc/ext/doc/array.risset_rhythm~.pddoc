@@ -17,7 +17,9 @@
             <since>0.9.5</since>
         </meta>
         <info>
-            <par>not finished yet</par>
+            <par>
+                <tr lang="en">not finished yet</tr>
+            </par>
         </info>
         <properties />
         <methods />

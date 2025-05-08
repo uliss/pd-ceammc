@@ -5,27 +5,27 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.kbd_light 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hw.kbd_light;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Only Apple keyboards are supported at this moment;
-#X obj 50 161 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 190 metro 250;
-#X obj 165 190 ui.knob;
-#X obj 50 248 hw.kbd_light;
-#X floatatom 50 277 5 0 0 0 - - -;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 314 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 175 metro 250;
+#X obj 165 175 ui.knob;
+#X obj 50 233 hw.kbd_light;
+#X floatatom 50 262 5 0 0 0 - - -;
+#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 299 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 315 1\.;
-#X text 150 315 *float*;
-#X text 245 315 sets current keyboards light level (no output). Диапазон:
+#X text 110 300 1\.;
+#X text 150 300 *float*;
+#X text 245 300 sets current keyboards light level (no output). Диапазон:
 0…1\.;
-#X text 150 350 *bang*;
-#X text 245 350 outputs current keyboard light level.;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 150 335 *bang*;
+#X text 245 335 outputs current keyboard light level.;
+#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 386 1\.;
-#X text 245 386 keyboard light level in range 0\...1\.;
+#X text 110 371 1\.;
+#X text 245 371 keyboard light level in range 0\...1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

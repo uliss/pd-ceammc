@@ -17,10 +17,14 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the
-            Raspberry Pi's GPIO inputs operate at 3.3V.</par>
-            <par>Therefore, you **must** use a level converter from 5V to 3.3V, otherwise, you
-            could damage your Raspberry Pi!</par>
+            <par>
+                <tr lang="en">**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply,
+                but the Raspberry Pi's GPIO inputs operate at 3.3V.</tr>
+            </par>
+            <par>
+                <tr lang="en">Therefore, you **must** use a level converter from 5V to 3.3V,
+                otherwise, you could damage your Raspberry Pi!</tr>
+            </par>
         </info>
         <arguments>
             <argument name="TRIG_PIN" type="int" minvalue="0" maxvalue="255">

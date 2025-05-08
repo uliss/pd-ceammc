@@ -5,81 +5,80 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.kdb 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 midi.kdb;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Default keyboard layout is QWERTY \, but you can specify
-custom one;
-#X obj 50 176 ui.tab qwerty names custom @size 200 15;
-#X floatatom 174 205 5 0 0 0 - - -;
-#X msg 366 205 custom zxcvbnmasdfghjklqwertyuiop;
-#X msg 50 234 @layout \$1;
-#X msg 174 234 @octave \$1;
-#X obj 366 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 263 midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\];
-#X obj 50 292 ui.hk;
-#X obj 69 363 print;
-#X obj 50 392 ui.dt;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 ui.tab qwerty names custom @size 200 15;
+#X floatatom 174 175 5 0 0 0 - - -;
+#X msg 366 175 custom zxcvbnmasdfghjklqwertyuiop;
+#X msg 50 204 @layout \$1;
+#X msg 174 204 @octave \$1;
+#X obj 366 204 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 233 midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\];
+#X obj 50 262 ui.hk;
+#X obj 69 333 print;
+#X obj 50 362 ui.dt;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 417 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 420 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 482 1\.;
-#X text 150 482 symbol;
-#X obj 246 483 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 482 LAYOUT: layout name. Разрешённые значения: qwerty \,
+#X text 110 452 1\.;
+#X text 150 452 symbol;
+#X obj 246 453 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 452 LAYOUT: layout name. Разрешённые значения: qwerty \,
 names \, custom. Тип: symbol.;
-#X text 110 517 2\.;
-#X text 150 517 bool;
-#X obj 246 518 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 517 ON: init on/off state. Тип: bool.;
-#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 552 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 487 2\.;
+#X text 150 487 bool;
+#X obj 246 488 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 487 ON: init on/off state. Тип: bool.;
+#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 522 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 555 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 525 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 587 @custom;
-#X text 245 587 Получить/Установить custom layout (Dict data type).
+#X msg 110 557 @custom;
+#X text 245 557 Получить/Установить custom layout (Dict data type).
 Тип: atom. Значение по умолчанию: [].;
-#X msg 110 629 @layout;
-#X text 245 629 Получить/Установить current layout. Тип: symbol. Значение
+#X msg 110 599 @layout;
+#X text 245 599 Получить/Установить current layout. Тип: symbol. Значение
 по умолчанию: qwerty. Разрешённые значения: qwerty \, names \, custom.;
-#X msg 110 686 @octave;
-#X text 245 686 Получить/Установить output octave. Тип: int. Значение
+#X msg 110 656 @octave;
+#X text 245 656 Получить/Установить output octave. Тип: int. Значение
 по умолчанию: 4\. Диапазон: 0\...8\.;
-#X msg 110 728 @on;
-#X text 245 728 Turn on/off state. Тип: bool. Значение по умолчанию:
+#X msg 110 698 @on;
+#X text 245 698 Turn on/off state. Тип: bool. Значение по умолчанию:
 1\.;
-#X msg 110 758 @vel;
-#X text 245 758 Получить/Установить output velocity. Тип: float. Значение
+#X msg 110 728 @vel;
+#X text 245 728 Получить/Установить output velocity. Тип: float. Значение
 по умолчанию: 100\. Диапазон: 0\...127\.;
-#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 815 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 785 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 850 custom;
-#X text 245 850 set custom. Аргументы:;
-#X obj 255 873 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 873 KEYSTR: key string. Тип: symbol.;
-#X obj 20 908 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 913 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 820 custom;
+#X text 245 820 set custom. Аргументы:;
+#X obj 255 843 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 843 KEYSTR: key string. Тип: symbol.;
+#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 883 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 914 1\.;
-#X text 245 914 control input.;
-#X text 110 934 2\.;
-#X text 150 934 *int*;
-#X text 245 934 1 or 0: turn on/off.;
-#X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 969 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 884 1\.;
+#X text 245 884 control input.;
+#X text 110 904 2\.;
+#X text 150 904 *int*;
+#X text 245 904 1 or 0: turn on/off.;
+#X obj 20 934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 939 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 970 1\.;
-#X text 245 970 MIDI output: NOTE VEL.;
+#X text 110 940 1\.;
+#X text 245 940 MIDI output: NOTE VEL.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1020 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1023 библиотека: ceammc v0.9.8;
-#N canvas 10 1042 400 290 info 0;
+#X obj 1 990 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 993 библиотека: ceammc v0.9.8;
+#N canvas 10 1012 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1042 pd info;
+#X restore 10 1012 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 12 0;

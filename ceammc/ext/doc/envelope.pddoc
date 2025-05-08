@@ -26,13 +26,19 @@
             </aliases>
         </meta>
         <info>
-            <par>Data type for sound envelope. Contains points specified by time and value. Points
-            could have stop property - to execute oly part of envelope and stop on this point. So
-            multisegment envelopes could be created</par>
-            <par>Point also has segment type property, that defines following segment curve - it
-            could be *step*, *line* (default) or *exp* (exponential)</par>
-            <par>Exponential segment also has curve property: if 0 - (linear) &lt;0 (concave,
-            negatively curved) &gt;0 (convex, positively curved)</par>
+            <par>
+                <tr lang="en">Data type for sound envelope. Contains points specified by time and
+                value. Points could have stop property - to execute oly part of envelope and stop
+                on this point. So multisegment envelopes could be created</tr>
+            </par>
+            <par>
+                <tr lang="en">Point also has segment type property, that defines following segment
+                curve - it could be *step*, *line* (default) or *exp* (exponential)</tr>
+            </par>
+            <par>
+                <tr lang="en">Exponential segment also has curve property: if 0 - (linear) &lt;0
+                (concave, negatively curved) &gt;0 (convex, positively curved)</tr>
+            </par>
         </info>
         <arguments>
             <argument name="adsr" type="list">

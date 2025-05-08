@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Returns value with opposite sign</par>
+            <par>
+                <tr lang="en">Returns value with opposite sign</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

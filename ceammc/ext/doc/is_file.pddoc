@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <info>
-            <par>If relative path is given file searched under patch directory</par>
+            <par>
+                <tr lang="en">If relative path is given file searched under patch directory</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

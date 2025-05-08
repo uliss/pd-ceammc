@@ -17,8 +17,12 @@
             <since>0.9.5</since>
         </meta>
         <info>
-            <par>Lua code is executed in separated thread in async mode.</par>
-            <par>Each lang.lua object has own independent context.</par>
+            <par>
+                <tr lang="en">Lua code is executed in separated thread in async mode.</tr>
+            </par>
+            <par>
+                <tr lang="en">Each lang.lua object has own independent context.</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="0">open Lua code in the editor</event>

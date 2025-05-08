@@ -21,7 +21,9 @@
             </also>
         </meta>
         <info>
-            <par>Works with data atoms</par>
+            <par>
+                <tr lang="en">Works with data atoms</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">

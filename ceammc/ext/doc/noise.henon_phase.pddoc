@@ -18,11 +18,21 @@
             <since>.5</since>
         </meta>
         <info>
-            <par>Henon Phase Diagrams</par>
-            <par>Written by Paul Bourke</par>
-            <par>January 1991</par>
-            <par>x[n+1] = x[n]*cos(a) - (y[n] - x[n]^2)*sin(a)</par>
-            <par>y[n+1] = x[n]*sin(a) + (y[n] - x[n]^2)*cos(a)</par>
+            <par>
+                <tr lang="en">Henon Phase Diagrams</tr>
+            </par>
+            <par>
+                <tr lang="en">Written by Paul Bourke</tr>
+            </par>
+            <par>
+                <tr lang="en">January 1991</tr>
+            </par>
+            <par>
+                <tr lang="en">x[n+1] = x[n]*cos(a) - (y[n] - x[n]^2)*sin(a)</tr>
+            </par>
+            <par>
+                <tr lang="en">y[n+1] = x[n]*sin(a) + (y[n] - x[n]^2)*cos(a)</tr>
+            </par>
         </info>
         <arguments>
             <argument name="A" type="float">

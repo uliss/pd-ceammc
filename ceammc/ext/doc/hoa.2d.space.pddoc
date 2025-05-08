@@ -23,8 +23,10 @@
             </aliases>
         </meta>
         <info>
-            <par>The graphical user interface that facilitates the control of processing in the
-            plane wave domain.</par>
+            <par>
+                <tr lang="en">The graphical user interface that facilitates the control of
+                processing in the plane wave domain.</tr>
+            </par>
             <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
         </info>
         <mouse>

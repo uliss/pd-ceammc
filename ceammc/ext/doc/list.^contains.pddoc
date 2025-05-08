@@ -23,8 +23,12 @@
             </also>
         </meta>
         <info>
-            <par>Outputs 1 if contains, otherwise 0</par>
-            <par>Different arguments order then in [list.^contains]</par>
+            <par>
+                <tr lang="en">Outputs 1 if contains, otherwise 0</tr>
+            </par>
+            <par>
+                <tr lang="en">Different arguments order then in [list.^contains]</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">

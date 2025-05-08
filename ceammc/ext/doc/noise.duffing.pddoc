@@ -18,18 +18,40 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Duffing Attractor</par>
-            <par>Written by Paul Bourke</par>
-            <par>---</par>
-            <par>The solution to the Duffing equations is often used as an example of a classic
-            chaotic system.</par>
-            <par>The Duffing system of differential equations is:</par>
-            <par>===========</par>
-            <par>dx / dt = y</par>
-            <par>dy / dt = x - x3 - a y + b cos(w t)</par>
-            <par>===================================</par>
-            <par>where typically, a = 0.25, b = 0.3, w = 1</par>
-            <par>The following shows a "typical" segment of (x,y) values.</par>
+            <par>
+                <tr lang="en">Duffing Attractor</tr>
+            </par>
+            <par>
+                <tr lang="en">Written by Paul Bourke</tr>
+            </par>
+            <par>
+                <tr lang="en">---</tr>
+            </par>
+            <par>
+                <tr lang="en">The solution to the Duffing equations is often used as an example of
+                a classic chaotic system.</tr>
+            </par>
+            <par>
+                <tr lang="en">The Duffing system of differential equations is:</tr>
+            </par>
+            <par>
+                <tr lang="en">===========</tr>
+            </par>
+            <par>
+                <tr lang="en">dx / dt = y</tr>
+            </par>
+            <par>
+                <tr lang="en">dy / dt = x - x3 - a y + b cos(w t)</tr>
+            </par>
+            <par>
+                <tr lang="en">===================================</tr>
+            </par>
+            <par>
+                <tr lang="en">where typically, a = 0.25, b = 0.3, w = 1</tr>
+            </par>
+            <par>
+                <tr lang="en">The following shows a "typical" segment of (x,y) values.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="A" type="float">

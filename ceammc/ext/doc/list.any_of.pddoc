@@ -23,7 +23,9 @@
             </also>
         </meta>
         <info>
-            <par>Note: also data.mlist</par>
+            <par>
+                <tr lang="en">Note: also data.mlist</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

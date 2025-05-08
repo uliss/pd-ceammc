@@ -21,8 +21,12 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Extension of factorial function to real numbers</par>
-            <par>For any positive integer n, Γ(n) = (n−1)!</par>
+            <par>
+                <tr lang="en">Extension of factorial function to real numbers</tr>
+            </par>
+            <par>
+                <tr lang="en">For any positive integer n, Γ(n) = (n−1)!</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

@@ -17,9 +17,12 @@
             <since>0.9.6</since>
         </meta>
         <info>
-            <par>Generates a colored noise signal with an arbitrary spectral roll-off factor
-            (alpha) over the entire audible frequency range (20-20000 Hz). The output is normalized
-            so that an equal RMS level is maintained for different values of alpha.</par>
+            <par>
+                <tr lang="en">Generates a colored noise signal with an arbitrary spectral roll-off
+                factor (alpha) over the entire audible frequency range (20-20000 Hz). The output is
+                normalized so that an equal RMS level is maintained for different values of
+                alpha.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ALPHA" type="float" minvalue="-1" maxvalue="1">

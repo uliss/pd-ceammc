@@ -20,9 +20,14 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: this is simplest unix shell simulation, do not expect too much from it, if
-            you need powerfull shell capabilities - write shell script and run it.</par>
-            <par>The pipe symbol should be separated by whitespaces.</par>
+            <par>
+                <tr lang="en">Note: this is simplest unix shell simulation, do not expect too much
+                from it, if you need powerfull shell capabilities - write shell script and run
+                it.</tr>
+            </par>
+            <par>
+                <tr lang="en">The pipe symbol should be separated by whitespaces.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARGS" type="list">

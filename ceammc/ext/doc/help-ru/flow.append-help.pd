@@ -5,60 +5,59 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.append 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 flow.append;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: if you want to specify property message in the
-init argument \, you have to quote it with double-quotes;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X floatatom 107 205 5 0 0 0 - - -;
-#X obj 107 234 prop.set @delay;
-#X msg 338 234 other append message;
-#X obj 50 263 flow.append "@message" 1 2 3 @delay 100;
-#X obj 50 292 print;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X floatatom 50 146 5 0 0 0 - - -;
+#X floatatom 107 175 5 0 0 0 - - -;
+#X obj 107 204 prop.set @delay;
+#X msg 338 204 other append message;
+#X obj 50 233 flow.append "@message" 1 2 3 @delay 100;
+#X obj 50 262 print;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 382 1\.;
-#X text 150 382 list;
-#X obj 246 383 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 382 MSG: init value for appended message. Тип: list.;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 417 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 352 1\.;
+#X text 150 352 list;
+#X obj 246 353 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 352 MSG: init value for appended message. Тип: list.;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 420 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 452 @delay;
-#X text 245 452 Получить/Установить append delay. If <0 append immediately
+#X msg 110 422 @delay;
+#X text 245 422 Получить/Установить append delay. If <0 append immediately
 at the same logical time \, if equal zero - output after next DSP block.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: -1\. Минимальное
 значение: -1\.;
-#X msg 110 539 @msg;
-#X text 245 539 Получить/Установить appended message. Тип: list.;
-#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 584 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 509 @msg;
+#X text 245 509 Получить/Установить appended message. Тип: list.;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 554 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 585 1\.;
-#X text 150 585 *any*;
-#X text 245 585 input message.;
-#X text 110 605 2\.;
-#X text 150 605 *any*;
-#X text 245 605 set append value.;
-#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 640 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 555 1\.;
+#X text 150 555 *any*;
+#X text 245 555 input message.;
+#X text 110 575 2\.;
+#X text 150 575 *any*;
+#X text 245 575 set append value.;
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 610 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 641 1\.;
-#X text 245 641 output message.;
+#X text 110 611 1\.;
+#X text 245 611 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 691 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 694 библиотека: ceammc v0.9.8;
-#X text 532 706 смотрите также:;
-#X obj 653 706 flow.prepend;
-#N canvas 10 713 400 290 info 0;
+#X obj 1 661 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 664 библиотека: ceammc v0.9.8;
+#X text 532 676 смотрите также:;
+#X obj 653 676 flow.prepend;
+#N canvas 10 683 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,7 +81,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 713 pd info;
+#X restore 10 683 pd info;
 #X connect 7 0 8 0;
 #X connect 6 0 10 0;
 #X connect 8 0 10 0;

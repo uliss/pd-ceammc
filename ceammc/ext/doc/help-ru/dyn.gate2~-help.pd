@@ -5,112 +5,112 @@
 #X obj 1 1 cnv 5 765 40 empty empty dyn.gate2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 dyn.gate2~;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 NOTE: the input level measured as sum of two input signals;
-#X obj 50 161 osc~ 400;
-#X obj 194 161 ui.hsl -60 0 @show_value 1;
-#X obj 78 190 osc~ 900;
-#X obj 194 190 dbfs->amp;
-#X obj 50 219 gain~ 2;
-#X obj 194 219 ui.hsl -60 0 @show_value 1;
-#X msg 194 248 @threshold \$1;
-#X obj 50 277 dyn.gate2~ -10;
-#X obj 50 305 ui.hgain2~;
-#X obj 194 305 ui.dsp~;
-#X obj 50 334 dac~;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 osc~ 400;
+#X obj 194 146 ui.hsl -60 0 @show_value 1;
+#X obj 78 175 osc~ 900;
+#X obj 194 175 dbfs->amp;
+#X obj 50 204 gain~ 2;
+#X obj 194 204 ui.hsl -60 0 @show_value 1;
+#X msg 194 233 @threshold \$1;
+#X obj 50 262 dyn.gate2~ -10;
+#X obj 50 290 ui.hgain2~;
+#X obj 194 290 ui.dsp~;
+#X obj 50 319 dac~;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 377 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 424 1\.;
-#X text 150 424 float;
-#X obj 246 425 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 THRESHOLD(db): пороговый уровень дБ \, выше которого
+#X text 110 409 1\.;
+#X text 150 409 float;
+#X obj 246 410 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 409 THRESHOLD(db): пороговый уровень дБ \, выше которого
 открывается гейт. Тип: float. Диапазон: -90…0;
-#X text 110 459 2\.;
-#X text 150 459 float;
-#X obj 246 460 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 459 ATTACK(ms): время атаки = постоянная времени (ms) для
+#X text 110 444 2\.;
+#X text 150 444 float;
+#X obj 246 445 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 444 ATTACK(ms): время атаки = постоянная времени (ms) для
 открытия гейта. Тип: float. Диапазон: 0…500;
-#X text 110 494 3\.;
-#X text 150 494 float;
-#X obj 246 495 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 494 HOLD(ms): время удержания = время (ms) \, которое гейт
+#X text 110 479 3\.;
+#X text 150 479 float;
+#X obj 246 480 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 479 HOLD(ms): время удержания = время (ms) \, которое гейт
 остается открытым после уровня сигнала < порог. Тип: float. Диапазон:
 1…500;
-#X text 110 544 4\.;
-#X text 150 544 float;
-#X obj 246 545 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 544 RELEASE(ms): время освобождения = постоянная времени
+#X text 110 529 4\.;
+#X text 150 529 float;
+#X obj 246 530 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 529 RELEASE(ms): время освобождения = постоянная времени
 (ms) для закрытия гейта. Тип: float. Диапазон: 1…500;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 579 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 597 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 629 @id;
-#X text 245 629 (при инициализации) Получить/Установить идентификатор
+#X msg 110 614 @id;
+#X text 245 614 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/dyn_gate2/ИМЯ_СВОЙСТВА \, в противном
 случае к /dyn_gate2/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 716 @osc;
-#X text 245 716 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 701 @osc;
+#X text 245 701 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 758 @active;
-#X text 245 758 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 743 @active;
+#X text 245 743 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 800 @attack;
-#X text 245 800 Получить/Установить attack time = time constant (ms)
+#X msg 110 785 @attack;
+#X text 245 785 Получить/Установить attack time = time constant (ms)
 for gate to open. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 0.1\. Диапазон: 0\...500\.;
-#X msg 110 857 @bypass;
-#X text 245 857 Получить/Установить bypass flag. If true: bypass 'effected'
+#X msg 110 842 @bypass;
+#X text 245 842 Получить/Установить bypass flag. If true: bypass 'effected'
 signal. Тип: bool. Значение по умолчанию: 0\.;
-#X msg 110 899 @hold;
-#X text 245 899 Получить/Установить hold time = time (ms) gate stays
+#X msg 110 884 @hold;
+#X text 245 884 Получить/Установить hold time = time (ms) gate stays
 open after signal level < threshold. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 100\. Диапазон: 1\...500\.;
-#X msg 110 956 @release;
-#X text 245 956 Получить/Установить release time = time constant (ms)
+#X msg 110 941 @release;
+#X text 245 941 Получить/Установить release time = time constant (ms)
 for gate to close. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 20\. Диапазон: 1\...500\.;
-#X msg 110 1013 @threshold;
-#X text 245 1013 Получить/Установить dB level threshold above which
+#X msg 110 998 @threshold;
+#X text 245 998 Получить/Установить dB level threshold above which
 gate opens. Тип: float. Единицы: 'db'. Значение по умолчанию: -60\.
 Диапазон: -90\...0\.;
-#X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1085 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1070 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1120 reset;
-#X text 245 1120 reset to initial state.;
-#X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1163 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 1105 reset;
+#X text 245 1105 reset to initial state.;
+#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1148 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1164 1\.;
-#X text 245 1164 left input signal.;
-#X text 110 1184 2\.;
-#X text 245 1184 right input signal.;
-#X text 110 1204 3\.;
-#X text 150 1204 *float*;
-#X text 245 1204 set threshold.;
-#X obj 20 1234 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1239 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1149 1\.;
+#X text 245 1149 left input signal.;
+#X text 110 1169 2\.;
+#X text 245 1169 right input signal.;
+#X text 110 1189 3\.;
+#X text 150 1189 *float*;
+#X text 245 1189 set threshold.;
+#X obj 20 1219 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1224 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1240 1\.;
-#X text 245 1240 left output signal.;
-#X text 110 1260 2\.;
-#X text 245 1260 right output signal.;
+#X text 110 1225 1\.;
+#X text 245 1225 left output signal.;
+#X text 110 1245 2\.;
+#X text 245 1245 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1310 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1313 библиотека: ceammc v0.9.8;
-#X text 552 1325 смотрите также:;
-#X obj 673 1325 dyn.gate~;
-#N canvas 10 1332 400 290 info 0;
+#X obj 1 1295 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1298 библиотека: ceammc v0.9.8;
+#X text 552 1310 смотрите также:;
+#X obj 673 1310 dyn.gate~;
+#N canvas 10 1317 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -134,7 +134,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1332 pd info;
+#X restore 10 1317 pd info;
 #X connect 7 0 9 0;
 #X connect 6 0 10 0;
 #X connect 8 0 10 1;

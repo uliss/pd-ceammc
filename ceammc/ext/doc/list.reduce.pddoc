@@ -25,11 +25,15 @@
             </also>
         </meta>
         <info>
-            <par>Apply function of two arguments cumulatively to the list, from left to right, so
-            as to reduce the list to a single value.</par>
-            <par>You can imagine this process as a space replacement between elements with binary
-            function, for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after reducing with
-            "+".</par>
+            <par>
+                <tr lang="en">Apply function of two arguments cumulatively to the list, from left
+                to right, so as to reduce the list to a single value.</tr>
+            </par>
+            <par>
+                <tr lang="en">You can imagine this process as a space replacement between elements
+                with binary function, for example: 1 2 3 4 5 becames ((((1+2)+3)+4)+5) after
+                reducing with "+".</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

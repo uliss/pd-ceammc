@@ -5,85 +5,85 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.baker 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 noise.baker;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Port of Richard's chaos-baker from chaos collection;
-#X obj 50 161 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 190 metro 50;
-#X obj 395 205 ui.slider, f 100;
-#X obj 626 205 ui.slider;
-#X obj 78 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 175 metro 50;
+#X obj 395 190 ui.slider, f 100;
+#X obj 626 190 ui.slider;
+#X obj 78 319 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 242 334 reset;
-#X msg 395 334 set \$1;
-#X msg 626 334 seed \$1;
-#X obj 414 363 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 664 363 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 414 392 fold_cut \$1;
-#X msg 664 392 om \$1;
-#X floatatom 107 406 5 0 0 0 - - -;
-#X floatatom 270 406 5 0 0 0 - - -;
-#X msg 107 435 cut \$1;
-#X msg 270 435 fold \$1;
-#X obj 50 464 noise.baker 0.85;
-#X obj 50 492 ui.display;
-#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 547 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 242 319 reset;
+#X msg 395 319 set \$1;
+#X msg 626 319 seed \$1;
+#X obj 414 348 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 664 348 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 414 377 fold_cut \$1;
+#X msg 664 377 om \$1;
+#X floatatom 107 391 5 0 0 0 - - -;
+#X floatatom 270 391 5 0 0 0 - - -;
+#X msg 107 420 cut \$1;
+#X msg 270 420 fold \$1;
+#X obj 50 449 noise.baker 0.85;
+#X obj 50 477 ui.display;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 550 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 535 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 582 1\.;
-#X text 150 582 float;
-#X obj 246 583 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 582 VALUE: initial value. Тип: float.;
-#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 617 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 110 567 1\.;
+#X text 150 567 float;
+#X obj 246 568 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 567 VALUE: initial value. Тип: float.;
+#X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 602 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 652 cut;
-#X text 245 652 Аргументы:;
-#X obj 255 675 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 675 CUT: cut value [0\..1]. Тип: float.;
-#X msg 110 700 fold;
-#X text 245 700 Аргументы:;
-#X obj 255 723 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 723 FOLD: fold value [0\..1]. Тип: float.;
-#X msg 110 748 fold_cut;
-#X text 245 748 Аргументы:;
-#X obj 255 771 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 771 FOLD_CUT: enable fold / cut value action. Тип: int.;
-#X msg 110 796 om;
-#X text 245 796 Аргументы:;
-#X obj 255 819 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 819 OM: enables output when cut or fold value is changed.
+#X msg 110 637 cut;
+#X text 245 637 Аргументы:;
+#X obj 255 660 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 660 CUT: cut value [0\..1]. Тип: float.;
+#X msg 110 685 fold;
+#X text 245 685 Аргументы:;
+#X obj 255 708 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 708 FOLD: fold value [0\..1]. Тип: float.;
+#X msg 110 733 fold_cut;
+#X text 245 733 Аргументы:;
+#X obj 255 756 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 756 FOLD_CUT: enable fold / cut value action. Тип: int.;
+#X msg 110 781 om;
+#X text 245 781 Аргументы:;
+#X obj 255 804 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 804 OM: enables output when cut or fold value is changed.
 Тип: int.;
-#X msg 110 859 reset;
-#X text 245 859 reset state.;
-#X msg 110 887 seed;
-#X text 245 887 Аргументы:;
-#X obj 255 910 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 910 SEED: seed value. Тип: float.;
-#X msg 110 935 set;
-#X text 245 935 Аргументы:;
-#X obj 255 958 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 958 SET: set to value. Тип: float.;
-#X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 998 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 844 reset;
+#X text 245 844 reset state.;
+#X msg 110 872 seed;
+#X text 245 872 Аргументы:;
+#X obj 255 895 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 895 SEED: seed value. Тип: float.;
+#X msg 110 920 set;
+#X text 245 920 Аргументы:;
+#X obj 255 943 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 943 SET: set to value. Тип: float.;
+#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 983 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 999 1\.;
-#X text 150 999 *bang*;
-#X text 245 999 output value.;
-#X obj 20 1029 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1034 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 984 1\.;
+#X text 150 984 *bang*;
+#X text 245 984 output value.;
+#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1019 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1035 1\.;
-#X text 245 1035 main outlet.;
+#X text 110 1020 1\.;
+#X text 245 1020 main outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1085 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1088 библиотека: ceammc v0.9.8;
-#N canvas 10 1107 400 290 info 0;
+#X obj 1 1070 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1073 библиотека: ceammc v0.9.8;
+#N canvas 10 1092 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1107 pd info;
+#X restore 10 1092 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;

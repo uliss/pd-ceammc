@@ -18,7 +18,9 @@
             <since>0.8</since>
         </meta>
         <info>
-            <par>Only Apple keyboards are supported at this moment</par>
+            <par>
+                <tr lang="en">Only Apple keyboards are supported at this moment</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

@@ -17,7 +17,9 @@
             <since>0.7</since>
         </meta>
         <info>
-            <par>extract properties from object, connected to second outlet</par>
+            <par>
+                <tr lang="en">extract properties from object, connected to second outlet</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

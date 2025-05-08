@@ -26,9 +26,16 @@
             </aliases>
         </meta>
         <info>
-            <par>Syntax: values are separated by spaces: (1 2 3) - list of 1, 2 and 3</par>
-            <par>Nested lists: (1 2 3 (nested list values))</par>
-            <par>Symbols with spaces: ("single item list")</par>
+            <par>
+                <tr lang="en">Syntax: values are separated by spaces: (1 2 3) - list of 1, 2 and
+                3</tr>
+            </par>
+            <par>
+                <tr lang="en">Nested lists: (1 2 3 (nested list values))</tr>
+            </par>
+            <par>
+                <tr lang="en">Symbols with spaces: ("single item list")</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open data editor</event>

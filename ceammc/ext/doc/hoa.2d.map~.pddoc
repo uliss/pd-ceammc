@@ -24,10 +24,16 @@
             </aliases>
         </meta>
         <info>
-            <par>Encodes several sources in the circular harmonics domain with distance
-            compensation and muting system</par>
-            <par>If nsrc==1 radius and angle controlled with signal values</par>
-            <par>Note: source indexes are 1-based.</par>
+            <par>
+                <tr lang="en">Encodes several sources in the circular harmonics domain with
+                distance compensation and muting system</tr>
+            </par>
+            <par>
+                <tr lang="en">If nsrc==1 radius and angle controlled with signal values</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: source indexes are 1-based.</tr>
+            </par>
             <a href="hoa/hoa.2d.map~-help.pd">CICM documentation</a>
         </info>
         <arguments>

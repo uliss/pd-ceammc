@@ -17,27 +17,61 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>|| Versions &lt;5.0</par>
-            <par>The BCM283x SoC supports 2 hardware PWM channels. By default, the channels are
-            mapped as follows:</par>
-            <par>• PWM0 = GPIO12/GPIO18</par>
-            <par>• PWM1 = GPIO13/GPIO19</par>
-            <par>Consult the official documentation on how to enable and configure these.</par>
-            <par>Note: the Raspberry Pi?s analog audio output uses both PWM channels. Playing audio
-            and simultaneously accessing a PWM channel may cause issues.</par>
-            <par>~</par>
-            <par>|| Raspberry Pi 5 and later</par>
-            <par>The Raspberry Pi 5 support 4 hardware PWM channels. By default, the channels are
-            mapped as follows:</par>
-            <par>• PWM0 = GPIO12</par>
-            <par>• PWM1 = GPIO13</par>
-            <par>• PWM2 = GPIO18</par>
-            <par>• PWM3 = GPIO19</par>
-            <par>Consult the official documentation on how to enable and configure these.</par>
-            <par>~</par>
-            <par>Some of the GPIO pins capable of supporting hardware PWM can also be configured
-            for use with other peripherals. Be careful not to enable two peripherals on the same
-            pin at the same time.</par>
+            <par>
+                <tr lang="en">|| Versions &lt;5.0</tr>
+            </par>
+            <par>
+                <tr lang="en">The BCM283x SoC supports 2 hardware PWM channels. By default, the
+                channels are mapped as follows:</tr>
+            </par>
+            <par>
+                <tr lang="en">• PWM0 = GPIO12/GPIO18</tr>
+            </par>
+            <par>
+                <tr lang="en">• PWM1 = GPIO13/GPIO19</tr>
+            </par>
+            <par>
+                <tr lang="en">Consult the official documentation on how to enable and configure
+                these.</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: the Raspberry Pi?s analog audio output uses both PWM channels.
+                Playing audio and simultaneously accessing a PWM channel may cause issues.</tr>
+            </par>
+            <par>
+                <tr lang="en">~</tr>
+            </par>
+            <par>
+                <tr lang="en">|| Raspberry Pi 5 and later</tr>
+            </par>
+            <par>
+                <tr lang="en">The Raspberry Pi 5 support 4 hardware PWM channels. By default, the
+                channels are mapped as follows:</tr>
+            </par>
+            <par>
+                <tr lang="en">• PWM0 = GPIO12</tr>
+            </par>
+            <par>
+                <tr lang="en">• PWM1 = GPIO13</tr>
+            </par>
+            <par>
+                <tr lang="en">• PWM2 = GPIO18</tr>
+            </par>
+            <par>
+                <tr lang="en">• PWM3 = GPIO19</tr>
+            </par>
+            <par>
+                <tr lang="en">Consult the official documentation on how to enable and configure
+                these.</tr>
+            </par>
+            <par>
+                <tr lang="en">~</tr>
+            </par>
+            <par>
+                <tr lang="en">Some of the GPIO pins capable of supporting hardware PWM can also be
+                configured for use with other peripherals. Be careful not to enable two peripherals
+                on the same pin at the same time.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">

@@ -21,7 +21,9 @@
             </also>
         </meta>
         <info>
-            <par>Property should be declared with [prop.declare]</par>
+            <par>
+                <tr lang="en">Property should be declared with [prop.declare]</tr>
+            </par>
         </info>
         <methods>
             <!-- @*? -->

@@ -21,10 +21,18 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the value of the natural logarithm</par>
-            <par>Special values:</par>
-            <par>log(1) return +0.</par>
-            <par>log(+infinity) return +infinity.</par>
+            <par>
+                <tr lang="en">Outputs the value of the natural logarithm</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">log(1) return +0.</tr>
+            </par>
+            <par>
+                <tr lang="en">log(+infinity) return +infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

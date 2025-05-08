@@ -5,47 +5,46 @@
 #X obj 1 1 cnv 5 765 40 empty empty data.copy 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 data.copy;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Data types \, such as MList \, are passed by reference
-\, not by value.;
-#X text 50 176 without copy;
-#X obj 50 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X text 50 146 without copy;
+#X obj 50 175 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 234 list.gen 3;
-#X obj 203 234 list.gen 3;
-#X obj 357 234 random 10;
-#X obj 203 263 mlist;
-#X obj 50 292 ui.dt;
-#X obj 203 292 ui.dt;
-#X text 50 335 with copy;
-#X obj 50 363 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 204 list.gen 3;
+#X obj 203 204 list.gen 3;
+#X obj 357 204 random 10;
+#X obj 203 233 mlist;
+#X obj 50 262 ui.dt;
+#X obj 203 262 ui.dt;
+#X text 50 305 with copy;
+#X obj 50 333 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 392 list.gen 3;
-#X obj 203 392 list.gen 3;
-#X obj 357 392 random 10;
-#X obj 203 421 mlist;
-#X obj 203 450 data.copy;
-#X obj 50 479 ui.dt;
-#X obj 203 479 ui.dt;
-#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 362 list.gen 3;
+#X obj 203 362 list.gen 3;
+#X obj 357 362 random 10;
+#X obj 203 391 mlist;
+#X obj 203 420 data.copy;
+#X obj 50 449 ui.dt;
+#X obj 203 449 ui.dt;
+#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 504 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 535 1\.;
-#X text 150 535 *data*;
-#X text 245 535 input data.;
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 570 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 505 1\.;
+#X text 150 505 *data*;
+#X text 245 505 input data.;
+#X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 540 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 571 1\.;
-#X text 245 571 data copy.;
+#X text 110 541 1\.;
+#X text 245 541 data copy.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 624 библиотека: ceammc v0.9.8;
-#N canvas 10 643 400 290 info 0;
+#X obj 1 591 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 594 библиотека: ceammc v0.9.8;
+#N canvas 10 613 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -69,7 +68,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 643 pd info;
+#X restore 10 613 pd info;
 #X connect 7 0 8 0;
 #X connect 9 0 11 0;
 #X connect 8 0 12 0;

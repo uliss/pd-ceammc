@@ -20,10 +20,17 @@
             </also>
         </meta>
         <info>
-            <par>Low-frequency speaker model = +12 dB/octave slope breaking to flat near @f1.</par>
-            <par>Implemented using two dc blockers in series.</par>
-            <par>High-frequency model = -24 dB/octave slope implemented using a fourth-order
-            Butterworth lowpass.</par>
+            <par>
+                <tr lang="en">Low-frequency speaker model = +12 dB/octave slope breaking to flat
+                near @f1.</tr>
+            </par>
+            <par>
+                <tr lang="en">Implemented using two dc blockers in series.</tr>
+            </par>
+            <par>
+                <tr lang="en">High-frequency model = -24 dB/octave slope implemented using a
+                fourth-order Butterworth lowpass.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="F1" type="float" units="hertz" minvalue="20" maxvalue="1000">

@@ -20,8 +20,12 @@
             </aliases>
         </meta>
         <info>
-            <par>If no soundfont specified: default soundfont is loaded</par>
-            <par>It is WaveSine.sf2, simple sine synth</par>
+            <par>
+                <tr lang="en">If no soundfont specified: default soundfont is loaded</tr>
+            </par>
+            <par>
+                <tr lang="en">It is WaveSine.sf2, simple sine synth</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false" keys="Shift">all sounds off</event>

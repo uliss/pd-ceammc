@@ -24,10 +24,12 @@
             </aliases>
         </meta>
         <info>
-            <par>map the receiver from an assumed linear input range to an exponential curve output
-            range. Unlike with [conv.lin2exp], the output range may include zero. If the input
-            exceeds the input range, the following behaviours are specified by the clip
-            property.</par>
+            <par>
+                <tr lang="en">map the receiver from an assumed linear input range to an exponential
+                curve output range. Unlike with [conv.lin2exp], the output range may include zero.
+                If the input exceeds the input range, the following behaviours are specified by the
+                clip property.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="IN_FROM" type="float">

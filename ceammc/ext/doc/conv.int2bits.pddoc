@@ -24,8 +24,10 @@
             </also>
         </meta>
         <info>
-            <par>Note: negative numbers converted using machine architecture, commonly two's
-            complement</par>
+            <par>
+                <tr lang="en">Note: negative numbers converted using machine architecture, commonly
+                two's complement</tr>
+            </par>
             <wiki name="Two%27s_complement">Two's complement</wiki>
         </info>
         <arguments>

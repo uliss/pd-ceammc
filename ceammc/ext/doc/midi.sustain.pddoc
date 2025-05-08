@@ -17,8 +17,12 @@
             <since>0.9.3</since>
         </meta>
         <info>
-            <par>when pedal is on: ignore all note offs</par>
-            <par>when pedal is off: output all sustained notes off</par>
+            <par>
+                <tr lang="en">when pedal is on: ignore all note offs</tr>
+            </par>
+            <par>
+                <tr lang="en">when pedal is off: output all sustained notes off</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ON" type="bool">

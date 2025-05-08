@@ -17,9 +17,11 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Arduino serial port that supports reconnect and hotplug. If no properties are
-            given tries to connect to the first available and not opened device. If @reconnect flag
-            is given, waits for device hotplug and reconnects to it.</par>
+            <par>
+                <tr lang="en">Arduino serial port that supports reconnect and hotplug. If no
+                properties are given tries to connect to the first available and not opened device.
+                If @reconnect flag is given, waits for device hotplug and reconnects to it.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="PORT" type="symbol">

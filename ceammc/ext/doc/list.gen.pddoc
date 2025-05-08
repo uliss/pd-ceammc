@@ -23,7 +23,9 @@
             </also>
         </meta>
         <info>
-            <par>Note, that maximum length limited to 1024 elements.</par>
+            <par>
+                <tr lang="en">Note, that maximum length limited to 1024 elements.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="COUNT" type="int" minvalue="1" maxvalue="1024">

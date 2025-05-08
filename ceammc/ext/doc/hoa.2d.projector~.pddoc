@@ -26,7 +26,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Discretizes the ambisonic sound field into the plane waves domain.</par>
+            <par>
+                <tr lang="en">Discretizes the ambisonic sound field into the plane waves
+                domain.</tr>
+            </par>
             <a href="hoa/hoa.2d.projector~-help.pd">CICM documentation</a>
         </info>
         <arguments>

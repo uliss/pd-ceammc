@@ -21,14 +21,22 @@
             </also>
         </meta>
         <info>
-            <par>Returns the element at the given index position in the list.</par>
-            <par>@rel property allows to acess elements in range (-LIST_SIZE, LIST_SIZE). Negative
-            index means position from the end of the list. For example: -1 returns last
-            element.</par>
-            <par>@clip property: if element index &lt; 0 - first element returned. If element index
-            &gt;= LIST_SIZE last element returned.</par>
-            <par>@wrap property: in range [0, LIST_SIZE) ordinal elements are returned. Other
-            indexes are wrapped by modulo division.</par>
+            <par>
+                <tr lang="en">Returns the element at the given index position in the list.</tr>
+            </par>
+            <par>
+                <tr lang="en">@rel property allows to acess elements in range (-LIST_SIZE,
+                LIST_SIZE). Negative index means position from the end of the list. For example: -1
+                returns last element.</tr>
+            </par>
+            <par>
+                <tr lang="en">@clip property: if element index &lt; 0 - first element returned. If
+                element index &gt;= LIST_SIZE last element returned.</tr>
+            </par>
+            <par>
+                <tr lang="en">@wrap property: in range [0, LIST_SIZE) ordinal elements are
+                returned. Other indexes are wrapped by modulo division.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="INDEX" type="list">

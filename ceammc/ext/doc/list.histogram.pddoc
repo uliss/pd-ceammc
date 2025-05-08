@@ -23,7 +23,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Histogram outputted as list of probabilities in specified number of bins</par>
+            <par>
+                <tr lang="en">Histogram outputted as list of probabilities in specified number of
+                bins</tr>
+            </par>
         </info>
         <arguments>
             <argument name="BINS" type="int" minvalue="2" maxvalue="1024">

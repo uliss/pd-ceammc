@@ -22,7 +22,9 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the tangent of x (measured in radians).</par>
+            <par>
+                <tr lang="en">Outputs the tangent of x (measured in radians).</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

@@ -24,12 +24,20 @@
             </aliases>
         </meta>
         <info>
-            <par>With timeline you can schedule your events and start/pause/stop/move time</par>
-            <par>This time formats for event are supported: *clock format* - HH:MM:SS.MS, or values
-            like NUMBER UNIT: 10 ms, 10 msec, 20 sec, 30.5s. Note: spaces are ignored.</par>
-            <par>Empty timeline always contains "end" event, that can't be removed. Events are
-            referred by name or by index. Negative indexes are supported: -1 means last event (not
-            "end" event, but last user event)</par>
+            <par>
+                <tr lang="en">With timeline you can schedule your events and start/pause/stop/move
+                time</tr>
+            </par>
+            <par>
+                <tr lang="en">This time formats for event are supported: *clock format* -
+                HH:MM:SS.MS, or values like NUMBER UNIT: 10 ms, 10 msec, 20 sec, 30.5s. Note:
+                spaces are ignored.</tr>
+            </par>
+            <par>
+                <tr lang="en">Empty timeline always contains "end" event, that can't be removed.
+                Events are referred by name or by index. Negative indexes are supported: -1 means
+                last event (not "end" event, but last user event)</tr>
+            </par>
         </info>
         <arguments>
             <argument name="LENGTH" type="float" minvalue="0" units="second">

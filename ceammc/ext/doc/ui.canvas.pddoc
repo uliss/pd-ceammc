@@ -20,11 +20,21 @@
             </aliases>
         </meta>
         <info>
-            <par>Canvas drawing methods are close to Cairo graphic library</par>
-            <par>Basic drawing workflow is:</par>
-            <par>- create line, shape or text</par>
-            <par>- stroke or fill it with color</par>
-            <par>- update image</par>
+            <par>
+                <tr lang="en">Canvas drawing methods are close to Cairo graphic library</tr>
+            </par>
+            <par>
+                <tr lang="en">Basic drawing workflow is:</tr>
+            </par>
+            <par>
+                <tr lang="en">- create line, shape or text</tr>
+            </par>
+            <par>
+                <tr lang="en">- stroke or fill it with color</tr>
+            </par>
+            <par>
+                <tr lang="en">- update image</tr>
+            </par>
         </info>
         <mouse>
             <event type="double-click" editmode="false">outputs message [mouse double X Y MOD_CTL

@@ -26,8 +26,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Converts frequency from BPM (beats per minute) to period in ms. It is simple as
-            (60 / f) * 1000, but more readable.</par>
+            <par>
+                <tr lang="en">Converts frequency from BPM (beats per minute) to period in ms. It is
+                simple as (60 / f) * 1000, but more readable.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

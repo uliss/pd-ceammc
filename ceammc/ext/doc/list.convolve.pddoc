@@ -20,8 +20,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: may perform slowly in large lists because it does not use the FFT to compute
-            the convolution</par>
+            <par>
+                <tr lang="en">Note: may perform slowly in large lists because it does not use the
+                FFT to compute the convolution</tr>
+            </par>
         </info>
         <arguments>
             <argument name="B" type="list">

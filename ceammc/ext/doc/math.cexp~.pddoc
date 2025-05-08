@@ -24,12 +24,18 @@
             </also>
         </meta>
         <info>
-            <par>Base-e exponential of complex signal, that is e (Euler's number, 2.7182818) raised
-            to the complex signal power</par>
-            <par>The complex exponential function e^z for z = x+jy equals e^x (cos(y) + j
-            sin(y))</par>
-            <par>The exponential function is an entire function in the complex plane and has no
-            branch cuts</par>
+            <par>
+                <tr lang="en">Base-e exponential of complex signal, that is e (Euler's number,
+                2.7182818) raised to the complex signal power</tr>
+            </par>
+            <par>
+                <tr lang="en">The complex exponential function e^z for z = x+jy equals e^x (cos(y)
+                + j sin(y))</tr>
+            </par>
+            <par>
+                <tr lang="en">The exponential function is an entire function in the complex plane
+                and has no branch cuts</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

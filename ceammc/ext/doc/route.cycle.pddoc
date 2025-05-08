@@ -21,8 +21,10 @@
             </also>
         </meta>
         <info>
-            <par>NOTICE: to get properties use [prop.get] object, cause all messages (including
-            property requests) are passed thru</par>
+            <par>
+                <tr lang="en">NOTICE: to get properties use [prop.get] object, cause all messages
+                (including property requests) are passed thru</tr>
+            </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="64">

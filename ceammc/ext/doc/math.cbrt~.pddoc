@@ -20,10 +20,18 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the cube root of input signal</par>
-            <par>Special values:</par>
-            <par>cbrt(+-0) returns +-0.</par>
-            <par>cbrt(+-infinity) returns +-infinity.</par>
+            <par>
+                <tr lang="en">Outputs the cube root of input signal</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">cbrt(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">cbrt(+-infinity) returns +-infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

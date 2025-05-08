@@ -21,12 +21,19 @@
             <since>0.4</since>
         </meta>
         <info>
-            <par>Produces random floating-point numbers, which are distributed according to a
-            linear probability density function within each of the several subintervals [b0,
-            b1)</par>
-            <par>Linear segments specified as: bound0, prob0, bound1, prob1, etc</par>
-            <par>Use @seed property to get reproducible sequences. If @seed property was not
-            explicitly set or specified, uses generator initialized with current time.</par>
+            <par>
+                <tr lang="en">Produces random floating-point numbers, which are distributed
+                according to a linear probability density function within each of the several
+                subintervals [b0, b1)</tr>
+            </par>
+            <par>
+                <tr lang="en">Linear segments specified as: bound0, prob0, bound1, prob1, etc</tr>
+            </par>
+            <par>
+                <tr lang="en">Use @seed property to get reproducible sequences. If @seed property
+                was not explicitly set or specified, uses generator initialized with current
+                time.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="V" type="list">

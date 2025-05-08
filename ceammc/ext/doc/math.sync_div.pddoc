@@ -22,7 +22,10 @@
             <since>0.8</since>
         </meta>
         <info>
-            <par>on division by zero outputs nothing: just put error message into console</par>
+            <par>
+                <tr lang="en">on division by zero outputs nothing: just put error message into
+                console</tr>
+            </par>
         </info>
         <arguments>
             <argument name="DIV" type="float">

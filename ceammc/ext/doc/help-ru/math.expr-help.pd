@@ -5,78 +5,75 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.expr 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.expr;
-#X obj 205 78 cnv 1 560 165 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Operators: + \, - \, * \, / \, % \, < \, <= \, >= \,
-> \, == \, !=;
-#X text 215 108 Functions: sin() \, cos() \, tan() \, atan() \, sqrt()
-\, ln() \, log2() \, log10() \, exp() \, round() \, ceil() \, float()
-\, fact() \, min() \, max() \, sign() \, abs();
-#X text 215 163 Constants: $pi \, $e;
-#X text 215 188 Variables: $f \, $f0 \, $f1 ... $f9;
-#X text 215 213 Array access: array1[$f];
-#X floatatom 50 291 5 0 0 0 - - -;
-#X msg 174 291 \$f * 2;
-#X msg 261 291 \$f*\$pi/180;
-#X text 386 291 change expression;
-#X msg 69 320 @expr?;
-#X obj 174 320 list;
-#X obj 50 349 math.expr sin($f);
-#X obj 50 378 prop-> @expr;
-#X obj 107 407 ui.dt;
-#X floatatom 50 435 10 0 0 0 - - -;
-#X msg 50 478 14 2 1;
-#X msg 136 478 1 3 4;
-#X text 213 478 lists;
-#X obj 50 507 math.expr $f0^2 + $f0 * $f1 + $f2;
-#X floatatom 50 536 5 0 0 0 - - -;
-#X floatatom 50 565 5 0 0 0 - - -;
-#X floatatom 242 565 5 0 0 0 - - -;
-#X floatatom 443 565 5 0 0 0 - - -;
-#X obj 50 594 math.expr abs($f);
-#X obj 242 594 math.expr sign($f);
-#X obj 443 594 math.expr sqrt($f);
-#X floatatom 50 622 5 0 0 0 - - -;
-#X floatatom 242 622 5 0 0 0 - - -;
-#X floatatom 443 622 5 0 0 0 - - -;
-#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 659 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X text 215 93;
+#X text 215 103;
+#X text 215 113;
+#X text 215 123;
+#X floatatom 50 186 5 0 0 0 - - -;
+#X msg 174 186 \$f * 2;
+#X msg 261 186 \$f*\$pi/180;
+#X text 386 186 change expression;
+#X msg 69 215 @expr?;
+#X obj 174 215 list;
+#X obj 50 244 math.expr sin($f);
+#X obj 50 273 prop-> @expr;
+#X obj 107 302 ui.dt;
+#X floatatom 50 330 10 0 0 0 - - -;
+#X msg 50 373 14 2 1;
+#X msg 136 373 1 3 4;
+#X text 213 373 lists;
+#X obj 50 402 math.expr $f0^2 + $f0 * $f1 + $f2;
+#X floatatom 50 431 5 0 0 0 - - -;
+#X floatatom 50 460 5 0 0 0 - - -;
+#X floatatom 242 460 5 0 0 0 - - -;
+#X floatatom 443 460 5 0 0 0 - - -;
+#X obj 50 489 math.expr abs($f);
+#X obj 242 489 math.expr sign($f);
+#X obj 443 489 math.expr sqrt($f);
+#X floatatom 50 517 5 0 0 0 - - -;
+#X floatatom 242 517 5 0 0 0 - - -;
+#X floatatom 443 517 5 0 0 0 - - -;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 554 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 662 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 557 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 694 1\.;
-#X text 150 694 list;
-#X obj 246 695 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 694 EXPR: expression. Тип: list.;
-#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 589 1\.;
+#X text 150 589 list;
+#X obj 246 590 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 589 EXPR: expression. Тип: list.;
+#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 624 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 732 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 627 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 764 @expr;
-#X text 245 764 Получить/Установить expression. Тип: list.;
-#X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 809 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 659 @expr;
+#X text 245 659 Получить/Установить expression. Тип: list.;
+#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 704 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 810 1\.;
-#X text 150 810 *float*;
-#X text 245 810 input value (referenced as $f0 or $f in expression).;
-#X text 150 830 *list*;
-#X text 245 830 input values (referenced as $f0 ... $f9 in expression).;
-#X text 110 850 2\.;
-#X text 245 850 change expression.;
-#X obj 20 880 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 885 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 705 1\.;
+#X text 150 705 *float*;
+#X text 245 705 input value (referenced as $f0 or $f in expression).;
+#X text 150 725 *list*;
+#X text 245 725 input values (referenced as $f0 ... $f9 in expression).;
+#X text 110 745 2\.;
+#X text 245 745 change expression.;
+#X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 780 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 886 1\.;
-#X text 245 886 calculated expression.;
+#X text 110 781 1\.;
+#X text 245 781 calculated expression.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 936 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 939 библиотека: ceammc v0.9.8;
-#N canvas 10 958 400 290 info 0;
+#X obj 1 831 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 834 библиотека: ceammc v0.9.8;
+#N canvas 10 853 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 958 pd info;
+#X restore 10 853 pd info;
 #X connect 11 0 15 0;
 #X connect 12 0 15 0;
 #X connect 10 0 16 0;

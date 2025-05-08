@@ -24,8 +24,12 @@
             </also>
         </meta>
         <info>
-            <par>takes X lists of length M and outputs them as a single list:</par>
-            <par>l₀[0], l₁[0], ..., lₓ[0], ..., l₀[M-1] l₁[M-1] ... lₓ[M-1]</par>
+            <par>
+                <tr lang="en">takes X lists of length M and outputs them as a single list:</tr>
+            </par>
+            <par>
+                <tr lang="en">l₀[0], l₁[0], ..., lₓ[0], ..., l₀[M-1] l₁[M-1] ... lₓ[M-1]</tr>
+            </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="20">

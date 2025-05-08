@@ -24,8 +24,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Defines global scope dict variable, accessed by ID name and available from
-            everywhere</par>
+            <par>
+                <tr lang="en">Defines global scope dict variable, accessed by ID name and available
+                from everywhere</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open data editor</event>

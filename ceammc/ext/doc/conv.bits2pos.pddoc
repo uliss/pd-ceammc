@@ -24,8 +24,10 @@
             </also>
         </meta>
         <info>
-            <par>Note: byte default the least significant bit is the rightmost, this can be changed
-            with @rev property</par>
+            <par>
+                <tr lang="en">Note: byte default the least significant bit is the rightmost, this
+                can be changed with @rev property</tr>
+            </par>
         </info>
         <properties>
             <!-- @rev -->

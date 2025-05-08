@@ -24,8 +24,10 @@
             </aliases>
         </meta>
         <info>
-            <par>[list.rotate] and [list.&lt;&lt;] rotate list left. [list.&gt;&gt; rotates
-            right.</par>
+            <par>
+                <tr lang="en">[list.rotate] and [list.&lt;&lt;] rotate list left. [list.&gt;&gt;
+                rotates right.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="STEP" type="int">

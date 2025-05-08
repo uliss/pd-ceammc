@@ -23,7 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>Note: you can get/set object properties only via prop.set/prop.get objects</par>
+            <par>
+                <tr lang="en">Note: you can get/set object properties only via prop.set/prop.get
+                objects</tr>
+            </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">

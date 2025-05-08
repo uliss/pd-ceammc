@@ -20,7 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>One band per octave. 5th-order Butterworth filters</par>
+            <par>
+                <tr lang="en">One band per octave. 5th-order Butterworth filters</tr>
+            </par>
         </info>
         <properties>
             <xi:include href="props_osc.xml" />

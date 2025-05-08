@@ -24,8 +24,12 @@
             </aliases>
         </meta>
         <info>
-            <par>Example tempo values: 60, 120bpm, 90|4bpm, 80|3/8bpm</par>
-            <par>Example time signature values: |3/8|, |1/4+3/16|</par>
+            <par>
+                <tr lang="en">Example tempo values: 60, 120bpm, 90|4bpm, 80|3/8bpm</tr>
+            </par>
+            <par>
+                <tr lang="en">Example time signature values: |3/8|, |1/4+3/16|</tr>
+            </par>
         </info>
         <arguments>
             <argument name="BPM" type="atom" units="bpm">

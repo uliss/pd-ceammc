@@ -20,12 +20,24 @@
             </aliases>
         </meta>
         <info>
-            <par>Basic syntax:</par>
-            <par>- pitch: C, D, E, F, G, A, B</par>
-            <par>- alteration: #, ##, b or bb</par>
-            <par>- octave: -1..9 or ^, _</par>
-            <par>- deviation in cents: (+-NUMc)</par>
-            <par>- duration: |8, |4. or |3/8</par>
+            <par>
+                <tr lang="en">Basic syntax:</tr>
+            </par>
+            <par>
+                <tr lang="en">- pitch: C, D, E, F, G, A, B</tr>
+            </par>
+            <par>
+                <tr lang="en">- alteration: #, ##, b or bb</tr>
+            </par>
+            <par>
+                <tr lang="en">- octave: -1..9 or ^, _</tr>
+            </par>
+            <par>
+                <tr lang="en">- deviation in cents: (+-NUMc)</tr>
+            </par>
+            <par>
+                <tr lang="en">- duration: |8, |4. or |3/8</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

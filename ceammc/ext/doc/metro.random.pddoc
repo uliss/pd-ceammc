@@ -22,7 +22,9 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Random distribution: uniform</par>
+            <par>
+                <tr lang="en">Random distribution: uniform</tr>
+            </par>
         </info>
         <arguments>
             <argument name="MIN" type="int" units="millisecond" minvalue="1">

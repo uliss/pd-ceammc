@@ -25,7 +25,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Named float preset entry. Can store/load up to 256 various float values</par>
+            <par>
+                <tr lang="en">Named float preset entry. Can store/load up to 256 various float
+                values</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open preset editor</event>

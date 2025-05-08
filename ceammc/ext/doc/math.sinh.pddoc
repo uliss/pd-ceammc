@@ -22,10 +22,18 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The sinh() function computes the hyperbolic sine of x.</par>
-            <par>Special values:</par>
-            <par>sinh(+-0) returns +-0.</par>
-            <par>sinh(+-infinity) returns +-infinity.</par>
+            <par>
+                <tr lang="en">The sinh() function computes the hyperbolic sine of x.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">sinh(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">sinh(+-infinity) returns +-infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

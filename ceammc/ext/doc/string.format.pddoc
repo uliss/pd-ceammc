@@ -20,7 +20,10 @@
             </aliases>
         </meta>
         <info>
-            <par>This format modifiers are supported: %d, %u, %i, %o, %x, %X, %s, %e, %E.</par>
+            <par>
+                <tr lang="en">This format modifiers are supported: %d, %u, %i, %o, %x, %X, %s, %e,
+                %E.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="FORMAT" type="list">

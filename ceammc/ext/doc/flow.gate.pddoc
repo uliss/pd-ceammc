@@ -24,8 +24,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: property setting can be done only via [prop.set] object, since object
-            accepts all incoming messages</par>
+            <par>
+                <tr lang="en">Note: property setting can be done only via [prop.set] object, since
+                object accepts all incoming messages</tr>
+            </par>
         </info>
         <arguments>
             <argument name="STATE" type="bool">

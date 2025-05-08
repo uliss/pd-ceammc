@@ -25,7 +25,9 @@
             </also>
         </meta>
         <info>
-            <par>Get properties from connected object/subpatch/abstraction</par>
+            <par>
+                <tr lang="en">Get properties from connected object/subpatch/abstraction</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">get properties</event>

@@ -21,9 +21,11 @@
             </also>
         </meta>
         <info>
-            <par>Universal list walker. If you want to output current element and when move to next
-            - use [1( message, Otherwise - use [next( if you want first move to next position and
-            then output it.</par>
+            <par>
+                <tr lang="en">Universal list walker. If you want to output current element and when
+                move to next - use [1( message, Otherwise - use [next( if you want first move to
+                next position and then output it.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">

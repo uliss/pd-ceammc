@@ -17,8 +17,12 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>MacOs: supports only text, PDF and images files.</par>
-            <par>Windows: supports only PDF files.</par>
+            <par>
+                <tr lang="en">MacOs: supports only text, PDF and images files.</tr>
+            </par>
+            <par>
+                <tr lang="en">Windows: supports only PDF files.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="NAME" type="symbol">

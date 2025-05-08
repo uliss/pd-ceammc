@@ -34,8 +34,9 @@
             <!-- @mode -->
             <property name="@mode" type="symbol" enum="up down both" default="up">
                 <tr lang="en">edge detection mode</tr>
-                <tr lang="ru">режим обнаружения края. Если 'up': выводит bang при изменении входного значения с низкого на высокое,
-                если 'down': с высокого на низкое, 'both': в обоих случаях</tr>
+                <tr lang="ru">режим обнаружения края. Если 'up': выводит bang при изменении
+                входного значения с низкого на высокое, если 'down': с высокого на низкое, 'both':
+                в обоих случаях</tr>
             </property>
             <!-- @up -->
             <property name="@up" type="alias">

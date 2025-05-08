@@ -24,10 +24,14 @@
             </also>
         </meta>
         <info>
-            <par>Note: voices are not distributed with PureData-ceammc, you have to install voice
-            data manually</par>
-            <par>Download language and voice datafiles and put them into ~/Documents/Pd/rhvoice
-            directory</par>
+            <par>
+                <tr lang="en">Note: voices are not distributed with PureData-ceammc, you have to
+                install voice data manually</tr>
+            </par>
+            <par>
+                <tr lang="en">Download language and voice datafiles and put them into
+                ~/Documents/Pd/rhvoice directory</tr>
+            </par>
             <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
             <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
         </info>

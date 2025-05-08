@@ -22,11 +22,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The asinh() function computes the inverse hyperbolic sine of the real
-            argument</par>
-            <par>Special values:</par>
-            <par>asinh(+-0) returns +-0.</par>
-            <par>asinh(+-infinity) returns +-infinity.</par>
+            <par>
+                <tr lang="en">The asinh() function computes the inverse hyperbolic sine of the real
+                argument</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">asinh(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">asinh(+-infinity) returns +-infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

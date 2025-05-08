@@ -22,11 +22,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Outputs the principal value of the arc tangent of input value. The result is in
-            the range [-π/2, +π/2].</par>
-            <par>Special values:</par>
-            <par>atan(+-0) returns +-0.</par>
-            <par>atan(+-infinity) returns +-π/2</par>
+            <par>
+                <tr lang="en">Outputs the principal value of the arc tangent of input value. The
+                result is in the range [-π/2, +π/2].</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">atan(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">atan(+-infinity) returns +-π/2</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

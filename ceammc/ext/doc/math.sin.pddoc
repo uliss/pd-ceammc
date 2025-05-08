@@ -22,10 +22,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The sin() function computes the sine of input value (measured in radians).</par>
-            <par>Special values:</par>
-            <par>sin(+-0) returns +-0.</par>
-            <par>sin(+-infinity) returns a NaN.</par>
+            <par>
+                <tr lang="en">The sin() function computes the sine of input value (measured in
+                radians).</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">sin(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">sin(+-infinity) returns a NaN.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

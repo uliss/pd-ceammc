@@ -20,7 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>Defines global scope integer variable, accessed by ID name.</par>
+            <par>
+                <tr lang="en">Defines global scope integer variable, accessed by ID name.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ID" type="symbol">

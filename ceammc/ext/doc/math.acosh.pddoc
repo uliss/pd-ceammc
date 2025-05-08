@@ -22,12 +22,22 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The acosh() function computes the principle value of the inverse hyperbolic cosine
-            of input value. The result is in the range [0, +infinity].</par>
-            <par>Special values:</par>
-            <par>acosh(1) returns +0.</par>
-            <par>acosh(x) returns a NAN.</par>
-            <par>acosh(+infinity) returns +infinity.</par>
+            <par>
+                <tr lang="en">The acosh() function computes the principle value of the inverse
+                hyperbolic cosine of input value. The result is in the range [0, +infinity].</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">acosh(1) returns +0.</tr>
+            </par>
+            <par>
+                <tr lang="en">acosh(x) returns a NAN.</tr>
+            </par>
+            <par>
+                <tr lang="en">acosh(+infinity) returns +infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

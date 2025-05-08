@@ -25,8 +25,10 @@
             </also>
         </meta>
         <info>
-            <par>Note: by default string or symbol splitted to list of data:String, to get list of
-            Pd symbols use @sym flag or use alias [symbol.split]</par>
+            <par>
+                <tr lang="en">Note: by default string or symbol splitted to list of data:String, to
+                get list of Pd symbols use @sym flag or use alias [symbol.split]</tr>
+            </par>
         </info>
         <arguments>
             <argument name="SEP" type="symbol">

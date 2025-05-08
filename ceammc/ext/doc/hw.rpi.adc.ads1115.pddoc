@@ -17,13 +17,27 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Full-scale range settings:</par>
-            <par>- @fsr 6144mv, range +-6.144V, 1-bit: 0.1875mV</par>
-            <par>- @fsr 4096mv, range +-4.096V, 1-bit: 0.125mV</par>
-            <par>- @fsr 2048mv, range +-2.048V, 1-bit: 0.0625mV</par>
-            <par>- @fsr 1024mv, range +-1.024V, 1-bit: 0.03125mV</par>
-            <par>- @fsr 512mv, range +-0.512V, 1-bit: 0.015625mV</par>
-            <par>- @fsr 256mv, range +-0.256V, 1-bit: 0.0078125mV</par>
+            <par>
+                <tr lang="en">Full-scale range settings:</tr>
+            </par>
+            <par>
+                <tr lang="en">- @fsr 6144mv, range +-6.144V, 1-bit: 0.1875mV</tr>
+            </par>
+            <par>
+                <tr lang="en">- @fsr 4096mv, range +-4.096V, 1-bit: 0.125mV</tr>
+            </par>
+            <par>
+                <tr lang="en">- @fsr 2048mv, range +-2.048V, 1-bit: 0.0625mV</tr>
+            </par>
+            <par>
+                <tr lang="en">- @fsr 1024mv, range +-1.024V, 1-bit: 0.03125mV</tr>
+            </par>
+            <par>
+                <tr lang="en">- @fsr 512mv, range +-0.512V, 1-bit: 0.015625mV</tr>
+            </par>
+            <par>
+                <tr lang="en">- @fsr 256mv, range +-0.256V, 1-bit: 0.0078125mV</tr>
+            </par>
         </info>
         <arguments>
             <argument name="MODE" type="symbol" enum="diff single">

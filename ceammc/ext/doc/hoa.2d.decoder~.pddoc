@@ -26,15 +26,28 @@
             </aliases>
         </meta>
         <info>
-            <par>Decodes an ambisonics soundfield for several loudspeakers configuration or for
-            headphones.</par>
-            <par>Mode:</par>
-            <par indent="1">• regular for a regular loudspeakers repartition over a circle.</par>
-            <par indent="1">• irregular if the loudspeakers are not equally spaced on a
-            circle.</par>
-            <par indent="1">• binaural for headphones</par>
-            <par>The default mode is regular for an array of 2 * order + 2 loudspeakers. The
-            default irregular configuration is 5.1 standard multichannel configuration.</par>
+            <par>
+                <tr lang="en">Decodes an ambisonics soundfield for several loudspeakers
+                configuration or for headphones.</tr>
+            </par>
+            <par>
+                <tr lang="en">Mode:</tr>
+            </par>
+            <par indent="1">
+                <tr lang="en">• regular for a regular loudspeakers repartition over a circle.</tr>
+            </par>
+            <par indent="1">
+                <tr lang="en">• irregular if the loudspeakers are not equally spaced on a
+                circle.</tr>
+            </par>
+            <par indent="1">
+                <tr lang="en">• binaural for headphones</tr>
+            </par>
+            <par>
+                <tr lang="en">The default mode is regular for an array of 2 * order + 2
+                loudspeakers. The default irregular configuration is 5.1 standard multichannel
+                configuration.</tr>
+            </par>
             <a href="hoa/hoa.2d.decoder~-help.pd">CICM documentation</a>
         </info>
         <arguments>

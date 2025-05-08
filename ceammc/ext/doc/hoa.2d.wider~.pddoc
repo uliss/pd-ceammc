@@ -23,9 +23,11 @@
             </aliases>
         </meta>
         <info>
-            <par>hoa.2d.wider~ can be used to wide the diffusion of a localised sound. The order
-            depending signals are weighted and appear in a logarithmic way to have linear
-            changes.</par>
+            <par>
+                <tr lang="en">hoa.2d.wider~ can be used to wide the diffusion of a localised sound.
+                The order depending signals are weighted and appear in a logarithmic way to have
+                linear changes.</tr>
+            </par>
             <a href="hoa/hoa.2d.wider~-help.pd">CICM documentation</a>
         </info>
         <arguments>

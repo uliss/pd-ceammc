@@ -17,12 +17,22 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>Operators: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;, ==, !=</par>
-            <par>Functions: sin(), cos(), tan(), atan(), sqrt(), ln(), log2(), log10(), exp(),
-            round(), ceil(), float(), fact(), min(), max(), sign(), abs()</par>
-            <par>Constants: $pi, $e</par>
-            <par>Variables: $f, $f0, $f1 ... $f9</par>
-            <par>Array access: array1[$f]</par>
+            <par>
+                <tr lang="en">Operators: +, -, *, /, %, &lt;, &lt;=, &gt;=, &gt;, ==, !=</tr>
+            </par>
+            <par>
+                <tr lang="en">Functions: sin(), cos(), tan(), atan(), sqrt(), ln(), log2(),
+                log10(), exp(), round(), ceil(), float(), fact(), min(), max(), sign(), abs()</tr>
+            </par>
+            <par>
+                <tr lang="en">Constants: $pi, $e</tr>
+            </par>
+            <par>
+                <tr lang="en">Variables: $f, $f0, $f1 ... $f9</tr>
+            </par>
+            <par>
+                <tr lang="en">Array access: array1[$f]</tr>
+            </par>
         </info>
         <arguments>
             <argument name="EXPR" type="list">

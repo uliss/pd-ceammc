@@ -25,11 +25,18 @@
             </also>
         </meta>
         <info>
-            <par>The object adds ability to change properties of flow objects that should accept
-            any incoming messages. The object should be connected to destination, but it not sends
-            pd messages to change props, but using internal pd method calls</par>
-            <par>Object can be used with patch declared user properties</par>
-            <par>Note: you can connect to *any* destination inlet</par>
+            <par>
+                <tr lang="en">The object adds ability to change properties of flow objects that
+                should accept any incoming messages. The object should be connected to destination,
+                but it not sends pd messages to change props, but using internal pd method
+                calls</tr>
+            </par>
+            <par>
+                <tr lang="en">Object can be used with patch declared user properties</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: you can connect to *any* destination inlet</tr>
+            </par>
         </info>
         <arguments>
             <argument name="PROPS" type="list">

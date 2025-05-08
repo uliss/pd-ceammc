@@ -20,8 +20,11 @@
             </also>
         </meta>
         <info>
-            <par>The object can be in bang, button and toggle modes. The button mode is default:
-            outputs 1 on mouse down, 0 on mouse up. See @mode property for more information.</par>
+            <par>
+                <tr lang="en">The object can be in bang, button and toggle modes. The button mode
+                is default: outputs 1 on mouse down, 0 on mouse up. See @mode property for more
+                information.</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">change the object state according to the

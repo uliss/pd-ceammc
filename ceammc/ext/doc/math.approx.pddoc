@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <info>
-            <par>checks if |x - pattern| &lt;= |epsilon|</par>
+            <par>
+                <tr lang="en">checks if |x - pattern| &lt;= |epsilon|</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUE" type="float">

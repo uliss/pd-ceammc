@@ -25,7 +25,9 @@
             </aliases>
         </meta>
         <info>
-            <par>By default converts from [0..127] to [0..1]</par>
+            <par>
+                <tr lang="en">By default converts from [0..127] to [0..1]</tr>
+            </par>
         </info>
         <arguments>
             <argument name="FROM" type="float">

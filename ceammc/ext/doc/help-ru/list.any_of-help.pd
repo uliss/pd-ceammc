@@ -6,35 +6,35 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.any_of 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 list.any_of;
-#X obj 205 93 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Note: also data.mlist;
-#X msg 50 176 1 2;
-#X msg 107 176 1 2 3 4;
-#X msg 203 176 (1 2 3 5) \, bang;
-#X obj 203 205 ml;
-#X obj 50 234 list.any_of;
-#X obj 242 234 > 3;
-#X floatatom 50 263 5 0 0 0 - - -;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 93 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98;
+#X msg 50 161 1 2;
+#X msg 107 161 1 2 3 4;
+#X msg 203 161 (1 2 3 5) \, bang;
+#X obj 203 190 ml;
+#X obj 50 219 list.any_of;
+#X obj 242 219 > 3;
+#X floatatom 50 248 5 0 0 0 - - -;
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 301 1\.;
-#X text 150 301 *list*;
-#X text 245 301 Input list.;
-#X text 150 321 *data*;
-#X text 245 321 Input mlist.;
-#X text 110 341 2\.;
-#X text 150 341 *float*;
-#X text 245 341 input value from predicate. "1" means accepted. "0"
+#X text 110 286 1\.;
+#X text 150 286 *list*;
+#X text 245 286 Input list.;
+#X text 150 306 *data*;
+#X text 245 306 Input mlist.;
+#X text 110 326 2\.;
+#X text 150 326 *float*;
+#X text 245 326 input value from predicate. "1" means accepted. "0"
 means reject. Диапазон: 0…1\.;
-#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 391 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 371 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 376 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 392 1\.;
-#X text 245 392 1 - if predicate object returns true for all the elements
+#X text 110 377 1\.;
+#X text 245 377 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 427 2\.;
-#X text 245 427 atom to predicate.;
+#X text 110 412 2\.;
+#X text 245 412 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

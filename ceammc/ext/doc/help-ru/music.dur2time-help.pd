@@ -7,47 +7,45 @@
 -4096 0;
 #X obj 540 11 music.d->t;
 #X obj 638 11 music.dur2time;
-#X obj 205 93 cnv 1 560 140 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 duration can be specified;
-#X text 215 123 - by denominator: 1 (whole) \, 2_. (dotted half) \,
-8 (eight) etc.;
-#X text 215 163 or;
-#X text 215 188 - by ratio: 3/4 (three quaters) \, 1/8\.(one dotted
-eight) \, 3/8 (three eights) etc.;
-#X msg 50 281 list 2_. 4 8 8 16 16 16 1/16 3/2;
-#X obj 98 310 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 98 339 @seq \$1;
-#X obj 50 368 music.d->t @bpm 120|4bpm @seq 0;
-#X obj 50 397 ui.dt;
-#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 205 93 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98;
+#X text 215 108;
+#X text 215 118;
+#X text 215 128;
+#X msg 50 191 list 2_. 4 8 8 16 16 16 1/16 3/2;
+#X obj 98 220 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 98 249 @seq \$1;
+#X obj 50 278 music.d->t @bpm 120|4bpm @seq 0;
+#X obj 50 307 ui.dt;
+#X obj 20 357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 362 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 365 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 487 @bpm;
-#X text 245 487 Получить/Установить tempo. Тип: atom. Единицы: 'bpm'.
+#X msg 110 397 @bpm;
+#X text 245 397 Получить/Установить tempo. Тип: atom. Единицы: 'bpm'.
 Значение по умолчанию: 60|4bpm.;
-#X msg 110 529 @seq;
-#X text 245 529 Получить/Установить sequential durations. Тип: bool.
+#X msg 110 439 @seq;
+#X text 245 439 Получить/Установить sequential durations. Тип: bool.
 Значение по умолчанию: 1\.;
-#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 586 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 496 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 587 1\.;
-#X text 245 587 duration list.;
-#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 622 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 497 1\.;
+#X text 245 497 duration list.;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 623 1\.;
-#X text 245 623 converted value.;
+#X text 110 533 1\.;
+#X text 245 533 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 673 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 676 библиотека: ceammc v0.9.8;
-#N canvas 10 695 400 290 info 0;
+#X obj 1 583 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 586 библиотека: ceammc v0.9.8;
+#N canvas 10 605 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -71,7 +69,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 695 pd info;
+#X restore 10 605 pd info;
 #X connect 11 0 12 0;
 #X connect 10 0 13 0;
 #X connect 12 0 13 0;

@@ -20,8 +20,14 @@
             </also>
         </meta>
         <info>
-            <par>Acts like vanilla [pipe] but for any messages: bangs, floats, symbols etc.</par>
-            <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
+            <par>
+                <tr lang="en">Acts like vanilla [pipe] but for any messages: bangs, floats, symbols
+                etc.</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: @delay property can be set only via right inlet or [prop.set]
+                object</tr>
+            </par>
         </info>
         <arguments>
             <argument name="DELAY" type="float" minvalue="0" units="millisecond">

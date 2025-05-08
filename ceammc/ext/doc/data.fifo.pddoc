@@ -20,8 +20,10 @@
             </also>
         </meta>
         <info>
-            <par>If size argument specified - creates queue with fixed size. When count of values
-            exceed this limit, outputs and removes first value in queue.</par>
+            <par>
+                <tr lang="en">If size argument specified - creates queue with fixed size. When
+                count of values exceed this limit, outputs and removes first value in queue.</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open data editor</event>

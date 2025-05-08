@@ -23,7 +23,9 @@
             </also>
         </meta>
         <info>
-            <par>included for library comprehension</par>
+            <par>
+                <tr lang="en">included for library comprehension</tr>
+            </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">

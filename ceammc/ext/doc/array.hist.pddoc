@@ -23,7 +23,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Values outside of range @min...@max are ignored</par>
+            <par>
+                <tr lang="en">Values outside of range @min...@max are ignored</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARRAY" type="symbol">

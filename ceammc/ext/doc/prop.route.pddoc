@@ -28,8 +28,10 @@
             </also>
         </meta>
         <info>
-            <par>Extracts properties from data stream with matching. Non property values are passed
-            untouched</par>
+            <par>
+                <tr lang="en">Extracts properties from data stream with matching. Non property
+                values are passed untouched</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

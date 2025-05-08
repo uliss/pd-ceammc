@@ -17,9 +17,14 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Both I²C and SPI connections are supported. I²C connection is not fast.</par>
-            <par>Note: you should send [flush( message to transfer internal pixel buffer to the
-            device</par>
+            <par>
+                <tr lang="en">Both I²C and SPI connections are supported. I²C connection is not
+                fast.</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: you should send [flush( message to transfer internal pixel
+                buffer to the device</tr>
+            </par>
         </info>
         <arguments>
             <argument name="MODE" type="symbol" enum="i2c spi">

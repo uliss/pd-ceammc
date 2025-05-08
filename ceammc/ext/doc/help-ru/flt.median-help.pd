@@ -5,47 +5,44 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.median 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flt.median;
-#X obj 205 78 cnv 1 560 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 The main idea of the median filter is to run through
-the signal entry by entry \, replacing each entry with the median of
-neighboring entries.;
-#X text 215 138 If window size is even: mean between center elements
-outputed;
-#X obj 50 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 245 metro 50;
-#X obj 50 274 random.float 0 1;
-#X floatatom 242 274 5 0 0 0 - - -;
-#X obj 50 303 ui.hsl;
-#X msg 242 303 @size \$1;
-#X obj 50 332 flt.median;
-#X obj 50 360 ui.hsl;
-#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 415 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 30 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X text 215 93;
+#X obj 50 156 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 185 metro 50;
+#X obj 50 214 random.float 0 1;
+#X floatatom 242 214 5 0 0 0 - - -;
+#X obj 50 243 ui.hsl;
+#X msg 242 243 @size \$1;
+#X obj 50 272 flt.median;
+#X obj 50 300 ui.hsl;
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 418 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 450 @size;
-#X text 245 450 Получить/Установить filter windows size. Тип: int.
+#X msg 110 390 @size;
+#X text 245 390 Получить/Установить filter windows size. Тип: int.
 Единицы: 'samp'. Значение по умолчанию: 9\. Диапазон: 1\...128\.;
-#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 507 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 447 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 508 1\.;
-#X text 150 508 *float*;
-#X text 245 508 input control signal.;
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 448 1\.;
+#X text 150 448 *float*;
+#X text 245 448 input control signal.;
+#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 483 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 544 1\.;
-#X text 245 544 filtered control stream.;
+#X text 110 484 1\.;
+#X text 245 484 filtered control stream.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 594 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 597 библиотека: ceammc v0.9.8;
-#N canvas 10 616 400 290 info 0;
+#X obj 1 534 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 537 библиотека: ceammc v0.9.8;
+#N canvas 10 556 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -69,7 +66,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 616 pd info;
+#X restore 10 556 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;

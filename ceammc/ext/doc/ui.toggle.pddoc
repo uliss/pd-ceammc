@@ -24,7 +24,9 @@
             </also>
         </meta>
         <info>
-            <par>This is the ceammc counterpart of the vanilla toggle</par>
+            <par>
+                <tr lang="en">This is the ceammc counterpart of the vanilla toggle</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="0">toggles state</event>

@@ -18,7 +18,9 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>It can measure absolute distances up to 2m</par>
+            <par>
+                <tr lang="en">It can measure absolute distances up to 2m</tr>
+            </par>
         </info>
         <properties>
             <!-- @i2c_addr -->

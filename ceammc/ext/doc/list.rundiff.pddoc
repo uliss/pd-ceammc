@@ -21,12 +21,24 @@
             </also>
         </meta>
         <info>
-            <par>calculation flow:</par>
-            <par>• y0 = x0</par>
-            <par>• y1 = x1 - x0</par>
-            <par>• y2 = x2 - x1</par>
-            <par>• y3 = x3 - x2</par>
-            <par>etc...</par>
+            <par>
+                <tr lang="en">calculation flow:</tr>
+            </par>
+            <par>
+                <tr lang="en">• y0 = x0</tr>
+            </par>
+            <par>
+                <tr lang="en">• y1 = x1 - x0</tr>
+            </par>
+            <par>
+                <tr lang="en">• y2 = x2 - x1</tr>
+            </par>
+            <par>
+                <tr lang="en">• y3 = x3 - x2</tr>
+            </par>
+            <par>
+                <tr lang="en">etc...</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

@@ -25,7 +25,9 @@
             </also>
         </meta>
         <info>
-            <par>like [loadbang], but with message and click support.</par>
+            <par>
+                <tr lang="en">like [loadbang], but with message and click support.</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">send message</event>

@@ -22,12 +22,25 @@
             </also>
         </meta>
         <info>
-            <par>Computes the partial sums of the elements in the subranges of the input list</par>
-            <par>• y0 = x0</par>
-            <par>• y1 = x0 + x1</par>
-            <par>• y2 = x0 + x1 + x2</par>
-            <par>• y3 = x0 + x1 + x2 + x3</par>
-            <par>etc...</par>
+            <par>
+                <tr lang="en">Computes the partial sums of the elements in the subranges of the
+                input list</tr>
+            </par>
+            <par>
+                <tr lang="en">• y0 = x0</tr>
+            </par>
+            <par>
+                <tr lang="en">• y1 = x0 + x1</tr>
+            </par>
+            <par>
+                <tr lang="en">• y2 = x0 + x1 + x2</tr>
+            </par>
+            <par>
+                <tr lang="en">• y3 = x0 + x1 + x2 + x3</tr>
+            </par>
+            <par>
+                <tr lang="en">etc...</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

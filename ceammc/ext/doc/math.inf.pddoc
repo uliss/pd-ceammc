@@ -20,9 +20,11 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>IEEE 754 floating point numbers can represent positive or negative infinity, and
-            NaN (not a number). These three values arise from calculations whose result is
-            undefined or cannot be represented accurately.</par>
+            <par>
+                <tr lang="en">IEEE 754 floating point numbers can represent positive or negative
+                infinity, and NaN (not a number). These three values arise from calculations whose
+                result is undefined or cannot be represented accurately.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

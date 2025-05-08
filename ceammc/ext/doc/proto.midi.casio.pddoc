@@ -17,8 +17,13 @@
             <since>0.9.5</since>
         </meta>
         <info>
-            <par>Note: only PX160 model supported at this moment</par>
-            <par>Note: on PX160 instrument change done only for incoming midi signals.</par>
+            <par>
+                <tr lang="en">Note: only PX160 model supported at this moment</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: on PX160 instrument change done only for incoming midi
+                signals.</tr>
+            </par>
         </info>
         <properties>
             <!-- @model -->

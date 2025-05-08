@@ -21,8 +21,10 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the principle value of the hyperbolic arc cosine of input signal. Input
-            signal expected to be &gt;= 1, otherwise output will be NAN</par>
+            <par>
+                <tr lang="en">Outputs the principle value of the hyperbolic arc cosine of input
+                signal. Input signal expected to be &gt;= 1, otherwise output will be NAN</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse
             hyperbolic functions</a>
         </info>

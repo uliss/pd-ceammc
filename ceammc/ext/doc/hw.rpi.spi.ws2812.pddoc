@@ -17,8 +17,10 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Note: you should **flush** (with bang or [flush( message) after almost all
-            pixel/color operations</par>
+            <par>
+                <tr lang="en">Note: you should **flush** (with bang or [flush( message) after
+                almost all pixel/color operations</tr>
+            </par>
         </info>
         <properties>
             <!-- @clear -->

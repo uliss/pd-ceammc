@@ -21,15 +21,23 @@
             </also>
         </meta>
         <info>
-            <par>Simple formant/vocal synthesizer based on a source/filter model. The source is
-            just a periodic impulse and the "filter" is a bank of FOF filters.</par>
-            <par>Formant parameters are linearly interpolated allowing to go smoothly from one
-            vowel to another. Voice type can be selected but must correspond to the frequency range
-            of the synthesized voice to be realistic.</par>
-            <par>A cycle of 12 FOF filters with sample-and-hold is used so that the fof filter
-            parameters can be varied in realtime.</par>
-            <par>This technique is more robust but more computationally expensive than
-            FofSmooth</par>
+            <par>
+                <tr lang="en">Simple formant/vocal synthesizer based on a source/filter model. The
+                source is just a periodic impulse and the "filter" is a bank of FOF filters.</tr>
+            </par>
+            <par>
+                <tr lang="en">Formant parameters are linearly interpolated allowing to go smoothly
+                from one vowel to another. Voice type can be selected but must correspond to the
+                frequency range of the synthesized voice to be realistic.</tr>
+            </par>
+            <par>
+                <tr lang="en">A cycle of 12 FOF filters with sample-and-hold is used so that the
+                fof filter parameters can be varied in realtime.</tr>
+            </par>
+            <par>
+                <tr lang="en">This technique is more robust but more computationally expensive than
+                FofSmooth</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VOICE" type="symbol" enum="alto bass countertenor soprano tenor">

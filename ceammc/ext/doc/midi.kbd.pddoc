@@ -17,7 +17,10 @@
             <since>0.9.3</since>
         </meta>
         <info>
-            <par>Default keyboard layout is QWERTY, but you can specify custom one</par>
+            <par>
+                <tr lang="en">Default keyboard layout is QWERTY, but you can specify custom
+                one</tr>
+            </par>
         </info>
         <arguments>
             <argument name="LAYOUT" type="symbol" enum="qwerty names custom">

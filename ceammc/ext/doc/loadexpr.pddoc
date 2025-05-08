@@ -23,8 +23,12 @@
             </aliases>
         </meta>
         <info>
-            <par>like [loadmsg], but support expression calls and datatype</par>
-            <par>Click on object sends message again</par>
+            <par>
+                <tr lang="en">like [loadmsg], but support expression calls and datatype</tr>
+            </par>
+            <par>
+                <tr lang="en">Click on object sends message again</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">output again</event>

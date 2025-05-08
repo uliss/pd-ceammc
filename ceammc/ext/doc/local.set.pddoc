@@ -21,7 +21,9 @@
             </also>
         </meta>
         <info>
-            <par>Defines local scope set variable, accessed by ID name</par>
+            <par>
+                <tr lang="en">Defines local scope set variable, accessed by ID name</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open data editor</event>

@@ -7,31 +7,31 @@
 #X obj 369 11 ceammc/degree->key;
 #X obj 525 11 degree->key;
 #X obj 631 11 conv.degree2key;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: some scales are not for eq12 temperament;
-#X msg 50 161 bang;
-#X obj 50 190 list.gen 11;
-#X obj 184 190 random.i 0 7;
-#X obj 50 219 degree->key @scale major;
-#X obj 69 248 ui.dt;
-#X obj 50 291 msg @v;
-#X obj 146 291 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 320 seq @t 120bpm @inf;
-#X obj 50 348 + 72;
-#X obj 50 377 mtof;
-#X obj 50 406 osc~;
-#X obj 203 406 ui.dsp~;
-#X obj 50 435 ui.hgain~;
-#X obj 50 464 dac~;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 519 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X msg 50 146 bang;
+#X obj 50 175 list.gen 11;
+#X obj 184 175 random.i 0 7;
+#X obj 50 204 degree->key @scale major;
+#X obj 69 233 ui.dt;
+#X obj 50 276 msg @v;
+#X obj 146 276 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 305 seq @t 120bpm @inf;
+#X obj 50 333 + 72;
+#X obj 50 362 mtof;
+#X obj 50 391 osc~;
+#X obj 203 391 ui.dsp~;
+#X obj 50 420 ui.hgain~;
+#X obj 50 449 dac~;
+#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 504 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 507 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 554 1\.;
-#X text 150 554 symbol;
-#X obj 246 555 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 554 SCALE: название звукоряда. Разрешённые значения: aeolian
+#X text 110 539 1\.;
+#X text 150 539 symbol;
+#X obj 246 540 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 539 SCALE: название звукоряда. Разрешённые значения: aeolian
 \, ahirbhairav \, ajam \, atharKurd \, augmented \, augmented2 \, bartok
 \, bastanikar \, bayati \, bhairav \, chinese \, chromatic \, chromatic24
 \, diminished \, diminished2 \, dorian \, egyptian \, enigmatic \,
@@ -51,13 +51,13 @@ partch_u3 \, partch_u4 \, partch_u5 \, partch_u6 \, pelog \, phrygian
 \, shang \, shawq_afza \, sikah \, sikah_desc \, spanish \, super_locrian
 \, suznak \, todi \, ushaq_mashri \, whole \, whole_leading \, yakah
 \, yakah_desc \, yu \, zamzam \, zanjaran \, zhi. Тип: symbol.;
-#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 921 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 906 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 924 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 909 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 956 @scale;
-#X text 245 956 Получить/Установить название звукоряда. Тип: symbol.
+#X msg 110 941 @scale;
+#X text 245 941 Получить/Установить название звукоряда. Тип: symbol.
 Значение по умолчанию: major. Разрешённые значения: aeolian \, ahirbhairav
 \, ajam \, atharKurd \, augmented \, augmented2 \, bartok \, bastanikar
 \, bayati \, bhairav \, chinese \, chromatic \, chromatic24 \, diminished
@@ -78,8 +78,8 @@ partch_u5 \, partch_u6 \, pelog \, phrygian \, prometheus \, purvi
 \, sikah \, sikah_desc \, spanish \, super_locrian \, suznak \, todi
 \, ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \,
 yu \, zamzam \, zanjaran \, zhi.;
-#X msg 110 1330 @all?;
-#X text 245 1330 (только чтение) Получить список всех поддерживаемых
+#X msg 110 1315 @all?;
+#X text 245 1315 (только чтение) Получить список всех поддерживаемых
 звукорядов. Тип: list. Значение по умолчанию: aeolian ahirbhairav ajam
 atharKurd augmented augmented2 bartok bastanikar bayati bhairav chinese
 chromatic chromatic24 diminished diminished2 dorian egyptian enigmatic
@@ -96,33 +96,33 @@ pelog phrygian prometheus purvi rast rast_desc ritusen saba scriabin
 shang shawq_afza sikah sikah_desc spanish super_locrian suznak todi
 ushaq_mashri whole whole_leading yakah yakah_desc yu zamzam zanjaran
 zhi.;
-#X obj 20 1669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1674 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1659 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 110 1709 random;
-#X text 245 1709 choose random degree from current scale and convert
+#X msg 110 1694 random;
+#X text 245 1694 choose random degree from current scale and convert
 it to key.;
-#X obj 20 1759 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1764 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1749 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1765 1\.;
-#X text 150 1765 *float*;
-#X text 245 1765 input value.;
-#X text 150 1785 *list*;
-#X text 245 1785 input values.;
-#X obj 20 1815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1820 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1750 1\.;
+#X text 150 1750 *float*;
+#X text 245 1750 input value.;
+#X text 150 1770 *list*;
+#X text 245 1770 input values.;
+#X obj 20 1800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1805 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1821 1\.;
-#X text 245 1821 float or float list: converted value(s).;
+#X text 110 1806 1\.;
+#X text 245 1806 float or float list: converted value(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1871 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1874 библиотека: ceammc v0.9.8;
-#N canvas 10 1893 400 290 info 0;
+#X obj 1 1856 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1859 библиотека: ceammc v0.9.8;
+#N canvas 10 1878 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -146,7 +146,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1893 pd info;
+#X restore 10 1878 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

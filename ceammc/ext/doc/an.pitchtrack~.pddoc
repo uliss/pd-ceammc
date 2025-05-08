@@ -26,8 +26,10 @@
             </also>
         </meta>
         <info>
-            <par>Period-length detector using Philip McLeod's Specially Normalized AutoCorrelation
-            function (SNAC)</par>
+            <par>
+                <tr lang="en">Period-length detector using Philip McLeod's Specially Normalized
+                AutoCorrelation function (SNAC)</tr>
+            </par>
         </info>
         <arguments>
             <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">

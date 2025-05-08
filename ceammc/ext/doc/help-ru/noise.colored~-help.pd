@@ -5,83 +5,80 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.colored~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 noise.colored~;
-#X obj 205 78 cnv 1 560 95 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Generates a colored noise signal with an arbitrary spectral
-roll-off factor (alpha) over the entire audible frequency range (20-20000
-Hz). The output is normalized so that an equal RMS level is maintained
-for different values of alpha.;
-#X obj 50 221 ui.k -1 1 @show_value 1;
-#X obj 69 279 ui.tab brown pink white blue velvet @size 200 16;
-#X msg 69 308 \$2;
-#X obj 50 337 noise.colored~;
-#X obj 50 365 ui.gain~ @size 120 16;
-#X obj 280 365 ui.ssc~ @size 300 120 @log_scale 1;
-#X obj 50 452 dac~;
-#X obj 50 481 ui.dsp~;
-#X obj 20 531 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 536 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 ui.k -1 1 @show_value 1;
+#X obj 69 204 ui.tab brown pink white blue velvet @size 200 16;
+#X msg 69 233 \$2;
+#X obj 50 262 noise.colored~;
+#X obj 50 290 ui.gain~ @size 120 16;
+#X obj 280 290 ui.ssc~ @size 300 120 @log_scale 1;
+#X obj 50 377 dac~;
+#X obj 50 406 ui.dsp~;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 539 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 571 1\.;
-#X text 150 571 float;
-#X obj 246 572 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 571 ALPHA: slope of roll-off \, between -1 and 1\. -1 corresponds
+#X text 110 496 1\.;
+#X text 150 496 float;
+#X obj 246 497 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 496 ALPHA: slope of roll-off \, between -1 and 1\. -1 corresponds
 to brown/red noise \, -1/2 pink noise \, 0 white noise \, 1/2 blue
 noise \, and 1 violet/azure noise. Тип: float. Диапазон: -1…1;
-#X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 636 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 561 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 639 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 564 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 671 @id;
-#X text 245 671 (при инициализации) Получить/Установить идентификатор
+#X msg 110 596 @id;
+#X text 245 596 (при инициализации) Получить/Установить идентификатор
 для OSC адреса. Если установлен \, все свойства объекта привязываются
 к OSC адресам вида: /ИДЕНТИФИКАТОР/noise_colored/ИМЯ_СВОЙСТВА \, в
 противном случае к /noise_colored/ИМЯ_СВОЙСТВА. Тип: symbol.;
-#X msg 110 774 @osc;
-#X text 245 774 (при инициализации) Получить/Установить имя OSC сервера.
+#X msg 110 699 @osc;
+#X text 245 699 (при инициализации) Получить/Установить имя OSC сервера.
 Тип: symbol.;
-#X msg 110 816 @active;
-#X text 245 816 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
+#X msg 110 741 @active;
+#X text 245 741 Turn вкл/выкл. обработку сигнала объектом. Тип: bool.
 Значение по умолчанию: 1\.;
-#X msg 110 858 @alpha;
-#X text 245 858 Получить/Установить slope of roll-off \, between -1
+#X msg 110 783 @alpha;
+#X text 245 783 Получить/Установить slope of roll-off \, between -1
 and 1\. -1 corresponds to brown/red noise \, -1/2 pink noise \, 0 white
 noise \, 1/2 blue noise \, and 1 violet/azure noise. Тип: float. Значение
 по умолчанию: 0\. Диапазон: -1\...1\.;
-#X obj 20 955 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 960 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 880 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 885 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 995 blue;
-#X text 245 995 set to blue noise (roll-off factor 0.5).;
-#X msg 110 1023 brown;
-#X text 245 1023 set to brown/red noise (roll-off factor -1).;
-#X msg 110 1051 pink;
-#X text 245 1051 set to pink noise (roll-off factor -0.5).;
-#X msg 110 1079 velvet;
-#X text 245 1079 set to velvet noise (roll-off factor 1).;
-#X msg 110 1107 white;
-#X text 245 1107 set to white noise (roll-off factor 0).;
-#X obj 20 1145 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1150 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 920 blue;
+#X text 245 920 set to blue noise (roll-off factor 0.5).;
+#X msg 110 948 brown;
+#X text 245 948 set to brown/red noise (roll-off factor -1).;
+#X msg 110 976 pink;
+#X text 245 976 set to pink noise (roll-off factor -0.5).;
+#X msg 110 1004 velvet;
+#X text 245 1004 set to velvet noise (roll-off factor 1).;
+#X msg 110 1032 white;
+#X text 245 1032 set to white noise (roll-off factor 0).;
+#X obj 20 1070 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1075 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 1151 1\.;
-#X text 150 1151 *float*;
-#X text 245 1151 set roll-off frequency.;
-#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1186 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 110 1076 1\.;
+#X text 150 1076 *float*;
+#X text 245 1076 set roll-off frequency.;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1111 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 110 1187 1\.;
-#X text 245 1187 output signal.;
+#X text 110 1112 1\.;
+#X text 245 1112 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1237 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1240 библиотека: ceammc v0.9.8;
-#N canvas 10 1259 400 290 info 0;
+#X obj 1 1162 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1165 библиотека: ceammc v0.9.8;
+#N canvas 10 1184 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -106,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1259 pd info;
+#X restore 10 1184 pd info;
 #X connect 7 0 8 0;
 #X connect 6 0 9 0;
 #X connect 8 0 9 0;

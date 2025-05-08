@@ -26,7 +26,9 @@
             </also>
         </meta>
         <info>
-            <par>[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</par>
+            <par>
+                <tr lang="en">[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</tr>
+            </par>
         </info>
         <mouse>
             <event type="drag" editmode="true" keys="Cmd">changes the slider value</event>

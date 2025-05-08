@@ -25,8 +25,11 @@
             </also>
         </meta>
         <info>
-            <par>Predicate side chain should accept value and return 1 (true) or 0 (false). If
-            true, input value is outputed to first outlet. Otherwise to second outlet.</par>
+            <par>
+                <tr lang="en">Predicate side chain should accept value and return 1 (true) or 0
+                (false). If true, input value is outputed to first outlet. Otherwise to second
+                outlet.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

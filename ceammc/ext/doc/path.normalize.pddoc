@@ -23,8 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>These conversions are purely lexical. They do not check that the paths exist, do
-            not follow symlinks, and do not access the filesystem at all</par>
+            <par>
+                <tr lang="en">These conversions are purely lexical. They do not check that the
+                paths exist, do not follow symlinks, and do not access the filesystem at all</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

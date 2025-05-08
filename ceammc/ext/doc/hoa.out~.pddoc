@@ -25,7 +25,10 @@
             </also>
         </meta>
         <info>
-            <par>defines a signal outlet for a patcher loaded by a hoa.process~ object</par>
+            <par>
+                <tr lang="en">defines a signal outlet for a patcher loaded by a hoa.process~
+                object</tr>
+            </par>
         </info>
         <arguments>
             <argument name="EXTRA" type="int" minvalue="0">

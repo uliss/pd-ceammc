@@ -23,13 +23,19 @@
             </also>
         </meta>
         <info>
-            <par>Delay any route incoming message by specified relative time list. If @block=0 if
-            new message has arrived while delay time is not expired, old message is discarded and
-            new delay time is set from current moment.</par>
-            <par>Zero delay time means output message on next Pd runloop iteration (as soon as
-            possible)</par>
-            <par>Note: @t and @block property can be set only via right inlet or with [prop.set]
-            object</par>
+            <par>
+                <tr lang="en">Delay any route incoming message by specified relative time list. If
+                @block=0 if new message has arrived while delay time is not expired, old message is
+                discarded and new delay time is set from current moment.</tr>
+            </par>
+            <par>
+                <tr lang="en">Zero delay time means output message on next Pd runloop iteration (as
+                soon as possible)</tr>
+            </par>
+            <par>
+                <tr lang="en">Note: @t and @block property can be set only via right inlet or with
+                [prop.set] object</tr>
+            </par>
         </info>
         <arguments>
             <argument name="T" type="list" units="millisecond">

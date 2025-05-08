@@ -21,8 +21,10 @@
             </also>
         </meta>
         <info>
-            <par>Infinity is a MatrixVerb specifically designed to sustain and layer sounds
-            forever.</par>
+            <par>
+                <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer
+                sounds forever.</tr>
+            </par>
             <a href="https://www.airwindows.com/infinity/">More info</a>
         </info>
         <arguments>

@@ -17,7 +17,9 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Stein distribution</par>
+            <par>
+                <tr lang="en">Stein distribution</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARG0" type="float">

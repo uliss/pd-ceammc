@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Symbols are ignored, 0 gives NAN value</par>
+            <par>
+                <tr lang="en">Symbols are ignored, 0 gives NAN value</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

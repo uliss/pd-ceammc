@@ -21,7 +21,9 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>outputs NAN if input signal &lt;0</par>
+            <par>
+                <tr lang="en">outputs NAN if input signal &lt;0</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

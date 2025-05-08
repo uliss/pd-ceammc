@@ -20,10 +20,14 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>In statistics, for non-negative values of x, the error function has the following
-            interpretation:</par>
-            <par>for a random variable Y that is normally distributed with mean 0 and variance 1/2,
-            erf x is the probability that Y falls in the range [−x, x]</par>
+            <par>
+                <tr lang="en">In statistics, for non-negative values of x, the error function has
+                the following interpretation:</tr>
+            </par>
+            <par>
+                <tr lang="en">for a random variable Y that is normally distributed with mean 0 and
+                variance 1/2, erf x is the probability that Y falls in the range [−x, x]</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

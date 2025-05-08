@@ -22,8 +22,10 @@
             </also>
         </meta>
         <info>
-            <par>Preset storage allows to load and store presets, read and write them to
-            files</par>
+            <par>
+                <tr lang="en">Preset storage allows to load and store presets, read and write them
+                to files</tr>
+            </par>
         </info>
         <properties>
             <!-- @keys -->

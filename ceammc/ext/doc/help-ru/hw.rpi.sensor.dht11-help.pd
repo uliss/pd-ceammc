@@ -6,64 +6,62 @@ Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.dht11 20 20 0 20
 -104026 -4096 0;
 #X obj 602 11 hw.rpi.sensor.dht11;
-#X obj 205 93 cnv 1 560 145 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Temperature range: 0\..+50°C ±2°C;
-#X text 215 123 Humidity range: 20-90%RH ±5%RH;
-#X text 215 148 When using a 3.5V voltage supply cable length shall
-not be greater than 20cm. Otherwise \, the line voltage drop will cause
-the sensor power supply shortage \, caused by measurement error;
-#X obj 50 286 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 315 poll \$1;
-#X obj 78 344 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 93 cnv 1 560 40 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98;
+#X text 215 108;
+#X text 215 118;
+#X obj 50 181 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 210 poll \$1;
+#X obj 78 239 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 373 hw.rpi.sensor.dht11 @pin 17;
-#X obj 50 402 print;
-#X obj 50 445 ui.link @title Connection_Scheme @url
+#X obj 50 268 hw.rpi.sensor.dht11 @pin 17;
+#X obj 50 297 print;
+#X obj 50 340 ui.link @title Connection_Scheme @url
 ceammc://img/conn_dht11.png;
-#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 507 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 510 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 542 1\.;
-#X text 150 542 int;
-#X obj 246 543 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 542 PIN: GPIO пин для подключения. См. @pin. Тип: int.
+#X text 110 437 1\.;
+#X text 150 437 int;
+#X obj 246 438 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 437 PIN: GPIO пин для подключения. См. @pin. Тип: int.
 Диапазон: -1…127;
-#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 592 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 487 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 595 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 490 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 627 @pin;
-#X text 245 627 (при инициализации) Получить/Установить пин соединения
+#X msg 110 522 @pin;
+#X text 245 522 (при инициализации) Получить/Установить пин соединения
 GPIO. Тип: int. Значение по умолчанию: -1\. Диапазон: -1\...127\.;
-#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 684 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 579 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 719 poll;
-#X text 245 719 turn the sensor polling on/off. Аргументы:;
-#X obj 255 742 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 742 STATE: poll state. Тип: bool.;
-#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 782 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 614 poll;
+#X text 245 614 turn the sensor polling on/off. Аргументы:;
+#X obj 255 637 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 637 STATE: poll state. Тип: bool.;
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 677 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 783 1\.;
-#X text 150 783 *bang*;
-#X text 245 783 single distance measure.;
-#X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 818 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 678 1\.;
+#X text 150 678 *bang*;
+#X text 245 678 single distance measure.;
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 819 1\.;
-#X text 245 819 list: TEMPERATURE(in Celsius) HUMIDITY.;
+#X text 110 714 1\.;
+#X text 245 714 list: TEMPERATURE(in Celsius) HUMIDITY.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 872 библиотека: ceammc v0.9.8;
-#N canvas 10 891 400 290 info 0;
+#X obj 1 764 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 767 библиотека: ceammc v0.9.8;
+#N canvas 10 786 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 891 pd info;
+#X restore 10 786 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;

@@ -24,7 +24,9 @@
             </also>
         </meta>
         <info>
-            <par>Outputs index or -1 if not found</par>
+            <par>
+                <tr lang="en">Outputs index or -1 if not found</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUE" type="list">

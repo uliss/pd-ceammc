@@ -17,7 +17,9 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Heuns' method</par>
+            <par>
+                <tr lang="en">Heuns' method</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor">wiki: Rössler
             attractor</a>
         </info>

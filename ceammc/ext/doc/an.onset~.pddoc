@@ -20,7 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>Onset detector based on aubio library</par>
+            <par>
+                <tr lang="en">Onset detector based on aubio library</tr>
+            </par>
             <a href="https://aubio.org/">https://aubio.org</a>
         </info>
         <arguments>

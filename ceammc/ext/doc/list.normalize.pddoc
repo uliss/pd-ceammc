@@ -18,9 +18,16 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>There are two modes of normalization:</par>
-            <par>1. by sum - multiply all elements to such number to get total sum = 1.0</par>
-            <par>2. by value range - maps all values to range 0..1 lineary</par>
+            <par>
+                <tr lang="en">There are two modes of normalization:</tr>
+            </par>
+            <par>
+                <tr lang="en">1. by sum - multiply all elements to such number to get total sum =
+                1.0</tr>
+            </par>
+            <par>
+                <tr lang="en">2. by value range - maps all values to range 0..1 lineary</tr>
+            </par>
         </info>
         <properties>
             <!-- @by -->

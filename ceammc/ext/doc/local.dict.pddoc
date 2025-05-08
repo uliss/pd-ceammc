@@ -24,8 +24,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Defines local scope dict variable, accessed by ID name and available only within
-            its patch (canvas)</par>
+            <par>
+                <tr lang="en">Defines local scope dict variable, accessed by ID name and available
+                only within its patch (canvas)</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open data editor</event>

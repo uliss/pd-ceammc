@@ -22,20 +22,32 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: default PWM freq is 50Hz</par>
-            <par>*Servo Control*</par>
-            <par>Many digital servos run on a 20ms pulse width (50Hz update frequency) based duty
-            cycle, and do not utilize the entire pulse width for their control</par>
-            <par>Typically, 2.5% of the 20ms pulse width (0.5ms) represents -90° offset, and 12.5%
-            of the 20ms pulse width (2.5ms) represents +90° offset</par>
-            <par>Be aware that driving some 180° servos too far past their -90°/+90° operational
-            range can cause a little plastic limiter pin to break off and get stuck inside of the
-            servo's gearing, which could potentially cause the servo to become jammed and no longer
-            function</par>
-            <par>Continuous servos operate in much the same fashion as 180° servos, but instead of
-            the 2.5%/12.5% pulse width controlling a -90°/+90° offset it controls a -1x/+1x speed
-            multiplier, with 0x being parked/no-movement and -1x/+1x being maximum speed in either
-            direction.</par>
+            <par>
+                <tr lang="en">Note: default PWM freq is 50Hz</tr>
+            </par>
+            <par>
+                <tr lang="en">*Servo Control*</tr>
+            </par>
+            <par>
+                <tr lang="en">Many digital servos run on a 20ms pulse width (50Hz update frequency)
+                based duty cycle, and do not utilize the entire pulse width for their control</tr>
+            </par>
+            <par>
+                <tr lang="en">Typically, 2.5% of the 20ms pulse width (0.5ms) represents -90°
+                offset, and 12.5% of the 20ms pulse width (2.5ms) represents +90° offset</tr>
+            </par>
+            <par>
+                <tr lang="en">Be aware that driving some 180° servos too far past their -90°/+90°
+                operational range can cause a little plastic limiter pin to break off and get stuck
+                inside of the servo's gearing, which could potentially cause the servo to become
+                jammed and no longer function</tr>
+            </par>
+            <par>
+                <tr lang="en">Continuous servos operate in much the same fashion as 180° servos,
+                but instead of the 2.5%/12.5% pulse width controlling a -90°/+90° offset it
+                controls a -1x/+1x speed multiplier, with 0x being parked/no-movement and -1x/+1x
+                being maximum speed in either direction.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="I2C_BUS" type="atom" enum="1 2 3 4 5 6 default none">

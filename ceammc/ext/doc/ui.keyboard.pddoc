@@ -26,8 +26,12 @@
             </also>
         </meta>
         <info>
-            <par>Piano keyboard widget</par>
-            <par>[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</par>
+            <par>
+                <tr lang="en">Piano keyboard widget</tr>
+            </par>
+            <par>
+                <tr lang="en">[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</tr>
+            </par>
         </info>
         <mouse>
             <event type="move" editmode="false" empty="true" />

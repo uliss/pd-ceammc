@@ -25,7 +25,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Output 1 when cue section activated, 0 when switched to other cue section</par>
+            <par>
+                <tr lang="en">Output 1 when cue section activated, 0 when switched to other cue
+                section</tr>
+            </par>
         </info>
         <properties>
             <!-- @cue -->

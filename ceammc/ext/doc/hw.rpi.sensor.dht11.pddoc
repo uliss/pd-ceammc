@@ -17,11 +17,17 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Temperature range: 0..+50°C ±2°C</par>
-            <par>Humidity range: 20-90%RH ±5%RH</par>
-            <par>When using a 3.5V voltage supply cable length shall not be greater than 20cm.
-            Otherwise, the line voltage drop will cause the sensor power supply shortage, caused by
-            measurement error</par>
+            <par>
+                <tr lang="en">Temperature range: 0..+50°C ±2°C</tr>
+            </par>
+            <par>
+                <tr lang="en">Humidity range: 20-90%RH ±5%RH</tr>
+            </par>
+            <par>
+                <tr lang="en">When using a 3.5V voltage supply cable length shall not be greater
+                than 20cm. Otherwise, the line voltage drop will cause the sensor power supply
+                shortage, caused by measurement error</tr>
+            </par>
         </info>
         <arguments>
             <argument name="PIN" type="int" minvalue="-1" maxvalue="127">

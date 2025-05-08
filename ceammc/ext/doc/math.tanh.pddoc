@@ -22,10 +22,18 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The tanh() function computes the hyperbolic tangent of x.</par>
-            <par>Special values:</par>
-            <par>tanh(+-0) returns +-0.</par>
-            <par>tanh(+-infinity) returns +-1.</par>
+            <par>
+                <tr lang="en">The tanh() function computes the hyperbolic tangent of x.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">tanh(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">tanh(+-infinity) returns +-1.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

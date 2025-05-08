@@ -19,8 +19,12 @@
             <since>0.7</since>
         </meta>
         <info>
-            <par>The granulator contains two lines: A and B</par>
-            <par>Input buffer size: ~3 seconds</par>
+            <par>
+                <tr lang="en">The granulator contains two lines: A and B</tr>
+            </par>
+            <par>
+                <tr lang="en">Input buffer size: ~3 seconds</tr>
+            </par>
         </info>
         <properties>
             <xi:include href="props_osc.xml" />

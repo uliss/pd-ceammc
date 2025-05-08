@@ -21,8 +21,12 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs hyperbolic cosine of input signal</par>
-            <par>cosh x = (ℯˣ + ℯ⁻ˣ)/2</par>
+            <par>
+                <tr lang="en">Outputs hyperbolic cosine of input signal</tr>
+            </par>
+            <par>
+                <tr lang="en">cosh x = (ℯˣ + ℯ⁻ˣ)/2</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic
             functions</a>
         </info>

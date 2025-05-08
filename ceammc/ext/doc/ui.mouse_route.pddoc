@@ -24,7 +24,9 @@
             </also>
         </meta>
         <info>
-            <par>routes only specified mouse events from ui.* objects</par>
+            <par>
+                <tr lang="en">routes only specified mouse events from ui.* objects</tr>
+            </par>
         </info>
         <properties>
             <!-- @down -->

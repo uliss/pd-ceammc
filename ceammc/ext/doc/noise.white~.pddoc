@@ -20,7 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>outputs random numbers between -1 and 1 at signal rate.</par>
+            <par>
+                <tr lang="en">outputs random numbers between -1 and 1 at signal rate.</tr>
+            </par>
         </info>
         <properties>
             <xi:include href="props_active.xml" />

@@ -17,10 +17,12 @@
             <since>0.2</since>
         </meta>
         <info>
-            <par>A simple Schroeder reverberator primarily developed by "Jezar at Dreampoint" that
-            is extensively used in the free-software world. It uses four Schroeder allpasses in
-            series and eight parallel Schroeder-Moorer filtered-feedback comb-filters for each
-            audio channel, and is said to be especially well tuned.</par>
+            <par>
+                <tr lang="en">A simple Schroeder reverberator primarily developed by "Jezar at
+                Dreampoint" that is extensively used in the free-software world. It uses four
+                Schroeder allpasses in series and eight parallel Schroeder-Moorer filtered-feedback
+                comb-filters for each audio channel, and is said to be especially well tuned.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ROOM" type="float" minvalue="0" maxvalue="1">

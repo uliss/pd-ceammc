@@ -17,8 +17,10 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Deal with sound files: gets files info and loads them into arrays. Various formats
-            are supported. Supports array name patterns.</par>
+            <par>
+                <tr lang="en">Deal with sound files: gets files info and loads them into arrays.
+                Various formats are supported. Supports array name patterns.</tr>
+            </par>
         </info>
         <properties>
             <!-- @channels -->

@@ -28,8 +28,10 @@
             </also>
         </meta>
         <info>
-            <par>Supports stop-points for multisegment envelopes. Note: non-linear envelopes are
-            outputted using linear approximation</par>
+            <par>
+                <tr lang="en">Supports stop-points for multisegment envelopes. Note: non-linear
+                envelopes are outputted using linear approximation</tr>
+            </par>
         </info>
         <properties>
             <!-- @sync -->

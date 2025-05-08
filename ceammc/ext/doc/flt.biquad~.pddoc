@@ -22,9 +22,14 @@
             </also>
         </meta>
         <info>
-            <par>Digital biquad filter is a second-order recursive linear filter, containing two
-            poles and two zeros.</par>
-            <par>transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²)</par>
+            <par>
+                <tr lang="en">Digital biquad filter is a second-order recursive linear filter,
+                containing two poles and two zeros.</tr>
+            </par>
+            <par>
+                <tr lang="en">transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ +
+                a2*z⁻²)</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Digital_biquad_filter">wiki: Digital biquad
             filter</a>
         </info>

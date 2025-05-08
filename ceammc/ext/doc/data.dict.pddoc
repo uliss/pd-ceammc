@@ -25,8 +25,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Syntax: [key1: value key2 : "with space"]. Nested dictionaries are supported: [a:
-            [A:1 B:2]]).</par>
+            <par>
+                <tr lang="en">Syntax: [key1: value key2 : "with space"]. Nested dictionaries are
+                supported: [a: [A:1 B:2]]).</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open data editor</event>

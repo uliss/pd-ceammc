@@ -17,8 +17,10 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>This class implements two simple FM Pairs summed together, also referred to as
-            algorithm 5 of the TX81Z</par>
+            <par>
+                <tr lang="en">This class implements two simple FM Pairs summed together, also
+                referred to as algorithm 5 of the TX81Z</tr>
+            </par>
         </info>
         <properties>
             <!-- @adsr -->

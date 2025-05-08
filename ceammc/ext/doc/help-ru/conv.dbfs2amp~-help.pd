@@ -7,23 +7,23 @@
 #X obj 390 11 ceammc/dbfs->amp~;
 #X obj 539 11 dbfs->amp~;
 #X obj 638 11 conv.dbfs2amp~;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: db values <= -144 are converted to 0;
-#X obj 50 161 ui.hsl @min -144 @max 6;
-#X floatatom 50 190 8 0 0 0 - - -;
-#X obj 50 219 dbfs->amp~;
-#X obj 194 219 ui.dsp~;
-#X obj 50 248 ui.n~;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 ui.hsl @min -144 @max 6;
+#X floatatom 50 175 8 0 0 0 - - -;
+#X obj 50 204 dbfs->amp~;
+#X obj 194 204 ui.dsp~;
+#X obj 50 233 ui.n~;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 304 1\.;
-#X text 245 304 input signal.;
-#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 339 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 289 1\.;
+#X text 245 289 input signal.;
+#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 340 1\.;
-#X text 245 340 converted signal.;
+#X text 110 325 1\.;
+#X text 245 325 converted signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

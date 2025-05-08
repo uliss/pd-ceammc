@@ -20,8 +20,11 @@
             </also>
         </meta>
         <info>
-            <par>filter that passes most frequencies unaltered, but attenuates those in a specific
-            range to very low levels. It is the opposite of a band-pass filter.</par>
+            <par>
+                <tr lang="en">filter that passes most frequencies unaltered, but attenuates those
+                in a specific range to very low levels. It is the opposite of a band-pass
+                filter.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">

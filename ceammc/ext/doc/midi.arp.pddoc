@@ -17,14 +17,31 @@
             <since>0.9.6</since>
         </meta>
         <info>
-            <par>'up' - play notes from bottom to up</par>
-            <par>'down' - play from top to bottom</par>
-            <par>'tri' - play from bottom to up and then back</par>
-            <par>'up1' - play top note, then from bottom to up</par>
-            <par>'down1' - play bottom note, then from top to bottom</par>
-            <par>'tri1' - play from up to bottom, then back</par>
-            <par>'random' - play random note, excluding the current one (no repeats)</par>
-            <par>'random1' - play random note (there can be repeats)</par>
+            <par>
+                <tr lang="en">'up' - play notes from bottom to up</tr>
+            </par>
+            <par>
+                <tr lang="en">'down' - play from top to bottom</tr>
+            </par>
+            <par>
+                <tr lang="en">'tri' - play from bottom to up and then back</tr>
+            </par>
+            <par>
+                <tr lang="en">'up1' - play top note, then from bottom to up</tr>
+            </par>
+            <par>
+                <tr lang="en">'down1' - play bottom note, then from top to bottom</tr>
+            </par>
+            <par>
+                <tr lang="en">'tri1' - play from up to bottom, then back</tr>
+            </par>
+            <par>
+                <tr lang="en">'random' - play random note, excluding the current one (no
+                repeats)</tr>
+            </par>
+            <par>
+                <tr lang="en">'random1' - play random note (there can be repeats)</tr>
+            </par>
         </info>
         <arguments>
             <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">

@@ -20,8 +20,10 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>It is approximately equal to 2.71828, and is the limit of (1 + 1/n)^n as n
-            approaches infinity.</par>
+            <par>
+                <tr lang="en">It is approximately equal to 2.71828, and is the limit of (1 + 1/n)^n
+                as n approaches infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

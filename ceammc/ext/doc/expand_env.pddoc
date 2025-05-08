@@ -23,10 +23,14 @@
             </aliases>
         </meta>
         <info>
-            <par>Environment variable %HOME% will be replaced by home user directory under
-            UNIX</par>
-            <par>Some special variables defined: %DOC% - path to PureData doc directory, %CEAMMC% -
-            path to ceammc library directory</par>
+            <par>
+                <tr lang="en">Environment variable %HOME% will be replaced by home user directory
+                under UNIX</tr>
+            </par>
+            <par>
+                <tr lang="en">Some special variables defined: %DOC% - path to PureData doc
+                directory, %CEAMMC% - path to ceammc library directory</tr>
+            </par>
         </info>
         <properties>
             <!-- @any -->

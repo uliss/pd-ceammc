@@ -22,12 +22,20 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The asin() function computes the principal value of the arc sine of input value.
-            The result is in the range [-pi/2, +pi/2].</par>
-            <par>Special values:</par>
-            <par>asin(+-0) returns +-0.</par>
-            <par>asin(x) returns a NAN and raises the "invalid" floating-point exception for |x|
-            &gt; 1.</par>
+            <par>
+                <tr lang="en">The asin() function computes the principal value of the arc sine of
+                input value. The result is in the range [-pi/2, +pi/2].</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">asin(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">asin(x) returns a NAN and raises the "invalid" floating-point
+                exception for |x| &gt; 1.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

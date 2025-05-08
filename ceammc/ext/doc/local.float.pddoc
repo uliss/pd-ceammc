@@ -21,8 +21,10 @@
             </also>
         </meta>
         <info>
-            <par>Defines named local float variable, accessed by name and available only within its
-            patch (canvas). Note: it is not accessible even from subpatch.</par>
+            <par>
+                <tr lang="en">Defines named local float variable, accessed by name and available
+                only within its patch (canvas). Note: it is not accessible even from subpatch.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ID" type="symbol">

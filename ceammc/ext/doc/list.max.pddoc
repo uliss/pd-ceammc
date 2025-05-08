@@ -20,9 +20,14 @@
             </also>
         </meta>
         <info>
-            <par>By default returns largest float in list, this equal to using @float
-            property.</par>
-            <par>Also you can choose largest symbol from list, using @symbol property.</par>
+            <par>
+                <tr lang="en">By default returns largest float in list, this equal to using @float
+                property.</tr>
+            </par>
+            <par>
+                <tr lang="en">Also you can choose largest symbol from list, using @symbol
+                property.</tr>
+            </par>
         </info>
         <properties>
             <!-- @any -->

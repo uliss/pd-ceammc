@@ -23,9 +23,15 @@
             </aliases>
         </meta>
         <info>
-            <par>A non-interpolating generator based on the difference equations:</par>
-            <par>x[n+1] = sin(a * y[n]) - cos(b * x[n])</par>
-            <par>y[n+1] = sin(c * x[n]) - cos(d * y[n])</par>
+            <par>
+                <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+            </par>
+            <par>
+                <tr lang="en">x[n+1] = sin(a * y[n]) - cos(b * x[n])</tr>
+            </par>
+            <par>
+                <tr lang="en">y[n+1] = sin(c * x[n]) - cos(d * y[n])</tr>
+            </par>
             <a href="http://paulbourke.net/fractals/peterdejong/">wiki: Peter de Jong
             Attractors</a>
         </info>

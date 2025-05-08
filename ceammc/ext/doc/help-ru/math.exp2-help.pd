@@ -5,42 +5,40 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.exp2 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.exp2;
-#X obj 205 78 cnv 1 560 190 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 The exp2() function computes 2**x \, the base-2 exponential
-of x.;
-#X text 215 123 Special values:;
-#X text 215 148 exp(+-0) return 1\.;
-#X text 215 173 exp(-infinity) return +0\.;
-#X text 215 198 exp(+infinity) return +infinity.;
-#X text 215 223 For all these functions \, a range error occurs if
-the magnitude of x is too large.;
-#X floatatom 50 316 5 0 0 0 - - -;
-#X obj 50 345 math.exp2;
-#X floatatom 50 374 5 0 0 0 - - -;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 78 cnv 1 560 70 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X text 215 93;
+#X text 215 103;
+#X text 215 113;
+#X text 215 123;
+#X text 215 133;
+#X floatatom 50 196 5 0 0 0 - - -;
+#X obj 50 225 math.exp2;
+#X floatatom 50 254 5 0 0 0 - - -;
+#X obj 20 286 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 291 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 412 1\.;
-#X text 150 412 *float*;
-#X text 245 412 input value.;
-#X text 150 432 *list*;
-#X text 245 432 apply to all numeric values.;
-#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 467 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 292 1\.;
+#X text 150 292 *float*;
+#X text 245 292 input value.;
+#X text 150 312 *list*;
+#X text 245 312 apply to all numeric values.;
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 347 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 468 1\.;
-#X text 245 468 result value.;
+#X text 110 348 1\.;
+#X text 245 348 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 518 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 521 библиотека: ceammc v0.9.8;
-#X text 486 533 смотрите также:;
-#X obj 607 533 math.log;
-#X obj 681 533 math.exp;
-#N canvas 10 540 400 290 info 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 библиотека: ceammc v0.9.8;
+#X text 486 520 смотрите также:;
+#X obj 607 520 math.log;
+#X obj 681 520 math.exp;
+#N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -64,6 +62,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 540 pd info;
+#X restore 10 527 pd info;
 #X connect 11 0 12 0;
 #X connect 12 0 13 0;

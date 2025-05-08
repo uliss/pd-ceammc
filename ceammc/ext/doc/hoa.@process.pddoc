@@ -23,8 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>With [hoa.@process] you can get [hoa.process~] instance properties and get/set
-            properties declared via [prop.declare]</par>
+            <par>
+                <tr lang="en">With [hoa.@process] you can get [hoa.process~] instance properties
+                and get/set properties declared via [prop.declare]</tr>
+            </par>
         </info>
         <properties>
             <!-- @hdegree -->

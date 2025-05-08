@@ -19,8 +19,11 @@
             <since>0.4</since>
         </meta>
         <info>
-            <par>Based on SoundTouch library for changing the Tempo, Pitch and Playback Rates of
-            arrays. Copies time-stretched data from source to destination array</par>
+            <par>
+                <tr lang="en">Based on SoundTouch library for changing the Tempo, Pitch and
+                Playback Rates of arrays. Copies time-stretched data from source to destination
+                array</tr>
+            </par>
         </info>
         <arguments>
             <argument name="SRC" type="symbol">

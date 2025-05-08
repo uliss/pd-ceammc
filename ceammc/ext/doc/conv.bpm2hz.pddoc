@@ -24,8 +24,10 @@
             </aliases>
         </meta>
         <info>
-            <par>Converts frequency from BPM (beats per minute) to hertz. It's simple as /60, but
-            more readable</par>
+            <par>
+                <tr lang="en">Converts frequency from BPM (beats per minute) to hertz. It's simple
+                as /60, but more readable</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

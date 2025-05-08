@@ -17,8 +17,12 @@
             <since>0.6</since>
         </meta>
         <info>
-            <par>if no match occured - output original message to last outlet</par>
-            <par>if route starts with '*' - output with message selector</par>
+            <par>
+                <tr lang="en">if no match occured - output original message to last outlet</tr>
+            </par>
+            <par>
+                <tr lang="en">if route starts with '*' - output with message selector</tr>
+            </par>
         </info>
         <arguments>
             <argument name="MATCHES" type="list">

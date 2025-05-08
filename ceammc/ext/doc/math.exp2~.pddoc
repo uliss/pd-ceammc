@@ -20,11 +20,21 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>The exp2() function computes 2**x, the base-2 exponential of x.</par>
-            <par>Special values:</par>
-            <par>exp2(+-0) return 1.</par>
-            <par>exp2(-infinity) return +0.</par>
-            <par>exp2(+infinity) return +infinity.</par>
+            <par>
+                <tr lang="en">The exp2() function computes 2**x, the base-2 exponential of x.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">exp2(+-0) return 1.</tr>
+            </par>
+            <par>
+                <tr lang="en">exp2(-infinity) return +0.</tr>
+            </par>
+            <par>
+                <tr lang="en">exp2(+infinity) return +infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

@@ -17,7 +17,9 @@
             <since>0.9.5</since>
         </meta>
         <info>
-            <par>Split midi note messages at specified pitch values</par>
+            <par>
+                <tr lang="en">Split midi note messages at specified pitch values</tr>
+            </par>
         </info>
         <arguments>
             <argument name="NOTES" type="list">

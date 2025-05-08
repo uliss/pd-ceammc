@@ -5,67 +5,66 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.clock 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 midi.clock;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Note: cause in Pd messages are processed between DSP
-blocks - measured bpm is not exact;
-#X obj 50 176 midi.clock 8;
-#X text 194 176 bang every eight note;
-#X obj 50 205 click~;
-#X floatatom 146 205 5 0 0 0 - - -;
-#X obj 309 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 376 205 5 0 0 0 - - -;
-#X text 414 205 24 pulses per quoter note;
-#X obj 50 234 flt.resonbp~ 1440 40;
-#X obj 309 234 metro 10;
-#X obj 50 263 ui.hgain~;
-#X msg 309 263 \; #midirealtimein 1 248;
-#X obj 606 263 ui.dsp~;
-#X obj 50 292 dac~;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 midi.clock 8;
+#X text 194 146 bang every eight note;
+#X obj 50 175 click~;
+#X floatatom 146 175 5 0 0 0 - - -;
+#X obj 309 175 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 376 175 5 0 0 0 - - -;
+#X text 414 175 24 pulses per quoter note;
+#X obj 50 204 flt.resonbp~ 1440 40;
+#X obj 309 204 metro 10;
+#X obj 50 233 ui.hgain~;
+#X msg 309 233 \; #midirealtimein 1 248;
+#X obj 606 233 ui.dsp~;
+#X obj 50 262 dac~;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 382 1\.;
-#X text 150 382 int;
-#X obj 246 383 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 382 DIV: @div clock subdivision. Разрешённые значения:
+#X text 110 352 1\.;
+#X text 150 352 int;
+#X obj 246 353 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 352 DIV: @div clock subdivision. Разрешённые значения:
 0 \, 4 \, 8 \, 16 \, 32\. Тип: int.;
-#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 432 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 435 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 467 @div;
-#X text 245 467 Получить/Установить clock subdivision. If 0: bang each
+#X msg 110 437 @div;
+#X text 245 437 Получить/Установить clock subdivision. If 0: bang each
 incoming midi clock message \, if 4: output every quoter note \, 8:
 every eight note etc. Тип: int. Значение по умолчанию: 0\. Разрешённые
 значения: 0 \, 4 \, 8 \, 16 \, 32\.;
-#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 569 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 539 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 604 reset;
-#X text 245 604 reset beat counter.;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 647 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 574 reset;
+#X text 245 574 reset beat counter.;
+#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 617 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 648 1\.;
-#X text 245 648 control input.;
-#X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 683 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 618 1\.;
+#X text 245 618 control input.;
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 653 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 684 1\.;
-#X text 245 684 bang: on specified beat.;
-#X text 110 704 2\.;
-#X text 245 704 float: measured bpm (output every beat).;
+#X text 110 654 1\.;
+#X text 245 654 bang: on specified beat.;
+#X text 110 674 2\.;
+#X text 245 674 float: measured bpm (output every beat).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 754 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 757 библиотека: ceammc v0.9.8;
-#N canvas 10 776 400 290 info 0;
+#X obj 1 724 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 727 библиотека: ceammc v0.9.8;
+#N canvas 10 746 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 776 pd info;
+#X restore 10 746 pd info;
 #X connect 6 0 8 0;
 #X connect 6 1 9 0;
 #X connect 8 0 13 0;

@@ -18,7 +18,9 @@
             <since>0.4</since>
         </meta>
         <info>
-            <par>Calculates BPM (Beats Per Minute) rate using SoundTouch library</par>
+            <par>
+                <tr lang="en">Calculates BPM (Beats Per Minute) rate using SoundTouch library</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARRAY" type="symbol">

@@ -17,10 +17,18 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The sqrt() function compute the non-negative square root of x.</par>
-            <par>Special values:</par>
-            <par>sqrt(-0) returns -0.</par>
-            <par>sqrt(x) returns a NaN and generates a domain error for x &lt; 0.</par>
+            <par>
+                <tr lang="en">The sqrt() function compute the non-negative square root of x.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">sqrt(-0) returns -0.</tr>
+            </par>
+            <par>
+                <tr lang="en">sqrt(x) returns a NaN and generates a domain error for x &lt; 0.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

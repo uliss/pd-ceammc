@@ -20,8 +20,10 @@
             </also>
         </meta>
         <info>
-            <par>Note: symbol values are treated as 0. So if list contains at least one symbol,
-            product will be always equal to zero</par>
+            <par>
+                <tr lang="en">Note: symbol values are treated as 0. So if list contains at least
+                one symbol, product will be always equal to zero</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

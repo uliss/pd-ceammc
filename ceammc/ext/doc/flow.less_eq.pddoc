@@ -23,7 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>Numbers thar are *less equal* then N-th argument are passed to N-th inlet</par>
+            <par>
+                <tr lang="en">Numbers thar are *less equal* then N-th argument are passed to N-th
+                inlet</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUES" type="list">

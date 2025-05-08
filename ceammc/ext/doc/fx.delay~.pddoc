@@ -24,8 +24,10 @@
             </aliases>
         </meta>
         <info>
-            <par>delay that doesn't click and doesn't transpose when the delay time is
-            changed</par>
+            <par>
+                <tr lang="en">delay that doesn't click and doesn't transpose when the delay time is
+                changed</tr>
+            </par>
         </info>
         <arguments>
             <argument name="DELAY" type="float" minvalue="0" maxvalue="6000" units="millisecond">

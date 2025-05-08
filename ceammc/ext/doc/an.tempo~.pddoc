@@ -17,7 +17,9 @@
             <since>0.9.3</since>
         </meta>
         <info>
-            <par>Tempo detector based on aubio library</par>
+            <par>
+                <tr lang="en">Tempo detector based on aubio library</tr>
+            </par>
             <a href="https://aubio.org/">https://aubio.org</a>
         </info>
         <arguments>

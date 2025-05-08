@@ -25,7 +25,9 @@
             </also>
         </meta>
         <info>
-            <par>[ui.dt] is the alias for [ui.display @display_type 1]</par>
+            <par>
+                <tr lang="en">[ui.dt] is the alias for [ui.display @display_type 1]</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">copy the message value to the clipboard

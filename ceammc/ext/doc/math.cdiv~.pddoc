@@ -24,9 +24,13 @@
             </also>
         </meta>
         <info>
-            <par>Calculates for signals (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + ((bc - ad)
-            / (c^2 + d^2))i</par>
-            <par>If c + di = 0, outputs 0, as [/~] does</par>
+            <par>
+                <tr lang="en">Calculates for signals (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2)
+                + ((bc - ad) / (c^2 + d^2))i</tr>
+            </par>
+            <par>
+                <tr lang="en">If c + di = 0, outputs 0, as [/~] does</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

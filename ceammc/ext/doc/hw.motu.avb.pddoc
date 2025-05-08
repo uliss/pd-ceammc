@@ -17,7 +17,9 @@
             <since>0.9.5</since>
         </meta>
         <info>
-            <par>Only basic support at this moment</par>
+            <par>
+                <tr lang="en">Only basic support at this moment</tr>
+            </par>
         </info>
         <arguments>
             <argument name="DEV" type="symbol">

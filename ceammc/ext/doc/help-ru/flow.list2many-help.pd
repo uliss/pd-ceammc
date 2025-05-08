@@ -7,55 +7,54 @@
 #X obj 391 11 ceammc/list->many;
 #X obj 540 11 list->many;
 #X obj 638 11 flow.list2many;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 On incoming list (l⁰ l¹ ...) outputs to corresponding
-outlet message: [s⁰ l⁰( \, [s¹ l¹( etc...;
-#X obj 50 176 ui.sliders 3 @size 100 60;
-#X text 357 176 vanilla analogue;
-#X msg 357 205 1 2 3;
-#X obj 357 234 unpack f f f;
-#X obj 50 263 list->many @a @b @c;
-#X msg 357 263 @a \$1;
-#X msg 434 263 @b \$1;
-#X msg 510 263 @c \$1;
-#X obj 184 292 ui.dt;
-#X obj 357 292 ui.dt;
-#X obj 434 292 ui.dt;
-#X obj 510 292 ui.dt;
-#X obj 117 320 ui.dt;
-#X obj 50 349 ui.dt;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 ui.sliders 3 @size 100 60;
+#X text 357 146 vanilla analogue;
+#X msg 357 175 1 2 3;
+#X obj 357 204 unpack f f f;
+#X obj 50 233 list->many @a @b @c;
+#X msg 357 233 @a \$1;
+#X msg 434 233 @b \$1;
+#X msg 510 233 @c \$1;
+#X obj 184 262 ui.dt;
+#X obj 357 262 ui.dt;
+#X obj 434 262 ui.dt;
+#X obj 510 262 ui.dt;
+#X obj 117 290 ui.dt;
+#X obj 50 319 ui.dt;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 377 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 439 1\.;
-#X text 150 439 list;
-#X obj 246 440 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 SEL: list of selectors. Тип: list.;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 110 409 1\.;
+#X text 150 409 list;
+#X obj 246 410 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 409 SEL: list of selectors. Тип: list.;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 444 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 475 1\.;
-#X text 150 475 *list*;
-#X text 245 475 input list.;
-#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 510 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 445 1\.;
+#X text 150 445 *list*;
+#X text 245 445 input list.;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 511 1\.;
-#X text 245 511 first element with first selector.;
-#X text 110 531 ....;
-#X text 245 531 ... element with ... selector.;
-#X text 110 551 n.;
-#X text 245 551 nth element with nth selector.;
+#X text 110 481 1\.;
+#X text 245 481 first element with first selector.;
+#X text 110 501 ....;
+#X text 245 501 ... element with ... selector.;
+#X text 110 521 n.;
+#X text 245 521 nth element with nth selector.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 601 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 604 библиотека: ceammc v0.9.8;
-#N canvas 10 623 400 290 info 0;
+#X obj 1 571 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 574 библиотека: ceammc v0.9.8;
+#N canvas 10 593 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -79,7 +78,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 623 pd info;
+#X restore 10 593 pd info;
 #X connect 10 0 11 0;
 #X connect 8 0 12 0;
 #X connect 11 0 13 0;

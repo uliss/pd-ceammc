@@ -17,17 +17,39 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Ikeda attractor</par>
-            <par>z[n+1] = a + b*z[n]*exp(kj - pj/(1+|z[n]^2|))</par>
-            <par>where z is a complex number</par>
-            <par>real number formula by euler returns:</par>
-            <par>===</par>
-            <par>x[n+1] = a + k*(x0*cos(t[n])) - y0*sin(t[n]) )</par>
-            <par>y[n+1] = k*(x0*sin(t[n])) - y0*cos(t[n])</par>
-            <par>===</par>
-            <par>where t[n] = b - p/(1 + x[n]^2 + y[n]^2)</par>
-            <par>a = 0.85, b = 0.9, k = 0.4, p = 7.7</par>
-            <par>a = 1.0, b = 0.9, k = 0.4, p = 6.0</par>
+            <par>
+                <tr lang="en">Ikeda attractor</tr>
+            </par>
+            <par>
+                <tr lang="en">z[n+1] = a + b*z[n]*exp(kj - pj/(1+|z[n]^2|))</tr>
+            </par>
+            <par>
+                <tr lang="en">where z is a complex number</tr>
+            </par>
+            <par>
+                <tr lang="en">real number formula by euler returns:</tr>
+            </par>
+            <par>
+                <tr lang="en">===</tr>
+            </par>
+            <par>
+                <tr lang="en">x[n+1] = a + k*(x0*cos(t[n])) - y0*sin(t[n]) )</tr>
+            </par>
+            <par>
+                <tr lang="en">y[n+1] = k*(x0*sin(t[n])) - y0*cos(t[n])</tr>
+            </par>
+            <par>
+                <tr lang="en">===</tr>
+            </par>
+            <par>
+                <tr lang="en">where t[n] = b - p/(1 + x[n]^2 + y[n]^2)</tr>
+            </par>
+            <par>
+                <tr lang="en">a = 0.85, b = 0.9, k = 0.4, p = 7.7</tr>
+            </par>
+            <par>
+                <tr lang="en">a = 1.0, b = 0.9, k = 0.4, p = 6.0</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Ikeda_map">wiki: Ikeda map</a>
         </info>
         <arguments>

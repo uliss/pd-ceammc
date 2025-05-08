@@ -24,8 +24,10 @@
             </aliases>
         </meta>
         <info>
-            <par>It uses a strength parameter instead of the traditional ratio, in order to be able
-            to function as a hard limiter or overcompressor</par>
+            <par>
+                <tr lang="en">It uses a strength parameter instead of the traditional ratio, in
+                order to be able to function as a hard limiter or overcompressor</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
             compression</a>
         </info>

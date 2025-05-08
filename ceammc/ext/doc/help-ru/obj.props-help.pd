@@ -5,28 +5,27 @@
 #X obj 1 1 cnv 5 765 40 empty empty obj.props 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 obj.props;
-#X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 extract properties from object \, connected to second
-outlet;
-#X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 190 obj.props;
-#X obj 50 219 ui.dt;
-#X obj 338 219 flt.moog_vcf~;
-#X text 50 291 ...;
-#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 343 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 175 obj.props;
+#X obj 50 204 ui.dt;
+#X obj 338 204 flt.moog_vcf~;
+#X text 50 276 ...;
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 344 1\.;
-#X text 150 344 *bang*;
-#X text 245 344 output extracted properties to first outlet.;
-#X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 379 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 329 1\.;
+#X text 150 329 *bang*;
+#X text 245 329 output extracted properties to first outlet.;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 364 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 380 1\.;
-#X text 245 380 property output (data:dict).;
-#X text 110 400 2\.;
-#X text 245 400 connect to examined object.;
+#X text 110 365 1\.;
+#X text 245 365 property output (data:dict).;
+#X text 110 385 2\.;
+#X text 245 385 connect to examined object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

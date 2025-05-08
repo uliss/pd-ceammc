@@ -17,9 +17,15 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>try these parameters:</par>
-            <par>0.7 1.1 1.3</par>
-            <par>0.9 1. 1.6</par>
+            <par>
+                <tr lang="en">try these parameters:</tr>
+            </par>
+            <par>
+                <tr lang="en">0.7 1.1 1.3</tr>
+            </par>
+            <par>
+                <tr lang="en">0.9 1. 1.6</tr>
+            </par>
         </info>
         <arguments>
             <argument name="X" type="float">

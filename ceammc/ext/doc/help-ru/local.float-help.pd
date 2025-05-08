@@ -5,78 +5,76 @@
 #X obj 1 1 cnv 5 765 40 empty empty local.float 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 local.float;
-#X obj 205 78 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Defines named local float variable \, accessed by name
-and available only within its patch (canvas). Note: it is not accessible
-even from subpatch.;
-#X floatatom 50 191 5 0 0 0 - - -;
-#X msg 107 191 + 2 \, bang;
-#X msg 251 191 * 3 \, bang;
-#X msg 395 191 bang;
-#X msg 136 235 - 3 \, bang;
-#X msg 270 235 / 2 \, bang;
-#X obj 50 292 local.float f1;
-#X obj 395 292 local.float f1;
-#X floatatom 50 321 5 0 0 0 - - -;
-#X floatatom 395 321 5 0 0 0 - - -;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 358 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X floatatom 50 146 5 0 0 0 - - -;
+#X msg 107 146 + 2 \, bang;
+#X msg 251 146 * 3 \, bang;
+#X msg 395 146 bang;
+#X msg 136 190 - 3 \, bang;
+#X msg 270 190 / 2 \, bang;
+#X obj 50 247 local.float f1;
+#X obj 395 247 local.float f1;
+#X floatatom 50 276 5 0 0 0 - - -;
+#X floatatom 395 276 5 0 0 0 - - -;
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 316 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 393 1\.;
-#X text 150 393 symbol;
-#X obj 246 394 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 393 ID: object ID. Тип: symbol.;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 428 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 110 348 1\.;
+#X text 150 348 symbol;
+#X obj 246 349 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 348 ID: object ID. Тип: symbol.;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 383 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 386 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 463 @id;
-#X text 245 463 (при инициализации) Получить/Установить local variable
+#X msg 110 418 @id;
+#X text 245 418 (при инициализации) Получить/Установить local variable
 id. Тип: symbol. Значение по умолчанию: default.;
-#X msg 110 505 @value?;
-#X text 245 505 (только чтение) Получить current value. Тип: float.
+#X msg 110 460 @value?;
+#X text 245 460 (только чтение) Получить current value. Тип: float.
 Значение по умолчанию: 0\.;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 562 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 517 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 110 597 set;
-#X text 245 597 sets new value without output.;
-#X msg 110 625 *;
-#X text 245 625 multiply to \, no output.;
-#X msg 110 653 +;
-#X text 245 653 add to float \, no output.;
-#X msg 110 681 -;
-#X text 245 681 subtract from float \, no output.;
-#X msg 110 709 /;
-#X text 245 709 divide by \, no output.;
-#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 110 552 set;
+#X text 245 552 sets new value without output.;
+#X msg 110 580 *;
+#X text 245 580 multiply to \, no output.;
+#X msg 110 608 +;
+#X text 245 608 add to float \, no output.;
+#X msg 110 636 -;
+#X text 245 636 subtract from float \, no output.;
+#X msg 110 664 /;
+#X text 245 664 divide by \, no output.;
+#X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 707 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 753 1\.;
-#X text 150 753 *bang*;
-#X text 245 753 output value.;
-#X text 150 773 *float*;
-#X text 245 773 sets new value and outputs it ONLY at current object
+#X text 110 708 1\.;
+#X text 150 708 *bang*;
+#X text 245 708 output value.;
+#X text 150 728 *float*;
+#X text 245 728 sets new value and outputs it ONLY at current object
 outlet.;
-#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 808 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 763 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 809 1\.;
-#X text 245 809 float output.;
+#X text 110 764 1\.;
+#X text 245 764 float output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title local @url ceammc.local-help.pd;
-#X obj 1 859 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 862 библиотека: ceammc v0.9.8;
-#X text 466 874 смотрите также:;
-#X obj 587 874 local.int;
-#X obj 667 874 global.int;
-#N canvas 10 881 400 290 info 0;
+#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 817 библиотека: ceammc v0.9.8;
+#X text 466 829 смотрите также:;
+#X obj 587 829 local.int;
+#X obj 667 829 global.int;
+#N canvas 10 836 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 881 pd info;
+#X restore 10 836 pd info;
 #X connect 6 0 12 0;
 #X connect 7 0 12 0;
 #X connect 10 0 12 0;

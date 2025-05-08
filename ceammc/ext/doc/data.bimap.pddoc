@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <info>
-            <par>NOTE: all object inlets are 'hot'</par>
+            <par>
+                <tr lang="en">NOTE: all object inlets are 'hot'</tr>
+            </par>
         </info>
         <mouse>
             <event type="left-click" editmode="false">open data editor</event>

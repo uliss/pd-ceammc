@@ -20,7 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>Split filename to dirname and basename.</par>
+            <par>
+                <tr lang="en">Split filename to dirname and basename.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

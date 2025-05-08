@@ -22,8 +22,10 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>In linear space, the sequence starts at base^start (base to the power of start)
-            and ends with base^stop (see @endpoint).</par>
+            <par>
+                <tr lang="en">In linear space, the sequence starts at base^start (base to the power
+                of start) and ends with base^stop (see @endpoint).</tr>
+            </par>
         </info>
         <arguments>
             <argument name="START" type="float">

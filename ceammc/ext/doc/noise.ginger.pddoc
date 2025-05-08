@@ -20,9 +20,15 @@
             </also>
         </meta>
         <info>
-            <par>A non-interpolating generator based on the difference equations:</par>
-            <par>x(n+1) = 1 - y(n) + seed * |x(n)|</par>
-            <par>y(n+1) = x(n)</par>
+            <par>
+                <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+            </par>
+            <par>
+                <tr lang="en">x(n+1) = 1 - y(n) + seed * |x(n)|</tr>
+            </par>
+            <par>
+                <tr lang="en">y(n+1) = x(n)</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
         </info>
         <arguments>

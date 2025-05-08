@@ -22,9 +22,13 @@
             </also>
         </meta>
         <info>
-            <par>Rectangle matrix of toggles. Note: all matrix operations have following cell
-            address format - ROW COL.</par>
-            <par>On click outputs message with format [cell ROW COL VALUE(</par>
+            <par>
+                <tr lang="en">Rectangle matrix of toggles. Note: all matrix operations have
+                following cell address format - ROW COL.</tr>
+            </par>
+            <par>
+                <tr lang="en">On click outputs message with format [cell ROW COL VALUE(</tr>
+            </par>
         </info>
         <mouse>
             <event type="drag" editmode="false">toggle cells under cursor</event>

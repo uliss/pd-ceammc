@@ -7,70 +7,69 @@
 #X obj 389 11 ceammc/helmholtz~;
 #X obj 538 11 helmholtz~;
 #X obj 637 11 an.pitchtrack~;
-#X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Period-length detector using Philip McLeod's Specially
-Normalized AutoCorrelation function (SNAC);
-#X obj 50 176 adc~ 1;
-#X obj 174 176 ui.dsp~;
-#X obj 88 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 126 205 5 0 0 0 - - -;
-#X obj 50 234 gain~;
-#X obj 126 234 osc~ 440;
-#X obj 242 234 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
+#X obj 205 78 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X obj 50 146 adc~ 1;
+#X obj 174 146 ui.dsp~;
+#X obj 88 175 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 126 175 5 0 0 0 - - -;
+#X obj 50 204 gain~;
+#X obj 126 204 osc~ 440;
+#X obj 242 204 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
-#X obj 50 263 flow.mux~ 2;
-#X obj 50 292 an.pitchtrack~;
-#X floatatom 50 320 5 0 0 0 - - -;
-#X floatatom 117 320 5 0 0 0 - - -;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 233 flow.mux~ 2;
+#X obj 50 262 an.pitchtrack~;
+#X floatatom 50 290 5 0 0 0 - - -;
+#X floatatom 117 290 5 0 0 0 - - -;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 327 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 330 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
-#X text 110 392 1\.;
-#X text 150 392 int;
-#X obj 246 393 cnv 1 123 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 FRAMESIZE(samp): размер окна. Разрешённые значения:
+#X text 110 362 1\.;
+#X text 150 362 int;
+#X obj 246 363 cnv 1 123 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 362 FRAMESIZE(samp): размер окна. Разрешённые значения:
 128 \, 256 \, 512 \, 1024 \, 2048\. Тип: int.;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 442 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 445 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
-#X msg 110 477 @bias;
-#X text 245 477 Получить/Установить bias which favours small lags over
+#X msg 110 447 @bias;
+#X text 245 447 Получить/Установить bias which favours small lags over
 large lags in the period detection \, thereby avoiding low-octave jumps.
 Тип: float. Значение по умолчанию: 0.2\. Диапазон: 0\...1\.;
-#X msg 110 564 @fidthr;
-#X text 245 564 Получить/Установить минимальный порог качества \, чтобы
+#X msg 110 534 @fidthr;
+#X text 245 534 Получить/Установить минимальный порог качества \, чтобы
 сообщить об определенной высоте. Тип: float. Значение по умолчанию:
 0.95\. Диапазон: 0\...1\.;
-#X msg 110 621 @framesize;
-#X text 245 621 Получить/Установить размер окна. Тип: int. Единицы:
+#X msg 110 591 @framesize;
+#X text 245 591 Получить/Установить размер окна. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 1024\. Разрешённые значения: 128 \,
 256 \, 512 \, 1024 \, 2048\.;
-#X msg 110 678 @maxfreq;
-#X text 245 678 Получить/Установить максимальная отслеживаемая частота.
+#X msg 110 648 @maxfreq;
+#X text 245 648 Получить/Установить максимальная отслеживаемая частота.
 Тип: float. Единицы: 'Hz'. Значение по умолчанию: 1500\. Диапазон:
 10\...10000\.;
-#X msg 110 735 @overlap;
-#X text 245 735 Получить/Установить перекрытие окон при анализе. Тип:
+#X msg 110 705 @overlap;
+#X text 245 705 Получить/Установить перекрытие окон при анализе. Тип:
 int. Значение по умолчанию: 1\. Разрешённые значения: 1 \, 2 \, 4 \,
 8\.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 792 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 762 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 793 1\.;
-#X text 245 793 input signal.;
-#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 828 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 763 1\.;
+#X text 245 763 input signal.;
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 798 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 829 1\.;
-#X text 245 829 output signal.;
-#X text 110 849 2\.;
-#X text 245 849 output frequency in Hz.;
-#X text 110 869 3\.;
-#X text 245 869 track fidelity: a value between 0 and 1 \, indicating
+#X text 110 799 1\.;
+#X text 245 799 output signal.;
+#X text 110 819 2\.;
+#X text 245 819 output frequency in Hz.;
+#X text 110 839 3\.;
+#X text 245 839 track fidelity: a value between 0 and 1 \, indicating
 to which extent the input signal is periodic. A fidelity of ~0.95 can
 be considered to indicate a periodic signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -78,12 +77,12 @@ be considered to indicate a periodic signal.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 949 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 952 библиотека: ceammc v0.9.8;
-#X text 493 964 смотрите также:;
-#X obj 614 964 sigmund~;
-#X obj 688 964 fiddle~;
-#N canvas 10 971 400 290 info 0;
+#X obj 1 919 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 922 библиотека: ceammc v0.9.8;
+#X text 493 934 смотрите также:;
+#X obj 614 934 sigmund~;
+#X obj 688 934 fiddle~;
+#N canvas 10 941 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,7 +106,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 971 pd info;
+#X restore 10 941 pd info;
 #X connect 8 0 12 0;
 #X connect 10 0 12 1;
 #X connect 11 0 13 0;

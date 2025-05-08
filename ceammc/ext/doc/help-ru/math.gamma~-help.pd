@@ -5,36 +5,36 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.gamma~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 math.gamma~;
-#X obj 205 78 cnv 1 560 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Extension of factorial function to real numbers;
-#X text 215 108 For any positive integer n \, Γ(n) = (n−1)!;
-#X msg 50 186 bang;
-#X obj 50 215 plot.linspace~ -4 8 400;
-#X obj 50 244 math.gamma~;
-#X obj 50 273 ui.plot~ @xlabels 1 @ylabels 1 @ymin -20 @ymax 40 @size
+#X obj 205 78 cnv 1 560 30 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 83;
+#X text 215 93;
+#X msg 50 156 bang;
+#X obj 50 185 plot.linspace~ -4 8 400;
+#X obj 50 214 math.gamma~;
+#X obj 50 243 ui.plot~ @xlabels 1 @ylabels 1 @ymin -20 @ymax 40 @size
 400 170 @ymin_ticks 0;
-#X obj 50 460 ui.dsp~;
-#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 515 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 430 ui.dsp~;
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 516 1\.;
-#X text 245 516 input signal.;
-#X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 551 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 110 486 1\.;
+#X text 245 486 input signal.;
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 521 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 552 1\.;
-#X text 245 552 output signal.;
+#X text 110 522 1\.;
+#X text 245 522 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 602 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 605 библиотека: ceammc v0.9.8;
-#X text 443 617 смотрите также:;
-#X obj 564 617 math.gamma;
-#X obj 652 617 math.lgamma~;
-#N canvas 10 624 400 290 info 0;
+#X obj 1 572 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 575 библиотека: ceammc v0.9.8;
+#X text 443 587 смотрите также:;
+#X obj 564 587 math.gamma;
+#X obj 652 587 math.lgamma~;
+#N canvas 10 594 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -58,7 +58,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 624 pd info;
+#X restore 10 594 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;

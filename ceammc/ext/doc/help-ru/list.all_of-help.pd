@@ -6,47 +6,47 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.all_of 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 list.all_of;
-#X obj 205 93 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Note: also data.mlist;
-#X msg 50 176 1 10;
-#X msg 155 176 (1 3 5) \, bang;
-#X msg 203 205 1 10 2;
-#X obj 50 234 list.seq;
-#X obj 155 234 ml;
-#X obj 203 234 list.seq;
-#X obj 50 292 list.all_of;
-#X obj 242 292 is_odd;
-#X floatatom 50 320 5 0 0 0 - - -;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 205 93 cnv 1 560 20 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 98;
+#X msg 50 161 1 10;
+#X msg 155 161 (1 3 5) \, bang;
+#X msg 203 190 1 10 2;
+#X obj 50 219 list.seq;
+#X obj 155 219 ml;
+#X obj 203 219 list.seq;
+#X obj 50 277 list.all_of;
+#X obj 242 277 is_odd;
+#X floatatom 50 305 5 0 0 0 - - -;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 358 1\.;
-#X text 150 358 *list*;
-#X text 245 358 Input list.;
-#X text 150 378 *data*;
-#X text 245 378 Input mlist.;
-#X text 110 398 2\.;
-#X text 150 398 *float*;
-#X text 245 398 input value from predicate. "1" means accepted. "0"
+#X text 110 343 1\.;
+#X text 150 343 *list*;
+#X text 245 343 Input list.;
+#X text 150 363 *data*;
+#X text 245 363 Input mlist.;
+#X text 110 383 2\.;
+#X text 150 383 *float*;
+#X text 245 383 input value from predicate. "1" means accepted. "0"
 means reject. Диапазон: 0…1\.;
-#X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 448 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 433 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 110 449 1\.;
-#X text 245 449 1 - if predicate object returns true for all the elements
+#X text 110 434 1\.;
+#X text 245 434 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 484 2\.;
-#X text 245 484 atom to predicate.;
+#X text 110 469 2\.;
+#X text 245 469 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 534 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 537 библиотека: ceammc v0.9.8;
-#X text 532 549 смотрите также:;
-#X obj 653 549 list.none_of;
-#N canvas 10 556 400 290 info 0;
+#X obj 1 519 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 522 библиотека: ceammc v0.9.8;
+#X text 532 534 смотрите также:;
+#X obj 653 534 list.none_of;
+#N canvas 10 541 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -70,7 +70,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 556 pd info;
+#X restore 10 541 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;

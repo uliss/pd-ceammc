@@ -20,8 +20,13 @@
             </also>
         </meta>
         <info>
-            <par>First element of input list considered as delay time in milliseconds.</par>
-            <par>Other messages passed 'as is' immediately.</par>
+            <par>
+                <tr lang="en">First element of input list considered as delay time in
+                milliseconds.</tr>
+            </par>
+            <par>
+                <tr lang="en">Other messages passed 'as is' immediately.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

@@ -23,13 +23,25 @@
             </also>
         </meta>
         <info>
-            <par>Weights the circular harmonics signals depending on the ambisonic optimization. It
-            can be "basic" for no optimization, "maxre" or "inphase".</par>
-            <par>If no optimization mode is specified, the default mode will be inphase.</par>
-            <par>Maxre optimization is used when audience is confined to the center of the
-            circle.</par>
-            <par>Inphase optimization is used when the audience covers all the circle.</par>
-            <par>NB: This is theoretical, the best choice is to trust your ears.</par>
+            <par>
+                <tr lang="en">Weights the circular harmonics signals depending on the ambisonic
+                optimization. It can be "basic" for no optimization, "maxre" or "inphase".</tr>
+            </par>
+            <par>
+                <tr lang="en">If no optimization mode is specified, the default mode will be
+                inphase.</tr>
+            </par>
+            <par>
+                <tr lang="en">Maxre optimization is used when audience is confined to the center of
+                the circle.</tr>
+            </par>
+            <par>
+                <tr lang="en">Inphase optimization is used when the audience covers all the
+                circle.</tr>
+            </par>
+            <par>
+                <tr lang="en">NB: This is theoretical, the best choice is to trust your ears.</tr>
+            </par>
             <a href="hoa/hoa.3d.optim~-help.pd">CICM documentation</a>
         </info>
         <arguments>

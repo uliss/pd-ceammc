@@ -23,11 +23,19 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The ceil() function return the smallest integral value greater than or equal to
-            input value.</par>
-            <par>Special values:</par>
-            <par>ceil(+-0) returns +-0.</par>
-            <par>ceil(+-infinity) returns +-infinity.</par>
+            <par>
+                <tr lang="en">The ceil() function return the smallest integral value greater than
+                or equal to input value.</tr>
+            </par>
+            <par>
+                <tr lang="en">Special values:</tr>
+            </par>
+            <par>
+                <tr lang="en">ceil(+-0) returns +-0.</tr>
+            </par>
+            <par>
+                <tr lang="en">ceil(+-infinity) returns +-infinity.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

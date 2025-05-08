@@ -20,8 +20,10 @@
             </also>
         </meta>
         <info>
-            <par>Outputs float, symbol or list to matched outlet or to last outlet if no
-            match</par>
+            <par>
+                <tr lang="en">Outputs float, symbol or list to matched outlet or to last outlet if
+                no match</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARGS" type="list">

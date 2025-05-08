@@ -26,8 +26,10 @@
             </also>
         </meta>
         <info>
-            <par>hoa.out defines a message outlet for a patcher loaded by a hoa.process~
-            object.</par>
+            <par>
+                <tr lang="en">hoa.out defines a message outlet for a patcher loaded by a
+                hoa.process~ object.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="INDEX" type="int" minvalue="1">

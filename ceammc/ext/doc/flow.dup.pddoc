@@ -20,7 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>Output incoming message specified number of times</par>
+            <par>
+                <tr lang="en">Output incoming message specified number of times</tr>
+            </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="0">

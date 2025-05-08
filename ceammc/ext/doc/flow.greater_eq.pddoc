@@ -23,7 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>Numbers thar are *less* then last argument are passed to N+1 inlet</par>
+            <par>
+                <tr lang="en">Numbers thar are *less* then last argument are passed to N+1
+                inlet</tr>
+            </par>
         </info>
         <arguments>
             <argument name="VALUES" type="list">

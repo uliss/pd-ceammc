@@ -23,29 +23,56 @@
             </aliases>
         </meta>
         <info>
-            <par>A non-interpolating generator based on the difference equations:</par>
-            <par>x[n+1] = λ * x[n] * (1 - x[n])</par>
+            <par>
+                <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
+            </par>
+            <par>
+                <tr lang="en">x[n+1] = λ * x[n] * (1 - x[n])</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Logistic_map">wiki: Logistic map</a>
-            <par>By varying the parameter λ, the following behavior is observed:</par>
-            <par>• With λ between 0 and 1, the population will eventually die, independent of the
-            initial population</par>
-            <par>• With λ between 1 and 2, the population will quickly approach the value λ − 1/λ,
-            independent of the initial population</par>
-            <par>• With λ between 2 and 3, the population will also eventually approach the same
-            value λ − 1/λ, but first will fluctuate around that value for some time.</par>
-            <par>• With λ between 3 and 1 + √6 ≈ 3.44949, from almost all initial conditions the
-            population will approach permanent oscillations between two values. These two values
-            are dependent on λ.</par>
-            <par>• With λ between 3.44949 and 3.54409 (approximately), from almost all initial
-            conditions the population will approach permanent oscillations among four values.</par>
-            <par>• With λ increasing beyond 3.54409, from almost all initial conditions the
-            population will approach oscillations among 8 values, then 16, 32, etc.</par>
-            <par>• At λ ≈ 3.56995 is the onset of chaos, at the end of the period-doubling
-            cascade.</par>
-            <par>• Most values of r beyond 3.56995 exhibit chaotic behavior, but there are still
-            certain isolated ranges of r that show non-chaotic behavior.</par>
-            <par>Beyond λ = 4, almost all initial values eventually leave the interval [0,1] and
-            diverge.</par>
+            <par>
+                <tr lang="en">By varying the parameter λ, the following behavior is observed:</tr>
+            </par>
+            <par>
+                <tr lang="en">• With λ between 0 and 1, the population will eventually die,
+                independent of the initial population</tr>
+            </par>
+            <par>
+                <tr lang="en">• With λ between 1 and 2, the population will quickly approach the
+                value λ − 1/λ, independent of the initial population</tr>
+            </par>
+            <par>
+                <tr lang="en">• With λ between 2 and 3, the population will also eventually
+                approach the same value λ − 1/λ, but first will fluctuate around that value for
+                some time.</tr>
+            </par>
+            <par>
+                <tr lang="en">• With λ between 3 and 1 + √6 ≈ 3.44949, from almost all initial
+                conditions the population will approach permanent oscillations between two values.
+                These two values are dependent on λ.</tr>
+            </par>
+            <par>
+                <tr lang="en">• With λ between 3.44949 and 3.54409 (approximately), from almost all
+                initial conditions the population will approach permanent oscillations among four
+                values.</tr>
+            </par>
+            <par>
+                <tr lang="en">• With λ increasing beyond 3.54409, from almost all initial
+                conditions the population will approach oscillations among 8 values, then 16, 32,
+                etc.</tr>
+            </par>
+            <par>
+                <tr lang="en">• At λ ≈ 3.56995 is the onset of chaos, at the end of the
+                period-doubling cascade.</tr>
+            </par>
+            <par>
+                <tr lang="en">• Most values of r beyond 3.56995 exhibit chaotic behavior, but there
+                are still certain isolated ranges of r that show non-chaotic behavior.</tr>
+            </par>
+            <par>
+                <tr lang="en">Beyond λ = 4, almost all initial values eventually leave the interval
+                [0,1] and diverge.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="INIT" type="float">

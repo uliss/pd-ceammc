@@ -20,7 +20,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Performes these array operations in order: read, write, output</par>
+            <par>
+                <tr lang="en">Performes these array operations in order: read, write, output</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARRAY" type="symbol">

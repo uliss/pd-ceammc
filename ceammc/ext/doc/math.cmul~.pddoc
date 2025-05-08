@@ -24,7 +24,10 @@
             </also>
         </meta>
         <info>
-            <par>Calculates for signals (a + bi) * (c + di) = (ac - bd) + (ad + bc)i</par>
+            <par>
+                <tr lang="en">Calculates for signals (a + bi) * (c + di) = (ac - bd) + (ad +
+                bc)i</tr>
+            </par>
         </info>
         <inlets>
             <inlet type="audio">

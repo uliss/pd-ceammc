@@ -23,8 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>The library default normalization is SN3D and the numbering is ACN (cf tutorials).
-            The exchangers will always convert from or to the standard.</par>
+            <par>
+                <tr lang="en">The library default normalization is SN3D and the numbering is ACN
+                (cf tutorials). The exchangers will always convert from or to the standard.</tr>
+            </par>
             <a href="hoa/hoa.3d.exchanger~-help.pd">CICM documentation</a>
         </info>
         <arguments>

@@ -23,8 +23,11 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: difference between fx.echo~ and fx.delay~ is that echo passes original
-            signal with delayed repeats, but fx.delay~ passes only delayed repeats.</par>
+            <par>
+                <tr lang="en">Note: difference between fx.echo~ and fx.delay~ is that echo passes
+                original signal with delayed repeats, but fx.delay~ passes only delayed
+                repeats.</tr>
+            </par>
         </info>
         <arguments>
             <argument name="DELAY" type="float" minvalue="10" maxvalue="10000" units="millisecond">

@@ -21,8 +21,10 @@
             </aliases>
         </meta>
         <info>
-            <par>On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message: [s⁰ l⁰(, [s¹
-            l¹( etc...</par>
+            <par>
+                <tr lang="en">On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message:
+                [s⁰ l⁰(, [s¹ l¹( etc...</tr>
+            </par>
         </info>
         <arguments>
             <argument name="SEL" type="list">

@@ -17,7 +17,10 @@
             <since>0.9.2</since>
         </meta>
         <info>
-            <par>Data types, such as MList, are passed by reference, not by value.</par>
+            <par>
+                <tr lang="en">Data types, such as MList, are passed by reference, not by
+                value.</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

@@ -24,7 +24,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: db values &lt;= -144 are converted to 0</par>
+            <par>
+                <tr lang="en">Note: db values &lt;= -144 are converted to 0</tr>
+            </par>
         </info>
         <inlets>
             <inlet>

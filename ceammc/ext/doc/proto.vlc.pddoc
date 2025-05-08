@@ -17,7 +17,9 @@
             <since>0.9.5</since>
         </meta>
         <info>
-            <par>VLC video player control</par>
+            <par>
+                <tr lang="en">VLC video player control</tr>
+            </par>
             <a href="https://www.videolan.org/vlc">videolan.org</a>
         </info>
         <arguments>

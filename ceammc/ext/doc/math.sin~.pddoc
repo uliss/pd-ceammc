@@ -21,7 +21,9 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Computes the sine of input signal (in radians)</par>
+            <par>
+                <tr lang="en">Computes the sine of input signal (in radians)</tr>
+            </par>
             <a href="https://en.wikipedia.org/wiki/Sine">wiki: Sine</a>
         </info>
         <inlets>

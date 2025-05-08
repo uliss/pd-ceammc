@@ -23,7 +23,10 @@
             </also>
         </meta>
         <info>
-            <par>mostly syntax sugar for clear schemes, but can be used in dynamic pathing</par>
+            <par>
+                <tr lang="en">mostly syntax sugar for clear schemes, but can be used in dynamic
+                pathing</tr>
+            </par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="64">

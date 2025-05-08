@@ -23,13 +23,23 @@
             </also>
         </meta>
         <info>
-            <par>Match syntax:</par>
-            <par>common: symbols or floats</par>
-            <par>compare: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</par>
-            <par>intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or (FROM..TO]
-            semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in NUM+-EPSILON
-            range</par>
-            <par>set: A|B|C - match to A or B or C</par>
+            <par>
+                <tr lang="en">Match syntax:</tr>
+            </par>
+            <par>
+                <tr lang="en">common: symbols or floats</tr>
+            </par>
+            <par>
+                <tr lang="en">compare: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</tr>
+            </par>
+            <par>
+                <tr lang="en">intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or
+                (FROM..TO] semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in
+                NUM+-EPSILON range</tr>
+            </par>
+            <par>
+                <tr lang="en">set: A|B|C - match to A or B or C</tr>
+            </par>
         </info>
         <arguments>
             <argument name="ARGS" type="list">

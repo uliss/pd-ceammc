@@ -17,7 +17,9 @@
             <since>0.5</since>
         </meta>
         <info>
-            <par>Firmata basic protocol support.</par>
+            <par>
+                <tr lang="en">Firmata basic protocol support.</tr>
+            </par>
         </info>
         <methods>
             <!-- apin_mapping? -->
