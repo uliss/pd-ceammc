@@ -50,6 +50,7 @@
             <inlet type="audio">
                 <xinfo>
                     <tr lang="en">input signal</tr>
+                    <tr lang="ru">входной сигнал</tr>
                 </xinfo>
             </inlet>
         </inlets>

@@ -163,6 +163,7 @@
             <inlet>
                 <xinfo on="bang">
                     <tr lang="en">analyze array</tr>
+                    <tr lang="ru">анализировать массив</tr>
                 </xinfo>
             </inlet>
         </inlets>
