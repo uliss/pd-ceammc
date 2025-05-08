@@ -7,8 +7,8 @@
 #X obj 531 11 array.rw~;
 #X obj 623 11 array.readwrite~;
 #X obj 205 78 cnv 1 560 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Performes these array operations in order: read \, write
-\, output;
+#X text 215 83 Упорядоченное выполнение операций в следующем порядке:
+чтение \, запись \, вывод;
 #X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 165 176 msg.onload symbol %CEAMMC%/guitar1.wav;

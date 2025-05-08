@@ -64,7 +64,7 @@ blackman \, nuttall \, blackman-harris \, flattop \, gauss.;
 #X msg 110 894 rect;
 #X text 245 894 generate rectangular window.;
 #X msg 110 922 resize;
-#X text 245 922 resize specified array to given size. Arguments are:;
+#X text 245 922 resize array to given size. Arguments are:;
 #X obj 255 945 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 945 [N]: new size. Type: int. Min value: 0\.;
 #X msg 110 970 sine;

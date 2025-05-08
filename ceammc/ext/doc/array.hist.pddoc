@@ -25,6 +25,7 @@
         <info>
             <par>
                 <tr lang="en">Values outside of range @min...@max are ignored</tr>
+                <tr lang="ru">Значения вне диапазона @min...@max игнорируются</tr>
             </par>
         </info>
         <arguments>

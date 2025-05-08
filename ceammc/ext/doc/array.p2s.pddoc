@@ -26,6 +26,7 @@
         <info>
             <par>
                 <tr lang="en">this object allows to get relative access to array</tr>
+                <tr lang="ru">позволяет получить относительный доступ к массиву</tr>
             </par>
         </info>
         <arguments>

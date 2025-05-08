@@ -7,7 +7,7 @@
 #X obj 532 11 array.histogram;
 #X obj 667 11 array.hist;
 #X obj 205 78 cnv 1 560 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Values outside of range @min...@max are ignored;
+#X text 215 83 Значения вне диапазона @min...@max игнорируются;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ahist 512 float 0;
 #X coords 0 1 512 -1 330 100 1;

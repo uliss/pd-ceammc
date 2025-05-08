@@ -6,7 +6,7 @@
 0;
 #X obj 673 11 an.tempo~;
 #X obj 205 78 cnv 1 560 59 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 83 Tempo detector based on aubio library;
+#X text 215 83 Детектор темпа на основе библиотеки aubio;
 #X obj 215 108 ui.link @background_color 0.98039 0.98039 0.98039
 @title https://aubio.org @url https://aubio.org/;
 #X obj 50 185 loadmsg load sound/loop_breakbeat.flac to antmp @resize;

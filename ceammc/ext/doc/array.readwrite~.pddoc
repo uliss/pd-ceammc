@@ -22,6 +22,8 @@
         <info>
             <par>
                 <tr lang="en">Performes these array operations in order: read, write, output</tr>
+                <tr lang="ru">Упорядоченное выполнение операций в следующем порядке: чтение,
+                запись, вывод</tr>
             </par>
         </info>
         <arguments>

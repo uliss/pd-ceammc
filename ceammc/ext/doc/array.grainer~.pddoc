@@ -19,36 +19,47 @@
         <info>
             <par>
                 <tr lang="en">Grain properties:</tr>
+                <tr lang="ru">Свойства гранул:</tr>
             </par>
             <par>
                 <tr lang="en">@at - grain position in source array (in samples)</tr>
+                <tr lang="ru">@at - положение гранулы в исходном массиве (в семплах)</tr>
             </par>
             <par>
                 <tr lang="en">@l - grain length (in samples)</tr>
+                <tr lang="ru">@l - длина гранулы (в семплах)</tr>
             </par>
             <par>
                 <tr lang="en">@amp - grain amplitude in 0..256 range</tr>
+                <tr lang="ru">@amp - амплитуда гранулы в диапазоне 0..256</tr>
             </par>
             <par>
                 <tr lang="en">@s - grain speed in -10..10 range</tr>
+                <tr lang="ru">@s - скорость воспроизведения гранулы в диапазоне -10..10</tr>
             </par>
             <par>
                 <tr lang="en">@p - grain pan in 0..1 range</tr>
+                <tr lang="ru">@p - панорама гранулы в диапазоне 0,1</tr>
             </par>
             <par>
                 <tr lang="en">@w - grain window: rect, tri or hann</tr>
+                <tr lang="ru">@w - окно гранулы: прямоугольное, треугольное или Ханнинга</tr>
             </par>
             <par>
                 <tr lang="en">@tb - time before grain start (in samples)</tr>
+                <tr lang="ru">@tb - время перед началом гранулы (в семплах)</tr>
             </par>
             <par>
                 <tr lang="en">@ta - time after grain done (in samples)</tr>
+                <tr lang="ru">@ta - время после гранулы (в семплах)</tr>
             </par>
             <par>
                 <tr lang="en">@r - grain number of repeats (-1: infinite)</tr>
+                <tr lang="ru">@r - число повторов гранулы (-1: бесконечно)</tr>
             </par>
             <par>
                 <tr lang="en">@tag - grain tag</tr>
+                <tr lang="ru">@tag - метка гранулы</tr>
             </par>
         </info>
         <arguments>

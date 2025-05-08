@@ -7,9 +7,9 @@
 -4096 0;
 #X obj 645 11 array.stretch;
 #X obj 205 93 cnv 1 560 65 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 98 Based on SoundTouch library for changing the Tempo \,
-Pitch and Playback Rates of arrays. Copies time-stretched data from
-source to destination array;
+#X text 215 98 Основана на библиотеке SoundTouch для изменения темпа
+\, скорости воспроизведения массивов. Копирует растянутые во времени
+данные из исходного массива в массив назначения;
 #X obj 50 206 loadbang;
 #X msg 50 235 symbol voice.wav;
 #X msg 232 235 symbol bell.aiff;

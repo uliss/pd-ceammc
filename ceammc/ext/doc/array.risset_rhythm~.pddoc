@@ -19,6 +19,7 @@
         <info>
             <par>
                 <tr lang="en">not finished yet</tr>
+                <tr lang="ru" finished="false">еще не закончено</tr>
             </par>
         </info>
         <properties />

@@ -26,6 +26,8 @@
         <info>
             <par>
                 <tr lang="en">with this object you can get relative position in array</tr>
+                <tr lang="ru">с этим объектом вы можете получить относительное положение в
+                массиве</tr>
             </par>
         </info>
         <arguments>

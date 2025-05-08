@@ -111,9 +111,8 @@
             <!-- resize -->
             <method name="resize">
                 <info>
-                    <tr lang="en">resize specified array to given size</tr>
-                    <tr lang="ru" finished="false">изменить размер заданного массива на заданный
-                    размер</tr>
+                    <tr lang="en">resize array to given size</tr>
+                    <tr lang="ru">изменить размер массива на указанный</tr>
                 </info>
                 <param name="N" type="int" minvalue="0">
                     <tr lang="en">new size</tr>

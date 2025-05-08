@@ -113,7 +113,7 @@ float. Значение по умолчанию: 1\. Минимальное зн
 возобновляет воспроизведение. Тип: int. Разрешённые значения: 0 \,
 1\.;
 #X msg 110 1638 play;
-#X text 245 1638 start playback from current play position.;
+#X text 245 1638 начать воспроизведение с текущей позиции.;
 #X msg 110 1666 range;
 #X text 245 1666 set @begin and @end property. Аргументы:;
 #X obj 255 1689 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -125,7 +125,7 @@ float. Значение по умолчанию: 1\. Минимальное зн
 #X text 255 1772 END: конечная позиция. Тип значения \, аналогичный
 первому аргументу. Тип: atom.;
 #X msg 110 1812 stop;
-#X text 245 1812 stop playback and reset play position.;
+#X text 245 1812 остановить воспроизведение и сбросить текущую позицию.;
 #X obj 20 1850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

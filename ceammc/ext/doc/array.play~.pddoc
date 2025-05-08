@@ -150,8 +150,7 @@
             <method name="play">
                 <info>
                     <tr lang="en">start playback from current play position</tr>
-                    <tr lang="ru" finished="false">Начать воспроизведение с текущей игровой
-                    позиции</tr>
+                    <tr lang="ru">начать воспроизведение с текущей позиции</tr>
                 </info>
             </method>
             <!-- range -->
@@ -178,8 +177,7 @@
             <method name="stop">
                 <info>
                     <tr lang="en">stop playback and reset play position</tr>
-                    <tr lang="ru" finished="false">Остановка воспроизведения и сброс игровой
-                    позиции</tr>
+                    <tr lang="ru">остановить воспроизведение и сбросить текущую позицию</tr>
                 </info>
             </method>
         </methods>

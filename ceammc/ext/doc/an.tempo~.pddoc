@@ -19,6 +19,7 @@
         <info>
             <par>
                 <tr lang="en">Tempo detector based on aubio library</tr>
+                <tr lang="ru">Детектор темпа на основе библиотеки aubio</tr>
             </par>
             <a href="https://aubio.org/">https://aubio.org</a>
         </info>

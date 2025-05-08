@@ -20,6 +20,7 @@
         <info>
             <par>
                 <tr lang="en">Calculates BPM (Beats Per Minute) rate using SoundTouch library</tr>
+                <tr lang="ru">Расчет BPM (Beats Per Minute) с помощью библиотеки SoundTouch</tr>
             </par>
         </info>
         <arguments>
