@@ -68,15 +68,23 @@
         </properties>
         <methods>
             <!-- note -->
-            <method name="note">note on/off message 
-            <param name="NOTE" type="float" required="true">
-                <tr lang="en">midi note</tr>
-            </param>
-            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
-                <tr lang="en">velocity</tr>
-            </param></method>
+            <method name="note">
+                <info>
+                    <tr lang="en">note on/off message</tr>
+                </info>
+                <param name="NOTE" type="float" required="true">
+                    <tr lang="en">midi note</tr>
+                </param>
+                <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+                    <tr lang="en">velocity</tr>
+                </param>
+            </method>
             <!-- reset -->
-            <method name="reset">reset synth</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset synth</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

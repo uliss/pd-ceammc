@@ -44,7 +44,11 @@
         </properties>
         <methods>
             <!-- redraw -->
-            <method name="redraw">redraw array</method>
+            <method name="redraw">
+                <info>
+                    <tr lang="en">redraw array</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

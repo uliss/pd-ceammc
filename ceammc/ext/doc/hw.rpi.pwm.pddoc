@@ -91,46 +91,74 @@
         </properties>
         <methods>
             <!-- duty -->
-            <method name="duty">set duty cycle 
-            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">
-                <tr lang="en">duty cycle</tr>
-            </param></method>
+            <method name="duty">
+                <info>
+                    <tr lang="en">set duty cycle</tr>
+                </info>
+                <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">
+                    <tr lang="en">duty cycle</tr>
+                </param>
+            </method>
             <!-- enable -->
-            <method name="enable">enable PWM. By default it is disabled. 
-            <param name="ENABLE" type="bool" required="true">
-                <tr lang="en">value</tr>
-            </param></method>
+            <method name="enable">
+                <info>
+                    <tr lang="en">enable PWM. By default it is disabled.</tr>
+                </info>
+                <param name="ENABLE" type="bool" required="true">
+                    <tr lang="en">value</tr>
+                </param>
+            </method>
             <!-- freq -->
-            <method name="freq">set frequency 
-            <param name="FREQ" type="float" minvalue="0" units="hertz" required="true">
-                <tr lang="en">frequency</tr>
-            </param>
-            <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">
-                <tr lang="en">duty cycle</tr>
-            </param></method>
+            <method name="freq">
+                <info>
+                    <tr lang="en">set frequency</tr>
+                </info>
+                <param name="FREQ" type="float" minvalue="0" units="hertz" required="true">
+                    <tr lang="en">frequency</tr>
+                </param>
+                <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">
+                    <tr lang="en">duty cycle</tr>
+                </param>
+            </method>
             <!-- period -->
-            <method name="period">set period. Expected width&lt;=pulse. 
-            <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
-                <tr lang="en">the whole cycle period</tr>
-            </param></method>
+            <method name="period">
+                <info>
+                    <tr lang="en">set period. Expected width&lt;=pulse.</tr>
+                </info>
+                <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
+                    <tr lang="en">the whole cycle period</tr>
+                </param>
+            </method>
             <!-- polarity -->
-            <method name="polarity">set output polarity 
-            <param name="INVERTED" type="bool" required="true">
-                <tr lang="en">new value. If true: polarity is inverted</tr>
-            </param></method>
+            <method name="polarity">
+                <info>
+                    <tr lang="en">set output polarity</tr>
+                </info>
+                <param name="INVERTED" type="bool" required="true">
+                    <tr lang="en">new value. If true: polarity is inverted</tr>
+                </param>
+            </method>
             <!-- pwm -->
-            <method name="pwm">set period and pulse width. Expected width&lt;=pulse. 
-            <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
-                <tr lang="en">the whole cycle period</tr>
-            </param>
-            <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
-                <tr lang="en">pulse width</tr>
-            </param></method>
+            <method name="pwm">
+                <info>
+                    <tr lang="en">set period and pulse width. Expected width&lt;=pulse.</tr>
+                </info>
+                <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
+                    <tr lang="en">the whole cycle period</tr>
+                </param>
+                <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
+                    <tr lang="en">pulse width</tr>
+                </param>
+            </method>
             <!-- width -->
-            <method name="width">set pulse width. Expected width&lt;=pulse. 
-            <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
-                <tr lang="en">pulse width</tr>
-            </param></method>
+            <method name="width">
+                <info>
+                    <tr lang="en">set pulse width. Expected width&lt;=pulse.</tr>
+                </info>
+                <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
+                    <tr lang="en">pulse width</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

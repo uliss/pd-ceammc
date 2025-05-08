@@ -40,7 +40,11 @@
         </properties>
         <methods>
             <!-- dump -->
-            <method name="dump">dump internal object state to Pd console window</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">dump internal object state to Pd console window</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

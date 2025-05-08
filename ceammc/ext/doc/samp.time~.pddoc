@@ -26,12 +26,20 @@
         </arguments>
         <methods>
             <!-- reset -->
-            <method name="reset">reset sample counter to 0</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset sample counter to 0</tr>
+                </info>
+            </method>
             <!-- set -->
-            <method name="set">set current value 
-            <param name="VAL" type="float" default="0">
-                <tr lang="en">new counter value</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">set current value</tr>
+                </info>
+                <param name="VAL" type="float" default="0">
+                    <tr lang="en">new counter value</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

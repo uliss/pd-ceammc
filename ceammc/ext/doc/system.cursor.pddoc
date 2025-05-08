@@ -38,11 +38,15 @@
         </properties>
         <methods>
             <!-- polltime -->
-            <method name="polltime">sets global cursor polling time 
-            <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
-            required="true">
-                <tr lang="en">polling time</tr>
-            </param></method>
+            <method name="polltime">
+                <info>
+                    <tr lang="en">sets global cursor polling time</tr>
+                </info>
+                <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
+                required="true">
+                    <tr lang="en">polling time</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -55,7 +55,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset all scheduled delays</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset all scheduled delays</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

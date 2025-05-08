@@ -53,9 +53,17 @@
         </properties>
         <methods>
             <!-- close -->
-            <method name="close">disconnect from device</method>
+            <method name="close">
+                <info>
+                    <tr lang="en">disconnect from device</tr>
+                </info>
+            </method>
             <!-- open -->
-            <method name="open">connect to device</method>
+            <method name="open">
+                <info>
+                    <tr lang="en">connect to device</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

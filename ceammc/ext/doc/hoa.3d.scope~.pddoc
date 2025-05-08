@@ -125,15 +125,23 @@
         </properties>
         <methods>
             <!-- dump -->
-            <method name="dump">dumps all object info to Pd console window.</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">dumps all object info to Pd console window.</tr>
+                </info>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

@@ -41,13 +41,21 @@
         </properties>
         <methods>
             <!-- calibrate -->
-            <method name="calibrate">calibrate the sensor. Place it still so that the Z axis is
-            pointing down.</method>
+            <method name="calibrate">
+                <info>
+                    <tr lang="en">calibrate the sensor. Place it still so that the Z axis is
+                    pointing down.</tr>
+                </info>
+            </method>
             <!-- poll -->
-            <method name="poll">start/stop sensor polling 
-            <param name="VALUE" type="bool" required="true">
-                <tr lang="en">state</tr>
-            </param></method>
+            <method name="poll">
+                <info>
+                    <tr lang="en">start/stop sensor polling</tr>
+                </info>
+                <param name="VALUE" type="bool" required="true">
+                    <tr lang="en">state</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

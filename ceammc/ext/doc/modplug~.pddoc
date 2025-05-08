@@ -47,11 +47,23 @@
         </properties>
         <methods>
             <!-- pause -->
-            <method name="pause">pause playing</method>
+            <method name="pause">
+                <info>
+                    <tr lang="en">pause playing</tr>
+                </info>
+            </method>
             <!-- play -->
-            <method name="play">play mod file</method>
+            <method name="play">
+                <info>
+                    <tr lang="en">play mod file</tr>
+                </info>
+            </method>
             <!-- stop -->
-            <method name="stop">stop playing and move play position to the end of file</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop playing and move play position to the end of file</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

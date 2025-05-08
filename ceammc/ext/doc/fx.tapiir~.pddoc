@@ -398,27 +398,40 @@
         </properties>
         <methods>
             <!-- pingpong -->
-            <method name="pingpong">set pingpong delay values 
-            <param name="DELAY" type="float" units="millisecond" required="true">
-                <tr lang="en">delay time</tr>
-            </param>
-            <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">
-                <tr lang="en">feedback value</tr>
-            </param></method>
+            <method name="pingpong">
+                <info>
+                    <tr lang="en">set pingpong delay values</tr>
+                </info>
+                <param name="DELAY" type="float" units="millisecond" required="true">
+                    <tr lang="en">delay time</tr>
+                </param>
+                <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">
+                    <tr lang="en">feedback value</tr>
+                </param>
+            </method>
             <!-- random -->
-            <method name="random">randomize values 
-            <param name="TYPE" type="symbol" enum="delays fb inputs outputs gains" required="true">
-                <tr lang="en">group name. If 'delays' - randomize @delays properties, if 'fb' -
-                randomize @fb* properties.</tr>
-            </param>
-            <param name="MIN" type="float" minvalue="0">
-                <tr lang="en">minimal value</tr>
-            </param>
-            <param name="MAX" type="float" minvalue="0">
-                <tr lang="en">maximum value</tr>
-            </param></method>
+            <method name="random">
+                <info>
+                    <tr lang="en">randomize values</tr>
+                </info>
+                <param name="TYPE" type="symbol" enum="delays fb inputs outputs gains"
+                required="true">
+                    <tr lang="en">group name. If 'delays' - randomize @delays properties, if 'fb' -
+                    randomize @fb* properties.</tr>
+                </param>
+                <param name="MIN" type="float" minvalue="0">
+                    <tr lang="en">minimal value</tr>
+                </param>
+                <param name="MAX" type="float" minvalue="0">
+                    <tr lang="en">maximum value</tr>
+                </param>
+            </method>
             <!-- reset -->
-            <method name="reset">reset to initial state</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset to initial state</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

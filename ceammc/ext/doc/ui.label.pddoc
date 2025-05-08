@@ -94,19 +94,35 @@
         </properties>
         <methods>
             <!-- append -->
-            <method name="append">appends to @text end</method>
+            <method name="append">
+                <info>
+                    <tr lang="en">appends to @text end</tr>
+                </info>
+            </method>
             <!-- clear -->
-            <method name="clear">clear label text and clear @text property</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear label text and clear @text property</tr>
+                </info>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
             <!-- prepend -->
-            <method name="prepend">insert into beginning of @text</method>
+            <method name="prepend">
+                <info>
+                    <tr lang="en">insert into beginning of @text</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

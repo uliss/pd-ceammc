@@ -18,10 +18,18 @@
         </meta>
         <methods>
             <!-- cpu -->
-            <method name="cpu">request information about system cpus</method>
+            <method name="cpu">
+                <info>
+                    <tr lang="en">request information about system cpus</tr>
+                </info>
+            </method>
             <!-- temp -->
-            <method name="temp">request system temperature information. Output in format: temp
-            SENSOR_NAME VALUE</method>
+            <method name="temp">
+                <info>
+                    <tr lang="en">request system temperature information. Output in format: temp
+                    SENSOR_NAME VALUE</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

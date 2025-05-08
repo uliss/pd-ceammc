@@ -81,86 +81,158 @@
         </properties>
         <methods>
             <!-- + STEP -->
-            <method name="+ STEP">moves several steps forward on a loop (single mode only), output
-            newly selected item</method>
+            <method name="+ STEP">
+                <info>
+                    <tr lang="en">moves several steps forward on a loop (single mode only), output
+                    newly selected item</tr>
+                </info>
+            </method>
             <!-- - STEP -->
-            <method name="- STEP">moves several step backwards on a loop (single mode only), output
-            newly selected item</method>
+            <method name="- STEP">
+                <info>
+                    <tr lang="en">moves several step backwards on a loop (single mode only), output
+                    newly selected item</tr>
+                </info>
+            </method>
             <!-- append -->
-            <method name="append">appends new tab item 
-            <param name="ATOMS" type="list" required="true">
-                <tr lang="en">item name</tr>
-            </param></method>
+            <method name="append">
+                <info>
+                    <tr lang="en">appends new tab item</tr>
+                </info>
+                <param name="ATOMS" type="list" required="true">
+                    <tr lang="en">item name</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clears specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clears specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- delete -->
-            <method name="delete">removes item from tab 
-            <param name="IDX" type="int" minvalue="0" required="true">
-                <tr lang="en">removed item index</tr>
-            </param></method>
+            <method name="delete">
+                <info>
+                    <tr lang="en">removes item from tab</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" required="true">
+                    <tr lang="en">removed item index</tr>
+                </param>
+            </method>
             <!-- erase -->
-            <method name="erase">clears all tab menu</method>
+            <method name="erase">
+                <info>
+                    <tr lang="en">clears all tab menu</tr>
+                </info>
+            </method>
             <!-- flip -->
-            <method name="flip">flips radio (only in checklist mode)</method>
+            <method name="flip">
+                <info>
+                    <tr lang="en">flips radio (only in checklist mode)</tr>
+                </info>
+            </method>
             <!-- insert -->
-            <method name="insert">inserts new tab item before specified position 
-            <param name="IDX" type="int" minvalue="0" required="true">
-                <tr lang="en">item position</tr>
-            </param>
-            <param name="ATOM" type="atom" required="true">
-                <tr lang="en">item name</tr>
-            </param></method>
+            <method name="insert">
+                <info>
+                    <tr lang="en">inserts new tab item before specified position</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" required="true">
+                    <tr lang="en">item position</tr>
+                </param>
+                <param name="ATOM" type="atom" required="true">
+                    <tr lang="en">item name</tr>
+                </param>
+            </method>
             <!-- interp -->
-            <method name="interp">for this object acts as *load*, no preset interpolation
-            performed</method>
+            <method name="interp">
+                <info>
+                    <tr lang="en">for this object acts as *load*, no preset interpolation
+                    performed</tr>
+                </info>
+            </method>
             <!-- load -->
-            <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="load">
+                <info>
+                    <tr lang="en">loads specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- next -->
-            <method name="next">moves to next item until last item is reached (single mode only).
-            Output new item</method>
+            <method name="next">
+                <info>
+                    <tr lang="en">moves to next item until last item is reached (single mode only).
+                    Output new item</tr>
+                </info>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
             <!-- prev -->
-            <method name="prev">moves to previous item until first item is reached (single mode
-            only). Output new item</method>
+            <method name="prev">
+                <info>
+                    <tr lang="en">moves to previous item until first item is reached (single mode
+                    only). Output new item</tr>
+                </info>
+            </method>
             <!-- random -->
-            <method name="random">select random item. If called [random move( moves to random item
-            (excluding the current one)</method>
+            <method name="random">
+                <info>
+                    <tr lang="en">select random item. If called [random move( moves to random item
+                    (excluding the current one)</tr>
+                </info>
+            </method>
             <!-- select -->
-            <method name="select">selects specified item in tab 
-            <param name="IDX" type="int" minvalue="0" required="true">
-                <tr lang="en">item index</tr>
-            </param></method>
+            <method name="select">
+                <info>
+                    <tr lang="en">selects specified item in tab</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" required="true">
+                    <tr lang="en">item index</tr>
+                </param>
+            </method>
             <!-- set -->
-            <method name="set">silently sets tab state. 
-            <param name="IDX" type="int" minvalue="0" required="true">
-                <tr lang="en">item index</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">silently sets tab state.</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" required="true">
+                    <tr lang="en">item index</tr>
+                </param>
+            </method>
             <!-- set_item -->
-            <method name="set_item">renames tab item 
-            <param name="IDX" type="int" required="true" minvalue="0">
-                <tr lang="en">item index</tr>
-            </param>
-            <param name="ATOMS" type="list" required="true">
-                <tr lang="en">item name</tr>
-            </param></method>
+            <method name="set_item">
+                <info>
+                    <tr lang="en">renames tab item</tr>
+                </info>
+                <param name="IDX" type="int" required="true" minvalue="0">
+                    <tr lang="en">item index</tr>
+                </param>
+                <param name="ATOMS" type="list" required="true">
+                    <tr lang="en">item name</tr>
+                </param>
+            </method>
             <!-- store -->
-            <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="store">
+                <info>
+                    <tr lang="en">stores specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

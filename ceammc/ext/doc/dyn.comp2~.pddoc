@@ -94,12 +94,20 @@
         </properties>
         <methods>
             <!-- preset -->
-            <method name="preset">choose predefined preset 
-            <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
-                <tr lang="en">name</tr>
-            </param></method>
+            <method name="preset">
+                <info>
+                    <tr lang="en">choose predefined preset</tr>
+                </info>
+                <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
+                    <tr lang="en">name</tr>
+                </param>
+            </method>
             <!-- reset -->
-            <method name="reset">reset to initial state</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset to initial state</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

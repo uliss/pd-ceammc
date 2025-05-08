@@ -135,29 +135,47 @@
         </properties>
         <methods>
             <!-- pause -->
-            <method name="pause">pause/resume playback 
-            <param type="int" enum="0 1" default="1">
-                <tr lang="en">if true: pause, else resume playing</tr>
-                <tr lang="ru">если истинно: ставит на паузу, иначе возобновляет
-                воспроизведение</tr>
-            </param></method>
+            <method name="pause">
+                <info>
+                    <tr lang="en">pause/resume playback</tr>
+                </info>
+                <param type="int" enum="0 1" default="1">
+                    <tr lang="en">if true: pause, else resume playing</tr>
+                    <tr lang="ru">если истинно: ставит на паузу, иначе возобновляет
+                    воспроизведение</tr>
+                </param>
+            </method>
             <!-- play -->
-            <method name="play">start playback from current play position</method>
+            <method name="play">
+                <info>
+                    <tr lang="en">start playback from current play position</tr>
+                </info>
+            </method>
             <!-- range -->
-            <method name="range">set @begin and @end property 
-            <param name="BEGIN" type="atom" required="true">
-                <tr lang="en">begin position. If float value given: interpret as phase in [0..1]
-                range. Otherwise unit value expected. Examples: 10ms, 5%, 4sec, 20samp etc.</tr>
-                <tr lang="ru">начальная позиция. Если дано числовое значение: интерпретировать как
-                фазу в [0..1] диапазоне. В противном случае ожидается значение с единицами времени.
-                Примеры: 10ms, 5%, 4sec, 20samp и т.д.</tr>
-            </param>
-            <param name="END" type="atom" required="true">
-                <tr lang="en">end position. Value type same as for first argument</tr>
-                <tr lang="ru">конечная позиция. Тип значения, аналогичный первому аргументу</tr>
-            </param></method>
+            <method name="range">
+                <info>
+                    <tr lang="en">set @begin and @end property</tr>
+                </info>
+                <param name="BEGIN" type="atom" required="true">
+                    <tr lang="en">begin position. If float value given: interpret as phase in
+                    [0..1] range. Otherwise unit value expected. Examples: 10ms, 5%, 4sec, 20samp
+                    etc.</tr>
+                    <tr lang="ru">начальная позиция. Если дано числовое значение: интерпретировать
+                    как фазу в [0..1] диапазоне. В противном случае ожидается значение с единицами
+                    времени. Примеры: 10ms, 5%, 4sec, 20samp и т.д.</tr>
+                </param>
+                <param name="END" type="atom" required="true">
+                    <tr lang="en">end position. Value type same as for first argument</tr>
+                    <tr lang="ru">конечная позиция. Тип значения, аналогичный первому
+                    аргументу</tr>
+                </param>
+            </method>
             <!-- stop -->
-            <method name="stop">stop playback and reset play position</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop playback and reset play position</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

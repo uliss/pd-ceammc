@@ -82,9 +82,17 @@
         </properties>
         <methods>
             <!-- current -->
-            <method name="current">outputs current element</method>
+            <method name="current">
+                <info>
+                    <tr lang="en">outputs current element</tr>
+                </info>
+            </method>
             <!-- dump -->
-            <method name="dump">dump internal object state to Pd console window</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">dump internal object state to Pd console window</tr>
+                </info>
+            </method>
             <!-- next -->
             <method name="next">
                 <param name="STEP" type="int" default="1">
@@ -100,7 +108,11 @@
                 </param>
             </method>
             <!-- reset -->
-            <method name="reset">sets current position to 0</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">sets current position to 0</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

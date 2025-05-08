@@ -34,11 +34,23 @@
         </properties>
         <methods>
             <!-- append -->
-            <method name="append">append values to the end of string</method>
+            <method name="append">
+                <info>
+                    <tr lang="en">append values to the end of string</tr>
+                </info>
+            </method>
             <!-- clear -->
-            <method name="clear">clear string without output</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear string without output</tr>
+                </info>
+            </method>
             <!-- set -->
-            <method name="set">set string content without output</method>
+            <method name="set">
+                <info>
+                    <tr lang="en">set string content without output</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

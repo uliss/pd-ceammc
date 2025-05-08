@@ -48,31 +48,51 @@
         </properties>
         <methods>
             <!-- close -->
-            <method name="close">close MQTT connection</method>
+            <method name="close">
+                <info>
+                    <tr lang="en">close MQTT connection</tr>
+                </info>
+            </method>
             <!-- connect -->
-            <method name="connect">connect to websocket server 
-            <param name="URL" type="symbol" required="true">
-                <tr lang="en">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
-                tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 etc.</tr>
-            </param></method>
+            <method name="connect">
+                <info>
+                    <tr lang="en">connect to websocket server</tr>
+                </info>
+                <param name="URL" type="symbol" required="true">
+                    <tr lang="en">mqtt server url, for ex.: mqtt://127.0.0.1:9000,
+                    tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 etc.</tr>
+                </param>
+            </method>
             <!-- publish -->
-            <method name="publish">publish message to topic 
-            <param name="TOPIC" type="symbol" required="true">
-                <tr lang="en">topic</tr>
-            </param>
-            <param name="ARGS" type="list" required="false">
-                <tr lang="en">content</tr>
-            </param></method>
+            <method name="publish">
+                <info>
+                    <tr lang="en">publish message to topic</tr>
+                </info>
+                <param name="TOPIC" type="symbol" required="true">
+                    <tr lang="en">topic</tr>
+                </param>
+                <param name="ARGS" type="list" required="false">
+                    <tr lang="en">content</tr>
+                </param>
+            </method>
             <!-- subscribe -->
-            <method name="subscribe">subscribe to topic 
-            <param name="TOPIC" type="symbol" required="true">
-                <tr lang="en">topic</tr>
-            </param></method>
+            <method name="subscribe">
+                <info>
+                    <tr lang="en">subscribe to topic</tr>
+                </info>
+                <param name="TOPIC" type="symbol" required="true">
+                    <tr lang="en">topic</tr>
+                </param>
+            </method>
             <!-- unsubscribe -->
-            <method name="unsubscribe">unsubscribe from topic 
-            <param name="TOPIC" type="symbol" required="true">
-                <tr lang="en">topic</tr>
-            </param></method>
+            <method name="unsubscribe">
+                <info>
+                    <tr lang="en">unsubscribe from topic</tr>
+                </info>
+                <param name="TOPIC" type="symbol" required="true">
+                    <tr lang="en">topic</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

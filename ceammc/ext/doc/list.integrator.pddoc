@@ -60,7 +60,11 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">clear integrator state</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear integrator state</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

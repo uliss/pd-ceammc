@@ -44,9 +44,17 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset generator</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset generator</tr>
+                </info>
+            </method>
             <!-- start -->
-            <method name="start">start generator</method>
+            <method name="start">
+                <info>
+                    <tr lang="en">start generator</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

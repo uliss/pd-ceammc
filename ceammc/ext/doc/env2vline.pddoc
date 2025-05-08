@@ -42,11 +42,18 @@
         </properties>
         <methods>
             <!-- next -->
-            <method name="next">output segment until next stop-point or end of envelope is
-            reached</method>
+            <method name="next">
+                <info>
+                    <tr lang="en">output segment until next stop-point or end of envelope is
+                    reached</tr>
+                </info>
+            </method>
             <!-- reset -->
-            <method name="reset">reset current segment position for multi-segment
-            envelopes</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset current segment position for multi-segment envelopes</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

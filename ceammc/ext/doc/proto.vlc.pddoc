@@ -43,54 +43,114 @@
         </properties>
         <methods>
             <!-- add -->
-            <method name="add">add URI to playlist 
-            <param name="URI" type="symbol" required="true">
-                <tr lang="en">resource URI (file:// or http:// or camera://)</tr>
-            </param></method>
+            <method name="add">
+                <info>
+                    <tr lang="en">add URI to playlist</tr>
+                </info>
+                <param name="URI" type="symbol" required="true">
+                    <tr lang="en">resource URI (file:// or http:// or camera://)</tr>
+                </param>
+            </method>
             <!-- browse -->
-            <method name="browse">browse resource 
-            <param name="URI" type="symbol" required="true">
-                <tr lang="en">resource URI (file:///path)</tr>
-            </param></method>
+            <method name="browse">
+                <info>
+                    <tr lang="en">browse resource</tr>
+                </info>
+                <param name="URI" type="symbol" required="true">
+                    <tr lang="en">resource URI (file:///path)</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clear playlist</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear playlist</tr>
+                </info>
+            </method>
             <!-- delete -->
-            <method name="delete">delete item from playlist 
-            <param name="ID" type="int">
-                <tr lang="en">playlist entry id</tr>
-            </param></method>
+            <method name="delete">
+                <info>
+                    <tr lang="en">delete item from playlist</tr>
+                </info>
+                <param name="ID" type="int">
+                    <tr lang="en">playlist entry id</tr>
+                </param>
+            </method>
             <!-- fs -->
-            <method name="fs">toggle VLC fullscreen mode</method>
+            <method name="fs">
+                <info>
+                    <tr lang="en">toggle VLC fullscreen mode</tr>
+                </info>
+            </method>
             <!-- loop -->
-            <method name="loop">toggle loop</method>
+            <method name="loop">
+                <info>
+                    <tr lang="en">toggle loop</tr>
+                </info>
+            </method>
             <!-- next -->
-            <method name="next">go to the next entry on the playlist</method>
+            <method name="next">
+                <info>
+                    <tr lang="en">go to the next entry on the playlist</tr>
+                </info>
+            </method>
             <!-- pause -->
-            <method name="pause">pause/resume playback 
-            <param name="VAL" type="int" enum="0 1">
-                <tr lang="en">1 or omitted: pause, 0: resume</tr>
-            </param></method>
+            <method name="pause">
+                <info>
+                    <tr lang="en">pause/resume playback</tr>
+                </info>
+                <param name="VAL" type="int" enum="0 1">
+                    <tr lang="en">1 or omitted: pause, 0: resume</tr>
+                </param>
+            </method>
             <!-- play -->
-            <method name="play">start playback</method>
+            <method name="play">
+                <info>
+                    <tr lang="en">start playback</tr>
+                </info>
+            </method>
             <!-- playlist -->
-            <method name="playlist">request playlist. Output as dict to second outlet</method>
+            <method name="playlist">
+                <info>
+                    <tr lang="en">request playlist. Output as dict to second outlet</tr>
+                </info>
+            </method>
             <!-- prev -->
-            <method name="prev">go to the previous entry on the playlist</method>
+            <method name="prev">
+                <info>
+                    <tr lang="en">go to the previous entry on the playlist</tr>
+                </info>
+            </method>
             <!-- seek -->
-            <method name="seek">seek playback position 
-            <param name="TIME" type="atom" required="true">
-                <tr lang="en">absolute time position (int value in seconds or 00h:00m:00s) or
-                relative offset (+val, -val)</tr>
-            </param></method>
+            <method name="seek">
+                <info>
+                    <tr lang="en">seek playback position</tr>
+                </info>
+                <param name="TIME" type="atom" required="true">
+                    <tr lang="en">absolute time position (int value in seconds or 00h:00m:00s) or
+                    relative offset (+val, -val)</tr>
+                </param>
+            </method>
             <!-- status -->
-            <method name="status">request playback status. Output as dict to second outlet</method>
+            <method name="status">
+                <info>
+                    <tr lang="en">request playback status. Output as dict to second outlet</tr>
+                </info>
+            </method>
             <!-- stop -->
-            <method name="stop">stop playback</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop playback</tr>
+                </info>
+            </method>
             <!-- volume -->
-            <method name="volume">set playing volume 
-            <param name="VAL" type="atom" required="true">
-                <tr lang="en">absolute value in percent or relative change +VOL or -VOL</tr>
-            </param></method>
+            <method name="volume">
+                <info>
+                    <tr lang="en">set playing volume</tr>
+                </info>
+                <param name="VAL" type="atom" required="true">
+                    <tr lang="en">absolute value in percent or relative change +VOL or -VOL</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

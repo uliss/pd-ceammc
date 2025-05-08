@@ -57,59 +57,93 @@
         </properties>
         <methods>
             <!-- access auth -->
-            <method name="access auth">get application authorization code (valid ~24 hours) from
-            Freesound page: should open in web browser.</method>
+            <method name="access auth">
+                <info>
+                    <tr lang="en">get application authorization code (valid ~24 hours) from
+                    Freesound page: should open in web browser.</tr>
+                </info>
+            </method>
             <!-- access code -->
-            <method name="access code">exchange application authorization code to temp *access*
-            token that will be used for every request. Note: you can do it only once, otherwise you
-            need to get another application authorization code from Freesite site. 
-            <param name="CODE" type="symbol" required="true">
-                <tr lang="en">application auth code. Copy it from from Freesound webpage!</tr>
-            </param></method>
+            <method name="access code">
+                <info>
+                    <tr lang="en">exchange application authorization code to temp *access* token
+                    that will be used for every request. Note: you can do it only once, otherwise
+                    you need to get another application authorization code from Freesite site.</tr>
+                </info>
+                <param name="CODE" type="symbol" required="true">
+                    <tr lang="en">application auth code. Copy it from from Freesound webpage!</tr>
+                </param>
+            </method>
             <!-- access load -->
-            <method name="access load">load temp *access* token (not OAuth id/secret!) from the
-            special file from the current patch directory</method>
+            <method name="access load">
+                <info>
+                    <tr lang="en">load temp *access* token (not OAuth id/secret!) from the special
+                    file from the current patch directory</tr>
+                </info>
+            </method>
             <!-- access store -->
-            <method name="access store">store temp *access* token (not OAuth id/secret!) into the
-            special file in the current patch directory</method>
+            <method name="access store">
+                <info>
+                    <tr lang="en">store temp *access* token (not OAuth id/secret!) into the special
+                    file in the current patch directory</tr>
+                </info>
+            </method>
             <!-- download -->
-            <method name="download">download Freesound file 
-            <param name="ID" type="int" required="true">
-                <tr lang="en">Freesound soundfile ID (get it from search result, for examples)</tr>
-            </param></method>
+            <method name="download">
+                <info>
+                    <tr lang="en">download Freesound file</tr>
+                </info>
+                <param name="ID" type="int" required="true">
+                    <tr lang="en">Freesound soundfile ID (get it from search result, for
+                    examples)</tr>
+                </param>
+            </method>
             <!-- load -->
-            <method name="load">load Freesound file into Pd arrays 
-            <param name="ID" type="int" required="true">
-                <tr lang="en">Freesound soundfile ID (get it from search result, for examples)</tr>
-            </param>
-            <param name="@array" type="symbol" required="true">
-                <tr lang="en">array name</tr>
-            </param>
-            <param name="@norm" type="bool" required="false">
-                <tr lang="en">normalize sound</tr>
-            </param></method>
+            <method name="load">
+                <info>
+                    <tr lang="en">load Freesound file into Pd arrays</tr>
+                </info>
+                <param name="ID" type="int" required="true">
+                    <tr lang="en">Freesound soundfile ID (get it from search result, for
+                    examples)</tr>
+                </param>
+                <param name="@array" type="symbol" required="true">
+                    <tr lang="en">array name</tr>
+                </param>
+                <param name="@norm" type="bool" required="false">
+                    <tr lang="en">normalize sound</tr>
+                </param>
+            </method>
             <!-- me -->
-            <method name="me">get and output user information</method>
+            <method name="me">
+                <info>
+                    <tr lang="en">get and output user information</tr>
+                </info>
+            </method>
             <!-- search -->
-            <method name="search">perform search 
-            <param name="@p" type="int" required="false" minvalue="1">
-                <tr lang="en">search page number</tr>
-            </param>
-            <param name="@n" type="int" required="false" minvalue="1">
-                <tr lang="en">number of results</tr>
-            </param>
-            <param name="@fields" type="symbol" required="false">
-                <tr lang="en">requested fields</tr>
-            </param>
-            <param name="@sort" type="symbol" required="false">
-                <tr lang="en">sort methods: "score", "duration_desc", "duration_asc",
-                "created_desc", "created_asc", "downloads_desc", "downloads_asc", "rating_desc",
-                "rating_asc"</tr>
-            </param>
-            <param name="@filter" type="symbol" required="false">
-                <tr lang="en">filter expression, for example: @filter type mp3. See
-                https://freesound.org/docs/api/resources_apiv2.html</tr>
-            </param></method>
+            <method name="search">
+                <info>
+                    <tr lang="en">perform search</tr>
+                </info>
+                <param name="@p" type="int" required="false" minvalue="1">
+                    <tr lang="en">search page number</tr>
+                </param>
+                <param name="@n" type="int" required="false" minvalue="1">
+                    <tr lang="en">number of results</tr>
+                </param>
+                <param name="@fields" type="symbol" required="false">
+                    <tr lang="en">requested fields</tr>
+                </param>
+                <param name="@sort" type="symbol" required="false">
+                    <tr lang="en">sort methods: "score", "duration_desc", "duration_asc",
+                    "created_desc", "created_asc", "downloads_desc", "downloads_asc",
+                    "rating_desc", "rating_asc"</tr>
+                </param>
+                <param name="@filter" type="symbol" required="false">
+                    <tr lang="en">filter expression, for example: @filter type mp3. See
+                    https://freesound.org/docs/api/resources_apiv2.html</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

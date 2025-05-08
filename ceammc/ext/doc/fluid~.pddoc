@@ -103,239 +103,382 @@
         </properties>
         <methods>
             <!-- aftertouch -->
-            <method name="aftertouch">aftertouch channel pressure 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, ignored</tr>
-            </param>
-            <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
-                <tr lang="en">MIDI velocity</tr>
-            </param></method>
+            <method name="aftertouch">
+                <info>
+                    <tr lang="en">aftertouch channel pressure</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, ignored</tr>
+                </param>
+                <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
+                    <tr lang="en">MIDI velocity</tr>
+                </param>
+            </method>
             <!-- bank -->
-            <method name="bank">select instrument bank number on a MIDI channel, but doesn't change
-            instrument, it should be done with after that with *prog* message. 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="BANK" type="int" required="true" minvalue="0" maxvalue="16383">
-                <tr lang="en">instrument bank number</tr>
-            </param></method>
+            <method name="bank">
+                <info>
+                    <tr lang="en">select instrument bank number on a MIDI channel, but doesn't
+                    change instrument, it should be done with after that with *prog* message.</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="BANK" type="int" required="true" minvalue="0" maxvalue="16383">
+                    <tr lang="en">instrument bank number</tr>
+                </param>
+            </method>
             <!-- bend -->
-            <method name="bend">pitchband change 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="VALUE" type="int" required="true" minvalue="0" maxvalue="16383">
-                <tr lang="en">value in 0..0x3fff range, with 0x2000 center.</tr>
-            </param></method>
+            <method name="bend">
+                <info>
+                    <tr lang="en">pitchband change</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="VALUE" type="int" required="true" minvalue="0" maxvalue="16383">
+                    <tr lang="en">value in 0..0x3fff range, with 0x2000 center.</tr>
+                </param>
+            </method>
             <!-- bend:f -->
-            <method name="bend:f">pitchband change 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="VALUE" type="float" required="true" minvalue="-1" maxvalue="1">
-                <tr lang="en">value in -1..+1 range, with 0 center.</tr>
-            </param></method>
+            <method name="bend:f">
+                <info>
+                    <tr lang="en">pitchband change</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="VALUE" type="float" required="true" minvalue="-1" maxvalue="1">
+                    <tr lang="en">value in -1..+1 range, with 0 center.</tr>
+                </param>
+            </method>
             <!-- bend:i -->
-            <method name="bend:i">pitchband change 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="VALUE" type="int" required="true" minvalue="-8192" maxvalue="8191">
-                <tr lang="en">value in -0x2000..0x1fff range, with 0 center.</tr>
-            </param></method>
+            <method name="bend:i">
+                <info>
+                    <tr lang="en">pitchband change</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="VALUE" type="int" required="true" minvalue="-8192" maxvalue="8191">
+                    <tr lang="en">value in -0x2000..0x1fff range, with 0 center.</tr>
+                </param>
+            </method>
             <!-- bendsens -->
-            <method name="bendsens">set pitchbend sensitivity 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="RANGE" type="int" units="semitone" minvalue="0" maxvalue="64"
-            required="true">
-                <tr lang="en">semitones sensitivity</tr>
-            </param></method>
+            <method name="bendsens">
+                <info>
+                    <tr lang="en">set pitchbend sensitivity</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="RANGE" type="int" units="semitone" minvalue="0" maxvalue="64"
+                required="true">
+                    <tr lang="en">semitones sensitivity</tr>
+                </param>
+            </method>
             <!-- cc -->
-            <method name="cc">control change 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted set on all channel</tr>
-            </param>
-            <param name="CC" type="int" required="true" minvalue="0" maxvalue="127">
-                <tr lang="en">MIDI control number</tr>
-            </param>
-            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="127">
-                <tr lang="en">MIDI control value</tr>
-            </param></method>
+            <method name="cc">
+                <info>
+                    <tr lang="en">control change</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted set on all channel</tr>
+                </param>
+                <param name="CC" type="int" required="true" minvalue="0" maxvalue="127">
+                    <tr lang="en">MIDI control number</tr>
+                </param>
+                <param name="VAL" type="int" required="true" minvalue="0" maxvalue="127">
+                    <tr lang="en">MIDI control value</tr>
+                </param>
+            </method>
             <!-- gen -->
-            <method name="gen">set a SoundFont generator (effect) value on the MIDI channel in
-            real-time (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
+            <method name="gen">
+                <info>
+                    <tr lang="en">set a SoundFont generator (effect) value on the MIDI channel in
+                    real-time (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</tr>
+                </info>
+            </method>
             <!-- hold -->
-            <method name="hold">hold (sustain, right) pedal, ignore note release when active,
-            release all notes when set to off. 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="true">
-                <tr lang="en">MIDI channel, if zero or omitted sustain all channels</tr>
-            </param>
-            <param name="VAL" type="int" enum="0 1" required="true">
-                <tr lang="en">pedal state</tr>
-            </param></method>
+            <method name="hold">
+                <info>
+                    <tr lang="en">hold (sustain, right) pedal, ignore note release when active,
+                    release all notes when set to off.</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
+                required="true">
+                    <tr lang="en">MIDI channel, if zero or omitted sustain all channels</tr>
+                </param>
+                <param name="VAL" type="int" enum="0 1" required="true">
+                    <tr lang="en">pedal state</tr>
+                </param>
+            </method>
             <!-- legato -->
-            <method name="legato">enable or disable legato/smooth transitions between consecutive
-            notes 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
-            </param>
-            <param name="VAL" type="int" enum="0 1" required="true">
-                <tr lang="en">pedal state</tr>
-            </param></method>
+            <method name="legato">
+                <info>
+                    <tr lang="en">enable or disable legato/smooth transitions between consecutive
+                    notes</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+                    <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
+                </param>
+                <param name="VAL" type="int" enum="0 1" required="true">
+                    <tr lang="en">pedal state</tr>
+                </param>
+            </method>
             <!-- midi -->
-            <method name="midi">send raw midi message to synth 
-            <param name="BYTES" type="list" required="true">
-                <tr lang="en">list of bytes</tr>
-            </param></method>
+            <method name="midi">
+                <info>
+                    <tr lang="en">send raw midi message to synth</tr>
+                </info>
+                <param name="BYTES" type="list" required="true">
+                    <tr lang="en">list of bytes</tr>
+                </param>
+            </method>
             <!-- note -->
-            <method name="note">play note 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted play on first(!) channel</tr>
-            </param>
-            <param name="NOTE" type="int" required="true" minvalue="0" maxvalue="127">
-                <tr lang="en">MIDI note</tr>
-            </param>
-            <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
-                <tr lang="en">MIDI velocity</tr>
-            </param></method>
+            <method name="note">
+                <info>
+                    <tr lang="en">play note</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted play on first(!) channel</tr>
+                </param>
+                <param name="NOTE" type="int" required="true" minvalue="0" maxvalue="127">
+                    <tr lang="en">MIDI note</tr>
+                </param>
+                <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
+                    <tr lang="en">MIDI velocity</tr>
+                </param>
+            </method>
             <!-- notes_off -->
-            <method name="notes_off">turn off all notes on a MIDI channel (put them into release
-            phase) 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or not specified turn notes on all
-                channels</tr>
-            </param></method>
+            <method name="notes_off">
+                <info>
+                    <tr lang="en">turn off all notes on a MIDI channel (put them into release
+                    phase)</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or not specified turn notes on all
+                    channels</tr>
+                </param>
+            </method>
             <!-- pan -->
-            <method name="pan">set channel panning 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="false">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="PAN" type="float" minvalue="0" maxvalue="16383" required="true">
-                <tr lang="en">pan value, 0: left, 8192(0x2000): center, 16383(0x3fff): right</tr>
-            </param></method>
+            <method name="pan">
+                <info>
+                    <tr lang="en">set channel panning</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
+                required="false">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="PAN" type="float" minvalue="0" maxvalue="16383" required="true">
+                    <tr lang="en">pan value, 0: left, 8192(0x2000): center, 16383(0x3fff):
+                    right</tr>
+                </param>
+            </method>
             <!-- pan:f -->
-            <method name="pan:f">set channel panning 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="false">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">
-                <tr lang="en">pan value, -1: left, 0: center, 1): right</tr>
-            </param></method>
+            <method name="pan:f">
+                <info>
+                    <tr lang="en">set channel panning</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
+                required="false">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">
+                    <tr lang="en">pan value, -1: left, 0: center, 1): right</tr>
+                </param>
+            </method>
             <!-- pan:i -->
-            <method name="pan:i">set channel panning 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="false">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="PAN" type="float" minvalue="-8192" maxvalue="8191" required="true">
-                <tr lang="en">pan value, -8192(-0x2000): left, 0: center, 8191(0x1fff): right</tr>
-            </param></method>
+            <method name="pan:i">
+                <info>
+                    <tr lang="en">set channel panning</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0"
+                required="false">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="PAN" type="float" minvalue="-8192" maxvalue="8191" required="true">
+                    <tr lang="en">pan value, -8192(-0x2000): left, 0: center, 8191(0x1fff):
+                    right</tr>
+                </param>
+            </method>
             <!-- panic -->
-            <method name="panic">send MIDI system reset command (big red 'panic' button), turns off
-            notes, resets controllers and restores initial basic channel configuration</method>
+            <method name="panic">
+                <info>
+                    <tr lang="en">send MIDI system reset command (big red 'panic' button), turns
+                    off notes, resets controllers and restores initial basic channel
+                    configuration</tr>
+                </info>
+            </method>
             <!-- polytouch -->
-            <method name="polytouch">polytouch key pressure 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, ignored</tr>
-            </param>
-            <param name="NOTE" type="int" required="true" minvalue="0" maxvalue="127">
-                <tr lang="en">MIDI note</tr>
-            </param>
-            <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
-                <tr lang="en">MIDI velocity</tr>
-            </param></method>
+            <method name="polytouch">
+                <info>
+                    <tr lang="en">polytouch key pressure</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, ignored</tr>
+                </param>
+                <param name="NOTE" type="int" required="true" minvalue="0" maxvalue="127">
+                    <tr lang="en">MIDI note</tr>
+                </param>
+                <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">
+                    <tr lang="en">MIDI velocity</tr>
+                </param>
+            </method>
             <!-- prog -->
-            <method name="prog">program change 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
-            </param>
-            <param name="PGM" type="int" required="true" minvalue="0" maxvalue="16383">
-                <tr lang="en">program number</tr>
-            </param></method>
+            <method name="prog">
+                <info>
+                    <tr lang="en">program change</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or omitted set for all channels</tr>
+                </param>
+                <param name="PGM" type="int" required="true" minvalue="0" maxvalue="16383">
+                    <tr lang="en">program number</tr>
+                </param>
+            </method>
             <!-- reset -->
-            <method name="reset">reset synth channels 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or not specified reset all channels</tr>
-            </param></method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset synth channels</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or not specified reset all channels</tr>
+                </param>
+            </method>
             <!-- set_preset -->
-            <method name="set_preset">set soundfont preset for midi channel 
-            <param name="CHAN" type="int" minvalue="1" maxvalue="16" required="true">
-                <tr lang="en">MIDI channel</tr>
-            </param>
-            <param name="PRESET" type="atom" required="true">
-                <tr lang="en">preset name or index</tr>
-            </param>
-            <param name="SFONT" type="int" minvalue="1" required="false">
-                <tr lang="en">soundfont index. See @soundfonts property.</tr>
-            </param></method>
+            <method name="set_preset">
+                <info>
+                    <tr lang="en">set soundfont preset for midi channel</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="1" maxvalue="16" required="true">
+                    <tr lang="en">MIDI channel</tr>
+                </param>
+                <param name="PRESET" type="atom" required="true">
+                    <tr lang="en">preset name or index</tr>
+                </param>
+                <param name="SFONT" type="int" minvalue="1" required="false">
+                    <tr lang="en">soundfont index. See @soundfonts property.</tr>
+                </param>
+            </method>
             <!-- soft -->
-            <method name="soft">soft (left) pedal, activate the soft strike effect 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
-            </param>
-            <param name="VAL" type="int" enum="0 1" required="true">
-                <tr lang="en">pedal state</tr>
-            </param></method>
+            <method name="soft">
+                <info>
+                    <tr lang="en">soft (left) pedal, activate the soft strike effect</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+                    <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
+                </param>
+                <param name="VAL" type="int" enum="0 1" required="true">
+                    <tr lang="en">pedal state</tr>
+                </param>
+            </method>
             <!-- sostenuto -->
-            <method name="sostenuto">sostenuto (middle) pedal, hold notes pressed before pedal
-            activation, new notes are passed untouched. Release holded notes when set to off 
-            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
-                <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
-            </param>
-            <param name="VAL" type="int" enum="0 1" required="true">
-                <tr lang="en">pedal state</tr>
-            </param></method>
+            <method name="sostenuto">
+                <info>
+                    <tr lang="en">sostenuto (middle) pedal, hold notes pressed before pedal
+                    activation, new notes are passed untouched. Release holded notes when set to
+                    off</tr>
+                </info>
+                <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
+                    <tr lang="en">MIDI channel, if zero or omitted apply to all channels</tr>
+                </param>
+                <param name="VAL" type="int" enum="0 1" required="true">
+                    <tr lang="en">pedal state</tr>
+                </param>
+            </method>
             <!-- sound_off -->
-            <method name="sound_off">immediately stop all notes (skips release phase). 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or not specified stop notes on all
-                channels</tr>
-            </param></method>
+            <method name="sound_off">
+                <info>
+                    <tr lang="en">immediately stop all notes (skips release phase).</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or not specified stop notes on all
+                    channels</tr>
+                </param>
+            </method>
             <!-- sysex -->
-            <method name="sysex">accept SYSEX message 
-            <param name="BYTES" type="list" required="true">
-                <tr lang="en">list of bytes</tr>
-            </param></method>
+            <method name="sysex">
+                <info>
+                    <tr lang="en">accept SYSEX message</tr>
+                </info>
+                <param name="BYTES" type="list" required="true">
+                    <tr lang="en">list of bytes</tr>
+                </param>
+            </method>
             <!-- tune. -->
-            <method name="tune.">set fine tuning in cents, see tune:s</method>
+            <method name="tune.">
+                <info>
+                    <tr lang="en">set fine tuning in cents, see tune:s</tr>
+                </info>
+            </method>
             <!-- tune:12 -->
-            <method name="tune:12">set and activate octave tuning program in cents deviations 
-            <param name="BANK" type="int" required="true" minvalue="1" maxvalue="256">
-                <tr lang="en">tuning bank (not related to MIDI instrument bank)</tr>
-            </param>
-            <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">
-                <tr lang="en">tuning preset (not related to MIDI instrument program)</tr>
-            </param>
-            <param name="TUNES" type="list" required="true">
-                <tr lang="en">list of scale deviations from 12TET in cents</tr>
-            </param></method>
+            <method name="tune:12">
+                <info>
+                    <tr lang="en">set and activate octave tuning program in cents deviations</tr>
+                </info>
+                <param name="BANK" type="int" required="true" minvalue="1" maxvalue="256">
+                    <tr lang="en">tuning bank (not related to MIDI instrument bank)</tr>
+                </param>
+                <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">
+                    <tr lang="en">tuning preset (not related to MIDI instrument program)</tr>
+                </param>
+                <param name="TUNES" type="list" required="true">
+                    <tr lang="en">list of scale deviations from 12TET in cents</tr>
+                </param>
+            </method>
             <!-- tune:c -->
-            <method name="tune:c">set fine tuning in cents 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or not specified apply tuning to all
-                channels</tr>
-            </param>
-            <param name="CENTS" type="float" required="true" minvalue="-100" maxvalue="100">
-                <tr lang="en">cents (float) tuning</tr>
-            </param></method>
+            <method name="tune:c">
+                <info>
+                    <tr lang="en">set fine tuning in cents</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or not specified apply tuning to all
+                    channels</tr>
+                </param>
+                <param name="CENTS" type="float" required="true" minvalue="-100" maxvalue="100">
+                    <tr lang="en">cents (float) tuning</tr>
+                </param>
+            </method>
             <!-- tune:s -->
-            <method name="tune:s">set tuning in semitones 
-            <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
-                <tr lang="en">MIDI channel, if zero or not specified apply tuning to all
-                channels</tr>
-            </param>
-            <param name="SEMI" type="float" required="true" minvalue="-64" maxvalue="63">
-                <tr lang="en">semitones (float) tuning</tr>
-            </param></method>
+            <method name="tune:s">
+                <info>
+                    <tr lang="en">set tuning in semitones</tr>
+                </info>
+                <param name="CHAN" type="int" required="false" default="0" minvalue="0"
+                maxvalue="16">
+                    <tr lang="en">MIDI channel, if zero or not specified apply tuning to all
+                    channels</tr>
+                </param>
+                <param name="SEMI" type="float" required="true" minvalue="-64" maxvalue="63">
+                    <tr lang="en">semitones (float) tuning</tr>
+                </param>
+            </method>
             <!-- tunesel -->
-            <method name="tunesel">select tuning bank and preset 
-            <param name="BANK" type="int" required="true" minvalue="1" maxvalue="256">
-                <tr lang="en">tuning bank (not related to MIDI instrument bank)</tr>
-            </param>
-            <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">
-                <tr lang="en">tuning preset (not related to MIDI instrument program)</tr>
-            </param></method>
+            <method name="tunesel">
+                <info>
+                    <tr lang="en">select tuning bank and preset</tr>
+                </info>
+                <param name="BANK" type="int" required="true" minvalue="1" maxvalue="256">
+                    <tr lang="en">tuning bank (not related to MIDI instrument bank)</tr>
+                </param>
+                <param name="PRESET" type="int" required="true" minvalue="1" maxvalue="256">
+                    <tr lang="en">tuning preset (not related to MIDI instrument program)</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

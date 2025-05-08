@@ -37,7 +37,11 @@
         </arguments>
         <methods>
             <!-- default -->
-            <method name="default">reset to default value and output</method>
+            <method name="default">
+                <info>
+                    <tr lang="en">reset to default value and output</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

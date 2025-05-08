@@ -37,13 +37,29 @@
         </properties>
         <methods>
             <!-- eof -->
-            <method name="eof">send EOF to running processes</method>
+            <method name="eof">
+                <info>
+                    <tr lang="en">send EOF to running processes</tr>
+                </info>
+            </method>
             <!-- stop -->
-            <method name="stop">stop running process</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop running process</tr>
+                </info>
+            </method>
             <!-- terminate -->
-            <method name="terminate">terminate running process</method>
+            <method name="terminate">
+                <info>
+                    <tr lang="en">terminate running process</tr>
+                </info>
+            </method>
             <!-- write -->
-            <method name="write">write data to process stdin</method>
+            <method name="write">
+                <info>
+                    <tr lang="en">write data to process stdin</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

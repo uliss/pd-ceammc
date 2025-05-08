@@ -102,15 +102,27 @@
         </properties>
         <methods>
             <!-- dump -->
-            <method name="dump">dumps all object info to Pd console window.</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">dumps all object info to Pd console window.</tr>
+                </info>
+            </method>
             <!-- on -->
-            <method name="on">switch on/off DSP instance processing. Usage: on all 0|1 - turn
-            on/off all instances, on IDX 0|1 - turn on/off specified instance.</method>
+            <method name="on">
+                <info>
+                    <tr lang="en">switch on/off DSP instance processing. Usage: on all 0|1 - turn
+                    on/off all instances, on IDX 0|1 - turn on/off specified instance.</tr>
+                </info>
+            </method>
             <!-- open -->
-            <method name="open">open Pd window for specified instance 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">instance index</tr>
-            </param></method>
+            <method name="open">
+                <info>
+                    <tr lang="en">open Pd window for specified instance</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">instance index</tr>
+                </param>
+            </method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

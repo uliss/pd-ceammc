@@ -51,8 +51,12 @@
         </properties>
         <methods>
             <!-- random -->
-            <method name="random">choose random degree from current scale and convert it to
-            key</method>
+            <method name="random">
+                <info>
+                    <tr lang="en">choose random degree from current scale and convert it to
+                    key</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

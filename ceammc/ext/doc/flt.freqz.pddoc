@@ -52,22 +52,26 @@
         </properties>
         <methods>
             <!-- biquad -->
-            <method name="biquad">set 'b' and 'a' coefficients, no output 
-            <param name="b0" type="float" required="true">
-                <tr lang="en">b0</tr>
-            </param>
-            <param name="b1" type="float" required="true">
-                <tr lang="en">b1</tr>
-            </param>
-            <param name="b2" type="float" required="true">
-                <tr lang="en">b2</tr>
-            </param>
-            <param name="a1" type="float" required="true">
-                <tr lang="en">a1</tr>
-            </param>
-            <param name="a2" type="float" required="true">
-                <tr lang="en">a2</tr>
-            </param></method>
+            <method name="biquad">
+                <info>
+                    <tr lang="en">set 'b' and 'a' coefficients, no output</tr>
+                </info>
+                <param name="b0" type="float" required="true">
+                    <tr lang="en">b0</tr>
+                </param>
+                <param name="b1" type="float" required="true">
+                    <tr lang="en">b1</tr>
+                </param>
+                <param name="b2" type="float" required="true">
+                    <tr lang="en">b2</tr>
+                </param>
+                <param name="a1" type="float" required="true">
+                    <tr lang="en">a1</tr>
+                </param>
+                <param name="a2" type="float" required="true">
+                    <tr lang="en">a2</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

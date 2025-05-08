@@ -100,15 +100,35 @@
         </properties>
         <methods>
             <!-- down -->
-            <method name="down">manually play downbeat sound</method>
+            <method name="down">
+                <info>
+                    <tr lang="en">manually play downbeat sound</tr>
+                </info>
+            </method>
             <!-- mark -->
-            <method name="mark">manually play mark sound</method>
+            <method name="mark">
+                <info>
+                    <tr lang="en">manually play mark sound</tr>
+                </info>
+            </method>
             <!-- off -->
-            <method name="off">manually play offbeat sound</method>
+            <method name="off">
+                <info>
+                    <tr lang="en">manually play offbeat sound</tr>
+                </info>
+            </method>
             <!-- on -->
-            <method name="on">manually play onbeat sound</method>
+            <method name="on">
+                <info>
+                    <tr lang="en">manually play onbeat sound</tr>
+                </info>
+            </method>
             <!-- reset -->
-            <method name="reset">reset metro to the beginning</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset metro to the beginning</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

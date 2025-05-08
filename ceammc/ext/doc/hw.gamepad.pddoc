@@ -30,7 +30,11 @@
         </info>
         <methods>
             <!-- devices -->
-            <method name="devices">output devices info as data:Dict into third outlet</method>
+            <method name="devices">
+                <info>
+                    <tr lang="en">output devices info as data:Dict into third outlet</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

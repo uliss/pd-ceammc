@@ -75,11 +75,23 @@
         </properties>
         <methods>
             <!-- next -->
-            <method name="next">increment counter then output</method>
+            <method name="next">
+                <info>
+                    <tr lang="en">increment counter then output</tr>
+                </info>
+            </method>
             <!-- prev -->
-            <method name="prev">decrement counter then output</method>
+            <method name="prev">
+                <info>
+                    <tr lang="en">decrement counter then output</tr>
+                </info>
+            </method>
             <!-- reset -->
-            <method name="reset">reset counter to start value and repeat counter to 0</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset counter to start value and repeat counter to 0</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

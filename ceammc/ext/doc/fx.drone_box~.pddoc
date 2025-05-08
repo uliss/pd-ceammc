@@ -47,7 +47,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset object</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset object</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

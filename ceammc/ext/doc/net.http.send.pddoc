@@ -59,13 +59,17 @@
         </properties>
         <methods>
             <!-- get -->
-            <method name="get">send GET request 
-            <param name="PATH" type="symbol" required="true">
-                <tr lang="en">request path</tr>
-            </param>
-            <param name="VALUES" type="list" required="true">
-                <tr lang="en">list of query pairs</tr>
-            </param></method>
+            <method name="get">
+                <info>
+                    <tr lang="en">send GET request</tr>
+                </info>
+                <param name="PATH" type="symbol" required="true">
+                    <tr lang="en">request path</tr>
+                </param>
+                <param name="VALUES" type="list" required="true">
+                    <tr lang="en">list of query pairs</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

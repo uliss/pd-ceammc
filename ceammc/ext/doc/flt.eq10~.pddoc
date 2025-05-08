@@ -81,7 +81,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset filter state to default</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset filter state to default</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

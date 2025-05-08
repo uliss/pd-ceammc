@@ -86,17 +86,25 @@
         </properties>
         <methods>
             <!-- angles -->
-            <method name="angles">set the angles of channels. Angles are in radians, wrapped
-            between 0 and 2π 
-            <param name="VALS" type="list" required="true" units="radian">
-                <tr lang="en">list of angles</tr>
-            </param></method>
+            <method name="angles">
+                <info>
+                    <tr lang="en">set the angles of channels. Angles are in radians, wrapped
+                    between 0 and 2π</tr>
+                </info>
+                <param name="VALS" type="list" required="true" units="radian">
+                    <tr lang="en">list of angles</tr>
+                </param>
+            </method>
             <!-- wide -->
-            <method name="wide">set the widening value of channels. Widening value is clipped
-            between 0. (omnidirectional) and 1. (directional) 
-            <param name="VALS" type="list" required="true">
-                <tr lang="en">list of values per channel</tr>
-            </param></method>
+            <method name="wide">
+                <info>
+                    <tr lang="en">set the widening value of channels. Widening value is clipped
+                    between 0. (omnidirectional) and 1. (directional)</tr>
+                </info>
+                <param name="VALS" type="list" required="true">
+                    <tr lang="en">list of values per channel</tr>
+                </param>
+            </method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

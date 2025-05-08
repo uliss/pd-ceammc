@@ -41,7 +41,11 @@
         </properties>
         <methods>
             <!-- stop -->
-            <method name="stop">stops speech and clear speech queue</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stops speech and clear speech queue</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -44,78 +44,122 @@
         </properties>
         <methods>
             <!-- blinker -->
-            <method name="blinker">adds blinker 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="blinker">
+                <info>
+                    <tr lang="en">adds blinker</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
             <!-- block -->
-            <method name="block">adds block 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="block">
+                <info>
+                    <tr lang="en">adds block</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
             <!-- cell -->
-            <method name="cell">sets cell value 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param>
-            <param name="VALUE" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="cell">
+                <info>
+                    <tr lang="en">sets cell value</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+                <param name="VALUE" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clear all cells</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear all cells</tr>
+                </info>
+            </method>
             <!-- glider -->
-            <method name="glider">adds glider 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="glider">
+                <info>
+                    <tr lang="en">adds glider</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
             <!-- hive -->
-            <method name="hive">adds horizontal bee-hive 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="hive">
+                <info>
+                    <tr lang="en">adds horizontal bee-hive</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
             <!-- next -->
-            <method name="next">generate next state</method>
+            <method name="next">
+                <info>
+                    <tr lang="en">generate next state</tr>
+                </info>
+            </method>
             <!-- oct2 -->
-            <method name="oct2">adds octagon 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="oct2">
+                <info>
+                    <tr lang="en">adds octagon</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
             <!-- random -->
-            <method name="random">fills with random</method>
+            <method name="random">
+                <info>
+                    <tr lang="en">fills with random</tr>
+                </info>
+            </method>
             <!-- rpent -->
-            <method name="rpent">adds R-pentamino 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="rpent">
+                <info>
+                    <tr lang="en">adds R-pentamino</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
             <!-- vhive -->
-            <method name="vhive">adds vertical bee-hive 
-            <param name="ROW" type="int" required="true">
-                <tr lang="en">row</tr>
-            </param>
-            <param name="COL" type="int" required="true">
-                <tr lang="en">column</tr>
-            </param></method>
+            <method name="vhive">
+                <info>
+                    <tr lang="en">adds vertical bee-hive</tr>
+                </info>
+                <param name="ROW" type="int" required="true">
+                    <tr lang="en">row</tr>
+                </param>
+                <param name="COL" type="int" required="true">
+                    <tr lang="en">column</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -85,7 +85,11 @@
                 </param>
             </method>
             <!-- reset -->
-            <method name="reset">reset state</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset state</tr>
+                </info>
+            </method>
             <!-- set -->
             <method name="set">
                 <param name="SET" type="float" required="true">

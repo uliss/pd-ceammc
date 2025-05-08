@@ -42,27 +42,71 @@
         </properties>
         <methods>
             <!-- blackman -->
-            <method name="blackman">Sets Blackman window type</method>
+            <method name="blackman">
+                <info>
+                    <tr lang="en">Sets Blackman window type</tr>
+                </info>
+            </method>
             <!-- blackman-harris -->
-            <method name="blackman-harris">Sets Blackman-Harris window type</method>
+            <method name="blackman-harris">
+                <info>
+                    <tr lang="en">Sets Blackman-Harris window type</tr>
+                </info>
+            </method>
             <!-- flattop -->
-            <method name="flattop">Sets Flattop window type</method>
+            <method name="flattop">
+                <info>
+                    <tr lang="en">Sets Flattop window type</tr>
+                </info>
+            </method>
             <!-- gauss -->
-            <method name="gauss">Sets Gauss window type</method>
+            <method name="gauss">
+                <info>
+                    <tr lang="en">Sets Gauss window type</tr>
+                </info>
+            </method>
             <!-- hamming -->
-            <method name="hamming">Sets Hamming window type</method>
+            <method name="hamming">
+                <info>
+                    <tr lang="en">Sets Hamming window type</tr>
+                </info>
+            </method>
             <!-- hann -->
-            <method name="hann">Sets Hann window type</method>
+            <method name="hann">
+                <info>
+                    <tr lang="en">Sets Hann window type</tr>
+                </info>
+            </method>
             <!-- nuttall -->
-            <method name="nuttall">Sets Nuttall window type</method>
+            <method name="nuttall">
+                <info>
+                    <tr lang="en">Sets Nuttall window type</tr>
+                </info>
+            </method>
             <!-- rect -->
-            <method name="rect">Sets Rectangle window type</method>
+            <method name="rect">
+                <info>
+                    <tr lang="en">Sets Rectangle window type</tr>
+                </info>
+            </method>
             <!-- sine -->
-            <method name="sine">Sets Sine window type</method>
+            <method name="sine">
+                <info>
+                    <tr lang="en">Sets Sine window type</tr>
+                </info>
+            </method>
             <!-- tri -->
-            <method name="tri">Sets Triangle window type</method>
+            <method name="tri">
+                <info>
+                    <tr lang="en">Sets Triangle window type</tr>
+                </info>
+            </method>
             <!-- welch -->
-            <method name="welch">Sets Welch window type</method>
+            <method name="welch">
+                <info>
+                    <tr lang="en">Sets Welch window type</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

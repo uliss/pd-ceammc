@@ -52,59 +52,91 @@
         </properties>
         <methods>
             <!-- next -->
-            <method name="next">select next preset 
-            <param name="N" type="atom">
-                <tr lang="en">positive step or 'random'</tr>
-            </param></method>
+            <method name="next">
+                <info>
+                    <tr lang="en">select next preset</tr>
+                </info>
+                <param name="N" type="atom">
+                    <tr lang="en">positive step or 'random'</tr>
+                </param>
+            </method>
             <!-- prev -->
-            <method name="prev">select previous preset 
-            <param name="N" type="atom">
-                <tr lang="en">positive step or 'random'</tr>
-            </param></method>
+            <method name="prev">
+                <info>
+                    <tr lang="en">select previous preset</tr>
+                </info>
+                <param name="N" type="atom">
+                    <tr lang="en">positive step or 'random'</tr>
+                </param>
+            </method>
             <!-- random -->
-            <method name="random">choose random preset 
-            <param name="MODE" type="symbol" enum="whammy harm detune" required="true">
-                <tr lang="en">if 'whammy' - select random preset from 'whammy' modes (right pedal
-                side), if 'harm' - select random preset from harmonizer modes (left pedal side), if
-                'detune' - select random detune mode. If not specified - select random mode from
-                all categories.</tr>
-            </param>
-            <param name="STATE" type="int" enum="0 1">
-                <tr lang="en">pedal state (on/off)</tr>
-            </param></method>
+            <method name="random">
+                <info>
+                    <tr lang="en">choose random preset</tr>
+                </info>
+                <param name="MODE" type="symbol" enum="whammy harm detune" required="true">
+                    <tr lang="en">if 'whammy' - select random preset from 'whammy' modes (right
+                    pedal side), if 'harm' - select random preset from harmonizer modes (left pedal
+                    side), if 'detune' - select random detune mode. If not specified - select
+                    random mode from all categories.</tr>
+                </param>
+                <param name="STATE" type="int" enum="0 1">
+                    <tr lang="en">pedal state (on/off)</tr>
+                </param>
+            </method>
             <!-- reset -->
-            <method name="reset">turn off pedal and select default preset</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">turn off pedal and select default preset</tr>
+                </info>
+            </method>
             <!-- set IDX -->
-            <method name="set IDX">set preset by index 
-            <param name="IDX" type="int" minvalue="0" maxvalue="20" required="true">
-                <tr lang="en">preset index</tr>
-            </param>
-            <param name="STATE" type="int" enum="0 1">
-                <tr lang="en">pedal state (on/off)</tr>
-            </param></method>
+            <method name="set IDX">
+                <info>
+                    <tr lang="en">set preset by index</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" maxvalue="20" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+                <param name="STATE" type="int" enum="0 1">
+                    <tr lang="en">pedal state (on/off)</tr>
+                </param>
+            </method>
             <!-- set NAME -->
-            <method name="set NAME">set preset by name 
-            <param name="NAME" type="symbol"
-            enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8"
-            minvalue="0" maxvalue="20" required="true">
-                <tr lang="en">preset name</tr>
-            </param>
-            <param name="STATE" type="int" enum="0 1">
-                <tr lang="en">pedal state (on/off)</tr>
-            </param></method>
+            <method name="set NAME">
+                <info>
+                    <tr lang="en">set preset by name</tr>
+                </info>
+                <param name="NAME" type="symbol"
+                enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8"
+                minvalue="0" maxvalue="20" required="true">
+                    <tr lang="en">preset name</tr>
+                </param>
+                <param name="STATE" type="int" enum="0 1">
+                    <tr lang="en">pedal state (on/off)</tr>
+                </param>
+            </method>
             <!-- set UP DOWN -->
-            <method name="set UP DOWN">set preset by transpose range. 
-            <param name="UP" type="int" required="true">
-                <tr lang="en">up range</tr>
-            </param>
-            <param name="DOWN" type="int" required="true">
-                <tr lang="en">down range</tr>
-            </param>
-            <param name="STATE" type="int" enum="0 1">
-                <tr lang="en">pedal state (on/off)</tr>
-            </param></method>
+            <method name="set UP DOWN">
+                <info>
+                    <tr lang="en">set preset by transpose range.</tr>
+                </info>
+                <param name="UP" type="int" required="true">
+                    <tr lang="en">up range</tr>
+                </param>
+                <param name="DOWN" type="int" required="true">
+                    <tr lang="en">down range</tr>
+                </param>
+                <param name="STATE" type="int" enum="0 1">
+                    <tr lang="en">pedal state (on/off)</tr>
+                </param>
+            </method>
             <!-- toggle -->
-            <method name="toggle">toggle pedal on/off</method>
+            <method name="toggle">
+                <info>
+                    <tr lang="en">toggle pedal on/off</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

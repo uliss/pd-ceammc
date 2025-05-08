@@ -53,11 +53,23 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">removes all queue values</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">removes all queue values</tr>
+                </info>
+            </method>
             <!-- flush -->
-            <method name="flush">outputs and removes all queue values</method>
+            <method name="flush">
+                <info>
+                    <tr lang="en">outputs and removes all queue values</tr>
+                </info>
+            </method>
             <!-- pop -->
-            <method name="pop">outputs and removes first values in queue</method>
+            <method name="pop">
+                <info>
+                    <tr lang="en">outputs and removes first values in queue</tr>
+                </info>
+            </method>
             <!-- resize -->
             <method name="resize">
                 <param type="int" minvalue="0">

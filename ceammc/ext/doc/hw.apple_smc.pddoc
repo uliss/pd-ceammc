@@ -31,10 +31,14 @@
         </properties>
         <methods>
             <!-- read -->
-            <method name="read">query specified SMC key 
-            <param name="KEY" type="symbol" required="true">
-                <tr lang="en">SMC key</tr>
-            </param></method>
+            <method name="read">
+                <info>
+                    <tr lang="en">query specified SMC key</tr>
+                </info>
+                <param name="KEY" type="symbol" required="true">
+                    <tr lang="en">SMC key</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

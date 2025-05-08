@@ -24,13 +24,29 @@
         </properties>
         <methods>
             <!-- k -->
-            <method name="k">alias to keywords method</method>
+            <method name="k">
+                <info>
+                    <tr lang="en">alias to keywords method</tr>
+                </info>
+            </method>
             <!-- keywords -->
-            <method name="keywords">search in keywords</method>
+            <method name="keywords">
+                <info>
+                    <tr lang="en">search in keywords</tr>
+                </info>
+            </method>
             <!-- o -->
-            <method name="o">alias to objects method</method>
+            <method name="o">
+                <info>
+                    <tr lang="en">alias to objects method</tr>
+                </info>
+            </method>
             <!-- objects -->
-            <method name="objects">search in objects names</method>
+            <method name="objects">
+                <info>
+                    <tr lang="en">search in objects names</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="control">

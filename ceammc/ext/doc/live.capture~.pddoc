@@ -48,16 +48,32 @@
         </properties>
         <methods>
             <!-- div -->
-            <method name="div">set rec division 
-            <param name="N" type="int" minvalue="1" maxvalue="8">
-                <tr lang="en">value</tr>
-            </param></method>
+            <method name="div">
+                <info>
+                    <tr lang="en">set rec division</tr>
+                </info>
+                <param name="N" type="int" minvalue="1" maxvalue="8">
+                    <tr lang="en">value</tr>
+                </param>
+            </method>
             <!-- record -->
-            <method name="record">start record</method>
+            <method name="record">
+                <info>
+                    <tr lang="en">start record</tr>
+                </info>
+            </method>
             <!-- reset -->
-            <method name="reset">reset recorded data</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset recorded data</tr>
+                </info>
+            </method>
             <!-- stop -->
-            <method name="stop">stop record</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop record</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

@@ -41,44 +41,76 @@
         </properties>
         <methods>
             <!-- + -->
-            <method name="+">increase gain amplitude 
-            <param name="VALS" type="list">
-                <tr lang="en">values for each input channel</tr>
-            </param></method>
+            <method name="+">
+                <info>
+                    <tr lang="en">increase gain amplitude</tr>
+                </info>
+                <param name="VALS" type="list">
+                    <tr lang="en">values for each input channel</tr>
+                </param>
+            </method>
             <!-- +all -->
-            <method name="+all">increase gain amplitude for all inputs 
-            <param name="V" type="float" required="true">
-                <tr lang="en">single value for each input channel</tr>
-            </param></method>
+            <method name="+all">
+                <info>
+                    <tr lang="en">increase gain amplitude for all inputs</tr>
+                </info>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">single value for each input channel</tr>
+                </param>
+            </method>
             <!-- +db -->
-            <method name="+db">increase gain in db 
-            <param name="VALS" type="list">
-                <tr lang="en">values for each input channel</tr>
-            </param></method>
-            <method name="-">decrease gain amplitude 
-            <param name="VALS" type="list">
-                <tr lang="en">values for each input channel</tr>
-            </param></method>
+            <method name="+db">
+                <info>
+                    <tr lang="en">increase gain in db</tr>
+                </info>
+                <param name="VALS" type="list">
+                    <tr lang="en">values for each input channel</tr>
+                </param>
+            </method>
+            <method name="-">
+                <info>
+                    <tr lang="en">decrease gain amplitude</tr>
+                </info>
+                <param name="VALS" type="list">
+                    <tr lang="en">values for each input channel</tr>
+                </param>
+            </method>
             <!-- -all -->
-            <method name="-all">decrease gain amplitude for all inputs 
-            <param name="V" type="float" required="true">
-                <tr lang="en">single value for each input channel</tr>
-            </param></method>
+            <method name="-all">
+                <info>
+                    <tr lang="en">decrease gain amplitude for all inputs</tr>
+                </info>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">single value for each input channel</tr>
+                </param>
+            </method>
             <!-- -db -->
-            <method name="-db">decrease gain in db 
-            <param name="VALS" type="list">
-                <tr lang="en">values for each input channel</tr>
-            </param></method>
+            <method name="-db">
+                <info>
+                    <tr lang="en">decrease gain in db</tr>
+                </info>
+                <param name="VALS" type="list">
+                    <tr lang="en">values for each input channel</tr>
+                </param>
+            </method>
             <!-- set -->
-            <method name="set">set gain amplitude for all inputs 
-            <param name="V" type="float" required="true" minvalue="0">
-                <tr lang="en">new gain value</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">set gain amplitude for all inputs</tr>
+                </info>
+                <param name="V" type="float" required="true" minvalue="0">
+                    <tr lang="en">new gain value</tr>
+                </param>
+            </method>
             <!-- set_db -->
-            <method name="set_db">set gain in db for all inputs 
-            <param name="V" type="float" required="true" minvalue="-144">
-                <tr lang="en">new gain value</tr>
-            </param></method>
+            <method name="set_db">
+                <info>
+                    <tr lang="en">set gain in db for all inputs</tr>
+                </info>
+                <param name="V" type="float" required="true" minvalue="-144">
+                    <tr lang="en">new gain value</tr>
+                </param>
+            </method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio" number="1">

@@ -72,27 +72,47 @@
         </properties>
         <methods>
             <!-- blackout -->
-            <method name="blackout">blackout (send 0 to all DMX channels)</method>
+            <method name="blackout">
+                <info>
+                    <tr lang="en">blackout (send 0 to all DMX channels)</tr>
+                </info>
+            </method>
             <!-- dmx -->
-            <method name="dmx">set DMX channel values 
-            <param name="VALUES" type="list" required="true">
-                <tr lang="en">list of DMX values, first element sets first channel etc.</tr>
-            </param></method>
+            <method name="dmx">
+                <info>
+                    <tr lang="en">set DMX channel values</tr>
+                </info>
+                <param name="VALUES" type="list" required="true">
+                    <tr lang="en">list of DMX values, first element sets first channel etc.</tr>
+                </param>
+            </method>
             <!-- dmx_fill -->
-            <method name="dmx_fill">set all DMX channels to given value 
-            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
-                <tr lang="en">DMX value</tr>
-            </param></method>
+            <method name="dmx_fill">
+                <info>
+                    <tr lang="en">set all DMX channels to given value</tr>
+                </info>
+                <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
+                    <tr lang="en">DMX value</tr>
+                </param>
+            </method>
             <!-- dmx_set -->
-            <method name="dmx_set">set DMX channel value 
-            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">
-                <tr lang="en">DMX channel</tr>
-            </param>
-            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
-                <tr lang="en">DMX value</tr>
-            </param></method>
+            <method name="dmx_set">
+                <info>
+                    <tr lang="en">set DMX channel value</tr>
+                </info>
+                <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">
+                    <tr lang="en">DMX channel</tr>
+                </param>
+                <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">
+                    <tr lang="en">DMX value</tr>
+                </param>
+            </method>
             <!-- poll -->
-            <method name="poll">send poll request, dump response to Pd window</method>
+            <method name="poll">
+                <info>
+                    <tr lang="en">send poll request, dump response to Pd window</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

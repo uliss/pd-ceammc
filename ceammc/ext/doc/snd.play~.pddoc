@@ -81,46 +81,75 @@
         </properties>
         <methods>
             <!-- ff -->
-            <method name="ff">fast forward by specified amount of time 
-            <param name="TIME" type="atom" required="false">
-                <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE. If
-                the time unit is not specified treat float values as samples. If argument is not
-                specified: jump one second forward.</tr>
-            </param></method>
+            <method name="ff">
+                <info>
+                    <tr lang="en">fast forward by specified amount of time</tr>
+                </info>
+                <param name="TIME" type="atom" required="false">
+                    <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE.
+                    If the time unit is not specified treat float values as samples. If argument is
+                    not specified: jump one second forward.</tr>
+                </param>
+            </method>
             <!-- open -->
-            <method name="open">sets @name property 
-            <param name="FILENAME" type="symbol" required="true">
-                <tr lang="en">absolute or relative to patch soundfile name</tr>
-            </param></method>
+            <method name="open">
+                <info>
+                    <tr lang="en">sets @name property</tr>
+                </info>
+                <param name="FILENAME" type="symbol" required="true">
+                    <tr lang="en">absolute or relative to patch soundfile name</tr>
+                </param>
+            </method>
             <!-- pause -->
-            <method name="pause">pause 
-            <param name="FLAG" type="bool" required="false">
-                <tr lang="en">pause/resume flag. If true or omitted: pause, if false: resume.</tr>
-            </param></method>
+            <method name="pause">
+                <info>
+                    <tr lang="en">pause</tr>
+                </info>
+                <param name="FLAG" type="bool" required="false">
+                    <tr lang="en">pause/resume flag. If true or omitted: pause, if false:
+                    resume.</tr>
+                </param>
+            </method>
             <!-- rewind -->
-            <method name="rewind">move backwards by specified amount of time (relative value) 
-            <param name="TIME" type="atom" required="false">
-                <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE. If
-                the time unit is not specified treat float values as milliseconds. If arguments is
-                not specified jump: one second backward.</tr>
-            </param></method>
+            <method name="rewind">
+                <info>
+                    <tr lang="en">move backwards by specified amount of time (relative value)</tr>
+                </info>
+                <param name="TIME" type="atom" required="false">
+                    <tr lang="en">time amount. Can't be in seconds, milliseconds, samples, SMPTE.
+                    If the time unit is not specified treat float values as milliseconds. If
+                    arguments is not specified jump: one second backward.</tr>
+                </param>
+            </method>
             <!-- seek -->
-            <method name="seek">move to specified time (absolute value) 
-            <param name="TIME" type="atom" required="false">
-                <tr lang="en">Time position. Can't be in seconds, milliseconds, samples, SMPTE. If
-                the time unit is not specified treat float values as milliseconds. If arguments is
-                not specified jump: seek to the beginning</tr>
-            </param></method>
+            <method name="seek">
+                <info>
+                    <tr lang="en">move to specified time (absolute value)</tr>
+                </info>
+                <param name="TIME" type="atom" required="false">
+                    <tr lang="en">Time position. Can't be in seconds, milliseconds, samples, SMPTE.
+                    If the time unit is not specified treat float values as milliseconds. If
+                    arguments is not specified jump: seek to the beginning</tr>
+                </param>
+            </method>
             <!-- start -->
-            <method name="start">start playing 
-            <param name="FLAG" type="bool" required="false">
-                <tr lang="en">start/stop flag. If true or omitted: start, if false: stop.</tr>
-            </param></method>
+            <method name="start">
+                <info>
+                    <tr lang="en">start playing</tr>
+                </info>
+                <param name="FLAG" type="bool" required="false">
+                    <tr lang="en">start/stop flag. If true or omitted: start, if false: stop.</tr>
+                </param>
+            </method>
             <!-- stop -->
-            <method name="stop">stop playing 
-            <param name="FLAG" type="bool" required="false">
-                <tr lang="en">start/stop flag. If true or omitted: stop, if false: start.</tr>
-            </param></method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop playing</tr>
+                </info>
+                <param name="FLAG" type="bool" required="false">
+                    <tr lang="en">start/stop flag. If true or omitted: stop, if false: start.</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet type="control">

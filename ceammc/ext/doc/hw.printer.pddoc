@@ -42,20 +42,32 @@
         </properties>
         <methods>
             <!-- choose -->
-            <method name="choose">choose printer by index 
-            <param name="IDX" type="int" minvalue="0">
-                <tr lang="en">printer index in device list</tr>
-            </param></method>
+            <method name="choose">
+                <info>
+                    <tr lang="en">choose printer by index</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0">
+                    <tr lang="en">printer index in device list</tr>
+                </param>
+            </method>
             <!-- devices -->
-            <method name="devices">list printers</method>
+            <method name="devices">
+                <info>
+                    <tr lang="en">list printers</tr>
+                </info>
+            </method>
             <!-- print -->
-            <method name="print">print file 
-            <param name="FILE" type="symbol" required="true">
-                <tr lang="en">file to print</tr>
-            </param>
-            <param name="@landscape" type="bool" required="false">
-                <tr lang="en">print in landscape mode</tr>
-            </param></method>
+            <method name="print">
+                <info>
+                    <tr lang="en">print file</tr>
+                </info>
+                <param name="FILE" type="symbol" required="true">
+                    <tr lang="en">file to print</tr>
+                </param>
+                <param name="@landscape" type="bool" required="false">
+                    <tr lang="en">print in landscape mode</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -108,9 +108,17 @@
         </properties>
         <methods>
             <!-- connect -->
-            <method name="connect">manually connect to device</method>
+            <method name="connect">
+                <info>
+                    <tr lang="en">manually connect to device</tr>
+                </info>
+            </method>
             <!-- disconnect -->
-            <method name="disconnect">disconnect from device</method>
+            <method name="disconnect">
+                <info>
+                    <tr lang="en">disconnect from device</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

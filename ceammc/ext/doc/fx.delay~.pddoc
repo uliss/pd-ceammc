@@ -102,7 +102,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">clears delay line</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">clears delay line</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

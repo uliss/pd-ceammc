@@ -38,7 +38,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">output zeroes to all outlets</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">output zeroes to all outlets</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

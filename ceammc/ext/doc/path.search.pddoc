@@ -83,7 +83,11 @@
         </properties>
         <methods>
             <!-- cancel -->
-            <method name="cancel">cancel search process</method>
+            <method name="cancel">
+                <info>
+                    <tr lang="en">cancel search process</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -122,88 +122,168 @@
         </properties>
         <methods>
             <!-- * -->
-            <method name="*">multiply each slider without output 
-            <param name="V" type="float" required="true">
-                <tr lang="en">multiplied value</tr>
-            </param></method>
+            <method name="*">
+                <info>
+                    <tr lang="en">multiply each slider without output</tr>
+                </info>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">multiplied value</tr>
+                </param>
+            </method>
             <!-- + -->
-            <method name="+">add value to every slider without output 
-            <param name="V" type="float" required="true">
-                <tr lang="en">added value</tr>
-            </param></method>
+            <method name="+">
+                <info>
+                    <tr lang="en">add value to every slider without output</tr>
+                </info>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">added value</tr>
+                </param>
+            </method>
             <!-- ++ -->
-            <method name="++">increment all sliders without output</method>
-            <method name="-">subtract value from every slider without output 
-            <param name="V" type="float" required="true">
-                <tr lang="en">subtracted value</tr>
-            </param></method>
-            <method name="--">decrement all sliders without output</method>
+            <method name="++">
+                <info>
+                    <tr lang="en">increment all sliders without output</tr>
+                </info>
+            </method>
+            <method name="-">
+                <info>
+                    <tr lang="en">subtract value from every slider without output</tr>
+                </info>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">subtracted value</tr>
+                </param>
+            </method>
+            <method name="--">
+                <info>
+                    <tr lang="en">decrement all sliders without output</tr>
+                </info>
+            </method>
             <!-- / -->
-            <method name="/">divide each slider without output 
-            <param name="V" type="float" required="true">
-                <tr lang="en">denominator value</tr>
-            </param></method>
+            <method name="/">
+                <info>
+                    <tr lang="en">divide each slider without output</tr>
+                </info>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">denominator value</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clears specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clears specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- dump -->
-            <method name="dump">dumps all object info to Pd console window</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">dumps all object info to Pd console window</tr>
+                </info>
+            </method>
             <!-- fill -->
-            <method name="fill">fill sliders value with specified value without output</method>
+            <method name="fill">
+                <info>
+                    <tr lang="en">fill sliders value with specified value without output</tr>
+                </info>
+            </method>
             <!-- get slider N -->
-            <method name="get slider N">get specified slider value 
-            <param name="N" type="int" required="true" minvalue="0">
-                <tr lang="en">slider position, starting from 0</tr>
-            </param></method>
+            <method name="get slider N">
+                <info>
+                    <tr lang="en">get specified slider value</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="0">
+                    <tr lang="en">slider position, starting from 0</tr>
+                </param>
+            </method>
             <!-- interp -->
-            <method name="interp">interplolates between presets 
-            <param name="IDX" type="float" required="true">
-                <tr lang="en">preset fraction index</tr>
-            </param></method>
+            <method name="interp">
+                <info>
+                    <tr lang="en">interplolates between presets</tr>
+                </info>
+                <param name="IDX" type="float" required="true">
+                    <tr lang="en">preset fraction index</tr>
+                </param>
+            </method>
             <!-- lindown -->
-            <method name="lindown">fill sliders with decreasing values without output</method>
+            <method name="lindown">
+                <info>
+                    <tr lang="en">fill sliders with decreasing values without output</tr>
+                </info>
+            </method>
             <!-- linup -->
-            <method name="linup">fill sliders with increasing values without output</method>
+            <method name="linup">
+                <info>
+                    <tr lang="en">fill sliders with increasing values without output</tr>
+                </info>
+            </method>
             <!-- load -->
-            <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="load">
+                <info>
+                    <tr lang="en">loads specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
             <!-- random -->
-            <method name="random">fill sliders with random values without output</method>
+            <method name="random">
+                <info>
+                    <tr lang="en">fill sliders with random values without output</tr>
+                </info>
+            </method>
             <!-- select -->
-            <method name="select">draws specified slider with select color 
-            <param name="N" type="int" required="true" minvalue="0">
-                <tr lang="en">slider index, starting from 0.</tr>
-            </param></method>
+            <method name="select">
+                <info>
+                    <tr lang="en">draws specified slider with select color</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="0">
+                    <tr lang="en">slider index, starting from 0.</tr>
+                </param>
+            </method>
             <!-- set -->
-            <method name="set">sets sliders values without output 
-            <param name="VALUES" type="list">
-                <tr lang="en">slider values</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">sets sliders values without output</tr>
+                </info>
+                <param name="VALUES" type="list">
+                    <tr lang="en">slider values</tr>
+                </param>
+            </method>
             <!-- set slider N V -->
-            <method name="set slider N V">sets specified slider value 
-            <param name="N" type="int" required="true" minvalue="0">
-                <tr lang="en">slider position, starting from 0</tr>
-            </param>
-            <param name="V" type="float" required="true">
-                <tr lang="en">slider value</tr>
-            </param></method>
+            <method name="set slider N V">
+                <info>
+                    <tr lang="en">sets specified slider value</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="0">
+                    <tr lang="en">slider position, starting from 0</tr>
+                </param>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">slider value</tr>
+                </param>
+            </method>
             <!-- store -->
-            <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="store">
+                <info>
+                    <tr lang="en">stores specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

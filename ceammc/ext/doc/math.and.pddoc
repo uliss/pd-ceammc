@@ -45,7 +45,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">resets all input states to false</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">resets all input states to false</tr>
+                </info>
+            </method>
         </methods>
         <inlets dynamic="true">
             <inlet>

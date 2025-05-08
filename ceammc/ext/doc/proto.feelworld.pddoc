@@ -19,10 +19,14 @@
         <properties />
         <methods>
             <!-- input -->
-            <method name="input">select HDMI input 
-            <param name="N" type="int" required="true" minvalue="0" maxvalue="3">
-                <tr lang="en">input index</tr>
-            </param></method>
+            <method name="input">
+                <info>
+                    <tr lang="en">select HDMI input</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="0" maxvalue="3">
+                    <tr lang="en">input index</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

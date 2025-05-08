@@ -82,74 +82,123 @@
         </properties>
         <methods>
             <!-- append -->
-            <method name="append">appends new menu item 
-            <param name="ATOMS" type="list" required="true">
-                <tr lang="en">item name</tr>
-            </param></method>
+            <method name="append">
+                <info>
+                    <tr lang="en">appends new menu item</tr>
+                </info>
+                <param name="ATOMS" type="list" required="true">
+                    <tr lang="en">item name</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clears specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clears specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- delete -->
-            <method name="delete">removes item from menu 
-            <param name="IDX" type="int" minvalue="0" required="true">
-                <tr lang="en">removed item index</tr>
-            </param></method>
+            <method name="delete">
+                <info>
+                    <tr lang="en">removes item from menu</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" required="true">
+                    <tr lang="en">removed item index</tr>
+                </param>
+            </method>
             <!-- erase -->
-            <method name="erase">clears all items menu</method>
+            <method name="erase">
+                <info>
+                    <tr lang="en">clears all items menu</tr>
+                </info>
+            </method>
             <!-- file_glob -->
-            <method name="file_glob">fill menu with filenames. 
-            <param name="PATTERN" type="symbol" required="true">
-                <tr lang="en">filename pattern, like * (all files), *.wav (all wav files) etc.</tr>
-            </param>
-            <param name="DIR" type="symbol" required="false">
-                <tr lang="en">search directory. If omitted - search in patch directory. Performs
-                tilde (~) expansion to home directory. To elide long filenames see @max_length
-                property.</tr>
-            </param></method>
+            <method name="file_glob">
+                <info>
+                    <tr lang="en">fill menu with filenames.</tr>
+                </info>
+                <param name="PATTERN" type="symbol" required="true">
+                    <tr lang="en">filename pattern, like * (all files), *.wav (all wav files)
+                    etc.</tr>
+                </param>
+                <param name="DIR" type="symbol" required="false">
+                    <tr lang="en">search directory. If omitted - search in patch directory.
+                    Performs tilde (~) expansion to home directory. To elide long filenames see
+                    @max_length property.</tr>
+                </param>
+            </method>
             <!-- insert -->
-            <method name="insert">inserts new menu item before specified position 
-            <param name="IDX" type="int" minvalue="0" required="true">
-                <tr lang="en">item position</tr>
-            </param>
-            <param name="ATOM" type="atom" required="true">
-                <tr lang="en">item name</tr>
-            </param></method>
+            <method name="insert">
+                <info>
+                    <tr lang="en">inserts new menu item before specified position</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" required="true">
+                    <tr lang="en">item position</tr>
+                </param>
+                <param name="ATOM" type="atom" required="true">
+                    <tr lang="en">item name</tr>
+                </param>
+            </method>
             <!-- interp -->
-            <method name="interp">for this object acts as *load*, no preset interpolation
-            performed</method>
+            <method name="interp">
+                <info>
+                    <tr lang="en">for this object acts as *load*, no preset interpolation
+                    performed</tr>
+                </info>
+            </method>
             <!-- load -->
-            <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="load">
+                <info>
+                    <tr lang="en">loads specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
             <!-- set -->
-            <method name="set">silently sets menu state. 
-            <param name="IDX" type="int" minvalue="0" required="true">
-                <tr lang="en">item index</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">silently sets menu state.</tr>
+                </info>
+                <param name="IDX" type="int" minvalue="0" required="true">
+                    <tr lang="en">item index</tr>
+                </param>
+            </method>
             <!-- set_item -->
-            <method name="set_item">renames menu item 
-            <param name="IDX" type="int" required="true" minvalue="0">
-                <tr lang="en">item index</tr>
-            </param>
-            <param name="ATOM" type="list" required="true">
-                <tr lang="en">item name</tr>
-            </param></method>
+            <method name="set_item">
+                <info>
+                    <tr lang="en">renames menu item</tr>
+                </info>
+                <param name="IDX" type="int" required="true" minvalue="0">
+                    <tr lang="en">item index</tr>
+                </param>
+                <param name="ATOM" type="list" required="true">
+                    <tr lang="en">item name</tr>
+                </param>
+            </method>
             <!-- store -->
-            <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="store">
+                <info>
+                    <tr lang="en">stores specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -22,10 +22,14 @@
         </meta>
         <methods>
             <!-- cue -->
-            <method name="cue">sets cue index 
-            <param name="N" type="int" minvalue="0">
-                <tr lang="en">cue index</tr>
-            </param></method>
+            <method name="cue">
+                <info>
+                    <tr lang="en">sets cue index</tr>
+                </info>
+                <param name="N" type="int" minvalue="0">
+                    <tr lang="en">cue index</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -45,15 +45,35 @@
         <properties />
         <methods>
             <!-- reset -->
-            <method name="reset">reset seed, x and y values to defaults</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset seed, x and y values to defaults</tr>
+                </info>
+            </method>
             <!-- seed -->
-            <method name="seed">set seed value and update default</method>
+            <method name="seed">
+                <info>
+                    <tr lang="en">set seed value and update default</tr>
+                </info>
+            </method>
             <!-- set -->
-            <method name="set">set seed, x and y values, updates defaults</method>
+            <method name="set">
+                <info>
+                    <tr lang="en">set seed, x and y values, updates defaults</tr>
+                </info>
+            </method>
             <!-- x -->
-            <method name="x">set x value and update default</method>
+            <method name="x">
+                <info>
+                    <tr lang="en">set x value and update default</tr>
+                </info>
+            </method>
             <!-- y -->
-            <method name="y">set y value and update default</method>
+            <method name="y">
+                <info>
+                    <tr lang="en">set y value and update default</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

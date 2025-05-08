@@ -106,8 +106,8 @@
             <property name="@mkl" type="alias">
                 <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection
                 function</tr>
-                <tr lang="ru">сокращение для @method mkl. Модифицированная функция
-                обнаружения атаки Kullback-Liebler</tr>
+                <tr lang="ru">сокращение для @method mkl. Модифицированная функция обнаружения
+                атаки Kullback-Liebler</tr>
             </property>
             <!-- @phase -->
             <property name="@phase" type="alias">
@@ -155,7 +155,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset onset last frame and total frames counters</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset onset last frame and total frames counters</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

@@ -44,15 +44,35 @@
         </properties>
         <methods>
             <!-- blue -->
-            <method name="blue">set to blue noise (roll-off factor 0.5)</method>
+            <method name="blue">
+                <info>
+                    <tr lang="en">set to blue noise (roll-off factor 0.5)</tr>
+                </info>
+            </method>
             <!-- brown -->
-            <method name="brown">set to brown/red noise (roll-off factor -1)</method>
+            <method name="brown">
+                <info>
+                    <tr lang="en">set to brown/red noise (roll-off factor -1)</tr>
+                </info>
+            </method>
             <!-- pink -->
-            <method name="pink">set to pink noise (roll-off factor -0.5)</method>
+            <method name="pink">
+                <info>
+                    <tr lang="en">set to pink noise (roll-off factor -0.5)</tr>
+                </info>
+            </method>
             <!-- velvet -->
-            <method name="velvet">set to velvet noise (roll-off factor 1)</method>
+            <method name="velvet">
+                <info>
+                    <tr lang="en">set to velvet noise (roll-off factor 1)</tr>
+                </info>
+            </method>
             <!-- white -->
-            <method name="white">set to white noise (roll-off factor 0)</method>
+            <method name="white">
+                <info>
+                    <tr lang="en">set to white noise (roll-off factor 0)</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -48,60 +48,104 @@
         </properties>
         <methods>
             <!-- backlight -->
-            <method name="backlight">turn on/off the display backlight 
-            <param name="STATE" type="bool" required="true">
-                <tr lang="en">new state</tr>
-            </param></method>
+            <method name="backlight">
+                <info>
+                    <tr lang="en">turn on/off the display backlight</tr>
+                </info>
+                <param name="STATE" type="bool" required="true">
+                    <tr lang="en">new state</tr>
+                </param>
+            </method>
             <!-- char -->
-            <method name="char">write character to the display and move cursor to the next position
-            
-            <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">
-                <tr lang="en">char code</tr>
-            </param></method>
+            <method name="char">
+                <info>
+                    <tr lang="en">write character to the display and move cursor to the next
+                    position</tr>
+                </info>
+                <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">
+                    <tr lang="en">char code</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clear all display data and set cursor position to 0, 0</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear all display data and set cursor position to 0, 0</tr>
+                </info>
+            </method>
             <!-- clear_line -->
-            <method name="clear_line">clear only specified line 
-            <param name="LINE" type="int" required="true" minvalue="0" maxvalue="3">
-                <tr lang="en">line index</tr>
-            </param></method>
+            <method name="clear_line">
+                <info>
+                    <tr lang="en">clear only specified line</tr>
+                </info>
+                <param name="LINE" type="int" required="true" minvalue="0" maxvalue="3">
+                    <tr lang="en">line index</tr>
+                </param>
+            </method>
             <!-- cursor_blink -->
-            <method name="cursor_blink">turn on/off cursor blinking 
-            <param name="STATE" type="bool" required="true">
-                <tr lang="en">new state</tr>
-            </param></method>
+            <method name="cursor_blink">
+                <info>
+                    <tr lang="en">turn on/off cursor blinking</tr>
+                </info>
+                <param name="STATE" type="bool" required="true">
+                    <tr lang="en">new state</tr>
+                </param>
+            </method>
             <!-- cursor_on -->
-            <method name="cursor_on">turn on/off display cursor 
-            <param name="STATE" type="bool" required="true">
-                <tr lang="en">new state</tr>
-            </param></method>
+            <method name="cursor_on">
+                <info>
+                    <tr lang="en">turn on/off display cursor</tr>
+                </info>
+                <param name="STATE" type="bool" required="true">
+                    <tr lang="en">new state</tr>
+                </param>
+            </method>
             <!-- cursor_pos -->
-            <method name="cursor_pos">set cursor potision 
-            <param name="LINE" type="int" required="true" minvalue="0">
-                <tr lang="en">cursor line</tr>
-            </param>
-            <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">
-                <tr lang="en">cursor line character position</tr>
-            </param></method>
+            <method name="cursor_pos">
+                <info>
+                    <tr lang="en">set cursor potision</tr>
+                </info>
+                <param name="LINE" type="int" required="true" minvalue="0">
+                    <tr lang="en">cursor line</tr>
+                </param>
+                <param name="COL" type="int" required="true" minvalue="0" maxvalue="20">
+                    <tr lang="en">cursor line character position</tr>
+                </param>
+            </method>
             <!-- font -->
-            <method name="font">choose font</method>
+            <method name="font">
+                <info>
+                    <tr lang="en">choose font</tr>
+                </info>
+            </method>
             <!-- move_cursor -->
-            <method name="move_cursor">move cursor horizontally 
-            <param name="SHIFT" type="int" required="true">
-                <tr lang="en">relative cursor shift. Negative values move the cursor leftwards,
-                positive values - rightwards</tr>
-            </param></method>
+            <method name="move_cursor">
+                <info>
+                    <tr lang="en">move cursor horizontally</tr>
+                </info>
+                <param name="SHIFT" type="int" required="true">
+                    <tr lang="en">relative cursor shift. Negative values move the cursor leftwards,
+                    positive values - rightwards</tr>
+                </param>
+            </method>
             <!-- move_display -->
-            <method name="move_display">move display content horizontally 
-            <param name="SHIFT" type="int" required="true">
-                <tr lang="en">relative display move, not altering the display content</tr>
-            </param></method>
+            <method name="move_display">
+                <info>
+                    <tr lang="en">move display content horizontally</tr>
+                </info>
+                <param name="SHIFT" type="int" required="true">
+                    <tr lang="en">relative display move, not altering the display content</tr>
+                </param>
+            </method>
             <!-- write -->
-            <method name="write">write the message at the current cursor position and then move the
-            cursor to the next position after last written character 
-            <param name="MSG" type="list" required="true">
-                <tr lang="en">value list</tr>
-            </param></method>
+            <method name="write">
+                <info>
+                    <tr lang="en">write the message at the current cursor position and then move
+                    the cursor to the next position after last written character</tr>
+                </info>
+                <param name="MSG" type="list" required="true">
+                    <tr lang="en">value list</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

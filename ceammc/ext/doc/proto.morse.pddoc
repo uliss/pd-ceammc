@@ -42,7 +42,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset encoder</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset encoder</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

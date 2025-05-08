@@ -52,7 +52,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset object state</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset object state</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

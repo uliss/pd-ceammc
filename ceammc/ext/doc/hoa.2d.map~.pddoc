@@ -70,40 +70,60 @@
         </properties>
         <methods>
             <!-- car -->
-            <method name="car">alias to 'cartesian' method</method>
+            <method name="car">
+                <info>
+                    <tr lang="en">alias to 'cartesian' method</tr>
+                </info>
+            </method>
             <!-- cartesian -->
-            <method name="cartesian">set source mapping in cartesian coordinates 
-            <param name="IDX" type="int" required="true" minvalue="1">
-                <tr lang="en">source index. 1-based</tr>
-            </param>
-            <param name="X" type="float" required="true">
-                <tr lang="en">x-coord</tr>
-            </param>
-            <param name="X" type="float" required="true">
-                <tr lang="en">y-coord</tr>
-            </param></method>
+            <method name="cartesian">
+                <info>
+                    <tr lang="en">set source mapping in cartesian coordinates</tr>
+                </info>
+                <param name="IDX" type="int" required="true" minvalue="1">
+                    <tr lang="en">source index. 1-based</tr>
+                </param>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">x-coord</tr>
+                </param>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">y-coord</tr>
+                </param>
+            </method>
             <!-- mute -->
-            <method name="mute">mute/unmute specified source 
-            <param name="IDX" type="int" required="true" minvalue="1">
-                <tr lang="en">source index. 1-based</tr>
-            </param>
-            <param name="STATE" type="int" required="true" enum="0 1">
-                <tr lang="en">mute value</tr>
-            </param></method>
+            <method name="mute">
+                <info>
+                    <tr lang="en">mute/unmute specified source</tr>
+                </info>
+                <param name="IDX" type="int" required="true" minvalue="1">
+                    <tr lang="en">source index. 1-based</tr>
+                </param>
+                <param name="STATE" type="int" required="true" enum="0 1">
+                    <tr lang="en">mute value</tr>
+                </param>
+            </method>
             <!-- pol -->
-            <method name="pol">alias to 'polar' method</method>
+            <method name="pol">
+                <info>
+                    <tr lang="en">alias to 'polar' method</tr>
+                </info>
+            </method>
             <!-- polar -->
-            <method name="polar">set source mapping in polar coordinates 
-            <param name="IDX" type="int" required="true" minvalue="1">
-                <tr lang="en">source index. 1-based</tr>
-            </param>
-            <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">
-                <tr lang="en">radius</tr>
-            </param>
-            <param name="ANG" type="float" required="true" minvalue="0" maxvalue="2π"
-            units="radian">
-                <tr lang="en">rotation angle</tr>
-            </param></method>
+            <method name="polar">
+                <info>
+                    <tr lang="en">set source mapping in polar coordinates</tr>
+                </info>
+                <param name="IDX" type="int" required="true" minvalue="1">
+                    <tr lang="en">source index. 1-based</tr>
+                </param>
+                <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">
+                    <tr lang="en">radius</tr>
+                </param>
+                <param name="ANG" type="float" required="true" minvalue="0" maxvalue="2π"
+                units="radian">
+                    <tr lang="en">rotation angle</tr>
+                </param>
+            </method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">

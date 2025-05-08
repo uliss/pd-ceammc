@@ -68,24 +68,36 @@
         </properties>
         <methods>
             <!-- freeze -->
-            <method name="freeze">stop/start processing 
-            <param name="V" type="int" enum="0 1">
-                <tr lang="en">1 - freeze, 0 - unfreeze</tr>
-            </param></method>
+            <method name="freeze">
+                <info>
+                    <tr lang="en">stop/start processing</tr>
+                </info>
+                <param name="V" type="int" enum="0 1">
+                    <tr lang="en">1 - freeze, 0 - unfreeze</tr>
+                </param>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
             <!-- scale -->
-            <method name="scale">sets widget scale 
-            <param name="N" type="float" minvalue="0">
-                <tr lang="en">1 - normal scale, 2 - range from -2..2 (zoomout), 0.1 - range from
-                -0.1..0.1 (zoomin)</tr>
-            </param></method>
+            <method name="scale">
+                <info>
+                    <tr lang="en">sets widget scale</tr>
+                </info>
+                <param name="N" type="float" minvalue="0">
+                    <tr lang="en">1 - normal scale, 2 - range from -2..2 (zoomout), 0.1 - range
+                    from -0.1..0.1 (zoomin)</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

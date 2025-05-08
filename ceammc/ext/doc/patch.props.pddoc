@@ -27,9 +27,17 @@
         </info>
         <methods>
             <!-- @*? -->
-            <method name="@*?">output all patch properties as list</method>
+            <method name="@*?">
+                <info>
+                    <tr lang="en">output all patch properties as list</tr>
+                </info>
+            </method>
             <!-- default -->
-            <method name="default">reset all props to default value and output</method>
+            <method name="default">
+                <info>
+                    <tr lang="en">reset all props to default value and output</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

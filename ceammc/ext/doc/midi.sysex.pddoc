@@ -18,7 +18,11 @@
         </meta>
         <methods>
             <!-- reset -->
-            <method name="reset">reset internal parser state</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset internal parser state</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -54,10 +54,14 @@
         </properties>
         <methods>
             <!-- custom -->
-            <method name="custom">set custom 
-            <param name="KEYSTR" type="symbol" required="true">
-                <tr lang="en">key string</tr>
-            </param></method>
+            <method name="custom">
+                <info>
+                    <tr lang="en">set custom</tr>
+                </info>
+                <param name="KEYSTR" type="symbol" required="true">
+                    <tr lang="en">key string</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

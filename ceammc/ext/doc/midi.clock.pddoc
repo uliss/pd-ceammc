@@ -36,7 +36,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset beat counter</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset beat counter</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

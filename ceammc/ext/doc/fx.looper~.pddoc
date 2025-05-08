@@ -101,22 +101,50 @@
         </properties>
         <methods>
             <!-- adjust -->
-            <method name="adjust">increase loop length 
-            <param name="DELTA" type="float" units="sample">
-                <tr lang="en">loop length delta</tr>
-            </param></method>
+            <method name="adjust">
+                <info>
+                    <tr lang="en">increase loop length</tr>
+                </info>
+                <param name="DELTA" type="float" units="sample">
+                    <tr lang="en">loop length delta</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clear loop data and stops playing</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear loop data and stops playing</tr>
+                </info>
+            </method>
             <!-- overdub -->
-            <method name="overdub">start loop overdubbing while keeping it playing</method>
+            <method name="overdub">
+                <info>
+                    <tr lang="en">start loop overdubbing while keeping it playing</tr>
+                </info>
+            </method>
             <!-- pause -->
-            <method name="pause">loop pause</method>
+            <method name="pause">
+                <info>
+                    <tr lang="en">loop pause</tr>
+                </info>
+            </method>
             <!-- play -->
-            <method name="play">play recorded or stopped loop</method>
+            <method name="play">
+                <info>
+                    <tr lang="en">play recorded or stopped loop</tr>
+                </info>
+            </method>
             <!-- rec -->
-            <method name="rec">same as record</method>
+            <method name="rec">
+                <info>
+                    <tr lang="en">same as record</tr>
+                </info>
+            </method>
             <!-- record -->
-            <method name="record">start loop record</method>
+            <method name="record">
+                <info>
+                    <tr lang="en">start loop record</tr>
+                </info>
+            </method>
             <!-- smooth -->
             <method name="smooth">
                 <param name="TIME" type="float" units="millisecond">
@@ -124,7 +152,11 @@
                 </param>
             </method>
             <!-- stop -->
-            <method name="stop">stop played loop</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop played loop</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

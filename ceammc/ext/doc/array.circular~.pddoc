@@ -46,11 +46,15 @@
         </properties>
         <methods>
             <!-- resize -->
-            <method name="resize">resize target array 
-            <param name="SZ" type="int" minvalue="10" units="sample" required="true">
-                <tr lang="en">new size</tr>
-                <tr lang="ru">новый размер</tr>
-            </param></method>
+            <method name="resize">
+                <info>
+                    <tr lang="en">resize target array</tr>
+                </info>
+                <param name="SZ" type="int" minvalue="10" units="sample" required="true">
+                    <tr lang="en">new size</tr>
+                    <tr lang="ru">новый размер</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

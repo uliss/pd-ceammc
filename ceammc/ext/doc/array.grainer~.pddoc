@@ -86,178 +86,236 @@
         </properties>
         <methods>
             <!-- align -->
-            <method name="align">align grain(s) to onset 
-            <param name="SUBJ" type="atom" required="false">
-                <tr lang="en">if '*' or omitted: align all grains, if '.': align finished grains
-                only, if number: align grain with corresponding #id, if symbol: align grains with
-                corresponding tag</tr>
-                <tr lang="ru">если "*" или не указано: выравнивает все гранулы, если ".": выровнять
-                только завершенные гранулы, если целое значение: выравнивает гранулу с
-                соответствующим #id, если символ: выровнять гранулы с соответствующим тегом</tr>
-            </param></method>
+            <method name="align">
+                <info>
+                    <tr lang="en">align grain(s) to onset</tr>
+                </info>
+                <param name="SUBJ" type="atom" required="false">
+                    <tr lang="en">if '*' or omitted: align all grains, if '.': align finished
+                    grains only, if number: align grain with corresponding #id, if symbol: align
+                    grains with corresponding tag</tr>
+                    <tr lang="ru">если "*" или не указано: выравнивает все гранулы, если ".":
+                    выровнять только завершенные гранулы, если целое значение: выравнивает гранулу
+                    с соответствующим #id, если символ: выровнять гранулы с соответствующим
+                    тегом</tr>
+                </param>
+            </method>
             <!-- append -->
-            <method name="append">append several grains 
-            <param name="N" type="int" required="true" minvalue="1">
-                <tr lang="en">number of grains</tr>
-                <tr lang="ru">количество гранул</tr>
-            </param>
-            <param name="PROPS" type="list" required="true">
-                <tr lang="en">grain properties</tr>
-                <tr lang="ru">свойства гранулы</tr>
-            </param></method>
+            <method name="append">
+                <info>
+                    <tr lang="en">append several grains</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="1">
+                    <tr lang="en">number of grains</tr>
+                    <tr lang="ru">количество гранул</tr>
+                </param>
+                <param name="PROPS" type="list" required="true">
+                    <tr lang="en">grain properties</tr>
+                    <tr lang="ru">свойства гранулы</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">remove grain(s) 
-            <param name="SUBJ" type="atom" required="false">
-                <tr lang="en">if '*' or omitted: remove all grains, if '.': remove finished grains
-                only, if float: remove grain with corresponding #id, if symbol: remove grains with
-                corresponding tag</tr>
-                <tr lang="ru">если «*» или не указано: удалить все гранулы, если «.»: удалить
-                только завершенные гранулы, если целое число: удалить гранулу с соответствующим
-                #id, если символ: удалить гранулы с соответствующим тегом</tr>
-            </param></method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">remove grain(s)</tr>
+                </info>
+                <param name="SUBJ" type="atom" required="false">
+                    <tr lang="en">if '*' or omitted: remove all grains, if '.': remove finished
+                    grains only, if float: remove grain with corresponding #id, if symbol: remove
+                    grains with corresponding tag</tr>
+                    <tr lang="ru">если «*» или не указано: удалить все гранулы, если «.»: удалить
+                    только завершенные гранулы, если целое число: удалить гранулу с соответствующим
+                    #id, если символ: удалить гранулы с соответствующим тегом</tr>
+                </param>
+            </method>
             <!-- defer -->
-            <method name="defer">defer method call until grains will finish 
-            <param name="N" type="int" minvalue="1" maxvalue="255">
-                <tr lang="en">number of finished grains to wait before calling. If not specified,
-                treat as 1.</tr>
-                <tr lang="ru">дождаться указанного количество завершенных гранул прежде чем
-                вызывать метод. Если не указано, ждет завершения одной гранулы.</tr>
-            </param>
-            <param name="METHOD" type="symbol" required="true">
-                <tr lang="en">method name</tr>
-                <tr lang="ru">название метода</tr>
-            </param>
-            <param name="ARGS" type="list">
-                <tr lang="en">method arguments</tr>
-                <tr lang="ru">аргументы метода</tr>
-            </param></method>
+            <method name="defer">
+                <info>
+                    <tr lang="en">defer method call until grains will finish</tr>
+                </info>
+                <param name="N" type="int" minvalue="1" maxvalue="255">
+                    <tr lang="en">number of finished grains to wait before calling. If not
+                    specified, treat as 1.</tr>
+                    <tr lang="ru">дождаться указанного количество завершенных гранул прежде чем
+                    вызывать метод. Если не указано, ждет завершения одной гранулы.</tr>
+                </param>
+                <param name="METHOD" type="symbol" required="true">
+                    <tr lang="en">method name</tr>
+                    <tr lang="ru">название метода</tr>
+                </param>
+                <param name="ARGS" type="list">
+                    <tr lang="en">method arguments</tr>
+                    <tr lang="ru">аргументы метода</tr>
+                </param>
+            </method>
             <!-- fill -->
-            <method name="fill">fill with grains (remove all existing grains before) 
-            <param name="N" type="int" required="true" minvalue="1">
-                <tr lang="en">number of grains</tr>
-                <tr lang="ru">число гранул</tr>
-            </param>
-            <param name="PROPS" type="list" required="true">
-                <tr lang="en">grain properties</tr>
-                <tr lang="ru">свойства гранул</tr>
-            </param></method>
+            <method name="fill">
+                <info>
+                    <tr lang="en">fill with grains (remove all existing grains before)</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="1">
+                    <tr lang="en">number of grains</tr>
+                    <tr lang="ru">число гранул</tr>
+                </param>
+                <param name="PROPS" type="list" required="true">
+                    <tr lang="en">grain properties</tr>
+                    <tr lang="ru">свойства гранул</tr>
+                </param>
+            </method>
             <!-- grain -->
-            <method name="grain">create single grain 
-            <param name="PROPS" type="list" required="true">
-                <tr lang="en">grain properties</tr>
-                <tr lang="ru">свойства гранулы</tr>
-            </param></method>
+            <method name="grain">
+                <info>
+                    <tr lang="en">create single grain</tr>
+                </info>
+                <param name="PROPS" type="list" required="true">
+                    <tr lang="en">grain properties</tr>
+                    <tr lang="ru">свойства гранулы</tr>
+                </param>
+            </method>
             <!-- onsets -->
-            <method name="onsets">analyze source array for onsets 
-            <param name="METHOD" type="symbol" default="default"
-            enum="default hfc energy complex phase wphase specdiff kl mkl specflux">
-                <tr lang="en">onset detection method</tr>
-                <tr lang="ru">метод обнаружения атаки</tr>
-            </param>
-            <param name="SPACE" type="float" default="64" units="millisecond" required="false">
-                <tr lang="en">minimal space between onsets</tr>
-                <tr lang="ru">минимальный интервал между атаками</tr>
-            </param>
-            <param name="SILENCE" type="float" default="-40" units="decibel" required="false">
-                <tr lang="en">silence level</tr>
-                <tr lang="ru">уровень тишины</tr>
-            </param></method>
+            <method name="onsets">
+                <info>
+                    <tr lang="en">analyze source array for onsets</tr>
+                </info>
+                <param name="METHOD" type="symbol" default="default"
+                enum="default hfc energy complex phase wphase specdiff kl mkl specflux">
+                    <tr lang="en">onset detection method</tr>
+                    <tr lang="ru">метод обнаружения атаки</tr>
+                </param>
+                <param name="SPACE" type="float" default="64" units="millisecond" required="false">
+                    <tr lang="en">minimal space between onsets</tr>
+                    <tr lang="ru">минимальный интервал между атаками</tr>
+                </param>
+                <param name="SILENCE" type="float" default="-40" units="decibel" required="false">
+                    <tr lang="en">silence level</tr>
+                    <tr lang="ru">уровень тишины</tr>
+                </param>
+            </method>
             <!-- pause -->
-            <method name="pause">pause (resume) grain(s) 
-            <param name="SUBJ" type="atom" required="true">
-                <tr lang="en">if '*': pause all grains, if float: pause grain with corresponding
-                #id, if symbol: pause grains with matched tag</tr>
-                <tr lang="ru">если '*': приостанавливать все гранулы, если целое число:
-                приостанавить гранулу с соответствующим #id, если символ: приостановить гранулы с
-                соответствующим тегом</tr>
-            </param>
-            <param name="STATE" type="int" enum="0 1" required="false">
-                <tr lang="en">on/off value</tr>
-                <tr lang="ru">значение вкл./выкл.</tr>
-            </param></method>
+            <method name="pause">
+                <info>
+                    <tr lang="en">pause (resume) grain(s)</tr>
+                </info>
+                <param name="SUBJ" type="atom" required="true">
+                    <tr lang="en">if '*': pause all grains, if float: pause grain with
+                    corresponding #id, if symbol: pause grains with matched tag</tr>
+                    <tr lang="ru">если '*': приостанавливать все гранулы, если целое число:
+                    приостанавить гранулу с соответствующим #id, если символ: приостановить гранулы
+                    с соответствующим тегом</tr>
+                </param>
+                <param name="STATE" type="int" enum="0 1" required="false">
+                    <tr lang="en">on/off value</tr>
+                    <tr lang="ru">значение вкл./выкл.</tr>
+                </param>
+            </method>
             <!-- permutate -->
-            <method name="permutate">permutate grain positions (@ta and @tb) values 
-            <param name="N" type="int" minvalue="-16" maxvalue="16">
-                <tr lang="en">number of permutations. If N&gt;0 results N-th next permutation,
-                N&lt;0 - N-th previous permutation</tr>
-                <tr lang="ru">количество перестановок. Если N&gt;0 приводит к N-й следующей
-                перестановке, N&lt;0 - N-й предыдущей перестановке</tr>
-            </param>
-            <param name="TAG" type="symbol" required="false">
-                <tr lang="en">if '*' or omitted: permutates all grains, if '.': permutate positions
-                of finished grains only, otherwise permutates grains with corresponding tag</tr>
-                <tr lang="ru">если «*» или не указано: переставляет все гранулы, если «.»: только
-                завершенные, если символ – гранулы с соответствующим тегом</tr>
-            </param></method>
+            <method name="permutate">
+                <info>
+                    <tr lang="en">permutate grain positions (@ta and @tb) values</tr>
+                </info>
+                <param name="N" type="int" minvalue="-16" maxvalue="16">
+                    <tr lang="en">number of permutations. If N&gt;0 results N-th next permutation,
+                    N&lt;0 - N-th previous permutation</tr>
+                    <tr lang="ru">количество перестановок. Если N&gt;0 приводит к N-й следующей
+                    перестановке, N&lt;0 - N-й предыдущей перестановке</tr>
+                </param>
+                <param name="TAG" type="symbol" required="false">
+                    <tr lang="en">if '*' or omitted: permutates all grains, if '.': permutate
+                    positions of finished grains only, otherwise permutates grains with
+                    corresponding tag</tr>
+                    <tr lang="ru">если «*» или не указано: переставляет все гранулы, если «.»:
+                    только завершенные, если символ – гранулы с соответствующим тегом</tr>
+                </param>
+            </method>
             <!-- reverse -->
-            <method name="reverse">reverse grain positions (@ta and @tb) values 
-            <param name="TAG" type="symbol" required="false">
-                <tr lang="en">if '*' or omitted: reverse positions of all grains, if '.': reverse
-                positions of finished grains only, otherwise reverse grains with corresponding
-                tag</tr>
-                <tr lang="ru" finished="false">если «*» или не указано: обратить позиции всех
-                гранул, если «.»: только у завершенных гранул, если символ – только у гранул с
-                соответствующим тегом</tr>
-            </param></method>
+            <method name="reverse">
+                <info>
+                    <tr lang="en">reverse grain positions (@ta and @tb) values</tr>
+                </info>
+                <param name="TAG" type="symbol" required="false">
+                    <tr lang="en">if '*' or omitted: reverse positions of all grains, if '.':
+                    reverse positions of finished grains only, otherwise reverse grains with
+                    corresponding tag</tr>
+                    <tr lang="ru" finished="false">если «*» или не указано: обратить позиции всех
+                    гранул, если «.»: только у завершенных гранул, если символ – только у гранул с
+                    соответствующим тегом</tr>
+                </param>
+            </method>
             <!-- set -->
-            <method name="set">set grain(s) properties 
-            <param name="SUBJ" type="atom" required="true">
-                <tr lang="en">if '*': set for all grains, if float: set for grain with specified
-                #id, if symbol: set for grains with specified tag</tr>
-                <tr lang="ru">если "*": установить для всех гранул, если целое число: гранулу с
-                указанным #id, если символ: набор гранул с указанным тегом</tr>
-            </param>
-            <param name="PROPS" type="list" required="true">
-                <tr lang="en">grain properties</tr>
-                <tr lang="ru">свойства гранул</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">set grain(s) properties</tr>
+                </info>
+                <param name="SUBJ" type="atom" required="true">
+                    <tr lang="en">if '*': set for all grains, if float: set for grain with
+                    specified #id, if symbol: set for grains with specified tag</tr>
+                    <tr lang="ru">если "*": установить для всех гранул, если целое число: гранулу с
+                    указанным #id, если символ: набор гранул с указанным тегом</tr>
+                </param>
+                <param name="PROPS" type="list" required="true">
+                    <tr lang="en">grain properties</tr>
+                    <tr lang="ru">свойства гранул</tr>
+                </param>
+            </method>
             <!-- shuffle -->
-            <method name="shuffle">shuffle grain positions (@ta and @tb) values 
-            <param name="TAG" type="symbol" required="false">
-                <tr lang="en">if '*' or omitted: shuffle all grains, if '.': shuffle finished
-                grains only, otherwise shuffle grains with corresponding tag</tr>
-                <tr lang="ru">если "*" или не указано: перетасовывает все гранулы, если ".":
-                перетасовать только завершенные гранулы, если символ: перетасовать гранулы с
-                указанным тегом</tr>
-            </param></method>
+            <method name="shuffle">
+                <info>
+                    <tr lang="en">shuffle grain positions (@ta and @tb) values</tr>
+                </info>
+                <param name="TAG" type="symbol" required="false">
+                    <tr lang="en">if '*' or omitted: shuffle all grains, if '.': shuffle finished
+                    grains only, otherwise shuffle grains with corresponding tag</tr>
+                    <tr lang="ru">если "*" или не указано: перетасовывает все гранулы, если ".":
+                    перетасовать только завершенные гранулы, если символ: перетасовать гранулы с
+                    указанным тегом</tr>
+                </param>
+            </method>
             <!-- slice -->
-            <method name="slice">slice specified duration to specified number of grains and add
-            them 
-            <param name="N" type="int" required="true" minvalue="1" maxvalue="64">
-                <tr lang="en">desired number of grains</tr>
-                <tr lang="ru">необходимое количество гранул</tr>
-            </param>
-            <param name="DUR" type="atom">
-                <tr lang="en">duration to slice. Positive time value expected, for example: 100ms,
-                1.02s, 400samp etc. Float value treat as millisecond. If not specified - use the
-                whole source array duration</tr>
-                <tr lang="ru">длительность для нарезки. Ожидаются положительные значение времени,
-                например: 100 мс, 1.02s, 400samp и т.д. Числовое значение без суффикса трактуется
-                как миллисекунда. Если не указано - использует всю продолжительность исходного
-                массива</tr>
-            </param>
-            <param name="GRAIN" type="list">
-                <tr lang="en">properties of sliced grains</tr>
-                <tr lang="ru">свойства нарезанных гранул</tr>
-            </param></method>
+            <method name="slice">
+                <info>
+                    <tr lang="en">slice specified duration to specified number of grains and add
+                    them</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="1" maxvalue="64">
+                    <tr lang="en">desired number of grains</tr>
+                    <tr lang="ru">необходимое количество гранул</tr>
+                </param>
+                <param name="DUR" type="atom">
+                    <tr lang="en">duration to slice. Positive time value expected, for example:
+                    100ms, 1.02s, 400samp etc. Float value treat as millisecond. If not specified -
+                    use the whole source array duration</tr>
+                    <tr lang="ru">длительность для нарезки. Ожидаются положительные значение
+                    времени, например: 100 мс, 1.02s, 400samp и т.д. Числовое значение без суффикса
+                    трактуется как миллисекунда. Если не указано - использует всю продолжительность
+                    исходного массива</tr>
+                </param>
+                <param name="GRAIN" type="list">
+                    <tr lang="en">properties of sliced grains</tr>
+                    <tr lang="ru">свойства нарезанных гранул</tr>
+                </param>
+            </method>
             <!-- spread -->
-            <method name="spread">uniformly arrange grains to fill specified time space 
-            <param name="DUR" type="atom">
-                <tr lang="en">time space. Positive time values are expected, for example: 100ms,
-                1.02s, 400samp etc. Float value treat as millisecond. If not specified - use the
-                whole source array duration</tr>
-                <tr lang="ru">пространство времени. Ожидаются положительные временные значения,
-                например: 100 мс, 1.02s, 400samp и т.д. Числовое значение без суффикса трактуется
-                как миллисекунда. Если не указано - использует всю продолжительность исходного
-                массива</tr>
-            </param>
-            <param name="TAG" type="symbol" required="false">
-                <tr lang="en">if '*' or omitted: spread all grains, if '.': spread finished grains
-                only, otherwise spread grains with corresponding tag</tr>
-                <tr lang="ru">если "*" или опущено: распределяет все гранулы, если ".":
-                распределить только завершенные гранулы, если символ - распределить гранулы с
-                соответствующей меткой</tr>
-            </param></method>
+            <method name="spread">
+                <info>
+                    <tr lang="en">uniformly arrange grains to fill specified time space</tr>
+                </info>
+                <param name="DUR" type="atom">
+                    <tr lang="en">time space. Positive time values are expected, for example:
+                    100ms, 1.02s, 400samp etc. Float value treat as millisecond. If not specified -
+                    use the whole source array duration</tr>
+                    <tr lang="ru">пространство времени. Ожидаются положительные временные значения,
+                    например: 100 мс, 1.02s, 400samp и т.д. Числовое значение без суффикса
+                    трактуется как миллисекунда. Если не указано - использует всю продолжительность
+                    исходного массива</tr>
+                </param>
+                <param name="TAG" type="symbol" required="false">
+                    <tr lang="en">if '*' or omitted: spread all grains, if '.': spread finished
+                    grains only, otherwise spread grains with corresponding tag</tr>
+                    <tr lang="ru">если "*" или опущено: распределяет все гранулы, если ".":
+                    распределить только завершенные гранулы, если символ - распределить гранулы с
+                    соответствующей меткой</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

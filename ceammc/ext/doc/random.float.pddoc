@@ -62,10 +62,14 @@
         </properties>
         <methods>
             <!-- gen -->
-            <method name="gen">generate list of random floats with specified length 
-            <param name="N" type="int" required="true" minvalue="1">
-                <tr lang="en">list length</tr>
-            </param></method>
+            <method name="gen">
+                <info>
+                    <tr lang="en">generate list of random floats with specified length</tr>
+                </info>
+                <param name="N" type="int" required="true" minvalue="1">
+                    <tr lang="en">list length</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

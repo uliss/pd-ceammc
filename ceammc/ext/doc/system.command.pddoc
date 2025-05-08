@@ -64,12 +64,20 @@
         </properties>
         <methods>
             <!-- stdin -->
-            <method name="stdin">run the program with given input values 
-            <param name="ARGS" type="list" required="false">
-                <tr lang="en">the input values</tr>
-            </param></method>
+            <method name="stdin">
+                <info>
+                    <tr lang="en">run the program with given input values</tr>
+                </info>
+                <param name="ARGS" type="list" required="false">
+                    <tr lang="en">the input values</tr>
+                </param>
+            </method>
             <!-- terminate -->
-            <method name="terminate">terminate the running process</method>
+            <method name="terminate">
+                <info>
+                    <tr lang="en">terminate the running process</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

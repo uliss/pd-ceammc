@@ -44,7 +44,11 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">clear all histogram data</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear all histogram data</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

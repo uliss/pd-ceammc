@@ -64,14 +64,22 @@
         </properties>
         <methods>
             <!-- open -->
-            <method name="open">open a monophonic soundfile to be "granulated". Only WAV and AIFF
-            formats are supported. 
-            <param name="PATH" type="symbol">
-                <tr lang="en">path to file</tr>
-            </param></method>
+            <method name="open">
+                <info>
+                    <tr lang="en">open a monophonic soundfile to be "granulated". Only WAV and AIFF
+                    formats are supported.</tr>
+                </info>
+                <param name="PATH" type="symbol">
+                    <tr lang="en">path to file</tr>
+                </param>
+            </method>
             <!-- reset -->
-            <method name="reset">reset the file pointer and all existing grains to the file
-            start</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset the file pointer and all existing grains to the file
+                    start</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

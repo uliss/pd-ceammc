@@ -82,77 +82,144 @@
         </properties>
         <methods>
             <!-- + STEP -->
-            <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
+            <method name="+ STEP">
+                <info>
+                    <tr lang="en">moves several steps forward on a loop (single mode only)</tr>
+                </info>
+            </method>
             <!-- - STEP -->
-            <method name="- STEP">moves several step backwards on a loop (single mode
-            only)</method>
+            <method name="- STEP">
+                <info>
+                    <tr lang="en">moves several step backwards on a loop (single mode only)</tr>
+                </info>
+            </method>
             <!-- cellsize -->
-            <method name="cellsize">set cell size (resize widget) 
-            <param name="X" type="int" required="true">
-                <tr lang="en">cell size in pixels</tr>
-            </param></method>
+            <method name="cellsize">
+                <info>
+                    <tr lang="en">set cell size (resize widget)</tr>
+                </info>
+                <param name="X" type="int" required="true">
+                    <tr lang="en">cell size in pixels</tr>
+                </param>
+            </method>
             <!-- clear -->
-            <method name="clear">clears specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clears specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- euclid -->
-            <method name="euclid">set euclid pattern (checklist mode only) 
-            <param name="BEATS" type="int" required="true">
-                <tr lang="en">requested number of beats</tr>
-            </param>
-            <param name="OFFSET" type="int" required="false">
-                <tr lang="en">pattern offset (rotation to the right)</tr>
-            </param></method>
+            <method name="euclid">
+                <info>
+                    <tr lang="en">set euclid pattern (checklist mode only)</tr>
+                </info>
+                <param name="BEATS" type="int" required="true">
+                    <tr lang="en">requested number of beats</tr>
+                </param>
+                <param name="OFFSET" type="int" required="false">
+                    <tr lang="en">pattern offset (rotation to the right)</tr>
+                </param>
+            </method>
             <!-- flip -->
-            <method name="flip">flips radio (only in checklist mode)</method>
+            <method name="flip">
+                <info>
+                    <tr lang="en">flips radio (only in checklist mode)</tr>
+                </info>
+            </method>
             <!-- hexbeat -->
-            <method name="hexbeat">set hexbeat pattern (checklist mode only) 
-            <param name="HEXSTR" type="symbol" required="true">
-                <tr lang="en">hex string. For example, 0xF1 will set 1 1 1 1 0 0 0 1 pattern</tr>
-            </param></method>
+            <method name="hexbeat">
+                <info>
+                    <tr lang="en">set hexbeat pattern (checklist mode only)</tr>
+                </info>
+                <param name="HEXSTR" type="symbol" required="true">
+                    <tr lang="en">hex string. For example, 0xF1 will set 1 1 1 1 0 0 0 1
+                    pattern</tr>
+                </param>
+            </method>
             <!-- interp -->
-            <method name="interp">for this object acts as *load*, no interpolation
-            performed</method>
+            <method name="interp">
+                <info>
+                    <tr lang="en">for this object acts as *load*, no interpolation performed</tr>
+                </info>
+            </method>
             <!-- load -->
-            <method name="load">loads specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="load">
+                <info>
+                    <tr lang="en">loads specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
             <!-- next -->
-            <method name="next">moves to next position until last cell is reached (single mode
-            only)</method>
+            <method name="next">
+                <info>
+                    <tr lang="en">moves to next position until last cell is reached (single mode
+                    only)</tr>
+                </info>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
             <!-- prev -->
-            <method name="prev">moves to previous position until first cell is reached (single mode
-            only)</method>
+            <method name="prev">
+                <info>
+                    <tr lang="en">moves to previous position until first cell is reached (single
+                    mode only)</tr>
+                </info>
+            </method>
             <!-- random -->
-            <method name="random">select random cells. If called as [random move( moves to another
-            random cell (excluding the current one)</method>
+            <method name="random">
+                <info>
+                    <tr lang="en">select random cells. If called as [random move( moves to another
+                    random cell (excluding the current one)</tr>
+                </info>
+            </method>
             <!-- reset -->
-            <method name="reset">reset radio (only in checklist mode)</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset radio (only in checklist mode)</tr>
+                </info>
+            </method>
             <!-- rotate -->
-            <method name="rotate">left rotate (checklist mode only) 
-            <param name="STEPS" type="int" required="true">
-                <tr lang="en">number of steps</tr>
-            </param></method>
+            <method name="rotate">
+                <info>
+                    <tr lang="en">left rotate (checklist mode only)</tr>
+                </info>
+                <param name="STEPS" type="int" required="true">
+                    <tr lang="en">number of steps</tr>
+                </param>
+            </method>
             <!-- set -->
-            <method name="set">sets radio without output 
-            <param name="V" type="float" required="true">
-                <tr lang="en">new value</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">sets radio without output</tr>
+                </info>
+                <param name="V" type="float" required="true">
+                    <tr lang="en">new value</tr>
+                </param>
+            </method>
             <!-- store -->
-            <method name="store">stores specified preset 
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">preset index</tr>
-            </param></method>
+            <method name="store">
+                <info>
+                    <tr lang="en">stores specified preset</tr>
+                </info>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">preset index</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

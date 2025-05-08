@@ -60,7 +60,11 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">sets to empty list current state</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">sets to empty list current state</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

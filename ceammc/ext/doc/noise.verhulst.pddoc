@@ -49,7 +49,11 @@
                 </param>
             </method>
             <!-- reset -->
-            <method name="reset">reset state</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset state</tr>
+                </info>
+            </method>
             <!-- seed -->
             <method name="seed">
                 <param name="SEED" type="float" required="true">

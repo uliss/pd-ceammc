@@ -49,11 +49,23 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">removes all midi file content</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">removes all midi file content</tr>
+                </info>
+            </method>
             <!-- read -->
-            <method name="read">read specified midi file. No output</method>
+            <method name="read">
+                <info>
+                    <tr lang="en">read specified midi file. No output</tr>
+                </info>
+            </method>
             <!-- write -->
-            <method name="write">write to specified midi file</method>
+            <method name="write">
+                <info>
+                    <tr lang="en">write to specified midi file</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

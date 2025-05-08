@@ -33,109 +33,151 @@
         </properties>
         <methods>
             <!-- clients -->
-            <method name="clients">output connected clients as list CLIENT_ID CLIENT_ADDR...
-            etc.</method>
+            <method name="clients">
+                <info>
+                    <tr lang="en">output connected clients as list CLIENT_ID CLIENT_ADDR...
+                    etc.</tr>
+                </info>
+            </method>
             <!-- close -->
-            <method name="close">gracefully close connection with specified client(s) 
-            <param name="TARGET" type="symbol" required="true"
-            enum="* all first last id == != except">
-                <tr lang="en">client selector. If '*' or 'all' - send message to all clients. If
-                'first' - send message to first connected client. If 'last' - send message to last
-                connected client. If 'id' or '==' - send message to client with specified ID. If
-                'except' or '!=' - send message to all client except specified.</tr>
-            </param>
-            <param name="ID" type="int" required="false">
-                <tr lang="en">client ID. Required, if client selector is one of: 'id', '==', '!='
-                or 'except'.</tr>
-            </param></method>
+            <method name="close">
+                <info>
+                    <tr lang="en">gracefully close connection with specified client(s)</tr>
+                </info>
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
+                    <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
+                    If 'first' - send message to first connected client. If 'last' - send message
+                    to last connected client. If 'id' or '==' - send message to client with
+                    specified ID. If 'except' or '!=' - send message to all client except
+                    specified.</tr>
+                </param>
+                <param name="ID" type="int" required="false">
+                    <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
+                    '!=' or 'except'.</tr>
+                </param>
+            </method>
             <!-- listen -->
-            <method name="listen">starts/stop websocket server 
-            <param name="PORT" type="int" minvalue="0" required="true">
-                <tr lang="en">listening port. If 0 - stops server.</tr>
-            </param>
-            <param name="ADDR" type="symbol" required="false">
-                <tr lang="en">listening address. If not specified - using 0.0.0.0 (all network
-                interfaces)</tr>
-            </param></method>
+            <method name="listen">
+                <info>
+                    <tr lang="en">starts/stop websocket server</tr>
+                </info>
+                <param name="PORT" type="int" minvalue="0" required="true">
+                    <tr lang="en">listening port. If 0 - stops server.</tr>
+                </param>
+                <param name="ADDR" type="symbol" required="false">
+                    <tr lang="en">listening address. If not specified - using 0.0.0.0 (all network
+                    interfaces)</tr>
+                </param>
+            </method>
             <!-- ping -->
-            <method name="ping">send ping message to specified client(s) 
-            <param name="TARGET" type="symbol" required="true"
-            enum="* all first last id == != except">
-                <tr lang="en">client selector. If '*' or 'all' - send message to all clients. If
-                'first' - send message to first connected client. If 'last' - send message to last
-                connected client. If 'id' or '==' - send message to client with specified ID. If
-                'except' or '!=' - send message to all client except specified.</tr>
-            </param>
-            <param name="ID" type="int" required="false">
-                <tr lang="en">client ID. Required, if client selector is one of: 'id', '==', '!='
-                or 'except'.</tr>
-            </param>
-            <param name="DATA" type="list" required="false">
-                <tr lang="en">list of integers in [0..255] range</tr>
-            </param></method>
+            <method name="ping">
+                <info>
+                    <tr lang="en">send ping message to specified client(s)</tr>
+                </info>
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
+                    <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
+                    If 'first' - send message to first connected client. If 'last' - send message
+                    to last connected client. If 'id' or '==' - send message to client with
+                    specified ID. If 'except' or '!=' - send message to all client except
+                    specified.</tr>
+                </param>
+                <param name="ID" type="int" required="false">
+                    <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
+                    '!=' or 'except'.</tr>
+                </param>
+                <param name="DATA" type="list" required="false">
+                    <tr lang="en">list of integers in [0..255] range</tr>
+                </param>
+            </method>
             <!-- send -->
-            <method name="send">send as text message to specified client(s) 
-            <param name="TARGET" type="symbol" required="true"
-            enum="* all first last id == != except">
-                <tr lang="en">client selector. If '*' or 'all' - send message to all clients. If
-                'first' - send message to first connected client. If 'last' - send message to last
-                connected client. If 'id' or '==' - send message to client with specified ID. If
-                'except' or '!=' - send message to all client except specified.</tr>
-            </param>
-            <param name="ID" type="int" required="false">
-                <tr lang="en">client ID. Required, if client selector is one of: 'id', '==', '!='
-                or 'except'.</tr>
-            </param>
-            <param name="ARGS" type="list" required="false">
-                <tr lang="en">arguments</tr>
-            </param></method>
+            <method name="send">
+                <info>
+                    <tr lang="en">send as text message to specified client(s)</tr>
+                </info>
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
+                    <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
+                    If 'first' - send message to first connected client. If 'last' - send message
+                    to last connected client. If 'id' or '==' - send message to client with
+                    specified ID. If 'except' or '!=' - send message to all client except
+                    specified.</tr>
+                </param>
+                <param name="ID" type="int" required="false">
+                    <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
+                    '!=' or 'except'.</tr>
+                </param>
+                <param name="ARGS" type="list" required="false">
+                    <tr lang="en">arguments</tr>
+                </param>
+            </method>
             <!-- send_binary -->
-            <method name="send_binary">send as binary bytes to specified client(s) 
-            <param name="TARGET" type="symbol" required="true"
-            enum="* all first last id == != except">
-                <tr lang="en">client selector. If '*' or 'all' - send message to all clients. If
-                'first' - send message to first connected client. If 'last' - send message to last
-                connected client. If 'id' or '==' - send message to client with specified ID. If
-                'except' or '!=' - send message to all client except specified.</tr>
-            </param>
-            <param name="ID" type="int" required="false">
-                <tr lang="en">client ID. Required, if client selector is one of: 'id', '==', '!='
-                or 'except'.</tr>
-            </param>
-            <param name="DATA" type="list" required="false">
-                <tr lang="en">list of integers in [0..255] range</tr>
-            </param></method>
+            <method name="send_binary">
+                <info>
+                    <tr lang="en">send as binary bytes to specified client(s)</tr>
+                </info>
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
+                    <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
+                    If 'first' - send message to first connected client. If 'last' - send message
+                    to last connected client. If 'id' or '==' - send message to client with
+                    specified ID. If 'except' or '!=' - send message to all client except
+                    specified.</tr>
+                </param>
+                <param name="ID" type="int" required="false">
+                    <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
+                    '!=' or 'except'.</tr>
+                </param>
+                <param name="DATA" type="list" required="false">
+                    <tr lang="en">list of integers in [0..255] range</tr>
+                </param>
+            </method>
             <!-- send_json -->
-            <method name="send_json">send as encoded json to specified client(s) 
-            <param name="TARGET" type="symbol" required="true"
-            enum="* all first last id == != except">
-                <tr lang="en">client selector. If '*' or 'all' - send message to all clients. If
-                'first' - send message to first connected client. If 'last' - send message to last
-                connected client. If 'id' or '==' - send message to client with specified ID. If
-                'except' or '!=' - send message to all client except specified.</tr>
-            </param>
-            <param name="ID" type="int" required="false">
-                <tr lang="en">client ID. Required, if client selector is one of: 'id', '==', '!='
-                or 'except'.</tr>
-            </param>
-            <param name="ARGS" type="list" required="false">
-                <tr lang="en">arguments</tr>
-            </param></method>
+            <method name="send_json">
+                <info>
+                    <tr lang="en">send as encoded json to specified client(s)</tr>
+                </info>
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
+                    <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
+                    If 'first' - send message to first connected client. If 'last' - send message
+                    to last connected client. If 'id' or '==' - send message to client with
+                    specified ID. If 'except' or '!=' - send message to all client except
+                    specified.</tr>
+                </param>
+                <param name="ID" type="int" required="false">
+                    <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
+                    '!=' or 'except'.</tr>
+                </param>
+                <param name="ARGS" type="list" required="false">
+                    <tr lang="en">arguments</tr>
+                </param>
+            </method>
             <!-- shutdown -->
-            <method name="shutdown">abort connection with specified client(s) 
-            <param name="TARGET" type="symbol" required="true"
-            enum="* all first last id == != except">
-                <tr lang="en">client selector. If '*' or 'all' - send message to all clients. If
-                'first' - send message to first connected client. If 'last' - send message to last
-                connected client. If 'id' or '==' - send message to client with specified ID. If
-                'except' or '!=' - send message to all client except specified.</tr>
-            </param>
-            <param name="ID" type="int" required="false">
-                <tr lang="en">client ID. Required, if client selector is one of: 'id', '==', '!='
-                or 'except'.</tr>
-            </param></method>
+            <method name="shutdown">
+                <info>
+                    <tr lang="en">abort connection with specified client(s)</tr>
+                </info>
+                <param name="TARGET" type="symbol" required="true"
+                enum="* all first last id == != except">
+                    <tr lang="en">client selector. If '*' or 'all' - send message to all clients.
+                    If 'first' - send message to first connected client. If 'last' - send message
+                    to last connected client. If 'id' or '==' - send message to client with
+                    specified ID. If 'except' or '!=' - send message to all client except
+                    specified.</tr>
+                </param>
+                <param name="ID" type="int" required="false">
+                    <tr lang="en">client ID. Required, if client selector is one of: 'id', '==',
+                    '!=' or 'except'.</tr>
+                </param>
+            </method>
             <!-- stop -->
-            <method name="stop">stops server, equal to [listen 0( message</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stops server, equal to [listen 0( message</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

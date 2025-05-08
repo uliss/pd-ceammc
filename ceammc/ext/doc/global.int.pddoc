@@ -41,14 +41,34 @@
         </properties>
         <methods>
             <!-- * -->
-            <method name="*">multiply to, no output</method>
+            <method name="*">
+                <info>
+                    <tr lang="en">multiply to, no output</tr>
+                </info>
+            </method>
             <!-- + -->
-            <method name="+">add to int, no output</method>
-            <method name="-">substruct from int, no output</method>
+            <method name="+">
+                <info>
+                    <tr lang="en">add to int, no output</tr>
+                </info>
+            </method>
+            <method name="-">
+                <info>
+                    <tr lang="en">substruct from int, no output</tr>
+                </info>
+            </method>
             <!-- / -->
-            <method name="/">divide by, no output</method>
+            <method name="/">
+                <info>
+                    <tr lang="en">divide by, no output</tr>
+                </info>
+            </method>
             <!-- set -->
-            <method name="set">sets new value without output</method>
+            <method name="set">
+                <info>
+                    <tr lang="en">sets new value without output</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

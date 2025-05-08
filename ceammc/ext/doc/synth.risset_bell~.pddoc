@@ -49,7 +49,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset synth</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset synth</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

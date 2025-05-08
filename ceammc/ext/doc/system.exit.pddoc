@@ -37,10 +37,14 @@
         </properties>
         <methods>
             <!-- exit -->
-            <method name="exit">exit PureData 
-            <param name="RC" type="int">
-                <tr lang="en">exit code, if not specified @rc property used</tr>
-            </param></method>
+            <method name="exit">
+                <info>
+                    <tr lang="en">exit PureData</tr>
+                </info>
+                <param name="RC" type="int">
+                    <tr lang="en">exit code, if not specified @rc property used</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -41,7 +41,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset to init state</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset to init state</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

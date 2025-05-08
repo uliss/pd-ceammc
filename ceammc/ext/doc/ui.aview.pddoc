@@ -135,25 +135,41 @@
         </properties>
         <methods>
             <!-- dump -->
-            <method name="dump">dumps all object info to Pd console window.</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">dumps all object info to Pd console window.</tr>
+                </info>
+            </method>
             <!-- pos -->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">
-                <tr lang="en">top left x-coord</tr>
-            </param>
-            <param name="Y" type="float" required="true">
-                <tr lang="en">top right y-coord</tr>
-            </param></method>
+            <method name="pos">
+                <info>
+                    <tr lang="en">set UI element position</tr>
+                </info>
+                <param name="X" type="float" required="true">
+                    <tr lang="en">top left x-coord</tr>
+                </param>
+                <param name="Y" type="float" required="true">
+                    <tr lang="en">top right y-coord</tr>
+                </param>
+            </method>
             <!-- select -->
-            <method name="select">set selection 
-            <param name="BEGIN" type="int" required="true">
-                <tr lang="en">selection start in samples</tr>
-            </param>
-            <param name="END" type="int" required="true">
-                <tr lang="en">selection end in samples</tr>
-            </param></method>
+            <method name="select">
+                <info>
+                    <tr lang="en">set selection</tr>
+                </info>
+                <param name="BEGIN" type="int" required="true">
+                    <tr lang="en">selection start in samples</tr>
+                </param>
+                <param name="END" type="int" required="true">
+                    <tr lang="en">selection end in samples</tr>
+                </param>
+            </method>
             <!-- update -->
-            <method name="update">redraws view</method>
+            <method name="update">
+                <info>
+                    <tr lang="en">redraws view</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

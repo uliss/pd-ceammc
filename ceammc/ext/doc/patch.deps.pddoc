@@ -21,7 +21,11 @@
         </meta>
         <methods>
             <!-- dump -->
-            <method name="dump">output dependency tree to Pd window</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">output dependency tree to Pd window</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="control">

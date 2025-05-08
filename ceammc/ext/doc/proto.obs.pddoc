@@ -32,80 +32,156 @@
         </properties>
         <methods>
             <!-- collection current get -->
-            <method name="collection current get">request current collection</method>
+            <method name="collection current get">
+                <info>
+                    <tr lang="en">request current collection</tr>
+                </info>
+            </method>
             <!-- collection current set -->
-            <method name="collection current set">set current collection 
-            <param name="NAME" type="symbol" required="true">
-                <tr lang="en">collection name</tr>
-            </param></method>
+            <method name="collection current set">
+                <info>
+                    <tr lang="en">set current collection</tr>
+                </info>
+                <param name="NAME" type="symbol" required="true">
+                    <tr lang="en">collection name</tr>
+                </param>
+            </method>
             <!-- collection list -->
-            <method name="collection list">request collection list</method>
+            <method name="collection list">
+                <info>
+                    <tr lang="en">request collection list</tr>
+                </info>
+            </method>
             <!-- connect -->
-            <method name="connect">connect to OBS studio. Message [connected 1( is send to output
-            on success, [connected 0( - on error. 
-            <param name="PASSWD" type="symbol" required="false">
-                <tr lang="en">if specified, temporaly overrides @passwd property</tr>
-            </param></method>
+            <method name="connect">
+                <info>
+                    <tr lang="en">connect to OBS studio. Message [connected 1( is send to output on
+                    success, [connected 0( - on error.</tr>
+                </info>
+                <param name="PASSWD" type="symbol" required="false">
+                    <tr lang="en">if specified, temporaly overrides @passwd property</tr>
+                </param>
+            </method>
             <!-- disconnect -->
-            <method name="disconnect">disconnect from OBS studio. Message [connected 0( is send to
-            output</method>
+            <method name="disconnect">
+                <info>
+                    <tr lang="en">disconnect from OBS studio. Message [connected 0( is send to
+                    output</tr>
+                </info>
+            </method>
             <!-- info -->
-            <method name="info">request OBS studio information: OBS version, web-socket version,
-            RPC version and list of supported image formats. This info is outputted as messages to
-            first outlet.</method>
+            <method name="info">
+                <info>
+                    <tr lang="en">request OBS studio information: OBS version, web-socket version,
+                    RPC version and list of supported image formats. This info is outputted as
+                    messages to first outlet.</tr>
+                </info>
+            </method>
             <!-- item enable -->
-            <method name="item enable">enable/disable scene item 
-            <param name="SCENE" type="symbol" required="true">
-                <tr lang="en">scene name</tr>
-            </param>
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">item pos</tr>
-            </param>
-            <param name="VALUE" type="bool" required="true">
-                <tr lang="en">value</tr>
-            </param></method>
+            <method name="item enable">
+                <info>
+                    <tr lang="en">enable/disable scene item</tr>
+                </info>
+                <param name="SCENE" type="symbol" required="true">
+                    <tr lang="en">scene name</tr>
+                </param>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">item pos</tr>
+                </param>
+                <param name="VALUE" type="bool" required="true">
+                    <tr lang="en">value</tr>
+                </param>
+            </method>
             <!-- item list -->
-            <method name="item list">request list of scene items 
-            <param name="SCENE" type="symbol" required="true">
-                <tr lang="en">scene name</tr>
-            </param></method>
+            <method name="item list">
+                <info>
+                    <tr lang="en">request list of scene items</tr>
+                </info>
+                <param name="SCENE" type="symbol" required="true">
+                    <tr lang="en">scene name</tr>
+                </param>
+            </method>
             <!-- item remove -->
-            <method name="item remove">remove scene item 
-            <param name="SCENE" type="symbol" required="true">
-                <tr lang="en">scene name</tr>
-            </param>
-            <param name="IDX" type="int" required="true">
-                <tr lang="en">item pos</tr>
-            </param></method>
+            <method name="item remove">
+                <info>
+                    <tr lang="en">remove scene item</tr>
+                </info>
+                <param name="SCENE" type="symbol" required="true">
+                    <tr lang="en">scene name</tr>
+                </param>
+                <param name="IDX" type="int" required="true">
+                    <tr lang="en">item pos</tr>
+                </param>
+            </method>
             <!-- monitor list -->
-            <method name="monitor list">request monitor list</method>
+            <method name="monitor list">
+                <info>
+                    <tr lang="en">request monitor list</tr>
+                </info>
+            </method>
             <!-- scene create -->
-            <method name="scene create">create new scene 
-            <param name="SCENE" type="symbol" required="true">
-                <tr lang="en">scene name</tr>
-            </param></method>
+            <method name="scene create">
+                <info>
+                    <tr lang="en">create new scene</tr>
+                </info>
+                <param name="SCENE" type="symbol" required="true">
+                    <tr lang="en">scene name</tr>
+                </param>
+            </method>
             <!-- scene current get -->
-            <method name="scene current get">request current scene</method>
+            <method name="scene current get">
+                <info>
+                    <tr lang="en">request current scene</tr>
+                </info>
+            </method>
             <!-- scene current set -->
-            <method name="scene current set">set current scene 
-            <param name="SCENE" type="symbol" required="true">
-                <tr lang="en">scene name</tr>
-            </param></method>
+            <method name="scene current set">
+                <info>
+                    <tr lang="en">set current scene</tr>
+                </info>
+                <param name="SCENE" type="symbol" required="true">
+                    <tr lang="en">scene name</tr>
+                </param>
+            </method>
             <!-- scene first -->
-            <method name="scene first">change to first scene</method>
+            <method name="scene first">
+                <info>
+                    <tr lang="en">change to first scene</tr>
+                </info>
+            </method>
             <!-- scene last -->
-            <method name="scene last">change to last scene</method>
+            <method name="scene last">
+                <info>
+                    <tr lang="en">change to last scene</tr>
+                </info>
+            </method>
             <!-- scene list -->
-            <method name="scene list">request scene list</method>
+            <method name="scene list">
+                <info>
+                    <tr lang="en">request scene list</tr>
+                </info>
+            </method>
             <!-- scene next -->
-            <method name="scene next">change to next scene</method>
+            <method name="scene next">
+                <info>
+                    <tr lang="en">change to next scene</tr>
+                </info>
+            </method>
             <!-- scene prev -->
-            <method name="scene prev">change to prev scene</method>
+            <method name="scene prev">
+                <info>
+                    <tr lang="en">change to prev scene</tr>
+                </info>
+            </method>
             <!-- scene remove -->
-            <method name="scene remove">remove scene 
-            <param name="SCENE" type="symbol" required="true">
-                <tr lang="en">scene name</tr>
-            </param></method>
+            <method name="scene remove">
+                <info>
+                    <tr lang="en">remove scene</tr>
+                </info>
+                <param name="SCENE" type="symbol" required="true">
+                    <tr lang="en">scene name</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

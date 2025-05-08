@@ -29,7 +29,11 @@
         </properties>
         <methods>
             <!-- dump -->
-            <method name="dump">dumps object state to PD console window</method>
+            <method name="dump">
+                <info>
+                    <tr lang="en">dumps object state to PD console window</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

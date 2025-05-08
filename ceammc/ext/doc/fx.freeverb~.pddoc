@@ -77,7 +77,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset reverb</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset reverb</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

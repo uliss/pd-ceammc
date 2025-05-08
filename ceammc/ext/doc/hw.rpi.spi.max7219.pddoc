@@ -66,103 +66,149 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">clear display 
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
-                <tr lang="en">display address in chain</tr>
-            </param></method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear display</tr>
+                </info>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
+                    <tr lang="en">display address in chain</tr>
+                </param>
+            </method>
             <!-- intensity -->
-            <method name="intensity">set intensity level on the display 
-            <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">
-                <tr lang="en">intensity level</tr>
-            </param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">
-                <tr lang="en">target display address in the chain</tr>
-            </param></method>
+            <method name="intensity">
+                <info>
+                    <tr lang="en">set intensity level on the display</tr>
+                </info>
+                <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">
+                    <tr lang="en">intensity level</tr>
+                </param>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">
+                    <tr lang="en">target display address in the chain</tr>
+                </param>
+            </method>
             <!-- power -->
-            <method name="power">power on/off display 
-            <param name="STATE" type="bool" required="true">
-                <tr lang="en">on/off state</tr>
-            </param></method>
+            <method name="power">
+                <info>
+                    <tr lang="en">power on/off display</tr>
+                </info>
+                <param name="STATE" type="bool" required="true">
+                    <tr lang="en">on/off state</tr>
+                </param>
+            </method>
             <!-- test -->
-            <method name="test">test display by turning all led on 
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">
-                <tr lang="en">target display address in the chain</tr>
-            </param></method>
+            <method name="test">
+                <info>
+                    <tr lang="en">test display by turning all led on</tr>
+                </info>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">
+                    <tr lang="en">target display address in the chain</tr>
+                </param>
+            </method>
             <!-- write bits -->
-            <method name="write bits">write raw bits into the display 
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
-                <tr lang="en">target display address in the chain</tr>
-            </param>
-            <param name="BITS" type="list" required="true">
-                <tr lang="en">list of bits. Max length: 256</tr>
-            </param></method>
+            <method name="write bits">
+                <info>
+                    <tr lang="en">write raw bits into the display</tr>
+                </info>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true"
+                default="0">
+                    <tr lang="en">target display address in the chain</tr>
+                </param>
+                <param name="BITS" type="list" required="true">
+                    <tr lang="en">list of bits. Max length: 256</tr>
+                </param>
+            </method>
             <!-- write bytes -->
-            <method name="write bytes">write raw bytes into the display 
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
-                <tr lang="en">target display address in the chain</tr>
-            </param>
-            <param name="DATA" type="list" required="true">
-                <tr lang="en">list of bytes. Max length: 8</tr>
-            </param></method>
+            <method name="write bytes">
+                <info>
+                    <tr lang="en">write raw bytes into the display</tr>
+                </info>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true"
+                default="0">
+                    <tr lang="en">target display address in the chain</tr>
+                </param>
+                <param name="DATA" type="list" required="true">
+                    <tr lang="en">list of bytes. Max length: 8</tr>
+                </param>
+            </method>
             <!-- write float -->
-            <method name="write float">write float value into 7-segment display (no led matrix
-            support!) 
-            <param name="VAL" type="float" required="true">
-                <tr lang="en">value</tr>
-            </param>
-            <param name="PRECISION" type="int" minvalue="0" maxvalue="7">
-                <tr lang="en">precision after the dot</tr>
-            </param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
-                <tr lang="en">display address in the chain. If omitted or -1: write to all
-                displays</tr>
-            </param></method>
+            <method name="write float">
+                <info>
+                    <tr lang="en">write float value into 7-segment display (no led matrix
+                    support!)</tr>
+                </info>
+                <param name="VAL" type="float" required="true">
+                    <tr lang="en">value</tr>
+                </param>
+                <param name="PRECISION" type="int" minvalue="0" maxvalue="7">
+                    <tr lang="en">precision after the dot</tr>
+                </param>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
+                    <tr lang="en">display address in the chain. If omitted or -1: write to all
+                    displays</tr>
+                </param>
+            </method>
             <!-- write hex -->
-            <method name="write hex">write hex unsigned integer value into 7-segment display (no
-            led matrix support!) 
-            <param name="INT" type="int" minvalue="0" required="true">
-                <tr lang="en">value</tr>
-            </param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
-                <tr lang="en">display address in the chain</tr>
-            </param></method>
+            <method name="write hex">
+                <info>
+                    <tr lang="en">write hex unsigned integer value into 7-segment display (no led
+                    matrix support!)</tr>
+                </info>
+                <param name="INT" type="int" minvalue="0" required="true">
+                    <tr lang="en">value</tr>
+                </param>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
+                    <tr lang="en">display address in the chain</tr>
+                </param>
+            </method>
             <!-- write int -->
-            <method name="write int">write signed integer value into 7-segment display (no led
-            matrix support!) 
-            <param name="INT" type="int" required="true">
-                <tr lang="en">value</tr>
-            </param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
-                <tr lang="en">display address in the chain. If omitted or -1: write to all
-                displays</tr>
-            </param></method>
+            <method name="write int">
+                <info>
+                    <tr lang="en">write signed integer value into 7-segment display (no led matrix
+                    support!)</tr>
+                </info>
+                <param name="INT" type="int" required="true">
+                    <tr lang="en">value</tr>
+                </param>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
+                    <tr lang="en">display address in the chain. If omitted or -1: write to all
+                    displays</tr>
+                </param>
+            </method>
             <!-- write reg -->
-            <method name="write reg">write the max7219 register data. Lowest level of communication
-            
-            <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">
-                <tr lang="en">max7219 register index</tr>
-            </param>
-            <param name="DATA" type="int" minvalue="0" maxvalue="255" required="true">
-                <tr lang="en">the register value</tr>
-            </param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
-                <tr lang="en">target display address in the chain</tr>
-            </param></method>
+            <method name="write reg">
+                <info>
+                    <tr lang="en">write the max7219 register data. Lowest level of
+                    communication</tr>
+                </info>
+                <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">
+                    <tr lang="en">max7219 register index</tr>
+                </param>
+                <param name="DATA" type="int" minvalue="0" maxvalue="255" required="true">
+                    <tr lang="en">the register value</tr>
+                </param>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
+                    <tr lang="en">target display address in the chain</tr>
+                </param>
+            </method>
             <!-- write str -->
-            <method name="write str">write string into 7-segment display (no led matrix support!) 
-            <param name="STR" type="symbol" required="true">
-                <tr lang="en">string. maxlength: 8 chars</tr>
-            </param>
-            <param name="DOTS" type="int" minvalue="0" maxvalue="255">
-                <tr lang="en">dots as bit value. For ex.: 0b00000011 turn on a two leftmost
-                dots</tr>
-            </param>
-            <param name="ALIGN" type="symbol" enum="left center right" default="right">
-                <tr lang="en">string align</tr>
-            </param>
-            <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
-                <tr lang="en">display address in the chain</tr>
-            </param></method>
+            <method name="write str">
+                <info>
+                    <tr lang="en">write string into 7-segment display (no led matrix support!)</tr>
+                </info>
+                <param name="STR" type="symbol" required="true">
+                    <tr lang="en">string. maxlength: 8 chars</tr>
+                </param>
+                <param name="DOTS" type="int" minvalue="0" maxvalue="255">
+                    <tr lang="en">dots as bit value. For ex.: 0b00000011 turn on a two leftmost
+                    dots</tr>
+                </param>
+                <param name="ALIGN" type="symbol" enum="left center right" default="right">
+                    <tr lang="en">string align</tr>
+                </param>
+                <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
+                    <tr lang="en">display address in the chain</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

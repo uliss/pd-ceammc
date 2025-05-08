@@ -48,40 +48,52 @@
         </properties>
         <methods>
             <!-- date -->
-            <method name="date">set current date 
-            <param name="YEAR" type="int" required="true" minvalue="0" maxvalue="3000">
-                <tr lang="en">year</tr>
-            </param>
-            <param name="MONTH" type="int" required="true" minvalue="1" maxvalue="12">
-                <tr lang="en">month</tr>
-            </param>
-            <param name="DAY" type="int" required="true" minvalue="1" maxvalue="31">
-                <tr lang="en">day</tr>
-            </param>
-            <param name="TIMEZONE" type="symbol" required="false">
-                <tr lang="en">timezone in +HHMM format</tr>
-            </param></method>
+            <method name="date">
+                <info>
+                    <tr lang="en">set current date</tr>
+                </info>
+                <param name="YEAR" type="int" required="true" minvalue="0" maxvalue="3000">
+                    <tr lang="en">year</tr>
+                </param>
+                <param name="MONTH" type="int" required="true" minvalue="1" maxvalue="12">
+                    <tr lang="en">month</tr>
+                </param>
+                <param name="DAY" type="int" required="true" minvalue="1" maxvalue="31">
+                    <tr lang="en">day</tr>
+                </param>
+                <param name="TIMEZONE" type="symbol" required="false">
+                    <tr lang="en">timezone in +HHMM format</tr>
+                </param>
+            </method>
             <!-- seek -->
-            <method name="seek">time seek 
-            <param name="UNIT" type="atom" required="true">
-                <tr lang="en">relative position seek. If float or int - seek in frames, otherwise
-                units are expected. Supported units are: day, hour, min, sec. E.g.: 1day, 3hour,
-                5min, 11sec etc.</tr>
-            </param></method>
+            <method name="seek">
+                <info>
+                    <tr lang="en">time seek</tr>
+                </info>
+                <param name="UNIT" type="atom" required="true">
+                    <tr lang="en">relative position seek. If float or int - seek in frames,
+                    otherwise units are expected. Supported units are: day, hour, min, sec. E.g.:
+                    1day, 3hour, 5min, 11sec etc.</tr>
+                </param>
+            </method>
             <!-- time -->
-            <method name="time">set current time 
-            <param name="HOUR" type="int" required="true" minvalue="0" maxvalue="23">
-                <tr lang="en">hour</tr>
-            </param>
-            <param name="MIN" type="int" required="true" minvalue="0" maxvalue="59">
-                <tr lang="en">minute</tr>
-            </param>
-            <param name="SEC" type="int" required="true" minvalue="0" maxvalue="59">
-                <tr lang="en">second</tr>
-            </param>
-            <param name="FRAME" type="int" required="false" minvalue="0" maxvalue="30">
-                <tr lang="en">frame number</tr>
-            </param></method>
+            <method name="time">
+                <info>
+                    <tr lang="en">set current time</tr>
+                </info>
+                <param name="HOUR" type="int" required="true" minvalue="0" maxvalue="23">
+                    <tr lang="en">hour</tr>
+                </param>
+                <param name="MIN" type="int" required="true" minvalue="0" maxvalue="59">
+                    <tr lang="en">minute</tr>
+                </param>
+                <param name="SEC" type="int" required="true" minvalue="0" maxvalue="59">
+                    <tr lang="en">second</tr>
+                </param>
+                <param name="FRAME" type="int" required="false" minvalue="0" maxvalue="30">
+                    <tr lang="en">frame number</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -66,13 +66,29 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">clear preset at specified index</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear preset at specified index</tr>
+                </info>
+            </method>
             <!-- interp -->
-            <method name="interp">do nothing</method>
+            <method name="interp">
+                <info>
+                    <tr lang="en">do nothing</tr>
+                </info>
+            </method>
             <!-- load -->
-            <method name="load">load preset value by specified index and output it</method>
+            <method name="load">
+                <info>
+                    <tr lang="en">load preset value by specified index and output it</tr>
+                </info>
+            </method>
             <!-- store -->
-            <method name="store">stores preset value at specified index</method>
+            <method name="store">
+                <info>
+                    <tr lang="en">stores preset value at specified index</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -37,9 +37,17 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">clear without output</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear without output</tr>
+                </info>
+            </method>
             <!-- flush -->
-            <method name="flush">outputs and clears group</method>
+            <method name="flush">
+                <info>
+                    <tr lang="en">outputs and clears group</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

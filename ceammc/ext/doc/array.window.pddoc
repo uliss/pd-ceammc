@@ -46,35 +46,87 @@
         </properties>
         <methods>
             <!-- blackman -->
-            <method name="blackman">generate blackman window</method>
+            <method name="blackman">
+                <info>
+                    <tr lang="en">generate blackman window</tr>
+                </info>
+            </method>
             <!-- blackman-harris -->
-            <method name="blackman-harris">generate blackman-harris window</method>
+            <method name="blackman-harris">
+                <info>
+                    <tr lang="en">generate blackman-harris window</tr>
+                </info>
+            </method>
             <!-- fit -->
-            <method name="fit">fit array y-bounds to 0..1 range</method>
+            <method name="fit">
+                <info>
+                    <tr lang="en">fit array y-bounds to 0..1 range</tr>
+                </info>
+            </method>
             <!-- flattop -->
-            <method name="flattop">generate flattop window</method>
+            <method name="flattop">
+                <info>
+                    <tr lang="en">generate flattop window</tr>
+                </info>
+            </method>
             <!-- gauss -->
-            <method name="gauss">generate gauss window</method>
+            <method name="gauss">
+                <info>
+                    <tr lang="en">generate gauss window</tr>
+                </info>
+            </method>
             <!-- hamming -->
-            <method name="hamming">generate hamming window</method>
+            <method name="hamming">
+                <info>
+                    <tr lang="en">generate hamming window</tr>
+                </info>
+            </method>
             <!-- hann -->
-            <method name="hann">generate hann window</method>
+            <method name="hann">
+                <info>
+                    <tr lang="en">generate hann window</tr>
+                </info>
+            </method>
             <!-- nuttall -->
-            <method name="nuttall">generate nuttall window</method>
+            <method name="nuttall">
+                <info>
+                    <tr lang="en">generate nuttall window</tr>
+                </info>
+            </method>
             <!-- rect -->
-            <method name="rect">generate rectangular window</method>
+            <method name="rect">
+                <info>
+                    <tr lang="en">generate rectangular window</tr>
+                </info>
+            </method>
             <!-- resize -->
-            <method name="resize">resize specified array to given size 
-            <param name="N" type="int" minvalue="0">
-                <tr lang="en">new size</tr>
-                <tr lang="ru">новый размер</tr>
-            </param></method>
+            <method name="resize">
+                <info>
+                    <tr lang="en">resize specified array to given size</tr>
+                </info>
+                <param name="N" type="int" minvalue="0">
+                    <tr lang="en">new size</tr>
+                    <tr lang="ru">новый размер</tr>
+                </param>
+            </method>
             <!-- sine -->
-            <method name="sine">generate sine window</method>
+            <method name="sine">
+                <info>
+                    <tr lang="en">generate sine window</tr>
+                </info>
+            </method>
             <!-- tri -->
-            <method name="tri">generate triangular window</method>
+            <method name="tri">
+                <info>
+                    <tr lang="en">generate triangular window</tr>
+                </info>
+            </method>
             <!-- welch -->
-            <method name="welch">generate welch window</method>
+            <method name="welch">
+                <info>
+                    <tr lang="en">generate welch window</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

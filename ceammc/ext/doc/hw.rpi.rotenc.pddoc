@@ -58,14 +58,26 @@
         </properties>
         <methods>
             <!-- get -->
-            <method name="get">request current value output</method>
+            <method name="get">
+                <info>
+                    <tr lang="en">request current value output</tr>
+                </info>
+            </method>
             <!-- reset -->
-            <method name="reset">reset current value to @init</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset current value to @init</tr>
+                </info>
+            </method>
             <!-- set -->
-            <method name="set">set current value without output 
-            <param name="VAL" type="float" required="true">
-                <tr lang="en">new value</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">set current value without output</tr>
+                </info>
+                <param name="VAL" type="float" required="true">
+                    <tr lang="en">new value</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

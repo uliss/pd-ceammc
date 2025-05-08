@@ -78,18 +78,38 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset counters and stop</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset counters and stop</tr>
+                </info>
+            </method>
             <!-- rewind -->
-            <method name="rewind">reset all counters without stopping</method>
+            <method name="rewind">
+                <info>
+                    <tr lang="en">reset all counters without stopping</tr>
+                </info>
+            </method>
             <!-- start -->
-            <method name="start">start/stop 
-            <param name="on" type="int" enum="0 1" default="1" required="false">
-                <tr lang="en">if true - starts sequencer, otherwise stops</tr>
-            </param></method>
+            <method name="start">
+                <info>
+                    <tr lang="en">start/stop</tr>
+                </info>
+                <param name="on" type="int" enum="0 1" default="1" required="false">
+                    <tr lang="en">if true - starts sequencer, otherwise stops</tr>
+                </param>
+            </method>
             <!-- stop -->
-            <method name="stop">stop output</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop output</tr>
+                </info>
+            </method>
             <!-- tick -->
-            <method name="tick">manually output current element and move to next</method>
+            <method name="tick">
+                <info>
+                    <tr lang="en">manually output current element and move to next</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

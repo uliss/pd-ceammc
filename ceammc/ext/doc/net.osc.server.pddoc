@@ -80,15 +80,23 @@
         </properties>
         <methods>
             <!-- start -->
-            <method name="start">start OSC server 
-            <param name="VAL" type="int" enum="0 1">
-                <tr lang="en">1: start, 0: stop</tr>
-            </param></method>
+            <method name="start">
+                <info>
+                    <tr lang="en">start OSC server</tr>
+                </info>
+                <param name="VAL" type="int" enum="0 1">
+                    <tr lang="en">1: start, 0: stop</tr>
+                </param>
+            </method>
             <!-- stop -->
-            <method name="stop">stop OSC server 
-            <param name="VAL" type="int" enum="0 1">
-                <tr lang="en">1: stop, 0: start</tr>
-            </param></method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop OSC server</tr>
+                </info>
+                <param name="VAL" type="int" enum="0 1">
+                    <tr lang="en">1: stop, 0: start</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

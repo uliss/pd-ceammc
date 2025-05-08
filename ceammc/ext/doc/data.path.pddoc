@@ -37,17 +37,36 @@
         </properties>
         <methods>
             <!-- exists -->
-            <method name="exists">checks if path exists. Output [exists VALUE( message</method>
+            <method name="exists">
+                <info>
+                    <tr lang="en">checks if path exists. Output [exists VALUE( message</tr>
+                </info>
+            </method>
             <!-- info -->
-            <method name="info">request path information. Output [info DICT(</method>
+            <method name="info">
+                <info>
+                    <tr lang="en">request path information. Output [info DICT(</tr>
+                </info>
+            </method>
             <!-- permissions -->
-            <method name="permissions">request path permissions. Output [permissions
-            VALUE(</method>
+            <method name="permissions">
+                <info>
+                    <tr lang="en">request path permissions. Output [permissions VALUE(</tr>
+                </info>
+            </method>
             <!-- size -->
-            <method name="size">request file size in bytes. Output [size BYTES(</method>
+            <method name="size">
+                <info>
+                    <tr lang="en">request file size in bytes. Output [size BYTES(</tr>
+                </info>
+            </method>
             <!-- type -->
-            <method name="type">request path type. Output [type TYPE( message, where type is one
-            of: regular, dir, symlink, char, block, fifo, socket</method>
+            <method name="type">
+                <info>
+                    <tr lang="en">request path type. Output [type TYPE( message, where type is one
+                    of: regular, dir, symlink, char, block, fifo, socket</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

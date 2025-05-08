@@ -51,10 +51,14 @@
         </properties>
         <methods>
             <!-- bw -->
-            <method name="bw">set bandwidth in octaves 
-            <param name="OCT" type="float" required="true">
-                <tr lang="en">bandwidth</tr>
-            </param></method>
+            <method name="bw">
+                <info>
+                    <tr lang="en">set bandwidth in octaves</tr>
+                </info>
+                <param name="OCT" type="float" required="true">
+                    <tr lang="en">bandwidth</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

@@ -35,7 +35,11 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">clear averaging data</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">clear averaging data</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">

@@ -76,13 +76,17 @@
         </properties>
         <methods>
             <!-- postscript -->
-            <method name="postscript">save patch to postscript 
-            <param name="FNAME" type="symbol" required="false">
-                <tr lang="en">file name. If not specified, the patch name with the extension .ps is
-                used</tr>
-                <tr lang="ru">имя файла. Если не указано, используется имя патча с расширением
-                .ps</tr>
-            </param></method>
+            <method name="postscript">
+                <info>
+                    <tr lang="en">save patch to postscript</tr>
+                </info>
+                <param name="FNAME" type="symbol" required="false">
+                    <tr lang="en">file name. If not specified, the patch name with the extension
+                    .ps is used</tr>
+                    <tr lang="ru">имя файла. Если не указано, используется имя патча с расширением
+                    .ps</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

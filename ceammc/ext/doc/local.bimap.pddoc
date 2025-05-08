@@ -62,30 +62,51 @@
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">clear bidirectional map content</method>
+            <method name="clear">
+                <info>
+                    <tr lang="en">clear bidirectional map content</tr>
+                </info>
+            </method>
             <!-- insert -->
-            <method name="insert">insert new left-right map entry 
-            <param name="PAIR" type="list" required="true">
-                <tr lang="en">list: LEFT_KEY RIGHT_KEY</tr>
-            </param></method>
+            <method name="insert">
+                <info>
+                    <tr lang="en">insert new left-right map entry</tr>
+                </info>
+                <param name="PAIR" type="list" required="true">
+                    <tr lang="en">list: LEFT_KEY RIGHT_KEY</tr>
+                </param>
+            </method>
             <!-- read -->
-            <method name="read">read bimap from JSON file. Array of array pairs expected. 
-            <param name="FNAME" type="symbol" required="true">
-                <tr lang="en">path to file, absolute or relative</tr>
-            </param></method>
+            <method name="read">
+                <info>
+                    <tr lang="en">read bimap from JSON file. Array of array pairs expected.</tr>
+                </info>
+                <param name="FNAME" type="symbol" required="true">
+                    <tr lang="en">path to file, absolute or relative</tr>
+                </param>
+            </method>
             <!-- set -->
-            <method name="set">set bidirectional map content 
-            <param name="DATA" type="list" required="true">
-                <tr lang="en">new value list</tr>
-            </param></method>
+            <method name="set">
+                <info>
+                    <tr lang="en">set bidirectional map content</tr>
+                </info>
+                <param name="DATA" type="list" required="true">
+                    <tr lang="en">new value list</tr>
+                </param>
+            </method>
             <!-- write -->
-            <method name="write">write to JSON file, to overwrite existing file use @force flag 
-            <param name="FNAME" type="symbol" required="true">
-                <tr lang="en">path to file, absolute or relative</tr>
-            </param>
-            <param name="@force" type="symbol" required="false">
-                <tr lang="en">force flag to overwrite existing files</tr>
-            </param></method>
+            <method name="write">
+                <info>
+                    <tr lang="en">write to JSON file, to overwrite existing file use @force
+                    flag</tr>
+                </info>
+                <param name="FNAME" type="symbol" required="true">
+                    <tr lang="en">path to file, absolute or relative</tr>
+                </param>
+                <param name="@force" type="symbol" required="false">
+                    <tr lang="en">force flag to overwrite existing files</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

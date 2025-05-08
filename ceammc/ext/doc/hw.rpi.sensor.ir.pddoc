@@ -39,10 +39,14 @@
         </properties>
         <methods>
             <!-- poll -->
-            <method name="poll">start/stop IR sensor polling 
-            <param name="VALUE" type="bool" required="true">
-                <tr lang="en">state</tr>
-            </param></method>
+            <method name="poll">
+                <info>
+                    <tr lang="en">start/stop IR sensor polling</tr>
+                </info>
+                <param name="VALUE" type="bool" required="true">
+                    <tr lang="en">state</tr>
+                </param>
+            </method>
         </methods>
         <inlets>
             <inlet>

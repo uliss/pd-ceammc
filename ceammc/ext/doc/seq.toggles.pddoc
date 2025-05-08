@@ -106,15 +106,35 @@
         </properties>
         <methods>
             <!-- reset -->
-            <method name="reset">reset all counters and stop</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">reset all counters and stop</tr>
+                </info>
+            </method>
             <!-- rewind -->
-            <method name="rewind">reset all counters without stopping</method>
+            <method name="rewind">
+                <info>
+                    <tr lang="en">reset all counters without stopping</tr>
+                </info>
+            </method>
             <!-- start -->
-            <method name="start">start sequencer from current position</method>
+            <method name="start">
+                <info>
+                    <tr lang="en">start sequencer from current position</tr>
+                </info>
+            </method>
             <!-- stop -->
-            <method name="stop">stop sequencer</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop sequencer</tr>
+                </info>
+            </method>
             <!-- tick -->
-            <method name="tick">output current sequence element and move to next</method>
+            <method name="tick">
+                <info>
+                    <tr lang="en">output current sequence element and move to next</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>

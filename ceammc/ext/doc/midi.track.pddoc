@@ -53,18 +53,41 @@
         </properties>
         <methods>
             <!-- next -->
-            <method name="next">moves playing position to next event. No output</method>
+            <method name="next">
+                <info>
+                    <tr lang="en">moves playing position to next event. No output</tr>
+                </info>
+            </method>
             <!-- pause -->
-            <method name="pause">pause playing</method>
+            <method name="pause">
+                <info>
+                    <tr lang="en">pause playing</tr>
+                </info>
+            </method>
             <!-- play -->
-            <method name="play">start playing</method>
+            <method name="play">
+                <info>
+                    <tr lang="en">start playing</tr>
+                </info>
+            </method>
             <!-- reset -->
-            <method name="reset">set current event index to zero and send All Notes Off
-            event</method>
+            <method name="reset">
+                <info>
+                    <tr lang="en">set current event index to zero and send All Notes Off event</tr>
+                </info>
+            </method>
             <!-- seek -->
-            <method name="seek">seek to specified tick</method>
+            <method name="seek">
+                <info>
+                    <tr lang="en">seek to specified tick</tr>
+                </info>
+            </method>
             <!-- stop -->
-            <method name="stop">stop playing and send All Notes Off event</method>
+            <method name="stop">
+                <info>
+                    <tr lang="en">stop playing and send All Notes Off event</tr>
+                </info>
+            </method>
         </methods>
         <inlets>
             <inlet>
