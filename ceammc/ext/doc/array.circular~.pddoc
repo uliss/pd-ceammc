@@ -49,6 +49,7 @@
             <method name="resize">
                 <info>
                     <tr lang="en">resize target array</tr>
+                    <tr lang="ru">изменить размер целевого массива</tr>
                 </info>
                 <param name="SZ" type="int" minvalue="10" units="sample" required="true">
                     <tr lang="en">new size</tr>

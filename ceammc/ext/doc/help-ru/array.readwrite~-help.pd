@@ -61,7 +61,7 @@
 #X obj 20 813 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 110 848 redraw;
-#X text 245 848 redraw array.;
+#X text 245 848 перерисовать массив.;
 #X obj 20 886 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 891 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

@@ -31,10 +31,11 @@
             <method name="copy SRC DEST">
                 <info>
                     <tr lang="en">copy the whole array content</tr>
+                    <tr lang="ru">копирует все содержимое массива</tr>
                 </info>
                 <param name="SRC" type="symbol" required="true">
                     <tr lang="en">the source array</tr>
-                    <tr lang="ru">исходный массив</tr>
+                    <tr lang="ru">имя исходного массива</tr>
                 </param>
                 <param name="DST" type="symbol" required="true">
                     <tr lang="en">the destination array</tr>
@@ -46,6 +47,7 @@
                 <info>
                     <tr lang="en">copy the array content from the specified position till the
                     end</tr>
+                    <tr lang="ru">копирует содержимое массива из указанной позиции до конца</tr>
                 </info>
                 <param name="SRC" type="symbol" required="true">
                     <tr lang="en">the source array</tr>
@@ -64,6 +66,7 @@
             <method name="copy SRC FROM TO DEST">
                 <info>
                     <tr lang="en">copy the array content from the specified range</tr>
+                    <tr lang="ru">копирует содержимое массива из указанного диапазона</tr>
                 </info>
                 <param name="SRC" type="symbol" required="true">
                     <tr lang="en">the source array</tr>
@@ -87,6 +90,8 @@
                 <info>
                     <tr lang="en">copy the array content from the specified range and to the
                     specified destination position</tr>
+                    <tr lang="ru">копировать содержимое массива из указанного диапазона и в
+                    указанное место назначения</tr>
                 </info>
                 <param name="SRC" type="symbol" required="true">
                     <tr lang="en">the source array</tr>

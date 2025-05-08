@@ -158,6 +158,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">reset onset last frame and total frames counters</tr>
+                    <tr lang="ru">сбрасывает последний кадр и счетчики кадров</tr>
                 </info>
             </method>
         </methods>

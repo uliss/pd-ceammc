@@ -47,6 +47,7 @@
             <method name="redraw">
                 <info>
                     <tr lang="en">redraw array</tr>
+                    <tr lang="ru">перерисовать массив</tr>
                 </info>
             </method>
         </methods>

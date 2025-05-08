@@ -42,6 +42,9 @@
             <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">
                 <tr lang="en">bias which favours small lags over large lags in the period
                 detection, thereby avoiding low-octave jumps</tr>
+                <!-- old: Предвзятость, которая благоприятствует небольшим
+                задержкам по сравнению с большими задержками в обнаружении периода, тем самым
+                избегая скачков низкой октавы -->
                 <tr lang="ru" finished="false">Предвзятость, которая благоприятствует небольшим
                 задержкам по сравнению с большими задержками в обнаружении периода, тем самым
                 избегая скачков низкой октавы</tr>

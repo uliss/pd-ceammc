@@ -89,6 +89,7 @@
             <method name="align">
                 <info>
                     <tr lang="en">align grain(s) to onset</tr>
+                    <tr lang="ru">выровнять гранулу(ы) по атаке</tr>
                 </info>
                 <param name="SUBJ" type="atom" required="false">
                     <tr lang="en">if '*' or omitted: align all grains, if '.': align finished
@@ -104,6 +105,7 @@
             <method name="append">
                 <info>
                     <tr lang="en">append several grains</tr>
+                    <tr lang="ru">добавить гранулы</tr>
                 </info>
                 <param name="N" type="int" required="true" minvalue="1">
                     <tr lang="en">number of grains</tr>
@@ -118,6 +120,7 @@
             <method name="clear">
                 <info>
                     <tr lang="en">remove grain(s)</tr>
+                    <tr lang="ru">удалить гранулу(ы)</tr>
                 </info>
                 <param name="SUBJ" type="atom" required="false">
                     <tr lang="en">if '*' or omitted: remove all grains, if '.': remove finished
@@ -132,6 +135,8 @@
             <method name="defer">
                 <info>
                     <tr lang="en">defer method call until grains will finish</tr>
+                    <tr lang="ru">отсрочить вызов метода пока не завершиться некоторое число
+                    гранул</tr>
                 </info>
                 <param name="N" type="int" minvalue="1" maxvalue="255">
                     <tr lang="en">number of finished grains to wait before calling. If not
@@ -152,6 +157,7 @@
             <method name="fill">
                 <info>
                     <tr lang="en">fill with grains (remove all existing grains before)</tr>
+                    <tr lang="ru">наполнить наполнить (удалить все существующие зерна раньше)</tr>
                 </info>
                 <param name="N" type="int" required="true" minvalue="1">
                     <tr lang="en">number of grains</tr>
@@ -166,6 +172,7 @@
             <method name="grain">
                 <info>
                     <tr lang="en">create single grain</tr>
+                    <tr lang="ru">создать гранулу</tr>
                 </info>
                 <param name="PROPS" type="list" required="true">
                     <tr lang="en">grain properties</tr>
@@ -176,6 +183,7 @@
             <method name="onsets">
                 <info>
                     <tr lang="en">analyze source array for onsets</tr>
+                    <tr lang="ru">проанализировать исходный массив на атаки</tr>
                 </info>
                 <param name="METHOD" type="symbol" default="default"
                 enum="default hfc energy complex phase wphase specdiff kl mkl specflux">
@@ -195,6 +203,7 @@
             <method name="pause">
                 <info>
                     <tr lang="en">pause (resume) grain(s)</tr>
+                    <tr lang="ru">приостановить или возобновить воспроизведение гранул</tr>
                 </info>
                 <param name="SUBJ" type="atom" required="true">
                     <tr lang="en">if '*': pause all grains, if float: pause grain with
@@ -212,6 +221,7 @@
             <method name="permutate">
                 <info>
                     <tr lang="en">permutate grain positions (@ta and @tb) values</tr>
+                    <tr lang="ru">перестановка позиций гранул (@ta и @tb)</tr>
                 </info>
                 <param name="N" type="int" minvalue="-16" maxvalue="16">
                     <tr lang="en">number of permutations. If N&gt;0 results N-th next permutation,
@@ -231,6 +241,7 @@
             <method name="reverse">
                 <info>
                     <tr lang="en">reverse grain positions (@ta and @tb) values</tr>
+                    <tr lang="ru" finished="false">Значения обратных позиций зерна (@ta и @tb)</tr>
                 </info>
                 <param name="TAG" type="symbol" required="false">
                     <tr lang="en">if '*' or omitted: reverse positions of all grains, if '.':
@@ -245,6 +256,7 @@
             <method name="set">
                 <info>
                     <tr lang="en">set grain(s) properties</tr>
+                    <tr lang="ru">установить свойства гранул(ы)</tr>
                 </info>
                 <param name="SUBJ" type="atom" required="true">
                     <tr lang="en">if '*': set for all grains, if float: set for grain with
@@ -261,6 +273,7 @@
             <method name="shuffle">
                 <info>
                     <tr lang="en">shuffle grain positions (@ta and @tb) values</tr>
+                    <tr lang="ru">случайно перетасовать позиции гранул (@ta и @tb)</tr>
                 </info>
                 <param name="TAG" type="symbol" required="false">
                     <tr lang="en">if '*' or omitted: shuffle all grains, if '.': shuffle finished
@@ -275,6 +288,7 @@
                 <info>
                     <tr lang="en">slice specified duration to specified number of grains and add
                     them</tr>
+                    <tr lang="ru">нарезать указанный диапазон на указанное количество гранул</tr>
                 </info>
                 <param name="N" type="int" required="true" minvalue="1" maxvalue="64">
                     <tr lang="en">desired number of grains</tr>
@@ -298,6 +312,8 @@
             <method name="spread">
                 <info>
                     <tr lang="en">uniformly arrange grains to fill specified time space</tr>
+                    <tr lang="ru">равномерно расположить гранулы для заполнения заданного
+                    диапазона</tr>
                 </info>
                 <param name="DUR" type="atom">
                     <tr lang="en">time space. Positive time values are expected, for example:

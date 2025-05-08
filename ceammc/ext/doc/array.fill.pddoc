@@ -42,10 +42,11 @@
             <method name="fill">
                 <info>
                     <tr lang="en">fill all array with specified value or pattern</tr>
+                    <tr lang="ru">заполнить весь массив заданным значением или шаблоном</tr>
                 </info>
                 <param name="@from" type="int">
                     <tr lang="en">fill range begin index. If not specified set to 0.</tr>
-                    <tr lang="ru">индекс начала заполнения. Если не указано, установлено в 0.</tr>
+                    <tr lang="ru">индекс начала заполнения. Если не указано, используется 0.</tr>
                 </param>
                 <param name="@to" type="int">
                     <tr lang="en">fill range end index. Can be negative - to address from array
@@ -69,6 +70,8 @@
                 <info>
                     <tr lang="en">fill all array with random value with normal (gauss)
                     distribution</tr>
+                    <tr lang="ru">заполнить весь массив случайным значением с нормальным
+                    (гауссовым) распределением</tr>
                 </info>
                 <param name="MEAN" type="float" default="0">
                     <tr lang="en">mean value</tr>
@@ -83,6 +86,7 @@
             <method name="pulse">
                 <info>
                     <tr lang="en">fill all array with pulse wave</tr>
+                    <tr lang="ru">заполнить весь массив прямоугольной волной</tr>
                 </info>
                 <param name="T" type="float" required="true" minvalue="1" units="sample">
                     <tr lang="en">wave period</tr>
@@ -101,6 +105,7 @@
             <method name="saw">
                 <info>
                     <tr lang="en">fill all array with saw wave</tr>
+                    <tr lang="ru">заполнить весь массив пилообразной волной</tr>
                 </info>
                 <param name="T" type="float" required="true" minvalue="1" units="sample">
                     <tr lang="en">wave period</tr>
@@ -119,6 +124,7 @@
             <method name="sin">
                 <info>
                     <tr lang="en">fill all array with sine wave</tr>
+                    <tr lang="ru">заполнить весь массив синусоидальной волной</tr>
                 </info>
                 <param name="T" type="float" minvalue="0" required="true" units="sample">
                     <tr lang="en">wave period. Should be &gt;0</tr>
@@ -137,6 +143,7 @@
             <method name="tri">
                 <info>
                     <tr lang="en">fill all array with triangle wave</tr>
+                    <tr lang="ru">заполнить весь массив треугольной волной</tr>
                 </info>
                 <param name="T" type="float" required="true" minvalue="1" units="sample">
                     <tr lang="en">wave period</tr>
@@ -151,6 +158,8 @@
             <method name="uniform">
                 <info>
                     <tr lang="en">fill all array with random value with uniform distribution</tr>
+                    <tr lang="ru">заполнить весь массив случайным значением с равномерным
+                    распределением</tr>
                 </info>
                 <param name="A" type="float" default="0">
                     <tr lang="en">min value</tr>

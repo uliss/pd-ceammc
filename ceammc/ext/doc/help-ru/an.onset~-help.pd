@@ -115,7 +115,7 @@ detection function.;
 #X obj 20 1555 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1590 reset;
-#X text 245 1590 reset onset last frame and total frames counters.;
+#X text 245 1590 сбрасывает последний кадр и счетчики кадров.;
 #X obj 20 1628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1633 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

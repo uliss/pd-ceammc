@@ -38,6 +38,7 @@
             <method name="reset">
                 <info>
                     <tr lang="en">clear averaging data</tr>
+                    <tr lang="ru">сбросить средние данные</tr>
                 </info>
             </method>
         </methods>

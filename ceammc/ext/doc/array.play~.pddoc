@@ -138,6 +138,7 @@
             <method name="pause">
                 <info>
                     <tr lang="en">pause/resume playback</tr>
+                    <tr lang="ru" finished="false">пауза/возобновление воспроизведения</tr>
                 </info>
                 <param type="int" enum="0 1" default="1">
                     <tr lang="en">if true: pause, else resume playing</tr>
@@ -149,12 +150,15 @@
             <method name="play">
                 <info>
                     <tr lang="en">start playback from current play position</tr>
+                    <tr lang="ru" finished="false">Начать воспроизведение с текущей игровой
+                    позиции</tr>
                 </info>
             </method>
             <!-- range -->
             <method name="range">
                 <info>
                     <tr lang="en">set @begin and @end property</tr>
+                    <tr lang="ru" finished="false">Set @begin and @end Недвижимость</tr>
                 </info>
                 <param name="BEGIN" type="atom" required="true">
                     <tr lang="en">begin position. If float value given: interpret as phase in
@@ -174,6 +178,8 @@
             <method name="stop">
                 <info>
                     <tr lang="en">stop playback and reset play position</tr>
+                    <tr lang="ru" finished="false">Остановка воспроизведения и сброс игровой
+                    позиции</tr>
                 </info>
             </method>
         </methods>
